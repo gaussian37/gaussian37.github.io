@@ -1,6 +1,11 @@
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
+@font-face {
+ font-family:"BMJUA_ttf";
+ src: url('../fonts/BMJUA_ttf.ttf');
+}
+
 /**
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in
@@ -1162,7 +1167,7 @@ footer .copyright {
 }
 
 .post .post-content .post-title a {
-  font-family: 'PT Serif', serif;
+  font-family: 'BMJUA_ttf', serif;
   text-decoration: none;
   color: #263959;
 }
