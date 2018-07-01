@@ -3,7 +3,7 @@ layout: post
 title: KIM JIN-SOL(gaussian37)
 date: 2018-06-30 17:00:00 +0300
 description: You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. # Add post description (optional)
-img: software.jpg # Add image post (optional)
+img: ai_barin.jpg # Add image post (optional)
 tags: [Introduction] # add tag
 ---
 
