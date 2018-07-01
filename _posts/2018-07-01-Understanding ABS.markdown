@@ -8,9 +8,6 @@ tags: [Automotive, ABS] # add tag
 ---
 
 # ABS(Anti-lock Braking System)
-      
-<iframe width="560" height="315" src="https://www.youtube.com/embed/" frameborder="0" allowfullscreen></iframe> 
- {% include 파일명.html id="https://youtu.be/98DXe3uKwfc" %}  
 
 ![ABS](https://youtu.be/98DXe3uKwfc)
 
