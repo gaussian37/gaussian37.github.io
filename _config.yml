@@ -11,7 +11,7 @@ site-twitter: #if your site has a twitter account, enter it here
 # Author Settings
 author: KIM JIN-SOL # add your name
 author-img: kjsandkjs.jpg # add your photo
-about-author: This blog is all about Data Science(ML/DL/Python) & Computer Vision. # add description
+about-author: This blog is all about Automotive & Data Science(ML/DL/Python) & Computer Vision. # add description
 social-twitter: gaussian37 # add your Twitter handle
 social-facebook: gaussian37 # add your Facebook handle
 social-github: gaussian37 # add your Github handle
