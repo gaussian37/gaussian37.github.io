@@ -9,6 +9,8 @@ tags: [Introduction] # add tag
 
 # All about Blog Author
 
-- Name : KIM JIN-SOL
+- Name : KIM JIN-SOL 
+
 - Online ID : gaussian37
+
 - Nationality : [South.Korea](https://en.wikipedia.org/wiki/South_Korea)
