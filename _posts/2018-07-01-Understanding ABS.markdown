@@ -9,6 +9,5 @@ tags: [Automotive, ABS] # add tag
 
 # ABS(Anti-lock Braking System)
 
-![ABS](https://youtu.be/98DXe3uKwfc)
-
+[![Anti-lock Braking System](https://i.ytimg.com/vi/98DXe3uKwfc/hqdefault.jpg)](https://youtu.be/98DXe3uKwfc, "Anti-lock Braking System")
 
