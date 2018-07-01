@@ -3,9 +3,11 @@ layout: post
 title: KIM JIN-SOL(gaussian37)
 date: 2018-06-30 17:00:00 +0300
 description: You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. # Add post description (optional)
-img: kjsandkjs.jpg # Add image post (optional)
+img: kjsandkjs2.jpg # Add image post (optional)
 tags: [Introduction] # add tag
 ---
+
+I want to become a professional **Data Scientist** & **Automotive Engineer**.
 
 # All about Blog Author
 
@@ -19,4 +21,9 @@ tags: [Introduction] # add tag
     - Inha Univ. B.S. in CS ('10 ~ '15)
     - Hyundai Motors ('16 ~ )
     - ... Univ. M.S. in CS ('19 ~ )
-    
+
++ ROI :
+    - Data Science(ML/DL)
+    - Computer Vision
+    - Natural Language Processing
+    - Automotive
