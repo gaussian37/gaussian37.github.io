@@ -11,5 +11,8 @@ tags: [Vector Space Model, VSM] # add tag
 citation : Pro Deep Learning with Tensorflow
 
 In NLP information-retrieval systems, a document is generally represented as simply a vector of the count of the words it contains.
+For retrieving documents similar to a specific document either the <mark>cosine of the angle</mark> or the <mark>dot product</mark> between the document and other documents is computed.
+
+
 
 
