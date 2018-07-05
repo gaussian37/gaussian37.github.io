@@ -11,11 +11,17 @@ tags: [markdown, md] # add tag
 ## Text
 
 ### Highlight
-    <mark> ... </mark>
+<mark> Highlight </mark>
+    <mark> Highlight </mark>
+    
     
 ### Python Code
 
 ```python
-s = "Python syntax highlighting"
+s = "I am KIM JIN-SOL"
 print s
 ```
+    ```python
+    s = "I am KIM JIN-SOL"
+    print s
+    ```
