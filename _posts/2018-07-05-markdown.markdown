@@ -12,3 +12,10 @@ tags: [markdown, md] # add tag
 
 ### Highlight
     <mark> ... </mark>
+    
+### Python Code
+
+```python
+s = "Python syntax highlighting"
+print s
+```
