@@ -11,17 +11,14 @@ tags: [markdown, md] # add tag
 ## Text
 
 ### Highlight
-<mark> Highlight </mark>
-    <mark> Highlight </mark>
-    
+Use **mark** & **/mark**keyword. <br>
+<mark> highlight </mark> <br>   
     
 ### Python Code
 
+Use 3 times ` and wrap the code with it. (```)
 ```python
 s = "I am KIM JIN-SOL"
 print s
 ```
-    ```python
-    s = "I am KIM JIN-SOL"
-    print s
-    ```
+
