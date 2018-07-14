@@ -10,13 +10,13 @@ tags: [MathJax] # add tag
 - Mathjax public hompage : [www.mathjax.org](www.mathjax.org) 
 - Figure out the mathjax code by mouse drawing : [detexify.kirelabs.org/classify.html ](detexify.kirelabs.org/classify.html )
 - Mathjax syntax : [Math Jax Documentation ](Math Jax Documentation )
+- Copy and paste below 1-line code in the main.html in _layouts directory
 
-- Copy and paste below 1-line code in the main.html in _layouts directory <br>
  
     <script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-You can apply math on jekyll with mathjax <br>
 
+Finally, You can apply math on jekyll with mathjax <br>
 $$\int f(x)~dx$$
     
     
