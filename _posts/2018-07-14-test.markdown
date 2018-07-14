@@ -8,3 +8,4 @@ img: kjsandkjs2.jpg # Add image post (optional)
 tags: [Introduction] # add tag
 ---
 
+{% include test.html %}
