@@ -16,8 +16,10 @@ tags: [MathJax] # add tag
 <script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 ```
 
-Finally, You can apply math on jekyll with mathjax <br>
+Finally, You can apply math on jekyll with mathjax
+
 $$\int f(x)~dx$$
+
     
     
   
