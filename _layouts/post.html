@@ -20,7 +20,7 @@ layout: main
         <div class="page-date"><span>{{page.date | date: '%Y, %b %d'}}&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
 
-      {% include page.jupyter.html %}
+      {% include page.jupyter %}
       {{content | markdownify}}
       {{ page.jupyter }}
       <div class="page-footer">
