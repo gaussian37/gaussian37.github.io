@@ -18,8 +18,7 @@ I want to become a professional **Data Scientist** & **Automotive Engineer**.
 + Nationality : [South.Korea](https://en.wikipedia.org/wiki/South_Korea)
 
 + Biography :
-    - Inha Univ. B.S. in CS ('10 ~ '15)
-    - ... Univ. M.S. in CS ('19 ~ )
+    - Inha Univ. B.S. in CS ('10 ~ '15)    
     - Hyundai Motors ('16 ~ )    
 
 + ROI :
