@@ -20,7 +20,6 @@ layout: main
         <div class="page-date"><span>{{page.date | date: '%Y, %b %d'}}&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
 
-      {% include page.jupyter.html %}
       {{content | markdownify}}
       <div class="page-footer">
         <div class="page-share">
