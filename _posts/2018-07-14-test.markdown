@@ -7,4 +7,4 @@ img: kjsandkjs2.jpg # Add image post (optional)
 tags: [Introduction] # add tag
 ---
 
-I can do it!! $a^2 + b^2 = c^2$
+I can do it!! $$a^2 + b^2 = c^2$$ dfkjkdjfsldkfjsdkl
