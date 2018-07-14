@@ -6,7 +6,8 @@ img: NLP/Word2Vec/Skip-gram.png # Add image post (optional)
 tags: [Word2Vec] # add tag
 ---
 
-![1](https://imgur.com/a/DOfX000 )
+![1](../assets/img/NLP/Word2Vec/Skip-gram.png)
+
 
     
     
