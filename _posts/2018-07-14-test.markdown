@@ -16,6 +16,12 @@ tags: [MathJax] # add tag
 <script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 ```
 
+If you want to apply SVG Version, just need to change option at the last.
+
+```
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_SVG"></script>
+```
+
 Finally, You can apply math on jekyll with mathjax
 
 $$\int f(x)~dx$$
