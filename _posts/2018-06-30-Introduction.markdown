@@ -3,7 +3,7 @@ layout: post
 title: KIM JIN-SOL(gaussian37)
 date: 9999-12-30 17:00:00 +0300
 description: You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. # Add post description (optional)
-img: kjsandkjs2.jpg # Add image post (optional)
+img: kjsandkjs.jpg # Add image post (optional)
 tags: [Introduction] # add tag
 ---
 
@@ -18,18 +18,23 @@ I want to become a professional **Data Scientist** & **Automotive Engineer**.
 + Nationality : [South.Korea](https://en.wikipedia.org/wiki/South_Korea)
 
 + Biography :
-    - Inha Univ. B.S. in CS ('10 ~ '15)    
-    - Hyundai Motors ('16 ~ )    
+    - [Inha University](http://www.inha.ac.kr/mbshome/mbs/eng/index.do). B.S. in Computer Engineer
+    - [Hyundai Motors](https://www.hyundai.com/worldwide/en)('16 ~ )    
 
 + ROI :
-    - Data Science(ML/DL)
+    - Automotive    
     - Computer Vision
     - Natural Language Processing
-    - Automotive
+    - Reinforcement Learning    
     
 + On Study :    
-
+    - [cs224n](http://web.stanford.edu/class/cs224n/index.html) : [modulab](https://modu.event-us.kr/p/2441)
++ Studied : 
+    - [cs231n](http://cs231n.stanford.edu/) : self study
+    
 + On Developing :
+
++ Developed :
 
 + Dream : 
     - Buying [Tesla Model S](https://www.tesla.com/models)
