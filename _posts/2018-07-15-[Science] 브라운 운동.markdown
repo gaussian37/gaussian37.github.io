@@ -1,0 +1,21 @@
+---
+layout: post
+title: 브라운 운동(Brownian motion) 
+date: 2018-07-15 14:25:00
+img: Science/brownian_motion/brownian_motion.jpg # Add image post (optional)
+categories: [Science/Physics] 
+tags: [Word2Vec] # add tag
+---
++ 영상/이미지 출처 : [과학 쿠키 영상](https://www.youtube.com/watch?v=8ZO4gKa6y6w) 
++ 브라운 운동 정의 : [영어](https://en.wikipedia.org/wiki/Brownian_motion), [한글](https://ko.wikipedia.org/wiki/%EB%B8%8C%EB%9D%BC%EC%9A%B4_%EC%9A%B4%EB%8F%99)
+
+온도를 가지는 액체 또는 기체의 분자는 매우 빠르게 분자의 운동을 하고 있다는 볼츠만의 아이디어를 통해, <br>
+예측할 수는 없지만 빠른 분자 운동에 의해서 꽃가루나 철가루 등의 마이크로, 또는 나노 입자들이 지속적으로 충격을 받아, <br>
+마치, 의지를 가진 것 처럼 무작위 처럼 움직인다고 주장하였습니다.
+
+ 
+
+
+    
+    
+  
