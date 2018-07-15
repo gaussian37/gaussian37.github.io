@@ -28,8 +28,11 @@ I want to become a professional **Data Scientist** & **Automotive Engineer**.
     
 + On Study :    
     - [cs224n](http://web.stanford.edu/class/cs224n/index.html) : [modulab](https://modu.event-us.kr/p/2441)
+    - [Coursera Deep Learning - Andrew Ng](https://www.coursera.org/specializations/deep-learning) 
+    - [Udemy Natural Language Processing with Deep Learning](https://www.udemy.com/natural-language-processing-with-deep-learning-in-python/learn/v4/overview)    
+    
 + Studied : 
-    - [cs231n](http://cs231n.stanford.edu/) : self study
+    - [cs231n](http://cs231n.stanford.edu/)
     
 + On Developing :
 
