@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 브라운 운동(Brownian motion) 
-date: 2018-07-15 14:25:00
+date: 2018-07-14 14:30:00
 img: Science/brownian_motion/brownian_motion.jpg # Add image post (optional)
 categories: [Physics] 
 tags: [Browian motion, 브라운 운동] # add tag
