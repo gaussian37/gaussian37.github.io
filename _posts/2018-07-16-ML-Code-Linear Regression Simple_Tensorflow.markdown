@@ -46,6 +46,10 @@ plt.scatter(x, y)
 plt.plot(x, x * 1 + 2., label = "ground truth", c = "r")
 plt.legend()
 ```
+
+![png](../assets/img/ML/Linear Regression/Linear Regression Simple_Tensorflow_8_1.png)
+
+
 ## Let's go with Tensorflow
 
 Define input with placeholder
@@ -153,6 +157,8 @@ plt.legend()
 plt.show()
 ```
 
+![png](../assets/img/ML/Linear Regression/Linear Regression Simple_Tensorflow_27_0.png)
+
 ## With Tensorboard 
 
-![Tensorboard](./images/Linear Regression Simple.png)
+![Tensorboard](../assets/img/ML/Linear Regression/Linear Regression Simple_tensorboard.png)
