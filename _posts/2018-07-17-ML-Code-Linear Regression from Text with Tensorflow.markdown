@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Linear Regression Simple with Tensorflow
+title: Linear Regression from Text with Tensorflow
 date: 2018-07-17 05:09:00
 img: ML/tensorflow.png # Add image post (optional)
 categories: [ML Code] 
