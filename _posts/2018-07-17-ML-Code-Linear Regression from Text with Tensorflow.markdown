@@ -8,7 +8,7 @@ tags: [Linear Regression, Tensorflow] # add tag
 ---
 
 + github : [Linear Regression from Text with Tensorflow](https://nbviewer.jupyter.org/github/gaussian37/Deep-Learning/blob/master/Library/Tensorflow/Linear%20Regression/Linear%20Regression%20from%20Text%20with%20Tensorflow.ipynb)
-
++ data : [data](https://github.com/gaussian37/Deep-Learning/blob/master/Library/Tensorflow/Linear%20Regression/data/birth_life_2010.txt)
 
 ```python
 import numpy as np
