@@ -15,11 +15,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 ```
+<br>
 
 Read the data file
 Linear Regression from Text with Tensorflow.ipynb <br>
 data <br>
-└──── birth_life_2010.txt <br>
+└── birth_life_2010.txt <br>
 
 + birth_life_2010.txt
 
@@ -253,8 +254,3 @@ plt.show()
 
 
 ![png](../assets/img/ML/Linear Regression/Linear Regression from Text with Tensorflow_19_0.png)
-
-
-```python
-
-```
