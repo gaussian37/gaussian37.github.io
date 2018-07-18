@@ -3,7 +3,7 @@ layout: post
 title: Linear Regression Simple with Tensorflow
 date: 2018-07-16 05:09:00
 img: ML/tensorflow.png # Add image post (optional)
-categories: [ML Code] 
+categories: [ML_DL Code] 
 tags: [Linear Regression, Tensorflow] # add tag
 ---
 
@@ -47,7 +47,7 @@ plt.plot(x, x * 1 + 2., label = "ground truth", c = "r")
 plt.legend()
 ```
 
-![png](../assets/img/ML/Linear Regression/Linear Regression Simple_Tensorflow_8_1.png)
+![png](../assets/img/ML_DL/Linear Regression/Linear Regression Simple_Tensorflow_8_1.png)
 
 
 ## Let's go with Tensorflow
@@ -157,8 +157,8 @@ plt.legend()
 plt.show()
 ```
 
-![png](../assets/img/ML/Linear Regression/Linear Regression Simple_Tensorflow_27_0.png)
+![png](../assets/img/ML_DL/Linear Regression/Linear Regression Simple_Tensorflow_27_0.png)
 
 ## With Tensorboard 
 
-![Tensorboard](../assets/img/ML/Linear Regression/Linear Regression Simple_tensorboard.png)
+![Tensorboard](../assets/img/ML_DL/Linear Regression/Linear Regression Simple_tensorboard.png)

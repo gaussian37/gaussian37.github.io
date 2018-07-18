@@ -3,7 +3,7 @@ layout: post
 title: Linear Regression from Text with Tensorflow
 date: 2018-07-17 05:09:00
 img: ML/tensorflow.png # Add image post (optional)
-categories: [ML Code] 
+categories: [ML_DL Code] 
 tags: [Linear Regression, Tensorflow] # add tag
 ---
 
@@ -253,4 +253,4 @@ plt.show()
 ```
 
 
-![png](../assets/img/ML/Linear Regression/Linear Regression from Text with Tensorflow_19_0.png)
+![png](../assets/img/ML_DL/Linear Regression/Linear Regression from Text with Tensorflow_19_0.png)
