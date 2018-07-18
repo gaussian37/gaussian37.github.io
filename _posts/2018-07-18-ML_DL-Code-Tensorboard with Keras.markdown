@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Logistic Regression with Tensorflow
+title: Tensorboard with Keras
 date: 2018-07-18 03:09:00
-img: ML_DL/tensorflow.png # Add image post (optional)
+img: ML_DL/keras.png # Add image post (optional)
 categories: [ML_DL Code] 
 tags: [Tensorboard, Keras] # add tag
 ---
