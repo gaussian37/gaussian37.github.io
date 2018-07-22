@@ -35,9 +35,10 @@ from keras.layers import Dense, Activation
 import numpy as np
 
 np.random.seed(3)
+
 ```
 
-    Using TensorFlow backend.
+Using TensorFlow backend.    
     
 
 ### Define custom callback function
@@ -65,10 +66,8 @@ class CustomHistory(keras.callbacks.Callback):
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
 print(x_train.shape, y_train.shape)
-```
 
 
-```python
 x_val = x_train[50000:]
 y_val = y_train[50000:]
 x_train = x_train[:50000]
@@ -137,6 +136,8 @@ for epoch in range(100):
     print("Epoch : {}".format(epoch))
     model.fit(x_train, y_train, batch_size=10, epochs=1, validation_data=(x_val, y_val), callbacks=[custom_hist])
 ```
+
+output
 
     Epoch : 0
     Train on 50000 samples, validate on 10000 samples
@@ -540,6 +541,7 @@ for epoch in range(100):
     50000/50000 [==============================] - 17s 337us/step - loss: 1.0597 - acc: 0.6202 - val_loss: 1.0356 - val_acc: 0.6299
     
 
+Display the results
 
 ```python
 import matplotlib.pyplot as plt
@@ -561,14 +563,6 @@ acc_ax.set_ylabel('accuaracy')
 loss_ax.legend(loc = 'upper left')
 acc_ax.legend(loc = 'lower left')
 ```
-
-
-
-
-    <matplotlib.legend.Legend at 0x1efdf679320>
-
-
-
 
 ![png](../assets/img/ML_DL/callback function with keras/Using Custom Callback function with Keras_22_1.png)
 
