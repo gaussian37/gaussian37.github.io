@@ -1005,9 +1005,12 @@ table tfoot td {
   margin: 0 0 10px;
 }
 
+.category-box {
+  padding: 0px 0px 0px 240px;
+}
+
 .content-box {
-  padding: 20px;
-  padding-left: 260px;
+  padding: 20px 20px 20px 260px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1431,11 +1434,8 @@ a.newer-posts:hover {
             border-radius: 100%;
     margin-bottom: 10px;
   }
-  .category-box {
-    padding: 0px 0px 0px 240px;
-  }
   .content-box {
-    padding: 20px 20px 20px 260px;
+    padding: 20px 10px;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
