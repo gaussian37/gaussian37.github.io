@@ -136,3 +136,4 @@ Learning finished
 Accuracy : 0.96
 Sample : [8], Prediction : [8]
 
+
