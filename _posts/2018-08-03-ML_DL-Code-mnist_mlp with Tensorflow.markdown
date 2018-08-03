@@ -3,7 +3,7 @@ layout: post
 title: mnist_mlp with Tensorflow
 date: 2018-08-03 10:30:00
 img: ML_DL/tensorflow.png # Add image post (optional)
-categories: [ML_DL Code] 
+categories: [machine-learning-code] 
 tags: [mlp, mnist, Tensorflow] # add tag
 ---
 
