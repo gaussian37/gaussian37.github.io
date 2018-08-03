@@ -135,3 +135,4 @@ Epoch : 14 	 loss : 0.6727
 Learning finished
 Accuracy : 0.96
 Sample : [8], Prediction : [8]
+
