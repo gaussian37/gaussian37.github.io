@@ -19,10 +19,13 @@ import random
 from tensorflow.examples.tutorials.mnist import input_data
 ```
 
+set random seed
+
 ```python
 tf.set_random_seed(777)
 ```
 
+read data
 
 ```python
 mnist = input_data.read_data_sets("./data", one_hot=True)
@@ -116,24 +119,25 @@ with tf.Session() as sess:
         sess.run(tf.argmax(mnist.test.labels[r:r+1], 1)),
         sess.run(tf.argmax(hypothesis, 1), feed_dict={X:mnist.test.images[r:r+1]})))   
 ```
+Loss & Accuracy
 
-Epoch : 0 	 loss : 43.5949
-Epoch : 1 	 loss : 8.3581
-Epoch : 2 	 loss : 4.5213
-Epoch : 3 	 loss : 3.0077
-Epoch : 4 	 loss : 2.2337
-Epoch : 5 	 loss : 1.7791
-Epoch : 6 	 loss : 1.7054
-Epoch : 7 	 loss : 1.6072
-Epoch : 8 	 loss : 1.5188
-Epoch : 9 	 loss : 1.2151
-Epoch : 10 	 loss : 1.0503
-Epoch : 11 	 loss : 0.9019
-Epoch : 12 	 loss : 0.8049
-Epoch : 13 	 loss : 0.6331
-Epoch : 14 	 loss : 0.6727
-Learning finished
-Accuracy : 0.96
-Sample : [8], Prediction : [8]
-
-
+    Epoch : 0 	 loss : 43.5949
+    Epoch : 1 	 loss : 8.3581
+    Epoch : 2 	 loss : 4.5213
+    Epoch : 3 	 loss : 3.0077
+    Epoch : 4 	 loss : 2.2337
+    Epoch : 5 	 loss : 1.7791
+    Epoch : 6 	 loss : 1.7054
+    Epoch : 7 	 loss : 1.6072
+    Epoch : 8 	 loss : 1.5188
+    Epoch : 9 	 loss : 1.2151
+    Epoch : 10 	 loss : 1.0503
+    Epoch : 11 	 loss : 0.9019
+    Epoch : 12 	 loss : 0.8049
+    Epoch : 13 	 loss : 0.6331
+    Epoch : 14 	 loss : 0.6727
+    Learning finished
+    Accuracy : 0.96
+    Sample : [8], Prediction : [8]
+    
+    
