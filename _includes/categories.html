@@ -65,18 +65,18 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/GAN/concept/' or page.url == '/GAN/code/' or page.url == '/GAN/paper/' or page.url == '/GAN/etc/'%} active {% endif %}">
+            {% if page.url == '/gan/concept/' or page.url == '/gan/code/' or page.url == '/gan/paper/' or page.url == '/gan/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('gan-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     GAN
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="gan-dropdown">
-                    <a class="dropdown-item" href="{{ "/GAN/concept" | prepend: site.baseurl }}">Concept</a>
-                    <a class="dropdown-item" href="{{ "/GAN/paper" | prepend: site.baseurl }}">Paper</a>
-                    <a class="dropdown-item" href="{{ "/GAN/code" | prepend: site.baseurl }}">Code</a>
+                    <a class="dropdown-item" href="{{ "/gan/concept" | prepend: site.baseurl }}">Concept</a>
+                    <a class="dropdown-item" href="{{ "/gan/paper" | prepend: site.baseurl }}">Paper</a>
+                    <a class="dropdown-item" href="{{ "/gan/code" | prepend: site.baseurl }}">Code</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ "/GAN/etc" | prepend: site.baseurl }}">ETC</a>
+                    <a class="dropdown-item" href="{{ "/gan/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
             <li class="nav-item dropdown
