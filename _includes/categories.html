@@ -5,7 +5,7 @@
                 <a class="nav-link" href="{{ site.baseurl }}/">ALL</a>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/machine-learning/concept/' or page.url == '/machine-learning/code/' or page.url == '/machine-learning/etc/'%} active {% endif %}">
+            {% if page.url == '/machine-learning/concept/' or page.url == '/machine-learning/code/' or page.url == '/machine-learning/paper/' or page.url == '/machine-learning/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('ML-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -13,22 +13,25 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="ML-dropdown">
                     <a class="dropdown-item" href="{{ "/machine-learning/concept" | prepend: site.baseurl }}">Concept</a>
+                    <a class="dropdown-item" href="{{ "/machine-learning/paper" | prepend: site.baseurl }}">Paper</a>
                     <a class="dropdown-item" href="{{ "/machine-learning/code" | prepend: site.baseurl }}">Code</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/machine-learning/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
-            <li class="nav-item {% if page.url == '/machine-learning/' %} active {% endif %}">
+            <li class="nav-item dropdown
+            {% if page.url == '/computer-vision/concept/' or page.url == '/computer-vision/code/' or page.url == '/computer-vision/paper/' or page.url == '/computer-vision/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('cv-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     Computer Vision
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="cv-dropdown">
-                    <a class="dropdown-item" href="{{ "/web/backend" | prepend: site.baseurl }}">Concept</a>
-                    <a class="dropdown-item" href="{{ "/web/frontend" | prepend: site.baseurl }}">Code</a>
+                    <a class="dropdown-item" href="{{ "/computer-vision/concept" | prepend: site.baseurl }}">Concept</a>
+                    <a class="dropdown-item" href="{{ "/computer-vision/paper" | prepend: site.baseurl }}">Paper</a>
+                    <a class="dropdown-item" href="{{ "/computer-vision/code" | prepend: site.baseurl }}">Code</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ "/web/etc" | prepend: site.baseurl }}">ETC</a>
+                    <a class="dropdown-item" href="{{ "/computer-vision/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
             <li class="nav-item {% if page.url == '/english/' %} active {% endif %}">
