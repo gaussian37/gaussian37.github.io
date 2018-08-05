@@ -6,7 +6,7 @@ img: /My/kjsandkjs3.jpg # Add image post (optional)
 tags: [Introduction] # add tag
 ---
 
-I want to become a professional **Data Scientist** & **Automotive Engineer**.
+I want to become a professional **Data Scientist**.
 
 # All about Blog Author
 
