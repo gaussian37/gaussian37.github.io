@@ -27,12 +27,9 @@ I want to become a professional **Data Scientist**.
     - Reinforcement Learning    
     
 + On Study :    
-    - [cs224n](http://web.stanford.edu/class/cs224n/index.html) : [modulab](https://modu.event-us.kr/p/2441)
-    - [Coursera Deep Learning - Andrew Ng](https://www.coursera.org/specializations/deep-learning) 
-    - [Udemy Natural Language Processing with Deep Learning](https://www.udemy.com/natural-language-processing-with-deep-learning-in-python/learn/v4/overview)    
+    - [cs224n](http://web.stanford.edu/class/cs224n/index.html) : [modulab](https://modu.event-us.kr/p/2441)        
     
-+ Studied : 
-    - [cs231n](http://cs231n.stanford.edu/)
++ Certificates :    
     
 + On Developing :
 
