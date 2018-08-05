@@ -36,17 +36,17 @@
             </li>
             <li class="nav-item dropdown
             {% if page.url == '/computer-vision/concept/' or page.url == '/computer-vision/code/' or page.url == '/computer-vision/paper/' or page.url == '/computer-vision/etc/'%} active {% endif %}">
-                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('cv-dropdown')"
+                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('vision-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                    Computer Vision
+                    Vision
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="cv-dropdown">
-                    <a class="dropdown-item" href="{{ "/computer-vision/concept" | prepend: site.baseurl }}">Concept</a>
-                    <a class="dropdown-item" href="{{ "/computer-vision/paper" | prepend: site.baseurl }}">Paper</a>
-                    <a class="dropdown-item" href="{{ "/computer-vision/code" | prepend: site.baseurl }}">Code</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="vision-dropdown">
+                    <a class="dropdown-item" href="{{ "/vision/concept" | prepend: site.baseurl }}">Concept</a>
+                    <a class="dropdown-item" href="{{ "/vision/paper" | prepend: site.baseurl }}">Paper</a>
+                    <a class="dropdown-item" href="{{ "/vision/code" | prepend: site.baseurl }}">Code</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ "/computer-vision/etc" | prepend: site.baseurl }}">ETC</a>
+                    <a class="dropdown-item" href="{{ "/vision/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
             <li class="nav-item dropdown
