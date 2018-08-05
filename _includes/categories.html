@@ -34,17 +34,19 @@
                     <a class="dropdown-item" href="{{ "/computer-vision/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
-            <li class="nav-item {% if page.url == '/english/' %} active {% endif %}">
+            <li class="nav-item dropdown
+            {% if page.url == '/natural-language-processing/concept/' or page.url == '/natural-language-processing/code/' or page.url == '/natural-language-processing/paper/' or page.url == '/natural-language-processing/concept/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('nlp-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     Natural Language Processing
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="nlp-dropdown">
-                    <a class="dropdown-item" href="{{ "/web/backend" | prepend: site.baseurl }}">Concept</a>
-                    <a class="dropdown-item" href="{{ "/web/frontend" | prepend: site.baseurl }}">Code</a>
+                    <a class="dropdown-item" href="{{ "/natural-language-processing/concept" | prepend: site.baseurl }}">Concept</a>
+                    <a class="dropdown-item" href="{{ "/natural-language-processing/paper" | prepend: site.baseurl }}">Paper</a>
+                    <a class="dropdown-item" href="{{ "/natural-language-processing/code" | prepend: site.baseurl }}">Code</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ "/web/etc" | prepend: site.baseurl }}">ETC</a>
+                    <a class="dropdown-item" href="{{ "/natural-language-processing/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
         </ul>
