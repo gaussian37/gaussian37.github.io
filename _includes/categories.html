@@ -6,17 +6,32 @@
             </li>
             <li class="nav-item dropdown
             {% if page.url == '/machine-learning/concept/' or page.url == '/machine-learning/code/' or page.url == '/machine-learning/paper/' or page.url == '/machine-learning/etc/'%} active {% endif %}">
-                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('ML-dropdown')"
+                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('ml-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     Machine Learning
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="ML-dropdown">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="ml-dropdown">
                     <a class="dropdown-item" href="{{ "/machine-learning/concept" | prepend: site.baseurl }}">Concept</a>
                     <a class="dropdown-item" href="{{ "/machine-learning/paper" | prepend: site.baseurl }}">Paper</a>
                     <a class="dropdown-item" href="{{ "/machine-learning/code" | prepend: site.baseurl }}">Code</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/machine-learning/etc" | prepend: site.baseurl }}">ETC</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown
+            {% if page.url == '/deep-learning/concept/' or page.url == '/deep-learning/code/' or page.url == '/deep-learning/paper/' or page.url == '/deep-learning/etc/'%} active {% endif %}">
+                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('dl-dropdown')"
+                   role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Deep Learning
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="dl-dropdown">
+                    <a class="dropdown-item" href="{{ "/deep-learning/concept" | prepend: site.baseurl }}">Concept</a>
+                    <a class="dropdown-item" href="{{ "/deep-learning/paper" | prepend: site.baseurl }}">Paper</a>
+                    <a class="dropdown-item" href="{{ "/deep-learning/code" | prepend: site.baseurl }}">Code</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ "/deep-learning/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
             <li class="nav-item dropdown
