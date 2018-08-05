@@ -3,7 +3,7 @@ layout: post
 title: Linear Regression Simple with Tensorflow
 date: 2018-07-16 05:09:00
 img: ML_DL/tensorflow.png # Add image post (optional)
-categories: [ML_DL Code] 
+categories: [machine-learning-code] 
 tags: [Linear Regression, Tensorflow] # add tag
 ---
 

@@ -3,7 +3,7 @@ layout: post
 title: Logistic Regression with Tensorflow
 date: 2018-07-18 03:09:00
 img: ML_DL/tensorflow.png # Add image post (optional)
-categories: [ML_DL Code] 
+categories: [machine-learning-code] 
 tags: [Logistic Regression, Tensorflow] # add tag
 ---
 

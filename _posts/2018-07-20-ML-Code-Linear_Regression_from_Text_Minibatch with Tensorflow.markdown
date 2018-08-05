@@ -3,7 +3,7 @@ layout: post
 title: Linear_Regression_from_Text_Minibatch with Tensorflow
 date: 2018-07-20 21:00:00
 img: ML_DL/tensorflow.png # Add image post (optional)
-categories: [ML_DL Code] 
+categories: [machine-learning-code] 
 tags: [Linear Regression, Tensorflow] # add tag
 ---
 

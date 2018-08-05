@@ -3,7 +3,7 @@ layout: post
 title: Tensorboard with Keras
 date: 2018-07-18 03:09:00
 img: ML_DL/keras.png # Add image post (optional)
-categories: [ML_DL Code] 
+categories: [machine-learning-code] 
 tags: [Tensorboard, Keras] # add tag
 ---
 

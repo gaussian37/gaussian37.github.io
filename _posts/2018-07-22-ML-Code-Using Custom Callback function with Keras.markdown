@@ -3,7 +3,7 @@ layout: post
 title: Using Custom Callback function with Keras
 date: 2018-07-22 05:01:00
 img: ML_DL/keras.png # Add image post (optional)
-categories: [ML_DL Code] 
+categories: [machine-learning-code] 
 tags: [callback, keras] # add tag
 ---
 
