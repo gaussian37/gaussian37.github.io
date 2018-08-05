@@ -35,7 +35,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/natural-language-processing/concept/' or page.url == '/natural-language-processing/code/' or page.url == '/natural-language-processing/paper/' or page.url == '/natural-language-processing/concept/etc/'%} active {% endif %}">
+            {% if page.url == '/natural-language-processing/concept/' or page.url == '/natural-language-processing/code/' or page.url == '/natural-language-processing/paper/' or page.url == '/natural-language-processing/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('nlp-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -47,6 +47,50 @@
                     <a class="dropdown-item" href="{{ "/natural-language-processing/code" | prepend: site.baseurl }}">Code</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/natural-language-processing/etc" | prepend: site.baseurl }}">ETC</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown
+            {% if page.url == '/reinforcement-learning/concept/' or page.url == '/reinforcement-learning/code/' or page.url == '/reinforcement-learning/paper/' or page.url == '/reinforcement-learning/etc/'%} active {% endif %}">
+                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('nlp-dropdown')"
+                   role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Reinforcement Learning
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="nlp-dropdown">
+                    <a class="dropdown-item" href="{{ "/reinforcement-learning/concept" | prepend: site.baseurl }}">Concept</a>
+                    <a class="dropdown-item" href="{{ "/reinforcement-learning/paper" | prepend: site.baseurl }}">Paper</a>
+                    <a class="dropdown-item" href="{{ "/reinforcement-learning/code" | prepend: site.baseurl }}">Code</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ "/reinforcement-learning/etc" | prepend: site.baseurl }}">ETC</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown
+            {% if page.url == '/GAN/concept/' or page.url == '/GAN/code/' or page.url == '/GAN/paper/' or page.url == '/GAN/etc/'%} active {% endif %}">
+                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('nlp-dropdown')"
+                   role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    GAN
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="nlp-dropdown">
+                    <a class="dropdown-item" href="{{ "/GAN/concept" | prepend: site.baseurl }}">Concept</a>
+                    <a class="dropdown-item" href="{{ "/GAN/paper" | prepend: site.baseurl }}">Paper</a>
+                    <a class="dropdown-item" href="{{ "/GAN/code" | prepend: site.baseurl }}">Code</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ "/GAN/etc" | prepend: site.baseurl }}">ETC</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown
+            {% if page.url == '/python/library/' or page.url == '/python/django/' or page.url == '/python/etc/'%} active {% endif %}">
+                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('nlp-dropdown')"
+                   role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Python
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="nlp-dropdown">
+                    <a class="dropdown-item" href="{{ "/python/library" | prepend: site.baseurl }}">Library</a>
+                    <a class="dropdown-item" href="{{ "/python/django" | prepend: site.baseurl }}">Django</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ "/python/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
         </ul>
