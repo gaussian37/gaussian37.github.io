@@ -3,7 +3,7 @@ layout: post
 title: Early stopping with Keras
 date: 2018-07-25 10:30:00
 img: ML_DL/keras.png # Add image post (optional)
-categories: [machine-learning-code]] 
+categories: [machine-learning-code]
 tags: [callback, Early stopping, Keras] # add tag
 ---
 
