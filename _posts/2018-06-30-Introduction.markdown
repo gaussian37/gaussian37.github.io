@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Thanks for coming! I am Kim jin-sol(gaussian37)
+title: Thanks for coming! I am Kim JIN-SOL(gaussian37)
 date: 9999-12-30 17:00:00 +0300
 img: /My/kjsandkjs3.jpg # Add image post (optional)
 tags: [Introduction] # add tag
