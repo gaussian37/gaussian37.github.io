@@ -20,7 +20,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/deep-learning/concept/' or page.url == '/deep-learning/code/' or page.url == '/deep-learning/paper/' or page.url == '/deep-learning/etc/'%} active {% endif %}">
+            {% if page.url == '/deep-learning/chollet/' or page.url == '/deep-learning/concept/' or page.url == '/deep-learning/code/' or page.url == '/deep-learning/paper/' or page.url == '/deep-learning/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('dl-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -31,6 +31,7 @@
                     <a class="dropdown-item" href="{{ "/deep-learning/paper" | prepend: site.baseurl }}">Paper</a>
                     <a class="dropdown-item" href="{{ "/deep-learning/code" | prepend: site.baseurl }}">Code</a>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ "/deep-learning/chollet" | prepend: site.baseurl }}">Deep Learning with Python(Chollet)</a>
                     <a class="dropdown-item" href="{{ "/deep-learning/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>

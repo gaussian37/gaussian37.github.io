@@ -32,3 +32,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Directories
+**/.ipynb_checkpoints/
+**/.idea/workspace.xml
