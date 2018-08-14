@@ -1,0 +1,756 @@
+---
+layout: post
+title: Data extraction with urllib
+date: 2018-08-14 00:00:00
+img: python/crawling/python.png
+categories: [python-crawling] 
+tags: [python, crawling] # add tag
+---
+
+
+#  Data extraction with urllib
+
+
+```
+import os
+import sys
+import urllib.request as ur
+```
+
+Set image url and path
+
+
+```
+imgURL = "https://gaussian37.github.io/blog/assets/img/kjsandkjs.jpg"
+htmlURL = "https://gaussian37.github.io/blog/"
+savePath1 = "./data/sample.jpg"
+savePath2 = "./data/index.html"
+```
+
+### 1. urlretrieve : convinent to use
+
+urlretrive is under the process of
+1. save
+2. open("r")
+3. assign a variable
+4. parsing
+5. resave
+
+
+```
+ur.urlretrieve(imgURL, savePath1)
+```
+
+
+
+
+    ('./data/sample.jpg', <http.client.HTTPMessage at 0x13261ca0550>)
+
+
+
+Show the image from ``"./data/sample.jpg"``
+<img src="./data/sample.jpg" alt="Drawing" style="width: 200px;"/>
+
+
+```
+urllib.request.urlretrieve(htmlURL, savePath2)
+```
+
+
+
+
+    ('./data/index.html', <http.client.HTTPMessage at 0x13261ca0860>)
+
+
+
+### 2. urlopen : use only if you need to process on extracted data
+
+urlopen is under the process of 
+1. assign a variable
+2. parsing
+3. save
+
+
+```
+f1 = ur.urlopen(imgURL).read()
+f2 = ur.urlopen(htmlURL).read()
+```
+
+1st way
+
+
+```
+saveFile1 = open(savePath1, "wb") # w : write, r : read, a : add, b : binary
+saveFile1.write(f1)
+saveFile1.close()
+```
+
+Show the image from "./data/sample.jpg"
+<img src="./data/sample.jpg" alt="Drawing" style="width: 200px;"/>
+
+2th way
+
+
+```
+with open(savePath2, "wb") as saveFile2: # w : write, r : read, a : add, b : binary
+    saveFile2.write(f2)
+```
+
+### 3. get url information
+
+
+```
+url = "https://www.udacity.com/"
+mem = ur.urlopen(url)
+print(mem)
+```
+print
+
+    <http.client.HTTPResponse object at 0x0000013261CB3AC8>
+    
+
+
+```
+print("geturl : ", mem.geturl())
+print()
+print("status : ", mem.status) # 200 : normal, 404 : no page, 403 : reject, 500 : server error
+print()
+print("header : ", mem.getheaders())
+print()
+print("info : ", mem.info())
+print()
+print("read : ", mem.read(50))
+```
+print
+
+    geturl :  https://www.udacity.com/
+    
+    status :  200
+    
+    header :  [('Content-Type', 'text/html; charset=utf-8'), ('Content-Length', '264606'), ('Connection', 'close'), ('Age', '51108'), ('Cache-Control', 'max-age=2592000, public'), ('Date', 'Sat, 11 Aug 2018 19:52:45 GMT'), ('ETag', '"b3ebe34ca1e20c996e916e47f38b9034"'), ('Last-Modified', 'Sat, 11 Aug 2018 19:50:30 GMT'), ('Server', 'AmazonS3'), ('Set-Cookie', '_gaexp=GAX1.2.lYsDUp0dTGae_7xq5AB7VQ.17815.0; Path=/; Domain=.udacity.com; Max-Age=7776000;'), ('Vary', 'Accept-Encoding'), ('x-amz-id-2', 'zMz8KVmXxV2aUj4r4R5isLHRTA3+IiU3IC6Y1ML5PlzNmiZZshTM2elfeHi/u6yB69XRJ6q0srU='), ('x-amz-request-id', '3EFB7CB79DCC5CF4'), ('X-Frame-Options', 'DENY'), ('X-XSS-Protection', '1; mode=block'), ('X-Cache', 'Hit from cloudfront'), ('Via', '1.1 d98420743a69852491bbdea73f7680bd.cloudfront.net (CloudFront)'), ('X-Amz-Cf-Id', 's67AXtC66m422C6bhzHQWEmhdIQ79kOIWf5jJtSwWd4NvmvapNQY_g=='), ('X-Berlioz-Country', 'KR'), ('Access-Control-Allow-Headers', 'X-Berlioz-Country'), ('Access-Control-Expose-Headers', 'X-Berlioz-Country'), ('Strict-Transport-Security', 'max-age=300;')]
+    
+    info :  Content-Type: text/html; charset=utf-8
+    Content-Length: 264606
+    Connection: close
+    Age: 51108
+    Cache-Control: max-age=2592000, public
+    Date: Sat, 11 Aug 2018 19:52:45 GMT
+    ETag: "b3ebe34ca1e20c996e916e47f38b9034"
+    Last-Modified: Sat, 11 Aug 2018 19:50:30 GMT
+    Server: AmazonS3
+    Set-Cookie: _gaexp=GAX1.2.lYsDUp0dTGae_7xq5AB7VQ.17815.0; Path=/; Domain=.udacity.com; Max-Age=7776000;
+    Vary: Accept-Encoding
+    x-amz-id-2: zMz8KVmXxV2aUj4r4R5isLHRTA3+IiU3IC6Y1ML5PlzNmiZZshTM2elfeHi/u6yB69XRJ6q0srU=
+    x-amz-request-id: 3EFB7CB79DCC5CF4
+    X-Frame-Options: DENY
+    X-XSS-Protection: 1; mode=block
+    X-Cache: Hit from cloudfront
+    Via: 1.1 d98420743a69852491bbdea73f7680bd.cloudfront.net (CloudFront)
+    X-Amz-Cf-Id: s67AXtC66m422C6bhzHQWEmhdIQ79kOIWf5jJtSwWd4NvmvapNQY_g==
+    X-Berlioz-Country: KR
+    Access-Control-Allow-Headers: X-Berlioz-Country
+    Access-Control-Expose-Headers: X-Berlioz-Country
+    Strict-Transport-Security: max-age=300;
+    
+    
+    
+    read :  b'<!DOCTYPE html><html><head>\n  <meta charset="utf-8'
+    
+
+
+```
+from urllib.parse import urlparse
+
+print(urlparse("https://www.udacity.com/"))
+print(urlparse("https://www.udacity.com/course/android-basics-nanodegree-by-google--nd803"))
+```
+
+print
+
+    ParseResult(scheme='https', netloc='www.udacity.com', path='/', params='', query='', fragment='')
+    ParseResult(scheme='https', netloc='www.udacity.com', path='/course/android-basics-nanodegree-by-google--nd803', params='', query='', fragment='')
+    
+
+
+```
+from urllib.parse import urlencode
+
+API = "https://www.ipify.org/"
+values = {
+    "format" : "json"
+}   
+```
+
+
+```
+print("before : ", values)
+print("after : ", urlencode(values))
+```
+
+    before :  {'format': 'json'}
+    after :  format=json
+    
+
+
+```
+params = urlencode(values)
+url = API + "?" + params
+print("requested url", url)
+```
+
+    requested url https://www.ipify.org/?format=json
+    
+
+
+```
+reqData = ur.urlopen(url).read().decode('utf-8')
+print("output", reqData)
+```
+
+    output <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ipify - A Simple Public IP Address API</title>
+        <meta name="description" content="ipify is a simple public IP address API, easy enough to integrate into any application in seconds.">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <link href="/static/css/prism.css" rel="stylesheet" type="text/css">
+        <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+        <link rel="apple-touch-icon" sizes="57x57" href="/static/images/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/static/images/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/static/images/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/static/images/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/static/images/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/static/images/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/static/images/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/static/images/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/static/images/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/static/images/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/static/images/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+      </head>
+      <body>
+        <div class="container">
+          <header>
+            <a href="/" title="ipify - A Simple IP Address API">
+              <div class="row">
+                <div class="col-xs-offset-2 col-xs-4 col-sm-offset-3 col-sm-3 col-md-offset-2 col-md-2">
+                  <img alt="ipify logo (a globe sketch)" src="/static/images/globe.png" height="120" width="100">
+                </div>
+                <div class="col-xs-4 col-sm-6 col-md-8">
+                  <div>
+                    <h1>ipify</h1>
+                    <h2 class="hidden-xs hidden-sm">A Simple Public IP Address API</h2>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <script>
+              /*
+               * This script will dynamically fetch the current user's public IP
+               * using the ipify API service.  It will then display it as the code
+               * sample in the main entry block users see.  Once this is done, we'll
+               * also enable syntax highlighting on the page to make all the code
+               * samples look pretty =)
+               */
+              $(function() {
+                $.getJSON(
+                  'https://api.ipify.org?format=jsonp&callback=?',
+                  function (data) {
+                    $(".ipdata").text('{"ip":"' + data.ip + '"}');
+                    Prism.highlightAll();
+                  }
+                );
+              });
+            </script>
+          </header>
+          <div class="try row">
+            <div class="col-sm-offset-2 col-sm-8">
+              <div class="jumbotron">
+                <p>
+                  Want to get started right away? Don't wait, run the code sample
+                  below in your terminal and check it out!
+                </p>
+                <pre><code class="language-bash">$ curl 'https://api.ipify.org?format=json'<br/>
+    <span class="ipdata"></span></code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="why row">
+            <div class="col-xs-12">
+              <h2>Why?</h2>
+              <div class="row">
+                <div class="col-xs-offset-1 col-xs-10">
+                  <p>
+                    Ever needed to get your public IP address <i>programmatically</i>?  Maybe
+                    you're provisioning new cloud servers and need to know your IP --
+                    maybe you're behind a corporate firewall and need to tunnel
+                    information -- whatever the reason: sometimes having a public IP
+                    address API is useful!
+                  </p>
+                  <p>
+                    You should use <b>ipify</b> because:
+                    <ul id="features">
+                      <li>
+                        You can use it <i>without limit</i> (even if you're doing
+                        millions of requests per minute).
+                      </li>
+                      <li>
+                        It's always online and available, and its infrastructure is
+                        powered by <a href="https://www.heroku.com/" title="Heroku">Heroku</a>,
+                        which means that regardless of whether the server running the API
+                        dies, or if there's an enormous tornado which destroys half of
+                        the east coast, <b>ipify</b> will still be running!
+                      </li>
+                      <li>
+                        It works flawlessly with both IPv4 <i>and</i> IPv6 addresses, so
+                        no matter what sort of technology you're using, there won't be
+                        issues.
+                      </li>
+                      <li>
+                        <b>ipify</b> is completely open source (check out the
+                        <a href="https://github.com/rdegges/ipify-api" title="ipify on GitHub">GitHub repository</a>).
+                      </li>
+                      <li>
+                        No visitor information is ever logged.  Period.
+                      </li>
+                      <li>
+                        Lastly, <b>ipify</b> is funded by
+                        <a href="http://www.rdegges.com/" title="Randall Degges">Randall Degges</a>,
+                        so there's no need to worry about the domain name disappearing
+                        in three years or anything like that: <b>ipify</b> is here to
+                        stay!
+                      </li>
+                    </ul>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="api row">
+            <div class="col-xs-12">
+              <h2>API Usage</h2>
+              <div class="row">
+                <div class="col-xs-offset-1 col-xs-10">
+                  <p>
+                    Using <b>ipify</b> is ridiculously simple.  You have three options.
+                    You can get your public IP directly (in plain text), you can get your
+                    public IP in JSON format, or you can get your public IP information in
+                    JSONP format (useful for Javascript developers).
+                  </p>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <td>API URI</td>
+                          <td>Response Type</td>
+                          <td>Sample Output (IPv4)</td>
+                          <td>Sample Output (IPv6)</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>https://api.ipify.org</code></td>
+                          <td><code>text</code></td>
+                          <td><code>98.207.254.136</code></td>
+                          <td><code>?</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>https://api.ipify.org?format=json</code></td>
+                          <td><code>json</code></td>
+                          <td><code>{"ip":"98.207.254.136"}</code></td>
+                          <td><code>?</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>https://api.ipify.org?format=jsonp</code></td>
+                          <td><code>jsonp</code></td>
+                          <td><code>callback({"ip":"98.207.254.136"});</code></td>
+                          <td><code>?</code></td>
+                        </tr>
+                        <tr>
+                          <td><code>https://api.ipify.org?format=jsonp&callback=getip</code></td>
+                          <td><code>jsonp</code></td>
+                          <td><code>getip({"ip":"98.207.254.136"});</code></td>
+                          <td><code>?</code></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="examples row">
+            <div class="col-xs-12">
+              <h2>Examples</h2>
+              <div class="row">
+                <div class="col-xs-offset-1 col-xs-10">
+                  <p>
+                    This section contains some common usage patterns from a variety of
+                    programming languages.  Want something included that isn't listed
+                    here?
+                    <a href="mailto:r@rdegges.com" title="Randall Degges' Email">Email me!</a>
+                  </p>
+                  <h3>Bash</h3>
+                  <pre><code class="language-bash">#!/bin/bash
+    
+    ip=$(curl -s https://api.ipify.org)
+    echo "My public IP address is: $ip"</code></pre>
+    
+                  <h3>NGS (Next Generation Shell)</h3>
+                  <pre><code class="language-bash">ip=`curl -s https://api.ipify.org`
+    echo("My public IP address is: $ip")</code></pre>
+    
+                  <h3>Python</h3>
+                  <pre><code class="language-python"># This example requires the requests library be installed.  You can learn more
+    # about the Requests library here: http://docs.python-requests.org/en/latest/
+    from requests import get
+    
+    ip = get('https://api.ipify.org').text
+    print('My public IP address is: {}'.format(ip))</code></pre>
+    
+                  <h3>Ruby</h3>
+                  <pre><code class="language-ruby">require "net/http"
+    
+    ip = Net::HTTP.get(URI("https://api.ipify.org"))
+    puts "My public IP Address is: " + ip</code></pre>
+    
+                  <h3>PHP</h3>
+                  <pre><code class="language-php">&lt;?php
+        $ip = file_get_contents('https://api.ipify.org');
+        echo "My public IP address is: " . $ip;
+    ?&gt;</code></pre>
+    
+                  <h3>Java</h3>
+                  <pre><code class="language-java">try (java.util.Scanner s = new java.util.Scanner(new java.net.URL("https://api.ipify.org").openStream(), "UTF-8").useDelimiter("\\A")) {
+        System.out.println("My current IP address is " + s.next());
+    } catch (java.io.IOException e) {
+        e.printStackTrace();
+    }
+    </code></pre>
+    
+                  <h3>Perl</h3>
+                  <pre><code class="language-perl">use strict;
+    use warnings;
+    use LWP::UserAgent;
+    
+    my $ua = new LWP::UserAgent();
+    my $ip = $ua-&gt;get('https://api.ipify.org')-&gt;content;
+    print 'My public IP address is: '. $ip;</code></pre>
+    
+                  <h3>C#</h3>
+                  <pre><code class="language-csharp">var httpClient = new HttpClient();
+    var ip = await httpClient.GetStringAsync("https://api.ipify.org");
+    Console.WriteLine($"My public IP address is: {ip}");</code></pre>
+    
+                  <h3>VB.NET</h3>
+                  <pre><code class="language-csharp">Dim httpClient As New System.Net.Http.HttpClient
+    Dim ip As String = Await httpClient.GetStringAsync("https://api.ipify.org")
+    Console.WriteLine($"My public IP address is: {ip}")</code></pre>
+    
+                  <h3>NodeJS</h3>
+                  <pre><code class="language-javascript">var http = require('http');
+    
+    http.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
+      resp.on('data', function(ip) {
+        console.log("My public IP address is: " + ip);
+      });
+    });</code></pre>
+    
+                  <h3>Go</h3>
+                  <pre><code class="language-go">package main
+    
+    import (
+            "io/ioutil"
+            "net/http"
+            "os"
+    )
+    
+    func main() {
+            res, _ := http.Get("https://api.ipify.org")
+            ip, _ := ioutil.ReadAll(res.Body)
+            os.Stdout.Write(ip)
+    }</code></pre>
+    
+                  <h3>Racket</h3>
+                  <pre><code class="language-scheme">(require net/url)
+    
+    (define ip (port->string (get-pure-port (string->url "https://api.ipify.org"))))
+    (printf "My public IP address is: ~a" ip)</code></pre>
+    
+                  <h3>Lisp</h3>
+                  <pre><code class="language-scheme">;This example requires the drakma http package installed.
+    ;It can be found here: http://www.weitz.de/drakma
+    
+    (let ((stream
+        (drakma:http-request "https://api.ipify.org" :want-stream t)))
+      (let ((public-ip (read-line stream)))
+        (format t "My public IP address is: ~A" public-ip)))</code></pre>
+    
+                  <h3>Xojo</h3>
+                  <pre><code class="language-xojo">Dim s As New HTTPSecureSocket
+    Dim t As String = s.Get("https://api.ipify.org",10)
+    MsgBox "My public IP Address is: " + t</code></pre>
+    
+                  <h3>Scala</h3>
+                  <pre><code class="language-scala">val addr = scala.io.Source.fromURL("https://api.ipify.org").mkString
+    println(s"My public IP address is: $addr")</code></pre>
+    
+                  <h3>Javascript</h3>
+                  <pre><code class="language-javascript">&lt;script type="application/javascript"&gt;
+      function getIP(json) {
+        document.write("My public IP address is: ", json.ip);
+      }
+    &lt;/script&gt;
+    
+    &lt;script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"&gt;&lt;/script&gt;</code></pre>
+    
+                  <h3>jQuery</h3>
+                  <pre><code class="language-javascript">&lt;script type="application/javascript"&gt;
+      $(function() {
+        $.getJSON("https://api.ipify.org?format=jsonp&callback=?",
+          function(json) {
+            document.write("My public IP address is: ", json.ip);
+          }
+        );
+      });
+    &lt;/script&gt;</code></pre>
+    
+                  <h3>C#</h3>
+                  <pre><code class="language-java">using System;
+    using System.Net;
+    
+    namespace Ipify.Examples {
+        class Program {
+            public static void Main (string[] args) {
+                WebClient webClient = new WebClient();
+                string publicIp = webClient.DownloadString("https://api.ipify.org");
+                Console.WriteLine("My public IP Address is: {0}", publicIp);
+            }
+        }
+    }</code></pre>
+    
+                  <h3>Elixir</h3>
+                  <pre><code class="language-elixir">:inets.start
+    {:ok, {_, _, inet_addr}} = :httpc.request('http://api.ipify.org')
+    :inets.stop</code></pre>
+    
+                  <h3>nim</h3>
+                  <pre><code class="language-nim">import HttpClient
+    var ip = newHttpClient().getContent("https://api.ipify.org")
+    echo("My public IP address is: ", ip)</code></pre>
+    
+                  <h3>PowerShell</h3>
+                  <pre><code class="language-powershell">$ip = Invoke-RestMethod -Uri 'https://api.ipify.org?format=json'
+    "My public IP address is: $($ip.ip)"</code></pre>
+    
+                  <h3>Lua</h3>
+                  <pre><code class="language-lua">http.Fetch("https://api.ipify.org", function(body) print("My ip is: " .. body ) end</code></pre>
+    
+                  <h3>PureBasic</h3>
+                  <pre><code class="language-basic">InitNetwork()
+    *Buffer = ReceiveHTTPMemory("https://api.ipify.org?format=json")
+    If *Buffer
+      ParseJSON(0, PeekS(*Buffer, MemorySize(*Buffer), #PB_UTF8))
+      FreeMemory(*Buffer)
+      Debug GetJSONString(GetJSONMember(JSONValue(0), "ip"))
+    EndIf</code></pre>
+    
+                  <h3>LiveCode</h3>
+                  <pre><code class="language-ruby">put "My public IP address is" &amp;&amp; url "https://api.ipify.org"</code></pre>
+    
+                  <h3>Objective-C</h3>
+                  <pre><code class="objectivec">NSURL *url = [NSURL URLWithString:@"https://api.ipify.org/"];
+    NSString *ipAddress = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    NSLog(@"My public IP address is: %@", ipAddress);</code></pre>
+    
+                  <h3>Arduino</h3>
+                  <pre><code class="language-clike">if (client.connect("api.ipify.org", 80)) {
+        Serial.println("connected");
+        client.println("GET / HTTP/1.0");
+        client.println("Host: api.ipify.org");
+        client.println();
+    } else {
+        Serial.println("connection failed");
+    }</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="libraries row">
+            <div class="col-xs-12">
+              <h2>Libraries</h2>
+              <div class="row">
+                <div class="col-xs-offset-1 col-xs-10">
+                  <p>
+                    If you want to use <b>ipify</b> in your favorite programming
+                    language, but want to keep your code nice and tidy, feel free to
+                    use one of our libraries below!  They'll make your life a little
+                    bit easier and more enjoyable =)
+                  </p>
+                  <p>
+                    <b>NOTE</b>: Don't see a library for your favorite programming
+                    language?  If you create one, I'll be happy to link to it below!
+                    Just <a href="mailto:r@rdegges.com">shoot me an email</a> with
+                    the details and I'll gladly link to it!
+                  </p>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <td>Library URL</td>
+                          <td>Language</td>
+                          <td>Author</td>
+                          <td>Official?</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code><a href="https://github.com/rdegges/go-ipify">https://github.com/rdegges/go-ipify</a></code></td>
+                          <td><code>Go</code></td>
+                          <td><code><a href="http://www.rdegges.com/">Randall Degges</a></code></td>
+                          <td><code>yes</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://github.com/rdegges/python-ipify">https://github.com/rdegges/python-ipify</a></code></td>
+                          <td><code>Python</code></td>
+                          <td><code><a href="http://www.rdegges.com/">Randall Degges</a></code></td>
+                          <td><code>yes</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://github.com/xtonousou/ipify.sh">https://github.com/xtonousou/ipify.sh</a></code></td>
+                          <td><code>Bash</code></td>
+                          <td><code><a href="https://xtonousou.github.io">Sotirios M. Roussis</a></code></td>
+                          <td><code>no</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://github.com/troglobit/lipify">https://github.com/troglobit/lipify</a></code></td>
+                          <td><code>C</code></td>
+                          <td><code><a href="http://troglobit.com/">Joachim Nilsson</a></code></td>
+                          <td><code>no</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://github.com/sideshowcoder/ipify-c">https://github.com/sideshowcoder/ipify-c</a></code></td>
+                          <td><code>C</code></td>
+                          <td><code><a href="http://sideshowcoder.com/">Philipp Fehre</a></code></td>
+                          <td><code>no</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://github.com/sindresorhus/ipify">https://github.com/sindresorhus/ipify</a></code></td>
+                          <td><code>Node.js</code></td>
+                          <td><code><a href="http://sindresorhus.com/">Sindre Sorhus</a></code></td>
+                          <td><code>no</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://bitbucket.org/stevenjeffries/java-ipify">https://bitbucket.org/stevenjeffries/java-ipify</a></code></td>
+                          <td><code>Java</code></td>
+                          <td><code><a href="https://bitbucket.org/stevenjeffries">Steven Jeffries</a></code></td>
+                          <td><code>no</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://github.com/vincent-peng/swift-ipify">https://github.com/vincent-peng/swift-ipify</a></code></td>
+                          <td><code>Swift</code></td>
+                          <td><code><a href="https://github.com/vincent-peng">Vincent Peng</a></code></td>
+                          <td><code>no</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://github.com/gabulyaz/elixir-ipify">https://github.com/gabulyaz/elixir-ipify</a></code></td>
+                          <td><code>Elixir</code></td>
+                          <td><code><a href="https://github.com/gabulyaz">Zoltán Gabulya</a></code></td>
+                          <td><code>no</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://github.com/benjamin-smith/php-ipify">https://github.com/benjamin-smith/php-ipify</a></code></td>
+                          <td><code>PHP</code></td>
+                          <td><code><a href="http://benjaminsmith.com/">Benjamin Smith</a></code></td>
+                          <td><code>no</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://github.com/gregce/ipify">https://github.com/gregce/ipify</a></code></td>
+                          <td><code>R</code></td>
+                          <td><code><a href="https://github.com/gregce">Greg Ceccarelli</a></code></td>
+                          <td><code>no</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://github.com/aprendexojo/ipify">https://github.com/aprendexojo/ipify</a></code></td>
+                          <td><code>Xojo</code></td>
+                          <td><code><a href="https://www.aprendexojo.com/">Javier Rodriguez </a></code></td>
+                          <td><code>no</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://github.com/Chuongv/CHVIpify">https://github.com/Chuongv/CHVIpify</a></code></td>
+                          <td><code>Objective-C</code></td>
+                          <td><code><a href="https://chuongv.github.io/">Chuong Vu</a></code></td>
+                          <td><code>no</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://github.com/davidmus/Ipify.NET">https://github.com/davidmus/Ipify.NET</a></code></td>
+                          <td><code>.NET</code></td>
+                          <td><code><a href="https://github.com/davidmus">David Musgrove</a></code></td>
+                          <td><code>no</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://github.com/mauricioabreu/crystal-ipify">https://github.com/mauricioabreu/crystal-ipify</a></code></td>
+                          <td><code>Crystal</code></td>
+                          <td><code><a href="https://github.com/mauricioabreu">Mauricio de Abreu Antunes</a></code></td>
+                          <td><code>no</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://github.com/Borkason/ipify">https://github.com/Borkason/ipify</a></code></td>
+                          <td><code>Rust</code></td>
+                          <td><code><a href="https://github.com/Borkason">Daniel Niccoli</a></code></td>
+                          <td><code>no</code></td>
+                        </tr>
+                        <tr>
+                          <td><code><a href="https://github.com/coldnew/ipify.clj">https://github.com/coldnew/ipify.clj</a></code></td>
+                          <td><code>Clojurescript</code></td>
+                          <td><code><a href="https://github.com/coldnew">Yen-Chin Lee</a></code></td>
+                          <td><code>no</code></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <footer>
+            <p>
+              Built with &#10084; by <a href="http://www.rdegges.com/"
+                title="Randall Degges">Randall Degges</a> (<a
+                href="https://twitter.com/rdegges" title="Randall Degges on
+                Twitter">@rdegges</a>). Logo by <a
+                href="http://www.samanthadegges.com/" title="Samantha
+                Degges">Samantha Degges</a> (<a
+                href="https://twitter.com/samanthadegges" title="Samantha Degges on
+                Twitter">@samanthadegges</a>).
+            </p>
+          </footer>
+        </div>
+        <script src="/static/js/bootstrap.min.js"></script>
+        <script src="/static/js/prism.js" data-manual></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+          ga('create', 'UA-11364428-26', 'ipify.org');
+          ga('send', 'pageview');
+        </script>
+        <div style="display:none;"><img src="https://www.linkedin.com/profile/view?authToken=zRgB&authType=name&id=320347190"/></div>
+      </body>
+    </html>
