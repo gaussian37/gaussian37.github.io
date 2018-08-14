@@ -5,6 +5,7 @@ yarn.lock
 Gemfile.lock
 package-lock.json
 node_modules/
+.idea/workspace.xml
 
 ### macOS ###
 *.DS_Store
@@ -35,4 +36,3 @@ Temporary Items
 
 # Directories
 **/.ipynb_checkpoints/
-*/.idea/workspace.xml
