@@ -96,14 +96,15 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/python/crawling/' or page.url == '/python/library/' or page.url == '/python/django/' or page.url == '/python/etc/'%} active {% endif %}">
+            {% if page.url == '/python/numpy/'or page.url == '/python/crawling/' or page.url == '/python/pandas/' or page.url == '/python/django/' or page.url == '/python/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('python-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     Python
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="python-dropdown">
-                    <a class="dropdown-item" href="{{ "/python/library" | prepend: site.baseurl }}">Library</a>
+                    <a class="dropdown-item" href="{{ "/python/numpy" | prepend: site.baseurl }}">Numpy</a>
+                    <a class="dropdown-item" href="{{ "/python/pandas" | prepend: site.baseurl }}">Pandas</a>
                     <a class="dropdown-item" href="{{ "/python/django" | prepend: site.baseurl }}">Django</a>
                     <a class="dropdown-item" href="{{ "/python/crawling" | prepend: site.baseurl }}">Crawling</a>
                     <div class="dropdown-divider"></div>
