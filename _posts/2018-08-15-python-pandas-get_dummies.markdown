@@ -11,6 +11,7 @@ tags: [python, pandas, get_dummies] # add tag
 # Pandas.get_dummies
 
 [code link](http://nbviewer.jupyter.org/github/gaussian37/Python/blob/master/Data%20Analysis/pandas/pandas%20-%20get_dummies.ipynb)
+
 [reference](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.get_dummies.html)
 
 Convert categorical variable into dummy/indicator variables.
@@ -32,6 +33,8 @@ Let me print the result. It's simple!
 print(s)
 ```
 
+: 
+
     0    a
     1    b
     2    c
@@ -45,6 +48,8 @@ How about `pd.get_dummies` ? This function converts the categorical variable ('a
 ```python
 print(pd.get_dummies(s))
 ```
+
+:
 
        a  b  c
     0  1  0  0
@@ -62,8 +67,7 @@ s1 = ['a', 'b', np.nan]
 pd.get_dummies(s1)
 ```
 
-
-
+:
 
 <div>
 <style scoped>
@@ -115,9 +119,7 @@ If you want to consider it, `dummy_na = True` option is necessary.
 ```python
 pd.get_dummies(s1, dummy_na=True)
 ```
-
-
-
+:
 
 <div>
 <style scoped>
@@ -175,8 +177,7 @@ df = pd.DataFrame({'A': ['a', 'b', 'a'], 'B': ['b', 'a', 'c'], 'C': [1, 2, 3]})
 df
 ```
 
-
-
+:
 
 <div>
 <style scoped>
@@ -232,9 +233,7 @@ In this case, pandas automatically new feature name with existing one and catego
 ```python
 pd.get_dummies(df)
 ```
-
-
-
+:
 
 <div>
 <style scoped>
@@ -302,9 +301,7 @@ You can also designate new feature's prefix
 ```python
 pd.get_dummies(df, prefix=['col1', 'col2'])
 ```
-
-
-
+:
 
 <div>
 <style scoped>
