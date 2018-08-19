@@ -45,6 +45,7 @@ enter the below command consecutively
 <br>   
     
 ![nbextension](../assets/img/python/etc/all-about-jupyter-notebook/nbextensions.png)
+
     - Variable Inspector
     - LaTeX env
     - Highlight
