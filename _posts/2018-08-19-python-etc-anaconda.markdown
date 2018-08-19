@@ -11,11 +11,12 @@ tags: [python, anaconda, conda] # add tag
 
 | Command 	| Description 	|
 |:---------------------------------------:	|:-----------------------------------------------:	|
-| **conda info** 	| Verify conda is installed, check version number 	|
-| **conda update conda** 	| Update conda to the current version 	|
-| **conda install PACKAGENAME** 	| Install a package included in Anaconda 	|
-| **conda update PACKAGENAME** 	| Update any installed program 	|
-| **COMMANDNAME --help conda install --help** 	| Command line help 	|
+| conda info 	| Verify conda is installed, check version number 	|
+| conda update conda 	| Update conda to the current version 	|
+| conda install PACKAGENAME 	| Install a package included in Anaconda 	|
+| conda update PACKAGENAME 	| Update any installed program 	|
+| COMMANDNAME --help conda install --help 	| Command line help 	|
+
 <br>
 2. Using Environments
 
@@ -26,6 +27,7 @@ tags: [python, anaconda, conda] # add tag
 | WINDOWS: deactivate macOS, LINUX: source deactivate 	| Deactivate the current environment 	|
 | conda env list 	| Get a list of all my environments 	|
 | conda list 	| List all packages and versions installed in active environment 	|
+
 <br>
 `conda env list --name envs_name` shows package only in envs_name.
 
@@ -39,6 +41,7 @@ tags: [python, anaconda, conda] # add tag
 | conda install --channel conda-forge boltons 	| Install a package (boltons) from a specific channel (conda-forge) 	|
 | pip install boltons 	| Install a package directly from PyPI into the current active environment using pip 	|
 | conda remove --name bio-env toolz boltons 	| Remove one or more packages (toolz, boltons) from a specific environment (bio-env) 	|
+
 <br>
 
 4. Managing multiple versions of Python
@@ -49,6 +52,7 @@ tags: [python, anaconda, conda] # add tag
 | Windows: activate py34 Linux, macOS: source activate py34 	| Switch to the new environment that has a different version of Python 	|
 | Windows: where python Linux, macOS: which -a python 	| Show the locations of all versions of Python that are currently in the path 	|
 | python --version 	| Show version information for the current active Python 	|
+
 <br>
 
 5. Specifying version numbers
