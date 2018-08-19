@@ -9,7 +9,8 @@ tags: [python, jupyter] # add tag
 
 + Useful command in jupyter notebook
     - %command : run **one** line in selected cell
-    - %%command : run **all** line in selected cell
+    - %%command : run **all** line in selected cell <br>    
+    
 
 |      command      |                             funtion                            |
 |:-----------------:|:--------------------------------------------------------------:|
@@ -19,7 +20,7 @@ tags: [python, jupyter] # add tag
 | %pdb              | enter into debugger if exception happens                       |
 | %run script.py    | run python script.py in jupyter notebook                       |
 
-
+<br><br>
 + Useful shortcut in jupyter notebook
 In command mode
     - y : to code mode
@@ -31,8 +32,8 @@ In command mode
     - d,d : delete selected cells
     - shift + m : merge selected cells or current cell with cell below if only one cell selected.
     
-In edit mode
-    - ctrl + shift + - : split cell
++ In edit mode <br>
+    - ctrl + shift + - : split cell <br>
     
     
 + jupyter notebook extension install
@@ -40,6 +41,8 @@ enter the below command consecutively
     1. pip install jupyter_contrib_nbextensions
     2. jupyter contrib nbextension install --user
     3. pip install jupyter_nbextensions_configurator
+    
+    
     
 ![nbextension](../assets/img/python/etc/all-about-jupyter-notebook/nbextensions.png)
     - Variable Inspector
