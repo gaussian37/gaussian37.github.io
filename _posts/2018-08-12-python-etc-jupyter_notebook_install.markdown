@@ -42,7 +42,7 @@ enter the below command consecutively
     2. jupyter contrib nbextension install --user
     3. pip install jupyter_nbextensions_configurator
     
-    
+<br>   
     
 ![nbextension](../assets/img/python/etc/all-about-jupyter-notebook/nbextensions.png)
     - Variable Inspector
