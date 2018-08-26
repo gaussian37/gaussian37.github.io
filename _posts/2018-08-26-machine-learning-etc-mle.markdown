@@ -7,3 +7,8 @@ categories: [machine-learning-etc]
 tags: [machine learning, mle, maximum likelihood estimation] # add tag
 ---
 
+# What is the Maximum Likelihood Estimation ?
+
++ likelihood : A probability of happening possibility of an event.
+
+$ p^{y}(1-p)^{1-y} $ 
