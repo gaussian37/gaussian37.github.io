@@ -5,7 +5,7 @@
                 <a class="nav-link" href="{{ site.baseurl }}/">ALL</a>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/machine-learning/concept/' or page.url == '/machine-learning/code/' or page.url == '/machine-learning/paper/' or page.url == '/machine-learning/etc/'%} active {% endif %}">
+            {% if page.url == '/machine-learning/bayesian/' or page.url == '/machine-learning/concept/' or page.url == '/machine-learning/code/' or page.url == '/machine-learning/paper/' or page.url == '/machine-learning/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('ml-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -16,6 +16,7 @@
                     <a class="dropdown-item" href="{{ "/machine-learning/paper" | prepend: site.baseurl }}">Paper</a>
                     <a class="dropdown-item" href="{{ "/machine-learning/code" | prepend: site.baseurl }}">Code</a>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ "/machine-learning/bayesian" | prepend: site.baseurl }}">Bayesian</a>
                     <a class="dropdown-item" href="{{ "/machine-learning/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
