@@ -15,12 +15,12 @@ Let's start with Bernoulli distribution !!
 
 ![1](../assets/img/machine-learning/etc/mle/1.PNG)
 
-![2](../assets/img/machine-learning/etc/mle/2.PNG)
+![2](../assets/img/machine-learning/etc/mle/2.png)
 
 In this notation, We calculate the probability given x and theta. <br>
 Object is finding `θ` which maximize the probability.
 
-![3](../assets/img/machine-learning/etc/mle/3.PNG)
+![3](../assets/img/machine-learning/etc/mle/3.png)
 
 In the bernoulli distribution, let me suppose that p is sigmoid.
 
@@ -33,7 +33,7 @@ Multiplying too many probabilities makes the result too much small. Therefore, w
 
 ![5](../assets/img/machine-learning/etc/mle/5.PNG), 
 
-![6](../assets/img/machine-learning/etc/mle/6.PNG)
+![6](../assets/img/machine-learning/etc/mle/6.png)
 
 ![7](../assets/img/machine-learning/etc/mle/7.PNG)
 
