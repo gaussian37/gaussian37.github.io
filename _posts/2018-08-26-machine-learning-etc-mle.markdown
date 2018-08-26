@@ -9,5 +9,41 @@ tags: [machine learning, mle, maximum likelihood estimation] # add tag
 
 + likelihood : A probability of happening possibility of an event.
 
-$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$
-$p^{y}(1-p)^{1-y}$ 
+Let's start with Bernoulli distribution !!
+
++ Bernoulli Distribution :  
+
+![1](../assets/img/machine-learning/etc/mle/1.PNG)
+
+![2](../assets/img/machine-learning/etc/mle/2.PNG)
+
+In this notation, We calculate the probability given x and theta. <br>
+Object is finding `θ` which maximize the probability.
+
+![3](../assets/img/machine-learning/etc/mle/3.PNG)
+
+In the bernoulli distribution, let me suppose that p is sigmoid.
+
+![4](../assets/img/machine-learning/etc/mle/4.PNG)
+
+And then, we can get likelihood with taking the log function.
+
+Why do we take a log function? Because earlier notation, To get the probability, we multiplied all probabilities. <br>
+Multiplying too many probabilities makes the result too much small. Therefore, we transform the multiply to add by log function. <br>
+
+![5](../assets/img/machine-learning/etc/mle/5.PNG), 
+
+![6](../assets/img/machine-learning/etc/mle/6.PNG)
+
+![7](../assets/img/machine-learning/etc/mle/7.PNG)
+
+Wow, It's same with `cost function of logistic regression`.
+
+![8](../assets/img/machine-learning/etc/mle/8.PNG)
+
+Surely, partial derivation of MLE is same with partial derivation of cost function.
+
+### Remember! <br>
+
++ MLE and Cost function have same result in logistic regression !!
+    - Therefore, we can use cost function as maximize the parameter θ.
