@@ -34,7 +34,7 @@ Observation of the people
 | Sunny | Warm |  High  | Strong |  Warm |   Same  |     Yes    |
 | Rainy | Cold |  High  | Strong |  Warm |  Change |     No     |
 | Sunny | Warm |  High  | Strong |  Cool |  Change |     Yes    |
-
+<br>
 
 ### Function Approximation
 
