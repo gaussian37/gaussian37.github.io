@@ -151,4 +151,27 @@ why does this simple convnet work so well, compared to a densely connected model
 
 ### 5.1.1 The convolution operation
 
+The fundamental difference between a densely connected layer and a convolution layer is this:
+`Dense` layers learn global patterns in their input feature space (for example, for a MNIST digit, patterns involving all pixels), whereas `convolution` layers learn local patterns
+: in the case of images, patterns found in small 2D windows of the inputs. In the previous example, these windows were all 3 × 3.
 
+
++ Images can be broken into local patterns such as edges, textures, and so on.
+
+![5-1](../assets/img/deep-learning/chollet/05-1/05fig01.jpg)
+
+
++ This key characteristic gives convnets two interesting properties:
+    - The patterns they learn are translation invariant. After learning a certain pattern in the lower-right corner of a picture, a convnet can recognize it anywhere:
+      for example, in the upper-left corner. A densely connected network would have to learn the pattern anew if it appeared at a new location.
+      This makes convnets data efficient when processing images (because the visual world is fundamentally translation invariant):
+      they need fewer training samples to learn representations that have generalization power.
+      
+    - They can learn spatial hierarchies of patterns (see, below). A first convolution layer will learn small local patterns such as edges,
+      a second convolution layer will learn larger patterns made of the features of the first layers, and so on. 
+      This allows convnets to efficiently learn increasingly complex and abstract visual concepts (because the visual world is fundamentally spatially hierarchical).     
+
+
++ The visual world forms a spatial hierarchy of visual modules: hyperlocal edges combine into local objects such as eyes or ears, which combine into high-level concepts such as “cat.”  
+  
+![5-2](../assets/img/deep-learning/chollet/05-1/05fig02.jpg)

@@ -81,8 +81,8 @@
         <entry file="file://$PROJECT_DIR$/_posts/2018-09-06-deep-learning-chollet-5-1.markdown">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="-116">
-                <caret line="115" lean-forward="true" selection-start-line="115" selection-end-line="115" />
+              <first_editor relative-caret-position="2854">
+                <caret line="176" column="60" selection-start-line="176" selection-start-column="60" selection-end-line="176" selection-end-column="60" />
               </first_editor>
               <second_editor />
             </state>
@@ -203,6 +203,15 @@
             <path>
               <item name="blog" type="b2602c69:ProjectViewProjectNode" />
               <item name="blog" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+              <item name="deep-learning" type="462c0819:PsiDirectoryNode" />
+              <item name="chollet" type="462c0819:PsiDirectoryNode" />
+              <item name="05-1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blog" type="462c0819:PsiDirectoryNode" />
               <item name="computer-vision" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -253,11 +262,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\GitHub\blog\assets\img\deep-learning\chollet\05-1" />
       <recent name="D:\GitHub\blog\assets\img\deep-learning\chollet" />
       <recent name="C:\Users\gauss\Documents\GitHub\blog\reinforcement-learning\paper" />
       <recent name="C:\Users\gauss\Documents\GitHub\blog\reinforcement-learning\etc" />
       <recent name="C:\Users\gauss\Documents\GitHub\blog\reinforcement-learning\concept" />
-      <recent name="C:\Users\gauss\Documents\GitHub\blog\reinforcement-learning\code" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -606,8 +615,8 @@
     <entry file="file://$PROJECT_DIR$/_posts/2018-09-06-deep-learning-chollet-5-1.markdown">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="-116">
-            <caret line="115" lean-forward="true" selection-start-line="115" selection-end-line="115" />
+          <first_editor relative-caret-position="2854">
+            <caret line="176" column="60" selection-start-line="176" selection-start-column="60" selection-end-line="176" selection-end-column="60" />
           </first_editor>
           <second_editor />
         </state>
