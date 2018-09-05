@@ -70,6 +70,7 @@ These classifiers process vectors, which are 1D, whereas the current output is a
 
 
 + Adding a classifier on top of the convnet
+
 ```python
 model.add(layers.Flatten())
 model.add(layers.Dense(64, activation='relu'))
@@ -112,6 +113,7 @@ As you can see, the `(3, 3, 64)` outputs are flattened into vectors of shape `(5
 Now, let’s train the convnet on the MNIST digits. 
 
 + Training the convnet on MNIST images
+
 ```python
 from keras.datasets import mnist
 from keras.utils import to_categorical
