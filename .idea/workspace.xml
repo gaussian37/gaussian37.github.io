@@ -102,7 +102,7 @@
       <find />
       <find>font</find>
       <find>color</find>
-      <find />
+      <find>chollet</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
