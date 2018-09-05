@@ -56,23 +56,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="chollet.jpg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/img/deep-learning/chollet/chollet.jpg">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
       <file leaf-file-name="categories.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_includes/categories.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="18" column="119" selection-start-line="18" selection-start-column="119" selection-end-line="18" selection-end-column="119" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="2018-08-26-machine-learning-etc-mle.markdown" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_posts/2018-08-26-machine-learning-etc-mle.markdown">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="1056">
-                <caret line="48" column="47" selection-start-line="48" selection-start-column="47" selection-end-line="48" selection-end-column="47" />
-              </first_editor>
-              <second_editor />
+            <state relative-caret-position="287">
+              <caret line="23" column="53" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -81,7 +74,7 @@
         <entry file="file://$PROJECT_DIR$/_posts/2018-08-28-machine-learning-concept-decision-tree.markdown">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="250">
+              <first_editor relative-caret-position="660">
                 <caret line="30" column="47" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
               </first_editor>
               <second_editor />
@@ -93,19 +86,10 @@
         <entry file="file://$PROJECT_DIR$/_posts/2018-09-06-deep-learning-chollet-5-1.markdown">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="660">
-                <caret line="30" column="23" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
+              <first_editor relative-caret-position="44">
+                <caret line="2" column="45" selection-start-line="2" selection-start-column="45" selection-end-line="2" selection-end-column="45" />
               </first_editor>
               <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reinforcement-learning/paper/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="4" column="64" selection-start-line="4" selection-start-column="64" selection-end-line="4" selection-end-column="64" />
             </state>
           </provider>
         </entry>
@@ -212,14 +196,6 @@
               <item name="assets" type="462c0819:PsiDirectoryNode" />
               <item name="img" type="462c0819:PsiDirectoryNode" />
               <item name="deep-learning" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blog" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="img" type="462c0819:PsiDirectoryNode" />
-              <item name="deep-learning" type="462c0819:PsiDirectoryNode" />
-              <item name="chollet" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="blog" type="b2602c69:ProjectViewProjectNode" />
@@ -343,26 +319,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/img/home-page.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/img/how-to-start.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/img/i-rest.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/img/js-1.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/img/kjsandkjs.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -436,13 +392,6 @@
             <caret line="245" selection-start-line="245" selection-end-line="245" />
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_includes/categories.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="18" column="119" selection-start-line="18" selection-start-column="119" selection-end-line="18" selection-end-column="119" />
         </state>
       </provider>
     </entry>
@@ -603,6 +552,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/python/library/index.html" />
+    <entry file="file://$PROJECT_DIR$/_posts/2018-08-26-machine-learning-etc-mle.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="1056">
+            <caret line="48" column="47" selection-start-line="48" selection-start-column="47" selection-end-line="48" selection-end-column="47" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deep-learning/chollet/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_includes/categories.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="23" column="53" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/reinforcement-learning/paper/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
@@ -617,6 +587,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/python/library/index.html" />
+    <entry file="file://$PROJECT_DIR$/assets/img/deep-learning/chollet/chollet.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2018-08-28-machine-learning-concept-decision-tree.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="660">
+            <caret line="30" column="47" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2018-09-06-deep-learning-chollet-5-1.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="44">
+            <caret line="2" column="45" selection-start-line="2" selection-start-column="45" selection-end-line="2" selection-end-column="45" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
