@@ -175,3 +175,23 @@ The fundamental difference between a densely connected layer and a convolution l
 + The visual world forms a spatial hierarchy of visual modules: hyperlocal edges combine into local objects such as eyes or ears, which combine into high-level concepts such as “cat.”  
   
 ![5-2](../assets/img/deep-learning/chollet/05-1/05fig02.jpg)
+
+<br>
+
+Convolutions operate over 3D tensors, called **feature maps**, with two spatial axes (**height** and **width**) as well as a **depth** axis (also called the channels axis). 
+For an RGB image, the dimension of the depth axis is 3, because the image has three color channels: red, green, and blue :
+red, green, and blue. For a black-and-white picture, like the MNIST digits, the depth is 1 (levels of gray).
+The convolution operation extracts patches from its input feature map and applies the same transformation to all of these patches, producing an **output feature map.**
+This output feature map is still a 3D tensor: it has a width and a height.
+Its depth can be arbitrary, because the output depth is a parameter of the layer, and the different channels in that depth axis no longer stand for specific colors as in RGB input;
+rather, they stand for `filters`. Filters encode specific aspects of the input data: at a high level, a single filter could encode the concept “presence of a face in the input,” for instance.
+
+<br>
+
+In the MNIST example, the first convolution layer takes a feature map of size `(28, 28, 1)` and outputs a feature map of size `(26, 26, 32)`:
+it computes 32 filters over its input. Each of these 32 output channels contains a 26 × 26 grid of values, which is a response map of the filter over the input, indicating the response of that filter pattern at different locations in the input. (refer below)
+That is what the term `feature map` means: every dimension in the depth axis is a feature (or filter), and the 2D tensor output[:, :, n] is the 2D spatial **map** of the response of this filter over the input.
+
++ The concept of a response map: a 2D map of the presence of a pattern at different locations in an input
+
+![5-3](../assets/img/deep-learning/chollet/05-1/05fig03.jpg)
