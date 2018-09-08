@@ -195,3 +195,22 @@ That is what the term `feature map` means: every dimension in the depth axis is 
 + The concept of a response map: a 2D map of the presence of a pattern at different locations in an input
 
 ![5-3](../assets/img/deep-learning/chollet/05-1/05fig03.jpg)
+
++ Convolutions are defined by two key parameters:
+    - **Size of the patches extracted from the inputs** — These are typically 3 × 3 or 5 × 5. In the example, they were 3 × 3, which is a common choice.
+    - **Depth of the output feature map— The number of filters computed by the convolution.** The example started with a depth of 32 and ended with a depth of 64.
+    
+
+In Keras `Conv2D` layers, these parameters are the first arguments passed to the layer: `Conv2D(output_depth, (window_height, window_width))`.
+
+A convolution works by **sliding** these windows of size 3 × 3 or 5 × 5 over the 3D input feature map, stopping at every possible location, and extracting the 3D patch of surrounding features (shape `(window_height, window_width, input_depth)`).
+Each such 3D patch is then transformed (via a tensor product with the same learned weight matrix, called the **convolution kernel**) into a 1D vector of shape (output_depth,).
+Every spatial location in the output feature map corresponds to the same location in the input feature map (for example, the lower-right corner of the output contains information about the lower-right corner of the input).
+For instance, with 3 × 3 windows, the vector output`[i, j, :]` comes from the 3D patch input`[i-1:i+1, j-1:j+1, :]`. The full process is detailed below.
+
++ How convolution works
+
+![5-4](../assets/img/deep-learning/chollet/05-1/05fig04.jpg)
+
+ 
+ 
