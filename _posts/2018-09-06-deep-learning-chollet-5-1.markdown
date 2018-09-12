@@ -212,5 +212,27 @@ For instance, with 3 × 3 windows, the vector output`[i, j, :]` comes from the 3
 
 ![5-4](../assets/img/deep-learning/chollet/05-1/05fig04.jpg)
 
- 
- 
+Note that the output width and height may differ from the input width and height. They may differ for two reasons:
+
+- Border effects, which can be countered by padding the input feature map
+- The use of **strides**, which I’ll define in a second
+
+Let’s take a deeper look at these notions
+
+**Understanding border effects and padding**
+
+Consider a 5 × 5 feature map (25 tiles total). There are only 9 tiles around which you can center a 3 × 3 window, forming a 3 × 3 grid.
+Hence, the output feature map will be 3 × 3.  It shrinks a little: by exactly two tiles alongside each dimension, in this case.v
+You can see this border effect in action in the earlier example: you start with 28 × 28 inputs, which become 26 × 26 after the first convolution layer.
+
++ Valid locations of 3 × 3 patches in a 5 × 5 input feature map
+
+![5-5](../assets/img/deep-learning/chollet/05-1/05fig05.jpg)
+
+If you want to get an output feature map with the same spatial dimensions as the input, you can use **padding**.
+Padding consists of adding an appropriate number of rows and columns on each side of the input feature map so as to make it possible to fit center convolution windows around every input tile. 
+For a 3 × 3 window, you add one column on the right, one column on the left, one row at the top, and one row at the bottom. For a 5 × 5 window, you add two rows.
+
++ Padding a 5 × 5 input in order to be able to extract 25 3 × 3 patches
+
+![5-6](../assets/img/deep-learning/chollet/05-1/05fig06.jpg)
