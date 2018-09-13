@@ -236,3 +236,76 @@ For a 3 × 3 window, you add one column on the right, one column on the left, on
 + Padding a 5 × 5 input in order to be able to extract 25 3 × 3 patches
 
 ![5-6](../assets/img/deep-learning/chollet/05-1/05fig06.jpg)
+
+In `Conv2D` layers, padding is configurable via the padding argument, which takes two values:
++ valid : which means no padding (only valid window locations will be used)
++ same : which means “pad in such a way as to have an output with the same width and height as the input.
+
+The `padding` argument defaults to `"valid"`.
+
+**Understanding convolution strides**
+
+The other factor that can influence output size is the notion of **strides**. The description of convolution so far has assumed that the center tiles of the convolution windows are all contiguous. 
+But the distance between two successive windows is a parameter of the convolution, called its **stride**, which defaults to 1.
+It’s possible to have **strided convolutions**: convolutions with a stride higher than 1.
+you can see the patches extracted by a 3 × 3 convolution with stride 2 over a 5 × 5 input (without padding).
+
++ 3 × 3 convolution patches with 2 × 2 strides
+
+![5-7](../assets/img/deep-learning/chollet/05-1/05fig07.jpg)
+
+Using stride 2 means the width and height of the feature map are downsampled by a factor of 2 (in addition to any changes induced by border effects). 
+Strided convolutions are rarely used in practice, although they can come in handy for some types of models; it’s good to be familiar with the concept.
+
+To downsample feature maps, instead of strides, we tend to use the max-pooling operation, which you saw in action in the first convnet example. Let’s look at it in more depth.
+
+
+### 5.1.2 The max-pooling operation
+
+In the convnet example, you may have noticed that the size of the feature maps is halved after every `MaxPooling2D` layer.
+For instance, before the first `MaxPooling2D` layers, the feature map is 26 × 26, but the max-pooling operation halves it to 13 × 13.
+That’s the role of max pooling: to aggressively downsample feature maps, much like strided convolutions.
+
+Max pooling consists of extracting windows from the input feature maps and outputting the max value of each channel.
+It’s conceptually similar to convolution, except that instead of transforming local patches via a learned linear transformation (the convolution kernel), they’re transformed via a hardcoded `max` tensor operation.
+A big difference from convolution is that **max pooling is usually done with 2 × 2 windows and stride 2**, in order to downsample the feature maps by a factor of 2.
+On the other hand, convolution is typically done with 3 × 3 windows and no stride (stride 1). 
+
+Why downsample feature maps this way? Why not remove the max-pooling layers and keep fairly large feature maps all the way up? Let’s look at this option. The convolutional base of the model would then look like this:
+
+```python
+
+model_no_max_pool = models.Sequential()
+model_no_max_pool.add(layers.Conv2D(32, (3, 3), activation='relu',
+                      input_shape=(28, 28, 1)))
+model_no_max_pool.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model_no_max_pool.add(layers.Conv2D(64, (3, 3), activation='relu'))
+
+```
+
+<br>
+
+Here’s a summary of the model:
+
+```python
+
+>>> model_no_max_pool.summary()
+
+Layer (type)                     Output Shape          Param #
+================================================================
+conv2d_4 (Conv2D)                (None, 26, 26, 32)    320
+________________________________________________________________
+conv2d_5 (Conv2D)                (None, 24, 24, 64)    18496
+________________________________________________________________
+conv2d_6 (Conv2D)                (None, 22, 22, 64)    36928
+================================================================
+Total params: 55,744
+Trainable params: 55,744
+Non-trainable params: 0
+
+```
+
+<br>
+
+What’s wrong with this setup? Two things:
+
