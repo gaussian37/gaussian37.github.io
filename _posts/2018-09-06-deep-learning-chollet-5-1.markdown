@@ -15,6 +15,8 @@ This chapter (Deep learning for computer vision) covers
 - Fine-tuning a pretrained convnet
 - Visualizing what convnets learn and how they make classification decisions
 
+<br>
+
 ## 5.1 Introduction to convnets
 
 The following lines of code show you what a basic convnet looks like. <br> 
@@ -308,4 +310,16 @@ Non-trainable params: 0
 <br>
 
 What’s wrong with this setup? Two things:
++ It isn’t conducive to learning a spatial hierarchy of features. The 3 × 3 windows in the third layer will only contain information coming from 7 × 7 windows in the initial input. The high-level patterns learned by the convnet will still be very small with regard to the initial input, which may not be enough to learn to classify digits (try recognizing a digit by only looking at it through windows that are 7 × 7 pixels!). We need the features from the last convolution layer to contain information about the totality of the input.
++ The final feature map has 22 × 22 × 64 = 30,976 total coefficients per sample. This is huge. If you were to flatten it to stick a `Dense` layer of size 512 on top, that layer would have 15.8 million parameters. This is far too large for such a small model and would result in intense overfitting.
 
+In short, **the reason to use downsampling** is 
++ to reduce the number of feature-map coefficients to process
++ to induce spatial-filter hierarchies by making successive convolution layers look at increasingly large windows (in terms of the fraction of the original input they cover).
+
+Note that max pooling isn’t the only way you can achieve such downsampling. As you already know, you can also use strides in the prior convolution layer. And you can use average pooling instead of max pooling, where each local input patch is transformed by taking the average value of each channel over the patch, rather than the max.
+But **max pooling tends to work better** than these alternative solutions. 
+In a nutshell, the reason is that features tend to encode the spatial presence of some pattern or concept over the different tiles of the feature map (hence, the term **feature map**), and it’s more informative to look at the maximal presence of different features than at their **average presence**.
+So the most reasonable subsampling strategy is to first produce dense maps of features (via unstrided convolutions) and then look at the maximal activation of the features over small patches, rather than looking at sparser windows of the inputs (via strided convolutions) or averaging input patches, which could cause you to miss or dilute feature-presence information.
+
+At this point, you should understand the basics of convnets—feature maps, convolution, and max pooling—and you know how to build a small convnet to solve a toy problem such as MNIST digits classification. Now let’s move on to more useful, practical applications.

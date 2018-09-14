@@ -6,7 +6,7 @@ img: /My/kjsandkjs3.jpg # Add image post (optional)
 tags: [Introduction] # add tag
 ---
 
-I want to become a professional **Data Scientist**.
+**Data Scientist**.
 
 # All about Blog Author
 
@@ -25,15 +25,15 @@ I want to become a professional **Data Scientist**.
     - Computer Vision
     - Natural Language Processing
     - Reinforcement Learning    
-    
-+ On Study :    
-    - [cs224n](http://web.stanford.edu/class/cs224n/index.html) : [modulab](https://modu.event-us.kr/p/2441)        
+    - Generative Adversarial Networks
     
 + Certificates :    
     
-+ On Developing :
+
 
 + Developed :
+
+
 
 + Dream : 
     - Buying [Tesla Model S](https://www.tesla.com/models)
