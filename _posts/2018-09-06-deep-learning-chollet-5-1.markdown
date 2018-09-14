@@ -150,6 +150,7 @@ Let’s evaluate the model on the test data:
 
 why does this simple convnet work so well, compared to a densely connected model? To answer this, let’s dive into what the `Conv2D` and `MaxPooling2D` layers do.
 
+<br>
 
 ### 5.1.1 The convolution operation
 
