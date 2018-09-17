@@ -26,6 +26,7 @@ tags: [Introduction] # add tag
     - Machine/Deep Learning      
     - Computer Vision
     - Natural Language Processing
+    - Reinforcement Learning
     
 + Developed :
 

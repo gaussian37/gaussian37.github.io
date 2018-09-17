@@ -2,7 +2,7 @@
 layout: post
 title: Good Code Style Tip
 date: 2018-09-17 20:58:00
-img: python/etc/good-code/good-code.png
+img: python/etc/good-code/good-code.jpg
 categories: [python-etc] 
 tags: [python, good code] # add tag
 ---
