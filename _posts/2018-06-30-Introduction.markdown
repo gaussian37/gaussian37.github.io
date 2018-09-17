@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Thanks for coming! I am KIM JINSOL(gaussian37)
+title: CV of KIM JINSOL
 date: 9999-12-30 17:00:00 +0300
 img: /My/kjsandkjs3.jpg # Add image post (optional)
 tags: [Introduction] # add tag
@@ -8,29 +8,25 @@ tags: [Introduction] # add tag
 
 **Data Scientist**.
 
-# All about Blog Author
-
-+ Name : KIM JIN-SOL
++ Name : KIM JINSOL
 
 + Online ID : gaussian37
 
 + Nationality : [South.Korea](https://en.wikipedia.org/wiki/South_Korea)
 
-+ Biography :
++ Education :
     - [Inha University](http://www.inha.ac.kr/mbshome/mbs/eng/index.do). B.S. in Computer Engineer
-    - [Hyundai Motors](https://www.hyundai.com/worldwide/en)('16 ~ )    
+           
 
++ Work Experience : 
+    - [Hyundai Motors](https://www.hyundai.com/worldwide/en) Researcher (Feb. 2016 ~ )
+        
+    
 + ROI :
-    - Automotive    
+    - Machine/Deep Learning      
     - Computer Vision
     - Natural Language Processing
-    - Reinforcement Learning    
-    - Generative Adversarial Networks
     
-+ Certificates :    
-    
-
-
 + Developed :
 
 
