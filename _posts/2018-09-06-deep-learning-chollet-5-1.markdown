@@ -3,7 +3,7 @@ layout: post
 title: 5-1. Deep learning for computer vision, Introduction to convnets
 date: 2018-09-06 02:40:00
 img: deep-learning/chollet/chollet.png
-categories: [deep-learning-chollet] 
+categories: [dl-chollet] 
 tags: [deep learning, chollet, convnet] # add tag
 ---
 

@@ -3,7 +3,7 @@ layout: post
 title: About PCA(Principal Component Analysis)  
 date: 2018-09-15 03:49:00
 img: machine-learning/concept/about-pca/pca.png
-categories: [machine-learning-concept] 
+categories: [ml-concept] 
 tags: [machine learning, pca] # add tag
 ---
 
