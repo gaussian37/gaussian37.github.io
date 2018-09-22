@@ -5,7 +5,7 @@
                 <a class="nav-link" href="{{ site.baseurl }}/">ALL</a>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/ml/mlkaist/' or page.url == '/ml/concept/' or page.url == '/ml/code/' or page.url == '/ml/paper/' or page.url == '/ml/etc/'%} active {% endif %}">
+            {% if page.url == '/ml/la/' or page.url == '/ml/mlkaist/' or page.url == '/ml/concept/' or page.url == '/ml/code/' or page.url == '/ml/paper/' or page.url == '/ml/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('ml-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -16,6 +16,7 @@
                     <a class="dropdown-item" href="{{ "/ml/paper" | prepend: site.baseurl }}">Paper</a>
                     <a class="dropdown-item" href="{{ "/ml/code" | prepend: site.baseurl }}">Code</a>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ "/ml/la" | prepend: site.baseurl }}">Linear Algebra</a>
                     <a class="dropdown-item" href="{{ "/ml/mlkaist" | prepend: site.baseurl }}">ML KAIST</a>
                     <a class="dropdown-item" href="{{ "/ml/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
