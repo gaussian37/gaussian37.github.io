@@ -7,6 +7,18 @@ categories: [ml-la]
 tags: [Linear algebra] # add tag
 ---
 
+## Inner product
+
 ![inner product](../assets/img/ml/la/Finding the size of a vector,angle,projection/inner product.png)
+
+## Cosine & dot product
+
+![cosine](../assets/img/ml/la/Finding the size of a vector,angle,projection/cosine.png)
+
+## Projection
+
+![projection](../assets/img/ml/la/Finding the size of a vector,angle,projection/projection.png)
+
+
  
  
