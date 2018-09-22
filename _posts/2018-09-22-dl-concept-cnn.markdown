@@ -39,14 +39,16 @@ Finally, we will produce a two-dimensional activation map that gives the respons
   <source src="../assets/img/dl/concept/what-is-cnn/Convolution-Operation.mp4" type="video/mp4">
 </video>
 
+<br>
+
 # Challenges with Convolution
 
-## 1. Shrinking output
+### 1. Shrinking output
 
 One of the big challenges with convolving is that our image will continuously shrink if we perform convolutional operations in multiple layers. 
 Let’s say if we have 100 hidden layers in our deep neural network and we perform convolution operation in every layer than our image size will shrink a little bit after each convolutional layer.
 
-## 2. Data lost from the image corners
+### 2. Data lost from the image corners
 
 The second downside is that the pixels from the corner of the image will be used in few outputs only whereas the middle region pixels contribute more so we lose data from the corners of our original image. 
 For example, the upper left corner pixel is involved in only one of the output but middle pixel contributed in at least 9 outputs.
@@ -78,6 +80,8 @@ To detect the features in RGB images we use filters with 3 dimensions where the 
   <source src="../assets/img/dl/concept/what-is-cnn/Convolution-RGB-Image.mp4" type="video/mp4">
 </video>
 
+<br>
+
 # Single Layer of Convolutional Network
 
 In one single layer of a convolutional network, we detect multiple features by convolving our image with different filters.
@@ -89,6 +93,8 @@ The third dimension of the final output will be equal to the number of filters u
 <video width="640" height="480" controls autoplay>
   <source src="../assets/img/dl/concept/what-is-cnn/Single-Convolution-Layer.mp4" type="video/mp4">
 </video>
+
+<br>
 
 # Dimensions of Convolutional Network
 
@@ -117,6 +123,8 @@ We will take the maximum value from each block and capture it in our new matrix.
   <source src="../assets/img/dl/concept/what-is-cnn/Max-Pooling.mp4" type="video/mp4">
 </video>
 
+<br>
+
 ## Average Pooling:
 
 In average pooling, we take the average of each of the blocks instead of the maximum value for each of the four squares.
@@ -124,6 +132,8 @@ In average pooling, we take the average of each of the blocks instead of the max
 <video width="640" height="480" controls autoplay>
   <source src="../assets/img/dl/concept/what-is-cnn/Avg-Pooling.mp4" type="video/mp4">
 </video>
+
+<br>
 
 # The Architecture of Convolutional Neural Network
 
@@ -138,3 +148,8 @@ Finally, we will pass it through two fully connected layers to convert our image
 ![architecture](../assets/img/dl/concept/what-is-cnn/Image-Architecture-of-Convolutional-Neural-Network.png)
 
 ### Thank you for reading!!
+
+Reference : 
+
+1. https://en.wikipedia.org/wiki/Convolution <br>
+2. Convolutional Neural Networks by Andrew Ng. (coursera.org)
