@@ -2,7 +2,7 @@
 layout: post
 title: About PCA(Principal Component Analysis)  
 date: 2018-09-15 03:49:00
-img: machine-learning/concept/about-pca/pca.png
+img: ml/concept/about-pca/pca.png
 categories: [ml-concept] 
 tags: [machine learning, pca] # add tag
 ---
@@ -16,7 +16,7 @@ but it will also allow us to **speed up our learning** algorithms.
 
 let's start by talking about what is **dimensionality reduction**.
 
-![1](../assets/img/machine-learning/concept/about-pca/data-compression.png)
+![1](../assets/img/ml/concept/about-pca/data-compression.png)
 
  
  

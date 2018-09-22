@@ -2,7 +2,7 @@
 layout: post
 title: 5-1. Deep learning for computer vision, Introduction to convnets
 date: 2018-09-06 02:40:00
-img: deep-learning/chollet/chollet.png
+img: dl/chollet/chollet.png
 categories: [dl-chollet] 
 tags: [deep learning, chollet, convnet] # add tag
 ---
@@ -161,7 +161,7 @@ The fundamental difference between a densely connected layer and a convolution l
 
 + Images can be broken into local patterns such as edges, textures, and so on.
 
-![5-1](../assets/img/deep-learning/chollet/05-1/05fig01.jpg)
+![5-1](../assets/img/dl/chollet/05-1/05fig01.jpg)
 
 
 + This key characteristic gives convnets two interesting properties:
@@ -177,7 +177,7 @@ The fundamental difference between a densely connected layer and a convolution l
 
 + The visual world forms a spatial hierarchy of visual modules: hyperlocal edges combine into local objects such as eyes or ears, which combine into high-level concepts such as “cat.”  
   
-![5-2](../assets/img/deep-learning/chollet/05-1/05fig02.jpg)
+![5-2](../assets/img/dl/chollet/05-1/05fig02.jpg)
 
 <br>
 
@@ -197,7 +197,7 @@ That is what the term `feature map` means: every dimension in the depth axis is 
 
 + The concept of a response map: a 2D map of the presence of a pattern at different locations in an input
 
-![5-3](../assets/img/deep-learning/chollet/05-1/05fig03.jpg)
+![5-3](../assets/img/dl/chollet/05-1/05fig03.jpg)
 
 + Convolutions are defined by two key parameters:
     - **Size of the patches extracted from the inputs** — These are typically 3 × 3 or 5 × 5. In the example, they were 3 × 3, which is a common choice.
@@ -213,7 +213,7 @@ For instance, with 3 × 3 windows, the vector output`[i, j, :]` comes from the 3
 
 + How convolution works
 
-![5-4](../assets/img/deep-learning/chollet/05-1/05fig04.jpg)
+![5-4](../assets/img/dl/chollet/05-1/05fig04.jpg)
 
 Note that the output width and height may differ from the input width and height. They may differ for two reasons:
 
@@ -230,7 +230,7 @@ You can see this border effect in action in the earlier example: you start with 
 
 + Valid locations of 3 × 3 patches in a 5 × 5 input feature map
 
-![5-5](../assets/img/deep-learning/chollet/05-1/05fig05.jpg)
+![5-5](../assets/img/dl/chollet/05-1/05fig05.jpg)
 
 If you want to get an output feature map with the same spatial dimensions as the input, you can use **padding**.
 Padding consists of adding an appropriate number of rows and columns on each side of the input feature map so as to make it possible to fit center convolution windows around every input tile. 
@@ -238,7 +238,7 @@ For a 3 × 3 window, you add one column on the right, one column on the left, on
 
 + Padding a 5 × 5 input in order to be able to extract 25 3 × 3 patches
 
-![5-6](../assets/img/deep-learning/chollet/05-1/05fig06.jpg)
+![5-6](../assets/img/dl/chollet/05-1/05fig06.jpg)
 
 In `Conv2D` layers, padding is configurable via the padding argument, which takes two values:
 + valid : which means no padding (only valid window locations will be used)
@@ -255,7 +255,7 @@ you can see the patches extracted by a 3 × 3 convolution with stride 2 over a 5
 
 + 3 × 3 convolution patches with 2 × 2 strides
 
-![5-7](../assets/img/deep-learning/chollet/05-1/05fig07.jpg)
+![5-7](../assets/img/dl/chollet/05-1/05fig07.jpg)
 
 Using stride 2 means the width and height of the feature map are downsampled by a factor of 2 (in addition to any changes induced by border effects). 
 Strided convolutions are rarely used in practice, although they can come in handy for some types of models; it’s good to be familiar with the concept.

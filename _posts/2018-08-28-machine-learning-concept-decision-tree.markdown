@@ -2,7 +2,7 @@
 layout: post
 title: About Decision Tree  
 date: 2018-08-28 22:10:00
-img: machine-learning/concept/about-decision-tree/decision-tree.png
+img: ml/concept/about-decision-tree/decision-tree.png
 categories: [ml-concept] 
 tags: [machine learning, decision tree] # add tag
 ---
@@ -62,7 +62,7 @@ Machine learning is relative to applying function approximation well.
         
 ### Graphical Representation of Function Approximation
 
-![1](../assets/img/machine-learning/concept/about-decision-tree/graphic.png)
+![1](../assets/img/ml/concept/about-decision-tree/graphic.png)
 
 - x1 : <Sunny, Warm, Normal, Strong, Warm, Same>, h1 : <Sunny, ?, ?, ?, Warm, ?> <br>
 - x2 : <Sunny, Warm, Normal, Light, Warm, Same>, h2 : <Sunny, ?, ?, ?, Warm, Same> <br>

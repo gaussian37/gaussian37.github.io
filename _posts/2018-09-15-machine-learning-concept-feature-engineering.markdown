@@ -40,13 +40,13 @@ I will talk about the shadow color subject below.
     - login count, sales rate, searched word, the number of friends
     - [Log transformation practice](https://nbviewer.jupyter.org/github/gaussian37/Machine-Learning/blob/master/Feature%20Engineering/Log%20transformation%20for%20performance%20tuning.ipynb)
 
-      ![longtail](../assets/img/machine-learning/concept/feature-engineering/longtail.PNG)    
+      ![longtail](../assets/img/ml/concept/feature-engineering/longtail.PNG)    
         
 + Normal distribution is suitable for linear model.
     - If data have Poisson distribution, make them to fit the linear model. Then, data will fit to normal distribution.
      (Poission → Normal dist)       
     
-      ![linear-gaussian](../assets/img/machine-learning/concept/feature-engineering/linear-gaussian.PNG)
+      ![linear-gaussian](../assets/img/ml/concept/feature-engineering/linear-gaussian.PNG)
       
 ### Dimension reduction
 + is used when existing feature space is much large.
