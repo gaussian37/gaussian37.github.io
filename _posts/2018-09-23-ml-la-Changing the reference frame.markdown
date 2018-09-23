@@ -17,5 +17,7 @@ What does it mean for a vector b3 to be linearly independent to the vectors b1, 
 + b3 does not lie in the plane spanned by b1 and b2
 + b3 is not a1xb1 + b2xb2 for any a1 or a2.
 
+
 + Changing basis means Changing the space.
+
 ![basis](../assets/img/ml/la/Change the reference frame/basis.PNG)
