@@ -16,7 +16,10 @@ tags: [Introduction] # add tag
 
 + Education :
     - [Inha University](http://www.inha.ac.kr/mbshome/mbs/eng/index.do). B.S. in Computer Engineer
-           
+    - Coursera
+        - Mathematics for Machine Learning(Linear Algebra, Multivariable Calculaus, PCA)
+        - Machine Learning
+        - Deep Learning           
 
 + Work Experience : 
     - [Hyundai Motors](https://www.hyundai.com/worldwide/en) Researcher (Feb. 2016 ~ )
