@@ -7,6 +7,18 @@ categories: [python-etc]
 tags: [python, anaconda, conda] # add tag
 ---
 
+### Real necessary command for conda
+
++ conda create --name(-n) **test** python=3.6
++ conda info --envs
++ activate, deactivate
++ conda update conda
++ conda list
++ pip install -ignore-installed tensorflow
++ pip uninstall tensorflow
++ conda remove -name(-n) test -all
++ conda clean -all(-a)
+
 ### 1.Conda Basic
 
 | Command 	| Description 	|
