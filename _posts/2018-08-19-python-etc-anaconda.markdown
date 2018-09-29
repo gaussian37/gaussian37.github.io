@@ -42,7 +42,8 @@ tags: [python, anaconda, conda] # add tag
 | conda list 	| List all packages and versions installed in active environment 	|
 
 <br>
-`conda env list --name envs_name` shows package only in envs_name.
+
+`conda list -n myenv` shows package only in **myenv**.
 
 ### 3.Installing and updating packages
 
