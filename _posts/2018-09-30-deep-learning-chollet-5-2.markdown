@@ -393,6 +393,7 @@ history = model.fit_generator(
 It’s good practice to always save your models after training.
 
 + Saving the model
+
 ```python
 model.save('cats_and_dogs_small_1.h5')
 ```
@@ -428,9 +429,11 @@ plt.show()
 ```
 
 + Training and validation accuracy
+
 ![5.9](../assets/img/dl/chollet/05-2/05fig09.jpg)
 
 +  Training and validation loss
+
 ![5.10](../assets/img/dl/chollet/05-2/05fig10.jpg)
 
 These plots are characteristic of overfitting. The training accuracy increases linearly over time, until it reaches nearly 100%, whereas the validation accuracy stalls at 70–72%.
