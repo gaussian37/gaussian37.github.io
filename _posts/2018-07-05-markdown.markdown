@@ -18,7 +18,7 @@ Use **mark** & **/mark**keyword. <br>
 
 Use 3 times ` and wrap the code with it. (```)
 ```python
-s = "I am KIM JIN-SOL"
+s = "I am KIM JINSOL"
 print s
 ```
 
