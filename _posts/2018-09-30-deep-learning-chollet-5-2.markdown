@@ -86,6 +86,8 @@ After uncompressing data, Directory structure is below.(Before run below code, c
 ```
 <br>
 
++  Copying images to training, validation, and test directories
+
 ```python
 
 import os, shutil
@@ -197,8 +199,84 @@ total test dog images: 500
 So you do indeed have 2,000 training images, 1,000 validation images, and 1,000 test images. 
 Each split contains the same number of samples from each class: this is a balanced binary-classification problem, which means classification accuracy will be an appropriate measure of success.
 
+## 5.2.3. Building your network
 
- 
+You built a small convnet for MNIST in the previous example, so you should be familiar with such convnets.
+You’ll reuse the same general structure: the convnet will be a stack of alternated `Conv2D` (with relu activation) and `MaxPooling2D` layers.
+
+But because you’re dealing with bigger images and a more complex problem,
+you’ll make your network larger, accordingly:
+it will have one more `Conv2D` + `MaxPooling2D` stage.
+This serves both to augment the capacity of the network and to further reduce the size of the feature maps so they aren’t overly large when you reach the `Flatten` layer.
+Here, because you start from inputs of size 150 × 150 (a somewhat arbitrary choice), you end up with feature maps of size 7 × 7 just before the `Flatten` layer.
+
+```
+The depth of the feature maps progressively increases in the network (from 32 to 128), whereas the size of the feature maps decreases (from 128 × 128 to 7 × 7). This is a pattern you’ll see in almost all convnets.
+```
+
+<br>
+
+Because you’re attacking a binary-classification problem, you’ll end the network with a single unit (a Dense layer of size 1) and a `sigmoid` activation.
+This unit will encode the probability that the network is looking at one class or the other.
+
++ Instantiating a small convnet for dogs vs. cats classification
+
+```python
+
+from keras import layers
+from keras import models
+
+model = models.Sequential()
+model.add(layers.Conv2D(32, (3, 3), activation='relu',
+                        input_shape=(150, 150, 3)))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(128, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(128, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Flatten())
+model.add(layers.Dense(512, activation='relu'))
+model.add(layers.Dense(1, activation='sigmoid'))
+
+```
+  
+<br>
+
+Let’s look at how the dimensions of the feature maps change with every successive layer:
+
+```python
+>>> model.summary()
+Layer (type)                     Output Shape          Param #
+================================================================
+conv2d_1 (Conv2D)                (None, 148, 148, 32)  896
+________________________________________________________________
+maxpooling2d_1 (MaxPooling2D)    (None, 74, 74, 32)    0
+________________________________________________________________
+conv2d_2 (Conv2D)                (None, 72, 72, 64)    18496
+________________________________________________________________
+maxpooling2d_2 (MaxPooling2D)    (None, 36, 36, 64)    0
+________________________________________________________________
+conv2d_3 (Conv2D)                (None, 34, 34, 128)   73856
+________________________________________________________________
+maxpooling2d_3 (MaxPooling2D)    (None, 17, 17, 128)   0
+________________________________________________________________
+conv2d_4 (Conv2D)                (None, 15, 15, 128)   147584
+________________________________________________________________
+maxpooling2d_4 (MaxPooling2D)    (None, 7, 7, 128)     0
+________________________________________________________________
+flatten_1 (Flatten)              (None, 6272)          0
+________________________________________________________________
+dense_1 (Dense)                  (None, 512)           3211776
+________________________________________________________________
+dense_2 (Dense)                  (None, 1)             513
+================================================================
+Total params: 3,453,121
+Trainable params: 3,453,121
+Non-trainable params: 0
+```
+<br>
 
 
 
