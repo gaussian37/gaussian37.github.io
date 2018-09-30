@@ -278,11 +278,173 @@ Non-trainable params: 0
 ```
 <br>
 
+For the compilation step, you’ll go with the RMSprop optimizer, as usual. Because you ended the network with a single sigmoid unit, you’ll use binary crossentropy as the loss 
 
++  Configuring the model for training
+```python
+from keras import optimizers
 
+model.compile(loss='binary_crossentropy',
+              optimizer=optimizers.RMSprop(lr=1e-4),
+              metrics=['acc'])
+```
+<br>
+
+### 5.2.4. Data preprocessing
+
+As you know by now, data should be formatted into appropriately preprocessed floating-point tensors before being fed into the network. 
+Currently, the data sits on a drive as JPEG files, so the steps for getting it into the network are roughly as follows:
+
+1. Read the picture files.
+2. Decode the JPEG content to RGB grids of pixels.
+3. Convert these into floating-point tensors.
+4. Rescale the pixel values (between 0 and 255) to the [0, 1] interval (as you know, neural networks prefer to deal with small input values).
+
+It may seem a bit daunting, but fortunately Keras has utilities to take care of these steps automatically. Keras has a module with image-processing helper tools, located at `keras.preprocessing.image`.
+In particular, it contains the class `ImageDataGenerator`, which lets you quickly set up Python generators that can automatically turn image files on disk into batches of preprocessed tensors.
+This is what you’ll use here.
+
++ Using ImageDataGenerator to read images from directories
+```python
+from keras.preprocessing.image import ImageDataGenerator
+
+train_datagen = ImageDataGenerator(rescale=1./255)
+test_datagen = ImageDataGenerator(rescale=1./255)
+
+train_generator = train_datagen.flow_from_directory(
+        train_dir,
+        target_size=(150, 150)
+        batch_size=20,
+        class_mode='binary')
+
+validation_generator = test_datagen.flow_from_directory(
+        validation_dir,
+        target_size=(150, 150),
+        batch_size=20,
+        class_mode='binary')
+
+```
+<br>
+
+#### UNDERSTANDING PYTHON GENERATORS
+
+A Python **generator** is an object that acts as an iterator: it’s an object you can use with the `for` `...` `in` operator. Generators are built using the `yield` operator.
+
+```python
+def generator():
+    i = 0
+    while True:
+        i += 1
+        yield i
+
+for item in generator():
+    print(item)
+    if item > 4:
+        break
+```
+<br>
+
+It prints this:
+```python
+1 2 3 4 5
+```
+<br>
+
+Let’s look at the output of one of these generators:
+it yields batches of 150 × 150 RGB images (shape `(20, 150, 150, 3)`) and binary labels (shape `(20,)`).
+There are 20 samples in each batch (the batch size).
+Note that the generator yields these batches indefinitely: it loops endlessly over the images in the target folder.
+For this reason, you need to `break` the iteration loop at some point:
+
+```python
+>>> for data_batch, labels_batch in train_generator:
+>>>     print('data batch shape:', data_batch.shape)
+>>>     print('labels batch shape:', labels_batch.shape)
+>>>     break
+data batch shape: (20, 150, 150, 3)
+labels batch shape: (20,)
+```
+<br>
+
+Let’s fit the model to the data using the generator. 
+You do so using the `fit_generator` method, the equivalent of `fit` for data generators like this one.
+It expects as its first argument a Python generator that will yield batches of inputs and targets indefinitely, like this one does.
+Because the data is being generated endlessly, the Keras model needs to know how many samples to draw from the generator before declaring an epoch over. 
+This is the role of the `steps_per_epoch` argument: after having drawn steps_per_epoch batches from the generator
+—that is, after having run for steps_per_epoch gradient descent steps—the fitting process will go to the next epoch.
+In this case, batches are 20 samples, so it will take 100 batches until you see your target of 2,000 samples.
+
+When using `fit_generator`, you can pass a `validation_data` argument, much as with the `fit` method.
+It’s important to note that this argument is allowed to be a data generator, but it could also be a tuple of Numpy arrays.
+If you pass a generator as `validation_data`, then this generator is expected to yield batches of validation data endlessly;
+hus you should also specify the `validation_steps` argument, which tells the process how many batches to draw from the validation generator for evaluation.
+
++ Fitting the model using a batch generator
+```python
+history = model.fit_generator(
+      train_generator,
+      steps_per_epoch=100,
+      epochs=30,
+      validation_data=validation_generator,
+      validation_steps=50)
+``` 
+<br>
+
+It’s good practice to always save your models after training.
+
++ Saving the model
+```python
+model.save('cats_and_dogs_small_1.h5')
+```
+<br>
+
+Let’s plot the loss and accuracy of the model over the training and validation data during training.
+
++ Displaying curves of loss and accuracy during training
+```python
+import matplotlib.pyplot as plt
+
+acc = history.history['acc']
+val_acc = history.history['val_acc']
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+
+epochs = range(1, len(acc) + 1)
+
+plt.plot(epochs, acc, 'bo', label='Training acc')
+plt.plot(epochs, val_acc, 'b', label='Validation acc')
+plt.title('Training and validation accuracy')
+plt.legend()
+
+plt.figure()
+
+plt.plot(epochs, loss, 'bo', label='Training loss')
+plt.plot(epochs, val_loss, 'b', label='Validation loss')
+plt.title('Training and validation loss')
+plt.legend()
+
+plt.show()
+```
+
++ Training and validation accuracy
+![5.9](../assets/img/dl/chollet/05-2/05fig09.jpg)
+
++  Training and validation loss
+![5.10](../assets/img/dl/chollet/05-2/05fig10.jpg)
+
+These plots are characteristic of overfitting. The training accuracy increases linearly over time, until it reaches nearly 100%, whereas the validation accuracy stalls at 70–72%.
+The validation loss reaches its minimum after only five epochs and then stalls, whereas the training loss keeps decreasing linearly until it reaches nearly 0.
+
+Because you have relatively few training samples (2,000), overfitting will be your number-one concern.
+You already know about a number of techniques that can help mitigate overfitting, such as dropout and weight decay (L2 regularization).
+We’re now going to work with a new one, specific to computer vision and used almost universally when processing images with deep-learning models: **data augmentation.**
 
 
  
 
-  
+ 
+
+
+
+ 
  
