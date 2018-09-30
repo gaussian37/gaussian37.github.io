@@ -2,7 +2,7 @@
 layout: post
 title: Overview feature engineering  
 date: 2018-09-15 03:49:00
-img: machine-learning/concept/feature-engineering/feature.png
+img: ml/concept/feature-engineering/feature.png
 categories: [ml-concept] 
 tags: [machine learning, feature, feature engineering] # add tag
 ---
