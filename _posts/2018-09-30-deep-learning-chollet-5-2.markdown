@@ -67,7 +67,8 @@ This dataset contains 25,000 images of dogs and cats (12,500 from each class) an
 After downloading and uncompressing it, you’ll create a new dataset containing three subsets: a training set with 1,000 samples of each class, a validation set with 500 samples of each class, and a test set with 500 samples of each class.
 
 After uncompressing data, Directory structure is below.(Before run below code, cats_and_dogs_small is empty)
-```python
+
+```
 
 ├───cats_and_dogs_small
 │   ├───test
@@ -190,6 +191,7 @@ total test cat images: 500
 total test dog images: 500
 
 ```
+<br>
 
 So you do indeed have 2,000 training images, 1,000 validation images, and 1,000 test images. 
 Each split contains the same number of samples from each class: this is a balanced binary-classification problem, which means classification accuracy will be an appropriate measure of success.
