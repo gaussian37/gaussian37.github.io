@@ -66,12 +66,7 @@ BaggingRegressor is same with BaggingClassifier to use.
 
 ![template](../assets/img/ml/concept/bagging/template.PNG)
 
-
-
-    
-
-    
-    
+ 
     
 
     
