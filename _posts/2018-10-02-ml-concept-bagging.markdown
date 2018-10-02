@@ -12,16 +12,22 @@ Also, with various sampling, we can make robust classifier.
 
 ![sampling](../assets/img/ml/concept/bagging/sampling.PNG)
 
+<br>
+
 As above, entire data can be separated to several samples. 
 After ensemble of those, we can make robust classifer as third graph.
 Also, we call it that several **weak classifier** makes string classifier.
 
 ![sampling2](../assets/img/ml/concept/bagging/sampling2.PNG)
 
+<br>
+
 Sampling reduces overfitting problem. Even though results of samples make overfitting,
 Ensemble of those has good learning result. Or, sampling reduces variance.  
 
 ![bootstrap](../assets/img/ml/concept/bagging/bootstrap.PNG)
+
+<br>
 
 ### What is the **bootstrapping**?
 
@@ -31,6 +37,8 @@ Ensemble of those has good learning result. Or, sampling reduces variance.
 + .632 bootstrap
     - when sampling d times, each datum is sampled with 0.632 probability.
     ![632](../assets/img/ml/concept/bagging/632bootstrap.PNG)
+    
+<br>
     
 ### What is **bagging**?
 + Bagging is Bootstrap Aggregation.
@@ -43,12 +51,16 @@ Ensemble of those has good learning result. Or, sampling reduces variance.
 
 ![bagging](../assets/img/ml/concept/bagging/bagging2.png)
 
+<br>
+
 ### what is **Out of bag error**
 + OOB is error estimation
 + When using Bagging, validate the performance with not included data in the bag.
     - It's similar to deal with validation set
 + Good standard for evaluating Bagging performance
     ![bagging_standard](../assets/img/ml/concept/bagging/bagging_standard.png)
+
+<br>
     
 ### How to use Bagging in sklearn
 
@@ -62,14 +74,13 @@ Ensemble of those has good learning result. Or, sampling reduces variance.
     
 ![bagging_regressor](../assets/img/ml/concept/bagging/baggingregressor.PNG)
 
+<br>
+
 BaggingRegressor is same with BaggingClassifier to use.
 
+```python
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import BaggingClassifier
+```
+
 ![template](../assets/img/ml/concept/bagging/template.PNG)
-
- 
-    
-
-    
-
-
- 
