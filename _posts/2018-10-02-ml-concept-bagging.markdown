@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Overview feature engineering  
+title: Overview Bagging  
 date: 2018-10-02 22:02:00
 img: ml/concept/bagging/bagging.png
 categories: [ml-concept] 
