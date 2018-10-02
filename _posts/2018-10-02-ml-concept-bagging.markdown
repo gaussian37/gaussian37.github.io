@@ -50,6 +50,24 @@ Ensemble of those has good learning result. Or, sampling reduces variance.
 + Good standard for evaluating Bagging performance
     ![bagging_standard](../assets/img/ml/concept/bagging/bagging_standard.png)
     
+### How to use Bagging in sklearn
+
+![bagging_sklearn](../assets/img/ml/concept/bagging/bagging_sklearn.PNG)
+
++ base_estimator : One estimator
+    - Concept of bagging is using one classifier and many different data
++ n_estimator : #bootstrap
++ max_samples : data ratio to use
++ max_features : feature ratio to use
+    
+![bagging_regressor](../assets/img/ml/concept/bagging/baggingregressor.PNG)
+
+BaggingRegressor is same with BaggingClassifier to use.
+
+![template](../assets/img/ml/concept/bagging/template.PNG)
+
+
+
     
 
     
