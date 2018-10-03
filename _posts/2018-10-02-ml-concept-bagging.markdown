@@ -81,6 +81,12 @@ BaggingRegressor is same with BaggingClassifier to use.
 ```python
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import BaggingClassifier
+
+clf = DecisionTreeClassifier(random_state=1)
+eclf = BaggingClassifier(clf, oob_score=True)
+
+cross_val_score(eclf, X, y, cv = 10).mean()
+
 ```
 
 ![template](../assets/img/ml/concept/bagging/template.PNG)
