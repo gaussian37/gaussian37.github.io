@@ -5,6 +5,14 @@
                 <a class="nav-link" href="{{ site.baseurl }}/">ALL</a>
             </li>
             <li class="nav-item dropdown
+            {% if page.url == '/kaggle/' %} active {% endif %}">
+                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('kaggle-dropdown')"
+                   role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Kaggle
+                </a>
+            </li>
+            <li class="nav-item dropdown
             {% if page.url == '/ml/la/' or page.url == '/ml/mlkaist/' or page.url == '/ml/concept/' or page.url == '/ml/code/' or page.url == '/ml/paper/' or page.url == '/ml/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('ml-dropdown')"
                    role="button" data-toggle="dropdown"
