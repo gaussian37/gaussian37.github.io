@@ -5,13 +5,14 @@
                 <a class="nav-link" href="{{ site.baseurl }}/">ALL</a>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/kaggle/' %} active {% endif %}">
+            {% if page.url == '/kaggle/ps' %} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('kaggle-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     Kaggle
                 </a>
-                <div class="menu" aria-labelledby="navbarDropdown" id="kaggle-dropdown">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="kaggle-dropdown">
+                    <a class="dropdown-item" href="{{ "/kaggle/ps" | prepend: site.baseurl }}">Problem Solving</a>
                 </div>
             </li>
             <li class="nav-item dropdown
