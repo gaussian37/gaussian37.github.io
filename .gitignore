@@ -5,7 +5,7 @@ yarn.lock
 Gemfile.lock
 package-lock.json
 node_modules/
-.idea/workspace.xml
+.idea/
 
 ### macOS ###
 *.DS_Store
