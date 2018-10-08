@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Overview Random Forest  
+title: Overview Regression  
 date: 2018-10-08 08:42:00
 img: ml/concept/regression/Regression_print.png
 categories: [ml-concept] 
@@ -40,7 +40,7 @@ Since the target variable here is quantitative, this is a regression problem. To
 Before that, however, you need to import the data and get it into the form needed by scikit-learn. 
 This involves creating feature and target variable arrays. Furthermore, since you are going to use only one feature to begin with, you need to do some reshaping using NumPy's `.reshape()` method.
 
-$ a_{1} $
+$$ a_{1} $$
 
 
 
