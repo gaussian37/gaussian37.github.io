@@ -21,6 +21,8 @@ tags: [python, django, shell] # add tag
         python -m pip install --upgrade pip
         pip install "ipython[notebook]" 
         ```
+<br>
+        
 ### shell_plus and jupyter notebook with django shell
 
 + Install django-extensions
@@ -51,6 +53,8 @@ set the kernel list in the settings.NOTEBOOK_KERNEL_SPEC_NAMES
 ```python
 NOTEBOOK_KERNEL_SPEC_NAMES = ['Python [Root]']
 ```
+
+<br>
 
 ### In the basic shell, we can also access the django...
 
