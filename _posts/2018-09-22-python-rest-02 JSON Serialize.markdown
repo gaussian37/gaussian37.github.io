@@ -19,6 +19,8 @@ In the role of those, `Serializer` is just Form which only proceeds `POST`.
 | Create Form HTML 	| Create JSON serialization 	|
 | Check validation about input data and acquisition 	| ← 	|
 
+<br>
+
 Define `ModelSerializer`. It's really similar to `ModelForm`.
 
 ```python
@@ -41,6 +43,7 @@ post = Post.objects.first()  # Post type
 serializer = PostModelSerializer(post)
 serializer.data 
 ```
+<br>
 
 serializer.data type is `ReturnDict`, which inherited from `OrderDict` and get the serializer field additionally through generator.
 
@@ -51,5 +54,17 @@ class ReturnDict(OrderedDict):
         super().__init__(*args, **kwargs)
         # ...
 ```
+<br>
 
-### 
+### QuerySet transformation
+
+`ModelSerializer` supports transformation about QuerySet. 
+"many" parameter of `ModelSerializer` is False, so we need to set many=True in order to proceed QuerySet.
+
+```python
+# QuerySet
+serializer = PostModelSerializer(Post.objects.all(), many=True)  
+
+# 지정된 Model Instance 필드를 통해 list/OrderedDict 획득
+serializer.data
+```
