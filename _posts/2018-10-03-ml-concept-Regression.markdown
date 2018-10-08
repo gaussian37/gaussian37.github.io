@@ -102,7 +102,7 @@ plt.show()
 
 <br>
 
-![scatter](../assets/img/ml/concept/regression/scatter.png)
+![scatter](../assets/img/ml/concept/regression/scatter_graph.png)
 
 ![line](../assets/img/ml/concept/regression/line-regression.png)
 
