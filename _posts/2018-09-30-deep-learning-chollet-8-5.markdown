@@ -23,6 +23,14 @@ In the end, they have on their hands some excellent fake Picassos.
 That’s what a GAN is: a forger network and an expert network, each being trained to best the other. As such, a GAN is made of two parts:
 
 + **Generator network** - Takes as input a random vector (a random point in the latent space), and decodes it into a synthetic image
-+ **Discriminator network(or adversary)** - Takes as input an image (real or synthetic), and predicts whether the image came from the training set or was created by the generator network.  
++ **Discriminator network(or adversary)** - Takes as input an image (real or synthetic), and predicts whether the image came from the training set or was created by the generator network.
+
+The generator network is trained to be able to fool the discriminator network, 
+and thus it evolves toward generating increasingly realistic images as training goes on:
+artificial images that look indistinguishable from real ones,
+to the extent that it’s impossible for the discriminator network to tell the two apart
+Meanwhile, the discriminator is constantly adapting to the gradually improving capabilities of the generator,
+setting a high bar of realism for the generated images. 
+  
 
 
