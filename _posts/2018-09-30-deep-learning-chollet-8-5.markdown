@@ -60,6 +60,44 @@ Schematically, the GAN looks like this: <br>
 3. A `gan` network chains the generator and the discriminator together: `gan(x) = discriminator(generator(x))`. Thus this `gan` network maps latent space vectors to the discriminator’s assessment of the realism of these latent vectors as decoded by the generator.
 4. You train the discriminator using examples of real and fake images along with “real”/“fake” labels, just as you train any regular image-classification model.
 5. To train the generator, you use the gradients of the generator’s weights with regard to the loss of the gan model. This means, at every step, you move the weights of the generator in a direction that makes the discriminator more likely to classify as “real” the images decoded by the generator. In other words, you train the generator to fool the discriminator. 
+
+### 8.5.2. A bag of tricks
+
+The process of training GANs and tuning GAN implementations is notoriously difficult. 
+There are a number of known tricks you should keep in mind. Like most things in deep learning, it’s more alchemy than science:
+these tricks are heuristics, not theory-backed guidelines. 
+They’re supported by a level of intuitive understanding of the phenomenon at hand,
+and they’re known to work well empirically, although not necessarily in every context.
+
+Here are a few of the tricks used in the implementation of the GAN generator and discriminator in this section.
+It isn’t an exhaustive list of GAN-related tips; you’ll find many more across the GAN literature:
+
++ We use `tanh` as the last activation in the generator, instead of `sigmoid`, which is more commonly found in other types of models.
++ We sample points from the latent space using a `normal distribution` (Gaussian distribution), not a uniform distribution.
++ Stochasticity is good to induce robustness. Because GAN training results in a dynamic equilibrium, GANs are likely to get stuck in all sorts of ways. `Introducing randomness during training` helps prevent this. We introduce randomness in two ways:
+     - by using `dropout` in the discriminator
+     - by adding `random noise` to the labels for the discriminator.
++ Sparse gradients can hinder GAN training. In deep learning, sparsity is often a desirable property, but not in GANs. Two things can induce gradient sparsity:
+    - `Max pooling` operation
+        - Instead of max pooling, we recommend using `strided convolutions for downsampling`
+    - `ReLU` activations
+        - we recommend using a `LeakyReLU` layer instead of a `ReLU` activation. It’s similar to ReLU, but it **relaxes sparsity constraints** by allowing **small negative activation values**.
++ In generated images, it’s common to see checkerboard artifacts caused by unequal coverage of the pixel space in the generator. To fix this, we use a kernel size that’s divisible by the stride size whenever we use a strided `Conv2DTranpose` or `Conv2D` in both the generator and the discriminator.
+
+<br>
+
++ Checkerboard artifacts caused by mismatching strides and kernel sizes, resulting in unequal pixel-space coverage: one of the many gotchas of GANs
+ 
+![8-17](../assets/img/dl/chollet/08-5/08fig17.jpg)
+
+### 8.5.3. The generator
+
+First, let’s develop a `generator` model that turns a vector (from the latent space—during training it will be sampled at random) into a candidate image.
+One of the many issues that commonly arise with GANs is that the **generator gets stuck with generated images that look like noise**.
++ A possible solution is to use `dropout` on both the discriminator and the generator.
+
+    
+ 
  
 
 
