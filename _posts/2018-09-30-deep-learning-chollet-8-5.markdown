@@ -46,7 +46,20 @@ For this reason, GANs are notoriously difficult to train—getting a GAN to work
 
 ### 8.5.1. A schematic GAN implementation
 
-In this section, we’ll explain how to implement a GAN in Keras, in its barest form
+In this section, we’ll explain how to implement a GAN in Keras.
+The specific implementation is a deep convolutional GAN (**DCGAN**):
+a GAN where the generator and discriminator are deep convnets. In particular, it uses a `Conv2DTranspose` layer for image upsampling in the generator.
+
+You’ll train the GAN on images from CIFAR10, a dataset of 50,000 32 × 32 RGB images belonging to 10 classes (5,000 images per class).
+To make things easier, you’ll only use images belonging to the class “frog.”
+
+Schematically, the GAN looks like this: <br>
+
+1. A `generator` network maps vectors of shape `(latent_dim,)` to images of shape `(32, 32, 3)`.
+2. A `discriminator` network maps images of shape `(32, 32, 3)` to a binary score estimating the probability that the image is real.
+3. A `gan` network chains the generator and the discriminator together: `gan(x) = discriminator(generator(x))`. Thus this `gan` network maps latent space vectors to the discriminator’s assessment of the realism of these latent vectors as decoded by the generator.
+ 
+ 
 
 
  
