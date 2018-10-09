@@ -1,4 +1,4 @@
-title: Data Scientist
+title: Data Scientist & Vision
 description: > # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
@@ -11,7 +11,7 @@ site-twitter: #if your site has a twitter account, enter it here
 # Author Settings
 author: KIM JINSOL # add your name
 author-img: kjsandkjs.jpg # add your photo
-about-author: Data Science
+about-author: Data Science & Vision
 social-twitter: gaussian37 # add your Twitter handle
 social-facebook: gaussian37 # add your Facebook handle
 social-github: gaussian37 # add your Github handle

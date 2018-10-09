@@ -30,7 +30,27 @@ and thus it evolves toward generating increasingly realistic images as training 
 artificial images that look indistinguishable from real ones,
 to the extent that it’s impossible for the discriminator network to tell the two apart
 Meanwhile, the discriminator is constantly adapting to the gradually improving capabilities of the generator,
-setting a high bar of realism for the generated images. 
+setting a high bar of realism for the generated images.
+Once training is over, the generator is capable of turning any point in its input space into a believable image.
+Unlike VAEs, this latent space has fewer explicit guarantees of meaningful structure; in particular, it isn’t continuous.
+
++ A generator transforms random latent vectors into images, and a discriminator seeks to tell real images from generated ones. The generator is trained to fool the discriminator.
+
+![8.15](../assets/img/dl/chollet/08-5/08fig15_alt.jpg)
+
+Remarkably, a GAN is a system where the optimization minimum isn’t fixed, unlike in any other training setup you’ve encountered.
+Normally, gradient descent consists of rolling down hills in a static loss landscape.
+But with a GAN, every step taken down the hill changes the entire landscape a little.
+It’s a dynamic system where the **optimization process is seeking not a minimum, but an equilibrium between two forces.** 
+For this reason, GANs are notoriously difficult to train—getting a GAN to work requires lots of careful tuning of the model architecture and training parameters.
+
+### 8.5.1. A schematic GAN implementation
+
+In this section, we’ll explain how to implement a GAN in Keras, in its barest form
+
+
+ 
+ 
   
 
 
