@@ -13,7 +13,7 @@ In this lecture, we study vectorized implementation. It's simple. with vetorizat
 we just define Data `X`, Weight `W`, (+ bias) and do the math with `Numpy`.
 To understand the below, recap the notation.
 
-$$ a^[1](i) $$ : activation result of `1st` layer and `i-th` element(node). 
+$$ a^{[1](i)} $$ : activation result of `1st` layer and `i-th` element(node). 
 
 ![Explanation for vectorized implementation1](../assets/img/dl/concept/shallow-neural-network/Explanation for vectorized implementation1.PNG)
 
