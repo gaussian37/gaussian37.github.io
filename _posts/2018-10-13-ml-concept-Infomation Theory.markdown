@@ -45,12 +45,9 @@ we can change base 2 to e(natural constant) then, unit is changed from `bit` to 
 
 ### What is the entropy ?
 
+`Entropy` is the average of information quantities that random variable x can have.
 
+$$ H(x) = -\Sigma_{x}P(x)log_{2}P(x) \tag{2} $$
+$$ H(x) = -\int_{\infty}^{\infty} P(x)log_{2}P(x) dx \tag{3} $$
 
-
-  
-
-
-
- 
-
+Equation (2) is the entropy of dicrete case and (3) is of continuous case.
