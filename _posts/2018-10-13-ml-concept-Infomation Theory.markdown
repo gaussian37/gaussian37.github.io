@@ -26,11 +26,14 @@ What we can measure is `probability`.
 
 we can formulate above example like this. 
 
-$$ P(tomorrow = heavy rain | today = clear) , P(tomorrow = clear | today  = clear) $$
+$$ P(tomorrow = heavy_rain | today = clear) , P(tomorrow = clear | today  = clear) $$
 
 Okay! we can define `how to measure information quantity` when knowing the probability of an incident.
 
-$$ h(x) = -log_{2}P(x) $$
+$$ h(x) = -log_{2}P(x) \tag{1} $$
+
+
+
 
  
 
