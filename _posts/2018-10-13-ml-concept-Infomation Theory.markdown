@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Information Theory (Entropy, KL Divergence)  
+title: Information Theory (Entropy, KL Divergence, Cross Entropy)  
 date: 2018-10-13 08:42:00
 img: ml/concept/Information-Theory/Cross-Entropy_print.png
 categories: [ml-concept] 
-tags: [Information Theory, Entropy, KL divergence] # add tag
+tags: [Information Theory, Entropy, KL divergence, Cross Entropy] # add tag
 ---
 
 Let's think about two cases. Which case does have **more information**?
@@ -127,7 +127,9 @@ they become more dependent. Thus, `KL divergence` of `p(x,y)` and `p(x)p(y)` mea
 
 $$ I(x,y) = KL(P(x,y) P(x)P(y)) = \sum_{x}\sum_{y}P(x,y)log_{2}\frac{P(x,y)}{P(x)P(y)} \tag{6} $$
 
-$$ I(x,y) = KL(P(x,y), P(x)P(y)) = \int^{\infty}_{\infty}\int^{\infty}_{\infty} P(x,y)log_{2}\frac{P(x,y)}{P(x)P(y)} \tag{7} $$   
+$$ I(x,y) = KL(P(x,y), P(x)P(y)) = \int^{\infty}_{\infty}\int^{\infty}_{\infty} P(x,y)log_{2}\frac{P(x,y)}{P(x)P(y)} \tag{7} $$
+
+   
 
 
 ### Reference
