@@ -113,6 +113,7 @@ $$ KL(P_{1}(x), P_{2}(x)) = 0.1log_{2}\frac{0.1}{0.1} + 0.4log_{2}\frac{0.4}{0.5
 
 $$ KL(P_{1}(x), P_{3}(x)) = 0.1log_{2}\frac{0.1}{0.4} + 0.4log_{2}\frac{0.4}{0.1} + 0.4log_{2}\frac{0.4}{0.1} + 0.1log_{2}\frac{0.1}{0.4} = 1.200 $$
 
+
 As a result of `KL divergence`, $$ P_{1}(x) $$ and $$ P_{1}(x) $$ is close (0.037)
 and $$ P_{1}(x) $$ and $$ P_{3}(x) $$ are farther (1.200) than former.
 
@@ -137,7 +138,44 @@ If the value is too small, they are dependent and maybe not useful.
 
 ### What is the Cross Entropy?
 
+If you study `Neural Network` then, you maybe know the `cross entropy`.
+we usually use it as **loss function**.
+As you may know, we used `cross entropy` in the `KL divergence`.
 
+Let's look into `CE` (Cross Entropy)
+
++ Entropy
+
+$$ H(x) = -\sum_{x}P(x)log_{2}P(x) \tag{2} $$
+
++ KL divergence
+
+$$ KL(P_{1}(x), P_{2}(x)) = \sum_{x}P_{1}(x)log_{2}\frac{P_{1}(x)}{P_{2}(x)} \tag{4} $$
+
++ Cross Entropy
+
+$$ H(P_{1}(x), P_{2}(x)) = \sum_{x}P_{1}(x)log_{2}\frac{1}{P_{2}(x)} = -\sum_{x}P_{1}(x)log_{2}P_{2}(x) $$
+
+
+Yes it is! `CE` is the negative part of `KL divergence`.
+
+`KL divergence` = `Entropy` - `Cross Entropy`
+
+What is the $$ P_{1}(x) $$ and $$ P_{2}(x) $$ in usual?
+
+$$ P_{1}(x) $$ is `label`(True value) and $$ P_{2}(x) $$ is `Prediction`.
+
+Oh, Do you get feel for the reason why we use `CE` as loss function?
+Actually `KL divergence` and `CE` has same meaning in loss function(don't need `entropy`).
+Therefore we use `CE`.
+
+For example, in the binary classification problem, you have ever used it as loss function.
+(In above, we used $$ log_{2} $$ but in neural network, usually use $$ ln = log_{e} $$)
+
+
+$$ a = \sigma(z), z = wx + b $$
+
+$$ \mathcalL = -\frac{1}{n}\sum_{x}[ylna + (1-y)ln(1-a)] $$
 
 
 ### Reference
