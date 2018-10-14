@@ -99,6 +99,26 @@ It's easy right? we can think that it is similar to distance between two distrib
 but we just call it **divergence** because we can not guarantee $$ KL(P_{1}(x), P_{2}(x)) $$ and $$ KL(P_{2}(x), P_{1}(x)) $$ are same.
 Additionally, we call it as **relative entropy**. 
 
+Okay! then, let's see another example.
+
+![distribution](../assets/img/ml/concept/Information-Theory/distribution.PNG)
+
+Let random variable `x` have different probability distribution. 
+$$ P_{1}(x) $$ and $$ P_{2}(X) $$ have similar distribution and
+$$ P_{1}(x) $$ and $$ P_{3}(X) $$ don't.
+
+Then, calculate KL divergence.
+
+$$ KL(P_{1}(x), P_{2}(x)) = 0.1log_{2}\frac{0.1}{0.1} + 0.4log_{2}\frac{0.4}{0.5} + 0.4log_{2}\frac{0.4}{0.3} + 0.1log_{2}\frac{0.1}{0.1} = 0.037 $$
+
+$$ KL(P_{1}(x), P_{3}(x)) = 0.1log_{2}\frac{0.1}{0.4} + 0.4log_{2}\frac{0.4}{0.1} + 0.4log_{2}\frac{0.4}{0.1} + 0.1log_{2}\frac{0.1}{0.4} = 1.200 $$
+
+
+
+
+### Reference
+
+- 패턴 인식(Pattern Recognition) 오일석
 
 
 
