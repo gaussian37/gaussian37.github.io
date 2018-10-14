@@ -1,7 +1,7 @@
 title: gaussian37' Data Science
 description: > # this means to ignore newlines until "baseurl:"
   Hello and Welcome gaussian37's Data Science blog.
-permalink: '' # ':title/'
+permalink: ':title/'
 baseurl: ''  # the subpath of your site, e.g. /blog
 url: "https://gaussian37.github.io/"
 site-twitter: #if your site has a twitter account, enter it here

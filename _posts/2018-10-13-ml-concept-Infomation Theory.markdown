@@ -129,7 +129,15 @@ $$ I(x,y) = KL(P(x,y) P(x)P(y)) = \sum_{x}\sum_{y}P(x,y)log_{2}\frac{P(x,y)}{P(x
 
 $$ I(x,y) = KL(P(x,y), P(x)P(y)) = \int^{\infty}_{\infty}\int^{\infty}_{\infty} P(x,y)log_{2}\frac{P(x,y)}{P(x)P(y)} \tag{7} $$
 
-   
+In the classification problems, Which state is better that `KL divergence` is large or small?
+Answer is **Large**. If `KL divergence` is large then, their distribution is far apart and it is easy to classify.
+
+If you add new features, then calculate the `KL divergence` between old feature data and new one.
+If the value is too small, they are dependent and maybe not useful.
+
+### What is the Cross Entropy?
+
+
 
 
 ### Reference
