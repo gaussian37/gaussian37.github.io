@@ -96,7 +96,7 @@ $$ KL(P_{1}(x), P_{2}(x)) = \int_{R_{d}}P_{1}(x)log_{2}\frac{P_{1}(x)}{P_{2}(x)}
 
 Above formulas have range of $$ KL(P_{1}(x), P_{2}(x)) \ge 0 $$ and  $$ KL(P_{1}(x), P_{2}(x)) = 0 $$ if $$P_{1}(x) = P_{2}(x) $$.  
 It's easy right? we can think that it is similar to distance between two distribution.
-but we just call it **divergence** because we can not guarantee $$ KL(P_{1}(x), P_{2}(x)) $$ and $$ KL(P_{2}(x), P_{1}(x)) are same.
+but we just call it **divergence** because we can not guarantee $$ KL(P_{1}(x), P_{2}(x)) $$ and $$ KL(P_{2}(x), P_{1}(x)) $$ are same.
 Additionally, we call it as **relative entropy**. 
 
 
