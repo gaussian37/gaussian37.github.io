@@ -57,7 +57,11 @@ Equation (2) is the entropy of dicrete case and (3) is of continuous case.
 
 Let me explain `entropy` with dice. let random variable `x` as spot on a die. 
 `x` can have value from 1 to 6(1,2,3,4,5,6) and each has same probability as $$ \frac{1}{6}$$.
-Accordingly, `entopy` is 2.585 bits.    
+Accordingly, `entopy` is 2.585 bits.
+
+$$ H(x) = -\sum\frac{1}{6}log_{2}\frac{1}{6} = 2.585 bits $$
+
+    
 
 
 
