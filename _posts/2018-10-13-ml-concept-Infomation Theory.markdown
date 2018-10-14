@@ -52,3 +52,14 @@ $$ H(x) = -\sum_{x}P(x)log_{2}P(x) \tag{2} $$
 $$ H(x) = -\int_{\infty}^{\infty} P(x)log_{2}P(x) dx \tag{3} $$
 
 Equation (2) is the entropy of dicrete case and (3) is of continuous case.
+
+![dices](../assets/img/ml/concept/Information-Theory/dices.jpg)
+
+Let me explain `entropy` with dice. let random variable `x` as spot on a die. 
+`x` can have value from 1 to 6(1,2,3,4,5,6) and each has same probability as $$ \frac{1}{6}$$.
+Accordingly, `entopy` is 2.585 bits.    
+
+
+
+
+
