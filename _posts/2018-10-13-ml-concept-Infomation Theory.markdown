@@ -205,6 +205,8 @@ That's it! we have look through `Entropy`, `KL divergence` and `Cross Entropy`.
 
 If you have question, feel free to ask me.
 
+<br>
+
 ### Reference
 
 - 패턴 인식(Pattern Recognition) 오일석
