@@ -43,6 +43,8 @@ information quantity $$ h(x) = 0 $$.
 
 we can change base 2 to e(natural constant) then, unit is changed from `bit` to `natural`.
 
+<br> 
+
 ### What is the entropy ?
 
 `Entropy` is the average of information quantities that random variable x can have.
@@ -86,6 +88,8 @@ Accordingly, They are different.
 Then, How can we know the difference as numeric value?
 In order to quantify the difference, we do it with `KL divergence`(Kullback-Leibler divergence).
 
+<br> 
+
 ### What is the KL divergence?
 
 Let's look into `KL divergence` with the above example. we can define `KL divergence` formula like this.
@@ -117,6 +121,8 @@ $$ KL(P_{1}(x), P_{3}(x)) = 0.1log_{2}\frac{0.1}{0.4} + 0.4log_{2}\frac{0.4}{0.1
 As a result of `KL divergence`, $$ P_{1}(x) $$ and $$ P_{1}(x) $$ is close (0.037)
 and $$ P_{1}(x) $$ and $$ P_{3}(x) $$ are farther (1.200) than former.
 
+<br>
+
 ### Mutual information with KL divergence
 
 With `KL divergence`, we can see the mutual information between two random variable `x` and `y`.
@@ -136,6 +142,8 @@ Answer is **Large**. If `KL divergence` is large then, their distribution is far
 If you add new features, then calculate the `KL divergence` between old feature data and new one.
 If the value is too small, they are dependent and maybe not useful.
 
+<br>
+
 ### Is order important in KL divergence ?
 
 In `KL divergence` of $$ KL(P_{1}(x), P_{2}(x)) $$, many use $$ P_{1}(x) $$ as **Label or True**, $$ P_{2}(x) $$ as **Prediction**.
@@ -154,6 +162,7 @@ On the other hand, In `Reverse KL divergence`, don't care the point where predic
 
 $$ KL(P_{2}(x), P_{1}(x)) = \sum_{x}P_{2}(x)log_{2}\frac{P_{2}(x)}{P_{1}(x)} , where P_{1}(x) = Label, P_{2}(x) = Prediction $$
   
+<br>
 
 ### What is the Cross Entropy?
 
