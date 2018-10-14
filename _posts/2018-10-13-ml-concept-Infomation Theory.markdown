@@ -175,7 +175,7 @@ For example, in the binary classification problem, you have ever used it as loss
 
 $$ a = \sigma(z), z = wx + b $$
 
-$$ \mathcalL = -\frac{1}{n}\sum_{x}[ylna + (1-y)ln(1-a)] $$
+$$ \mathcal L = -\frac{1}{n}\sum_{x}[ylna + (1-y)ln(1-a)] $$
 
 
 ### Reference
