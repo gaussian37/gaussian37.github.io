@@ -26,7 +26,7 @@ What we can measure is `probability`.
 
 we can formulate above example like this. 
 
-$$ P(tomorrow = heavy_rainy | today = clear) , P(tomorrow = clear | today  = clear) $$
+$$ P(tomorrow = heavy rainy | today = clear) , P(tomorrow = clear | today  = clear) $$
 
 Okay! we can define `how to measure information quantity` when knowing the probability of an event.
 
