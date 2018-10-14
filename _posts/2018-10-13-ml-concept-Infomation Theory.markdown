@@ -136,6 +136,25 @@ Answer is **Large**. If `KL divergence` is large then, their distribution is far
 If you add new features, then calculate the `KL divergence` between old feature data and new one.
 If the value is too small, they are dependent and maybe not useful.
 
+### Is order important in KL divergence ?
+
+In `KL divergence` of $$ KL(P_{1}(x), P_{2}(x)) $$, many use $$ P_{1}(x) $$ as **Label or True**, $$ P_{2}(x) $$ as **Prediction**.
+
+$$ KL(P_{1}(x), P_{2}(x)) = \sum_{x}P_{1}(x)log_{2}\frac{P_{1}(x)}{P_{2}(x)} $$
+
+In a point of $$ P_{1}(x) = 0 $$, regardless of $$ P_{2}(x) $$, values is zero.
+That is, don't care the prediction(estimation) in a point where true value doesn't exist.
+
+![kldivergence_order](../assets/img/ml/concept/Information-Theory/kldivergence_order.PNG)
+
+If P(x) = Label, Q(x) = Prediction then, greater than about 3 value points will be zero in `KL divergence`.
+Because In terms of $$ \sum_{x}P(x)log_{2}\frac{P(x)}{Q(x)} $$, P(x) is zero.
+
+On the other hand, In `Reverse KL divergence`, don't care the point where prediction value doesn't exist.
+
+$$ KL(P_{2}(x), P_{1}(x)) = \sum_{x}P_{2}(x)log_{2}\frac{P_{2}(x)}{P_{1}(x)} , where P_{1}(x) = Label, P_{2}(x) = Prediction $$
+  
+
 ### What is the Cross Entropy?
 
 If you study `Neural Network` then, you maybe know the `cross entropy`.
@@ -182,65 +201,11 @@ $$ \frac{\partial\mathcal L}{\partial w_{j}} = -\frac{1}{n}\sum_{x}(\frac{y}{\si
  = \frac{1}{n}\sum_{x}\frac{\sigma^{'}(z)x_{j}}{\sigma(z)(1-\sigma(z))}(\sigma(z)-y)
  = \frac{1}{n}\sum_{x}x_{j}(\sigma(z) - y) $$ 
 
+That's it! we have look through `Entropy`, `KL divergence` and `Cross Entropy`.
 
+If you have question, feel free to ask me.
 
 ### Reference
 
 - 패턴 인식(Pattern Recognition) 오일석
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
- 
-
+- [KL-divergence from Terry TaeWoong Um](https://youtu.be/c5nTnvGHG4E?list=PL0oFI08O71gKEXITQ7OG2SCCXkrtid7Fq)
