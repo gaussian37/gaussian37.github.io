@@ -177,7 +177,11 @@ $$ a = \sigma(z), z = wx + b $$
 
 $$ \mathcal L = -\frac{1}{n}\sum_{x}[ylna + (1-y)ln(1-a)] $$
 
-$$ \frac{\partial\mathcal L}{\partialw_{j}} = -\frac{1}{n}\sum_{x}(\frac{y}{\sigma(z)} - \frac{(1-y)}{1-\sigma(z)})\frac{\partial\sigma}{\partialw_{j}} $$
+$$ \frac{\partial\mathcal L}{\partial w_{j}} = -\frac{1}{n}\sum_{x}(\frac{y}{\sigma(z)} - \frac{(1-y)}{1-\sigma(z)})\frac{\partial\sigma}{\partial w_{j}} 
+ = \frac{\partial\mathcal L}{\partial w_{j}} = -\frac{1}{n}\sum_{x}(\frac{y}{\sigma(z)} - \frac{(1-y)}{1-\sigma(z)})\sigma^{'}(z)x_{j} 
+ = \frac{1}{n}\sum_{x}\frac{\sigma^{'}(z)x_{j}}{\sigma(z)(1-\sigma(z))}(\sigma(z)-y)
+ = \frac{1}{n}\sum_{x}x_{j}(\sigma(z) - y) $$ 
+
 
 
 ### Reference
