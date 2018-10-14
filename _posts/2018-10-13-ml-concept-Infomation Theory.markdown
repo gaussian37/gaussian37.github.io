@@ -113,7 +113,21 @@ $$ KL(P_{1}(x), P_{2}(x)) = 0.1log_{2}\frac{0.1}{0.1} + 0.4log_{2}\frac{0.4}{0.5
 
 $$ KL(P_{1}(x), P_{3}(x)) = 0.1log_{2}\frac{0.1}{0.4} + 0.4log_{2}\frac{0.4}{0.1} + 0.4log_{2}\frac{0.4}{0.1} + 0.1log_{2}\frac{0.1}{0.4} = 1.200 $$
 
+As a result of `KL divergence`, $$ P_{1}(x) $$ and $$ P_{1}(x) $$ is close (0.037)
+and $$ P_{1}(x) $$ and $$ P_{3}(x) $$ are farther (1.200) than former.
 
+### Mutual information with KL divergence
+
+With `KL divergence`, we can see the mutual information between two random variable `x` and `y`.
+Mutual information indicates how much two variables are dependent.
+Let me suppose that random variable `x` and `y` are have distribution of `p(x)` and `p(y)`.
+if x and y are **independent**, p(x, y) = p(x)p(y). Accordingly, they don't have any dependency.
+On the other hand, if difference between joint distribution p(x, y) and p(x)p(y) is larger and larger,
+they become more dependent. Thus, `KL divergence` of `p(x,y)` and `p(x)p(y)` measures dependency of `x` and `y`.
+
+$$ I(x,y) = KL(P(x,y) P(x)P(y)) = \sum_{x}\sum_{y}P(x,y)log_{2}\frac{P(x,y)}{P(x)P(y)} \tag{6} $$
+
+$$ I(x,y) = KL(P(x,y), P(x)P(y)) = \int^{\infty}_{\infty}\int^{\infty}_{\infty} P(x,y)log_{2}\frac{P(x,y)}{P(x)P(y)} \tag{7} $$   
 
 
 ### Reference
