@@ -18,7 +18,7 @@ tags: [Information Theory, Entropy, KL divergence, Cross Entropy] # add tag
 Let's think about two cases. Which case does have **more information**?
 
 1. It's clear today. In the news, it will be clear tomorrow too.
-2. It's clear today. In the news, it will be heavy rainy tomorrow.
+2. It's clear today. But in the news, it will be heavy rainy tomorrow.
 
 In the first case, probability of clear in tomorrow is high because today is clear.
 Intuitively, we get less information. On the contrary, probability of second case is low.
