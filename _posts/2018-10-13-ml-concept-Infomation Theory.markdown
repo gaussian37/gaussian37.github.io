@@ -187,7 +187,7 @@ $$ H(P_{1}(x), P_{2}(x)) = \sum_{x}P_{1}(x)log_{2}\frac{1}{P_{2}(x)} = -\sum_{x}
 
 Yes it is! `CE` is the negative part of `KL divergence`.
 
-`KL divergence` = `Entropy` - `Cross Entropy`
+`KL divergence` = `Entropy` + `Cross Entropy`
 
 What is the $$ P_{1}(x) $$ and $$ P_{2}(x) $$ in usual?
 
