@@ -1,6 +1,15 @@
 ---
 layout: default
 ---
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_SVG"></script>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7290065680267572",
+    enable_page_level_ads: true
+  });
+</script>
 
 <aside class="sidebar">
   <header>
@@ -16,11 +25,6 @@ layout: default
     <section class="contact">
       <h3 class="contact-title">Contact me</h3>
       <ul>
-        {% if site.social-twitter %}
-          <li><a href="https://twitter.com/{{ site.social-twitter }}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-        {% else %}
-          <li><a href="https://twitter.com/artemsheludko_" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-        {% endif %}
         {% if site.social-facebook %}
           <li><a href="https://facebook.com/{{ site.social-facebook }}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
         {% else %}
@@ -48,6 +52,10 @@ layout: default
     </div>
   </footer> <!-- End Footer -->
 </aside> <!-- End Sidebar -->
+
+<div class="category-box">
+  {% include categories.html %}
+</div>
 <div class="content-box clearfix">
   {{ content }}
 </div>

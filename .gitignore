@@ -5,6 +5,7 @@ yarn.lock
 Gemfile.lock
 package-lock.json
 node_modules/
+.idea\
 
 ### macOS ###
 *.DS_Store
@@ -32,3 +33,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Directories
+**/.ipynb_checkpoints/
