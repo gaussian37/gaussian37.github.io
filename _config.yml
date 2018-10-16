@@ -3,7 +3,7 @@ description: > # this means to ignore newlines until "baseurl:"
   Hello and Welcome gaussian37's Data Science blog.
 permalink: ':title/'
 baseurl: ''
-url: "https://gaussian37.github.io/blog/"
+url: "https://gaussian37.github.io"
 site-twitter: #if your site has a twitter account, enter it here
 
 # Author Settings
