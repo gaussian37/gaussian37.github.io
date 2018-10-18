@@ -144,7 +144,9 @@ You can then train the model using the reconstruction loss and the regularizatio
 The following listing shows the encoder network you’ll use, mapping images to the parameters of a probability distribution over the latent space.
 It’s a simple convnet that maps the input image x to two vectors, `z_mean` and `z_log_var`.
 
-```buildoutcfg
++ VAE encoder network
+
+```python
 import keras
 from keras import layers
 from keras import backend as K
@@ -153,6 +155,7 @@ import numpy as np
 
 img_shape = (28, 28, 1)
 batch_size = 16
+# Dimensionality of the latent space: a 2D plane
 latent_dim = 2
 
 input_img = keras.Input(shape=img_shape)
@@ -171,10 +174,72 @@ shape_before_flattening = K.int_shape(x)
 x = layers.Flatten()(x)
 x = layers.Dense(32, activation='relu')(x)
 
+# The input image ends up being encoded into these two parameters.
 z_mean = layers.Dense(latent_dim)(x)
 z_log_var = layers.Dense(latent_dim)(x)
 
 ```
+
+<br>
+
+Next is the code for using `z_mean` and `z_log_var`, the parameters of the statistical distribution assumed to have produced `input_img`, to generate a latent space point `z`.
+Here, you wrap some arbitrary code (built on top of Keras backend primitives) into a `Lambda` layer.
+In Keras, everything needs to be a layer, so code that isn’t part of a built-in layer should be wrapped in a `Lambda` (or in a custom layer).
+
+
++ Latent-space-sampling function
+
+```python
+def sampling(args):
+    z_mean, z_log_var = args
+    epsilon = K.random_normal(shape=(K.shape(z_mean)[0], latent_dim),
+                              mean=0., stddev=1.)
+    return z_mean + K.exp(z_log_var) * epsilon
+
+z = layers.Lambda(sampling)([z_mean, z_log_var])
+```
+
+<br>
+
+The following listing shows the decoder implementation. 
+You reshape the vector z to the dimensions of an image and then use a few convolution layers to obtain a final image output that has the same dimensions as the original `input_img`.
+
++ VAE decoder network, mapping latent space points to images
+
+```python
+# Input where you’ll feed z
+decoder_input = layers.Input(K.int_shape(z)[1:])
+
+# Upsamples the input
+x = layers.Dense(np.prod(shape_before_flattening[1:]),
+                 activation='relu')(decoder_input)
+
+# Reshapes z into a feature map of the same shape as the feature map 
+# just before the last Flatten layer in the encoder model
+x = layers.Reshape(shape_before_flattening[1:])(x)
+
+# Uses a Conv2DTranspose layer and Conv2D layer to decode z 
+# into a feature map the same size as the original image input
+x = layers.Conv2DTranspose(32, 3,
+                           padding='same',
+                           activation='relu',
+                           strides=(2, 2))(x)
+x = layers.Conv2D(1, 3,
+                  padding='same',
+                  activation='sigmoid')(x)
+
+# Instantiates the decoder model, which turns “decoder_input” into the decoded image
+decoder = Model(decoder_input, x)
+
+# Applies it to z to recover the decoded z
+z_decoded = decoder(z)
+
+```
+
+<br>
+
+
+ 
 
 
 
