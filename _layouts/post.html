@@ -27,6 +27,15 @@ layout: main
       <header class="header-page">
         <h1 class="page-title">{{page.title}}</h1>
         <div class="page-date"><span>{{page.date | date: '%Y, %b %d'}}&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-7290065680267572",
+            enable_page_level_ads: true
+          });
+        </script>
+
       </header>
 
       {{content | markdownify}}
@@ -43,14 +52,6 @@ layout: main
         </div>
       </div>
       {% include disqus.html %}
-
-      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-7290065680267572",
-          enable_page_level_ads: true
-        });
-      </script>
 
     </div> <!-- End Wrap Content -->
   </div> <!-- End Page Content -->
