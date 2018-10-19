@@ -18,12 +18,30 @@ Before starting to talk about **VAE**, Check the notation.
 + $$ z $$ : Latent vector
 + $$ p(z) $$ : Prior
 + $$ p(x\|z) $$ : Likelihood
-+ $$ p(z&#124;x) $$ : Posterior
++ $$ p(z\|x) $$ : Posterior
 + $$ p(x,z) $$ : Probability Model Defined as Joint Distribution of x, z
 
 We are going to use this model.
 
-+ 
++ $$ p(x,z) = p(x\|z)p(z)
+
+If you know AE(`AutoEncoder`) then, you exactly know what `latent vector` is.
+
+### our goal is to find out `latent vector z` which can represent `x` well.
+In order to meet the goal, we need to focus on `Posterior`.
+
+$$ p(z\|x) : z(latent vector), x(observable data) $$
+
+$$ p(z\|x) = \frac{p(z\|x)p(z)}{p(x)} $$ : Infer Good Value of `z` given `x` (**Bayesian**)
+
+$$ p(x) = \int p(x,z)dz = \int p(z\|x)p(z) dz $$ (**Product Rule**)
+
+
+
+
+
+
+
 
 
 
