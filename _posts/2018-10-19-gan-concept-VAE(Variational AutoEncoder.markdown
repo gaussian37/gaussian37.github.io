@@ -17,8 +17,8 @@ Before starting to talk about **VAE**, Check the notation.
 + $$ p(x) $$  : Evidence
 + $$ z $$ : Latent vector
 + $$ p(z) $$ : Prior
-+ $$ p(x|z) $$ : Likelihood
-+ $$ p(z|x) $$ : Posterior
++ $$ p(x\|z) $$ : Likelihood
++ $$ p(z||x) $$ : Posterior
 + $$ p(x,z) $$ : Probability Model Defined as Joint Distribution of x, z
 
 
