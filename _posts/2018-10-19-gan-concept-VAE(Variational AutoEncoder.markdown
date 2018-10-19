@@ -33,7 +33,7 @@ In order to meet the goal, we need to focus on `Posterior`.
 But, Why do we focus on posterior? Because we need $$ p(x) $$. but it's hard to caculate. (**Intractable**)
 Thus, we are going to access approximate `posterior`.
 
-$$ p(z\|x) $$ : $$ z $$ (latent vector), $$ x $$(observable data)
+$$ p(z\|x) $$ : $$ z $$ is latent vector, $$ x $$ is observable data.
 
 $$ p(z\|x) = \frac{p(z\|x)p(z)}{p(x)} $$ : Infer Good Value of `z` given `x` (**Bayesian**)
 
