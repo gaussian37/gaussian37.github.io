@@ -1,13 +1,11 @@
 ---
 layout: post
-title: gram matrix used in style transfer  
-date: 2018-10-23 05:10:00
-img: gan/concept/autoencoder/autoencoder.png
+title: Gram Matrix used in Style Transfer  
+date: 2018-10-23 05:20:00
+img: vision/concept/gram-matrix/grammatrix.png
 categories: [vision-concept] 
 tags: [gram matrix, style transfer] # add tag
 ---
-ss
 
 
 
-  
