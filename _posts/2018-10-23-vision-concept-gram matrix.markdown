@@ -11,5 +11,5 @@ Today, we are going to study about `gram matrix` used in [Style transfer](https:
 
 What is the `gram matrix`?
 
-Let $$ \vec{x} && be a flatten image vector.
+Let $$ \vec{x} $$ be a flatten image vector.
 
