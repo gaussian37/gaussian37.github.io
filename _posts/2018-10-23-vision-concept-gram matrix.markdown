@@ -23,13 +23,15 @@ Accordingly, principle of applying `gram matrix` is same with following method.
 Let $$ Z_{0}, Z_{1} $$ be filters which applying to vector $$ \vec{x} $$.
 In order to make `gram matrix`, we will follow below procedure.
 
-1. Apply $$ \vec{x} $$ to $$ Z_{0}, Z_{1} $$. In below example, N = #filters = 2 & M = #pixel = 3. 
+### Apply $$ \vec{x} $$ to $$ Z_{0}, Z_{1} $$. 
+In below example, N = #filters = 2 & M = #pixel = 3. 
 
 ![img2](../assets/img/vision/concept/gram-matrix/img2.png)
 
 <br>
 
-2. Calculate `gram matrix`
+
+### Calculate `gram matrix`
 
 ![img3](../assets/img/vision/concept/gram-matrix/img3.png)
 
