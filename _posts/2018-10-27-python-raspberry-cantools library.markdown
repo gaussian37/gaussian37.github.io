@@ -70,6 +70,8 @@ dtoverlay=mcp2515-can0,oscillator=16000000,interrupt=25
 dtoverlay=spi-bcm2835-overlay
 ```
 
+<br>
+
 ![overlays](../assets/img/python/raspberry/cantools/overlays.jpg)
 
 <br>
@@ -80,11 +82,15 @@ dtoverlay=spi-bcm2835-overlay
 sudo reboot
 ```
 
+<br>
+
 + You can now bring the CAN interface up:
 
 ```python
 sudo /sbin/ip link set can0 up type can bitrate 500000
 ```
+
+<br>
 
 Above, `can0` is correspond to channel and `500000` to bitrate(can-speed, e.g. 500kbps).
 
@@ -94,6 +100,8 @@ That's it. Until now, we end up basic setting. If you reboot your raspberry, Re-
 sudo /sbin/ip link set can0 up type can bitrate 500000
 ```
 
+<br>
+
 ### Python settings
 
 We will use `Python3`. In terminal, we are going to install package `can-tools`. Type below.
@@ -102,11 +110,15 @@ We will use `Python3`. In terminal, we are going to install package `can-tools`.
 sudo apt-get install python3-pip
 ```
 
+<br>
+
 + Install
 
 ```python
 pip install cantools
 ```
+
+<br>
 
 ### How to read `CAN-DB` file
 
