@@ -7,6 +7,8 @@ categories: [python-raspberry]
 tags: [raspberry, login] # add tag
 ---
 
+The log-in problem we will handle maybe happens in `NOOBS` OS.
+
 If you have a problem unable to login even though you enter correct ID/Password.
 Maybe you are in infinite loops of log in.
 
