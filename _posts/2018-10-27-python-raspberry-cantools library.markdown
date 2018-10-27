@@ -7,7 +7,7 @@ categories: [python-raspberry]
 tags: [raspberry, cantools] # add tag
 ---
 
-If you are interested in vehicle and want to get and send `CAN`, you need to some H/W for access a car.
+If you are interested in vehicle and want to get and send `CAN`, you need to some H/W for accessing a car.
 There are a few H/W for handling `CAN` message such as Vector, But it's too much expensive to handle individually.
 Indeed, If you want to make another application with this message, you need to handle it with program.
 
