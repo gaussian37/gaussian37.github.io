@@ -103,7 +103,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/python/rest/' or page.url == '/python/numpy/'or page.url == '/python/crawling/' or page.url == '/python/pandas/' or page.url == '/python/django/' or page.url == '/python/etc/'%} active {% endif %}">
+            {% if page.url == '/python/rest/' or page.url == '/python/numpy/'or page.url == '/python/crawling/' or page.url == '/python/pandas/' or page.url == '/python/django/' page.url == '/python/raspberry/' or page.url == '/python/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('python-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -115,6 +115,7 @@
                     <a class="dropdown-item" href="{{ "/python/django" | prepend: site.baseurl }}">Django</a>
                     <a class="dropdown-item" href="{{ "/python/rest" | prepend: site.baseurl }}">Django-RestFramework</a>
                     <a class="dropdown-item" href="{{ "/python/crawling" | prepend: site.baseurl }}">Crawling</a>
+                    <a class="dropdown-item" href="{{ "/python/raspberry" | prepend: site.baseurl }}">Raspberry</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/python/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
