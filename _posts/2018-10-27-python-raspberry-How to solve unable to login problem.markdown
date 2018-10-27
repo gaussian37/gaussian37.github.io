@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Gram Matrix used in Style Transfer  
+title: How to solve unable to login problem.  
 date: 2018-10-23 05:20:00
 img: python/raspberry/raspberry.png
 categories: [python-raspberry] 
@@ -9,6 +9,8 @@ tags: [raspberry, login] # add tag
 
 If you have a problem unable to login even though you enter correct ID/Password.
 Maybe you are in infinite loops of log in.
+
+![login](../assets/img/python/raspberry/login-problem/login.jpg)
 
 In this case, follow below procedure.
 
