@@ -11,6 +11,8 @@ We can create server or things with `Raspberry pi`. It's not expensive and its p
 We need monitor to handle it. But I don't feel good to carry the monitor(e.g. 7-inch raspberry-pi monitor) every time.
 In that case, we can remote-access to raspberry with CLI/GUI environment.
 
+<br>
+
 ### SSH : CLI environment remote control
 
 SSH stands for Secure Shell Protocol. SSH usually is used for **data transfer** and **remote control**.
@@ -52,6 +54,8 @@ In the same way, type your ip in host name and connect. That's it!
 <br>
 
 You can transfer data with GUI environment.
+
+<br>
 
 ### VNC : GUI environment remote control
 
@@ -109,3 +113,8 @@ static domain_name_servers=192.168.0.1
 + static ip_address=192.168.0.10 : type what address you want to set
 + static routers=192.168.0.1 : set gateway
 + static domain_name_servers=192.168.0.1 : set gateway
+
+<br>
+
+### Reference
+
