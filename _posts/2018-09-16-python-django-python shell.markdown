@@ -22,15 +22,27 @@ tags: [python, django, shell] # add tag
         pip install "ipython[notebook]" 
         ```
 <br>
+
+### Run with shell
+
+```python
+python manage.py shell
+```
+
+<br>
         
 ### shell_plus and jupyter notebook with django shell
 
 + Install django-extensions
-    - pip install django-extensions
+    - `pip install django-extensions`
     - add `'django_extensions'` in project/settings.py : `INSTALLED_APPS` = [  ]
 + run with shell_plus
     - python manage.py `shell_plus` : shell + pre-imported packages    
+        - ``` python manage.py shell_plus ```
     - python manage.py `shell_plus --notebook` : shll_plus with jupyter notebook
+        - ``` python manage.py shell_plus --notebook```
+        
+<br>
     
 ### If error occurs...
 
