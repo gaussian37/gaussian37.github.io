@@ -9,11 +9,11 @@ tags: [python, django, shell] # add tag
 
 ### What is django shell?
 
-+ Python shell which has django project setting
++ It's kind of python shell which has django project setting
     - python manage.py shell
 + Basic python shell can not access django environment
-    - <project setting> is not loaded
-    - <project setting> is about project/settings.py
+    - **project setting** is not loaded
+    - **project setting** is about project/settings.py
 + Tip : If ipython is installed, shell would be run ipython
     - Basically, ipython is installed with jupyter notebook
     - In order to install ipython <br>
@@ -27,7 +27,7 @@ tags: [python, django, shell] # add tag
 
 + Install django-extensions
     - pip install django-extensions
-    - add "django-extensions" in project/settings.py : `INSTALLED_APPS` = []
+    - add `'django_extensions'` in project/settings.py : `INSTALLED_APPS` = [  ]
 + run with shell_plus
     - python manage.py `shell_plus` : shell + pre-imported packages    
     - python manage.py `shell_plus --notebook` : shll_plus with jupyter notebook
