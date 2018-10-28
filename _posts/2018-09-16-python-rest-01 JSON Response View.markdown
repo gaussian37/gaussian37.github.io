@@ -30,11 +30,11 @@ tags: [python, django, rest] # add tag
 ### REST API URL example
 
 + A Post model needs following function when it offers API services
-    - Get new posting and registers it and respond (ex. /post/new/)
-    - respond posting list and search (ex. request GET on /post/ address)
-    - respond specific positing contents (ex. On 10th articles, Get on /post/10/)
-    - update specific posting contents and respond (ex. POST on /post/10/update)
-    - delete specific posting contents and respond (ex. POST on /post/10/delete)
+    - Get new posting and registers it and respond (e.g. **/post/new/**)
+    - respond posting list and search (e.g. request **GET on /post/ address**)
+    - respond specific positing contents (e.g. **On 10th articles, Get on /post/10/**)
+    - update specific posting contents and respond (e.g. **POST on /post/10/update**)
+    - delete specific posting contents and respond (e.g. **POST on /post/10/delete**)
 
 **DRF** is the framework offering `Class Based View` which helps create REST API.
 
