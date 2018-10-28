@@ -21,6 +21,8 @@ tags: [python, django, rest] # add tag
     
 ### CRUD
 
+<br>
+
 + All data can be managed by actions which Create/Read/Update/Delete records
     - C : Create 
     - R : Read 
@@ -28,6 +30,8 @@ tags: [python, django, rest] # add tag
     - D : Delete
 
 ### REST API URL example
+
+<br>
 
 + A Post model needs following function when it offers API services
     - Get new posting and registers it and respond (e.g. **/post/new/**)
@@ -39,6 +43,12 @@ tags: [python, django, rest] # add tag
 **DRF** is the framework offering `Class Based View` which helps create REST API.
 
 ### django rest framework setting
+
+<br>
+
+![flow](../assets/img/python/rest/JSON-Response-View/flow.png)
+
+<br>
 
 First, create project in command line. Any project name is ok.
 
