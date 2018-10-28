@@ -7,7 +7,7 @@ categories: [python-django]
 tags: [python, django, tips, mistakes] # add tag
 ---
 
-+ `app_name` error
+# `app_name` error
 
 `app_name` error happens from django 2.0 or over. 
 Before 2.0 ver, urlpattens of project urls.py, you just added `namespace` in the url().
