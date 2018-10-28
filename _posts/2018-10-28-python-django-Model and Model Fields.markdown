@@ -33,15 +33,17 @@ tags: [python, django, Model, Model Field] # add tag
     + Row(1,2,3,4, ...)  = Instance
     + Column(A,B,C,D, ...) = Field
 
-We should designate `Field Type`. Maybe you can select options below
-    + AutoField
-    + BooleanField
-    + CharField
-    + DateTimeField
-    + FileField
-    + ImageField
-    + TextField
-    + IntegerField
+<br>
+
+We should designate `Field Type`. Maybe you can select options below.
++ AutoField
++ BooleanField
++ CharField
++ DateTimeField
++ FileField
++ ImageField
++ TextField
++ IntegerField
     
 You can use `Relationship Type`.
     + ForeignKey
