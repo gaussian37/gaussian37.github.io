@@ -18,10 +18,10 @@ tags: [python, django, rest] # add tag
     - URI format is `https://{serviceRoot}/{collection}/{id}'
     - DRF support GET, PUT, DELETE, POST, HEAD, PATCH, OPTIONS.
     - API vesion is Major.minor and is included in URI
-    
-### CRUD
 
 <br>
+    
+### CRUD
 
 + All data can be managed by actions which Create/Read/Update/Delete records
     - C : Create 
@@ -29,9 +29,9 @@ tags: [python, django, rest] # add tag
     - U : Update
     - D : Delete
 
-### REST API URL example
-
 <br>
+
+### REST API URL example
 
 + A Post model needs following function when it offers API services
     - Get new posting and registers it and respond (e.g. **/post/new/**)
@@ -42,9 +42,9 @@ tags: [python, django, rest] # add tag
 
 **DRF** is the framework offering `Class Based View` which helps create REST API.
 
-### django rest framework setting
-
 <br>
+
+### django rest framework setting
 
 ![flow](../assets/img/python/rest/JSON-Response-View/flow.png)
 
