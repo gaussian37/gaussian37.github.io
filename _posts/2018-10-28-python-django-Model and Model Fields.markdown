@@ -22,6 +22,7 @@ tags: [python, django, Model, Model Field] # add tag
       e.g. `blog` application, `Comment` Model : blog_comment DB Table <br>
 
 + The table below is `DB Table` and total `DB Table` is `DB`.      
+
 ![db](../assets/img/python/django/Model-and-Model-Fields/db.PNG)
 
 <br>       
