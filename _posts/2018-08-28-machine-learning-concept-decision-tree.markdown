@@ -1,9 +1,9 @@
 ---
 layout: post
-title: About Decision Tree  
+title: Decision Tree (Reference ML KAIST)
 date: 2018-08-28 22:10:00
 img: ml/concept/about-decision-tree/decision-tree.png
-categories: [ml-mlkaist] 
+categories: [ml-concept] 
 tags: [machine learning, decision tree] # add tag
 ---
 
