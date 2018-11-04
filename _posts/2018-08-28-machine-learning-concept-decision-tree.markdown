@@ -45,19 +45,20 @@ Machine learning is relative to applying function approximation well.
     - The effort of producing a better approximate function
 
 + In the perfect world of EnjoySport
-    - Instance **X** <br>
+    - Instance `X` <br>
         - Features : <Sunny, Warm, Normal, Strong, Warm, Same>
-        - Label : <Yes>
+        - Label : Yes
         
-    - Training dataset **D** <br>
-        - A collection of observations o n the instance
+    - Training dataset `D` <br>
+        - A collection of observations on the instance (Collection of Xs)
         
-    - Hypothesis **H** <br>
+    - Hypothesis `H` <br>
         - Potentially possible function to turn X into Y
         - h_i : <Sunny, Warm, ?, ?, ?, Same> → Yes
     
-    - Target function **C** <br>
+    - Target function `C` <br>
         - Unknown target function between the features and the label
+        - Our objective is expressing hypothesis `H` to target function `C`.
         
         
 ### Graphical Representation of Function Approximation
@@ -70,8 +71,5 @@ Machine learning is relative to applying function approximation well.
 
 + What would be the better function approximation?
     - Generalization Vs. Specialization
-    
-    
-
-
-
+    - Instance x1 & Hypothesis h1 is `Generalization`
+    - Instance x3 & Hypothesis h3 is `Specialization`
