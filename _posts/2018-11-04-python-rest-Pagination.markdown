@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Create JSON Response view
+title: DRF Pagination
 date: 2018-11-04 18:43:00
 img: python/rest/rest.png
 categories: [python-rest] 
