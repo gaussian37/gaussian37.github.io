@@ -73,3 +73,38 @@ Machine learning is relative to applying function approximation well.
     - Generalization Vs. Specialization
     - Instance x1 & Hypothesis h1 is `Generalization`
     - Instance x3 & Hypothesis h3 is `Specialization`
+    
+    
+### Find-S Algorithm
+
+![Find-S](../assets/img/ml/concept/about-decision-tree/Find-S.png)
+
++ Find-S Algorithm
+    + Initialize h to the most specific in H
+    + For `instance` x in D
+        + if x is positive
+            + For `feature` f in O
+                + if $$ f_{i} $$ in h == $$ f_{i} $$ in x
+                    + Do nothing
+                + else
+                    + ($$ f_{i} $$ in h) ← ($$ f_{i} $$ in h) $$ \cup $$ ($$ f_{i} $$ in x)
+                    
+    + Return h
+    
+<br>
+
+For example, <br>
+
++ Instances
+    + $$ x_{1} $$ : <Sunny, Warm, Normal, Strong, Warm, Same>
+    + $$ x_{2} $$ : <Sunny, Warm, Normal, Light, Warm, Same>
+    + $$ x_{4} $$ : <Sunny, Warm, Normal, Strong, Warm, Change>
+    
++ Hypothesis
+    + $$ h_{0} $$ = $$ <\varnothing, \varnothing, \varnothing, \varnothing, \varnothing \varnothing> $$
+    + $$ h_{1} $$ = <Sunny, Warm, Normal, Strong, Warm, Same>
+    + $$ h_{1,2} $$ = <Sunny, Warm, Normal, **Don't care**, Warm, Same>
+    + $$ h_{1,2,4} $$ = <Sunny, Warm, Normal, **Don't care**, Warm, **Don't care**>
+    
++ Any possible problems?
+    + Many possible hs, and can't determine the coverage.
