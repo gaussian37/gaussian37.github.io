@@ -5,8 +5,16 @@
                 <a class="nav-link" href="{{ site.baseurl }}/">ALL</a>
             </li>
 
-            <li class="nav-item {% if page.url == '/interview/' %} active {% endif %}">
-                <a class="nav-link" href="{{ "/interview" | prepend: site.baseurl }}">Interview</a>
+            <li class="nav-item dropdown
+            {% if page.url == '/interview/ds' %} active {% endif %}">
+                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('interview-dropdown')"
+                   role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Interview
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="interview-dropdown">
+                    <a class="dropdown-item" href="{{ "/interview/datascience" | prepend: site.baseurl }}">Data Science</a>
+                </div>
             </li>
 
             <li class="nav-item dropdown
