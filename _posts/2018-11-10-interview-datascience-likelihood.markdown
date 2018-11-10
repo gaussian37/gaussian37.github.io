@@ -8,3 +8,7 @@ tags: [interview, datascience, likelihood] # add tag
 ---
 
 
+
+Reference :
+- https://gaussian37.github.io/machine-learning-etc-mle/ 
+- http://darkpgmr.tistory.com/62
