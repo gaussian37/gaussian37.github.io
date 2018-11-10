@@ -1,3 +1,4 @@
+.idea
 _site
 .sass-cache
 .jekyll-metadata
@@ -5,7 +6,6 @@ yarn.lock
 Gemfile.lock
 package-lock.json
 node_modules/
-.idea\
 
 ### macOS ###
 *.DS_Store
@@ -36,5 +36,3 @@ Temporary Items
 
 # Directories
 **/.ipynb_checkpoints/
-.idea/workspace.xml
-.idea
