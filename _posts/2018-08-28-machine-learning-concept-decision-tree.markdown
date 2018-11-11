@@ -142,7 +142,9 @@ For example, <br>
             - Specialize G as much as needed to **exclude** o in x.
             - Remove any h in S, for which $$ h(o) neq y $$
             
++ Generate h that satisfies $$ \exists s \in S, \exists g \in G, g \ge h \ge s $$.
 
+ 
             
            
      
