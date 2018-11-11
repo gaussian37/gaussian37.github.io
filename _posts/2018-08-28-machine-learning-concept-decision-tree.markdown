@@ -122,8 +122,31 @@ For example, <br>
     - Every hypothesis, **h**, satisfies
         - VS = {h $$ \in $$ H | $$ \exists $$ s  $$ \in $$ S, $$ \exists $$ g  $$ \in $$ G, g $$ \ge $$ h $$ \ge $$ s} <br>
           where x $$ \ge $$ y means x is more general or equal to y
-          
+  
+![version_space](../assets/img/ml/concept/about-decision-tree/version_space.png)
+
+<br>
+
+`Version Space` is not too general and also not too specific.
+
+## Candidate Elimination Algorithm
+
++ Candidate Elimination Algorithm
+    - Initialize **S** to maximally specific h in H
+    - Initialize **G** to maximally general h in H
+    - For instance x in D
+        - If y of x is positive
+            - Generalize S as much as needed to **cover** o in x.
+            - Remove any h in G, for which $$ h(o) \neq y $$
+        - If y of x is negative
+            - Specialize G as much as needed to **exclude** o in x.
+            - Remove any h in S, for which $$ h(o) neq y $$
+            
+
+            
            
+     
+  
          
         
         
