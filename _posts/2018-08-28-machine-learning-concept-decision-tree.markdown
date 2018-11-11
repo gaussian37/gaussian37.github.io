@@ -108,3 +108,22 @@ For example, <br>
     
 + Any possible problems?
     + Many possible hs, and can't determine the coverage.
+    
+
+### Version Space
+
++ Many hypotheses possible, and No way to find the convergence.
++ Need to setup the perimeter of the possible hypothesis.
++ The set of the possible hypotheses == Version Space (**VS**)
+    - General Boundary : `G`
+        - Is the set of the `maximally general` hypotheses of the version space.
+    - Specific Boundary : `S`
+        - Is the set of the `maximally specific` hypotheses of the version space.
+    - Every hypothesis, **h**, satisfies
+        - VS = {h $$ \in $$ H | $$ \exists $$ s  $$ \in $$ S, $$ \exists $$ g  $$ \in $$ G, g $$ \ge $$ h $$ \ge $$ s} <br>
+          where x $$ \ge $$ y means x is more general or equal to y
+          
+           
+         
+        
+        

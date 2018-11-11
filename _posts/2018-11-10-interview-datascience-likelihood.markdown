@@ -1,6 +1,6 @@
 ---
 layout: post
-title: likelihood
+title: Q1) likelihood 란? (정답을 보려면 클릭)
 date: 2018-11-10 18:43:00
 img: interview/datascience/likelihood/ds_question.jpg
 categories: [interview-datascience] 
