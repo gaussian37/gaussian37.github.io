@@ -140,7 +140,7 @@ For example, <br>
             - Remove any h in G, for which $$ h(o) \neq y $$
         - If y of x is negative
             - Specialize G as much as needed to **exclude** o in x.
-            - Remove any h in S, for which $$ h(o) \eq y $$
+            - Remove any h in S, for which $$ h(o) = y $$
             
 + Generate h that satisfies $$ \exists s \in S, \exists g \in G, g \ge h \ge s $$.
 
