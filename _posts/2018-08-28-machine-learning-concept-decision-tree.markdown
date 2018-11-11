@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Decision Tree (Reference ML KAIST)
-date: 2018-08-28 22:10:00
+date: 2017-01-02 00:00:00
 img: ml/concept/about-decision-tree/decision-tree.png
 categories: [ml-concept] 
 tags: [machine learning, decision tree] # add tag
@@ -140,9 +140,52 @@ For example, <br>
             - Remove any h in G, for which $$ h(o) \neq y $$
         - If y of x is negative
             - Specialize G as much as needed to **exclude** o in x.
-            - Remove any h in S, for which $$ h(o) neq y $$
+            - Remove any h in S, for which $$ h(o) \eq y $$
             
 + Generate h that satisfies $$ \exists s \in S, \exists g \in G, g \ge h \ge s $$.
+
+![candidata_elimination](../assets/img/ml/concept/about-decision-tree/candidate_elimination.png)
+
+There are many `hs` in the H and we can guess that some of them are `True`.
+In this case, we set the rule for searching the correct hypothesis. This is the `rule-based learning`.
+
+## How to classify the next instances ?
+
++ Somehow, we come up with the version space.
+    - A subset of **H** that satisfies the training data **D**.
++ Imagine a new instance kicks in
+    - <Sunny, Warm, Normal, Strong, Cool, Change>
+    - <Rainy, Cold, Normal, Light, Warm, Same>
+    - <Sunny, Warm, Normal, Light, Warm, Same>
+    - ...
+    - Some cases are **not classified**...
+    
++ How to classify these?
+    - which **h** to apply from the subset?
+    - Or, a classification by all of **h**s in the subset
+    - How many are **h**s satisfied?
+    - Sometimes, `rule-based learning` performance is terrible,,, so it's not easy to apply the hypothesis.
+    
+## Is this working?
+
++ Will the candidate-elimination algorithm converge to the correct hypothesis?
+    - Converge ? → Able to select a hypothesis
+    - Correct ? → The hypothesis is true in the observed system
+    
++ Given the following assumption, yes and yes !
+    - No observation errors, No inconsistent observations
+        - Training data is error-free, noise-free.
+    - No stochastic elements in the system we observe
+        - Target function is deterministic
+    - Full information in the observations to regenerate the system
+        - Target function is contained in hypotheses set
+
++ However, we don't live in the perfect world!
+    - Noise data : correct **h** can be removed by the noise.
+    - Wrong decision factor
+    
+
+
 
  
             
