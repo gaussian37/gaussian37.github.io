@@ -138,13 +138,15 @@ In the decision tree, we should consider how to split the data in order to get g
     - Then, how to measure the uncertainty of a feature variable
 + Entropy of a random variable
     - Features are random variables
-    - Higher entropy means more uncertainty
+    - `Higher entropy` means `more uncertainty`
     - $$  H(x) = -\sum_{x}P(X=x)H(X=x) $$
     
 + Conditional Entropy
     - We are interested in the entropy of the class given a feature variable
     - Need to introduce a given condition in the entropy
     - $$ H(Y|X) = \sum_{x}P(X = x)H(Y | X = x) = \sum_{x}P(X = x){-\sum_{Y}P(Y = y | X = x)log_{b}P(Y = y | X = x)} $$
+    
+    
     
     
     
