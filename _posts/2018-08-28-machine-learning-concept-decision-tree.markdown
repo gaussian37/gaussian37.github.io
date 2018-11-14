@@ -144,4 +144,8 @@ In the decision tree, we should consider how to split the data in order to get g
 + Conditional Entropy
     - We are interested in the entropy of the class given a feature variable
     - Need to introduce a given condition in the entropy
-    - $$  H(Y|X) = \sum_{x}P(X=x)H(Y|X=x) = \sum_{x}P(X=x){-\sum_{Y}P(Y = y | X = x)long_{b}P(Y = y | X = x) $$
+    - $$ H(Y|X) = \sum_{x}P(X = x)H(Y | X = x) = \sum_{x}P(X = x){-\sum_{Y}P(Y = y | X = x)log_{b}P(Y = y | X = x)} $$
+    
+    
+    
+    
