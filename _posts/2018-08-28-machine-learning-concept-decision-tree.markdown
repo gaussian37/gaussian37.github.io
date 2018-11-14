@@ -108,3 +108,45 @@ For example, <br>
     
 + Any possible problems?
     + Many possible hs, and can't determine the coverage.
+    
+### we live with noises
+
++ We need a better learning method
+    - We need to have more robust methods given the noises
+    - We need to have more concise presentations of the hypotheses
++ One alternative is a `decision tree`.
+
+![decision tree](../assets/img/ml/concept/about-decision-tree/decision_tree.png)
+
+<br>
+
+![decision tree](../assets/img/ml/concept/about-decision-tree/decision_tree2.png)
+
+<br>
+
+Good decision tree split the data as good ratio. Above example, A1 or A9 are features.
+In the case of A9, we have two options, True/False.
+If we choose True(left) then, we get correct answer 284/307.
+otherwise, 306/383, which is not good but not bad result.
+
+In the decision tree, we should consider how to split the data in order to get good results.
+
+### Entropy
+
++ Better attribute to check?
+    - Reducing the most uncertainty
+    - Then, how to measure the uncertainty of a feature variable
++ Entropy of a random variable
+    - Features are random variables
+    - Higher entropy means more uncertainty
+    - $$  H(x) = -\sum_{x}P(X=x)H(X=x) $$
+    
++ Conditional Entropy
+    - We are interested in the entropy of the class given a feature variable
+    - Need to introduce a given condition in the entropy
+    - $$  H(Y|X) = \sum_{x}P(X=x)H(Y|X=x) = \sum_{x}P(X=x){-\sum_{Y}P(Y = y | X = x)long_{b}P(Y = y | X = x) $$
+
+
+
+
+
