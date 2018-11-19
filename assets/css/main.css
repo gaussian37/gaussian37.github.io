@@ -890,6 +890,7 @@ table tfoot td {
 }
 
 .wrapper {
+  font-family:"BMJUA_ttf";
   max-width: 1250px;
   position: relative;
 }
