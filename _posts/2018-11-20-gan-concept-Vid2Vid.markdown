@@ -49,15 +49,14 @@ $$ cGAN : {x, z} → y $$ 즉, 입력으로 (x, z)를 출력으로 y를 주게 �
 `pix2pix` 에서는 2가지 `Loss`를 사용하였다는 것이 기존의 `GANs`와 차이점이 있었습니다.
 
 + GAN Loss
-    - $$ \mathcal L_{cGAN} (G, D) = \mathbb E_{x, y \sim p_{data}(x,y)}[ logD(x,y) ] +  \mathbb E_{x  \sim p_{data}(x), z \sim p_{z}(z)}[log(1 - D(x, G(x, z)))] $$
+    - 정의하면 $$ \mathcal L_{cGAN} (G, D) = \mathbb E_{x, y \sim p_{data}(x,y)}[ logD(x,y) ] +  \mathbb E_{x  \sim p_{data}(x), z \sim p_{z}(z)}[log(1 - D(x, G(x, z)))] $$
     
 + L1 Loss (Enforce correctness at Low Frequencies)
-    - $$ \mathcal L_{L1}(G) = \mathbb E_{x, y  \sim P_{data}(x, y), z \sim P_{z}(z)}[||y - G(x, z)||_{1}] $$
+    - 정의하면 $$ \mathcal L_{L1}(G) = \mathbb E_{x, y  \sim P_{data}(x, y), z \sim P_{z}(z)}[||y - G(x, z)||_{1}] $$
     
 따라서 `pix2pix`에서의 종합적인 Loss는 다음과 같았습니다.
 
 $$ G^{*} = arg \min_{G} \max_{D} \mathcal L_{cGAN}(G, D) + \lambda \mathcal L_{L1}(G) $$
-
 
 
 ...작성중...
