@@ -26,6 +26,7 @@ html {
  * Remove the margin in all browsers (opinionated).
  */
 body {
+  font-family: BMJUA_ttf
   margin: 0;
 }
 
