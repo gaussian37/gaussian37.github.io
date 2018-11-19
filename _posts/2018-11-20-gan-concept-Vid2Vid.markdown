@@ -12,7 +12,40 @@ tags: [gan, PR12, vid2vid] # add tag
 
 레퍼런스 : 
 
+- 논문 : https://arxiv.org/abs/1808.06601 
 - 강의 : https://www.youtube.com/watch?v=WxeeqxqnRyE&feature=youtu.be
 - 자료 : https://www.slideshare.net/TaesuKim3/pr12-20180916-videotovideosynthesistaesu
 
+![vid2vid_ex](../assets/img/gan/concept/vid2vid/vid2vid_ex.PNG)
 
+<br> 
+
+vid2vid 논문은 비디오를 다른 비디오로 변환하는 역할을 합니다.
+따라서 위와 같이 Semantic 영상을 실제 주행영상으로 변환도 가능합니다.
+
+![vid2vid_ex2](../assets/img/gan/concept/vid2vid/vid2vid_ex2.PNG)
+
+<br>
+
+또한 위와 같이 edge 영상을 이용하여 사람 같은 영상을 만들어 내기도 합니다.
+다양한 응용이 가능하며 마치 pix2pix의 video 버전이라고 보셔도 됩니다.
+
+`vid2vid` 논문은 `pix2pix` 논문을 기반으로 이루어져 있습니다. pix2pix 관련 논문은 `PR-65` 내용에도 나와있으니 참조하시면 될 것 같습니다.
+간단하게 `pix2pix`에 대하여 알아보고 넘어가도록 하겠습니다.
+
+![pix2pix_ex](../assets/img/gan/concept/vid2vid/pix2pix_ex.PNG)
+
+<br>
+
+`pix2pix`: Image-to-image translation with conditional adversarial networks 에서 알 수 있듯이, `cGAN`을 이용하여
+하나의 이미지를 다른 이미지로 변형하는 기법을 다룬 논문이었습니다. 
+
+$$ cGAN : {x, z} → y $$ 즉, 입력으로 (x, z)를 출력으로 y를 주게 되고 x, y, z의 뜻은 아래와 같습니다.  
+
++ x : observed image (condition)
++ z : random noise vector
++ y : generated output
+
+`pix2pix` 에서는 2가지 `Loss`를 사용하였다는 것이 기존의 `GANs`와 차이점이 있었습니다.
+
+ 
