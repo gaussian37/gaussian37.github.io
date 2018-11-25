@@ -29,7 +29,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/ml/la/' or page.url == '/ml/mlkaist/' or page.url == '/ml/concept/' or page.url == '/ml/code/' or page.url == '/ml/paper/' or page.url == '/ml/etc/'%} active {% endif %}">
+            {% if page.url == '/ml/la/' or page.url == '/ml/concept/' or page.url == '/ml/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('ml-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -37,14 +37,13 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="ml-dropdown">
                     <a class="dropdown-item" href="{{ "/ml/concept" | prepend: site.baseurl }}">Concept</a>
-                    <a class="dropdown-item" href="{{ "/ml/paper" | prepend: site.baseurl }}">Paper</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/ml/la" | prepend: site.baseurl }}">Linear Algebra</a>
                     <a class="dropdown-item" href="{{ "/ml/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/dl/chollet/' or page.url == '/dl/keras/'or page.url == '/dl/concept/' or page.url == '/dl/code/' or page.url == '/dl/paper/' or page.url == '/dl/etc/'%} active {% endif %}">
+            {% if page.url == '/dl/chollet/' or page.url == '/dl/keras/'or page.url == '/dl/concept/' or page.url == '/dl/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('dl-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -52,15 +51,14 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="dl-dropdown">
                     <a class="dropdown-item" href="{{ "/dl/concept" | prepend: site.baseurl }}">Concept</a>
-                    <a class="dropdown-item" href="{{ "/dl/paper" | prepend: site.baseurl }}">Paper</a>
-                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/dl/keras" | prepend: site.baseurl }}">Keras</a>
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/dl/chollet" | prepend: site.baseurl }}">Deep Learning with Python (Chollet)</a>
                     <a class="dropdown-item" href="{{ "/dl/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/vision/concept/' or page.url == '/vision/code/' or page.url == '/vision/paper/' or page.url == '/vision/etc/'%} active {% endif %}">
+            {% if page.url == '/vision/concept/' or page.url == '/vision/opencv/' or page.url == '/vision/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('vision-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -68,13 +66,13 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="vision-dropdown">
                     <a class="dropdown-item" href="{{ "/vision/concept" | prepend: site.baseurl }}">Concept</a>
-                    <a class="dropdown-item" href="{{ "/vision/paper" | prepend: site.baseurl }}">Paper</a>
+                    <a class="dropdown-item" href="{{ "/vision/opencv" | prepend: site.baseurl }}">OpenCV</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/vision/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/rl/concept/' or page.url == '/rl/code/' or page.url == '/rl/paper/' or page.url == '/rl/etc/'%} active {% endif %}">
+            {% if page.url == '/rl/concept/' or page.url == '/rl/etc/' or page.url == '/rl/kalmanfilter/' or page.url == '/rl/control/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('rl-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -82,7 +80,6 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="rl-dropdown">
                     <a class="dropdown-item" href="{{ "/rl/concept" | prepend: site.baseurl }}">Concept</a>
-                    <a class="dropdown-item" href="{{ "/rl/paper" | prepend: site.baseurl }}">Paper</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/rl/kalmanfilter" | prepend: site.baseurl }}">Kalman Filter</a>
                     <a class="dropdown-item" href="{{ "/rl/control" | prepend: site.baseurl }}">Control</a>
@@ -90,7 +87,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/gan/concept/' or page.url == '/gan/code/' or page.url == '/gan/paper/' or page.url == '/gan/etc/'%} active {% endif %}">
+            {% if page.url == '/gan/concept/' or page.url == '/gan/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('gan-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -98,13 +95,12 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="gan-dropdown">
                     <a class="dropdown-item" href="{{ "/gan/concept" | prepend: site.baseurl }}">Concept</a>
-                    <a class="dropdown-item" href="{{ "/gan/paper" | prepend: site.baseurl }}">Paper</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/gan/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/nlp/concept/' or page.url == '/nlp/paper/' or page.url == '/nlp/etc/'%} active {% endif %}">
+            {% if page.url == '/nlp/concept/' or page.url == '/nlp/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('nlp-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -112,7 +108,6 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="nlp-dropdown">
                     <a class="dropdown-item" href="{{ "/nlp/concept" | prepend: site.baseurl }}">Concept</a>
-                    <a class="dropdown-item" href="{{ "/nlp/paper" | prepend: site.baseurl }}">Paper</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/nlp/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>

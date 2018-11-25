@@ -231,19 +231,33 @@ JWT_AUTH = {
 + `JWT_ALLOW_REFRESH` : Token Refresh가 가능하도록 해줘야 합니다. 따라서 True로 바꾸어 줍니다.
 + `JWT_REFRESH_EXPIRATION_DELTA` : Refresh 가능 시간 입니다. 상식적으로 만료 되기전에 Refresh를 하는게 맞으므로 위의 `JWT_EXPIRATION_DELTA` 시간보다 짧게 해주면 됩니다.
 
+<br><br>
 
-## 실제 SNS랑 연동해서 사용해 보려면?
+## 실제 SNS랑 연동해서 사용해 보는 방법에 대하여 본격적으로 확인해 봅시다.
 
-카카오를 예를 들어 설명해 보겠습니다. 카카오로부터 Access Token을 획득하고, 
-이를 장고 서버를 통해 JWT 토큰을 획득해야 합니다.
+카카오를 예를 들어 설명해 보겠습니다. 카카오로부터 `Access Token`을 획득하고, 이를 장고 서버를 통해 `JWT 토큰`을 획득해야 합니다.
 
-+ 앱↔카카오톡 서버
++ 앱 ↔ **카카오톡** 서버
     + 안드로이드 앱에서 "카카오톡 로그인" 버튼을 클릭하면, 카카오톡 서버와 인증을 수행합니다.
-    + 카카오톡 서버와의 인증에 성공하면, 카카오톡으로부터 Access Token 을 획득
+    + 카카오톡 서버와의 인증에 성공하면, 카카오톡으로부터 Access Token 을 획득 합니다.
+        + Access Token은 안드로이드/ios에서 `Native API`를 통해 얻습니다. 이 또한 만료 시간은 있지만 만료 시간이 깁니다.
 
-+ 앱↔장고 서버
++ 앱 ↔ **장고** 서버
     + 획득된 Access Token을 장고 서버 인증 Endpoint (/accounts/rest-auth/kakao/)를 통해, JWT 토큰 획득
         + /accounts/rest-auth/kakao/ 는 django 서버에서 따로 설정해 주어야 하는 URL 입니다.
         + kakao 말고 따른 SNS 를 추가 하고 싶으면 /accounts/rest-auth/facebook/ 과 같이 설정할 수 있도록 유연하게 설계하면 됩니다.
     + 획득한 JWT 토큰이 만료되기 전에, `갱신` 합니다.
     + 획득한 JWT 토큰이 만료되었다면, Access Token을 서버로 전송하여 `JWT 토큰 재획득`
+    
+## 1) 카카오 개발자 홈페이지에서 필요한 정보를 가져옵니다.
+
+https://developers.kakao.com 를 접속하여 로그인한 후에 Application을 하나 만들어 보겠습니다.
+
+![1](../assets/img/python/rest/JWT/kakao1.PNG)
+
+여기서 `네이티브 앱 키`는 스마트폰 앱에서 사용할 것이고 REST API 키는 장고 서버에서 사용할 것입니다.
+`네이티브 앱 키`는 정확히 말하면 안드로이드/아이폰 앱 등에서 `kakao_app_key` 값으로 활용됩니다.
+
+![2](../assets/img/python/rest/JWT/kakao2.PNG)
+
+사용자 관리탭에서 사용자 관리 사용 옵션을 `ON`으로 켜주고, 수집 목적등을 기입한 후 저장합니다.    
