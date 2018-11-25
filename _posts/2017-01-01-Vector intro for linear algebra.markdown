@@ -9,8 +9,11 @@ tags: [Linear algebra] # add tag
 
 출처 : 칸 아카데미 선형대수학 (https://ko.khanacademy.org/math/linear-algebra/vectors-and-spaces)
 
-<iframe width="700" height="480" src="https://youtu.be/br7tS1t2SFE"  
- frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> 
+### Video 
+
+[![](../assets/img/ml/la/Vector for linear algebra/thumbnail.PNG)](https://youtu.be/br7tS1t2SFE)
+
+<br>
 
 ![1](../assets/img/ml/la/Vector%20for%20linear%20algebra/1.PNG)
 
@@ -18,16 +21,13 @@ tags: [Linear algebra] # add tag
 예를 들어벡터가 되는 것과 되지 못하는 것을 생각해 보죠. 
 어떤 물체가 시속 5마일로움직인다고 합시다. 하지만 이 정보 자체는 벡터가 아닙니다.
 단지 `크기`를 말합니다. 이 물체가 어느 방향으로시속 5마일로 움직이는지 알 수 없죠.
-속력이라고도 불리는 이 수치는
-그 자체로는 벡터가 아닙니다
-이것은 스칼라입니다
-이 값이 벡터가 되기 위해서는방향을 가져야합니다
-예를 들어 이 물체는시속 5마일의 속력으로
-동쪽으로 움직이고 있다고 이야기할 수 있죠
-이제 "시속 5마일로" 와 "동쪽으로"라는정보가 합쳐져서
-벡터가 되었고 이 값을더 이상 속력이라고 부르지 않습니다
+속력이라고도 불리는 이 수치는 그 자체로는 벡터가 아닙니다. 이것은 `스칼라`입니다.
 
-속도라고 부르죠즉, 속도는 벡터입니다
+이 값이 벡터가 되기 위해서는 방향을 가져야합니다. 
+예를 들어 이 물체는시속 5마일의 속력으로 동쪽으로 움직이고 있다고 이야기할 수 있죠.
+이제 **시속 5마일로** 와 **동쪽으로**라는 정보가 합쳐져서 `벡터`가 되었고 이 값을 더 이상 속력이라고 부르지 않습니다.
+
+`속도`라고 부르죠즉, 속도는 `벡터`입니다.
 이 정보를 시속 5마일로
 동쪽으로 움직인다고 말할 수 있죠
 하지만, 어떻게 이 정보를표현할 수 있을까요?
