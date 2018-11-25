@@ -59,7 +59,7 @@ JWT는
 
 ### JWT 예시
 
-eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9`.`eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFza2RqYW5nbyIsImV4cCI6MTUxNTcyMTIxMSwiZW1haWwiOiIifQ`.`Zf_o3S7Q7-cmUzLWlGEQE5s6XoMguf8SLcF-2VdokJQ
+eyJ0eXAi...IUzI1NiJ9`.`eyJ1c2VyX2lkIjo...aWwiOiIifQ`.`Zf_o3S7Q7-cmUz...LcF-2VdokJQ (너무 길어서 ... 로 줄였습니다.)
 
 + JWT는 **.** 을 기준으로 3영역으로 나뉘게 됩니다.
 + 헤더(Header)를 base64 인코딩하여, eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
@@ -134,7 +134,7 @@ http POST http://localhost:8000/api-jwt-auth/ username="유저명" password="암
 + 발급 받은 JWT Token을 https://jwt.io/ 에 입력하면 어떤 의미를 가지고 있는지 알 수 있습니다.
     + jwt.io에서 Signature를 인증할 때 Seceret Code는 프로젝트/settings.py에 있는 `SECRET_KEY`를 입력하면 됩니다.
 + 정상적으로 POST가 되면 다음과 같은 Token이 발급 됩니다.
-    + ex) eyJ0eXAiO3JKV2QeLCJhdGciOiJIUzI1NiJ8.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImdhdXNzaWFuMzciLCJleHAiOjE1NDMxNDQ4MjcsImVtYWlsIjoiZ2F1c3NpYW4xMTM3QGdtYWlsLmNvbSIsIm9yaWdfaWF0IjoxNTQzMTQ0NTI3fQ.Hk4zFJ9PLqNvbmLw3TQeBg2_nW34N7plGC6spb5jT_M
+    + ex) eyJ0eXAiO3JKV2QeL...
     + 발급 받은 Token의 형태를 보면 앞에서 언급한 바와 같이 .을 기준으로 3부분으로 구분됩니다.    
 
 ### 발급받은 JWT Token 확인
@@ -142,7 +142,7 @@ http POST http://localhost:8000/api-jwt-auth/ username="유저명" password="암
 verify 를 통하여 JWT Token으로 인증이 잘 되는지 확인할 수 있습니다.
 
 ```python
-http POST http://서비스주소/api-jwt-auth/verify/ token="eyJ0eXAiO3JKV2QeLCJhdGciOiJIUzI1NiJ8.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImdhdXNzaWFuMzciLCJleHAiOjE1NDMxNDQ4MjcsImVtYWlsIjoiZ2F1c3NpYW4xMTM3QGdtYWlsLmNvbSIsIm9yaWdfaWF0IjoxNTQzMTQ0NTI3fQ.Hk4zFJ9PLqNvbmLw3TQeBg2_nW34N7plGC6spb5jT_M"
+http POST http://localhost:8000/api-jwt-auth/verify/ token="eyJ0eXAiO3JKV2QeLCJhdGci..."
 ```
 
 <br>
@@ -176,7 +176,7 @@ http http://localhost:8000/app/post/ "Authorization: JWT 토큰"
 + 인증이 성공할 경우 해당 API의 응답을 받습니다.
 + **이제 매 API 요청마다, 필히 JWT 토큰을 인증헤더에 담아 전송해야 합니다.**
 
-
+### 
 
 
 
