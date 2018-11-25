@@ -57,16 +57,16 @@ JWT는
 
 8df73dafbde4c669dc37a9ea7620434515b2cc43
 
-### JWT 예시
+### - JWT 예시
 
-eyJ0eXAi...IUzI1NiJ9`.`eyJ1c2VyX2lkIjo...aWwiOiIifQ`.`Zf_o3S7Q7-cmUz...LcF-2VdokJQ (너무 길어서 ... 로 줄였습니다.)
+ex) J0eXAi...IUzI1NiJ9`.`eyJ1c2VyX2lkIjo...aWwiOiIifQ`.`Zf_o3S7Q7-cmUz...LcF-2VdokJQ (너무 길어서 ... 로 줄였습니다.)
 
 + JWT는 **.** 을 기준으로 3영역으로 나뉘게 됩니다.
 + 헤더(Header)를 base64 인코딩하여, eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
 + 내용(Payload)를 base64 인코딩하여, eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFza2RqYW5nbyIsImV4cCI6MTUxNTcyMTIxMSwiZW1haWwiOiIifQ
 + 서명(Signature) : Header/Payload를 조합하고 비밀키로 서명한 후 base64 인코딩하여, Zf_o3S7Q7-cmUzLWlGEQE5s6XoMguf8SLcF-2VdokJQ
 
-### DRF에 JWT 세팅하기
+### - DRF에 JWT 세팅하기
 
 + 먼저 패키지를 설치 합니다.
     + pip install djangorestframework-jwt
@@ -115,7 +115,7 @@ JWT_AUTH = {
 
 <br>
 
-### HTTPie를 통한 JWT 발급
+### - HTTPie를 통한 JWT 발급
 
 다양한 언어 또는 방법을 통해서 특정 URL에 `POST`를 하는 방법이 있습니다.
 그 중, `HTTPie`를 이용하여 `POST`를 해보겠습니다.
@@ -137,7 +137,7 @@ http POST http://localhost:8000/api-jwt-auth/ username="유저명" password="암
     + ex) eyJ0eXAiO3JKV2QeL...
     + 발급 받은 Token의 형태를 보면 앞에서 언급한 바와 같이 .을 기준으로 3부분으로 구분됩니다.    
 
-### 발급받은 JWT Token 확인
+### - 발급받은 JWT Token 확인
 
 verify 를 통하여 JWT Token으로 인증이 잘 되는지 확인할 수 있습니다.
 
@@ -159,7 +159,7 @@ http POST http://localhost:8000/api-jwt-auth/verify/ token="eyJ0eXAiO3JKV2QeLCJh
 
 <br>
 
-### 발급받은 JWT Token으로 포스팅 목록 API 요청
+### - 발급받은 JWT Token으로 포스팅 목록 API 요청
 
 Authorization이 필요한 Application을 접근할 때 JWT를 이용하여 ListView를 하려면 아래와 같이 할 수 있습니다.
 아래에서 app/post/는 예시 입니다. "Authorization: JWT 토큰"에서 토큰 부분에 실제 토큰을 입력하면 됩니다.
@@ -176,7 +176,7 @@ http http://localhost:8000/app/post/ "Authorization: JWT 토큰"
 + 인증이 성공할 경우 해당 API의 응답을 받습니다.
 + **이제 매 API 요청마다, 필히 JWT 토큰을 인증헤더에 담아 전송해야 합니다.**
 
-### JWT Token 유효기간이 지났을 경우
+### - JWT Token 유효기간이 지났을 경우
 
 앞에서 설명드린 바와 같이 JWT Token의 유효기간이 지났을 경우에는 다음과 같이 반환받습니다.
 
@@ -196,7 +196,7 @@ HTTP/1.0 401 Unauthorized
 + **유효 기간이 지나면** `username/password`를 통해 인증 받아야 합니다.
 + JWT 토큰 유효기간은 `settings.JWT_AUTH`의 `JWT_EXPIRATION_DELTA` 값을 참조 하며 기본 값은 5분 입니다.
 
-### JWT Token 갱신받기
+### - JWT Token 갱신받기
 
 반드시 Token 유효 기간 내에 갱신이 이루어 져야 합니다.
 
@@ -213,7 +213,7 @@ http POST http://localhost:8000/api-jwt-auth/refresh/ token="토큰"
 + settings.JWT_AUTH의 `JWT_ALLOW_REFRESH` 설정은 디폴트가 `False` 입니다. `True` 설정을 해야 갱신을 진행할 수 있습니다.
 
 
-### djangorestframework-jwt의 주요 settings
+### - djangorestframework-jwt의 주요 settings
 
 ```python
 JWT_AUTH = { 
@@ -232,7 +232,7 @@ JWT_AUTH = {
 + `JWT_REFRESH_EXPIRATION_DELTA` : Refresh 가능 시간 입니다. 상식적으로 만료 되기전에 Refresh를 하는게 맞으므로 위의 `JWT_EXPIRATION_DELTA` 시간보다 짧게 해주면 됩니다.
 
 
-## 실제 SNS랑 연동해서 사용해 보려면?
+## - 실제 SNS랑 연동해서 사용해 보려면?
 
 카카오를 예를 들어 설명해 보겠습니다. 카카오로부터 Access Token을 획득하고, 
 이를 장고 서버를 통해 JWT 토큰을 획득해야 합니다.
