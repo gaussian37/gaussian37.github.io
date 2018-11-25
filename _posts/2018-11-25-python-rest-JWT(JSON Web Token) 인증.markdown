@@ -20,6 +20,8 @@ binascii.hexlify(b'12345').decode()
 >> '3132333435'
 ```
 
+<br>
+
 즉, DRF 기본 Token은 랜덤 문자열 이므로 의미 있는 데이터를 가지고 있지 않습니다. <br>
 
 반면에, JWT는 **토큰 자체가 데이터**를 가지고 있습니다.
@@ -112,6 +114,75 @@ JWT_AUTH = {
 ```
 
 <br>
+
+### HTTPie를 통한 JWT 발급
+
+다양한 언어 또는 방법을 통해서 특정 URL에 `POST`를 하는 방법이 있습니다.
+그 중, `HTTPie`를 이용하여 `POST`를 해보겠습니다.
+
+```python
+http POST http://localhost:8000/api-jwt-auth/ username="유저명" password="암호"
+{
+    "token": "인증에 성공할 경우, 토큰응답이 옵니다."
+}    
+```
+
+<br>
+
++ 이 때 사용할 유저명과 암호는 예를 들어서 createsuperuser로 만들었던 유저명과 암호를 사용하시면 실습해 볼 수 있습니다.
++ 인증에 실패할 경우 `400 Bad Request` 응답을 받습니다.
++ 발급 받은 JWT Token을 https://jwt.io/ 에 입력하면 어떤 의미를 가지고 있는지 알 수 있습니다.
+    + jwt.io에서 Signature를 인증할 때 Seceret Code는 프로젝트/settings.py에 있는 `SECRET_KEY`를 입력하면 됩니다.
++ 정상적으로 POST가 되면 다음과 같은 Token이 발급 됩니다.
+    + ex) eyJ0eXAiO3JKV2QeLCJhdGciOiJIUzI1NiJ8.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImdhdXNzaWFuMzciLCJleHAiOjE1NDMxNDQ4MjcsImVtYWlsIjoiZ2F1c3NpYW4xMTM3QGdtYWlsLmNvbSIsIm9yaWdfaWF0IjoxNTQzMTQ0NTI3fQ.Hk4zFJ9PLqNvbmLw3TQeBg2_nW34N7plGC6spb5jT_M
+    + 발급 받은 Token의 형태를 보면 앞에서 언급한 바와 같이 .을 기준으로 3부분으로 구분됩니다.    
+
+### 발급받은 JWT Token 확인
+
+verify 를 통하여 JWT Token으로 인증이 잘 되는지 확인할 수 있습니다.
+
+```python
+http POST http://서비스주소/api-jwt-auth/verify/ token="eyJ0eXAiO3JKV2QeLCJhdGciOiJIUzI1NiJ8.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImdhdXNzaWFuMzciLCJleHAiOjE1NDMxNDQ4MjcsImVtYWlsIjoiZ2F1c3NpYW4xMTM3QGdtYWlsLmNvbSIsIm9yaWdfaWF0IjoxNTQzMTQ0NTI3fQ.Hk4zFJ9PLqNvbmLw3TQeBg2_nW34N7plGC6spb5jT_M"
+```
+
+<br>
+
++ 이 때 인증이 잘 되면 입력한 Token이 그대로 반환 됩니다. ex) eyJ0eXAiO3JKV2...
++ 만약 exp가 만료가 되었다면 다음과 같이 반환 됩니다.
+
+```python
+{
+    "detail": "Signature has expired."
+}
+
+```
+
+<br>
+
+### 발급받은 JWT Token으로 포스팅 목록 API 요청
+
+Authorization이 필요한 Application을 접근할 때 JWT를 이용하여 ListView를 하려면 아래와 같이 할 수 있습니다.
+아래에서 app/post/는 예시 입니다. "Authorization: JWT 토큰"에서 토큰 부분에 실제 토큰을 입력하면 됩니다.
+ex) "Authorization: JWT eyJ0eXAiO3JKV2..."
+
+```python
+http http://localhost:8000/app/post/ "Authorization: JWT 토큰"
+```
+
+<br>
+
+정리를 하면, 
++ DRF Token에서는 인증헤더 시작문자열로 "Token"을 사용하였지만, JWT 에서는 "JWT"를 사용합니다.
++ 인증이 성공할 경우 해당 API의 응답을 받습니다.
++ **이제 매 API 요청마다, 필히 JWT 토큰을 인증헤더에 담아 전송해야 합니다.**
+
+
+
+
+
+
+
+
 
 
 
