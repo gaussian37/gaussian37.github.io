@@ -232,15 +232,13 @@ JWT_AUTH = {
 카카오를 예를 들어 설명해 보겠습니다. 카카오로부터 Access Token을 획득하고, 
 이를 장고 서버를 통해 JWT 토큰을 획득해야 합니다.
 
-1.앱↔카카오톡 서버
++ 앱↔카카오톡 서버
+    + 안드로이드 앱에서 "카카오톡 로그인" 버튼을 클릭하면, 카카오톡 서버와 인증을 수행합니다.
+    + 카카오톡 서버와의 인증에 성공하면, 카카오톡으로부터 Access Token 을 획득
 
-+ 안드로이드 앱에서 "카카오톡 로그인" 버튼을 클릭하면, 카카오톡 서버와 인증을 수행합니다.
-+ 카카오톡 서버와의 인증에 성공하면, 카카오톡으로부터 Access Token 을 획득
-
-2. 앱↔장고 서버
-
-+ 획득된 Access Token을 장고 서버 인증 Endpoint (/accounts/rest-auth/kakao/)를 통해, JWT 토큰 획득
-    + /accounts/rest-auth/kakao/ 는 django 서버에서 따로 설정해 주어야 하는 URL 입니다.
-    + kakao 말고 따른 SNS 를 추가 하고 싶으면 /accounts/rest-auth/facebook/ 과 같이 설정할 수 있도록 유연하게 설계하면 됩니다.
-+ 획득한 JWT 토큰이 만료되기 전에, `갱신` 합니다.
-+ 획득한 JWT 토큰이 만료되었다면, Access Token을 서버로 전송하여 `JWT 토큰 재획득`
++ 앱↔장고 서버
+    + 획득된 Access Token을 장고 서버 인증 Endpoint (/accounts/rest-auth/kakao/)를 통해, JWT 토큰 획득
+        + /accounts/rest-auth/kakao/ 는 django 서버에서 따로 설정해 주어야 하는 URL 입니다.
+        + kakao 말고 따른 SNS 를 추가 하고 싶으면 /accounts/rest-auth/facebook/ 과 같이 설정할 수 있도록 유연하게 설계하면 됩니다.
+    + 획득한 JWT 토큰이 만료되기 전에, `갱신` 합니다.
+    + 획득한 JWT 토큰이 만료되었다면, Access Token을 서버로 전송하여 `JWT 토큰 재획득`
