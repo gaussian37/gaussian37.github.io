@@ -249,7 +249,7 @@ JWT_AUTH = {
     + 획득한 JWT 토큰이 만료되기 전에, `갱신` 합니다.
     + 획득한 JWT 토큰이 만료되었다면, Access Token을 서버로 전송하여 `JWT 토큰 재획득`
     
-## 1) 카카오 개발자 홈페이지에서 필요한 정보를 가져옵니다.
+### 1) 카카오 개발자 홈페이지에서 필요한 정보를 가져옵니다.
 
 https://developers.kakao.com 를 접속하여 로그인한 후에 Application을 하나 만들어 보겠습니다.
 
@@ -261,3 +261,45 @@ https://developers.kakao.com 를 접속하여 로그인한 후에 Application을
 ![2](../assets/img/python/rest/JWT/kakao2.PNG)
 
 사용자 관리탭에서 사용자 관리 사용 옵션을 `ON`으로 켜주고, 수집 목적등을 기입한 후 저장합니다.    
+
+
+... 작성중 ...
+
+
+### 2) 장고 서버에 SNS(카카오) 등록 및 REST API 설정을 합니다.
+
+
+### 3) 앱을 수정합니다.
+
++ baseURL 주소를 장고 서버에 맞게 설정 합니다.
++ android-app/app/build.gradle 경로의 applicationId에 유일한 아이디를 할당합니다.
+    + 경로 내의 android { defaultConfig { `applicationId` ... } } 
+    + applicationId는 앱 별로 유니크 하며 playstore에 한번 올리면 변경할 수 없습니다.
++ android-app/app/src/main/res/values/strings.xml 에서 `app_name` 과 `kakao_app_key`를 변경합니다.
+    + app_name에는 사용자가 지정하고 싶은 앱 이름을 넣으면 됩니다.
+    + kakao_app_key 에는 `네이티브 앱 키`를 지정하면 됩니다.
+
+```python
+<resources>
+    <string name = "app_name"> App with kakao </string>
+    <string name = "kakao_app_key"> 99ca10c5dd3b1da637b37519b2cc9493 </string>   
+</resources>
+```
+
+<br>
+
+다시 한번 참조하면 `네이티브 앱` 키는 아래에서 확인할 수 있습니다.
+
+![1](../assets/img/python/rest/JWT/kakao1.PNG) 
+
+<br>
+
++ 안드로이드 앱 빌드 & 실행을 통해, `keyHash` 값 확인/복사 합니다. 디버깅 창에서 확인할 수 있습니다.
+
+![3](../assets/img/python/rest/JWT/kakao3.PNG)
+
+패키지명에는 위에서 설정한 `applicationId`를 넣습니다. 마켓 URL은 자동 설정 됩니다.
+
+![4](../assets/img/python/rest/JWT/kakao4.PNG)
+
+안드로이드 스튜디오에서 확인한 keyHash 값을 사이트에 등록하면 됩니다.
