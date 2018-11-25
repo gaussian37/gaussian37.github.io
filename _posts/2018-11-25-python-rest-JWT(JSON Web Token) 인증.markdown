@@ -240,5 +240,7 @@ JWT_AUTH = {
 2. 앱↔장고 서버
 
 + 획득된 Access Token을 장고 서버 인증 Endpoint (/accounts/rest-auth/kakao/)를 통해, JWT 토큰 획득
+    + /accounts/rest-auth/kakao/ 는 django 서버에서 따로 설정해 주어야 하는 URL 입니다.
+    + kakao 말고 따른 SNS 를 추가 하고 싶으면 /accounts/rest-auth/facebook/ 과 같이 설정할 수 있도록 유연하게 설계하면 됩니다.
 + 획득한 JWT 토큰이 만료되기 전에, `갱신` 합니다.
 + 획득한 JWT 토큰이 만료되었다면, Access Token을 서버로 전송하여 `JWT 토큰 재획득`
