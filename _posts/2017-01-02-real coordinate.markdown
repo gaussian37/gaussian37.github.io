@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 선형대수학을 위한 벡터란 ?  
-date: 2017-01-01 00:00:00
+title: 실좌표공간  
+date: 2017-01-02 00:00:00
 img: ml/la/linear-algebra-image.jpg
 categories: [ml-la] 
 tags: [Linear algebra] # add tag
