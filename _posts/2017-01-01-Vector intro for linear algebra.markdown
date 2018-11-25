@@ -15,7 +15,7 @@ tags: [Linear algebra] # add tag
 
 <br>
 
-![1](../assets/img/ml/la/Vector for linear algebra/1.png)
+![1](../assets/img/ml/la/Vector%20for%20linear%20algebra/11.png)
 
 <br>
 
