@@ -10,6 +10,15 @@ tags: [python, django, REST, JWT, JSON Web Token] # add tag
 + DRF(Django Rest Framework)에서 기본 적으로 지원하는 **Token**은 단순한 랜덤 문자열 입니다.
     - 각 User와 1:1 매칭을 이용합니다.
     - 유효 기간이 없습니다.
+    
+```python
+import binascii
+import os
+
+binascii.hexlify(b'12345').decode()
+
+>> '3132333435'
+```
 
 즉, DRF 기본 Token은 랜덤 문자열 이므로 의미 있는 데이터를 가지고 있지 않습니다. <br>
 
@@ -29,12 +38,88 @@ JWT는
     + 인증 요청 시 마다 토큰을 보내야 하므로 필요 없는 정보가 포함되면 매 번 비용이 많아지므로 최소한의 정보만 담는게 좋습니다.
 + djangorestframework-jwt에서는 Payload 항목에 디폴트로 user_id, user_name, e-mail 이름의 claim을 사용합니다.
     + id / name / mail 정보가 Token 자체에 있으므로 DB를 조회하지 않아도 누구인지 인증이 가능합니다.
-    + `Payload = id + name + e-mail` 이고 토큰 포맷의 **헤더.내용.서명** 중에 **내용**에 해당합니다.
+    + `Payload = id + name + e-mail + exp` 이고 토큰 포맷의 **헤더.내용.서명** 중에 **내용**에 해당합니다.
     
 + 갱신(Refresh) 매커니즘을 지원합니다.
     + Token 유효기간 내에 갱신하거나, 유저네임/패스워드를 통해 재 인증 받아야 합니다.
     
+### Token은 반드시 안전한 장소에 보관해야 합니다.
+
++ 일반 Token / JWT 토큰 여부에 상관 없이 Token은 반드시 안전하게 보관 되어야 합니다. (인증 관련 요소이므로)
++ 스마트폰 앱은, 설치된 앱 별로 안전한 저장 공간이 제공되므로 토큰 방식을 쓰는 것이 좋지만 웹브라우저를 사용할 때는 저장 공간이 없습니다.
+    + **Token은 앱 환경**에서만 권장 됩니다.
+    + **웹 클라이언트 환경**에서는 보안적인 측면에서 **세션 인증**이 나은 선택일 수도 있습니다.  
     
+   
+### Token 예시
+
+8df73dafbde4c669dc37a9ea7620434515b2cc43
+
+### JWT 예시
+
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9`.`eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFza2RqYW5nbyIsImV4cCI6MTUxNTcyMTIxMSwiZW1haWwiOiIifQ`.`Zf_o3S7Q7-cmUzLWlGEQE5s6XoMguf8SLcF-2VdokJQ
+
++ JWT는 **.** 을 기준으로 3영역으로 나뉘게 됩니다.
++ 헤더(Header)를 base64 인코딩하여, eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
++ 내용(Payload)를 base64 인코딩하여, eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFza2RqYW5nbyIsImV4cCI6MTUxNTcyMTIxMSwiZW1haWwiOiIifQ
++ 서명(Signature) : Header/Payload를 조합하고 비밀키로 서명한 후 base64 인코딩하여, Zf_o3S7Q7-cmUzLWlGEQE5s6XoMguf8SLcF-2VdokJQ
+
+### DRF에 JWT 세팅하기
+
++ 먼저 패키지를 설치 합니다.
+    + pip install djangorestframework-jwt
+
++ 프로젝트/urls.py 에서 패키지 및 url을 등록해줍니다.
+    + obtain_jwt_token : JWT 토큰 획득
+    + refresh_jwt_token : JWT 토큰 갱신
+    + verify_jwt_token : JWT 토큰 확인
+
+```python
+project/urls.py
+
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
+
+urlpatterns = [
+    ... ,
+    url(r'^api-jwt-auth/$', obtain_jwt_token),          # JWT 토큰 획득
+    url(r'^api-jwt-auth/refresh/$', refresh_jwt_token), # JWT 토큰 갱신
+    url(r'^api-jwt-auth/verify/$', verify_jwt_token),   # JWT 토큰 확인
+]
+```
+
+<br>
+
++ 프로젝트/settings.py 에서 REST_FRAMEWORK 의 세팅값을 수정해 줍니다.
+
+```python
+REST_FRAMEWORK = {
+    ...
+    'DEFAULT_AUTHENTICATION_CLASSES' : [
+        ...
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ]
+}
+```
+
+<br>
+
++ 프로젝트/settings.py 에서 JWT_AUTH 에서 JWT 갱신 허용을 `True`로 설정해 줍니다.
+
+```python
+JWT_AUTH = { 
+    'JWT_ALLOW_REFRESH': True, 
+}
+```
+
+<br>
+
+
+
+
+
+
+
+
 
     
     
