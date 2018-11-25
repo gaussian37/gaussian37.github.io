@@ -207,6 +207,9 @@ http POST http://localhost:8000/api-jwt-auth/refresh/ token="토큰"
 }
 ```
 
+<br>
+<br>
+
 + settings.JWT_AUTH의 `JWT_ALLOW_REFRESH` 설정은 디폴트가 `False` 입니다. `True` 설정을 해야 갱신을 진행할 수 있습니다.
 
 
@@ -220,6 +223,8 @@ JWT_AUTH = {
     'JWT_ALLOW_REFRESH': False, 
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7), }
 ```
+
+<br>
 
 기본적인 Setting 값은 위와 같습니다. 여기서 바꿔줘야 하는 것은 `JWT_EXPIRATION_DELTA`, `JWT_ALLOW_REFRESH`, `JWT_REFRESH_EXPIRATION_DELTA` 항목 입니다.
 + `JWT_EXPIRATION_DELTA` : Token 만료시간으로 기본값은 5분 입니다. 5분은 너무 짧으니 늘려 줍시다.
