@@ -232,7 +232,7 @@ JWT_AUTH = {
 + `JWT_REFRESH_EXPIRATION_DELTA` : Refresh 가능 시간 입니다. 상식적으로 만료 되기전에 Refresh를 하는게 맞으므로 위의 `JWT_EXPIRATION_DELTA` 시간보다 짧게 해주면 됩니다.
 
 
-## - 실제 SNS랑 연동해서 사용해 보려면?
+## 실제 SNS랑 연동해서 사용해 보려면?
 
 카카오를 예를 들어 설명해 보겠습니다. 카카오로부터 Access Token을 획득하고, 
 이를 장고 서버를 통해 JWT 토큰을 획득해야 합니다.
