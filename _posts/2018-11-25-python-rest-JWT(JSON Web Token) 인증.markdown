@@ -176,28 +176,69 @@ http http://localhost:8000/app/post/ "Authorization: JWT 토큰"
 + 인증이 성공할 경우 해당 API의 응답을 받습니다.
 + **이제 매 API 요청마다, 필히 JWT 토큰을 인증헤더에 담아 전송해야 합니다.**
 
-### 
+### JWT Token 유효기간이 지났을 경우
+
+앞에서 설명드린 바와 같이 JWT Token의 유효기간이 지났을 경우에는 다음과 같이 반환받습니다.
+
+```python
+http http://localhost:8000/app/post/ "Authorization: JWT 토큰"
+
+HTTP/1.0 401 Unauthorized
+{ 
+    "detail": "Signature has expired."
+}
+```
+
+<br>
+
++ 클라이언트(앱) 에서는 토큰 유효기간 내에 토큰을 갱신 받아야 합니다. 유효 기간이 지났을 경우, 위와 같이 "401 Unauthorized" 응답을 받게 됩니다. 
++ **유효 기간 내**에는 **Token 만**으로 갱신을 받을수 있습니다.
++ **유효 기간이 지나면** `username/password`를 통해 인증 받아야 합니다.
++ JWT 토큰 유효기간은 `settings.JWT_AUTH`의 `JWT_EXPIRATION_DELTA` 값을 참조 하며 기본 값은 5분 입니다.
+
+### JWT Token 갱신받기
+
+반드시 Token 유효 기간 내에 갱신이 이루어 져야 합니다.
+
+```python
+http POST http://localhost:8000/api-jwt-auth/refresh/ token="토큰"
+{ 
+    "token": "갱신받은 JWT 토큰" 
+}
+```
+
++ settings.JWT_AUTH의 `JWT_ALLOW_REFRESH` 설정은 디폴트가 `False` 입니다. `True` 설정을 해야 갱신을 진행할 수 있습니다.
 
 
+### djangorestframework-jwt의 주요 settings
+
+```python
+JWT_AUTH = { 
+    'JWT_SECRET_KEY': settings.SECRET_KEY, 
+    'JWT_ALGORITHM': 'HS256', 
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=300), 
+    'JWT_ALLOW_REFRESH': False, 
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7), }
+```
+
+기본적인 Setting 값은 위와 같습니다. 여기서 바꿔줘야 하는 것은 `JWT_EXPIRATION_DELTA`, `JWT_ALLOW_REFRESH`, `JWT_REFRESH_EXPIRATION_DELTA` 항목 입니다.
++ `JWT_EXPIRATION_DELTA` : Token 만료시간으로 기본값은 5분 입니다. 5분은 너무 짧으니 늘려 줍시다.
++ `JWT_ALLOW_REFRESH` : Token Refresh가 가능하도록 해줘야 합니다. 따라서 True로 바꾸어 줍니다.
++ `JWT_REFRESH_EXPIRATION_DELTA` : Refresh 가능 시간 입니다. 상식적으로 만료 되기전에 Refresh를 하는게 맞으므로 위의 `JWT_EXPIRATION_DELTA` 시간보다 짧게 해주면 됩니다.
 
 
+## 실제 SNS랑 연동해서 사용해 보려면?
 
+카카오를 예를 들어 설명해 보겠습니다. 카카오로부터 Access Token을 획득하고, 
+이를 장고 서버를 통해 JWT 토큰을 획득해야 합니다.
 
+1.앱↔카카오톡 서버
 
++ 안드로이드 앱에서 "카카오톡 로그인" 버튼을 클릭하면, 카카오톡 서버와 인증을 수행합니다.
++ 카카오톡 서버와의 인증에 성공하면, 카카오톡으로부터 Access Token 을 획득
 
+2. 앱↔장고 서버
 
-
-
-
-
-
-
-    
-    
-
-
-
-
-    
-    
-
++ 획득된 Access Token을 장고 서버 인증 Endpoint (/accounts/rest-auth/kakao/)를 통해, JWT 토큰 획득
++ 획득한 JWT 토큰이 만료되기 전에, `갱신` 합니다.
++ 획득한 JWT 토큰이 만료되었다면, Access Token을 서버로 전송하여 `JWT 토큰 재획득`
