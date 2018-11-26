@@ -262,13 +262,41 @@ https://developers.kakao.com 를 접속하여 로그인한 후에 Application을
 
 사용자 관리탭에서 사용자 관리 사용 옵션을 `ON`으로 켜주고, 수집 목적등을 기입한 후 저장합니다.    
 
-
-... 작성중 ...
-
-
 ### 2) 장고 서버에 SNS(카카오) 등록 및 REST API 설정을 합니다.
 
+장고 서버의 설정은 https://django-rest-auth.readthedocs.io/en/latest/installation.html 을 따라하면 됩니다.
 
++ 먼저 패키지를 설정 합니다.
+
+```python
+pip install django-rest-auth
+```
+
++ `rest_auth`를 project/settings.py의 INSTALLED_APP에 추가 합니다.
+
+```python
+INSTALLED_APPS = (
+    ...,
+    'rest_framework',
+    'rest_framework.authtoken',
+    ...,
+    'rest_auth'
+)
+```
+
+<br>
+
+참고로 `django-rest-auth`를 수행하기 위해서는 당연히 `django-rest-framework` 환경 설치가 선 진행 되어야 합니다.
+따라서 다음을 먼저 설치해 주었는지 확인합니다.
+
+```python
+pip install rest_framework
+```
+
+<br>
+
+...작성중...
+ 
 ### 3) 앱을 수정합니다.
 
 + baseURL 주소를 장고 서버에 맞게 설정 합니다.
