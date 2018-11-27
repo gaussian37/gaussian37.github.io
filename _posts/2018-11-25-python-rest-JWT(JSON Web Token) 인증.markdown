@@ -440,12 +440,15 @@ urlpatterns = [
 <br>
 
 + accounts/views.py를 만들고 아래와 같이 입력 합니다.
+
 ```python
+
 from allauth.socialaccount.providers.kakao.views import KakaoOAuth2Adapter
 from rest_auth.registration.views import SocialLoginView
 
 class KakaoLogin(SocialLoginView):
     adapter_class = KakaoOAuth2Adapter
+    
 ```
 
 <br>
@@ -455,7 +458,7 @@ class KakaoLogin(SocialLoginView):
 `django-rest-auth`는 기본적으로 Django의 Token 기반 인증을 수행합니다.
 여기서 JWT 인증을 적용할 것이기 때문에 아래 내용을 실행해야 합니다.
 
-+ [`django-rest-framework-jwt`](http://getblimp.github.io/django-rest-framework-jwt/) 를 설치합니다.
++ [django-rest-framework-jwt](http://getblimp.github.io/django-rest-framework-jwt/) 를 설치합니다.
 
 ```python
 pip install djangorestframework-jwt
