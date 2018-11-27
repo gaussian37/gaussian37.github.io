@@ -295,7 +295,7 @@ INSTALLED_APPS = (
 따라서 다음을 먼저 설치해 주었는지 확인합니다.
 
 ```python
-pip install rest_framework
+pip install djangorestframework
 ```
 
 <br>
