@@ -266,11 +266,15 @@ https://developers.kakao.com 를 접속하여 로그인한 후에 Application을
 
 장고 서버의 설정은 https://django-rest-auth.readthedocs.io/en/latest/installation.html 을 따라하면 됩니다.
 
+#### 2-1) rest-auth 설치
+
 + 먼저 패키지를 설정 합니다.
 
 ```python
 pip install django-rest-auth
 ```
+
+<br>
 
 + `rest_auth`를 project/settings.py의 INSTALLED_APP에 추가 합니다.
 
@@ -295,7 +299,210 @@ pip install rest_framework
 
 <br>
 
-...작성중...
++ `rest_auth`를 project/urls.py에 등록 합니다.
+
+```python
+urlpatterns = [
+    ...,
+    url(r'^rest-auth/', include('rest_auth.urls'))
+]
+``` 
+
+<br>
+
++ 만약 새로 만든 프로젝트라면 `migrate` 를 한번 해줍니다.
+
+```python
+python manage.py migrate
+```
+
+<br>
+
+#### 2-2) django-allauth 설치 및 Registration 
+
++ 이제 `django-allauth` 라는 것을 설치해 주어야 합니다. 설치할게 많은데요... 이것은 SNS 계정과 연동하기 위한 패키지 입니다. <br>
+  아래 명령어를 통해 설치하시면 됩니다.
+
+```python
+pip install "django-rest-auth[with_social]"
+```
+
+<br>
+
++ 패키지를 설치를 하였으니 project/settings.py 의 **INSTALLED_APPS** 에 아래 내용을 등록해 줍니다.
+
+```python
+INSTALLED_APPS = (
+    ...,
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+)
+```
+
+<br>
+
+`django.contrib.sites`는 `Multi sites` 기능을 지원해 주는 것을 뜻합니다. 
+간단하게 설명하면  Multi sites는 하나의 사이트에서 여러 domain을 가질 수 있는 기능을 말합니다.
+Model을 설정할 때, site의 ID를 ForeignKey로 설정할 수 있습니다. 예를 들면 다음과 같습니다.
+
+```python
+class Post(models.Model):
+    site = models.ForeignKey(SITE_ID)
+    ...
+``` 
+
+<br>
+
+이렇게 **ForeignKey를 설정해 주면 하나의 모델이지만 여러 서비스에서 사용**될 수 있습니다.
+기본적으로 `django-allauth` 는 multi sites 기능을 통하여 구현되기 때문에 INSTALLED_APPS에 `django.contrib.sites`를 입력해 주어야 합니다.
+하지만 저희는 여러 사이트를 운영하는 것은 아니고 한 개의 사이트만 운영할 것이기 때문에 Site 아이디를 강제로 지정해주어야 합니다.
+
+따라서 project/settings.py에 다음과 같이 SITE_ID를 강제로 지정합니다. 
+
+```python
+SITE_ID = 1
+```
+
+<br>
+
++ project/urls.py 에서 rest-auth/registration/을 등록합니다.
+
+```python
+urlpatterns = [
+    ...,
+    url(r'^rest-auth/', include('rest_auth.urls')),
+    url(r'^rest-auth/registration/', include('rest_auth.registration.urls'))
+]
+```
+
+<br>
+
+#### 2-3) Social Authentication 등록
+
+이제 INSTALLED_APPS에 `allauth.socialaccount`, `allauth.socialaccount.providers.facebook` 을 추가합니다.
+앞의 과정을 계속 따라오셨다면 INSTALLED_APPS는 다음과 같습니다.
+
+```python
+INSTALLED_APPS = [
+    ...,
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth'
+    ...,
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+    ...,
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.kakao',
+]
+```
+
+<br>
+
+만약 kakao가 아니라 facebook을 등록하고 싶으시면 `allauth.socialaccount.providers.kakao` 에서 kakao만 facebook으로 바꾸면 됩니다.
+
+#### 2-4) SNS 등록
+
+SNS 계정을 등록할 app을 하나 만들어서 url을 관리해 보도록 하겠습니다. 
++ accounts 라는 앱을 만들고 project/urls.py에 등록 합니다.
+
+```python
+# project/urls.py
+
+urlpatterns = [
+    ...
+    url(r'^accounts/', include('accounts.urls')),
+    ...
+]
+```
+
+<br>
+
++ accounts/urls.py를 만들고 아래와 같이 입력 합니다.
+
+```python
+# accounts/urls.py
+
+from django.conf.urls import include, url
+from .views import KakaoLogin
+
+app_name = 'accounts'
+
+urlpatterns = [
+    url(r'^rest-auth/kakao/$', KakaoLogin.as_view(), name='kakao_login'),
+]
+```
+
+<br>
+
++ accounts/views.py를 만들고 아래와 같이 입력 합니다.
+```python
+from allauth.socialaccount.providers.kakao.views import KakaoOAuth2Adapter
+from rest_auth.registration.views import SocialLoginView
+
+class KakaoLogin(SocialLoginView):
+    adapter_class = KakaoOAuth2Adapter
+```
+
+<br>
+
+#### 2-5) JWT 세팅
+
+`django-rest-auth`는 기본적으로 Django의 Token 기반 인증을 수행합니다.
+여기서 JWT 인증을 적용할 것이기 때문에 아래 내용을 실행해야 합니다.
+
++ [`django-rest-framework-jwt`](http://getblimp.github.io/django-rest-framework-jwt/) 를 설치합니다.
+
+```python
+pip install djangorestframework-jwt
+```
+
+<br>
+
++ `rest-framework`에서 사용할 인증 방식을 JWT로 정하기 위하여 project/settings.py에서 아래와 같이 옵션을 지정해 줍니다.
+
+```python
+REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+         ...         
+         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ],    
+
+}
+``` 
+
+<br>
+
++ 이제 rest-framework에서 Token 발급 시 JWT를 기본으로 사용하도록 명시하겠습니다. project/settings.py에 아래 내용을 추가합니다.
+
+```python
+REST_USE_JWT = True
+```
+
+<br>
+
+
+자 이제 다했습니다. 그럼 구현한 내용을 보기 위해서 admin 사이트 (localhost:8000/admin)에 들어가보겠습니다.
+
+![admin1](../assets/img/python/rest/JWT/admin1.PNG)
+
+<br>
+
+admin 접속 후 SITES 항목에 들어가면 `example.com`이 한 개 생성되어 있습니다.
+여기를 들어가 보겠습니다. 
+
+![admin2](../assets/img/python/rest/JWT/admin2.PNG)
+
+<br>
+
+URL을 보면 `http://localhost:8000/admin/sites/site/1/change/` 에서 1을 볼 수가 있습니다.
+여기서 숫자 1이 저희가 지정한 `SITE_ID = 1`에 해당합니다.
+
  
 ### 3) 앱을 수정합니다.
 
