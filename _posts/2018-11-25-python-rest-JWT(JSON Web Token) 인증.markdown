@@ -490,6 +490,7 @@ REST_USE_JWT = True
 
 <br>
 
+#### 2-6) django admin 에서 세팅
 
 자 이제 다했습니다. 그럼 구현한 내용을 보기 위해서 admin 사이트 (localhost:8000/admin)에 들어가보겠습니다.
 
@@ -506,6 +507,25 @@ admin 접속 후 SITES 항목에 들어가면 `example.com`이 한 개 생성되
 
 URL을 보면 `http://localhost:8000/admin/sites/site/1/change/` 에서 1을 볼 수가 있습니다.
 여기서 숫자 1이 저희가 지정한 `SITE_ID = 1`에 해당합니다.
+
+이제 해야할 마지막 작업은 SNS를 admin에 등록해야 합니다. 처음에 만든 카카오 개발자 홈페이지에서
+네이티브 앱 키, REST API 키 등이 있었습니다. 이 중 REST API 키를 Django 서버에서 사용한다고 하였는데 이 것을 등록해야 합니다.
+
++ Django admin의 Social Accounts › Social applications › Add social application 를 클릭합니다.
+
+![admin3](../assets/img/python/rest/JWT/admin3.PNG)
+
+<br>
+
+위와 같이 셋팅을 해주고 등록을 하면 드디어 카카오가 등록 되었습니다.
+
+앱에서 로그인 하기 전에 실제로 서버가 잘 동작하는지 확인하기 위해 access_token을 이용해 보겠습니다.
+
+![kakao5](../assets/img/python/rest/JWT/kakao5.PNG)
+
+<br>
+
+카카오 개발자 페이지에서 `개발가이드 >> REST API` 도구에 들어가서 앱을 선택하고 로그인 하면 Access Token이 생성 됩니다.
 
  
 ### 3) 앱을 수정합니다.
