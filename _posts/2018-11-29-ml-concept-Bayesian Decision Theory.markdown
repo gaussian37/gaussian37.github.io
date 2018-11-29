@@ -1,0 +1,61 @@
+---
+layout: post
+title: Bayesian Decision Theory  
+date: 2018-11-29 08:42:00
+img: ml/concept/bayesian-dicition-theory/Bayes_Theorem_web.png
+categories: [ml-concept] 
+tags: [Bayesian, Bayesian Decision] # add tag
+---
+
+이번 글에서는 Bayesian Decision Theory에 대하여 알아보도록 하겠습니다.
+자세히 알아보기 전에 간단한 확률 통계 이론 부터 시작해보도록 하겠습니다.
+이 글은 오일석 교수님의 패턴인식을 참조하였습니다. 책이 너무 좋습니다 ㅠㅠ
+
+자 그러면 시작해 보겠습니다.
+
+## 확률 기초
+
+![1](../assets/img/ml/concept/bayesian-dicition-theory/1.png)
+
+<br>
+
+### Discrete & Continuous Probability
+
++ 주사위를 던졌을 때 3이 나올 확률(probability)는 $$ \frac{1}{6} $$ 입니다.
+    + 이것을 기호로 표시하면 $$ P(X = 3) = \frac{1}{6} $$
+    + 여기서 X는 랜덤 변수(`random variable`) 라고 합니다.
+    + X는 `discrete` 값을 가집니다.
+
++ 사람 키를 생각해보면 주사위와는 조금 다릅니다. `continuous` 한 값을 가집니다.
+    + 이 때 확률 분포는 `PDF`로 나타냅니다. 
+        + PDF = probability density function 입니다.
+        
+### Basic Bayes Rule
+
+![2](../assets/img/ml/concept/bayesian-dicition-theory/2.png)
+
+간단하게 Bayes Rule을 게임을 통하여 알아보도록 하겠습니다.
+주머니에는 A 카드 7장과 B카드 3장이 있습니다. A, B 상자에는 각각 하얀공과 파란 공이 있습니다.
+예상 되다 싶이, 먼저 주머니에서 카드 한장을 뽑고, 뽑은 카드에 맞는 상자에서 공을 뽑습니다.
+공의 색을 확인한 뒤 다시 집어 넣습니다. 복원 하는 것이죠!
+
+자 그러면 문제를 풀 때 먼저 `랜덤 변수`를 먼저 정해야 합니다.
+
++ 랜덤 변수 X : 주머니에서 뽑은 용지
+    + 이 때, $$ X \in \{A, B\} $$
++ 랜덤 변수 Y : 상자에서 뽑은 공
+    + 이 떄, $$ Y \in \{하얀, 파란\} $$
+    
++ 이 때 상자 A가 선택될 확률은 어떻게 표현할 수 있을까요?
+    + $$ P(X = A) = P(A) = \frac{7}{10} $$
+
+
+    
+    
+
+
+        
+    
+
+
+    
