@@ -62,7 +62,7 @@ tags: [Bayesian, Bayesian Decision] # add tag
     + B가 선택되고 하얀 공이 나오는 경우
     + 두 경우의 확률을 더하면 답이 되며 이런 계산 방법을 `sum rule`이라고 합니다. 
         + 이런 방식으로 구한 확률 $$ P(하얀) $$ 을 `marginal probability` 라고 합니다.
-        + $$ P(하얀) = P(하얀 \| A)P(A) + P(하얀 \| B)P(B) = (\frac{2}{10})(\frac{7}{10}) + (\frac{9}{15})(\frac{3}{10}) = \frac{8}{25} $$
+        + 이 때, $$ P(하얀) = P(하얀 \| A)P(A) + P(하얀 \| B)P(B) = (\frac{2}{10})(\frac{7}{10}) + (\frac{9}{15})(\frac{3}{10}) = \frac{8}{25} $$
 
 + 두 랜덤 변수가 서로 영향을 미치지 못하였다면 `independent` 한다고 합니다. 
     + 독립인 두 랜덤 변수는 $$ P(X,Y) = P(X)P(Y) $$ 를 만족해야 합니다. 
