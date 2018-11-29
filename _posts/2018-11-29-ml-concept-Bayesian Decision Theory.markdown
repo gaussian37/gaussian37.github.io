@@ -69,7 +69,7 @@ tags: [Bayesian, Bayesian Decision] # add tag
     + 위의 예제에서는 $$ P(X,Y) \neq P(X)P(Y) $$ 이므로 독립이 아닙니다.
         + **주머니가 공의 색깔에 영향**을 미치고 있다는 뜻입니다.
         
-     
+... 작성중 ...     
     
 
 
