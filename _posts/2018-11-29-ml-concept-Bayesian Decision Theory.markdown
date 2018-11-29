@@ -51,7 +51,7 @@ tags: [Bayesian, Bayesian Decision] # add tag
 
 + 상자 A에서 하얀 공이 뽑힐 확률은 어떻게 될까요? 주머니에서 A라 쓰인 용지를 뽑았다는 조건 하에 확률을 따져보겠습니다.
     + 조건하에 따진다고 하여 조건부 확률(`conditional probability`) 라고 합니다.
-    + 확률은 $$ P(Y= 하얀 | X = A) = P(하얀 | A) = \frac{2}{10} $$
+    + 확률은 $$ P(Y= 하얀 \| X = A) = P(하얀 \| A) = \frac{2}{10} $$
     
 
 
