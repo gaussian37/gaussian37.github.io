@@ -69,16 +69,42 @@ tags: [Bayesian, Bayesian Decision] # add tag
     + 위의 예제에서는 $$ P(X,Y) \neq P(X)P(Y) $$ 이므로 독립이 아닙니다.
         + **주머니가 공의 색깔에 영향**을 미치고 있다는 뜻입니다.
         
-... 작성중 ...     
++ P(A)와 P(B)를 `prior event` 라고 합니다. 
+    +확률 실험에서 상자 선택과 공 선택이라는 event가 연이어 일어나는데, 공 선택 전에 상자 선택이 일어나기 때문입니다.
+
++ 만약 하얀 공이 뽑혔을 때, 하얀 공이 어느 상자에서 나왔는지를 확률적으로 맞추어 보겠습니다.
+    + 상자 A의 하얀 공 확률 P(하얀|A) = $$ \frac{2}{10} $$
+    + 상자 B의 하얀 공 확률 P(하얀|B) = $$ \frac{9}{15} $$
+    + 이렇게 비교할 경우 조건부 확률 P(Y|X)를 사용한 셈이고, Y는 이미 관찰되어 하얀으로 고정되어 있어 X에 따라 확률을 계산합니다.
+    + 이 때 조건부 확률을 likelihood 라고 합니다. 
+        + P(하얀 | A) + P(하얀 | B) $$ \neq $$ 1 이므로 probability의 개념은 아닙니다.
+
++ 하지만 likelihood만 고려한다면 주머니에서의 카드 A와 B의 분포가 무시됩니다.
+    + 만약 A가 1억장 , B가 1장이라면 likelihood만 고려한 B가 더 가능성이 높다고 할 수 있을까요?
+    + `prior event` P(X) 와 `likelihood` P(Y|X) 모두를 고려해야만 합리적인 선택을 할 수 있습니다.
     
-
-
-    
-    
-
-
++ 하얀 공이 관찰된 조건 하에서 어떤 상자에서 나왔는지를 알아내야 되는 문제 입니다.
+    + P(A | 하얀) vs P(B | 하얀) 을 비교하는 것이 더 맞아 보입니다.
+    + 즉, P(X | Y)를 사용하려고 하고 이 때 Y가 고정이 되고 X에 따라 확률을 계산합니다.
+    + 이 조건부 확률을 `posterior probability` 라고 합니다.
+        + 사건 Y가 일어날 이후에 따지는 확률이므로 `posterior` 라고 불리게 됩니다.
         
++ `posterior probability` $$ P(X\|Y) = \frac{P(Y\|X)P(X)}{P(Y)} = \frac{likelihood \times prior event}{P(Y)} $$
++ P(Y)의 경우 $$ X \in \{A,B\} $$ 이므로 P(Y) = P(Y|A)P(A) + P(Y|B)P(B) 가 됩니다.
+    + 따라서, $$ P(Y) = \sum_{X} P(Y\|X)P(X) $$ 이 됩니다.
     
-
-
-    
++ 이제 `Bayes 정리`를 이용하여 `posterior probability`를 다음과 같이 정리할 수 있습니다.
+    + `prior event` : P(X)
+        + 주머니에서 카드 A, B를 뽑는 사건에 대한 확률
+    + `posterior event` : P(Y)
+        + 상자에서 하얀 공을 거낼 확률 : `marginal probability`
+        + `marginal probability` = $$ \sum likelihood \times prior\ event $$
+        + P(하얀) = P(하얀|A)P(A) + P(하얀|B)P(B) = $$ \frac{2}{10}\frac{7}{10} + \frac{9}{15}\frac{3}{10} = \frac{8}{25} $$
+    + `likelihood` : P(Y|X)
+        + P(하얀|A) = $$ \frac{2}{10} $$ : A상자에서 하얀공을 꺼낼 확률
+        + P(하얀|B) = $$ \frac{9}{15} $$ : B상자에서 하얀공을 꺼낼 확률
+    + `posterior probability` $$ P(X \| Y) = \frac{likelihood \times prior\ event}{P(Y)} $$
+        + $$ P(A\|하얀) = \frac{P(하얀 \| A) \times P(A)}{P(하얀)} = 0.4375 $$
+        + $$ P(B\|하얀) = \frac{P(하얀 \| B) \times P(B)}{P(하얀)} = 0.5625 $$
+    + `posterior probability`에 따라서 신뢰도 0.5625로 B에서 나왔다고 할 수 있습니다.
+        + 이와 같이 `confidence`를 제공할 수 있습니다.
