@@ -84,8 +84,8 @@ tags: [Bayesian, Bayesian Decision] # add tag
     + `prior event` P(X) 와 `likelihood` $$ P(Y\|X) $$ 모두를 고려해야만 합리적인 선택을 할 수 있습니다.
     
 + 하얀 공이 관찰된 조건 하에서 어떤 상자에서 나왔는지를 알아내야 되는 문제 입니다.
-    + P(A | 하얀) vs P(B | 하얀) 을 비교하는 것이 더 맞아 보입니다.
-    + 즉, P(X | Y)를 사용하려고 하고 이 때 Y가 고정이 되고 X에 따라 확률을 계산합니다.
+    + $$ P(A \| 하얀) $$ vs $$ P(B \| 하얀) $$ 을 비교하는 것이 더 맞아 보입니다.
+    + 즉, $$P (X \| Y) $$를 사용하려고 하고 이 때 Y가 고정이 되고 X에 따라 확률을 계산합니다.
     + 이 조건부 확률을 `posterior probability` 라고 합니다.
         + 사건 Y가 일어날 이후에 따지는 확률이므로 `posterior` 라고 불리게 됩니다.
         
@@ -100,8 +100,8 @@ tags: [Bayesian, Bayesian Decision] # add tag
     + `posterior event` : P(Y)
         + 상자에서 하얀 공을 거낼 확률 : `marginal probability`
         + `marginal probability` = $$ \sum likelihood \times prior\ event $$
-        + P(하얀) = P(하얀|A)P(A) + P(하얀|B)P(B) = $$ \frac{2}{10}\frac{7}{10} + \frac{9}{15}\frac{3}{10} = \frac{8}{25} $$
-    + `likelihood` : P(Y|X)
+        + 따라서 $$ P(하얀) = P(하얀\|A)P(A) + P(하얀\|B)P(B) = \frac{2}{10}\frac{7}{10} + \frac{9}{15}\frac{3}{10} = \frac{8}{25} $$
+    + `likelihood` : $$ P(Y\|X) $$
         + $$ P(하얀\|A) = \frac{2}{10} $$ : A상자에서 하얀공을 꺼낼 확률
         + $$ P(하얀\|B) = \frac{9}{15} $$ : B상자에서 하얀공을 꺼낼 확률
     + `posterior probability` $$ P(X \| Y) = \frac{likelihood \times prior\ event}{P(Y)} $$
