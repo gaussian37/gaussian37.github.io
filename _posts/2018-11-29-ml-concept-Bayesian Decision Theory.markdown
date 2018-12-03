@@ -4,7 +4,7 @@ title: Bayesian Decision Theory
 date: 2018-11-29 08:42:00
 img: ml/concept/bayesian-dicition-theory/Bayes_Theorem_web.png
 categories: [ml-concept] 
-tags: [Bayesian, Bayesian Decision] # add tag
+tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # add tag
 ---
 
 이번 글에서는 Bayesian Decision Theory에 대하여 알아보도록 하겠습니다.
