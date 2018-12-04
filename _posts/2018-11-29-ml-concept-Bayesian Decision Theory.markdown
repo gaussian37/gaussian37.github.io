@@ -142,8 +142,8 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 + 두 개의 주사위를 던지고 나온 눈의 합을 랜덤 변수 x라 하면 평균과 분산은 다음과 같습니다.
     + 확률 분포 $$ P(x_{2}) = \frac{1}{36}, P(x_{3}) = \frac{2}{36} , P(x_{4}) = \frac{3}{36}, P(x_{5}) = \frac{4}{36}, P(x_{6}) = \frac{5}{36}, P(x_{7}) = \frac{6}{36} $$ <br>
       $$ P(x_{8}) = \frac{5}{36}, P(x_{9}) = \frac{4}{36}, P(x_{10}) = \frac{3}{36}, P(x_{11}) = \frac{2}{36}, P(x_{12}) = \frac{1}{36} $$ 입니다.    
-    + 평균 $$ \mu = \sigma_{i=2}^{12}i \times P(x_{i}) = 7 $$ 
-    + 분산 $$ \sigma^{2} = \sigma_{i=2}^{12}(i - \mu)^{2} \times P(x_{i}) = 5.83 $$
+    + 평균 $$ \mu = \sum_{i=2}^{12}i \times P(x_{i}) = 7 $$ 
+    + 분산 $$ \sigma^{2} = \sum_{i=2}^{12}(i - \mu)^{2} \times P(x_{i}) = 5.83 $$
     
     
 
