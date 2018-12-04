@@ -15,6 +15,8 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 ## 확률 기초
 
+---
+
 ![1](../assets/img/ml/concept/bayesian-dicition-theory/1.png)
 
 <br>
@@ -109,3 +111,47 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
         + 하얀 공이 나왔을 때, B 상자에서 꺼냈을 확률 : $$ P(B\|하얀) = \frac{P(하얀 \| B) \times P(B)}{P(하얀)} = 0.5625 $$
     + `posterior probability`에 따라서 신뢰도 0.5625로 B에서 나왔다고 할 수 있습니다.
         + 이와 같이 `confidence`를 제공할 수 있습니다.
+        
+## 평균과 분산
+
+---
+
+지금까지 기본적인 Bayes 정리를 알아보면서 `likelihood`와 `posterior probability`에 대하여 알아보았습니다.
+이제 랜덤 변수의 통계적 특성에서 가장 많이 쓰이는 `평균(mean)`과 `분산(variance)`에 대하여 알아보겠습니다.
+사실, 통계 값을 계산할 때에는 2가지 상황이 있습니다.
+
++ 확률 분포가 명시적인 상황
++ 확률 분포 대신 샘플 집합이 있는 상황
+    + 샘플들이 어떤 확률 분포로 부터 추출되었으므로 샘플 집합이 확률 분포를 암시적으로 내포하고 있는 상황
+    
+### 확률 분포가 주어진 상황
+
+확률 분포가 주어진 상황에서는 `이산`인 경우와 `연속`인 경우에 대하여 나누어 생각할 수 있습니다.
+
++ 이산(discrete) 확률 분포
+    + 평균 $$ \mu = \sum_{x}xP(x) $$  
+    + 분산 $$ \sigma^{2} = \sum_{x}(x-\mu)^{2}P(x) $$
++ 연속(continuous) 확률 분포
+    + 평균 $$ \mu = \int_{\infty}^{\infty}xp(x) dx $$
+    + 분산 $$ \sigma^{2} = \int_{\infty}^{\infty}(x-\mu)^{2}p(x)dx $$
+    
+이산 확률 분포에서는 P(x), 연속 확률 분포에서는 p(x)로 구분하여 표기하였습니다.
+
+#### 이산 확률 분포가 주어진 경우 평균과 분산 계산
+
++ 두 개의 주사위를 던지고 나온 눈의 합을 랜덤 변수 x라 하면 평균과 분산은 다음과 같습니다.
+    + 확률 분포 $$ P(x_{2}) = \frac{1}{36}, P(x_{3}) = \frac{2}{36} , P(x_{4}) = \frac{3}{36}, P(x_{5}) = \frac{4}{36}, P(x_{6}) = \frac{5}{36}, P(x_{7}) = \frac{6}{36} $$ <br>
+      $$ P(x_{8}) = \frac{5}{36}, P(x_{9}) = \frac{4}{36}, P(x_{10}) = \frac{3}{36}, P(x_{11}) = \frac{2}{36}, P(x_{12}) = \frac{1}{36} $$ 입니다.    
+    + 평균 $$ \mu = \sigma_{i=2}^{12}i \times P(x_{i}) = 7 $$ 
+    + 분산 $$ \sigma^{2} = \sigma_{i=2}^{12}(i - \mu)^{2} \times P(x_{i}) = 5.83 $$
+    
+    
+
+    
+    
+
+
+
+
+
+
