@@ -145,6 +145,14 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
     + 평균 $$ \mu = \sum_{i=2}^{12}i \times P(x_{i}) = 7 $$ 
     + 분산 $$ \sigma^{2} = \sum_{i=2}^{12}(i - \mu)^{2} \times P(x_{i}) = 5.83 $$
     
++ 이제 확률 분포는 모르고 샘플 집합만 주어진 상황을 생각해 보겠습니다.
+    + 샘플의 갯수는 N, i번째 샘플을 $$ x_{i} $$ 로 표기하겠습니다.
+    + 충분히 많은 샘플을 확보하여 $$ N \to \infty $$ 이 되면 실제 확률 분포와 가까와 진다는 통계적 정리에 따라
+        + 평균 $$ \mu = \frac{1}{N}\sum_{i=1}^{N}x_{i} $$
+        + 분산 $$ \sigma^{2} = \frac{1}{N-1}\sum_{i=1}^{N}(x_{i} - \mu) $$
+            + 분산을 구할 때, N이 아니라 N-1로 나누어 주었습니다. 바이어스의 영향으로 N-1로 나누어 주어야 합니다.
+        
+    
     
 
     
