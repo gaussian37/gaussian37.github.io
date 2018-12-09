@@ -65,18 +65,26 @@ Google Vision API를 사용하려면 2가지 방법이 있습니다.
     
 ### 4. 사용하기
 
-... 작성 중 ...
-    
-    
-    
+다음 링크를 통하여 API를 사용하기 위한 파일을 받습니다.
 
+<br>
 
-    
-    
+https://github.com/gaussian37/Vision/tree/master/Google%20Text%20Detection
 
+<br>
 
+사용 방법은 다음과 같습니다.
 
+```python
+import google_text_detection as gtd
 
- 
+ret = gtd.detect_text("image 파일 경로")
+```
 
- 
+<br>
+
+ret에는 검출한 텍스트 내용이 split 되어 list 형태로 반환됩니다.
+
+이상 Google Vision API를 사용하는 방법에 대하여 알아보았습니다.
+OpenCV등을 통하여 다양한 전처리가 필요하면 전처리한 결과를 `.jpg` 또는 `.png`로 저장하고
+저장한 파일을 그대로 `gtd.detect_text()`의 파라미터로 입력해 주면 됩니다.
