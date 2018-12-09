@@ -3,6 +3,7 @@ layout: post
 title: IELTS Listening 관련 공부 내용
 date: 2018-07-05 00:10:00 +0300
 img: interview/ielts/ielts.jpg
+categories: [interview-ielts] 
 tags: [ielts, listening] # add tag
 ---
 
