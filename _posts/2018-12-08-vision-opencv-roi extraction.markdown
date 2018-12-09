@@ -120,7 +120,7 @@ cv2.destroyAllWindows()
     
 <br>
 
-+ --image 파라미터를 통하여 이미지 파일의 경로를 받습니다.
++ `--image` 파라미터를 통하여 이미지 파일의 경로를 받습니다.
 + 입력 받은 이미지는 `clone = image.copy()`을 통하여 원본을 따로 복사해 둡니다.
 + `cv2.setMouseCallback("image", click_and_crop)` 을 통해 선언한 콜백 함수를 세팅합니다.
 + 키보드에서 다음을 입력받아 수행합니다.
