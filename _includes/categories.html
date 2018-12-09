@@ -6,7 +6,7 @@
             </li>
 
             <li class="nav-item dropdown
-            {% if page.url == '/interview/datascience/' or if page.url == '/interview/sap/' or if page.url == '/interview/ielts/'%} active {% endif %}">
+            {% if page.url == '/interview/datascience/' or page.url == '/interview/sap/' or page.url == '/interview/ielts/' page.url == '/interview/english/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('interview-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -16,6 +16,7 @@
                     <a class="dropdown-item" href="{{ "/interview/datascience" | prepend: site.baseurl }}">Data Science</a>
                     <a class="dropdown-item" href="{{ "/interview/sap" | prepend: site.baseurl }}">SAP</a>
                     <a class="dropdown-item" href="{{ "/interview/ielts" | prepend: site.baseurl }}">IELTS</a>
+                    <a class="dropdown-item" href="{{ "/interview/english" | prepend: site.baseurl }}">English</a>
                 </div>
             </li>
 
