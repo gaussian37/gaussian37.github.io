@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 벡터와 스칼라의 곱셈  
+title: 벡터 예제  
 date: 2017-01-05 00:00:00
 img: ml/la/linear-algebra-image.jpg
 categories: [ml-la] 
