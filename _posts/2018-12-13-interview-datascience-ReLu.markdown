@@ -24,7 +24,7 @@ Multi-layer의 activation으로 ReLu를 사용하게 되면 단순히 Linear 한
 최종적으로 Non-linearity 한 성질을 가지게 됩니다.
 학습 과정에서 BackPropagation 할 때에, 이 모델은 데이터에 적합하도록 fitting이 되게 됩니다.
 ReLu의 장점인 gradient가 출력층과 멀리 있는 layer 까지 전달된다는 성질로 인하여 데이터에 적합하도록
-fitting이 잘되게 되고 이것으로 곡선 함수가 만들어 지게 됩니다.
+fitting이 잘되게 되고 이것으로 곡선 함수에 근사하도록 만들어 지게 됩니다.
 
 ### ReLU의 문제점은?
 
