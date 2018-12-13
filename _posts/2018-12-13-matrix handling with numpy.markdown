@@ -2,11 +2,11 @@
 layout: post
 title: Numpy를 이용한 행렬 다루기 1탄
 date: 2018-12-13 00:00:00
-img: ml/la/matrix handling with numpy/numpy.jpeg
+img: ml/la/matrix handling with numpy/numpy.jpg
 categories: [ml-la] 
-tags: [Linear algebra, Numpy, 넘파이] # add tag
+tags: [Linear algebra, Numpy] # add tag
 ---
-
+ 
 이번 글에서는 Numpy를 이용할 때 가장 기본이 되는 기본중의 기본 연산에 대하여 한번 정리해 보려고 합니다.
 한번 쭉쭉 읽으시면 도움이 되실거라 생각됩니다. 그럼 정리해 보겠습니다.
 
