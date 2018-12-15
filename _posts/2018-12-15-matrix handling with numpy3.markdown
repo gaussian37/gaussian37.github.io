@@ -93,6 +93,8 @@ matrix = np.array([[1, 2, 3],
 
 ```
 
+<br>
+
 ## 행렬의 Determinant 계산
 
 ```python
