@@ -8,7 +8,7 @@ tags: [vision, opencv, corner, 코너,] # add tag
 ---
 
 + Reference : Python으로 배우는 OpenCV 프로그래밍
-+ Code : https://github.com/gaussian37/Vision/tree/master/OpenCV/crop%20image
++ Code : https://github.com/gaussian37/Vision/tree/master/OpenCV/corner%20detection
 
 ** 오늘 하루도 즐거운 하루 되길 바라며, 도움이 되셨다면 광고 한번 클릭 부탁 드립니다. 꾸벅 ^^ **
 
@@ -24,6 +24,7 @@ OpenCV를 이용하여 영상에서의 코너점을 검출하는 방법에 대�
 ![test](../assets/img/vision/opencv/corner-detection/corner-test.png)
 
 + dst = cv2.preCornerDetect(src, ksize)
+    + 코드 : [링크](https://github.com/gaussian37/Vision/blob/master/OpenCV/corner%20detection/preCornerDetect.py)
     + 코너 검출 방법 : local maxima, minima
     + 영상 src에서 코너점 검출을 위한 특징맵 dst를 Sobel 미분 연산자를 이용하여 계산
     + ksize는 Sobel 연산자의 마스크 크기
