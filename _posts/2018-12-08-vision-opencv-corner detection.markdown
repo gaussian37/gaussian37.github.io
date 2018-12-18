@@ -15,11 +15,14 @@ OpenCV를 이용하여 영상에서의 코너점을 검출하는 방법에 대�
 
 ## 코너점 검출 함수
 
+코너점을 검출할 수 있는 OpenCV 함수는 크게 6가지가 있습니다. 각각에 대하여 알아보고 어떻게 구현하며 되는지 알아보겠습니다.
+
+
 + dst = cv2.preCornerDetect(src, ksize)
     + 코너 검출 방법 : local maxima, minima
     + 영상 src에서 코너점 검출을 위한 특징맵 dst를 Sobel 미분 연산자를 이용하여 계산
     + ksize는 Sobel 연산자의 마스크 크기
     + 코너점은 dst에서 local maxima/minima 에서 검출
     + 이 때, $$ dst(x, y) = I^{2}_{x}I_{yy} + I^{2}_{y}I_{xx} - 2I_{x}I_{y}I_{xy} $$
-        +  $$ I_{x} = \frac{\partial I(x,y)}{\partial x} $$
+        + 1) $$ I_{x} = \frac{\partial I(x,y)}{\partial x} $$
         + dd            
