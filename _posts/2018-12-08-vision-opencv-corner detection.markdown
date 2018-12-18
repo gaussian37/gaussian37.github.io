@@ -21,4 +21,5 @@ OpenCV를 이용하여 영상에서의 코너점을 검출하는 방법에 대�
     + ksize는 Sobel 연산자의 마스크 크기
     + 코너점은 dst에서 local maxima/minima 에서 검출
     + 이 때, $$ dst(x, y) = I^{2}_{x}I_{yy} + I^{2}_{y}I_{xx} - 2I_{x}I_{y}I_{xy} $$
-        + $$ I_{x} = \frac{\partial I(x,y)}{\partial x} $$            
+        +  $$ I_{x} = \frac{\partial I(x,y)}{\partial x} $$
+        + dd            
