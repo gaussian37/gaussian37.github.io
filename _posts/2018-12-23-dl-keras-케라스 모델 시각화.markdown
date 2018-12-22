@@ -1,0 +1,97 @@
+---
+layout: post
+title: 케라스 모델 시각화
+date: 2018-11-17 16:00:00
+img: dl/keras/keras.png
+categories: [dl-keras] 
+tags: [deep learning, keras, 케라스, 시각화, visualization] # add tag
+---
+
+링크 : https://github.com/gaussian37/netron <br>
+
+케라스로 모델을 만든 다음에 모델을 시각화 하는 데에는 여러가지 방법이 있습니다.
+그 중 3가지 방법을 소개해 드리려고 합니다.
+
+1. model.summary()
+
+케라스는 layer를 **model**에 순차적으로 저장하고 있습니다.
+model에 차곡차곡 다 저장한 다음에 아래와 같이 입력하면 전반적인 구조를 알 수 있습니다.
+
+```python
+model.summary()
+```
+
+<br>
+
+![1](../assets/img/dl/keras/visualization/YbmUe.png)
+
+<br>
+
+2. graphviz로 시각화 하기
+
+graphviz로 시각화 하는 방법은 간단하면서 자세하게 구조가 나오기 때문에 많이 사용하는 방법입니다.
+다음을 먼저 설치합니다.
+
+```python
+pip install graphviz
+pip install pydot
+```
+
+<br>
+
+다음으로 아래와 같이 model을 시각화 하면 됩니다.
+
+```python
+from IPython.display import SVG
+from keras.utils.vis_utils import model_to_dot
+
+%matplotlib inline
+
+SVG(model_to_dot(model, show_shapes=True).create(prog='dot', format='svg'))
+```
+
+<br>
+
+![2](../assets/img/dl/keras/visualization/regular_stacked_lstm.png)
+
+3. netron 사용
+
+이 블로그 글을 쓴 목적에 해당하는 상당히 아름다운(?) 시각화 방법입니다.
+
+링크 : https://github.com/gaussian37/netron <br>
+
+위 링크에 있는 **Installer**를 각자의 OS 맞게 다운 받아 설치 하시면 됩니다.
+
+케라스에서 model을 학습 완료 시키면 그대로 두지 않고 보통 `.h5` 확장자로 저장을 합니다.
+다음번에는 학습 결과를 그대로 사용하기 위함입니다.
+`netron`은 학습한 결과 파일인 `.h5`를 시각화 해주는 툴입니다.
+링크에서 몇개 샘플(ResNet 등)을 바로 실습해 볼수 있도록 샘플이 올려져 있으니 참조하시면 됩니다.
+
+학습한 모델을 저장하는 방법은 다음과 같습니다.
+
+```python
+from keras.models import load_model
+
+model.save('my_model.h5')  # creates a HDF5 file 'my_model.h5'
+del model  # deletes the existing model
+
+# returns a compiled model
+# identical to the previous one
+model = load_model('my_model.h5')
+```
+
+<br>
+
+netron을 설치하고 나면 `.h5` 파일의 아이콘이 변경되는 것을 알 수 있습니다.
+
+![3](../assets/img/dl/keras/visualization/netron.PNG)
+
+<br>
+
+netron을 실행한 후 `.h5` 모델을 불러오거나 시각화 하고 싶은 `.h5` 파일을 실행하면 다음과 같이 결과를 볼 수 있습니다.
+
+![4](../assets/img/dl/keras/visualization/netron1.PNG)
+
+<br>
+
+도움이 되셨다면 아래 광고 한번 클릭 하시면 너무 도움이 될 것 같습니다. 꾸벅
