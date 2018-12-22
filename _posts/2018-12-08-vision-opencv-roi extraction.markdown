@@ -7,7 +7,8 @@ categories: [vision-opencv]
 tags: [vision, opencv, ROI 검출] # add tag
 ---
 
-Reference : https://www.pyimagesearch.com/2015/03/09/capturing-mouse-click-events-with-python-and-opencv/
++ Reference : https://www.pyimagesearch.com/2015/03/09/capturing-mouse-click-events-with-python-and-opencv/
++ Code : https://github.com/gaussian37/Vision/tree/master/OpenCV/crop%20image
 
 이번 포스트에서는 마우스 클릭으로 drag & drop을 하여 ROI(Region Of Interest)를
 추출하는 방법에 대하여 알아보도록 하겠습니다.
