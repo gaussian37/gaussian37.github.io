@@ -57,3 +57,5 @@ tags: [ielts, writing] # add tag
     + 각각이란 뜻을 사용할 때에는 each 보단 respectively 라는 단어가 낫다.
     + 새로 추가된 것은 `a`를 붙이는게 맞습니다. 당연한거고 쉬운거지만 자주 틀리네요.
     + 2배이상, 3배이상 : more than doubled/tripled
+    
+... 작성중 ...
