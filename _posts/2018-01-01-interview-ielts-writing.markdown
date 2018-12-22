@@ -52,7 +52,7 @@ tags: [ielts, writing] # add tag
     + 중복되었다고 쓸데없이 생략하지 말고 paraphrasing 해야한다. 생략하면 의미가 모호해진다.
     + It is noteworthy that the museum attendance fell **as age increased**
         + 원래 age got older라고 적어서 틀렸었다.
-    + These figures fluctuates out 6,000 and 700 respectively.
+    + These figures fluctuate out 6,000 and 700 respectively.
         + fluctuate out 표현을 이용하여 변동량을 사용하자.
     + 각각이란 뜻을 사용할 때에는 each 보단 respectively 라는 단어가 낫다.
     + 새로 추가된 것은 `a`를 붙이는게 맞습니다. 당연한거고 쉬운거지만 자주 틀리네요.
