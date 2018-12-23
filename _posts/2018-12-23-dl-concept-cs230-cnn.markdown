@@ -7,6 +7,4 @@ categories: [dl-concept]
 tags: [deep learning, cs230, cnn] # add tag
 ---
 
-![1](https://stanford.edu/~shervine/images/convolution-layer-a.png)
-
 ![2](../assets/img/dl/concept/cs230-cnn/convolution-layer-a.png)
