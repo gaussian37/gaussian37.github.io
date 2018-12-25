@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Model and Model Fields
-date: 2018-10-28 18:43:00
+title: related_name 설정 시 prefetch_related 사용 방법
+date: 2018-12-25 18:43:00
 img: python/django/django.png
 categories: [python-django] 
 tags: [python, django, related_name, prefetch_related] # add tag
