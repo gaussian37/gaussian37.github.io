@@ -2,7 +2,7 @@
 layout: post
 title: 위도, 경도를 이용하여 거리 구하기 
 date: 2018-12-25 00:00:00
-img: python/etc/lat,long dist/sample.jpeg
+img: python/etc/lat,long dist/globe.png
 categories: [python-etc] 
 tags: [python, haversine, lotitude, longitude, 위도, 경도, 거리] # add tag
 ---
