@@ -3,7 +3,7 @@ layout: post
 title: Raspberry pi with cantools  
 date: 2018-10-23 05:20:00
 img: python/raspberry/raspberry.png
-categories: [python-raspberry] 
+categories: [python-embedded] 
 tags: [raspberry, cantools] # add tag
 ---
 

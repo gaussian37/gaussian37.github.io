@@ -2,8 +2,8 @@
 layout: post
 title: How to solve unable to login problem.  
 date: 2018-10-23 05:20:00
-img: python/raspberry/raspberry.png
-categories: [python-raspberry] 
+img: python/embedded/raspberry.png
+categories: [python-embedded] 
 tags: [raspberry, login] # add tag
 ---
 
