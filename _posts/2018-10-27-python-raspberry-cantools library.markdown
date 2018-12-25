@@ -19,15 +19,15 @@ You need H/W Raspberry pi and PICAN2 Board.
 
 + Raspberry pi
 
-![pi3](../assets/img/python/raspberry/cantools/pi3.jpg)
+![pi3](../assets/img/python/embedded/cantools/pi3.jpg)
 
 + PICAN2 (Image is only 1-channel board. If necessary, you can buy multi-channel board) 
 
-![pican2](../assets/img/python/raspberry/cantools/pican2.jpg)
+![pican2](../assets/img/python/embedded/cantools/pican2.jpg)
 
 Assemble Raspberry pi with PICAN2 like example below.
 
-![pican2_pi](../assets/img/python/raspberry/cantools/pican2_pi.jpg)
+![pican2_pi](../assets/img/python/embedded/cantools/pican2_pi.jpg)
 
 
 If you are familiar with Raspberry-pi then, you easily set it up.
@@ -72,7 +72,7 @@ dtoverlay=spi-bcm2835-overlay
 
 <br>
 
-![overlays](../assets/img/python/raspberry/cantools/overlays.jpg)
+![overlays](../assets/img/python/embedded/cantools/overlays.jpg)
 
 <br>
 

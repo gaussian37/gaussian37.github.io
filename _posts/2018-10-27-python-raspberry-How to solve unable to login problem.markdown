@@ -12,7 +12,7 @@ The log-in problem we will handle maybe happens in `NOOBS` OS.
 If you have a problem unable to login even though you enter correct ID/Password.
 Maybe you are in infinite loops of log in.
 
-![login](../assets/img/python/raspberry/login-problem/login.jpg)
+![login](../assets/img/python/embedded/login-problem/login.jpg)
 
 In this case, follow below procedure.
 

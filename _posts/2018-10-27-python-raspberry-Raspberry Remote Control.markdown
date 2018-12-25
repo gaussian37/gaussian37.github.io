@@ -20,13 +20,13 @@ In order to remote access to `raspberry pi`, it has to be `enable` in `SSH`.
 
 Click the **Raspberry pi Icon (Upper-Left menu) → Raspberry PI Configuration**. And, Check the SSH as `Enable`.
 
-![remote-control](../assets/img/python/raspberry/remote-control/ssh_config.png)
+![remote-control](../assets/img/python/embedded/remote-control/ssh_config.png)
 
 <br>
 
 Next, to remote access, download [Putty](https://www.putty.org/).
 
-![Putty](../assets/img/python/raspberry/remote-control/putty.png)
+![Putty](../assets/img/python/embedded/remote-control/putty.png)
 
 <br>
 
@@ -34,7 +34,7 @@ Put the `Raspberry pi` ip into the Host Name(or IP address) and click the open b
 You can easily verify `Raspberry pi` ip in the terminal with `ifconfig` command.
 And unless you have changed the passward, your initial ID : pi, Passward : raspberry. Thus, you type it.
 
-![ssh_connect](../assets/img/python/raspberry/remote-control/ssh_connect.png)
+![ssh_connect](../assets/img/python/embedded/remote-control/ssh_connect.png)
 
 <br>
 
@@ -43,13 +43,13 @@ And unless you have changed the passward, your initial ID : pi, Passward : raspb
 SSH can not only remote control but also data transfer. First, enable SSH in `Raspberry pi`.
 And download [WinSCP](https://winscp.net/eng/download.php). This program supports data transfer from `Window` to `Raspberry pi`.
 
-![winscp_login](../assets/img/python/raspberry/remote-control/WinSCP_login.png)
+![winscp_login](../assets/img/python/embedded/remote-control/WinSCP_login.png)
 
 <br>
 
 In the same way, type your ip in host name and connect. That's it!
 
-![winscp_connect](../assets/img/python/raspberry/remote-control/WinSCP_connect.png)
+![winscp_connect](../assets/img/python/embedded/remote-control/WinSCP_connect.png)
 
 <br>
 
@@ -63,19 +63,19 @@ It's simpler than SSH method. Download [VNC viewer](https://www.realvnc.com/en/c
 
 like SSH setting, `Raspberry pi` need to be enable VNC.
 
-![vnc](../assets/img/python/raspberry/remote-control/vnc_setting.png)
+![vnc](../assets/img/python/embedded/remote-control/vnc_setting.png)
 
 <br>
 
 Run `VNC viewer` you downloaded. 
 
-![vnc_viewer](../assets/img/python/raspberry/remote-control/vnc_viewer.png)
+![vnc_viewer](../assets/img/python/embedded/remote-control/vnc_viewer.png)
 
 <br>
 
 Type `Raspberry pi` Username and Password(pi, raspberry)
 
-![nvc_connect](../assets/img/python/raspberry/remote-control/vnc_connet.png)
+![nvc_connect](../assets/img/python/embedded/remote-control/vnc_connet.png)
 
 <br>
 
@@ -87,7 +87,7 @@ Let's look into the way how to set `static IP address`.
 
 first, get **Gateway** in terminal with `netstat -nr` command.
 
-![gateway](../assets/img/python/raspberry/remote-control/gateway.png)
+![gateway](../assets/img/python/embedded/remote-control/gateway.png)
 
 <br>
 
