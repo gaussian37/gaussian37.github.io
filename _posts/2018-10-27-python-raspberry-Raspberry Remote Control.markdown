@@ -2,8 +2,8 @@
 layout: post
 title: How to remote control Raspberry  
 date: 2018-10-23 05:20:00
-img: python/raspberry/raspberry.png
-categories: [python-raspberry] 
+img: python/embedded/raspberry.png
+categories: [python-embedded] 
 tags: [raspberry, remote control, ssh, vnc, winscp] # add tag
 ---
 
