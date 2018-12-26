@@ -1,0 +1,20 @@
+---
+layout: post
+title: 19.1월 리온 잉글리쉬 공부 내용
+date: 2018-01-01 00:00:00 +0300
+img: interview/english/English.jpg
+categories: [interview-english] 
+tags: [english, speaking, voca, idion] # add tag
+---
+
+19년 1월 Leon 잉글리쉬를 하면서 조안나 선생님과 수업한 내용 중 유용했던 표현 들을 정리한 글
+
++ at night (항상 in the night 으로 썼는데, at night이 정확함)
+
++ art 관련된 질문의 내용 중 나왔던 표현
+    + 작품을 그대로 배끼는 필사 하는것 : trace / copy
+    + help them to enhance/imporve : art가 우리에게 뭔가를 도움준다고 할 때 사용했던 표현
+    + reserved children = introverted children : 내성적인 아이 / 감정 표현이 서툰 아이
+    + is rich in ~ : ~에 풍부하다. (간단하면서도 영어 느낌적인 표현인것 같음)
+        + Korea is rich in art.
+    + art 관련 단어들 : express, emotion, understanding, emotional management, creativity, life
