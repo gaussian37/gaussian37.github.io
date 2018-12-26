@@ -35,6 +35,8 @@ iris = datasets.load_iris()
 X, y = iris.data, iris.target
 ```
 
+<br>
+
 다음으로 간단한 Logistric Regression을 적용해 보겠습니다.
 
 ```python
