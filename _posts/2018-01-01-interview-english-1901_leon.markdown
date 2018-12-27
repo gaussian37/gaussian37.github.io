@@ -13,7 +13,7 @@ tags: [english, speaking, voca, idion] # add tag
 
 + art 관련된 질문의 내용 중 나왔던 표현
     + 작품을 그대로 배끼는 필사 하는것 : trace / copy
-    + help them to enhance/imporve : art가 우리에게 뭔가를 도움준다고 할 때 사용했던 표현
+    + help them to enhance/improve : art가 우리에게 뭔가를 도움준다고 할 때 사용했던 표현
     + reserved children = introverted children : 내성적인 아이 / 감정 표현이 서툰 아이
     + is rich in ~ : ~에 풍부하다. (간단하면서도 영어 느낌적인 표현인것 같음)
         + Korea is rich in art.
