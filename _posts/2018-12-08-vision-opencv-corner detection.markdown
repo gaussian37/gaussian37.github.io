@@ -86,7 +86,7 @@ gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
 res = cv2.preCornerDetect(gray, ksize = 3)
 
 # 극대값만을 찾기 위해서 np.abs(res)인 절대값 배열에서
-# cv2.threshold()로 임계값 thresh = 0.1 보다 작은 값은 0으로 변경하여 res2에 저장합니다.
+pointprocessing
 # res에서 임계값보다 작은 값을 제거 합니다.
 # findLocalMaxima() 함수를 통해 res2에서 
 # 지역 극값의 좌표를 코너점으로 찾아 corners에 저장합니다.
