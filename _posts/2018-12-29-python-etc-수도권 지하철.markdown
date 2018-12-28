@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Necessary command for anaconda 
-date: 2018-08-19 13:46:00
+title: 수도권 지하철 좌표 
+date: 2018-12-19 13:46:00
 img: python/etc/necessary-command-for-anaconda/anaconda.png
 categories: [python-etc] 
 tags: [수도권 지하철, 지하철 좌표] # add tag
