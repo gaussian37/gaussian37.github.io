@@ -26,18 +26,9 @@ tags: [Introduction] # add tag
     
 + ROI :
     - Machine/Deep Learning      
-    - Computer Vision
-    - Reinforcement Learning
+    - Computer Vision    
     
 + Skills : 
-    - Machine Learning with Python(Pandas, Sklearn, ...)
-    - Deep Learning with Keras (+ Tensorflow)     
+    - Machine Learning with Python
+    - Deep Learning with Keras     
     - Django
-
-+ Developed :
-
-
-+ Dream : 
-    - Buying [Tesla Model S](https://www.tesla.com/models)
-    - Developing AI(Vision & NLP possible) on my car [Asurada Head](https://namu.wiki/w/%EB%89%B4%20%EC%95%84%EC%8A%A4%EB%9D%BC%EB%8B%A4)<br>  
-      ![Asurada Head](../assets/img/asurada.jpg) 
