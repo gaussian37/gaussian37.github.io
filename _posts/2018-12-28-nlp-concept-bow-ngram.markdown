@@ -2,7 +2,7 @@
 layout: post
 title: N-gram과 BoW(Bag-of-Words)
 date: 2018-12-28 00:10:00 +0300
-img: nlp/concept/bow.jpg
+img: nlp/concept/bow/bow.png
 categories: [nlp-concept] 
 tags: [nlp, n-gram, bow, bag of words] # add tag
 ---
