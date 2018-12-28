@@ -21,7 +21,7 @@ OpenCV를 이용하여 영상에서의 코너점을 검출하는 방법에 대�
 
 코너 검출에는 다음 이미지를 사용하겠습니다.
 
-<img src="../assets/img/vision/opencv/corner-detection/corner-test.png" alt="Drawing" style="width: 200px;"/>
+<img src="../assets/img/vision/opencv/corner-detection/corner-test.png" alt="Drawing" style="width: 300px;"/>
 
 <br>
 
@@ -31,12 +31,12 @@ OpenCV를 이용하여 영상에서의 코너점을 검출하는 방법에 대�
 + 영상 src에서 코너점 검출을 위한 특징맵 dst를 Sobel 미분 연산자를 이용하여 계산
 + ksize는 Sobel 연산자의 마스크 크기
 + 코너점은 dst에서 local maxima/minima 에서 검출
-+ 이 때, $$ dst(x, y) = I^{2}_{x}I_{yy} + I^{2}_{y}I_{xx} - 2I_{x}I_{y}I_{xy} $$
-  $$ I_{x} = \frac{\partial I(x,y)}{\partial x} $$
-  $$ I_{y} = \frac{\partial I(x,y)}{\partial y} $$
-  $$ I_{xx} = \frac{\partial^{2} I(x,y)}{\partial^{2} x} $$
-  $$ I_{yy} = \frac{\partial^{2} I(x,y)}{\partial^{2} x} $$
-  $$ I_{xy} = \frac{\partial^{2} I(x,y)}{\partial x \partial y} $$
++ 이 때, $$ dst(x, y) = I^{2}_{x}I_{yy} + I^{2}_{y}I_{xx} - 2I_{x}I_{y}I_{xy} $$ <br>
+  $$ I_{x} = \frac{\partial I(x,y)}{\partial x} $$ <br>
+  $$ I_{y} = \frac{\partial I(x,y)}{\partial y} $$ <br>
+  $$ I_{xx} = \frac{\partial^{2} I(x,y)}{\partial^{2} x} $$ <br>
+  $$ I_{yy} = \frac{\partial^{2} I(x,y)}{\partial^{2} x} $$ <br>
+  $$ I_{xy} = \frac{\partial^{2} I(x,y)}{\partial x \partial y} $$ <br>
   
 코드는 아래와 같습니다.         
         
@@ -106,5 +106,7 @@ cv2.imshow('dst', dst)
 cv2.waitKey()
 cv2.destroyAllWindows()
 ```
+
+<br>
         
 도움이 되셨으면 광고 한번 클릭이 저에게 큰 도움이 됩니다. 꾸벅.      
