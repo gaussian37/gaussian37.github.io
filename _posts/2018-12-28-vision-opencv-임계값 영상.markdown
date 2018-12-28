@@ -8,7 +8,7 @@ tags: [vision, opencv, corner, 임계값, threshold, adaptiveThreshold] # add ta
 ---
 
 + Reference : Python으로 배우는 OpenCV 프로그래밍
-+ Code : 
++ Code : https://github.com/gaussian37/Vision/tree/master/OpenCV/threshold
 
 이미지에서 행과 열의 순서로 img(y, x)에 해당하는 각각의 픽셀이 있다고 가정합시다.
 포인트 프로세싱이란 입력 영상의 특정 픽셀 src(y, x)를 변환 함수를 통하여 dst(y, x) 로 만드는 것을 뜻합니다.
