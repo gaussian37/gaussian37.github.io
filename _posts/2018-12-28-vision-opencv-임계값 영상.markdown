@@ -1,10 +1,10 @@
 ---
 layout: post
-title: 코너점(Corner) 검출 - cornerEigenValsAndVecs  
-date: 2018-08-01 00:00:00
+title: 임계값 검출 - threshold, adaptiveThreshold  
+date: 2018-12-28 00:00:00
 img: vision/opencv/opencv-python.png
 categories: [vision-opencv] 
-tags: [vision, opencv, corner, 코너, cornerEigenValsAndVecs] # add tag
+tags: [vision, opencv, corner, 임계값, threshold, adaptiveThreshold] # add tag
 ---
 
 + Reference : Python으로 배우는 OpenCV 프로그래밍
@@ -13,7 +13,7 @@ tags: [vision, opencv, corner, 코너, cornerEigenValsAndVecs] # add tag
 이미지에서 행과 열의 순서로 img(y, x)에 해당하는 각각의 픽셀이 있다고 가정합시다.
 포인트 프로세싱이란 입력 영상의 특정 픽셀 src(y, x)를 변환 함수를 통하여 dst(y, x) 로 만드는 것을 뜻합니다.
 
-![1](../assets/img/vision/opencv/pointprocessing/point_processing.png)
+<img src="../assets/img/vision/opencv/pointprocessing/point_processing.png" alt="Drawing" style="width: 300px;"/>
 
 <br>
 
@@ -31,15 +31,16 @@ tags: [vision, opencv, corner, 코너, cornerEigenValsAndVecs] # add tag
 + thresh : 임계값
 + type : 임계값의 종류
     + type에 cv2.THRESH_OTSU를 추가하면 thresh 값에 상관없이 Otsu 알고리즘으로 최적 임계값을 계산함
-    + cv2.THRESH_BINARY
-        + $$ dst(x, y) = 
-            \left\{ 
-            \begin{array}{c}
-            max\ val\quad  if \quad  src(x, y) > thresh\\ 
-            q\qquad0\cdot w
-            \end{array}
-            \right. 
-          $$
+    + cv2.THRESH_BINARY : $$ dst(x, y) = 
+                            \left\{ 
+                            \begin{array}{c}
+                            max\ val\quad  if \quad  src(x, y) > thresh\\ 
+                            q\qquad0\cdot w
+                            \end{array}
+                            \right. 
+                          $$
+    
+    
     
 
 
