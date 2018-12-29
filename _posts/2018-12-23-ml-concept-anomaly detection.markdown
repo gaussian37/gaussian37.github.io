@@ -25,9 +25,9 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
         + <img src="../assets/img/ml/concept/anomaly-detection/anomaly_detection_ex.png" alt="Drawing" style="width: 300px;"/>
         + 위의 그림에서 직관적으로 이해해 보면 기존 데이터 무리에 있는 테스트 데이터는 normal 합니다.
         + 반면 기존 데이터 군집과 떨어져 있는 데이터의 경우 abnormal 하다고 생각해 볼 수 있습니다.
-        + 확률적으로 나타내기 위해 학습한 모델을 P(x) 라고 가정하 보겠습니다.
+        + 확률적으로 나타내기 위해 학습한 모델을 P(x) 라고 가정해 보겠습니다.
             + 상수 $$ \epsilon $$ 을 anomaly를 결정짓는 임계값이라고 하겠습니다.
-            + 모델 $$P(x_{test}) \lt \epsilon $$ 이면 anomaly
+            + 모델 $$P(x_{test}) \lt \epsilon $$ 이면 abnomal
             + 모델 $$P(x_{test}) \ge \epsilon $$ 이면 normal 이라고 할 수 있습니다.
     
              
