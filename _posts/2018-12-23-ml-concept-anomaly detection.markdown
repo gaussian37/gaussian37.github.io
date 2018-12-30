@@ -54,9 +54,20 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
     + Gaussian Curve는 기본적으로 `종 모양`의 곡선을 가집니다.
     + 종 모양의 중간이 `mean`에 해당합니다.
     + 곡선의 아랫 부분에 해당하는 면적이 확률이기 때문에 `mean`에서 멀어질수록 확률은 낮아지게 됩니다.
+        + 아랫 부분의 면적은 확률이므로 면적의 넓이는 1이 됩니다.
     + 일반적으로 $$ p(x; \mu, \sigma^{2}) $$로 표현합니다.
     + 수식은 $$ p(x; \mu, \sigma^{2}) = \frac{1}{\sqrt{2\pi}\sigma} exp( -\frac{ (x-\mu)^{2} }{2\sigma^{2}} ) $$ 입니다.
-    + 여기서 $$ \sigma $$ 는 standard deviation으로 
+    + 여기서 $$ \sigma $$ 는 std(standard deviation)으로 종모양의 중심에서 얼마나 벌어져 있는지 너비에 대한 값입니다.
+        + std가 클수록 너비가 커지므로 옆으로 퍼지게 되고 std가 작을수록 너비가 작아져 높이가 커지게 됩니다.
+        + <img src="../assets/img/ml/concept/anomaly-detection/gaussianDistributionExample.PNG" alt="Drawing" style="width: 300px;"/>
++ Gaussian Distribution 을 구할 때 기존의 데이터를 이용하여 `Parameter extimation`을 해야 합니다.
+    + 앞에서 설명한 바와 같이 $$ \mu, \sigma $$ 두 개가 있습니다.
+    + DataSet = \{x^{(1)}, x^{(2)}, ... , x^{(m)} \} 가 있을 때,
+    + mean = $$ \mu = \frac{1}{m} \sum_{i=1}^{m} x^{(i)}$$
+    + variance = $$ \sigma^{2} = \frac{1}{m} \sum_{i=1}^{m} (x^{(i)} -\mu)^{2} $$     
+    
+         
+        
     
     
           
