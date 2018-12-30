@@ -67,13 +67,38 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
     + variance = $$ \sigma^{2} = \frac{1}{m} \sum_{i=1}^{m} (x^{(i)} -\mu)^{2} $$     
         + 이 때 표본 분산을 나누는 term은 정확하게는 m-1 입니다. 하지만 머신러닝과 같이 표본 데이터가 많은 경우에는 m으로 두고 계산해도 대동소이 합니다.
         + 왜 m-1로 나눠야 하는지는 다음 링크를 참조해 주세요.
-    
-    
-        
-         
-        
-    
-    
-          
+            + https://gaussian37.github.io/interview-datascience-Q6)-the-reaon-of-n-1-tem/
+
+## Anomaly Detection Algorithm
+
+그러면 Anomaly Detection 알고리즘에 대하여 알아보도록 하겠습니다.
+
++ Dataset = $$ \{x^{(1)}, x^{(2)}, ..., x^{(m)} \}$$ 이 있다고 가정해 봅시다.
++ 각각의 $$ x^{(i)} $$는 벡터 입니다. 따라서 벡터 내의 원소는 각각의 특징을 가지고 있습니다.
++ 따라서 모델 $$ p(x) = p(x_{1})p(x_{2})...p(x_{m}) $$ 으로 나타낼 수 있습니다. 
+    + 이 때, $$ x_{1} \sim N(\mu, \sigma^{2}), x_{2} \sim N(\mu, \sigma^{2}), ... $$ 와 같이 나타낼 수 있습니다.
+    + 따라서 $$ p(x) = p(x_{1}; \mu_{1}, \sigma_{1}^{2})p(x_{2}; \mu_{2}, \sigma_{2}^{2})...p(x_{m}; \mu_{m}, \sigma_{m}^{2})$$
+    + 위와 같은 형태로 확률의 곱이 유효하려면 $$ x_{i} $$ 각각의 특성이 서로 독립적이어야 합니다.
+    + 실제 데이터의 경우 완전히 독립적인 feature를 가지기는 어려워 feature간 dependency가 있으나 위의 식은 효과가 있습니다.
++ p(x) 식을 좀 더 심플하게 정리해 보면 다음과 같습니다.
+    + 모델  $$ p(x) = p(x_{1}; \mu_{1}, \sigma_{1}^{2})p(x_{2}; \mu_{2}, \sigma_{2}^{2})...p(x_{m}; \mu_{m}, \sigma_{m}^{2}) = \Pi_{i=1}^{m} p(x_{i}, \mu_{i}, \sigma_{i}^{2})$$
+
+### Anomaly Detection 알고리즘 순서
+
++ anomalous 한 특징을 찾을 수 있는 feature $$ x_{i} $$를 선정합니다.
++ n개의 feature가 있을 때, $$ \mu_{1}, \mu_{2}, ..., \mu_{n}$$ 과 $$ \sigma_{1}, \sigma_{2}, ..., \sigma_{n} $$ 을 구합니다.
+    + 즉, $$ \mu $$ 와 $$ \sigma $$ 는 n개의 원소를 가지는 벡터 입니다.
+    + mean : $$ \mu_{j} = \frac{1}{m}\sum_{i=1}^{m}x_{j}^{(i)}$$
+    + variance : $$ \sigma_{j}^{2} = \frac{1}{m}\sum_{i=1}^{m}(x_{j}^{(i)} - \mu_{j})^{2} $$
++ 새로운 데이터 x가 주어지면, 확률 p(x)를 계산합니다.
+    + 모델 $$ p(x) = \Pi_{j=1}^{n}p(x_{j}; \mu_{j}, \sigma_{j}) = \Pi_{j=1}^{n} \frac{1}{\sqrt{2\pi}\sigma_{j}}exp( -\frac{ (x_{j}-\mu_{j})^{2} }{2\sigma_{j}^{2}} )$$ 입니다.
+    + 이 때 $$ \epsilon $$ 값을 정하고 이 값보다 p(x)가 작으면 ($$ p(x) \lt \epsilon $$) `Anomaly`로 판단합니다.
++ <img src="../assets/img/ml/concept/anomaly-detection/anomalyDetectionExampleSlide.PNG" alt="Drawing" style="width: 500px;"/>
+    + 2d 그래프와 3d 그래프를 비교해서 보면, 2d에서 빨간색 점들이 모여있는 위치와 3d에서 높이가 높은 부분이 대응됩니다.
+    + 2d, 3d 그래프의 외곽지역 보란색 부분끼리 대응되고, 낮은 확률을 가집니다.
+    + 테스트 케이스 $$ x_{test}^{(1)} $$ 의 확률은 0.0426이라고 했을 때, $$ \epsilon = 0.02 $$ 보다 크므로 normal 데이터 입니다.
+        + 2d 그래프에서 $$ x_{1} $$은 군집된 데이터 `내부`에 있습니다.
+    + 테스트 케이스 $$ x_{test}^{(2)} $$ 의 확률은 0.0021이라고 하면 anomalous 한 데이터 입니다.
+        + 2d 그래프에서 $$ x_{2} $$은 군집된 데이터 `외곽`에 있습니다.     
 
 
