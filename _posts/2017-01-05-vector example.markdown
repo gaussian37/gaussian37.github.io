@@ -2,8 +2,8 @@
 layout: post
 title: 벡터 예제  
 date: 2017-01-05 00:00:00
-img: ml/la/linear-algebra-image.jpg
-categories: [ml-la] 
+img: math/la/linear-algebra-image.jpg
+categories: [math-la] 
 tags: [Linear algebra] # add tag
 ---
 
@@ -11,11 +11,11 @@ tags: [Linear algebra] # add tag
 
 ### Video 
 
-[![](../assets/img/ml/la/vector example/thumbnails.png)](https://youtu.be/r4bH66vYjss)
+[![](../assets/img/math/la/vector example/thumbnails.png)](https://youtu.be/r4bH66vYjss)
 
 <br>
 
-![1](../assets/img/ml/la/vector example/1.png)
+![1](../assets/img/math/la/vector example/1.png)
 
 <br>
 
@@ -39,7 +39,7 @@ $$ R_^{n} $$ 는 모든 2-튜플의 집합이라는 것을 기억하죠?
 그게 $$ R_^{2} $$죠. $$ R_^{1} $$은 그저 한 수직선상의 모든 점이에요. 
 즉 $$ R_^{2} $$가 $$ R_^{1} $$보다 더 큰 공간이라는 것을 금방 확인할 수 있습니다.
 
-![2](../assets/img/ml/la/vector example/2.png)
+![2](../assets/img/math/la/vector example/2.png)
  
 <br>
 
@@ -58,7 +58,7 @@ b를 (3, 1)이라고 하죠. 이렇게 두 벡터가 있습니다.
 (x1, x2)에서 시작한다고 해봅시다. $$ R_^{2} $$ 위의 어떤 점이든 상관 없어요. 
 벡터를 나타내기 위해 그 점에서 점 x1로 선을 긋습니다. 
 
-![3](../assets/img/ml/la/vector example/3.png)
+![3](../assets/img/math/la/vector example/3.png)
 
 <br>
 
@@ -82,7 +82,7 @@ b를 (3, 1)이라고 하죠. 이렇게 두 벡터가 있습니다.
 수평 방향으로 -1, 수직 방향으로 2만큼 가서 여기로 가서 나타낼 수도 있었어요. 
 저기서 그려도 똑같았겠죠. 같은 벡터 a를 나타낸 거예요. 
 
-![4](../assets/img/ml/la/vector example/4.png)
+![4](../assets/img/math/la/vector example/4.png)
 
 b도 똑같아요 b는 어떤가요? b를 시작할 점을 임의로 정할 수 있어요. 
 오른쪽으로 세 칸이므로 하나, 둘, 셋 그리고 위로 한 칸 올라갑니다. 

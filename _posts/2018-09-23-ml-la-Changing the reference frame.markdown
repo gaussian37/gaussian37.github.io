@@ -2,12 +2,12 @@
 layout: post
 title: Changing the reference frame  
 date: 2018-09-23 03:49:00
-img: ml/la/overall.jpg
-categories: [ml-la] 
+img: math/la/overall.jpg
+categories: [math-la] 
 tags: [Linear algebra] # add tag
 ---
 
-![chage bias](../assets/img/ml/la/Change the reference frame/change_bias.png)
+![chage bias](../assets/img/math/la/Change the reference frame/change_bias.png)
 
 ### Basis is a set of n vectors that :
 + are not linear combinations of each other (linearly independent)
@@ -20,4 +20,4 @@ What does it mean for a vector b3 to be linearly independent to the vectors b1, 
 
 + Changing basis means Changing the space.
 
-![basis](../assets/img/ml/la/Change the reference frame/basis.PNG)
+![basis](../assets/img/math/la/Change the reference frame/basis.PNG)

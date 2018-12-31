@@ -2,8 +2,8 @@
 layout: post
 title: 벡터와 스칼라의 곱셈  
 date: 2017-01-04 00:00:00
-img: ml/la/linear-algebra-image.jpg
-categories: [ml-la] 
+img: math/la/linear-algebra-image.jpg
+categories: [math-la] 
 tags: [Linear algebra] # add tag
 ---
 
@@ -11,11 +11,11 @@ tags: [Linear algebra] # add tag
 
 ### Video 
 
-[![](../assets/img/ml/la/vector and scalar multiplication/thumbnail.png)](https://youtu.be/ZN7YaSbY3-w)
+[![](../assets/img/math/la/vector and scalar multiplication/thumbnail.png)](https://youtu.be/ZN7YaSbY3-w)
 
 <br>
 
-![1](../assets/img/ml/la/vector and scalar multiplication/1.png)
+![1](../assets/img/math/la/vector and scalar multiplication/1.png)
 
 <br>
 
@@ -51,7 +51,7 @@ $$ 3 \times 2 $$와 $$ 3 \times 1 $$이 됩니다. 스칼라를 곱한 벡터는
 스칼라(scalar)와 확대하다(scale up)의 어원이 같음을 눈치채셨을 겁니다. 
 스칼라의 곱은 벡터를 확대합니다. 방향 변화 없이 크기는 3배 증가하게 되었습니다.
 
-![2](../assets/img/ml/la/vector and scalar multiplication/2.png)
+![2](../assets/img/math/la/vector and scalar multiplication/2.png)
 
 <br>
  
@@ -77,7 +77,7 @@ $$ 5 \times -1 $$ 을 하면 반대방향으로 가게 됩니다.
 우리가 처음 다뤘던 벡터 a는 이렇게 생겼었습니다. (2,1)은 이렇게 생겼습니다. 
 거기에 -2를 곱하면 이러한 형태의 벡터가 됩니다. 
 
-![3](../assets/img/ml/la/vector and scalar multiplication/3.png)
+![3](../assets/img/math/la/vector and scalar multiplication/3.png)
 
 <br>
 

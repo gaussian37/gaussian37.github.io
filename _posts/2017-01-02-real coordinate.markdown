@@ -2,8 +2,8 @@
 layout: post
 title: 실좌표공간  
 date: 2017-01-02 00:00:00
-img: ml/la/linear-algebra-image.jpg
-categories: [ml-la] 
+img: math/la/linear-algebra-image.jpg
+categories: [math-la] 
 tags: [Linear algebra] # add tag
 ---
 
@@ -11,11 +11,11 @@ tags: [Linear algebra] # add tag
 
 ### Video 
 
-[![](../assets/img/ml/la/real coordinates/thumbnail.png)](https://youtu.be/lCsjJbZHhHU)
+[![](../assets/img/math/la/real coordinates/thumbnail.png)](https://youtu.be/lCsjJbZHhHU)
 
 <br>
 
-![1](../assets/img/ml/la/real coordinates/1.png)
+![1](../assets/img/math/la/real coordinates/1.png)
 
 고등학교 수학을 공부할 때 다음과 같이 R 왼쪽에 선을 하나 더 그은 것을 보았을 것입니다.
 이것을 $$ R^{2} $$ 라고 합니다. 교재에 따라 굵은 글씨로 $$ R^{2} $$라고 적기도 합니다.
@@ -33,7 +33,7 @@ tags: [Linear algebra] # add tag
 그럼 2-튜플은 숫자 2개의 순서 리스트이자 실수 2개의 순서 리스트가 됩니다.
 바로 여기 이것을 가지고 2차원 벡터에 대해 생각할 수 있습니다. 바로 여기 2-튜플이 있네요.
 
-![2](../assets/img/ml/la/real coordinates/2.png)
+![2](../assets/img/math/la/real coordinates/2.png)
 
 이것은 실수값을 가지는 2-튜플입니다. 
 둘 중 어느것도 허수가 아니면서 순서대로 3과 4를 가지고 있어요. 
@@ -50,7 +50,7 @@ tags: [Linear algebra] # add tag
 이 벡터들을 조합하여 2차원 실수좌표공간도 만들어낼 수 있습니다. 
 그럼 이것은 $$ R^{2} $$ 일 것입니다 여기에 2라고 적었지만 더 나아가 생각해봅시다. 3이라고 적으면 안될까요? 
 
-![3](../assets/img/ml/la/real coordinates/3.png)
+![3](../assets/img/math/la/real coordinates/3.png)
 
 그럼 전 이렇게 말합니다 물론 3이라고 적을 수 있습니다.
 $$ R^{3} $$는 3차원 실수 좌표공간입니다.

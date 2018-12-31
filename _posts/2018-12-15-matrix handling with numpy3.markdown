@@ -2,8 +2,8 @@
 layout: post
 title: Numpy를 이용한 행렬 다루기 3탄
 date: 2018-12-15 00:00:00
-img: ml/la/matrix-handling-with-numpy/numpy-logo.png
-categories: [ml-la] 
+img: math/la/matrix-handling-with-numpy/numpy-logo.png
+categories: [math-la] 
 tags: [Linear algebra, Numpy] # add tag
 ---
 

@@ -2,8 +2,8 @@
 layout: post
 title: 선형대수학을 위한 벡터란 ?  
 date: 2017-01-01 00:00:00
-img: ml/la/linear-algebra-image.jpg
-categories: [ml-la] 
+img: math/la/linear-algebra-image.jpg
+categories: [math-la] 
 tags: [Linear algebra] # add tag
 ---
 
@@ -11,11 +11,11 @@ tags: [Linear algebra] # add tag
 
 ### Video 
 
-[![](../assets/img/ml/la/Vector for linear algebra/thumbnail.PNG)](https://youtu.be/br7tS1t2SFE)
+[![](../assets/img/math/la/Vector for linear algebra/thumbnail.PNG)](https://youtu.be/br7tS1t2SFE)
 
 <br>
 
-![1](../assets/img/ml/la/Vector%20for%20linear%20algebra/11.png)
+![1](../assets/img/math/la/Vector%20for%20linear%20algebra/11.png)
 
 <br>
 
@@ -35,7 +35,7 @@ tags: [Linear algebra] # add tag
 6차원 이상으로 원하는 만큼 확장할 수 있고 3차원 너머서는 상상하기 어렵지만, 수학적으로는 3차원을 넘어서 다룰 수 있죠.
 선형대수를 이용해서 말이죠. 그 내용은 나중에 배워보도록 하고 우선은 쉬운 2차원 벡터에서 생각합시다.
 
-![2](../assets/img/ml/la/Vector for linear algebra/2.png)
+![2](../assets/img/math/la/Vector for linear algebra/2.png)
 
 <br>
 
@@ -53,7 +53,7 @@ x축이 동쪽을 가리킨다면, 다시 말해, x축 +방향으로의 움직�
 동쪽을 향하고 있으니 같습니다.
 따라서 이 **두 벡터는 완전히 같은 벡터**입니다
 
-![3](../assets/img/ml/la/Vector for linear algebra/3.png)
+![3](../assets/img/math/la/Vector for linear algebra/3.png)
 
 <br>
 

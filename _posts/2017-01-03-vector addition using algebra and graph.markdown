@@ -2,8 +2,8 @@
 layout: post
 title: 대수와 그래프를 이용한 벡터의 덧셈  
 date: 2017-01-03 00:00:00
-img: ml/la/linear-algebra-image.jpg
-categories: [ml-la] 
+img: math/la/linear-algebra-image.jpg
+categories: [math-la] 
 tags: [Linear algebra] # add tag
 ---
 
@@ -11,11 +11,11 @@ tags: [Linear algebra] # add tag
 
 ### Video 
 
-[![](../assets/img/ml/la/vector addition using algebra and graph/thumbnail.png)](https://youtu.be/8QihetGj3pg)
+[![](../assets/img/math/la/vector addition using algebra and graph/thumbnail.png)](https://youtu.be/8QihetGj3pg)
 
 <br>
 
-![1](../assets/img/ml/la/vector addition using algebra and graph/1.png)
+![1](../assets/img/math/la/vector addition using algebra and graph/1.png)
 
 <br>
 
@@ -33,7 +33,7 @@ tags: [Linear algebra] # add tag
 우리가 표기한 방법으로 보면 이해가 되지만 시각적으로 혹은 개념적으로 어떻게 이해해야 할까요? 
 이 벡터들을 그래프에 그려보면 알겠죠. 이 벡터들을 시각적으로 한번 표현해 보겠습니다. 
 
-![2](../assets/img/ml/la/vector addition using algebra and graph/2.png)
+![2](../assets/img/math/la/vector addition using algebra and graph/2.png)
 
 <br>
 
@@ -48,7 +48,7 @@ tags: [Linear algebra] # add tag
 다 같은 벡터 a입니다. 중요한 것은 오직 **크기와 방향**뿐입니다. 
 그 점을 명심하도록 합니다. 이번에는 벡터 b를 그려볼까요? 
 
-![3](../assets/img/ml/la/vector addition using algebra and graph/3.png)
+![3](../assets/img/math/la/vector addition using algebra and graph/3.png)
 
 <br>
 
@@ -59,7 +59,7 @@ tags: [Linear algebra] # add tag
 여기 있는 녹색 벡터들은 크기가 다 같습니다. 길이가 다 같고 방향도 다 똑같습니다. 
 벡터 a와 벡터 b를 그린 방식이 합을 구하는 것과 어떤 연관이 있을까요? 둘의 합을 같은 방식으로 파란색으로 그려보겠습니다. 
 
-![4](../assets/img/ml/la/vector addition using algebra and graph/4.png)
+![4](../assets/img/math/la/vector addition using algebra and graph/4.png)
 
 <br>
 
@@ -75,7 +75,7 @@ tags: [Linear algebra] # add tag
 벡터 a 더하기 벡터 b가 이것이면, 벡터 b 더하기 벡터 a는 무엇일까요? 둘이 같을까요? 
 처음 벡터 합을 구했던 방식으로 대응하는 값을 더한다면 벡터의 합은 똑같을 겁니다. -4 + 6 은 2이고 4 + (- 2)도 2입니다. 하지만, 시각적으로도 일치할까요? 
  
-![5](../assets/img/ml/la/vector addition using algebra and graph/5.png)
+![5](../assets/img/math/la/vector addition using algebra and graph/5.png)
 
 <br>
  
