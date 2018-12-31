@@ -26,12 +26,14 @@ hist = cv2.calcHist(images, channels, mask, histSize, ranges(, hist(, accumulate
 
 <br>
 
+아래는 calcHist의 파라미터 입니다. `배열`이라고 표시한 부분은 반드시 `리스트`로 입력해야 합니다.
+
 + images : 히스토그램을 계산할 영상의 배열입니다. 영상은 같은 사이트, 깊이의 8bit unsigned 정수 또는 32bit 실수형 입니다.
-+ channels : 히스토그램을 계산할 channel
++ channels : 히스토그램을 계산할 channel의 `배열`. (**배열 형태로 입력 필요함**)
 + mask : images\[i\]와 같은 크기의 8bit 이미지로, mask(x, y)가 0이 아닌 경우에만 image\[i\](x,y)을 히스토그램 계산에 사용합니다.
     + mask = None이면 마스크를 사용하지 않고, 모든 화소에서 히스토그램을 계산합니다.
-+ histSize : 히스토그램 hist (return 값)의 각 빈(bin) 크기에 대한 정수 배열 입니다.
-+ ranges : 히스토그램 각 빈의 경계값에 대한 배열입니다. opencv는 기본적으로 등간격 히스토그램을 제공합니다.
++ histSize : 히스토그램 hist (return 값)의 각 빈(bin) 크기에 대한 정수 `배열` 입니다.
++ ranges : 히스토그램 각 빈의 경계값에 대한 `배열`입니다. opencv는 기본적으로 등간격 히스토그램을 제공합니다.
 + accumulate : True 이면 calcHist() 함수를 수행할 때, 히스토그램을 초기화 하지 않고, 이전 값을 계속 누적합니다.
 + hist : 히스토그램 리턴값
  
