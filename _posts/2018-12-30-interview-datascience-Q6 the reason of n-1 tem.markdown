@@ -129,3 +129,5 @@ $$ = \frac{1}{n-1} E(\sum_{k=1}^{n}( (X_{k}-m)^{2} + 2(X_{k}-m)(m-\bar{X}) + (m-
 마지막으로 식을 정리하면 $$ \frac{1}{n-1}(n\sigma^{2} -2\sigma^{2} + \sigma^{2}) = \sigma^{2} $$ = 모분산.
 
 따라서 처음에 정한 가설인 표분분산의 분모가 `n-1`일 때, `표분분산의 기대값이 모분산과 같아져야 한다.` 를 만족하므로 분모는 `n-1` 입니다.
+
+ref : https://www.youtube.com/watch?v=O7JEuNKzEQ4
