@@ -136,7 +136,7 @@ plt.show()
 
 <br>
 
-<img src="../assets/img/vision/opencv/pointprocessing/histgray.png" alt="Drawing" style="width: 300px;"/>
+<img src="../assets/img/vision/opencv/pointprocessing/histogram/histgray.png" alt="Drawing" style="width: 300px;"/>
 
 <br>
 
@@ -246,11 +246,11 @@ compareColorHistogram(src, histSize, fname)
 compareColorHistogram2d(src, histSize, fname)
 ```
 
-<img src="../assets/img/vision/opencv/pointprocessing/colorhist.png" alt="Drawing" style="width: 300px;"/>
+<img src="../assets/img/vision/opencv/pointprocessing/histogram/colorhist.png" alt="Drawing" style="width: 300px;"/>
 
 <br>
 
-<img src="../assets/img/vision/opencv/pointprocessing/colorhist2.png" alt="Drawing" style="width: 300px;"/>
+<img src="../assets/img/vision/opencv/pointprocessing/histogram/colorhist2.png" alt="Drawing" style="width: 300px;"/>
 
 <br>
 
