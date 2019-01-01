@@ -18,3 +18,9 @@ tags: [english, speaking, voca, idion] # add tag
     + is rich in ~ : ~에 풍부하다. (간단하면서도 영어 느낌적인 표현인것 같음)
         + Korea is rich in art.
     + art 관련 단어들 : express, emotion, understanding, emotional management, creativity, life
+  
+새해 관련 이야기를 하면서 나왔던 내용들  
++ solar / lunar calendar : 한국에서는 **lunar** calendar에 따른 New-year가 큰 행사임
++ 새해에는 조상에게 제사를 지낸다는 걸 표현하면서 **commemorate** 라는 단어를 사용함
++ 달을 표시할 때, **In** January, Feburary
++ 월별로 ~ 한다 라고 말할때 **on a monthly basis**
