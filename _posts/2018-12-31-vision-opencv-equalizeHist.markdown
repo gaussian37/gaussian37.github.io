@@ -133,9 +133,81 @@ cv2.destroyAllWindows()
 
 + 히스토그램 비교
 
-<img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/grayscalehistogram.png" alt="Drawing" style="width: 500px;"/>
+<img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/grayscaleHistLenaImage.png" alt="Drawing" style="width: 500px;"/>
 
 dst 이미지의 히스토그램이 전체적으로 잘 분포되어 있고 좀 더 선명한 것을 보실 수 있습니다.
+
+이번에는 컬러 이미지에 equalizeHist 함수를 적용해 보겠습니다.
+컬러영상에 히스토그램 평활화를 적용할 때에는 RGB 값에 바로 적용하면 색이 변할 수 있습니다.
+먼저 RGB로 받은 이미지를 `HSV` 또는 `YCrCb` 형태의 이미지로 변경한 다음에 밝기값 채널을 변경해야 **색을 변경하지 않고 선명**하게 만들 수 있습니다.
+(그럼에도 불구하고 미세하게 나마 색이 변경될 수는 있습니다.)
+
+코드는 다음과 같습니다.
+
+```python
+import cv2
+import numpy as np
+import argparse
+import os
+import matplotlib.pyplot as plt
+
+# ap = argparse.ArgumentParser()
+# ap.add_argument("-i", "--image", required=True, help="Image path to the directory")
+# args = vars(ap.parse_args())
+# path = args['image']
+
+path = "lena.png"
+
+# 입력 받은 이미지를 불러옵니다.
+src = cv2.imread(path)
+
+# hsv 컬러 형태로 변형합니다.
+hsv = cv2.cvtColor(src, cv2.COLOR_BGR2HSV)
+# h, s, v로 컬러 영상을 분리 합니다. 
+h, s, v = cv2.split(hsv)
+# v값을 히스토그램 평활화를 합니다.
+equalizedV = cv2.equalizeHist(v)
+# h,s,equalizedV를 합쳐서 새로운 hsv 이미지를 만듭니다.
+hsv2 = cv2.merge([h,s,equalizedV])
+# 마지막으로 hsv2를 다시 BGR 형태로 변경합니다.
+hsvDst = cv2.cvtColor(hsv2, cv2.COLOR_HSV2BGR)
+
+# YCrCb 컬러 형태로 변환합니다.
+yCrCb = cv2.cvtColor(src, cv2.COLOR_BGR2YCrCb)
+# y, Cr, Cb로 컬러 영상을 분리 합니다.
+y, Cr, Cb = cv2.split(yCrCb)
+# y값을 히스토그램 평활화를 합니다.
+equalizedY = cv2.equalizeHist(y)
+# equalizedY, Cr, Cb를 합쳐서 새로운 yCrCb 이미지를 만듭니다.
+yCrCb2 = cv2.merge([equalizedV, Cr, Cb])
+# 마지막으로 yCrCb2를 다시 BGR 형태로 변경합니다.
+yCrCbDst = cv2.cvtColor(yCrCb2, cv2.COLOR_YCrCb2BGR)
+
+# src, hsv, YCrCb 각각을 출력합니다.
+cv2.imshow('src', src)
+cv2.imshow('hsv dst', hsvDst)
+cv2.imshow('YCrCb dst', yCrCbDst)
+cv2.waitKey()
+cv2.destroyAllWindows()
+```
+
++ 원본 영상입니다.
+
+<img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/colorSrc.png" alt="Drawing" style="width: 500px;"/>
+
+<br>
+
++ hsv 형태에서 밝기값을 평활화 한 영상입니다.
+
+<img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/hsvDst.png" alt="Drawing" style="width: 500px;"/>
+
+<br>
+
++ YCrCb 형태에서 밝기값을 평활화 한 영상입니다.
+
+<img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/ycbcrDst.png" alt="Drawing" style="width: 500px;"/>
+
+<br>
 
 
 도움이 되셨다면 광고 클릭 한번이 저에게 큰 도움이 되겠습니다.^^
