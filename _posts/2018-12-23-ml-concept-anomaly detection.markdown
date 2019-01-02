@@ -103,7 +103,11 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
 
 ## Multivariate Gaussian Distribution
 
-## Anomaly detection using the Multivariate Gaussian Distribution 
+... 작성중 ...
+
+## Anomaly detection using the Multivariate Gaussian Distribution
+
+... 작성중 ... 
         
 ## Anomaly Detection Algorithm Evaludation
 
@@ -143,9 +147,21 @@ Anomaly Detection 알고리즘을 만들었다면 중요한 요소 중 하나인
 
 ## Anomaly Detection Vs. Supervised Learning
 
+지금까지 Anomaly Detection을 공부해 보았으면, binary classification을 하는 Supervised Learning과 유사하다고 느꼈을 것입니다.
+그러면 Anomaly Detection VS Supervised Learning에 대하여 비교해 보도록 하겠습니다.
+
++ Anomaly Detection
+    + `positive example (y = 1)` 이 `매우 작을` 때 유용합니다.
+        + `positive example`이 매우 작으므로 어떤 형태가 `positive`인지 예측하기가 어렵습니다.
+        + 과거에 전혀 발생하지 않은 `positive` 케이스를 미래에 `positive`라고 예측이 필요할 때 유용합니다.  
+    + 반면 negative example (y = 0)은 매우 많은 상태입니다.
+    + 사용하기 좋은 예제 : Fraud Detection, Manufacturing, Monitoring machines
+     
++ Supervised Learning
+    + positive/negative example 둘 다 충분히 있는 상태일 때 좋습니다.
+        + `positive` example이 충분히 많은 상태이기 때문에 미래에도 과거에 나왔던 example과 유사하게 `positive`가 나올 확률이 높습니다.
+    + 사용하기 좋은 예제 : Classification, Prediction
+
 ## Anomaly Detection에서는 어떤 feature를 사용하는 것이 좋을까?
 
-## 
-        
-
-
+... 작성중 ...
