@@ -191,21 +191,23 @@ cv2.waitKey()
 cv2.destroyAllWindows()
 ```
 
+<br>
+
 + 원본 영상입니다.
 
-<img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/colorSrc.png" alt="Drawing" style="width: 500px;"/>
+<img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/colorSrc.PNG" alt="Drawing" style="width: 500px;"/>
 
 <br>
 
 + hsv 형태에서 밝기값을 평활화 한 영상입니다.
 
-<img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/hsvDst.png" alt="Drawing" style="width: 500px;"/>
+<img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/hsvDst.PNG" alt="Drawing" style="width: 500px;"/>
 
 <br>
 
 + YCrCb 형태에서 밝기값을 평활화 한 영상입니다.
 
-<img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/ycbcrDst.png" alt="Drawing" style="width: 500px;"/>
+<img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/ycbcrDst.PNG" alt="Drawing" style="width: 500px;"/>
 
 <br>
 
