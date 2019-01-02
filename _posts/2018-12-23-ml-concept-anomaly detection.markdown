@@ -100,5 +100,12 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
         + 2d 그래프에서 $$ x_{1} $$은 군집된 데이터 `내부`에 있습니다.
     + 테스트 케이스 $$ x_{test}^{(2)} $$ 의 확률은 0.0021이라고 하면 anomalous 한 데이터 입니다.
         + 2d 그래프에서 $$ x_{2} $$은 군집된 데이터 `외곽`에 있습니다.     
+        
+## Anomaly Detection Algorithm Evaludation
+
+## Anomaly Detection Vs. Supervised Learning
+
+## 
+        
 
 
