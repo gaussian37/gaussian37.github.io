@@ -24,3 +24,13 @@ tags: [english, speaking, voca, idion] # add tag
 + 새해에는 조상에게 제사를 지낸다는 걸 표현하면서 **commemorate** 라는 단어를 사용함
 + 달을 표시할 때, **In** January, Feburary
 + 월별로 ~ 한다 라고 말할때 **on a monthly basis**
+
++ we are in the same boat. : 우리는 같은 처지야
++ neighbor : 이웃, neighborhood : 동네
+    + Theses brochures have different neighborhoods in them.
+    
++ 안내 책자 : brochure
+    + I get the tourist information from online or brochure that sometimes you can get at the hotels.
++ 딱, 바로 그것 : just
++ 뜻밖에, 갑자기 : suddenly, unexpectedly, out of the blue
+

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 히스토그램 평활화(equalization) - equalizeHist   
-date: 2018-12-28 00:00:00
+date: 2018-12-29 00:00:00
 img: vision/opencv/opencv-python.png
 categories: [vision-opencv] 
 tags: [vision, opencv, equalization, equalizeHist, 히스토그램, hist, histogram] # add tag
@@ -133,7 +133,7 @@ cv2.destroyAllWindows()
 
 + 히스토그램 비교
 
-<img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/grayscalehistogram.PNG" alt="Drawing" style="width: 500px;"/>
+<img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/grayscalehistogram.png" alt="Drawing" style="width: 500px;"/>
 
 dst 이미지의 히스토그램이 전체적으로 잘 분포되어 있고 좀 더 선명한 것을 보실 수 있습니다.
 
