@@ -67,7 +67,7 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
     + variance = $$ \sigma^{2} = \frac{1}{m} \sum_{i=1}^{m} (x^{(i)} -\mu)^{2} $$     
         + 이 때 표본 분산을 나누는 term은 정확하게는 m-1 입니다. 하지만 머신러닝과 같이 표본 데이터가 많은 경우에는 m으로 두고 계산해도 대동소이 합니다.
         + 왜 m-1로 나눠야 하는지는 다음 링크를 참조해 주세요.
-            + https://gaussian37.github.io/interview-datascience-Q6)-the-reaon-of-n-1-tem/
+            + https://gaussian37.github.io/interview-datascience-Q6-the-reason-of-n-1-tem/
 
 ## Anomaly Detection Algorithm
 
@@ -100,10 +100,50 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
         + 2d 그래프에서 $$ x_{1} $$은 군집된 데이터 `내부`에 있습니다.
     + 테스트 케이스 $$ x_{test}^{(2)} $$ 의 확률은 0.0021이라고 하면 anomalous 한 데이터 입니다.
         + 2d 그래프에서 $$ x_{2} $$은 군집된 데이터 `외곽`에 있습니다.     
+
+## Multivariate Gaussian Distribution
+
+## Anomaly detection using the Multivariate Gaussian Distribution 
         
 ## Anomaly Detection Algorithm Evaludation
 
+Anomaly Detection 알고리즘을 만들었다면 중요한 요소 중 하나인 evaluation 하는 방법에 대하여 알아보겠습니다.
+다른 알고리즘들과 마찬가지로 평가하는 방법이 있어야 `parameter tuning` 이나 `feature를 선택` 하는 것이 쉬워집니다.
+
++ labeled 데이터를 가지고 있다고 가정해 보겠습니다.
+    + y = 0, normal
+    + y = 1, anomalous
+    
++ `Training set`은 `normal 데이터`로 가정합니다.    
+    + Training set : $$ x^{(1)}, x^{(2)}, ... , x^{(m)} $$
+    
++ `Cross validation & Test set` 에서는 `anomalous 데이터`를 추가합니다.    
+    + Cross validation set : $$ (x_{cv}^{(1)}, y_{cv}^{(1)}), (x_{cv}^{(2)}, y_{cv}^{(2)}), ..., (x_{cv}^{(m_{cv})}, y_{cv}^{(m_{cv})})
+    + Test set : $$ (x_{test}^{(1)}, y_{test}^{(1)}), (x_{test}^{(2)}, y_{test}^{(2)}), ..., (x_{test}^{(m_{test})}, y_{test}^{(m_{test})})
+
++ 예를 들어 다음과 같은 데이터 셋이 있다고 가정해 보겠습니다.
+    + 10,000개의 normal 데이터 (y = 0)
+    + 20개의 anomalous 데이터 (y = 1)
++ 이 때 다음과 같이 training/validation/test 셋을 구성할 수 있습니다.
+    + Training set : 6,000개의 normal 데이터 (y = 0)
+    + CV : 2,000개의 normal 데이터 (y = 0) + 10개의 anomalous 데이터 (y = 1)
+    + Test : 2,000개의 normal 데이터 (y = 0) + 10개의 anomalous 데이터 (y = 1)
++ Algorithm evaluation 하는 방법은 다음 순서와 같습니다.
+    + 모델 p(x)를 training set $$ \{ x^{(1)}, x^{(2)}, ... , x^{(m)} $$ 에 학습 시킵니다.
+    + cross validation/test example x 에서 아래와 같이 판단합니다.
+        + 만약 $$ p(x) \lt \epsilon $$ 이면 anomalous
+        + 만약 $$ p(x) \gt \epsilon $$ 이면 normal
+    + 판단한 결과를 evaluation 하는 방법에는 다음과 같은 방법이 있습니다.
+        + True positive/False positive/False negative/True negative
+        + Precision/Recall
+        + F1-score
+    + 단순히 normal, anomalous 한 데이터를 classification 하는 방식으로 accuracy를 생각하면 anomalous한 데이터가 너무 작기 때문에 적합하지 않습니다.
+        + 무조건 normal 이라고 해도 accuracy가 상당히 높게 나오기 때문입니다. 
+    + evaluation 한 내용을 기반으로 파라미터 $$ \epsilon $$을 최종적으로 학습할 수 있습니다.
+
 ## Anomaly Detection Vs. Supervised Learning
+
+## Anomaly Detection에서는 어떤 feature를 사용하는 것이 좋을까?
 
 ## 
         
