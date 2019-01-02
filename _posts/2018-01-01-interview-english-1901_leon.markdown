@@ -34,3 +34,8 @@ tags: [english, speaking, voca, idion] # add tag
 + 딱, 바로 그것 : just
 + 뜻밖에, 갑자기 : suddenly, unexpectedly, out of the blue
 
++ 교육 관련된 주제
++ values education, home education
+    + teacher is second parents
++ 수업료 : tuition
++ 불우한 : underprivileged 
