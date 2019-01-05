@@ -151,9 +151,21 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
         + 평균 $$ \mu = \frac{1}{N}\sum_{i=1}^{N}x_{i} $$
         + 분산 $$ \sigma^{2} = \frac{1}{N-1}\sum_{i=1}^{N}(x_{i} - \mu) $$
             + 분산을 구할 때, N이 아니라 N-1로 나누어 주었습니다. 바이어스의 영향으로 N-1로 나누어 주어야 합니다.
-                + 참조 : https://gaussian37.github.io/interview-datascience-Q6-the-reason-of-n-1-tem/ 
-            
-... 작성중 ...    
+            + 참조 : https://gaussian37.github.io/interview-datascience-Q6-the-reason-of-n-1-tem/
+
+#### 샘플 집합이 주어진 경우 평균과 분산 계산  
+
++ 두 개의 주사위의 합에 대한 확률 분포를 모른다고 가정하고 실제 주사위를 2개를 10번 던져서 나온 실험을 이용하여 평균과 분산을 구해보겠습니다.
++ 확률 분포
+
+| 실험 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
+|:-----------:	|:------:	|:------:	|:-------:	|:------:	|:------:	|:------:	|:-------:	|:------:	|:------:	|:-------:	|
+| 나온수 	| (3,2) 	| (3,5) 	| (6,6) 	| (5,1) 	| (1,6) 	| (4,5) 	| (6,4) 	| (4,2) 	| (6,1) 	| (4,1) 	|
+| 랜덤 변수 x 	| x1 = 5 	| x2 = 8 	| x3 = 12 	| x4 = 6 	| x5 = 7 	| x6 = 9 	| x7 = 10 	| x8 = 6 	| x9 = 7 	| x10 = 5 	|
+
+
+
+    
     
 
 <a href="https://coupa.ng/bgl1OZ" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/electronic-640-x-100.jpg" alt=""></a>
