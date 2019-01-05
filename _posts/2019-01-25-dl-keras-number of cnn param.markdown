@@ -20,6 +20,8 @@ Keras에서 `model.summary()`를 하면 parameter의 갯수를 쉽게 구할 수
 
 <img src="../assets/img/dl/keras/weight/weight2.png" alt="Drawing" style="width: 500px;"/>
 
+<br>
+
 + 첫 번째 conv2d 에서는 (150, 150, 3) 이미지에 (3, 3) 필터를 32개 사용하였습니다.
 + 이 때, 어떻게 파라미터의 갯수가 896개가 나올 수 있을까요?
     + 정확한 내용은 본 블로그의 dl-concept 에서 cnn 블로그 내용을 확인해 보시면 도움이 되겠습니다.
@@ -28,6 +30,11 @@ Keras에서 `model.summary()`를 하면 parameter의 갯수를 쉽게 구할 수
     + 그리고 `Conv2D(32, ...)` 에서의 32는 32개의 필터를 적용하여 다음 층에서는 채널이 총 `32개`가 되도록 만든다는 뜻입니다.
     + 여기에 bias로 더해질 상수가 각각의 채널 마다 존재하므로 `32개`가 추가로 더해지게 됩니다.
     + 정리하면, 3 x 3(필터 크기) x 3 (#입력 채널(RGB)) x 32(#출력 채널) + 32(출력 채널 bias) = 896이 됩니다.
+    
+<img src="../assets/img/dl/keras/weight/weight2.png" alt="Drawing" style="width: 500px;"/>
+
+<br>
+
 + 두 번째 conv2d 에서는 입력이 (72, 72, 32) 이고 (3, 3) 필터가 64개 입니다.
     + 앞에서 내용과 똑같이 적용해 보겠습니다.
     + 3 x 3 (필터 크기) x 32 (#입력 채널) x 64(#출력 채널) + 64 = 18496 입니다.
@@ -38,8 +45,8 @@ Keras에서 `model.summary()`를 하면 parameter의 갯수를 쉽게 구할 수
 
 <a href="https://coupa.ng/bgl1OZ" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/electronic-640-x-100.jpg" alt=""></a>
 
-<iframe src="<iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.4%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>liate%2Fsearch-bar%2F0.0.4%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>  
+<iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.4%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>  
 
-<img src="../assets/img/dl/keras/weight/weight2.png" alt="Drawing" style="width: 500px;"/>
+
 
 
