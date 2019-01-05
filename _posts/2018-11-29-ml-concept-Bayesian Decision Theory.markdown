@@ -9,7 +9,7 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 이번 글에서는 Bayesian Decision Theory에 대하여 알아보도록 하겠습니다.
 자세히 알아보기 전에 간단한 확률 통계 이론 부터 시작해보도록 하겠습니다.
-이 글은 오일석 교수님의 패턴인식을 참조하였습니다. 책이 너무 좋습니다 ㅠㅠ
+이 글은 오일석 교수님의 패턴인식을 참조하였습니다.
 
 자 그러면 시작해 보겠습니다.
 
@@ -151,11 +151,14 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
         + 평균 $$ \mu = \frac{1}{N}\sum_{i=1}^{N}x_{i} $$
         + 분산 $$ \sigma^{2} = \frac{1}{N-1}\sum_{i=1}^{N}(x_{i} - \mu) $$
             + 분산을 구할 때, N이 아니라 N-1로 나누어 주었습니다. 바이어스의 영향으로 N-1로 나누어 주어야 합니다.
+            + 
         
     
     
 
-    
+<a href="https://coupa.ng/bgl1OZ" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/electronic-640-x-100.jpg" alt=""></a>
+
+<iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.4%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>
     
 
 
