@@ -153,15 +153,8 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
             + 분산을 구할 때, N이 아니라 N-1로 나누어 주었습니다. 바이어스의 영향으로 N-1로 나누어 주어야 합니다.
                 + 참조 : https://gaussian37.github.io/interview-datascience-Q6-the-reason-of-n-1-tem/ 
             
-    
+... 작성중 ...    
     
 
 <a href="https://coupa.ng/bgl1OZ" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/electronic-640-x-100.jpg" alt=""></a>
-<iframe src="<iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.4%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>liate%2Fsearch-bar%2F0.0.4%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>
-    
-
-
-
-
-
-
+<iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.4%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>
