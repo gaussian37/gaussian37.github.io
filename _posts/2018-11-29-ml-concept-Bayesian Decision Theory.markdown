@@ -165,6 +165,8 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 | 나온수 	| (3,2) 	| (3,5) 	| (6,6) 	| (5,1) 	| (1,6) 	| (4,5) 	| (6,4) 	| (4,2) 	| (6,1) 	| (4,1) 	|
 | 랜덤 변수 x 	| x1 = 5 	| x2 = 8 	| x3 = 12 	| x4 = 6 	| x5 = 7 	| x6 = 9 	| x7 = 10 	| x8 = 6 	| x9 = 7 	| x10 = 5 	|
 
+<br>
+
 + 평균 : $$ \mu = \frac{1}{10}\sum_{i=1}^{10} x_{i}= 7.5 $$ 
 + 분산 : $$ \sigma^{2} = \frac{1}{9}\sum_{i=1}^{10}(x_{i} - \mu)^{2} = 5.16667 $$
 
