@@ -158,7 +158,7 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 <a href="https://coupa.ng/bgl1OZ" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/electronic-640-x-100.jpg" alt=""></a>
 
-<iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.4%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>
+<iframe src="<iframe src="//naver.com" width="100%" height="85" frameborder="0" scrolling="no"></iframe>liate%2Fsearch-bar%2F0.0.4%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>
     
 
 
