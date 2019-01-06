@@ -85,6 +85,8 @@ urlpatterns = [
 ]
 ```
 
+<br>
+
 + urls.py에 너무 코드가 길게 들어가는게 보기가 안좋습니다.
 
 ```python
@@ -106,6 +108,8 @@ schema_view_v1 = get_schema_view(
     patterns=schema_url_v1_patterns,
 )
 ```
+
+<br>
 
 이 부분만 따로 떼어내어서 `import` 시키기를 권장 드립니다.
 
