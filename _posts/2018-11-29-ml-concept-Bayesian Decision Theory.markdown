@@ -9,7 +9,7 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 이번 글에서는 Bayesian Decision Theory에 대하여 알아보도록 하겠습니다.
 자세히 알아보기 전에 간단한 확률 통계 이론 부터 시작해보도록 하겠습니다.
-이 글은 오일석 교수님의 패턴인식을 참조하였습니다. 책이 너무 좋습니다 ㅠㅠ
+이 글은 오일석 교수님의 패턴인식을 참조하였습니다.
 
 자 그러면 시작해 보겠습니다.
 
@@ -151,15 +151,40 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
         + 평균 $$ \mu = \frac{1}{N}\sum_{i=1}^{N}x_{i} $$
         + 분산 $$ \sigma^{2} = \frac{1}{N-1}\sum_{i=1}^{N}(x_{i} - \mu) $$
             + 분산을 구할 때, N이 아니라 N-1로 나누어 주었습니다. 바이어스의 영향으로 N-1로 나누어 주어야 합니다.
-        
+            + 참조 : https://gaussian37.github.io/interview-datascience-Q6-the-reason-of-n-1-tem/
+
+### 샘플 집합이 주어진 경우
+
+#### 샘플 집합이 주어진 경우 평균과 분산
+
++ 두 개의 주사위의 합에 대한 확률 분포를 모른다고 가정하고 실제 주사위를 2개를 10번 던져서 나온 실험을 이용하여 평균과 분산을 구해보겠습니다.
++ 확률 분포
+
+| 실험 	| 1 	| 2 	| 3 	| 4 	| 5 	| 6 	| 7 	| 8 	| 9 	| 10 	|
+|:-----------:	|:------:	|:------:	|:-------:	|:------:	|:------:	|:------:	|:-------:	|:------:	|:------:	|:-------:	|
+| 나온수 	| (3,2) 	| (3,5) 	| (6,6) 	| (5,1) 	| (1,6) 	| (4,5) 	| (6,4) 	| (4,2) 	| (6,1) 	| (4,1) 	|
+| 랜덤 변수 x 	| x1 = 5 	| x2 = 8 	| x3 = 12 	| x4 = 6 	| x5 = 7 	| x6 = 9 	| x7 = 10 	| x8 = 6 	| x9 = 7 	| x10 = 5 	|
+
+<br>
+
++ 평균 : $$ \mu = \frac{1}{10}\sum_{i=1}^{10} x_{i}= 7.5 $$ 
++ 분산 : $$ \sigma^{2} = \frac{1}{9}\sum_{i=1}^{10}(x_{i} - \mu)^{2} = 5.16667 $$
+
+### 랜덤 변수가 여러개가 주어진 경우
+
++ 랜덤 변수 한개의 통계적 분석은 feature 하나를 분석한 것과 같습니다.
++ 현실 데이터에서는 여러개의 랜덤 변수가 랜덤 벡터를 구성하는 경우가 많음
++ `랜덤 벡터` : $$ x = (x_{1}, x_{2}, ... , x_{d})^{T} $$
++ `평균 벡터` : $$ \mu = (\mu_{1}, \mu_{2}, ... , \mu_{d})^{T} $$
+    + `평균 벡터`를 구하는 방법은 아래 3가지 입니다.
+    + 이산 확률 분포 : $$ \mu = \sum_{x} xP(x) $$
+    + 연속 확률 분포 : $$ \mu = \int_{R^{d}} xP(x) dx $$
+    + 샘플 집합 : $$ \mu = \frac{1}{N}\sum_{i=1}^{N} $$
+
+#### 공분산
+
++ 중요한 통계적 특성으로 $$ x_{i}, x_{j} $$ 사이의 공분산 $$ \sigma_{ij} $$(covariance)이 있습니다.        
     
-    
-
-    
-    
-
-
-
-
-
-
+<br>
+<a href="https://coupa.ng/bgl1OZ" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/electronic-640-x-100.jpg" alt=""></a>
+<iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.4%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>
