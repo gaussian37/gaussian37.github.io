@@ -19,7 +19,7 @@ tags: [english, speaking, voca, idion] # add tag
         + Korea is rich in art.
     + art 관련 단어들 : express, emotion, understanding, emotional management, creativity, life
   
-새해 관련 이야기를 하면서 나왔던 내용들  
+### 새해 관련 이야기를 하면서 나왔던 내용들  
 + solar / lunar calendar : 한국에서는 **lunar** calendar에 따른 New-year가 큰 행사임
 + 새해에는 조상에게 제사를 지낸다는 걸 표현하면서 **commemorate** 라는 단어를 사용함
 + 달을 표시할 때, **In** January, Feburary
@@ -34,8 +34,21 @@ tags: [english, speaking, voca, idion] # add tag
 + 딱, 바로 그것 : just
 + 뜻밖에, 갑자기 : suddenly, unexpectedly, out of the blue
 
-+ 교육 관련된 주제
+### 교육 관련된 주제
 + values education, home education
     + teacher is second parents
 + 수업료 : tuition
 + 불우한 : underprivileged 
+
+### Restaurant 관련 주제로 한 내용 
++ Restaurant is better than home.
+    + = A restaurant is a better place to celebrate than at home.
++ The most type of restaurant...
+    + = _______ restaurants `are favored` because... 
++. restaurant \[RES-ter-uhnt\], material \[muh-TEER-ee-uhl\]
++ That kinds of restaurant...
+    + = Those kinds of restaurants.../That kind of restaurant...
++ It's a trend to make a mix.
+    + = It's a trend to mix/combine two dishes into one.
++ influence : 영향, influential : 영향력 있는
++ have/exert influence upon : ~에 영향을 끼치다.
