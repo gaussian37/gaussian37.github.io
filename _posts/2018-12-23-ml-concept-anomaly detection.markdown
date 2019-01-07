@@ -164,4 +164,24 @@ Anomaly Detection 알고리즘을 만들었다면 중요한 요소 중 하나인
 
 ## Anomaly Detection에서는 어떤 feature를 사용하는 것이 좋을까?
 
-... 작성중 ...
+Anomaly Detection 알고리즘에 적용할 feature는 어떻게 선정 하면 좋을 지 알아보도록 하겠습니다.
+
++ `gaussian distribution`이 되도록 **feature를 수정**합니다.
+    + feature의 분포를 보았을 때, 한번에 `gaussian` 분포를 따를 수도 있지만 그렇지 않는 경우도 많습니다.
+    + <img src="../assets/img/ml/concept/anomaly-detection/gaussian_feature.PNG" alt="Drawing" style="width: 300px;"/>
+    + 위의 예제에서는 `log(x)` 함수를 적용하였을 때, 좀 더 `gaussian` 분포에 가까워 지는 것을 볼 수 있습니다.
+        + `gaussian` 분포를 만들면 `Anomaly Detection` 알고리즘을 적용하기에 좀 더 적합해 집니다.
+        + 다른 방법으로, $$ log(x), \sqrt{x}, \sqrt[3]{x}, ... $$ 을 이용하여 `gaussian` 분포에 적합하도록 만들 수 있습니다.
++ 의미 있는 `feautre`를 추가했을 때, error를 줄일 수 있습니다.  
+    + <img src="../assets/img/ml/concept/anomaly-detection/error_analysis.PNG" alt="Drawing" style="width: 300px;"/>
+    + 위의 예제에서 1-dimension 상태 즉, $$ x_{1} $$ feature 만으로는 Anomalous한 상태를 검출하지 못하는 경우가 발생 할 수 있습니다.
+        + 이 때, $$ x_{2} $$ feature를 추가하면 표현력이 더 증가하여 Anomalous한 상태를 확인할 수도 있습니다.
++ 어떤 현상이 발생하였을 때, feature의 값이 비이상적으로 커지거나, 작아지도록 만들면 검출하기 쉬워집니다.
+    + 예를 들어, 데이터 센터에서 컴퓨터 상태를 모니터링 한다고 하고 `x = CPU load` 이고 `y = network traffic` 이라고 가정하겠습니다.
+    + 이 때, feature로 x, y를 사용하는 것 보다 z = (CPU load) / (network traffic) = x/y 를 사용하는 편이 나을 수 있습니다.
+        + 어떤 컴퓨터의 CPU load가 비이상적으로 올라가면 network traffic은 작아지므로 z라는 feature는 x, y 보다 더 큰 특징을 가지게 됩니다.
+
+## Anomaly Detection with sklearn 
+    
+         
+    
