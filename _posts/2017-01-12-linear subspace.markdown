@@ -4,7 +4,7 @@ title: 선형 부분공간
 date: 2017-01-12 00:00:00
 img: math/la/linear-algebra-image.jpg
 categories: [math-la] 
-tags: [Linear algebra] # add tag
+tags: [Linear algebra, subset, subspace] # add tag
 ---
 
 출처 : 칸 아카데미 선형대수학 (https://ko.khanacademy.org/math/linear-algebra/vectors-and-spaces)
