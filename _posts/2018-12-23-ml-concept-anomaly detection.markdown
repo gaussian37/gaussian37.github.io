@@ -154,7 +154,7 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
 
 + 첫번째, Parameter `fitting`으로 training set가 $$ \{x^{(1)}, x^{(2)}, ..., \} $$로 주어질 때,
     + 평균 $$ \mu = \frac{1}{m}\sum_{i=1}^{m}x^{(i)} $$
-    + 분산 $$ \Sigma = \frac{1}{m}\sum_{i=1}^{m}(x^{(i)} - \mu)(x^{(i)} - \mu)^{T}
+    + 분산 $$ \Sigma = \frac{1}{m}\sum_{i=1}^{m}(x^{(i)} - \mu)(x^{(i)} - \mu)^{T} $$
 + 두번째, 새로운 데이터가 들어왔을 때,
     + 학습된 Parameter : $$ \mu, \Sigma $$을 $$ p(x;\mu,\Sigma) = \frac{1}{ (2\pi)^{\frac{n}{2}}\|\Sigma\|^{\frac{1}{2} }}exp(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu)) $$ 에 적용시킵니다.
     + 이 때, $$ p(x) \lt \epsilon $$ 이면 `anomalous` 라고 판단합니다.
