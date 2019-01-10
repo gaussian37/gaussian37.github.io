@@ -1,6 +1,6 @@
 ---
 layout: post
-title: pandas-get_dummies
+title: Numpy와 Pandas로 결측값 제거하기
 date: 2019-01-11 00:00:00
 img: python/pandas/pandas.png
 categories: [python-pandas] 
