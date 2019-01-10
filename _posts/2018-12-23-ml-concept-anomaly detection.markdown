@@ -45,6 +45,8 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
     + 이럴 때에는, $$ \epsilon $$의 크기를 줄여야 합니다.
 + Anomaly Detection 모델링을 할 때 주로 사용하는 것이 `Gaussian Distribution` 입니다. 그러면 `Gaussian Distribution`에 대하여 간략하게 알아보겠습니다.
 
+<br><br>
+
 ## Gaussian Distribution
 
 + Anomaly Detection 모델링을 하기 전에 근본이 되는 Gaussian Distribution에 대하여 알아보도록 하겠습니다.
@@ -69,6 +71,8 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
         + 왜 m-1로 나눠야 하는지는 다음 링크를 참조해 주세요.
             + https://gaussian37.github.io/interview-datascience-Q6-the-reason-of-n-1-tem/
 
+<br><br>
+
 ## Anomaly Detection Algorithm
 
 그러면 Anomaly Detection 알고리즘에 대하여 알아보도록 하겠습니다.
@@ -82,6 +86,8 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
     + 실제 데이터의 경우 완전히 독립적인 feature를 가지기는 어려워 feature간 dependency가 있으나 위의 식은 효과가 있습니다.
 + p(x) 식을 좀 더 심플하게 정리해 보면 다음과 같습니다.
     + 모델  $$ p(x) = p(x_{1}; \mu_{1}, \sigma_{1}^{2})p(x_{2}; \mu_{2}, \sigma_{2}^{2})...p(x_{m}; \mu_{m}, \sigma_{m}^{2}) = \Pi_{i=1}^{m} p(x_{i}, \mu_{i}, \sigma_{i}^{2})$$
+
+<br><br>
 
 ### Anomaly Detection 알고리즘 순서
 
@@ -101,6 +107,8 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
     + 테스트 케이스 $$ x_{test}^{(2)} $$ 의 확률은 0.0021이라고 하면 anomalous 한 데이터 입니다.
         + 2d 그래프에서 $$ x_{2} $$은 군집된 데이터 `외곽`에 있습니다.     
 
+<br><br>
+
 ## Multivariate Gaussian Distribution
 
 + Anomaly Detection 알고리즘을 적용할 때, 여러가지 feature들이 발생할 수 있습니다.
@@ -115,32 +123,65 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
 + Multivariate Gaussian distribution의 파라미터는 다음과 같습니다.
     + 평균 $$ \mu \in \mathbb{R}^{n} $$
     + 공분산(covariance matrix) $$ \Sigma \in \mathbb{R}^{n x n} $$
-+ $$ p(x;\mu,\Sigma) = \frac{1}{ (2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2} }}exp(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu)) $$
++ 모델 $$ p(x;\mu,\Sigma) = \frac{1}{ (2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2} }}exp(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu)) $$
     + feature의 갯수를 `n차원`, 데이터(instance)의 갯수를 `m` 이라고 하면
-    + $$ |\Sigma|^{\frac{1}{2}} $$ : 실수(real number)
+    + $$ \|\Sigma\|^{\frac{1}{2}} $$ : 실수(real number)
     + $$ (x - \mu)^{T} $$ : m x n 또는 n x m 차원
     + $$ (x - \mu) $$ : m x n 또는 n x m 차원
     + $$ \Sigma^{-1} $$ : n x n 차원
 + 앞에서 배운 단일 feature에서의 gaussian 분포는 `multivariate` 버전의 식에서 feature가 1개일 때를 적용한 것입니다. 
-    + $$ \frac{1}{\sigma\sqrt{2\pi}}exp(-\frac{(x-\mu)^{2}}{2\sigma^{2}}) $$
+    + 모델 $$p(x; \mu, \sigma) = \frac{1}{\sigma\sqrt{2\pi}}exp(-\frac{(x-\mu)^{2}}{2\sigma^{2}}) $$
     
 + 2개의 feature를 이용하여 gaussian distribution을 그려보겠습니다.
     + 이 때 변경 가능한 부분은 $$ \mu $$ 와 $$ \Sigma $$ 입니다.
 
 + <img src="../assets/img/ml/concept/anomaly-detection/dist1.PNG" alt="Drawing" style="width: 500px;"/>
     + 위에서 가장 왼쪽이 기본이라고 생각하고 비교해서 보면 분산 줄어들면 데이터가 모여서 뾰족한 형태가 되고 분산이 커지면 데이터가 펴져서 평평해 집니다.
-+ <img src="../assets/img/ml/concept/anomaly-detection/dist1.PNG" alt="Drawing" style="width: 500px;"/>
++ <img src="../assets/img/ml/concept/anomaly-detection/dist2.PNG" alt="Drawing" style="width: 500px;"/>
     + feature간의 분산의 크기가 다르다면(일반적으로), 타원 형태의 분포를 띄게 됩니다. 
-+ <img src="../assets/img/ml/concept/anomaly-detection/dist1.PNG" alt="Drawing" style="width: 500px;"/>
++ <img src="../assets/img/ml/concept/anomaly-detection/dist4.PNG" alt="Drawing" style="width: 500px;"/>
     + 분산에서 `diagonal` 이외의 값이 추가 되면 전체적인 분포가 회전하게 됩니다. 양의 방향으로 회전한 결과 입니다. 
-+ <img src="../assets/img/ml/concept/anomaly-detection/dist1.PNG" alt="Drawing" style="width: 500px;"/>
++ <img src="../assets/img/ml/concept/anomaly-detection/dist5.PNG" alt="Drawing" style="width: 500px;"/>
     + 분산에서 `diagonal` 이외의 값이 추가 되면 전체적인 분포가 회전하게 됩니다. 음의 방향으로 회전한 결과 입니다.
-+ <img src="../assets/img/ml/concept/anomaly-detection/dist1.PNG" alt="Drawing" style="width: 500px;"/>
++ <img src="../assets/img/ml/concept/anomaly-detection/dist6.PNG" alt="Drawing" style="width: 500px;"/>
     + 평균이 변하게 되면 분포의 중심이 변경되게 됩니다.    
+
+<br><br>
 
 ## Anomaly detection using the Multivariate Gaussian Distribution
 
-... 작성중 ... 
+이제 `Multivarirate Gaussian Distribution`을 이용하여 `Anomaly Detection`을 하는 방법에 대하여 알아보도록 하겠습니다.
+
++ 첫번째, Parameter `fitting`으로 training set가 $$ \{x^{(1)}, x^{(2)}, ..., \} $$로 주어질 때,
+    + 평균 $$ \mu = \frac{1}{m}\sum_{i=1}^{m}x^{(i)} $$
+    + 분산 $$ \Sigma = \frac{1}{m}\sum_{i=1}^{m}(x^{(i)} - \mu)(x^{(i)} - \mu)^{T}
++ 두번째, 새로운 데이터가 들어왔을 때,
+    + 학습된 Parameter : $$ \mu, \Sigma $$를 가지고
+    + 모델 $$ p(x;\mu,\Sigma) = \frac{1}{ (2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2} }}exp(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu)) $$ 에 적용시킵니다.
+    + 이 때, $$ p(x) \lt \epsilon $$ 이면 `anomalous` 라고 판단합니다.
++ 앞에서 배웠던 모델과 비교해 보면 $$ p(x) = p(x_{1}; \mu_{1}, \sigma_{1}^{2}) \times p(x_{2}; \mu_{2}, \sigma_{2}^{2}) \times ... \times p(x_{n}; \mu_{n}, \sigma_{n}^{2}) 으로 식을 정의하였습니다.
++ 이 식은 Multivariate Gaussian Distribution의 식 $$ p(x;\mu,\Sigma) = \frac{1}{ (2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2} }}exp(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu)) $$ 과 `일치`합니다.
+    + 단, covariance matrix에서 `diagonal` 이외의 성분은 **반드시 0**이어야 합니다. 
+    + <img src="../assets/img/ml/concept/anomaly-detection/mutivariateAndOld.png" alt="Drawing" style="width: 500px;"/>
+
++ `기존의 모델`과 `Multivariate` 모델을 비교해 보겠습니다.
+    + <img src="../assets/img/ml/concept/anomaly-detection/originalVsMultivariate.png" alt="Drawing" style="width: 500px;"/>
+    + 기존 모델
+        + 장점 :
+            + 계산 비용이 작습니다. 
+            + 학습 데이터의 숫자가 작더라고 feature의 갯수를 크게 늘릴 수 있습니다. 
+        + 단점 : 
+            + feature들 간의 상관관계를 직접 찾아야 합니다.        
+    + Multivariate 모델
+        + 장점 :
+            + feature들 간의 상관관계를 covariance matrix를 통해 자동으로 찾습니다. 
+        + 단점 : 
+            + covariance matrix를 구할 때 계산 비용이 $$ O(n^{2}) $$ 으로 비쌉니다.
+            + 계산 과정 중 $$ \Sigma^{-1} $$이 있으므로 반드시 역행렬이 존재해야 합니다.
+            + 즉, feature들 간 `independent` 해야 합니다. 
+                + 예를 들어 x1 = x2, x5 = x3 + x4 와 같은 관계가 있으면 역행렬이 존재하지 않습니다.                 
+        
+<br><br>
         
 ## Anomaly Detection Algorithm Evaludation
 
@@ -178,6 +219,8 @@ Anomaly Detection 알고리즘을 만들었다면 중요한 요소 중 하나인
         + 무조건 normal 이라고 해도 accuracy가 상당히 높게 나오기 때문입니다. 
     + evaluation 한 내용을 기반으로 파라미터 $$ \epsilon $$을 최종적으로 학습할 수 있습니다.
 
+<br><br>
+
 ## Anomaly Detection Vs. Supervised Learning
 
 지금까지 Anomaly Detection을 공부해 보았으면, binary classification을 하는 Supervised Learning과 유사하다고 느꼈을 것입니다.
@@ -194,6 +237,8 @@ Anomaly Detection 알고리즘을 만들었다면 중요한 요소 중 하나인
     + positive/negative example 둘 다 충분히 있는 상태일 때 좋습니다.
         + `positive` example이 충분히 많은 상태이기 때문에 미래에도 과거에 나왔던 example과 유사하게 `positive`가 나올 확률이 높습니다.
     + 사용하기 좋은 예제 : Classification, Prediction
+
+<br><br>
 
 ## Anomaly Detection에서는 어떤 feature를 사용하는 것이 좋을까?
 
@@ -213,6 +258,8 @@ Anomaly Detection 알고리즘에 적용할 feature는 어떻게 선정 하면 �
     + 예를 들어, 데이터 센터에서 컴퓨터 상태를 모니터링 한다고 하고 `x = CPU load` 이고 `y = network traffic` 이라고 가정하겠습니다.
     + 이 때, feature로 x, y를 사용하는 것 보다 z = (CPU load) / (network traffic) = x/y 를 사용하는 편이 나을 수 있습니다.
         + 어떤 컴퓨터의 CPU load가 비이상적으로 올라가면 network traffic은 작아지므로 z라는 feature는 x, y 보다 더 큰 특징을 가지게 됩니다.
+
+<br><br>
 
 ## Anomaly Detection with sklearn 
     
