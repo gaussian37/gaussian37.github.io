@@ -1,0 +1,8 @@
+---
+layout: post
+title: 1.5. 결정 이론
+date: 2019-01-10 00:00:00
+img: ml/prml/prml.png
+categories: [ml-prml] 
+tags: [prml, pattern recognition, machine learning, information theory, 패턴 인식, 머신 러닝, 정보 이론, ] # add tag
+---
