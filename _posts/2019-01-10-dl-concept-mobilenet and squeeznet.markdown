@@ -14,14 +14,21 @@ tags: [deep learning, cnn, mobilenet, squeezenet, 모바일넷, 스퀴즈넷] # 
 + `MobileNet`과 `SqueezeNet`은 다소 가벼운 모델이지만 AlexNet을 넘나드는 정확도를 보여줍니다.
 	+ `MobileNet`과 `SqueezeNet`은 정확도를 조금 손해보더라도 모델은 최대한 작고 효율적으로 설계하였습니다.
 
+<br>
+
 ## SqueezeNet과 MobileNet을 통하여 배울점
+
+<br>
 
 + SqueezeNet의 컨셉과 `fire modules`
 + Fully connected layer의 문제점과 `max pooling layer`로 해결하는 방법
 + MobileNet의 컨셉과 `spatial separable convolution`
 
+<br>
 
-## `SqueezeNet`
+## SqueezeNet에 대하여 알아봅시다.
+
+<br>
 
 + `SqueezeNet`은 `AlexNet`과 비슷한 정확도를 가지지만 weight는 $$ \frac{1}{50} $$배 수준으로 상당히 가볍습니다.
 + `SqueezeNet`은 다음과 같은 컨셉을 가지고 있습니다.

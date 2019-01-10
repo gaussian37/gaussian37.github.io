@@ -103,7 +103,40 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
 
 ## Multivariate Gaussian Distribution
 
-... 작성중 ...
++ Anomaly Detection 알고리즘을 적용할 때, 여러가지 feature들이 발생할 수 있습니다.
++ <img src="../assets/img/ml/concept/anomaly-detection/multivariablegaussian1.PNG" alt="Drawing" style="width: 500px;"/>
+    + CPU Load 라는 feature $$ x_{1} $$ 과 Memory Use 라는 feature $$ x_{2} $$ 가 있습니다.
+    + feature 한 개의 관점에서 gaussian 분포를 적용하면 Anomolous 에 가까운 것이 2개의 feature 관점에서 보면 normal일 수 있습니다.
+        + 연두색 포인트는 각각의 feature $$ x_{1}, x_{2} $$ 에서 보았을 때는 분포의 끝에 가까워 보입니다.
+        + 연두색 포인트 같은 점들이 2차원에서 보았을 때에는 normal한 점에 가깝다고 할 수 있습니다.
++ 여러개의 feature들 즉, `Multivariable`을 가질 때의 gaussian 분포를 `Multivariate Gaussian distribution` 이라고 합니다.
+    + 즉, $$ x \in \mathbb{R}^{n} $$ 에서 모델을 $$ p(x_{1}), p(x_{2}), ... $$ 형태로 각각 만들지 않고
+    + p(x) 모델 하나에 모든 feature들을 나타냅니다.
++ Multivariate Gaussian distribution의 파라미터는 다음과 같습니다.
+    + 평균 $$ \mu \in \mathbb{R}^{n} $$
+    + 공분산(covariance matrix) $$ \Sigma \in \mathbb{R}^{n x n} $$
++ $$ p(x;\mu,\Sigma) = \frac{1}{ (2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2} }}exp(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu)) $$
+    + feature의 갯수를 `n차원`, 데이터(instance)의 갯수를 `m` 이라고 하면
+    + $$ |\Sigma|^{\frac{1}{2}} $$ : 실수(real number)
+    + $$ (x - \mu)^{T} $$ : m x n 또는 n x m 차원
+    + $$ (x - \mu) $$ : m x n 또는 n x m 차원
+    + $$ \Sigma^{-1} $$ : n x n 차원
++ 앞에서 배운 단일 feature에서의 gaussian 분포는 `multivariate` 버전의 식에서 feature가 1개일 때를 적용한 것입니다. 
+    + $$ \frac{1}{\sigma\sqrt{2\pi}}exp(-\frac{(x-\mu)^{2}}{2\sigma^{2}}) $$
+    
++ 2개의 feature를 이용하여 gaussian distribution을 그려보겠습니다.
+    + 이 때 변경 가능한 부분은 $$ \mu $$ 와 $$ \Sigma $$ 입니다.
+
++ <img src="../assets/img/ml/concept/anomaly-detection/dist1.PNG" alt="Drawing" style="width: 500px;"/>
+    + 위에서 가장 왼쪽이 기본이라고 생각하고 비교해서 보면 분산 줄어들면 데이터가 모여서 뾰족한 형태가 되고 분산이 커지면 데이터가 펴져서 평평해 집니다.
++ <img src="../assets/img/ml/concept/anomaly-detection/dist1.PNG" alt="Drawing" style="width: 500px;"/>
+    + feature간의 분산의 크기가 다르다면(일반적으로), 타원 형태의 분포를 띄게 됩니다. 
++ <img src="../assets/img/ml/concept/anomaly-detection/dist1.PNG" alt="Drawing" style="width: 500px;"/>
+    + 분산에서 `diagonal` 이외의 값이 추가 되면 전체적인 분포가 회전하게 됩니다. 양의 방향으로 회전한 결과 입니다. 
++ <img src="../assets/img/ml/concept/anomaly-detection/dist1.PNG" alt="Drawing" style="width: 500px;"/>
+    + 분산에서 `diagonal` 이외의 값이 추가 되면 전체적인 분포가 회전하게 됩니다. 음의 방향으로 회전한 결과 입니다.
++ <img src="../assets/img/ml/concept/anomaly-detection/dist1.PNG" alt="Drawing" style="width: 500px;"/>
+    + 평균이 변하게 되면 분포의 중심이 변경되게 됩니다.    
 
 ## Anomaly detection using the Multivariate Gaussian Distribution
 
