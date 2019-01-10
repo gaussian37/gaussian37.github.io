@@ -123,7 +123,7 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
 + Multivariate Gaussian distribution의 파라미터는 다음과 같습니다.
     + 평균 $$ \mu \in \mathbb{R}^{n} $$
     + 공분산(covariance matrix) $$ \Sigma \in \mathbb{R}^{n x n} $$
-+ 모델 $$ p(x;\mu,\Sigma) = \frac{1}{ (2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2} }}exp(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu)) $$
++ 모델 $$ p(x;\mu,\Sigma) = \frac{1}{ (2\pi)^{\frac{n}{2}}\|\Sigma\|^{\frac{1}{2} }}exp(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu)) $$
     + feature의 갯수를 `n차원`, 데이터(instance)의 갯수를 `m` 이라고 하면
     + $$ \|\Sigma\|^{\frac{1}{2}} $$ : 실수(real number)
     + $$ (x - \mu)^{T} $$ : m x n 또는 n x m 차원
@@ -156,16 +156,15 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지] # add 
     + 평균 $$ \mu = \frac{1}{m}\sum_{i=1}^{m}x^{(i)} $$
     + 분산 $$ \Sigma = \frac{1}{m}\sum_{i=1}^{m}(x^{(i)} - \mu)(x^{(i)} - \mu)^{T}
 + 두번째, 새로운 데이터가 들어왔을 때,
-    + 학습된 Parameter : $$ \mu, \Sigma $$를 가지고
-    + 모델 $$ p(x;\mu,\Sigma) = \frac{1}{ (2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2} }}exp(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu)) $$ 에 적용시킵니다.
+    + 학습된 Parameter : $$ \mu, \Sigma $$을 $$ p(x;\mu,\Sigma) = \frac{1}{ (2\pi)^{\frac{n}{2}}\|\Sigma\|^{\frac{1}{2} }}exp(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu)) $$ 에 적용시킵니다.
     + 이 때, $$ p(x) \lt \epsilon $$ 이면 `anomalous` 라고 판단합니다.
-+ 앞에서 배웠던 모델과 비교해 보면 $$ p(x) = p(x_{1}; \mu_{1}, \sigma_{1}^{2}) \times p(x_{2}; \mu_{2}, \sigma_{2}^{2}) \times ... \times p(x_{n}; \mu_{n}, \sigma_{n}^{2}) 으로 식을 정의하였습니다.
-+ 이 식은 Multivariate Gaussian Distribution의 식 $$ p(x;\mu,\Sigma) = \frac{1}{ (2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2} }}exp(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu)) $$ 과 `일치`합니다.
++ 앞에서 배웠던 모델과 비교해 보면 $$ p(x) = p(x_{1}; \mu_{1}, \sigma_{1}^{2}) \times p(x_{2}; \mu_{2}, \sigma_{2}^{2}) \times ... \times p(x_{n}; \mu_{n}, \sigma_{n}^{2}) $$ 으로 식을 정의하였습니다.
++ 이 식은 Multivariate Gaussian Distribution의 식 $$ p(x;\mu,\Sigma) = \frac{1}{ (2\pi)^{\frac{n}{2}}\|\Sigma\|^{\frac{1}{2} }}exp(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu)) $$ 과 `일치`합니다.
     + 단, covariance matrix에서 `diagonal` 이외의 성분은 **반드시 0**이어야 합니다. 
     + <img src="../assets/img/ml/concept/anomaly-detection/mutivariateAndOld.png" alt="Drawing" style="width: 500px;"/>
 
 + `기존의 모델`과 `Multivariate` 모델을 비교해 보겠습니다.
-    + <img src="../assets/img/ml/concept/anomaly-detection/originalVsMultivariate.png" alt="Drawing" style="width: 500px;"/>
+    + <img src="../assets/img/ml/concept/anomaly-detection/originalVsMultivariate.PNG" alt="Drawing" style="width: 500px;"/>
     + 기존 모델
         + 장점 :
             + 계산 비용이 작습니다. 
