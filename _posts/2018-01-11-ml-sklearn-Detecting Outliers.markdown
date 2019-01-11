@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Outlier 검출 후 제거하기 
-date: 2018-01-11 00:00:00
+date: 2019-01-11 00:00:00
 img: ml/sklearn/sklearn.png
 categories: [ml-sklearn] 
 tags: [python, machine learning, ml, sklearn, scikit learn, outlier] # add tag
