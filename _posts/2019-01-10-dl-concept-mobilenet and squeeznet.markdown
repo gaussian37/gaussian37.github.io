@@ -1,6 +1,6 @@
 ---
 layout: post
-title: MobileNet(모바일넷)과 SqueezeNet(스퀴즈넷)
+title: SqueezeNet(스퀴즈넷)과 MobileNet(모바일넷)
 date: 2019-01-10 03:49:00
 img: dl/concept/mobileSqueezeNet/squeezenet.png
 categories: [dl-concept] 
@@ -28,13 +28,13 @@ tags: [deep learning, cnn, mobilenet, squeezenet, 모바일넷, 스퀴즈넷] # 
 
 + `SqueezeNet`은 `AlexNet`과 비슷한 정확도를 가지지만 weight는 $$ \frac{1}{50} $$배 수준으로 상당히 가볍습니다.
 + `SqueezeNet`은 다음과 같은 컨셉을 가지고 있습니다.
-	+ 기존의 사용하였던 `3 x 3` 필터를 일부를 `1 x 1` 필터로 대체하였습니다. 
-		+ `1 x 1` 필터를 사용함으로써 weight의 수를 $$ \frac{1}{9} $$로 줄일 수 있습니다.
-	+ input 채널의 수를 `3 x 3` 필터를 이용하여 줄였습니다.
-		+ convolution layer 에서의 파라미터의 수는 filter의 사이즈, 채널의 수 그리고 필터의 수에 따라 달라집니다.
-	+ downsample을 늦게 하여 convolution layer가 `큰 activation map`들을 가질 수 있도록 합니다.     
-		+ 데이터 downsample을 늦게 할수록 (예를 들어 stride를 1보다 크게 하여서 downsampling) 더 많은 정보들이 layer 사이에 포함되기 때문입니다.
-		+ 이 방법은 통하여 `모델은 가능한 작게` 만들지만, `정확도는 최대한 크게` 할 수 있습니다.
++ 기존의 사용하였던 `3 x 3` 필터를 일부를 `1 x 1` 필터로 대체하였습니다. 
+	+ `1 x 1` 필터를 사용함으로써 weight의 수를 $$ \frac{1}{9} $$로 줄일 수 있습니다.
++ input 채널의 수를 `3 x 3` 필터를 이용하여 줄였습니다.
+	+ convolution layer 에서의 파라미터의 수는 filter의 사이즈, 채널의 수 그리고 필터의 수에 따라 달라집니다.
++ downsample을 늦게 적용하여 convolution layer가 `큰 activation map`을 가질 수 있도록 합니다.     
+	+ 데이터 downsample을 늦게 할수록 (예를 들어 stride를 1보다 크게 하여서 downsample 하는 작업을 늦게 적용함) 더 많은 정보들이 layer에 포함될 수 있습니다.
+	+ 이 방법을 통하여 `모델은 가능한 작게` 만들지만, `정확도는 최대한 크게` 만들 수 있습니다.
 		
 <br><br>
 
