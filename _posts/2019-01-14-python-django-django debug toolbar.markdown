@@ -45,6 +45,8 @@ INSTALLED_APPS = [
 STATIC_URL = '/static/'
 ```
 
+<br>
+
 + project/urls.py 에서 debug 관련 url을 추가해 줍니다.
 + debug 관련 내용 이기 때문에 **반드시** `settings.DEBUG = True` 일 때만 사용하는 것을 추천드립니다.
 
@@ -60,6 +62,8 @@ if settings.DEBUG:
     ]
 ```
 
+<br>
+
 + `django-debug-toolbar`는 주로 `middleware`에서 동작합니다.
 + project/settings.py의 `MIDDLEWARE`에 debug toolbar를 추가합니다.
 
@@ -70,6 +74,8 @@ MIDDLEWARE = [
     # ...
 ]
 ```
+
+<br>
 
 + 마지막으로 Internal IP를 추가해 줍니다.
 + 앞에서도 말씀드린 것과 같이 `django-debug-toolbar`를 이용하면 내부 상황을 다 볼 수 있습니다.
