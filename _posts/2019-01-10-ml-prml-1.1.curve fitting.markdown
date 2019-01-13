@@ -6,3 +6,73 @@ img: ml/prml/prml.png
 categories: [ml-prml] 
 tags: [prml, pattern recognition, machine learning, 패턴 인식, 머신 러닝, 정보 이론, ] # add tag
 ---
+
+본 글의 내용 및 이미지는 Pattern Recognition and Machine Learning (Christopher M. Bishop)의 책의 내용을 사용하였습니다.
+
+<br><br>
+
+## 머신 러닝(패턴 인식)에 대한 소개
+
++ Rule 기반 : 사람이 직접 규칙성을 만드는 방법
+    + 수 많은 규칙 및 예외 사항 발생 할 수 있습니다.
++ 머신 러닝(패턴 인식) : 데이터의 `규칙성을 자동적으로 찾아`내고 이 규칙성을 이용하여 데이터를 각각의 `카테고리로 분류`하는 일
+    + 데이터들을 `훈련 집합(training set)`으로 활용하여 변경 가능한 모델의 `매개변수`들을 조절하는 방법 입니다.
+    + 분류 해야 할 정답 값을 `표적 벡터(target vector)` 라고 합니다.
++ 머신러닝 알고리즘
+    + y(x)라는 함수 형태로 정의 할 수 있고 이 때, x는 입력되는 데이터 입니다.
+    + 학습 단계(learning, training, ...)에서는 `training set`을 이용하여 y(x) 함수의 형태가 결정 됩니다.
+    + 시험 단계에서는 `test set`이라는 `training set`에서는 전혀 사용되지 않았던 데이터를 이용하여 성능을 테스트 합니다.
+        + 시험 단계에서 좋은 성능을 얻었다면 모델은 `일반화(generalization`에 성공하였다고 볼 수 있습니다.
+        + 머신러닝에서 가장 중요한 것인 `일반화` 성능 입니다.
+
+<br>
+     
++ 입력 변수에 대한 `전처리(preprocessing)`을 하면 좀 더 간단한 변수 공간으로 전환할 수 있어 문제를 쉽게 풀 수 있습니다.
++ 변수 공간의 가변성을 줄이기 위해 `특징 추출(feature extration)`이 필요합니다.
+    + `특징 추출`을 하여 변수 공간을 간단하게 만드는 방법으로 `차원 감소(dimensionality reduction)`이 있습니다.
+    + `차원 감소`를 통하여 계산 과정의 속도 또한 빨라질 수 있습니다.
+    + `차원 감소`를 잘못하게 되면 중요한 정보가 소실 될 수 있는 문제도 있습니다.
++ 전처리는 `training set`에 적용을 하였으면 `test set`에도 그대로 적용해야 합니다.
+
+<br><br>
+
+## 머신러닝의 분류    
+    
++ 지도 학습
+    + 훈련 데이터가 `Input vector`와 그에 해당하는 `target vector`가 있는 경우에 해당합니다.
+    + `classification` : `target`의 값이 discrete 한 문제에 해당합니다.
+        + 예시 : 숫자 분류
+    + `regression` : `target`의 값이 continuous 한 문제에 해당합니다.
+        + 예시 : 온도, 농도, 압력 예측 
++ 비지도 학습
+    + 훈련 데이터가 오직 `input vector`로만 이루어진 경우에 해당합니다.
+    + `clustering` : 데이터 내에서 비슷한 예시들의 집단을 찾는 문제입니다.
+    + `density estimation` : 입력 공간에서 데이터의 분포를 찾습니다.  
+    + `visualization` : 높은 차원의 데이터를 저차원(2,3 차원)에 투영하여 이해하기 쉽게 보여주는 방법입니다.
+
++ ~~강화 학습은 이 책에서 다루지 않을 계획입니다.~~
+        
+<br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+    
+    
+    
+    

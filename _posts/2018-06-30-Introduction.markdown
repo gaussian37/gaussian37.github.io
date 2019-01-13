@@ -12,23 +12,26 @@ tags: [Introduction] # add tag
 
 + Online ID : gaussian37
 
-+ Nationality : [South.Korea](https://en.wikipedia.org/wiki/South_Korea)
-
-+ Education :
-    - [Inha University](http://www.inha.ac.kr/mbshome/mbs/eng/index.do). B.S. in Computer Engineer
-    - Coursera
-        - Mathematics for Machine Learning(Linear Algebra, Multivariable Calculaus, PCA)
-        - Machine Learning (Andrew Ng)
-        - Deep Learning (Andrew Ng)           
-
 + Work Experience : 
     - [Hyundai Motors](https://www.hyundai.com/worldwide/en) Researcher (Feb. 2016 ~ )
     
++ Education :
+    + [Inha University](http://www.inha.ac.kr/mbshome/mbs/eng/index.do). B.S. in Computer Engineer
+    + Coursera
+        + Mathematics for Machine Learning Specialization
+            + Linear Algebra
+            + Multivariable Calculaus
+            + PCA
+        + Machine Learning (Andrew Ng)
+        + Applied Data Science with Python Specialization
+        + Deep Learning Specialization (Andrew Ng)
+                 
 + ROI :
     - Machine/Deep Learning      
     - Computer Vision    
     
 + Skills : 
-    - Machine Learning with Python
-    - Deep Learning with Keras     
+    - Python
+    - OpenCV
+    - Keras     
     - Django
