@@ -4,7 +4,7 @@ title: 19.1월 리온 잉글리쉬 공부 내용
 date: 2018-01-01 00:00:00 +0300
 img: interview/english/English.jpg
 categories: [interview-english] 
-tags: [english, speaking, voca, idion] # add tag
+tags: [english, speaking, voca, idiom] # add tag
 ---
 
 19년 1월 Leon 잉글리쉬를 하면서 조안나 선생님과 수업한 내용 중 유용했던 표현 들을 정리한 글
@@ -73,7 +73,12 @@ tags: [english, speaking, voca, idion] # add tag
 
 + waste their litter into the land
 + = throw/scatter their waste/litter on land
-+ = improper disposal of garbage
++ = improper disposal of garbage (좋은 표현)
 
 + Government should give incentive or penalty ...
 + = The government should implement an incentive (reward)-penalty policy on proper/improper garbage disposal of factories.
+    + make more incentives for recycling, proper disposal of garbage.
+
++ **pay for** food : 음식을 지불하다.
+
++ global warming = greenhouse effect
