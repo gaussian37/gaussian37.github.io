@@ -21,6 +21,8 @@ from sklearn.preprocessing import Binarizer
 import numpy as np
 ```
 
+<br>
+
 + 임시로 데이터를 만듭니다.
 
 ```python
@@ -30,6 +32,8 @@ age = np.array([[6],
                 [36], 
                 [65]])
 ```
+
+<br>
 
 + 18살을 기준으로 Binary로 데이터를 변경합니다.
 + Binarizer는 기준값 미만은 0으로 기준값 이상은 1로 만듭니다.
@@ -48,6 +52,8 @@ array([[0],
        [1]])
 
 ```
+
+<br><br>
 
 ## Bin 기준으로 나누기
 
