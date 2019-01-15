@@ -1,7 +1,7 @@
 ---
 layout: post
 title: CV
-date: 7777-12-30 17:00:00 +0300
+date: 9999-12-31 17:00:00 +0300
 img: /My/kjsandkjs3.jpg # Add image post (optional)
 tags: [Introduction] # add tag
 ---
