@@ -82,3 +82,20 @@ tags: [english, speaking, voca, idiom] # add tag
 + **pay for** food : 음식을 지불하다.
 
 + global warming = greenhouse effect
+
+<br><br>
+
+### 여행 관련 주제
+
++ to get to destination.
++ traveling around ~
++ to travel around ~
+
++ I hear about ~ : ~에 들었다. 소문 같은거 들을 때는 listen to 를 쓰는 것은 맞지 않습니다.  
++ is becoming : 뭔가가 변해간다고 할때, 현재 진행형 쓰는게 적합합니다.
+
++ 장점 : pros, strength, strong, merit, advantage
++ 단점 : cons, weakness, fault, shortcoming, demerits
+
++ 저렴하다 : affordable
+    + I can afford to take low cost airplane.   
