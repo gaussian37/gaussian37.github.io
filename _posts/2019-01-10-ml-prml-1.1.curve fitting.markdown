@@ -54,6 +54,65 @@ tags: [prml, pattern recognition, machine learning, 패턴 인식, 머신 러닝
         
 <br><br>
 
+<br><br>
+
+## 다항식 곡선 피팅 예시
+
++ 실수값의 Input variable인 x를 관찰한 후 실수 값의 Target variable인 t를 예측하려고 합니다.
+    + 이 때, $$ sin(2\pi x) $$ 함수를 이용하여 Target variable을 구성하였고, Target variable t에는 약간의 노이즈를 첨가하였습니다.
+    + N개의 데이터 셋이 있다면 Training set과 Target set은 다음과 같습니다.
+        + Training set : $$ \mathbf x = (x_{1}, ..., x_{N})^{T} $$
+        + Target set : $$ \mathbf t = (t_{1}, ..., t_{N})^{T} $$
+            + = sin(2$$ \pi $$ * Training set) + gaussian noise
+        + <img src="../assets/img/ml/prml/1.1/fig1.2.PNG" alt="Drawing" style="width: 500px;"/>
+            + 위 그림은 N = 10인 경우에 훈련 데이터 집합 예시 입니다. 
+            + 녹색 곡선이 $$ sin(2 \pi x) $$ 에 해당합니다. 
+            + 녹색 커브에 대한 지식이 없는 상태에서 파란색 점인 target을 예측해야 합니다.
+    + 모델링의 어려운 점
+        + **제한된 데이터를 이용하여 일반화** 할 수 있는 모델을 만드는 것이 어려운 문제 입니다.
+        + 관측 값들이 노이즈로 인해 변질 되어 있을 수가 있습니다.
+    + 문제점들의 대책
+        + `확률론`을 통해 불확실성을 정량화
+        + ` 의사 결정 이론`을 통해 최적의 예측
+
++ 위의 곡선을 fitting 하기 위해 다항식을 만들어 보겠습니다.        
+
+$$ y(x, w) = w_{0} + w_{1}x + w_{2}x^{2} + ... + w_{M}x^{M} = \sum_{j=0}^{M}w_{j}x^{j}$$
+
++ 다항 함수 y(x, w)은 x에 대해서는 `비선형` 이지만 계숙 w에 대해서는 `선형` 입니다.
+    + 다항 함수와 같이 **알려지지 않은 변수에 대해 선형인 함수**들을 `선형 모델` 이라고 합니다.
++ 다항식을 훈련 집합 데이터에 피팅해서 `계수의 값`들을 정할 수 있고, 이 때 target 값과 y(x, w) 값의 차이를 줄이기 위해 `error function`을 사용할 수 있습니다.
+    + 예시 : $$ E(w) = \frac{1}{2} \sum_{n=1}^{N} \{y(x_{n}, w) - t_{n} \}^{2} $$
+        + 이 함수의 값은 항상 0보다 크거나 같으며 정확히 $$ y(x_{n}, w) - t_{n} $$ 인 경우만 0이 됩니다.
+        + <img src="../assets/img/ml/prml/1.1/fig1.3.PNG" alt="Drawing" style="width: 500px;"/>
+            + E(w) 식의 오차는 각각의 데이터 포인트와 y(x, w)간의 간격 (녹색 선)의 제곱값에 해당합니다.
+        + E(w)가 이차 다항식이므로 미분을 하여 최소값을 찾을 수 있습니다.
+        + 이 방법으로 구한 $$ w^{*} $$ 가 E(w)를 최소화하므로 일반화에 적합한 다항식의 계수임을 알 수 있습니다.
+
+<br><br>
+
++ y(x, w) 다항식을 정의할 때 몇 차수 까지 정의해야 할까요? 즉, 다항식의 차수 M을 결정해야 하는 문제가 있습니다.
+
++ <img src="../assets/img/ml/prml/1.1/fig1.4.PNG" alt="Drawing" style="width: 500px;"/>
+    + M = 0, 1 일 때에는 $$ sin(2\pi x) $$ 함수를 잘 표현하지 못하였습니다.
+    + M = 3 일 때에는 $$ sin(2\pi x) $$ 함수와 가장 비슷하게 표현되어 있습니다.
+    + M = 9 일 때에는 모든 Training set에 대하여 정확하게 fitting 하여 $$ E(w^{*}) = 0 $$ 이지만 이 때를 `overfitting` 이라고 합니다.
+        + fitting의 목표는 `일반화` 인데, 일반화에 실패한 케이스 입니다.
+
+
+        
+    
+    
+
+     
+              
+
+
+
+
+
+
+
 
 
 
