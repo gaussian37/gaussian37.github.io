@@ -1,6 +1,6 @@
 ---
 layout: post
-title: basis of subspace(부분공간의 기저) 
+title: 부분공간의 기저 (Basis of Subspace) 
 date: 2017-01-14 00:00:00
 img: math/la/linear-algebra-image.jpg
 categories: [math-la] 
@@ -48,12 +48,12 @@ $$ V = span(\vec{v_{1}}, \vec{v_{2}}, ... , \vec{v_{n}}), \{\vec{v_{1}}, \vec{v_
 <br>
 
 + 어떤 실수 공간에 `subspace`를 구성하는 방법은 무수히 많이 있습니다.
-+ 예를 들어 $$ S = \{ \[1, 0 \]^{T}, \[0, 1\]^{T}\} $$ 이라는 `subset`으로 `subspace`를 구성해 보겠습니다.
++ 예를 들어 $$ S = \{ [1, 0 ]^{T}, [0, 1]^{T} \} $$ 이라는 `subset`으로 `subspace`를 구성해 보겠습니다.
     + 덧셈 연산에 닫혀 있습니다. (실수 집합에 속함)
     + 스칼라 곱 연산에 닫혀 있습니다. (실수 집합에 속함)
     + `linearly independent` 합니다.
     + 따라서 `basis` 입니다.
-    + 특히 이번 예와 같은 $$ S = \{ \[1, 0 \]^{T}, \[0, 1\]^{T}\} $$ 을 `standard basis` 라고 합니다.
+    + 특히 이번 예와 같은 $$ S = \{ [1, 0]^{T}, [0, 1]^{T}\} $$ 을 `standard basis` 라고 합니다.
 
 <img src="../assets/img/math/la/basis of subspace/4.jpg" alt="Drawing" style="width: 500px;"/>
 
