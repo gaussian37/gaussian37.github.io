@@ -30,5 +30,5 @@ tags: [Linear algebra, 선형 대수학] # add tag
         + [벡터의 내적과 벡터의 길이](https://gaussian37.github.io/math-la-vector-dot-product-and-vector-length/)
         + 벡터 내적의 성질 증명
     
-
+<br><br>
 <iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.3%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>
