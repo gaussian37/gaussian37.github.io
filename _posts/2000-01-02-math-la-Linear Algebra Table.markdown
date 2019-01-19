@@ -25,7 +25,7 @@ tags: [Linear algebra, 선형 대수학] # add tag
         + 선형생성과 선형독립 예제
     + 부분공간과 부분공간의 기저
         + [선형 부분공간](https://gaussian37.github.io/linear-subspace/)
-        + 부분공간의 기저
+        + [부분공간의 기저](https://gaussian37.github.io/math-la-basis-of-subspace/)
     + 벡터의 내적과 외적
-        + 벡터의 내적과 벡터의 길이
+        + [벡터의 내적과 벡터의 길이]()
         + 벡터 내적의 성질 증명
