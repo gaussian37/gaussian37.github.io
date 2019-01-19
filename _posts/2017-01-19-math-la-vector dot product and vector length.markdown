@@ -37,3 +37,5 @@ tags: [Linear algebra, 선형대수학, ] # add tag
     + 또는 $$ \|\vec{a}\|^{2}  = \vec{a} \cdot \vec{a} $$ 에 해당합니다.
 
 + 다음 글에서 벡터의 Length와 Dot Product에 대한 성질에 대하여 다루어 보도록 하겠습니다.
+
+<iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.3%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>
