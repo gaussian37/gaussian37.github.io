@@ -1,6 +1,6 @@
 ---
 layout: post
-title: basis of subspace(부분공간의 기저) 
+title: 부분공간의 기저 (Basis of Subspace) 
 date: 2017-01-14 00:00:00
 img: math/la/linear-algebra-image.jpg
 categories: [math-la] 
@@ -48,12 +48,12 @@ $$ V = span(\vec{v_{1}}, \vec{v_{2}}, ... , \vec{v_{n}}), \{\vec{v_{1}}, \vec{v_
 <br>
 
 + 어떤 실수 공간에 `subspace`를 구성하는 방법은 무수히 많이 있습니다.
-+ 예를 들어 $$ S = \{ \[1, 0 \]^{T}, \[0, 1\]^{T}\} $$ 이라는 `subset`으로 `subspace`를 구성해 보겠습니다.
++ 예를 들어 $$ S = \{ [1, 0 ]^{T}, [0, 1]^{T} \} $$ 이라는 `subset`으로 `subspace`를 구성해 보겠습니다.
     + 덧셈 연산에 닫혀 있습니다. (실수 집합에 속함)
     + 스칼라 곱 연산에 닫혀 있습니다. (실수 집합에 속함)
     + `linearly independent` 합니다.
     + 따라서 `basis` 입니다.
-    + 특히 이번 예와 같은 $$ S = \{ \[1, 0 \]^{T}, \[0, 1\]^{T}\} $$ 을 `standard basis` 라고 합니다.
+    + 특히 이번 예와 같은 $$ S = \{ [1, 0]^{T}, [0, 1]^{T}\} $$ 을 `standard basis` 라고 합니다.
 
 <img src="../assets/img/math/la/basis of subspace/4.jpg" alt="Drawing" style="width: 500px;"/>
 
@@ -63,8 +63,8 @@ $$ V = span(\vec{v_{1}}, \vec{v_{2}}, ... , \vec{v_{n}}), \{\vec{v_{1}}, \vec{v_
     + 즉, `basis`를 이용하여 `subspace`의 어떤 원소를 만드는 방법은 1가지 입니다.
 + 이것을 간단하게 증명해 보면 위 슬라이드와 같습니다.
 + basis인 $$ \{ \vec{v_{1}}, \vec{v_{2}}, ... , \vec{v_{n}} \} $$의 결합으로 만들어진 $$ \vec{a} $$ 가 있다고 가정합시다.
-+ 만약 $$ \vec{a} = c_{1}\vec{1} + c_{2}\vec{2} + ... + c_{n}\vec{n} $$ 으로 만들어 질 때, 또 다른 결합으로 만들어 질 수 있다면 basis는 유일하지 않습니다.
-+ 만약, 또 다른 결합  $$ \vec{a} = d_{1}\vec{1} + d_{2}\vec{2} + ... + d_{n}\vec{n} $$ 이 존재한다고 가정해 보겠습니다.
++ 만약 $$ \vec{a} = c_{1}\vec{v_{1}} + c_{2}\vec{v_{2}} + ... + c_{v_{n}}\vec{n} $$ 으로 만들어 질 때, 또 다른 결합으로 만들어 질 수 있다면 basis는 유일하지 않습니다.
++ 만약, 또 다른 결합  $$ \vec{a} = d_{1}\vec{v_{1}} + d_{2}\vec{v_{2}} + ... + d_{n}\vec{v_{n}} $$ 이 존재한다고 가정해 보겠습니다.
 + 위 슬라이드 처럼, 두 식을 빼서 정리한 식을 보면 각각의 항은 $$ (c_{i} - d_{i})\vec{v_{i}} $$ 로 정리가 됩니다.
 + basis의 정의에 따라 `linear independent` 하므로 $$ c_{i} - d_{i} = 0 $$ 을 만족해야 합니다.
     + 즉, $$ c_{i} = d_{i} $$ 가 되어 어떤 원소를 만드는 basis의 조합은 1가지 임을 알 수 있습니다.
