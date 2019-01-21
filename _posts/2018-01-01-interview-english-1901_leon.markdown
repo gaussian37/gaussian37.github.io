@@ -99,3 +99,21 @@ tags: [english, speaking, voca, idiom] # add tag
 
 + 저렴하다 : affordable
     + I can afford to take low cost airplane.   
+
+### 미세 먼지 관련 주제
+
++ called in sick
++ upside down : 위 아래 거꾸로
++ inside out : 안 밖 거꾸로
++ pain : 고통
++ stack : 쌓다
++ respiratory : 호흡기관
++ mackerel : 고등어
++ every now and then. : 매일 매일
+
+
+### 인터넷 관련 주제
+
++ reach the destination
++ The internet : 인터넷 앞에는 The를 쓴다.
++ Before the internet, people interact/communicate much more when meeting up.
