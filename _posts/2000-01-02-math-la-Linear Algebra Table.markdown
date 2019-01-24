@@ -8,7 +8,8 @@ tags: [Linear algebra, 선형 대수학] # add tag
 ---
 
 ## 선형 대수학 관련 내용
-+ 
++ [자주 사용되는 선형 대수학 관련 내용](https://gaussian37.github.io/math-la-linear-algebra-basic/)
+    + 출처 : https://darkpgmr.tistory.com/ 
 
 
 ## 칸 아카데미 선형 대수학
