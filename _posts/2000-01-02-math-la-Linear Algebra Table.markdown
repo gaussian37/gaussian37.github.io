@@ -10,6 +10,12 @@ tags: [Linear algebra, 선형 대수학] # add tag
 ## 선형 대수학 관련 내용
 + [자주 사용되는 선형 대수학 관련 내용](https://gaussian37.github.io/math-la-linear-algebra-basic/)
     + 출처 : https://darkpgmr.tistory.com/ 
+    + 선형대수학 주요 용어
+    + 역행렬과 행렬식
+    + 고유값과 고유벡터
+    + 특이값 분해(SVD)
+    + 선형연립방정식 풀이 
+    + 주성분 분석(PCA) 이해와 활용
 
 
 <br><br>
