@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 코시 슈바르츠 부등식의 증명 
-date: 2017-01-24 00:00:00
+date: 2017-01-25 00:00:00
 img: math/la/linear-algebra-image.jpg
 categories: [math-la] 
 tags: [Linear algebra, 선형대수학, 벡터, 내적] # add tag
