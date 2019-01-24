@@ -3,7 +3,7 @@ layout: post
 title: Universal-Sentence-Encoder-Large 를 이용한 자연어 문장 처리
 date: 2019-01-22 18:43:00
 img: nlp/concept/Universal-Sentence-Encoder/Universal-Sentence-Encoder.png
-categories: [python-django] 
+categories: [nlp-concept] 
 tags: [nlp, 자연어 처리, tensorflow, tensorflow hub, universal sentence encoder, transformer] # add tag
 ---
 
