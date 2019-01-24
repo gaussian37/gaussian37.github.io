@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 선형 대수학 관련 기본 내용 
-date: 2017-01-01 00:00:00
+date: 2016-12-01 00:00:00
 img: math/la/linear-algebra-image.jpg
 categories: [math-la] 
 tags: [Linear algebra, 선형대수학] # add tag

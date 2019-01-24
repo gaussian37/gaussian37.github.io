@@ -7,6 +7,10 @@ categories: [math-la]
 tags: [Linear algebra, 선형 대수학] # add tag
 ---
 
+## 선형 대수학 관련 내용
++ 
+
+
 ## 칸 아카데미 선형 대수학
 + 벡터와 공간
     + 벡터
@@ -28,7 +32,8 @@ tags: [Linear algebra, 선형 대수학] # add tag
         + [부분공간의 기저](https://gaussian37.github.io/math-la-basis-of-subspace/)
     + 벡터의 내적과 외적
         + [벡터의 내적과 벡터의 길이](https://gaussian37.github.io/math-la-vector-dot-product-and-vector-length/)
-        + 벡터 내적의 성질 증명
+        + [벡터 내적의 성질 증명](https://gaussian37.github.io/math-la-dot-product-properties/)
+        + [코시 슈바르츠 부등식의 증명](https://gaussian37.github.io/math-la-Cauchy-Schwarz-inequality/)
     
 <br><br>
 <iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.3%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>
