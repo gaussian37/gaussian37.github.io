@@ -3,7 +3,7 @@ layout: post
 title: 문서 유사도 측정 (document similarity)
 date: 2019-01-22 18:43:00
 img: nlp/concept/Universal-Sentence-Encoder/Universal-Sentence-Encoder.png
-categories: [python-django] 
+categories: [nlp-concept] 
 tags: [nlp, 자연어 처리, 문서 유사도, document similarity] # add tag
 ---
 
