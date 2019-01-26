@@ -117,3 +117,11 @@ tags: [english, speaking, voca, idiom] # add tag
 + reach the destination
 + The internet : 인터넷 앞에는 The를 쓴다.
 + Before the internet, people interact/communicate much more when meeting up.
+
++ ~ 하기 너무 힘들다 : I'm struggling to ~
+    + 먹고 살기 너무 힘들다. : I'm struggling to make ends meet.
+        + 생계를 유지하다 : make ends meet.
+    + 살 빼기 너무 힘들다 : I'm struggling to lose weight.
+    + 기대에 부응하기 너무 힘들다 : I'm struggling to meet the expectations.
+    
++ 너무 징그러워~ : That's gross.
