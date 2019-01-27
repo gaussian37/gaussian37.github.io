@@ -125,3 +125,15 @@ tags: [english, speaking, voca, idiom] # add tag
     + 기대에 부응하기 너무 힘들다 : I'm struggling to meet the expectations.
     
 + 너무 징그러워~ : That's gross.
+
+### 롤 모델 관련 주제
+
++ 사회에서 존경받는 사람은 누구인가?
++ 어떤 사람이 존경을 받는가?
++ 그런 사람들은 존경받는게 좋은가?
++ 선생님들은 존경 받기 위해 어떤 행동을 보여주어야 하는가?
+
++ respected
++ look up to :  I look up to my parents. 
++ in high regard :  I hold her in high regard and want to be like her.
++ devote : She devoted her whole life to social work
