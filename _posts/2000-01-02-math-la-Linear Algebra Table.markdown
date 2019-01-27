@@ -43,7 +43,16 @@ tags: [Linear algebra, 선형 대수학] # add tag
         + [벡터의 내적과 벡터의 길이](https://gaussian37.github.io/math-la-vector-dot-product-and-vector-length/)
         + [벡터 내적의 성질 증명](https://gaussian37.github.io/math-la-dot-product-properties/)
         + [코시 슈바르츠 부등식의 증명](https://gaussian37.github.io/math-la-Cauchy-Schwarz-inequality/)
-        + 벡터의 삼각부등식
+        + [벡터의 삼각부등식](https://gaussian37.github.io/math-la-vector-triangle-inequality/)
+        + 벡터 사이의 각 정의하기
+        + 점과 법선벡터를 이용하여 3차원 실수 공간에서 평면 정의하기
+        + 벡터의 외적이란?
+        + 벡터의 외적과 각의 사인값 사이의 관계
+        + 벡터의 내적과 외적의 비교
+        + 벡터 삼중적의 확장
+        + 평면 방정식의 법선 벡터
+        + 점과 평면 사이의 거리
+        + 평면 사이의 거리
     
 <br><br>
 <iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.3%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>
