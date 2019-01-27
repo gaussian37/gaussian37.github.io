@@ -13,7 +13,8 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적] # add tag
 
 <img src="../assets/img/math/la/cauchy-schwarz inequality/1.png" alt="Drawing" style="width: 600px;"/>
 
-+ 코시 슈바르츠 부등식은 $$ \vert\vec{x} \cdot \vec{y} \vert  \le \| \vec{x} \| \ \|\vec{y}\| $$ 관계를 가집니다.
++ 코시 슈바르츠 부등식은 $$ \vert \vec{x} \cdot \vec{y} \vert  \le \| \vec{x} \| \ \|\vec{y}\| $$ 관계를 가집니다.
+    + 좌변의 $$ \vert \vec{x} \cdot \vec{y} \vert $$ 는 `절대값`을 뜻합니다.
 + 특히, $$ \vec{x} = c\vec{y} $$ 인 경우에는 $$ \vert\vec{x} \cdot \vec{y} \vert  = \| \vec{x} \| \ \|\vec{y}\| $$ 관계를 가집니다.
 + 코시 슈바르츠 부등식의 증명을 위하여 `벡터의 길이`는 항상 `0이상의 값`을 가짐을 생각해 봅시다.
     +  벡터의 길이는 `루트`값이기 때문에 실수 범위에서는 항상 0보다 크거나 같아야 합니다.
