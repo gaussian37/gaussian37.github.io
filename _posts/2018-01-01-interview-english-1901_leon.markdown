@@ -137,3 +137,16 @@ tags: [english, speaking, voca, idiom] # add tag
 + look up to :  I look up to my parents. 
 + in high regard :  I hold her in high regard and want to be like her.
 + devote : She devoted her whole life to social work
+
+### 학생 교육 관련 주제
+
++ patient, patience
++ burdened
++ tantrums : 울화 행동
+    + Some children have tantrums.
++ try talk over mistakes.
++ Children can learn from mistakes.
++ It's nothing to be ashamed of if you are child.
++ Children don't know what is good or bad.
++ maturity
++ humpday (수요일?)
