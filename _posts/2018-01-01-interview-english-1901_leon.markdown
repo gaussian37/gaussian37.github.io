@@ -150,3 +150,20 @@ tags: [english, speaking, voca, idiom] # add tag
 + Children don't know what is good or bad.
 + maturity
 + humpday (수요일?)
+
++ 주어 동사에 잘 맞춰서 대답해야 합니다
++ Are there any programmes/shows you don’t like to watch?
+    + you said: Yes, I am.
+    + you should say: Yes, there are.
+    
++ you said: I also want to start up like him.
++ you should say: I also want to start up my own business/ a business like him
+
++ started his own business/set up his own business
++ no pain no gain
++ potential profit
+
++ low salary
++ intense labor/the use of physical strength
++ white-collar job/work
++ blue-collar job/work
