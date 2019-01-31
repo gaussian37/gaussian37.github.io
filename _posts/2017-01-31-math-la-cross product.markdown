@@ -31,7 +31,7 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적] # add tag
 <img src="../assets/img/math/la/cross product/2.png" alt="Drawing" style="width: 600px;"/>
 
 + 외적의 성질을 살펴보면 두 벡터 $$ \vec{a}, \vec{b} $$ 에 대하여 모두 `orthogonal` 합니다.
-+ <img src="../assets/img/math/la/cross product/righthand.png" alt="Drawing" style="width: 600px;"/>
++ <img src="../assets/img/math/la/cross product/righthand.png" alt="Drawing" style="width: 200px;"/>
     + 오른손의 법칙을 이용하면 두 벡터가 있을 때, 어느 방향으로 orthogonal 하는 지 알 수 있습니다.
 + `orthogonal` 하다는 것은 orthogonal 한 두 벡터를 내적하였을 때 값이 0이라는 뜻입니다.    
  
