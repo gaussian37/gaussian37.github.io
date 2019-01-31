@@ -46,8 +46,8 @@ tags: [Linear algebra, 선형 대수학] # add tag
         + [벡터의 삼각부등식](https://gaussian37.github.io/math-la-vector-triangle-inequality/)
         + [벡터 사이의 각 정의하기](https://gaussian37.github.io/math-la-defining-the-angle-between-vectors/)
         + 점과 법선벡터를 이용하여 3차원 실수 공간에서 평면 정의하기
-        + 벡터의 외적이란?
-        + 벡터의 외적과 각의 사인값 사이의 관계
+        + [벡터의 외적이란?](https://gaussian37.github.io/math-la-cross-product/)
+        + [벡터의 외적과 각의 사인값 사이의 관계](https://gaussian37.github.io/math-la-Relationship-between-cross-product-and-sin-of-angle/)
         + 벡터의 내적과 외적의 비교
         + 벡터 삼중적의 확장
         + 평면 방정식의 법선 벡터
