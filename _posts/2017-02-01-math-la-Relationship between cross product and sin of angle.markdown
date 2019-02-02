@@ -22,7 +22,7 @@ tags: [Linear algebra, 선형대수학, 벡터, 외적] # add tag
 <img src="../assets/img/math/la/cross product and sin of angle/1.png" alt="Drawing" style="width: 600px;"/>
 
 + 식을 유도하기 위해 먼저 위의 슬라이드 처럼 두 벡터를 정의합니다. 외적을 다루기 때문에 $$ \mathbb R^{3} $$ 의 벡터 $$ \vec{a}, \vec{b} $$를 정의 합니다.
-    + 즉, $$ \vec{a} = \[a_{1}, a_{2}, a_{3} \]^{T}, \vec{b} = \[b_{1}, b_{2}, b_{3} \]^{T} $$ 입니다. 
+    + 즉, $$ \vec{a} = [a_{1}, a_{2}, a_{3} ]^{T}, \vec{b} = [b_{1}, b_{2}, b_{3} ]^{T} $$ 입니다. 
 + 다음으로 $$ \Vert \vec{a} \times \vec{b} \Vert^{2} $$ 를 각각의 원소를 이용하여 `전개` 합니다.
     + 위 슬라이드에서 $$ \Vert \vec{a} \times \vec{b} \Vert^{2} $$ 의 전개 결과를 볼 수 있습니다.
 
