@@ -2,7 +2,7 @@
 layout: post
 title: Humanity 관련 글 목차
 date: 9999-11-02 00:00:00
-img: interview/humanity/prml.png
+img: interview/humanity/humanity.jpg
 categories: [interview-humanity] 
 tags: [인문학, 경영학, 경제학] # add tag
 ---
