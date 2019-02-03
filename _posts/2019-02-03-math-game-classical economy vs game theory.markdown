@@ -77,10 +77,11 @@ tags: [game, game theory, 게임, 게임 이론] # add tag
             + $$ \frac{\partial \mathcal L}{\partial x_{2}} = \frac{\partial u}{\partial x_{2}} - \lambda \frac{\partial g}{\partial x_{2}} = 0 $$ 으로 편미분 합니다.
                 + 우변을 정리하면 $$ \frac{\partial u}{\partial x_{2}} = \lambda \frac{\partial g}{\partial x_{2}} $$ 입니다.  
             + 이 때, **목적함수를 편미분 한것의 비율**과 **제약 조건을 편미분 한것의 비율**이 일치하는 지점이 **제약 조건하의 극대/극소점**이 됩니다.
-                + 즉, $$ \frac{\partial u / \partial x_{1}}{\partial u / \partial x_{2}} = \frac{\partial g / \partial x_{1}}{\partial g / \partial x_{2}} $$
+                + 즉, $$ \frac{\partial u / \partial x_{1}}{\partial u / \partial x_{2}} = \frac{\partial g / \partial x_{1}}{\partial g / \partial x_{2}} $$ 으로
+                + 좌변(**목적함수를 편미분 한것들의 비율**) = 우변(**제약 조건을 편미분 한것의 비율**)  
             + 그리고 제약 조건에 관하여 $$ \frac{\partial \mathcal L}{\partial \lambda} = p_{x_{1}}x_{1} + p_{x_{2}}x_{2} - m = 0 $$ 으로 앞에서 설명하였듯이 제약조건을 항상 만족할 수 있도록 합니다.
             + 최종적으로 위 **편미분 결과들의 연립방정식**을 풀면 해를 구할 수 있습니다.
-            
+        
     
 
 
