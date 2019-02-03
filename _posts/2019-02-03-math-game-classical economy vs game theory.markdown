@@ -56,11 +56,11 @@ tags: [game, game theory, 게임, 게임 이론] # add tag
     + 라그랑주 승수법을 이용하여 찾을 수 있습니다.
 + 라그랑주 승수법이란?
     + 위의 그래프의 위로 볼록 함수에서 제약 조건 극대화를 구한다고 가정해 봅시다.
-    + 최적화 목적은 $$ max y = u(x_{1}, x_{2}), s.t. p_{x_{1}}x_{1} + p_{x_{2}}x_{2} = m $$ 입니다.
-    + 라그랑주 승수법은 $$ \mathcal L $$ = object function + $$ \lambda $$ (제약 조건) 으로 정의합니다. 
-    + object function 뒤의 term은 상수 $$ \lambda $$ 에 제약 조건을 항상 만족하되는 상태를 곱한 것을 더해줍니다.
+    + 최적화 목적은 $$ max \ y = u(x_{1}, x_{2}), s.t. p_{x_{1}}x_{1} + p_{x_{2}}x_{2} = m $$ 입니다.
+    + 라그랑주 승수법은 $$ \mathcal L $$ = object function + $$ \lambda \cdot $$ (제약 조건) 으로 정의합니다. 
+    + object function 뒤의 term은 상수 $$ \lambda $$ 에 제약 조건을 항상 만족하되는 상태를 곱한것 입니다.
         + 소비자 이론에서는 **지출과 소득의 합**은 같다로 보면 즉, $$ p_{x_{1}}x_{1} + p_{x_{2}}x_{2} = m $$ 이고 (m=소득, p=가격, x=소비량)
-        + 정리하면 $$ \lambda(m - p_{x_{1}}x_{1} - p_{x_{2}}x_{2}) $$ 를 더해주면 됩니다.
+        + 정리하면 $$ \lambda(m - p_{x_{1}}x_{1} - p_{x_{2}}x_{2}) $$ 를 object function에 더하여 **제약 조건을 추가**합니다.
     + 라그랑주 승수법으로 정의한 식을 **각 변수와 람다**에 대하여 편미분을 하고 그 결과 = 0으로 하여 연립 방정식을 풀이합니다.
         + 즉, $$ \frac{\partial \mathcal L}{\partial x_{1}} = 0, \frac{\partial \mathcal L}{\partial x_{2}} = 0, \frac{\partial \mathcal L}{\partial \lambda} = 0 $$ 이 됩니다.
         + 이 때 $$ \frac{\partial \mathcal L}{\partial \lambda} = 0 $$는 **제약조건 = 0**이 나오게 됩니다.
@@ -70,15 +70,15 @@ tags: [game, game theory, 게임, 게임 이론] # add tag
             + $$ \frac{\partial u}{\partial x_{1}} = 0, \frac{\partial u}{\partial x_{2}} = 0 $$ 입니다.
             + 이 때, 순간 기울기는 $$ x_{1} $$ 방향에서도 0, $$ x_{2} $$ 방향에서도 **동시에 0을 만족**하며 이 때가 **극대/극소점**이 됩니다.
         + 라그랑주 승수법을 편미분 하는것
-            + $$ \mathcal L = u(x_{1}, x_{2}) + \lambda(m-p_{x_{1}}x_{1}-p_{x_{2}}x_{2}) 일 때, 
+            + $$ \mathcal L = u(x_{1}, x_{2}) + \lambda(m-p_{x_{1}}x_{1}-p_{x_{2}}x_{2}) $$ 일 때, 
             + 제약 조건을 일반식으로 $$ g^{0} - g(x_{1}, x_{2}) = 0 $$으로 표현한 후, 각 변수에 대하여 편미분을 해보겠습니다.
             + $$ \frac{\partial \mathcal L}{\partial x_{1}} = \frac{\partial u}{\partial x_{1}} - \lambda \frac{\partial g}{\partial x_{1}} = 0 $$ 으로 편미분 하고
                 + 우변을 정리하면 $$ \frac{\partial u}{\partial x_{1}} = \lambda \frac{\partial g}{\partial x_{1}} $$ 입니다.
             + $$ \frac{\partial \mathcal L}{\partial x_{2}} = \frac{\partial u}{\partial x_{2}} - \lambda \frac{\partial g}{\partial x_{2}} = 0 $$ 으로 편미분 합니다.
                 + 우변을 정리하면 $$ \frac{\partial u}{\partial x_{2}} = \lambda \frac{\partial g}{\partial x_{2}} $$ 입니다.  
             + 이 때, **목적함수를 편미분 한것의 비율**과 **제약 조건을 편미분 한것의 비율**이 일치하는 지점이 **제약 조건하의 극대/극소점**이 됩니다.
-                + 즉, $$ \frac{\partial u / \partial x_{1}}{\partial u / \partial x_{2}} = \frac{\partial g / \partial x_{1}}{\partial g / \partial x_{2}}   
-            + 그리고 제약 조건에 관하여 $$ \frac{\partial \mathcal L}{\partial \lambda} = p_{x_{1}}x_{1} + p_{x_{2}}x_{2} - m = 0 $$ 으로 제약조건이 항상 만족하도록 합니다.
+                + 즉, $$ \frac{\partial u / \partial x_{1}}{\partial u / \partial x_{2}} = \frac{\partial g / \partial x_{1}}{\partial g / \partial x_{2}} $$
+            + 그리고 제약 조건에 관하여 $$ \frac{\partial \mathcal L}{\partial \lambda} = p_{x_{1}}x_{1} + p_{x_{2}}x_{2} - m = 0 $$ 으로 앞에서 설명하였듯이 제약조건을 항상 만족할 수 있도록 합니다.
             + 최종적으로 위 **편미분 결과들의 연립방정식**을 풀면 해를 구할 수 있습니다.
             
     
