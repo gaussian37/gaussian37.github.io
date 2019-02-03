@@ -11,21 +11,21 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적, 외적] # add tag
 
 <br><br>
 
-출처 : 칸 아카데미 선형대수학 (https://ko.khanacademy.org/math/linear-algebra/vectors-and-spaces/dot-cross-products/v/dot-and-cross-product-comparison-intuition/modal/v/dot-and-cross-product-comparison-intuition)
+출처 : 칸 아카데미 선형대수학 (https://ko.khanacademy.org/math/linear-algebra/vectors-and-spaces)
 
 + 이번 글에서는 `내적(dot product)`와 `외적(cross product)`가 가지는 의미에 대하여 알아보도록 하겠습니다.
 + 앞에서 살펴본 바와 같이 내적과 외적은 다음 성질을 가집니다.
     + 내적 : $$ \vec{a} \cdot \vec{b} = \Vert \vec{a} \Vert \ \Vert \vec{b} \Vert cos\theta$$
-    + 외적 : $$ \Vert \vec{a} \times \vec{b} \Vect = \Vert \vec{a} \Vert \ \Vert \vec{b} \Vert sin\theta $$
+    + 외적 : $$ \Vert \vec{a} \times \vec{b} \Vert = \Vert \vec{a} \Vert \ \Vert \vec{b} \Vert sin\theta $$
 + 내적과 외적의 성질이 무슨 의미를 가지는 지 살펴보도록 하겠습니다.
 
 <br><br>
 
 <img src="../assets/img/math/la/dot and cross product/1.PNG" alt="Drawing" style="width: 600px;"/>
 
-+ 위 슬라이드의 7시 방향에 삼각형을 보면 $$ cos\theta = \frac{adj}{\Vert \vec{a} \Vert} $$ 임을 알 수 있습니다.
++ 위 슬라이드의 7시 방향에 삼각형을 보면 $$ cos\theta = \frac{adj}{\Vert \vec{a} \Vert} $$ 임을 알 수 있습니다. (adj = adjacent)
     + 이 때 `adj`는 자주색으로 $$ \vec{a} $$를 $$ \vec{b} $$에 정사영 시켰을 때의 선분입니다.
-    + 양변을 정리하면 $$ adj = \Vert \vec{a} \Vert cos\theta $$가 됩니다. (adj = adjacent)
+    + 양변을 정리하면 $$ adj = \Vert \vec{a} \Vert cos\theta $$가 됩니다. 
     + 위 식을 $$ \vec{a} \cdot \vec{b} = \Vert \vec{a} \Vert \ \Vert \vec{b} \Vert cos\theta$$ 에 대입하면
         + $$ \vec{a} \cdot \vec{b} = \Vert \vec{b} \Vert \ adj $$가 됩니다.
 + 정리해 보면 내적의 크기는 벡터의 norm 값과 $$ cos\theta $$에 비례하게 됩니다.
@@ -40,7 +40,7 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적, 외적] # add tag
 
 + 내적과 동일한 방법으로 외적의 의미에 대하여 알아보도록 하겠습니다.
 + 외적은 $$ \Vert \vec{a} \times \vec{b} \Vert = Vert \vec{a} \Vert \ \Vert \vec{b} \Vert sin\theta $$ 이고
-+ 두 벡터 사이의 끼인각 $$ \theta $$를 이용하면 $$ sin\theta = \frac{\Vert \vec{a} \Vert}{opp} 이 됩니다. (opp = opposite) 
++ 두 벡터 사이의 끼인각 $$ \theta $$를 이용하면 $$ sin\theta = \frac{\Vert \vec{a} \Vert}{opp} $$ 이 됩니다. (opp = opposite) 
     + 식을 정리하면 $$ opp = \Vert \vec{a} \Vert sin\theta $$ 가 되므로
     + 외적 $$ \Vert \vec{a} \times \vec{b} \Vert = \Vert \vec{b} \Vert \ opp $$ 가 됩니다.
 + 위 식에서 $$ sin\theta $$에 의미를 보면 $$ \theta $$가 0일 때에는 0을 90일때는 1을 가집니다.
