@@ -1,0 +1,8 @@
+---
+layout: post
+title: 1장 연습문제
+date: 2019-01-11 00:00:00
+img: ml/prml/prml.png
+categories: [ml-prml] 
+tags: [prml, pattern recognition, machine learning, 연습문제] # add tag
+---
