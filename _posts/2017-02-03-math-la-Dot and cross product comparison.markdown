@@ -13,6 +13,8 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적, 외적] # add tag
 
 출처 : 칸 아카데미 선형대수학 (https://ko.khanacademy.org/math/linear-algebra/vectors-and-spaces)
 
++ [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-Linear-Algebra-Table/)
+
 + 이번 글에서는 `내적(dot product)`와 `외적(cross product)`가 가지는 의미에 대하여 알아보도록 하겠습니다.
 + 앞에서 살펴본 바와 같이 내적과 외적은 다음 성질을 가집니다.
     + 내적 : $$ \vec{a} \cdot \vec{b} = \Vert \vec{a} \Vert \ \Vert \vec{b} \Vert cos\theta$$

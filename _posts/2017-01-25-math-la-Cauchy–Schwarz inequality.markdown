@@ -9,6 +9,8 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적] # add tag
 
 출처 : 칸 아카데미 선형대수학 (https://ko.khanacademy.org/math/linear-algebra/vectors-and-spaces)
 
++ [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-Linear-Algebra-Table/)
+
 이번 글에서는 `Cauchy-Schwarz inequality`(코시 슈바르츠 부등식)에 대하여 알아보겠습니다.
 
 <img src="../assets/img/math/la/cauchy-schwarz inequality/1.png" alt="Drawing" style="width: 600px;"/>

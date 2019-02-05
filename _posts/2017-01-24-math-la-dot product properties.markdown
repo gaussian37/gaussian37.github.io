@@ -9,6 +9,8 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적] # add tag
 
 출처 : 칸 아카데미 선형대수학 (https://ko.khanacademy.org/math/linear-algebra/vectors-and-spaces)
 
++ [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-Linear-Algebra-Table/)
+
 이번 글에서 배울 내용은 벡터 내적의 3가지 성질 입니다.
 
 + 벡터의 내적은 `교환 법칙`이 성립한다.

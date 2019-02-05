@@ -13,6 +13,8 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적] # add tag
 
 출처 : 칸 아카데미 선형대수학 (https://ko.khanacademy.org/math/linear-algebra/vectors-and-spaces)
 
++ [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-Linear-Algebra-Table/)
+
 이번 글에서는 벡터 사이의 각을 정의하는 방법에 대하여 알아보겠습니다.  
 
 <img src="../assets/img/math/la/defining the angle between vectors/1.jpg" alt="Drawing" style="width: 600px;"/>

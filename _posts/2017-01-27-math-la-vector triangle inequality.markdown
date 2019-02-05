@@ -9,6 +9,8 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적] # add tag
 
 출처 : 칸 아카데미 선형대수학 (https://ko.khanacademy.org/math/linear-algebra/vectors-and-spaces)
 
++ [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-Linear-Algebra-Table/)
+
 이번 글에서는 앞에 글에서 배운 코시 슈바르츠 부등식을 이용하여 `벡터의 삼각 부등식`에 대하여 배워 보도록 하겠습니다.
 
 <img src="../assets/img/math/la/vector triangle inequality/1.png" alt="Drawing" style="width: 600px;"/>

@@ -13,6 +13,8 @@ tags: [Linear algebra, 선형대수학, 벡터, 외적] # add tag
 
 출처 : 칸 아카데미 선형대수학 (https://ko.khanacademy.org/math/linear-algebra/vectors-and-spaces)
 
++ [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-Linear-Algebra-Table/)
+
 이번 글에서는 `외적(cross product)`와 sin 값의 관계에 대하여 알아보도록 하겠습니다.
 
 + 결과적으로 $$ \Vert \vec{a} \times \vec{b} \Vert = \Vert \vec{a} \Vert \ \Vert \vec{b} \Vert sin \theta $$ 을 만족합니다. 
