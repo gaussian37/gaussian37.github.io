@@ -7,6 +7,8 @@ categories: [math-game]
 tags: [game, game theory, 게임, 게임 이론] # add tag
 ---
 
++ 게임이론 개론
+
 + 게임 이론이란?
 + 게임의 표현
 + 게임의 균형
