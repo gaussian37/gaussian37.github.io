@@ -7,6 +7,8 @@ categories: [math-game]
 tags: [game, game theory, 게임, 게임 이론] # add tag
 ---
 
++ [게임이론 글 목록](https://gaussian37.github.io/math-game-game-theory-table/)
+
 ## 게임 이론의 정의
 
 + 게임이론 이란?
