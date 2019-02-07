@@ -33,13 +33,13 @@ tags: [통계학, 수리통계학, 이변량 정규분포, 정규분포] # add t
         
 + 조건부 평균
     + X = x 일 때, Y의 조건부 평균 (조건부 기댓값)
-        + ·$$ \mu_{Y \vert X} = \mathcal E(Y \vert x)
+        + ·$$ \mu_{Y \vert X} = \mathcal E(Y \vert x) $$
             + 이산형 : $$ \sum_{y} y f(y \vert x) $$
             + 연속형 : $$ \int_{-\infty}^{\infty} yf(y\vert x) dy$$
     + Y = y 일 때, X의 조건부 평균 또한 위의 방식과 똑같이 적용할 수 있습니다.
     + 구하려는 분포의 식이 x와 y의 합성 함수라고 하여도 x 또는 y가 고정되어 있으므로 같은 방식으로 적용할 수 있습니다.
     + 즉, X = x 일 때, u(x, Y)의 조건부 평균 : 
-        + ·$$ \mathcal E(u(X,Y) \vert x)
+        + ·$$ \mathcal E(u(X,Y) \vert x) $$
             + 이산형 : $$ \sum_{y} u(x,y) f(y \vert x) $$
             + 연속형 : $$ \int_{-infty}^{\infty} u(x,y) f(y \vert x) dy $$
     + 조건부 평균의 핵심은 **특정 변수가 고정된 상태**에서의 평균이라고 생각하면 됩니다.
@@ -61,9 +61,10 @@ tags: [통계학, 수리통계학, 이변량 정규분포, 정규분포] # add t
     + ·$$ \sigma^{2}_{Y} = Var(Y) = E(Var(Y \vert X)) + Var(E(Y \vert X)) $$
         + 분산은 조건부 분산의 평균과 조건의 평균의 분산의 합으로 표현 가능합니다.         
         + **아래 증명을 참조 하시기 바랍니다.**
-    
+
+<br>    
     + ·$$ E(E(Y \vert X)) = E(Y) $$ 증명
-    + ·$$ E(E(Y \vert X)) = $$
+    + ·$$ E(E(Y \vert X)) $$
         + ·$$ = \int_{-\infty}^{\infty} (\int_{-\infty}^{\infty} y f(y \vert x) dy) f_{x}x dx $$
             + 이중 적분으로 식을 정리해 보겠습니다.
         + ·$$ = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} y f(y \vert x) f_{x}x dy dx $$
@@ -75,6 +76,28 @@ tags: [통계학, 수리통계학, 이변량 정규분포, 정규분포] # add t
         + ·$$ = \int_{-\infty}^{\infty} y f_{Y}(y) dy $$
             + y의 평균 식으로 변경이 됩니다.
         + ·$$ = E(Y) $$ 
+<br>
+    + ·$$ E(E(u(X,Y) \vert X)) = E(u(X,Y)) $$ 증명
+    + ·$$ E(E(u(X,Y) \vert X)) $$
+        + ·$$ = \int_{-\infty}^{\infty}(\int_{-\infty}^{\infty} u(x,y) f(y \vert x) dy) f_{x}(x) dx $$
+            + 이중 적분으로 식을 정리해 보겠습니다.
+        + ·$$ = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} u(x,y) f(y \vert x) f_{x}(x) dy dx $$
+            + 조건부 분포와 확률의 곱은 결합 확률 분포로 나타낼 수 있습니다.
+        + ·$$ = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} u(x,y) f(x,y) dy dx $$
+        + ·$$ = E(u(X, Y)) $$
+        
+<br>
+    + ·$$ \sigma^{2}_{Y} = Var(Y) = E(Var(Y \vert X)) + Var(E(Y \vert X)) $$ 증명
+    + ·$$ E(Var(Y \vert X)) $$
+    + ·$$ = E(E(Y^{2} \vert  X) - E(Y \vert X)^{2}) $$
+        + ·$$ E(E(Y^{2} \vert  X) = E(Y^{2}) $$ 이므로
+    + ·$$ = E(Y^{2}) - E(Y)^{2} + E(Y)^{2} - E(Y \vert X)^{2}) $$
+        + 식의 전개를 위하여 $$ - E(Y)^{2} + E(Y)^{2} $$ 을 추가하였습니다.
+        + ·$$ Var(Y) = E(Y^{2}) - E(Y)^{2} $$ 식을 다음 전개에 이용하겠습니다.
+        + ·$$ E(E(Y \vert X)) = E(Y) $$ 식을 다음 전개에 이용하겠습니다.
+    + ·$$ = Var(Y) + E(E(Y \vert X))^{2} - E(E(Y \vert X)^{2})
+    + ·$$ = Var(Y) - Var(E(Y \vert X))
+    + 식을 최종적으로 정리하면 $$ Var(Y) = E(Var(Y \vert X)) + Var(E(Y \vert X)) $$ 가 됩니다.            
         
                    
      
