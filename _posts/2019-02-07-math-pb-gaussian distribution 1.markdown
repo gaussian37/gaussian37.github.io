@@ -114,9 +114,9 @@ tags: [통계학, 수리통계학, 이변량 정규분포, 정규분포] # add t
 <br>
 
 + 공분산
-    + ·$$ Cov(X, Y) = \sigma_{XY} = E( (X-\mu_{X})(Y-\mu_{Y}) )
-        + 이산형 : \sum_{x}\sum_{y} (x - \mu_{x})(y - \mu_{y}) f(x, y) $$
-        + 연속형 : \int_{-\infty}^{\infty} y(\int_{-\infty}^{\infty} (x - \mu_{x})(y - \mu_{y}) f(x, y) dx dy $$
+    + ·$$ Cov(X, Y) = \sigma_{XY} = E( (X-\mu_{X})(Y-\mu_{Y}) ) $$
+        + 이산형 : $$ \sum_{x}\sum_{y} (x - \mu_{x})(y - \mu_{y}) f(x, y) $$
+        + 연속형 : $$ \int_{-\infty}^{\infty} y(\int_{-\infty}^{\infty} (x - \mu_{x})(y - \mu_{y}) f(x, y) dx dy $$
     + ·$$ \sigma_{XY} = E(XY) - \mu_{X}\mu_{Y} $$
 + 상관계수
     + ·$$ \rho_{XY} = \frac{\sigma_{XY}}{\sigma_{X}\sigma_{Y}} = \frac{Cov(X, Y))}{ \sqrt{Var(X)}\sqrt{Var(Y)} } $$
@@ -126,7 +126,15 @@ tags: [통계학, 수리통계학, 이변량 정규분포, 정규분포] # add t
 
 + X = x일 때, Y의 **조건부 평균**이 x에 대해 선형인 경우 (즉, $$ E(Y \vert x) = a + bx $$)
 + 이산형의 경우 $$ a + bx = E(Y \vert x) = \sum_{y} yf(y \vert x) = \sum_{y} y \frac{ f(x, y) }{ f_{X}(x) } $$
-+ ·$$ \sum_{y} y f(x, y) = (a + bx)f_{X}(x) $$
+    + ·$$ \sum_{y} y f(x, y) = (a + bx)f_{X}(x) $$
+        + 양변에 summation x를 추가해 줍니다.
+    + ·$$ \sum_{x}\sum_{y} yf(x,y) = \sum_{x}(a + bx)f_{x}(x) $$
+        + 좌변은 $$ E(Y) $$로 우변은 $$ E(a + bx) $$로 정리 됩니다. 
+    + ·$$ E(Y) = E(a + bx) $$ 
+    + ·$$ \mu_{Y} = a + b\mu_{X} $$ ---① 식
+    
+
+
 
   
 
