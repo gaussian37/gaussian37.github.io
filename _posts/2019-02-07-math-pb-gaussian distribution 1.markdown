@@ -128,13 +128,28 @@ tags: [통계학, 수리통계학, 이변량 정규분포, 정규분포] # add t
 + 이산형의 경우 $$ a + bx = E(Y \vert x) = \sum_{y} yf(y \vert x) = \sum_{y} y \frac{ f(x, y) }{ f_{X}(x) } $$
     + ·$$ \sum_{y} y f(x, y) = (a + bx)f_{X}(x) $$
         + 양변에 summation x를 추가해 줍니다.
-    + ·$$ \sum_{x}\sum_{y} yf(x,y) = \sum_{x}(a + bx)f_{x}(x) $$
+    + ·$$ \sum_{x}\sum_{y} yf(x,y) = \sum_{x}(a + bx)f_{X}(x) $$
         + 좌변은 $$ E(Y) $$로 우변은 $$ E(a + bx) $$로 정리 됩니다. 
-    + ·$$ E(Y) = E(a + bx) $$ 
-    + ·$$ \mu_{Y} = a + b\mu_{X} $$ : 1번식
+    + ·$$ E(Y) = E(a + bX) $$ 
+    + ·$$ \mu_{Y} = a + b\mu_{X} $$ : `1번식`
     + 또한 $$ \sum_{x}\sum_{y} yf(x,y) = \sum_{x}(a + bx)f_{x}(x) $$ 의 식 양변에 x를 곱하여 다음과 같이 변형합니다.
     + ·$$ \sum_{x}\sum_{y} xy f(x,y) = \sum_{x} (ax + bx^{2}) f_{X}(x) $$
     + ·$$ E(XY) = E(aX + bX^{2}) = aE(X) + bE(X^{2}) $$
+    + 공분산의 다음 성질을 참조하면
+        + ·$$ E(XY) = \sigma_{XY} + \mu_{X}\mu_{Y} $$
+        + ·$$ \sigma_{XY} = \rho_{XY}\sigma_{X}\sigma_{Y} $$
+        + ·$$ E(X^{2}) - \mu_{X}^{2} = \sigma_{X}^{2} $$
+    + ·$$ E(XY) = \sigma_{XY} + \mu_{X}\mu_{Y} = \mu_{X}\mu_{Y} + \rho_{XY}\sigma_{X}\sigma_{Y} $$ 로 전개할 수 있습니다.
+    + ·$$ E(Y) = E(a + bx) $$ 이므로 $$ E(XY) = E(aX + bX^{2}) $$ 으로 표현할 수 있습니다.
+    + 따라서 식을 최종적으로 정리하면 $$ \mu_{X}\mu_{Y} + \rho_{XY}\sigma_{X}\sigma_{Y} = a\mu_{X} + b(\mu_{X}^{2} + \sigma_{X}^{2}) $$ : `2번식`
+    + `1번식`과 `2번식`을 이용해 보겠습니다.
+        + `1번식` : $$ \mu_{Y} = a + b\mu_{X} 
+        + `2번식` : $$ \mu_{X}\mu_{Y} + \rho_{XY}\sigma_{X}\sigma_{Y} = a\mu_{X} + b(\mu_{X}^{2} + \sigma_{X}^{2}) $$
+        + 연립 방적식을 풀면 해는 다음과 같습니다.
+            + ·$$ a = \mu_{y} - \rho\frac{\sigma_{Y}}{\sigma_{X}}\mu_{X} $$
+            + ·$$ b = \rho\frac{\sigma_{Y}}{\sigma_{X}} $$
+        + 따라서 $$ E(Y \vert x) = \mu_{Y} + \rho\frac{\sigma_{Y}}{\sigma_{X}}(x - \mu_{X}) $$
+              
     
 
 
