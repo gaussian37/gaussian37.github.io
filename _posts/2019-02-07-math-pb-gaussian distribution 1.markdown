@@ -43,9 +43,9 @@ tags: [통계학, 수리통계학, 이변량 정규분포, 정규분포] # add t
     + Y = y 일 때, X의 조건부 평균 또한 위의 방식과 똑같이 적용할 수 있습니다.
     + 구하려는 분포의 식이 x와 y의 합성 함수라고 하여도 x 또는 y가 고정되어 있으므로 같은 방식으로 적용할 수 있습니다.
     + 즉, X = x 일 때, u(x, Y)의 조건부 평균 : 
-        + ·$$ \mathcal E(u(X,Y) \vert x) $$
+        + ·$$ E(u(X,Y) \vert x) $$
             + 이산형 : $$ \sum_{y} u(x,y) f(y \vert x) $$
-            + 연속형 : $$ \int_{-infty}^{\infty} u(x,y) f(y \vert x) dy $$
+            + 연속형 : $$ \int_{-\infty}^{\infty} u(x,y) f(y \vert x) dy $$
     + 조건부 평균의 핵심은 **특정 변수가 고정된 상태**에서의 평균이라고 생각하면 됩니다.
 
 <br>
@@ -107,8 +107,8 @@ tags: [통계학, 수리통계학, 이변량 정규분포, 정규분포] # add t
     + 식의 전개를 위하여 $$ - E(Y)^{2} + E(Y)^{2} $$ 을 추가하였습니다.
     + ·$$ Var(Y) = E(Y^{2}) - E(Y)^{2} $$ 식을 다음 전개에 이용하겠습니다.
     + ·$$ E(E(Y \vert X)) = E(Y) $$ 식을 다음 전개에 이용하겠습니다.
-+ ·$$ = Var(Y) + E(E(Y \vert X))^{2} - E(E(Y \vert X)^{2})
-+ ·$$ = Var(Y) - Var(E(Y \vert X))
++ ·$$ = Var(Y) + E(E(Y \vert X))^{2} - E(E(Y \vert X)^{2}) $$
++ ·$$ = Var(Y) - Var(E(Y \vert X)) $$
 + 식을 최종적으로 정리하면 $$ Var(Y) = E(Var(Y \vert X)) + Var(E(Y \vert X)) $$ 가 됩니다.
 
 <br>
@@ -131,7 +131,10 @@ tags: [통계학, 수리통계학, 이변량 정규분포, 정규분포] # add t
     + ·$$ \sum_{x}\sum_{y} yf(x,y) = \sum_{x}(a + bx)f_{x}(x) $$
         + 좌변은 $$ E(Y) $$로 우변은 $$ E(a + bx) $$로 정리 됩니다. 
     + ·$$ E(Y) = E(a + bx) $$ 
-    + ·$$ \mu_{Y} = a + b\mu_{X} $$ ---① 식
+    + ·$$ \mu_{Y} = a + b\mu_{X} $$ : 1번식
+    + 또한 $$ \sum_{x}\sum_{y} yf(x,y) = \sum_{x}(a + bx)f_{x}(x) $$ 의 식 양변에 x를 곱하여 다음과 같이 변형합니다.
+    + ·$$ \sum_{x}\sum_{y} xy f(x,y) = \sum_{x} (ax + bx^{2}) f_{X}(x) $$
+    + ·$$ E(XY) = E(aX + bX^{2}) = aE(X) + bE(X^{2}) $$
     
 
 
