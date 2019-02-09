@@ -13,3 +13,7 @@ tags: [python, machine learning, ml] # add tag
     + Supervised Learning 으로 Anomaly Detection 실습
     + Unsupervised Learning으로 Anomaly Detection 실습
     + Text 데이터로 Anomaly Detection 실습
+    
++ Demensionality Reduction 관련 글
+    + PCA
+    + [t-SNE](https://gaussian37.github.io/ml-concept-t-SNE/)
