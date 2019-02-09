@@ -95,7 +95,35 @@ tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
         + 9 Ankle boot
     
 + 또한 동일한 데이터 세트에서 `PCA`의 출력을 시각화하고 `t-SNE`와 비교해 보도록 하겠습니다.
-+ 
++ 먼저 fashion MNIST 데이터를 다운 받아 보도록 하겠습니다.
+
+<br>
+
+```python
+import keras
+(X_train, y_train), (X_test, y_test) = keras.datasets.fashion_mnist.load_data()
+```
+
+<br>
+
++ 입력 받은 `X_train` 데이터의 shape을 확인해 보겠습니다.
+
+<br>
+
+```python
+>> print(X_train.shape)
+
+(60000, 28, 28)
+```
+
+<br>
+
++ 현재 각 이미지가 (28, 28)의 크기로 되어 있습니다. 이미지들을 28 x 28 = 784 크기의 벡터로 만들겠습니다.
+    + 각 이미지가 열벡터로 된 행렬을 만들어야 처리하기 용이합니다.
+    
+```python
+X_train = X_train.reshape(60000, 784)
+```
 
  
     
