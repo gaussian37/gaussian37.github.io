@@ -2,9 +2,9 @@
 layout: post
 title: 자본론(故 김수행 교수님 강의)
 date: 2019-02-09 00:00:00
-img: interview/humanity/Thinking, Fast and Slow/think.jpg
+img: interview/humanity/capital/capital.jpg
 categories: [interview-humanity] 
-tags: [생각에 관한 생각, thinking fast and slow] # add tag
+tags: [인문학, 자본론, Das Kapital] # add tag
 ---
 
 + 출처 : [故 김수행 교수님 강의 유투브](https://www.youtube.com/playlist?list=PLHt8-qlqRtxjG2fgtthF30Z-z8Z722z-4)
