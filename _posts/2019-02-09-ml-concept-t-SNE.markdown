@@ -70,6 +70,34 @@ tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
 + 이러한 방식으로, t-SNE는 다차원 데이터를보다 낮은 차원 공간으로 매핑하고, 다수의 특징을 갖는 데이터 포인트의 유사성을 기반으로 점들의 클러스터를 식별함으로써 데이터에서 패턴을 발견합니다.
 + 하지만 `t-SNE` 과정이 끝나면 input feature를 확인하기가 어렵습니다. 그리고 t-SNE 결과만 가지고 무언가를 추론 하기는 어려움도 있습니다.
     + 따라서 `t-SNE`는 주로 시각화 툴로 사용 됩니다.
+
+<br><br>
+
+## t-SNE의 자세한 설명
+
+
+## 파이썬을 이용한 t-SNE 구현 방법
+
++ Fashion MNIST 데이터에 `t-SNE`를 적용하고 결과를 시각화 해보겠습니다.
+    + [Fashion MNIST 데이터](https://github.com/zalandoresearch/fashion-mnist)
+    + Fashion-MNIST 데이터 세트는 카테고리 당 7,000 개 이미지, 10 개 카테고리, 70,000 개 패션 제품에 대한 28x28 grayscale 이미지 입니다.
+    + training 세트에는 60,000 개의 이미지가 있고 test 세트에는 10,000 개의 이미지가 있습니다. 
+    + MNIST와 마찬가지로 Fashion-MNIST는 10 개의 레이블로 이루어져 있지만, 숫자 대신 샌들, 셔츠, 바지 등과 같은 패션 액세서리의 10 가지 레이블이 있습니다.
+        + 0 T-shirt/top
+        + 1 Trouser
+        + 2 Pullover
+        + 3 Dress
+        + 4 Coat
+        + 5 Sandal
+        + 6 Shirt
+        + 7 Sneaker
+        + 8 Bag
+        + 9 Ankle boot
+    
++ 또한 동일한 데이터 세트에서 `PCA`의 출력을 시각화하고 `t-SNE`와 비교해 보도록 하겠습니다.
++ 
+
+ 
     
     
 
