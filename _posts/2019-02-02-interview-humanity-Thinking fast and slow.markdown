@@ -49,10 +49,12 @@ tags: [생각에 관한 생각, thinking fast and slow] # add tag
     + 일반적으로 초록색 질문에서는 Program A, 보라색 질문에서는 Program B를 선택 합니다.
     + 같은 내용이지만, `살린다`, `죽는다` 관점이 바뀜으로써 선택이 달라지게 된 실험입니다.
     + 즉, **문제의 상황이 동일함에도 불구하고, 인식하는 관점이 달라지면 선택이 달라짐**을 확인할 수 있습니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/1sum.PNG" alt="Drawing" style="width: 600px;"/>
     
 <br><br>
 
-## 인간은 어떻게 생각하고 판단할까?
+## 직관이 장악하는 인간
 
 + 인간의 직관에 대하여 알아보기 위해 Allais의 역설에 대하여 알아보겠습니다.
 
@@ -113,3 +115,116 @@ tags: [생각에 관한 생각, thinking fast and slow] # add tag
     + 인간은 훨씬 덜 생각을 합니다.
 + 즉, 우리가 직관이 아닌 심사숙고를 할 때에는
     + **직관이 불가능한 경우**라고 말할 수 있습니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/2sum.PNG" alt="Drawing" style="width: 600px;"/>
+    
+<br><br>
+
+## 왜 인간은 보고 싶은 것만 보는가?
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/3-2.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 인간은 직관을 사용하고 생각 하기를 게을리 하기 때문에 성급한 결론을 내리게 됩니다.
++ 성급한 결론을 내리는 이유는 앞에서 설명한 것과 같이 `직관`때문입니다.
+
+<br>
+
+### 확신 편향
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/3-4.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 고정관념, 편견에 의한 `확신 편향`은 잘못된 판단을 내리게 합니다.
+    + 호랑이도 제말하면 온다는 식의 생각
+    
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/3-5.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 확신 편향으로 인해 자신의 가설을 반증하지 않고 확증만 하게 됩니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/3-7.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 확신 편향은 사후에도 발생하게 됩니다. 어떤 사건을 실행한 후에는 자신의 행동에 대하여 근거없는 기대를 가지게 됩니다.
+
+<br>
+
+### 후광 효과 (Halo Effect)
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/3-8.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 한가지에 출중한 능력을 보이면 다른 분야도 잘할 것 같다고 착각하게 됩니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/3-9.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 기존에 만들어진 직관을 이용하여 다른 영역에도 직관으로 판단하려는 습성 때문에 후광 효과가 발생합니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/3-10.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 후광 효과를 이용하면 매니징 하는 데 사용할 수도 있습니다.
+    + 즉, 한 분야에만 뛰어난 능력을 보이는 것이 좋습니다.
+    
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/3-14.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 인간이 보고 싶은 것만 보고 싶은 이유는
+    + 인간은 기대/가설/믿음에 부합되는 것만 보려고 하는 성질 때문에
+    + 그러한 욕망이 기대/가설/믿음을 만듭니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/3-15.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 주어진 동전이 실제 동전보다 클까 작을까 라는 질문을 준다면?
+    + 가난한 아이는 부자 아이들 보다 궁핍하기 때문에 돈에 대한 욕망이 많습니다.
+    + 실제 동전과 주어진 동전이 크기는 같지만 욕망으로 인하여 가난한 아이에게는 동전이 더 크게 보이는 현상이 있습니다.
+    + 이 현상 또한 인간이 보고 싶은 것만 보게 되는 원리와 같습니다.      
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/3sum.PNG" alt="Drawing" style="width: 600px;"/>
+
+<br><br>
+
+## 50억분의 1의 함정 : 휴리스틱
+
++ 인간은 직관을 사용합니다. 그런데 이 직관은 왜 사용할까요?
++ 인간에게 충분하지 못한것이 2가지가 있습니다.
+    + 시간 : 점심 식사 메뉴를 결정하는 데, 수 많은 음식을 모두 생각해 낼 수 없습니다.
+    + 마음의 자원 : 수 많은 음식 종류를 모두 머릿속에 떠올려 비교할 수 없습니다.
++ 완벽한 판단을 위해서는 시간과 마음의 자원이 무한히 필요합니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/4-1.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 휴리스틱은 어림짐작 하는 방법으로 최고로 좋은 방법은 아니나 꽤 괜찮은 판단의 결과 입니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/4-2.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 구조 A와 구조 B에 대하여 통로의 경우의 수를 질문하면 구조 A가 더 많은 통로가 있다고 직관적으로 대답하곤 합니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/4-3.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 하지만 경우의 수는 같습니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/4-4.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 처음에 어떤 상태에 있느냐에 따라서 관점의 차이를 가져오게 됩니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/4-5.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 인간은 친숙한 영역에서 휴리스틱을 더 자주 쓰게 되어 실수를 자주 하게 됩니다.
++ 친숙한 영역에서 먼저 떠오르는 것을 기각하지 못하는 오류가 발생되곤 합니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/4-6.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 인간은 친숙한 것에 휴리스틱을 적용합니다. 친숙한 것은 상상하기 쉬운 것 입니다. 즉, 생생한 것에 좀 더 휴리스틱 즉, 직관을 잘 쓰게 됩니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/4-7.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 실제로 더 포괄적이고 확률이 높은 사건 보다 구체적이고 생생한 사건이라 발생할 확률이 낮은 사건에 더 발생할 가능성이 높다고 생각하는 오류를 범하곤 합니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/4-8.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 휴리스틱은 인간이라면 피하기 어렵기 때문에 인정하고 휴리스틱 이용하는게 중요합니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/4-9.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 휴리스틱은 자신이 친숙한 분야에 비추어 생각하도록 하기 때문에 없는 의미를 파악하게 만들기도 합니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/4-10.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 없는 의미를 파악하는것, 있는 의미를 간과하는 것 직관이 욕망에 의해 결정되기 때문입니다.  
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/4sum.PNG" alt="Drawing" style="width: 600px;"/>
