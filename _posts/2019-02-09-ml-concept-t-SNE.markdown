@@ -7,7 +7,9 @@ categories: [ml-concept]
 tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
 ---
 
-출처 : https://www.datacamp.com/community/tutorials/introduction-t-sne
+출처 : 
++ https://www.datacamp.com/community/tutorials/introduction-t-sne
++ https://www.youtube.com/watch?v=zpJwm7f7EXs&t=58s
 
 + 이번 글에서는 `t-SNE`에 대하여 알아보도록 하겠습니다.
     + Dimensionality Reduction
@@ -76,6 +78,8 @@ tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
 ## t-SNE의 자세한 설명
 
 
+
+
 ## 파이썬을 이용한 t-SNE 구현 방법
 
 + Fashion MNIST 데이터에 `t-SNE`를 적용하고 결과를 시각화 해보겠습니다.
@@ -102,6 +106,8 @@ import keras
 (X_train, y_train), (X_test, y_test) = keras.datasets.fashion_mnist.load_data()
 ```
 
+<br>
+
 + 입력 받은 `X_train` 데이터의 shape을 확인해 보겠습니다.
 
 ```python
@@ -110,12 +116,16 @@ import keras
 (60000, 28, 28)
 ```
 
+<br>
+
 + 현재 각 이미지가 (28, 28)의 크기로 되어 있습니다. 이미지들을 28 x 28 = 784 크기의 벡터로 만들겠습니다.
     + 각 이미지가 열벡터로 된 행렬을 만들어야 처리하기 용이합니다.
     
 ```python
 X_train = X_train.reshape(60000, 784)
 ```
+
+<br>
 
 + `y_train`은 `X_train`의 이미지에 해당하는 클래스 정답값 입니다.
 
@@ -124,6 +134,9 @@ X_train = X_train.reshape(60000, 784)
 
 array([9, 0, 0, ..., 3, 0, 5], dtype=uint8)
 ```
+
+<br>
+
 
 
 
