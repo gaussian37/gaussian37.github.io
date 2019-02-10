@@ -7,5 +7,7 @@ categories: [nd-etc]
 tags: [쿠팡] # add tag
 ---
 
++ 쿠팡 배너 광고 모음
+
 <a href="https://coupa.ng/bgAisp" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/banner/655e69396586fc4a8094b84e3d5a1362@2x.jpg" alt="남양유업 아인슈타인..." width="120" height="240"></a> 
 <a href="https://coupa.ng/bgAitt" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/banner/8d3a08537be22aef9416f025ac593dab@2x.jpg" alt="종근당건강 락토핏 ..." width="120" height="240"></a>
