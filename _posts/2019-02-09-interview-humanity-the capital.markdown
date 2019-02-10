@@ -2,8 +2,8 @@
 layout: post
 title: 자본론(김수행 교수님 강의)
 date: 2019-02-09 00:00:00
-img: interview/humanity/capital/capital.jpg
-categories: [interview-humanity] 
+img: nd/humanity/capital/capital.jpg
+categories: [nd-humanity] 
 tags: [인문학, 자본론, Das Kapital] # add tag
 ---
 
