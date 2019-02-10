@@ -139,7 +139,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/nd/humanity/' or page.url == '/nd/football/' %} active {% endif %}">
+            {% if page.url == '/nd/humanity/' or page.url == '/nd/football/' or page.url == '/nd/etc/' %} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('nd-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -148,6 +148,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="nd-dropdown">
                     <a class="dropdown-item" href="{{ "/nd/humanity" | prepend: site.baseurl }}">Humanity</a>
                     <a class="dropdown-item" href="{{ "/nd/football" | prepend: site.baseurl }}">Football</a>
+                    <a class="dropdown-item" href="{{ "/nd/football" | prepend: site.baseurl }}">Etc</a>
                 </div>
             </li>
         </ul>
