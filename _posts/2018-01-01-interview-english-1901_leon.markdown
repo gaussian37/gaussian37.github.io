@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 19.1월 리온 잉글리쉬 공부 내용
-date: 2018-01-01 00:00:00 +0300
+date: 2019-01-01 00:00:00 +0300
 img: interview/english/English.jpg
 categories: [interview-english] 
 tags: [english, speaking, voca, idiom] # add tag
