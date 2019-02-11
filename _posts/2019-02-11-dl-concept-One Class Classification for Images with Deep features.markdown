@@ -2,10 +2,12 @@
 layout: post
 title: 이미지 One Class Classification with Deep features
 date: 2019-02-11 00:00:00
-img: dl/concept/one class/one class.jpg
+img: dl/concept/one-class/one-class.png
 categories: [dl-concept] 
 tags: [deep learning, one class, one class svm, resnet, Isolation Forest, Gaussian Mixture] # add tag
 ---
+
+<br>
 
 ## One Class SVM과 Isolation Forest 모델을 이용한 구현
 
@@ -21,6 +23,8 @@ def extract_resnet(X):
     features_array = resnet_model.predict(X)
     return features_array
 ```
+
+<br>
 
 + 모든 이미지 데이터 셋에서 ResNet feature를 계산할 수 있습니다.
 + 그 다음 계산을 하여 얻은 feature에 `standard scaler`를 적용합니다.
@@ -61,9 +65,13 @@ if_preds = if_clf.predict(X_test)
 # Further compute accuracy, precision and recall for the two predictions sets obtained
 ```
 
+<br>
+
 + One-Class SVM 또는 Isolation Forest 모두 -1 또는 1 값을 반환합니다.
 	+ 1 인 경우는 One Class에 해당합니다. Positive
 	+ -1인 경우는 One Class에 해당하지 않습니다. Negative
+
+<br><br>
 
 ## Gaussian Mixture와 Isotonoic Regression을 사용한 One Class Classification
 
