@@ -14,3 +14,13 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적, 외적, 점 평면 거�
 출처 : 칸 아카데미 선형대수학 (https://ko.khanacademy.org/math/linear-algebra/vectors-and-spaces)
 
 + [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-Linear-Algebra-Table/) 
+
+<img src="../assets/img/math/la/point-distance-to-plane/1.png" alt="Drawing" style="width: 600px;"/>
+
+<br>
+
+<img src="../assets/img/math/la/point-distance-to-plane/1.png" alt="Drawing" style="width: 600px;"/>
+  
+<br>
+
+<img src="../assets/img/math/la/point-distance-to-plane/1.png" alt="Drawing" style="width: 600px;"/>
