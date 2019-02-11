@@ -1,3 +1,11 @@
+---
+layout: post
+title: 이미지 One Class Classification with Deep features
+date: 2019-02-11 00:00:00
+img: dl/concept/one class/one class.jpg
+categories: [dl-concept] 
+tags: [deep learning, one class, one class svm, resnet, Isolation Forest, Gaussian Mixture] # add tag
+---
 
 ## One Class SVM과 Isolation Forest 모델을 이용한 구현
 

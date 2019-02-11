@@ -46,3 +46,5 @@ tags: [english, speaking, voca, idiom] # add tag
 + Let the brain breathe : 머리가 숨 좀 쉬게 하자.
     + breath : 숨
     + breathe : 숨 쉬게 하다.
+    
+### Invention
