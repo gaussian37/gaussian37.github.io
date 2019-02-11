@@ -48,3 +48,20 @@ tags: [english, speaking, voca, idiom] # add tag
     + breathe : 숨 쉬게 하다.
     
 ### Invention
+
+question: Talk about an invention that has changed the world in a good way. 
+feedback: 
+1. three inventions
+2. the use of the definite article, "the" example: the woman, as mentioned for the first time in the discussion.
+3. computer replacing jobs
+
+Talk about an invention that has changed the world in a good way. Please say
+
+What was the invention?
+How do you use it?
+Why do you like it?
+
+1. There are many inventions that has... HAVE changed the world in a good way.
+2. in night... AT NIGHT
+3. pronunciation, R and L sound "bulb" 
+4. in outside... OUTSIDE/outdoor
