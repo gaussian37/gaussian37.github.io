@@ -19,8 +19,8 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적, 외적, 점 평면 거�
 
 <br>
 
-<img src="../assets/img/math/la/point-distance-to-plane/1.png" alt="Drawing" style="width: 600px;"/>
+<img src="../assets/img/math/la/point-distance-to-plane/2.png" alt="Drawing" style="width: 600px;"/>
   
 <br>
 
-<img src="../assets/img/math/la/point-distance-to-plane/1.png" alt="Drawing" style="width: 600px;"/>
+<img src="../assets/img/math/la/point-distance-to-plane/3.png" alt="Drawing" style="width: 600px;"/>
