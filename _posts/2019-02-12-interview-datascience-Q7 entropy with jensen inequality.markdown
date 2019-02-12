@@ -9,7 +9,7 @@ tags: [interview, datascience, sample covariance, n-1] # add tag
 
 두 확률 벡터 $$ p = (p_{1}, p_{2}, ..., p_{n}) $$ 이고 $$ r = (r_{1}, r_{2}, ..., r_{n}) $$ 가 있고 D(p, r) 이 다음과 같을 때,
 
-$$ D(p,r) = \sum_{j=1}^{n} p_{j}log_{2}\frac{1}{r_{j} - \sum_{j=1}^{n} p_{j}log_{2}\frac{1}{p_{j}} $$
+$$ D(p,r) = \sum_{j=1}^{n} p_{j}log_{2}\frac{1}{r_{j}} - \sum_{j=1}^{n} p_{j}log_{2}\frac{1}{p_{j}} $$
 
 D(p,r)이 음수가 아님을 Jensen's inequality를 이용하여 증명하여라.
 
