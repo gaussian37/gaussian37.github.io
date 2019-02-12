@@ -17,4 +17,4 @@ tags: [deep learning, convolution, transposed, dilated] # add tag
 + Dilated는 segmentation에서 조금 더 디테일한 정보를 얻기 위해 receptive field를 늘리는 역할을 합니다.
     + 따라서 weights 중간을 0으로 채워주는 느낌입니다.
 
-<img src="../assets/img/dl/concept/transposed-dilated-convolution/dilated.gif" alt="Drawing" style="width: 600px;"/>
++ <img src="../assets/img/dl/concept/transposed-dilated-convolution/dilated.gif" alt="Drawing" style="width: 600px;"/>
