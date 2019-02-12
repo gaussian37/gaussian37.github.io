@@ -229,6 +229,8 @@ tags: [생각에 관한 생각, thinking fast and slow] # add tag
 
 <img src="../assets/img/nd/humanity/Thinking, Fast and Slow/4sum.PNG" alt="Drawing" style="width: 600px;"/>
 
+<br><br>
+
 ## 5. 선택과 선택에 대한 과신을 만드는 직관
 
 <img src="../assets/img/nd/humanity/Thinking, Fast and Slow/5-1.jpg" alt="Drawing" style="width: 600px;"/>
@@ -262,3 +264,5 @@ tags: [생각에 관한 생각, thinking fast and slow] # add tag
 <br>
 
 + 이러한 경우 역경이나 핸디캡이 오히려 직관을 막고 이성적 논리적 능력을 발휘하게 하여 성공을 만들기도 합니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/5sum.PNG" alt="Drawing" style="width: 600px;"/>
