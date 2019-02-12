@@ -15,7 +15,7 @@ D(p,r)이 음수가 아님을 Jensen's inequality를 이용하여 증명하여�
 
 ---
 
-Jensen's inequality를 이용하기 위하여 아래로 볼록 함수의 형태인 $$ -log_{2}x $$ 함수를 이용하여 부등식을 만들어 증명합니다.
+Jensen\'s inequality를 이용하기 위하여 아래로 볼록 함수의 형태인 $$ -log_{2}x $$ 함수를 이용하여 부등식을 만들어 증명합니다.
 
 $$ D(p,r) = -sum_{j=1}^{n} p_{j} log_{2} \frac{r_{j}}{p_{j}} \ge -log_{2}\sum_{j=1}^{n}p_{j} \frac{r_{j}}{p_{j}} = -log_{2}\sum_{j=1}^{n} r_{j} = -log_{2} 1 = 0 $$
 
