@@ -16,7 +16,7 @@ tags: [생각에 관한 생각, thinking fast and slow] # add tag
 
 <br><br>
 
-## 데니얼 카네만과 생각에 관한 생각의 주요 내용
+## 1. 데니얼 카네만과 생각에 관한 생각의 주요 내용
 
 <img src="../assets/img/nd/humanity/Thinking, Fast and Slow/1-1.PNG" alt="Drawing" style="width: 600px;"/>
 
@@ -54,7 +54,7 @@ tags: [생각에 관한 생각, thinking fast and slow] # add tag
     
 <br><br>
 
-## 직관이 장악하는 인간
+## 2. 직관이 장악하는 인간
 
 + 인간의 직관에 대하여 알아보기 위해 Allais의 역설에 대하여 알아보겠습니다.
 
@@ -120,7 +120,7 @@ tags: [생각에 관한 생각, thinking fast and slow] # add tag
     
 <br><br>
 
-## 왜 인간은 보고 싶은 것만 보는가?
+## 3. 왜 인간은 보고 싶은 것만 보는가?
 
 <img src="../assets/img/nd/humanity/Thinking, Fast and Slow/3-2.jpg" alt="Drawing" style="width: 600px;"/>
 
@@ -178,7 +178,7 @@ tags: [생각에 관한 생각, thinking fast and slow] # add tag
 
 <br><br>
 
-## 50억분의 1의 함정 : 휴리스틱
+## 4. 50억분의 1의 함정 : 휴리스틱
 
 + 인간은 직관을 사용합니다. 그런데 이 직관은 왜 사용할까요?
 + 인간에게 충분하지 못한것이 2가지가 있습니다.
@@ -228,3 +228,37 @@ tags: [생각에 관한 생각, thinking fast and slow] # add tag
 + 없는 의미를 파악하는것, 있는 의미를 간과하는 것 직관이 욕망에 의해 결정되기 때문입니다.  
 
 <img src="../assets/img/nd/humanity/Thinking, Fast and Slow/4sum.PNG" alt="Drawing" style="width: 600px;"/>
+
+## 5. 선택과 선택에 대한 과신을 만드는 직관
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/5-1.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 결정과 그 결정에 대한 자신감은 별개의 문제이지만 인간은 그 두개를 명확히 구분하지 못합니다.
+    + 그 이유는 `직관` 때문입니다.
+    
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/5-2.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 직관은 어떤 결정과 그 결정에 대한 자신감을 연결시켜 생각하려는 경향이 있습니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/5-3.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 심지어 선택을 하는 데 있어서 전혀 중요하지 않거나 무관한 정보가 추가되더라도 자신의 결정과 연관시키려는 경향이 있습니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/5-5.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 예를 들어 어느 팀이 승리할 것인 지 A, B 팀을 고른 후 전혀 승부와 무관한 정보를 주더라도 자신의 결정과 연관시켜서 생각하게 됩니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/5-6.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 또 다른 실험으로 A, B팀의 경기 전력 분석을 한 자료를 볼 때 선명한 인쇄를 보는 경우는 사람들은 정보를 빠르게 캐치 할 수 있어서 직관이 크게 작용합니다.
++ 반면 흐릿한 인쇄를 보는 사람들은 정보를 더디게 받아들이게 되어 직관이 덜 작동하게 되어 자신의 선택을 과대 평가할 가능성을 줄입니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/5-7.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 앞에서도 다루었던 이 문제를 풀 때 야구공의 가격은 5센트 이지만 직관으로 인해 10센트로 대답하는 오류가 자주 발생하고 있습니다.
+    + 이 경우에서도 흐릿한 인쇄물로 문제를 주면 직관이 적게 개입하여 정답률이 오르는 것을 볼 수 있었습니다.
+    + 난독증 환자의 경우 일반인보다 정답률이 높았는데, 같은 원리로 직관의 개입을 줄인 이유 때문입니다.
+
+<br>
+
++ 이러한 경우 역경이나 핸디캡이 오히려 직관을 막고 이성적 논리적 능력을 발휘하게 하여 성공을 만들기도 합니다.
