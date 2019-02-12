@@ -35,7 +35,7 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적, 외적, 점 평면 거�
 <img src="../assets/img/math/la/point-distance-to-plane/2.png" alt="Drawing" style="width: 600px;"/>
 
 + ·$$ d = \frac{\vec{n} \cdot \vec{f}}{ \vert \vec{n} \vert } $$를 전개해 보겠습니다.
-+ $$ d = \frac{\vec{n} \cdot \vec{f}}{ \vert \vec{n} \vert } = \frac{ Ax_{0} - Ax_{p} + By_{0} - By_{p} + Cz_{0} - Cz_{p} }{ \sqrt{A^{2} + B^{2} + C^{2}} } $$
++ ·$$ d = \frac{\vec{n} \cdot \vec{f}}{ \vert \vec{n} \vert } = \frac{ Ax_{0} - Ax_{p} + By_{0} - By_{p} + Cz_{0} - Cz_{p} }{ \sqrt{A^{2} + B^{2} + C^{2}} } $$
     + 이 때 $$ Ax_{p} + By_{p} + Cz_{p} $$는 평면의 방정식 $$ Ax + By + Cz = D $$에서의 D에 해당합니다. ([앞 강의 참조](https://gaussian37.github.io/math-la-Normal-vector-from-plane-equation/))
 + 따라서 점과 평면사이의 거리는 $$ \frac{ Ax_{0} + By_{0} + Cz_{0} - D }{ \sqrt{A^{2} + B^{2} + C^{2}} } $$ 가 됩니다.
         
