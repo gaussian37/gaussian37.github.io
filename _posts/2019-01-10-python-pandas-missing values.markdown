@@ -68,3 +68,22 @@ df = pd.DataFrame(X, columns=['feature_1', 'feature_2'])
 # 결측값을 제거해 줍니다.
 df.dropna()
 ```
+
+<br><br>
+
+## Pandas에서 결측값 인덱스 받기
+
++ 임의의 DataFrame을 NaN 값을 포함하여 만든 후 NaN의 값이 있는 좌표만 따로 반환 받습니다.
+
+```python
+X = np.array([[1, 2], 
+              [6, 3], 
+              [8, 4], 
+              [9, 5], 
+              [np.nan, 4]])
+df = pd.DataFrame(X)
+
+print( np.asarray(df.isnull()).nonzero() )
+
+>> (array([4], dtype=int64), array([0], dtype=int64))
+```
