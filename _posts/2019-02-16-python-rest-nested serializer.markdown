@@ -119,8 +119,24 @@ class ParentSerializer(ModelSerializer):
 <br>
 
 + 여기서 핵심은 `ParentSerializer`에 override 된 `to_representatin`입니다.
-    + `response\[모델명\] = ModelSerializer(instance.ForeingKeyField).data` 로 선언하면 됩니다.
+    + `response[모델명] = ModelSerializer(instance.ForeingKeyField).data` 로 선언하면 됩니다.
     + 위 예제에서는 response\['child'\] = ChildSerializer(instance.child).data
++ 위 코드와 같이 구성 시 list를 조회하면 아래와 같이 결과를 리턴 받습니다.    
+
+```python
+{
+    "id" : 4,
+    "name" : "parantname",
+    "phone_number" : 123-123,
+    "child" : {
+        "id" : 1,
+        "name" : "childname"
+    }
+    
+}
+```
+
+<br><br>
 
 
 
