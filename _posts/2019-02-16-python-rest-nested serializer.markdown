@@ -82,10 +82,45 @@ class AlbumSerializer(serializers.ModelSerializer):
     }
 ```
 
+<br><br>
+
+### 1 : N 관계에서 N에 해당하는 model 기준으로 nested serializer 생성
+
++ 위의 예제에서는 1 : N의 관계에서 1에 해당하는 model의 Serializer에서 nested serializer를 생성하였습니다.
++ 이번에는 1 : N의 관계에서 N에 해당하는 model의 Serializer에서 nested serializer를 만들어 보겠습니다.
++ 이번 예제는 Child와 Parent 입니다. 한명의 Child에게는 2명의 부모님이 있으니 Child : Parent = 1 : N 의 관계 입니다.
+
+```python
+class Child(models.Model):
+    name = CharField(max_length=20)
+
+class Parent(models.Model):
+    name = CharField(max_length=20)
+    phone_number = models.ForeignKey(PhoneNumber)
+    child = models.ForeignKey(Child)
+
+class ChildSerializer(ModelSerializer):
+    class Meta:
+        model = Child
+        fields = '__all__'
 
 
+class ParentSerializer(ModelSerializer):
+    class Meta:
+        model = Parent
+        fields = '__all__'
 
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['child'] = ChildSerializer(instance.child).data
+        return response
+```
 
+<br>
+
++ 여기서 핵심은 `ParentSerializer`에 override 된 `to_representatin`입니다.
+    + `response\[모델명\] = ModelSerializer(instance.ForeingKeyField).data` 로 선언하면 됩니다.
+    + 위 예제에서는 response\['child'\] = ChildSerializer(instance.child).data
 
 
 
