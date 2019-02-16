@@ -52,7 +52,7 @@ tags: [ml, machine learning, 머신 러닝, mle, map, 우도, 사전확률, 사�
     + ·$$ \hat{\theta} = argmax_{\theta}\sum_{i=1}^{N} p(x_{i} \vert \theta) $$
         + 위 식은 최적화 문제에 해당합니다.
 + 최적화 문제를 풀기 위해서는 미분을 한 결과가 0이 되는 것을 이용하겠습니다.
-    + $$ \frac{\partial L(\theta)}{\partial\theta} = \frac{\partial\sum_{i=1}^{N}ln p(x_{i} \vert \theta)}{\partial\theta} $$
+    + $$ \frac{\partial \ L(\theta)}{\partial\theta} = \frac{\partial\sum_{i=1}^{N}ln p(x_{i} \vert \theta)}{\partial\theta} $$
 + 추정하고자 하는 확률 분포가 정규 분포를 따른다고 가정하면 풀이는 쉬워 집니다.
 + 이 가정에 따르면 $$ \theta = {\mu, \Sigma} $$ 입니다.(평균과, 공분산을 뜻합니다.)
     + 즉, $$ p(x) = N(\mu, \Sigma) $$
