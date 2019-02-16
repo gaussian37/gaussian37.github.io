@@ -50,5 +50,5 @@ tags: [ml, machine learning, 머신 러닝, mle, map, 우도, 사전확률, 사�
     + f()가 단조 증가 함수라면 $$ argmax_{\theta} p(X \vert \theta) $$ 에서 $$ P(X \vert \theta) $$를 최대화 하는 것과 $$ f(p(X \vert \theta)) $$를 최대화 하는 것은 같습니다.
     + likelihood에 단조 증가 함수인 ln을 취한 것을 `log likelihood` 라고 합니다.
     + ·$$ \hat{\theta} = argmax_{\theta}\sum_{i=1}^{N} p(x_{i} \vert \theta) $$
-    
+
 
