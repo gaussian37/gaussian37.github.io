@@ -57,4 +57,14 @@ tags: [ml, machine learning, 머신 러닝, mle, map, 우도, 사전확률, 사�
 + 이 가정에 따르면 $$ \theta = {\mu, \Sigma} $$ 입니다.(평균과, 공분산을 뜻합니다.)
     + 즉, $$ p(x) = N(\mu, \Sigma) $$
 
+<br>
+
++ 정규 분포를 위한 ML 추정
++ X가 정규 분포에서 추정되었다고 가정하겠습니다. 수식 유도를 쉽게 하기 위하여 공분산 행렬 $$ \Sigma $$는 이미 알고 있다고 가정하겠습니다.
++ 즉, 추정해야 하는 것은 평균 벡터 $$ \mu $$ 뿐입니다.
++ ·$$ \frac{\partial\sum_{i=1}^{N}ln p(x_{i} \vert \theta)}{\partial\theta} $$에 정규 분포 식을 대입하고 정리해 보겠습니다.
++ 아래 식에서 $$ d $$는 특징 벡터 $$ x_{i} $$의 차원 입니다.
++ ·$$ p(x_{i} \vert \theta) = p(x_{i} \vert \mu) = \frac{1}{ (2\pi)^{\frac{d}{2}} \vert \Sigma \vert^{\frac{1}{2}} } exp(-\frac{1}{2}(x_{i} - \mu)^{T}\Sigma^{-1}(x_{i} - \mu)) $$
+
+
 
