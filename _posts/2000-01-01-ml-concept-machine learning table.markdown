@@ -6,7 +6,7 @@ img: ml/concept/machineLearning.jpg
 categories: [ml-concept] 
 tags: [python, machine learning, ml] # add tag
 ---
-
++ [ML(Maximum Likelihood)와 MAP(maximum a posterior)](https://gaussian37.github.io/ml-concept-mle-and-map/)
 + Anomaly Detection 관련 글
     + [Anomaly Detection with Gaussian Distribution](https://gaussian37.github.io/ml-concept-anomaly-detection/)
     + AutoEncoder를 이용한 Anomaly Detection
