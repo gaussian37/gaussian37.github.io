@@ -15,6 +15,6 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적, 외적, 점 평면 거�
 
 + [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-Linear-Algebra-Table/) 
 
-<img src="../assets/img/math/la/distance-between-planes/0.PNG" alt="Drawing" style="width: 200px;"/>
+<img src="../assets/img/math/la/distance-between-planes/0.PNG" alt="Drawing" style="width: 600px;"/>
 
-<img src="../assets/img/math/la/distance-between-planes/1.PNG" alt="Drawing" style="width: 200px;"/>
+<img src="../assets/img/math/la/distance-between-planes/1.PNG" alt="Drawing" style="width: 600px;"/>
