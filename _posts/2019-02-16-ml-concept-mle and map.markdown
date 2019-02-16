@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ML(Maximum Likelihood)와 MAP(maximum a posteriori)
+title: ML(Maximum Likelihood)와 MAP(maximum a posterior)
 date: 2019-02-16 00:00:00
 img: ml/concept/mle-and-mlp/mle.jpg
 categories: [ml-concept] 
@@ -11,7 +11,7 @@ tags: [ml, machine learning, 머신 러닝, mle, map, 우도, 사전확률, 사�
 + 이번 글에서는 MLE(Maximum Likelihood Estimation)와 MAP(maximum a posteriori)에 대하여 알아보도록 하겠습니다.
 
 
-## ML과 MAP의 개념적 설명
+## ML(Maximum Likelihood)에 대한 개념적 설명
 
 + 먼저 ML은 개념적으로 어떠한 형태의 분포에도 적용 가능합니다.
     + 현실적으로는 정규 분포와 같이 매개 변수로 표현되는 경우에만 적용 가능한 데 매개 변수로 표시 된 경우만 계산이 가능하기 때문입니다.
@@ -52,19 +52,46 @@ tags: [ml, machine learning, 머신 러닝, mle, map, 우도, 사전확률, 사�
     + ·$$ \hat{\theta} = argmax_{\theta}\sum_{i=1}^{N} p(x_{i} \vert \theta) $$
         + 위 식은 최적화 문제에 해당합니다.
 + 최적화 문제를 풀기 위해서는 미분을 한 결과가 0이 되는 것을 이용하겠습니다.
-    + $$ \frac{\partialL(\theta)}{\partial\theta} = \frac{\partial\sum_{i=1}^{N}ln p(x_{i} \vert \theta)}{\partial\theta} $$
+    + $$ \frac{\partial L(\theta)}{\partial\theta} = \frac{\partial\sum_{i=1}^{N}ln p(x_{i} \vert \theta)}{\partial\theta} $$
 + 추정하고자 하는 확률 분포가 정규 분포를 따른다고 가정하면 풀이는 쉬워 집니다.
 + 이 가정에 따르면 $$ \theta = {\mu, \Sigma} $$ 입니다.(평균과, 공분산을 뜻합니다.)
     + 즉, $$ p(x) = N(\mu, \Sigma) $$
+    + ML 방법에서 어떤 데이터 X가 나오도록 하는 가장 가능성 높은 선택지는 `평균` 입니다.
 
 <br>
 
 + 정규 분포를 위한 ML 추정
 + X가 정규 분포에서 추정되었다고 가정하겠습니다. 수식 유도를 쉽게 하기 위하여 공분산 행렬 $$ \Sigma $$는 이미 알고 있다고 가정하겠습니다.
 + 즉, 추정해야 하는 것은 평균 벡터 $$ \mu $$ 뿐입니다.
-+ ·$$ \frac{\partial\sum_{i=1}^{N}ln p(x_{i} \vert \theta)}{\partial\theta} $$에 정규 분포 식을 대입하고 정리해 보겠습니다.
++ ·$$ \frac{\partial\sum_{i=1}^{N}ln\ p(x_{i} \vert \theta)}{\partial\theta} $$에 정규 분포 식을 대입하고 정리해 보겠습니다.
 + 아래 식에서 $$ d $$는 특징 벡터 $$ x_{i} $$의 차원 입니다.
 + ·$$ p(x_{i} \vert \theta) = p(x_{i} \vert \mu) = \frac{1}{ (2\pi)^{\frac{d}{2}} \vert \Sigma \vert^{\frac{1}{2}} } exp(-\frac{1}{2}(x_{i} - \mu)^{T}\Sigma^{-1}(x_{i} - \mu)) $$
++ ·$$ ln\ p(x_{i} \vert \mu) = -\frac{1}{2}(x_{i} - \mu)^{T}\Sigma^{-1}(x_{i} - \mu)-\frac{d}{2}ln2\pi -\frac{1}{2}ln\vert \Sigma \vert $$
++ ·$$ L(\mu) = -\frac{1}{2}\sum_{i=1}^{N}(x_{i} - \mu)^{T}\Sigma^{-1}(x_{i} - \mu)-N(\frac{d}{2}ln2\pi -\frac{1}{2}ln\vert \Sigma \vert) $$
++ ·$$ \frac{\partial L(\mu)}{\partial \mu} = \sum_{i=1}^{N} \Sigma^{-1}(x_{i} - \mu) $$
++ 이제 $$ \frac{\partial L(\mu)}{\partial \mu} = 0 $$을 두고 식을 정리해 보겠습니다.
+    + ·$$ \sum_{i=1}^{N} \Sigma^{-1}(x_{i} - \mu) = 0 $$
+    + ·$$ \sum_{i=1}^{N}x_{i} - N\mu = 0 $$
+    + ·$$ \hat{\mu} = \frac{1}{N}\sum_{i=1}^{N}x_{i} $$
+        + 이 식으로 구한 평균 벡터는 최적 매개 변수 값이기 때문에 hat 씌워 표시합니다.
 
++ 위 식은 두가지 정보가 제공된 상황에서 구해졌습니다.
+    + 훈련 집합 X 라는 정보
+    + 확률 분포가 정규 분포를 따른다는 정보
++ 이 상황에서 샘플의 특징 벡터를 모두 더하고 그것을 N으로 나누어준 값, 즉 샘플의 평균 벡터가 바로 찾고자 하는 최적의 매개 변수가 된다는 직관과 동일 합니다.
 
+## MAP(Maximum a posterior)에 대한 개념적 설명
 
++ 앞에서 ML에 대하여 설명할 때에는 $$ p(\theta) $$가 균일하다는 가정으로 식을 전개하였습니다.
++ 만약 $$ p(\theta) $$에 대한 정보가 주어져서 사용 가능하다면 어떻게 사용할 수 있을까요?
+    + 이 경우에 $$ p(\theta) $$ 는 동일하지 않을 수 있습니다. 따라서 이 경우에는 $$ p(\theta) $$ 를 고려하여 최적화 문제를 풀어야 합니다.
++ 식에서 $$ p(x_{i} \vert \theta) $$를 `likelihood` 라고 하고 $$ p(\theta) $$ 를 `사전 확률` 이라고 합니다.
++ 이 때, $$ p(x_{i} \vert \theta)p(\theta) $$ 를 `사후 확률`이라고 합니다.
++ 따라서 이 수식을 풀어 최적의 매개변수를 찾는 과정을 `MAP(Maximum a posterior)` 라고 합니다.
+
+$$ argmax(\theta) \sum ln(p(x_{i} | \theta)) + ln(p(\theta)) $$
+
++ <img src="../assets/img/ml/concept/mle-and-mlp/ml-vs-map.PNG" alt="Drawing" style="width: 300px;"/>
++ 위 그림은 `ML`과 `MAP`를 비교합니다.
++ ML에서는 사전확률이 균일하다고 가정합니다. 따라서 likelihood가 최고인 점을 찾으면 그것이 바로 최적해 $$ \theta $$가 됩니다.
++ 하지만 MAP 에서는 **사전 확률이 균일하지 않습니다.** 따라서 **사전확률이 최적 해에 영향**을 미치게 됩니다.
