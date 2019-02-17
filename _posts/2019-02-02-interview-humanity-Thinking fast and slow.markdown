@@ -324,9 +324,15 @@ tags: [생각에 관한 생각, thinking fast and slow] # add tag
     + 증여 효과
     + <img src="../assets/img/nd/humanity/Thinking, Fast and Slow/7-3.jpg" alt="Drawing" style="width: 600px;"/>    
     + <img src="../assets/img/nd/humanity/Thinking, Fast and Slow/7-4.jpg" alt="Drawing" style="width: 600px;"/>
+
+<br>
+    
 + 평가를 할 수 있어서 중요해 지는 경우
     + <img src="../assets/img/nd/humanity/Thinking, Fast and Slow/7-5.jpg" alt="Drawing" style="width: 600px;"/>
-+ **우리가 선택하는 것**
+
+<br>
+
++ ### **우리가 선택하는 것**
     + 선택하고 싶은것
     + 선택하기 쉬운것
     + 후회하지 않는것
