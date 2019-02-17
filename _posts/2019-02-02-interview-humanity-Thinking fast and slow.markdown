@@ -266,3 +266,73 @@ tags: [생각에 관한 생각, thinking fast and slow] # add tag
 + 이러한 경우 역경이나 핸디캡이 오히려 직관을 막고 이성적 논리적 능력을 발휘하게 하여 성공을 만들기도 합니다.
 
 <img src="../assets/img/nd/humanity/Thinking, Fast and Slow/5sum.PNG" alt="Drawing" style="width: 600px;"/>
+
+## 6. 경계와 의심으로 만드는 믿을 수 있는 판단
+
++ 직관, 편향, 오류등으로 인하여 내 생각을 어디 까지 믿을 수 있을까? 라는 의문에 빠질 수 있습니다.
++ 불행하게도 믿을 수 있는 판단의 근거는 존재하지 않지만 `의심해야 할 판단의 느낌`들은 존재하니다.
++ 경계해야할 생각 : 메타 인지
+    + 빠르게 인출되는 생각
+        + 빠르다는 의미는 머릿속에 있는 지식에 빨리 접근한다는 것입니다.
+        + 옳고 그름을 떠나, 빠른 판단이 좋다고 착각을 합니다.
+        + 따라서 **빠르게 인출되는 생각이 좋은 판단, 믿을 수 있는 판단이라는 착각**이 만들어 집니다.
+    + 생생한 느낌
+        + 생생하다는 것은 머릿속에 잘 그려진다는 것이지 옳은 판단이라는 의미는 아닙니다.
+    + 친숙할 경우 빠르고 생생하게 생각나게 됩니다.
+        + 이 때 사용되는 인지가 `메타 인지` 입니다.
+    + 메타 인지는 나의 인지를 보는 인지로 **친숙한 정도**를 판단의 근거로 안다와 모른다로 판단합니다.
++ 메타인지에 의한 오류   
+    + 어떤 대상에 친숙하기는 하나, 실제로 아는 경우가 거의 없는 경우
+    + 친숙한 대상에 대하여 무작정 덤벼들어서 실패하는 경우 발생    
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/6-1.jpg" alt="Drawing" style="width: 600px;"/>
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/6-2.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 메타인지를 이겨내는 방법
++ 친숙함과 실제의 구분은 상당부분 메타인지에 속지 않아야 함을 의미합니다.
+    + `설명`을 통하지 않고는 옳고 그름을 판단할 수 없습니다.
+    + 아인슈타인이 위대한 이유는 일반인에게 상대성 이론을 설명할 수 있었기 때문이기도 합니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/6-3.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 설명의 습관을 발달하여 자신의 메타 인지를 제대로 쓰도록 훈련 해야 합니다.
++ 자신과 관련된 사람 뿐만 아니라 무관한 사람에게도 설명할 수 있어야 합니다.
++ 이 과정 속에서 **자신이 설명하지 못하는 부분과 메타인지 오류**를 발견하게 됩니다.
++ 이러한 과정 속에서 메타 인지를 정교화하고, 할 수 있는 것과 할 수 없는 것, 믿을 수 있는 것과 믿을 수 없는 것의 경계선을 명확하 하게 됩니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/6sum.PNG" alt="Drawing" style="width: 600px;"/>
+
+## 7. 우리가 '무엇'을 선택하는 진짜 '이유'
+
++ 이유-기반 선택(Reason-based choice)
+    + 객관적으로 좋은 A를 선택하지 않고 열등한 B를 선택하는 경우
+    + B를 선택한 이유를 A보다 더 잘 설명할 수 있기 때문
+    + 사람들은 **자신의 선택을 정당화**할 수 있기를 원합니다.
++ 이유 기반 선택의 예
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/7-1.jpg" alt="Drawing" style="width: 600px;"/>
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/7-2.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 후회 이론(regret theory)
+    + 사람들은 후회를 제일 덜 할 수 있는 옵션을 선택 합니다.
+    + 현상 유지(status quo bias) 경향성
+        + 사람들은 변화가 없는 것을 더 선호 합니다.
+        + 변화를 만들어 내지 않는 상태에서 손해를 입으면 이를 감수 합니다.
+        + 반면, 변화가 일어난 후 상황이 안좋아지면 후회를 시작합니다.
+    + 증여 효과
+    + <img src="../assets/img/nd/humanity/Thinking, Fast and Slow/7-3.jpg" alt="Drawing" style="width: 600px;"/>    
+    + <img src="../assets/img/nd/humanity/Thinking, Fast and Slow/7-4.jpg" alt="Drawing" style="width: 600px;"/>
++ 평가를 할 수 있어서 중요해 지는 경우
+    + <img src="../assets/img/nd/humanity/Thinking, Fast and Slow/7-5.jpg" alt="Drawing" style="width: 600px;"/>
++ **우리가 선택하는 것**
+    + 선택하고 싶은것
+    + 선택하기 쉬운것
+    + 후회하지 않는것
+    + 선택의 이유를 말할 수 있는것
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/sum_07_1.png" alt="Drawing" style="width: 600px;"/>
+
+
+
