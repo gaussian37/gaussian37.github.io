@@ -51,9 +51,11 @@ tags: [english, speaking, voca, idiom] # add tag
 
 question: Talk about an invention that has changed the world in a good way. 
 feedback: 
-1. three inventions
+1. 한 가지를 물었을 때는 한 가지만 대답하는게 좋다.
 2. the use of the definite article, "the" example: the woman, as mentioned for the first time in the discussion.
 3. computer replacing jobs
+
++ 발명품을 말할때는 발명가도 말하는 것이 좋은것 같습니다.
 
 Talk about an invention that has changed the world in a good way. Please say
 
@@ -61,7 +63,37 @@ What was the invention?
 How do you use it?
 Why do you like it?
 
++ 스마트폰에 대답하였었다. 
++ 스티브 잡스와 동료들이 애플에서 최초 개발하였다고 하였고
++ How use 와 Why에 대하여 이유와 예에 대해서 말하였다.
+
 1. There are many inventions that has... HAVE changed the world in a good way.
-2. in night... AT NIGHT
+2. AT NIGHT. at night 라고 쓰자.(in 아님)
 3. pronunciation, R and L sound "bulb" 
-4. in outside... OUTSIDE/outdoor
+4. OUTSIDE/outdoor 자체로 부사/전치사로 사용됩니다. I play soccer outside.
+
+### Health
+
+1. How important is diet in order to have a healthy lifestyle?
+*diet (noun) = the kinds of food that a person, animal, or community habitually eats.
+*diet (verb) = restrict oneself to small amounts or special kinds of food in order to lose weight.
+
+VOCABULARY and EXPRESSIONS:
+- balanced diet
+- good nutrition
+- maintain health
+- eating healthy
+- healthy lifestyle
+- health benefits
+- chronic diseases
+- what you eat is what you are/you are what you eat (it is important to eat good food in order to be healthy and fit)
+
+1. Would you say that people generally have healthy diets in your country?
+
+you said: If we have dining with coworkers, ...
+you should say: If we dine with coworkers, ...
+
+2. Do you think the government should have a role in making people healthier?
+
++ 정부는 광고등을 통해서 국민들의 건강을 챙길 수 있다.
++ doubled the price
