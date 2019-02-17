@@ -7,7 +7,7 @@ categories: [nd-etc]
 tags: [쿠팡] # add tag
 ---
 
-+ [로켓 배송 링크](https://coupa.ng/bgCLtc)
+[![로켓배송](../assets/img/nd/etc/coupang/rocket.jpg)](https://coupa.ng/bgCLtc)
 
 <a href="https://coupa.ng/bgCLsk" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/coupang1108-640-x-100.jpg" alt=""></a>
 
