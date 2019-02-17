@@ -15,20 +15,6 @@ tags: [쿠팡] # add tag
 
 <a href="https://coupa.ng/bgCLse" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/rocket-w1114-640-x-100.jpg" alt=""></a>
 
-<a href="https://coupa.ng/bgCLsv" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/fashion-women-640-x-100.jpg" alt=""></a>
-
-<a href="https://coupa.ng/bgCLsG" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/fashion-men-640-x-100.jpg" alt=""></a>
-
-<a href="https://coupa.ng/bgCLsH" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/beauty-640-x-100.jpg" alt=""></a>
-
-<a href="https://coupa.ng/bgCLsO" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/food-640-x-100.jpg" alt=""></a>
-
-<a href="https://coupa.ng/bgCLsZ" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/baby-640-x-100.jpg" alt=""></a>
-
-<a href="https://coupa.ng/bgCLs5" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/living-640-x-100.jpg" alt=""></a>
-
-<a href="https://coupa.ng/bgCLtb" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/electronic-640-x-100.jpg" alt=""></a>
-
 + 쿠팡 배너 광고 모음
 
 <a href="https://coupa.ng/bgAisp" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/banner/655e69396586fc4a8094b84e3d5a1362@2x.jpg" alt="남양유업 아인슈타인..." width="120" height="240"></a> 
