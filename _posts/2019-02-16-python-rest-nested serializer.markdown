@@ -12,8 +12,8 @@ tags: [python, django, REST, drf, serializer, nested serializer] # add tag
 
 ## Nest serializer 사용 예시 목록
 
-+ 1 : N 관계에서 1에 해당하는 model 기준으로 nested serializer 생성 (Reverse relations)
-+ 1 : N 관계에서 N에 해당하는 model 기준으로 nested serializer 생성
++ 1 : N 관계에서 `1`에 해당하는 model 기준으로 nested serializer 생성 (Reverse relations)
++ 1 : N 관계에서 `N`에 해당하는 model 기준으로 nested serializer 생성
 
 ---
 
