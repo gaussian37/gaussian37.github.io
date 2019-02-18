@@ -340,5 +340,38 @@ tags: [생각에 관한 생각, thinking fast and slow] # add tag
 
 <img src="../assets/img/nd/humanity/Thinking, Fast and Slow/sum_07_1.png" alt="Drawing" style="width: 600px;"/>
 
+## 8. 우리의 삶을 결정하는 프레임
 
+### 1. 관점
+
++ 카네만이 본 관점은 생각=Frame 입니다. 같은 문제 같은 상황이라고 하더라도 어떤 프레임에 넣고 보는가에 따라 전혀 다른 결말에 도달 합니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/8-1.jpg" alt="Drawing" style="width: 600px;"/>
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/8-2.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 획득의 관점과 손실의 관점에 따라 바라보는 관점이 완전히 달라지게 됩니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/8-3.jpg" alt="Drawing" style="width: 600px;"/>
+
++ 획득의 관점으로 바라보면 우리가 안주하는 이유가 설명이 되고
++ 손실의 관점에서 바라보면 무모해 지는 이유가 설명이 됩니다.
+
++ 프레임을 적절하게 바꿀 필요가 있습니다.
+    + 프레임을 바꿔도 같은 결론에 도달하는가?
+        + 어떤 결론에 도달했을 때 다른 프레임으로 바꿔 보았을 때 결론이 같다면 안정적 판단을 한 것임
+        + 프레임이 바뀌면 선택과 관련된 결론도 바뀜
+    + 적절한 프레임으로 보고 있는가?
+        + 관련된 프레임을 적절히 사용하지 못하는 경우
+        + 적절한 fRAME으로 바꿔 문제를 보는 지혜가 필요함
+
+### 2. 두 자아
+
++ 인간에게는 경험하는 자아와 기억하는 자아가 있습니다.
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/8-4.jpg" alt="Drawing" style="width: 600px;"/>
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/8-5.jpg" alt="Drawing" style="width: 600px;"/>
+
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/8-6.jpg" alt="Drawing" style="width: 600px;"/>
 
