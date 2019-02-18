@@ -375,3 +375,5 @@ tags: [생각에 관한 생각, thinking fast and slow] # add tag
 
 <img src="../assets/img/nd/humanity/Thinking, Fast and Slow/8-6.jpg" alt="Drawing" style="width: 600px;"/>
 
+<img src="../assets/img/nd/humanity/Thinking, Fast and Slow/sum_08_1.png" alt="Drawing" style="width: 600px;"/>
+
