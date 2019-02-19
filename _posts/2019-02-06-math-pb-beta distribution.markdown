@@ -53,7 +53,7 @@ tags: [통계학, 수리통계학, 베타 분포, 감마 함수, beta distributi
 + 확률밀도함수가 $$ f(x; \alpha, \beta) = \frac{1}{B(\alpha, \beta)}x^{\alpha - 1}(1-x)^{\beta-1} $$
     + 이 때, $$ 0 < x < 1 $$ 이고 $$ \alpha, \beta > 0 $$ 일 때,
     + 모수가 $$ \alpha, \beta $$ 인 `베타분포`라고 합니다.
-    + 이 때, $$ \frac{1}{B(\alpha, \beta) $$는 **면적을 1로 만들기 위한 정규화** 입니다.
+    + 이 때, $$ \frac{1}{B(\alpha, \beta)} $$는 **면적을 1로 만들기 위한 정규화** 입니다.
     + 형태가 **이항 분포**와 비슷합니다. 이항 분포는 이산 확률 변수에 관한 확률이고 이항 분포에 대응하는 연속 확률 변수의 확률이 `베타 분포`입니다.
         + 예를 들어, 전체 시간 중에 x를 하는 시간 또는 전체 물질의 양 중에 x의 비율 등이 있습니다.
 + <img src="../assets/img/math/pb/beta-distribution/betadist.PNG" alt="Drawing" style="width: 600px;"/>
