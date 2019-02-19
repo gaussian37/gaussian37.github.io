@@ -11,4 +11,23 @@ tags: [통계학, 베이지안] # add tag
 
 ## 1. 정보를 얻으면 확률이 바뀐다.
 
-## 2. 
+<img src="../assets/img/math/pb/bayes-basic/1.1.PNG" alt="Drawing" style="width: 400px;"/>
+
+<img src="../assets/img/math/pb/bayes-basic/1.2.PNG" alt="Drawing" style="width: 400px;"/>
+
+<img src="../assets/img/math/pb/bayes-basic/1.3.PNG" alt="Drawing" style="width: 400px;"/>
+
+<img src="../assets/img/math/pb/bayes-basic/1.4.PNG" alt="Drawing" style="width: 400px;"/>
+
+<img src="../assets/img/math/pb/bayes-basic/1.5.PNG" alt="Drawing" style="width: 400px;"/>
+
+<img src="../assets/img/math/pb/bayes-basic/1.6.PNG" alt="Drawing" style="width: 400px;"/>
+
+<img src="../assets/img/math/pb/bayes-basic/1.7.PNG" alt="Drawing" style="width: 400px;"/>
+
+<img src="../assets/img/math/pb/bayes-basic/1.8.PNG" alt="Drawing" style="width: 400px;"/>
+
+<img src="../assets/img/math/pb/bayes-basic/1.9.PNG" alt="Drawing" style="width: 400px;"/>
+
+<img src="../assets/img/math/pb/bayes-basic/1.10.PNG" alt="Drawing" style="width: 400px;"/>
+
