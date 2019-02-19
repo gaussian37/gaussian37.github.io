@@ -38,7 +38,7 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 + 감마분포와 지수분포의 적용
 + 무기억성관련
 + 카이제곱 분포. 로그정규 분포. 와이블 분포
-+ 베타분포
++ [베타분포](https://gaussian37.github.io/math-pb-beta-distribution/)
 + [이변량 정규분포 (1)](https://gaussian37.github.io/math-pb-gaussian-distribution-1/)
 + 이변량 정규분포 (2)
 + 다변랑 정규분포
