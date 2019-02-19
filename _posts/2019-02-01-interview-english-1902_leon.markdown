@@ -97,3 +97,16 @@ you should say: If we dine with coworkers, ...
 
 + 정부는 광고등을 통해서 국민들의 건강을 챙길 수 있다.
 + doubled the price
+
+### friendship
+
++ seperate
++ different school
++ we can't keep a friendship for long
++ adult age = adulthood
+
+<br>
+
++ I've never thought about that before.
++ To get back to my original point.
++ That's all I have to say.

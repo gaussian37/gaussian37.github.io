@@ -46,3 +46,6 @@ tags: [english, speaking, voca, idiom] # add tag
         + 최종적으로 ~ 라는 결과가 되다.
             + turn out crabs
             + 실패로 돌아가다.
+
++ 3 . Let go of your negative outlook on life. Always maintain a positive attitude.
+    + 비관적인 
