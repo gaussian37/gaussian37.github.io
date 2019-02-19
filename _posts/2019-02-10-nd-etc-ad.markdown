@@ -24,3 +24,4 @@ tags: [쿠팡] # add tag
 <a href="https://coupa.ng/bgB9UK" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/banner/160137cdda48495dab3adfcdd19759e0@2x.jpg" alt="삼양 쫄볶이불닭볶음..." width="120" height="240"></a>
 <a href="https://coupa.ng/bgB9Wh" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/banner/3713ceb1938f824e3691070f5093c379@2x.jpg" alt="삼양 불닭볶음면 1..." width="120" height="240"></a>
 <a href="https://coupa.ng/bgCQjD" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/banner/8c0259b77dba755b630b0d30416363da@2x.jpg" alt="제이스 제이스 접이..." width="120" height="240"></a>
+<a href="https://coupa.ng/bgDloH" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/banner/12614a1fab3400e65bc9e5a1dcd118cc@2x.jpg" alt="씨클라우드 다용도 ..." width="120" height="240"></a>

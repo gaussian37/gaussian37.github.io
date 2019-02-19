@@ -16,3 +16,14 @@ tags: [통계학, 수리통계학, 베타 분포, 감마 함수, beta distributi
 
 <br>
 
+### 베타 함수의 정의
+
++ 베타 함수는 $$ \alpha, \beta > 0 $$ 일 때, $$ B(\alpha, \beta) = \int_{0}^{1} x^{\alpha-1}(1-x)^{\beta-1} dx $$ 로 정의 됩니다.
+
+<br>
+
+### 베타 함수의 성질
+
++ ·$$ B(\alpha, \beta) = B(\beta, \alpha) $$
+    + 
+  
