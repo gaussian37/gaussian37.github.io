@@ -52,9 +52,12 @@ tags: [python, docker, 도커] # add tag
 + 공식 저장소는 Docker Hub : https://hub.docker.com/ (Docker 계의 GitHub)
 + Azure Containers for Web App 에서는 지정 Docker Registry로부터 이미지를 읽어들여, Docker Container를 적재합니다.
 
+<br>
+
 ### Dockerfile
 
 + Docker 이미지를 만들 때, 수행할 명령과 설정들을 시간순으로 기술한 파일
++ 아래는 Dockerfile의 예제입니다.
 
 ```python
 FROM ubuntu:16.04
