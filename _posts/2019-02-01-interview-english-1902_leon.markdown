@@ -105,6 +105,25 @@ you should say: If we dine with coworkers, ...
 + we can't keep a friendship for long
 + adult age = adulthood
 
+- close friend/a very good friend
+- fair-weather friend
+- fake friend
+- friends are like second family
+- shoulder to cry on
+    + 의지할 수 있는사람, 내 고민을 많이 들어줄 수 있는사람
+- count on me
+- through thick and thin
+    + 좋을 때나 안 좋을 때나
+- well-matched
+- get along with
+- to fall or someone (to fall in love for someone)
+- break up
+- to drift apart
+    + 사이가 멀어지다.
+- fall out with
+    + ~와 사이가 나빠지다.
+- to have friends in high places
+
 <br>
 
 + I've never thought about that before.
