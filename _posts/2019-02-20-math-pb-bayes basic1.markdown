@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 베이즈 통계학 기초 1. 정보를 얻으면 확률이 바뀐다.
+title: (베이즈 통계학 기초) 정보를 얻으면 확률이 바뀐다.
 date: 2019-02-20 00:00:00
 img: math/pb/probability.jpg
 categories: [math-pb] 
