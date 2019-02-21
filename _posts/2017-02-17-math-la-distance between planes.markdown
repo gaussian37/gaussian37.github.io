@@ -32,7 +32,7 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적, 외적, 점 평면 거�
 
 <img src="../assets/img/math/la/distance-between-planes/1.PNG" alt="Drawing" style="width: 600px;"/>
 
-+ 임의의 점 (x, y, z)가 두 선을 이용하여 생성한 평면(파란색 평면)에 있다고 가정하겠습니다.
++ 임의의 점 (x, y, z)가 $$ \vec{a}, \vec{b} $$를 이용하여 생성한 평면(파란색 평면)에 있다고 가정하겠습니다.
 + (x, y, z)와 (3, 5, 7)을 연결한 벡터는 앞에서 정의한 $$ \vec{n} $$과 직교한 관계를 가집니다.
 + 따라서 $$ \vec{n} \dot ((x - 3)\hat{i} + (y-5)\hat{j} + (z - 7)\hat{k} ) = 0 $$ 입니다.
     + ·$$ (-\hat{i} + 2\hat{j} -\hat{k}) \dot ((x - 3)\hat{i} + (y-5)\hat{j} + (z - 7)\hat{k}) = 0 $$
