@@ -16,5 +16,11 @@ tags: [english, speaking, voca, idiom] # add tag
 + 3 . Let go of your negative outlook on life. Always maintain a positive attitude.
     + 비관적인 인생관을 버리고, 항상 긍정적인 태도를 유지하라.
     
-+ 4. You should be fair to everyone regardless of national origin, gender or creed.
++ 4 . You should be fair to everyone regardless of national origin, gender or creed.
     + 당신은 태어난 나라나 성별, 또는 신조에 관계없이 누구에게나 공평해야 한다.
+
++ 5 . Equality is guranteed by the Consitution
+    + 평등은 헌법에 의해 보장된다.
+    
++ 6 . He leaned against the pillar and gazed at the Statue of Liberty.
+    + 그는 기둥에 기대어 자유의 여신상을 물끄러미 바라보았다.

@@ -123,9 +123,14 @@ you should say: If we dine with coworkers, ...
 - fall out with
     + ~와 사이가 나빠지다.
 - to have friends in high places
+- privilege : 회사의 복지
+- share my feeling and thought
+- No man is an island. Nobody can live alone. Having friend is important.
+- have conversation
 
 <br>
 
 + I've never thought about that before.
 + To get back to my original point.
 + That's all I have to say.
+
