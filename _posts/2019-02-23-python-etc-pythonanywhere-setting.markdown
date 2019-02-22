@@ -7,6 +7,39 @@ categories: [python-etc]
 tags: [python, PaaS, pythonanywhere] # add tag
 ---
 
+## Web Tab에서 필요값 설정
+
++ Pythonanywhere에서 Django로 서버를 배포하기 위해서는 아래 세가지를 세팅해야 합니다.
+    + Working directory (아래 빨간색 상자)
+        + Django 프로젝트가 있는 디렉토리를 설정해 주어야 합니다
+        + 아래 예에서는 `djangoserver`라는 디렉토리가 프로젝트의 시작 디렉토리입니다.
+    + WSGI configuration file은 클릭을 한 다음에 안에 내부 값을 수정해야 합니다. (아래 파란색 상자)
+        + ```python
+          import os
+          import sys
+            
+          # path = '/home/USER_NAME/PROJECT'
+          path = '/home/gaussian37/djangoserver'
+            
+          if path not in sys.path:
+              sys.path.append(path)
+            
+          # os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+          os.environ['DJANGO_SETTINGS_MODULE'] = 'djangoserver.settings'
+            
+          from django.core.wsgi import get_wsgi_application
+          from django.contrib.staticfiles.handlers import StaticFilesHandler
+          application = StaticFilesHandler(get_wsgi_application()) 
+          ```
+    + virtualenv 경로를 설정해야 합니다. (아래 초록색 상자)
+        + virtualenv 경로를 지정해 줍니다.
+        + 예를 들어 ``` /home/gaussian37/djangoserver/venv ``` 라고 설정한 경우는 project인 djangoserver 내부에 venv라는 가상환경이 있는 경우 입니다.
+
+<img src="../assets/img/python/etc/pythonanywhere/websetting.PNG" alt="Drawing" style="width: 600px;"/>
+
+
+<br><br>
+
 ## MySQL 세팅하기
 
 + 서버를 최종 배포할 때에는 SQLite가 아닌 MySQL 또는 Postgres 등을 사용해야 합니다.
