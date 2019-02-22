@@ -13,7 +13,7 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 
 + [정보를 얻으면 확률이 바뀐다.](https://gaussian37.github.io/math-pb-bayes-basic1/)
 + [베이지안 추정은 때로 직감에 크게 반한다.(1)](https://gaussian37.github.io/math-pb-bayes-basic2/)
-+ 주관적인 숫자여도 추정이 가능하다.
++ [주관적인 숫자여도 추정이 가능하다.](https://gaussian37.github.io/math-pb-bayes-basic3/)
 + 확률의 확률을 사용하여 추정의 폭을 넓힌다.
 + 추론의 프로세스에서 부각되는 베이즈 추정의 특
 + 명쾌하고 엄밀하지만 쓸 떼가 한정된 네이만-피어슨 식 추정
