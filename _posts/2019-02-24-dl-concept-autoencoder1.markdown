@@ -1,7 +1,7 @@
 ---
 layout: post
 title: AutoEncoder의 모든것 (1)
-date: 2018-12-23 00:00:00
+date: 2019-02-24 00:00:00
 img: dl/concept/autoencoder1/autoencoder.png
 categories: [dl-concept] 
 tags: [deep learning, autoencoder] # add tag

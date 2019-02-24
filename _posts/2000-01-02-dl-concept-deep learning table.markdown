@@ -7,6 +7,6 @@ categories: [dl-concept]
 tags: [python, deep learning, dl] # add tag
 ---
 
-+ AutoEncoder의 모든것 (1)
++ [AutoEncoder의 모든것 (1)](https://gaussian37.github.io/dl-concept-autoencoder1/)
 + AutoEncoder의 모든것 (2)
 + AutoEncoder의 모든것 (3)
