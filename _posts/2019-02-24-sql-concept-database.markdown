@@ -2,7 +2,7 @@
 layout: post
 title: 데이터베이스
 date: 2019-02-24 00:00:00
-img: dl/concept/autoencoder1/autoencoder.png
+img: sql/concept/sql.png
 categories: [sql-concept] 
 tags: [sql, 데이터베이스, database] # add tag
 ---
