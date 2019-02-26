@@ -24,3 +24,6 @@ tags: [english, speaking, voca, idiom] # add tag
     
 + 6 . He leaned against the pillar and gazed at the Statue of Liberty.
     + 그는 기둥에 기대어 자유의 여신상을 물끄러미 바라보았다.
+
++ 7 . A woman passed by me giving off a subtle scent of perfume. It reminded me of my ex-girlfriend.
+    + 한 여인이 희미한 향수 냄새를 풍기면서 내 옆을 지나갔다. 그것은 내게 옜 여자친구를 생각나게 했다.
