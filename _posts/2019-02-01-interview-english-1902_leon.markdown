@@ -128,6 +128,12 @@ you should say: If we dine with coworkers, ...
 - No man is an island. Nobody can live alone. Having friend is important.
 - have conversation
 
+### advice
+
++ I seek advice from my parents.
++ expert, specialist (in), professional; (대가) master 
+
+
 <br>
 
 + I've never thought about that before.

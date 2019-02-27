@@ -27,3 +27,6 @@ tags: [english, speaking, voca, idiom] # add tag
 
 + 7 . A woman passed by me giving off a subtle scent of perfume. It reminded me of my ex-girlfriend.
     + 한 여인이 희미한 향수 냄새를 풍기면서 내 옆을 지나갔다. 그것은 내게 옜 여자친구를 생각나게 했다.
+    
++ 8 . Natto smells awful but tastes terrific.
+    + 낫또는 냄새는 심하지만 맛은 아주 좋다.
