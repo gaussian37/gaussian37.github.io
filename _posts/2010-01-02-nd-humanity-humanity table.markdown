@@ -9,7 +9,7 @@ tags: [인문학, 경영학, 경제학] # add tag
 
 Humanity 관련 글 목차 입니다.
 
-+ 스타트업 관련 좋은 글 모음
++ [스타트업 관련 좋은 글 모음](https://gaussian37.github.io/nd-humanity-startup/)
 
 <br><br>
 
