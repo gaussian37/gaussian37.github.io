@@ -18,7 +18,7 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 + [추론의 프로세스에서 부각되는 베이즈 추정의 특징](https://gaussian37.github.io/math-pb-bayes-basic5/)
 + [명쾌하고 엄밀하지만 쓸 떼가 한정된 네이만-피어슨 식 추정](https://gaussian37.github.io/math-pb-bayes-basic6/)
 + [베이즈 추정은 적은 양의 정보로 그럴듯한 결론을 이끌어 낸다.](https://gaussian37.github.io/math-pb-bayes-basic7/)
-+ 베이즈 추정은 최우원리에 근거해 있다.
++ [베이즈 추정은 최우원리에 근거해 있다.](https://gaussian37.github.io/math-pb-bayes-basic8/)
 + 베이즈 추정은 때로 직감에 크게 반한다.(2)
 + 복수의 정보를 얻었을 때의 추정(1)
 + 복수의 정보를 얻었을 때의 추정(2)
