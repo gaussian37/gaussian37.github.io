@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (베이즈 통계학 기초) 베이즈 추정은 "최우 원리"에 근거해 있다
-date: 2019-03-02 00:00:00
+date: 2019-03-03 00:00:00
 img: math/pb/probability.jpg
 categories: [math-pb] 
 tags: [통계학, 베이지안, 최우 원리] # add tag
