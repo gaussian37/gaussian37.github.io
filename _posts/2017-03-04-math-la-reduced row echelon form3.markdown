@@ -15,4 +15,3 @@ tags: [Linear algebra, 선형대수학, ref, rref] # add tag
 
 + [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-Linear-Algebra-Table/) 
 
-
