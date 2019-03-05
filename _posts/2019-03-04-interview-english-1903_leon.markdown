@@ -21,3 +21,15 @@ tags: [english, speaking, voca, idiom] # add tag
 + Most people save money for a long time.
 + After retiring from their jobs, people usually travel.
 + Some people like travel and others don't. It depends on their willingness.
+
+### advertising
+
++ print ads.
++ distribute the leaflet to people. 
++ TV and radio commercial
++ WOM (word of mouth)
+    + testimony (증거)
++ be exposed to advertisement.
++ They pester their parents for the advertised product
++ They are easier to persuade because they believe in advertisements without a doubt.
++ persuade buyer
