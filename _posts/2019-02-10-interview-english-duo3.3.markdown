@@ -30,3 +30,6 @@ tags: [english, speaking, voca, idiom] # add tag
     
 + 8 . Natto smells awful but tastes terrific.
     + 낫또는 냄새는 심하지만 맛은 아주 좋다.
+    
++ 9 . "I am soaked with sweat". "Stand back! You stink. Take a shower."
+    + 땀으로 흠뻑 젖었어. 저리가! 냄새나. 샤워해
