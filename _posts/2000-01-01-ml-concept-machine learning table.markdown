@@ -10,7 +10,11 @@ tags: [python, machine learning, ml] # add tag
 + Pattern Recognition(오일석)
     + 베이시언 결정 이론
         + 확률과 통계
-+ [ML(Maximum Likelihood)와 MAP(maximum a posterior)](https://gaussian37.github.io/ml-concept-mle-and-map/)
+    + [ML(Maximum Likelihood)와 MAP(maximum a posterior)](https://gaussian37.github.io/ml-concept-mle-and-map/)
+
+<br>
+
++ 머신러닝의 평가 지표    
 + Anomaly Detection 관련 글
     + [Anomaly Detection with Gaussian Distribution](https://gaussian37.github.io/ml-concept-anomaly-detection/)
     + AutoEncoder를 이용한 Anomaly Detection
@@ -22,3 +26,4 @@ tags: [python, machine learning, ml] # add tag
 + Demensionality Reduction 관련 글
     + [PCA](https://gaussian37.github.io/machine-learning-concept-pca/)
     + [t-SNE](https://gaussian37.github.io/ml-concept-t-SNE/)
+
