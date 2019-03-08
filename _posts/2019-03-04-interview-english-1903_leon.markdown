@@ -33,3 +33,11 @@ tags: [english, speaking, voca, idiom] # add tag
 + They pester their parents for the advertised product
 + They are easier to persuade because they believe in advertisements without a doubt.
 + persuade buyer
+
+### pet
+
++ made from : 재료
++ made by : 회사?, 만든 출처
++ made in : 지역
++ patronize : 후원하다.
++ 약육강식 : the law of the jungle, The weak are the prey of the strong.
