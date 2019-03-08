@@ -54,9 +54,9 @@ tags: [Linear algebra, 선형 대수학] # add tag
         + [점과 평면 사이의 거리](https://gaussian37.github.io/math-la-point-distance-to-plane/)
         + [평면 사이의 거리](https://gaussian37.github.io/math-la-distance-between-planes/)
     + 가감법으로 연립방정식을 풀기 위한 행렬
-        + 행 사다리꼴 행렬을 이용하여 3차연립방정식과 4개의 변수 풀기
-        + 행렬을 이용하여 선형계 풀기
-        + 행 사다리꼴을 이용하여 선형계는 해가 없다는 것을 알아보기
+        + [행 사다리꼴 행렬을 이용하여 3차연립방정식과 4개의 변수 풀기](https://gaussian37.github.io/math-la-reduced-row-echelon-form1/)
+        + [행렬을 이용하여 선형계 풀기](https://gaussian37.github.io/math-la-reduced-row-echelon-form2/)
+        + [행 사다리꼴을 이용하여 선형계는 해가 없다는 것을 알아보기](https://gaussian37.github.io/math-la-reduced-row-echelon-form3/)
     + 영공간과 열공간
         + 행렬 벡터의 곱
         + 행렬의 영공간이란?
