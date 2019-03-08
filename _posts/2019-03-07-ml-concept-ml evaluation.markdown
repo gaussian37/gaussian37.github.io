@@ -108,18 +108,32 @@ y_pred = [0, 2, 1, 0, 0, 1]
 array([ [2, 0, 0],
         [1, 0, 1],
         [0, 2, 0]])
+
+```
+
++ 위 confusion_matrix 예제에서 행은 실제값에 해당하고 열은 예측값에 해당합니다.
++ precision_score에서는 average 옵션으로 `micro`와 `macro`를 둘 수 있습니다.
+    + `None` : 라벨 별 각 평균을 그대로 구합니다.
+    + `micro` : 전체 평균
+    + `macro` : 라벨 별 각 합의 평균
+
+```python
+>> precision_score(y_true, y_pred, average=None)
+array([0.66666667, 0.        , 0.        ])
+
         
 >> precision_score(y_true, y_pred, average='macro')
-0.22222222...
+0.2222222222222222
 
 
->> precision_score(y_true, y_pred, average='macro')
-0.33333333...
+>> precision_score(y_true, y_pred, average='mㅑcro')
+0.3333333333333333
 
 ```
 
 + average를 macro로 두면 각 열에 대한 precision 값을 모두 더한 다음 열의 갯수로 나눈 것입니다.
-+ average를 micro로 두면 모든 열에서 맞은것 즉, 대각선 성분으 총 합을 총 갯수로 나눈 것입니다.
+    + 즉 average를 None으로 두었을 때 구한 각 열의 Precision들을 산술 평균한 값이 `macro`가 됩니다.
++ average를 micro로 두면 전체 평균으로 모든 열에서 맞은것 즉, 대각선 성분의 총 합을 총 갯수로 나눈 것입니다.
 
 <br><br>
 
@@ -142,6 +156,25 @@ y_pred = np.array([0, 1, 0, 0])
 >> recall_score(y_true, y_pred)
 1.0
 ```
+
+```python
+y_true = [0, 1, 2, 0, 1, 2]
+y_pred = [0, 2, 1, 0, 0, 1]
+
+>> recall_score(y_true, y_pred, average=None)
+array([1., 0., 0.])
+
+>> recall_score(y_true, y_pred, average='macro')
+0.3333333333333333
+
+>> recall_score(y_true, y_pred, average='micro')
+0.3333333333333333
+
+```
+
+
++ 앞에서와 마찬가지로 `micro`는 전체 평균, `macro`는 각 열의 산술 평균 입니다.
+
 
 <br><br>
 
