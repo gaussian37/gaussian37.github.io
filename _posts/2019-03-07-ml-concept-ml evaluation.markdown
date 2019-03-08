@@ -178,7 +178,7 @@ print(classification_report(y_true, y_pred, target_names=target_names))
 
 ---
 
-### Precison, Recall, F1 Score에 관하여
+### 이미지 처리에서의 Precison, Recall, F1 Score에 관하여
 
 + A와 B라는 기술이 있습니다. A라는 기술은 이미지에 있는 사람을 99.99% 잡아내지만 이미지 1장 당 평균 10건 정도의 오검출이 발생합니다.
     + 즉, 사람이 아닌 부분도 사람이라고 검출하는 경우가 발생하는 것입니다.
@@ -207,7 +207,7 @@ print(classification_report(y_true, y_pred, target_names=target_names))
 
 #### Precision-recall 그래프
     
-<img src="../assets/img/ml/concept/ml-evaluation/precision-recall.PNG" alt="Drawing" style="width: 400px;"/>
+<img src="../assets/img/ml/concept/ml-evaluation/precision-recall.png" alt="Drawing" style="width: 400px;"/>
 
 + 알고리즘의 파라미터 조절에 따른 precision과 recall의 값의 변화를 그래프로 표현하면 위와 같습니다.
 + 상황에 따라, recall 대신 miss rate = 1- recall을 사용할 수 있고, precision 대신에 false alarm = 1 - precision을 사용할 수 있습니다.
@@ -219,10 +219,10 @@ print(classification_report(y_true, y_pred, target_names=target_names))
     + Precision-recall 그래프에서 그래프 선 아래쪽의 면적을 계산하는 방식입니다.
     + 면적의 값, AP가 클수록 성능이 좋은 알고리즘이라고 할 수 있습니다.
 
-<img src="../assets/img/ml/concept/ml-evaluation/ap.PNG" alt="Drawing" style="width: 400px;"/>
+<img src="../assets/img/ml/concept/ml-evaluation/ap.png" alt="Drawing" style="width: 400px;"/>
 + 위 그래프의 아랫 면적의 총 합이 AP가 됩니다.
 
-+ <img src="../assets/img/ml/concept/ml-evaluation/precision-recall.PNG" alt="Drawing" style="width: 400px;"/>
++ <img src="../assets/img/ml/concept/ml-evaluation/precision-recall.png" alt="Drawing" style="width: 400px;"/>
     + 위 그래프의 legend에서 괄호 안의 숫자가 AP가 됩니다.
 
 #### F-measure
