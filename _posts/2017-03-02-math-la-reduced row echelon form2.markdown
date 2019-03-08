@@ -13,5 +13,13 @@ tags: [Linear algebra, 선형대수학, ref, rref] # add tag
 
 출처 : 칸 아카데미 선형대수학 (https://ko.khanacademy.org/math/linear-algebra/vectors-and-spaces)
 
-+ [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-Linear-Algebra-Table/) 
++ [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-Linear-Algebra-Table/)
 
+ 
+<img src="../assets/img/math/la/rref2/1.png" alt="Drawing" style="width: 600px;"/>
+
++ 이번 글에서는 식의 갯수와 방정식의 갯수가 같고 해가 존재하는 형태의 선형 연립 방정식을 풀어보겠습니다.
+
++ 좌측 상단의 노란색 식과 같이 3개의 선형식이 있으면, 확대 행렬 형태로 표현할 수 있습니다.
++ 확대 행렬을 rref 형식으로 변형을 하면 우측 상단의 행렬 형태로 변환할 수 있습니다.
++ 위와 같이 rref 형태로 식을 간단하게 변형시키면 해를 쉽게 구할 수 있습니다.

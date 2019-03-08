@@ -14,7 +14,9 @@ tags: [Linear algebra, 선형대수학, ref, rref] # add tag
 출처 : [칸 아카데미 선형대수학](https://ko.khanacademy.org/math/linear-algebra/vectors-and-spaces), [비디오](https://youtu.be/L0CmbneYETs?list=PL-AYo7WyW9XfDgdJrnYF-GFmD7pVGJ1Sc)
 
 
-+ [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-Linear-Algebra-Table/) 
++ [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-Linear-Algebra-Table/)
+
++ 이번 글에서 살펴볼 문제는 식의 갯수 보다 변수의 갯수가 많아서 자유 변수가 존재하는 즉, 해가 무한히 많은 형태의 선형 연립 방정식을 풀어보겠습니다. 
 
 <img src="../assets/img/math/la/rref1/1.png" alt="Drawing" style="width: 600px;"/>
 
