@@ -43,7 +43,7 @@ tags: [deep learning, autoencoder] # add tag
     + `Unsupervised learning` : 학습 방식에 해당합니다.
     + `ML density estimation` : `Loss function`이 `Negative Maximum Likelihood`로 해석을 해서 Loss를 Minimize 하면 `Maximum Likelihood`가 됩니다.
 + **학습된 오토인코더**에서
-    + `Manifold learning` : 인코더는 차원 축소 역할을 수행하고 (일반적으로 가운데 차원은 입력 보다 작음) 이것은 Manifold learning 이라고 합니다.
+    + `Manifold learning` : 인코더는 차원 축소 역할을 수행하고 (일반적으로 가운데 차원은 입력 보다 작음) 이것을 Manifold learning 이라고 합니다.
     + `Generative model learning` : manifold learning을 한 결과를 다시 입력 차원과 똑같이 복원을 하는 데 이것을 Generative model 이라고 합니다.   
 
 <img src="../assets/img/dl/concept/autoencoder1/1-6.jpg" alt="Drawing" style="width: 800px;"/>
