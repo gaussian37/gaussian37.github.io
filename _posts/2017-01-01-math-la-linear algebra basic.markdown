@@ -82,7 +82,7 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
 
 + 모든 정방행렬이 이런 방식의 eigen decomposition이 가능한 것은 아니지만 대각화 가능한 경우 아래 항목을 쉽게 계산할 수 있습니다.
     + det(A)
-        +  $$ det(A) = det(P\Lambda P^{-1}) $$
+        +   $$ det(A) = det(P\Lambda P^{-1}) $$
         +  $$ = det(P) \ det(\Lambda) \ det(P)^{-1} $$
         +  $$ = det(\Lambda) $$
         +  $$ = \lambda_{1}\lambda_{2}\cdots\lambda_{n} $$ ... `9번식`
