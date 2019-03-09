@@ -110,6 +110,11 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
         +  $$ = P(a_{0}E + a_{1}\Lambda + \cdots + a_{n}\Lambda^{n})P^{-1} $$
         +  $$ = P \ diag(f(\lambda_{1}), \cdots , f(\lambda_{n}))P^{-1} $$ ... `13번식` 
         + 행렬의 다항식은 고유값과 고유벡터를 이용하여 간략하게 표현할 수 있습니다.
+
+<br>
+
+### 4. 고유값 분해(eigen-decomposition) 가능조건 - 일차 독립
+
         
 
 <br><br>
