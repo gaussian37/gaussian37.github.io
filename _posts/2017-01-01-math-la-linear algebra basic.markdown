@@ -37,14 +37,14 @@ tags: [Linear algebra, 선형대수학] # add tag
 ### 1. 고유값과 고유벡터란?
 
 + 고유값(eigenvalue)와 고유벡터(eigenvector)에 대한 수학정 정의는 간단합니다.
-    + 행렬 A를 선형변환으로 봤을 때, 선형변환 A에 의한 변환 결과가 자기 자신의 상수배가 되는 0이 아닌 벡터를 `고유벡터` 
+    + **행렬 A를 선형변환**으로 봤을 때, 선형변환 A에 의한 변환 결과가 자기 자신의 상수배가 되는 0이 아닌 벡터를 `고유벡터` 
     + 이 때, 상수배 값을 `고유값`이라고 합니다.
     + `고유벡터` : n x n 정방행렬(고유값, 고유벡터는 정방행렬에 대해서만 정의됨) A에 대하여 $$ Av = \lambda v $$를 만족하는 0이아닌 벡터
     + `고유값` : 상수 $$ \lambda $$
     
-$$ Av = \lambda v $$ ... `1번식`
++ ·$$ Av = \lambda v $$ ... `1번식`
 
-$$ \begin{pmatrix} a_{11} & ... & a_{1n} \\     ... & ... & ... \\ a_{n1} & ... & a_{nn} \\ \end{pmatrix} \begin{pmatrix} v_{1} \\ ... \\ v_{n}\end{pmatrix} = \lambda \begin{pmatrix} v_{1} \\ ... \\ v_{n}\end{pmatrix} $$ ... `2번식` 
+$$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a_{n1} & \cdots & a_{nn} \\ \end{pmatrix} \begin{pmatrix} v_{1} \\ \vdots \\ v_{n}\end{pmatrix} = \lambda \begin{pmatrix} v_{1} \\ \vdots \\ v_{n}\end{pmatrix} $$ ... `2번식` 
     
 + 좀 더 정확한 용어로 $$ \lambda $$는 **행렬 A의 고유값**이고 v는 행렬 A의 $$\lambda$$ 에 대한 **고유벡터**이다 라고 말할 수 있습니다.
 + 고유값과 고유벡터는 행렬에 따라 정의되는 값으로서 어떤 행렬은 고유값과 고유벡터가 존재하지 않을 수도 있습니다.
