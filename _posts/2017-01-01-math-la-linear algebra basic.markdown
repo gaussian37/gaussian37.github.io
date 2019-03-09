@@ -42,7 +42,7 @@ tags: [Linear algebra, 선형대수학] # add tag
     + `고유벡터` : n x n 정방행렬(고유값, 고유벡터는 정방행렬에 대해서만 정의됨) A에 대하여 $$ Av = \lambda v $$를 만족하는 0이아닌 벡터
     + `고유값` : 상수 $$ \lambda $$
     
-+ \ $$ Av = \lambda v $$ ... `1번식`
++  $$ Av = \lambda v $$ ... `1번식`
 
 $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a_{n1} & \cdots & a_{nn} \\ \end{pmatrix} \begin{pmatrix} v_{1} \\ \vdots \\ v_{n}\end{pmatrix} = \lambda \begin{pmatrix} v_{1} \\ \vdots \\ v_{n}\end{pmatrix} $$ ... `2번식` 
     
