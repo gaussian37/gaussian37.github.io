@@ -2,8 +2,8 @@
 /* Document
    ========================================================================== */
 @font-face {
- font-family:"BMJUA_ttf";
- src: url('../fonts/BMJUA_ttf.ttf');
+ font-family:"NanumGothic";
+ src: url('../fonts/NanumGothic.ttf');
 }
 
 /**
@@ -26,7 +26,7 @@ html {
  * Remove the margin in all browsers (opinionated).
  */
 body {
-  font-family: "BMJUA_ttf"
+  font-family: "NanumGothic"
   margin: 0;
 }
 
@@ -779,7 +779,7 @@ html {
 }
 
 body {
-  font-family: 'BMJUA_ttf', sans-serif;
+  font-family: 'NanumGothic', sans-serif;
   color: #515151;
   background-color: #fbfbfb;
   margin: 0;
@@ -890,7 +890,7 @@ table tfoot td {
 }
 
 .wrapper {
-  font-family:"BMJUA_ttf";
+  font-family:"NanumGothic";
   max-width: 1250px;
   position: relative;
 }
@@ -1172,7 +1172,7 @@ footer .copyright {
 }
 
 .post .post-content .post-title a {
-  font-family: 'BMJUA_ttf', serif;
+  font-family: 'NanumGothic', serif;
   text-decoration: none;
   color: #000000;
 }
