@@ -66,17 +66,17 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
 
 + 고유값, 고유벡터는 정방행렬의 대각화와 밀접한 관련이 있습니다. 
 + 대각행렬과의 행렬곱에 대해 살펴보면, 대각행렬을 뒤에 곱하면 행렬의 열벡터들이 **대각원소의 크기만큼 상수배**가 됩니다
-+ ·$$ \begin{pmatrix} v_{11} & v_{12} & v_{13} \\ v_{21} & v_{22} & v_{23} \\ v_{31} & v_{32} & v_{33} \\ \end{pmatrix} \begin{pmatrix} \lambda_{1} & 0 & 0 \\ 0 & \lambda_{1} & 0 \\ 0 & 0 & \lambda_{1} \\ \end{pmatrix} = \begin{pmatrix} \lambda_{1}v_{11} & \lambda_{2}v_{12} & \lambda_{3}v_{13} \\ \lambda_{1}v_{21} & \lambda_{2}v_{22} & \lambda_{3}v_{23} \\ \lambda_{1}v_{31} & \lambda_{2}v_{32} & \lambda_{3}v_{33} \\ \end{pmatrix} $$ ... `3번식`
++  $$ \begin{pmatrix} v_{11} & v_{12} & v_{13} \\ v_{21} & v_{22} & v_{23} \\ v_{31} & v_{32} & v_{33} \\ \end{pmatrix} \begin{pmatrix} \lambda_{1} & 0 & 0 \\ 0 & \lambda_{1} & 0 \\ 0 & 0 & \lambda_{1} \\ \end{pmatrix} = \begin{pmatrix} \lambda_{1}v_{11} & \lambda_{2}v_{12} & \lambda_{3}v_{13} \\ \lambda_{1}v_{21} & \lambda_{2}v_{22} & \lambda_{3}v_{23} \\ \lambda_{1}v_{31} & \lambda_{2}v_{32} & \lambda_{3}v_{33} \\ \end{pmatrix} $$ ... `3번식`
 + 행렬 A의 고유값, 고유벡터들을 $$ \lambda_{i}, v_{i}, i=1,2,3, ..., n $$ 이라고 하겠습니다.
-    + ·$$ \begin{matrix} Av_{1} = \lambda_{1}v_{1} \\ Av_{2} = \lambda_{2}v_{2} \\ ... \\ Av_{n} = \lambda_{n}v_{n} \\ \end{matrix} $$ ... `4번식`
+    +  $$ \begin{matrix} Av_{1} = \lambda_{1}v_{1} \\ Av_{2} = \lambda_{2}v_{2} \\ ... \\ Av_{n} = \lambda_{n}v_{n} \\ \end{matrix} $$ ... `4번식`
 + `4번식`을 한꺼번에 표현하여 정리해보겠습니다.
-    + ·$$ A[v_{1} \ v_{2} \ ... v_{n}] = [\lambda_{1}v_{1} \ \lambda_{2}v_{2} \ ... \lambda_{n}v_{n}] = [v_{1} \ v_{2} \ ... v_{n}] \begin{bmatrix} \lambda_{1} & 0 & \cdots & 0 \\ 0 & \lambda_{2} & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & 0 & \lambda{n} \\ \end{bmatrix} $$ ... `5번식`
+    +  $$ A[v_{1} \ v_{2} \ ... v_{n}] = [\lambda_{1}v_{1} \ \lambda_{2}v_{2} \ ... \lambda_{n}v_{n}] = [v_{1} \ v_{2} \ ... v_{n}] \begin{bmatrix} \lambda_{1} & 0 & \cdots & 0 \\ 0 & \lambda_{2} & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & 0 & \lambda{n} \\ \end{bmatrix} $$ ... `5번식`
 + 행렬 A의 고유벡터들을 열벡터로 하는 행렬을 $$ P $$, 고유값들을 대각원소로 하는 대각 행렬을 $$ \Lambda $$라고 하면 다음식이 성립합니다.
-    + ·$$ AP = P\Lambda $$ ... `6번식`
-    + ·$$ A = P\Lambda P^{-1} $$ ... `7번식`
+    +  $$ AP = P\Lambda $$ ... `6번식`
+    +  $$ A = P\Lambda P^{-1} $$ ... `7번식`
 + 이와 같이 행렬 A는 자신의 `고유벡터들을 열벡터로 하는 행렬`과($$ P $$) `고유값을 대각원소로 하는 행렬`($$ \Lambda $$)의 곱으로 대각화 분해가 가능합니다.
     + 이러한 대각화 분해를 `eigen-decomposition` 이라고 합니다.
-    + ·$$ \begin{bmatrix} 1 & 1 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 3 \\ \end{bmatrix} \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \\ 0 & 0 & 2 \\ \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \\ \end{bmatrix} \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \\ 0 & 0 & 2 \\ \end{bmatrix}^{-1} $$ ... `8번식`
+    +  $$ \begin{bmatrix} 1 & 1 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 3 \\ \end{bmatrix} \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \\ 0 & 0 & 2 \\ \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \\ \end{bmatrix} \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \\ 0 & 0 & 2 \\ \end{bmatrix}^{-1} $$ ... `8번식`
 
 <br>
 
