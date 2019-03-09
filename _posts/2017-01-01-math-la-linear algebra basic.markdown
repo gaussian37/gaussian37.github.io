@@ -82,16 +82,36 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
 
 + 모든 정방행렬이 이런 방식의 eigen decomposition이 가능한 것은 아니지만 대각화 가능한 경우 아래 항목을 쉽게 계산할 수 있습니다.
     + det(A)
+        +  $$ det(A) = det(P\Lambda P^{-1}) $$
+        +  $$ = det(P) \ det(\Lambda) \ det(P)^{-1} $$
+        +  $$ = det(\Lambda) $$
+        +  $$ = \lambda_{1}\lambda_{2}\cdots\lambda_{n} $$ ... `9번식`
+        + **행렬 A의 determinant는 고유값들의 곱**과 같습니다.
     + A의 거듭제곱
+        +  $$ A^{k} = (P\Lambda P^{-1})^{k}$$
+        +  $$ = (P\Lambda P^{-1})(P\Lambda P^{-1})\cdots (P\Lambda P^{-1}) $$
+        +  $$ = P\Lambda^{k}P^{-1} $$
+        +  $$ = P \ diag(\lambda_{1}^{k}, \cdots , \lambda_{n}^{k}) P^{-1} $$ ... `10번식`
+        + **행렬 A의 거듭제곱은 $$ P $$와 $$ \Lambda $$의 곱**으로 나타내어 집니다.
     + 역행렬
+        +  $$ A^{-1} = (P\Lambda P^{-1})^{-1} $$
+        +  $$ = P\Lambda^{-1}P^{-1} $$
+        +  $$ = P \ diag(\frac{1}{\lambda_{1}}, \cdots , \frac{1}{\lambda_{n}}) P^{-1} $$ ... `11번식`
+        + **행렬 A의 역행렬은 $$ P $$와 $$ \Lambda $$의 곱**으로 나타내어 집니다.         
     + 대각합(trace)
-    + 행렬의 다항식 
-  
+        +  $$ tr(A) = tr(P\Lambda P^{-1})$$
+        +  $$ = tr(\Lambda) (\because tr(AB) = tr(BA) ) $$
+        +  $$ = \lambda_{1} + \cdots + \lambda_{n}$$ ... `12번식`
+        + **행렬 A의 대각합은 고유값의 합**과 같습니다.
+    + 행렬의 다항식
+        +  $$ f(A) = a_{0}E + a_{1}A + \cdots + a_{n}A^{n} (f(x) = a_{0} + a_{1}x + \cdots +a_{n}X^{n})$$
+        +  $$ = a_{0}PP^{-1} + a_{1}P\Lambda P^{-1} + \cdots + a_{n}P\Lambda^{n}P^{-1} $$
+        +  $$ = P(a_{0}P^{-1} + a_{1}\Lambda P^{-1} + \cdots + a_{n}\Lambda^{n}P^{-1})$$
+        +  $$ = P(a_{0}E + a_{1}\Lambda + \cdots + a_{n}\Lambda^{n})P^{-1} $$
+        +  $$ = P \ diag(f(\lambda_{1}), \cdots , f(\lambda_{n}))P^{-1} $$ ... `13번식` 
+        + 행렬의 다항식은 고유값과 고유벡터를 이용하여 간략하게 표현할 수 있습니다.
+        
 
-
-
-    
-    
 <br><br>
 
 ## 특이값분해(SVD)
