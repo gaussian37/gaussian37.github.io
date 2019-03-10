@@ -6,7 +6,7 @@ img: /My/kjs.jpg # Add image post (optional)
 tags: [Introduction] # add tag
 ---
 
-**Data Scientist**.
+**Data Scientist**
 
 + Name : KIM JINSOL
 
@@ -17,21 +17,24 @@ tags: [Introduction] # add tag
     
 + Education :
     + [Inha University](http://www.inha.ac.kr/mbshome/mbs/eng/index.do). B.S. in Computer Engineer
-    + Coursera
-        + Mathematics for Machine Learning Specialization
-            + Linear Algebra
-            + Multivariable Calculaus
-            + PCA
-        + Machine Learning (Andrew Ng)
-        + Applied Data Science with Python Specialization
-        + Deep Learning Specialization (Andrew Ng)
+    + Mathematics for Machine Learning Specialization (UCL)
+    + Applied Data Science with Python Specialization (Michigan University)
+    + Data Mining Specialization (University of Illinois at Urbana-Champaign)
+    + Deep Learning Specialization (Andrew Ng)
+    + Machine Learning (Andrew Ng)
                  
 + ROI :
     - Machine/Deep Learning      
     - Computer Vision    
     
 + Skills : 
-    - Python
-    - OpenCV
-    - Keras     
-    - Django
+    + Language
+        + Python, C++
+    + Machine Learning
+        + Scikit-learn
+    + Deep Learning
+        + Keras, Tensorflow
+    + Computer Vision
+        + OpenCV
+    + Web Development
+        + Django
