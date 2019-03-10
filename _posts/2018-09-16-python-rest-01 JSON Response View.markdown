@@ -7,7 +7,7 @@ categories: [python-rest]
 tags: [python, django, rest] # add tag
 ---
 
-### What is API server?
+### API 서버는 무엇일까요?
 
 + 앱/웹 서비스를 만드는 **개발자**들이 이용하는 `데이터 위주`의 서비스 
 + API 서버는 시간이 지나도 호환성을 유지해야 합니다.
@@ -17,7 +17,8 @@ tags: [python, django, rest] # add tag
 + django`rest`framework(이하 `DRF`)는 REST API를 만드는 데 도움을 줍니다.
     - URI는 `https://{serviceRoot}/{collection}/{id}' 형식이어야 합니다.
     - DRF는 GET, PUT, DELETE, POST, HEAD, PATCH, OPTIONS 기능을 지원해야 합니다.
-    - API 버전은 `Major.minor` 형태로 관리하고 URI에 버전 정보를 포함시켜야 합니다. 
+    - API 버전은 `Major.minor` 형태로 관리하고 URI에 버전 정보를 포함시켜야 합니다.
++ DRF는 장고의 Form/CBV을 컨셉을 그대로 가져왔습니다. 따라서 장고 Form/CBV를 잘 이해한다면 DRF에 대해서도 보다 깊은 이해가 가능합니다. 
 
 <br>
     
