@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Create JSON Response view
+title: JSON 응답뷰 만들기
 date: 2018-09-16 18:43:00
 img: python/rest/rest.png
 categories: [python-rest] 
@@ -9,38 +9,40 @@ tags: [python, django, rest] # add tag
 
 ### What is API server?
 
-+ Data oriented services for **developer** who make web/app services.
-+ API server must maintain compatability over time.
-    - Accordingly, API sever has version.
++ 앱/웹 서비스를 만드는 **개발자**들이 이용하는 `데이터 위주`의 서비스 
++ API 서버는 시간이 지나도 호환성을 유지해야 합니다.
+    - 따라서 API 버전의 개념을 두어야 합니다.
         - ex) /api/v1/posts, /api/v2/posts/
 
-+ django`rest`framework(in short, DRF) helps to make REST API concept below.
-    - URI format is `https://{serviceRoot}/{collection}/{id}'
-    - DRF support GET, PUT, DELETE, POST, HEAD, PATCH, OPTIONS.
-    - API vesion is Major.minor and is included in URI
++ django`rest`framework(이하 `DRF`)는 REST API를 만드는 데 도움을 줍니다.
+    - URI는 `https://{serviceRoot}/{collection}/{id}' 형식이어야 합니다.
+    - DRF는 GET, PUT, DELETE, POST, HEAD, PATCH, OPTIONS 기능을 지원해야 합니다.
+    - API 버전은 `Major.minor` 형태로 관리하고 URI에 버전 정보를 포함시켜야 합니다. 
 
 <br>
     
 ### CRUD
 
-+ All data can be managed by actions which Create/Read/Update/Delete records
-    - C : Create 
-    - R : Read 
-    - U : Update
-    - D : Delete
++ 모든 데이터는 기본적으로  Create/Read/Update/Delete 로 관리가 되어야 합니다.
+    - C : Create (레코드 생성)
+    - R : Read (레코드 목록 조회, 특정 레코드 상세 조회)
+    - U : Update (특정 레코드 수정)
+    - D : Delete (특정 레코드 삭제)
 
 <br>
 
-### REST API URL example
+### REST API URL 예제
 
-+ A Post model needs following function when it offers API services
-    - Get new posting and registers it and respond (e.g. **/post/new/**)
-    - respond posting list and search (e.g. request **GET on /post/ address**)
-    - respond specific positing contents (e.g. **On 10th articles, Get on /post/10/**)
-    - update specific posting contents and respond (e.g. **POST on /post/10/update**)
-    - delete specific posting contents and respond (e.g. **POST on /post/10/delete**)
++ REST API 식의 URL로 설계를 해보면 다음과 같이 해볼 수 있습니다.
+    + /post/주소
+        + GET 방식 요청 : 목록 응답
+        + POST 방식 요청 : 새 글 생성하고, 확인 응답
+    + /post/1/주소
+        + GET 방식 요청 : 1번글 응답
+        + PUT 방식 요청 : 1번글 갱신하고 확인 응답
+        + DELETE 방식 요청 : 1번글 삭제하고 확인 응답
 
-**DRF** is the framework offering `Class Based View` which helps create REST API.
++ django`rest`framework는 REST API 구현을 도와주는 Class Based View를 제공해주는 프레임워크입니다. 
 
 <br>
 
@@ -50,7 +52,7 @@ tags: [python, django, rest] # add tag
 
 <br>
 
-First, create project in command line. Any project name is ok.
++ 먼저 프로젝트를 하나 만들어 보겠습니다. 커맨드 라인에 다음과 같이 입력하면 프로젝트가 생성됩니다.
 
 ```python
 django-admin startproject djangoRestApi
@@ -59,14 +61,14 @@ cd/djangoRestApi
 
 <br>
 
-create app in command line. app name is sample
++ 프로젝트에서 사용할 앱을 만들어 보겠습니다. 앱 이름은 sample로 지정해보면 아래와 같습니다.
 ```python
 python manage.py startapp sample
 ```
 
 <br>
 
-In djangoRestApi/settings.py, add `rest_framework`, `sample`.
+djangoRestApi/settings.py, 에서 `INSTALLED_APPS`에 `rest_framework`, `sample`.를 추가해 보겠습니다.
 
 ```python
 INSTALLED_APPS = [
@@ -83,8 +85,10 @@ INSTALLED_APPS = [
 
 <br>
 
++ 앱에서 모델을 추가해 보겠습니다.
+
 ```python
-# myapp/models.py
+# sample/models.py
 from django.db import models
 
 class Post(models.Model):
@@ -93,17 +97,13 @@ class Post(models.Model):
 
 <br>
 
-In the sample directory, set the files as below.
++ 같은 디렉토리에서 다음과 같이 `serializers.py`를 만들고 안에 코드를 추가해 보겠습니다.
 
 ```python
 # myapp/serializers.py
 from rest_framework import serializers
 from .models import Post
-```
 
-<br>
-
-```python
 # ModelSerializer (instead of ModelForm)
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
@@ -112,6 +112,8 @@ class PostSerializer(serializers.ModelSerializer):
 ```
 
 <br>
+
++ views.py에 Serializers.py에서 작성한 내용을 불러오겠습니다.
 
 ```python
 # myapp/views.py
@@ -127,8 +129,10 @@ class PostViewSet(viewsets.ModelViewSet):
 
 <br>
 
++ sample/urls.py에서 views.py에 선언된 값들을 url로 연결해줍니다.
+
 ```python
-# myapp/urls.py
+# sample/urls.py
 from rest_framework.routers import DefaultRouter
 from . import views
 
@@ -141,32 +145,38 @@ urlpatterns = [
 ```
 <br>
 
-### API Call
+### API 호출
 
-API view can be called by various client program.
++API 뷰 호출은 다양한 클라이언트 프로그램에 의하여 호출될 수 있습니다.
+    + JavaScript from web frontend
+    + Android/iOS app code
+    + Library (ex.requests)
+    + CLI Program : cURL, HTTPie
 
-+ JavaScript from web frontend
-+ Android/iOS app code
-+ Library (ex.requests)
-+ CLI Program : cURL, HTTPie
+### HTTPie 란?
 
-### What is the HTTPie ?
-
-You can install easily
++ 다음 명령어를 통해 간단히 설치할 수 있습니다.
 
 ```python
 pip install --upgrade httpie
 ```
 
-In the CLI, we can use `http` command.
+<br>
 
-For examples,
++ 설치를 하면 CLI에서 `http`라는 명령어를 사용할 수 있습니다.
++ 예를 들면 다음과 같습니다.
 
+```python
 shell> http GET `request address` `GET parameter`==value `GET parameter`==값 <br>
 shell> http --json POST `request address` `GET parameter`==value `GET parameter`==값 `POST parameter`==value `POST parameter`==value <br>
 shell> http --form POST `request address` `GET parameter`==value `GET parameter`==값 `POST parameter`==value `POST parameter`==value <br>
 shell> http PUT `request address` `GET parameter`==value `GET parameter`==값 `POST parameter`==value `POST parameter`==value <br>
-shell> http DELETE `request address` `GET parameter`==value `GET parameter`==값 <br>
+shell> http DELETE `request address` `GET parameter`==value `GET parameter`==값 
+```
+
+<br>
+
++ 참고로 GET 인자에는 `==`을 사용하고 POSㅆ 인자에는 `=`를 사용하였습니다.
 
 POST requests are classified two way.
 + In specifying `--form` : multipart/form-data request : identical to HTML format
@@ -326,3 +336,4 @@ X-Processed-Time: 0.000683069229126
     "url": "http://httpbin.org/delete"
 }
 ``` 
+
