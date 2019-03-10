@@ -9,9 +9,7 @@ tags: [Introduction] # add tag
 **Data Scientist**
 
 + Name : KIM JINSOL
-
-+ Online ID : gaussian37
-
++ Linked In : https://www.linkedin.com/in/gaussian37
 + Work Experience : 
     - [Hyundai Motors](https://www.hyundai.com/worldwide/en) Researcher (Feb. 2016 ~ )
     
