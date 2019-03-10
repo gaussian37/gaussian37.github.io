@@ -178,11 +178,13 @@ shell> http DELETE `request address` `GET parameter`==value `GET parameter`==값
 
 + 참고로 GET 인자에는 `==`을 사용하고 POSㅆ 인자에는 `=`를 사용하였습니다.
 
-POST requests are classified two way.
-+ In specifying `--form` : multipart/form-data request : identical to HTML format
-+ In specifying `--json` or skipping it : application/json request : send the data with serialized JSON format
++ POST requests는 다음과 같이 두 가지 방식으로 나뉘어 집니다.
+    + In specifying `--form` : multipart/form-data 요청 : HTML Form과 동일합니다.
+    + In specifying `--json` or 생략 시 : application/json 요청 : 요청 데이터를 JSON포맷으로 직렬화해서 전달합니다.
 
-GET request
+<br>
+
++ GET request 예시
 
 ```
 shell> http GET httpbin.org/get x==1 y==2
@@ -217,7 +219,7 @@ X-Processed-Time: 0.000959157943726
 ```
 <br>
 
-POST request
++ POST request 예시
 
 ```
 shell> http --form POST "httpbin.org/post" a=1 b=2 c=3
@@ -260,7 +262,7 @@ X-Processed-Time: 0.00148487091064
 
 <br>
 
-PUT request
++ PUT request 예시
 
 ```
 shell> http PUT httpbin.org/put hello=world
@@ -301,7 +303,7 @@ X-Processed-Time: 0.00133204460144
 
 <br>
 
-DELETE request
++ DELETE request 예시
 
 ```
 shell> http DELETE "httpbin.org/delete"
