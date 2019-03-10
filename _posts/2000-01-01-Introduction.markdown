@@ -6,6 +6,8 @@ img: /My/cv.jpg # Add image post (optional)
 tags: [Introduction] # add tag
 ---
 
+<br><br>
+
 ### Data Scientist
 
 <img src="../assets/img/My/kjs.jpg" alt="Drawing" style="width: 300px;"/>
