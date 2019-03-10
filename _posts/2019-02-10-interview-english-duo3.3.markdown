@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Duo 3.3 공부한 내용
-date: 9999-02-10 00:00:00 +0300
+date: 9999-01-01 00:00:00 +0300
 img: interview/english/English.jpg
 categories: [interview-english] 
 tags: [english, speaking, voca, idiom] # add tag
