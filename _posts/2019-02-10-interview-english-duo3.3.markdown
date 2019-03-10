@@ -33,3 +33,6 @@ tags: [english, speaking, voca, idiom] # add tag
     
 + 9 . "I am soaked with sweat". "Stand back! You stink. Take a shower."
     + 땀으로 흠뻑 젖었어. 저리가! 냄새나. 샤워해
+    
++ 10 . Bob was so beside himself that he could scarcely tell fact from fiction.
+    + Bob은 몹시 흥분해서 현실과 허구를 거의 구별할 수 없었다. 

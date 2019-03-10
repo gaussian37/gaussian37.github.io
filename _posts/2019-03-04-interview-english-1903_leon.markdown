@@ -41,3 +41,12 @@ tags: [english, speaking, voca, idiom] # add tag
 + made in : 지역
 + patronize : 후원하다.
 + 약육강식 : the law of the jungle, The weak are the prey of the strong.
++ raise/keep pets
++ to reduce the heart diseases.
++ large chunk : 큰 덩어리
++ obssesed with ~ : ~에 강박 관념을 가지다.
++ 어떤 사람은 육식을 안할까?
+    + People have different reason
+    + They raise pets.
+    + Some country believes the religion or have special culture not to eat specific meat.
+    + Some people are vegetarian
