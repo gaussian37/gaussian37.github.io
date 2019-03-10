@@ -2,11 +2,13 @@
 layout: post
 title: CV
 date: 9999-12-31 17:00:00 +0300
-img: /My/kjs.jpg # Add image post (optional)
+img: /My/cv.jpg # Add image post (optional)
 tags: [Introduction] # add tag
 ---
 
-**Data Scientist**
+### Data Scientist
+
+<img src="../assets/img/My/kjs.jpg" alt="Drawing" style="width: 300px;"/>
 
 + Name : KIM JINSOL
 + Linked In : https://www.linkedin.com/in/gaussian37
