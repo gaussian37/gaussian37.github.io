@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Recommender System(추천 시스템)
+title: Recommender System
 date: 2019-03-12 00:00:00
 img: ml/concept/machineLearning.jpg
 categories: [ml-concept] 
