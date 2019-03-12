@@ -56,3 +56,10 @@ pip install openpyxl
     + ```python B1.coordinate ```
     + ```python B1.value ```
 
+<br>
+
++ 셀에 데이터를 입력하는 방법에 대하여 알아보겠습니다.
+    + ```python sheet.cell(row=row_index, column=column_index).value = 값
+    + ```python sheet.cell(row=1, column=1).value = 10
+        + (1,1) 즉, A1에 10을 대입합니다.
+    
