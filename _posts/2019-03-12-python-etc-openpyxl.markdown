@@ -73,3 +73,19 @@ wb = openpyxl.Workbook()
 
 wb.save(filepath)
 ```
+
+<br>
+
++ sheet.iter_rows()와 sheet.iter_cols()를 이용하여 특정 범위의 셀에 접근할 수 있습니다.
+
+```python
+allList = []
+for row in sheet.iter_rows(min_row=1, max_row=10, min_col=2, max_col=5):
+    a = []
+    for cell in row:
+        a.append(cell.value)
+    allList.append(a)
+```
+
++ sheet.iter_rows()/iter_cols()를 선언하면 generator가 생성됩니다.
++ 생성된 generator를 이용하여 row와 col의 min/max 범위에 맞게 접근합니다.
