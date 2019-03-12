@@ -17,7 +17,7 @@ tags: [ml, machine learning, recommender system, 추천 시스템] # add tag
     + 　$$ n_{m} $$ : 영화의 갯수
     + 　$$ r(i, j) $$ : 만약 $$ j $$번째 사람이 $$ i $$번째 영화를 평가 하였으면 1
     + 　$$ y^{(i,j)} $$ : $$ j $$번째 사람이 $$ i $$번째 영화에 매긴 평점 (오직 $$ r(i,j) = 1$$ 인 경우만 값이 존재함)
-+ 위 도포에서 ?는 아직 영화를 보지 않았거나 평점이 없는 경우입니다. 이 값을 `missing value`라고 하고 자동적으로 값을 채워줘야 합니다.
++ 위 도에서 ?는 아직 영화를 보지 않았거나 평점이 없는 경우입니다. 이 값을 `missing value`라고 하고 자동적으로 값을 채워줘야 합니다.
     + 자동으로 채우는 방법에 대해서는 아래 글에서 다루겠습니다.
     
 <br>
@@ -30,15 +30,15 @@ tags: [ml, machine learning, recommender system, 추천 시스템] # add tag
 + 추가된 가장 오른쪽 2개의 열 $$ x_{1}, x_{2} $$는 `feature vector`입니다.
     + `feature vector`는 영화의 성격을 나타냅니다.
     + 일반적으로 `bias`에 해당하는 $$ x_{0} $$은 따로 표시 않았고 여기에서도 연산할 때에만 추가됩니다.
-        + 예를 들어 $$ x_{0} = 1 $$로 두면,
-        + 　$$ x^{i} = [x_{0}^{i}, x_{1}^{i}, x_{2}^{i}]^{T} $$ 가 됩니다.
-        + 따라서 $$ x^{1} = [1, 0.9, 0]^{T} $$이 됩니다.
+        + 　$$ x^{i} = [x_{0}^{i}, x_{1}^{i}, x_{2}^{i}]^{T} $$ 에서
+        + 예를 들어 $$ x_{0} = 1 $$로 두면,        
+        + $$ x^{1} = [1, 0.9, 0]^{T} $$이 됩니다.
     + 일반적으로 `bias`는 feature의 갯수에서 제외합니다.
 
 <br>
 
 + <img src="../assets/img/ml/concept/Recommender-systems/1.PNG" alt="Drawing" style="width: 600px;"/>
-+ 위 슬라이드에서 $$ j $$ 번째 사람은 파라미터 $$ \theeta^{j} $$를 학습해야 합니다.
++ 위 슬라이드에서 $$ j $$ 번째 사람은 파라미터 $$ \theta^{j} $$를 학습해야 합니다.
     + 이 때 파라미터의 차수는 $$ n + 1 $$이 됩니다.
 + 예를 들어 1번째 사람의 학습된 파라미터의 결과가 $$ [0, 5, 0] $$ 이라고 가정하겠습니다.
 + 1번째 사람이 아직 정하지 못한 점수의 영화는 3번째 영화이므로 3번째 영화의 feature를 가져오겠습니다.
@@ -49,9 +49,9 @@ tags: [ml, machine learning, recommender system, 추천 시스템] # add tag
 
 + <img src="../assets/img/ml/concept/Recommender-systems/2.PNG" alt="Drawing" style="width: 600px;"/>
 + 상세 용어에 대한 설명은 위 슬라이드와 같습니다.
-    + 　$$ r(i,j), y^{(i,j)} $$는 각각 평점을 했는지 체크하는 값과 평점값에 해당합니다.
-    + 　$$ \theta{j} $$는 $$ j $$번째 사람의 벡터에 해당합니다.
-    + 　$$ x^{i} $$ 는 i번째 영화의 **feature** 벡터에 해당합니다.
+    + 　$$ r(i,j), y^{(i,j)} $$는 각각 평점을 매겼는지 체크하는 값과 평점값에 해당합니다.
+    + 　$$ \theta{j} $$는 $$ j $$번째 사람의 영화 취향에 관한 벡터에 해당합니다.
+    + 　$$ x^{i} $$ 는 i번째 영화의 성격에 관한 **feature** 벡터에 해당합니다.
     + 따라서 $$ j $$번째 사람의 벡터와 $$ i $$ 번째 영화의 feature 벡터의 벡터곱을 하면 $$ j $$ 번째 사람의 $$ i $$ 번째 영화에 대한 평점을 예상할 수 있습니다.
     + 　$$ m^{j} $$는 $$ j $$ 번째 사람이 평점을 매긴 영화의 갯수 입니다.
 + 위 용어를 참조하여 $$ j $$ 번째 사람의 $$ i $$ 번째 영화에 대한 평점을 예측하는 것을 살펴보겠습니다.
@@ -68,7 +68,7 @@ tags: [ml, machine learning, recommender system, 추천 시스템] # add tag
 
 <br>
 
-+ <img src="../assets/img/ml/concept/Recommender-systems/4.PNG" alt="Drawing" style="width: 600px;"/>
++ <img src="../assets/img/ml/concept/Recommender-systems/4.png" alt="Drawing" style="width: 600px;"/>
 + 앞의 슬라이드에서 정의한 오차 함수를 `gradient descent` 방법으로 최적화 시킵니다.
     + 위 슬라이드의 식과 같이 $$ \frac{\partial}{\partial \theta_{k}^{(j)} } J(\theta^{(1)}, \cdots , \theta^{(n_{u})} )
     
