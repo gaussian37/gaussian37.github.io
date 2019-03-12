@@ -14,16 +14,17 @@ tags: [python, machine learning, ml] # add tag
 
 <br>
 
-+ 머신러닝의 평가 지표    
-+ Anomaly Detection 관련 글
++ [머신러닝의 평가 지표](https://gaussian37.github.io/ml-concept-ml-evaluation/)    
++ Anomaly Detection
     + [Anomaly Detection with Gaussian Distribution](https://gaussian37.github.io/ml-concept-anomaly-detection/)
     + AutoEncoder를 이용한 Anomaly Detection
     + Anomaly Detection에서의 불균형한 데이터 다루기
     + Supervised Learning 으로 Anomaly Detection 실습
     + Unsupervised Learning으로 Anomaly Detection 실습
     + Text 데이터로 Anomaly Detection 실습
++ Recommender System
     
-+ Demensionality Reduction 관련 글
++ Demensionality Reduction
     + [PCA](https://gaussian37.github.io/machine-learning-concept-pca/)
     + [t-SNE](https://gaussian37.github.io/ml-concept-t-SNE/)
 
