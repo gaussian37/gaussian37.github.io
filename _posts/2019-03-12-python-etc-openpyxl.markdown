@@ -62,4 +62,14 @@ pip install openpyxl
     + ```python sheet.cell(row=row_index, column=column_index).value = 값 ```
     + ```python sheet.cell(row=1, column=1).value = 10 ```
         + (1,1) 즉, A1에 10을 대입합니다.
-    
+
+<br>
+
++ 엑셀 파일 새로 만들어서 저장하는 방법
+
+```python
+filepath = "/test.xlsx"
+wb = openpyxl.Workbook()
+
+wb.save(filepath)
+```
