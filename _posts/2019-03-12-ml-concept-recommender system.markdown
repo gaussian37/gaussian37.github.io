@@ -70,7 +70,11 @@ tags: [ml, machine learning, recommender system, 추천 시스템] # add tag
 
 + <img src="../assets/img/ml/concept/Recommender-systems/4.PNG" alt="Drawing" style="width: 600px;"/>
 + 앞의 슬라이드에서 정의한 오차 함수를 `gradient descent` 방법으로 최적화 시킵니다.
-    + 위 슬라이드의 식과 같이 $$ \frac{\partial}{\partial \theta_{k}^{(j)} } J(\theta^{(1)}, \cdots , \theta^{(n_{u})} ) 
+    + 위 슬라이드의 식과 같이 $$ \frac{\partial}{\partial \theta_{k}^{(j)} } J(\theta^{(1)}, \cdots , \theta^{(n_{u})} )
+    
+<br><br>
+
+### Collaborative filtering 
     
     
    
