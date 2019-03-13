@@ -44,6 +44,8 @@ tags: [ml, machine learning, recommender system, 추천 시스템] # add tag
 + 1번째 사람이 아직 정하지 못한 점수의 영화는 3번째 영화이므로 3번째 영화의 feature를 가져오겠습니다.
     + 즉, $$ [1, 0.99, 0] $$이 됩니다.
 + 따라서 $$ (\theta^{1})^{T}x^{3} = 4.95 $$가 됩니다. 
++ 벡터의 곱을 이용하기 때문에 당연히 영화의 feature 벡터와 사람의 feature 벡터간의 사이즈가 같아야 합니다.
+    + 즉, 영화의 feature 벡터의 차원이 bias + feature의 갯수 라고 한다면 사람의 feature 벡터의 차원도 같도록 설정하여 벡터 곱이 가능하도록 만듭니다.
 
 <br>
 
@@ -70,11 +72,43 @@ tags: [ml, machine learning, recommender system, 추천 시스템] # add tag
 
 + <img src="../assets/img/ml/concept/Recommender-systems/4.png" alt="Drawing" style="width: 600px;"/>
 + 앞의 슬라이드에서 정의한 오차 함수를 `gradient descent` 방법으로 최적화 시킵니다.
-    + 위 슬라이드의 식과 같이 $$ \frac{\partial}{\partial \theta_{k}^{(j)} } J(\theta^{(1)}, \cdots , \theta^{(n_{u})} )
+    + 위 슬라이드의 식과 같이 $$ \frac{\partial}{\partial \theta_{k}^{(j)} } J(\theta^{(1)}, \cdots , \theta^{(n_{u})} ) $$
     
 <br><br>
 
-### Collaborative filtering 
+### Collaborative filtering Algorithm
+
++ `Collaborative filtering algorithm`은 앞에서 다른 `Content-based recommender system`에서 feature learning의 내용이 추가된 버전 입니다.
++ <img src="../assets/img/ml/concept/Recommender-systems/5.PNG" alt="Drawing" style="width: 600px;"/>
+    + 이 슬라이드를 보면 앞에서 영화의 성격에 해당하는 feature인 $$ x_{1}, x_{2} $$의 값이 정해져 있습니다.
+    + 하지만 현실적으로 이런 각각의 영화마다 feature 를 입력해 주는 것은 쉽지 않은 작업입니다.
++ <img src="../assets/img/ml/concept/Recommender-systems/6.PNG" alt="Drawing" style="width: 600px;"/>
+    + 위 슬라이드에서 $$ \theta^{(i)} $$는 각 사람들의 영화 성향에 관한 벡터 입니다.
+    + 만약 위 슬라이드와 같이 $$ \theta^{(i)} $$ 에 대한 값은 알려져 있으나 $$ x_{i} $$ 는 정보가 없는 상황을 가정해 보겠습니다.
+    + 이와 같이 영화의 feature 벡터에 대한 정보가 없고 각 사람들에 대한 성향의 벡터가 있다면 앞에서 다루었던 것과 반대로 영화의 feature를 유추할 수 있습니다.
+
+<br>
+
++ <img src="../assets/img/ml/concept/Recommender-systems/7.PNG" alt="Drawing" style="width: 600px;"/>
++ 따라서 이번에 최소화할 오차 함수의 대상은 $$ x^{(i)} $$가 됩니다. 따라서 $$ x^{(i)} $$에 대하여 편미분을 하면 위와 같이 식을 전개할 수 있습니다.
+
+<br>
+
++ <img src="../assets/img/ml/concept/Recommender-systems/8.PNG" alt="Drawing" style="width: 600px;"/>
++ 이제 문제를 좀 더 현실적으로 바라보겠습니다. 우리가 필요한 데이터는 사람의 취향에 해당하는 parameter 벡터와 영화의 성격에 해당하는 feature 벡터 두개 입니다.
++ 하지만, 일반적으로 이 값을 갖고 있지 않습니다. 대신 완벽하진 않지만(평점이 없는 항목이 있으므로) 사람들이 매겨 놓은 평점이 있습니다.
++ 이 평점을 이용하여 supervised learning을 통해서 영화와 사람의 벡터를 학습시켜야 합니다.
++ 이 때, 두 feature 벡터를 둘 다 모른다면 위 슬라이드와 같이 $$ x, \theta $$를 번갈아 가면서 학습할 수 있습니다. 이를 두고 `Collaborative filtering`이라고 합니다.
++ 
+
+      
+
+
+
+
+
+
+
     
     
    

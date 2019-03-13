@@ -50,3 +50,7 @@ tags: [english, speaking, voca, idiom] # add tag
     + They raise pets.
     + Some country believes the religion or have special culture not to eat specific meat.
     + Some people are vegetarian
+    
++ ecosystem will collapse
++ ecological process will disrupted
++ property, wealth, possessions, asset : 재산
