@@ -104,3 +104,10 @@ for row in sheet.iter_rows(min_row=1, max_row=10, min_col=2, max_col=5):
 	    + colC = sheet['C']
 	+ 특정 Column 범위
 	  - col_range = sheet['C:D']
+	  
+<br>
+
++ 엑셀의 행 또는 열을 추가하려면 다음과 같이 추가합니다.
+    + 함수의 인자로 입력된 숫자 앞에 행 또는 열이 추가됩니다.
+    + sheet.insert_cols(숫자)
+    + sheet.insert_rows(숫자)
