@@ -89,3 +89,18 @@ for row in sheet.iter_rows(min_row=1, max_row=10, min_col=2, max_col=5):
 
 + sheet.iter_rows()/iter_cols()를 선언하면 generator가 생성됩니다.
 + 생성된 generator를 이용하여 row와 col의 min/max 범위에 맞게 접근합니다.
+
+<br>
+
++ 엑셀 함수를 사용하다보면 열/행조합(ex. A1:A7)으로 범위를 접근하는 경우가 있습니다.
++ openpyxl에서도 범위를 
+    + 특정 범위 접근
+        + cell_range = sheet['A1':'C2']
+	+ 특정 row 접근
+	    + row10 = sheet[10]
+    + 특정 row 범위 
+	    + row_range = sheet[5:10]
+	+ 특정 Column
+	    + colC = sheet['C']
+	+ 특정 Column 범위
+	  - col_range = sheet['C:D']
