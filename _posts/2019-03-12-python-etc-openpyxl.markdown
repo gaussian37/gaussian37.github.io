@@ -93,7 +93,7 @@ for row in sheet.iter_rows(min_row=1, max_row=10, min_col=2, max_col=5):
 <br>
 
 + 엑셀 함수를 사용하다보면 열/행조합(ex. A1:A7)으로 범위를 접근하는 경우가 있습니다.
-+ openpyxl에서도 범위를 
++ openpyxl에서도 다음과 같이 범위를 이용하여 셀에 접근할 수 있습니다.
     + 특정 범위 접근
         + cell_range = sheet['A1':'C2']
 	+ 특정 row 접근
