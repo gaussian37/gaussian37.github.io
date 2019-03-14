@@ -17,7 +17,7 @@ tags: [ml, machine learning, recommender system, 추천 시스템] # add tag
     + 　$$ n_{m} $$ : 영화의 갯수
     + 　$$ r(i, j) $$ : 만약 $$ j $$번째 사람이 $$ i $$번째 영화를 평가 하였으면 1
     + 　$$ y^{(i,j)} $$ : $$ j $$번째 사람이 $$ i $$번째 영화에 매긴 평점 (오직 $$ r(i,j) = 1$$ 인 경우만 값이 존재함)
-+ 위 도에서 ?는 아직 영화를 보지 않았거나 평점이 없는 경우입니다. 이 값을 `missing value`라고 하고 자동적으로 값을 채워줘야 합니다.
++ 위 도표에서 ?는 아직 영화를 보지 않았거나 평점이 없는 경우입니다. 이 값을 `missing value`라고 하고 자동적으로 값을 채워줘야 합니다.
     + 자동으로 채우는 방법에 대해서는 아래 글에서 다루겠습니다.
     
 <br>
@@ -97,21 +97,33 @@ tags: [ml, machine learning, recommender system, 추천 시스템] # add tag
 + <img src="../assets/img/ml/concept/Recommender-systems/8.PNG" alt="Drawing" style="width: 600px;"/>
 + 이제 문제를 좀 더 현실적으로 바라보겠습니다. 우리가 필요한 데이터는 사람의 취향에 해당하는 parameter 벡터와 영화의 성격에 해당하는 feature 벡터 두개 입니다.
 + 하지만, 일반적으로 이 값을 갖고 있지 않습니다. 대신 완벽하진 않지만(평점이 없는 항목이 있으므로) 사람들이 매겨 놓은 평점이 있습니다.
-+ 이 평점을 이용하여 supervised learning을 통해서 영화와 사람의 벡터를 학습시켜야 합니다.
++ 이 평점을 이용하여 supervised learning을 해서 영화와 사람의 벡터를 학습시켜야 합니다.
 + 이 때, 두 feature 벡터를 둘 다 모른다면 위 슬라이드와 같이 $$ x, \theta $$를 번갈아 가면서 학습할 수 있습니다. 이를 두고 `Collaborative filtering`이라고 합니다.
-+ 
 
-      
+<br>
 
-
-
-
-
-
-
++ <img src="../assets/img/ml/concept/Recommender-systems/9.PNG" alt="Drawing" style="width: 600px;"/>
++ 위 슬라이드와 같이 $$ x^{(i)} $$가 주어졌을 때에는, $$ \theta^{(i)} $$에 대하여 편미분을 하여 $$ \theta^{(i)} $$ 값을 구합니다.
++ 반대로 $$ \theta^{(i)} $$가 주어졌을 때에는, $$ x^{(i)} $$ 에 대하여 편미분을 하여 $$ x^{(i)} $$ 값들을 구합니다.
++ 위 두가지 방법을 번갈아 가면서 오차함수를 줄여나가면 생각보다 비 효율적일 수 있습니다. 
++ 따라서 위 두가지 방법을 하나로 묶어서 `동시에` 두 식의 오차함수를 최소화 하는 방법이 필요합니다.
++ 가장 아래에 있는 식은 $$ x^{(i)}, \theta^{(i)} $$들을 동시에 학습하여 오차 함수를 최소화 하는 방법입니다. 
+    + 이전 슬라이드에서는 $$ x^{(i)}, \theta^{(i)} $$에 대하여 번갈아 학습하여 오차 함수를 최소화한 반면에 위 슬라이드는 동시에 오차 함수를 최소화 하는 방법에 해당합니다.
     
++ <img src="../assets/img/ml/concept/Recommender-systems/10.PNG" alt="Drawing" style="width: 600px;"/>
++ 마지막으로 정리하면
+    + 　$$ x^{(i)}, \theta^{(i)} $$들을 랜덤 값으로 초기화 해줍니다. 
+    + 오차 함수인 $$ J(x^{(1)}, ..., x^{(n_{m}), \theta^{(1)}, ..., \theta^{(n_{u})) $$를 최소하 합니다. 
+    + 마지막으로 학습이 끝나면 predict할 때 파라미터 $$\theta$$와 feature $$ x $$를 사용합니다.
     
-   
-    
+<br><br>
 
+### Vectorization: Low Rank Matrix Factorization
 
++ <img src="../assets/img/ml/concept/Recommender-systems/11.PNG" alt="Drawing" style="width: 600px;"/>
++ `Collaborative filtering`을 적용하기 위하여 평점에 관한 정보를 위의 슬라이드 처럼 행렬로 표현할 수 있습니다. 
++ <img src="../assets/img/ml/concept/Recommender-systems/12.PNG" alt="Drawing" style="width: 600px;"/>
++ 앞에서 설명한 바와 같이 ?의 값을 예측하려면 $$ \theta $$ 와 $$ x $$의 곱을 통하여 예측을 해야 합니다.
++ <img src="../assets/img/ml/concept/Recommender-systems/13.PNG" alt="Drawing" style="width: 600px;"/>
++ 만약 영화를 추천해주려고 하면, 어떻게 하면 될까요? 우리는 영화의 성격에 대한 feature 벡터를 알고 있습니다.
+    + 즉, $$ i, j $$ 영화가 있고 그 feature 벡터가 $$ x^{(i)}, x^{(j)} $$ 라고 할 때, $$ \Vert x^{(i)} - x^{(j)} \Vert $$ 의 크기가 작을수록 유사한 성격의 영화이므로 추천하기 적합합니다.
