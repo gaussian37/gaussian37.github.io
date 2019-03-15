@@ -35,5 +35,5 @@ tags: [Linear algebra, 선형대수학, ref, rref] # add tag
 
 + <img src="../assets/img/math/la/matrix-vector-product/3.PNG" alt="Drawing" style="width: 600px;"/>
 + 조금 전 설명드린 것 처럼 벡터는 주로 `열벡터`를 나타냅니다. 따라서 행렬을 `열벡터`의 결합으로 생각해 보겠습니다.
-+ 그러면 행렬 $$ A = [v_{1}, v_{2}, v_{3}, v_{4}] $$로 나타낼 수 있고 $$ A\vec{x} = x_{1}v_{1} + x_{2}v_{2} + x_{3}v_{3} + x_{4}v_{4} $$ 가 됩니다.
++ 그러면 행렬 $$ A = [\vec{v_{1}}, \vec{v_{2}}, \vec{v_{3}}, \vec{v_{4}}] $$로 나타낼 수 있고 $$ A\vec{x} = x_{1}\vec{v_{1}} + x_{2}\vec{v_{2}} + x_{3}\vec{v_{3}} + x_{4}\vec{v_{4}} $$ 가 됩니다.
     + 즉 행렬과 열벡터의 곱은 `linear combination`으로 나타낼 수 있습니다.
