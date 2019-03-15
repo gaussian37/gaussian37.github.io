@@ -58,7 +58,7 @@ tags: [Linear algebra, 선형 대수학] # add tag
         + [행렬을 이용하여 선형계 풀기](https://gaussian37.github.io/math-la-reduced-row-echelon-form2/)
         + [행 사다리꼴을 이용하여 선형계는 해가 없다는 것을 알아보기](https://gaussian37.github.io/math-la-reduced-row-echelon-form3/)
     + 영공간과 열공간
-        + 행렬 벡터의 곱
+        + [행렬 벡터의 곱](https://gaussian37.github.io/math-la-matrix-vector-product/)
         + 행렬의 영공간이란?
         + 영공간 2 : 행렬의 영공간 계산하기
         + 영공간 3 : 선형 독립과의 관계
