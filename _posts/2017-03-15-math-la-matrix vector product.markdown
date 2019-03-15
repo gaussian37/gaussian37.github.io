@@ -29,7 +29,7 @@ tags: [Linear algebra, 선형대수학, ref, rref] # add tag
 + 이 때, 행렬을 벡터의 집합으로 나타낼 수 있습니다. 오른쪽 중앙에 자주색으로 표시한 $$ \vec{a_{1}}, \vec{a_{2}} $$가 행렬을 벡터로 표현한 것입니다.
 + 일반적으로 벡터는 `열벡터`형식으로 표현합니다. 위 행렬에서는 열벡터를 `transpose`를 취해서 행벡터로 나타내고 행벡터들을 결합해서 행렬로 표시한 것으로 생각해 봅시다.
 + 이렇게 행렬을 표현하였을 때, 연산되는 행렬과 벡터의 곱은 다음과 같습니다.
-    + 　$$ \begin{bmatrix} \vec{a_{1}}^{T} \\ \vec{a_{2}}^{T}  \\ \end{bmatrix}\vec{X} = \begin{bmatrix} \vec{a_{1}}^{T} \cdot \vec{X} \\ \vec{a_{2}}^{T} \cdot \vec{X} \\ \end{bmatrix} $$
+    + 　$$ \begin{bmatrix} \vec{a_{1}}^{T} \\ \vec{a_{2}}^{T}  \\ \end{bmatrix}\vec{X} = \begin{bmatrix} \vec{a_{1}} \cdot \vec{X} \\ \vec{a_{2}} \cdot \vec{X} \\ \end{bmatrix} $$
     
 <br>
 
