@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 행 사다리꼴을 이용하여 선형계 증 해는 경우 확인하기
-date: 2017-03-04 00:00:00
+title: 행렬 벡터의 곱
+date: 2017-03-15 00:00:00
 img: math/la/linear-algebra-image.jpg
 categories: [math-la] 
 tags: [Linear algebra, 선형대수학, ref, rref] # add tag
