@@ -7,14 +7,6 @@ categories: [ml-concept]
 tags: [Information Theory, Entropy, KL divergence, Cross Entropy] # add tag
 ---
 
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-7290065680267572",
-    enable_page_level_ads: true
-  });
-</script>
-
 Let's think about two cases. Which case does have **more information**?
 
 1. It's clear today. In the news, it will be clear tomorrow too.
