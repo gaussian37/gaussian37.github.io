@@ -36,3 +36,6 @@ tags: [english, speaking, voca, idiom] # add tag
     
 + 10 . Bob was so beside himself that he could scarcely tell fact from fiction.
     + Bob은 몹시 흥분해서 현실과 허구를 거의 구별할 수 없었다. 
+    
++ 11 . His new novel, which combines prose with his gift for poetry, is going to be published.
+    + 곧 출판될 그의 소설은 산문과 그의 시적 재능을 결합시킨 것이다.
