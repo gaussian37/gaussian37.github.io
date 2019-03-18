@@ -39,3 +39,6 @@ tags: [english, speaking, voca, idiom] # add tag
     
 + 11 . His new novel, which combines prose with his gift for poetry, is going to be published.
     + 곧 출판될 그의 소설은 산문과 그의 시적 재능을 결합시킨 것이다.
+    
++ 12 . An up-to-date edition of the encyclopedia will come out next month.
+    + 다음 달에 그 백과사전의 최신판이 나올 것이다.
