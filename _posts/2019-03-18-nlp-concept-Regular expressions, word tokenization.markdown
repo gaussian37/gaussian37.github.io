@@ -29,6 +29,9 @@ my_string = "Let's write RegEx!"
 
 ### 정규식 표현 예제
 
++ `my_string`이 다음과 같은 문자열이라고 가정해 보겠습니다.
+    + "Let's write RegEx!  Won't that be fun?  I sure think so.  Can you find 4 sentences?  Or perhaps, all 19 words?"    
+
 ```python
 # Import the regex module
 import re
@@ -37,18 +40,38 @@ import re
 sentence_endings = r"[.,?,!]"
 
 # Split my_string on sentence endings and print the result
-print(re.split(sentence_endings, my_string))
+>> print(re.split(sentence_endings, my_string))
+
+["Let's write RegEx", "  Won't that be fun", '  I sure think so', '  Can you find 4 sentences', '  Or perhaps', ' all 19 words', '']
 
 # Find all capitalized words in my_string and print the result
 capitalized_words = r"[A-Z]\w+"
-print(re.findall(capitalized_words, my_string))
+>> print(re.findall(capitalized_words, my_string))
+
+['Let', 'RegEx', 'Won', 'Can', 'Or']
 
 # Split my_string on spaces and print the result
 spaces = r"\s+"
-print(re.split(spaces, my_string))
+>> print(re.split(spaces, my_string))
+
+["Let's", 'write', 'RegEx!', "Won't", 'that', 'be', 'fun?', 'I', 'sure', 'think', 'so.', 'Can', 'you', 'find', '4', 'sentences?', 'Or', 'perhaps,', 'all', '19', 'words?']
 
 # Find all digits in my_string and print the result
 digits = r"\d+"
-print(re.findall(digits, my_string))
+>> print(re.findall(digits, my_string))
+
+['4', '19']
+
 ```
+
++ 정규식표현 관련 대표적인 함수
++ `re.findall(패턴, 문자열)` : 정규식 표현에 부합하는 모든 문자열을 찾습니다.
++ `re.split(패턴, 문자열)` : 정규식 표현에 부합하는 문자를 기준으로 문자열을 자릅니다.
+
++ 정규식을 사용할 때, 대표적으로 사용하는 패턴은 다음고 같습니다.
++ `"\w"` : 알파벳 + 숫자
++ `"\d"` : 숫자
++ `"\s"` : 공백문자
++ `"+"` : 하나 이상
++ `"[]"` : 패턴을 직접적으로 명시할 때
 
