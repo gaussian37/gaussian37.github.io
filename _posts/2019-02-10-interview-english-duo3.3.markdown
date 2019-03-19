@@ -42,3 +42,6 @@ tags: [english, speaking, voca, idiom] # add tag
     
 + 12 . An up-to-date edition of the encyclopedia will come out next month.
     + 다음 달에 그 백과사전의 최신판이 나올 것이다.
+    
++ 13 . Ms. Yamada translated the fascinating fairy tale into plain Japanese.
+    + Yamada 씨가 흥미로운 옛날 이야기를 쉬운 일본어로 번역했다.
