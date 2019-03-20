@@ -154,7 +154,7 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 <br><br>
 
-### 확률 분포가 주어진 상황
+### **확률 분포가 주어진 상황**
 
 확률 분포가 주어진 상황에서는 `이산`인 경우와 `연속`인 경우에 대하여 나누어 생각할 수 있습니다.
 
@@ -189,7 +189,7 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 <br><br>
 
-### 샘플 집합이 주어진 상황
+### **샘플 집합이 주어진 상황**
 
 <br><br>
 
@@ -210,7 +210,7 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 <br><br>
 
-### 랜덤 변수가 여러개가 주어진 경우
+### **랜덤 변수가 여러개가 주어진 상황**
 
 + 랜덤 변수 한개의 통계적 분석은 feature 하나를 분석한 것과 같습니다.
 + 현실 데이터에서는 여러개의 랜덤 변수가 랜덤 벡터를 구성하는 경우가 많음
