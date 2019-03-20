@@ -82,6 +82,7 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
     + 독립인 두 랜덤 변수는 $$ P(X,Y) = P(X)P(Y) $$ 를 만족해야 합니다. 
     + 위의 예제에서는 $$ P(X,Y) \neq P(X)P(Y) $$ 이므로 독립이 아닙니다.
         + **주머니가 공의 색깔에 영향**을 미치고 있다는 뜻입니다.
+
 <br>
 
 + P(A)와 P(B)를 `prior event` 라고 합니다.
