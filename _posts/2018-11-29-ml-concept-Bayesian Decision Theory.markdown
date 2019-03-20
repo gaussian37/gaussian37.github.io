@@ -49,17 +49,25 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
     + 이 때, $$ X \in \{A, B\} $$
 + 랜덤 변수 Y : 상자에서 뽑은 공
     + 이 때, $$ Y \in \{하얀, 파란\} $$
-    
+
+<br>
+
 + 이 때 상자 A가 선택될 확률은 어떻게 표현할 수 있을까요?
     + 확률은 $$ P(X = A) = P(A) = \frac{7}{10} $$ 로 표현할 수 있습니다.
+
+<br>
 
 + 상자 A에서 하얀 공이 뽑힐 확률은 어떻게 될까요? 주머니에서 A라 쓰인 용지를 뽑았다는 조건 하에 확률을 따져보겠습니다.
     + 조건하에 따진다고 하여 조건부 확률(`conditional probability`) 라고 합니다.
     + 확률은 $$ P(Y= 하얀 \| X = A) = P(하얀 \| A) = \frac{2}{10} $$
-    
+
+<br>
+
 + 상자는 A 이고 공은 하얀공이 뽑힐 확률 P(A, 하얀)은 얼마일까요? 두 가지 서로 다른 사건이 동시에 일어날 확률입니다.
-    + 이 경우 `joint probability` 라고 합니다. `joint probability`는 두 확률의 곱으로 구합니다.
-    + 다음 계산 법을 `product rule` 이라고 합니다. $$ P(A, 하얀) = P(하얀 \| A) P(A) = (\frac{2}{10})(\frac{7}{10}) = \frac{7}{50} $$ 입니다.
+    + 이 경우를 `joint probability` 라고 합니다. `joint probability`는 두 확률의 곱으로 구합니다.
+    + 또한, 다음 계산 법을 `product rule` 이라고 합니다. $$ P(A, 하얀) = P(하얀 \| A) P(A) = (\frac{2}{10})(\frac{7}{10}) = \frac{7}{50} $$ 입니다.
+    
+<br>    
     
 + 하얀 공이 나올 확률은 어떻게 될까요? 이 때 가능한 경우의 수는 다음과 같습니다.
     + A가 선택되고 하얀 공이 나오는 경우
@@ -67,6 +75,8 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
     + 두 경우의 확률을 더하면 답이 되며 이런 계산 방법을 `sum rule`이라고 합니다. 
         + 이런 방식으로 구한 확률 $$ P(하얀) $$ 을 `marginal probability` 라고 합니다.
         + 이 때, $$ P(하얀) = P(하얀 \| A)P(A) + P(하얀 \| B)P(B) = (\frac{2}{10})(\frac{7}{10}) + (\frac{9}{15})(\frac{3}{10}) = \frac{8}{25} $$
+
+<br>
 
 + 두 랜덤 변수가 서로 영향을 미치지 못하였다면 `independent` 한다고 합니다. 
     + 독립인 두 랜덤 변수는 $$ P(X,Y) = P(X)P(Y) $$ 를 만족해야 합니다. 
