@@ -225,6 +225,3 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 + 중요한 통계적 특성으로 $$ x_{i}, x_{j} $$ 사이의 공분산 $$ \sigma_{ij} $$(covariance)이 있습니다.        
     
-<br>
-<a href="https://coupa.ng/bgl1OZ" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/electronic-640-x-100.jpg" alt=""></a>
-<iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.4%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>
