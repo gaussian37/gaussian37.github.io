@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Bayesian Decision Theory  
+title: 2.1 확률과통계
 date: 2018-11-29 08:42:00
 img: ml/concept/bayesian-dicition-theory/Bayes_Theorem_web.png
 categories: [ml-concept] 
