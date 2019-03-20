@@ -189,7 +189,9 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 <br><br>
 
-### 샘플 집합이 주어진 경우
+### 샘플 집합이 주어진 상황
+
+<br><br>
 
 #### 샘플 집합이 주어진 경우 평균과 분산
 
