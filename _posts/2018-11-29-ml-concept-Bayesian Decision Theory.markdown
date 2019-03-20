@@ -165,7 +165,9 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
     + 평균 $$ \mu = \int_{\infty}^{\infty}xp(x) dx $$
     + 분산 $$ \sigma^{2} = \int_{\infty}^{\infty}(x-\mu)^{2}p(x)dx $$
     
-이산 확률 분포에서는 P(x), 연속 확률 분포에서는 p(x)로 구분하여 표기하였습니다.
+이산 확률 분포에서는 $$ P(x) $$, 연속 확률 분포에서는 $$ p(x) $$로 구분하여 표기하였습니다.
+
+<br>
 
 #### 이산 확률 분포가 주어진 경우 평균과 분산 계산
 
