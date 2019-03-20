@@ -101,7 +101,7 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 + 하지만 likelihood만 고려한다면 주머니에서의 카드 A와 B의 분포가 무시됩니다.
     + 만약 A가 1억장 , B가 1장이라면 likelihood만 고려한 B가 더 가능성이 높다고 할 수 있을까요?
-    + `prior event` P(X) 와 `likelihood` $$ P(Y\|X) $$ 모두를 고려해야만 합리적인 선택을 할 수 있습니다.
+    + `prior event` $$ P(X) $$ 와 `likelihood` $$ P(Y\|X) $$ 모두를 고려해야만 합리적인 선택을 할 수 있습니다.
 
 <br>
 
@@ -113,7 +113,7 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 <br>
 
-+ `posterior probability` $$ P(X\|Y) = \frac{P(Y\|X)P(X)}{P(Y)} = \frac{likelihood \times prior event}{P(Y)} $$
++ `posterior probability` $$ P(X\|Y) = \frac{P(Y\|X)P(X)}{P(Y)} = \frac{likelihood \times prior \ event}{P(Y)} $$
 
 <br>
 
