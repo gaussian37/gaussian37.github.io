@@ -117,7 +117,7 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 <br>
 
-+ P(Y)의 경우 $$ X \in \{A,B\} $$ 이므로 $$ P(Y) = P(Y\|A)P(A) + P(Y\|B)P(B) $$ 가 됩니다.
++ 주변 확률 $$ P(Y) $$의 경우 $$ X \in \{A,B\} $$ 이므로 $$ P(Y) = P(Y\|A)P(A) + P(Y\|B)P(B) $$ 가 됩니다.
     + 따라서, $$ P(Y) = \sum_{X} P(Y\|X)P(X) $$ 이 됩니다.
 
 <br>
