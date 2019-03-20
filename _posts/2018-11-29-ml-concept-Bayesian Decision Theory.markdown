@@ -32,6 +32,8 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
     + 이 때 확률 분포는 `PDF`로 나타냅니다. 
         + PDF = probability density function 입니다.
         
+<br><br>
+        
 ### Basic Bayes Rule
 
 ![2](../assets/img/ml/concept/bayesian-dicition-theory/2.png)
@@ -111,7 +113,9 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
         + 하얀 공이 나왔을 때, B 상자에서 꺼냈을 확률 : $$ P(B\|하얀) = \frac{P(하얀 \| B) \times P(B)}{P(하얀)} = 0.5625 $$
     + `posterior probability`에 따라서 신뢰도 0.5625로 B에서 나왔다고 할 수 있습니다.
         + 이와 같이 `confidence`를 제공할 수 있습니다.
-        
+
+<br><br>
+
 ## 평균과 분산
 
 ---
@@ -123,7 +127,9 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 + 확률 분포가 명시적인 상황
 + 확률 분포 대신 샘플 집합이 있는 상황
     + 샘플들이 어떤 확률 분포로 부터 추출되었으므로 샘플 집합이 확률 분포를 암시적으로 내포하고 있는 상황
-    
+
+<br><br>
+
 ### 확률 분포가 주어진 상황
 
 확률 분포가 주어진 상황에서는 `이산`인 경우와 `연속`인 경우에 대하여 나누어 생각할 수 있습니다.
@@ -153,6 +159,8 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
             + 분산을 구할 때, N이 아니라 N-1로 나누어 주었습니다. 바이어스의 영향으로 N-1로 나누어 주어야 합니다.
             + 참조 : https://gaussian37.github.io/interview-datascience-Q6-the-reason-of-n-1-tem/
 
+<br><br>
+
 ### 샘플 집합이 주어진 경우
 
 #### 샘플 집합이 주어진 경우 평균과 분산
@@ -169,6 +177,8 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 + 평균 : $$ \mu = \frac{1}{10}\sum_{i=1}^{10} x_{i}= 7.5 $$ 
 + 분산 : $$ \sigma^{2} = \frac{1}{9}\sum_{i=1}^{10}(x_{i} - \mu)^{2} = 5.16667 $$
+
+<br><br>
 
 ### 랜덤 변수가 여러개가 주어진 경우
 
