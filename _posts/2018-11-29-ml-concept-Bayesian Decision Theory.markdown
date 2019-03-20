@@ -127,12 +127,12 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
         + 주머니에서 카드 A, B를 뽑는 사건에 대한 확률
     + `posterior event` : P(Y)
         + 상자에서 하얀 공을 거낼 확률 : `marginal probability`
-        + `marginal probability` = $$ \sum likelihood \times prior\ event $$
+        + `marginal probability` = $$ \sum likelihood \  \times \ prior $$
         + 따라서 $$ P(하얀) = P(하얀\|A)P(A) + P(하얀\|B)P(B) = \frac{2}{10}\frac{7}{10} + \frac{9}{15}\frac{3}{10} = \frac{8}{25} $$
     + `likelihood` : $$ P(Y\|X) $$
         + $$ P(하얀\|A) = \frac{2}{10} $$ : A상자에서 하얀공을 꺼낼 확률
         + $$ P(하얀\|B) = \frac{9}{15} $$ : B상자에서 하얀공을 꺼낼 확률
-    + `posterior probability` $$ P(X \| Y) = \frac{likelihood \times prior\ event}{P(Y)} $$
+    + `posterior probability` $$ P(X \| Y) = \frac{likelihood \ \times \ prior}{P(Y)} $$
         + 하얀 공이 나왔을 때, A 상자에서 꺼냈을 확률 : $$ P(A\|하얀) = \frac{P(하얀 \| A) \times P(A)}{P(하얀)} = 0.4375 $$
         + 하얀 공이 나왔을 때, B 상자에서 꺼냈을 확률 : $$ P(B\|하얀) = \frac{P(하얀 \| B) \times P(B)}{P(하얀)} = 0.5625 $$
     + `posterior probability`에 따라서 신뢰도 0.5625로 B에서 나왔다고 할 수 있습니다.
