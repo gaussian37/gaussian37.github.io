@@ -113,7 +113,7 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 <br>
 
-+ `posterior probability` $$ P(X\|Y) = \frac{P(Y\|X)P(X)}{P(Y)} = \frac{likelihood \times prior \ event}{P(Y)} $$
++ `posterior probability` $$ P(X\|Y) = \frac{P(Y\|X)P(X)}{P(Y)} = \frac{likelihood \ \times \ prior}{P(Y)} $$
 
 <br>
 
