@@ -17,10 +17,12 @@ tags: [ml, machine learning, k means, k-means, clustering] # add tag
 <img src="../assets/img/ml/concept/k-means/unsupervised-learning.PNG" alt="Drawing" style="width: 600px;"/>
 
 + 먼저 `unsupervised learning`에 대하여 간략하게 알아보도록 하겠습니다.
-+ `unsupervised learning`에서는 Training Set에 `label` 데이터가 없습니다. 
++ `unsupervised learning`에서는 Training Set에 `label` 데이터가 없습니다.
+    + 위 슬라이드의 training set을 보면 $$ \{ x^{(1)}, x^{(2)}, ..., x^{(m)} \} $$ 으로 $$ y^{(i)} $$ 에 해당하는 `label`이 없습니다. 
 + 여기서 우리가 할 일은 라벨이 없는 트레이닝 데이터를 알고리즘을 이용하여 데이터가 가지고 있는 어떤 구조를 찾는 것입니다.
     + 위 슬라이드에서 보면 두 개의 분리된 클러스터 구조를 가지고 있음을 알 수 있습니다.
-    + 위와 같이 두 개의 클러스터를 만들어 내는 것을 `Clustering algorithm` 이라고 합니다. 
+    + 위와 같이 두 개의 클러스터를 만들어 내는 것을 `Clustering algorithm` 이라고 하며 `unsupervised learning`의 대표적인 알고리즘 입니다.
+ 
     
 <br><br>
 
@@ -76,4 +78,17 @@ tags: [ml, machine learning, k means, k-means, clustering] # add tag
     + 그리고 Training data set이 필요합니다.
         + 이 때, 각각의 데이터는 n차원으로 표현할 수 있습니다.
     
+<img src="../assets/img/ml/concept/k-means/8.PNG" alt="Drawing" style="width: 600px;"/>
 
++ 위 슬라이드를 보면 k-means 알고리즘의 전체 프로세스를 간략하게 볼 수 있습니다.
++ 첫번째로 할 일은 K개의 centroid를 랜덤하게 초기화를 해줍니다.
++ 그 다음으로는 `cluster assignment`와 `move centroid`를 데이터의 수렴이 발생할 때 까지 계속 수행해 줍니다.
++ 먼저, `cluster assignment` 과정을 보면 각각의 데이터 $$ x^{(i)} $$는 $$ c^{(i)} = min_{k} \Vert x^{(i)} - \mu_{k} \Vert^{2} $$ 을 통해 어떤 클러스터에 속할 지 정해집니다.
++ 클러스터가 정해지면 클러스터 $$ c^{(i)} $$ 에 속한 데이터들을 통하여 평균 값을 구할 수 있고 이 평균값이 세로운 centroid가 됩니다.
+
+<img src="../assets/img/ml/concept/k-means/8.PNG" alt="Drawing" style="width: 600px;"/>
+
++ K-means 알고리즘은 슬라이드 왼쪽 그림과 같이 명확히 데이터의 집합이 구분이 되어 있는 데이터셋을 구분할 수도 있지만
++ 슬라이드 오른쪽 그림과 같이 클러스터가 분리되어 있지 않는 데이터 셋에서도 데이터를 분리할 수 있습니다.
+    + 오른쪽 그림의 예제를 `market segmentation`이라고 하고 예제에서는 몸무게와 키를 통하여 셔츠의 사이즈를 3부분으로 나눌 때 어떻게 나누어야 하는 지 기준을 제공해 줍니다.
+ 
