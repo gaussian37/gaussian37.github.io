@@ -39,3 +39,12 @@ tags: [english, speaking, voca, idiom] # add tag
     
 + 11 . His new novel, which combines prose with his gift for poetry, is going to be published.
     + 곧 출판될 그의 소설은 산문과 그의 시적 재능을 결합시킨 것이다.
+    
++ 12 . An up-to-date edition of the encyclopedia will come out next month.
+    + 다음 달에 그 백과사전의 최신판이 나올 것이다.
+    
++ 13 . Ms. Yamada translated the fascinating fairy tale into plain Japanese.
+    + Yamada 씨가 흥미로운 옛날 이야기를 쉬운 일본어로 번역했다.
+    
++ 14 . The following passage is quoted from a well-known fable.
+    + 다음 단락은 유명한 우화로부터 인용한 것이다.
