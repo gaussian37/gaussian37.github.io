@@ -95,3 +95,18 @@ tags: [deep learning, autoencoder] # add tag
         + `GD`에서는 `Loss`값이 줄어들기만 하면 업데이트를 하는 전략을 취합니다.
     + 언제 업데이트를 멈출 것인가?
         + `GD`에서는 파라미터를 아무리 바꾸더라도 `Loss`가 줄어들지 않으면 업데이트를 멈춘다는 전략을 취합니다.
+        
+<img src="../assets/img/dl/concept/autoencoder1/1-11.jpg" alt="Drawing" style="width: 800px;"/>
+
++ 
+
+<img src="../assets/img/dl/concept/autoencoder1/1-12.jpg" alt="Drawing" style="width: 800px;"/>
+
+<img src="../assets/img/dl/concept/autoencoder1/1-13.jpg" alt="Drawing" style="width: 800px;"/>
+
+<img src="../assets/img/dl/concept/autoencoder1/1-14.jpg" alt="Drawing" style="width: 800px;"/>
+
+<img src="../assets/img/dl/concept/autoencoder1/1-15.jpg" alt="Drawing" style="width: 800px;"/>
+
+        
+    

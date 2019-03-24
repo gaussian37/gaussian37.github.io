@@ -111,3 +111,19 @@ for row in sheet.iter_rows(min_row=1, max_row=10, min_col=2, max_col=5):
     + 함수의 인자로 입력된 숫자 앞에 행 또는 열이 추가됩니다.
     + sheet.insert_cols(숫자)
     + sheet.insert_rows(숫자)
+
+<br>
+
++ 셀에 `음영` 색깔 칠하려면 색 정보를 `PatternFill`을 통해 생성한 다음에 셀에 `fill` 해주면 됩니다.
+
+```python
+from openpyxl.styles import PatternFill
+
+# 음영 색 지정
+yellowFill = PatternFill(start_color='FFFFFF00',
+                   end_color='FFFFFF00',
+                   fill_type='solid')
+
+# 지정된 음영 색으로 음역 색칠하기
+sheet["A1"].fill = yellowFill		   
+```

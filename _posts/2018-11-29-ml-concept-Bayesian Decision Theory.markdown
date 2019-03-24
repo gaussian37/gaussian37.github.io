@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Bayesian Decision Theory  
+title: 확률과 통계
 date: 2018-11-29 08:42:00
 img: ml/concept/bayesian-dicition-theory/Bayes_Theorem_web.png
 categories: [ml-concept] 
@@ -32,6 +32,8 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
     + 이 때 확률 분포는 `PDF`로 나타냅니다. 
         + PDF = probability density function 입니다.
         
+<br><br>
+        
 ### Basic Bayes Rule
 
 ![2](../assets/img/ml/concept/bayesian-dicition-theory/2.png)
@@ -47,17 +49,25 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
     + 이 때, $$ X \in \{A, B\} $$
 + 랜덤 변수 Y : 상자에서 뽑은 공
     + 이 때, $$ Y \in \{하얀, 파란\} $$
-    
+
+<br>
+
 + 이 때 상자 A가 선택될 확률은 어떻게 표현할 수 있을까요?
     + 확률은 $$ P(X = A) = P(A) = \frac{7}{10} $$ 로 표현할 수 있습니다.
+
+<br>
 
 + 상자 A에서 하얀 공이 뽑힐 확률은 어떻게 될까요? 주머니에서 A라 쓰인 용지를 뽑았다는 조건 하에 확률을 따져보겠습니다.
     + 조건하에 따진다고 하여 조건부 확률(`conditional probability`) 라고 합니다.
     + 확률은 $$ P(Y= 하얀 \| X = A) = P(하얀 \| A) = \frac{2}{10} $$
-    
+
+<br>
+
 + 상자는 A 이고 공은 하얀공이 뽑힐 확률 P(A, 하얀)은 얼마일까요? 두 가지 서로 다른 사건이 동시에 일어날 확률입니다.
-    + 이 경우 `joint probability` 라고 합니다. `joint probability`는 두 확률의 곱으로 구합니다.
-    + 다음 계산 법을 `product rule` 이라고 합니다. $$ P(A, 하얀) = P(하얀 \| A) P(A) = (\frac{2}{10})(\frac{7}{10}) = \frac{7}{50} $$ 입니다.
+    + 이 경우를 `joint probability` 라고 합니다. `joint probability`는 두 확률의 곱으로 구합니다.
+    + 또한, 다음 계산 법을 `product rule` 이라고 합니다. $$ P(A, 하얀) = P(하얀 \| A) P(A) = (\frac{2}{10})(\frac{7}{10}) = \frac{7}{50} $$ 입니다.
+    
+<br>    
     
 + 하얀 공이 나올 확률은 어떻게 될까요? 이 때 가능한 경우의 수는 다음과 같습니다.
     + A가 선택되고 하얀 공이 나오는 경우
@@ -66,13 +76,19 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
         + 이런 방식으로 구한 확률 $$ P(하얀) $$ 을 `marginal probability` 라고 합니다.
         + 이 때, $$ P(하얀) = P(하얀 \| A)P(A) + P(하얀 \| B)P(B) = (\frac{2}{10})(\frac{7}{10}) + (\frac{9}{15})(\frac{3}{10}) = \frac{8}{25} $$
 
+<br>
+
 + 두 랜덤 변수가 서로 영향을 미치지 못하였다면 `independent` 한다고 합니다. 
     + 독립인 두 랜덤 변수는 $$ P(X,Y) = P(X)P(Y) $$ 를 만족해야 합니다. 
     + 위의 예제에서는 $$ P(X,Y) \neq P(X)P(Y) $$ 이므로 독립이 아닙니다.
         + **주머니가 공의 색깔에 영향**을 미치고 있다는 뜻입니다.
-        
+
+<br>
+
 + P(A)와 P(B)를 `prior event` 라고 합니다.
     + 확률 실험에서 상자 선택과 공 선택이라는 event가 연이어 일어나는데, 공 선택 전에 상자 선택이 일어나기 때문입니다.
+
+<br>
 
 + 만약 하얀 공이 뽑혔을 때, 하얀 공이 어느 상자에서 나왔는지를 확률적으로 맞추어 보겠습니다.
     + 상자 A의 하얀 공 확률 $$ P(하얀\|A) = \frac{2}{10} $$
@@ -81,37 +97,49 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
     + 이 때 조건부 확률을 `likelihood` 라고 합니다. 
         + 하지만 $$ P(하얀 \| A) + P(하얀 \| B) \neq $$ 1 이므로 probability의 개념은 아닙니다.
 
+<br>
+
 + 하지만 likelihood만 고려한다면 주머니에서의 카드 A와 B의 분포가 무시됩니다.
     + 만약 A가 1억장 , B가 1장이라면 likelihood만 고려한 B가 더 가능성이 높다고 할 수 있을까요?
-    + `prior event` P(X) 와 `likelihood` $$ P(Y\|X) $$ 모두를 고려해야만 합리적인 선택을 할 수 있습니다.
-    
-+ 하얀 공이 관찰된 조건 하에서 어떤 상자에서 나왔는지를 알아내야 되는 문제 입니다.
-    + $$ P(A \| 하얀) $$ vs $$ P(B \| 하얀) $$ 을 비교하는 것이 더 맞아 보입니다.
-    + 즉, $$P (X \| Y) $$를 사용하려고 하고 이 때 Y가 고정이 되고 X에 따라 확률을 계산합니다.
+    + A가 1억장인 극단적인 케이스에서 생각해 보면 `prior event` $$ P(X) $$ 와 `likelihood` $$ P(Y\|X) $$ 모두를 고려해야만 합리적인 선택을 할 수 있습니다.
+
+<br>
+
++ 위에서 살펴본 내용으로 보면 `likelihood` 만으로 판단하기 보다는 하얀 공이 관찰된 조건 하에서 어떤 상자에서 나왔는지를 알아내는 것이 더 적합해 보입니다.
+    + 즉, $$ P(A \| 하얀) $$ vs $$ P(B \| 하얀) $$ 을 비교하는 것이 더 맞아 보입니다.
+    +  $$P (X \| Y) $$를 사용하려고 하고 이 때 Y가 고정이 되고 X에 따라 확률을 계산합니다.
     + 이 조건부 확률을 `posterior probability` 라고 합니다.
         + 사건 Y가 일어날 이후에 따지는 확률이므로 `posterior` 라고 불리게 됩니다.
-        
-+ `posterior probability` $$ P(X\|Y) = \frac{P(Y\|X)P(X)}{P(Y)} = \frac{likelihood \times prior event}{P(Y)} $$
 
-+ P(Y)의 경우 $$ X \in \{A,B\} $$ 이므로 $$ P(Y) = P(Y\|A)P(A) + P(Y\|B)P(B) $$ 가 됩니다.
+<br>
+
++ `posterior probability` $$ P(X\|Y) = \frac{P(Y\|X)P(X)}{P(Y)} = \frac{likelihood \ \times \ prior}{P(Y)} $$
+
+<br>
+
++ 주변 확률 $$ P(Y) $$의 경우 $$ X \in \{A,B\} $$ 이므로 $$ P(Y) = P(Y\|A)P(A) + P(Y\|B)P(B) $$ 가 됩니다.
     + 따라서, $$ P(Y) = \sum_{X} P(Y\|X)P(X) $$ 이 됩니다.
-    
+
+<br>
+
 + 이제 `Bayes 정리`를 이용하여 `posterior probability`를 다음과 같이 정리할 수 있습니다.
     + `prior event` : P(X)
         + 주머니에서 카드 A, B를 뽑는 사건에 대한 확률
     + `posterior event` : P(Y)
         + 상자에서 하얀 공을 거낼 확률 : `marginal probability`
-        + `marginal probability` = $$ \sum likelihood \times prior\ event $$
+        + `marginal probability` = $$ \sum likelihood \  \times \ prior $$
         + 따라서 $$ P(하얀) = P(하얀\|A)P(A) + P(하얀\|B)P(B) = \frac{2}{10}\frac{7}{10} + \frac{9}{15}\frac{3}{10} = \frac{8}{25} $$
     + `likelihood` : $$ P(Y\|X) $$
         + $$ P(하얀\|A) = \frac{2}{10} $$ : A상자에서 하얀공을 꺼낼 확률
         + $$ P(하얀\|B) = \frac{9}{15} $$ : B상자에서 하얀공을 꺼낼 확률
-    + `posterior probability` $$ P(X \| Y) = \frac{likelihood \times prior\ event}{P(Y)} $$
+    + `posterior probability` $$ P(X \| Y) = \frac{likelihood \ \times \ prior}{P(Y)} $$
         + 하얀 공이 나왔을 때, A 상자에서 꺼냈을 확률 : $$ P(A\|하얀) = \frac{P(하얀 \| A) \times P(A)}{P(하얀)} = 0.4375 $$
         + 하얀 공이 나왔을 때, B 상자에서 꺼냈을 확률 : $$ P(B\|하얀) = \frac{P(하얀 \| B) \times P(B)}{P(하얀)} = 0.5625 $$
     + `posterior probability`에 따라서 신뢰도 0.5625로 B에서 나왔다고 할 수 있습니다.
         + 이와 같이 `confidence`를 제공할 수 있습니다.
-        
+
+<br><br>
+
 ## 평균과 분산
 
 ---
@@ -123,8 +151,10 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 + 확률 분포가 명시적인 상황
 + 확률 분포 대신 샘플 집합이 있는 상황
     + 샘플들이 어떤 확률 분포로 부터 추출되었으므로 샘플 집합이 확률 분포를 암시적으로 내포하고 있는 상황
-    
-### 확률 분포가 주어진 상황
+
+<br><br>
+
+### **확률 분포가 주어진 상황**
 
 확률 분포가 주어진 상황에서는 `이산`인 경우와 `연속`인 경우에 대하여 나누어 생각할 수 있습니다.
 
@@ -135,16 +165,20 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
     + 평균 $$ \mu = \int_{\infty}^{\infty}xp(x) dx $$
     + 분산 $$ \sigma^{2} = \int_{\infty}^{\infty}(x-\mu)^{2}p(x)dx $$
     
-이산 확률 분포에서는 P(x), 연속 확률 분포에서는 p(x)로 구분하여 표기하였습니다.
+이산 확률 분포에서는 $$ P(x) $$, 연속 확률 분포에서는 $$ p(x) $$로 구분하여 표기하였습니다.
+
+<br>
 
 #### 이산 확률 분포가 주어진 경우 평균과 분산 계산
 
-+ 두 개의 주사위를 던지고 나온 눈의 합을 랜덤 변수 x라 하면 평균과 분산은 다음과 같습니다.
++ 두 개의 주사위를 던지고 나온 눈의 합을 랜덤 변수 $$ x $$라 하면 평균과 분산은 다음과 같습니다.
     + 확률 분포 $$ P(x_{2}) = \frac{1}{36}, P(x_{3}) = \frac{2}{36} , P(x_{4}) = \frac{3}{36}, P(x_{5}) = \frac{4}{36}, P(x_{6}) = \frac{5}{36}, P(x_{7}) = \frac{6}{36} $$ <br>
       $$ P(x_{8}) = \frac{5}{36}, P(x_{9}) = \frac{4}{36}, P(x_{10}) = \frac{3}{36}, P(x_{11}) = \frac{2}{36}, P(x_{12}) = \frac{1}{36} $$ 입니다.    
     + 평균 $$ \mu = \sum_{i=2}^{12}i \times P(x_{i}) = 7 $$ 
     + 분산 $$ \sigma^{2} = \sum_{i=2}^{12}(i - \mu)^{2} \times P(x_{i}) = 5.83 $$
-    
+
+<br>
+
 + 이제 확률 분포는 모르고 샘플 집합만 주어진 상황을 생각해 보겠습니다.
     + 샘플의 갯수는 N, i번째 샘플을 $$ x_{i} $$ 로 표기하겠습니다.
     + 충분히 많은 샘플을 확보하여 $$ N \to \infty $$ 이 되면 실제 확률 분포와 가까와 진다는 통계적 정리에 따라
@@ -153,7 +187,11 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
             + 분산을 구할 때, N이 아니라 N-1로 나누어 주었습니다. 바이어스의 영향으로 N-1로 나누어 주어야 합니다.
             + 참조 : https://gaussian37.github.io/interview-datascience-Q6-the-reason-of-n-1-tem/
 
-### 샘플 집합이 주어진 경우
+<br><br>
+
+### **샘플 집합이 주어진 상황**
+
+<br><br>
 
 #### 샘플 집합이 주어진 경우 평균과 분산
 
@@ -170,7 +208,9 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 + 평균 : $$ \mu = \frac{1}{10}\sum_{i=1}^{10} x_{i}= 7.5 $$ 
 + 분산 : $$ \sigma^{2} = \frac{1}{9}\sum_{i=1}^{10}(x_{i} - \mu)^{2} = 5.16667 $$
 
-### 랜덤 변수가 여러개가 주어진 경우
+<br><br>
+
+### **랜덤 변수가 여러개가 주어진 상황**
 
 + 랜덤 변수 한개의 통계적 분석은 feature 하나를 분석한 것과 같습니다.
 + 현실 데이터에서는 여러개의 랜덤 변수가 랜덤 벡터를 구성하는 경우가 많음
@@ -185,6 +225,3 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 + 중요한 통계적 특성으로 $$ x_{i}, x_{j} $$ 사이의 공분산 $$ \sigma_{ij} $$(covariance)이 있습니다.        
     
-<br>
-<a href="https://coupa.ng/bgl1OZ" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/electronic-640-x-100.jpg" alt=""></a>
-<iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.4%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>
