@@ -45,3 +45,6 @@ tags: [english, speaking, voca, idiom] # add tag
     
 + 13 . Ms. Yamada translated the fascinating fairy tale into plain Japanese.
     + Yamada 씨가 흥미로운 옛날 이야기를 쉬운 일본어로 번역했다.
+    
++ 14 . The following passage is quoted from a well-known fable.
+    + 다음 단락은 유명한 우화로부터 인용한 것이다.
