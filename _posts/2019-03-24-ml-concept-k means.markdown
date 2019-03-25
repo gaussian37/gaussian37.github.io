@@ -118,4 +118,29 @@ tags: [ml, machine learning, k means, k-means, clustering] # add tag
 
 + 다시 정리하면 앞에서 설명한 바와 같이 k-means 알고리즘은 `cluster assignment`와 `move centroid` 두 스텝을 통해서 구현됩니다.
 
+<br><br>
+
+### Random Initialization
+
+<img src="../assets/img/ml/concept/k-means/12.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 앞의 내용들을 숙지하였다면 한가지 궁금한 점이 있을 것입니다. 어떻게 centroid를 초기화 할 것인지에 대한 문제입니다.
++ 먼저 초기화 할 centroid는 `K`개로 전체 데이터의 수 `m`개 보다 작아야 합니다. 
++ K개의 centroid는 **데이터에서 뽑은 K개의 샘플**을 이용하여 초기화 합니다.
+    + 즉, K개의 샘플을 centroid로 잡습니다.
++ 정리하면, $$ K $$ 개의 서로 다른 숫자 $$ i_{1}, i_{2}, ..., i_{k} 를 $$ \{1, 2, ..., m \} $$ 에서 고른 뒤 $$ \mu_{1} = x^{(i_{1})}, \mu_{2} = x^{(i_{2})}, ..., \mu_{k} = x^{(i_{k})} $$ 로 세팅합니다. 
+    
+<img src="../assets/img/ml/concept/k-means/13.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 반면, `Random Initialization`을 하게 되었을 때 발생되는 문제는, `local optima` 입니다.
++ `local optima` 문제는 최적화 문제에서 종종 나타나게 되는 문제 입니다. 
++ 슬라이드의 오른쪽 아래 2개의 그래프를 보면 처음 초기화를 잘못하게 되면 더 이상 개선되기 어려운 상태에 빠지게 되는 데 이러한 문제를 말합니다.
+    + 즉, `cost function`을 더 이상 최소화 할 수 없는 상태입니다.
+    
+<br><br>
+
+### Choosing the Number of Clusters
+
+
+    
   
