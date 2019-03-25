@@ -86,9 +86,36 @@ tags: [ml, machine learning, k means, k-means, clustering] # add tag
 + 먼저, `cluster assignment` 과정을 보면 각각의 데이터 $$ x^{(i)} $$는 $$ c^{(i)} = min_{k} \Vert x^{(i)} - \mu_{k} \Vert^{2} $$ 을 통해 어떤 클러스터에 속할 지 정해집니다.
 + 클러스터가 정해지면 클러스터 $$ c^{(i)} $$ 에 속한 데이터들을 통하여 평균 값을 구할 수 있고 이 평균값이 세로운 centroid가 됩니다.
 
-<img src="../assets/img/ml/concept/k-means/8.PNG" alt="Drawing" style="width: 600px;"/>
+<img src="../assets/img/ml/concept/k-means/9.PNG" alt="Drawing" style="width: 600px;"/>
 
 + K-means 알고리즘은 슬라이드 왼쪽 그림과 같이 명확히 데이터의 집합이 구분이 되어 있는 데이터셋을 구분할 수도 있지만
 + 슬라이드 오른쪽 그림과 같이 클러스터가 분리되어 있지 않는 데이터 셋에서도 데이터를 분리할 수 있습니다.
     + 오른쪽 그림의 예제를 `market segmentation`이라고 하고 예제에서는 몸무게와 키를 통하여 셔츠의 사이즈를 3부분으로 나눌 때 어떻게 나누어야 하는 지 기준을 제공해 줍니다.
  
+<br><br>
+
+### Optimization objective
+
++ 대부분의 `supervised learning`에서는 optimization을 하기 위한 방법들이 있었습니다.
+    + 예를 들어 cost function을 최소화 하는것이 하나의 예가 됩니다.
++ `k-means` 알고리즘에서도 optimize 해야하는 cost function이 존재합니다. 앞에서 살짝 언급하였기 때문에 눈치 채셨을 것입니다.
++ `k-means` 알고리즘의 cost function에 대하여 알아보면 좋은 점이 있습니다.
+    + 어떻게 디버깅 해야 하는 지 알 수 있고 학습이 잘 되고 있는지 또한 알 수 있습니다.
+    + 더 좋은 cost와 로컬 미니마에 빠지는 것을 피할 수 있습니다.
+    
+<img src="../assets/img/ml/concept/k-means/10.PNG" alt="Drawing" style="width: 600px;"/>
+    
++ 먼저 $$ c^{(i)} $$ 는 데이터 $$ x^{(i)} $$ 가 어떤 클러스터에 속하였는 지 나타냅니다.
++ 그리고 $$ \mu_{k} $$는 $$ k = \{1, 2, ..., k \} $$ 에서 각 인덱스에 해당하는 클러스터의 중심인 centroid를 나타냅니다.
++ 마지막으로 $$ \mu_{c^{(i)}} $$ 는 $$ i $$ 번째 데이터가 속한 클러스터의 centroid에 해당합니다.
+    + 따라서 슬라이드의 예제와 같이 $$ i $$ 번째 데이터의 클러스터가 5이면 $$ c^{(i)} = 5 $$가 되고 $$ \mu_{c^{(i)}}  = \mu_{5} $$ 가 됩니다. 
++ 위 세가지 정의를 기반으로 optimize 할 objective를 정의해 보면 위의 수식과 같습니다.
+    + 제곱 형태의 계산을 보면 **데이터와 클러스터의 중심 간의 거리 차이**에 대한 평균을 구하고 있습니다.
+    + 슬라이드의 오른쪽 하단을 보면 **빨간색** 선이 거리를 나타냅니다.
++ 참고로 k-means 알고리즘의 `cost function`을 때때로 `distortion` 이라고 합니다.
+
+<img src="../assets/img/ml/concept/k-means/11.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 다시 정리하면 앞에서 설명한 바와 같이 k-means 알고리즘은 `cluster assignment`와 `move centroid` 두 스텝을 통해서 구현됩니다.
+
+  
