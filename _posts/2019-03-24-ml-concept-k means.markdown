@@ -128,7 +128,7 @@ tags: [ml, machine learning, k means, k-means, clustering] # add tag
 + 먼저 초기화 할 centroid는 `K`개로 전체 데이터의 수 `m`개 보다 작아야 합니다. 
 + K개의 centroid는 **데이터에서 뽑은 K개의 샘플**을 이용하여 초기화 합니다.
     + 즉, K개의 샘플을 centroid로 잡습니다.
-+ 정리하면, $$ K $$ 개의 서로 다른 숫자 $$ i_{1}, i_{2}, ..., i_{k} 를 $$ \{1, 2, ..., m \} $$ 에서 고른 뒤 $$ \mu_{1} = x^{(i_{1})}, \mu_{2} = x^{(i_{2})}, ..., \mu_{k} = x^{(i_{k})} $$ 로 세팅합니다. 
++ 정리하면, $$ K $$ 개의 서로 다른 숫자 $$ i_{1}, i_{2}, ..., i_{k} $$ 를 $$ \{1, 2, ..., m \} $$ 에서 고른 뒤 $$ \mu_{1} = x^{(i_{1})}, \mu_{2} = x^{(i_{2})}, ..., \mu_{k} = x^{(i_{k})} $$ 로 세팅합니다. 
     
 <img src="../assets/img/ml/concept/k-means/13.PNG" alt="Drawing" style="width: 600px;"/>
 
