@@ -54,3 +54,41 @@ tags: [english, speaking, voca, idiom] # add tag
 + ecosystem will collapse
 + ecological process will disrupted
 + property, wealth, possessions, asset : 재산
+
++ sending a message, remind 
++ which agree 
++ bring it back
++ trust issues
+
+### business
+
++ mind you own business = do your own business
++ laundromat
++ job stability, job security
++ What challenges and difficulties do people face when they try to have a successful small business?
++ How can small businesses benefit the people in the community where the businesses are located?
++ What kinds of small business are most popular in your country?
++ Why do some people open their own business?
+ 
+### festival
+
++ 융합하다. : merge, fuse
++ Is it important to celebrate traditional festivals? 
++ you said: We can memorize the tradition...
++ you should say: We can remember the tradition and pass it on to the next generation.
+
++ What is the most popular festival in your country?
++ you said: I think Seoul was popular long time ago there are palace.
++ you should say: Since Seoul is popular for it's palaces, traditional festivals are being held.
+
++ Are festivals important to a country's tourist industry?
+
++ Do you agree that the real meaning behind traditional festivals has been lost?
++ you said: As time goes on, we forget the tradition meaning and we don't want the real tradition way.
++ you should say: As time goes by, we forget the real meaning of traditional festivals because of changes.
+
++ What's the difference between your traditional festivals and western festivals?
+
++ Do young people in your country like to celebrate foreign festivals?
++ you said: foreigner countries
++ you should say: foreign countries
