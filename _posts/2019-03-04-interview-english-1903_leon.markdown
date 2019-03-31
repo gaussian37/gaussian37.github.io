@@ -92,3 +92,17 @@ tags: [english, speaking, voca, idiom] # add tag
 + Do young people in your country like to celebrate foreign festivals?
 + you said: foreigner countries
 + you should say: foreign countries
+
+### Value
+
+What kinds of possessions give status to people in your country?
+- property
+- social or financial status
+answer: That’s a good question. Let me think…I’d say...
+
+you said: The status of financial status is very essential point of status.
+you should say: The financial status is very essential aspect for recognition.
+
+Has it always been the same or were different possessions thought of as valuable in the past?
+
+Why do you think people need to show their status in society?
