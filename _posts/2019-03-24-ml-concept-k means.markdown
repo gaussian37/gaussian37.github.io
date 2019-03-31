@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Clustering with K-Means Algorithm
+title: Clustering with K-Means Algorithm (Andrew Ng)
 date: 2019-03-24 00:00:00
 img: ml/concept/machineLearning.jpg
 categories: [ml-concept] 
@@ -141,6 +141,34 @@ tags: [ml, machine learning, k means, k-means, clustering] # add tag
 
 ### Choosing the Number of Clusters
 
-
++ 클러스터의 갯수 `K`는 어떻게 정하는 것이 좋을까요?
     
+<img src="../assets/img/ml/concept/k-means/14.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 위와 같이 데이터의 분포가 있을 때, 사람이 수동으로 정하게 된다면 데이터의 분포를 보고 직관적으로 파악할 수 밖에 없습니다.
+
+<img src="../assets/img/ml/concept/k-means/15.PNG" alt="Drawing" style="width: 600px;"/>    
+
++ 반면에, 앞에서 사용한 `cost function`을 이용하면 좀 더 수치적으로 접근할 수 있습니다.
++ K-means 알고리즘에서는 K의 갯수가 너무 많다 보면 clustering이 너무 세분화 되어서 의미 있는 clustering을 구하기 어려울 수도 있습니다.
++ 그러면 의미있는 clustering을 만들려면 적당한 갯수의 cluster(2 ~ 5개)가 있고 각 cluster가 적절한 의미를 가지고 있어야 합니다.
+    + cluster가 의미가 있으려면 centroid가 각 클러스터를 잘 대표할 수 있도록 배치되어 있어서 clustering이 잘 되어 있다는 의미 입니다.
+    + 즉, 각 cluster의 데이터 들과 centroid간의 차이가 최소화 되어 있어야 **적절한 갯수의 클러스터로 적절하게 클러스터링 되어있다** 라고 볼 수 있습니다.
++ 앞에서 사용한 수치를 인용한다면, cost function이 작은 경우가 클러스터가 잘 된 경우라고 볼 수 있습니다.
++ 하지만, 일반적으로 k가 늘어날수록 cost function이 작아지기 때문에 무작정 cost function이 작다고 좋은 클러스터링이라고 볼 수는 없습니다.
++ 따라서 위 슬라이드와 같이 `Elbow method`를 사용하면 좋습니다.
+    + 즉, Cost function이 급격하게 낮아지는 `변곡점`이 clustering이 의미가 있어지는 점의 `K`라고 볼 수 있습니다.     
   
+<img src="../assets/img/ml/concept/k-means/16.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 때로는 목적에 따라서, 클러스터링의 갯수를 정할 수도 있습니다.
++ 위 슬라이드 왼쪽과 같이 클러스터링의 갯수가 3개가 필요하다는 것을 알고 있다면 3개만 적용할 수도 있고 오른쪽 처럼 5개가 필요하다면 5개를 직접 적용할 수도 있습니다.
+
+<br><br>
+
+### K-means with scikit-learn
+
++ 아래 코드 링크를 참조하면 scikit-learn을 이용하여 K-means 알고리즘을 사용하는 방법에 대하여 확인할 수 있습니다.
++ [코드 링크](https://nbviewer.jupyter.org/github/gaussian37/Machine-Learning-Implementation/blob/master/K-means%20clustering/K-means%20clustering.ipynb)
+
+<img src="../assets/img/ml/concept/k-means/17.PNG" alt="Drawing" style="width: 600px;"/>
