@@ -99,5 +99,41 @@ tags: [machine learning, pca] # add tag
     + 즉 linear regression은 supervised learning 방법으로 prediction을 하는 것인 반면
     + PCA는 projection을 할 새로운 차원을 만들어내는 unsupervised learning 방법입니다.
 
+<br>
+
++ 그러면 PCA를 구하려면 어떻게 구해야 하는지 좀 더 수식적으로 알아보도록 하겠습니다.
++ 먼저 PCA를 하기 전에 데이터 전처리를 해주어야 합니다. 즉 데이터에 대하여 `normalization`을 합니다.
+
+<img src="../assets/img/ml/concept/about-pca/9.PNG" alt="Drawing" style="width: 600px;"/>
+
++ `normalization`을 해주는 이유는 데이터들이 유사한 범위의 값을 가지도록 하기 위해서 입니다.
+
+<img src="../assets/img/ml/concept/about-pca/10.PNG" alt="Drawing" style="width: 600px;"/>
+
++ PCA 연산을 하면 두가지 결과를 얻을 수 있습니다.
+    + 위 슬라이드에서 표현되는 새로운 공간 축인 $$ u^{(i)} $$ 입니다.
+    + 그리고 새로운 공간 축에 대응되는 새로운 데이터의 값인 $$ z^{(i)} $$ 입니다.
+    
+<img src="../assets/img/ml/concept/about-pca/11.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 다음으로 PCA를 하려면 n차원의 데이터를 k차원으로 줄여야 하는데 이 때 사용할 방법이 `공분산`과 `고유벡터`입니다.
++ 먼저 n차원 데이터 $$ x^{(i)} $$ 에 대한 `공분산`을 구해야 합니다.
+    + 위 슬라이드에서 각 데이터 $$ x^{(i)} $$는 n차원이므로 (n x 1) 벡터로 표현할 수 있고 데이터의 갯수가 m개 이므로 m으로 평균을 만들어서 공분산을 구해줍니다.
++ 공분산을 이용해서 특이값 분해를 하면 `고유벡터`를 구할 수 있습니다.         
+    + 특이값 분해(SVD)는 다음 링크를 참조하시기 바랍니다
+        + https://gaussian37.github.io/math-la-linear-algebra-basic/
++ 이 때 행렬 $$ U $$는 (n x n)의 크기를 가지게 되고 여기서 k개를 선택하면 차원의 수를 k개로 줄일 수 있습니다.
++ 즉 정리하면,
+    + 1 ) 공분산 행렬을 구합니다.
+    + 2 ) 공분산 행렬의 고유벡터를 구합니다.
+    + 3 ) 고유벡터에서 k개 만큼 선택하여 차원의 갯수를 k개로 줄입니다.
++ 이 방법이 `PCA`의 핵심입니다. 
  
- 
+<img src="../assets/img/ml/concept/about-pca/12.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 좀 더 풀어서 살펴보면 행렬 $$ U $$ 는 위와 같이 (n x k)의 크기를 가지게 됩니다.
++ 새로운 공간에 값을 projection시킨 값 $$ z^{(i)} $$를 구하려면 $$ z^{(i)} = U^{T}x^{(i)} $$를 통하여 (k x 1) 크기의 벡터를 구할 수 있습니다. 
+
+<img src="../assets/img/ml/concept/about-pca/13.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 따라서 코드로 `PCA`를 표현하면 위와 같이 쉽게 나타낼 수 있습니다.

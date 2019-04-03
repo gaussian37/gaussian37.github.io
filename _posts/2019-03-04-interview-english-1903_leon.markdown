@@ -106,3 +106,8 @@ you should say: The financial status is very essential aspect for recognition.
 Has it always been the same or were different possessions thought of as valuable in the past?
 
 Why do you think people need to show their status in society?
+
+### film
+
++ Censorship is required
++ Censorship laws will loosen/flexible
