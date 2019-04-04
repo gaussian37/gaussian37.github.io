@@ -137,3 +137,49 @@ tags: [machine learning, pca] # add tag
 <img src="../assets/img/ml/concept/about-pca/13.PNG" alt="Drawing" style="width: 600px;"/>
 
 + 따라서 코드로 `PCA`를 표현하면 위와 같이 쉽게 나타낼 수 있습니다.
+
+<br><br>
+
+### Reconstruction from compressed representation
+
+<img src="../assets/img/ml/concept/about-pca/14.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 위 슬라이드의 왼쪽을 보면 앞에서 다룬 내용인 새로 생성한 저차원의 축에 데이터를 projection하는 방법을 표시해 놓았습니다.
++ 만약 다시 고차원의 축으로 데이터를 복원하려면 어떻게 해야 할까요?
++ 앞에서 사용한 방법이 행렬의 곱을 이용한 행렬 변환 이었으므로 그 연산 과정을 역으로 이용하면 원본 데이터 근사치를 복원 할 수 있습니다.
+    + 위 슬라이드와 같이 $$ x_{approx}^{(i)} = U_{reduce} \cdot z^{(i)} $$ 로 근사치를 구할 수 있습니다. 
+    + k차원의 데이터 $$ z $$를 다시 n차원으로 복원하였기 때문에 $$ x^{(i)}_{approx} $$는 (n x 1)의 크기를 가지는 벡터입니다.
+    
+<br><br>
+
+### Choosing the Number of Principal Components
+
++ 앞에서 배운 내용을 살펴보면 PCA를 수행할 때 필요한 파라미터는 몇 차원으로 줄일지 선택해야하는 차원의 수 `k`입니다.
++ 경우에 따라서, 예를 들어 data visualization에서는 2차원 또는 3차원으로 차원을 줄일 것이 명확합니다.
++ 하지만 data compression 같은 경우에는 몇 차원으로 줄여야 하는 것이 가장 좋은지 명확하지가 않습니다.
++ 따라서 차원의 수 k를 정할 때, 수치적으로 적당하다고 생각하는 기준을 정해야 할 필요가 있습니다.
++ 아래 내용에서 `k` 즉 Principal Components의 갯수를 정하는 방법에 대하여 알아보겠습니다. 
+
+<img src="../assets/img/ml/concept/about-pca/15.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 먼저 필요한 두 가지 수치는 위 슬라이드 처럼 `Average squared projection error`와 `Total variation` 입니다.
++ 앞에서 설명한 바와 같이 PCA를 잘 수행했다는 기준은 `projection error`를 최소화 하는 것입니다.
++ 이전 슬라이드를 참조하면 $$ x_{approx}^{(i)} = U_{reduce} \cdot z^{(i)} $$를 이용아여 구할 수 있습니다.
+    + 따라서 `projection error`는 $$ x^{(i)} $$ 와 $$ x_{approx}^{(i)} $$ 사이의 거리에 해당합니다.
++ 반면 `Total variation`은 모든 데이터가 원점에서 부터 얼마나 떨어져 있는지를 나타내고 데이터들의 길이 평균이라고 볼 수 있습니다.
++ 최종적으로 필요한 Principal components의 갯수는 `projection error`가 최소가 되도록 하는 조합을 선택해야 하고 이 때의 조합의 구성 성분 갯수가 $$ k $$가 됩니다.
++ 이 때 나타낼 수 있는 수치가 (`Average squared projection error` / `Total variation`) 이고 이 값이 0.01 이하이면 적당한 principal components의 갯수를 선택했다고 보곤 합니다.
++ 같은 방법이지만 조금 다르게 표현하면 variance가 99% 정도 만족한다고도 표현할 수 있습니다. 
+
+<img src="../assets/img/ml/concept/about-pca/16.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 위 슬라이드 왼쪽을 보면 앞에서 설명한 방법대로 Principal Components의 갯수를 구하는 방법을 소개하고 있습니다.
++ step을 하나 하나 따라가 보면 k=1 일때에는 그럭저럭 할만하지만 k의 갯수가 2, 3, 4, ... 증가할 때 마다 연산해야 할 양이 늘어나게 되어서 비효율적으로 느껴지게 됩니다.
++ 이 때 동일한 방법을 효율적으로 할 수 있는 방법이 있습니다. 이전 내용에서 본 `SVD`를 이용하는 방법입니다.
++ 공분산을 `SVD`를 이용하여 분해하였을 때 대각행렬을 보면 위 슬라이드 오른쪽 처럼 분해되어 있음을 알 수 있습니다.
++ 대각 행렬의 대각 성분을 이용하면 k개의 성분을 선택하였을 때 `variance`가 얼마인지를 구할 수가 있습니다.
++ 즉, 99%의 `variance`가 k가 몇일 때 나오는 지 알 수 있으므로 상당히 효율적입니다.  
+
+<img src="../assets/img/ml/concept/about-pca/17.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 다시 한번 정리하면, `PCA`에서 Principal Component의 갯수는 `SVD`를 통해 추출한 대각행렬을 이용하여 `variance` 비율이 크도록 하는 갯수로 정하면 됩니다.
