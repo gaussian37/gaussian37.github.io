@@ -183,3 +183,36 @@ tags: [machine learning, pca] # add tag
 <img src="../assets/img/ml/concept/about-pca/17.PNG" alt="Drawing" style="width: 600px;"/>
 
 + 다시 한번 정리하면, `PCA`에서 Principal Component의 갯수는 `SVD`를 통해 추출한 대각행렬을 이용하여 `variance` 비율이 크도록 하는 갯수로 정하면 됩니다.
+
+<br><br>
+
+### Advice for applying PCA
+
+<img src="../assets/img/ml/concept/about-pca/18.PNG" alt="Drawing" style="width: 600px;"/>
+
++ PCA를 사용할 수 있는 용도로 Supervised learning에서 학습 속도를 높이기 위해서 feature의 수를 줄일 때 사용할 수 있습니다.
++ Supervised learning에서 feature의 갯수가 너무 많은 경우 저차원의 feature에 데이터를 projection하여 차원을 줄이면 학습 속도를 높일 수 있습니다.
+
+<img src="../assets/img/ml/concept/about-pca/19.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 앞에서 배운 내용을 정리하면 PCA를 사용하는 대표적이 용도는 다음과 같습니다.
+    + `Compression`
+        + 데이터를 압축하여 저장 데이터양을 줄입니다.
+        + 학습할 데이터의 크기를 줄여 학습 속도를 높입니다.
+        + 이 때는 `variance`의 크기를 관찰하여 Principal component의 갯수 `K`를 정합니다.
+    + `Visualization`
+        + 이 때는 feature의 갯수를 2 ~ 3로 줄여서 데이터의 분포를 관찰합니다.
+
+<img src="../assets/img/ml/concept/about-pca/20.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 별로 좋지 않은 방법의 PCA 사용 방법은 feature를 줄여서 overfitting을 방지하려는 시도 방법입니다.
++ 이 방법은 좋은 결과를 만들 수 있긴 하지만 처음 부터 이 방법을 사용하기 보다는 regularization과 같은 방법을 먼저 시도하는 것이 좋습니다.
+    + feature의 갯수를 줄인 다는 것이 데이터의 손실이 발생하기 때문입니다.
+      
+<img src="../assets/img/ml/concept/about-pca/20.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 따라서 supervised learning을 할 때에 PCA를 꼭 써서 학습을 보완하고 싶다면 PCA를 쓰지 않고 학습을 해보고 그 다음 정 필요하다면 PCA를 적용해 보길 권합니다.
+
+<br><br>
+
+### code for PCA
