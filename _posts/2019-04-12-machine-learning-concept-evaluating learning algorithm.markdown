@@ -25,7 +25,7 @@ tags: [machine learning, pca] # add tag
 
 <img src="../assets/img/ml/concept/evaluate-algorithm/2.PNG" alt="Drawing" style="width: 600px;"/>
 
-+ 만약 위 슬라이드 처럼 fitting한 결과가 같다면 학습 데이터에 너무 맞춰져서 새로운 데이터가 들어왔을 때 좋은 성능을 내기 어려울 수 있습니다.
++ 만약 위 슬라이드 처럼 fitting되었다면 학습 데이터에 너무 맞춰져서 새로운 데이터가 들어왔을 때 좋은 성능을 내기 어려울 수 있습니다.
 + 특히 위와 같이 `feature`의 갯수가 너무 많다면 overfitting될 가능성이 더 커집니다.
 
 <img src="../assets/img/ml/concept/evaluate-algorithm/3.PNG" alt="Drawing" style="width: 600px;"/>
