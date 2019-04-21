@@ -4,7 +4,7 @@ title: Bias Vs. Variance (Andrew Ng)
 date: 2019-04-13 00:00:00
 img: ml/concept/machineLearning.jpg
 categories: [ml-concept] 
-tags: [machine learning, pca] # add tag
+tags: [machine learning, bias, variance] # add tag
 ---
 
 출처 : Andrew Ng 강의

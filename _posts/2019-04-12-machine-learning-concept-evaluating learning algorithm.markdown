@@ -4,7 +4,7 @@ title: Evaluating a Learning Algorithm (Andrew Ng)
 date: 2019-04-12 03:49:00
 img: ml/concept/machineLearning.jpg
 categories: [ml-concept] 
-tags: [machine learning, pca] # add tag
+tags: [machine learning, evaluation] # add tag
 ---
 
 출처 : Andrew Ng 강의
