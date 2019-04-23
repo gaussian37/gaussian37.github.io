@@ -53,3 +53,30 @@ USEFUL EXPRESSIONS to use in IELTS Speaking Part3:
 
 + Drawing the conclusion/ Ending a point/ discussion:
     + So, that's why I think that...
+    
+### Art
+
++ Describe the general purpose of art. Why do people enjoy art?
+    - communication
+    - beauty 
+    - generate strong emotions (happy, sad)
+    - give pleasure
+    - challenging (what it represents)
+
++ Do you think that art is as important as academic subjects when it comes to educating children?
+    + When an individual becomes an adult...
+    + creativity
+    + critical thinking
+
++ What are the advantages and disadvantages of art education?
+
+HUMMS humanities and social sciences
+STEM science technology engineering math
+TECH-VOC technical-vocational
+    
++ Why do you think some people enjoy looking at paintings and sculptures and others do not?
+    + social class
+    + education
+    
++ Do you think that some people are naturally better artists than others?
+    
