@@ -80,3 +80,10 @@ TECH-VOC technical-vocational
     
 + Do you think that some people are naturally better artists than others?
     
+### Eating habit
+
++ Tell me about the types of food that people eat in your country.
++ Why do you think different cultures have different table manners?
++ How may eating habits change in coming decades?
++ What one aspect of a foreign tradition you like about their eating habits? Why?
++ hoard : 저장하다. 보관하다. 
