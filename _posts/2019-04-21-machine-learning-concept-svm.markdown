@@ -53,6 +53,10 @@ tags: [machine learning, svm, suport vector machine] # add tag
 
 ### Large Margin Intuition
 
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/Ccje1EzrXBU" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
+</div>
+
 <img src="../assets/img/ml/concept/svm/5.PNG" alt="Drawing" style="width: 600px;"/>
 
 + 앞에서 정리한 SVM의 cost function은 위 슬라이드의 식과 같습니다.
@@ -83,9 +87,14 @@ tags: [machine learning, svm, suport vector machine] # add tag
 + $$ C $$는 정확히 `regularization` 이라고 볼 수 있습니다. 왜냐하면 $$ C = \frac{1}{\lambda} $$ 이기 때문입니다.
     + 즉 $$ \lambda $$의 값이 너무 커지게 되면($$ C $$의 값이 너무 작아지게 되면) `high bais` 문제로 인하여 underfitting이 발생할 수 있습니다.
     + 반대로 $$ \lambda $$의 값이 너무 작아지게 되면($$ C $$의 값이 커지게 되면) `high variance` 문제로 overfitting 문제가 발생할 수 있습니다.
-+      
++ `regularization`을 적용할 때 적당한 값 $$ \lambda $$가 필요하기 때문에 $$ C $$ 값도한 너무 크지도 작지도 않은 값일 때, 적당한 `margin`을 가진 line을 구할 수 있습니다.       
+
+### Mathematics Behind Large Margin Classification
 
 <div style="text-align: center;">
-<iframe src="https://www.youtube.com/embed/0-DL_nSa_ew" frameborder="0" allowfullscreen="true" width="600px" height="400px" align="middle"> </iframe>
+    <iframe src="https://www.youtube.com/embed/QKc3Tr7U4Xc" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
 </div>
+
+
+
     
