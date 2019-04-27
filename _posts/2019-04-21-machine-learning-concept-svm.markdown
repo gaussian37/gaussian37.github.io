@@ -16,14 +16,14 @@ tags: [machine learning, svm, suport vector machine] # add tag
 + SVM은 기본적으로 Supervised Learning의 한 방법입니다.
 + SVM은 성능도 좋을 뿐만 아니라 복잡한 non-linear function에서 학습할 때에도 좋습니다.
 
-<img src="../ml/concept/svm/1.PNG" alt="Drawing" style="width: 600px;"/>
+<img src="../assets/img/ml/concept/svm/1.PNG" alt="Drawing" style="width: 600px;"/>
 
 + SVM을 시작하기에 앞서서 logistic regression부터 접근해서 좀 더 확장하는 방법으로 SVM에 대하여 배워보도록 하겠습니다.
 + 위 슬라이드는 기초적인 logistic regression 식을 나타냅니다. 
     + 일반적으로 logistic regression에서의 threshold 값은 0.5로 설정하게 됩니다.
     + 따라서 $$ z = \theta^{T}x $$의 값이 0보다 크게 되면 prediction은 1이 되고 0보다 작게 되면 prediction은 0이 되게 됩니다.
        
-<img src="../ml/concept/svm/2.PNG" alt="Drawing" style="width: 600px;"/>
+<img src="../assets/img/ml/concept/svm/2.PNG" alt="Drawing" style="width: 600px;"/>
 
 + logistic regression의 cost function을 살펴보면 위 슬라이드와 같은 식이 도출됩니다.
 + logistic regression은 label(y)의 값이 0 또는 1인데 label의 값이 0 또는 1임에 따라서 cost function의 term 하나가 0이 되게 됩니다.
@@ -33,7 +33,7 @@ tags: [machine learning, svm, suport vector machine] # add tag
 + 반대로 y = 0일 때를 살펴보겠습니다. 오른쪽 아래 슬라이드와 같이 cost function을 나타낼 수 있습니다.
     + 이 때에도 직선으로 cost function에 접하는 근사한 그래프를 그려볼 수 있습니다.
 
-<img src="../ml/concept/svm/3.PNG" alt="Drawing" style="width: 600px;"/>
+<img src="../assets/img/ml/concept/svm/3.PNG" alt="Drawing" style="width: 600px;"/>
 
 + 앞에서 정의한 각 데이터의 cost function을 모든 데이터에 대하여 정의해 보도록 하겠습니다.
 + 위 슬라이드의 식을 보면 $$ \sum $$ 이 추가 된것을 볼 수 있는데, cost를 모두 합하여 전체 cost를 구하는 것입니다.
@@ -46,36 +46,38 @@ tags: [machine learning, svm, suport vector machine] # add tag
 + 마지막으로 regularization에 곱해진 $$ \lambda $$ 또한 없애주기 위해 두 term에  $$ C = \frac{1}{\lambda} $$를 곱해줍니다.
     + 이 또한 optimization 문제를 푸는 데 영향을 주지 않습니다.
 
-<img src="../ml/concept/svm/4.PNG" alt="Drawing" style="width: 600px;"/>
+<img src="../assets/img/ml/concept/svm/4.PNG" alt="Drawing" style="width: 600px;"/>
 
 + 식을 정리하면 위 슬라이드 처럼 간략하게 표현할 수 있습니다.
 + 그러면 다시 이 식을 통하여 prediction을 할 때 $$ \theta^{T}x^{(i)} $$ 의 값이 0 보다 크면 1로 판단하고 0보다 작으면 0으로 판단하도록 합니다.  
 
 ### Large Margin Intuition
 
-<img src="../ml/concept/svm/5.PNG" alt="Drawing" style="width: 600px;"/>
+<img src="../assets/img/ml/concept/svm/5.PNG" alt="Drawing" style="width: 600px;"/>
 
 + 앞에서 정리한 SVM의 cost function은 위 슬라이드의 식과 같습니다.
 + 이 식과 logistic regression의 식과의 차이점은 logistic regression이 곡선을 직선으로 근사한 것입니다.
     + 여기서 발생하는 차이점은 logistic regression에서는 $$ z = \theta{T}x $$의 값 비교 기준이 0이었으나 SVM에서는 1과 -1로 바뀌었다는 점입니다.
 + 그리고 앞에서 식을 정리하면서 새로 생긴 term인 $$ C $$의 크기는 어떤 영향을 미칠까요?
 
-<img src="../ml/concept/svm/6.PNG" alt="Drawing" style="width: 600px;"/>
+<img src="../assets/img/ml/concept/svm/6.PNG" alt="Drawing" style="width: 600px;"/>
 
 + 위 슬라이드 식의 목적은 cost를 최소한으로 만드는 것 입니다. 즉, 위 식의 값을 최대한 0에 가깝게 줄이는 것입니다.
 + 만약 C의 값이 굉장히 크다면 $$ \sum $$에 해당하는 값이 0에 가까워 져야 optimization에 가까워집니다. 
     + 즉 C의 값이 커질수록 학습할 때 $$ \sum $$에 해당하는 값이 더욱 0에 가까워지도록 학습하게 됩니다.
 
-<img src="../ml/concept/svm/7.PNG" alt="Drawing" style="width: 600px;"/>
+<img src="../assets/img/ml/concept/svm/7.PNG" alt="Drawing" style="width: 600px;"/>
 
 + 이번에는 공간 상에서 SVM이 하는 역할에 대하여 알아보려고 합니다.
 + 만약 위 슬라이드의 2차원 공간과 같이 데이터가 분포되어 있습니다. 두 데이터를 나누려고 하는데 어떻게 나누는 것이 좋을까요?
 + 두 데이러 부류를 나누는 데에는 상당히 많은 방법이 있습니다. 
     + 위 예시를 봤을 때, 자주색 또는 연두색 보다 검은색 선이 더 잘 나눈거 같다고 생각은 드는데요..
     
-<img src="../ml/concept/svm/8.PNG" alt="Drawing" style="width: 600px;"/>
+<img src="../assets/img/ml/concept/svm/8.PNG" alt="Drawing" style="width: 600px;"/>
 
 + 그 이유는 검은색 선을 보면 검은색 선에 가장 가까운 데이터와의 거리를 `margin` 이라고 하는데 검은색 선의 margin이 다른색 선의 margin보다 더 크기 때문입니다.
    
-<img src="../ml/concept/svm/9.PNG" alt="Drawing" style="width: 600px;"/>
+<img src="../assets/img/ml/concept/svm/9.PNG" alt="Drawing" style="width: 600px;"/>
+
+
     
