@@ -80,10 +80,12 @@ tags: [machine learning, svm, suport vector machine] # add tag
 <img src="../assets/img/ml/concept/svm/9.PNG" alt="Drawing" style="width: 600px;"/>
 
 + 앞에서 설명한 C 상수의 크기는 decision boundary에 영향을 미치게 됩니다.
-+ C는 정확히 `regularization` 이라고 볼 수 있습니다. 왜냐하면 $$ C = \frac{1}{\lambda} $$ 이기 때문입니다.
-    + 즉 $$ \lambda $$의 값이 너무 커지게 되면  
++ $$ C $$는 정확히 `regularization` 이라고 볼 수 있습니다. 왜냐하면 $$ C = \frac{1}{\lambda} $$ 이기 때문입니다.
+    + 즉 $$ \lambda $$의 값이 너무 커지게 되면($$ C $$의 값이 너무 작아지게 되면) `high bais` 문제로 인하여 underfitting이 발생할 수 있습니다.
+    + 반대로 $$ \lambda $$의 값이 너무 작아지게 되면($$ C $$의 값이 커지게 되면) `high variance` 문제로 overfitting 문제가 발생할 수 있습니다.
++      
 
 
-<iframe src="https://www.youtube.com/embed/0-DL_nSa_ew" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
+<iframe src="https://www.youtube.com/embed/0-DL_nSa_ew" frameborder="0" allowfullscreen="true" width="600px" height="400px" align="middle"> </iframe>
 
     
