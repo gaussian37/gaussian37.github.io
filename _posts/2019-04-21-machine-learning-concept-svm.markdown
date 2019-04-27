@@ -83,6 +83,6 @@ tags: [machine learning, svm, suport vector machine] # add tag
 + C는 정확히 `regularization` 이라고 볼 수 있습니다. 왜냐하면 
 
 
-<iframe src="https://www.youtube.com/embed/0-DL_nSa_ew" frameborder="0" allowfullscreen="true" style="width: 600px;> </iframe>
+<iframe src="https://www.youtube.com/embed/0-DL_nSa_ew" frameborder="0" allowfullscreen="true" width="600"> </iframe>
 
     
