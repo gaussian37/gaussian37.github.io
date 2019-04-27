@@ -85,7 +85,7 @@ tags: [machine learning, svm, suport vector machine] # add tag
     + 반대로 $$ \lambda $$의 값이 너무 작아지게 되면($$ C $$의 값이 커지게 되면) `high variance` 문제로 overfitting 문제가 발생할 수 있습니다.
 +      
 
-
+<div style="text-align: center;">
 <iframe src="https://www.youtube.com/embed/0-DL_nSa_ew" frameborder="0" allowfullscreen="true" width="600px" height="400px" align="middle"> </iframe>
-
+</div>
     
