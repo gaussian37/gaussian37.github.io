@@ -56,8 +56,8 @@ tags: [machine learning, svm, suport vector machine] # add tag
 <img src="../assets/img/ml/concept/svm/5.PNG" alt="Drawing" style="width: 600px;"/>
 
 + 앞에서 정리한 SVM의 cost function은 위 슬라이드의 식과 같습니다.
-+ 이 식과 logistic regression의 식과의 차이점은 logistic regression이 곡선을 직선으로 근사한 것입니다.
-    + 여기서 발생하는 차이점은 logistic regression에서는 $$ z = \theta{T}x $$의 값 비교 기준이 0이었으나 SVM에서는 1과 -1로 바뀌었다는 점입니다.
++ 이 식과 logistic regression의 식과의 차이점은 Support Vector Machine의 식이 logistic regression의 곡선을 직선으로 근사한 것이라는 점입니다.
+    + 여기서 발생하는 차이점은 logistic regression에서는 $$ z = \theta^{T}x $$의 값 비교 기준이 0이었으나(0 이상 또는 0 이하) SVM에서는 1과 -1로 바뀌었다는 점입니다.
 + 그리고 앞에서 식을 정리하면서 새로 생긴 term인 $$ C $$의 크기는 어떤 영향을 미칠까요?
 
 <img src="../assets/img/ml/concept/svm/6.PNG" alt="Drawing" style="width: 600px;"/>
@@ -70,7 +70,7 @@ tags: [machine learning, svm, suport vector machine] # add tag
 
 + 이번에는 공간 상에서 SVM이 하는 역할에 대하여 알아보려고 합니다.
 + 만약 위 슬라이드의 2차원 공간과 같이 데이터가 분포되어 있습니다. 두 데이터를 나누려고 하는데 어떻게 나누는 것이 좋을까요?
-+ 두 데이러 부류를 나누는 데에는 상당히 많은 방법이 있습니다. 
++ 두 데이터 부류를 나누는 데에는 상당히 많은 방법이 있습니다. 
     + 위 예시를 봤을 때, 자주색 또는 연두색 보다 검은색 선이 더 잘 나눈거 같다고 생각은 드는데요..
     
 <img src="../assets/img/ml/concept/svm/8.PNG" alt="Drawing" style="width: 600px;"/>
@@ -79,5 +79,7 @@ tags: [machine learning, svm, suport vector machine] # add tag
    
 <img src="../assets/img/ml/concept/svm/9.PNG" alt="Drawing" style="width: 600px;"/>
 
+
+<iframe src="https://www.youtube.com/embed/0-DL_nSa_ew" frameborder="0" allowfullscreen="true"> </iframe>
 
     
