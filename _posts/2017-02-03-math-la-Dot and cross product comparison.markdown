@@ -15,6 +15,10 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적, 외적] # add tag
 
 + [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-Linear-Algebra-Table/)
 
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/tdwFdzVqito" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
+</div>
+
 + 이번 글에서는 `내적(dot product)`와 `외적(cross product)`가 가지는 의미에 대하여 알아보도록 하겠습니다.
 + 앞에서 살펴본 바와 같이 내적과 외적은 다음 성질을 가집니다.
     + 내적 : $$ \vec{a} \cdot \vec{b} = \Vert \vec{a} \Vert \ \Vert \vec{b} \Vert cos\theta$$
@@ -41,8 +45,8 @@ tags: [Linear algebra, 선형대수학, 벡터, 내적, 외적] # add tag
 <img src="../assets/img/math/la/dot and cross product/2.PNG" alt="Drawing" style="width: 600px;"/>
 
 + 내적과 동일한 방법으로 외적의 의미에 대하여 알아보도록 하겠습니다.
-+ 외적은 $$ \Vert \vec{a} \times \vec{b} \Vert = Vert \vec{a} \Vert \ \Vert \vec{b} \Vert sin\theta $$ 이고
-+ 두 벡터 사이의 끼인각 $$ \theta $$를 이용하면 $$ sin\theta = \frac{\Vert \vec{a} \Vert}{opp} $$ 이 됩니다. (opp = opposite) 
++ 외적은 $$ \Vert \vec{a} \times \vec{b} \Vert = \Vert \vec{a} \Vert \ \Vert \vec{b} \Vert sin\theta $$ 이고
++ 두 벡터 사이의 끼인각 $$ \theta $$를 이용하면 $$ sin\theta = \frac{opp}{\Vert \vec{a} \Vert} $$ 이 됩니다. (opp = opposite) 
     + 식을 정리하면 $$ opp = \Vert \vec{a} \Vert sin\theta $$ 가 되므로
     + 외적 $$ \Vert \vec{a} \times \vec{b} \Vert = \Vert \vec{b} \Vert \ opp $$ 가 됩니다.
 + 위 식에서 $$ sin\theta $$에 의미를 보면 $$ \theta $$가 0일 때에는 0을 90일때는 1을 가집니다.

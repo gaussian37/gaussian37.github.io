@@ -11,7 +11,13 @@ tags: [machine learning, svm, suport vector machine] # add tag
 
 + 이 글에서는 SVM(Support Vector Machine)에 대하여 알아보겠습니다.
 
-### Optimization objective
+### **Optimization objective**
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/hCOIMkcsm_g" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
+</div>
+<br>
 
 + SVM은 기본적으로 Supervised Learning의 한 방법입니다.
 + SVM은 성능도 좋을 뿐만 아니라 복잡한 non-linear function에서 학습할 때에도 좋습니다.
@@ -57,6 +63,7 @@ tags: [machine learning, svm, suport vector machine] # add tag
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/Ccje1EzrXBU" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
 </div>
+<br>
 
 <img src="../assets/img/ml/concept/svm/5.PNG" alt="Drawing" style="width: 600px;"/>
 
@@ -96,7 +103,13 @@ tags: [machine learning, svm, suport vector machine] # add tag
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/QKc3Tr7U4Xc" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
 </div>
+<br>
 
++ 이번에는 SVM에서 decision boundary가 어떻게 큰 `margin`을 가지는 지 살펴보도록 하겠습니다.
+
+<img src="../assets/img/ml/concept/svm/9.PNG" alt="Drawing" style="width: 600px;"/>
+
+ 
 
 
     
