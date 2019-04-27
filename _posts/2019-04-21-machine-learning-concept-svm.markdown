@@ -79,7 +79,10 @@ tags: [machine learning, svm, suport vector machine] # add tag
    
 <img src="../assets/img/ml/concept/svm/9.PNG" alt="Drawing" style="width: 600px;"/>
 
++ 앞에서 설명한 C 상수의 크기는 decision boundary에 영향을 미치게 됩니다.
++ C는 정확히 `regularization` 이라고 볼 수 있습니다. 왜냐하면 
 
-<iframe src="https://www.youtube.com/embed/0-DL_nSa_ew" frameborder="0" allowfullscreen="true"> </iframe>
+
+<iframe src="https://www.youtube.com/embed/0-DL_nSa_ew" frameborder="0" allowfullscreen="true" style="width: 600px;> </iframe>
 
     
