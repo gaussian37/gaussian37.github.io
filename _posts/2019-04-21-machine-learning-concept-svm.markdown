@@ -51,8 +51,9 @@ tags: [machine learning, svm, suport vector machine] # add tag
 + 식을 정리하면 위 슬라이드 처럼 간략하게 표현할 수 있습니다.
 + 그러면 다시 이 식을 통하여 prediction을 할 때 $$ \theta^{T}x^{(i)} $$ 의 값이 0 보다 크면 1로 판단하고 0보다 작으면 0으로 판단하도록 합니다.  
 
-### Large Margin Intuition
+### **Large Margin Intuition**
 
+<br>
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/Ccje1EzrXBU" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
 </div>
@@ -89,8 +90,9 @@ tags: [machine learning, svm, suport vector machine] # add tag
     + 반대로 $$ \lambda $$의 값이 너무 작아지게 되면($$ C $$의 값이 커지게 되면) `high variance` 문제로 overfitting 문제가 발생할 수 있습니다.
 + `regularization`을 적용할 때 적당한 값 $$ \lambda $$가 필요하기 때문에 $$ C $$ 값도한 너무 크지도 작지도 않은 값일 때, 적당한 `margin`을 가진 line을 구할 수 있습니다.       
 
-### Mathematics Behind Large Margin Classification
+### **Mathematics Behind Large Margin Classification**
 
+<br>
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/QKc3Tr7U4Xc" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
 </div>
