@@ -107,7 +107,13 @@ tags: [machine learning, svm, suport vector machine] # add tag
 
 + 이번에는 SVM에서 decision boundary가 어떻게 큰 `margin`을 가지는 지 살펴보도록 하겠습니다.
 
-<img src="../assets/img/ml/concept/svm/9.PNG" alt="Drawing" style="width: 600px;"/>
+<img src="../assets/img/ml/concept/svm/11.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 먼저 vector의 `inner product`의 의미에 대하여 살펴보겠습니다.
++ 내적(`inner product`)는 두 벡터 $$ u, v $$가 있을 때, 한 벡터를 다른 벡터에 정사영 시켰을 때 생기는 선분의 길이와 정사영된 벡터의 길이의 곱으로 표현할 수 있습니다.
+    + 위 예제에서 보면 벡터 $$v$$에 벡터 $$u$$를 정사영 시켰고, 이 때 $$p$$ 길이의 선분이 생겼습니다. 이 때 내적의 결과는 $$p$$와 $$ \Vert v \Vert $$ 의 곱 입니다.
++ 이 때 $$p$$의 크기는 벡터 $$ u, v $$의 사이 각에 따라 달라지는 것을 알 수 있습니다.
+    + 만약 사이각의 크기가 90도가 넘어가면 $$p$$ 값은 음수가 되기도 합니다. 
 
  
 
