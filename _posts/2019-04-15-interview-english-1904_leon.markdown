@@ -87,3 +87,14 @@ TECH-VOC technical-vocational
 + How may eating habits change in coming decades?
 + What one aspect of a foreign tradition you like about their eating habits? Why?
 + hoard : 저장하다. 보관하다. 
+
+### leisure activities
+
++ What type of leisure activities are popular in your country.
+    + There are many leisure activities in my country. But the most popular one is trekking. Because there are many mountains in my country. And people like to trekking the mountain on weekends because they want to have fresh air also relieve mental stress around the nature. So, that's why I think that trekking is the most popular leisure activity in my country.
+
+<br>
+
++ Why is it important for people to have leisure activities?
+    + In my opinion, people need to relieve their stress because almost working people work on weekdays and they get a lot of stress from their business. So, people need to have a way of relieving stress and having leisure activity is the common and simple way to relieve their mental stress. So, I say that it is important to have leisure activities to relieve their stress.   
+
