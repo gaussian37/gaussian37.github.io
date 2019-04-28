@@ -115,6 +115,28 @@ tags: [machine learning, svm, suport vector machine] # add tag
 + 이 때 $$p$$의 크기는 벡터 $$ u, v $$의 사이 각에 따라 달라지는 것을 알 수 있습니다.
     + 만약 사이각의 크기가 90도가 넘어가면 $$p$$ 값은 음수가 되기도 합니다. 
 
+<img src="../assets/img/ml/concept/svm/12.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 위 슬라이드의 식이 SVM의 objective function이라고 가정해 보겠습니다. 또한 식을 간단하게 하기 위하여 bias인 $$ \theta_{0} $$은 없다고 가정하겠습니다.
+    + bias는 간단하게 0으로 나타내기로 하였으므로 2차원 평면에서 decision boundary의 절편은 0으로 간단하게 표시할 수 있습니다.
++ 앞에서 살펴본 벡터의 내적 개념을 이용하여 $$ \theta $$ 와 $$ x^{(i)} $$에 대하여 적용해 보겠습니다.
++ 위 슬라이드의 그래프를 보면 $$ x^{(i)} $$ 를 $$ \theta $$ 에 사영시킵니다.
+
+<img src="../assets/img/ml/concept/svm/13.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 앞에서 다룬것 처럼 Object function을 위 슬라이드 처럼 정의해 보았습니다.
++ 그리고 벡터 내적의 정의에 따라서 $$ p^{(i)} \cdot \Vert \theta \Vert \ge 1 $$ 또는 $$ p^{(i)} \cdot \Vert \theta \Vert \le -1 $$ 로 표현할 수 있습니다.
++ `decision boundary`와 `theta`는 직교 관계를 가집니다. 이 관계를 이용해서 어떻게 `margin`이 큰 decision boundary를 찾는지 설명해 보겠습니다.
++ 위 슬라이드의 왼쪽 아래 그래프를 보면 약간 아슬아슬한 decision boundary를 볼 수 있습니다.
+    + 이 boundary와 직교 관계를 가진 벡터를 $$ \theta $$라고 하겠습니다.
+    + 먼저 $$ \theta $$의 $$ \theta_{0} $$은 0이라고 가정하였기 때문에 원점을 지나는 것을 알 수 있습니다.
+    + 이 예제와 같은 경우 $$ \theta $$와 데이터의 정사영 관계를 보면 $$ p $$의 값이 작은 것을 확인할 수 있습니다.
+    + 따라서 $$ p^{(i)} \cdot \Vert \theta \Vert \ge 1 $$ 식에서 보면 $$ p^{(i)} $$ 값이 작으므로 $$ \Vert \theta \Vert $$ 값이 커져야 함을 알 수 있습니다.
+    + 반대로 $$ p^{(i)} \cdot \Vert \theta \Vert \le -1 $$ 의 관계에서도 $$ p^{(i)} $$ 값이 0과 가까우므로 $$ \Vert \theta \Vert $$ 값이 커져야 합니다.
++ 이번에는 오른쪽 아래 그래프를 보면 좀 더 적합한 decision boundary가 있음을 알 수 있습니다.
+    + 왼쪽 그래프와 동일한 방법으로 오른쪽 그래프를 접근해 보면 $$ p $$ 값이 왼쪽 그래프 케이스 보다 큰 것을 알 수 있습니다.
++ 잘 생각해 보면 사영한 값 $$ p $$는 `margin`임을 알 수 있습니다. 즉 $$ p $$ 값이 최대하 커지도록 $$ \theta $$를 학습하면 `margin`이 큰 decision boundary를 찾을 수 있습니다. 
+
  
 
 
