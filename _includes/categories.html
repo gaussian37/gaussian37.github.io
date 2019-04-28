@@ -68,7 +68,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/vision/concept/' or page.url == '/vision/opencv/' or page.url == '/vision/kalmanfilger/' or page.url == '/vision/object-detection/ or page.url == '/vision/etc/'%} active {% endif %}">
+            {% if page.url == '/vision/concept/' or page.url == '/vision/opencv/' or page.url == '/vision/kalmanfilger/' or page.url == '/vision/detection/ or page.url == '/vision/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('vision-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -76,7 +76,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="vision-dropdown">
                     <a class="dropdown-item" href="{{ "/vision/concept" | prepend: site.baseurl }}">Concept</a>
-                    <a class="dropdown-item" href="{{ "/vision/object-detection" | prepend: site.baseurl }}">Object Detection</a>
+                    <a class="dropdown-item" href="{{ "/vision/detection" | prepend: site.baseurl }}">Object Detection</a>
                     <a class="dropdown-item" href="{{ "/vision/opencv" | prepend: site.baseurl }}">OpenCV</a>
                     <a class="dropdown-item" href="{{ "/vision/kalmanfilter" | prepend: site.baseurl }}">Kalman Filter</a>
                     <div class="dropdown-divider"></div>
