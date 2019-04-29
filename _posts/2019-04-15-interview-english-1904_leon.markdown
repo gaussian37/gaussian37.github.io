@@ -98,3 +98,9 @@ TECH-VOC technical-vocational
 + Why is it important for people to have leisure activities?
     + In my opinion, people need to relieve their stress because almost working people work on weekdays and they get a lot of stress from their business. So, people need to have a way of relieving stress and having leisure activity is the common and simple way to relieve their mental stress. So, I say that it is important to have leisure activities to relieve their stress.   
 
+<br>
+
+### Ceremony
+
++ Have attitudes towards marriage changed in recent years?
+    + There have been many changes about marriage in my country. The trend has changed to simpler wedding ceremony nowadays. For example, in the past, a wedding ceremony is celebrated with a large number of people witnessing the event. When it comes to preparing a wedding ceremony, nowadays, we only need about 10 or 20 minutes  to do so. People attending the ceremony don't have enough time on weekends to buy wedding presents so they just transfer the money to the newlywed couple through an app and/or send congratulatory messages through the SNS. So in my country, the wedding ceremony has changed to simpler way.
