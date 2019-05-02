@@ -14,8 +14,9 @@ tags: [python, django, REST, drf, Authorization, 웹사이트] # add tag
 <br>
 
 + 먼저 https://gaussian37.github.io/python-rest-JWT-Authorization/ 를 이용하여 API 중 `api-jwt-auth` 구조를 만들어야 합니다.
-+ 다음으로 `python manage.py createsuperuser`를 통하여 
-+ `api-jwt-auth`를 만들면 `superuser` 계정을 이용하여 JWT를 얻을 수 있습니다. 그러면 환경 구축을 한 가정으로 설명을 진행하겠습니다.
+    + 즉, localhost:8000/api-jwt-auth/ 구조를 위 블로그 링크를 보고 만들어야 합니다.
++ 다음으로 `python manage.py createsuperuser`를 통하여 관리자 계정을 만들어야 합니다.
++ `api-jwt-auth`를 만들고 `superuser` 계정을 이용하면 관리자 계장에 따른 JWT를 얻을 수 있습니다. 그러면 환경 구축을 한 가정으로 설명을 진행하겠습니다.
 
 <br>
 
@@ -32,7 +33,7 @@ tags: [python, django, REST, drf, Authorization, 웹사이트] # add tag
 
 + 먼저 크롬 extention에서 `restlet`을 설치합니다. 
 
-<img src="../assets/img/python/rest/drf-website/restlet-ex.PNG" alt="Drawing" style="width: 600px;"/>
+<img src="../assets/img/python/rest/drf-website/restlet-ex.PNG" alt="Drawing" style="width: 1000px;"/>
         
 + restlet을 실행하면 위와 같은 화면이 실행됩니다.
 + 이 때, POST로 놓고 API 주소를 입력한 다음, Body에 username과 password를 입력 한뒤 `send`를 누르면 성공적으로 JWT를 얻을 수 있습니다.
