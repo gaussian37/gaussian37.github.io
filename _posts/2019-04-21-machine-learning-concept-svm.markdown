@@ -111,7 +111,7 @@ tags: [machine learning, svm, suport vector machine] # add tag
 
 + 먼저 vector의 `inner product`의 의미에 대하여 살펴보겠습니다.
 + 내적(`inner product`)는 두 벡터 $$ u, v $$가 있을 때, 한 벡터를 다른 벡터에 정사영 시켰을 때 생기는 선분의 길이와 정사영된 벡터의 길이의 곱으로 표현할 수 있습니다.
-    + 위 예제에서 보면 벡터 $$v$$에 벡터 $$u$$를 정사영 시켰고, 이 때 $$p$$ 길이의 선분이 생겼습니다. 이 때 내적의 결과는 $$p$$와 $$ \Vert v \Vert $$ 의 곱 입니다.
+    + 위 예제에서 보면 벡터 $$u$$에 벡터 $$v$$를 정사영 시켰고, 이 때 $$p$$ 길이의 선분이 생겼습니다. 이 때 내적의 결과는 $$p$$와 $$ \Vert u \Vert $$ 의 곱 입니다.
 + 이 때 $$p$$의 크기는 벡터 $$ u, v $$의 사이 각에 따라 달라지는 것을 알 수 있습니다.
     + 만약 사이각의 크기가 90도가 넘어가면 $$p$$ 값은 음수가 되기도 합니다. 
 
@@ -135,7 +135,15 @@ tags: [machine learning, svm, suport vector machine] # add tag
     + 반대로 $$ p^{(i)} \cdot \Vert \theta \Vert \le -1 $$ 의 관계에서도 $$ p^{(i)} $$ 값이 0과 가까우므로 $$ \Vert \theta \Vert $$ 값이 커져야 합니다.
 + 이번에는 오른쪽 아래 그래프를 보면 좀 더 적합한 decision boundary가 있음을 알 수 있습니다.
     + 왼쪽 그래프와 동일한 방법으로 오른쪽 그래프를 접근해 보면 $$ p $$ 값이 왼쪽 그래프 케이스 보다 큰 것을 알 수 있습니다.
-+ 잘 생각해 보면 사영한 값 $$ p $$는 `margin`임을 알 수 있습니다. 즉 $$ p $$ 값이 최대하 커지도록 $$ \theta $$를 학습하면 `margin`이 큰 decision boundary를 찾을 수 있습니다. 
++ 잘 생각해 보면 사영한 값 $$ p $$는 `margin`임을 알 수 있습니다. 즉 $$ p $$ 값이 최대하 커지도록 $$ \theta $$를 학습하면 `margin`이 큰 decision boundary를 찾을 수 있습니다.
+
+### Kernerls 1
+
++ 이번에는 SVM에서 사용하는 `Kernel` 기법에 대하여 알아보도록 하겠습니다. Kernel 기법을 이용하면 좀 더 복잡한 non-linear classifier를 만들 수 있습니다.
+
+<img src="../assets/img/ml/concept/svm/14.PNG" alt="Drawing" style="width: 600px;"/>
+
+ 
 
  
 
