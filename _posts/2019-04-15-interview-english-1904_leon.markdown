@@ -104,3 +104,8 @@ TECH-VOC technical-vocational
 
 + Have attitudes towards marriage changed in recent years?
     + There have been many changes about marriage in my country. The trend has changed to simpler wedding ceremony nowadays. For example, in the past, a wedding ceremony is celebrated with a large number of people witnessing the event. When it comes to preparing a wedding ceremony, nowadays, we only need about 10 or 20 minutes  to do so. People attending the ceremony don't have enough time on weekends to buy wedding presents so they just transfer the money to the newlywed couple through an app and/or send congratulatory messages through the SNS. So in my country, the wedding ceremony has changed to simpler way.
+
+### Mobile phone, cell phone
+
++ Which one do you use more often – a mobile phone or telephone? Why?
+    + I prefer to use a mobile phone because it has a lot of functions. For example, the mobile phone has a free messenger. And I can use that free messenger to communicate with others but I need to spend when I need to use the telephone. So the mobile phone is more convenient. A mobile phone has other functions like storing music and surfing the internet. These are some reasons why I use the mobile phone more often than the telephone.
