@@ -161,7 +161,7 @@ tags: [machine learning, svm, suport vector machine] # add tag
 + 기존에 존재하는 feature인 $$ x_{1}, x_{2} $$가 있다고 가정하였을 때, 이 공간에 분포하는 포인트 $$ l_{1}, l_{2}, l_{3} $$ 가 있다고 생각해 보겠습니다.
     + 이 때 $$ l_{i} $$ 들을 `landmark`라고 해보겠습니다.
 + 이 때, $$ f_{i} = similarity(x, l^{(i)}) $$ 로 표현할 수 있습니다. 이 식을 `Kernel` 이라고 부릅니다.
-    + 위 슬라이드에서는 예제로 $$ f_{i} = exp(- \frac{\Vert x - l^{(i) \Vert}^{2}}{2\sigma^{2}}) $$ 으로 kernel 식을 정의하였습니다.
+    + 위 슬라이드에서는 예제로 $$ f_{i} = exp( \frac{ \Vert x - l^{(i)} \Vert}{2\sigma^{2}}) $$으로 kernel 식을 정의하였습니다.
     + 위 식의 kernel을 `Gaussian kernel`이라고 합니다. 
     + 위 식 중 $$ \Vert x - l^{(i) \Vert $$ 는 데이터 x와 landmark간의 유클리디안 거리를 나타냅니다.
  
