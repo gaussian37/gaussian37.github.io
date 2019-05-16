@@ -139,7 +139,14 @@ tags: [machine learning, svm, suport vector machine] # add tag
 
 ### Kernerls 1
 
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/PLLssT5z_DsK-h9vYZkQkYNWcItqhlRJLN" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
+</div>
+<br>
+
 + 이번에는 SVM에서 사용하는 `Kernel` 기법에 대하여 알아보도록 하겠습니다. Kernel 기법을 이용하면 좀 더 복잡한 non-linear classifier를 만들 수 있습니다.
+
 
 <img src="../assets/img/ml/concept/svm/14.PNG" alt="Drawing" style="width: 600px;"/>
 

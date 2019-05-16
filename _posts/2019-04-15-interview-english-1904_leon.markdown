@@ -109,3 +109,5 @@ TECH-VOC technical-vocational
 
 + Which one do you use more often – a mobile phone or telephone? Why?
     + I prefer to use a mobile phone because it has a lot of functions. For example, the mobile phone has a free messenger. And I can use that free messenger to communicate with others but I need to spend when I need to use the telephone. So the mobile phone is more convenient. A mobile phone has other functions like storing music and surfing the internet. These are some reasons why I use the mobile phone more often than the telephone.
+    
++ 
