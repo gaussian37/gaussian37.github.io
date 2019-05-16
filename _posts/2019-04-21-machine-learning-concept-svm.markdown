@@ -141,14 +141,33 @@ tags: [machine learning, svm, suport vector machine] # add tag
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/PLLssT5z_DsK-h9vYZkQkYNWcItqhlRJLN" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/mTyT-oHoivA" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
 </div>
 <br>
 
 + 이번에는 SVM에서 사용하는 `Kernel` 기법에 대하여 알아보도록 하겠습니다. Kernel 기법을 이용하면 좀 더 복잡한 non-linear classifier를 만들 수 있습니다.
 
-
 <img src="../assets/img/ml/concept/svm/14.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 만약 위와 같은 데이터 분포가 있다면 Non-linear boundary를 이용하여 positive/negative 데이터를 나누어야 합니다.
++ 위의 슬라이드의 식과 같이 Non-linear boundary를 만들 수 있다면 만약 $$ x_{1}, x_{2}, ... $$ 등과 파라미터가 곱해졌을 때, 양수이면 1 그렇지 않으면 0을 취할 수 있습니다.
+    + SVM에서 다룰 `Kernel`은 이 기본적인 분류 기법에서 출발할 수 있습니다.
++ 그런데 위 식을 보면 기존에 사용하였던 데이터 값인 $$ x_{i} $$ 대신에 $$ f_{i} $$ 가 있음을 알 수 있습니다.
+    + 과면 $$ f_{i} $$는 무슨 의미일까요?    
+    
+<img src="../assets/img/ml/concept/svm/15.PNG" alt="Drawing" style="width: 600px;"/>
+
++ 위 슬라이드에서는 $$ f_{i} $$를 정해보는 한가지 예제를 들어보겠습니다.
++ 기존에 존재하는 feature인 $$ x_{1}, x_{2} $$가 있다고 가정하였을 때, 이 공간에 분포하는 포인트 $$ l_{1}, l_{2}, l_{3} $$ 가 있다고 생각해 보겠습니다.
+    + 이 때 $$ l_{i} $$ 들을 `landmark`라고 해보겠습니다.
++ 이 때, $$ f_{i} = similarity(x, l^{(i)}) $$ 로 표현할 수 있습니다. 이 식을 `Kernel` 이라고 부릅니다.
+    + 위 슬라이드에서는 예제로 $$ f_{i} = exp(- \frac{\Vert x - l^{(i) \Vert}^{2}}{2\sigma^{2}}) $$ 으로 kernel 식을 정의하였습니다.
+    + 위 식의 kernel을 `Gaussian kernel`이라고 합니다. 
+    + 위 식 중 $$ \Vert x - l^{(i) \Vert $$ 는 데이터 x와 landmark간의 유클리디안 거리를 나타냅니다.
+ 
+   
+    
+
 
  
 
