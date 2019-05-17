@@ -53,7 +53,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/dl/chollet/' or page.url == '/dl/keras/'or page.url == '/dl/concept/' or page.url == '/dl/etc/'%} active {% endif %}">
+            {% if page.url == '/dl/chollet/' or page.url == '/dl/pytorch/' or page.url == '/dl/caffe/' or page.url == '/dl/keras/'or page.url == '/dl/concept/' or page.url == '/dl/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('dl-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -61,6 +61,8 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="dl-dropdown">
                     <a class="dropdown-item" href="{{ "/dl/concept" | prepend: site.baseurl }}">Concept</a>
+                    <a class="dropdown-item" href="{{ "/dl/pytorch" | prepend: site.baseurl }}">PyTorch</a>
+                    <a class="dropdown-item" href="{{ "/dl/pytorch" | prepend: site.baseurl }}">Caffe</a>
                     <a class="dropdown-item" href="{{ "/dl/keras" | prepend: site.baseurl }}">Keras</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/dl/chollet" | prepend: site.baseurl }}">Deep Learning with Python (Chollet)</a>
