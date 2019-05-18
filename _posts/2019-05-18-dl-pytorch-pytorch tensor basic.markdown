@@ -245,4 +245,26 @@ tensor([-0.3964,  0.1522])
 
 ### Join 기능 사용 방법
 
++ PyTorch에서 `torch.cat(seq, dim)`을 이용하여 concaternate 연산을 할 수 있습니다.
++ `dim`은 concaternate할 방향을 정합니다.
+
+```python
+x = torch.cuda.FloatTensor([[1, 2, 3], [4, 5, 6]])
+y = torch.cuda.FloatTensor([[-1, -2, -3], [-4, -5, -6]])
+z1 = torch.cat([x, y], dim=0)
+print(z1)
+
+tensor([[ 1.,  2.,  3.],
+        [ 4.,  5.,  6.],
+        [-1., -2., -3.],
+        [-4., -5., -6.]], device='cuda:0')
+
+z2 = torch.cat([x, y], dim=1)
+print(z2)
+
+tensor([[ 1.,  2.,  3., -1., -2., -3.],
+        [ 4.,  5.,  6., -4., -5., -6.]], device='cuda:0')
+```
+
+
  
