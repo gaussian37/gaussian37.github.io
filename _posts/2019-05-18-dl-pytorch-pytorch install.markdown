@@ -9,6 +9,8 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 
 + 이번 글에서는 PyTorch를 사용할 때, 윈도우에서 설치하는 방법과 colab에서 설치하는 방법에 대하여 알아보겠습니다.
 
+<br>
+
 ### 윈도우에서 PyTorch 설치하는 방법
 
 + GPU를 범용적으로 사용하기 위해 `CUDA`를 설치해줍니다.
@@ -31,6 +33,8 @@ tensor([[-5.5635e-24,  0.0000e+00,  4.4842e-44,  0.0000e+00],
         [ 1.6899e-04,  2.1240e+20,  1.0919e-05,  1.6969e-07]], device='cuda:0')
 ```
 
+<br>
+
 ### colab에서 PyTorch 사용하는 방법
 
 + colab에서는 기본적으로 PyTorch가 설치되어 있지 않습니다.
@@ -43,5 +47,3 @@ tensor([[-5.5635e-24,  0.0000e+00,  4.4842e-44,  0.0000e+00],
 !pip3 install http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp36-cp36m-linux_x86_64.whl
 !pip3 install torchvision
 ```
-
-
