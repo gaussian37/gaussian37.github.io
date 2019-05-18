@@ -1,6 +1,6 @@
 ---
 layout: post
-title: PyTorch 설치 및 colab 사용 방법
+title: PyTorch 기본 문법 및 Tensor 사용법
 date: 2019-05-18 00:00:00
 img: dl/pytorch/pytorch.jpg
 categories: [dl-pytorch] 
