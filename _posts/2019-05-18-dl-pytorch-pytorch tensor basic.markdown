@@ -266,5 +266,34 @@ tensor([[ 1.,  2.,  3., -1., -2., -3.],
         [ 4.,  5.,  6., -4., -5., -6.]], device='cuda:0')
 ```
 
+<br>
+
++ `torch.stack` 을 이용하여도 concaternate를 할 수 있습니다.
+
+```python
+# torch.stack(sequence,dim=0) -> stack along new dim
+
+x = torch.FloatTensor([[1,2,3],[4,5,6]])
+x_stack = torch.stack([x,x,x,x],dim=0)
+
+x_stack
+
+: tensor([[[1., 2., 3.],
+         [4., 5., 6.]],
+
+        [[1., 2., 3.],
+         [4., 5., 6.]],
+
+        [[1., 2., 3.],
+         [4., 5., 6.]],
+
+        [[1., 2., 3.],
+         [4., 5., 6.]]])
+```
+
+<br>
+
+### slicing 기능 사용 방법
+
 
  
