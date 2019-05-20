@@ -385,3 +385,76 @@ tensor([[ 1],
         [ 3],
         [ 4]])
 ```
+
+<br>
+
+### Initialization, 초기화 방법
+
++ `init.uniform`함수를 사용하면 `uniform` 또는 `normal` 분포의 초기화 Tensor를 만들 수 있습니다.
++ 또는 상수 형태를 바로 만들 수도 있습니다. 예제는 아래와 같습니다.
+
+```python
+import torch.nn.init as init
+
+x1 = init.uniform(torch.FloatTensor(3,4),a=0,b=9) 
+print(x1)
+x2 = init.normal(torch.FloatTensor(3,4),std=0.2)
+print(x2)
+x3 = init.constant(torch.FloatTensor(3,4),3.1415)
+print(x3)
+```
+
+<br>
+
+### Math Operation
+
++ Tensor의 산술 연산 방법에 대하여 알아보겠습니다.
++ `torch.add()`
+
+<br>
+
++ `torch.add() with broadcasting`
+
+<br>
+
++ `torch.mul()`
+
+<br>
+
++ `torch.mul() with broadcasting`
+
+<br>
+
++ `torch.div()`
+
+<br>
+
++ `torch.div() with broadcasting`
+
+<br>
+
++ `torch.pow(input,exponent)`
+
+<br>
+
++ `torch.exp(tensor,out=None)`
+
+<br>
+
++ `torch.log(input, out=None) -> natural logarithm`
+
+<br>
+
+### Matrix Multiplication
+
++ `torch.mm(mat1, mat2) -> matrix multiplication`
+
+<br>
+
++ `torch.bmm(batch1, batch2) -> batch matrix multiplication`
+
+<br>
+
++ 
+
+
