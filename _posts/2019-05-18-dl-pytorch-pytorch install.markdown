@@ -23,6 +23,8 @@ tags: [pytorch, pytorch 설치, colab] # add tag
     + 또는 `conda install -c peterjc123 pytorch`
 + `pip install torchvision` 
 + `conda install ipykernel`
++ `pip install jupyter`
+
 + 실행이 정상적으로 되는지 확인하기 위해 jupyter notebook에서 다음을 실행해 봅니다.
 
 ```python
