@@ -397,11 +397,28 @@ tensor([[ 1],
 import torch.nn.init as init
 
 x1 = init.uniform(torch.FloatTensor(3,4),a=0,b=9) 
-print(x1)
+>>> print(x1)
+
+3.4121  0.9464  5.3126  4.3104
+  7.3428  8.3997  7.2747  7.9227
+  4.2563  0.1993  6.2227  5.7939
+ [torch.FloatTensor of size 3x4]
+ 
 x2 = init.normal(torch.FloatTensor(3,4),std=0.2)
-print(x2)
+>>> print(x2)
+
+-0.1121  0.3684  0.0316  0.1426
+  0.1499 -0.2384  0.0183  0.0429
+  0.2808  0.1389  0.1057  0.1746
+ [torch.FloatTensor of size 3x4]
+ 
 x3 = init.constant(torch.FloatTensor(3,4),3.1415)
-print(x3)
+>>> print(x3)
+
+3.1415  3.1415  3.1415  3.1415
+  3.1415  3.1415  3.1415  3.1415
+  3.1415  3.1415  3.1415  3.1415
+ [torch.FloatTensor of size 3x4]
 ```
 
 <br>
@@ -409,35 +426,102 @@ print(x3)
 ### Math Operation
 
 + Tensor의 산술 연산 방법에 대하여 알아보겠습니다.
-+ `torch.add()`
++ `+`연산자 또는 `torch.add()`
+
+```python
+x1 = torch.FloatTensor([[1,2,3],[4,5,6]])
+x2 = torch.FloatTensor([[1,2,3],[4,5,6]])
+add = x1 + x2
+# add = torch.add(x1,x2) 또한 가능합니다.
+>>> print(add)
+ 2   4   6
+ 8  10  12
+ [torch.FloatTensor of size 2x3]
+
+```
 
 <br>
 
-+ `torch.add() with broadcasting`
++ `+`연산자를 이용한 broadcasting 또는 `torch.add() with broadcasting`
+
+```python
+x1 = torch.FloatTensor([[1,2,3],[4,5,6]])
+>>> x1 + 10 # torch.add(x1, 10) 또한 가능합니다.
+11  12  13
+14  15  16
+[torch.FloatTensor of size 2x3]
+```
 
 <br>
 
-+ `torch.mul()`
++ `*`연산자 또는 `torch.mul()`
+
+```python
+x1 = torch.FloatTensor([[1,2,3],[4,5,6]])
+x2 = torch.FloatTensor([[1,2,3],[4,5,6]])
+>>> x1*x2 # torch.mul(x1,x2)
+1   4   9
+16  25  36
+[torch.FloatTensor of size 2x3]
+```
+<br>
+
++ `*`연산자를 이용한 broadcasting 또는 `torch.mul() with broadcasting`
+
+```python
+x1 = torch.FloatTensor([[1,2,3],[4,5,6]])
+>>> x1 * 10
+10  20  30
+40  50  60
+[torch.FloatTensor of size 2x3]
+```
 
 <br>
 
-+ `torch.mul() with broadcasting`
++ `/`연산자 또는 `torch.div()`
+
+```python
+x1 = torch.FloatTensor([[1,2,3],[4,5,6]])
+x2 = torch.FloatTensor([[1,2,3],[4,5,6]])
+>>> x1/x2 # torch.div(x1, x2)
+ 1  1  1
+ 1  1  1
+[torch.FloatTensor of size 2x3]
+
+```
 
 <br>
 
-+ `torch.div()`
++ `/`연산자를 이용한 broadcsting 또는 `torch.div() with broadcasting`
+
+```python
+x1 = torch.FloatTensor([[1,2,3],[4,5,6]])
+>>> x1 / 5
+ 0.2000  0.4000  0.6000
+ 0.8000  1.0000  1.2000
+[torch.FloatTensor of size 2x3]
+```
 
 <br>
 
-+ `torch.div() with broadcasting`
++ power 연산 : `torch.pow(input,exponent)`
 
+```python
+x1 = torch.FloatTensor([ [1,2,3], [4,5,6] ])
+>>> x1**2 # torch.pow(x1,2)
+tensor([[ 1.,  4.,  9.],
+        [16., 25., 36.]])
+```
 <br>
 
-+ `torch.pow(input,exponent)`
++ exponential 연산 : `torch.exp(tensor,out=None)`
 
-<br>
-
-+ `torch.exp(tensor,out=None)`
+```python
+x1 = torch.FloatTensor([ [1,2,3], [4,5,6] ])
+>>> torch.exp(x1)
+tensor([[  2.7183,   7.3891,  20.0855],
+        [ 54.5981, 148.4132, 403.4288]])
+```
 
 <br>
 
