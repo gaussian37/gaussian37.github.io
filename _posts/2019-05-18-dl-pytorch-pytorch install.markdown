@@ -19,8 +19,10 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 + 아나콘다를 설치하고 차례 차례 다음을 설치해 줍니다.
 + `conda create -n 가상환경이름 python=3.6`
 + `activate 가상환경이름`
-+ `conda install -c peterjc123 pytorch`
-+ `pip install jupyter`
++ `conda install pytorch -c pytorch`
+    + 또는 `conda install -c peterjc123 pytorch`
++ `pip install torchvision` 
++ `conda install ipykernel`
 + 실행이 정상적으로 되는지 확인하기 위해 jupyter notebook에서 다음을 실행해 봅니다.
 
 ```python
