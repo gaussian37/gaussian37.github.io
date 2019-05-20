@@ -527,18 +527,95 @@ tensor([[  2.7183,   7.3891,  20.0855],
 
 + `torch.log(input, out=None) -> natural logarithm`
 
+```python
+x1 = torch.FloatTensor([ [1,2,3], [4,5,6] ])
+>>> torch.log(x1)
+tensor([[0.0000, 0.6931, 1.0986],
+        [1.3863, 1.6094, 1.7918]])
+```
+
 <br>
 
 ### Matrix Multiplication
 
 + `torch.mm(mat1, mat2) -> matrix multiplication`
++ Tensor(행렬)의 곱을 연산하므로 shape이 잘 맞아야 연산이 가능합니다.
+
+```python
+x1 = torch.FloatTensor(3,4)
+x2 = torch.FloatTensor(4,5)
+torch.mm(x1,x2).size()
+```
 
 <br>
 
 + `torch.bmm(batch1, batch2) -> batch matrix multiplication`
++ Tensor(행렬)의 곱을 batch 단위로 처리합니다. `torch.mm`에서는 단일 Tensor(행렬)로 계산을 한 반면에 batch 단위로 한번에 처리하므로 좀 더 효율적입니다.
+
+```python
+x1 = torch.FloatTensor(10,3,4)
+x2 = torch.FloatTensor(10,4,5)
+torch.bmm(x1,x2).size()
+```
 
 <br>
 
-+ 
++ `torch.dot(tensor1,tensor2)`는 두 tensor의 dot product 연산을 수행합니다.
 
+```python
+>>> torch.dot(torch.tensor([2, 3]), torch.tensor([2, 1]))
+tensor(7)
+```
 
+<br>
+
++ `torch.t()`를 이용하면 transposed tensor를 구할 수 있습니다.
+
+```python
+x1 = torch.FloatTensor(2,3)
+x2 = x1.t()
+>>> print(x1.size())
+torch.Size([2, 3])
+
+>>> print(x2.size())
+torch.Size([3, 2])
+```
+
+<br>
+
++ 반면 `torch.transpose()`를 이용하여 특정 dimension을 변경할 수 있습니다.
+
+```python
+x1 = torch.FloatTensor(10,3,4,5)
+>>> x1.size()
+torch.Size([10, 3, 4, 5])
+
+>>> torch.transpose(x1,1,2).size()
+torch.Size([10, 4, 3, 5])
+
+>>> torch.transpose(x1,2,3).size()
+torch.Size([10, 3, 5, 4])
+```
+
+<br>
+
++ `eigenvalue`와 `eigenvector`를 구하는 방법은 아래와 같습니다.
++ 출력은 각각 `eigenvalue`와 `eigenvector`입니다.
+
+```python
+x1 = torch.FloatTensor(4,4)
+>>> torch.eig(x1,eigenvectors=True)
+
+1.00000e-12 *
+   -0.0000  0.0000
+    0.0000  0.0000
+    4.7685  0.0000
+    0.0000  0.0000
+  [torch.FloatTensor of size 4x2], 
+  
+  -6.7660e-13  6.6392e-13 -3.0669e-15  1.7105e-20
+   7.0711e-01  7.0711e-01  1.0000e+00 -1.0000e+00
+   2.1701e-39 -2.1294e-39 -2.8813e-10  1.8367e-35
+   7.0711e-01  7.0711e-01  7.3000e-07  3.2207e-10
+  [torch.FloatTensor of size 4x4]))
+```
