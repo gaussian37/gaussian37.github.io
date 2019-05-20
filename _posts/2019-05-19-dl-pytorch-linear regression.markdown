@@ -1,11 +1,13 @@
 ---
 layout: post
 title: Linear Regression with PyTorch
-date: 2019-05-19 00:00:00
+date: 2019-05-19 02:00:00
 img: dl/pytorch/pytorch.jpg
 categories: [dl-pytorch] 
 tags: [pytorch, linear regression] # add tag
 ---
 
 + 출처 : https://github.com/GunhoChoi/PyTorch-FastCampus
-+ 이번 글에서는 Pytorch의 Tensor를 사용하는 간단한 방법에 대하여 알아보겠습니다.
++ 이번 글에서는 Pytorch를 이용하여 Linear regression 하는 방법을 알아보도록 하겠습니다.
++ Linear regression의 의미 보다는 PyTorch에서의 training 과정을 어떻게 구현하면 되는지를 초점으로 살펴보면 되겠습니다.
+
