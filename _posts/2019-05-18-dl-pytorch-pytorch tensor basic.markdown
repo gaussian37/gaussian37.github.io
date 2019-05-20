@@ -295,5 +295,93 @@ x_stack
 
 ### slicing 기능 사용 방법
 
++ slicing 기능은 Tensor를 몇개의 부분으로 나뉘는 기능입니다.
++ `torch.chunk(tensor, chunks, dim=0)` 또는 `torch.split(tensor,split_size,dim=0)`함수를 이용하여 Tensor를 나뉠 수 잇습니다
 
+```python
+# torch.chunk(tensor, chunks, dim=0) -> tensor into num chunks
+
+x_1, x_2 = torch.chunk(z1,2,dim=0)
+y_1, y_2, y_3 = torch.chunk(z1,3,dim=1)
+
+print(z1)
+:  1  2  3
+  4  5  6
+ -1 -2 -3
+ -4 -5 -6
+ [torch.FloatTensor of size 4x3]
  
+ print(x1)
+ :  1  2  3
+  4  5  6
+ [torch.FloatTensor of size 2x3], 
+ 
+ print(x2)
+ : -1 -2 -3
+ -4 -5 -6
+ [torch.FloatTensor of size 2x3]
+ 
+ print(y1)
+ :  1
+  4
+ -1
+ -4
+ [torch.FloatTensor of size 4x1], 
+ 
+ print(y2)
+ : 2
+  5
+ -2
+ -5
+ [torch.FloatTensor of size 4x1]
+ 
+ print(y3)
+:  3
+  6
+ -3
+ -6
+ [torch.FloatTensor of size 4x1]
+```
+
+<br>
+
+### squeezing 기능 사용 방법
+
++ squeeze 함수를 사용하면 dimension 중에 1로 되어 있는 것을 압축할 수 있습니다.
++ dimension이 1이면 사실 불필요한 차원일 수 있기 때문에 squeeze를 이용하여 압축 시키는 것이 때론 필요할 수 있는데, 그 때 사용하는 함수 입니다.
++ `torch.squeeze(input, dim)`으로 사용할 수 있고, dim을 지정하지 않으면 dimeion이 1인 모든 차원을 압축하고 dim을 지정하면 지정한 dimension만 압축합니다.
+
+```python
+>>> x = torch.zeros(2, 1, 2, 1, 2)
+>>> x.size()
+torch.Size([2, 1, 2, 1, 2])
+>>> y = torch.squeeze(x)
+>>> y.size()
+torch.Size([2, 2, 2])
+>>> y = torch.squeeze(x, 0)
+>>> y.size()
+torch.Size([2, 1, 2, 1, 2])
+>>> y = torch.squeeze(x, 1)
+>>> y.size()
+torch.Size([2, 2, 1, 2])
+```
+
+<br>
+
++ 반면 unsqueeze 함수를 사용하면 dimension을 추가할 수 있습니다. squeeze와 정확히 반대라고 보시면 됩니다.
++ unsqueeze 함수는 dimension을 반드시 입력 받게 되어 있습니다.
+
+```python
+>>> x = torch.zeros(2,3,4)
+>>> torch.unsqueeze(x, 0)
+torch.Size([1, 2, 3, 4])
+
+>>> x = torch.tensor([1, 2, 3, 4])
+>>> torch.unsqueeze(x, 0)
+tensor([[ 1,  2,  3,  4]])
+>>> torch.unsqueeze(x, 1)
+tensor([[ 1],
+        [ 2],
+        [ 3],
+        [ 4]])
+```
