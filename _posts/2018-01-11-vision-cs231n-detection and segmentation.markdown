@@ -12,3 +12,5 @@ tags: [cs231n, detection, segmentation] # add tag
     <iframe src="https://www.youtube.com/embed/nDPWywWRIRo" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
 </div>
 <br>
+
+<img src="../assets/img/vision/cs231n/11/1.png" alt="Drawing" style="width: 600px;"/>
