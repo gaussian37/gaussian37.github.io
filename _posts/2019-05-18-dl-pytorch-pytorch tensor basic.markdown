@@ -24,7 +24,20 @@ tags: [pytorch, pytorch 설치, colab] # add tag
     + `torch.onnx`
         + ONNX(Open Neural Network Exchange) 포맷으로 모델을 export 할 때 사용합니다.
         + ONNX는 서로 다른 딥러닝 프레임워크 간에 모델을 공유할 때 사용하는 새로운 포맷입니다.
-        
+
+<br>
+
+## Tensor란 무엇인가?
+
++ 텐서는 파이토치의 가장 기본이 되는 데이터 구조와 기능에 해당합니다.
++ 텐서는 다차원 배열을 처리하기 위한 데이터 구조입니다.
++ API 형태는 `Numpy`의 ndarray와 비슷하며 GPU를 사용하는 계산도 지원합니다.
++ 텐서는 각 데이터 형태별로 정의되어 있습니다.
+    + `torch.FloatTensor` : 32bit float point
+    + `torch.LongTensor` : 64bit signed integer
++ GPU 상에서 계산할 때에는 torch.cuda.FloatTensor를 사용합니다. 일반적으로 Tensor는 FloatTensor라고 생각하면 됩니다.
++ 어떤 형태의 텐서이건 `torch.tensor`라는 함수로 작성할 수 있습니다.
+
 
     
 --- 
