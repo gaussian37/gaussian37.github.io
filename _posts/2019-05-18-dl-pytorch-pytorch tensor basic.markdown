@@ -38,6 +38,54 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 + GPU 상에서 계산할 때에는 torch.cuda.FloatTensor를 사용합니다. 일반적으로 Tensor는 FloatTensor라고 생각하면 됩니다.
 + 어떤 형태의 텐서이건 `torch.tensor`라는 함수로 작성할 수 있습니다.
 
+```python
+import torch
+import numpy as np
+
+# 2차원 형태릐 list를 이용하여 텐서를 생성할 수 있습니다.
+torch.tensor([[1,2],[3,4.]])
+
+: tensor([[1., 2.],
+        [3., 4.]])
+        
+# device를 지정하면 GPU에 텐서를 만들 수 있습니다.
+torch.tensor([[1,2],[3,4.]], device="cuda:0")
+
+: tensor([[1., 2.],
+        [3., 4.]], device='cuda:0')
+        
+# dtype을 이용하여 텐서의 데이터 형태를 지정할 수도 있습니다.
+torch.tensor([[1,2],[3,4.]], dtype=torch.float64)
+
+: tensor([[1., 2.],
+        [3., 4.]], dtype=torch.float64)
+        
+# arange를 이용한 1차원 텐서
+torch.arange(0, 10)
+
+: tensor([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+# 모든 값이 0인 3 x 5의 텐서를 작성하여 to 메소드로 GPU에 전송
+torch.zeros(3, 5).to("cuda:0")
+
+:tensor([[0., 0., 0., 0., 0.],
+        [0., 0., 0., 0., 0.],
+        [0., 0., 0., 0., 0.]], device='cuda:0')
+        
+        
+# normal distribution으로 3 x 5 텐서를 작성
+torch.randn(3, 5)
+
+: tensor([[-0.4615, -0.4247,  0.1998, -0.5937, -0.4767],
+        [ 0.7864,  0.3831, -0.7198, -0.0181, -1.1796],
+        [-0.4504, -1.3181,  0.2657,  0.6829, -1.1690]])
+        
+# 텐서의 shape은 size 메서드로 확인
+t = torch.randn(3, 5)
+t.size()
+
+: torch.Size([3, 5])
+```
 
     
 --- 
