@@ -180,6 +180,64 @@ m + m
 :tensor([[  0.,   2.,   4.],
         [200., 400., 600.]])
 ```
+
+### 수학 함수 사용
+
++ 텐서에는 다양한 수학 함수가 사용되고 사용 방법은 numpy의 ndarray와 유사합니다.
+    + 자주 사용되는 수학 함수 : abs, sin, cos, exp, log, sqrt
+    + 집계 함수 : sum, max, min, mean, std
+        + ndarray와 마찬가지로 dimension을 지정해주면 어떤 기준으로 집계를 할 지 정할 수 있습니다.
+        + `torch.sum(X, dim=0)`
+
+### 텐서의 차원 조작
+
++ 텐서의 차원을 변경하는 `view`나 텐서를 결합하는 `stack`, `cat`, 차원을 교환하는 `t`, `transpose`도 사용됩니다.
++ `view`는 numpy의 reshape와 유사합니다. `cat`은 다른 길이의 텐서를 하나로 묶을 때 사용합니다. 
++ `transpose`는 행렬의 전치 외에도 차원의 순서를 변경할 때에도 사용됩니다.
+
+```python
+x1 = torch.tensor([
+    [1, 2], [3, 4.]
+])
+
+x2 = torch.tensor([
+    [10, 20, 30], [40, 50, 60.]
+])
+
+# 2 x 2 행렬을 4 x 1로 변형합니다.
+x1.view(4,1)
+:tensor([[1.],
+        [2.],
+        [3.],
+        [4.]])
+        
+# -1을 사용하면 shape에서 자동 계산 가능한 부분에 한해서 자동으로 입력 됩니다.
+# 계산이 불가능 하면 오류가 발생합니다.
+x1.view(1, -1)
+: tensor([[1.],
+        [2.],
+        [3.],
+        [4.]])
+
+# 2 x 3 행렬을 전치해서 3 x 2 행렬을 만듭니다.
+x2.t()
+: tensor([[10., 40.],
+        [20., 50.],
+        [30., 60.]])
+        
+# dim = 1 로 결합하면 2 x 5의 행렬로 묶을 수 있습니다.
+torch.cat([x1, x2], dim=1)
+: tensor([[ 1.,  2., 10., 20., 30.],
+        [ 3.,  4., 40., 50., 60.]])
+        
+# transpose(dim0, dim1)을 사용하면 dim0의 차원과 dim1의 차원을 교환합니다.
+# transpose(0, 3) 이라고 하면 0차원과 3차원을 교환하게 됩니다.
+# 아래 예제는 HWC(높이, 너비, 컬러) 차원을 CHW(컬러, 높이, 너비)로 변형하는 예제입니다.
+hwc_img_data = torch.rand(100, 64, 32, 3)
+chw_img_data = hwc_img_data.transpose(1,2).transpose(1,3)
+chw_img_data.size()
+:torch.Size([100, 3, 64, 32])
+```
     
 --- 
 + 출처 : https://github.com/GunhoChoi/PyTorch-FastCampus
