@@ -136,7 +136,12 @@ t[:, 1] = 10
 t[t > 5] = 20
 ```
 
+### 텐서 연산
 
++ 텐서는 Numpy의 ndarray와 같이 다양한 수학 연산이 가능하며 GPU를 사용할 시에는 더 빠른 연산이 가능합니다.
++ 텐서에서의 사칙연산은 같은 타입의 텐서 간 또는 텐서와 파이썬의 스칼라 값 사이에서만 가능합니다.
+    + 텐서간이라도 타입이 다르면 연산이 되지 않습니다. FloatTensor와 DoubleTensor간의 사칙연산은 오류가 발생합니다.
++ 스칼라 값을 연산할 때에는 기본적으로 `broadcasting`이 지원됩니다.
     
 --- 
 + 출처 : https://github.com/GunhoChoi/PyTorch-FastCampus
