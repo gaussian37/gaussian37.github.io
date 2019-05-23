@@ -87,6 +87,20 @@ t.size()
 : torch.Size([3, 5])
 ```
 
+<br>
+
++ 텐서는 Numpy의 ndarray로 쉽게 변환할 수 있습니다.
++ 단, GPU상의 텐서는 그대로 변환할 수 없으며, CPU로 이동 후에 변환해야 합니다.
+
+```python
+# numpy를 사용하여 ndarray로 변환
+t = torch.tensor([[1,2],[3,4.]])
+x = t.numpy()
+
+# GPU 상의 텐서는 to 메서드로 CPU의 텐서로 변환 후 ndarray로 변환해야 합니다.
+t = torch.tensor([[1,2],[3,4.]], device="cuda:0")
+x = t.to("cpu").numpy()
+```
     
 --- 
 + 출처 : https://github.com/GunhoChoi/PyTorch-FastCampus
