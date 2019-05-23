@@ -136,6 +136,8 @@ t[:, 1] = 10
 t[t > 5] = 20
 ```
 
+<br>
+
 ### 텐서 연산
 
 + 텐서는 Numpy의 ndarray와 같이 다양한 수학 연산이 가능하며 GPU를 사용할 시에는 더 빠른 연산이 가능합니다.
@@ -238,6 +240,15 @@ chw_img_data = hwc_img_data.transpose(1,2).transpose(1,3)
 chw_img_data.size()
 :torch.Size([100, 3, 64, 32])
 ```
+
+<br>
+
+### 선형 대수 연산
+
++ `dot` : 벡터 내적
++ `mv` : 행렬과 벡터의 곱
++ `mm` : 행렬과 행렬의 곱
++ `matmul` : 인수의 종류에 따라서 자동으로 dot, mv, mm을 선택
     
 --- 
 + 출처 : https://github.com/GunhoChoi/PyTorch-FastCampus
