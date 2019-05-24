@@ -16,4 +16,9 @@ tags: [pytorch, linear regression] # add tag
 + 텐서에는 `requires_grad` 라는 속성이 있어서 이 값을 True로 설정하면 자동 미분 기능이 활성화 됩니다.
 + Neural Net에서는 파라미터나 데이터가 모두 이 기능을 사용합니다.
 + `requires_grad`가 적용된 텐서에 다양한 계산을 하게 되면 계산 그래프가 만들어 지며, 여기에 `backward` 메소드를 호출하면 그래프가 자동으로 미분을 계산합니다.
-+ 
+  + `requires_grad = True`가 적용된 텐서에 한하여 backprop이 계산되기 때문에 학습이 필요한 `파라미터`에 `requires_grad = True`를 적용하면 됩니다.
+
++ 다음 식은 $$ L $$ 을 계산해서 $$ a_{k} $$로 미분하는 예제입니다.
+  + 　$$ y_{i} = \mathbb a \cdot x_{i}, \ \ L = \sum_{i} y_{i} $$
+  + 　$$ \frac{\partial L}{\partial a_{k}} = \sum_{i} x_{ik} $$
++ 이 작업을 자동 미분으로 구해보도록 하겠습니다.
