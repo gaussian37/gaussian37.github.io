@@ -22,3 +22,28 @@ tags: [pytorch, linear regression] # add tag
   + 　$$ y_{i} = \mathbb a \cdot x_{i}, \ \ L = \sum_{i} y_{i} $$
   + 　$$ \frac{\partial L}{\partial a_{k}} = \sum_{i} x_{ik} $$
 + 이 작업을 자동 미분으로 구해보도록 하겠습니다.
+
+```python
+x = torch.randn(100,3)
+
+# 미분할 변수로 사용되는 학습 파라미터는 requires_grad=True 로 설정합니다.
+a =  torch.tensor([1,2,3.], requires_grad = True)
+
+# 계산 그래프를 생성합니다.
+y = torch.mv(x,a)
+o = y.sum()
+
+# 미분을 실행합니다. 이 때 requires_grad=True로 설정되어 있는 파라미터 a는 backprop이 실행 됩니다.
+o.backward()
+
+a.grad
+: tensor([18.5806, -4.1716, -0.1735])
+
+x.sum(0)
+: tensor([18.5806, -4.1716, -0.1735])
+```
+
+<br>
+
++ 위 식을 보면 마지막의 `a.grad`와 `x.sum(0)`의 값이 일치함을 알 수 있습니다.
++ 그 이유는 $$ a $$에 대하여 미분한 결과를 합하면 $$ x $$를 sum한 결과와 같기 때문입니다.
