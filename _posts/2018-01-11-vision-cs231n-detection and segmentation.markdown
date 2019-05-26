@@ -128,14 +128,73 @@ tags: [cs231n, detection, segmentation] # add tag
 <img src="../assets/img/vision/cs231n/11/9.png" alt="Drawing" style="width: 800px;"/>
 
 + 또 다른 Upsampling 방법에는 `Max unpooling`이 있습니다.
-    + 대부분의 네트워크는 대칭적인 경향이 있습니다. 예를 들어 Downsampling/Upsampling의 비율이 대칭적입니다. 
-         
-       
+    + 대부분의 네트워크는 대칭적인 경향이 있습니다. 예를 들어 Downsampling/Upsampling의 비율이 대칭적입니다.
+    + Max unpooling은 이런 대칭적인 구조에서 사용되는 upsampling 방법입니다.
+    + 먼저 downsampling 시에는 Max pooling에 사용했던 요소들을 잘 기억하고 있어야 합니다.
+    + 다음으로 upsampling 시에는 bed of nails upsampling과 유사하지만 같은 자리에 값들을 넣는게 아니라 이전 maxpooling에서 선택된 위치에 맞게 넣어줍니다.
+        + max unpooling을 하고 빈자리에는 0으로 채워줍니다.
+    + 정리하면 Low Resolution feature map을 High resolution feature map으로 만들어 주는 것인데, 이 때 Low resolution의 값들을 Maxpooling에서 선택된 위치로 넣어주는 것입니다.
+
+<br>
+
++ 왜 이 방법이 좋은 아이디어이고 어떤 점에서 중요할까요?
+    + semantic segmentation에서는 모든 픽셀들의 클래스를 모두 잘 분류해야 합니다. 
+    + 예측한 segmentation 결과에서 객체들간의 디테일한 경계가 명확할수록 좋습니다.
+    + 하지만 Maxpooling을 하게 되면 feature map이 비균일해 집니다. 즉, 공간 정보를 잃게 되어 픽셀 값들이 어디서 부터 왔는지 알 수 없어 집니다.
+        + 즉, Maxpooling 후의 feature map만 봐서는 이 값들이 receptive field 중 어디에서 왔는 지 알 수 없습니다.
+    + unpool 시에 기존 max pooling 에서 뽑아온 자리로 값을 넣어주면, **공간 정보**를 조금은 더 디테일하게 다룰 수 있습니다.
+
+<br>
+
+<img src="../assets/img/vision/cs231n/11/10.png" alt="Drawing" style="width: 800px;"/>
+
++ 지금 까지 배운 unpooling의 방법인 bed of nails, nearest neighbor, max unpooling은 **고정된 값**을 사용하고 별도로 값을 학습하진 않습니다.
++ 반면 uppooling 시 고정값이 아닌 학습가능한 값으로 upsampling 하는 방법이 있습니다.
+    + 그 방법이 `Transpose convolution` 입니다.
+    + 즉, feature map을 upsampling 할 때, 어떤 방식으로 할 지를 학습할 수 있습니다.
+
+<img src="../assets/img/vision/cs231n/11/11.png" alt="Drawing" style="width: 800px;"/>
+
++ 먼저 일반적인 3x3(stride = 1, padding = 1)의 convolution filter가 동작하는 방식을 다시 한번 살펴보겠습니다.
++ 3x3 필터가 있고 이미지와 내적을 수행합니다. 우선 이미지의 좌 상단 구석부터 시작합니다.
++ 내적의 결과는 출력(4x4)의 좌상단 코너의 값이 됩니다.
++ 이 연산은 이미지 전체에 대하여 반복합니다.
+
+<img src="../assets/img/vision/cs231n/11/12.png" alt="Drawing" style="width: 800px;"/>
+
++ 이번에는 strided convolution에 대하여 살펴보겠습니다.
++ strided convolution은 한 픽셀씩 이동하면서 계산하지 않습니다. 출력에서 한 픽셀 씩 움직이려면 입력에서는 두 픽셀 씩 움직여야 합니다.
+    + 즉, stdied=2는 입력/출력에서의 움직이는 거리 사이의 비율이라고 해석할 수 있습니다.
++ 따라서 stride=2인 strided convolution은 학습 가능한 방법으로 2배 downsampling하는 것을 의미합니다.
+
+<img src="../assets/img/vision/cs231n/11/13.png" alt="Drawing" style="width: 800px;"/>
+
++ 반면 `Transpose convolution`은 반대의 경우입니다. 입력이 2x2이고 출력이 4x4 입니다.
+    + 여기에서는 내적을 수행하지 않습니다. 우선 입력 feature map에서 값을 하나 선택합니다.
+    + 선택된 스칼라 값을 3x3 필터와 곱합니다. 그리고 출력의 3x3 영역에 그 값을 넣습니다.
+    + 즉, Transpose convolution에서는 필터와 입력의 내적을 계산하는 것이 아니라 입력 값이 필터에 곱해지는 가중치의 역할을 합니다.
+    + 출력 값은 필터 * 입력 (가중치) 입니다.
++ 그리고 Upsampling 시에는 입력에서 한 칸씩 움직이는 동안 출력에서는 두 칸씩 움직입니다. 
++ 이렇게 가중치가 곱해진 필터 값을 출력 값에 넣어줍니다. 출력에서는 Transpose convolution 간에 Receptive field가 겹칠 수 있습니다.
+    + 이런 경우에는 간단하게 두 값을 더해줍니다. 이 과정을 반복해서 끝마치면 학습 가능한 upsampling을 수행한 것입니다.
+    + Spatial size를 키워주기 위해서 학습된 필터 가중치를 이용한 것입니다.
     
+<img src="../assets/img/vision/cs231n/11/14.png" alt="Drawing" style="width: 800px;"/>
+
++ 이 방법은(Transpose convolution)은 문헌에 따라서 부르는 이름이 다양합니다.
+    + 간혹 deconvolution이라고 하는데 이 용어는 신호처리 관점에서는 convolution의 역연산을 뜻하므로 혼돈을 주기에 적합하지 않습니다.
++ `Upconvolution`이라는 용어도 있고 `Fractionally strided convolution` 이라는 용어도 있습니다.
+    + stride를 input/output 간의 크기의 비율로 생각하면 이 예제는 stride 1/2 convolution이라고 볼 수 있습니다.
+    + 왜냐하면 input : output = 1 : 2이기 때문입니다.
++ 또는 `Backward strided convolution` 이라는 용어로도 불립니다.
+    + 왜냐하면 transpose conv의 forward pass를 수학적으로 계산해 보면 일반 Convolution의 backward pass와 수식이 동일하기 때문입니다.  
 
 
 
+     
   
+
     
 
+ 
 
