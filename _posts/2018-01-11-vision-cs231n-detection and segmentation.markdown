@@ -187,14 +187,62 @@ tags: [cs231n, detection, segmentation] # add tag
     + stride를 input/output 간의 크기의 비율로 생각하면 이 예제는 stride 1/2 convolution이라고 볼 수 있습니다.
     + 왜냐하면 input : output = 1 : 2이기 때문입니다.
 + 또는 `Backward strided convolution` 이라는 용어로도 불립니다.
-    + 왜냐하면 transpose conv의 forward pass를 수학적으로 계산해 보면 일반 Convolution의 backward pass와 수식이 동일하기 때문입니다.  
+    + 왜냐하면 transpose conv의 forward pass를 수학적으로 계산해 보면 일반 Convolution의 backward pass와 수식이 동일하기 때문입니다.
 
+<img src="../assets/img/vision/cs231n/11/15.png" alt="Drawing" style="width: 800px;"/>
 
++ Transpose Convolution의 구체적인 예시를 살펴보겠습니다. 이해를 돕기 위해서 1D example에 대하여 살펴보겠습니다.
++ 이 예제에서는 1차원에서 3x1 Transpose convolution을 수행합니다.
++ 필터에는 세 개의 숫자가 있습니다 : x, y, z
++ 입력은 두 개의 숫자가 있습니다 : a, b
++ 출력값을 계산해 보면 입력이 가중치로 쓰이고 필터에 곱해집니다. 그리고 이 값을 출력에 넣습니다. 
++ 그리고 Receptive Field가 겹치는 부분은 그냥 더해줍니다.
++ 이 연산을 하다 보면 왜 이 연산이 Transposed Conv 라는 이름이 붙었는지 궁금하실 수 있습니다.
 
-     
-  
+<img src="../assets/img/vision/cs231n/11/16.png" alt="Drawing" style="width: 800px;"/>
 
-    
++ Transposed 라는 이름의 유래는 Convolution 연산 자체를 해석해보면 알 수 있습니다.
++ Convolution 연산은 언제든지 `행렬 곱` 연산으로 나타낼 수 있습니다.
++ 위 슬라이드의 왼쪽을 보면 간단한 1차원 예제를 볼 수 있습니다.
++ 4 x 6 행렬을 보면 $$ (x, y, z) $$ 벡터가 위치를 이동하면서 채워져 있는 것을 볼 수 있습니다.
+    + 슬라이드에서는 오타가 있는데 x, y, x가 아니라 x, y, z 입니다.
+    + x, y, z 이외의 자리에는 0으로 채워집니다.
++ 위 예는 1D Conv이고 size=3, stride=1, padding=1 입니다.
++ convolution 필터인 $$ \vec{x} $$는 3개의 원소($$ x, y, z $$)를 가지고 있습니다. 그리고 입력 벡터인 $$ \vec{a} $$는 4개의 원소($$ a, b, c, d$$)를 가지고 있습니다.
++ 여기서 3x1 filter & stride=1 convolution 연산을 수행한 행렬곱을 표현하면 위의 슬라이드와 같습니다. 
++ convolution 계산할 벡터를 행렬식으로 표현한 뒤 $$ X $$ 라고 표현할 수 있습니다.
++ 이렇게 만든 가중치 행렬 $$X$$를 가지고 $$ X \cdot a $$ 연산을 수행하면 convolution과 결과가 동일합니다.
 
- 
+<br>
 
++ 이번에는 슬라이드의 오른쪽과 같이 $$ X^{T} $$를 곱하는 형태를 만들어 보겠습니다.
+    + Transpose Convolution은 Convolution 때와 같은 행렬을 사용해서 행렬곱을 하되 곱할 행렬을 Transpose한 것입니다.
++ 즉, 왼쪽의 행렬은 stride 1 convolution이고 오른쪽 행렬은 stride 1 transpose convolution 입니다.
++ `stride=1`일 때에는 convolution과 transpose convolution의 연산이 굉장히 비슷해 보입니다.
+
+<img src="../assets/img/vision/cs231n/11/17.png" alt="Drawing" style="width: 800px;"/>
+
++ 하지만 `stride > 1`인 경우에는 convolution과 transpose convolution의 연산 결과가 많이 달라지는 것을 알 수 있습니다.
+
+<br>
+
++ 기본적인 transpose convolution에서는 receptive field가 겹치는 부분은 덧셈을 해주고 있습니다. 
+    + transpose convolution의 정의에 따라서 다른 연산이 없이 덧셈을 하였었습니다.
++ 하지만 Receptive field가 겹치는 부분을 그냥 sum을 하는 것은 문제가 될 수 있습니다.
+    + 예를 들어 3x3 stride 2 transpose convolution을 사용하면 checkerboard artifacts가 발생하곤 합니다.
+    + 관련 논문에서는 4x4 stride 2 또는 2x2 stride 2 transpose convolution을 사용하면 조금 완화된다고는 합니다.
+        
+<img src="../assets/img/vision/cs231n/11/18.png" alt="Drawing" style="width: 800px;"/>
+
++ 다시 Semantic segmentation 으로 돌아가 보겠습니다. 위에서 보이는 Semantic segmentation 구조는 상당히 일반적입니다.
++ 네트워크 내부에 downsampling/upsampling을 하는 거대한 convolution network가 있습니다.
+    + 여기서 downsampling은 strided convolution 또는 pooling을 사용합니다. 
+    + 그리고 upsampling은 transpose convolution 또는 다양한 종류의 unpooling/upsampling을 사용합니다.
++ 이러한 네트워크 구조를 만든 다음에 `모든 픽셀`에 대하여 cross entropy를 계산하면 네트워크 전체를 **end-to-end**로 학습시킬 수 있습니다.
++ 기본적인 segmentation 문제는 classification 문제를 확장시킨 문제와 유사한 것을 확인해 보았습니다.
+
+<br>
+
+## Classification + Localization
+
++   
