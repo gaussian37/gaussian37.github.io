@@ -245,4 +245,58 @@ tags: [cs231n, detection, segmentation] # add tag
 
 ## Classification + Localization
 
-+   
+<img src="../assets/img/vision/cs231n/11/19.png" alt="Drawing" style="width: 800px;"/>
+
++ 다른 배울 Task는 Classification + Localization 입니다. 
++ 이미지 분석을 하다 보면 이미지가 어떤 카테고리에 속하는지 뿐만 아니라 실제 객체가 어디에 있는지를 알고 싶을 수 있습니다.
+    + 이미지를 "cat"에 분류하는 것 뿐만 아니라 이미지 내에 cat이 어디에 있는지 네모 박스를 그리는 것입니다.
++ Classification + Localization 문제는 Object Detection 문제와는 구분이 됩니다. 왜냐하면 Localization 문제에서는 이미지 내에서 관심있는 객체는 오직 하나라고 가정하기 때문입니다.
+    + 기본적으로 이미지 내에 객체 하나만 찾아서 레이블을 매기고 위치를 찾는 문제 입니다.
+    
+<img src="../assets/img/vision/cs231n/11/20.png" alt="Drawing" style="width: 800px;"/>
+
++ 이 문제를 풀때에도 기존의 image classification에서 사용하던 기법들을 고스란히 녹일 수 있습니다.
++ 아키텍쳐의 기본 구조는 위 슬라이드와 같습니다. 위 슬라이드에서는 예제로 AlexNet을 사용하였습니다. 
++ 네트워크는 입력 이미지를 받아서 출력을 내보내는 구조는 Classification과 같습니다.
+    + 출력 레이어 직전의 FC layer는 Class score로 연결되어서 카테고리를 결정합니다.
++ 하지만 여기에서는 FC layer가 하나 더 있습니다. 이는 4개의 원소를 가진 vector와 연결되어 있습니다.
+    + 이 4개의 출력 값은 width/height/x/y로 bounding box의 위치를 나타냅니다.
++ 이런식으로 네트워크는 2가지 출력값을 반환합니다. 
+    + 하나는 class socre 이고
+    + 다른 하나는 입력 영상 내의 객체 위치의 bounding box 좌표입니다.
++ 이 네트워크를 학습시킬 때는 loss가 두 개 존재합니다.
++ 그리고 이 문제에서는 학습 방법이 `fully supervised setting`을 가정합니다.
++ 따라서 학습 이미지에는 `카테고리 레이블`과 해당 객체의 `bounding box의 Ground Truth`를 동시에 가지고 있어야 합니다.
++ 따라서 이 문제에는 두 가지의 Loss function이 있습니다. 
+    + 먼저 Class score를 예측하기 위한 softmax loss가 있습니다.
+    + 그리고 GT(Ground Truth) Bounding Box와 예측한 Bounding Box 좌표 사이의 차이를 측정하는 Loss도 있습니다.
+    + 위 슬라이드에서는 L2 Loss로 Bounding Box Loss를 디자인 해봤습니다.
+        + 이 Loss는 예측한 box의 좌표와 GT box 좌표간의 차이에 대한 `regression loss` 입니다.
+
+<br>
+
++ Localization 문제를 풀면서 오분류한 케이스에 대하여 Bounding box를 학습하는 것에 대한 우려가 있을 수 있습니다.
++ 일반적으로 이 문제 또한 학습하면서 정정되기 때문에 괜찮습니다. Classification과 Localization이 동시에 학습되기 때문입니다.
++ 하지만 성능을 높이기 위하여 classification이 잘 된 경우에 한해서만 bounding box를 학습 하는 방법을 사용할 수도 있습니다.
+
+<br>
+
++ 또 생각할 수 있는 의문점은 Class score의 Loss와 Bounding box에 대한 Loss의 단위가 다를 수 있는데 gradient 시에 같이 계산된다면 문제가 되지 않을 까 입니다.
++ 이렇게 두 개의 Loss를 합친 Loss를 `Multi-task Loss` 라고 합니다.
++ 먼저 gradient를 구하려면 네트워크 가중치들의 각각의 미분값(scalar)을 계산해야 합니다.
++ 이제는 Loss가 두 개이니 미분값도 두개이고 이 두개를 모두 최소화 시켜야 합니다. 
++ 학습을 설정할 때 두 Loss의 가중치를 조절하는 하이퍼파라미터가 있습니다. 두 Loss의 가중치 합이 최종 Loss 입니다.
+    + 이 때 사용하는 하이퍼파라미터는 사용자가 설정해 주어야 하는 값으로 적절한 값을 설정하기가 상당히 까다롭습니다. 
++ 그리고 이 두 Loss의 가중 합에 대한 gradient를 계산하는 것입니다. 
+ 
+<br>
+
++ 물론 Localization 문제를 풀 때에도 Transfer Learning을 하는 것은 아주 좋은 방법입니다.
++ Transfer Learning의 관점에서 보면 fine tuning을 하면 항상 성능이 좋아지기 때문입니다.
++ ImageNet으로 학습시킨 모델을 가지고 데이터셋에 작용한다면 적절한 Fine tuning이 성능 향상에 도움이 될것입니다.
++ 실제로 많은 사람들이 사용하는 방법 중 하나는 우선 네트워크를 Freeze하고 Class score와 Bounding box 관련된 두 FC layer를 학습시킵니다.
++ 그리고 두 FC layer가 수렴하면 다시 합쳐서 전체 시스템을 Fine tuning 하는 것입니다. 
+            
+      
+
+         
