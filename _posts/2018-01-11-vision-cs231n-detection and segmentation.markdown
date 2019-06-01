@@ -295,7 +295,11 @@ tags: [cs231n, detection, segmentation] # add tag
 + Transfer Learning의 관점에서 보면 fine tuning을 하면 항상 성능이 좋아지기 때문입니다.
 + ImageNet으로 학습시킨 모델을 가지고 데이터셋에 작용한다면 적절한 Fine tuning이 성능 향상에 도움이 될것입니다.
 + 실제로 많은 사람들이 사용하는 방법 중 하나는 우선 네트워크를 Freeze하고 Class score와 Bounding box 관련된 두 FC layer를 학습시킵니다.
-+ 그리고 두 FC layer가 수렴하면 다시 합쳐서 전체 시스템을 Fine tuning 하는 것입니다. 
++ 그리고 두 FC layer가 수렴하면 다시 합쳐서 전체 시스템을 Fine tuning 하는 것입니다.
+
+<br>
+
++ 지난 시간에는  
             
       
 
