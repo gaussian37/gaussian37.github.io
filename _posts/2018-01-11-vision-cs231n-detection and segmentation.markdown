@@ -296,11 +296,67 @@ tags: [cs231n, detection, segmentation] # add tag
 + ImageNet으로 학습시킨 모델을 가지고 데이터셋에 작용한다면 적절한 Fine tuning이 성능 향상에 도움이 될것입니다.
 + 실제로 많은 사람들이 사용하는 방법 중 하나는 우선 네트워크를 Freeze하고 Class score와 Bounding box 관련된 두 FC layer를 학습시킵니다.
 + 그리고 두 FC layer가 수렴하면 다시 합쳐서 전체 시스템을 Fine tuning 하는 것입니다.
++ 지난 시간에는 ImageNet을 예로 들어서 Pre-Trained Network를 소개한 적이 있습니다.
+
+<img src="../assets/img/vision/cs231n/11/21.png" alt="Drawing" style="width: 800px;"/>
+
++ Bounding Box와 같이 이미지 내의 어떤 위치를 예측한다는 아이디어는 Classification + Localization 문제 이외에도 아주 다양한 문제에도 적용할 수 있습니다.
++ 그 중 하나는 위의 슬라이드와 같이 human pose estimation 입니다.
+    + human pose estimation에서는 사람 이미지가 입력으로 들어갑니다. 
+    + 출력은 이 사람의 각 관절의 위치입니다. 이 네트워크는 사람의 포즈를 예측합니다. 
+    + 즉, 이 사람의 팔 다리가 어디에 있는지를 예측합니다. 
+    + 보통 이런 문제를 풀 때에는 관절의 갯수를 14개로 간략화 하고 사람의 포즈를 정의합니다.
+    
+<img src="../assets/img/vision/cs231n/11/22.png" alt="Drawing" style="width: 800px;"/>
+
++ 그리고 네트워크의 출력은 각 관절에 해당하는 14개의 좌표값입니다.
++ 예측된 14개의 점에 대해서 regression으로 loss를 계산하고 back prop으로 학습시킵니다.
++ Pose estimation에서는 관절의 갯수와 관절의 순서를 미리 정하고 학습을 시켜야 합니다. 
++ 이와 유사하게 Regression output이 고정된 갯수라면 Pose estimation과 같은 다양한 문제를 풀 수 있습니다.
 
 <br>
 
-+ 지난 시간에는  
-            
-      
+## Object detection
 
-         
+<img src="../assets/img/vision/cs231n/11/23.png" alt="Drawing" style="width: 800px;"/>
+
++ 다음으로 다룰 문제는 object detection 입니다. object detection은 computer vision에서 중요한 문제 중 하나입니다.
++ object detection은 연구된 역사가 길어서 내용은 많지만 이번 강의에서는 deep learning과 연관된 object detection의 내용만 살펴볼 예정입니다.
++ object detection의 task는 입력 이미지가 주어지면 이미지에 나타나는 객체들의 bounding box와 해당하는 카테고리를 예측합니다.
+    + 즉, 앞에서 다룬 classification + localization과는 조금 다릅니다.
++ 이렇게 하는 이유는 예측하야 하는 Bbox의 수가 입력 이미지에 따라 달라지기 때문입니다. 각 이미지에 객체가 몇 개나 있을 지는 미지수입니다. 
+            
+<img src="../assets/img/vision/cs231n/11/24.png" alt="Drawing" style="width: 800px;"/>
+
++ 위 슬라이드는 PASCAL VOC Dataset에서의 성능의 진보과정을 보여줍니다. PASCAL VOC는 Detection에서 아주 오래전부터 사용되었습니다.
++ 데이터를 보면 Deep learning이 도입된 이후 부터 성능이 아주 좋아진 것을 볼 수 있습니다.  
++ 그리고 2015년 이후의 데이터는 없는데요, 그 이유는 이미 성능이 너무 좋아져서 State of the art에 대한 논의가 무의미해 졌기 때문입니다.
+
+<img src="../assets/img/vision/cs231n/11/25.png" alt="Drawing" style="width: 800px;"/>
+
++ 위 슬라이드를 보면 첫 번째 사진에는 고양이 한마리에 대한 Bbox의 정보가 있어야 하고 두 번째 사진은 개 2마리, 고양이 1마리에 대한 Bbox 정보가 있어야 합니다.
++ 마지막 사진에는 오리 여러 마리에 대한 Bbox가 있어야 합니다.
+ 
+<img src="../assets/img/vision/cs231n/11/26.png" alt="Drawing" style="width: 800px;"/>
+
++ 따라서 object detection을 하기 위해서는 새로운 아이디어가 필요합니다. 먼저 가장 간단한 sliding window 아이디어 부터 알아보겠습니다.
++ 앞선 semantic segmentation에서 작은 영역으로 쪼갰던 아이디어와 비슷한 방법을 사용합니다.
++ Sliding Window를 이용하려면 입력 이미지로부터 다양한 영역을 나눠서 전처리 합니다.
++ CNN은 이 작은 영역에 대하여 classification을 수행합니다. 이 때 위 파란색 박스 영역에는 어떤 object도 없고 background 카테고리임을 인식할 것입니다.
+    + 즉 object가 없는 경우를 대비하여 background 카테고리를 입력해 주어야 합니다.
+    + 네트워크가 배경이라고 예측했다면, 이 곳은 어떤 카테고리에도 속하지 않는다는 것을 의미합니다.
++ 이미지의 왼쪽 밑 영역에는 아무것도 없으므로 네트워크는 배경이라고 예측할 것이므로 아무것도 없다는 뜻입니다.
+
+<img src="../assets/img/vision/cs231n/11/27.png" alt="Drawing" style="width: 800px;"/>
+
++ 다른 영역을 추출해 보겠습니다. 여기에는 개는 있고, 고양이는 없고, 배경은 아닌 상태입니다. 
++ 이렇게 sliding window를 통하여 문제를 해결할 수 있지만, 이 방법에는 몇가지 문제가 있습니다.
+
+<br>
+
++ 먼저 어떻게 영역을 추출할 지가 문제가 될 수 있습니다. 
+    + 이미지 안에서 어떤 크기의 object가 어디에 위치가 될 지 모르니 window의 사이즈 자체를 설정하는 것에 문제가 있습니다.
+    + 따라서 이런 brute force 방식의 sliding window를 하려면 너무나 많은 경우의 수가 존재합니다. 
++ 또한 계산량의 문제가 있습니다.
+    + 작은 영역 하나 하나마다 거대한 CNN을 통과시키려면 이 때의 계산량은 다를 수 없는 양입니다. 
++ 따라서 Object detection문제를 풀기 위하여 brute force sliding window를 하는 일은 절대 없습니다.

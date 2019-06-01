@@ -35,7 +35,7 @@ tags: [Introduction] # add tag
     + Machine Learning
         + Scikit-learn
     + Deep Learning
-        + Keras, Tensorflow
+        + Pytorch, Keras
     + Computer Vision
         + OpenCV
     + Web Development
