@@ -360,3 +360,30 @@ tags: [cs231n, detection, segmentation] # add tag
 + 또한 계산량의 문제가 있습니다.
     + 작은 영역 하나 하나마다 거대한 CNN을 통과시키려면 이 때의 계산량은 다를 수 없는 양입니다. 
 + 따라서 Object detection문제를 풀기 위하여 brute force sliding window를 하는 일은 절대 없습니다.
+
+<img src="../assets/img/vision/cs231n/11/28.png" alt="Drawing" style="width: 800px;"/>
+
++ 대신에 Regional Proposals 라는 방법이 있습니다. 이 방법은 Deep learning을 사용하는 방법은 아닙니다.
++ Regional Proposal Network는 전통적인 신호처리의 기법을 사용합니다. 
+    + Regional Proposal Network는 Object가 있을 법한 Bbox를 제공해 줍니다. 예를 들어 1000 ~  2000 개 정도의 region을 제공해 준다고 가정해 봅시다.
++ 이미지 내에서 객체가 있을 법한 후보 region proposal을 찾아내는 다양한 방법이 있겠지만 Regional Proposal Network는 이미지 내의 뭉텅이가 진 곳(blobby)한 곳을 찾아냅니다.
++ 이 지역들은 객체가 있을지도 모르는 후보 영역들입니다. 이런 알고리즘은 비교적 빨리 작동합니다.
++ Region Proposal을 만들어 낼 수 있는 방법에는 Selective Search가 있습니다.
+    + 이 방법은 노이즈가 아주 심하여 대부분은 실제 객체가 아니지만 Recall은 아주 높습니다.
+    + 따라서 이미지내에 객체가 존재한다면 Selective Search의 Region Proposal 안에 속할 가능성이 높습니다.
++ 따라서 Sliding window와 같이 굉장히 비효율적인 방법보다 Selective Search를 이용하여 가능성 있는 부분을 선택한 다음에 CNN의 입력으로 이용하면 좀 더 효율적입니다.
+
+### R-CNN
+
+<img src="../assets/img/vision/cs231n/11/29.png" alt="Drawing" style="width: 800px;"/>
+
++ 위에서 소개한 Selective Search의 개념이 R-CNN에서 소개됩니다.
++ 먼저 이미지가 주어지면 Region Proposals을 얻기 위해 Region Proposal Network를 수행합니다.
++ Region Proposal은 Region of Interest(ROI)라고도 합니다. Selective Search를 통하여 2000여개의 ROI를 얻어냅니다.
++ 하지만 여기에서는 각 ROI의 사이즈가 각양각색이라는 문제가 생길 수 있습니다. 
++ 추출된 ROI로 CNN classification을 수행하려면 FC layer 등으로 같은 입력사이즈로 맞추어 줘야 하기 때문에 ROI의 크기가 같아야 합니다. 
+    + 따라서 Region Proposal을 추출하면 CNN의 입력으로 사용하기 위하여 동일한 고정된 크기로 변형해야 합니다.
+    + 즉, Regional Propose를 추출하면 고정된 사이즈로 크기를 바꿉니다.
++ 추출된 ROI의 크기를 고정된 사이즈로 바꾸면 CNN에 통과시킵니다.
++ 그리고 R-CNN의 경우에는 ROI들의 최종 classification에는 SVM을 사용하였습니다.     
+
