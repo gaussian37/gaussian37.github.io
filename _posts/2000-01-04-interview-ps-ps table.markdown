@@ -12,5 +12,18 @@ tags: [ps, c++] # add tag
 
 ### 문제 풀 때 필요한 C++ 관련 내용
 
-+ C++에서 문제 풀 때 좋은 문법 및 템플릿
++ [C++에서 문제 풀 때 좋은 문법 및 템플릿](https://gaussian37.github.io/interview-ps-tip/)
++ [C++에서 문제 풀 때 좋은 STL](https://gaussian37.github.io/interview-ps-stl/)
 
+<br>
+
+### 면접에는 나올 수준의 문제, 코드 및 설명
+
++ 자료구조
++ 다이나믹 프로그래밍
++ 그래프
++ 수학
++ 트리
++ 문자열
+
+### 면접에는 안나올 것 같은 고급 알고리즘 문제, 코드 및 설명
