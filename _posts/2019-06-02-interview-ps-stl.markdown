@@ -31,3 +31,17 @@ int main() {
 
 ```
 
+<br>
+
+### `unique`와 `erase` 사용하기
+
++ unique를 사용하면 중복된 데이터들을 전부 뒤쪽으로 옮깁니다.
+    + 이 때 unique에서 반환하는 값은 iterator로 중복되는 값의 시작 주소를 나타냅니다.
+    + `unique(v.begin(), v.end())`
++ erase를 사용하면 원소를 삭제할 수 있습니다.
+    + `v.erase(v.begin(), v.end())`
++ 따라서 `v.erase(unique(v.begin(), v.end()), v.end())`를 사용하면 
+    + 먼저 **unique**를 이용하여 유니크한 값만 앞쪽으로 모으로 중복된 값을 뒤쪽으로 모은 다음에 중복값의 시작 위치 iterator를 반환합니다.
+    + 중복된 값의 시작 위치 ~ 끝까지를 erase를 통하여 삭제합니다.
+     
+
