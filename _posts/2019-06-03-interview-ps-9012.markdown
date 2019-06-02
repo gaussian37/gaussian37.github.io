@@ -14,7 +14,7 @@ tags: [ps, c++] # add tag
     + 먼저 스택에 여는 괄호가 하나도 쌓여있지 않다면 닫는 괄호와 짝을 이룰 수 없습니다. 즉 잘못된 괄호 쌍입니다.
     + 만약 스택의 마지막이 여는 괄호라면 이번에 들어온 닫는 괄호와 짝을 이룰 수 있습니다. 이 때 스택의 마지막 여는 괄호를 pop 해줍니다.    
 
-```python
+```
 #include <iostream>
 #include <vector>
 #include <string>
