@@ -385,5 +385,89 @@ tags: [cs231n, detection, segmentation] # add tag
     + 따라서 Region Proposal을 추출하면 CNN의 입력으로 사용하기 위하여 동일한 고정된 크기로 변형해야 합니다.
     + 즉, Regional Propose를 추출하면 고정된 사이즈로 크기를 바꿉니다.
 + 추출된 ROI의 크기를 고정된 사이즈로 바꾸면 CNN에 통과시킵니다.
-+ 그리고 R-CNN의 경우에는 ROI들의 최종 classification에는 SVM을 사용하였습니다.     
++ 그리고 R-CNN의 경우에는 ROI들의 최종 classification에는 SVM을 사용하였습니다.
++ 여기 슬라이드에는 빠져있지만 R-CNN은 Region Proposal을 보정하기 위한 regression 과정도 거칩니다.  
+    + Selective Search의 Region Proposal이 대게는 정확하지만 그렇지 못한 경우도 있기 때문입니다.
++ RCNN은 BBox의 카테고리도 예측하지만 BBox를 보정해 줄 수 있는 offset값 4개도 예측합니다. 이를 Multi-task loss로 두고 한번에 학습합니다.
+    + 예를 들어 Region Proposal이 사람을 잡았는데 머리를 빼먹었다고 가정하면, 네트워크는 이 object가 사람인 것을 알고 사람은 머리가 있어야 함을 예측하여 offset은 Bbox를 조금 더 위로 올립니다.
++ RCNN은 정리하자면 RCNN의 Region Proposal은 전통적인 방식을 사용합니다.
+    + 즉, RCNN에서 Region Proposal을 학습시키지 않고 고정된 알고리즘인 Selective Search를 사용합니다.
++ RCNN을 사용하려면 어떻게 학습 데이터를 마련해야 할까요?
+    + RCNN은 Fully Supervised 입니다. 따라서 학습 데이터에 대하여 이미지 내의 모든 객체에 대한 BBox가 있어야 합니다. 
++ 자세한 내용은 R-CNN 논문을 참조하시기 바랍니다.
+
+<img src="../assets/img/vision/cs231n/11/30.png" alt="Drawing" style="width: 800px;"/>
+
++ RCNN에 대하여 살펴보면 알 수 있겠지만 RCNN에는 문제점 들이 있습니다.
++ RCNN은 여전히 계산 비용이 높습니다. 
+    + RCNN은 2000개의 Region Proposal이 있고 각각이 독립적으로 CNN의 입력으로 들어갑니다. 너무 많은 양입니다.
+    + RCNN의 구현을 살펴보면 CNN에서 나온 Feature를 디스크에 덤핑 합니다. 용량이 어마어마 합니다.
+    + 그리고 RCNN은 학습과정 자체가 상당히 오래 걸립니다. 이미지당 2000개의 ROI를 Forward/Backward pass를 수행해야 합니다. 
+        + 논문에는 81시간 정도 학습이 되어있다고 합니다.
+    + Test time도 아주 느립니다. 이미지 한 장당 대략 30초가 걸립니다. 
+        + 각 Region proposal 마다 CNN을 수행해야 하므로 수천 번의 forward pass가 요구됩니다. 아주 느린 과정입니다.
+<br>
+
+### Fast R-CNN
+
+<img src="../assets/img/vision/cs231n/11/31.png" alt="Drawing" style="width: 800px;"/>
+
++ Fast RCNN은 RCNN의 계산 비용 문제를 다소 해결하였습니다.
++ Fast RCNN도 RCNN과 시작은 같습니다. 하지만 Fast RCNN에서는 각 ROI마다 각각 CNN을 수행하지는 않습니다. 대신 전체 이미지에 CNN을 수행합니다.
+    + 그 결과 전체 이미지에 대한 고해상도 Feature Map을 얻을 수 있습니다. 
++ Fast RCNN에서도 여전히 Selective Search 같은 방법으로 Region proposal을 계산합니다.
+    + 하지만 여기서는 ROI를 각각을 가져오지는 않습니다.
++ CNN Feature map에 ROI를 Projection 시키고 전체 이미지가 아닌 Feature map에서 가져옵니다.
++ 이제는 CNN의 Feature를 여러 ROI가 서로 공유할 수 있습니다. 
++ 그 다음 FC layer가 있습니다. FC layer는 고정된 크기의 입력을 받습니다. 따라서 CNN의 Feature map에서 가져온 ROI는 FC layer의 입력에 맞게 크기를 조정해 줘야 합니다.
+    + 학습이 가능하도록 미분가능한 방법을 사용해야 합니다. 이 방법이 ROI Pooling layer 입니다. 
++ Feature map에서 가져온 ROI의 크기를 조정하고 나면 FC layer의 입력으로 넣어서 Classification Score와 Linear Regression offset을 계산할 수 있습니다.
+
+<img src="../assets/img/vision/cs231n/11/32.png" alt="Drawing" style="width: 800px;"/>
+
++ Fass RCNN을 학습할 때에는 두 Loss를 합쳐서 Multi-task Loss로 Backprop을 진행합니다.
++ 이 방법을 통하여 전체 네트워크를 합쳐서(jointly) 동시에 학습시킬 수 있습니다.
+
+<br>
+
+<img src="../assets/img/vision/cs231n/11/32.png" alt="Drawing" style="width: 800px;"/>
+
++ 위 방법은 ROI Pooling에 대한 방법입니다. 이 방법은 이번 코스에서 다루진 않겠습니다. 내용은 논문을 참조하시기 바랍니다.
+
+<br>
+
+<img src="../assets/img/vision/cs231n/11/33.png" alt="Drawing" style="width: 800px;"/>
+
++ RCNN과 Fast RCNN에 대하여 비교해 보면 위 슬라이드의 결과와 같습니다.(비교를 위해 SPPNet이란 것도 포함시켰습니다.)
++ Train time을 살펴보면 Fast RCNN이 RCNN보다 10배 정도 빠릅니다.
+    + Faster RCNN의 속도가 더 빠른 이유는 Feature map을 공유하고 있기 때문입니다.
++ Test time을 살펴보아도 Fast RCNN의 Test time은 정말 빠릅니다.
+    + Test time을 보면 Regional Proposal 하는 시간이 대부분을 차지하고 있음을 알 수 있습니다. 
+    + Fast RCNN을 보면 Region Proposal을 한 이후 CNN을 거치는 과정에서는 모든 Region Proposal을 공유하기 때문에 1초도 안걸리는 것을 알 수 있습니다.
+    + 따라서 Fast RCNN에서 Region Proposal은 계산과정 중의 병목임을 알 수 있습니다.
+    
+### Faster R-CNN
+
+<img src="../assets/img/vision/cs231n/11/34.png" alt="Drawing" style="width: 800px;"/>
+
++ RCNN의 문제는 엄청난 계산량이 필요하다는 것이었고 Fast RCNN에서는 Feature map을 공유하는 방법을 통하여 계산 속도 문제를 일부 해결하였습니다.
++ Fast RCNN에서의 문제점 또한 여전히 계산 속도에 있었고 Fast RCNN의 계산 병목현상인 Regional Proposal 문제를 해결하는 것이 Faster RCNN입니다.
++ 지금까지의 문제는 region proposal을 계산하는 과정이 병목이라는 점이었습니다.
++ Faster RCNN에서는 네트워크가 region proposal을 직접 만들 수 있습니다.
++ Faster RCNN에서는 입력 이미지가 있고 입력 이미지 전체가 네트워크로 들어가서 Feature map을 만듭니다.
++ Faster RCNN은 별도의 (RPN)Region Proposal Network가 있습니다. RPN은 네트워크가 Feature map을 가지고 Region Proposal을 계산하도록 합니다.
++ RPN을 거쳐서 Region Proposal을 예측하고 나면 나머지 동작은 Fast RCNN과 동일합니다.
++ Feature map에서 Region proposal을 가져오고 이들을 나머지 네트워크에 통과시킵니다. 
++ 그리고 multi-task loss를 이용해서 여러가지 Loss를 한번에 계산합니다. Faster RCNN은 4개의 Loss를 한 번에 학습합니다.
++ RPN에는 2가지 Loss가 있습니다. 
+    + 먼저 한가지는 이곳에 객체가 있는지 없는지를 예측합니다.
+    + 나머지 Loss는 예측한 Bbox에 관한 것입니다.
++ Faster RCNN에서는 최종단에서도 두 개의 Loss가 있습니다.
+    + 하나는 Region Proposal의 Classification을 결정합니다.
+    + 나머지는 Bbox Regression 입니다. 앞서 만든 Regression Proposal을 보정해 주는 역할을 합니다. 
+
+
+
+    
+
 
