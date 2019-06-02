@@ -20,7 +20,7 @@ int main() {
 		v.push_back(a[i]);
 	}
 	int x = 2;
-	int b = (int)(upper_bound(v.begin(), v.end(), x) - lower_bound(v.begin(), v.end(), x));
+	int b = upper_bound(v.begin(), v.end(), x) - lower_bound(v.begin(), v.end(), x);
 	int c = lower_bound(v.begin(), v.end(), x) - v.begin();
 	int d = v.end() - upper_bound(v.begin(), v.end(), x);
 
