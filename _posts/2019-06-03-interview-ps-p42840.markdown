@@ -1,0 +1,84 @@
+---
+layout: post
+title: 모의고사
+date: 2019-06-02 00:00:00
+img: interview/ps/ps.png
+categories: [interview-ps] 
+tags: [ps, c++] # add tag
+---
+
++ https://programmers.co.kr/learn/courses/30/lessons/42840
++ 이 문제는 간단히 반복문을 탐색해 가면서 정답과 찍은 답이 같은지만 비교하면 됩니다.
++ 한 배열 또는 벡터를 순회할 때 `flag`를 두면 동시에 다른 배열 벡터를 같이 순회할 수 있습니다.
++ 숫자 문자에 -'0' 연산을 하면 숫자가 됩니다.
+
+<br>
+
+```cpp
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+string s1 = "12345";
+string s2 = "21232425";
+string s3 = "3311224455";
+
+vector<int> solution(vector<int> answers) {
+	vector<int> answer;
+
+	vector<int> cnt(4);
+	int flag = 0;
+	for (int i = 0; i < answers.size(); ++i) {
+		if (answers[i] == s1[flag] - '0') {
+			cnt[1]++;
+		}
+		if (flag == s1.size() - 1) {
+			flag = 0;
+		}
+		else {
+			flag++;
+		}
+	}
+
+	flag = 0;
+	for (int i = 0; i < answers.size(); ++i) {
+		if (answers[i] == s2[flag] - '0') {
+			cnt[2]++;
+		}
+		if (flag == s2.size() - 1) {
+			flag = 0;
+		}
+		else {
+			flag++;
+		}
+	}
+
+	flag = 0;
+	for (int i = 0; i < answers.size(); ++i) {
+		if (answers[i] == s3[flag] - '0') {
+			cnt[3]++;
+		}
+		if (flag == s3.size() - 1) {
+			flag = 0;
+		}
+		else {
+			flag++;
+		}
+	}
+
+	int mmax = max(cnt[1], max(cnt[2], cnt[3]));
+	if (cnt[1] == mmax) {
+		answer.push_back(1);
+	}
+	if (cnt[2] == mmax) {
+		answer.push_back(2);
+	}
+	if (cnt[3] == mmax) {
+		answer.push_back(3);
+	}
+
+	return answer;
+}
+```
