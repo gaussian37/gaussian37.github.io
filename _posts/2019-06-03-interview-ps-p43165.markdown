@@ -1,0 +1,54 @@
+---
+layout: post
+title: 타겟 넘버
+date: 2019-06-02 00:00:00
+img: interview/ps/ps.png
+categories: [interview-ps] 
+tags: [ps, c++] # add tag
+---
+
++ https://programmers.co.kr/learn/courses/30/lessons/43165
++ 이 문제는 +, - 두가지 경우의 수를 계속적으로 탐색하는 완전 탐색 문제로 해결할 수 있습니다.
++ 완전 탐색으로 해결하면 매 번의 케이스 마다 2가지 경우의 수가 배로 늘어나므로 $$ 2^{N} $$ 의 복잡도를 가지지만 인풋이 20개이므로 충분히 가능한 계산입니다.
++ 완전 탐색에 사용하는 함수 `go(int i, int sum)`의 정의는
+    + 벡터 v를 i번째 인덱스 까지 사용하였을 때 sum이라는 합을 만드는 경우의 수 입니다.
++ `go`함수의 종료 조건은 벡터 v를 모두 조회하였을 때(i == v.size())
+    + target 값이 sum과 같으면 경우의 수로 취급하고 그렇지 않으면 무시합니다.  
+
+<br>
+
+```cpp
+#include <vector>
+
+using namespace std;
+
+int t;
+vector<int> v;
+
+int go(int i, int sum) {	
+	if (i == v.size()) {
+		if (sum == t) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+
+	int ret = 0;
+	ret += go(i + 1, sum + v[i]);
+	ret += go(i + 1, sum - v[i]);
+	return ret;
+}
+
+int solution(vector<int> numbers, int target) {
+	int answer = 0;
+
+	t = target;
+	v = numbers;
+	
+	answer = go(0, 0);
+
+	return answer;
+}
+```
