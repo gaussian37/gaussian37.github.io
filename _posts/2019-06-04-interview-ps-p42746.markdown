@@ -1,0 +1,60 @@
+---
+layout: post
+title: 타겟 넘버
+date: 2019-06-02 00:00:00
+img: interview/ps/ps.png
+categories: [interview-ps] 
+tags: [ps, c++] # add tag
+---
+
++ https://programmers.co.kr/learn/courses/30/lessons/42746
++ 모든 숫자를 이어붙였을 때 가장 큰 수를 찾는 문제 입니다.
++ 이 문제는 이어붙였을 때 가장 큰 숫자를 만들 수 있도록 정렬을 해야 시간 안에 풀 수 있습니다.
++ 아래 코드에서는 `cmp`를 통하여 새로운 정렬 기준을 만들었고 정렬 기준을 이용하여 이어붙였을 때 가장 큰 수를 만들 수 있도록 정렬한 다음에 이어 붙였습니다.
++ 이 문제에서 배울 점은 `cmp` 함수를 정의하는 것과 `cmp`함수를 이용하여 정렬을 하는것 입니다.
+
+```cpp
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+bool cmp(string l, string r) {
+	string concat1 = l + r;
+	string concat2 = r + l;
+
+	if (concat1 > concat2) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+vector<string> v;
+
+string solution(vector<int> numbers) {
+	string answer = "";
+	v = vector<string>(numbers.size());
+
+	bool nonZero = false;
+	for (int i = 0; i < numbers.size(); ++i) {
+		if (numbers[i] != 0) {
+			nonZero = true;
+		}
+		v[i] = to_string(numbers[i]);
+	}
+
+	sort(v.begin(), v.end(), cmp);
+
+	for (int i = 0; i < v.size(); ++i) {
+		answer += v[i];
+	}
+
+	if (nonZero == false) {
+		answer = "0";
+	}
+
+	return answer;
+}```
