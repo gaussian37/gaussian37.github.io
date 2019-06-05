@@ -1,0 +1,39 @@
+---
+layout: post
+title: 124 나라의 숫자
+date: 2019-06-02 00:00:00
+img: interview/ps/ps.png
+categories: [interview-ps] 
+tags: [ps, c++] # add tag
+---
+
++ https://programmers.co.kr/learn/courses/30/lessons/12899
++ 3진법 문제를 조금 변형한 문제이다.
++ 진법문제와 유사한 문제는 숫자를 나열한 다음에 숫자간의 관계를 파악해야 합니다.
++ 여기서는 3으로 나누었을 때 나머지가 0인 경우에는 숫자 4가 추가되고 몫에서 -1한 값을 이어 붙이면 되는 구조를 가집니다.
+    + 예를 들어 18 = 124 숫자가 되는데 18을 3으로 나누면 몫은 6이고 나머지는 0입니다.
+    + 따라서 4라는 숫자가 추가되고 몫인 6에서 1을 뺀 5라는 숫자를 124진법으로 변형한 숫자가 이어집니다.
+    + 5라는 숫자를 124진법으로 변형하면 12가 됩니다.
+    + 따라서 124가 18을 124진법으로 변형한 숫자가 됩니다.
++ 진법문제의 핵심은 나열한 숫자들 간의 관계를 파악하는 것으로 관계를 파악하여 진법 변환을 해주면 됩니다.
+
+```cpp
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(int n) {
+    string answer = "";
+	string map = "412";	
+	while (n) {
+		int div = n % 3;
+		n /= 3;
+		if (div == 0) {
+			n--;
+		}
+		answer = map[div] + answer;
+	}
+    return answer;
+}
+```

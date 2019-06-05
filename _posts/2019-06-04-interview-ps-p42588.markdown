@@ -1,0 +1,60 @@
+---
+layout: post
+title: 탑
+date: 2019-06-02 00:00:00
+img: interview/ps/ps.png
+categories: [interview-ps] 
+tags: [ps, c++] # add tag
+---
+
++ https://programmers.co.kr/learn/courses/30/lessons/42588
++ 스택 자료구조를 이용하여 풀 수 있는 문제 입니다.
++ 현재 인덱스 기준으로 왼쪽에 있는 데이터에만 관심이 있고 왼쪽의 있는 값중에서 현재 값 보다 큰 가장 가까운 값이 몇번 인덱스에 있는지 확인해야 합니다.
++ 이 문제를 스택으로 푸는 이유는 현재 인덱스 기준으로 왼쪽의 모든 값을 가지고 있을 필요가 없고 필요한 값들만 스택에 저장한 다음 매번 필요없다고 판단되면 pop을 하면 되기 때문입니다.
+    + 예를 들어 (2, 4, 5, 3)에서 3은 5라는 값에 의해서 4라는 값은 볼 필요가 없습니다.
+    + 왜냐하면 탑의 높이 5에서 먼저 신호를 받기 때문에 4에서는 받을 수 없기 때문입니다.
++ 즉 배열값을 스택에 쌓고 필요없으면 pop 하기 때문에 시간 복잡도 면에서도 유리합니다.
+
+```cpp
+#include <string>
+#include <vector>
+
+using namespace std;
+
+struct DS {
+	int height;
+	int idx;
+	DS(int _height, int _idx) : height(_height), idx(_idx) {}
+};
+
+vector<int> solution(vector<int> heights) {
+    vector<int> answer;
+
+    vector<DS> v;
+	vector<DS> s;
+	for (int i = 0; i < heights.size(); ++i) {
+		v.push_back(DS(heights[i], i + 1));
+	}
+	
+	int i = 0;
+	while(i<v.size()){
+		auto here = v[i];
+
+		if (s.empty()) {
+			answer.push_back(0);
+			s.push_back(here);
+			i++;
+		}
+		else if (s.back().height <= here.height) {
+			s.pop_back();
+		}
+		else if (s.back().height > here.height) {
+			answer.push_back(s.back().idx);
+			s.push_back(here);
+			i++;
+		}
+	}
+    
+    return answer;
+}
+```

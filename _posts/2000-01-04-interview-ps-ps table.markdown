@@ -47,7 +47,8 @@ tags: [ps, c++] # add tag
     + 프린터
     + 다리를 지나는 트럭
     + 기능개발
-    + 탑
+    + [탑](https://gaussian37.github.io/interview-ps-p42588/)
+        + 스택 자료구조를 이용하여 효율적으로 문제 해결
     + 주식가격
 + 힙
     + 더 맵게
@@ -74,3 +75,6 @@ tags: [ps, c++] # add tag
     + 여행경로
 + 이분탐색
 + 그래프
++ 기타
+    + [124 나라의 숫자](https://gaussian37.github.io/interview-ps-p12899/)
+        + 진법 변환 관련 문제
