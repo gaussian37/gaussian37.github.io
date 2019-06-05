@@ -1,0 +1,54 @@
+---
+layout: post
+title: 쇠막대기
+date: 2019-06-02 00:00:00
+img: interview/ps/ps.png
+categories: [interview-ps] 
+tags: [ps, c++] # add tag
+---
+
++ https://programmers.co.kr/learn/courses/30/lessons/42585
++ 쇠막대기 문제는 KOI에 출제된 stack으로 푸는 잘 알려진 문제입니다.
++ '()' 모양으로 붙여진 괄호는 레이저이고 '((()))'형식이면 가운데는 레이저이고 양쪽끝은 쇠막대기 입니다.
+    + 즉 '((()))'은 인덱스 1~4에 걸쳐있는 쇠막데기가 있고 인덱스 0~5에 걸쳐있는 쇠막대기가 있습니다.
+    + 그리고 가운데 레이저가 있어서 2등분 되므로 레이저 하나에 총 4조각이 됩니다.
++ 전체적인 알고리즘은 먼저 '('가 들어오면 스택에 인덱스를 넣습니다. 이유는 ')'가 들어왔을 때 인덱스 차이가 1이면 레이저인것을 알 수 있기 때문입니다.
++ 만약 ')'가 들어왔을 때 스택의 탑과 현재 탐색하는 인덱스의 차이가 1이면 레이저 입니다.
+    + 이 때에는 스택의 사이트 만큼 정답에 더하면 됩니다. 이 때 더해지는 조각은 레이저에 의해 조각는 왼쪽의 갯수입니다.
++ 만약 ')'가 들어왔고 인덱스 차이가 1이 아니면 스택의 인덱스를 pop 합니다. 그리고 정답에 1을 더합니다.
+    + 이 때 더해지는 1은 레이저 기준으로 오른쪽에 있는 조각의 갯수입니다.
+    + 즉, 레이저에 의해 생겨난 왼쪽의 조각은 스택의 사이즈에 의해 계산되어 더해지고 가장 오른쪽에 있는 조각 부분은 마지막에 스택에 pop 하면서 계산됩니다.
+
+```cpp
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <stack>
+
+using namespace std;
+
+stack<int> s;
+int solution(string arrangement) {
+	int answer = 0;
+	
+	for (int i = 0; i < arrangement.size(); ++i) {
+		if (arrangement[i] == '(') {
+			s.push(i);
+		}
+		else {
+			if (i - s.top() == 1) {
+				s.pop();
+				answer += s.size();
+			}
+			else {
+				s.pop();
+				answer += 1;
+			}
+			
+		}
+		
+	}
+
+	return answer;
+}
+```
