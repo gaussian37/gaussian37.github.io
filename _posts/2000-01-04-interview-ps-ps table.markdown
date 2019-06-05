@@ -68,6 +68,8 @@ tags: [ps, c++] # add tag
     + 숫자야구
     + 카펫
 + 탐욕법
+    + [큰 수 만들기](https://gaussian37.github.io/interview-ps-p42883/)
+        + 그리디 방법으로 숫자문자열에서 특정 숫자 k개를 삭제하였을 때 가장 큰 숫자를 만드는 방법을 생각하는 문제
 + 동적계획법
 + 깊이/너비 우선 탐색
     + [타켓 넘버](https://gaussian37.github.io/interview-ps-p43165/)
