@@ -28,3 +28,4 @@ tags: [쿠팡] # add tag
 <a href="https://coupa.ng/bgK3bC" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/banner/ea68aee08266d204d2f5b575d99a9555@2x.jpg" alt="코디 라벤더 3겹 ..." width="120" height="240"></a>
 <a href="https://coupa.ng/bgWket" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/banner/e0e0d0f29e149f4af1025f571f0f31b7@2x.jpg" alt="에이프릴스킨 매직 ..." width="120" height="240"></a>
 <a href="https://coupa.ng/bg7A5z" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/banner/b73345e584febe2aaab3e645c450e9f6@2x.jpg" alt="진한겔 리큐 알카파..." width="120" height="240"></a>
+<a href="https://coupa.ng/bhjtnb" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/banner/6da805e7be33f87b6fa876996938100f@2x.jpg" alt="[1+1] 싸이닉 ..." width="120" height="240"></a>
