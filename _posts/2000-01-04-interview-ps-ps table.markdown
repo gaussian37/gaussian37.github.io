@@ -70,6 +70,7 @@ tags: [ps, c++] # add tag
 + 동적계획법
 + 깊이/너비 우선 탐색
     + [타켓 넘버](https://gaussian37.github.io/interview-ps-p43165/)
+        + 깊이우선 탐색으로 완전 탐색하여 가능한 경우의 수 찾는 문제
     + 네트워크
     + 단어변환
     + 여행경로
