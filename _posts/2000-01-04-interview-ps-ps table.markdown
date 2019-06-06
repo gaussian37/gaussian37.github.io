@@ -63,7 +63,6 @@ tags: [ps, c++] # add tag
     + K번째수
     + [가장 큰 수](https://gaussian37.github.io/interview-ps-p42746/)
         + 정렬할 때 새로운 기준을 줘서 정렬하는 문제 : comparator 사용
-    + H-Index
 + 완전탐색
     + [모의고사](https://gaussian37.github.io/interview-ps-p42840/)
         + 문자열 단순 반복 탐색 하면서 일치하는 갯수 카운트 하는 문제
