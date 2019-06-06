@@ -42,7 +42,7 @@ Y_test = torch.tensor(Y_test, dtype=torch.int64).to("cuda:0")
 
 <br>
 
-### Dropout
+### **Dropout**
 
 + Dropout 기법은 몇 개의 노드를 랜덤으로 선택하여 의도적으로 사용하지 않는 방법입니다.
 + Dropout은 신경망 훈련 시에만 사용하고, 예측 시에는 사용하지 않는 것이 일반적입니다. 
@@ -135,7 +135,35 @@ plt.legend()
 
 <img src="../assets/img/dl/pytorch/dropoutBatchnorm/fig1.png" alt="Drawing" style="width: 600px;"/>
 
+<br>
 
+### **BatchNormalization**
 
++ 신경망 학습에서는 각 변수의 차원이 동일한 범위의 값을 가지는 것이 중요합니다.
++ 한 층으로 된 선형 모델에서는 사전에 데이터를 정규화해 두면 되지만, 깊은 신경망에서는 층이 늘어날수록 데이터 분포가 바뀝니다.
++ 따라서 입력 데이터의 정규화만으로는 부족합니다. 앞의 층의 파라미터가 변화하므로 뒤에 있는 층의 학습이 불안정해집니다.
++ 이런 문제를 해결하고 학습을 안정화 및 가속화 하는 방법으로 Batch Normalization이 있습니다.
++ Batch Normalization 또한 훈련 시에만 사용되고 평가시에는 사용되지 않습니다.
++ Batchnorm은 아래와 같이 사용될 수 있습니다. 파라미터는 feature의 갯수입니다.
 
-
+```python
+model = nn.Sequential(
+    nn.Linear(64, 100),
+    nn.ReLU(),
+    nn.BatchNorm1d(100),
+    nn.Dropout(0.5),
+    nn.Linear(100, 100),
+    nn.ReLU(),
+    nn.BatchNorm1d(100),
+    nn.Dropout(0.5),
+    nn.Linear(100, 100),
+    nn.ReLU(),
+    nn.BatchNorm1d(100),
+    nn.Dropout(0.5),
+    nn.Linear(100, 100),
+    nn.ReLU(),
+    nn.BatchNorm1d(100),
+    nn.Dropout(0.5),
+    nn.Linear(100, 10),
+).to("cuda:0")
+``` 
