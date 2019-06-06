@@ -44,4 +44,28 @@ int main() {
     + 먼저 **unique**를 이용하여 유니크한 값만 앞쪽으로 모으로 중복된 값을 뒤쪽으로 모은 다음에 중복값의 시작 위치 iterator를 반환합니다.
     + 중복된 값의 시작 위치 ~ 끝까지를 erase를 통하여 삭제합니다.
      
+<br>
 
+### 문자열에서 숫자 찾는 tokenizer
+
++ `tokenize`는 문자열 숫자를 받아서 del 기준으로 token 하여 문자열 벡터로 반환합니다.
++ `tokToNum`은 문자열 숫자를 받아서 del 기준으로 token 하여 숫자 벡터로 반환합니다.
+
+```cpp
+vector<string> tokenize(string s, string del = " ") {
+	vector<string> ret;
+	for (int i = 0, j; i < s.size(); i = j + 1) {
+		if ((j = s.find_first_of(del, i)) == -1) j = s.size();
+		if (j - i > 0) ret.push_back(s.substr(i, j - i));
+	}
+	return ret;
+}
+
+vector<int> tokToNum(string s, string del = " ") {
+	vector<int>ret;
+	vector<string> vs = tokenize(s, del);
+	for (int i = 0; i < vs.size(); ++i) ret.push_back(stoi(vs[i]));
+	return ret;
+}
+
+```
