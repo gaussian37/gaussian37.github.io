@@ -1,0 +1,89 @@
+---
+layout: post
+title: 카카오 프렌즈 컬러링북
+date: 2019-06-02 00:00:00
+img: interview/ps/ps.png
+categories: [interview-ps] 
+tags: [ps, c++] # add tag
+---
+
++ https://programmers.co.kr/learn/courses/30/lessons/1829
++ connected componets를 찾는 문제입니다.
++ board를 상하좌우 탐색하면서 같은 색으로 연결된 격자의 갯수와 최대 크기를 찾습니다.
++ 아래 코드는 dfs를 이용하여 완전 탐색을 한 코드입니다.
++ 이유는 모르겠으나 전역변수를 바로 선언하면 에러가 납니다. 왜그런지...
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+vector<vector<int>> board;
+vector<vector<int>> visited;
+
+int dy[4] = { -1, 0, 0, 1 };
+int dx[4] = { 0, -1, 1, 0 };
+int M, N;
+
+int go(int y, int x, int color) {
+	if (y < 0 || y >= M || x < 0 || x >= N) {
+		return 0;
+	}
+	if (visited[y][x] == 1) {
+		return 0;
+	}
+	if (board[y][x] == 0 || board[y][x] != color) {
+		return 0;
+	}
+
+	visited[y][x] = 1;
+	int ret = 1;
+	for (int i = 0; i < 4; ++i) {
+		ret += go(y + dy[i], x + dx[i], color);
+	}
+	return ret;
+}
+
+// 전역 변수를 정의할 경우 함수 내에 초기화 코드를 꼭 작성해주세요.
+vector<int> solution(int m, int n, vector<vector<int>> picture) {
+    int number_of_area = 0;
+    int max_size_of_one_area = 0;
+
+	M = m;
+	N = n;
+
+	//board 초기화
+	board = picture;
+
+	//visited 초기화
+	vector<vector<int>>visited2(m, vector<int>(n, 0));
+	visited = visited2;
+
+	vector<int> areaSize;
+	for (int i = 0; i < m; ++i) {
+		for (int j = 0; j < n; ++j) {
+			int area = go(i, j, board[i][j]);
+			if (area != 0) {
+				areaSize.push_back(area);
+			}
+		}
+	}
+
+	if (areaSize.empty()) {
+		number_of_area = 0;
+		max_size_of_one_area = 0;
+	}
+	else {
+		auto iter = max_element(areaSize.begin(), areaSize.end());
+		number_of_area = areaSize.size();
+		max_size_of_one_area = *iter;
+	}
+
+    vector<int> answer(2);
+    answer[0] = number_of_area;
+    answer[1] = max_size_of_one_area;
+    return answer;
+}
+```

@@ -76,6 +76,8 @@ tags: [ps, c++] # add tag
 + 깊이/너비 우선 탐색
     + [타켓 넘버](https://gaussian37.github.io/interview-ps-p43165/)
         + 깊이우선 탐색으로 완전 탐색하여 가능한 경우의 수 찾는 문제
+    + [카카오 프렌즈 컬러링북](https://gaussian37.github.io/interview-ps-p1829/)
+        + board에서 connected componets의 갯수를 찾는 문제 
     + 네트워크
     + 단어변환
     + 여행경로
