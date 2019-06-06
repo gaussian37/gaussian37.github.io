@@ -40,6 +40,8 @@ X_test = torch.tensor(X_test, dtype=torch.float32).to("cuda:0")
 Y_test = torch.tensor(Y_test, dtype=torch.int64).to("cuda:0")
 ```
 
+<br>
+
 ### Dropout
 
 + Dropout 기법은 몇 개의 노드를 랜덤으로 선택하여 의도적으로 사용하지 않는 방법입니다.
