@@ -51,7 +51,8 @@ tags: [ps, c++] # add tag
     + 기능개발
     + [탑](https://gaussian37.github.io/interview-ps-p42588/)
         + 스택 자료구조를 이용하여 효율적으로 문제 해결
-    + 주식가격
+    + [주식가격](https://gaussian37.github.io/interview-ps-p42584/)
+        + 스택 자료구조를 이용하여 현재 인덱스 값 보다 값이 작아지는(현재 인덱스 보다 오른쪽에 있는 값 중) 최초 시점 구하는 문제
 + 힙
     + [더 맵게](https://gaussian37.github.io/interview-ps-p42626/)
         + 우선순위 큐를 이용하여 최소값을 계속 찾는 문제

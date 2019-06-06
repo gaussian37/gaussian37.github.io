@@ -1,0 +1,67 @@
+---
+layout: post
+title: 주식가격
+date: 2019-06-02 00:00:00
+img: interview/ps/ps.png
+categories: [interview-ps] 
+tags: [ps, c++] # add tag
+---
+
++ https://programmers.co.kr/learn/courses/30/lessons/42584
++ stack 자료구조를 이용하여 풀 수 있는 문제 구조입니다.
++ stack 자료구조를 사용할 수 있는 환경은 보통 배열에서 한쪽 방향으로만 연산을 하는 경우입니다. 즉 >>> 방향으로만 고려해야 하는 경우입니다.
++ 이 문제에서도 현재 인덱스 기준으로 오른쪽에 더 작은 값이 최초로 등장하는게 언제인지를 아는 문제입니다.
+    + 예를 들어 1, 3, 4, 5, 2 라면 4는(3번인덱스) 2가(5번인덱스)등장하였을 때 최초로 더 작은 값이 들어오게됩니다.
++ 문제의 해법은 스택에 인덱스를 저장하고 스택의 top에 해당하는 인덱스의 값과 현재 탐색하는 인덱스의 값을 비교하여 거리 차이를 구하는 방법입니다.
+    + 예를 들어 1, 3, 4, 3, 2가 있다고 가정하겠습니다.
+    + 1의 경우 스택이 비어 있으므로 스택에 인덱스를 push 합니다. 
+        + 스택 : 0
+    + 그 다음 3의 경우는 스택의 top 인덱스의 값인 1과 3을 비교하였을 때 1이 3보다 작으므로 스택에 3의 인덱스를 push 합니다.
+        + 스택 : 0, 1
+    + 그 다음 4의 경우도 앞과 같습니다.
+        + 스택 : 0, 1, 2
+    + 그 다음 3의 경우는 스택의 top의 인덱스 값인 4와 3을 비교하였을 때 4가 3보다 크므로 거리를 계산합니다. 
+    + 스택의 top의 인덱스의 경우 최초로 값이 줄어드는 지점을 확인 하였으므로 pop을 합니다.
+    + 계속하여 스택의 top에 같은 작업을 수행합니다. 그 다음 top의 값은 3이므로 줄어들지 않습니다. 따라서 이번 케이스는 종료됩니다.
+        + 스택 : 0, 1
+    + 마지막인 2의 경우와 스택의 top을 비교하면 3 > 2가 되므로 거리를 계산하고 스택을 pop 합니다.
+    + 다시 한번 스택의 top과 2를 비교하면 1 < 2가 되므로 종료합니다.
+        + 스택 : 0
++ 마지막으로 스택에 남아있는 값은 끝까지 줄어들지 않았으므로 (배열의 전체 길이 - 스택에 저장된 인덱스)를 이용하여 얼마만큼 계속 증가하였는지 구합니다.
+           
+
+```cpp
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <stack>
+
+using namespace std;
+
+vector<int> solution(vector<int> prices) {
+	vector<int> answer;
+	answer = vector<int>(prices.size());
+
+	stack<int>s;
+	for (int i = 0; i < prices.size(); ++i) {
+		while (!s.empty()) {
+			if (prices[s.top()] > prices[i]) {
+				answer[s.top()] = i - s.top();
+				s.pop();
+			}
+			else {
+				break;
+			}
+		}
+		s.push(i);
+	}
+
+	while (!s.empty()) {
+		answer[s.top()] = prices.size() - s.top() - 1;
+		s.pop();
+	}
+
+	return answer;
+}
+```
