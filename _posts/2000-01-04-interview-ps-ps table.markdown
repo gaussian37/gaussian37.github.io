@@ -43,7 +43,7 @@ tags: [ps, c++] # add tag
     + 위장
     + 베스트앨범
 + 스택/큐
-    + [쇠막대기](https://gaussian37.github.io/interview-ps-p42588/)
+    + [쇠막대기](https://gaussian37.github.io/interview-ps-p42585/)
         + 스택 자료 구조를 이용하여 쇠막대기가 몇 등분 되는지 확인하는 문제
         + 괄호 구조는 스택을 이용하여 풀면 쉽게 해결할 수 있음
     + 프린터
