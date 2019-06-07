@@ -73,6 +73,8 @@ tags: [ps, c++] # add tag
     + [큰 수 만들기](https://gaussian37.github.io/interview-ps-p42883/)
         + 그리디 방법으로 숫자문자열에서 특정 숫자 k개를 삭제하였을 때 가장 큰 숫자를 만드는 방법을 생각하는 문제
 + 동적계획법
+    + [땅따먹기](https://gaussian37.github.io/interview-ps-p12913/)
+        + 행렬에서 0행부터 끝행까지 지나가면서 점수가 최대가 되도록 만드는 dp문제
 + 깊이/너비 우선 탐색
     + [타켓 넘버](https://gaussian37.github.io/interview-ps-p43165/)
         + 깊이우선 탐색으로 완전 탐색하여 가능한 경우의 수 찾는 문제
