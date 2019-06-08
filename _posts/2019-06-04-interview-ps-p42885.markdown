@@ -1,0 +1,58 @@
+---
+layout: post
+title: 구명보트
+date: 2019-06-02 00:00:00
+img: interview/ps/ps.png
+categories: [interview-ps] 
+tags: [ps, c++] # add tag
+---
+
+- https://programmers.co.kr/learn/courses/30/lessons/42885
+- 선택한 두 수의 합이 limit 이하가 되도록 최대한 쌍을 많이 만들어 주는 문제입니다.
+- 이 문제의 유형은 유명한 그리디 타입의 문제입니다.
+- 먼저 무게를 기준으로 오름차순을 합니다.
+- 배열의 양쪽 끝을 순회할 begin(0부터 시작)과 end(끝 부터 시작) 인덱스를 선언합니다.
+- begin은 고정시키고 end를 점점 줄여 가면서 people(begin) + people(end) <= limit 가 되는 경우 쌍으로 묶어줍니다.
+    - 만약 쌍이 성립된 경우 begin의 인덱스를 한개 증가시키고 end의 인덱스를 한개 감소 시킵니다.
+- 위 과정을 begin < end가 될 때 까지 반복합니다.
+- 위 프로세스를 이용하면 O(N)의 복잡도로 문제를 해결할 수 있습니다.
+
+```cpp
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(vector<int> people, int limit) {
+	int answer = 0;
+	
+	sort(people.begin(), people.end());
+	int begin = 0;
+	int end = people.size() - 1;
+
+	vector<bool> selected(people.size());
+
+	while (begin < end) {
+		if (people[begin] + people[end] <= limit) {
+			selected[begin] = true;
+			begin++;
+			selected[end] = true;
+			end--;
+			answer++;
+		}
+		else {
+			end--;
+		}
+	}
+
+	for (int i = 0; i < selected.size(); ++i) {
+		if (!selected[i]) {
+			answer++;
+		}
+	}
+
+	return answer;
+}
+```
