@@ -249,6 +249,28 @@ chw_img_data.size()
 + `mv` : 행렬과 벡터의 곱
 + `mm` : 행렬과 행렬의 곱
 + `matmul` : 인수의 종류에 따라서 자동으로 dot, mv, mm을 선택
+
+<br>
+
+- `torch.linspace(시작, 끝, step)`
+    - 시작과 끝을 포함하고 step의 갯수만큼 원소를 가진 등차 수열을 만듭니다.
+    - 예를 들어 `torch.linspace(0, 10, 5)` 라고 하면 
+    - `tensor([0.0, 2.5, 5.0, 7.5, 10.0])`의 값을 가집니다.
+- torch에서 바로 이런 값들을 만들면 torch 내부적으로도 사용할 수 있지만 numpy와 호환되는 라이브러리에도 사용 가능합니다.
+    - 왜냐하면 torch를 numpy로 바꿀 수 있기 때문입니다.
+
+```python
+x = torch.linspace(0, 10, 5)
+y = torch.exp(x)
+
+plt.plot(x.numpy(), y.numpy())
+```  
+
+<br>
+
+- tensor의 연산은 chain 연산이 가능합니다. 즉, 연산 끝에 `.`을 붙여서 연달아 연산이 가능하여 코드를 효율적으로 만들 수 있습니다.
+    - `torch.arange(18).view(2, 3, 3)`
+    
     
 --- 
 + 출처 : https://github.com/GunhoChoi/PyTorch-FastCampus
