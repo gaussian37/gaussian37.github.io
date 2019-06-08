@@ -83,6 +83,9 @@ tags: [ps, c++] # add tag
 + 완전탐색
     + [모의고사](https://gaussian37.github.io/interview-ps-p42840/)
         + 문자열 단순 반복 탐색 하면서 일치하는 갯수 카운트 하는 문제
+    + [조이스틱](https://gaussian37.github.io/interview-ps-p42860/)
+        + 조이스틱으로 원하는 문자열을 만들 수 있는 최소 조이스틱 사용 횟수 
+        + 좌/우 움직임을 고려하여 완전탐색을 하는 방법으로 해결
     + 소수찾기
     + 숫자야구
     + 카펫
