@@ -42,10 +42,10 @@ tensor(330.)
     - 　$$ \frac{\partial}{\partial z}(x^{2} + z^{3}) = 3z^{2} $$
 - 이 때, $$f'(x, z) = f'(1, 2) $$ 연산을 하면
     - 먼저 $$ x $$에 관하여 연산을 하면
-        - 　$$ \frac{\partial(f(x) = x^{2})}{\partial x} where \ x=1 $$
+        - 　$$ \frac{\partial(f(x) = x^{2})}{\partial x} \ \ where \ x=1 $$
         - 　$$ y'(1) = 2 $$
     - 다음으로 $$ z $$에 관하여 연산을 하면
-        - 　$$ \frac{\partial(f(z) = z^{3})}{\partial z} where \ z=2 $$
+        - 　$$ \frac{\partial(f(z) = z^{3})}{\partial z} \ \ where \ z=2 $$
         - 　$$ y'(2) = 12 $$
 - 이 내용을 코드로 살펴보겠습니다.
 
