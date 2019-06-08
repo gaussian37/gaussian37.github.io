@@ -250,6 +250,13 @@ chw_img_data.size()
 + `mm` : 행렬과 행렬의 곱
 + `matmul` : 인수의 종류에 따라서 자동으로 dot, mv, mm을 선택
 
+```python
+a = torch.tensor([1,2,3,4,5,6]).view(3,2)
+b = torch.tensor([9,8,7,6,5,4]).view(2,3)
+ab = torch.matmul(a,b)
+ab = a@b # @ 연산자를 이용하여 간단하게 행렬곱을 표현할 수 있음
+```
+
 <br>
 
 - `torch.linspace(시작, 끝, step)`
