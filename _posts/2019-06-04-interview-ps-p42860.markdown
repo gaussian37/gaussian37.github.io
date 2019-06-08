@@ -1,0 +1,94 @@
+---
+layout: post
+title: 조이스틱
+date: 2019-06-02 00:00:00
+img: interview/ps/ps.png
+categories: [interview-ps] 
+tags: [ps, c++] # add tag
+---
+
+- https://programmers.co.kr/learn/courses/30/lessons/42860
+- 이 문제의 핵심은 한쪽 방향으로만 탐색을 하면 안된다는 것에 있습니다.
+- 예를 들어 `AZAAAZ`와 같은 경우 0번 인덱스에서 1번 인덱스로 이동하여 Z를 A로 바꾼 다음, 0번 5번 인덱스로 이동하여 Z를 A로 바꿔야 합니다.
+    - 즉, 오른쪽으로 쭉 이동하면서 문제를 푼다거나 왼쪽으로 쭉 이동하면서 문제를 풀 수는 없습니다.
+- 인풋의 크기가 작아서 완전 탐색으로 모든 경우의 수를 찾아서 답을 내었습니다. (인풋의 크기가 더 커지면 어림더 없는 솔루션 이긴 합니다.)
+
+```cpp
+#include <string>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+const int INF = 9999999;
+string target;
+
+int go(int i, int cnt, string s) {	
+	if (cnt == s.size()) {
+		return INF;
+	}
+	if (s == target) {
+		return 0;
+	}
+
+	int ret = INF;
+	if (i == 0) {
+		char c = s[i + 1]; 
+		s[i + 1] = '0';
+		ret = min(ret, go(i + 1, cnt + 1, s) + 1);
+		s[i + 1] = c;
+
+		c = s.back();
+		s[s.size() - 1] = '0';
+		ret = min(ret, go(s.size() - 1, cnt + 1, s) + 1);
+		s[s.size() - 1] = c;
+	}
+	else if (i == s.size() - 1) {
+		char c = s[0];
+		s[0] = '0';
+		ret = min(ret, go(0, cnt + 1, s) + 1);
+		s[0] = c;
+
+		c = s[i - 1];
+		s[i - 1] = '0';
+		ret = min(ret, go(i - 1, cnt + 1, s) + 1);
+		s[i - 1] = c;
+	}
+	else{
+		char c = s[i + 1];
+		s[i + 1] = '0';
+		ret = min(ret, go(i + 1, cnt + 1, s) + 1);
+		s[i + 1] = c;
+
+		c = s[i - 1];
+		s[i - 1] = '0';
+		ret = min(ret, go(i - 1, cnt + 1, s) + 1);
+		s[i - 1] = c;
+	}
+	return ret;
+}
+
+int solution(string name) {
+	int answer = 0;
+	
+	vector<int> v(name.size());
+	string change = string(name.size(), '0');
+	target = string(name.size(), '0');
+
+	for (int i = 0; i < name.size(); ++i) {
+		v[i] = min(name[i] - 'A', 'Z' - name[i] + 1);
+		if (v[i] != 0) {
+			change[i] = '1';
+		}
+		answer += v[i];
+	}
+
+	change[0] = '0';
+	int move = go(0, 0, change);
+
+	answer += move;
+	
+	return answer;
+}
+```

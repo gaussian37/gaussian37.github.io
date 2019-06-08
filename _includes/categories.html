@@ -54,7 +54,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/dl/chollet/' or page.url == '/dl/pytorch/' or page.url == '/dl/caffe/' or page.url == '/dl/keras/'or page.url == '/dl/concept/' or page.url == '/dl/etc/'%} active {% endif %}">
+            {% if page.url == '/dl/chollet/' or page.url == '/dl/pytorch/' or page.url == '/dl/dlai/' or page.url == '/dl/caffe/' or page.url == '/dl/keras/'or page.url == '/dl/concept/' or page.url == '/dl/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('dl-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -66,12 +66,13 @@
                     <a class="dropdown-item" href="{{ "/dl/keras" | prepend: site.baseurl }}">Keras</a>
                     <a class="dropdown-item" href="{{ "/dl/pytorch" | prepend: site.baseurl }}">Caffe</a>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ "/dl/dlai" | prepend: site.baseurl }}">Deeplearning.ai</a>
                     <a class="dropdown-item" href="{{ "/dl/chollet" | prepend: site.baseurl }}">Deep Learning with Python (Chollet)</a>
                     <a class="dropdown-item" href="{{ "/dl/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/vision/concept/' or page.url == '/vision/segmentation/' or page.url == '/vision/cs231n/' or page.url == '/vision/opencv/' or page.url == '/vision/kalmanfilger/' or page.url == '/vision/detection/ or page.url == '/vision/etc/'%} active {% endif %}">
+            {% if page.url == '/vision/concept/' or page.url == '/vision/dlai/' orpage.url == '/vision/segmentation/' or page.url == '/vision/cs231n/' or page.url == '/vision/opencv/' or page.url == '/vision/kalmanfilger/' or page.url == '/vision/detection/ or page.url == '/vision/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('vision-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -85,6 +86,7 @@
                     <a class="dropdown-item" href="{{ "/vision/kalmanfilter" | prepend: site.baseurl }}">Kalman Filter</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/vision/cs231n" | prepend: site.baseurl }}">CS231n</a>
+                    <a class="dropdown-item" href="{{ "/vision/dlai" | prepend: site.baseurl }}">Deeplearning.ai</a>
                     <a class="dropdown-item" href="{{ "/vision/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
@@ -102,7 +104,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/nlp/concept/' or page.url == '/nlp/etc/'%} active {% endif %}">
+            {% if page.url == '/nlp/concept/' or page.url == '/nlp/dlai/ or page.url == '/nlp/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('nlp-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -111,6 +113,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="nlp-dropdown">
                     <a class="dropdown-item" href="{{ "/nlp/concept" | prepend: site.baseurl }}">Concept</a>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ "/nlp/dlai" | prepend: site.baseurl }}">Deeplearning.ai</a>
                     <a class="dropdown-item" href="{{ "/nlp/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>

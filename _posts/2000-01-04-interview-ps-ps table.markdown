@@ -10,6 +10,23 @@ tags: [ps, c++] # add tag
 + Problem Solving 문제 리스트 입니다. 
 + 1개의 문제라도 깊고 확실히 알 수 있도록 훈련해 보고 있습니다.
 
+### 알고리즘 
+
+- 그래프
+- 누적합
+- 다이나믹 프로그래밍
+- 문자열
+- 비트마스크
+- 세그먼트 트리
+- 수학
+- 슬라이딩 윈도우
+- 유니온 파인드
+- 이분 탐색
+- 이분법
+- 트리
+
+<br>
+
 ### 문제 풀 때 필요한 C++ 관련 내용
 
 + [C++에서 문제 풀 때 좋은 문법 및 템플릿](https://gaussian37.github.io/interview-ps-tip/)
@@ -66,6 +83,9 @@ tags: [ps, c++] # add tag
 + 완전탐색
     + [모의고사](https://gaussian37.github.io/interview-ps-p42840/)
         + 문자열 단순 반복 탐색 하면서 일치하는 갯수 카운트 하는 문제
+    + [조이스틱](https://gaussian37.github.io/interview-ps-p42860/)
+        + 조이스틱으로 원하는 문자열을 만들 수 있는 최소 조이스틱 사용 횟수 
+        + 좌/우 움직임을 고려하여 완전탐색을 하는 방법으로 해결
     + 소수찾기
     + 숫자야구
     + 카펫
@@ -73,6 +93,8 @@ tags: [ps, c++] # add tag
     + [큰 수 만들기](https://gaussian37.github.io/interview-ps-p42883/)
         + 그리디 방법으로 숫자문자열에서 특정 숫자 k개를 삭제하였을 때 가장 큰 숫자를 만드는 방법을 생각하는 문제
 + 동적계획법
+    + [땅따먹기](https://gaussian37.github.io/interview-ps-p12913/)
+        + 행렬에서 0행부터 끝행까지 지나가면서 점수가 최대가 되도록 만드는 dp문제
 + 깊이/너비 우선 탐색
     + [타켓 넘버](https://gaussian37.github.io/interview-ps-p43165/)
         + 깊이우선 탐색으로 완전 탐색하여 가능한 경우의 수 찾는 문제
