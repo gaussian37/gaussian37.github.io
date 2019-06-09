@@ -1,0 +1,57 @@
+---
+layout: post
+title: 라면공장
+date: 2019-06-02 00:00:00
+img: interview/ps/ps.png
+categories: [interview-ps] 
+tags: [ps, c++] # add tag
+---
+
+- https://programmers.co.kr/learn/courses/30/lessons/42629
+- 우선순위 큐를 이용하여 (라면 공급양, 라면 공급일) 중 라면 공급양이 최대인 것만 stock이 바닥나기 전에 계속 공급해주면 됩니다.
+- 알고리즘
+    - day를 탐색 기준으로 두고 k일 까지 탐색합니다.
+    - deque의 front값이 현재 탐색하는 day와 같으면 pq에 (공급량, 공급일)로 저장합니다.
+    - 만약 stock이 0이라면 pq의 top을 stock에 저하고 공급횟수를 +1 카운트 합니다.
+
+```cpp
+
+#include <iostream>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <algorithm>
+
+using namespace std;
+
+typedef pair<int, int> pi;
+#define supply first
+#define day second
+
+int solution(int stock, vector<int> dates, vector<int> supplies, int k) {
+	int answer = 0;
+
+	priority_queue<pi> pq;	
+	deque<pi> dq(dates.size());
+	for (int i = 0; i < dates.size(); ++i) {
+		dq[i] = pi(supplies[i], dates[i]);
+	}
+	for (int d = 0; d < k; ++d) {
+
+		if (dq.front().day == d) {
+			pq.push(dq.front());
+			dq.pop_front();
+		}
+		if (stock == 0) {
+			pi here = pq.top();
+			pq.pop();
+
+			stock += here.supply;
+			answer++;
+		}
+		stock--;
+	}
+	return answer;
+}
+
+```
