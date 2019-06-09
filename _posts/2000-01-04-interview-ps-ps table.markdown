@@ -36,7 +36,16 @@ tags: [ps, c++] # add tag
 
 ## 면접에는 나올 수준의 문제, 코드 및 설명
 
-- `자료구조`
+
+- `그리디`
+    - [가장 큰 수](https://gaussian37.github.io/interview-ps-p42746/)(https://programmers.co.kr/learn/courses/30/lessons/42746)
+        - 정렬할 때 새로운 기준을 줘서 정렬하는 문제 : comparator 사용
+    - [큰 수 만들기](https://gaussian37.github.io/interview-ps-p42883/)(https://programmers.co.kr/learn/courses/30/lessons/42883)
+        - 그리디 방법으로 숫자문자열에서 특정 숫자 k개를 삭제하였을 때 가장 큰 숫자를 만드는 방법을 생각하는 문제
+    - [구명보트](https://gaussian37.github.io/interview-ps-p42885/)(https://programmers.co.kr/learn/courses/30/lessons/42885)
+        - 선택한 두 수의 합이 X 이하가 되는 쌍을 최대한 많이 만드는 문제
+    - [기능개발](https://gaussian37.github.io/interview-ps-p42586/)(https://programmers.co.kr/learn/courses/30/lessons/42586)
+        - 남은 작업 시간 및 순차적인 작업 순서를 고려하여 작업의 쌍을 정하는 문제
     - [괄호](https://gaussian37.github.io/interview-ps-9012/)(https://www.acmicpc.net/problem/9012)
         - 괄호가 올바른 짝(여는 괄호와 닫는 괄호 셋)으로 잘 맞추어져 있는지 확인하는 문제 
     - [쇠막대기](https://gaussian37.github.io/interview-ps-p42585/)(https://programmers.co.kr/learn/courses/30/lessons/42585)
@@ -48,18 +57,10 @@ tags: [ps, c++] # add tag
         - 스택 자료구조를 이용하여 현재 인덱스 값 보다 값이 작아지는(현재 인덱스 보다 오른쪽에 있는 값 중) 최초 시점 구하는 문제
     - [더 맵게](https://gaussian37.github.io/interview-ps-p42626/)(https://programmers.co.kr/learn/courses/30/lessons/42626)
         - 우선순위 큐를 이용하여 최소값을 계속 찾는 문제    
-
-<br>
-
-- `그리디`
-    - [가장 큰 수](https://gaussian37.github.io/interview-ps-p42746/)(https://programmers.co.kr/learn/courses/30/lessons/42746)
-        - 정렬할 때 새로운 기준을 줘서 정렬하는 문제 : comparator 사용
-    - [큰 수 만들기](https://gaussian37.github.io/interview-ps-p42883/)(https://programmers.co.kr/learn/courses/30/lessons/42883)
-        - 그리디 방법으로 숫자문자열에서 특정 숫자 k개를 삭제하였을 때 가장 큰 숫자를 만드는 방법을 생각하는 문제
-    - [구명보트](https://gaussian37.github.io/interview-ps-p42885/)(https://programmers.co.kr/learn/courses/30/lessons/42885)
-        - 선택한 두 수의 합이 X 이하가 되는 쌍을 최대한 많이 만드는 문제
-    - [기능개발](https://gaussian37.github.io/interview-ps-p42586/)(https://programmers.co.kr/learn/courses/30/lessons/42586)
-        - 남은 작업 시간 및 순차적인 작업 순서를 고려하여 작업의 쌍을 정하는 문제        
+    - [라면공장](https://gaussian37.github.io/interview-ps-p42629/)(https://programmers.co.kr/learn/courses/30/lessons/42629)
+        - 자원의 양이 0이하로 떨어지지 않도록 계속 유지 하기 위해 최소한의 횟수로 공급해 주어야 하는 문제
+        - 자원을 공급을 할 수 있는 시점과 공급양이 주어질 때 우선순위 큐를 이용하여 최소한의 횟수를 공급하는 기준을 만들 수 있는 아이디어가 필요함    
+            
 <br>
     
 - `다이나믹 프로그래밍`
