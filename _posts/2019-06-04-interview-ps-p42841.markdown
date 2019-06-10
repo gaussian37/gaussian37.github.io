@@ -1,0 +1,82 @@
+---
+layout: post
+title: 숫자야구
+date: 2019-06-02 00:00:00
+img: interview/ps/ps.png
+categories: [interview-ps] 
+tags: [ps, c++] # add tag
+---
+
+- https://programmers.co.kr/learn/courses/30/lessons/42841
+- 이 문제의 탐색해야할 숫자의 갯수가 1000개 보다도 작기 때문에 각 숫자가 주어진 baseball 조건을 모두 만족하는지를 확인하면 됩니다.
+- 즉, 조건을 기준으로 가능한 숫자를 찾는다기 보다 각 숫자를 기준으로 조건을 만족하는지 보면 쉽게 해결할 수 있습니다.
+- 111 ~ 999 까지 3자리 숫자 중에서 중복된 숫자와 0이 없는 경우가 대상 숫자들이 됩니다.
+- 이 각각의 숫자들과 baseball의 숫자를 비교할 때에는 2중 for문을 이용하여 비교하고 각 숫자의 값이 같은 때 인덱스 까지 같으면 strike로, 인덱스가 다르면 ball로 처리합니다.
+
+```cpp
+
+#include <vector>
+#include <string>
+#include <algorithm>>
+#include <iostream>
+
+using namespace std;
+
+int solution(vector<vector<int>> baseball) {
+	int answer = 0;
+
+	vector<string> v;
+	string number = "123456789";
+	for (int i = 0; i < number.size(); ++i) {
+		for (int j = 0; j < number.size(); ++j) {
+			for (int k = 0; k < number.size(); ++k) {
+				if (i != j && j != k && i != k) {
+					string s = "";
+					s += number[i];
+					s += number[j];
+					s += number[k];
+					v.push_back(s);
+					cout << s << endl;
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i < v.size(); ++i) {
+		string target = v[i];
+		bool ok = true;
+		for (int j = 0; j < baseball.size(); ++j) {
+			int cnt = 0;
+			string num = to_string(baseball[j][0]);
+			int strike = baseball[j][1];
+			int ball = baseball[j][2];			
+
+			int cntStrike = 0;
+			int cntBall = 0;
+			for (int k = 0; k < 3; ++k) {
+				for (int l = 0; l < 3; ++l) {
+
+					if (target[k] == num[l]) {
+						if (k == l) {
+							cntStrike++;
+						}
+						else {
+							cntBall++;
+						}
+					}
+
+				}
+			}
+			if (cntStrike != strike || cntBall != ball) {
+				ok = false;
+			}
+		}
+		if (ok) {
+			answer++;
+		}
+	}
+	
+	return answer;
+}
+
+```
