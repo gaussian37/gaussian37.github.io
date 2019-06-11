@@ -18,3 +18,16 @@ In these case, people can mimic or follow the public figure's behavior or what t
 Therefore the famous people influence the public many kinds of way on positive or negative.
 
 
+- Question : Why do you think people go on a holiday?
+
+- Question :  How important is it for families to go on holiday together?
+
+- Question :  Why do some people go on holiday alone?
+
+- Question :  What kind of holidays will be popular in the future?
+
+- Question :  What kinds of holidays are popular now and will be in the future?
+
+- Question :  Is it better to take a holiday in your own country or in a foreign country? Why?
+
+- Question :  What problems can people have on holiday in a foreign country?
