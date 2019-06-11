@@ -80,7 +80,9 @@ tags: [ps, c++] # add tag
     - [숫자야구](https://gaussian37.github.io/interview-ps-p42841/)(https://programmers.co.kr/learn/courses/30/lessons/42841)
         - 가능한 모든 숫자의 경우를 기준으로 조건을 모두 만족하는 숫자를 찾는 문제
         - 인풋의 범위를 보았을 때 가능한 모든 숫자의 갯수가 많지 않으므로 숫자 하나 하나를 컴퓨터 연산속도를 이용하여 완전탐색 할 수 있음
-        
+    - [소수찾기](https://gaussian37.github.io/interview-ps-p42839/)(https://programmers.co.kr/learn/courses/30/lessons/42839)
+        - 가능한 모든 수를 만들어서 소수인지 아닌지 판단하는 문제
+        - 가능한 모든 수를 만드는 방법과 소수를 판단하는 방법이 중요함        
         
 <br>
 
