@@ -68,6 +68,8 @@ tags: [ps, c++] # add tag
 - `다이나믹 프로그래밍`
     - [땅따먹기](https://gaussian37.github.io/interview-ps-p12913/)(https://programmers.co.kr/learn/courses/30/lessons/12913)
         - 행렬에서 0행부터 끝행까지 지나가면서 점수가 최대가 되도록 만드는 dp문제
+    - [등굣길](https://gaussian37.github.io/interview-ps-p12913/)(https://programmers.co.kr/learn/courses/30/lessons/12913)
+        - 격자 무늬에서 갈 수 있는 경우의 수를 찾는 문제. 중간에 갈 수 없는 영역이 추가됨
         
 <br>
 
