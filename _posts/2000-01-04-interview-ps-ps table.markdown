@@ -91,7 +91,9 @@ tags: [ps, c++] # add tag
 - `그래프`
     - [카카오 프렌즈 컬러링북](https://gaussian37.github.io/interview-ps-p1829/)(https://programmers.co.kr/learn/courses/30/lessons/1829)
         - board에서 connected componets의 갯수를 찾는 문제
-        
+    - [단어 변환](https://gaussian37.github.io/interview-ps-p43163/)(https://programmers.co.kr/learn/courses/30/lessons/43163)
+        - 주어진 단어 리스트를 가지고 인접 리스트를 만든 다음 bfs로 최단 거리를 찾는 문제
+        - 한 단어 차이만 나는 경우 단어간 연결되어 있다고 판단할 수 있으므로 인접 리스트를 만드는 작업이 핵심이 되는 문제     
 <br>
 
 - `수학`

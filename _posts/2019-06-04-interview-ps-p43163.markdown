@@ -1,0 +1,88 @@
+---
+layout: post
+title: 단어 변환
+
+date: 2019-06-02 00:00:00
+img: interview/ps/ps.png
+categories: [interview-ps] 
+tags: [ps, c++] # add tag
+---
+
+- https://programmers.co.kr/learn/courses/30/lessons/43163
+- 인접리스트를 잘 만들면 풀 수 있는 문제입니다.
+- 주어진 단어 리스트들 중에서 한 단어만 다른 단어들이 서로 연결되어 있는 노드입니다.
+- 한 단어만 다른 단어들을 인접리스트에 추가한 뒤 BFS를 이용하여 최단 거리를 구하면 문제를 해결할 수 있습니다.
+
+
+```cpp
+#include <iostream>
+#include <string>
+#include <vector>
+#include <queue>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> dist;
+vector<int> adjList[55];
+
+int countDiff(string& s1, string& s2) {
+	int cnt = 0;
+	for (int i = 0; i < s1.size(); ++i) {
+		if (s1[i] != s2[i]) {
+			cnt++;
+		}
+	}
+	return cnt;
+}
+
+int solution(string begin, string target, vector<string> words) {
+	int answer = 99999999;
+		
+	// begin에 해당하는 단어를 words에 추가
+	words.push_back(begin);
+
+	// 노드의 시작과 끝을 확인
+	int start = words.size() - 1;
+	int end = find(words.begin(), words.end(), target) - words.begin();
+
+	if (end != words.size()) {
+
+		// 각 단어 끼리 모두 비교하여 단어간 차이가 1이면 adjList 추가
+		for (int i = 0; i < words.size(); ++i) {
+			for (int j = i + 1; j < words.size(); ++j) {
+				if (countDiff(words[i], words[j]) == 1) {
+					adjList[i].push_back(j);
+					adjList[j].push_back(i);
+				}
+			}
+		}
+
+		queue<int> q;
+		dist = vector<int>(words.size(), -1);
+		q.push(start);
+		dist[start] = 0;
+
+		while (!q.empty()) {
+			int here = q.front();
+			q.pop();
+
+			for (int i = 0; i < adjList[here].size(); ++i) {
+				int there = adjList[here][i];
+				if (dist[there] == -1) {
+					q.push(there);
+					dist[there] = dist[here] + 1;
+				}
+			}
+
+		}
+
+		answer = dist[end];
+	}
+	else {
+		answer = 0;
+	}
+
+	return answer;
+}
+```
