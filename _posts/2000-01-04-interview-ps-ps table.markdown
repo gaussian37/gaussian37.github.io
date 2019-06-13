@@ -105,6 +105,8 @@ tags: [ps, c++] # add tag
 <br>
 
 - `이분법`
+    - [예산][124 나라의 숫자](https://gaussian37.github.io/interview-ps-p43237/)(https://programmers.co.kr/learn/courses/30/lessons/43237)
+        - 이분법을 이용하여 예산의 상한 가격을 구하는 문제        
 - `트리`
 - `문자열`
 
