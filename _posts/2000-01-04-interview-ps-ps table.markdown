@@ -105,8 +105,10 @@ tags: [ps, c++] # add tag
 <br>
 
 - `이분법`
-    - [예산][124 나라의 숫자](https://gaussian37.github.io/interview-ps-p43237/)(https://programmers.co.kr/learn/courses/30/lessons/43237)
+    - [예산](https://gaussian37.github.io/interview-ps-p43237/)(https://programmers.co.kr/learn/courses/30/lessons/43237)
         - 이분법을 이용하여 예산의 상한 가격을 구하는 문제        
+    - [입국심사](https://gaussian37.github.io/interview-ps-p43238/)(https://programmers.co.kr/learn/courses/30/lessons/43238)
+        - 이분법을 이용하여 모든 사람이 작업을 다 처리할 수 있는 시간의 최소값을 구하는 문제
 - `트리`
 - `문자열`
 
