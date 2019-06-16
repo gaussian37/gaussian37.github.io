@@ -17,38 +17,3 @@ tags: [ps, c++] # add tag
 
 <br>
 
-```cpp
-#include <vector>
-
-using namespace std;
-
-int t;
-vector<int> v;
-
-int go(int i, int sum) {	
-	if (i == v.size()) {
-		if (sum == t) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
-	}
-
-	int ret = 0;
-	ret += go(i + 1, sum + v[i]);
-	ret += go(i + 1, sum - v[i]);
-	return ret;
-}
-
-int solution(vector<int> numbers, int target) {
-	int answer = 0;
-
-	t = target;
-	v = numbers;
-	
-	answer = go(0, 0);
-
-	return answer;
-}
-```
