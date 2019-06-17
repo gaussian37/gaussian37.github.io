@@ -17,10 +17,18 @@ On the other hand, the public figure can influence negative ways. Sometimes medi
 In these case, people can mimic or follow the public figure's behavior or what they said.
 Therefore the famous people influence the public many kinds of way on positive or negative.
 
+<br>
 
 - Question : Why do you think people go on a holiday?
+- I said : I think people usually go on a holiday to recharge themselves. Because they usually work in company to earn money.
+so they spend all energy that they have. therefore, through good food or trip on holiday, people get energy and feel happy, which can motivate their life.
+This is the main reason of going on a holiday. 
+
+<br>
 
 - Question :  How important is it for families to go on holiday together?
+
+
 
 - Question :  Why do some people go on holiday alone?
 

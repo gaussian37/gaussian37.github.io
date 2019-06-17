@@ -22,7 +22,7 @@ tags: [Introduction] # add tag
     + Mathematics for Machine Learning Specialization (UCL)
     + Applied Data Science with Python Specialization (Michigan University)
     + Data Mining Specialization (University of Illinois at Urbana-Champaign)
-    + Deep Learning Specialization (Andrew Ng)
+    + [Deep Learning Specialization (Andrew Ng)](https://www.coursera.org/account/accomplishments/specialization/certificate/7Y5SFDG3F85E)
     + Machine Learning (Andrew Ng)
                  
 + ROI :

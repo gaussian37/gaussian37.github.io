@@ -60,8 +60,10 @@ tags: [ps, c++] # add tag
     - [라면공장](https://gaussian37.github.io/interview-ps-p42629/)(https://programmers.co.kr/learn/courses/30/lessons/42629)
         - 자원의 양이 0이하로 떨어지지 않도록 계속 유지 하기 위해 최소한의 횟수로 공급해 주어야 하는 문제
         - 자원을 공급을 할 수 있는 시점과 공급양이 주어질 때 우선순위 큐를 이용하여 최소한의 횟수를 공급하는 기준을 만들 수 있는 아이디어가 필요함
-    -[단속카메라](https://gaussian37.github.io/interview-ps-p42884/)(https://programmers.co.kr/learn/courses/30/lessons/42884)
-        - 여러 구간이 주어질 때, 구간들의 교집합이 가장 많이 발생하는 구간들을 카운트 하는 문제    
+    - [단속카메라](https://gaussian37.github.io/interview-ps-p42884/)(https://programmers.co.kr/learn/courses/30/lessons/42884)
+        - 여러 구간이 주어질 때, 구간들의 교집합이 가장 많이 발생하는 구간들을 카운트 하는 문제
+    - [에디터](https://gaussian37.github.io/interview-ps-b1406/)(https://programmers.co.kr/learn/courses/30/lessons/b1406)
+        -     
             
 <br>
     
