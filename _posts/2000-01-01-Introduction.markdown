@@ -2,7 +2,7 @@
 layout: post
 title: CV
 date: 9999-12-31 17:00:00 +0300
-img: /My/cv.jpg # Add image post (optional)
+img: interview/cv.PNG
 tags: [Introduction] # add tag
 ---
 
@@ -19,11 +19,10 @@ tags: [Introduction] # add tag
     
 + Education :
     + [Inha University](http://www.inha.ac.kr/mbshome/mbs/eng/index.do). B.S. in Computer Engineer
-    + Mathematics for Machine Learning Specialization (UCL)
-    + Applied Data Science with Python Specialization (Michigan University)
-    + Data Mining Specialization (University of Illinois at Urbana-Champaign)
     + [Deep Learning Specialization (Andrew Ng)](https://www.coursera.org/account/accomplishments/specialization/certificate/7Y5SFDG3F85E)
     + Machine Learning (Andrew Ng)
+    + Mathematics for Machine Learning Specialization (UCL)
+    + Applied Data Science with Python Specialization (Michigan University)
                  
 + ROI :
     - Machine/Deep Learning      
