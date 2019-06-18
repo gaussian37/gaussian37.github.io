@@ -63,7 +63,8 @@ tags: [ps, c++] # add tag
     - [단속카메라](https://gaussian37.github.io/interview-ps-p42884/)(https://programmers.co.kr/learn/courses/30/lessons/42884)
         - 여러 구간이 주어질 때, 구간들의 교집합이 가장 많이 발생하는 구간들을 카운트 하는 문제
     - [에디터](https://gaussian37.github.io/interview-ps-b1406/)(https://programmers.co.kr/learn/courses/30/lessons/b1406)
-        -     
+        - 스택을 이용하여 문자를 추가할 위치를 효율적으로 추적하는 문제. 커서 기준 왼쪽 오른쪽 양측을 관리해야 하므로 stack 2개를 이용하면 쉽게 풀 수 있음
+        - 스택을 이용한 이유는 커서 기준 양쪽의 top만 보면 되기 때문입니다.     
             
 <br>
     
