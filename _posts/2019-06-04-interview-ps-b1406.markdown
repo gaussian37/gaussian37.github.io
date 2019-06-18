@@ -1,0 +1,100 @@
+---
+layout: post
+title: 에디터
+date: 2019-06-02 00:00:00
+img: interview/ps/ps.png
+categories: [interview-ps] 
+tags: [ps, c++] # add tag
+---
+
+- https://www.acmicpc.net/problem/1406
+- 계속 확인해야 하는 대상이 커서 주위의 값이고 커서와 멀리 있는 값은 전혀 볼 필요가 없습니다.
+- 따라서 stack을 2개 만들어서 커서의 왼쪽과 오른쪽의 값만을 계속 추적하면 효율적으로 커서의 위치 및 값 추가를 관리할 수 있습니다.
+- L이면 left 스택의 top을 right 스택으로 옮깁니다.
+    - left가 비어있으면 무시합니다.
+- D이면 right스택의 top을 left 스택으로 옮깁니다.
+    - right가 비어있으면 무시합니다.
+- B이면 left 스택을 pop 합니다.
+    -left가 비어있으면 무시합니다.
+- P이면 left에 문자를 push 합니다.
+- 마지막 left를 right에 모두 push한 후 right를 top부터 차례대로 읽어옵니다.
+
+
+```cpp
+
+#include <iostream>
+#include <vector>
+#include <stack>
+#include <string>
+
+using namespace std;
+
+int main() {
+
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	string s;
+	cin >> s;
+
+	int N;
+	cin >> N;
+
+	stack<char> left, right;
+
+	for (char c : s) {
+		left.push(c);
+	}
+
+	while (N--) {
+		string cmd, c;
+		cin >> cmd;
+
+		if (cmd == "L") {
+			if (left.empty()) {
+				continue;
+			}
+			char top = left.top();
+			left.pop();
+
+			right.push(top);
+		}
+		else if (cmd == "D") {
+			if (right.empty()) {
+				continue;
+			}
+			char top = right.top();
+			right.pop();
+
+			left.push(top);
+		}
+		else if (cmd == "B") {
+			if (left.empty()) {
+				continue;
+			}
+			left.pop();
+		}
+
+		else if (cmd == "P") {
+			cin >> c;
+			left.push(c[0]);
+		}
+	}
+
+	while (!left.empty()) {
+		char c = left.top();
+		left.pop();
+		right.push(c);
+	}
+
+	string ans = "";
+	while (!right.empty()) {
+		ans += right.top();
+		right.pop();
+	}
+
+	cout << ans << endl;
+}
+
+```
