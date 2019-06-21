@@ -20,7 +20,8 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 + `conda create -n 가상환경이름 python=3.6`
 + `activate 가상환경이름`
 + `conda install pytorch -c pytorch`
-+ `pip install torchvision` 
++ `conda install -c pytorch torchvision`
+    + 또는 `pip install torchvision` 
 + `conda install ipykernel`
 + `pip install jupyter`
 
