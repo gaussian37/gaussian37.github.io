@@ -8,7 +8,7 @@ tags: [Introduction] # add tag
 
 <br><br>
 
-### Data Scientist
+### Computer Vision
 
 <img src="../assets/img/My/kjs.jpg" alt="Drawing" style="width: 300px;"/>
 
