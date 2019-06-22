@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (재귀 필터) 평균필터(Average Filter)
+title: 평균필터(Average Filter)
 date: 2019-06-22 00:00:00
 img: vision/kalmanfilter/kalman.PNG
 categories: [vision-kalmanfilter] 
