@@ -39,7 +39,8 @@ tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 -  이 식은 앞의 글 [평균 필터](https://gaussian37.github.io/vision-kalmanfilter-average-filter/)에서 정의한 식과 동일 합니다.
     - 평균 필터에서의 $$ \alpha  = \frac{k-1}{k} $$ 였었습니다.
 - 저주파 통과 필터에는 반면 평균과 전혀 상관없는 값입니다. 따라서 여기에서는 평균이라는 용어는사용하지 않고 추정값(estimated value)라는 용어를 쓰겠습니다.
-
+- 그러면 추정값 $$ x_{k} $$가 과연 이동 평균 필터의 단점을 보완하는지 알아보겠습니다.
+- 　$$ $$
 
 
  
