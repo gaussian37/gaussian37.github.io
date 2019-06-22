@@ -104,20 +104,6 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/nlp/concept/' or page.url == '/nlp/dlai/ or page.url == '/nlp/etc/'%} active {% endif %}">
-                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('nlp-dropdown')"
-                   role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    NLP
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="nlp-dropdown">
-                    <a class="dropdown-item" href="{{ "/nlp/concept" | prepend: site.baseurl }}">Concept</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ "/nlp/dlai" | prepend: site.baseurl }}">Deeplearning.ai</a>
-                    <a class="dropdown-item" href="{{ "/nlp/etc" | prepend: site.baseurl }}">ETC</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown
             {% if page.url == '/python/rest/' or page.url == '/python/crawling/' or page.url == '/python/pandas/' or page.url == '/python/django/' or page.url == '/python/embedded/' or page.url == '/python/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('python-dropdown')"
                    role="button" data-toggle="dropdown"
