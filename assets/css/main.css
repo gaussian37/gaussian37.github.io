@@ -28,6 +28,7 @@ html {
 body {
   font-family: "NanumGothic"
   margin: 0;
+  font-size: 1.3rem;
 }
 
 /**
@@ -780,6 +781,7 @@ html {
 
 body {
   font-family: 'NanumGothic', sans-serif;
+  font-size: 1.3rem;
   color: #515151;
   background-color: #fbfbfb;
   margin: 0;
