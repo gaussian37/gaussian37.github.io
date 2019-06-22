@@ -7,6 +7,7 @@ categories: [vision-kalmanfilter]
 tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 ---
 
+- [재귀 필터 : 평균 필터](https://gaussian37.github.io/vision-kalmanfilter-average-filter/)
 - 재귀 필터 : 이동 평균 필터
 - 재귀 필터 : 저주파 통과 필터
 - 칼만 필터의 기초
