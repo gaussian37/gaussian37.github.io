@@ -6,7 +6,7 @@ img: interview/cv.PNG
 tags: [Introduction] # add tag
 ---
 
-<img src="../assets/img/My/kjs.jpg" align="center" alt="Drawing"  style="width: 300px;"/>
+<center> <img src="../assets/img/My/kjs.jpg" alt="Drawing"  style="width: 300px;"/> </center>
 
 + Name : KIM JINSOL
 + Linked In : https://www.linkedin.com/in/gaussian37
