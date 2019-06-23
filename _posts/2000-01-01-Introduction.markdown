@@ -8,6 +8,8 @@ tags: [Introduction] # add tag
 
 <center> <img src="../assets/img/My/kjs.jpg" alt="Drawing"  style="width: 300px;"/> </center>
 
+<br>
+
 + Name : KIM JINSOL
 + Linked In : https://www.linkedin.com/in/gaussian37
 + Work Experience : 
