@@ -17,5 +17,5 @@ tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 
 <br>
 
-<center><img src="../assets/img/vision/kalmanfilter/basic/kalman.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/kalmanfilter/basic/kalman.png" alt="Drawing" style="width: 800px;"/></center>
 
