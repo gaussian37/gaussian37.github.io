@@ -11,7 +11,9 @@ tags: [pytorch, Neural Network] # add tag
     - `MNIST` 데이터셋 이미지 인식을 먼저 실습해 보겠습니다.
     - 다음 글에서는 좀 더 이미지를 잘 분석하기 위하여 Convolutional Neural Network 구조를 사용해 보겠습니다.
     - 그 다음 글에서는 좀 더 다양한 이미지를 분석 하기 위하여 `CIFAR10` 이미지를 분석해 보겠습니다.
-    - 마지막으로 `Transfer learning`을 이용하여 성능을 더 향상시켜보도록 하겠습니다. 
+    - 마지막으로 `Transfer learning`을 이용하여 성능을 더 향상시켜보도록 하겠습니다.
+- [전체 코드](https://nbviewer.jupyter.org/github/gaussian37/Deep-Learning-Implementation/blob/master/Library/Pytorch/Image_recognition_with_mlp.ipynb)
+     
     
 <br>
 
