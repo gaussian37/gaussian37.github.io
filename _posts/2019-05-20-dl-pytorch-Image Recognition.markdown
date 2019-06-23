@@ -232,3 +232,21 @@ plt.legend()
 
 <img src="../assets/img/dl/pytorch/image_recognition_mlp/acc.png" alt="Drawing" style="width: 600px;"/>
 
+<br>
+
+- 마지막으로 학습을 완료한 파일은 다음과 같이 저장 및 로드 할 수 있습니다.
+
+```python
+# 마지막으로 학습을 완료한 모델을 저장합니다.
+torch.save(model, 'mlp.pt')
+
+# 저장한 모델은 다음과 같이 load 할 수 있습니다.
+model = torch.load('mlp.pt')
+>> model.eval()
+
+Classifier(
+  (linear1): Linear(in_features=784, out_features=125, bias=True)
+  (linear2): Linear(in_features=125, out_features=65, bias=True)
+  (linear3): Linear(in_features=65, out_features=10, bias=True)
+)
+```
