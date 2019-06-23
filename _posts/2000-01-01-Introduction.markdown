@@ -10,7 +10,7 @@ tags: [Introduction] # add tag
 
 ### Computer Vision
 
-<img src="../assets/img/My/kjs.jpg" alt="Drawing" img align="center" style="width: 300px;"/>
+<img src="../assets/img/My/kjs.jpg" align="center" alt="Drawing"  style="width: 300px;"/>
 
 + Name : KIM JINSOL
 + Linked In : https://www.linkedin.com/in/gaussian37
