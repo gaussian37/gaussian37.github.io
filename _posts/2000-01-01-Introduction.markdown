@@ -20,7 +20,7 @@ tags: [Introduction] # add tag
 + Education :
     + [Inha University](http://www.inha.ac.kr/mbshome/mbs/eng/index.do). B.S. in Computer Engineer
     + [Deep Learning Specialization (Andrew Ng)](https://www.coursera.org/account/accomplishments/specialization/certificate/7Y5SFDG3F85E)
-    + Machine Learning (Andrew Ng)
+    + [Machine Learning (Andrew Ng)](https://www.coursera.org/account/accomplishments/certificate/DT55J2YVFRJL)
     + Mathematics for Machine Learning Specialization (UCL)
     + Applied Data Science with Python Specialization (Michigan University)
                  
