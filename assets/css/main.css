@@ -28,6 +28,7 @@ html {
 body {
   font-family: "NanumGothic"
   margin: 0;
+  font-size: 1.3rem;
 }
 
 /**
@@ -90,9 +91,9 @@ hr {
  * 2. Correct the odd `em` font sizing in all browsers.
  */
 pre {
-  font-family: monospace, monospace;
+  font-family: NanumGothic, NanumGothic;
   /* 1 */
-  font-size: 1em;
+  font-size: 1.3em;
   /* 2 */
 }
 
@@ -146,9 +147,9 @@ strong {
 code,
 kbd,
 samp {
-  font-family: monospace, monospace;
+  font-family: NanumGothic, NanumGothic;
   /* 1 */
-  font-size: 1em;
+  font-size: 1.3em;
   /* 2 */
 }
 
@@ -780,6 +781,7 @@ html {
 
 body {
   font-family: 'NanumGothic', sans-serif;
+  font-size: 1.3rem;
   color: #515151;
   background-color: #fbfbfb;
   margin: 0;
@@ -980,7 +982,7 @@ table tfoot td {
   margin: 0 0 10px;
   position: relative;
   padding-bottom: 15px;
-  font-size: 16px;
+  font-size: 18px;
   text-transform: uppercase;
   color: #333030;
   font-weight: 700;
@@ -1003,7 +1005,7 @@ table tfoot td {
 }
 
 .about p {
-  font-size: 16px;
+  font-size: 18px;
   margin: 0 0 10px;
 }
 

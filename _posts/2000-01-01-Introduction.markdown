@@ -1,16 +1,14 @@
 ---
 layout: post
-title: CV
+title: Curriculum Vitae
 date: 9999-12-31 17:00:00 +0300
 img: interview/cv.PNG
 tags: [Introduction] # add tag
 ---
 
-<br><br>
+<center> <img src="../assets/img/My/kjs.jpg" alt="Drawing"  style="width: 300px;"/> </center>
 
-### Data Scientist
-
-<img src="../assets/img/My/kjs.jpg" alt="Drawing" style="width: 300px;"/>
+<br><br><br>
 
 + Name : KIM JINSOL
 + Linked In : https://www.linkedin.com/in/gaussian37

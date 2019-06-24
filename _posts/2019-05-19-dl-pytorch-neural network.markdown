@@ -88,3 +88,76 @@ for epoch in tqdm(range(100)):
 plt.plot(losses)
 
 ```
+
+<br>
+
+
+### Neural network 예제
+
+```python
+import torch
+import numpy as np
+import matplotlib.pyplot as plt
+from torch import nn, optim
+from sklearn import datasets
+
+# 생성할 데이터의 갯수
+n_pts = 500
+# 데이터 생성
+X, y = datasets.make_circles(n_samples=n_pts, random_state=123, noise=0.1, factor=0.2)
+x_data = torch.Tensor(X)
+y_data = torch.Tensor(y)
+
+
+class Model(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size):
+        super().__init__()
+        self.linear = nn.Linear(input_size, hidden_size)
+        self.linear2 = nn.Linear(hidden_size, output_size)
+        
+    def forward(self, x):
+        x = torch.sigmoid(self.linear(x))
+        x = torch.sigmoid(self.linear2(x))
+        return x
+    
+    def predict(self, x):
+        pred = self.forward(x)
+        if pred >= 0.5:
+            return 1
+        else:
+            return 0
+
+torch.manual_seed(2)
+model = Model(2, 4, 1)
+# 학습하기 전의 weight와 bias를 출력합니다.
+print(list(model.parameters()))
+
+lossFunc = nn.BCELoss()
+optimizer = optim.Adam(model.parameters(), lr=0.01)
+
+epochs = 1000
+losses = []
+for i in range(epochs):
+    yPred = model.forward(x_data)
+    loss = lossFunc(yPred, y_data)
+    if i % 100 == 0:
+        print("epoch : ", i, "loss", loss.item())
+    losses.append(loss.item())
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+
+plt.plot(range(epochs), losses)
+plt.ylabel("loss")
+plt.xlabel("epoch")
+
+x1 = 0.025
+y1 = 0.025
+x2 = -1
+y2 = 0
+point1 = torch.Tensor([x1, y1])
+point2 = torch.Tensor([x2,y2])
+prediction1 = model.predict(point1)
+prediction2 = model.predict(point2)
+print(prediction1, prediction2)
+```

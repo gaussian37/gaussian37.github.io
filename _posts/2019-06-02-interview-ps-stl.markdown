@@ -69,3 +69,19 @@ vector<int> tokToNum(string s, string del = " ") {
 }
 
 ```
+
+<br>
+
+### 문자열 숫자와 정수,실수형 숫자 간의 변환
+
+- from 문자열 to 정수
+    - stoi : string → int
+    - stol: string → long
+    - stoll : string → long long
+    - stof : string → float
+    - stod : string → double
+    - stold : string → long double
+    - stoul : string → unsigned long
+    - stoull : string → unsigend long long
+- from 정수, 실수 to 문자열
+    - to_string() 함수 사용

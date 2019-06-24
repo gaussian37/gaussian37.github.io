@@ -14,6 +14,58 @@ tags: [ps, c++] # add tag
     + 벡터 v를 i번째 인덱스 까지 사용하였을 때 sum이라는 합을 만드는 경우의 수 입니다.
 + `go`함수의 종료 조건은 벡터 v를 모두 조회하였을 때(i == v.size())
     + target 값이 sum과 같으면 경우의 수로 취급하고 그렇지 않으면 무시합니다.  
++ 아래 코드는 재귀 DP를 사용한 방식입니다.
 
 <br>
 
+```cpp
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cstring>
+
+using namespace std;
+
+int t;
+vector<int> v;
+typedef long long ll;
+ll dp[110][1000];
+
+int go(int i, ll sum) {
+	if (i == v.size()) {
+		if (sum == t) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+
+	ll& ret = dp[i][sum];
+	if (ret != -1) {
+		return ret;
+	}
+
+	ret = 0;
+	ret += go(i + 1, sum + v[i]);
+	ret += go(i + 1, sum - v[i]);
+	ret %= 100000;
+
+	return ret;
+}
+
+
+int solution(vector<int> numbers) {
+	ll answer = 0;
+
+	t = 0;
+	v = numbers;
+	memset(dp, -1, sizeof(dp));
+
+	answer = go(0, 0);
+
+	return answer;
+}
+
+```
