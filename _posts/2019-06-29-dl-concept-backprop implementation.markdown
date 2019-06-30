@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 딥 러닝 글 목차
-date: 9999-11-02 00:00:00
+title: backpropagation 구현하기
+date: 2019-06-29 00:00:00
 img: dl/concept/deep-neural-network.jpg
 categories: [dl-concept] 
 tags: [python, deep learning, backpropagation, 역전파] # add tag

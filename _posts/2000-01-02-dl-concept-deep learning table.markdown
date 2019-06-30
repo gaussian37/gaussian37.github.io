@@ -7,4 +7,6 @@ categories: [dl-concept]
 tags: [python, deep learning, dl] # add tag
 ---
 
+## 딥 러닝 관련 팁
 
+- BatchNormalization, Dropout, Pooling 적용 순서
