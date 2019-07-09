@@ -16,7 +16,9 @@ tags: [python, deep learning, optimization, mini-batch gradient descent] # add t
 
 <br>
 
-<center><img src="../assets/img/dl/dlai/mini_batch_gradient_descent/1.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/dl/dlai/mini_batch_gradient_descent/1.PNG" alt="Drawing" style="width: 800px;"/></center>
+
+<br>
 
 - 먼저 위 슬라이드와 같이 $$ X $$ (학습 데이터) 와 $$ Y $$ (정답 데이터)가 있다고 가정해 보겠습니다.
 - 이 때, $$ X $$ 의 차원은 $$ (n_{x}, m) $$이 되고 $$ Y $$의 차원은 $$(1, m)$$이 됩니다. 
@@ -32,6 +34,6 @@ tags: [python, deep learning, optimization, mini-batch gradient descent] # add t
 
 <br>
 
-<center><img src="../assets/img/dl/dlai/mini_batch_gradient_descent/2.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/dl/dlai/mini_batch_gradient_descent/2.PNG" alt="Drawing" style="width: 800px;"/></center>
 
-
+<br>
