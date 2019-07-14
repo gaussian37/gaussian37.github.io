@@ -10,7 +10,7 @@ tags: [algorithm, 알고리즘] # add tag
 ### 알고리즘 
 
 - 그래프
-    - SCC(Strongly Connected Component)
+    - [SCC(Strongly Connected Component)](https://gaussian37.github.io/math-algorithm-scc/)
     - DFS Tree
     - 단절점과 단절선
     - 2-SAT    
