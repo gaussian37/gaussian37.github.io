@@ -11,7 +11,9 @@ tags: [SCC, Strongly Connected Component] # add tag
 
 <br>
 
-## SCC의 정의 및 용도
+## **SCC의 정의 및 용도**
+
+<br>
 
 - Strongly Connected의 정의 : 모든 정점에서 모든 정점으로 이동할 수 있는 관계
     - 무향 그래프에서는 의미가 없고 방향 그래프에서만 의미가 있습니다. 
@@ -19,7 +21,7 @@ tags: [SCC, Strongly Connected Component] # add tag
     - 각 Component 내부에서는 모든 정점끼리는 서로 이동이 가능하게 됩니다.
     - Component 끼리는 Strongly Connected 하지 않습니다.
 
-<center><img src="image.JPG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/math/algorithm/scc/1.png" alt="Drawing" style="width: 600px;"/></center>
 
 - 위와 같은 방향 그래프에서는 색을 나눈 기준으로 SCC를 만들 수 있습니다.
 - 위 그래프에서는 각각 초록색 노드들 끼리, 파란색 노드들 끼리 그리고 회색 노드들 끼리는 모두 연결되어 있어서 이동이 가능합니다. 즉 Strongly Connected 합니다.
@@ -35,11 +37,11 @@ tags: [SCC, Strongly Connected Component] # add tag
 
 <br>
 
-## Kosaraju 알고리즘
+## **Kosaraju 알고리즘**
 
 
 <br>
 
 
-## Tarjan 알고리즘
+## **Tarjan 알고리즘**
 
