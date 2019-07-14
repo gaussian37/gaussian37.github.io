@@ -23,6 +23,8 @@ tags: [SCC, Strongly Connected Component] # add tag
 
 <center><img src="../assets/img/math/algorithm/scc/1.png" alt="Drawing" style="width: 600px;"/></center>
 
+<br>
+
 - 위와 같은 방향 그래프에서는 색을 나눈 기준으로 SCC를 만들 수 있습니다.
 - 위 그래프에서는 각각 초록색 노드들 끼리, 파란색 노드들 끼리 그리고 회색 노드들 끼리는 모두 연결되어 있어서 이동이 가능합니다. 즉 Strongly Connected 합니다.
 - 반면 초록색 Component, 파란색 Component 그리고 회색 Component들 끼리는 Stronly Connected 관계가 아닙니다. 즉, 서로 이동이 가능한 관계는 아닙니다.
