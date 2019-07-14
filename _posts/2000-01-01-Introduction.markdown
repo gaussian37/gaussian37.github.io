@@ -24,7 +24,7 @@ tags: [Introduction] # add tag
                  
 + ROI :
     - Machine/Deep Learning      
-    - Computer Vision    
+    - Computer Vision
     
 + Skills : 
     + Language
