@@ -1,4 +1,4 @@
-    ---
+---
 layout: post
 title: Mini-batch gradient descent
 date: 2019-07-08 00:00:00
