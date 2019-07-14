@@ -75,11 +75,112 @@ tags: [SCC, Strongly Connected Component] # add tag
     - 이 때, 1-5-4-3-2 순서로 방문을 할 수 있고 그 이외의 경로는 없습니다.
     - 이 때 만들어진 경로의 노드들이 Strongly Connected 된 Component 중 하나입니다.
 - 그 다음으로 탐색할 노드를 살펴보면 8번째, 7번째, 6번째로 스택에서 나온 노드는 이미 방문되었으므로 skip 합니다.
-- 5번째로 스택에서 나온 노드를 방문하면 다시 9-6-7-8 경로를 만들 수 있고 이 노드들이 또라는 Strongly Connected 된 Component 입니다.
- 
-    
+- 5번째로 스택에서 나온 노드를 방문하면 다시 9-6-7-8 경로를 만들 수 있고 이 노드들이 또한 Strongly Connected 된 Component 입니다.
+- 따라서 위 그래프에는 2가지의 Strongly Connected한 Component가 있다고 할 수 있습니다.
+
+<br>
+
+- [SCC 구현 문제](https://www.acmicpc.net/problem/2150)
+- SCC 구현 코드는 다음과 같습니다.
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> adj_list[10001]; //입력 받은 간선을 저장하는 인접리스트
+vector<int> r_adj_list[10001]; //입력 받은 간선을 반대로 저장하는 인접리스트
+vector<int> visitied; //노드가 방문되었는지 체크하는 리스트
+vector<int> component; //노드의 component 번호를 저장하는 리스트
+vector<int> order; // 스택에 빠진 순서대로 저장하는 리스트
+
+// dfs를 하면서 스택에서 사라질 때, order에 추가합니다.
+void dfs(int x) {
+	visitied[x] = true;
+	for (int y : adj_list[x]) {
+		if (!visitied[y]) {
+			dfs(y);
+		}
+	}
+	order.push_back(x);
+}
+
+// 방향을 거꾸로 저장한 리스트를 dfs하면서 component를 그룹화 합니다.
+void dfs_rev(int x, int cnt) {
+	visitied[x] = true;
+	// x노드를 cnt 그룹으로 만들어 줍니다.
+	component[x] = cnt;
+
+	for (int y : r_adj_list[x]) {
+		if (!visitied[y]) {
+			dfs_rev(y, cnt);
+		}
+	}
+}
+
+int main() {
+
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int N, M;
+	cin >> N >> M;
+
+	while (M--) {
+		int u, v;
+		cin >> u >> v;
+		adj_list[u].push_back(v);
+		// 방향을 반대로 구성한 간선을 저장합니다.
+		r_adj_list[v].push_back(u);
+	}
+
+	// 인접리스트를 dfs 수행
+	visitied = vector<int>(N + 1);
+	for (int i = 1; i <= N; ++i) {
+		if (!visitied[i]) {
+			dfs(i);
+		}
+	}
+
+	// 가장 마지막에 스택에 빠진 리스트를 가장 앞으로 오도록 reverse
+	reverse(order.begin(), order.end());
+	
+	// 방향을 거꾸로 저장한 인접리스트를 dfs 수행
+	visitied = vector<int>(N + 1);
+	component = vector<int>(N + 1);
+	int cnt = 0;
+	for (int x : order) {
+		if (component[x] == 0) {
+			cnt += 1;
+			dfs_rev(x, cnt);
+		}
+	}
+
+	cout << cnt << '\n';
+	vector<vector<int>> ans(cnt);
+
+	for (int i = 1; i <= N; i++) {
+		ans[component[i] - 1].push_back(i);
+	}
+	for (int i = 0; i < cnt; i++) {
+		sort(ans[i].begin(), ans[i].end());
+	}
+
+	sort(ans.begin(), ans.end());
+	for (int i = 0; i < cnt; i++) {
+		for (int x : ans[i]) {
+			cout << x << " ";
+		}
+		cout << "-1\n";
+	}
+
+}
 
 
+```
 
 <br>
 
