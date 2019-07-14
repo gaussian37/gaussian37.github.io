@@ -159,6 +159,8 @@ int main() {
 		}
 	}
 
+    // 아래는 문제 솔루션 포맷에 맞게 출력하기 위한 코드
+
 	cout << cnt << '\n';
 	vector<vector<int>> ans(cnt);
 
