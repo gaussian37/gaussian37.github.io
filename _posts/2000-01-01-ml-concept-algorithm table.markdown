@@ -2,7 +2,7 @@
 layout: post
 title: 알고리즘 글 목차
 date: 9999-11-01 00:00:00
-img: ml/concept/machineLearning.jpg
+img: math/algorithm/algorithm.png
 categories: [math-algorithm] 
 tags: [algorithm, 알고리즘] # add tag
 ---
