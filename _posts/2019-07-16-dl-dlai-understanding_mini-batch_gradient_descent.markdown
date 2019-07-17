@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Understanding mini-batch gradient descent
-date: 2019-07-06 00:00:00
+date: 2019-07-16 00:00:00
 img: dl/dlai/dlai.png
 categories: [dl-dlai] 
 tags: [python, deep learning, optimization, mini-batch gradient descent] # add tag
