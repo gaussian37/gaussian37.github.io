@@ -7,6 +7,13 @@ categories: [dl-dlai]
 tags: [python, deep learning, optimization, mini-batch gradient descent] # add tag
 ---
 
+<br>
+<div style="text-align: center;">
+    <iframe src="https://youtu.be/4qJaSmvhxi8?list=PLkDaE6sCZn6Hn0vK8co82zjQtt3T2Nkqc" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
+</div>
+<br>
+
+
 - 이번 시간에는 신경망 네트워크를 훨씬 더 빨리 트레이닝 시킬 수 있도록 도와주는 최적화 알고리즘에 대하여 배워보도록 하겠습니다.
 - ML을 적용하는 것은 매우 경험적이고 반복적인 작업을 동반하는 것으로 여러 모델들을 학습시키고 가장 잘 동작하는 것을 찾아야 합니다.
 - 따라서 학습의 속도 또한 매우 중요 합니다. 
