@@ -4,7 +4,7 @@ title: Understanding Exponentially Weighted Averages
 date: 2019-07-17 01:00:00
 img: dl/dlai/dlai.png
 categories: [dl-dlai] 
-tags: [python, deep learning, optimization, 지수 가중 평균, exponentially weighted averages] # add tag
+tags: [python, deep learning, optimization, exponentially weighted averages] # add tag
 ---
 
 <br>
