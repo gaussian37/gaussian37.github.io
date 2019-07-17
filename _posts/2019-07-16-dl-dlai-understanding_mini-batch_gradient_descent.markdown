@@ -1,4 +1,4 @@
-    ---
+---
 layout: post
 title: Understanding mini-batch gradient descent
 date: 2019-07-06 00:00:00
