@@ -9,7 +9,7 @@ tags: [python, deep learning, optimization, mini-batch gradient descent] # add t
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://youtu.be/4qJaSmvhxi8?list=PLkDaE6sCZn6Hn0vK8co82zjQtt3T2Nkqc" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
+    <iframe src="https://youtu.be/4qJaSmvhxi8" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
 </div>
 <br>
 
