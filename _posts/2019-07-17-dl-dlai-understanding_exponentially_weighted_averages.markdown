@@ -7,6 +7,8 @@ categories: [dl-dlai]
 tags: [python, deep learning, optimization, exponentially weighted averages] # add tag
 ---
 
+- 이전 글 : [Exponentially Weighted Averages](https://gaussian37.github.io/dl-dlai-exponentially_weighted_averages/)
+
 <br>
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/NxTFlzBjS-4" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
@@ -55,3 +57,7 @@ tags: [python, deep learning, optimization, exponentially weighted averages] # a
 - 실질적으로 구현할 때에는 가장 마지막의 $$ v_{t} $$ 값만 저장하면 됩니다. 매번 케이스 마다 $$ \theta $$ 값이 들어오면 가장 최근의 갱신된 $$ v_{t} $$와 $$ \theta $$ 를 이용하여 지수 가중평균을 계산하면됩니다.
 - 즉, 실질적으로 저장해야 하는 값은 $$ v_{t} $$ 값 1개 입니다. 따라서 메모리에 전혀 부담이 없습니다.
 - 다음 글에서는 `편향 보정`이라는 내용에 대하여 다루어볼 예정입니다. 이 내용 까지 다루면 지수 가중 평균 개념과 그래디언트 디센트 개념을 결합하는 데 문제가 없을것 같습니다.
+
+<br>
+
+- 다음 글 : [Bias Correction of Exponentially Weighted Averages](https://gaussian37.github.io/dl-dlai-bias_correction_exponentially_weighted_averages/)

@@ -7,6 +7,8 @@ categories: [dl-dlai]
 tags: [python, deep learning, optimization, mini-batch gradient descent] # add tag
 ---
 
+- 이전 글 : [Mini-batch gradient descent](https://gaussian37.github.io/dl-dlai-mini_batch_gradient_descent/)
+
 <br>
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/-_4Zi8fCZO4" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
@@ -55,3 +57,7 @@ tags: [python, deep learning, optimization, mini-batch gradient descent] # add t
 - 이 때 일반적으로 사용하는 배치 크기는 64, 128, 256, 512 와 같은 크기 입니다.
 - 왜냐하면 컴퓨터 메모리가 배치되어 있는 방식과 접속되는 방법에 따라 2의 지수승의 배치 크기일 때 더 빨리 실행됩니다.
 - 처음 부터 가장 적합한 배치 사이즈를 알기는 어렵습니다. 따라서 새로운 학습을 할 때 여러 경우의 배치 크기를 접목해 본 뒤 적합한 배치 크기를 사용해 보시길 추천 드립니다.
+
+<br>
+
+- 다음 글 : [Exponentially Weighted Averages](https://gaussian37.github.io/dl-dlai-exponentially_weighted_averages/)

@@ -7,6 +7,8 @@ categories: [dl-dlai]
 tags: [python, deep learning, optimization, mini-batch gradient descent] # add tag
 ---
 
+- 이전 글 : [Understanding mini-batch gradient descent](https://gaussian37.github.io/dl-dlai-understanding_mini-batch_gradient_descent/)
+
 <br>
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/lAq96T8FkTw" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
@@ -48,3 +50,7 @@ tags: [python, deep learning, optimization, mini-batch gradient descent] # add t
 - 위 슬라이드의 그래프를 보면 빨간색 곡선이 데이터를 가장 잘 표현한 것 처럼 보입니다. 물론 처음부터 빨간색 곡선을 찾기는 어렵습니다. 
 - 그래디언트 디센트에 지수 가중평균을 접목할 때에도 하이퍼파라미터인 $$ \beta $$를 잘 변경하여 가장 좋아 보이는 값을 찾는게 저희가 해야할 일입니다.
 - 다음 글에서는 $$ \beta $$ 값에 대한 좀 더 직관적인 해석을 해보도록 하겠습니다.
+
+<br>
+
+- 다음 글 : [Understanding Exponentially Weighted Averages](https://gaussian37.github.io/dl-dlai-understanding_exponentially_weighted_averages/)

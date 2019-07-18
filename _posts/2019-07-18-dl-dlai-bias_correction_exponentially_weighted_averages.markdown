@@ -7,7 +7,7 @@ categories: [dl-dlai]
 tags: [python, deep learning, optimization, bias correction, exponentially weighted averages] # add tag
 ---
 
-- 이전 글 : https://gaussian37.github.io/dl-dlai-understanding_exponentially_weighted_averages/
+- 이전 글 : [Understanding Exponentially Weighted Averages](https://gaussian37.github.io/dl-dlai-understanding_exponentially_weighted_averages/)
 
 <br>
 <div style="text-align: center;">

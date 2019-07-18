@@ -64,4 +64,7 @@ tags: [python, deep learning, optimization, mini-batch gradient descent] # add t
 - 반면 미니 배치 그레디언트 디센트에서는 1 epoch에서는 여러번의 업데이트가 발생하게 되는데요. 위 예제에서는 5,000개의 배치가 있으므로 1 epoch에 5,000번의 업데이트가 발생하게 됩니다.
 - 따라서 큰 데이터 셋이 있는 경우 미니 배치 그레디언트 디센트를 사용하면 기본적인 그레디언트 디센트를 사용할 때 보다 훨씬 더 빨리 학습이 수렴되게 됩니다.
 - 미니 배치 그레디언트 디센트에 대한 조금 더 자세한 내용은 다음 글에서 다루어 보겠습니다.       
- 
+
+<br>
+
+- 다음 글 : [Understanding mini-batch gradient descent](https://gaussian37.github.io/dl-dlai-understanding_mini-batch_gradient_descent/) 
