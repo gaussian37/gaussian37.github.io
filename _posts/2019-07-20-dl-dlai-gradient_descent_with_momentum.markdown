@@ -11,7 +11,7 @@ tags: [python, deep learning, optimization, gradient descent, momentum] # add ta
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/lWzo8CajF5s" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/k8fTYJPd3_I" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
 </div>
 <br>
 

@@ -35,4 +35,6 @@ tags: [python, deep learning, optimization, bias correction, exponentially weigh
 - 예를 들어 t = 2인 경우 $$ 1 - \beta^{2} = 1 - (0.98)^{2} = 0.0396 $$이 되므로 $$ \frac{v_{2}}{0.0396} = \frac{0.0196*\theta_{1} + 0.02*\theta_{2}}{0.0396} $$이 됩니다.
     - 즉 기존의 값인 $$ v_{2} $$ 보다 좀 더 값이 커진 상태가 됩니다.
 - 그리고 $$ t $$의 값이 점점 커질수록 $$ \beta^{t} $$의 값은 0에 수렴하게 되므로 편향 보정을 적용하여도 $$ v_{t} $$ 와 거의 동일한 값을 가지게 됩니다.
-- 즉, 초기값 부근에서만 값을 보정받을 수 있게 됩니다. 
+- 즉, 초기값 부근에서만 값을 보정받을 수 있게 됩니다.
+
+- 다음 글 : [Gradient descent with momentum](https://gaussian37.github.io/dl-dlai-gradient_descent_with_momentum/) 
