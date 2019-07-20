@@ -76,4 +76,4 @@ tags: [python, deep learning, optimization, gradient descent, momentum] # add ta
 
 <br>
 
-- 다음 글 : 
+- 다음 글 : [RMSProp](https://gaussian37.github.io/dl-dlai-RMSProp/)
