@@ -18,7 +18,7 @@ tags: [python, deep learning, optimization, bias correction, exponentially weigh
 - 앞의 글에서는 지수 가중 평균을 어떻게 구현하는지 대하여 배웠습니다.
 - 이번 글에서는 편향 보정이라고 불리는 기술적인 세부 사항으로 평균을 좀 더 정확하게 계산할 수 있는 방법에 대하여 배워보겠습니다.
 
-<center><img src="../assets/img/dl/concept/bias_correction_exponentially_weighed_averages/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/dlai/bias_correction_exponentially_weighed_averages/1.png" alt="Drawing" style="width: 800px;"/></center>
 
 <br>
 
