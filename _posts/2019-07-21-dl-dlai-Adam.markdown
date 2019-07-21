@@ -56,4 +56,4 @@ tags: [python, deep learning, optimization, Adam] # add tag
 
 <br>
 
-- 다음 글 : 
+- 다음 글 : [Learning Rate Decay](https://gaussian37.github.io/dl-dlai-learning_rate_decay/)

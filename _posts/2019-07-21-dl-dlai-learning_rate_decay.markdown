@@ -48,4 +48,4 @@ tags: [python, deep learning, optimization, Learning Rate Decay] # add tag
 - 또는 $$ k / (\sqrt{epoch}) , k / (\sqrt{t}) $$ 등을 곱해줘서 러닝 레이트를 줄여줄 수도 있습니다. ($$k$$는 상수, $$t$$는 배치 크기)
 - 또는 구간을 정해서 이산적으로 러닝 레이트가 줄어들게 할 수도 있습니다.
 
-- 다음 글 : 
+- 다음 글 : [The problem of local optima](https://gaussian37.github.io/dl-dlai-problem_of_local_optima/)
