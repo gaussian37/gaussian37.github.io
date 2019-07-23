@@ -29,7 +29,7 @@ tags: [python, deep learning, optimization, Local Optima] # add tag
 
 <br>
 
-<center><img src="../assets/ig/dl/dlai/optimization_quiz/4.PNG" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/dlai/optimization_quiz/4.PNG" alt="Drawing" style="width: 800px;"/></center>
 
 - 위 비용 그래프와 같이 진동이 심한 경우는 미니 배치 그래디언트 디센트 알고리즘을 사용한 경우입니다.
 - 왜냐하면 미니 배치 마다 데이터의 분포가 다르기 때문에 이전 배치에서 학습한 결과가 이번 배치의 데이터에서 성능이 안좋을 수 있기 때문입니다.
@@ -38,7 +38,7 @@ tags: [python, deep learning, optimization, Local Optima] # add tag
 
 <br>
 
-<center><img src="../assets/ig/dl/dlai/optimization_quiz/5.PNG" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/dlai/optimization_quiz/5.PNG" alt="Drawing" style="width: 800px;"/></center>
 
 - 위 문제를 읽어보면 답은 간단하게 구할 수 있습니다. 문제에서도 직접 계산할 필요가 없다고도 적어놨습니다.
 - 문제는 편향 보정의 역할을 묻는 것이고 편향 보정을 하면 초깃값에서도 실측값과 유사하게 값을 얻을 수 있다는 원리를 묻는 것입니다.
@@ -47,16 +47,16 @@ tags: [python, deep learning, optimization, Local Optima] # add tag
     
 <br>
 
-<center><img src="../assets/ig/dl/dlai/optimization_quiz/6.PNG" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/dlai/optimization_quiz/6.PNG" alt="Drawing" style="width: 800px;"/></center>
 
 - 러닝 레이트는 점점 감소해야 합니다. 학습 초기에는 넓은 보폭으로 움직이다가 학습이 진행될수록 좁은 보폭으로 움직여야 최솟값에 도달할 수 있습니다.
 - 1번 항목은 러닝 레이트가 점점 증가하므로 적당하지 않습니다.
 
 <br>
 
-<center><img src="../assets/ig/dl/dlai/optimization_quiz/7-1.PNG" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/dlai/optimization_quiz/7-1.PNG" alt="Drawing" style="width: 800px;"/></center>
 
-<center><img src="../assets/ig/dl/dlai/optimization_quiz/7-2.PNG" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/dlai/optimization_quiz/7-2.PNG" alt="Drawing" style="width: 800px;"/></center>
 
 - 지수 가중 평균에서 $$ \beta $$ 값을 증가 시키면 평균의 범위가 더 늘어 나게 되어 노이즈에 둔감해 지지만 입력값 또한 둔감해져 들어오는 입력값을 반영하는 데 지연시간이 생깁니다.
     - 따라서 지연 시간 때문에 그래프가 살짝 오른쪽으로 이동하게 됩니다.
@@ -64,16 +64,16 @@ tags: [python, deep learning, optimization, Local Optima] # add tag
  
 <br>
 
-<center><img src="../assets/ig/dl/dlai/optimization_quiz/8.PNG" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/dlai/optimization_quiz/8.PNG" alt="Drawing" style="width: 800px;"/></center>
 
 - 지수 가중 평균의 $$ \beta $$가 커질수록 변화율이 큰 수직축에는 +, - 평균값에 가까워져 진동이 줄어들게 됩니다. 수평축은 항상 한 방향으로의 값이기 때문에 지수 가중 평균을 하면 좀 더 폭이 넓어지게 됩니다.
 
 <br>
 
-<center><img src="../assets/ig/dl/dlai/optimization_quiz/9.PNG" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/dlai/optimization_quiz/9.PNG" alt="Drawing" style="width: 800px;"/></center>
 
 - 위 항목 중 선택된 항목은 학습에 도움이 되는 방법들입니다. weight를 0으로 만드는것은 효과가 있다고 할 수 없으며 나머지는 효과가 있는 방법들입니다.
 
-<center><img src="../assets/ig/dl/dlai/optimization_quiz/10.PNG" alt="Drawing" style="width: 800px;"/></center> 
+<center><img src="../assets/img/dl/dlai/optimization_quiz/10.PNG" alt="Drawing" style="width: 800px;"/></center> 
 
 - 2,3,4 항목은 Adam을 잘 설명하고 있는 내용이고 1번과 같이 Adam은 배치 그래디언트 디센트에 써야 한다는 내용은 없습니다.
