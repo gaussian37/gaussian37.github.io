@@ -39,4 +39,8 @@ tags: [python, deep learning, optimization, Local Optima] # add tag
 
 - 정리를 하면 local optima와 plateau 문제가 대표적인 딥러닝 학습에서의 마주할 수 있는 문제입니다.
 - 하지만 요즘과 같이 고차원의 신경망 학습에서는 local optima에 빠질 가능성이 줄어듭니다. 다양한 차원의 방향으로 최솟값을 찾아나가기 때문입니다.
-- 그리고 plateau문제는 모멘텀 또는 RMSProp, Adam과 같은 최적화 알고리즘이 학습 속도에 가속도를 붙여서 문제 해결에 도움을 줍니다. 
+- 그리고 plateau문제는 모멘텀 또는 RMSProp, Adam과 같은 최적화 알고리즘이 학습 속도에 가속도를 붙여서 문제 해결에 도움을 줍니다.
+
+<br>
+
+- 다음 글 : [Optimization Algorithm 퀴즈](https://gaussian37.github.io/dl-dlai-optimization_algorithm_quiz/) 
