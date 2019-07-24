@@ -19,6 +19,14 @@ tags: [python, deep learning, optimization, Local Optima] # add tag
 
 <br>
 
+<center><img src="../assets/img/dl/dlai/optimization_quiz/2.PNG" alt="Drawing" style="width: 800px;"/></center>
+
+- 1번 지문을 보면 training set을 one-pass로 학습 시키는 미니배치 그래디언트 디센트가 사실상 배치 그래디언트 디센트와 같으므로 더 빠르다고 할 수 없습니다.
+- 미니 배치 그래디언트 디센트를 구현할 때, 같은 미니 배치에서는 벡터라이제이션을 이용하여 연산을 빠르게 하되, 다른 미니 배치 끼리는 벡터라이제이션을 사용할 수 없이 for문을 사용해서 구현해야 합니다.
+- 미니 배치 그래디언트 디센트의 데이터 크기는 1보다 크고 m(데이터 전체)보다 작기 때문에 배치 그래디언트 디센트 보다 연산 속도가 빠릅니다.  
+
+<br>
+
 <center><img src="../assets/img/dl/dlai/optimization_quiz/3.PNG" alt="Drawing" style="width: 800px;"/></center>
 
 - 미니 배치의 사이즈가 1개 ~ m개 사이인 이유에 대하여 확인하는 문제입니다. 여기서 m은 데이터 전체의 갯수 입니다.
