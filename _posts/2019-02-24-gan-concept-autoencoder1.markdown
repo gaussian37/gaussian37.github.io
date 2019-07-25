@@ -87,6 +87,8 @@ tags: [deep learning, autoencoder] # add tag
 
 <center><img src="../assets/img/gan/concept/autoencoder1/1-10.jpg" alt="Drawing" style="width: 800px;"/></center>
 
+<br>
+
 + 전체 학습 데이터 셋에 대한 `Loss`를 최소화 하는 파라미터를 찾는데 주로 사용하는 방법은 `Gradient Descent`입니다.
 + `Gradient Descent(GD)`는 기본적으로 iterative 한 방식입니다. 
     + `Closed form`이 아니므로 한번에 솔루션을 찾지는 못하고 여러번 시도 끝에 솔루션을 찾아가는 구조입니다. 
@@ -98,12 +100,16 @@ tags: [deep learning, autoencoder] # add tag
         
 <center><img src="../assets/img/gan/concept/autoencoder1/1-11.jpg" alt="Drawing" style="width: 800px;"/></center>
 
+<br>
+
 - 그런데 한가지 문제점이 있습니다. 업데이트 해야 할 파라미터 $$ \theta $$의 차원이 굉장히 큰 경우에는 어떻게 $$ \theta $$를 변경해야 할까요?
 - 즉, 어떤 방법으로 파라미터를 업데이트 해야 할 지에 대한 전략이 필요합니다.
 - 앞의 전략(Loss가 줄어드는 방향으로 파라미터 업데이트)을 만족시키면서 파라미터를 변경하는 방법에 대하여 알아보겠습니다.
 - 머신러닝, 딥러닝에서 사용하는 파라미터 업데이트 방법의 기본은 `taylor expansion`에 기초를 두고 있습니다.
 
-<center><img src="../assets/img/gan/concept/autoencoder1/taylor.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/gan/concept/autoencoder1/taylor.png" alt="Drawing" style="width: 600px;"/></center>
+
+<br>
 
 - taylor expasion의 정의는 위와 같습니다.
 - 간단히 말하면 변경 전 정의역의 치역값에 정의역의 변경값과 1차 미분값의 곱, 정의역의 변경갑소가 2차미분값의 곱, ... 을 모두 더하면 변경 후 정의역의 치역값이 된다는 것입니다.
@@ -126,6 +132,10 @@ tags: [deep learning, autoencoder] # add tag
     - learning rate가 너무 커서 Loss가 발산하는 경우가 바로 approximation을 잘못한 경우입니다.
 
 <center><img src="../assets/img/gan/concept/autoencoder1/1-12.jpg" alt="Drawing" style="width: 800px;"/></center>
+
+<br>
+
+- 
 
 <center><img src="../assets/img/gan/concept/autoencoder1/1-13.jpg" alt="Drawing" style="width: 800px;"/></center>
 
