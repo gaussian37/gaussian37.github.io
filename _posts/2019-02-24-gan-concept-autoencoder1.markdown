@@ -135,7 +135,15 @@ tags: [deep learning, autoencoder] # add tag
 
 <br>
 
-- 
+- 그러면 전체 과정을 한번 보겠습니다. 먼저 $$ \mathcal D $$라는 Training DB가 있고 $$ \theta_{k} $$ 라는 현재 파라미터가 있다고 가정해 봅시다.
+- 이 때, Loss 함수를 거치고 $$ \theta $$가 업데이트 되는 과정을 한번 살펴보겠습니다.
+- 먼저 $$ L(\theta_{k}, \mathcal D) = \sum_{i}L(\theta_{k}, \mathcal D_{i}) $$ 식의 뜻은 모든 training DB에 대한 loss function은 각 sample 별 loss function의 합과 같다는 뜻입니다.
+- 그리고 위 식의 양변에 gradient를 취해주어 $$ \nabla L(\theta_{k}, \mathcal D) = \sum_{i} \nabla L(\theta_{k}, \mathcal D_{i}) $$ 로 식을 만들어 줍니다.
+- 이 때 우변을 N(DB의 크기) 으로 나누어 준다면 샘플 별 평균 Loss 크기값을 계산하게 되고 M(미니 배치의 크기)으로 나누게 되면 미니 배치 별 평균 Loss를 구할 수 있습니다.
+- 미니 배치를 이용하는 것이 전체 데이터를 이용하는 것 보다 학습 속도에 장점이 있기 때문에 미니 배치를 사용하는 것이 좋습니다.
+    - 전체 DB를 이용해서 학습하게 되면 연산량이 상당히 커지고 모든 DB가 다 계산되어야 한번 업데이트 되기 때문에 학습 속도 또한 느려집니다.
+- 이 때, 각 샘플별 Loss의 평균과 미니 배치 별 Loss 의 평균이 유사할 것이라 생각하고 미니 배치 별 Loss로 파라미터를 업데이트 해줍니다.
+- 1번 업데이트 되는 것을 `step` 이라고 하고 모든 training DB를 한번 다 훑는 것을 `epoch`이라고 하면 1 epoch 당 1 step의 업데이트가 발생하는데 미니 배치를 사용하면 1epoch 당 N/M step의 업데이트가 발생하게 됩니다. 
 
 <center><img src="../assets/img/gan/concept/autoencoder1/1-13.jpg" alt="Drawing" style="width: 800px;"/></center>
 
