@@ -119,7 +119,7 @@ tags: [deep learning, autoencoder] # add tag
         - 이 근사가 되는 범위는 몇 차수 미분 까지 사용하는 것과 관계가 있습니다. 더 많은 차수를 사용할수록 더 넓은 지역을 작은 오차로 표현이 가능합니다.
         - 예를 들면 sin 함수에서 기울기가 1인 부분이 있습니다. 그 지점에서만 국소적으로 바라봤을 때는 sin(x) 함수와 y=x 함수가 똑같아 보입니다. 하지만 그 지점을 조금 더 벗어나면 sin(x)와 y=x값이 달라보이게 됩니다. 
         - 만약 근사값을 사용할 때, 1차 미분이 아니라 2차, 3차, ... 미분까지 사용한다면 y=x 함수식 보다 조금 더 복잡하지만 그 부근에서 y=x 일 때 보다 좀 더 넓은 범위로 sin(x)와 똑같아 보이는 근사식을 구할 수 있습니다. 
-- 그러면 1차 미분값 까지만 사용한 근사식을 이용하여 Loss값의 변화량을 살펴보면 위 슬라이드와 같이 $$ triangle L \approx \nabla L * \triangle \theta $$가 됩니다.
+- 그러면 1차 미분값 까지만 사용한 근사식을 이용하여 Loss값의 변화량을 살펴보면 위 슬라이드와 같이 $$ \triangle L \approx \nabla L * \triangle \theta $$가 됩니다.
     - 참고로 $$ \triangle $$ 은 변화량(델타)을 뜻하고 $$ \nabla $$는 그래디언트(미분값)을 뜻합니다.
 - 만약 $$ \triangle \theta = -\eta\nabla L $$ 라고 한다면, $$ \triangle L = -\eta \Vert \nabla L \Vert < 0 $$ 이 됩니다.
     - 이 때, $$ \eta $$가 양수이고 흔히 아는 learning rate를 뜻합니다.
