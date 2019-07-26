@@ -147,6 +147,21 @@ tags: [deep learning, autoencoder] # add tag
 
 <center><img src="../assets/img/gan/concept/autoencoder1/1-13.jpg" alt="Drawing" style="width: 800px;"/></center>
 
+- 우리가 학습해야 할 네트워크의 구조가 딥 뉴럴 네트워크이기 때문에 학습해야 할 파라미터가 weight와 bias로 구성되어 있습니다.
+- 그리고 이 weight와 bias는 layer 별로 존재하게 됩니다. 현대 딥 뉴럴 네트워크에서 사용하는 layer의 수는 엄청나게 많기 때문에 파라미터의 수 또한 엄청나게 많아집니다.
+- 이 때 중요한 것은 엄청나게 많은 파라미터들을 업데이트 하기 위하여 Loss function을 미분을 해야 합니다.
+    - 즉, 각 layer 별 weight와 bias에 대하여 Loss function을 미분을 하여 그 값만큼 파라미터를 업데이트 하는 과정이 필요합니다. 
+    - 이 과정이 엄청나게 복잡하기 때문에 딥 뉴럴 네트워크에 한번 암흑기가 왔지만 `backpropagation`을 통하여 극복해 내었습니다.   
+- 그러면 backpropagation에 대하여 알아보겠습니다.
+- backpropagation 알고리즘은 output layer에서 부터 먼저 error signal을 구합니다. 
+    - output layer의 error signal은 cost를 네트워크의 출력값으로 미분을 합니다. 
+    - 그리고 $$ ⊙ $$는 element-wise 곱을 뜻합니다. 그러면 output layer의 error signal과 activation function의 미분값을 element-wise 곱을 하면 output layer의 error를 구할 수 있습니다. 
+- 그리고 그 앞 layer와의 관계를 보고 $$ \delta^{l+1} $$을 이용하여 $$ \delta^{l} $$ 을 계속 구해나아갈 수 있습니다.
+    - 이 때, $$ \delta^{l+1} $$ 을 이용하여 그 앞단의 $$ \delta^{l} $$을 구하는 과정이므로 backpropagation이라고 부르게 됩니다.
+- 위 과정을 통하여 각 layer에 대한 error signal을 구하였습니다. 우리가 궁금한 것은 각 layer별 bias와 weight에 대한 error signal 입니다.
+    - 이 때, bias에 대한 error signal은 각 layer에 대한 error signal과 같고 weight에 대한 error signal은 layer의 입력으로 들어오는 값을 곱해주면 됩니다.
+- 이 구하는 과정이 dynamic programming기법으로 결과 값이 계속 누적되어 효율적으로 계산되므로 빠르게 weight와 bias에 대한 미분값을 구할 수 있습니다.   
+
 <center><img src="../assets/img/gan/concept/autoencoder1/1-14.jpg" alt="Drawing" style="width: 800px;"/></center>
 
 <center><img src="../assets/img/gan/concept/autoencoder1/1-15.jpg" alt="Drawing" style="width: 800px;"/></center>
