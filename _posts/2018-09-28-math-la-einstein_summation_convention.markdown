@@ -11,6 +11,8 @@ tags: [Linear algebra, eienstein summation convetion] # add tag
 - summation을 조금 더 간편하게 표기하기 위한 방법이라고 생각하면 됩니다.
 - 먼저 아래와 같은 행렬곱의 수식이 있다고 가정해 보겠습니다.
 
+<br>
+
 $$ 
 
 \begin{pmatrix}
@@ -28,6 +30,8 @@ b_{n1} & b_{n2} & \cdots \ b_{nn} \\
 \end{pmatrix}
 
 $$
+
+<br>
 
 - 이 때 행렬 곱의 한 원소를 구하려면 $$ \sum_{j}a_{ij}b_{jk} $$ 식을 통하여 구해야 합니다.
 - 이 식을 간단하게 표현하자고 도입한 것이 Eienstein summation convention 입니다.
