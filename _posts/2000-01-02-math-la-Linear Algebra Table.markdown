@@ -20,6 +20,17 @@ tags: [Linear algebra, 선형 대수학] # add tag
 
 <br><br>
 
+## Mathematics for Machine Learning
+
+- [Finding the size of a vector, its angle and projection](https://gaussian37.github.io/ml-la-finding-the-size-of-a-vector/)
+- [Changing the reference frame](https://gaussian37.github.io/ml-la-Changing-the-reference-frame/)
+- [Operation on vectors](https://gaussian37.github.io/ml-la-Operation-on-vectors/)
+- [Determinants and inverse](https://gaussian37.github.io/ml-la-Determinants-and-inverse/)
+- [Eienstein summation convention](https://gaussian37.github.io/math-la-einstein_summation_convention/)
+
+
+<br><br>
+
 ## 칸 아카데미 선형 대수학
 + 벡터와 공간
     + 벡터
