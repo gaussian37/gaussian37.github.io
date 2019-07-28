@@ -60,8 +60,21 @@ $$
 
 <br>
 
-- 이번에는 다른 예제를 한번 살펴보도록 하겠습니다.    
+- 이번에는 다른 예제를 한번 살펴보도록 하겠습니다.
 
+<center><img src="../assets/img/math/la/matrices_transform_into_the_new_basis_vector_set/2.png" alt="Drawing" style="width: 800px;"/></center>
 
+<br>
 
-  
+- 앞의 예제와 같이 frame1과 frame2간의 transformation matrix를 만들면 다음과 같습니다.
+    - frame2 → frame1 : $$ B = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & -1 \\ 1 & 1 \\ \end{bmatrix} $$
+    - frame1 → frame2 : $$ B^{-1} = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1 \\ -1 & 1 \\ \end{bmatrix} $$
+- 따라서 $$ B * [2, 1]^{T} = \frac{1}{\sqrt{2}}[1, 3]^{T} $$ 가 되고 $$ B^{-1} * \frac{1}{\sqrt{2}}[1, 3]^{T} = [2, 1]^{T} $$가 됩니다.   
+- 이번 예제를 보면 앞의 예제와 다른점이 하나 있습니다. frame1에 표현된 frame2에서의 basis 벡터가 frame1에서 서로 직교합니다. (노란색 벡터들)
+- 이 경우에 벡터를 변환 할 때 좀 더 편하게 할 수 있습니다.
+- 변환할 벡터와 basis 벡터를 각각 곱해주면 basis에 해당하는 성분을 구할 수 있습니다.
+    - 예를 들면 $$ \frac{1}{\sqrt{2}}[1, 3]^{T} $$ 을 frame2에서의 벡터값을 구하고 싶으면
+    - 먼저 $$ \frac{1}{\sqrt{2}}[1, 3]^{T} * \frac{1}{\sqrt{2}}[1, 1]^{T} = 2 $$ 를 구할 수 있고
+    - 다음으로 $$ \frac{1}{\sqrt{2}}[1, 3]^{T} * \frac{1}{\sqrt{2}}[-1, 1]^{T} = 1 $$을 구할 수 있습니다.
+    - 각 basis 성분에 해당하는 값을 구할 수 있고 transformation matrix를 이용하여 연산한 것과 같이 $$ [2, 1]^{T} $$를 구할 수 있습니다.   
+- 이 성질은 basis 벡터에 해당하는 두 벡터가 서로 직교할 때만 가능하므로 직교 관계인 것만 알 수 있으면 계산을 좀 더 편리하게 할 수 있습니다.
