@@ -28,6 +28,7 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [Determinants and inverse](https://gaussian37.github.io/ml-la-Determinants-and-inverse/)
 - [Eienstein summation convention](https://gaussian37.github.io/math-la-einstein_summation_convention/)
 - [Symmetry of dot product](https://gaussian37.github.io/math-la-symmetry_of_dot_product/)
+- [matrices transform into the new basis vector set]()
 
 
 <br><br>
@@ -84,4 +85,40 @@ tags: [Linear algebra, 선형 대수학] # add tag
         + 후보 기저의 A의 열공간 생성
     
 <br><br>
-<iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.3%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>
+
+## Linear Algebra and Its Applications
+
+- [Linear Algebra and Its Applications](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=58647912)
+- Systems of Linear Equations
+- Row Reduction and Echelon Forms
+- Vector Equations
+- The Matrix Equations Ax=b
+- Solution Sets of Linear Systems
+- Linear Independence
+- Introduction to Linear Transformation
+- The Matrix of a Linear Transformation
+- Matrix Operations
+- The inverse of a Matrix
+- Characterizations of Invertible Matrices
+- Partitioned Matrices
+- Matrix Factorization
+- Subspaces of Rn
+- Dimension and Rank
+- Introduction to Determinants
+- Properties of Determinants
+- Cramer's Rule, Volume, and Linear Transformations
+- Vector spaces
+- Eigenvectors and Eigenvalues
+- The Characteristic Equations
+- Diagonalization
+- Eigenvectors and Linear Transformations
+- Complex Eigenvalues
+- Inner Product, Length, and Orthogonality
+- Orthogonal Sets
+- Orthogonal Projections
+- The Gram-Schmidt Process
+- Least-Square Problems
+- Diagonalization of Symmetric Matrices
+- Quadratic Forms
+- Constrained Optimization
+- The Singular Value Decomposition
