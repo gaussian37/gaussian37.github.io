@@ -78,3 +78,28 @@ $$
     - 다음으로 $$ \frac{1}{\sqrt{2}}[1, 3]^{T} * \frac{1}{\sqrt{2}}[-1, 1]^{T} = 1 $$을 구할 수 있습니다.
     - 각 basis 성분에 해당하는 값을 구할 수 있고 transformation matrix를 이용하여 연산한 것과 같이 $$ [2, 1]^{T} $$를 구할 수 있습니다.   
 - 이 성질은 basis 벡터에 해당하는 두 벡터가 서로 직교할 때만 가능하므로 직교 관계인 것만 알 수 있으면 계산을 좀 더 편리하게 할 수 있습니다.
+
+<br>
+
+- 만약 frame1에서 어떤 벡터의 변환이 발생하였을 frame2에서도 반영되게 하려면 어떻게 처리해야 할까요?
+- 예를 들어 frame1에 회전 변환이 발생하였을 때, frame2의 벡터는 어떻게 변환되는지 살펴보겠습니다.
+
+<center><img src="../assets/img/math/la/matrices_transform_into_the_new_basis_vector_set/3.png" alt="Drawing" style="width: 800px;"/></center>
+
+- 만약 위 그림과 같이 45도 회전 변환이 발생하였다고 가정하겠습니다.
+- 위와 같은 회전 변환은 기존 벡터에 $$ \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & -1 \\ 1 & 1 \\ \end{bmatrix} $$ 를 곱해서 변형할 수 있음을 알 수 있습니다. 
+
+<center><img src="../assets/img/math/la/matrices_transform_into_the_new_basis_vector_set/4.png" alt="Drawing" style="width: 800px;"/></center>
+
+- 그리고 frame1과 frame2는 앞에서 다루었던 예제를 사용하겠습니다.
+- 그러면 frame2에 $$ [x, y] $$ 라는 벡터가 있으면 이 벡터는 $$ \begin{bmatrix} 3 & 1 \\ 1 & 1 \\ \end{bmatrix} $$ transformation matrix에 의하여 frame1에서의 벡터로 변형될 수 있습니다.
+    - 즉, $$ \begin{bmatrix} 3 & 1 \\ 1 & 1 \\ \end{bmatrix} \begin{bmatrix} x \\ y \\ \end{bmatrix} $$ 연산을 통하여 frame1에 표현됩니다.   
+- 그러면 위 그림과 같이 45도 회전 변환을 해보겠습니다.
+    -  　$$ \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & -1 \\ 1 & 1 \\ \end{bmatrix} \begin{bmatrix} 3 & 1 \\ 1 & 1 \\ \end{bmatrix} \begin{bmatrix} x \\ y \\ \end{bmatrix} $$이 됩니다.
+    - 이 값을 다시 정리하면 frame2에 있던 벡터를 frame1로 mapping 하고 그 벡터를 45도 회전 변환한 것입니다.
+- 마지막으로 frame1에서 회전 변환한 값이 frame2에서는 어떤 값에 해당하는지 알기 위해서는 transformation matrix를 곱해서 frame1 → frame2로 mapping해 줍니다.
+- 즉, $$ \begin{bmatrix} 3 & 1 \\ 1 & 1 \\ \end{bmatrix}^{-1} = \begin{bmatrix} 1 & -1 \\ -1 & 3 \end{bmatrix} $$가 frame1 → frame2로 변환하는 matrix 이므로 곱해줍니다.
+    - 　$$ \begin{bmatrix} 1 & -1 \\ -1 & 3 \end{bmatrix} \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & -1 \\ 1 & 1 \\ \end{bmatrix} \begin{bmatrix} 3 & 1 \\ 1 & 1 \\ \end{bmatrix} \begin{bmatrix} x \\ y \\ \end{bmatrix} $$이 됩니다.
+    - 이 값을 다시 정리하면 frame2에 있던 벡터를 frame1로 mapping 하고 그 벡터를 45도 회전 변환한 다음 다시 frame2로 mapping한 값입니다. 
+    - 간략하게 식으로 정리하면 $$ B^{-1} R B $$ 가 됩니다. 이 frame을 변환하는 matrix $$ B^{-1}, B $$로 둘러 쌓이는 형태는 종종 보게 될것입니다.
+    
