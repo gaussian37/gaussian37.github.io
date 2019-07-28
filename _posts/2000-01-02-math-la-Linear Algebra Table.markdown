@@ -27,6 +27,7 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [Operation on vectors](https://gaussian37.github.io/ml-la-Operation-on-vectors/)
 - [Determinants and inverse](https://gaussian37.github.io/ml-la-Determinants-and-inverse/)
 - [Eienstein summation convention](https://gaussian37.github.io/math-la-einstein_summation_convention/)
+- [Symmetry of dot product](https://gaussian37.github.io/math-la-symmetry_of_dot_product/)
 
 
 <br><br>
