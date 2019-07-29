@@ -29,6 +29,7 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [Eienstein summation convention](https://gaussian37.github.io/math-la-einstein_summation_convention/)
 - [Symmetry of dot product](https://gaussian37.github.io/math-la-symmetry_of_dot_product/)
 - [matrices transform into the new basis vector set](https://gaussian37.github.io/math-la-matrices_transform_into_the_new_basis_vector_set/)
+- [orthogonal matrix](https://gaussian37.github.io/math-la-orthogonal_matrix/)
 
 
 <br><br>
