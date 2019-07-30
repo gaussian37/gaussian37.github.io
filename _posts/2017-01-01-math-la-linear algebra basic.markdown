@@ -7,8 +7,6 @@ categories: [math-la]
 tags: [Linear algebra, 선형대수학] # add tag
 ---
 
-<iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.3%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>
-
 출처 : https://darkpgmr.tistory.com/
 
 이번 글에서는 자주 사용하는 선형대수학 개념들에 대하여 정리해 보도록 하겠습니다.
