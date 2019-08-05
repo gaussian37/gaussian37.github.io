@@ -46,7 +46,8 @@ tags: [선형대수학, linear algebra, orthogonal matrix, gram schmidt] # add t
     - 참고로 $$ E $$는 직교 행렬이기 때문에 $$ E^{-1} = E^{T} $$가 되므로 쉽게 계산할 수 있습니다.
 - 다음으로 **transformation matrix**를 통하여 **frame_e**상에서 transformation을 해줍니다. 따라서 $$ r'_{E} = T_{E}E^{-1}r $$이 됩니다.
 - 이제 **frame_e**에서는 **transformation**이 되었으니 다시 **frame_v**로 mapping 시켜주어야 합니다.
-    - 즉, $$ r' = ET_{E}E^{-1}r $$ 가 됩니다.    
+    - 즉, $$ r' = ET_{E}E^{-1}r = E T_{E} E^{T} r $$ 가 됩니다. 
+      
 - 위 과정을 모두 거치면 $$ r \tp r' $$로 **transformation**이 됩니다.
 
 <br>
