@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Reflecting in a plane
-date: 2018-09-27 16:00:00
+date: 2018-09-27 17:00:00
 img: math/la/overall.jpg
 categories: [math-la] 
 tags: [선형대수학, linear algebra, orthogonal matrix, gram schmidt] # add tag
