@@ -48,7 +48,7 @@ tags: [선형대수학, linear algebra, orthogonal matrix, gram schmidt] # add t
 - 이제 **frame_e**에서는 **transformation**이 되었으니 다시 **frame_v**로 mapping 시켜주어야 합니다.
     - 즉, $$ r' = ET_{E}E^{-1}r = E T_{E} E^{T} r $$ 가 됩니다. 
       
-- 위 과정을 모두 거치면 $$ r \tp r' $$로 **transformation**이 됩니다.
+- 위 과정을 모두 거치면 $$ r \to r' $$로 **transformation**이 됩니다.
 
 <br>
 
