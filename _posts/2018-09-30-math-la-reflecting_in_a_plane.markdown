@@ -43,9 +43,21 @@ tags: [선형대수학, linear algebra, orthogonal matrix, gram schmidt] # add t
 - 앞에서 설명한 바와 같이 $$ e_{1}$$ 과 $$ e_{2} $$는 서로 직교하고 이 두 벡터로 만든 평면과 $$ e_{3} $$는 직교합니다. 
 - 먼저 **frame_v**에 있는 벡터 $$ r $$을 **frame_e** 로 mapping 해주어야 합니다. $$ E $$의 정의에 따라 $$ E^{-1} $$이 그 역할을 할 수 있습니다.
     - 따라서 $$ r_{E} = E^{-1}r $$ 이 됩니다.
+    - 참고로 $$ E $$는 직교 행렬이기 때문에 $$ E^{-1} = E^{T} $$가 되므로 쉽게 계산할 수 있습니다.
 - 다음으로 **transformation matrix**를 통하여 **frame_e**상에서 transformation을 해줍니다. 따라서 $$ r'_{E} = T_{E}E^{-1}r $$이 됩니다.
 - 이제 **frame_e**에서는 **transformation**이 되었으니 다시 **frame_v**로 mapping 시켜주어야 합니다.
     - 즉, $$ r' = ET_{E}E^{-1}r $$ 가 됩니다.    
+- 위 과정을 모두 거치면 $$ r \tp r' $$로 **transformation**이 됩니다.
+
+<br>
+
+- 정리하면 변환 과정은 다음과 같습니다.
+
+<center><img src="../assets/img/math/la/reflecting_in_a_plane/3.png" alt="Drawing" style="width: 600px;"/></center>
+
+
+
+
 
  
 
