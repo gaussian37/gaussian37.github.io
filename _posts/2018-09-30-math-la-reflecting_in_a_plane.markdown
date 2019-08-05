@@ -57,9 +57,13 @@ tags: [선형대수학, linear algebra, orthogonal matrix, gram schmidt] # add t
 
 - 정리하면 변환 과정은 다음과 같습니다.
 
+<br>
+
 <center><img src="../assets/img/math/la/reflecting_in_a_plane/3.png" alt="Drawing" style="width: 600px;"/></center>
 
-- 이번 글의 핵심은 그람 슈미트 방법을 이용하여 `정규직교벡터`를 구하여 **transformation**에 어떻게 적용하는 지 입니다.
+<br>
+
+- 이번 글의 핵심은 그람 슈미트 방법을 이용하여 `정규직교벡터`를 구하여 **transformation**에 어떻게 적용하는 지 였습니다.
 
 
 
