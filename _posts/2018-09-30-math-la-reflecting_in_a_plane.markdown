@@ -49,12 +49,18 @@ tags: [선형대수학, linear algebra, orthogonal matrix, gram schmidt] # add t
     - 즉, $$ r' = ET_{E}E^{-1}r = E T_{E} E^{T} r $$ 가 됩니다. 
       
 - 위 과정을 모두 거치면 $$ r \to r' $$로 **transformation**이 됩니다.
+- 계산 과정은 다음과 같습니다.
+
+<center><img src="../assets/img/math/la/reflecting_in_a_plane/4.png" alt="Drawing" style="width: 600px;"/></center>
 
 <br>
 
 - 정리하면 변환 과정은 다음과 같습니다.
 
 <center><img src="../assets/img/math/la/reflecting_in_a_plane/3.png" alt="Drawing" style="width: 600px;"/></center>
+
+- 이번 글의 핵심은 그람 슈미트 방법을 이용하여 `정규직교벡터`를 구하여 **transformation**에 어떻게 적용하는 지 입니다.
+
 
 
 
