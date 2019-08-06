@@ -7,9 +7,11 @@ categories: [math-la]
 tags: [선형대수학, eigen, eigenvalue, eigenvector, eigenbasis] # add tag
 ---
 
+## Eigenvector, Eigenvalue란 무엇인가?
+
 - 이번 글에서는 선형대수학에서 가장 중요한 내용 중 하나인 `eigen`의 개념에 대하여 다루어 보려고 합니다.
 - `eigen`이라는 단어는 독일어에서 온 단어이고 뜻은 `Characteristic`입니다.
-- 그러면 **characteristic**은 어떤 의미를 가지고 있을까요? 먼저 이전 글에서 다루었던 **transformation**을 다시 한번 상기 시켜 보겠습니다.
+- 그러면 **characteristic**은 어떤 의미를 가지고 있을까요? 먼저 이전 글에서 다루었던 **linear transformation**을 다시 한번 상기 시켜 보겠습니다.
 
 
 <br>
@@ -54,9 +56,30 @@ tags: [선형대수학, eigen, eigenvalue, eigenvector, eigenbasis] # add tag
 - 위와 같은 경우에는 **eigenvector**는 없습니다. 벡터의 방향이 모두 변경되었기 때문이지요.
 
 <br>
-<center><img src="../assets/img/math/la/eigen/6.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/math/la/eigen/6.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 위 같은 경우에는 3 벡터 모두 **eigenvector**입니다. 모두 방향성이 유지되었기 때문입니다. 단 크기가 -가 되었기 때문에 방향이 뒤집어 진 것처럼 보일 뿐입니다. 
+- 위 같은 경우에는 3 벡터 모두 **eigenvector**입니다. 모두 방향성이 유지되었기 때문입니다. 단 크기가 -가 되었기 때문에 방향이 뒤집어 진 것처럼 보일 뿐입니다.
+
+<br>
+
+- 물론 이 개념은 2차원에서만 적용되는 것이 아니라 3,4, ..., n차원 모두 적용될 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/la/eigen/7.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림을 보면 주황색 벡터만 오직 **eigenvector**가 됨을 알 수 있습니다.
+- 이제 **eigenvector**와 **eigenvalue**의 정의에 대해서는 알 것 같습니다. 그러면 어떻게 찾아야 할 지 살펴보겠습니다.
+
+<br>
+
+## Eigenvector, Eigenvalue를 구하는 방법
+
+
+
+
+
+ 
 
 
