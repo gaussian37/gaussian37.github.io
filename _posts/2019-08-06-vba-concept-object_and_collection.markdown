@@ -34,8 +34,8 @@ Application.Workbooks("Test.xlsm").Worksheets("Sheet1").Range("A1:C5")
 - 컬렉션에서 특정 개체를 참조할 때에는 **괄호 안에 인덱스 번호를 입력하거나 개체 이름을 입력**합니다.
 
 ```vb
-Worksheets(1) : 첫 번째 워크시트 개체를 참조합니다.
-Worksheets("Test") : 'Test'라는 이름의 워크시트 개체를 참조합니다.
+Worksheets(1) : ' 첫 번째 워크시트 개체를 참조합니다.
+Worksheets("Test") : ' 'Test'라는 이름의 워크시트 개체를 참조합니다.
 ```
 
 
