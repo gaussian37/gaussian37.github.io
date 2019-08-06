@@ -9,6 +9,8 @@ tags: [선형대수학, eigen, eigenvalue, eigenvector, eigenbasis] # add tag
 
 ## Eigenvector, Eigenvalue란 무엇인가?
 
+<br>
+
 - 이번 글에서는 선형대수학에서 가장 중요한 내용 중 하나인 `eigen`의 개념에 대하여 다루어 보려고 합니다.
 - `eigen`이라는 단어는 독일어에서 온 단어이고 뜻은 `Characteristic`입니다.
 - 그러면 **characteristic**은 어떤 의미를 가지고 있을까요? 먼저 이전 글에서 다루었던 **linear transformation**을 다시 한번 상기 시켜 보겠습니다.
@@ -78,6 +80,8 @@ tags: [선형대수학, eigen, eigenvalue, eigenvector, eigenbasis] # add tag
 
 ## Eigenvector, Eigenvalue를 구하는 방법
 
+<br>
+
 - 만약 벡터 `x`가 `eigenvector`라고 한다면 $$ Ax = \lambda x $$의 식으로 표현할 수 있습니다.
 - 이 식을 설명을 하면 먼저 $$ A $$ 는 **transformation matrix**입니다. 즉, 좌변의 뜻은 **eigenvector**를 **transformation matrix**를 통하여 **transformation**한다는 뜻입니다.
     - 당연히 **eigenvector**의 정의에 따라 벡터의 `방향성은 유지` 됩니다.
@@ -121,10 +125,36 @@ tags: [선형대수학, eigen, eigenvalue, eigenvector, eigenbasis] # add tag
 - 반시계 방향으로 90도 회전하는 **transformation matrix**는 $$ A = \begin{pmatrix} 0 & -1 \\ 1 & 0 \\ \end{pmatrix} $$ 이므로 $$ det \begin{pmatrix} -\lambda & -1 \\ 1 & -\lambda \\ \end{pmatrix} = \lambda^{2} + 1 = 0 $$ 이 됩니다.
 - 위 방정식을 풀면 $$ \lambda $$에 해당하는 실수 해가 없으므로 **eigenvector**는 존재하지 않습니다. 
        
-     
+<br>
 
+### Eigenbasis에 관하여
 
+<br>     
 
+- **eigenvector**의 개념과 이전 글에서 다루었던 **changing basis**의 개념을 결합하여 계산을 효율적으로 하는 방법에 대하여 한번 다루어 보겠습니다.
+- 이전에 `diagonalisation`에 대하여 먼저 알아보겠습니다. 
+- 때때로, 우리는 같은 행렬을 여러번 곱해야 할 일이 있습니다. 만약 성분이 대각선에만 존재하고 나머지 성분은 0인경우인 `대각행렬`을 여러번 곱하면 어떻게 될까요?
+- 이 경우에 행렬연산은 상당히 간단합니다. $$ T = \begin{pmatrix} a & 0 & 0 \\ 0 & b & 0 \\ 0 & 0 & c \\ \end{pmatrix} $$ 이면 $$ T^{n} = \begin{pmatrix} a^{n} & 0 & 0 \\ 0 & b^{n} & 0 \\ 0 & 0 & c^{n} \\ \end{pmatrix} $$가 됩니다.
+- 대각 행렬의 경우 위와 같이 간단하게 연산이 되지만 대각 행렬이 아닌 경우의 n제곱 연산은 어떻게 해야 할까요? 정답은 **대각 행렬이 아닌 행렬을 대각 행렬로 바꾸는 것**에 있습니다.
+- 즉, n제곱을 해야 할 행렬을 대각행렬과 대각행렬이 아닌 행렬의 곱으로 나타내는 방법인데, 이 방법을 `eigenbasis`라고 합니다.
+- **eigenbasis*를 구현하기 위하여 **eigenbasis conversion matrix**를 만들어 보겠습니다. 먼저, **eigenvector**를 열벡터로 구성합니다.
+    - 즉, $$ C = (x_{1}, x_{2}, x_{3}) $$가 됩니다. 이 때, $$ x_{1}, x_{2}, x_{3} $$는 열벡터 이며 **eigenvector**입니다.
+- 다음으로 행렬 $$ D $$는 대각 행렬이고 그 대각 성분은 행렬 $$ C $$의 **eigenvector**에 대응하는 **eigenvalue**로 구성되어 있습니다.
+    - 즉, $$ C = \begin{pmatrix} \lambda_{1} & 0 & \\ 0 & \lambda_{2} & 0 \\ 0 & 0 & \lambda_{3} \end{pmatrix} $$가 됩니다. 
+- 만약 어떤 행렬 $$ T $$를 대각 행렬 성분으로 바꾸고 싶다면 $$ T = CDC^{-1} $$로 바꿀 수 있습니다. 
+- 이 행렬의 경우 제곱을 하면 $$ T^{2} = CDC^{-1}CDC^{-1} = CD^{2}C^{-1} $$이 됩니다. 일반화 시키면 $$ T^{n} = CD^{n}C^{-1} $$이 됩니다.
+
+<br>
+<center><img src="../assets/img/math/la/eigen/10.png" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+    
+- 위 과정을 보면 **transformation matrix**를 쓰는 과정과 똑같습니다. 이런 방법을 이용하면 직접적으로 n제곱하는 연산보다 훨씬 효율적으로 계산할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/la/eigen/11.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 예를 들면 위와 같이 단순이 행렬을 제곱하는 것과 **eigenbasis**를 이용하는 것의 결과가 같음을 알 수 있습니다.
  
 
 
