@@ -2,7 +2,7 @@
 layout: post
 title: VBA 관련 글 목차
 date: 9998-01-02 00:00:00
-img: nd/humanity/humanity.jpg
+img: vba/vba.png
 categories: [vba-concept] 
 tags: [vba, excel] # add tag
 ---
