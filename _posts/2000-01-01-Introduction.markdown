@@ -21,20 +21,10 @@ tags: [Introduction] # add tag
     + [Machine Learning (Andrew Ng)](https://www.coursera.org/account/accomplishments/certificate/DT55J2YVFRJL)
     + Mathematics for Machine Learning Specialization (Imperial College London)
     + Machine Learning Specialization (University of Washington)
-    + 
                  
 + ROI :
-    - Machine/Deep Learning      
+    - Machine/Deep Learning (Pytorch, Keras)      
     - Computer Vision
-    
-+ Skills : 
-    + Language
-        + Python, C++
-    + Machine Learning
-        + Scikit-learn
-    + Deep Learning
-        + Pytorch, Keras
-    + Computer Vision
-        + OpenCV
-    + Web Development
-        + Django
+    - Segmentation
+    - Autonomous Driving
+    - Python, C++
