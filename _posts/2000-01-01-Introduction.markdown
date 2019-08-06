@@ -16,11 +16,12 @@ tags: [Introduction] # add tag
     - [Hyundai Motors](https://www.hyundai.com/worldwide/en) Researcher (Feb. 2016 ~ )
     
 + Education :
-    + [Inha University](http://www.inha.ac.kr/mbshome/mbs/eng/index.do). B.S. in Computer Engineer
+    + Inha University. B.S. in Computer Science
     + [Deep Learning Specialization (Andrew Ng)](https://www.coursera.org/account/accomplishments/specialization/certificate/7Y5SFDG3F85E)
     + [Machine Learning (Andrew Ng)](https://www.coursera.org/account/accomplishments/certificate/DT55J2YVFRJL)
-    + Mathematics for Machine Learning Specialization (UCL)
-    + Applied Data Science with Python Specialization (Michigan University)
+    + Mathematics for Machine Learning Specialization (Imperial College London)
+    + Machine Learning Specialization (University of Washington)
+    + 
                  
 + ROI :
     - Machine/Deep Learning      
