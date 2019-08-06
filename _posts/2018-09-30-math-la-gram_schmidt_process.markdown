@@ -50,3 +50,7 @@ tags: [선형대수학, linear algebra, orthogonal matrix, gram schmidt] # add t
 - 여기서 주목할 점은, **직교한 벡터도 아니고 유닛 벡터도 아닌 벡터들을 이용하여 정규 직교 벡터를 구하였다**는 것입니다. 상당히 의미 있는 일입니다.
     - 즉 **N개의 선형 독립인 벡터를 이용하여 N개의 정규직교벡터를 구한 것**입니다.    
 - 이 정규직교벡터는 특히 **transformation**을 할 때 사용되는데요, 그 응용에 대해서는 이후에 살펴보겠습니다. 
+
+<br>
+
+- [Gram Schmidt Process 예제](https://nbviewer.jupyter.org/github/gaussian37/Mathematics-For-Machine-Learning/blob/master/01.%20Linear%20Algebra/02.%20GramSchmidtProcess/GramSchmidtProcess.ipynb)
