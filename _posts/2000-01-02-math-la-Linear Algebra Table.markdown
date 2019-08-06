@@ -32,6 +32,7 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [Orthogonal matrix](https://gaussian37.github.io/math-la-orthogonal_matrix/)
 - [Gram schimidt process](https://gaussian37.github.io/math-la-gram_schmidt_process/)
 - [Reflecting in a plane](https://gaussian37.github.io/math-la-reflecting_in_a_plane/)
+- [Eigen-Things](https://gaussian37.github.io/math-la-eigen/)
 
 
 
