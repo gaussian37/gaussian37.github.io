@@ -61,17 +61,13 @@ tags: [선형대수학, linear algebra, orthogonal matrix, gram schmidt] # add t
 
 <center><img src="../assets/img/math/la/reflecting_in_a_plane/3.png" alt="Drawing" style="width: 600px;"/></center>
 
-<br>
+<br><br>
 
 - 이번 글의 핵심은 그람 슈미트 방법을 이용하여 `정규직교벡터`를 구하여 **transformation**에 어떻게 적용하는 지 였습니다.
 
+<br>
 
-
-
-
-
- 
-
-    
-
-
+- [Relfleting in a plane 예제](https://nbviewer.jupyter.org/github/gaussian37/Mathematics-For-Machine-Learning/blob/master/01.%20Linear%20Algebra/03.%20Reflecting%20Bear/ReflectingBear.ipynb)
+- 위 예제를 보시면 아래 결과에 판다 그림이 평면을 기준으로 reflection되어 있음을 볼 수 있습니다.
+- 연갈색 선이 기존의 basis이고 보라색 선이 그램 슈미트 과정을 통하여 얻은 정규 직교 벡터로 된 basis입니다.
+- 정규 직교 벡터 basis로 **transformation** 한 다음 reflection을 하고 다시 기존의 basis로 **transformation**을 하면 위와 같이 reflection한 형상을 얻을 수 있습니다.
