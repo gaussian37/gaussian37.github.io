@@ -20,7 +20,7 @@ tags: [Linear algebra, 선형 대수학] # add tag
 
 <br><br>
 
-## Mathematics for Machine Learning
+## Mathematics for Machine Learning : Linear Algebra
 
 - [Finding the size of a vector, its angle and projection](https://gaussian37.github.io/ml-la-finding-the-size-of-a-vector/)
 - [Changing the reference frame](https://gaussian37.github.io/ml-la-Changing-the-reference-frame/)
@@ -28,8 +28,11 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [Determinants and inverse](https://gaussian37.github.io/ml-la-Determinants-and-inverse/)
 - [Eienstein summation convention](https://gaussian37.github.io/math-la-einstein_summation_convention/)
 - [Symmetry of dot product](https://gaussian37.github.io/math-la-symmetry_of_dot_product/)
-- [matrices transform into the new basis vector set](https://gaussian37.github.io/math-la-matrices_transform_into_the_new_basis_vector_set/)
-- [orthogonal matrix](https://gaussian37.github.io/math-la-orthogonal_matrix/)
+- [Matrices transform into the new basis vector set](https://gaussian37.github.io/math-la-matrices_transform_into_the_new_basis_vector_set/)
+- [Orthogonal matrix](https://gaussian37.github.io/math-la-orthogonal_matrix/)
+- [Gram schimidt process](https://gaussian37.github.io/math-la-gram_schmidt_process/)
+- [Reflecting in a plane](https://gaussian37.github.io/math-la-reflecting_in_a_plane/)
+
 
 
 <br><br>
