@@ -107,7 +107,7 @@ tags: [선형대수학, eigen, eigenvalue, eigenvector, eigenbasis] # add tag
 - 위 **transform**에서 **transformation matrix**는 $$ A = \begin{pmatrix} a & b \\ c & d \\ \end{pmatrix} $$ 형태가 됩니다.
 
 <br>
-<center><img src="../assets/img/math/la/eigen/8.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/la/eigen/8.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 식을 보면 먼저 방정식을 통하여 $$ \lambda $$ 값 2개를 구하였습니다. 
