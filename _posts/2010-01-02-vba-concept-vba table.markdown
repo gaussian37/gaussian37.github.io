@@ -12,6 +12,7 @@ VBA 관련 글 목차 입니다.
 ## VBA에 필요한 개념
 
 - [개체와 컬렉션](https://gaussian37.github.io/vba-concept-object_and_collection/)
+- [개체 참조하기](https://gaussian37.github.io/vba-concept-refer_object/)
 
 <br>
 
