@@ -121,7 +121,7 @@
             </li>
 
             <li class="nav-item dropdown
-            {% if page.url == '/cpp/concept' %} active {% endif %}">
+            {% if page.url == '/cpp/concept' or page.url == '/cpp/etc/' %} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('cpp-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -129,6 +129,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="cpp-dropdown">
                     <a class="dropdown-item" href="{{ "/cpp/concept" | prepend: site.baseurl }}">Concept</a>
+                    <a class="dropdown-item" href="{{ "/cpp/etc" | prepend: site.baseurl }}">Etc</a>
                 </div>
             </li>
 
