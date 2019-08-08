@@ -84,7 +84,68 @@ for (auto &ele : friends) {
 - 즉, **public**의 경우 클래스 외부에서 자유롭게 접근 및 수정이 가능하지만 **private**의 경우 클래스 외부에서 접근이 불가능합니다.
     - 따라서 **private**으로 멤버 변수를 선언한 경우 멤버 변수를 접근 및 수정할 수 있는 **public**영역의 함수를 만들어 주어야 합니다.
     - 이렇게 하는 이유는 의도치 않은 멤버 변수의 변경을 막기 위함입니다.
-- **private** 멤버 변수를 접근 하기 위한 **public** 함수 중에 `get` 또는 `set`으로 시작하는 함수들이 있습니다. 이 함수들이 멤버 변수를 변경하기 위한 함수 입니다.   
+    - 또한 멤버 변수명 변경 시에도 사용한 변수를 전부 찾아서 변경해 줄 필요는 없고 접근 함수 내의 멤버 변수 값만 바꾸어 주면되어서 편리합니다. 
+- 위와 같이 실제 구현한 함수 등은 외부에서 접근 가능하도록 하고 멤버 변수는 감추는 것을 `캡슐화`라고 합니다. 
+- 객체 지향의 3가지 원리 `캡슐화`, `상속`, `다형성` 중의 한가지 속성으로 객체 지향의 중요 속성 중 하나이니 꼭 기업합시다.  
+- **private** 멤버 변수를 접근 하기 위한 **public** 함수 중에 `get` 또는 `set`으로 시작하는 함수들이 있습니다. 이 함수들이 멤버 변수를 변경하기 위한 함수 입니다.
+
+<br>
+
+```cpp
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class Date {
+
+	int year_;
+	int month_;
+	int day_;
+	
+public:
+
+	void setDate(const int& year, const int& month, const int& day) {
+		
+		year_ = year;
+		month_ = month;
+		day_ = day;
+		
+	}
+
+	const int& getDay() {
+		return day_;
+	}
+
+	void copyFrom(const Date& original) {
+		year_ = original.year_;
+		month_ = original.month_;
+		day_ = original.day_;
+	}
+
+	void print() {
+		cout << year_ << " " << month_ << " " << day_ << endl;
+	}
+};
+
+int main() {
+
+	Date today;
+	today.setDate(2019, 8, 8);
+
+	Date copy;
+	copy.copyFrom(today);
+
+	copy.print();
+
+ } 
+```   
+
+<br>
+
+- 위 코드를 보면 앞서 언급한 **get, set** 함수를 선언한 것을 볼 수 있습니다. **set**함수는 멤버 변수를 변경하기 위한 함수이고 **get**함수는 멤버 변수를 읽기 위한 용도 입니다.
+- **copyFrom** 함수를 보면 original 매개변수의 멤버변수는 그냥 접근을 할 수 있는데 그 이유는 클래스 내에서는 같은 클래스의 객체는 접근할 수 있기 때문입니다.  
 
 <br>
 
