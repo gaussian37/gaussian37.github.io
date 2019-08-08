@@ -151,4 +151,13 @@ int main() {
 
 <br>
 
+## 생성자 Constructors
+
+<br>
+
+ 
+
+
+<br>
+
 ※ 참조 자료 : 홍정모의 따라하며 배우는 C++
