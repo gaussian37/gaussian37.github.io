@@ -33,7 +33,16 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 + 동전 던지기나 천체 관측에서 관찰되는 정규분포
 + 확률분포도를 사용한 고도의 추정(2)
 
-<br>
+<br><br>
+
+## [Bayesian statistics: a comprehensive course](https://www.youtube.com/playlist?list=PLFDbGp5YzjqXQ4oE4w9GVWdiokWB9gEpm)
+
+- Bayesian vs frequentist statistics
+- What is a probability distribution?
+- What is a marginal probability?
+- What is a conditional probability?
+
+<br><br>
 
 ## 수리통계학
 
@@ -144,9 +153,3 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 
 <br><br>
 
-## [Bayesian statistics: a comprehensive course](https://www.youtube.com/playlist?list=PLFDbGp5YzjqXQ4oE4w9GVWdiokWB9gEpm)
-
-- Bayesian vs frequentist statistics
-- What is a probability distribution?
-- What is a marginal probability?
-- What is a conditional probability?
