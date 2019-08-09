@@ -141,3 +141,12 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 + 비모수적 통계학 (3)	
 + 켄달의 타우. 콜모고로프 적합도 검정	
 + 스미르노프 검정
+
+<br><br>
+
+## [Bayesian statistics: a comprehensive course](https://www.youtube.com/playlist?list=PLFDbGp5YzjqXQ4oE4w9GVWdiokWB9gEpm)
+
+- Bayesian vs frequentist statistics
+- What is a probability distribution?
+- What is a marginal probability?
+- What is a conditional probability?
