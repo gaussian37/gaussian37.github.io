@@ -34,8 +34,6 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [Reflecting in a plane](https://gaussian37.github.io/math-la-reflecting_in_a_plane/)
 - [Eigen-Things](https://gaussian37.github.io/math-la-eigen/)
 
-
-
 <br><br>
 
 ## 칸 아카데미 선형 대수학
@@ -91,9 +89,8 @@ tags: [Linear algebra, 선형 대수학] # add tag
     
 <br><br>
 
-## Linear Algebra and Its Applications
+## [Linear Algebra and Its Applications](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=58647912)
 
-- [Linear Algebra and Its Applications](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=58647912)
 - Systems of Linear Equations
 - Row Reduction and Echelon Forms
 - Vector Equations
