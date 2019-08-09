@@ -23,7 +23,7 @@ tags: [Introduction] # add tag
     + Machine Learning Specialization (University of Washington)
                  
 + ROI :
-    - Machine/Deep Learning (Pytorch, Keras)      
+    - Machine/Deep Learning (Python, Pytorch)      
     - Computer Vision
     - Segmentation
     - Autonomous Driving
