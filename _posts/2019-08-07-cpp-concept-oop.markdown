@@ -155,7 +155,50 @@ int main() {
 
 <br>
 
- 
+- 생성자는 클래스를 생성할 때, 멤버 변수의 값을 초기화 해주는 역할을 합니다.
+- 물론 클래스 내에서 멤버 변수에 접근하기 때문에 **private**이라도 생성자에서 접근 가능합니다.
+- 아래 코드의 `Fraction` 함수가 생성자 입니다. 생성자는 클래스 명과 동일하게 지정해 주어야 하고 return 타입은 적어주지 않습니다.
+
+<br>
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Fraction {
+
+	int numerator_;
+	int denominator_;
+
+public:
+
+	Fraction(const int& numerator, const int& denominator = 1) {
+		numerator_ = numerator;
+		denominator_ = denominator;
+	}
+
+	void print() {
+		cout << numerator_ << " / " << denominator_ << endl;
+	}
+};
+
+int main() {
+
+	Fraction f(1, 2);
+	f.print();
+
+}
+```
+
+<br>
+
+- 위 코드의 `Fraction`이 생성자에 해당합니다. 
+- 만약 위의 코드와 같이 생성자를 지정해 주지 않으면 어떻게 될까요? 그러면 클래스 내부적으로 기본 생성자를 사용하게 됩니다.
+    - 기본 생성자는 `클래스이름(){}` 형태로 위 예제에서는 `Fraction(){}`가 됩니다.
+    - 즉 멤버 변수에 어떤 초기화도 하지 않으므로 쓰레기 값이 들어가게 됩니다.
+- 인자를 보면 `const int& denominator = 1`라고 세팅되어 있습니다. 이것은 기본값을 지정하는 것이고 매개변수를 지정하지 않으면 기본값 1을 자동으로 받게 됩니다.
+- 여기서 중요한 것은 생성자 또한 함수의 일종입니다. 즉, 생성자 자체가 어떤 동작을 한다기 보다는 **객체를 생성할 때 생성자라는 함수가 자동으로 실행된다고 생각**해야 합니다.
 
 
 <br>
