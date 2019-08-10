@@ -174,6 +174,7 @@ class Fraction {
 public:
 
 	Fraction(const int& numerator, const int& denominator = 1) {
+		cout << "Run constructor" << endl;
 		numerator_ = numerator;
 		denominator_ = denominator;
 	}
@@ -199,6 +200,10 @@ int main() {
     - 즉 멤버 변수에 어떤 초기화도 하지 않으므로 쓰레기 값이 들어가게 됩니다.
 - 인자를 보면 `const int& denominator = 1`라고 세팅되어 있습니다. 이것은 기본값을 지정하는 것이고 매개변수를 지정하지 않으면 기본값 1을 자동으로 받게 됩니다.
 - 여기서 중요한 것은 생성자 또한 함수의 일종입니다. 즉, 생성자 자체가 어떤 동작을 한다기 보다는 **객체를 생성할 때 생성자라는 함수가 자동으로 실행된다고 생각**해야 합니다.
+
+<br>
+
+
 
 
 <br>
