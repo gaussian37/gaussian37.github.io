@@ -21,6 +21,10 @@ VBA 관련 글 목차 입니다.
 
 <br>
 
+## 통계.수학 관련 VBA 레퍼런스 코드
+
+<br>
+
 ## VBA 사용 시 도움이 되는 팁
 
 - [Screen updating 기능](https://gaussian37.github.io/vba-etc-screenupdating/)
