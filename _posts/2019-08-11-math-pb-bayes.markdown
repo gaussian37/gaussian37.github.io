@@ -10,7 +10,7 @@ tags: [수리통계학, 베이즈 방법, 베이지안] # add tag
 - 이번 글에서는 베이즈 방법(베이지안 방법 : Bayesian Methods Of Estimation)에 대하여 알아보도록 하겠습니다.
 
 - 전통적인 방법 : 확률표본의 정보만 이용
-- 예를 들어 정규 분포의 경우, 표본 평균 $$ \bar{X} $$에 대해, 구간 $$ (\bar{X} - 1.96\frac{\sigma}{\sqrt{n}}, \bar{X} + 1.96\frac{\sigma}{\sqrt{n}} $$에 실제 평균값 $$ \mu $$가 들어있다고 95% 확신
+- 예를 들어 정규 분포의 경우, 표본 평균 $$ \bar{X} $$에 대해, 구간 $$ \Bigl( \bar{X} - 1.96\frac{\sigma}{\sqrt{n}}, \bar{X} + 1.96\frac{\sigma}{\sqrt{n}} \Bigr) $$에 실제 평균값 $$ \mu $$가 들어있다고 95% 확신
 
 <br>
 
