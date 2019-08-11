@@ -2,7 +2,7 @@
 layout: post
 title: 베이즈 방법
 date: 2019-08-11 00:00:00
-img: vba/vba.png
+img: math/pb/probability.jpg
 categories: [math-pb] 
 tags: [수리통계학, 베이즈 방법, 베이지안] # add tag
 ---
@@ -33,7 +33,7 @@ tags: [수리통계학, 베이즈 방법, 베이지안] # add tag
     - 여기서 $$ g(x) $$는 $$ x $$의 주변분포 입니다.
 - 주변분포 $$ g(x) $$ 는
     - 이산형 : $$ \sum_{\theta} f(x \vert \theta)\pi(\theta) $$
-    - 연속형 : $$ \int_{-\infty}^{\infty} f(x \vert \theta) \pi(\theta) d \theta
+    - 연속형 : $$ \int_{-\infty}^{\infty} f(x \vert \theta) \pi(\theta) d \theta $$
 
 <br>
 
@@ -41,8 +41,8 @@ tags: [수리통계학, 베이즈 방법, 베이지안] # add tag
 - 어느 생산 기계의 불량률의 사전 분포가 다음과 같습니다.
 
 | P 	| 0.1 	| 0.2 	|
-|:---------:	|:---:	|:---:	|
-| $$ \pi(p) 	| 0.6 	| 0.4 	|
+|:------------:	|:---:	|:---:	|
+| $$ \pi(p) $$ 	| 0.6 	| 0.4 	|
 
 <br>
 
