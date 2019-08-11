@@ -9,7 +9,7 @@ tags: [cpp, c++] # add tag
 
 ### C++ 개념 관련 글
 
-- C++ 객체 지향 기초
+- [C++ 객체 지향 기초](https://gaussian37.github.io/cpp-concept-oop/)
 
 <br>
 
