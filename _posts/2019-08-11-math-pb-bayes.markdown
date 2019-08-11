@@ -25,11 +25,11 @@ tags: [수리통계학, 베이즈 방법, 베이지안] # add tag
 
 <br>
 
-- 베이즈 정리 : $$ P(A \vert B) = \frac{ P(B \vert A)P(A)) }{P(B)}
+- 베이즈 정리 : $$ P(A \vert B) = \frac{ P(B \vert A)P(A)) }{P(B)} ｩｩ
 
 <br>
 
-- `정의` : 자료 $$ x $$가 주어질 경우의 $$ \theta $$의 분포(사후 분포 : **posterior distribution**)은 $$ \pi(\theta \vert \x) = \frac{f(x \vert \theta)\pi(\theta)}{g(x)} $$로 주어집니다.
+- `정의` : 자료 $$ x $$가 주어질 경우의 $$ \theta $$의 분포(사후 분포 : **posterior distribution**)은 $$ \pi(\theta \vert x) = \frac{f(x \vert \theta)\pi(\theta)}{g(x)} $$로 주어집니다.
     - 여기서 $$ g(x) $$는 $$ x $$의 주변분포 입니다.
 - 주변분포 $$ g(x) $$ 는
     - 이산형 : $$ \sum_{\theta} f(x \vert \theta)\pi(\theta) $$
