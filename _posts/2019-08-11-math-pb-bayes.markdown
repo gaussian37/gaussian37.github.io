@@ -25,7 +25,7 @@ tags: [수리통계학, 베이즈 방법, 베이지안] # add tag
 
 <br>
 
-- 베이즈 정리 : $$ P(A \vert B) = \frac{ P(B \vert A)P(A)) }{P(B)} ｩｩ
+- 베이즈 정리 : $$ P(A \vert B) = \frac{ P(B \vert A)P(A)) }{P(B)} $$
 
 <br>
 
