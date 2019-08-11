@@ -25,7 +25,7 @@ tags: [vba, 함수, function, 워크시트 함수, VBA 내장 함수, 프로시�
     - [전체 리스트](https://docs.microsoft.com/en-us/office/vba/excel/concepts/events-worksheetfunctions-shapes/list-of-worksheet-functions-available-to-visual-basic)
     - [카테고리 별 리스트](https://support.office.com/en-us/article/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb?ui=en-US&rs=en-US&ad=US)
 - 사람들이 가장 많이 참조했다는 TOP10 워크시트 함수는 다음과 같습니다.
-    - [SUM 함수]()https://support.office.com/en-us/article/sum-function-043e1c7d-7726-4e80-8f32-07b23e057f89)
+    - [SUM 함수](https://support.office.com/en-us/article/sum-function-043e1c7d-7726-4e80-8f32-07b23e057f89)
     - [IF 함수](https://support.office.com/en-us/article/if-function-69aed7c9-4e8a-4755-a9bc-aa8bbff73be2) 
     - [LOOKUP 함수](https://support.office.com/en-us/article/lookup-function-446d94af-663b-451d-8251-369d5e3864cb)
     - [VLOOKUP 함수](https://support.office.com/en-us/article/vlookup-function-0bbc8083-26fe-4963-8ab8-93a18ad188a1)
