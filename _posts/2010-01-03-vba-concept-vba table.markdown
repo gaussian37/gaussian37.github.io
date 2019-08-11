@@ -17,6 +17,10 @@ VBA 관련 글 목차 입니다.
 
 <br>
 
+- [VBA에서 사용하는 함수](https://gaussian37.github.io/vba-concept-vba_functions/)
+
+<br>
+
 ## VBA 사용 시 도움이 되는 팁
 
 - [Screen updating 기능](https://gaussian37.github.io/vba-etc-screenupdating/)
