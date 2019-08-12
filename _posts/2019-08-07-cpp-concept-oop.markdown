@@ -329,4 +329,67 @@ num2 : 3
 
 <br>
 
+### 위임 생성자 (delegating constructor)
+
+- 위임 생성자란 무엇일까요? 위임 생성자는 **생성자가 다른 생성자를 사용하는 것**을 위임 생성자 라고 합니다.
+- 위임 생성자는 왜 사용하는 것일까요? 그 이유를 알기 위해 다음 코드를 한번 살펴보겠습니다.
+
+<br>
+
+```cpp
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Student {
+
+	int id_;
+	string name_;
+
+public:
+
+	Student(const int& id, const string& name)
+		: id_(id), name_(name) {}
+
+	Student(const string& name)
+		: Student(0, name) {}
+
+	void print() {
+		cout << "ID : " << id_ << ", " << "Name : " << name_ << endl;
+	}
+};
+
+int main() {
+
+	Student student("Jinsol");
+	student.print();
+}
+```
+
+<br>
+
+- 위 코드를 보면 `Student` 클래스 안에 2개의 생성자가 있음을 알 수 있습니다.
+- 이 때, 2번째 생성자의 **멤버 초기화 리스트**를 보면 `Student(0, name)`이 있습니다.
+- 즉 생성자의 멤버 초기화 리스트에 생성자를 넣어서 초기화 함으로써 생성자가 실행될 때, 다른 생성자를 실행시키는 것입니다.
+- 이렇게 하는 이유는 무엇일까요?
+
+<br>
+
+```cpp
+Student(const int& id, const string& name)
+    : id_(id), name_(name) {}
+
+Student(const string& name)
+    : id_(0), name_(name) {}
+```
+
+<br>
+
+- 만약 생성자 2개를 위 처럼 구성하였다면 기능상으로는 문제가 없지만 사실상 별로 좋지 못한 코드입니다.
+- 왜냐하면 id랑 name 모두를 초기화 하는 똑같은 기능의 코드가 여러 곳에 있기 때문입니다. 이렇게 코드를 짜면 코드 관리 및 디버깅에 상당히 불리해 집니다.
+- 따라서 코드 관리의 용이성 때문에 같은 역할(멤버 변수 초기화)을 하는 코드는 한 곳(한 생성자)안에 두기 위해서 `위임 생성자`를 이용합니다.
+
+<br>
+
 ※ 참조 자료 : 홍정모의 따라하며 배우는 C++
