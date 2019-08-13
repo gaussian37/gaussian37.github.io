@@ -393,4 +393,134 @@ Student(const string& name)
 
 <br>
 
+### 소멸자 (destructor)
+
+- 클래스에서 소멸자란 생성자와 반대 개념의 역할을 하는 기능이라고 할 수 있습니다.
+- 생성자는 객체가 메모리에 잡힐 때, 수행하는 함수라고 생각한다면 소멸자는 객체가 메모리에서 사라질 때 수행되는 함수라고 생각하면 됩니다.
+- 즉, 생성자에서는 객체가 생성될 때 필요한 `초기화`를 한다고 하면 소멸자에서는 객체가 사라질 때, `깔끔하게 객체 제거`를 끝내기 위해서 존재합니다.
+- 깔끔하게 제거한다는 것은 무슨 의미일까요? 만약 C++에서 `new`를 통하여 메모리 생성을 하였다면 `delete`를 통하여 메모리를 해주어야 메모리 누수가 발생하지 않습니다.
+- 만약 이런 작업을 매번 수작업으로 한다면 귀찮을 뿐더러 놓칠 수도 있어서 사용하지 않는 변수가 계속 메모리에 잡혀져 있는 비효율성을 야기합니다.
+- 이런 문제점들을 개선하기 위하여 소멸자에 `delete` 명령어로 메모리 해제를 해주는 역할이 소멸자에서 사용되는 가장 큰 역할입니다.
+    - 메모리 해제 조건은 객체가 존재하는 영역이 끝났을 때입니다. 예를 들어 중괄호 안에 있는 객체는 중괄호를 벗어나면 객체는 소멸됩니다.
+- 아래 코드를 한번 살펴보도록 하겠습니다.
+
+<br>
+
+```cpp
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Sample {
+
+	int id_;
+
+public:
+
+	Sample(const int& id) :id_(id) {
+		cout << "Constructor : " << id_ << endl;
+	}
+	~Sample() {
+		cout << "Destructor : " << id_ << endl;
+	}
+
+};
+
+int main() {
+	  
+	Sample s1(1);
+	Sample s2(2);
+
+}
+
+``` 
+
+<br>
+
+- 먼저 위와 같은 코드가 있으면 `~Sample(){}`이 바로 소멸자 역할 입니다.
+- 소멸자는 객체가 소멸될 때 소멸이 되는데 어떤 순서로 소멸이 되는지 위의 코드를 실행해 보겠습니다.
+- 일단 객체가 소멸되는 순서대로 소멸자가 실행됩니다.
+
+<br>
+
+```
+Constructor : 1
+Constructor : 2
+Destructor : 2
+Destructor : 1 
+```
+
+<br>
+
+- 위 코드를 실행하면 생성자와 반대 순서로 소멸자가 실행됩니다. 마치 객체를 생성할 때, 스택에 쌓아 놓고 Last In First Out 순서로 객체가 제거되면서 소멸자가 실행됩니다.
+
+<br>
+
+```cpp
+Sample* s1 = new Sample(1);
+Sample s2(2);
+
+delete s1;
+
+Constructor : 1
+Constructor : 2
+Destructor : 1
+Destructor : 2
+```
+
+<br>
+
+- 위 코드의 메인 부분만 실행하게 되면 위와 같은 순서로 소멸자가 실행 됩니다. `delete s1`을 통하여 s1을 먼저 메모리 해제해 주었기 때문에 먼저 소멸자가 실행되었습니다.
+- `new`를 이용하여 동적 할당을 하게 되면 반드시 `delete`를 이용하여 제거를 해주어야 메모리 누수가 없게 되는데 사람이 매번 해주기가 어려우므로 반드시 소멸자에 `delete`를 지정해 놓아야 문제가 생기지 않습니다.
+- 또는 `STL`을 이용하면 `STL`내부적으로 소멸자에 `delete` 역할이 수행되기 때문에 메모리 누수를 걱정할 필요는 없으니 잘 만들어 놓은 `STL`을 쓰길 추천드립니다. 
+
+<br>
+
+```cpp
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Array {
+
+	int* arr_ = nullptr;
+	int length_ = 0;
+
+public:
+
+	Array(const int length) {
+		length_ = length;
+		arr_ = new int[length_];
+
+		cout << "Constructor" << endl;
+	}
+
+	/*~Array() {
+		delete arr_;
+	}*/
+
+
+};
+
+int main() {
+	  
+	while (true) {
+		Array arr(100);
+	}
+
+}
+```
+
+<br>
+
+- 예를 들어 위와 같이 코드를 만든다면 소멸자에서 메모리 해제가 일어나지 않아서 아래와 같이 메모리 누수가 계속 발생하게 됩니다.
+
+<br>
+<center><img src="../assets/img/cpp/concept/oop/1.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+
 ※ 참조 자료 : 홍정모의 따라하며 배우는 C++
