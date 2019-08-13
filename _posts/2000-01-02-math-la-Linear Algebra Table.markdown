@@ -36,6 +36,44 @@ tags: [Linear algebra, 선형 대수학] # add tag
 
 <br><br>
 
+## [Linear Algebra and Its Applications](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=58647912)
+
+- Systems of Linear Equations
+- Row Reduction and Echelon Forms
+- Vector Equations
+- The Matrix Equations Ax=b
+- Solution Sets of Linear Systems
+- Linear Independence
+- Introduction to Linear Transformation
+- The Matrix of a Linear Transformation
+- Matrix Operations
+- The inverse of a Matrix
+- Characterizations of Invertible Matrices
+- Partitioned Matrices
+- Matrix Factorization
+- Subspaces of Rn
+- Dimension and Rank
+- Introduction to Determinants
+- Properties of Determinants
+- Cramer's Rule, Volume, and Linear Transformations
+- Vector spaces
+- Eigenvectors and Eigenvalues
+- The Characteristic Equations
+- Diagonalization
+- Eigenvectors and Linear Transformations
+- Complex Eigenvalues
+- Inner Product, Length, and Orthogonality
+- Orthogonal Sets
+- Orthogonal Projections
+- The Gram-Schmidt Process
+- Least-Square Problems
+- Diagonalization of Symmetric Matrices
+- Quadratic Forms
+- Constrained Optimization
+- The Singular Value Decomposition
+
+<br><br>
+
 ## 칸 아카데미 선형 대수학
 + 벡터와 공간
     + 벡터
@@ -87,40 +125,5 @@ tags: [Linear algebra, 선형 대수학] # add tag
         + 기저 열과 축열 사이의 관계
         + 후보 기저의 A의 열공간 생성
     
-<br><br>
 
-## [Linear Algebra and Its Applications](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=58647912)
 
-- Systems of Linear Equations
-- Row Reduction and Echelon Forms
-- Vector Equations
-- The Matrix Equations Ax=b
-- Solution Sets of Linear Systems
-- Linear Independence
-- Introduction to Linear Transformation
-- The Matrix of a Linear Transformation
-- Matrix Operations
-- The inverse of a Matrix
-- Characterizations of Invertible Matrices
-- Partitioned Matrices
-- Matrix Factorization
-- Subspaces of Rn
-- Dimension and Rank
-- Introduction to Determinants
-- Properties of Determinants
-- Cramer's Rule, Volume, and Linear Transformations
-- Vector spaces
-- Eigenvectors and Eigenvalues
-- The Characteristic Equations
-- Diagonalization
-- Eigenvectors and Linear Transformations
-- Complex Eigenvalues
-- Inner Product, Length, and Orthogonality
-- Orthogonal Sets
-- Orthogonal Projections
-- The Gram-Schmidt Process
-- Least-Square Problems
-- Diagonalization of Symmetric Matrices
-- Quadratic Forms
-- Constrained Optimization
-- The Singular Value Decomposition
