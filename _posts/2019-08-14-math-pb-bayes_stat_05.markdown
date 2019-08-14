@@ -16,7 +16,7 @@ tags: [베이지안, bayes, 확률] # add tag
 - 이번 글에서는 `probability distribution`에 대하여 알아보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/math/pb/bayes_stat_05/1.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/math/pb/bayes_stat_05/1.PNG" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 이번 강의는 간단하게 `확률 분포`가 무엇인지 알아보는 내용이었습니다.
@@ -31,4 +31,4 @@ tags: [베이지안, bayes, 확률] # add tag
 - 이렇게 **continuous**한 변수를 가지는 분포에서는 정확히 어떤 변수에 대하여 확률이 대응되기 보다는 `구간`을 이용하여 확률을 구합니다.
 - 따라서 **PDF**의 **D**가 뜻하는 **Density**처럼 얼마나 빽빽하게 분포되어 있는 지에 해당하는 밀도가 바로 확률에 해당합니다.
 - 물론 **PDF**에서도 전체 **Density**를 합하면 1이 되어야 합니다.
-    - 즉, $$ \int_{-infty}^{infty} PDF(x) dx = 1 $$이 되어야 합니다.
+    - 즉, $$ \int_{-\infty}^{\infty} PDF(x) dx = 1 $$이 되어야 합니다.
