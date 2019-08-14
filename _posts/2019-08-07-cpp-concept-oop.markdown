@@ -521,6 +521,101 @@ int main() {
 <center><img src="../assets/img/cpp/concept/oop/1.PNG" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+### this 포인터와 연쇄 호출(chaining)
+
+<br>
+
+- `this` 포인터는 클래스 내에서 클래스 자체를 가리키는 포인터에 해당합니다. 
+- 만약 파이썬을 써보셨다면 파이썬 클래스에서 `self`와 동일한 역할을 하는 것으로 이해하시면 됩니다.
+- **this**를 사용하면 클래스 내부의 함수 또는 멤버 변수를 명확하게 지칭할 수 있고 또 다른 장점으론 연쇄 호출이 가능해 집니다.
+- 아래 코드를 한번 살펴 보시면 **this** 포인터의 역할을 잘 이해할 수 있습니다.
+
+<br>
+
+```cpp
+class Simple {
+
+	int id_;
+
+public:
+
+	Simple(int id) {
+		this->setID(id); // setID(id)와 동일함
+	}
+
+	void setID(int id) {
+		this->id_ = id; // id_와 동일함
+	}
+
+};
+```
+
+<br>
+
+- 위 클래스의 코드를 보면 **생성자**와 **setID** 함수 내에 `this`라는 키워드를 볼 수 있습니다.
+- 여기서 **this**는 클래스 내부의 함수나 멤버 변수를 접근하기 위해 사용되었습니다.
+- 사실상 위와 같은 상황에서는 this를 사용하지 않아도 똑같은 결과가 나오는데, 그 이유는 **this**는 클래스 자체의 주소를 저장하고 있기 때문에 클래스 자신을 가리키고 있기 때문입니다.
+    - 즉, 자기 자신을 명확히 지칭한 다음에 그 안에 있는 멤버 변수 또는 함수를 접근 하는 것이지요.
+- 이런 **this** 포인터는 명확하게 클래스 내부의 멤버 변수나 함수를 지칭하기 위해서도 사용되지만 사실 더 좋은 용도로는 `연쇄 호출`이 있습니다.
+
+<br>
+
+```cpp
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Calc {
+
+	int value_;
+
+public:
+
+	Calc(int value) :value_(value) {}
+
+	void add1(int value) {
+		value_ += value;
+	}
+	
+	Calc& add2(int value) {
+		value_ += value;
+		return *this;
+	}
+
+};
+
+int main() {
+
+	Calc c1(0);
+	Calc c2(0);
+
+	c1.add1(10);
+	c1.add1(10);
+
+	c2.add2(10).add2(10);	
+
+}
+```
+
+<br>
+
+- 클래스 내부의 **add1**함수를 보면 리턴 타입이 void 이므로 덧셈 연산을 매번 해줄 때 마다 함수를 호출해 주어야 합니다.
+- 반면 **add2**함수를 보면 리턴 타입이 레퍼런스이므로 이 레퍼런스를 받아서 연달아 함수 호출이 가능해져서 편리하게 사용할 수 있습니다.
+- 이 방법을 연쇄 호출 또는 chaining 이라고 합니다. 이 과정을 풀어 쓰면 다음과 같습니다. 이해하기가 편하지요?
+
+<br>
+
+```cpp
+Calc c(0);
+Calc &temp1 = c.add(10);
+Calc &temp2 = temp1.add(10);
+```
+
+<br>
+
+- 레퍼런스 타입으로 받아서 계속 호출하는 것으로 **this**를 이용해서 연쇄 호출 하는 것과 완전히 동일하다고 할 수 있습니다.      
+
 <br>
 
 ※ 참조 자료 : 홍정모의 따라하며 배우는 C++
