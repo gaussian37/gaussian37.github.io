@@ -13,5 +13,6 @@ tags: [베이지안, bayes, 확률, conditional probability, 조건부 확률] #
 </div>
 <br>
 
-
+- 이번 글에서는 `conditional probability` 즉, 조건부 확률에 대하여 다루어 보겠습니다.
+- 
 
