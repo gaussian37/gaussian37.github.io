@@ -130,7 +130,7 @@ tags: [deep learning, autoencoder] # add tag
 <br>
 
 - taylor expasion의 정의는 위와 같습니다.
-- 간단히 말하면 변경 전 정의역의 치역값에 정의역의 변경값과 1차 미분값의 곱, 정의역의 변경갑소가 2차미분값의 곱, ... 을 모두 더하면 변경 후 정의역의 치역값이 된다는 것입니다.
+- 간단히 말하면 변경 전 정의역의 치역값에 정의역의 변경값과 1차 미분값의 곱, 정의역의 변경값과 2차미분값의 곱, ... 을 모두 더하면 변경 후 정의역의 치역값이 된다는 것입니다.
 - 머신러닝에서는 이 taylor expansion의 방법에서 1차 미분값 까지만 사용해서 근사값을 추정하는 방식을 사용합니다.
     - 즉, $$ \theta $$를 바꾸었을 때의 Loss 값은 현재 Loss 값 + 그래디언트 * $$ \theta $$의 변경량이 됩니다.
     - taylor expansion에서는 어떤 값($$ x=a $$)을 기준으로 미분하였으므로 $$ x=a $$에서 다항근사를 하는 것이지만 그 주변까지도 어느 정도는 근사가 됩니다.
@@ -185,6 +185,8 @@ tags: [deep learning, autoencoder] # add tag
 <br>
 <center><img src="../assets/img/gan/concept/autoencoder1/1-14.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
+
+- 
 
 <center><img src="../assets/img/gan/concept/autoencoder1/1-15.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
