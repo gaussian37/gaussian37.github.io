@@ -1,7 +1,7 @@
 ---
 layout: post
 title: What is a conditional probability
-date: 2019-08-015 00:00:00
+date: 2019-08-15 00:00:00
 img: math/pb/probability.jpg
 categories: [math-pb] 
 tags: [베이지안, bayes, 확률, conditional probability, 조건부 확률] # add tag
