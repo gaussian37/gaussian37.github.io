@@ -9,11 +9,17 @@ tags: [베이지안, bayes, 확률, conditional probability, 조건부 확률] #
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/_Y_xMTTmt-Q" frameborder="0" allowfullscreen="true" width="600px" height="800px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/_Y_xMTTmt-Q" frameborder="0" allowfullscreen="true" width="400px" height="800px"> </iframe>
 </div>
 <br>
 
 - 이번 글에서는 `conditional probability` 즉, 조건부 확률에 대하여 다루어 보겠습니다.
+
+<br>
+<center><img src="../assets/img/math/pb/bayes_stat_07/1.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
 - 슬라이드의 왼쪽 상단과 같이 두 개의 확률 변수 $$ X, Y $$ 가 있을 때, 확률이 표와 같이 구성되어 있다고 가정해 보겠습니다. 앞의 글 `marginal probability`에서와 같습니다.
 - 이 때, 모든 확률 변수의 값이 고정이 되었을 때, 격자 한칸에 대한 확률을 정의할 수 있습니다. 이 경우 여러 확률 변수가 `AND` 조건으로 묶이게 되는데 이것을 `Joint probability`라고 하였습니다.
 - 반면 `marginal probability`는 확률 변수의 값 중 고정되지 않은 값이 있어서 영역으로 표시되는 구간을 뜻하였습니다.
