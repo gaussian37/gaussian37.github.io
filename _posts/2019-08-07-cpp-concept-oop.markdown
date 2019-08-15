@@ -7,7 +7,7 @@ categories: [cpp-concept]
 tags: [cpp, c++, 객체 지향, oop, object oriented] # add tag
 ---
 
-## 객체 지향 프로그래밍과 클래스
+## **객체 지향 프로그래밍과 클래스**
 
 <br>
 
@@ -75,7 +75,7 @@ for (auto &ele : friends) {
 
 <br>
 
-## 캡슐화, 접근 지정자, 접근 함수
+## **캡슐화, 접근 지정자, 접근 함수**
 
 <br>
 
@@ -151,7 +151,7 @@ int main() {
 
 <br>
 
-## 생성자 Constructors
+## **생성자 Constructors**
 
 <br>
 
@@ -257,9 +257,9 @@ int main() {
 
 <br>
 
-## 생성자 멤버 초기화 목록
+## **생성자 멤버 초기화 목록**
 
-<br
+<br>
 
 - 멤버 변수를 초기화하는 방법에는 여러가지 방법이 있습니다.
 - 그 중에서 3가지를 다루어 보려고 합니다.
@@ -329,7 +329,7 @@ num2 : 3
 
 <br>
 
-### 위임 생성자 (delegating constructor)
+### **위임 생성자 (delegating constructor)**
 
 - 위임 생성자란 무엇일까요? 위임 생성자는 **생성자가 다른 생성자를 사용하는 것**을 위임 생성자 라고 합니다.
 - 위임 생성자는 왜 사용하는 것일까요? 그 이유를 알기 위해 다음 코드를 한번 살펴보겠습니다.
@@ -393,7 +393,7 @@ Student(const string& name)
 
 <br>
 
-### 소멸자 (destructor)
+### **소멸자 (destructor)**
 
 - 클래스에서 소멸자란 생성자와 반대 개념의 역할을 하는 기능이라고 할 수 있습니다.
 - 생성자는 객체가 메모리에 잡힐 때, 수행하는 함수라고 생각한다면 소멸자는 객체가 메모리에서 사라질 때 수행되는 함수라고 생각하면 됩니다.
@@ -521,7 +521,7 @@ int main() {
 <center><img src="../assets/img/cpp/concept/oop/1.PNG" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-### this 포인터와 연쇄 호출(chaining)
+### **this 포인터와 연쇄 호출(chaining)**
 
 <br>
 
@@ -618,6 +618,112 @@ Calc &temp2 = temp1.add(10);
 
 <br>
 
-- 
+### 클래스 코더와 헤더 파일
+
+- 클래스 내부에 생성자, 소멸자, 함수들 모두를 다 정의해 놓으면 한 코드 파일의 코드가 너무 길어져서 읽기가 어려워 집니다.
+- 일반적으로 한 개의 클래스는 **1개의 헤더 파일, 1개의 CPP 파일**을 이용하여 만듭니다.
+- **헤더 파일**에는 클래스의 선언과 및 함수의 정의 등만 두고 **CPP 파일**에는 함수의 상세 코드를 따로 정의해 놓습니다.
+- 예를 들어 다음과 같이 한 코드에 클래스의 정의와 코드를 모두 둔 코드를 한번 보겠습니다.  
+
+<br>
+
+```cpp
+class Calc {
+
+	int value_;
+
+public:
+
+	Calc(int value) :value_(value) {}
+
+	Calc& add(int value) {
+		value_ += value;
+		return *this;
+	}
+
+	Calc& subtract(int value) {
+		value_ -= value;
+		return *this;
+	}
+
+	Calc& multiply(int value) {
+		value_ *= value;
+		return *this;
+	}
+
+	Calc& divide(int value) {
+		value_ /= value;
+		return *this;
+	}
+};
+```
+
+<br>
+
+- 아주 간단한 역할만 하는데도 코드 량이 상당이 깁니다. 비주얼 스튜디오등과 같이 에디터의 기능을 이용하여 함수 접기 기능이 있으면 보기 편하지만 그렇지 않으면 상당히 보기 번거롭습니다.
+- 따라서 많이 사용하는 방법인 **헤더 파일과 cpp 파일로 분리**하는 방법을 통하여 코드를 보기 좋게 나눠보겠습니다.
+
+<br>
+
+```cpp
+// Calc.hpp
+class Calc {
+
+	int value_;
+
+public:
+
+	Calc(int value) :value_(value) {}
+	Calc& add(int value);
+	Calc& subtract(int value);
+	Calc& multiply(int value);
+	Calc& divide(int value);
+};
+
+
+// Calc.cpp
+Calc& Calc::add(int value) {
+	value_ += value;
+	return *this;
+}
+
+Calc& Calc::subtract(int value) {
+	value_ -= value;
+	return *this;
+}
+
+Calc& Calc::multiply(int value) {
+	value_ *= value;
+	return *this;
+}
+
+Calc& Calc::divide(int value) {
+	value_ /= value;
+	return *this;
+}
+
+``` 
+
+<br>
+
+- 코드를 위와 같이 header와 cpp 파일로 나누어 놓으면 main에서는 header만 읽어 와서 클래스를 사용할 수 있고 header에서는 클래스의 정의된 부분과 주석등을 통해서 클래스 사용방법을 알 수 있습니다.
+- 만약 각 함수의 상세 내용을 알고 싶으면 cpp 파일에서 찾아보면 됩니다. 이렇게 구분해 놓으니 코드가 좀 더 역할 별로 간결해 졌다고 볼 수 있습니다. 
+- 참고로 비주얼 스튜디오에서 위와 같이 쉽게 나누려면 클래스 내부에 선언된 함수 정의와 상세 내용을 모두 블록을 씌운 다음 마우스 오른쪽 키를 누르면 `Quick Action and Refactoring`이라는 메뉴가 가장 상단에 뜹니다.
+- 이것을 클릭한 후 `Move definition location`을 클릭하면 쉽게 함수 정의 부분과 코드 부분이 분리 됩니다. 아래 그림을 참조하세요.
+
+<br>
+
+<br>
+<center><img src="../assets/img/cpp/concept/oop/2.PNG" alt="Drawing" style="width: 400px;"/></center>
+<br>
+<br>
+<center><img src="../assets/img/cpp/concept/oop/3.PNG" alt="Drawing" style="width: 400px;"/></center>
+<br>
+<br>
+<center><img src="../assets/img/cpp/concept/oop/4.PNG" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+
+<br>
 
 ※ 참조 자료 : 홍정모의 따라하며 배우는 C++
