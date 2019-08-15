@@ -713,14 +713,11 @@ Calc& Calc::divide(int value) {
 
 <br>
 
-<center><img src="../assets/img/cpp/concept/oop/2.PNG" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/cpp/concept/oop/2.PNG" alt="Drawing" style="width: 800px;"/></center>
+
 <br>
 
-<center><img src="../assets/img/cpp/concept/oop/3.PNG" alt="Drawing" style="width: 400px;"/></center>
-<br>
 
-<center><img src="../assets/img/cpp/concept/oop/4.PNG" alt="Drawing" style="width: 400px;"/></center>
-<br>
 
 
 <br>
