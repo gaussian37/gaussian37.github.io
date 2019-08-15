@@ -11,7 +11,9 @@ tags: [deep learning, autoencoder] # add tag
 
 + 이 글은 오토인코더의 모든것 강의를 보고 요약한 글입니다.
 
+<br>
 <center><img src="../assets/img/gan/concept/autoencoder1/1-1.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + AutoEncoder와 관련된 키워드는 다음과 같습니다.
     + Unsupervised Learning
@@ -21,21 +23,29 @@ tags: [deep learning, autoencoder] # add tag
 + 여기서 가장 많이 알려진 키워드가 `Dimensionality reduction` 입니다.
     + 많은 사람들이 이 용도로 AutoEncoder를 사용하고 있습니다. 
 
+<br>
 <center><img src="../assets/img/gan/concept/autoencoder1/1-2.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + Nonlinear Dimensionality Reduction과 같은 용도로 사용되는 키워드는 위와 같습니다.
 + 이 때, `Feature Extraction`과 `Manifold learning`은 자주 사용되는 용어입니다.
 
+<br>
 <center><img src="../assets/img/gan/concept/autoencoder1/1-3.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + 벤지오의 기술분류표를 보면 AutoEncoder는 Representation Learning에 해당합니다.
 
+<br>
 <center><img src="../assets/img/gan/concept/autoencoder1/1-4.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + 이안 굿펠로우의 기술분류표를 보면 `Variational Autoencoder`는 `Maximum Likelihood`와 연관이 되어 있습니다.
 + 따라서 Maximum Likelihood에 대해서도 알아보도록 하겠습니다. 
 
+<br>
 <center><img src="../assets/img/gan/concept/autoencoder1/1-5.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + AE(AutoEncoder)는 입력과 출력이 같은 동일한 구조를 가지고 있으면 AE라고 부릅니다.
 + 이 때 관계된 키워드가 앞에서 언급한 바와 같이 크게 4가지가 있습니다.
@@ -46,7 +56,9 @@ tags: [deep learning, autoencoder] # add tag
     + `Manifold learning` : 인코더는 차원 축소 역할을 수행하고 (일반적으로 가운데 차원은 입력 보다 작음) 이것을 Manifold learning 이라고 합니다.
     + `Generative model learning` : manifold learning을 한 결과를 다시 입력 차원과 똑같이 복원을 하는 데 이것을 Generative model 이라고 합니다.   
 
+<br>
 <center><img src="../assets/img/gan/concept/autoencoder1/1-6.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + 앞으로 다룰 내용은 위의 슬라이드에 있는 구성으로 진행할 것입니다.
 + 챕터 1, 2는 Variational AutoEncoder(VAE)를 이해하기 위한 `사전지식`으로 구성되어 있습니다.
@@ -56,11 +68,15 @@ tags: [deep learning, autoencoder] # add tag
 + 챕터 4에서는 `VAE`에 대하여 다루어 보도록 하겠습니다.
 + 챕터 5에서는 `AE를 응용하는 방법`에 대하여 알아보도록 하겠습니다.
 
+<br>
 <center><img src="../assets/img/gan/concept/autoencoder1/1-7.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
-+ 챕터1을 시작해 보겠습니다. 챕터1에서는 AE는 ML하는 작업인 것을 이해하면 되겠습니다. 
++ 챕터1을 시작해 보겠습니다. 챕터1에서는 **AE**는 **Maximum Likelihood**하는 작업인 것을 이해하면 되겠습니다. 
 
+<br>
 <center><img src="../assets/img/gan/concept/autoencoder1/1-8.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + 먼저 전통적인 머신러닝 방법부터 살펴보도록 하겠습니다. 
 + 머신러닝을 할 때에는 주어진 데이터가 있으면 그 데이터에서 필요한 정보를 뽑아내야 합니다. (얼굴이 있으면 이것은 얼굴이다? 또는 누구의 얼굴이다와 같은 추상적인 정보)
@@ -73,7 +89,9 @@ tags: [deep learning, autoencoder] # add tag
 + 정의한 `Loss function`을 이용하여 모든 데이터셋에 걸쳐서 예측값과 정답간의 차이를 가장 좁혀주는 파라미터를 찾습니다.
 + 학습이 완료되면 예측을 하고 성능을 테스트 합니다.  
 
+<br>
 <center><img src="../assets/img/gan/concept/autoencoder1/1-9.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + 딥러닝에서는 위에서 설명한 머신러닝 방법에서 모델 설정 방법이 조금 바뀌게 됩니다.
 + 딥러닝에서는 모델을 `Deep Neural Network`를 사용하는것으로 정의합니다. 
@@ -85,8 +103,8 @@ tags: [deep learning, autoencoder] # add tag
             + 조건1 : 전체 데이터셋에 대한 Loss는 각각의 데이터의 Loss의 `합`과 같다.
             + 조건2 : Loss를 구성할 때, `네트워크의 출력값` 만을 사용한다. 
 
+<br>
 <center><img src="../assets/img/gan/concept/autoencoder1/1-10.jpg" alt="Drawing" style="width: 800px;"/></center>
-
 <br>
 
 + 전체 학습 데이터 셋에 대한 `Loss`를 최소화 하는 파라미터를 찾는데 주로 사용하는 방법은 `Gradient Descent`입니다.
@@ -97,9 +115,9 @@ tags: [deep learning, autoencoder] # add tag
         + `GD`에서는 `Loss`값이 줄어들기만 하면 업데이트를 하는 전략을 취합니다.
     + 언제 업데이트를 멈출 것인가?
         + `GD`에서는 파라미터를 아무리 바꾸더라도 `Loss`가 줄어들지 않으면 업데이트를 멈춘다는 전략을 취합니다.
-        
-<center><img src="../assets/img/gan/concept/autoencoder1/1-11.jpg" alt="Drawing" style="width: 800px;"/></center>
 
+<br>        
+<center><img src="../assets/img/gan/concept/autoencoder1/1-11.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 그런데 한가지 문제점이 있습니다. 업데이트 해야 할 파라미터 $$ \theta $$의 차원이 굉장히 큰 경우에는 어떻게 $$ \theta $$를 변경해야 할까요?
@@ -131,8 +149,8 @@ tags: [deep learning, autoencoder] # add tag
     - 즉, 파라미터 변경량이 크면 근사를 잘못할 수 있기 때문에 learning rate를 이용하여 변경량을 적당히 줄여줍니다.
     - learning rate가 너무 커서 Loss가 발산하는 경우가 바로 approximation을 잘못한 경우입니다.
 
+<br>
 <center><img src="../assets/img/gan/concept/autoencoder1/1-12.jpg" alt="Drawing" style="width: 800px;"/></center>
-
 <br>
 
 - 그러면 전체 과정을 한번 보겠습니다. 먼저 $$ \mathcal D $$라는 Training DB가 있고 $$ \theta_{k} $$ 라는 현재 파라미터가 있다고 가정해 봅시다.
@@ -145,7 +163,9 @@ tags: [deep learning, autoencoder] # add tag
 - 이 때, 각 샘플별 Loss의 평균과 미니 배치 별 Loss 의 평균이 유사할 것이라 생각하고 미니 배치 별 Loss로 파라미터를 업데이트 해줍니다.
 - 1번 업데이트 되는 것을 `step` 이라고 하고 모든 training DB를 한번 다 훑는 것을 `epoch`이라고 하면 1 epoch 당 1 step의 업데이트가 발생하는데 미니 배치를 사용하면 1epoch 당 N/M step의 업데이트가 발생하게 됩니다. 
 
+<br>
 <center><img src="../assets/img/gan/concept/autoencoder1/1-13.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 - 우리가 학습해야 할 네트워크의 구조가 딥 뉴럴 네트워크이기 때문에 학습해야 할 파라미터가 weight와 bias로 구성되어 있습니다.
 - 그리고 이 weight와 bias는 layer 별로 존재하게 됩니다. 현대 딥 뉴럴 네트워크에서 사용하는 layer의 수는 엄청나게 많기 때문에 파라미터의 수 또한 엄청나게 많아집니다.
@@ -162,9 +182,12 @@ tags: [deep learning, autoencoder] # add tag
     - 이 때, bias에 대한 error signal은 각 layer에 대한 error signal과 같고 weight에 대한 error signal은 layer의 입력으로 들어오는 값을 곱해주면 됩니다.
 - 이 구하는 과정이 dynamic programming기법으로 결과 값이 계속 누적되어 효율적으로 계산되므로 빠르게 weight와 bias에 대한 미분값을 구할 수 있습니다.   
 
+<br>
 <center><img src="../assets/img/gan/concept/autoencoder1/1-14.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 <center><img src="../assets/img/gan/concept/autoencoder1/1-15.jpg" alt="Drawing" style="width: 800px;"/></center>
-
-        
+<br>
+    
+-     
     
