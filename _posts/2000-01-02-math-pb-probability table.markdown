@@ -39,8 +39,8 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 
 - Bayesian vs frequentist statistics
 - [What is a probability distribution?](https://gaussian37.github.io/math-pb-bayes_stat_05/)
-- What is a marginal probability?
-- What is a conditional probability?
+- [What is a marginal probability?](https://gaussian37.github.io/math-pb-bayes_stat_06/)
+- [What is a conditional probability?](https://gaussian37.github.io/math-pb-bayes_stat_07/)
 
 <br><br>
 
