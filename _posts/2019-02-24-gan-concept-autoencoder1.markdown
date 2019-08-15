@@ -186,7 +186,18 @@ tags: [deep learning, autoencoder] # add tag
 <center><img src="../assets/img/gan/concept/autoencoder1/1-14.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 
+- 그러면 **backpropagation**에서 **loss function**으로 주로 사용하는 **Mean Square Error**와 **Cross Entropy**에 대하여 알아보려고 합니다.
+- 앞에서 설명하였듯이 **loss function**으로 두 가지를 사용하는 이유는 **backpropagation**알고리즘에 대한 다음 두 가지 가정을 만족하는 함수 이기 때문이었습니다.
+    - 조건1 : 전체 데이터셋에 대한 **Loss**는 각각의 데이터의 **Loss**의 합과 같다.
+    - 조건2 : **Loss**를 구성할 때, 네트워크의 출력값 만을 사용한다.
+- 그러면 어떨 때, **Mean Square Error**를 쓰고 어떨 때에는 **Cross Entropy**를 쓰는 것이 좋은지 한번 살펴보도록 하겠습니다.
+- 이 비교를 하기 위해서는 **2가지 관점**에서 비교를 할 수 있습니다.
+    - 1번째 관점 : `Backpropagation`
+    - 2번째 관점 : `Maximum Likelihood`
+- 결과적으로는 **Backpropagation** 관점에서는 `Cross Entropy`가 좋습니다.
+- 두번쨰로 **Maximum Likelihood** 관점에서 만약 출력 값이 `Continuous`한 값이라면 `Mean Square Error`를 쓰는 것이 좋고 `Discrrete`한 값이면 `Cross Entropy`를 쓰는 것이 낫다고 할 수 있습니다. 
+- 그러면 첫번째로 **Backpropagation**이 잘 동작하는 관점에서 살펴보도록 하겠습니다.
+     
 
 <center><img src="../assets/img/gan/concept/autoencoder1/1-15.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
