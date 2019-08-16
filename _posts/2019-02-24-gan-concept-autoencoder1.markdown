@@ -248,7 +248,7 @@ tags: [deep learning, autoencoder] # add tag
 - 정리하면, **backpropagation** 관점에서는 **Cross Entorpy**를 (MSE 대신)Loss function으로 사용하는 것이 더 유리하고 그 이유는 학습할 때, $$ \simga'(z) $$ 항이 없기 때문에 더 깊은 레이어 까지 학습이 가능하기 때문입니다. 
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-17.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/gan/concept/autoencoder1/1-18.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 이번에는 `Maximum Likelihood` 관점에서 Loss function을 살펴보도록 하겠습니다.
@@ -262,5 +262,51 @@ tags: [deep learning, autoencoder] # add tag
     - 먼저, 딥 뉴럴 네트워크 모델이 어떤 모델을 가지느냐 입니다. (사실 이것은 **Backpropagation**에서도 쉬운 구조를 가정했었습니다.)
     - 또 한가지 추가되는 것은 **확률 분포에 대한 likelihood가 최대화가 되도록 하고 싶으므로** 이 `확률 분포 모델`을 미리 정해주어야 합니다. 
         - 예를 들면, 가우시안 분포인지, 베르누이 분포인지 등등...   
-- 그러면 확률 분포는 **가우시안 분포**임을 가정하고 진행해 보겠습니다.
-- 
+- 확률 분포는 **가우시안 분포**임을 가정하고 진행해 보겠습니다.
+- 이 가정 속에서 보면 네트워크의 출력은 확률 분포를 정의하기 위한 `파라미터 추정`이라고 할 수 있습니다.
+    - 가우시안 분포라고 가정하였기 때문에, 여기서 추정하는 파라미터는 예를 들어 평균값이라고 할 수 있습니다. (편의를 위하 표준 편차는 무시하겠습니다.)
+- 그러면 위 슬라이드의 그래프처럼 출력값이 $$ f_{\theta_{1}}(x), f_{\theta_{2}}(x) $$일 때에 따라서, 다른 분포를 그릴 수 있습니다.
+- 위 그래프에서 정답인 $$ y $$ 값은 고정된 값입니다.
+- 이 때 우리가 살펴볼 관점이 **Maximum Likelihood**이고 추정하는 파라미터는 **평균**이기 때문에, 평균에 해당하는 값(확률 최댓값)이 $$ y $$와 최대한 가까워 지길 원합니다.
+    - 관점만 다를 뿐 **backpropagation**일 때와 같은 내용을 다루는 것이 **backpropagation**에서는 **네트워크 출력값과 정답값이 같기를 바라는것**이고
+    - **maximum likelihood** 관점에서는 **추정하는 파라미터 값의 확률 분포에서 확률이 최대가 되는점(최대 가능도)과 정답값이 같기를 바라는 것**입니다.
+- 이 문제를 풀기 위해서 `Negative log likelihood`를 **최소화 하는 파라미터**를 찾는 문제로 형태를 바꾸겠습니다.
+    - 그러면 솔루션인 $$ \theta^{*} \ = \ argmin_{\theta}[-log(p( \vert  f_{\theta}(x)))] $$가 됩니다.
+    - 즉, 이 문제의 솔루션인 $$ \theta^{*} $$는 뜻이 $$ \theta^{*} $$로 확률 분포를 그렸을 때, 가장 확률이 높은 평균점이 정답값 $$ y $$와 가장 가깝다는 의미입니다.
+- 이렇게 해석하였을 때의 장점은 **확률 분포 모델**을 찾았기 때문에 고정 입력 값에 고정 출력이 아닌 `샘플링`을 통한 다른 출력을 낼 수 있습니다. (이 내용은 이후에 오토인코더와도 연관되어 있습니다.)
+     
+<br>
+<center><img src="../assets/img/gan/concept/autoencoder1/1-19.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 사용한 `Negative log likelihood`가 `i.i.d` 조건을 만족시키는 지 한번 살펴보겠습니다.
+- 먼저 `Independence` 조건은 다음 식을 통해 만족함을 보입니다.
+    - 　$$ p(y \vert f_{\theta}(x)) = \Pi_{i} \ p_{D_{i}} (y \vert f_{\theta}(x_{i})) $$
+    - 즉, 각각의 샘플에 대한 확률이 독립적이므로 그 값들을 모두 곱한것에 대한 확률은 데이터 전체에 대한 확률과 동일합니다. 
+- 두번째 조건인 `Identical distributio`은 각 샘플에 대한 확률 분포가 모두 동일한 확률 분포를 이용한다는 전제입니다. (즉, 샘플별로 확률 분포가 다르지 않다는 것입니다.)
+- 이 두조건을 모두 만족하기 때문에 $$ -log(p(y \vert f_{\theta}(x))) = -\sum_{i} log(p(y_{i} \vert  f_{\theta}(x_{i}))) $$식을 만족하게 됩니다.
+
+<br>
+<center><img src="../assets/img/gan/concept/autoencoder1/1-20.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+(위 슬라이드는 일변수 함수에 대한 식을 푼 것입니다.)
+- 따라서 이전 슬라이드의 `Negative log likelihood`를 가우시안 분포와 베르누이 분포 각각에 대하여 최소화 되도록 풀면
+    - 가우시안 분포 : `Mean Square Error`로 정리가 되고
+    - 베르누이 분포 : `Cross Entropy`로 정리가 됩니다.
+    - 물론 $$ -log(p(y_{i} \vert f_{\theta}(x_{i}))) $$에서 $$ f_{\theta}(x_{i}) $$에 대한 확률 분포가 가우시안 또는 베르누이 라고 가정한 것입니다.
+- 해석하면 우리가 생각하는 네트워크 출력값에 대한 확률 분포가 가우시안 분포에 가깝다고 생각이 들면 `Mean Square Error`를 사용하는 것이 낫다고 해석할 수 있고 
+- 반대로 네트워크 출력값이 베르누이 분포를 따른다고 생각이 들면 `Cross Entropy`를 쓰는 것이 낫다고 해석할 수 있습니다. 
+- 이 때, **continuous**한 값은 주로 가우시안 분포를 따른 다고 가정해서 **Mean Square Error**가 좋다고 해석한 것이고
+- 반대고 **discrete**한 값은 베르누이 분포를 따르 다고 가정해서 **Cross Entropy**가 좋다고 해석한 것입니다.
+
+<br>
+<center><img src="../assets/img/gan/concept/autoencoder1/1-21.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+(위 슬라이드는 다변수 함수에 대한 식을 푼 것입니다.)
+
+<br>
+<center><img src="../assets/img/gan/concept/autoencoder1/1-22.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
