@@ -310,3 +310,14 @@ tags: [deep learning, autoencoder] # add tag
 <center><img src="../assets/img/gan/concept/autoencoder1/1-22.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 마지막으로 **Maximum Likelihood** 관점에서 해석을 할 때, 네트워크의 출력값이 **likelihood**값이 아니라는 것을 다시 상기시키고 가겠습니다.
+- 사전에 확률 분포를 가정하였었고 그 확률 분포를 규정짓는 `파라미터`를 추정하는 것입니다.
+
+<br>
+<center><img src="../assets/img/gan/concept/autoencoder1/1-23.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 벤지오 교수의 `Log likelihood for Neural Net` 해석을 한번 보겠습니다.
+- Estimating a conditional probability $$ P(Y \vert X) $$
+- 조건부 확률 $$ P(Y \vert X) $$를 추정해 보려고 합니다.
+- 이 때, 

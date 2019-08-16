@@ -11,7 +11,25 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 
 <br>
 
-### 윈도우에서 PyTorch 설치하는 방법
+### GPU 세팅하는 방법
+
+<br>
+
+- 아래 방법은 '17.11.18 시점 기준 GPU 세팅 방법입니다.
+- CUDA를 설치해야 합니다. [CUDA](https://developer.nvidia.com/cuda-downloads)에서 본인 컴퓨터에 맞는 사양으로 설치하시면 됩니다.
+- cuDNN 파일을 컴퓨터에 붙어넣어야 합니다.
+    - [cuDNN](https://developer.nvidia.com/cudnn) 에서 컴퓨터 사양에 맞는 버전을 다운 받습니다.
+    - 다운 받은 파일의 압축을 풀어 cuda/bin, cuda/incldue, cuda/lib의 폴더와 파일을 다음 경로에 붙여 넣습니다. (아래 경로 참조 하시어 컴퓨터 실제 경로에 맞도록 붙여넣습니다.)
+        - C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\8.0 (또는 9.0)
+- 제어판 내 시스템 => 고급 시스템 설정 => 시스템 속성 의 고급 탭 => 환경 변수 에서 아래 경로를 추가합니다. 경로 추가 시 어떤 path에서도 추가된 경로는 접근 가능해 집니다.
+    - C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\8.0\bin
+    - C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\8.0\libnvvp
+
+<br>
+
+### **윈도우에서 PyTorch 설치하는 방법**
+
+<br>
 
 + GPU를 범용적으로 사용하기 위해 `CUDA`를 설치해줍니다.
 + 딥러닝을 사용하기 위해 `cuDNN`을 설치해줍니다.
@@ -39,7 +57,9 @@ tensor([[-5.5635e-24,  0.0000e+00,  4.4842e-44,  0.0000e+00],
 
 <br>
 
-### colab에서 PyTorch 사용하는 방법
+### **colab에서 PyTorch 사용하는 방법**
+
+<br>
 
 + colab에서는 기본적으로 PyTorch가 설치되어 있지 않습니다.
 + 따라서 매 세션마다 PyTorch를 설치를 해주어야 합니다. 금방 설치되니 설치하고 사용하면 문제가 없습니다.
@@ -54,7 +74,9 @@ tensor([[-5.5635e-24,  0.0000e+00,  4.4842e-44,  0.0000e+00],
 
 <br>
 
-### PyTorch에서 model summary 보는 방법
+### **PyTorch에서 model summary 보는 방법**
+
+<br>
 
 + 정의한 model을 print 해서 보는 방법
 + Keras 형태의 summary를 보는 방법
