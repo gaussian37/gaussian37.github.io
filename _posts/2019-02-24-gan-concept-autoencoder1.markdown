@@ -319,5 +319,15 @@ tags: [deep learning, autoencoder] # add tag
 
 - 벤지오 교수의 `Log likelihood for Neural Net` 해석을 한번 보겠습니다.
 - Estimating a conditional probability $$ P(Y \vert X) $$
-- 조건부 확률 $$ P(Y \vert X) $$를 추정해 보려고 합니다.
-- 이 때, 
+    - 조건부 확률 $$ P(Y \vert X) $$를 추정해 보려고 합니다. 이 때, $$ Y $$는 정답값이고 $$ X $$는 네트워크의 출력값 입니다.
+- Parametrize it by $$ P(Y \vert X) = P(Y \vert w = f_{\theta}(X)) $$
+    - 여기서 네트워크의 출력 $$ X $$는 확률 분포인데 그 확률 분포를 결정 짓는 파라미터 $$ w $$에 의해서 최종 조건부 확률이 결정되어 집니다.
+    - 즉, 파라미터가 출력이 됩니다.
+- Loss = $$ -log P(Y \vert X) $$
+    - 여기서 loss는 **backpropagation**을 사용해야 하기 때문에 **-log**를 붙여서 계산합니다.
+- E.g. Gaussian Y, $$ w = (\mu, \sigma) $$, typically only $$ \mu $$ is the network output, depends on $$ X $$
+    - 여기서 확률 분포를 **가우시안**이라고 가정해 보면 평균과 분산 의 파라미터를 가지게 됩니다.
+- Equivalent to MSE criterion : $$ logP(Y \vert X) = log\sigma + \Vert f_{\theta}(X) - Y \Vert^{2} / \sigma^{2}
+    - 가우시안 분포로 가정해서 **negative log likelihood**를 최소화 하면 **MSE**가 됩니다.
+- Multinoulli Y for classification : $$ w_{i} = P(Y = i \vert x ) = f_{\theta, i}(X) =  softmax_{i}(a(X)) $$, Loss = $$ -log(w_{Y}) = -log(f_{\theta, Y}(X) $$
+    - 베르누이 분포(멀티누이 분포)로 가정해서 **negative log likelihood**를 최소화 하면 **Cross Entropy**가 됩니다.
