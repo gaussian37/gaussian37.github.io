@@ -7,6 +7,28 @@ categories: [cpp-concept]
 tags: [cpp, c++, 객체 지향, oop, object oriented] # add tag
 ---
 
+<br>
+
+# ** 객체 지향 글 목차**
+
+<br>
+
+- 1. 객체지향 프로그래밍과 클래스
+- 2. 캡슐화, 접근 지정자, 접근 함수
+- 3. 생성자 Constructors
+- 4. 생성자 멤버 초기화 목록
+- 5. 위임 생성자
+- 6. 소멸자 destructor
+- 7. this 포인터와 연쇄 호출
+- 8. 클래스 코드와 헤더 파일
+- 9. 클래스와 const
+- 10. 정적 멤버 변수
+- 11. 정적 멤버 함수
+- 12. 친구 함수와 클래스 friend
+- 13. 익명 객체
+- 14. 클래스 안에 포함된 자료형 nested types
+- 15. 실행 시간 측정하기
+
 ## **객체 지향 프로그래밍과 클래스**
 
 <br>
@@ -717,8 +739,81 @@ Calc& Calc::divide(int value) {
 
 <br>
 
+### **클래스와 const**
 
+<br>
 
+- 이번 글에서는 클래스를 `const`로 선언하였을 때, 어떻게 사용하는 지 알아보겠습니다.
+- 먼저 다음과 같이 코드를 선언하면 오류가 발생합니다. 
+
+<br>
+
+```cpp
+class Something {
+
+	int value_;
+
+public:
+
+	void setValue(int value) {
+		value_ = value;
+	}
+
+	int getValue() {
+		return value_;
+	}
+};
+
+int main() {
+	const Something some;
+	some.getValue();
+}
+```
+
+<br>
+
+- 오류가 발생하는 이유는 클래스가 **const** 타입으로 선언되었는데 클래스 내의 함수가 **const** 타입이 아니기 때문입니다.
+- **const** 타입의 클래스 함수는 `반환형 함수명() const {}`와 같이 선언하면 **const** 타입이 됩니다. 예를 들어 다음과 같습니다.
+
+<br>
+
+```cpp
+class Something{
+
+    int n;
+    
+public:
+    
+    int func() const{
+        ...
+        return n;
+    }
+}
+```
+    
+<br>
+
+- 클래스 함수에서 사용된 **const**는 어떤 의미를 지닐까요? 일단 **const** 타입의 객체에서 사용될 수 있다는 의미가 있습니다.
+    - 즉, **const** 타입의 객체에서 함수를 호출하려면 반드시 **const** 타입으로 선언되어 있어야 합니다.
+- 그리고 **const** 타입의 함수 안에서는 값을 변경하려는 작업이 금지 됩니다. 예를 들어 다음과 같은 작업은 오류가 발생합니다.
+
+<br>
+
+```cpp
+class Something{
+    
+    int n_;
+    
+public:
+    
+    void setValue(int n) const{
+        n_ = n; // 오류 발생
+    } 
+}
+
+```
+
+<br>
 
 <br>
 
