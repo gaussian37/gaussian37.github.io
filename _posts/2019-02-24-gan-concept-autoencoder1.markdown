@@ -1,17 +1,20 @@
 ---
 layout: post
-title: AutoEncoder의 모든것 (1)
+title: AutoEncoder의 모든것 (1. Revisit Deep Neural Network)
 date: 2019-02-24 00:00:00
 img: gan/concept/autoencoder1/autoencoder.png
 categories: [gan-concept] 
 tags: [deep learning, autoencoder] # add tag
 ---
 
-+ 출처 : https://www.youtube.com/watch?v=o_peo6U7IRM
-
 + 이 글은 오토인코더의 모든것 강의를 보고 요약한 글입니다.
 
 <br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/o_peo6U7IRM" frameborder="0" allowfullscreen="true" width="400px" height="800px"> </iframe>
+</div>
+<br>
+
 <center><img src="../assets/img/gan/concept/autoencoder1/1-1.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
@@ -197,10 +200,55 @@ tags: [deep learning, autoencoder] # add tag
 - 결과적으로는 **Backpropagation** 관점에서는 `Cross Entropy`가 좋습니다.
 - 두번쨰로 **Maximum Likelihood** 관점에서 만약 출력 값이 `Continuous`한 값이라면 `Mean Square Error`를 쓰는 것이 좋고 `Discrrete`한 값이면 `Cross Entropy`를 쓰는 것이 낫다고 할 수 있습니다. 
 - 그러면 첫번째로 **Backpropagation**이 잘 동작하는 관점에서 살펴보도록 하겠습니다.
-     
+- 위 슬라이드와 같이 아주 간단한 뉴럴 네트워크를 한번 살펴보도록 하겠습니다. 입력이 1이면 출력이 0이고 노드는 딱 1개 입니다.
+    - 입력이 들어가면 **w**를 곱하고 **b**를 더하고 **activation**을 거칠 때, 시그모이드를 거칩니다.
+- 위 조건으로 **backpropagation** 알고리즘을 사용해 보겠습니다. 
+- **Loss function**으로 **Mean Square Error**를 사용한다는 것은 입력과 출력의 차이의 제곱으로 하는 것을 뜻합니다.
+    - 즉, $$ C  = (a - y)^{2} / 2 = a^{2} / 2 $$가 됩니다. 여기서 $$ a $$는 네트워크의 출력입니다.
+- **backpropagation**을 하기 위하여 그 다음 과정은 네트워크의 출력값으로 미분을 합니다.
+    - 즉, $$ \nabla_{a} C = (a - y) $$가 됩니다.
+- 그 다음으로 이전 입력값인 **activation**을 미분을 해서 element-wise 곱합니다.
+    - 즉, $$ \delta = \nabla_{a} C ⊙ \sigma'(z) = (a - y)\sigma'(z) $$이 됩니다.
+- 그 다음으로 $$ w $$에 대하여 미분을 해줍니다. 앞의 과정까지 포함해서 식으로 표현하면 다음과 같습니다.
+    - 즉, $$ \frac{\patrial C}{\partial w} = x \delta = \delta $$ 왜냐하면 입력값 $$ x $$가 1이기 때문입니다.
+- 그러면 이 값으로 최종 **weight**를 업데이트 해주면 $$ w = w - \eta \delta $$가 됩니다. 
+- **bias**에 대해서도 위와 같은 과정을 거치면 $$ \frac{\partial C}{\partial b} = \delta $$가 되어 $$ b = b - \eta \delta $$가 됩니다. 
+- 이제 학습에 필요한 수식이 모두 준비가 되었습니다. 그 전에 위 슬라이드의 그래프를 한번 보겠습니다.
+- 위 좌, 우 그래프를 보면 초기값의 차이에 따라서 output의 차이가 있는 것을 볼 수 있습니다. 초기값이 왜 결과에 영향을 미칠까요?
 
+<br>
 <center><img src="../assets/img/gan/concept/autoencoder1/1-15.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
     
--     
-    
+- **backpropagation**을 보면 **activation function**의 미분값이 항상 들어가 있습니다.
+- 학습에 차이가 있다는 것은 $$w, b$$에 대한 변화가 제대로 이루어 지지 않았다는 뜻입니다. $$ \partial C / \partial w, \partial C \ partial v $$에 대하여 살펴보겠습니다.
+- 먼저 $$ \frac{\partial C}{\partial w}, \frac{\partial C}{\partial b} $$ 모두 $$ \sigma'(z) $$가 포함되어 있습니다.
+- 여기서 $$ \sigma(z), \sigma'(z) $$의 값 분포를 보면 오른쪽 그래프와 같은데, 초기값에 따라서 $$ \sigma'(z) $$의 값이 0에 수렴해 버릴 수도 있습니다.
+- 즉, 앞 장에서 보면 $$ w = 2, b = 2 $$ 일 때의 결과가 안좋았었는데, 그 이유는 **gradient**가 0에 가까워서 변화량이 너무 작은 상태에서 시작했기 때문이었습니다.
+    - 앞 장의 슬라이드를 보면 $$ w = 2, b = 2 $$인 상태에서는 변화량이 조금씩 조금씩 있다가 어느 순간 부터 학습 되기 시작하는 그래프를 확인할 수 있습니다.  
+    - 반면 $$ w = 0.6, b = 0.9 $$인 상태에서는 처음부터 **gradient**가 커서 변화가 잘 되었기 때문에 결과가 좋았다고 볼 수 있습니다.
+- 특히, **sigmoid activation** 같은 경우에는 **gradient**의 최댓값이 1/4 이기 때문에 layer가 거듭될수록 최소 1/4 만큼씩 줄어들어서 변화량이 급격하게 줄어들어 입력층에 가까울수록 변화가 없게 됩니다.
+    - 이 문제가 `gradient vanishing` 문제입니다.
+- 따라서 이런 문제를 해결하기 위해 $$ ReLU activation$$을 사용 합니다. $$ Relu \ = \ max(0, x) $$로 음수는 모두 0으로 만드는 반면 양수는 그대로 통과 시킵니다.
+    - 즉, 양수의 경우 **gradient**가 1이므로 입력층과 가까운 레이어에도 **gradient**가 전달될 수 있습니다.   
+
+<br>
+<center><img src="../assets/img/gan/concept/autoencoder1/1-16.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 식은 `Cross Entropy`에 대한 **gradient**값을 계산하는 과정입니다.
+- 결과를 보면 **Mean Square Error** 때와는 다르게 $$ \sigma'(z) $$의 값이 곱해지지 않는 것을 알 수 있습니다.
+- 즉, **backpropagation**할 때, 레이어가 깊어질수록 값이 줄어드는 것을 개선할 수 있고 초기값에 둔감하게 학습할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/gan/concept/autoencoder1/1-17.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br> 
+
+- 따라서 **Cross Entropy**를 사용하는 경우 초기값이 학습에 영향을 끼치는 것을 둔감화 시킬 수 있고 학습이 둘 다 잘되는 것을 알 수 있습니다.
+- 정리하면, **backpropagation** 관점에서는 **Cross Entorpy**를 (MSE 대신)Loss function으로 사용하는 것이 더 유리하고 그 이유는 학습할 때, $$ \simga'(z) $$ 항이 없기 때문에 더 깊은 레이어 까지 학습이 가능하기 때문입니다. 
+
+<br>
+<center><img src="../assets/img/gan/concept/autoencoder1/1-17.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이번에는 `Maximum Likelihood` 관점에서 Loss function을 살펴보도록 하겠습니다.
