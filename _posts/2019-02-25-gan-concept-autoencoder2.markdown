@@ -113,8 +113,14 @@ tags: [deep learning, autoencoder] # add tag
 - 하지만 **매니폴드** 상에서 가운데 이미지를 찾는 다면 기대하는 의미가 있는 이미지가 나올 수도 있습니다. 
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder2/2-12.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/gan/concept/autoencoder2/2-13.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 잘 학습된 **매니폴드** 에서는 오른쪽 이미지와 같이 **Disentangled** 형태를 가지게 됩니다.
 - 위 그래프는 0 ~ 9 까지의 숫자 이미지를 2차원으로 차원 축소한 다음에 그래프상에 표시한 것인데 오른쪽 같이 숫자별로 군집되어 있어야 유의미한 feature로 **매니폴드**가 만들어 졌다고 할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/gan/concept/autoencoder2/2-14.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+-
