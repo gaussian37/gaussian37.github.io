@@ -18,18 +18,19 @@ tags: [cpp, c++, 객체 지향, oop, object oriented] # add tag
 - 3. 생성자 Constructors
 - 4. 생성자 멤버 초기화 목록
 - 5. 위임 생성자
-- 6. 소멸자 destructor
-- 7. this 포인터와 연쇄 호출
-- 8. 클래스 코드와 헤더 파일
-- 9. 클래스와 const
-- 10. 정적 멤버 변수
-- 11. 정적 멤버 함수
-- 12. 친구 함수와 클래스 friend
-- 13. 익명 객체
-- 14. 클래스 안에 포함된 자료형 nested types
-- 15. 실행 시간 측정하기
+- 6. 복사 생성자
+- 7. 소멸자 destructor
+- 8. this 포인터와 연쇄 호출
+- 9. 클래스 코드와 헤더 파일
+- 10. 클래스와 const
+- 11. 정적 멤버 변수
+- 12. 정적 멤버 함수
+- 13. 친구 함수와 클래스 friend
+- 14. 익명 객체
+- 15. 클래스 안에 포함된 자료형 nested types
+- 16. 실행 시간 측정하기
 
-## **객체 지향 프로그래밍과 클래스**
+## **1. 객체 지향 프로그래밍과 클래스**
 
 <br>
 
@@ -97,7 +98,7 @@ for (auto &ele : friends) {
 
 <br>
 
-## **캡슐화, 접근 지정자, 접근 함수**
+## **2. 캡슐화, 접근 지정자, 접근 함수**
 
 <br>
 
@@ -173,7 +174,7 @@ int main() {
 
 <br>
 
-## **생성자 Constructors**
+## **3. 생성자 Constructors**
 
 <br>
 
@@ -279,7 +280,7 @@ int main() {
 
 <br>
 
-## **생성자 멤버 초기화 목록**
+## **4. 생성자 멤버 초기화 목록**
 
 <br>
 
@@ -351,7 +352,7 @@ num2 : 3
 
 <br>
 
-### **위임 생성자 (delegating constructor)**
+### **5. 위임 생성자 (delegating constructor)**
 
 - 위임 생성자란 무엇일까요? 위임 생성자는 **생성자가 다른 생성자를 사용하는 것**을 위임 생성자 라고 합니다.
 - 위임 생성자는 왜 사용하는 것일까요? 그 이유를 알기 위해 다음 코드를 한번 살펴보겠습니다.
@@ -415,7 +416,115 @@ Student(const string& name)
 
 <br>
 
+### 6. 복사 생성자
+
+<br>
+
+- 함수의 매개변수로 어떤 변수나 객체를 전달할 때, 레퍼런스로 전달하는 것이 아니라 값으로 전달하는 경우 함수 호출 시 `복사`가 발생합니다.
+- 예를 들어 함수 호출 시 객체를 값으로 전달하는 경우 복사로 인하여 새로운 메모리 영역에 객체를 할당하게 되므로 원래 객체와 함수에서 사용되는 객체의 주소값이 달라지게 됩니다.  
+
+<br>
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Something {
+
+public:
+
+	Something() {
+		cout << "Constructor" << endl;
+	}
+};
+
+void func(Something s) { 
+
+	cout << &s << endl;
+
+}
+
+int main() {
+
+	Something s;
+	cout << &s << endl;
+
+	func(s);
+
+}
+```
+
+<br>
+
+- 위 코드의 출력은 다음과 같습니다. (주소값은 개인마다 다릅니다.)
+
+<br>
+
+```
+Constructor
+06DFFE43
+06DFFE3C
+```
+
+<br>
+ 
+- 그런데 조금 이상한 점은 값 복사가 일어나서 객체가 새로 생성이 되면 위 코드를 기준으로 "Constructor"가 2번 출력이 되어야 하는데 1번 출력 된것으로 보아서 파라미터로 받은 객체를 복사할 때에는 생성자 호출이 안된다는 것을 유추할 수 있습니다.
+- 이것은 `복사 생성자(Copy Constructor)`를 내부적으로 사용한 것입니다.
+- **복사 생성자**는 생성자와 동일한 형태이지만 파라미터로 **레퍼런스 타입의 객체**를 받습니다. 예를 들어 다음과 같습니다.
+
+<br>
+
+```cpp
+class Something {
+
+	int n;
+
+public:
+
+	// 생성자
+	Something() {
+		cout << "Constructor" << endl;
+		n = 0;
+	}
+
+	// 복사 생성자
+	Something(const Something& something) {
+		cout << "Copy Constructor" << endl;
+		this->n = something.n;
+	}
+	
+	int getValue() {
+		return n;
+	}
+};
+
+int main() {
+
+	Something s1;
+	cout << &s1 << endl;
+	cout << s1.getValue() << endl;
+
+	Something s2 = s1;
+	cout << &s2 << endl;
+	cout << s2.getValue() << endl;
+}
+```
+
+<br> 
+
+- 위 코드의 복사 생성자를 보면 파라미터로 `const Something& something` 즉, 레퍼런스 타입의 객체를 받습니다.
+    - `const`를 사용한 것은 레퍼런스로 불러왔기 때문에 값이 변경되지 않기 위한 안전한 방법이기 때문입니다.
+- 레퍼런스로 참조만 하여 복사하려는 객체의 값을 참조하여 복사할 객체에 값을 복사해 주는 역할을 합니다.
+- 만약 함수 호출 시 값 복사가 일어나거나 또는 간단하게 현재 존재하는 객체를 새로운 객체에 할당(복사)하려고 할때, 생성자가 호출되지 않고 복사 생성자가 호출됩니다.
+- 그러면 위 코드와 같이 복사 생성자 안에서 멤버 변수의 값을 복사해 주면 됩니다.
+- **만약 복사 생성자를 만들지 않았다면** 위와 같은 작업은 자동적으로 처리됩니다. 이것이 복사 생성자 입니다.  
+
+<br>
+
 ### **소멸자 (destructor)**
+
+<br>
 
 - 클래스에서 소멸자란 생성자와 반대 개념의 역할을 하는 기능이라고 할 수 있습니다.
 - 생성자는 객체가 메모리에 잡힐 때, 수행하는 함수라고 생각한다면 소멸자는 객체가 메모리에서 사라질 때 수행되는 함수라고 생각하면 됩니다.
@@ -808,12 +917,54 @@ public:
     
     void setValue(int n) const{
         n_ = n; // 오류 발생
+    }
+    
+    int getValue() const{
+        return n_; // 오류 발생하지 않음
     } 
 }
 
 ```
 
 <br>
+
+- 위와 같이 `const`를 사용하면 실수로 값을 변경하는 코드를 작성하지 않을 수 있습니다. 따라서 최대한 `const`는 사용해주는 것이 좋을 수 있습니다.
+- 그러면 리턴 타입에 `const`를 사용하는 것은 어떤 의미가 있을까요? 다음 코드를 한번 살펴보겠습니다.
+
+<br>
+
+```cpp
+class Something {
+
+	int n_ = 0;
+
+public:
+
+	const int& getVal() const{
+		cout << "const version" << endl;
+		return n_;
+	}
+
+	int& getVal() {
+		cout << "non-const version" << endl;
+		return n_;
+	}
+};
+
+int main() {
+
+	Something s1;
+	const Something s2;
+	cout << (s1.getVal() = 3);
+	//s2.getVal() = 3; : const 리턴 타입 값은 수정 자체가 안됨
+	
+}
+```
+
+<br>
+
+- 위 코드처럼 return 타입에 **const** 설정을 해놓으면 리턴 시 값 수정이 안됩니다.
+- 그리고 위 두개의 함수는 함수명이 같아서 오버로딩이 된 상태입니다. 만약 이 때, `const int& getVal() const{}`에서 마지막 **const**를 빼서 `const int& getVal() {}`으로 두면 오버로딩이 안되니 참조하시기 바랍니다.
 
 <br>
 
