@@ -11,7 +11,7 @@ tags: [deep learning, autoencoder] # add tag
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/o_peo6U7IRM" frameborder="0" allowfullscreen="true" width="400px" height="800px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/o_peo6U7IRM" frameborder="0" allowfullscreen="true" width="800px" height="800px"> </iframe>
 </div>
 <br>
 
