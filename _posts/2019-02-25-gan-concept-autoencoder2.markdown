@@ -123,4 +123,6 @@ tags: [deep learning, autoencoder] # add tag
 <center><img src="../assets/img/gan/concept/autoencoder2/2-14.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
--
+- 그러면 **오토인코더**의 역할 중 하나인 `차원 축소`에 대하여 자세히 알아보려고 합니다.
+- **차원 축소**를 하는 방법에는 위와 같이 **Linear**한 방법 또는 **Non-linear**한 방법이 있습니다.
+- **오토인코더**와의 비교를 위하여 위에서 소개된 방법들을 간략하게 알아보고 가겠습니다.
