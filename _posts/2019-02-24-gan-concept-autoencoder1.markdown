@@ -331,3 +331,10 @@ tags: [deep learning, autoencoder] # add tag
     - 가우시안 분포로 가정해서 **negative log likelihood**를 최소화 하면 **MSE**가 됩니다.
 - Multinoulli Y for classification : $$ w_{i} = P(Y = i \vert x ) = f_{\theta, i}(X) =  softmax_{i}(a(X)) $$, Loss = $$ -log(w_{Y}) = -log(f_{\theta, Y}(X) $$
     - 베르누이 분포(멀티누이 분포)로 가정해서 **negative log likelihood**를 최소화 하면 **Cross Entropy**가 됩니다.
+
+<br>
+<center><img src="../assets/img/gan/concept/autoencoder1/1-24.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 지금까지 다른 **Loss function**은 **Mean Square Error**와 **Cross Entropy**가 있는데, 각 **Loss function**을 사용하여 학습 시키는 것을 해석을 할 때, 한 경우는 `가우시안`으로 다른 한 경우는 `카테고리컬`한 것으로 생각할 수 있었습니다.
+- 이것을 `오토인코더`와 연관을 시켜보려고 합니다. **오토인코더**는 네트워크의 입력이 $$ x $$이고 출력도 입력과 같이 $$ x $$이길 바라는 것이고 **배리에이셔녈 오토인코더**에서는 조건부 확률이 없고 단지 트레이닝 DB의 확률 분포 그 자체를 추정을 하게 됩니다.
