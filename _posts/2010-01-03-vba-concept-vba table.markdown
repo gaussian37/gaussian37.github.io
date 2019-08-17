@@ -17,6 +17,7 @@ tags: [vba, excel] # add tag
 - [활성화 되어 있는 개체 참조](https://gaussian37.github.io/vba-concept-active_object/)
 - [변수의 선언, 형식, 범위](https://gaussian37.github.io/vba-concept-variable/)
 - [상수(Constant) 선언](https://gaussian37.github.io/vba-concept-constant/)
+- [개체 변수]()
 
 <br>
 
