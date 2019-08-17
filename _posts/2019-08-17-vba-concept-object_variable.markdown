@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 개체 변수(Object Variable)
-date: 2019-08-09 00:00:00
+date: 2019-08-17 00:00:00
 img: vba/vba.png
 categories: [vba-concept] 
 tags: [vba, 개체, 개체 변수, object variable] # add tag
