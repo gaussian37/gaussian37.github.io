@@ -21,7 +21,7 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 + [베이즈 추정은 최우원리에 근거해 있다.](https://gaussian37.github.io/math-pb-bayes-basic8/)
 + 베이즈 추정은 때로 직감에 크게 반한다.(2)
 + [복수의 정보를 얻었을 때의 추정(1)](https://gaussian37.github.io/math-pb-bayes-basic10/)
-+ 복수의 정보를 얻었을 때의 추정(2)
++ [복수의 정보를 얻었을 때의 추정(2)](https://gaussian37.github.io/math-pb-bayes-basic11/)
 + 베이즈 추정에서는 정보를 순차적으로 사용할 수 있다.
 + 베이즈 추정은 정보를 얻을수록 더 정확해 진다.
 + 확률은 면적과 동일한 성질을 지닌다.
