@@ -522,7 +522,7 @@ int main() {
 
 <br>
 
-### **소멸자 (destructor)**
+### **7. 소멸자 (destructor)**
 
 <br>
 
@@ -652,7 +652,7 @@ int main() {
 <center><img src="../assets/img/cpp/concept/oop/1.PNG" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-### **this 포인터와 연쇄 호출(chaining)**
+### **8. this 포인터와 연쇄 호출(chaining)**
 
 <br>
 
@@ -749,7 +749,7 @@ Calc &temp2 = temp1.add(10);
 
 <br>
 
-### 클래스 코더와 헤더 파일
+### **9. 클래스 코더와 헤더 파일**
 
 - 클래스 내부에 생성자, 소멸자, 함수들 모두를 다 정의해 놓으면 한 코드 파일의 코드가 너무 길어져서 읽기가 어려워 집니다.
 - 일반적으로 한 개의 클래스는 **1개의 헤더 파일, 1개의 CPP 파일**을 이용하여 만듭니다.
@@ -848,7 +848,7 @@ Calc& Calc::divide(int value) {
 
 <br>
 
-### **클래스와 const**
+### **10. 클래스와 const**
 
 <br>
 
@@ -967,5 +967,129 @@ int main() {
 - 그리고 위 두개의 함수는 함수명이 같아서 오버로딩이 된 상태입니다. 만약 이 때, `const int& getVal() const{}`에서 마지막 **const**를 빼서 `const int& getVal() {}`으로 두면 오버로딩이 안되니 참조하시기 바랍니다.
 
 <br>
+
+### **11. 정적 멤버 변수**
+
+<br>
+
+- 이번에는 클래스에서 사용되는 `정적 멤버 변수`에 대하여 배워보도록 하겠습니다.
+- 먼저 아래 코드를 한번 실행해 보시겠습니다.
+
+<br>
+
+```cpp
+class Something {
+
+public:
+
+	int m_value = 1;
+};
+
+int main() {
+
+	Something st1;
+	Something st2;
+
+	st1.value_ = 2;
+
+	cout << &st1.m_value << " " << st1.m_value << endl;
+	cout << &st2.m_value << " " << st2.m_value << endl;
+}
+```
+
+<br>
+
+- 위 코드를 보면 두 객체의 주소와 멤버 변수 값을 출력하게 됩니다. 이 때, 객체 **st1**과 **st2**의 주소값과 멤버 변수 값은 서로 다르게 출력되는 것을 확인하실 수 있습니다.
+- 이번에는 멤버 변수를 `정적 변수` 타입으로 선언해 본 다음에 아래 코드와 같이 실행해 보겠습니다.
+- 참고로 **정적 변수**는 클래스 내부에서 선언과 동시에 초기화가 되지 않으므로 외부에서 초기화 해주어야 합니다.
+
+<br>
+
+```cpp
+class Something {
+
+public:
+
+	static int s_value;
+};
+
+int Something::s_value = 1;
+
+int main() {
+
+	Something st1;
+	Something st2;
+
+	st1.s_value = 2;
+
+	cout << &st1.s_value << " " << st1.s_value << endl;
+	cout << &st2.s_value << " " << st2.s_value << endl;
+}
+```
+
+<br>
+
+- 위 코드를 실행해 보면 두 객체의 멤버 변수 `s_value`의 주소값과 값이 모두 같은 것을 확인하실 수 있습니다. 즉, **서로 다른 객체가 같은 멤버 변수를 공유하고 있는 셈**입니다.
+
+<br>
+
+```cpp
+class Something {
+
+public:
+
+	static int s_value;
+};
+
+int Something::s_value = 1;
+
+int main() {
+
+	cout << &Something::s_value << " " << Something::s_value << endl;
+
+	Something st1;
+	Something st2;
+
+	st1.s_value = 2;
+
+	cout << &st1.s_value << " " << st1.s_value << endl;
+	cout << &st2.s_value << " " << st2.s_value << endl;
+}
+```
+
+<br>
+
+- 더 재미있는 부분은 객체를 생성하지 않고도 **main**함수의 첫 출력문이 오류 없이 실행됩니다. 
+
+<br>
+
+```
+00B0C008 1
+00B0C008 2
+00B0C008 2
+```
+
+<br>
+
+- 예를 들어 위와 같은 결과를 얻을 수 있는데, 결국 **정적 멤버 변수**는 클래스에서 선언되면 모든 객체에서 공유되며 객체가 생성되지 않더라도 그 값은 생성되어 있음을 알 수 있습니다.
+- 위의 코드에서 `int Something::s_value = 1;`으로 정적 변수의 값을 초기화 해주는 코드가 있는데 이런 역할은 헤더 파일이 아닌 `cpp`파일에 두는 것이 일반적이오니 참조하시기 바랍니다.
+
+<br>
+
+```cpp
+class Something {
+
+public:
+
+	static const int s_value = 1;
+};
+
+// int Something::s_value = 1; 
+```
+
+<br>
+
+- 반면 멤버 변수가 `const` 이고 `static`이면 이 때에는 클래스 내부에서 초기화를 해주어야 합니다. 약간 헷갈릿 수 있겠지만 상식적으로 생각해보면 수긍이 갈 것입니다.
+    - **const**의 경우 초기화 값이 바뀌면 안되므로 선언과 동시에 값이 정해져야 하기 때문입니다. 
 
 ※ 참조 자료 : 홍정모의 따라하며 배우는 C++
