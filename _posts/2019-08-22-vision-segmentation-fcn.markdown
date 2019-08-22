@@ -7,7 +7,7 @@ categories: [vision-segmentation]
 tags: [vision, segmentation, fcn] # add tag
 ---
 
-- 이번 글에서 다루어 볼 논문은 `FCN`으로 유명한 **Fully COnvolutional Networks for Semantic Segmentation** 입니다.
+- 이번 글에서 다루어 볼 논문은 `FCN`으로 유명한 **Fully Convolutional Networks for Semantic Segmentation** 입니다.
 
 <br>
 
