@@ -1091,7 +1091,74 @@ public:
 
 <br>
 
-- 반면 멤버 변수가 `const` 이고 `static`이면 이 때에는 클래스 내부에서 초기화를 해주어야 합니다. 약간 헷갈릿 수 있겠지만 상식적으로 생각해보면 수긍이 갈 것입니다.
+- 반면 멤버 변수가 `static` 이고 `const`이면 이 때에는 클래스 내부에서 초기화를 해주어야 합니다. 약간 헷갈릿 수 있겠지만 상식적으로 생각해보면 수긍이 갈 것입니다.
     - **const**의 경우 초기화 값이 바뀌면 안되므로 선언과 동시에 값이 정해져야 하기 때문입니다. 
+    
+<br>
+
+### **12. 정적 멤버 함수**
+
+<br>
+
+- 이번에는 `정적 멤버 함수`에 대하여 알아보도록 하겠습니다. **정적 멤버 함수**는 **정적 멤버 변수**와 연관되어서 사용됩니다. 아래 코드를 참조해 보겠습니다.
+
+<br>
+
+```cpp
+class Something {
+
+	static int s_value;
+
+public:
+	
+	int getValue() {
+		return 3;
+	}
+};
+
+int Something::s_value = 10;
+
+int main() {
+
+	Something st1;
+	cout << st1.getValue() << endl;
+	cout << Something::getValue() << endl; //오류 발생
+}
+```
+
+<br>
+
+- 위 코드에서 마지막 출력문은 에러가 발생하게 되는 반면 첫번째 출력문은 정상 작동합니다.
+- **static** 멤버 변수를 접근할 때, 객체를 생성하여 접근할 때와 클래스를 직접 접근할 때 방식이 조금 다릅니다. 
+    - 심지어 `getValue()`에서 **static**변수를 사용하지 않아도 에러가 발생합니다.
+- 이 에러를 해결하려면 `static int getValue(){}`형태로 **static 멤버 함수**를 만들어야 합니다. 
+
+<br> 
+
+```cpp
+class Something {
+
+	static int s_value;
+	int m_value;
+
+public:
+	
+	static int getValue() {
+		s_value; //정상 접근
+		m_value; //오류 발생
+		this; //오류 발생
+	}
+};
+```
+
+<br>
+
+- 또한 `static 멤버 함수`에서 사용가능한 변수는 **static 멤버 변수**만 사용가능합니다. 
+- 일반 멤버 변수도 사용 불가능하고 특히, `this`를 통해 접근 가능한 모든 것이 사용 불가합니다.(그래서 일반 멤버 변수도 사용 불가한 것이지요)
+    - **this**에 발생한 에러를 읽어보면 `this may only be used inside a nonstatic member function`
+- 이와 같이 **static 멤버 함수**는 상당히 많은 제약이 있습니다. 그런데 왜 이럴까요? (아래 내용은 약간 복잡할 수 있으니 스킵하셔도 됩니다.)
+
+
+ 
 
 ※ 참조 자료 : 홍정모의 따라하며 배우는 C++
