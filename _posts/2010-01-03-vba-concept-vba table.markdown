@@ -19,6 +19,7 @@ tags: [vba, excel] # add tag
 - [상수(Constant) 선언](https://gaussian37.github.io/vba-concept-constant/)
 - [개체 변수](https://gaussian37.github.io/vba-concept-object_variable/)
 - [배열의 선언과 사용](https://gaussian37.github.io/vba-concept-array/)
+- [2차원 배열의 선언과 사용](https://gaussian37.github.io/vba-concept-2d_array/)
 
 <br>
 
