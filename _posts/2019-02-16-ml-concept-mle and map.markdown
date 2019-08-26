@@ -21,12 +21,16 @@ tags: [ml, machine learning, 머신 러닝, mle, map, 우도, 사전확률, 사�
 + 이 매개 변수 집합을 $$ \theta $$ 라고 하겠습니다.
 + 이 때, 문제를 다음과 같이 정의 할 수 있습니다.
     + **주어진 X를 발생시켰을 가능성이 가장 높은 $$\theta$$를 찾아라**
-    + **X에 대하여 가장 큰 likelihood를 갖는 $$\theta$$를 찾아라**  
-+ <img src="../assets/img/ml/concept/mle-and-mlp/mleGraph.PNG" alt="Drawing" style="width: 300px;"/>
-    + 위 그래프에서 X는 6개의 샘플을 갖습니다.
-    + 이 X를 발생시킬 가능성은 $$ \theta_{1} $$이 $$ \theta_{2} $$ 보다 높습니다.
-    + likelihood를 이용하여 다시 표현하면 $$ p(X \vert \theta_{1}) > p(X \vert \theta_{2}) $$ 라고 할 수 있습니다.  
-    + 이 때 우리가 풀어야 할 문제는 **어떤 $$ \theta $$가 maximum likelihood**를 가질까 입니다.
+    + **X에 대하여 가장 큰 likelihood를 갖는 $$\theta$$를 찾아라**
+    
+<br>
+<center><img src="../assets/img/ml/concept/mle-and-mlp/mleGraph.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>    
+      
++ 위 그래프에서 X는 6개의 샘플을 갖습니다.
++ 이 X를 발생시킬 가능성은 $$ \theta_{1} $$이 $$ \theta_{2} $$ 보다 높습니다.
++ likelihood를 이용하여 다시 표현하면 $$ p(X \vert \theta_{1}) > p(X \vert \theta_{2}) $$ 라고 할 수 있습니다.  
++ 이 때 우리가 풀어야 할 문제는 **어떤 $$ \theta $$가 maximum likelihood**를 가질까 입니다.
 
 <br>
 
