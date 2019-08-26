@@ -8,7 +8,7 @@ tags: [ml, machine learning, 머신 러닝, mle, map, 우도, 사전확률, 사�
 ---
 
 + 출처 : 패턴인식(오일석)
-+ 이번 글에서는 MLE(Maximum Likelihood Estimation)와 MAP(maximum a posteriori)에 대하여 알아보도록 하겠습니다.
++ 이번 글에서는 `MLE(Maximum Likelihood Estimation)`와 `MAP(maximum a posterior)`에 대하여 알아보도록 하겠습니다.
 
 <br>
 
@@ -87,7 +87,7 @@ tags: [ml, machine learning, 머신 러닝, mle, map, 우도, 사전확률, 사�
 
 <br>
 
-## MAP(Maximum a posterior)에 대한 개념적 설명
+## **MAP(Maximum a posterior)에 대한 개념적 설명**
 
 <br>
 
