@@ -1248,9 +1248,156 @@ int main() {
 
 <br>
 
-- 
+- 객체지향의 원칙 중 하나인 `캡슐화`를 상황에 따라서는 항상 지키지 못할 경우가 종종 생깁니다.
+- 즉, 예외 경우에는 어떤 클래스를 자유롭게 접근하도록 권한을 열어두어야 하는 상황이 생기게 되는데 그 때 사용하는 키워드가 `friend`입니다.
+
+<br>
+
+```cpp
+class A {
+
+	int m_value = 1;
+	friend void func(A& a);
+};
+
+void func(A& a) {
+	cout << a.m_value << endl;
+}
+
+int main() {
+
+	A a;
+	func(a);
+}
+```
+
+<br>
+
+- 위 코드를 보면 `m_value`는 **private** 타입의 멤버 변수임에도 불구하고 `func`함수에서는 객체가 `m_value`를 접근할 수 있습니다.
+    - `friend` 키워드를 이용하여 클래스 **A**에서 함수 **func**에는 권한을 다 열어줘라 라고 선언하였기 때문입니다.
+
+<br>
+
+```cpp
+class A {
+	int m_value = 1;
+	friend void func(A& a, B& b);
+};
+
+class B {
+	int m_value = 2;
+	friend void func(A& a, B& b);
+};
+
+void func(A& a, B& b) {
+	cout << a.m_value <<" "<<b.m_value<< endl;
+}
+```
+
+<br>
+
+- 만약 위와 같이 `friend` 키워드를 사용하면 에러가 발생합니다. 왜냐하면 클래스 **A**에서는 클래스 **B**에 대한 참조를 할 수 없기 때문입니다.
+- 이 때 사용할 수 있는 방법이 `전방 선언`이라고 하고 영어로 `forward declaration`이라고 합니다.
+
+<br>
+
+```cpp
+class B; // 전방 선언
+class A {
+	int m_value = 1;
+	friend void func(A& a, B& b);
+};
+
+class B {
+	int m_value = 2;
+	friend void func(A& a, B& b);
+};
+
+void func(A& a, B& b) {
+	cout << a.m_value <<" "<<b.m_value<< endl;
+}
+
+int main() {
+
+	A a; B b;
+	func(a, b);
+}
+```
+
+<br>
+
+- 위의 코드와 같이 코드의 순서 상 참조할 수 없는 클래스를 먼저 선언만 하고 상세 코드는 아래에 적는 방법을 통해 문제를 해결할 수 있습니다.
+
+<br>
+
+```cpp
+class B;
+
+class A {
+	int m_value = 1;
+	friend class B;
+
+};
+
+class B {
+	int m_value = 2;
+
+public:
+
+	void func(A& a) {
+		cout << a.m_value << endl;
+	}
+};
 
 
+int main() {
+
+	A a; B b;
+	b.func(a);
+
+}
+```
+
+<br>
+
+- **friend** 키워드는 함수 뿐만 아니라 **클래스**에도 사용할 수 있습니다. 위 코드 기준으로 클래스 **A**에서 클래스 **B**를 **friend** 선언을 하였으므로 **B**는 **A**를 자유롭게 접근할 수 있습니다.
+
+<br>
+
+```cpp
+class A; //전방 선언
+class B {
+	int m_value = 1;
+
+public:
+	void func(A& a); //함수 헤더만 선언
+};
+
+class A {
+	int m_value = 2;
+
+public:
+
+	friend void B::func(A& a);
+};
+
+void B::func(A& a) { //함수 바디
+	cout << a.m_value << endl;
+}
+
+int main() {
+
+	A a; 
+	B b;
+	b.func(a);
+}
+``` 
+
+<br>
+
+- 위 코드를 보면 **클래스 전방선언, 함수 헤더와 바디 분리**를 이용하여 약간 복잡하게 코드를 구성해 보았습니다.
+- 간혹 위와 같이 코드를 만드는 이유가 있습니다. 특히 `함수의 헤더와 바디 분리`를 하는 이유는 코드의 순서상 참조할 수 없는 경우가 생기기 때문입니다.
+- 위와 같이 `friend`를 사용하는 경우에 종종 발생할 수 있는 조건이니 참조하시면 도움이 될 것 같습니다.
 
 <br>
 
