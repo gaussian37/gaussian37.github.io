@@ -65,8 +65,8 @@ tags: [ml, machine learning, 머신 러닝, mle, map, 우도, 사전확률, 사�
 
 <br>
 
-+ 정규 분포를 위한 ML 추정
-+ X가 정규 분포에서 추정되었다고 가정하겠습니다. 수식 유도를 쉽게 하기 위하여 공분산 행렬 $$ \Sigma $$는 이미 알고 있다고 가정하겠습니다.
++ 아래 내용은 정규 분포를 위한 ML을 추정하는 과정입니다.
++ 여기서 $$X$$가 정규 분포에서 추정되었다고 가정하겠습니다. 수식 유도를 쉽게 하기 위하여 공분산 행렬 $$ \Sigma $$는 이미 알고 있다고 가정하겠습니다.
 + 즉, 추정해야 하는 것은 평균 벡터 $$ \mu $$ 뿐입니다.
 + 　$$ \frac{\partial\sum_{i=1}^{N}ln\ p(x_{i} \vert \theta)}{\partial\theta} $$에 정규 분포 식을 대입하고 정리해 보겠습니다.
 + 아래 식에서 $$ d $$는 특징 벡터 $$ x_{i} $$의 차원 입니다.
@@ -98,9 +98,12 @@ tags: [ml, machine learning, 머신 러닝, mle, map, 우도, 사전확률, 사�
 + 이 때, $$ p(x_{i} \vert \theta)p(\theta) $$ 를 `사후 확률`이라고 합니다.
 + 따라서 이 수식을 풀어 최적의 매개변수를 찾는 과정을 `MAP(Maximum a posterior)` 라고 합니다.
 
-$$ argmax(\theta) \sum ln(p(x_{i} | \theta)) + ln(p(\theta)) $$
+$$ argmax_{\theta} \  \sum ln(p(x_{i} | \theta)) + ln(p(\theta)) $$
 
-+ <img src="../assets/img/ml/concept/mle-and-mlp/ml-vs-map.PNG" alt="Drawing" style="width: 300px;"/>
+<br>
+<center><img src="../assets/img/ml/concept/mle-and-mlp/ml-vs-map.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>  
+
 + 위 그림은 `ML`과 `MAP`를 비교합니다.
-+ ML에서는 사전확률이 균일하다고 가정합니다. 따라서 likelihood가 최고인 점을 찾으면 그것이 바로 최적해 $$ \theta $$가 됩니다.
++ **ML에서는 사전확률이 균일**하다고 가정합니다. 따라서 **likelihood가 최고인 점**을 찾으면 그것이 바로 최적해 $$ \theta $$가 됩니다.
 + 하지만 MAP 에서는 **사전 확률이 균일하지 않습니다.** 따라서 **사전확률이 최적 해에 영향**을 미치게 됩니다.
