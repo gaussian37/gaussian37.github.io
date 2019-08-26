@@ -30,29 +30,29 @@ tags: [ml, machine learning, 머신 러닝, mle, map, 우도, 사전확률, 사�
 
 <br>
 
-+ maximum likelihood를 이해하기 위해 다음과 같은 예제를 살펴보겠습니다.
-+ 3가지의 동전이 있습니다. 동전의 앞이 나올 확률이 p 뒤가 나올 확률이 1-p라고 하고 각각의 p는 1/4, 1/3, 1/2 입니다.
++ **Maximum likelihood**를 이해하기 위해 다음과 같은 예제를 살펴보겠습니다.
++ 3가지의 동전이 있습니다. 동전의 앞이 나올 확률이 $$ p $$, 뒤가 나올 확률이 $$1-p$$라고 하고 각각의 $$p$$는 1/4, 1/3, 1/2 입니다.
 + 임의의 동전을 하나 집어서 50번 던졌을 때 관찰 결과 22번이 나왔습니다. 이 때, 과연 어떤 동전을 던졌을지 맞추는 것이 문제입니다.
-+ 이 문제의 해결법은 각 동전의 likelihood를 구한 다음에 그 값이 최대가 되는 것을 구하는 것입니다.
-    + 즉, maximum likelihood를 취하는 것입니다.
-+ ·$$ \hat{\theta} = argmax_{\theta} p(X \vert \theta) $$ 를 이용하겠습니다. $$\theta = p$$ 입니다.
-    + ·$$ P(head = 22 \vert p = \frac{1}{4}) = \begin{pmatrix} 50 \\ 22 \\ \end{pmatrix} \frac{1}{4}^{22}\frac{3}{4}^{28} = 0.0016 $$
-    + ·$$ P(head = 22 \vert p = \frac{1}{3}) = \begin{pmatrix} 50 \\ 22 \\ \end{pmatrix} \frac{1}{3}^{22}\frac{2}{3}^{28} = 0.0332 $$
-    + ·$$ P(head = 22 \vert p = \frac{1}{2}) = \begin{pmatrix} 50 \\ 22 \\ \end{pmatrix} \frac{1}{2}^{22}\frac{1}{2}^{28} = 0.0788 $$
++ 이 문제의 해결법은 **각 동전의 likelihood를 구한 다음에 그 값이 최대가 되는 것**을 구하는 것입니다.
+    + 즉, **maximum likelihood**를 취하는 것입니다.
++ 　$$ \hat{\theta} = argmax_{\theta} p(X \vert \theta) $$ 를 이용하겠습니다. $$\theta = p$$ 입니다.
+    + 　$$ P(head = 22 \vert p = \frac{1}{4}) = \begin{pmatrix} 50 \\ 22 \\ \end{pmatrix} \frac{1}{4}^{22}\frac{3}{4}^{28} = 0.0016 $$
+    + 　$$ P(head = 22 \vert p = \frac{1}{3}) = \begin{pmatrix} 50 \\ 22 \\ \end{pmatrix} \frac{1}{3}^{22}\frac{2}{3}^{28} = 0.0332 $$
+    + 　$$ P(head = 22 \vert p = \frac{1}{2}) = \begin{pmatrix} 50 \\ 22 \\ \end{pmatrix} \frac{1}{2}^{22}\frac{1}{2}^{28} = 0.0788 $$
 + 따라서 p = 1/2 일 때, likelihood가 가장 크므로 p = 1/2 일 때라고 말할 수 있습니다.
        
 <br>    
     
 + 문제를 좀 더 형식적으로 쓰면 다음과 같이 쓸 수 있습니다.
-    + ·$$ \hat{\theta} = argmax_{\theta} p(X \vert \theta) $$
+    + 　$$ \hat{\theta} = argmax_{\theta} p(X \vert \theta) $$
 + 확률 분포 추정 문제를 위와 같이 maximum likelihood를 갖는 매개 변수를 찾는 것으로 규정하고 해를 구하는 방법을 **Maximum Likelihood method** 라고 합니다.
 + 모든 샘플은 **독립적으로 추출되었다고 가정**할 수 있으므로 likelihood는 다음과 같이 쓸 수 있습니다.
     + X는 훈련집합으로 $$ X = \{x_{1}, x_{2}, ... , x_{N} \} $$
-    + ·$$ p(X \vert \theta) = p(x_{1} \vert \theta)p(x_{2} \vert \theta)...p(x_{N} \vert \theta) = \prod_{i=1}^{N}p(x_{i} \vert \theta) $$
-+ ·$$ \hat{\theta} = argmax_{\theta} p(X \vert \theta) $$를 좀더 쉽게 표현해 보겠습니다.
+    + 　$$ p(X \vert \theta) = p(x_{1} \vert \theta)p(x_{2} \vert \theta)...p(x_{N} \vert \theta) = \prod_{i=1}^{N}p(x_{i} \vert \theta) $$
++ 　$$ \hat{\theta} = argmax_{\theta} p(X \vert \theta) $$를 좀더 쉽게 표현해 보겠습니다.
     + f()가 단조 증가 함수라면 $$ argmax_{\theta} p(X \vert \theta) $$ 에서 $$ P(X \vert \theta) $$를 최대화 하는 것과 $$ f(p(X \vert \theta)) $$를 최대화 하는 것은 같습니다.
     + likelihood에 단조 증가 함수인 ln을 취한 것을 `log likelihood` 라고 합니다.
-    + ·$$ \hat{\theta} = argmax_{\theta}\sum_{i=1}^{N} p(x_{i} \vert \theta) $$
+    + 　$$ \hat{\theta} = argmax_{\theta}\sum_{i=1}^{N} p(x_{i} \vert \theta) $$
         + 위 식은 최적화 문제에 해당합니다.
 + 최적화 문제를 풀기 위해서는 미분을 한 결과가 0이 되는 것을 이용하겠습니다.
     + $$ \frac{\partial \ L(\theta)}{\partial\theta} = \frac{\partial\sum_{i=1}^{N}ln p(x_{i} \vert \theta)}{\partial\theta} $$
@@ -66,16 +66,16 @@ tags: [ml, machine learning, 머신 러닝, mle, map, 우도, 사전확률, 사�
 + 정규 분포를 위한 ML 추정
 + X가 정규 분포에서 추정되었다고 가정하겠습니다. 수식 유도를 쉽게 하기 위하여 공분산 행렬 $$ \Sigma $$는 이미 알고 있다고 가정하겠습니다.
 + 즉, 추정해야 하는 것은 평균 벡터 $$ \mu $$ 뿐입니다.
-+ ·$$ \frac{\partial\sum_{i=1}^{N}ln\ p(x_{i} \vert \theta)}{\partial\theta} $$에 정규 분포 식을 대입하고 정리해 보겠습니다.
++ 　$$ \frac{\partial\sum_{i=1}^{N}ln\ p(x_{i} \vert \theta)}{\partial\theta} $$에 정규 분포 식을 대입하고 정리해 보겠습니다.
 + 아래 식에서 $$ d $$는 특징 벡터 $$ x_{i} $$의 차원 입니다.
-+ ·$$ p(x_{i} \vert \theta) = p(x_{i} \vert \mu) = \frac{1}{ (2\pi)^{\frac{d}{2}} \vert \Sigma \vert^{\frac{1}{2}} } exp(-\frac{1}{2}(x_{i} - \mu)^{T}\Sigma^{-1}(x_{i} - \mu)) $$
-+ ·$$ ln\ p(x_{i} \vert \mu) = -\frac{1}{2}(x_{i} - \mu)^{T}\Sigma^{-1}(x_{i} - \mu)-\frac{d}{2}ln2\pi -\frac{1}{2}ln\vert \Sigma \vert $$
-+ ·$$ L(\mu) = -\frac{1}{2}\sum_{i=1}^{N}(x_{i} - \mu)^{T}\Sigma^{-1}(x_{i} - \mu)-N(\frac{d}{2}ln2\pi -\frac{1}{2}ln\vert \Sigma \vert) $$
-+ ·$$ \frac{\partial L(\mu)}{\partial \mu} = \sum_{i=1}^{N} \Sigma^{-1}(x_{i} - \mu) $$
++ 　$$ p(x_{i} \vert \theta) = p(x_{i} \vert \mu) = \frac{1}{ (2\pi)^{\frac{d}{2}} \vert \Sigma \vert^{\frac{1}{2}} } exp(-\frac{1}{2}(x_{i} - \mu)^{T}\Sigma^{-1}(x_{i} - \mu)) $$
++ 　$$ ln\ p(x_{i} \vert \mu) = -\frac{1}{2}(x_{i} - \mu)^{T}\Sigma^{-1}(x_{i} - \mu)-\frac{d}{2}ln2\pi -\frac{1}{2}ln\vert \Sigma \vert $$
++ 　$$ L(\mu) = -\frac{1}{2}\sum_{i=1}^{N}(x_{i} - \mu)^{T}\Sigma^{-1}(x_{i} - \mu)-N(\frac{d}{2}ln2\pi -\frac{1}{2}ln\vert \Sigma \vert) $$
++ 　$$ \frac{\partial L(\mu)}{\partial \mu} = \sum_{i=1}^{N} \Sigma^{-1}(x_{i} - \mu) $$
 + 이제 $$ \frac{\partial L(\mu)}{\partial \mu} = 0 $$을 두고 식을 정리해 보겠습니다.
-    + ·$$ \sum_{i=1}^{N} \Sigma^{-1}(x_{i} - \mu) = 0 $$
-    + ·$$ \sum_{i=1}^{N}x_{i} - N\mu = 0 $$
-    + ·$$ \hat{\mu} = \frac{1}{N}\sum_{i=1}^{N}x_{i} $$
+    + 　$$ \sum_{i=1}^{N} \Sigma^{-1}(x_{i} - \mu) = 0 $$
+    + 　$$ \sum_{i=1}^{N}x_{i} - N\mu = 0 $$
+    + 　$$ \hat{\mu} = \frac{1}{N}\sum_{i=1}^{N}x_{i} $$
         + 이 식으로 구한 평균 벡터는 최적 매개 변수 값이기 때문에 hat 씌워 표시합니다.
 
 + 위 식은 두가지 정보가 제공된 상황에서 구해졌습니다.
