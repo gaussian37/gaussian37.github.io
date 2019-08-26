@@ -10,8 +10,11 @@ tags: [ml, machine learning, 머신 러닝, mle, map, 우도, 사전확률, 사�
 + 출처 : 패턴인식(오일석)
 + 이번 글에서는 MLE(Maximum Likelihood Estimation)와 MAP(maximum a posteriori)에 대하여 알아보도록 하겠습니다.
 
+<br>
 
-## ML(Maximum Likelihood)에 대한 개념적 설명
+## **ML(Maximum Likelihood)에 대한 개념적 설명**
+
+<br>
 
 + 먼저 ML은 개념적으로 어떠한 형태의 분포에도 적용 가능합니다.
     + 현실적으로는 정규 분포와 같이 매개 변수로 표현되는 경우에만 적용 가능한 데 매개 변수로 표시 된 경우만 계산이 가능하기 때문입니다.
