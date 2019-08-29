@@ -134,8 +134,21 @@ tags: [probability, information theory, 정보이론, kl divergence] # add tag
 - `Cross Entropy` $$ H(P, Q) $$는 `Entropy` $$ H(P) $$보다 항상 크고 $$ P = Q $$일 때에만 같기 때문에, 두 항의 차이를 **분포 사이의 거리**처럼 사용할 수 있습니다.
 - 　$$ D_{KL}(P \Vert Q) = H(P, Q) - H(P) $$
 - 　$$ = \sum_{x} P(x)log\frac{1}{Q(x)} - P(x)log\frac{1}{P(x)} = \sum_{x}P(x)log\frac{P(x)}{Q(x)} $$
-- 데이터 인코딩 관점에서 보면 `KL divergence`는 데이터 소스의 분포인 P 대신 다른 분포 Q를 사용해서 심볼을 인코딩하면 **추가로 몇 bit가 낭비가 생기는 지 나타낸다**고 해석 할 수 있습니다.   
-    
+- 데이터 인코딩 관점에서 보면 `KL divergence`는 데이터 소스의 분포인 $$ P $$대신 다른 분포 $$ Q $$를 사용해서 심볼을 인코딩하면 **추가로 몇 bit가 낭비가 생기는 지 나타낸다**고 해석 할 수 있습니다.
+- 다시 말하면 `KL divergence`는 **두 확률 분포 $$ P $$와 $$ Q $$의 차이를 측정**합니다.
+
+<br>
+
+- 그러면 `KL divergence`의 성질에 대해서 알아보려고 합니다.
+- 위에서 설명한 바와 같이 `KL divergence`는 데이터 소스의 분포인 $$ P $$ 대신 다른 분포 $$ Q $$를 사용해서 인코딩하면 추가로 몇 bit의 낭비가 생기는지 나타냅니다.
+    - 이 말은 즉, **확률 분포 P와 Q 사이의 차이**와 같습니다.
+- 따라서 $$ $$ D_{KL}(P \Vert Q) = H(P, Q) - H(P) = \sum_{x} P(x)log\frac{P(x)}{Q(x)} $$ 가 되고
+- 이 식은 다음과 같은 성질을 가집니다.
+    - 1) $$ D_{KL}(P \Vert Q) \gt 0 $$
+    - 2) $$ D_{KL}(P \Vert Q) = 0 \ iff \ P = Q $$
+    - 3) $$ D_{KL}(P \Vert Q) \ne D_{KL}(Q \Vert P) $$ (Reverse KL)
+    - 4) $$ P $$를 고정하고 $$ Q_{\theta} $$를 움직일 때, $$ D_{KL}(P \Vert Q_{\theta}) $$ 변화는 $$ H(P, Q_{\theta}) $$의 변화와 같습니다.         
+
 
 <br>
 
