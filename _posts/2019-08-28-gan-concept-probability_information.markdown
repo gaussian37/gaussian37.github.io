@@ -149,6 +149,17 @@ tags: [probability, information theory, 정보이론, kl divergence] # add tag
     - 3) $$ D_{KL}(P \Vert Q) \ne D_{KL}(Q \Vert P) $$ (Reverse KL)
     - 4) $$ P $$를 고정하고 $$ Q_{\theta} $$를 움직일 때, $$ D_{KL}(P \Vert Q_{\theta}) $$ 변화는 $$ H(P, Q_{\theta}) $$의 변화와 같습니다.         
 
+<br>
+
+- `KL divergence`의 성질을 알아보기 위하여 `Jensen's inequality`에 대하여 알아보겠습니다.
+- `Jensen's inequality`는 아래로 볼록한 함수 $$ f $$와 그 때의 정의역 $$ x $$에서 정의됩니다.
+
+<br>
+<center><img src="../assets/img/gan/concept/prob_info/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그래프와 같이 $$ f $$함수가 **convex**형태(아래로 볼록)를 가질 때, $$ E[f(x)] \gt f(E[x]) $$가 됩니다. 
+
 
 <br>
 
