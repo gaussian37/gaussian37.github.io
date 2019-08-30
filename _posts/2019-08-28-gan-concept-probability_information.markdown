@@ -186,7 +186,9 @@ tags: [probability, information theory, 정보이론, kl divergence] # add tag
 <br>
 
 - 다음으로 `KL divergence`와 `log-likelihood`의 관계에 대하여 알아보겠습니다.
-- 만약 $$ P $$가 실제 데이터 분포(empirical distribution)이고 $$ Q_{\theta} $$가 우리가 설계하는 확률 모델이라면 $$ D_{KL}(P \Vert Q_{\theta}) $$를 최소화 하는 것은, 우리 모형의 **log-likelihood**를 최대화 하는 것과 같습니다. 
+- 만약 $$ P $$가 실제 데이터 분포(empirical distribution)이고 $$ Q_{\theta} $$가 우리가 설계하는 확률 모델이라면 $$ D_{KL}(P \Vert Q_{\theta}) $$를 최소화 하는 것은, 우리 모형의 **log-likelihood**를 최대화 하는 것과 같습니다.
+- 　$$ D_{KL}[P(x \vert \theta^{*})] $$ : Data distribution with **true parameter** $$ \theta^{*} $$
+- 　$$ D_{KL}[P(x \vert \theta)] $$ : Our model with **tunable parameter** $$ \theta $$  
 
 <br>
 
