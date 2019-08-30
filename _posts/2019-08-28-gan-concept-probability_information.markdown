@@ -169,8 +169,21 @@ tags: [probability, information theory, 정보이론, kl divergence] # add tag
 
 - 그 다음은 위에서 설명한 성질 중 하나인 `KL divergence`는 양수이다 라는 명제를 증명해 보겠습니다. 이 때, `Jensen's inequality`를 사용하겠습니다.
 - 　$$ D_{KL}(P \Vert Q) = H(P, Q) - H(P) = \sum P(X)log\frac{P(X)}{Q(X)} = -\sum P(X)log\frac{Q(X)}{P(X)} \gt -log(\sum P(X)\frac{Q(X)}{P(X)}) $$ (... `Jensen's inequality`)
-- 　$$ = -log(\sum Q(X)) = -log(1) = 0 $$이 됩니다. 따라서 $$ H(P, Q) \gt H(P) $$ 가 됩니다. (이를 `Gibbs inequality`)라고 합니다.   
+- 　$$ = -log(\sum Q(X)) = -log(1) = 0 $$이 됩니다. 따라서 $$ H(P, Q) \gt H(P) $$ 가 됩니다. (이를 `Gibbs inequality`)라고 합니다.
 
+<br>
+
+- 그 다음으로 `KL divergence`와 `Reverse KL divergence`에 대하여 알아보겠습니다.
+- 유명한 성질 중 하나인 `KL divergence`는 **거리함수가 아니다**라는 명제입니다. 왜냐하면 **교환법칙이 성립하지 않기 때문**입니다.
+- 여기서 `KL divergence`와 `Reverse KL divergence`는 다음과 같습니다.
+    - `KL divergence` : $$ D_{KL}(P \Vert Q_{\theta}) $$
+    - `Reverse KL divergence` : $$ D_{KL}(Q_{\theta} \Vert P) $$    
+- 결과적으로 값을 계산해보면 두 분포의 값은 서로 다르므로 $$ P $$와 $$ Q $$의 교환법칙이 성립하지 않으므로 거리함수라고 정의할 수는 없습니다.
+- 하지만, 두 분포가 다를수록 큰 값을 가지며 둘이 일치할 때에만 0이 되기 때문에 거리와 비슷한 용도로 사용할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/gan/concept/prob_info/4.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 <br>
 
