@@ -159,6 +159,7 @@ tags: [probability, information theory, 정보이론, kl divergence] # add tag
 <br>
 
 - 위 그래프와 같이 $$ f $$함수가 **convex**형태(아래로 볼록)를 가질 때, $$ E[f(x)] \gt f(E[x]) $$가 됩니다.
+    -  
  
 
 
