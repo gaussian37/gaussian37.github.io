@@ -159,9 +159,17 @@ tags: [probability, information theory, 정보이론, kl divergence] # add tag
 <br>
 
 - 위 그래프와 같이 $$ f $$함수가 **convex**형태(아래로 볼록)를 가질 때, $$ E[f(x)] \gt f(E[x]) $$가 됩니다.
-- 이것을 `기댓값`의 관점에서 바라보면 $$ E(X) = \sum_{i=1}^{N}x_{k}Pr(x=x_{k}) $$가 됩니다.
-  
- 
+- 이것을 `기댓값` $$ E(X) = \sum_{i=1}^{N}x_{k}Pr(x=x_{k}) $$ 관점에서 아래로 볼록함수에 적용시켜 보도록 하겠습니다.
+- 대표적인 아래로 볼록 함수 중에 $$ -log(x) $$ 가 있습니다. 이 함수에 `Jensen's inequality`를 적용하면 다음과 같습니다.
+    - 　$$ E[-log(x)] \gt -log(E(x)) $$가 됩니다.
+- 이것을 `기댓값` 관점에 적용시키면 $$ -\sum_{x} P(x)log(x) \gt -log(\sum_{x}P(x)*x) $$ 가 됩니다.
+- 이 식이 뜻하는 바는 ...
+
+<br>
+
+- 그 다음은 위에서 설명한 성질 중 하나인 `KL divergence`는 양수이다 라는 명제를 증명해 보겠습니다. 이 때, `Jensen's inequality`를 사용하겠습니다.
+- 　$$ D_{KL}(P \Vert Q) = H(P, Q) - H(P) = \sum P(X)log\frac{P(X)}{Q(X)} = -\sum P(X)log\frac{Q(X)}{P(X)} \gt -log(\sum P(X)\frac{Q(X)}{P(X)}) $$ (... `Jensen's inequality`)
+- 　$$ = -log(\sum Q(X)) = -log(1) = 0 $$이 됩니다. 따라서 $$ H(P, Q) \gt H(P) $$ 가 됩니다. (이를 `Gibbs inequality`)라고 합니다.   
 
 
 <br>
@@ -171,3 +179,9 @@ tags: [probability, information theory, 정보이론, kl divergence] # add tag
 - `Cross Entropy`는 실제 데이터 $$ P $$의 분포로부터 생성되지만, **분포 Q를 사용하여 정보량을 측정**해서 나타낸 평균적 bit수를 의미합니다.
 - `KL divergence`는 두 확률 분포 $$ P $$와 $$ Q $$의 차이를 측정합니다.
 - `Mutual Information`은 두 확률 변수들이 **얼마나 서로 dependent한 지 측정**합니다.
+
+<br>
+
+### 참고자료
+- Pytorch로 시작하는 Generative Model
+- https://ratsgo.github.io/convex%20optimization/2017/12/26/convexfunction/

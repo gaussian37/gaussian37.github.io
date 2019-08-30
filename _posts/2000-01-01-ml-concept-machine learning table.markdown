@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 머신 러닝 글 목차
+title: 머신 러닝 관련 글 목차
 date: 9999-12-26 00:00:00
 img: ml/concept/machineLearning.jpg
 categories: [ml-concept] 

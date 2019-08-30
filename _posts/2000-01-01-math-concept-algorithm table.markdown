@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 알고리즘 글 목차
+title: 알고리즘 관련 글 목차
 date: 9999-12-24 00:00:00
 img: math/algorithm/algorithm.png
 categories: [math-algorithm] 
