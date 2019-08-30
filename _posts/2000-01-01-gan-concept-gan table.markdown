@@ -1,7 +1,7 @@
 ---
 layout: post
 title: GAN 글 목차
-date: 9999-11-02 00:00:00
+date: 9999-12-25 00:00:00
 img: gan/gan.png
 categories: [gan-concept] 
 tags: [GAN, autoencoder, generative] # add tag

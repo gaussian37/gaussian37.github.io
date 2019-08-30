@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 통계학 관련 글 목록
-date: 9999-10-01 00:00:00
+date: 9999-12-22 00:00:00
 img: math/pb/probability.jpg
 categories: [math-pb] 
 tags: [통계학, 수리통계학, 베이지안] # add tag

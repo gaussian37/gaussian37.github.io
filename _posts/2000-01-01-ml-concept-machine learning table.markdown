@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 머신 러닝 글 목차
-date: 9999-11-01 00:00:00
+date: 9999-12-26 00:00:00
 img: ml/concept/machineLearning.jpg
 categories: [ml-concept] 
 tags: [python, machine learning, ml] # add tag

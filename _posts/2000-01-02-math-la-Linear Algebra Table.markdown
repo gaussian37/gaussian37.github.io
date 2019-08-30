@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 선형대수학 글 목차 
-date: 9999-01-01 00:00:00
+date: 9999-12-23 00:00:00
 img: math/la/linear_algebra.jpg
 categories: [math-la] 
 tags: [Linear algebra, 선형 대수학] # add tag
