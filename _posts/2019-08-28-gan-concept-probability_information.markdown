@@ -155,7 +155,7 @@ tags: [probability, information theory, 정보이론, kl divergence] # add tag
 - `Jensen's inequality`는 아래로 볼록한 함수 $$ f $$와 그 때의 정의역 $$ x $$에서 정의됩니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/prob_info/3.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/gan/concept/prob_info/3.PNG" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 그래프와 같이 $$ f $$함수가 **convex**형태(아래로 볼록)를 가질 때, $$ E[f(x)] \gt f(E[x]) $$가 됩니다.
@@ -189,6 +189,20 @@ tags: [probability, information theory, 정보이론, kl divergence] # add tag
 - 만약 $$ P $$가 실제 데이터 분포(empirical distribution)이고 $$ Q_{\theta} $$가 우리가 설계하는 확률 모델이라면 $$ D_{KL}(P \Vert Q_{\theta}) $$를 최소화 하는 것은, 우리 모형의 **log-likelihood**를 최대화 하는 것과 같습니다.
 - 　$$ D_{KL}[P(x \vert \theta^{*})] $$ : Data distribution with **true parameter** $$ \theta^{*} $$
 - 　$$ D_{KL}[P(x \vert \theta)] $$ : Our model with **tunable parameter** $$ \theta $$  
+- 위 두가지 정의를 이용하여 `KL divergence`를 구해보면 다음과 같습니다.
+    - 　$$ D_{KL}[P(x \vert \theta^{*}) \Vert P(x \vert \theta)] $$
+    - 　$$ = \mathbb E_{x ~ P(x \vert \theta^(*))[log\frac{ P(x \vert \theta^{*}) }{ P(x \vert \theta) }] $$
+    - 　$$ = \mathbb E_{x ~ P(x \vert \theta^(*))[logP(x \vert \theta^{*}) - logP(x \vert \theta)]$$
+    - 　$$ = \mathbb E_{x ~ P(x \vert \theta^(*))[logP(x \vert \theta^{*})] - \mathbb E_{x ~ P(x \vert \theta^(*))[logP(x \vert \theta) $$
+- 이 식은 `KL divergence`이므로 항상 0보다 크거나 같습니다. 이 식이 최소가 되기 위해서는 따라서 2번째 항인 $$ \mathbb E_{x ~ P(x \vert \theta^(*))[logP(x \vert \theta) $$이 **최대**가 되어야 합니다.
+    - 이 식이 최소화 된다는 것은 확률 모델 $$ P $$와 $$ Q_{\theta} $$ 가 같다는 뜻입니다. 
+- 식 $$ -\mathbb E_{x ~ P(x \vert \theta^(*))[logP(x \vert \theta) = -\frac{1}{N} \sum_{i}^{N}logP(x_{i} \vert \theta) $$ 가 됩니다.
+    - 이 값은 `NLL(Negative Log Likelihood)`로 이 값을 최소화 하는 것과 `Log Likelihood`를 최대화 하는 것은 같은 의미를 가집니다.(부호 차이)
+    - 즉, $$ D_{KL}(P \Vert Q_{\theta})$$ 를 `최소화`하는 `Maximum Likelihood`를 찾아야합니다.
+    
+<br>
+
+- 
 
 <br>
 
