@@ -13,7 +13,7 @@ tags: [Introduction] # add tag
 + Name : KIM JINSOL
 + Linked In : https://www.linkedin.com/in/gaussian37
 + Work Experience : 
-    - [Hyundai Motors](https://www.hyundai.com/worldwide/en) Researcher (Feb. 2016 ~ )
+    - Hyundai Motors Researcher (Feb. 2016 ~ )
     
 + Education :
     + Inha University. B.S. in Computer Science
