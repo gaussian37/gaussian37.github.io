@@ -13,6 +13,8 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
+- Inception and Xception
+
 
 <br>
 

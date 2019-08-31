@@ -40,11 +40,33 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 <br>
 
 - `Channel Reduction` : MobileNet 적용
+    - Channel 숫자룰 줄여서 경량화
 - `Depthwise Seperable Convolution` : MobileNet 적용
+    - 이 컨셉은 `Xception`에서 가져온 컨셉이고 이 방법으로 경량화를 할 수 있습니다.
 - `Distillation & Compression` : MobileNet 적용
 - Remove Fully-Connected Layers
     - 파라미터의 90% 정도가 FC layer에 분포되어 있는 만큼 FC layer를 제거하면 경량화가 됩니다. 
-    - CNN기준으로 필터(커널)들은 커널 
+    - CNN기준으로 필터(커널)들은 파라미터 쉐어링을 해서 다소 파라미터의 갯수가 작지만 FC layer에서는 파라미터 쉐어링을 하지 않기 때문에 엄청나게 많은 수의 파라미터가 존재하게 됩니다. 
 - Kernel Reduction (3 x 3 → 1 x 1)
+    - (3 x 3) 필터를 (1 x 1) 필터로 줄여서 연산량 또는 파라미터 수를 줄여보는 테크닉 입니다. 
+    - 이 기법은 대표적으로 `SqueezeNet`에서 사용되었습니다.
 - Evenly Spaced Downsampling
+    - Downsampling 하는 시점과 관련되어 있는 기법입니다.
+    - Downsampling을 초반에 많이 할 것인지 아니면 후반에 많이할 것인지 선택하게 되는데 그것을 극단적으로 하지 않고 균등하게 하자는 컨셉입니다.
+    - 왜냐하면 초반에 Downsampling을 많이하게 되면 네트워크 크기는 줄게 되지만 feature를 많이 잃게 되어 accuracy가 줄어들게 되고
+    - 후반에 Downsampling을 많이하게 되면 accuracy 면에서는 전자에 비하여 낫지만 네트워크의 크기가 많이 줄지는 않게 됩니다.
+    - 따라서 이것의 절충안으로 적절히 튜닝하면서 Downsampling을 하여 Accuracy와 경량화 두 가지를 모두 획득하자는 것입니다.
 - Shuffle Operation
+
+<br>
+
+- 특히 `MobileNet`에서 사용하는 핵심 아이디어는 `Depthwise Seperable Convolution`입니다.
+
+<br>
+<center><img src="../dl/concept/mobilenet/1.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 먼저 `MobilNet`을 다루기 전에 간단하게 **Convolution Operation**에 대하여 다루어 보겠습니다.
+- 위와 같이 인풋의 채널이 3개이면 convolution 연산을 하는 필터의 채널 또한 3개이어야 합니다.
+- 이 때 필터의 갯수가 몇 개 인지에 따라서 아웃풋의 채널의 숫자가 결정되게 됩니다.
+- 즉, 위의 오른쪽 그림과 같이 입력 채널에서는 필터의 크기 만큼 모든 채널의 값들이 **element-wise 곱**으로 연산하여 한 개의 값으로 모두 더해지게 됩니다.
