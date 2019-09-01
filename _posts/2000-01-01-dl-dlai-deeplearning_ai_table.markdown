@@ -7,7 +7,11 @@ categories: [dl-dlai]
 tags: [coursera, deep learning, andrew ng] # add tag
 ---
 
-## Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization
+<br>
+
+### **Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization**
+
+<br>
 
 - [Mini-batch gradient descent](https://gaussian37.github.io/dl-dlai-mini_batch_gradient_descent/)
 - [Understanding mini-batch gradient descent](https://gaussian37.github.io/dl-dlai-understanding_mini-batch_gradient_descent/)
@@ -21,3 +25,10 @@ tags: [coursera, deep learning, andrew ng] # add tag
 - [The problem of local optima](https://gaussian37.github.io/dl-dlai-problem_of_local_optima/)
 - [Optimization Algorithm 퀴즈](https://gaussian37.github.io/dl-dlai-optimization_algorithm_quiz/)
 
+<br>
+
+### **Convolutional Neural Network**
+
+- Network In Network
+- Inception Network Motivation
+- Inception Network

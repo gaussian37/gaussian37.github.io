@@ -63,7 +63,7 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 - 특히 `MobileNet`에서 사용하는 핵심 아이디어는 `Depthwise Seperable Convolution`입니다.
 
 <br>
-<center><img src="../dl/concept/mobilenet/1.PNG" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/mobilenet/1.PNG" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 먼저 `MobilNet`을 다루기 전에 간단하게 **Convolution Operation**에 대하여 다루어 보겠습니다.
