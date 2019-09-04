@@ -7,20 +7,28 @@ categories: [math-la]
 tags: [Linear algebra, 선형 대수학] # add tag
 ---
 
-## 선형 대수학 관련 내용
-+ [자주 사용되는 선형 대수학 관련 내용](https://gaussian37.github.io/math-la-linear-algebra-basic/)
-    + 출처 : https://darkpgmr.tistory.com/ 
-    + 선형대수학 주요 용어
-    + 역행렬과 행렬식
-    + 고유값과 고유벡터
-    + 특이값 분해(SVD)
-    + 선형연립방정식 풀이 
-    + 주성분 분석(PCA) 이해와 활용
+<br>
 
+## **선형 대수학 관련 내용**
+
+<br>
+
+
+- 선형대수학 주요 용어
+- 역행렬과 행렬식
+- [고유값과 고유벡터](https://gaussian37.github.io/math-la-eigen/)
+- 특이값 분해(SVD)
+- LU 분해
+- QR 분해
+- 그람 슈미트 과정
+- 선형연립방정식 풀이 
+- 주성분 분석(PCA)
 
 <br><br>
 
-## Mathematics for Machine Learning : Linear Algebra
+## **Mathematics for Machine Learning : Linear Algebra**
+
+<br>
 
 - [Finding the size of a vector, its angle and projection](https://gaussian37.github.io/ml-la-finding-the-size-of-a-vector/)
 - [Changing the reference frame](https://gaussian37.github.io/ml-la-Changing-the-reference-frame/)
@@ -36,7 +44,9 @@ tags: [Linear algebra, 선형 대수학] # add tag
 
 <br><br>
 
-## [Linear Algebra and Its Applications](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=58647912)
+## **[Linear Algebra and Its Applications](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=58647912)**
+
+<br>
 
 - Systems of Linear Equations
 - Row Reduction and Echelon Forms
@@ -74,7 +84,10 @@ tags: [Linear algebra, 선형 대수학] # add tag
 
 <br><br>
 
-## 칸 아카데미 선형 대수학
+## **칸 아카데미 선형 대수학**
+
+<br>
+
 + 벡터와 공간
     + 벡터
         + [선형대수학을 위한 벡터란?](https://gaussian37.github.io/Vector-intro-for-linear-algebra/)
