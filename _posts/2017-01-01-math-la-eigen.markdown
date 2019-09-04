@@ -12,17 +12,11 @@ tags: [Linear algebra, 선형대수학] # add tag
 이번 글에서는 자주 사용하는 선형대수학 개념들에 대하여 정리해 보도록 하겠습니다.
 이 글 전체 내용은 [다크프로그래머님 블로그](https://darkpgmr.tistory.com/)에서 필요한 내용한 가져와서 정리하였습니다.
 
-<br><br>
+<br>
 
-## ※ 자주 사용하는 선형대수학 공식
+## **※ 고유값(eigenvalue)과 고유벡터(eigenvector)**
 
-<br><br>
-
-## ※ 역행렬과 행렬식(determinant)
-
-<br><br>
-
-## ※ 고유값(eigenvalue)과 고유벡터(eigenvector)
+<br>
 
 + 선형대수학에서 가장 중요한 개념 중의 하나인 `고유값`과 `고유벡터`에 대해서 다루어 보겠습니다.
 + 고유값과 고유 벡터는 다음 개념 등에 사용되고 있습니다. 
@@ -31,8 +25,12 @@ tags: [Linear algebra, 선형대수학] # add tag
     + 선형연립방정식의 풀이
     + PCA(주성분 분석)
     + ...
-    
-### 1. 고유값과 고유벡터란?
+
+<br>
+
+### **1. 고유값과 고유벡터란?**
+
+<br>
 
 + 고유값(eigenvalue)와 고유벡터(eigenvector)에 대한 수학정 정의는 간단합니다.
     + **행렬 A를 선형변환**으로 봤을 때, 선형변환 A에 의한 변환 결과가 자기 자신의 상수배가 되는 0이 아닌 벡터를 `고유벡터` 
@@ -50,7 +48,9 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
 
 <br>
 
-### 2. 고유값과 고유벡터의 기하학적 의미
+### **2. 고유값과 고유벡터의 기하학적 의미**
+
+<br>
 
 + 고유벡터 : 선형변환 A에 의해 방향은 보존되고 스케일만 변환되는 방향벡터
 + 고유값 : 고유벡터가 변화되는 스케일
@@ -60,7 +60,9 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
     
 <br>
 
-### 3. 고유값 분해를 이용한 대각화 : eigen-decomposition
+### **3. 고유값 분해를 이용한 대각화 : eigen-decomposition**
+
+<br>
 
 + 고유값, 고유벡터는 정방행렬의 대각화와 밀접한 관련이 있습니다. 
 + 대각행렬과의 행렬곱에 대해 살펴보면, 대각행렬을 뒤에 곱하면 행렬의 열벡터들이 **대각원소의 크기만큼 상수배**가 됩니다
@@ -111,7 +113,9 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
 
 <br>
 
-### 4. 고유값 분해(eigen-decomposition) 가능조건 - 일차 독립
+### **4. 고유값 분해(eigen-decomposition) 가능조건 - 일차 독립**
+
+<br>
 
 + 모든 정방행렬이 고유값 분해가 가능한 것은 아닙니다.
 + n x n 정방행렬 $$ A $$가 고유값 문해가 가능하려면 행렬 A가 n개의 `일차독립`인 고유벡터를 가져야 합니다.
@@ -131,7 +135,9 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
    
 <br>   
  
-### 5. 고유값, 고유벡터의 계산
+### **5. 고유값, 고유벡터의 계산**
+
+<br>
 
 + 고유값과 고유벡터를 정의하는 식인 $$ Av = \lambda v $$ 에서 $$ v $$ 에 대해 정리해 보면 다음과 같습니다.
     + 　$$ Av = \lambda v $$
@@ -178,8 +184,12 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
 + 위에서 구한 고유값과 고유벡터를 이용하여 행렬 대각화가 정말로 성립하는 지 확인해 보겠습니다.
     + 　$$ A = P \Lambda P^{-1} $$
     + 　$$ \begin{bmatrix} 2 & 0 & -2 \\ 1 & 1 & -2 \\ 0 & 0 & 1 \\ \end{bmatrix} = \begin{bmatrix} 1 & 0 & 2 \\ 1 & 1 & 0 \\ 0 & 0 & 1 \\ \end{bmatrix} \begin{bmatrix} 2 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \\ \end{bmatrix} \begin{bmatrix} 1 & 0 & 2 \\ 1 & 1 & 0 \\ 0 & 0 & 1 \\ \end{bmatrix}^{-1} $$
+
+<br>
     
-### 6. 대칭행렬과 고유값 분해
+### **6. 대칭행렬과 고유값 분해**
+
+<br>
 
 + 정방행렬들 중에서 대각원소를 중심으로 원소값들이 대칭되는 행렬 즉, $$ A^{T}= A $$ (즉, 모든 $$ i, j $$에 대하여 $$ a_{ij} = a_{ji} $$)인 행렬을 대칭행렬이라 합니다.
 + 대칭행렬은 고유값 분해와 관련하여 매우 좋은 성질 2개를 가지고 있습니다.
@@ -192,7 +202,11 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
     + 대칭행렬의 이러한 성질은 특이값분해(SVD)와 주성분분석(PCA)에서 가장 기본이 되는 성질로 활용됩니다.
 + 모든 정방행렬이 고유값 분해가 가능한 것은 아니지만 `대칭행렬`은 **항상 고유값 분해가 가능**하고 **직교행렬로 대각화가 가능**함을 기억해둡시다.(증명은 생략)
 
-#### 7. 직교(orthogonal)와 정규직교(orthonormal) 그리고 직교행렬(orthogonal matrix)
+<br>
+
+### **7. 직교(orthogonal)와 정규직교(orthonormal) 그리고 직교행렬(orthogonal matrix)**
+
+<br>
 
 + `orthogonal(직교)` : 두 벡터 $$ v_{1}, v_{2} $$ 가 $$ v_{1} \cdot v_{2} = 0 $$의 관계를 가지는 경우 입니다.
     + 정리하면 $$ v_{1} \cdot v_{2} = 0 $$ 
@@ -212,14 +226,3 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
     + `orthonormal` : `orthogonal` + 크기가 1인 단위 벡터
     + `orthogonal matrix` : $$ AA^{T} = E $$ (행렬을 구성하는 열벡터(행벡터)들이 `orthonormal`하다.) 
     
-<br><br>
-
-## 특이값분해(SVD)
-
-<br><br>
-
-## 선형연립방정식의 풀이
-
-## 주성분분석(PCA)
-
-<br><br>
