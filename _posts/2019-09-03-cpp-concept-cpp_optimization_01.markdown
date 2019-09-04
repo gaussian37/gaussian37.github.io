@@ -3,7 +3,7 @@ layout: post
 title: 최적화란?
 date: 2019-09-03 00:00:00
 img: cpp/cpp.png
-categories: [cpp-etc] 
+categories: [cpp-concept] 
 tags: [cpp, c++, optimized] # add tag
 ---
 - 이 글은 optimized C++ 책을 기반으로 작성된 글입니다.
