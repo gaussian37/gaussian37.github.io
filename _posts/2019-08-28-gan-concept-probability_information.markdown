@@ -202,12 +202,12 @@ tags: [probability, information theory, 정보이론, kl divergence] # add tag
 - 　$$ D_{KL}[P(x \vert \theta)] $$ : Our model with **tunable parameter** $$ \theta $$  
 - 위 두가지 정의를 이용하여 `KL divergence`를 구해보면 다음과 같습니다.
     - 　$$ D_{KL}[P(x \vert \theta^{*}) \Vert P(x \vert \theta)] $$
-    - 　$$ = \mathbb E_{x ~ P(x \vert \theta^(*))[log\frac{ P(x \vert \theta^{*}) }{ P(x \vert \theta) }] $$
-    - 　$$ = \mathbb E_{x ~ P(x \vert \theta^(*))[logP(x \vert \theta^{*}) - logP(x \vert \theta)]$$
-    - 　$$ = \mathbb E_{x ~ P(x \vert \theta^(*))[logP(x \vert \theta^{*})] - \mathbb E_{x ~ P(x \vert \theta^(*))[logP(x \vert \theta) $$
-- 이 식은 `KL divergence`이므로 항상 0보다 크거나 같습니다. 이 식이 최소가 되기 위해서는 따라서 2번째 항인 $$ \mathbb E_{x ~ P(x \vert \theta^(*))[logP(x \vert \theta) $$이 **최대**가 되어야 합니다.
+    - 　$$ = \mathbb E_{x ~ P(x \vert \theta^(*))}[log\frac{ P(x \vert \theta^{*}) }{ P(x \vert \theta) }] $$
+    - 　$$ = \mathbb E_{x ~ P(x \vert \theta^(*))}[logP(x \vert \theta^{*}) - logP(x \vert \theta)] $$
+    - 　$$ = \mathbb E_{x ~ P(x \vert \theta^(*))}[logP(x \vert \theta^{*})] - \mathbb E_{x ~ P(x \vert \theta^(*))}[logP(x \vert \theta) $$
+- 이 식은 `KL divergence`이므로 항상 0보다 크거나 같습니다. 이 식이 최소가 되기 위해서는 따라서 2번째 항인 $$ \mathbb E_{x ~ P(x \vert \theta^(*))}[logP(x \vert \theta) $$이 **최대**가 되어야 합니다.
     - 이 식이 최소화 된다는 것은 확률 모델 $$ P $$와 $$ Q_{\theta} $$ 가 같다는 뜻입니다. 
-- 식 $$ -\mathbb E_{x ~ P(x \vert \theta^(*))[logP(x \vert \theta) = -\frac{1}{N} \sum_{i}^{N}logP(x_{i} \vert \theta) $$ 가 됩니다.
+- 식 $$ -\mathbb E_{x ~ P(x \vert \theta^(*))}[logP(x \vert \theta) = -\frac{1}{N} \sum_{i}^{N}logP(x_{i} \vert \theta) $$ 가 됩니다.
     - 이 값은 `NLL(Negative Log Likelihood)`로 이 값을 최소화 하는 것과 `Log Likelihood`를 최대화 하는 것은 같은 의미를 가집니다.(부호 차이)
     - 즉, $$ D_{KL}(P \Vert Q_{\theta})$$ 를 `최소화`하는 `Maximum Likelihood`를 찾아야합니다.
     
