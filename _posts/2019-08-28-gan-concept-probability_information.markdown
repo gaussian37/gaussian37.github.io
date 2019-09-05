@@ -7,6 +7,17 @@ categories: [gan-concept]
 tags: [probability, information theory, 정보이론, kl divergence] # add tag
 ---
 
+<br>
+
+### 참고자료
+
+<br>
+
+- Pytorch로 시작하는 Generative Model (패스트캠퍼스)
+- https://ratsgo.github.io/convex%20optimization/2017/12/26/convexfunction/
+
+<br>
+
 - 이번 글에서는 `GAN`을 다루기 전에 필요한 기본적인 **확률과 정보이론**을 다루어 보려고 합니다.
 
 <br>
@@ -213,7 +224,3 @@ tags: [probability, information theory, 정보이론, kl divergence] # add tag
 - `Mutual Information`은 두 확률 변수들이 **얼마나 서로 dependent한 지 측정**합니다.
 
 <br>
-
-### 참고자료
-- Pytorch로 시작하는 Generative Model
-- https://ratsgo.github.io/convex%20optimization/2017/12/26/convexfunction/
