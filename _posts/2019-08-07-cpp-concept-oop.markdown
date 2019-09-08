@@ -1497,6 +1497,57 @@ int main() {
 - `main` 함수의 `int(10) + int(20)`을 보면 `add`함수를 사용한 것과 뭔가 비슷 한것 같지 않나요? 아마도 `int(10)`과 같은 것을 **casting**이라고 배웠을 텐데 이것은 임시 객체와 어떤 관계가 있을까요?
 - 이 내용은 **연산자 오버로딩**에서 자세하게 한번 살펴보도록 하겠습니다.
 
+<br>
+
+### **15. 클래스 안에 포함된 자료형 nested types**
+
+<br>
+
+- 특정 클래스만 사용하는 데이터나 enum 또는 클래스, 구조체 등이 있다고 한다면 굳이 전역에 선언할 필요가 있을까요?
+- 이런 경우에는 클래스 안에 포함 시키면 실수로 다른 클래스에 영향을 미치지 않게 할 수 있고 의미상으로 클래스 안에 포함되어 있기 때문에 이것들은 이 클래스에서 사용하는 것이라고 명확하게 할 수도 있습니다.
+- 이 때 사용하는 것이 `nested type`입니다. 다음 코드를 한번 살펴보겠습니다.
+
+<br>
+
+```cpp
+class Fruit {
+
+public:
+
+	enum FruitType {
+		APPLE, BANANA, CHERRY
+	};
+
+private:
+
+	FruitType m_type;
+
+public:
+
+	Fruit(FruitType type) :m_type(type) {}
+	FruitType getType() {
+		return m_type;
+	}
+};
+
+int main() {
+
+	Fruit apple(Fruit::APPLE);
+
+	if (apple.getType() == Fruit::APPLE) {
+		cout << "Apple" << endl;
+	}
+}
+```
+
+<br>
+
+- 위와 같이 `enum`의 경우 `Fruit`클래스에만 사용하려고 만들었다면 클래스 내부에 `nested type`으로 선언하여 사용하면 좀 더 범위와 의미가 명확해 집니다.
+- 이 때 사용할 수 있는 것들이 중괄호로 이루어진 것들 예를 들어 클래스, 구조체 등 모두 `nested type`으로 사용가능합니다.
 
 
-※ 참조 자료 : 홍정모의 따라하며 배우는 C++
+
+### **16. 실행 시간 측정하기**
+
+<br>
+
