@@ -13,6 +13,8 @@ tags: [cpp, c++] # add tag
 
 <br>
 
-### effective C++ 시리즈
+### 이펙티브 C++ 시리즈
 
 <br>
+
+- [View C++ as a federation of languages (C++는 언어들의 연합체이다.)](https://gaussian37.github.io/cpp-concept-effective_01/)
