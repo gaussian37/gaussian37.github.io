@@ -1405,4 +1405,97 @@ int main() {
 
 <br>
 
+### **14. 익명 객체**
+
+<br>
+
+- 객체는 항상 선언해서 사용해야 할까? 하는 의문이 생길 수 있습니다.
+- 왜냐하면 잠시 임시적으로만 사용하고 없애고 싶은 경우도 있는데 그 때마다 객체를 변수로 잡아버리면 메모리 낭비가 생기기 때문입니다.
+- 이 때 사용할 수 있는 것이 `익명 객체`입니다. 즉, 임시로 사용하는 방법인데 다음 코드를 보면서 설명드리겠습니다.
+
+<br>
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class A {
+
+
+public:
+
+	A() {
+		cout << "Constructor" << endl;
+	}
+
+	~A() {
+		cout << "Destructor" << endl;
+	}
+
+	void print() {
+
+		cout << "Hello" << endl;
+	}
+
+};
+
+int main() {
+
+    // A a;
+    // a.print();
+
+	A().print();
+
+}
+```
+
+<br>
+
+- 먼저, main 함수의 `A a`와 `A()`의 차이점에 대하여 한번 알아보겠습니다. 전자는 객체를 선언하고 메모리에 저장을 하는 반면에 후자는 임시적으로 사용하고 바로 소멸됩니다.
+- 실행되는 관점에서 바라보면 `A a`의 경우 객체가 선언됨과 동시에 생성자가 호출되기까지 합니다. 반면 `A()`는 생성자가 호출되고 다음라인으로 넘어갈 때, 소멸자도 호출되게 됩니다. 즉 메모리에서 사라지게 되는 것이지요.
+- 따라서 위 코드를 실행하면 **Constructor, Hello, Destructor** 순서로 출력되게 됩니다.
+- 다음과 같은 예제를 한번 다루어 보도록 하겠습니다.
+
+<br>
+
+```cpp
+class Cents{
+
+private:
+
+	int m_cents;
+
+public:
+
+	Cents(int cents) {
+		m_cents = cents;
+	}
+
+	int getCents() const{
+		return m_cents;
+	}
+};
+
+Cents add(const Cents& c1, const Cents& c2) {
+	return Cents(c1.getCents() + c2.getCents());
+}
+
+int main() {
+
+	cout << add(Cents(10), Cents(20)).getCents() << endl;
+    cout << int(10) + int(20) << endl;
+
+}
+```
+
+<br>
+
+- 위 예제를 보면 `add`함수를 이용하여 `Cents` 클래스의 각 멤버 변수의 값을 더하였고 그 결과를 출력하였습니다.
+- 이 계산 과정을 보면 객체는 어디에도 선언되지 않았고 임시 객체를 통하여 함수가 호출된 것을 확인할 수 있습니다.
+- `main` 함수의 `int(10) + int(20)`을 보면 `add`함수를 사용한 것과 뭔가 비슷 한것 같지 않나요? 아마도 `int(10)`과 같은 것을 **casting**이라고 배웠을 텐데 이것은 임시 객체와 어떤 관계가 있을까요?
+- 이 내용은 오버로딩에서 자세하게 한번 살펴보도록 하겠습니다.
+
+
+
 ※ 참조 자료 : 홍정모의 따라하며 배우는 C++
