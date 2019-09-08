@@ -15,4 +15,11 @@ tags: [GAN, autoencoder, generative] # add tag
 
 <br>
 
-- [Generative Model을 위한 기초 통계학 및 정보 이론](https://gaussian37.github.io/gan-concept-probability_information/)
+- Probability Model
+- (Probabilistic) Discriminative Model
+- Basic Bayesian Theory
+- [Basic Information Theory](https://gaussian37.github.io/gan-concept-information_theory/)
+- (Supervised) Generative Model
+- Discriminative Vs Generative Model
+- (Unsupervised) Generative Model
+ 
