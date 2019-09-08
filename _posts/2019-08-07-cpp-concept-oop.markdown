@@ -9,6 +9,10 @@ tags: [cpp, c++, 객체 지향, oop, object oriented] # add tag
 
 <br>
 
+- 출처 : 홍정모의 따라하며 배우는 C++
+
+<br>
+
 # **객체 지향 글 목차**
 
 <br>
