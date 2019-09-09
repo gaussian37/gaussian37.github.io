@@ -422,7 +422,7 @@ Student(const string& name)
 
 <br>
 
-### 6. 복사 생성자
+### **6. 복사 생성자**
 
 <br>
 
