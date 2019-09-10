@@ -1,6 +1,6 @@
 ---
 layout: post
-title: View C++ as a federation of languages (C++는 언어들의 연합체이다.)
+title: 1. View C++ as a federation of languages (C++는 언어들의 연합체이다.)
 date: 2019-09-03 00:00:00
 img: cpp/effective.png
 categories: [cpp-concept] 
