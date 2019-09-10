@@ -20,20 +20,20 @@ tags: [cpp, c++, effective c++] # add tag
 
 <br>
 
-- C언어: 
+- `C언어`: 
     - C++자체는 C언어에 기반이 되어 있기 때문에 C언어의 관련 속성들은 당연히 C++에서도 중요합니다. 
     - 더 나아가서 C++에는 C에 비하여 다양한 기능들이 추가되었기 때문에 C에서는 생각하기 어려웠던 많은 문제들의 해결책을 C++에서는 다양한 방법으로 해결할 수 있습니다.
 
-- Object - oriented C++:
+- `Object - oriented C++`:
     - 클래스 기능을 이용하면 **Object oriented programming**이 가능해집니다.
     - C++에서는 객체 지향의 성질들이 추가되면서 다양한 문제를 객체 지향의 방법으로 해결할 수 있습니다. 객체 지향의 대표적인 성질은 다음과 같습니다.
     - constructor, destructor, encapsulation, inheritance, polymorphism, virtual function 등.
     - 특히 여기서 **encapsulation, inheritance, polymorphism**은 객체 지향의 3대 원리로 알려진 만큼 가장 중요한 기능들입니다.
 
-- Template C++:
+- `Template C++`:
     - Template란 기능을 이용하면 **Generic programming**이 가능해집니다.
     - Template 기능을 이용하면 새로운 방식의 프로그래밍이 가능해지고 그것을  **Template metaprogramming**이라고 합니다.
-- STL:
+- `STL`:
     - STL은 Standard Template Library의 약자입니다.
     - 즉, STL은 Temlplate Library이고 Template의 성질과 다른 C++의 기능들을 잘 어우러져서 사용하기 매우 편리한 library들을 만들어 냅니다.
 
