@@ -26,4 +26,3 @@ tags: [cpp, c++] # add tag
 <br>
 
 - [C++ 변수, STL, 클래스 멤버 변수(public) 등의 초기화](https://gaussian37.github.io/cpp-etc-initialization/)
-- [const char *와 char const *의 차이](https://gaussian37.github.io/cpp-etc-const_char_pointer/)
