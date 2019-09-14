@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5865ed8-8875-4450-9e5c-f38ba887355e" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/img/python/etc/pythonanywhere/scheduled-task.PNG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/2019-02-23-python-etc-pythonanywhere-setting.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2019-02-23-python-etc-pythonanywhere-setting.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.yml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,51 +13,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="2019-02-09-ml-concept-t-SNE.markdown" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_posts/2019-02-09-ml-concept-t-SNE.markdown">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="1914">
-                <caret line="87" column="1" selection-start-line="87" selection-start-column="1" selection-end-line="87" selection-end-column="1" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="2017-02-17-math-la-distance between planes.markdown" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_posts/2017-02-17-math-la-distance between planes.markdown">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="341">
-                <caret line="20" column="50" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="50" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="2019-02-23-python-etc-pythonanywhere-setting.markdown" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/_posts/2019-02-23-python-etc-pythonanywhere-setting.markdown">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="371">
-                <caret line="142" column="4" selection-start-line="142" selection-start-column="4" selection-end-line="142" selection-end-column="4" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="2017-01-01-math-la-linear algebra basic.markdown" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_posts/2017-01-01-math-la-linear algebra basic.markdown">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="792">
-                <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
-              </first_editor>
-              <second_editor />
+    <leaf>
+      <file leaf-file-name="_config.yml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_config.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="313">
+              <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -68,41 +27,50 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>height</find>
-      <find />
-      <find>font</find>
-      <find>color</find>
-      <find>chollet</find>
-      <find>KIM JIN-SOL</find>
-      <find>kim jins</find>
-      <find>pagead2</find>
-      <find>7290065680267572</find>
-      <find>+ $$</find>
-      <find>PNG</find>
-      <find>|</find>
-      <find>pb</find>
-      <find>게임이론</find>
-      <find>주성분</find>
-      <find>PCA</find>
-      <find>About PCA</find>
-      <find>ma</find>
-      <find>machine-</find>
-      <find>about PCA</find>
-      <find>자본론</find>
-      <find>우도</find>
-      <find>hat</find>
-      <find>ln</find>
-      <find>고유값</find>
-      <find>create 시</find>
+      <find>16</find>
+      <find>16px</find>
+      <find>20px</find>
+      <find>Introduction</find>
+      <find>Image Re</find>
+      <find>cs230 Convolutional Neural Network 한글</find>
+      <find>Eienstein summation</find>
+      <find>symmetry of</find>
+      <find>타겟</find>
+      <find>Computer Vi</find>
+      <find>동전의</find>
+      <find>오토인코더</find>
+      <find>autoen</find>
+      <find>챕터1에서는 AE는 ML하는 작업인 것을 이해하면 되겠습니다.</find>
+      <find>변경갑소가</find>
+      <find>element</find>
+      <find>PyTorch 설치 및 colab 사용 방법</find>
+      <find>autoenc</find>
+      <find>autoenco</find>
+      <find>autoencoder</find>
+      <find>위 코드를 보면</find>
+      <find>PR</find>
+      <find>IELTS</find>
+      <find>Jensen's inequality</find>
+      <find>vision-dlai</find>
+      <find>vision</find>
+      <find>dlai</find>
+      <find>생각에 관한 생각 (Thinking fast and slow)</find>
+      <find>생각에 관한 생각</find>
+      <find>Thinking, Fast and Slow</find>
     </findStrings>
     <replaceStrings>
       <replace>+ ·$$</replace>
       <replace>jpg</replace>
       <replace>vert</replace>
+      <replace>-</replace>
+      <replace>Thinking_Fast_and_Slow</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\gauss\Documents\GitHub\blog\assets\img\ml\concept\about-pca</dir>
       <dir>C:\Users\gauss\Documents\GitHub\blog\_posts</dir>
+      <dir>C:\Users\gauss\Documents\GitHub\blog\assets\img\gan</dir>
+      <dir>C:\Users\gauss\Documents\GitHub\blog\assets\img\gan\concept\autoencoder3</dir>
+      <dir>C:\Users\gauss\Documents\GitHub\blog</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -111,65 +79,64 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/dl/paper/index.html" />
-        <option value="$PROJECT_DIR$/rl/code/index.html" />
-        <option value="$PROJECT_DIR$/rl/concept/index.html" />
-        <option value="$PROJECT_DIR$/rl/etc/index.html" />
-        <option value="$PROJECT_DIR$/rl/paper/index.html" />
-        <option value="$PROJECT_DIR$/_posts/2018-09-22-dl-concept-cnn.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2018-09-06-deep-learning-chollet-5-1.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2018-09-15-machine-learning-concept-pca.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2018-08-28-machine-learning-concept-decision-tree.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2018-08-26-machine-learning-etc-mle.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2018-06-30-Introduction.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2018-09-15-machine-learning-concept-feature-engineering.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2018-09-30-deep-learning-chollet-5-2.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2018-07-05-markdown.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2018-07-01-Understanding ABS.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2018-09-22-dl-concept-shallow neural network.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2018-10-19-gan-concept-VAE(Variational AutoEncoder.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2018-10-23-vision-concept-gram matrix.markdown" />
-        <option value="$PROJECT_DIR$/_config.yml" />
-        <option value="$PROJECT_DIR$/_layouts/main.html" />
-        <option value="$PROJECT_DIR$/_layouts/post.html" />
-        <option value="$PROJECT_DIR$/_posts/2019-02-03-math-game-classical economy vs game theory.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2019-02-02-interview-humanity-Thinking fast and slow.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2019-01-11-ml-prml-1.practice quize.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2019-02-14-ml-prml-2.1.binomial distribution.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2010-01-01-math-probability-probability table.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2010-01-01-math-pb-probability table.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2017-01-14-math-la-basis of subspace.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2017-01-19-math-la-vector dot product and vector length.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2017-01-24-math-la-dot product properties.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2017-01-25-math-la-Cauchy–Schwarz inequality.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2017-01-27-math-la-vector triangle inequality.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2017-01-28-math-la-defining the angle between vectors.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2017-01-31-math-la-cross product.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2017-02-03-math-la-Dot and cross product comparison.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2017-02-01-math-la-Relationship between cross product and sin of angle.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2017-02-05-math-la-Vector triple product expansion.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2000-01-02-math-game-game theory table.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2019-02-06-math-game-game theory basic.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2010-01-02-interview-humanity-humanity table.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2019-02-09-ml-concept-t-SNE 개념과 사용법.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2019-02-09-ml-concept-pca.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2019-02-09-interview-humanity-the capital.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2019-02-09-ml-concept-t-SNE.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2019-02-16-ml-concept-mle and map.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2000-01-01-ml-concept-machine learning table.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2017-02-17-math-la-distance between planes.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-07-21-dl-dlai-problem_of_local_optima.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-07-21-dl-dlai-learning_rate_decay.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-07-21-dl-dlai-Adam.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2000-01-03-gan-concept-gan table.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2018-09-28-math-la-einstein_summation_convention.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2018-09-29-math-la-symmetry_of_dot_product.markdown" />
+        <option value="$PROJECT_DIR$/../../Code/VideoProcessing/texteffect.py" />
+        <option value="$USER_HOME$/Anaconda3/envs/mldl/Lib/site-packages/moviepy/config_defaults.py" />
+        <option value="$PROJECT_DIR$/_posts/2018-09-30-math-la-matrices_transform_into_the_new_basis_vector_set.markdown" />
+        <option value="$PROJECT_DIR$/cpp/etc/index.html" />
+        <option value="$PROJECT_DIR$/_posts/2019-03-03-math-pb-bayes basic10.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-08-11-vba-concept-vba_functions.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-08-14-math-pb-bayes_stat_05.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-08-14-math-pb-bayes_stat_06.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-08-15-math-pb-bayes_stat_07.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-05-18-dl-pytorch-pytorch install.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-08-17-vba-concept-object_variable.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-02-24-gan-concept-autoencoder1.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-02-25-gan-concept-autoencoder2.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-03-03-math-pb-bayes basic11.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-03-03-math-pb-bayes basic12.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-03-03-math-pb-bayes basic13.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-08-07-cpp-concept-oop.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-08-09-cpp-etc-initialization.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-08-28-gan-concept-basic_probability_information_theory.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2000-01-01-vision-concept-vision table.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2000-01-01-vision-detection-detection table.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2000-01-01-vision-kalmanfilter-kalmanfilter table.markdown" />
         <option value="$PROJECT_DIR$/_posts/2000-01-02-math-la-Linear Algebra Table.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2019-02-21-math-pb-bayes basic3.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2017-01-01-math-la-linear algebra basic.markdown" />
-        <option value="$PROJECT_DIR$/_posts/2019-02-23-python-etc-pythonanywhere-setting.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2000-01-02-math-pb-probability table.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2000-01-01-math-concept-algorithm table.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2000-01-01-ml-concept-machine learning table.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2010-01-03-vba-concept-vba table.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2000-01-01-vision-segmentation-segmentation table.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-08-28-gan-concept-probability_information.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2000-01-01-Introduction.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2000-01-01-dl-concept-deep learning table.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2000-01-01-dl-dlai-deeplearning_ai_table.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-08-31-dl-concept-mobilenet.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-09-01-dl-dlai-network_in_network.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-02-02-interview-humanity-Thinking fast and slow.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2000-01-01-gan-concept-gan table.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-09-03-cpp-concept-effective_02.markdown" />
+        <option value="$PROJECT_DIR$/_includes/categories.html" />
+        <option value="$PROJECT_DIR$/c/etc/index.html" />
+        <option value="$PROJECT_DIR$/c/concept/index.html" />
+        <option value="$PROJECT_DIR$/_posts/2019-09-03-cpp-etc-const_char_pointer.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2010-01-03-cpp-concept-cpp table.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2019-09-03-c-concept-const_char_pointer.markdown" />
+        <option value="$PROJECT_DIR$/_posts/2010-01-03-c-concept-c table.markdown" />
+        <option value="$PROJECT_DIR$/_config.yml" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="405" />
-    <option name="y" value="195" />
-    <option name="width" value="1440" />
-    <option name="height" value="765" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-9" />
+    <option name="width" value="1935" />
+    <option name="height" value="1039" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -179,68 +146,33 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scope">
+        <subPane subId="Default">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="blog" type="cbb8eebc:String" user="blog" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="blog" type="cbb8eebc:String" user="blog" />
+              <item name=".idea" type="cbb8eebc:String" user=".idea" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="blog" type="cbb8eebc:String" user="blog" />
+              <item name="_posts" type="cbb8eebc:String" user="_posts" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="blog" type="b2602c69:ProjectViewProjectNode" />
               <item name="blog" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blog" type="462c0819:PsiDirectoryNode" />
-              <item name="_includes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blog" type="462c0819:PsiDirectoryNode" />
-              <item name="_layouts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blog" type="462c0819:PsiDirectoryNode" />
-              <item name="_posts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blog" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blog" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="img" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blog" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="img" type="462c0819:PsiDirectoryNode" />
-              <item name="python" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blog" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="img" type="462c0819:PsiDirectoryNode" />
-              <item name="python" type="462c0819:PsiDirectoryNode" />
-              <item name="etc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blog" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="img" type="462c0819:PsiDirectoryNode" />
-              <item name="python" type="462c0819:PsiDirectoryNode" />
-              <item name="etc" type="462c0819:PsiDirectoryNode" />
-              <item name="pythonanywhere" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blog" type="462c0819:PsiDirectoryNode" />
-              <item name="math" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -249,15 +181,20 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../djangoserver" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../carpoolProject" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\gauss\Documents\GitHub\blog\assets\img\gan\concept" />
+      <recent name="C:\Users\gauss\Documents\GitHub\blog\assets\img\dl\dlai" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\gauss\Documents\GitHub\blog\assets\img\python\etc\pythonanywhere" />
+      <recent name="C:\Users\gauss\Documents\GitHub\blog\assets\img\c\concept\const_char_pointer" />
+      <recent name="C:\Users\gauss\Documents\GitHub\blog\assets\img\c" />
       <recent name="C:\Users\gauss\Documents\GitHub\blog\_posts" />
-      <recent name="C:\Users\gauss\Documents\GitHub\blog\assets\img\math\la\distance-between-planes" />
-      <recent name="C:\Users\gauss\Documents\GitHub\blog\assets\img\ml\concept\mle-and-mlp" />
-      <recent name="C:\Users\gauss\Documents\GitHub\blog\assets\img\ml\concept\t-SNE" />
+      <recent name="C:\Users\gauss\Documents\GitHub\blog" />
+      <recent name="C:\Users\gauss\Documents\GitHub\blog\assets\img\nd\humanity\Thinking_Fast_and_Slow" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -286,10 +223,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="0" width="1548" height="831" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28023794" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27891606" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" />
@@ -312,60 +249,67 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/_posts/2018-10-03-ml-concept-Regression.markdown">
+    <entry file="file://$PROJECT_DIR$/assets/img/math/pb/bayes-basic_12/5.PNG">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/img/math/pb/bayes-basic_12/1.PNG">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2019-02-25-gan-concept-autoencoder2.markdown">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="5214">
-            <caret line="237" column="3" selection-start-line="237" selection-start-column="3" selection-end-line="237" selection-end-column="3" />
+          <first_editor relative-caret-position="608">
+            <caret line="127" column="51" selection-start-line="127" selection-start-column="51" selection-end-line="127" selection-end-column="51" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2018-09-30-deep-learning-chollet-8-5.markdown">
+    <entry file="file://$PROJECT_DIR$/_posts/2019-08-09-cpp-etc-initialization.markdown">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="1958">
-            <caret line="89" column="1" selection-start-line="89" selection-start-column="1" selection-end-line="89" selection-end-column="1" />
+          <first_editor relative-caret-position="328">
+            <caret line="57" column="4" lean-forward="true" selection-start-line="57" selection-start-column="4" selection-end-line="57" selection-end-column="4" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2018-10-08-gan-paper-dcgan.markdown">
+    <entry file="file://$PROJECT_DIR$/_posts/2019-08-07-cpp-concept-oop.markdown">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="308">
-            <caret line="14" selection-start-line="14" selection-end-line="14" />
+          <first_editor relative-caret-position="424">
+            <caret line="1165" column="13" selection-start-line="1165" selection-start-column="13" selection-end-line="1165" selection-end-column="13" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2018-09-16-python-django-python shell.markdown">
+    <entry file="file://$PROJECT_DIR$/_posts/2018-11-20-gan-concept-Vid2Vid.markdown">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="528">
-            <caret line="24" selection-start-line="24" selection-end-line="24" />
+          <first_editor relative-caret-position="-336" />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2019-08-15-math-pb-bayes_stat_07.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="304">
+            <caret line="17" selection-start-line="17" selection-end-line="20" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2018-09-22-python-rest-02 JSON Serialize.markdown">
+    <entry file="file://$PROJECT_DIR$/_posts/2000-01-01-vision-concept-vision table.markdown">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="1408">
-            <caret line="64" column="10" selection-start-line="64" selection-start-column="10" selection-end-line="64" selection-end-column="10" />
+          <first_editor relative-caret-position="57">
+            <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kaggle/ps/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="51" selection-start-line="4" selection-start-column="51" selection-end-line="4" selection-end-column="51" />
         </state>
       </provider>
     </entry>
@@ -373,293 +317,30 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/_includes/list.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_includes/head.html">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="12" lean-forward="true" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/_layouts/default.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/_config.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="31" column="12" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/img/interview/humanity/Thinking, Fast and Slow/1-1.PNG" />
-    <entry file="file://$PROJECT_DIR$/assets/img/interview/humanity/Thinking, Fast and Slow/images.jpg" />
     <entry file="file://$PROJECT_DIR$/_layouts/main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
+        <state relative-caret-position="-483" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/_layouts/post.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
-        </state>
+        <state relative-caret-position="-293" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/img/math/la/dot and cross product/1.PNG">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2018-09-22-dl-concept-shallow neural network.markdown">
+    <entry file="file://$PROJECT_DIR$/_posts/2000-01-02-math-pb-probability table.markdown">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="462">
-            <caret line="21" selection-start-line="21" selection-end-line="21" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/img/math/la/dot and cross product/2.PNG">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2018-10-23-vision-concept-gram matrix.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="176">
-            <caret line="8" selection-start-line="8" selection-end-line="8" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2019-02-03-math-game-classical economy vs game theory.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="481">
-            <caret line="129" column="4" selection-start-line="129" selection-start-column="4" selection-end-line="129" selection-end-column="4" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2019-02-02-interview-humanity-Thinking fast and slow.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="2464">
-            <caret line="112" column="23" selection-start-line="112" selection-start-column="23" selection-end-line="112" selection-end-column="23" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2019-01-11-ml-prml-1.practice quize.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="176">
-            <caret line="8" selection-start-line="8" selection-end-line="8" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2019-02-14-ml-prml-2.1.binomial distribution.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="1474">
-            <caret line="67" column="44" selection-start-line="67" selection-start-column="44" selection-end-line="67" selection-end-column="44" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/math/pb/index.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_includes/categories.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="37" column="99" selection-start-line="37" selection-start-column="99" selection-end-line="37" selection-end-column="99" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2010-01-01-math-pb-probability table.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="352">
-            <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2017-01-31-math-la-cross product.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="330">
-            <caret line="15" column="77" selection-start-line="15" selection-start-column="77" selection-end-line="15" selection-end-column="77" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2017-02-03-math-la-Dot and cross product comparison.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="330">
-            <caret line="15" column="77" selection-start-line="15" selection-start-column="77" selection-end-line="15" selection-end-column="77" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2017-01-27-math-la-vector triangle inequality.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="330">
-            <caret line="15" column="48" lean-forward="true" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2017-01-25-math-la-Cauchy–Schwarz inequality.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="242">
-            <caret line="11" column="77" selection-start-line="11" selection-start-column="77" selection-end-line="11" selection-end-column="77" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2017-01-24-math-la-dot product properties.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="242">
-            <caret line="11" column="77" selection-start-line="11" selection-start-column="77" selection-end-line="11" selection-end-column="77" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2017-01-19-math-la-vector dot product and vector length.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="242">
-            <caret line="11" column="77" selection-start-line="11" selection-start-column="77" selection-end-line="11" selection-end-column="77" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2017-01-14-math-la-basis of subspace.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="242">
-            <caret line="11" selection-start-line="11" selection-end-line="11" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2017-01-28-math-la-defining the angle between vectors.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="330">
-            <caret line="15" column="77" selection-start-line="15" selection-start-column="77" selection-end-line="15" selection-end-column="77" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2017-02-05-math-la-Vector triple product expansion.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="605">
-            <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2017-02-01-math-la-Relationship between cross product and sin of angle.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="242">
-            <caret line="11" selection-start-line="11" selection-end-line="11" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2019-02-06-math-game-game theory basic.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="286">
-            <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2010-01-02-interview-humanity-humanity table.markdown" />
-    <entry file="file://$PROJECT_DIR$/_posts/2000-01-02-math-game-game theory table.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="198">
-            <caret line="9" column="69" selection-start-line="9" selection-start-column="69" selection-end-line="9" selection-end-column="69" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2019-02-09-ml-concept-pca.markdown" />
-    <entry file="file://$PROJECT_DIR$/_posts/2019-02-09-interview-humanity-the capital.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="503">
-            <caret line="31" column="15" lean-forward="true" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/img/ml/concept/mle-and-mlp/mle.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2000-01-01-ml-concept-machine learning table.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="176">
-            <caret line="8" column="106" selection-start-line="8" selection-start-column="106" selection-end-line="8" selection-end-column="106" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2019-02-16-ml-concept-mle and map.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="44">
-            <caret line="2" column="55" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="55" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2019-02-09-ml-concept-t-SNE.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="1914">
-            <caret line="87" column="1" selection-start-line="87" selection-start-column="1" selection-end-line="87" selection-end-column="1" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2019-02-21-math-pb-bayes basic3.markdown">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="121">
-            <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
+          <first_editor relative-caret-position="95">
+            <caret line="5" column="22" lean-forward="true" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
           </first_editor>
           <second_editor />
         </state>
@@ -668,50 +349,253 @@
     <entry file="file://$PROJECT_DIR$/_posts/2000-01-02-math-la-Linear Algebra Table.markdown">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="1320">
-            <caret line="60" column="18" selection-start-line="60" selection-start-column="18" selection-end-line="60" selection-end-column="18" />
+          <first_editor relative-caret-position="57">
+            <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2017-01-01-math-la-linear algebra basic.markdown">
+    <entry file="file://$PROJECT_DIR$/_posts/2000-01-01-math-concept-algorithm table.markdown">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="792">
-            <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
+          <first_editor relative-caret-position="133">
+            <caret line="7" column="3" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2018-12-25-python-rest-mutable request.markdown">
+    <entry file="file://$PROJECT_DIR$/_posts/2000-01-01-ml-concept-machine learning table.markdown">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="264">
-            <caret line="12" selection-start-line="12" selection-end-line="12" />
+          <first_editor relative-caret-position="38">
+            <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2017-02-17-math-la-distance between planes.markdown">
+    <entry file="file://$PROJECT_DIR$/_posts/2000-01-01-vision-kalmanfilter-kalmanfilter table.markdown">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="341">
-            <caret line="20" column="50" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="50" />
+          <first_editor relative-caret-position="57">
+            <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2019-02-23-python-etc-pythonanywhere-setting.markdown">
+    <entry file="file://$PROJECT_DIR$/_posts/2000-01-01-vision-detection-detection table.markdown">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="371">
-            <caret line="142" column="4" selection-start-line="142" selection-start-column="4" selection-end-line="142" selection-end-column="4" />
+          <first_editor relative-caret-position="190">
+            <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2010-01-03-vba-concept-vba table.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="65">
+            <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/img/gan/concept/prob_info/3.PNG">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2000-01-01-Introduction.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="285">
+            <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/img/dl/concept/mobilenet/mobilenet.PNG">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2018-01-01-vision-dlai-style transfer.markdown" />
+    <entry file="file://$PROJECT_DIR$/_posts/2018-01-01-vision-dlai-face recognition.markdown" />
+    <entry file="file://$PROJECT_DIR$/_posts/2018-01-01-vision-dlai-object detection.markdown" />
+    <entry file="file://$PROJECT_DIR$/_posts/2018-01-01-vision-dlai-improve.markdown" />
+    <entry file="file://$PROJECT_DIR$/_posts/2018-01-01-vision-dlai-case study.markdown" />
+    <entry file="file://$PROJECT_DIR$/_posts/2018-01-01-vision-dlai-cnn.markdown" />
+    <entry file="file://$PROJECT_DIR$/assets/img/vision/dlai/dlai.jpg" />
+    <entry file="file://$PROJECT_DIR$/_posts/2019-08-28-gan-concept-information_theory.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="95">
+            <caret line="92" selection-start-line="92" selection-end-line="94" selection-end-column="4" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2000-01-01-dl-dlai-deeplearning_ai_table.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="610">
+            <caret line="33" column="19" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2000-01-01-dl-concept-deep learning table.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="779">
+            <caret line="41" column="18" lean-forward="true" selection-start-line="41" selection-start-column="18" selection-end-line="41" selection-end-column="18" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/img/dl/dlai/network_in_network/1.PNG">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/img/dl/dlai/network_in_network/2.PNG">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2019-09-01-dl-dlai-network_in_network.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="102">
+            <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2019-08-31-dl-concept-mobilenet.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="610">
+            <caret line="65" column="31" selection-start-line="65" selection-start-column="31" selection-end-line="65" selection-end-column="31" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2000-01-01-vision-segmentation-segmentation table.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="76">
+            <caret line="4" column="41" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/img/nd/humanity/Thinking_Fast_and_Slow/thinkfast.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cpp/concept/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/c/etc/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="45" lean-forward="true" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_includes/categories.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="108" column="92" selection-start-line="108" selection-start-column="92" selection-end-line="108" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/c/concept/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="55" lean-forward="true" selection-start-line="4" selection-start-column="55" selection-end-line="4" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2010-01-03-cpp-concept-cpp table.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="532">
+            <caret line="28" selection-start-line="28" selection-end-line="28" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2019-02-02-interview-humanity-Thinking fast and slow.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="323">
+            <caret line="20" selection-start-line="20" selection-end-line="20" selection-end-column="105" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2000-01-01-gan-concept-gan table.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="456">
+            <caret line="24" selection-start-line="24" selection-end-line="24" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2010-01-03-c-concept-c table.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="323">
+            <caret line="17" column="117" selection-start-line="17" selection-start-column="117" selection-end-line="17" selection-end-column="117" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2019-09-03-c-concept-const_char_pointer.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="95">
+            <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2019-09-03-cpp-concept-effective_02.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="519">
+            <caret line="45" column="35" lean-forward="true" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2019-09-03-cpp-concept-effective_01.markdown">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="76">
+            <caret line="4" column="18" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="18" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
         </state>
       </provider>
     </entry>
