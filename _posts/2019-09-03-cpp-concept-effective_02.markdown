@@ -43,4 +43,13 @@ const double AspectRatio = 1.653;
 <br>
 
 - 지금까지 `const`상수를 사용하는 것이 좋고 `#define` 매크로 상수를 사용하는 것이 좋지 않다 라는것에 대하여 다루어 봤는데, 이 방법이 어떤 경우에 효율적으로 사용될 수 있는지 한번 알아보겠습니다.
-- 먼저, `constant pointer`를 선언할 때입니다. ([constant pointer 참조](https://gaussian37.github.io/c-concept-const_char_pointer/)) 
+- 먼저, `constant pointer`를 선언할 때입니다. ([constant pointer 참조](https://gaussian37.github.io/c-concept-const_char_pointer/))
+- 보통 상수들은 특정 헤더파일에 모아두게 되는데 그 때 `#define`으로 상수들을 모으지 말고 `const`로 헤더 파일에 모으고 특히 **constant pointer**나 **pointer to constant**를 선언할 때에는 특히 `constant`를 이용해야 합니다.
+    - 예를 들어 `const char * const authorName = "Scott Meyers";`와 같이 사용하여 **constant pointer, pointer to constant, constant pointer to constant**를 선언합니다.
+- 첨언하면 이렇게 사용하는 문자열 방식은 `C언어` 방식의 약간 올드한 방식으로 `C++`에서는 string을 이용하여 상수를 만드는 것이 더 좋습니다.
+    - 예를 들면 `const std::string authorName("Scott Meyers");`
+
+<br>
+
+
+ 
