@@ -17,4 +17,13 @@ tags: [cpp, c++] # add tag
 
 <br>
 
-- [View C++ as a federation of languages (C++는 언어들의 연합체이다.)](https://gaussian37.github.io/cpp-concept-effective_01/)
+- [1. View C++ as a federation of languages (C++는 언어들의 연합체이다.)](https://gaussian37.github.io/cpp-concept-effective_01/)
+
+<br>
+
+### 기타 C++ 관련 팁
+
+<br>
+
+- [C++ 변수, STL, 클래스 멤버 변수(public) 등의 초기화](https://gaussian37.github.io/cpp-etc-initialization/)
+- [const char *와 char const *의 차이](https://gaussian37.github.io/cpp-etc-const_char_pointer/)
