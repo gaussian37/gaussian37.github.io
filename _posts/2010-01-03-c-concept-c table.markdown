@@ -15,4 +15,4 @@ tags: [c, c language, c 언어] # add tag
 
 ### **Pointer 관련**
 
-- [const char *p, char * const p and const char * const p](https://gaussian37.github.io/c-concept-const_char_pointer/)
+- [const char *p, char * const p 그리고 const char * const p](https://gaussian37.github.io/c-concept-const_char_pointer/)

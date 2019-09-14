@@ -43,4 +43,4 @@ const double AspectRatio = 1.653;
 <br>
 
 - 지금까지 `const`상수를 사용하는 것이 좋고 `#define` 매크로 상수를 사용하는 것이 좋지 않다 라는것에 대하여 다루어 봤는데, 이 방법이 어떤 경우에 효율적으로 사용될 수 있는지 한번 알아보겠습니다.
-- 먼저, `constant pointer`를 선언할 때입니다.
+- 먼저, `constant pointer`를 선언할 때입니다. ([constant pointer 참조](https://gaussian37.github.io/c-concept-const_char_pointer/)) 
