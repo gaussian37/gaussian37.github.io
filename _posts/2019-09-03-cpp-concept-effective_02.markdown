@@ -51,5 +51,95 @@ const double AspectRatio = 1.653;
 
 <br>
 
+- 그 다음으로 상수를 사용하면 좋은 경우는 **class-specific constant**입니다.
+- 만약 `constant`를 특정 클래스에서만 사용하도록 범위를 제한하려면 클래스 내부에서 `constant`를 선언해야 합니다.
+- 이 때, 멤버 변수로 상수 형태로 선언해야 하고 특히, 아래 코드와 같이 상수의 사용이 발생하면 `static`형태로 선언되어져야 합니다.
+
+<br>
+
+```cpp
+class GamePlayer {
+
+private:
+	static const int NumTurns = 5; // 상수 선언
+	int scores[NumTurns]; // 상수 사용
+};
+``` 
+
+<br>
+
+- 다루어야할 내용은 **class-specific constant**를 사용하는 것이 `#define`을 사용하는 것 보다 더 낫다라는 것인데, 잠시 위 코드를 자세히 한번 살펴보고 지나가겠습니다.
+- 위 코드에서 **NumTurns**는 `declaration`이지 `definition`이 아닙니다. 
+- 보통 C++에서는 사용하려는 변수의 `definition`이 필요합니다. 하지만 `static` 타입과 `integral` 타입(ex. ing, char, long..)의 **class-specific constant**는 예외입니다.
+- 만약 주소값을 사용하지 않는다면, `definition` 없이 `declare`만 하여 변수를 사용할 수 있습니다.
+- 만약 주소값을 사용해서 `definition`을 해야하거나 또는 컴파일러가 `definition`을 강제로 원하는 경우에는 다음과 같이 `definition`을 정할 수 있습니다.
+
+<br>
+
+```cpp
+const int GamePlayer::NumTurns; //definition
+```
+
+<br>
+
+- 위 코드는 보통 헤더 파일이 아니라 클래스가 선언된 파일에 같이 넣습니다.
+- 왜냐하면 클래스의 상수들의 초기값은 상수들이 `declaration`된 곳에서 초기화가 되어야 하기 때문입니다.
+- 위 코드에서는 `static const int NumTurns=5;`로 클래스 내부에서 선언과 동시에 초기화가 되었습니다.
+- 만약 클래스 내부에서 선언과 동시에 초기화가 안되었다면 `definition`에서 초기화가 되었어야 합니다.
+    - 예를 들면 `const int GamePlayer::NumTurns = 5;`와 같이 정의되어야 합니다.
+- 정리하면 다음 둘 중 한가지 경우를 따라야 합니다.
+- 첫번째, 클래스 내부에서 `declaration` 시 초기화를 하고 클래스 외부에서 `definition`을 합니다.
+
+<br>
+
+```cpp
+class GamePlayer {
+
+private:
+	static const int NumTurns = 5; // 상수 선언
+
+public:
+
+	static int getNum() {
+		return NumTurns;
+	}
+};
+
+const int GamePlayer::NumTurns;
+
+```
+
+<br>
+
+- 두번째, 클래스 외부의 `definition`에서 초기화를 합니다.
+
+<br>
+
+```cpp
+class GamePlayer {
+
+private:
+	static const int NumTurns; // 상수 선언
+
+public:
+
+	static int getNum() {
+		return NumTurns;
+	}
+};
+
+const int GamePlayer::NumTurns = 5;
+```
+
+<br>
+
+- 오래된 컴파일러 버전에는 첫번째 케이스가 오류가 날 수도 있습니다. (아마 요즘 사용하는 대부분의 컴파일러는 첫번째, 두번째 방법 모두 사용가능할 것입니다.)
+
+<br>
+
+- 다시 본론으로 돌아오면, 위에서 설명한 **class-specific constant**를 사용하는 것이 `#define`을 이용한 상수를 사용한 것 보다 더 낫다는 것입니다.
+- 왜냐하면 `#deinfe`은 특정 클래스에서만 사용할 수 있도록 범위를 제한할 수 없습니다. 일단 매크로 상수가 만들어지면 모든 클래스에서 강제로 사용되어 집니다.
+- 또한 클래스의 `encapsulation` 역할도 해낼 수 없기 때문에 C++에서 사용되는 장점들이 무시되는 문제도 있습니다. 즉, private 타입의 매크로가 없다는 것이 문제입니다.
+- 반면에 **const data member**는 `encapsulation`이 됩니다. 
 
  
