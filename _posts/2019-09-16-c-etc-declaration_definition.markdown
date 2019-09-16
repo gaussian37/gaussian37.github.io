@@ -3,7 +3,7 @@ layout: post
 title: declaration(선언)과 deficition(정의) 차이
 date: 2019-09-16 00:00:00
 img: c/c.png
-categories: [cpp-concept] 
+categories: [c-concept] 
 tags: [c, declaration, definition, 선언, 정의] # add tag
 ---
 

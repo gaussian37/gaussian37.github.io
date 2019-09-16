@@ -2,7 +2,7 @@
 layout: post
 title: const char *와 char const *의 차이
 date: 2019-09-03 00:00:00
-img: cpp/cpp.png
+img: c/c.png
 categories: [c-concept] 
 tags: [c, const, char, constant pointer, pointer to constant```] # add tag
 ---
