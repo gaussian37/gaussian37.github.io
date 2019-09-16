@@ -14,6 +14,10 @@ tags: [cpp, c++, effective c++] # add tag
 
 <br>
 
+### #define을 이용하여 `constant`를 선언하지 말 것
+
+<br>
+
 - 예를 들어 다음과 같은 코드가 있다고 가정해 보겠습니다
 
 <br>
@@ -134,12 +138,97 @@ const int GamePlayer::NumTurns = 5;
 <br>
 
 - 오래된 컴파일러 버전에는 첫번째 케이스가 오류가 날 수도 있습니다. (아마 요즘 사용하는 대부분의 컴파일러는 첫번째, 두번째 방법 모두 사용가능할 것입니다.)
+- 이전에는 `static` 클래스 멤버 변수를 `declaration` 동시에 초기화 하는것이 원칙이 아니었기 때문입니다.
 
 <br>
 
 - 다시 본론으로 돌아오면, 위에서 설명한 **class-specific constant**를 사용하는 것이 `#define`을 이용한 상수를 사용한 것 보다 더 낫다는 것입니다.
 - 왜냐하면 `#deinfe`은 특정 클래스에서만 사용할 수 있도록 범위를 제한할 수 없습니다. 일단 매크로 상수가 만들어지면 모든 클래스에서 강제로 사용되어 집니다.
 - 또한 클래스의 `encapsulation` 역할도 해낼 수 없기 때문에 C++에서 사용되는 장점들이 무시되는 문제도 있습니다. 즉, private 타입의 매크로가 없다는 것이 문제입니다.
-- 반면에 **const data member**는 `encapsulation`이 됩니다. 
+- 반면에 **const data member**는 `encapsulation`이 됩니다.
 
- 
+<br>
+
+- 위의 코드에서 사용한 바와 같이 클래스 내부에서 배열을 선언하는 것과 같이 `constant`가 필요한 경우가 종종 있습니다.
+- 예전에는 클래스 내부에서 `static integral class constant` 타입에 대한 `declaration`과 동시에 초기화를 하는 것이 컴파일러에 의해 금지되었기 때문에 우회해서 사용하는 방법이 있었는데 그것이 `enum hack`이라는 방법입니다.
+- 이 방법은 정의해야하는 `constant`가 `int` 타입인 경우에 사용이 가능한 방법입니다.
+
+<br>
+
+```cpp
+class GamePlayer{
+
+private:
+
+    enum {NumTurns = 5}; // 상수 5에 symbolic name을 만듭니다.
+    int scores[NumTurns];
+    ...
+}
+```
+
+<br>
+
+- 먼저 `enum hack` 방법은 클래스 내부에서 사용되기 때문에 `encapsulation`도 되고 특정 클래스에서만 사용하도록 할 수 있습니다.
+- 반면 `enum hack`의 몇가지 특성은 `constant`보다 `#define` 처럼 동작합니다.
+- 예를 들어, `const`의 주소값을 사용하는 것은 가능하지만 `#define`의 주소값을 사용하는것은 불가능합니다.
+- 만약 의도적으로 상수의 주소값을 사용하거나 레퍼런스로 사용하려고 하는 것을 막으려면 `#define`이나 `enum`으로 상수를 선언하면 접근을 막을 수 있습니다.
+- 또한 `const`의 경우 좋은 컴파일러에서는 integral 타입의 `constant`를 위한 저장 공간을 따로 만들어서 메모리 낭비를 하지 않지만 좋지 못한 컴파일러에서는 이렇게 따로 공간을 마련하여 메모리를 낭비하곤 합니다.
+- 하지만 `#define`이나 `enum`을 위한 공간을 따로 두지 않기 때문에 메모리를 낭비를 줄일 수 있습니다. 물론 요즘의 좋은 컴파일러에서는 이런 문제는 없을 것입니다...
+- `enum hack`의 또다른 장점으로 `template metaprogramming`에서 도움이 됩니다. 이 내용은 좀 길어지므로 이후의 글 (48. Be aware of template metaprogramming) 글에서 다루어 보겠습니다.
+
+<br>
+
+### #define을 이용하여 함수를 만들지 말것
+
+<br>
+
+- `#define` 매크로를 이용하여 함수를 선언하여 사용하는 경우가 있는데, 매크로 함수는 예상치 못한 결과를 종종내기 때문에 사용하지 않는 것을 권장합니다.
+- 먼저 매크로 함수에서 모든 변수에 괄호를 같이 입력해줘서 강력하게 연산자 우선순위를 넣어줘야 한다는 불편함이 있습니다.
+- 또한 매크로 함수는 일반 함수와는 조금 다르게 동작되는 것들이 있는데 예를 들면 다음과 같습니다.
+
+<br>
+
+```cpp
+int f(int n) {
+	return n;
+}
+
+#define CALL_WITH_MAX(a, b) f((a) > (b) ? (a) : (b))
+
+int a = 5, b = 0;
+
+int main() {
+
+	CALL_WITH_MAX(++a, b); // a = 7, b = 0으로 출력됨, 즉 a가 2번 증가됨
+	CALL_WITH_MAX(++a, b + 10); // a = 6, b = 0으로 출력됨, 정상적으로 a가 1번 증가됨
+}
+```
+
+<br>
+
+- 위 코드를 보면 의도치 않은 결과는 `CALL_WITH_MAX(++a, b);` 이 부분입니다. a가 2번 증가되었는데 이것은 매크로 함수 동작에 따라서 increment 연산이 2번되었기 때문입니다.
+- 이와 같은 예를 보더라도 매크로 함수 사용은 권장되지 않습니다. 연산자 우선순위 때문에 괄호를 사용해야하는 불편함도 있기도 하구요.
+- 대신에 `inline` 함수를 사용하는 것을 권장합니다. 위 매크로 함수를 `inline` 함수로 변경하면 다음과 같습니다.
+- 물론 아래와 같은 형태로 함수를 사용하면 increment가 2번 발생하지 않습니다. 또한 함수 형태로 사용되기 때문에 특정 클래스 내부에서만 사용될 수 있습니다.
+
+<br>
+
+```cpp
+int f(int n) {
+	return n;
+}
+
+template<typename T>
+inline void callWithMax(const T& a, const T& b) // know what T is, we
+{
+	f(a > b ? a : b);
+}
+```
+
+<br>
+
+- 이번 글에서 살펴 본것을 정리하면
+    - `constant`를 사용하고 싶으면 `const` 또는 `enum`을 사용합시다.
+    - 매크로 함수를 사용하고 싶으면 `inline function`을 사용합시다.
+- 이렇게 `#define` 사용을 회피하면 `preprocessor`이 해야할 일이 줄어들게 되는 장점도 있습니다.
+    - `preprocessor`는 중요한 `#include` 기능을 수행해야하고 `#ifdef/#ifndef` 기능도 수행해야 하므로 바쁩니다.
