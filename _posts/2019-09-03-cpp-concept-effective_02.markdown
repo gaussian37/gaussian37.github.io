@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 2. Prefer const, enum and inline to #define (#define 대신 const, enum, inline을 사용하자.)
+title: 2. Prefer const, enum and inline to define (define 대신 const, enum, inline을 사용하자.)
 date: 2019-09-13 00:00:00
 img: cpp/effective.png
 categories: [cpp-concept] 
