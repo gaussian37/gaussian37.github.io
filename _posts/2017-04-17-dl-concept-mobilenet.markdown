@@ -1,7 +1,7 @@
 ---
 layout: post
 title: MobileNet
-date: 2019-08-31 00:00:00
+date: 2017-04-17 00:00:00
 img: dl/concept/mobilenet/mobilenet.PNG
 categories: [dl-concept] 
 tags: [python, deep learning, dl, MobileNet] # add tag
