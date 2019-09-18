@@ -18,6 +18,7 @@ tags: [cpp, c++] # add tag
 <br>
 
 - [1. View C++ as a federation of languages (C++는 언어들의 연합체이다.)](https://gaussian37.github.io/cpp-concept-effective_01/)
+- [2. Prefer const, enum and inline to #define (#define 대신 const, enum, inline을 사용하자.)](https://gaussian37.github.io/cpp-concept-effective_02/)
 
 <br>
 
