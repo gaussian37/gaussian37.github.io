@@ -73,7 +73,7 @@ private:
 <br>
 
 - 다루어야할 내용은 **class-specific constant**를 사용하는 것이 `#define`을 사용하는 것 보다 더 낫다라는 것인데, 잠시 위 코드를 자세히 한번 살펴보고 지나가겠습니다.
-- 위 코드에서 **NumTurns**는 `declaration`이지 `definition`이 아닙니다. 
+- 위 코드에서 **NumTurns**는 `declaration`이지 `definition`이 아닙니다. ([`declaration`과 `definition`의 차이](https://gaussian37.github.io/c-etc-declaration_definition/)) 
 - 보통 C++에서는 사용하려는 변수의 `definition`이 필요합니다. 하지만 `static` 타입과 `integral` 타입(ex. ing, char, long..)의 **class-specific constant**는 예외입니다.
 - 만약 주소값을 사용하지 않는다면, `definition` 없이 `declare`만 하여 변수를 사용할 수 있습니다.
 - 만약 주소값을 사용해서 `definition`을 해야하거나 또는 컴파일러가 `definition`을 강제로 원하는 경우에는 다음과 같이 `definition`을 정할 수 있습니다.
