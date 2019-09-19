@@ -1,9 +1,9 @@
 ---
 layout: post
-title: declaration(선언)과 deficition(정의) 차이
+title: declaration(선언)과 definition(정의) 차이
 date: 2019-09-16 00:00:00
 img: c/c.png
-categories: [c-concept] 
+categories: [c-etc] 
 tags: [c, declaration, definition, 선언, 정의] # add tag
 ---
 
