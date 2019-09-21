@@ -139,7 +139,10 @@ $$ \hat{\theta} = argmax_{\theta} L(\theta; X) = argmax_{\theta} f(X \vert \thet
 
 <br>
        
-
+- 만약 관측값들이 `i.i.d(independent and identical distributed)`라면 $$ f(X \vert \theta) = \prod_{i}f(x_{i} \vert \theta) $$가 되며, 여기에 $$ log $$를 씌우면 덧셈 꼴이 됩니다.
+- 이 때, $$ log $$는 단조증가함수이므로, $$ log $$를 취했을 때 최대값을 가지는 지점과 원래 최대값을 가지는 지점이 동일하고 곱셈보다 덧셈이 계산이 더 간편하므로 많은 경우에 **likelihood**를 사용하기 보다는 **log likelihood**를 사용하여 파라미터 estimation을 계산합니다.
+- `MLE`는 가장 간단한 파라미터 estimation 방법이지만, 관측값에 따라 그 값이 너무 민감하게 변한다는 단점이 있습니다. 
+    - 예를 들어 동전 던지기의 극단적인 경우로 n번 던져서 n번 앞면이 나오는 경우 likelihood를 1이라고 하면 합리적일까요? 
 
 
 
