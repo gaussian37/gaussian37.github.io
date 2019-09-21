@@ -15,6 +15,7 @@ tags: [GAN, autoencoder, generative] # add tag
 
 <br>
 
+- MLE(Maximum Likelehood Estimation)와 MAP(Maxim A Posterior)에 관하여
 - Probability Model
 - (Probabilistic) Discriminative Model
 - Basic Bayesian Theory
