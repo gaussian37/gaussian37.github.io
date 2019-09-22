@@ -195,11 +195,45 @@ $$ \hat{\theta} = argmax_{\theta} L(\theta; X) = argmax_{\theta} f(X \vert \thet
 - `MLE`: $$ \theta $$가 주어져 있고 이 때, 데이터가 들어오면 가능도를 계산합니다. 이 가능도가 최대가 되는 $$ \theta $$를 이용하는 것이 `MLE`입니다.
     - 가우시안 분포를 예로 들면 가능도를 계산하기 위한 $$ \mu, \sigma $$가 주어져 있고 이 때, 데이터가 들어오면 가능도를 계산합니다.
     - 그러면 여러가지 $$ \mu, \sigma $$의 케이스가 있는데 각각의 데이터들의 가능도를 계산하고 모든 가능도의 곱이 최대가 되는 최대 가능도의 $$ \mu, \sigma $$를 찾아서 파라미터로 가지고 있어야 합니다. 
-- `MAP`: 데이터가 주어져 있고 그 데이터에 맞는 $$ \theta $$를 이용하여 확률을 계산합니다. 이 확률이 최대가 되도록 하는 $$ \theta $$를 찾아야 합니다.
-    - 예를 들어 가우시안 분포 함수에서 데이터가 주어져 있고 그 데이터를 가장 잘 표현하는 $$ \mu, \sigma $$를 역으로 찾아서 확률을 구해야 합니다.
-    -      
-
-
-
+- `MAP`: 주어진 데이터에 대해 최대 확률을 가지는 $$ \theta $$를 찾는것입니다. 즉 $$ \theta $$의 확률이라는 개념이 들어옵니다.
+    - 여러 파라미터들 중에서 지금까지 관측된 **데이터를 기준**으로 가장 확률이 높은 $$ \theta $$를 찾는 것이 목표이고 그런 $$ \theta $$를 찾을 수 있다면 좀 더 general한 추론을 할 수 있는 결과를 만들어낼 수 있습니다.
+    - 앞의 `MLE`에서는 극단적인 예시로 동전을 던져서 앞면만 계속 나왔다고 하면 likelihood를 이용하기 때문에 앞면이 나올 확률만 극단적으로 높게 선택하게됩니다.
+    - 하지만 `MAP`에서는 어떤 $$ \theta $$가 나올 확률이 높을까? 라는 질문을 통하여 `MLE`와 같이 극단적으로 추론을 하지는 않게 됩니다.
+- 하지만 아쉽게도 우리가 직접적으로 구할 수 있는 것은 $$ f(X \vert \theta) $$ 즉, 주어진  함수와 그 함수에 사용되는 $$ \theta $$가 있을 때, 데이터 $$ X $$의 가능도입니다. 즉 직접적으로 데이터에 대한 $$ \theta $$가 발생할 확률을 구할 수는 없습니다.
+    - 이 때 사용하는 것이 `Bayes Theory`입니다.
 
 <br>
+
+### **Bayes Theory**
+
+<br>
+
+- 베이즈 이론은 $$ p(Y \vert X) $$와 $$ p(X \vert Y) $$의 관계를 표현하는 식입니다. 
+
+<br>
+
+$$ p(Y \vert X) = \frac{ p(X \vert Y) p(Y)}{p(X)} $$
+
+<br>
+
+- 앞에서 다룬 $$ f(X \vert \theta) $$는 `likelihood`였습니다. 여기서 추가할 개념으로 $$ f(\theta) $$는 `prior`라는 것이고 $$ f(\theta \vert X) $$는 앞에서 다룬것 처럼 `posterior` 입니다.
+- 우리가 직접 구할 수 있는 것은 `likelihood`이고 likelihood의 단점을 개선하기 위해서 구하고 싶은것이 `posterior` 즉, 데이터에 대한 $$ \theta $$의 확률입니다.
+- 새로 등장한 `prior`는 **데이터와 상관없이** 현재 알고 있는 $$ \theta $$에 대한 확률입니다. (`prior`와 비굑하면 `posterior`는 데이터가 주어졌을 때의 $$ \theta $$에 대한 확률입니다.) 
+- 위의 베이즈 식을 보면 알 수 있겠지만 `posterior`는 `likelihood`와 `prior`를 통하여 구할 수 있습니다. 여기서 `likelihood`와 `posterior` 모두 최대가 되도록 하는 `\theta`를 선택해야 하는것이므로 `argmax`를 붙여 식을 다음과 같이 전개해보겠습니다.
+
+<br>
+
+$$ \hat{\theta} = argmax_{\theta} f(\theta \vert X) = argmax_{\theta} \frac{f(X \vert \theta) f(\theta) }{ f(X) } = argmax_{\theta} \frac{ L(\theta; X) f(\theta) }{f(X)} = argmax_{\theta} L(\theta; X) f(\theta) $$
+
+<br>
+
+- 위 식에서 마지막 전개는 $$ f(X) $$가 $$ \theta $$에 영향을 주지 않으므로 등식이 성립하게 됩니다.
+- 따라서 $$ argmax_{\theta} $$를 하는 경우에 $$ f(\theta \vert X) = L(\theta; X)f(\theta) $$가 됨을 알 수 있습니다. 아주 중요합니다!
+- 즉, `posterior`와 `likelihood`의 관계는 `prior`가 어떤 영향을 미치는 지에 따라서 같아질수도 있고 달라질수도 있다는 뜻입니다.
+- 먼저 `posterior`와 `likelihood`가 같은 경우부터 살펴보면 `prior` 즉, $$ \theta $$에 대한 확률이 어떤 $$ \theta $$에도 상관없이 특정한 상수값을 가질 때 입니다. 즉 unifom distribution 을 가지는 경우라고 볼 수 있습니다.
+- 반면에 $$ \theta $$에 대한 확률이 일정하지 않는 다면 `likelihood`와 `posterior`의 값은 달라집니다. $$ \theta $$에 대한 확률이 커질수록 `posterior`도 커집니다. 즉 비례관계를 가집니다.
+    - 이것은 흔히 사람들이 말하는 선입견과 비슷합니다. 기존에 가지고 있는 확률이므로 현재 관측된 데이터와도 무관하기 때문입니다. 다소 주관적이거나 비논리적인 확률일 수도 있습니다. (인종, 출신, 성분에 따라 확률이 더 높다던지 등등)
+- 다시 정리해보면 우리가 구하고 싶은 `posterior`는 데이터가 관측되었을 때, 그 데이터에 대한 $$ \theta $$의 확률이고 `MAP`는 `posterior` 중에서 가장 큰 값을 뜻합니다.
+- 그리고`posteriror`는 `likelihood`와 `prior`의 곱에 비례합니다. 따라서 `MAP`는 `MLE`와 `prior`의 곱에 비례하다고 할 수 있습니다.              
+
+  
