@@ -132,7 +132,7 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
     - MLE로 p를 계산하기 위해서는 간단하게 앞면이 나온 횟수를 전체 횟수로 나누면 됩니다.
 - 보다 더 자세한 설명을 위해 알려지지 않은 probability density function $$ f_{0} $$이 있다고 하고 $$ X = (x_{1}, x_{2}, ... , x_{n}) $$를 그 확률로 생성되는 관측값이라고 가정해보겠습니다.
 - density function이 $$ \theta $$로 parameterize된 어떤 분포라고 하고 데이터 $$ x $$가 주어진다면, $$ \theta $$의 값을 알 수 있을 때, $$ f(x \vert \theta) $$의 값을 계산할 수 있습니다.
-- 만약 $$ f $$가 가우시안 이라면 $$ \theta $$는 평균인 $$ \mu $$와 분산인 $$ \Sigma $$일 것이고, 베르누이라면 $$ 0 \ge p \ge 1 $$가 될 것입니다.
+- 만약 $$ f $$가 가우시안 이라면 $$ \theta $$는 평균인 $$ \mu $$와 분산인 $$ \Sigma $$일 것이고, 베르누이라면 $$ 0 \le p \le 1 $$가 될 것입니다.
 - 이렇게 정의하면 가능도는 다음과 같이 정의할 수 있습니다.
 
 <br>
