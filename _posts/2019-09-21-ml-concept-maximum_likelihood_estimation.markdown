@@ -177,12 +177,12 @@ $$ \hat{\theta} = argmax_{\theta} L(\theta; X) = argmax_{\theta} f(X \vert \thet
 - 만약 나의 키를 오차가 있는 측정기로 여러번 재었는데 178cm, 179cm, 180cm, 181cm, 182cm 로 나왔다고 가정해 보겠습니다.
 - 이렇게 여러번 측정했을 때, 가장 가능성이 높은 것은 180cm라고 생각하는 것이 합리적일 수 있는데 왜 그런지 한번 살펴보겠습니다.
 - 보통 이런 센서를 통한 관측값은 **참 값을 평균으로 하는 가우시안 분포**를 가집니다. 그러면 어떤 참 값이라고 하는 값을 평균으로 보고 그 값을 기준으로 분산 만큼 데이터가 퍼져있을 것입니다.
-- 가우시안 분포 기준으로 참 값이 $$ \mu $$ 이고 분산은 $$ \sigma^{2} $$ 이므로 측정값이 $$ x $$ 일 때, 가능도 $$ y $$는 $$ \frac{1}{sqrt{2\pi}\sigma}exp(-\frac{(x - \mu)^{2}}{2\sigma^{2}}) $$가 됩니다.
+- 가우시안 분포 기준으로 참 값이 $$ \mu $$ 이고 분산은 $$ \sigma^{2} $$ 이므로 측정값이 $$ x $$ 일 때, 가능도 $$ y $$는 $$ \frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(x - \mu)^{2}}{2\sigma^{2}}) $$가 됩니다.
 - 따라서 5번 측정한 키가 178cm, 179cm, 180cm, 181cm, 182cm로 나올 가능도 $$ L $$은 각각의 값이 나올 가능도의 곱과 같습니다.
 
 <br>
 
-따라서 $$ L = \frac{1}{sqrt{2\pi}\sigma}exp(-\frac{(178 - \mu)^{2}}{2\sigma^{2}}) \times \frac{1}{sqrt{2\pi}\sigma}exp(-\frac{(179 - \mu)^{2}}{2\sigma^{2}}) \times \frac{1}{sqrt{2\pi}\sigma}exp(-\frac{(180 - \mu)^{2}}{2\sigma^{2}}) \times \frac{1}{sqrt{2\pi}\sigma}exp(-\frac{(181 - \mu)^{2}}{2\sigma^{2}}) \times \frac{1}{sqrt{2\pi}\sigma}exp(-\frac{(182 - \mu)^{2}}{2\sigma^{2}}) $$
+따라서 $$ L = \frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(178 - \mu)^{2}}{2\sigma^{2}}) \times \frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(179 - \mu)^{2}}{2\sigma^{2}}) \times \frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(180 - \mu)^{2}}{2\sigma^{2}}) \times \frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(181 - \mu)^{2}}{2\sigma^{2}}) \times \frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(182 - \mu)^{2}}{2\sigma^{2}}) $$
 
 <br>
 
