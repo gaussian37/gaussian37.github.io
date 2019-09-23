@@ -237,7 +237,7 @@ $$ \hat{\theta} = argmax_{\theta} f(\theta \vert X) = argmax_{\theta} \frac{f(X 
 - 그리고`posteriror`는 `likelihood`와 `prior`의 곱에 비례합니다. 따라서 `MAP`는 `MLE`와 `prior`의 곱에 비례하다고 할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/mle_and_map/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/gan/concept/mle_and_map/4.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 - 출처: 패턴인식(오일석)       
 
