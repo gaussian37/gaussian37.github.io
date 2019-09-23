@@ -234,7 +234,12 @@ $$ \hat{\theta} = argmax_{\theta} f(\theta \vert X) = argmax_{\theta} \frac{f(X 
 - 반면에 $$ \theta $$에 대한 확률이 일정하지 않는 다면 `likelihood`와 `posterior`의 값은 달라집니다. $$ \theta $$에 대한 확률이 커질수록 `posterior`도 커집니다. 즉 비례관계를 가집니다.
     - 이것은 흔히 사람들이 말하는 선입견과 비슷합니다. 기존에 가지고 있는 확률이므로 현재 관측된 데이터와도 무관하기 때문입니다. 다소 주관적이거나 비논리적인 확률일 수도 있습니다. (인종, 출신, 성분에 따라 확률이 더 높다던지 등등)
 - 다시 정리해보면 우리가 구하고 싶은 `posterior`는 데이터가 관측되었을 때, 그 데이터에 대한 $$ \theta $$의 확률이고 `MAP`는 `posterior` 중에서 가장 큰 값을 뜻합니다.
-- 그리고`posteriror`는 `likelihood`와 `prior`의 곱에 비례합니다. 따라서 `MAP`는 `MLE`와 `prior`의 곱에 비례하다고 할 수 있습니다.       
+- 그리고`posteriror`는 `likelihood`와 `prior`의 곱에 비례합니다. 따라서 `MAP`는 `MLE`와 `prior`의 곱에 비례하다고 할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/gan/concept/mle_and_map/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+- 출처: 패턴인식(오일석)       
 
 <br>
 
