@@ -23,6 +23,17 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
 
 <br>
 
+- 이 글에서 다룰 내용
+- 확률밀도함수(PDF: Probability Density Function)
+- 가능도(Likelihood) : 특정 사건이 일어날 가능성
+- 사건이 여러 번 발생할 경우의 가능도
+- 최대우도추정(MLE: Maximum Likelihood Estimation)
+- MLE 예시
+- 최대 사후 확률 추정(MAP: Maximum A Posterior)
+- Bayes Theory
+
+<br>
+
 ### **확률밀도함수(PDF: Probability Density Function)**
 
 <br>
