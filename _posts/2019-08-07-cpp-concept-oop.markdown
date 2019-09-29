@@ -637,7 +637,10 @@ public:
 	}
 
 	/*~Array() {
-		delete arr_;
+	    if(arr != nullptr){
+	        delete[] arr_;
+        }
+        
 	}*/
 
 
