@@ -11,6 +11,10 @@ tags: [calculus] # add tag
 
 <br>
 
+### **Rise Over Run**
+
+<br>
+
 - 먼저 `Calculus`의 간단한 정의를 내리면 **어떤 함수가 입력 변수에 관하여 어떻게 변하는지**를 나타낸 것이라고 말할 수 있습니다.
 
  
@@ -98,6 +102,12 @@ tags: [calculus] # add tag
 <br>
 
 - 예를 들면 위와 같이 4번의 변곡점을 가지는 그래프를 그릴 수 있습니다.
+
+<br>
+
+### **Definition Of Derivative**
+
+<br>
 
 
 
