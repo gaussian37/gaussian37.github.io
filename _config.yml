@@ -3,7 +3,7 @@ description: > # this means to ignore newlines until "baseurl:"
   gaussian37's Blog
 permalink: ':title/'
 baseurl: ''
-url: "https://gaussian37.github.io"
+url: "https://jinsolkima.github.io"
 site-twitter: #if your site has a twitter account, enter it here
 
 # Author Settings
@@ -11,10 +11,10 @@ author: JINSOL KIM # add your name
 author-img: My/me.jpg # add your photo
 about-author: Computer Vision for Autonomous Driving
 social-twitter: gaussian37 # add your Twitter handle
-social-facebook: gaussian37 # add your Facebook handle
+social-facebook: jinsolkima # add your Facebook handle
 social-github: gaussian37 # add your Github handle
-social-linkedin: gaussian37 # add your Linkedin handle
-social-email: gaussian1137@gmail.com # add your Email address
+social-linkedin: jinsolkima # add your Linkedin handle
+social-email: jinsolkima@gmail.com # add your Email address
 
 # Disqus
 discus-identifier: gaussian37 # add your discus identifier
