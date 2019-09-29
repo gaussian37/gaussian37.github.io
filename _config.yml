@@ -1,9 +1,8 @@
 title: gaussian37
-description: > # this means to ignore newlines until "baseurl:"
-  gaussian37's Blog
+description: # this means to ignore newlines until "baseurl:"
 permalink: ':title/'
 baseurl: ''
-url: "https://jinsolkima.github.io"
+url: "https://gaussian37.github.io"
 site-twitter: #if your site has a twitter account, enter it here
 
 # Author Settings
