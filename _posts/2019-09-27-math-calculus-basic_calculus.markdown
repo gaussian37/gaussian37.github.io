@@ -119,12 +119,55 @@ tags: [calculus] # add tag
 - 먼저 `gradient`는 순간 순간마다 다릅니다. 즉, 위 그림과 같이 어떤 점을 잡느냐에 따라서 `gradient`는 다릅니다.
 
 <br>
-<center><img src="../assets/img/math/calculus/basic_calculus/14PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/math/calculus/basic_calculus/14.PNG" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 이런 `gradient`를 계산하기 위해서는 `Rise Over Run`을 좀 더 수식적으로 나타낼 필요가 있습니다.
 - 먼저 수학에서 사용하는 기호인 $$ \Delta $$는 **작은 변화량**을 나타낼 때 사용합니다.
-- `Run`에 해당하는 가로축의 변화량을 보면 $$ \Delta x $$ 만큼 변화하였고 `Rise`인 세로축을 보면 $$ f(x + \Delta x) - f(x) $$ 만큼 변한것을 확인할 수 있습니다.   
+- `Run`에 해당하는 가로축의 변화량을 보면 $$ \Delta x $$ 만큼 변화하였고 `Rise`인 세로축을 보면 $$ f(x + \Delta x) - f(x) $$ 만큼 변한것을 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_calculus/15.gif" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 이 때 `Run`에 해당하는 입력값의 변화량 $$ \Delta x $$를 줄이면 줄일수록 더 나은 `gradient` 근사값을 찾을 수 있습니다. 
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_calculus/16.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 이 표현 방법을 위와 같이 `limitation`을 이용하여 식으로 나타낼 수 있습니다.
+- `gradient`라는 용어 대신 식으로 $$ \frac{df}{dx} $$로 나타내기도 하고 $$ f'(x) $$로 나타내기도 합니다.
+- 다시 한번 정리해 보겠습니다. `gradient`를 나타내는 식은 다음과 같습니다.
+
+<br>
+
+$$ f'(x) = \lim_{\Delta x \to 0}\Bigl( \frac{ f(x + \Delta x) - f(x) }{\Delta x} \Bigr) $$
+
+<br>
+
+- 이 식을 이용하여 $$ f(x) = 3x + 2 $$일 때를 예로 한번 `gradient`를 살펴보겠습니다.
+
+<br>
+
+$$ f'(x) = \lim_{\Delta x \to 0} = \Bigl( \frac{ 3(x + \Delta x) + 2 - (3x + 2) }{\Delta x} \Bigr) = 3 $$
+
+<br>
+
+- 또 다른 예로 $$ f(x) = 5x^{2} $$ 일 때를 살펴보겠습니다.
+
+<br>
+
+$$ f'(x) = \lim_{\Delta x \to 0}\Bigl( \frac{ 5(x + \Delta x)^{2} - 5x^{2} }{\Delta x} \Bigr) = \lim_{\Delta x \to 0}\Bigl( \frac{5x^{2} + 10x\Delta x + 5\delta x^{2} - 5x^{2} }{\Delta x} \Bigr) = \lim_{\Delta x \to 0}(10x + 5\Delta x) = 10x $$
+
+<br>
+
+- 매번 `gradient`를 구할 때, 이 과정을 반복하기는 번거로우므로 다음 `Power Rule`을 대신 사용하겠습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_calculus/17.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
   
 
 
