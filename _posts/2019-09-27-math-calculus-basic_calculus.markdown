@@ -109,6 +109,23 @@ tags: [calculus] # add tag
 
 <br>
 
+- 그러면 앞에서 배운 개념을 좀 더 formal한 방법으로 한번 다루어 보겠습니다.
+- 앞에서 다룬 `gradient = Rise Over Run`을 생각해보면서 좀 더 정교한 식으로 한번 나타내 보려고 합니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_calculus/13.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 먼저 `gradient`는 순간 순간마다 다릅니다. 즉, 위 그림과 같이 어떤 점을 잡느냐에 따라서 `gradient`는 다릅니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_calculus/14PNG" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 이런 `gradient`를 계산하기 위해서는 `Rise Over Run`을 좀 더 수식적으로 나타낼 필요가 있습니다.
+- 먼저 수학에서 사용하는 기호인 $$ \Delta $$는 **작은 변화량**을 나타낼 때 사용합니다.
+- `Run`에 해당하는 가로축의 변화량을 보면 $$ \Delta x $$ 만큼 변화하였고 `Rise`인 세로축을 보면 $$ f(x + \Delta x) - f(x) $$ 만큼 변한것을 확인할 수 있습니다.   
+  
 
 
 
