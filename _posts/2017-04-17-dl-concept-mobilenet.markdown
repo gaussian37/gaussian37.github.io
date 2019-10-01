@@ -9,9 +9,28 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 
 - 이번 글에서는 경량화 네트워크로 유명한 `MobileNet`에 대하여 알아보도록 하겠습니다.
     - 이번글은 `MobileNet` 초기 버전(v1) 입니다.
-- 아래 글의 내용은 [이진원님의 모바일넷 설명](https://youtu.be/7UoOFKcyIvM) 내용을 글로 읽을 수 있게 옮겼습니다.
+- 아래 글의 내용은 [PR12 모바일넷 설명](https://youtu.be/7UoOFKcyIvM) 내용을 글로 읽을 수 있게 옮겼습니다.
 
 <br>
+
+목차
+- 1.논문 리뷰
+- 2.추가 자료 (PR12)
+- 3.Pytorch 코드 리뷰 
+
+<br>
+
+## **1. 논문 리뷰**
+
+<br>
+
+
+<br>
+
+## **2. 추가 자료 (PR12)**
+
+<br> 
+
 
 ### 경량화 네트워크의 필요성
 
@@ -70,3 +89,9 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 - 위와 같이 인풋의 채널이 3개이면 convolution 연산을 하는 필터의 채널 또한 3개이어야 합니다.
 - 이 때 필터의 갯수가 몇 개 인지에 따라서 아웃풋의 채널의 숫자가 결정되게 됩니다.
 - 즉, 위의 오른쪽 그림과 같이 입력 채널에서는 필터의 크기 만큼 모든 채널의 값들이 **element-wise 곱**으로 연산하여 한 개의 값으로 모두 더해지게 됩니다.
+
+<br>
+
+## **3. Pytorch 코드 리뷰**
+
+<br>
