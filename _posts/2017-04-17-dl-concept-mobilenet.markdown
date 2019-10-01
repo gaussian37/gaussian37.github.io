@@ -1,6 +1,6 @@
 ---
 layout: post
-title: MobileNet
+title: MobileNets - Efficient Convolutional Neural Networks for Mobile Vision Applications
 date: 2017-04-17 00:00:00
 img: dl/concept/mobilenet/mobilenet.PNG
 categories: [dl-concept] 
