@@ -9,6 +9,15 @@ tags: [calculus] # add tag
 
 - 이 글은 Coursera의 Mathematics for Machine Learning: Multivariate Calculus 을 보고 정리한 내용입니다.
 
+### **목차**
+
+- Rise Over Run
+- Definition Of Derivative
+    - `Sum Rule`
+    - `Power Rule`
+- `Product Rule`
+- `Chain Rule`
+
 <br>
 
 ### **Rise Over Run**
