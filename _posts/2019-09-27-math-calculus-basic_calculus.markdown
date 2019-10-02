@@ -183,7 +183,9 @@ $$ f(x) = ax^{b}, f'(x) = abx^{b-1} \ \cdots \ Power \ Rule $$
 - 먼저 $$ f(x) = 1/x $$ 부터 다루어보겠습니다. `gradient`의 정의에 따라서 식을 전개해 보면 다음과 같습니다.
 
 <br>
-$$ f'(x) = \lim_{x \to 0} \Biggl( \frac{ \frac{1}{x + \Delta x} - \frac{1}{x} }{\Delta x}  Biggr) =  \lim_{x \to 0} \Bigl( -\frac{1}{x^{2}+x\Delta x} \Bigr) = \frac{-1}{x^{2}} $$
+
+$$ f'(x) = \lim_{x \to 0} \Biggl( \frac{ \frac{1}{x + \Delta x} - \frac{1}{x} }{\Delta x}  \Biggr) =  \lim_{x \to 0} \Bigl( -\frac{1}{x^{2}+x\Delta x} \Bigr) = -\frac{1}{x^{2}} $$
+
 <br>
 
 - 따라서 위 결과를 그래프로 나타내면 다음과 같습니다.
@@ -202,7 +204,7 @@ $$ f'(x) = \lim_{x \to 0} \Biggl( \frac{ \frac{1}{x + \Delta x} - \frac{1}{x} }{
  - 이 두 함수도 특이한 성질을 가지게 되는데 다음 그래프를 먼저 살펴보겠습니다.
 
 <br>
-<center><img src="../assets/img/math/calculus/basic_calculus/18.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/math/calculus/basic_calculus/18.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위와 같이 $$ sin(x) $$와 $$ cos(x) $$의 `gradient`는 서로 관계를 가지게 됩니다. 즉 $$ sin(x) $$의 `gradient`는 $$ cos(x) $$가 되고 $$ cos(x) $$의 `gradient`는 $$ -sin(x) $$가 됩니다.
@@ -211,7 +213,9 @@ $$ f'(x) = \lim_{x \to 0} \Biggl( \frac{ \frac{1}{x + \Delta x} - \frac{1}{x} }{
 - 오일러 공식: $$ e^{ix} = cos(x) + i*sin(x) $$
 
 <br>
+
 $$ sin(x) = \frac{ e^{ix} - e^{ix} }{2i}, \ cos(x) = \frac{ e^{ix} + e^{ix} }{2i} $$
+
 <br>
 
   
