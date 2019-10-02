@@ -13,7 +13,8 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 
 <br>
 
-목차
+### **목차**
+
 - 1.논문 리뷰
 - 2.추가 자료 (PR12)
 - 3.Pytorch 코드 리뷰 

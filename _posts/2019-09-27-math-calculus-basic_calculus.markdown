@@ -166,6 +166,7 @@ $$ f'(x) = \lim_{\Delta x \to 0}\Bigl( \frac{ 5(x + \Delta x)^{2} - 5x^{2} }{\De
 
 <br>
 
-$$ f(x) = ax^{b} $$ 일 때, $$ f'(x) = abx^{b-1} $$
+$$ f(x) = ax^{b}, f'(x) = abx^{b-1} $$
 
 <br>
+
