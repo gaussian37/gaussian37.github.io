@@ -164,13 +164,55 @@ $$ f'(x) = \lim_{\Delta x \to 0}\Bigl( \frac{ 5(x + \Delta x)^{2} - 5x^{2} }{\De
 
 - 위와 같이 $$ \lim_{\Delta x \to 0}(10x + 5\Delta x) = 10x $$식을 전개할 때 사용할 수 있는 법칙이 `Sum Rule`입니다.
 
+<br>
+
 $$ \frac{d}{dx} (f(x) + g(x)) =  \frac{df(x)}{dx} + \frac{dg(x)}{dx} \ \cdots \ Sum \ Rule $$
 
-- 매번 `gradient`를 구할 때, 이 과정을 반복하기는 번거로우므로 다음 `Power Rule`을 대신 사용하겠습니다.
+<br>
+
+- 그리고 매번 `gradient`를 구할 때, 이 과정을 반복하기는 번거로우므로 다음 `Power Rule`을 대신 사용하겠습니다.
 
 <br>
 
 $$ f(x) = ax^{b}, f'(x) = abx^{b-1} \ \cdots \ Power \ Rule $$
 
 <br>
+
+- 그러면 `Sum Rule`과 `Power Rule`을 이용하여 몇가지 예제를 다루어 보도록 하겠습니다.
+- 다루어 볼 예제는 $$ f(x) = 1/x, e^{x}, sin(x), cos(x) $$ 입니다.
+- 먼저 $$ f(x) = 1/x $$ 부터 다루어보겠습니다. `gradient`의 정의에 따라서 식을 전개해 보면 다음과 같습니다.
+
+<br>
+$$ f'(x) = \lim_{x \to 0} \Biggl( \frac{ \frac{1}{x + \Delta x} - \frac{1}{x} }{\Delta x}  Biggr) =  \lim_{x \to 0} \Bigl( -\frac{1}{x^{2}+x\Delta x} \Bigr) = \frac{-1}{x^{2}} $$
+<br>
+
+- 따라서 위 결과를 그래프로 나타내면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_calculus/17.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br>
+ 
+ - 그 다음에 다뤄볼 $$ f(x) = e^{x} $$ 의 경우에는 `Euler`가 발견한 특수한 형태의 함수입니다.
+ - 이 함수의 경우 `gradient`의 값이 원래 값과 같습니다. 즉, $$ f(x) = e^{x}, \ f'(x) = e^{x}, \ f^{2}(x) = e^{x}, \ f^{n}(x) = e^{x} $$ 가 됩니다.
+ - 즉, 이 뜻은 $$ f(x) = e^{x} $$의 경우 변화율 자체가 $$ e^{x} $$라는 뜻입니다. 이 특수한 성질 때문에 이 함수는 미분/적분에서 상당히 많이 사용됩니다.
+ 
+ <br>
+ 
+ - 그 다음으로 다루어 볼 함수는 $$ sin(x), cos(x) $$ 입니다.
+ - 이 두 함수도 특이한 성질을 가지게 되는데 다음 그래프를 먼저 살펴보겠습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_calculus/18.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위와 같이 $$ sin(x) $$와 $$ cos(x) $$의 `gradient`는 서로 관계를 가지게 됩니다. 즉 $$ sin(x) $$의 `gradient`는 $$ cos(x) $$가 되고 $$ cos(x) $$의 `gradient`는 $$ -sin(x) $$가 됩니다.
+- 이렇게 되는 이유는 실질적인 $$ sin(x) $$와 $$ cos(x) $$의 `gradient`를 계산해 본 결과 확인할 수도 있지만 `오일러 공식`에 의한 삼각함수와 지수함수의 관계를 통해서도 확인해 볼 수 있습니다.
+    - 참조 자료: https://suhak.tistory.com/163
+- 오일러 공식: $$ e^{ix} = cos(x) + i*sin(x) $$
+
+<br>
+$$ sin(x) = \frac{ e^{ix} - e^{ix} }{2i}, \ cos(x) = \frac{ e^{ix} + e^{ix} }{2i} $$
+<br>
+
+  
 
