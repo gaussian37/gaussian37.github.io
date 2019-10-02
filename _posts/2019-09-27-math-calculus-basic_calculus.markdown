@@ -162,11 +162,15 @@ $$ f'(x) = \lim_{\Delta x \to 0}\Bigl( \frac{ 5(x + \Delta x)^{2} - 5x^{2} }{\De
 
 <br>
 
+- 위와 같이 $$ \lim_{\Delta x \to 0}(10x + 5\Delta x) = 10x $$식을 전개할 때 사용할 수 있는 법칙이 `Sum Rule`입니다.
+
+$$ \frac{d}{dx} (f(x) + g(x)) =  \frac{df(x)}{dx} + \frac{dg(x)}{dx} \ \cdots \ Sum \ Rule $$
+
 - 매번 `gradient`를 구할 때, 이 과정을 반복하기는 번거로우므로 다음 `Power Rule`을 대신 사용하겠습니다.
 
 <br>
 
-$$ f(x) = ax^{b}, f'(x) = abx^{b-1} $$
+$$ f(x) = ax^{b}, f'(x) = abx^{b-1} \ \cdots \ Power \ Rule $$
 
 <br>
 
