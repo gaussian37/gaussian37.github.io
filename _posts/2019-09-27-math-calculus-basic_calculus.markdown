@@ -293,7 +293,7 @@ $$ A'(x) = f(x)g'(x) + f'(x)g(x) $$
 
 <br>
 
-$$ If \ A(x) = f(x)g(x), \ then \ A'(x) = f(x)g'(x) + f'(x)g(x) $$
+$$ if \ \  A(x) = f(x)g(x), \ \ then \ A'(x) = f(x)g'(x) + f'(x)g(x) $$
 
 <br>
 
