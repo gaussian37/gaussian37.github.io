@@ -17,6 +17,7 @@ tags: [calculus] # add tag
     - `Power Rule`
 - `Product Rule`
 - `Chain Rule`
+- 울프람 알파를 이용한 `gradient` 계산
 
 <br>
 
@@ -227,5 +228,76 @@ $$ sin(x) = \frac{ e^{ix} - e^{ix} }{2i}, \ cos(x) = \frac{ e^{ix} + e^{ix} }{2i
 
 <br>
 
+### **Product Rule**
+
+<br>
+
+- 이번에 다루어 볼 것은 `gradient`를 계산할 때 자주 사용되는 방법 중 하나인 `Pruduct Rule` 입니다.
+- `Product Rule`은 함수가 곱해진 상태에서 미분을 하였을 때의 식을 전개하는 방법입니다. 예를 들면 $$ f(x)g(x) = e^{x}sin(x) $$와 같이 두 식이 곱해진 경우 입니다.
+- 개념을 쉽게 이해하기 위해서 시각적으로 한번 살펴보겠습니다. 먼저 `definition of derivative`에서 다룬 식을 다시 적어보면 다음과 같습니다.
+
+<br>
+
+$$ f'(x) = \lim_{x \to 0} \Bigl( \frac{f(x + \Delta x) - f(x) }{\Delta x} \Bigr) $$
+
+<br> 
+
+<center><img src="../assets/img/math/calculus/basic_calculus/19.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 만약 위와 같이 $$ A(x) = f(x)g(x) $$라면 그 값을 면적으로 표현해 볼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_calculus/20.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+
+- 이 때, $$ x $$가 $$ \Delta x $$ 만큼 변화가 생긴다면 위 그림과 같이 넓이가 증가합니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_calculus/21.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br>
+ 
+- 이 때 $$ A(x + \Delta x) $$에서 증가분 만큼 따로 표시해보겠습니다. 즉, 연두색, 주황색, 회색 영역만큼의 값이 $$ A(\Delta x) $$의 값입니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_calculus/22.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br>  
+
+- 이 영역을 식으로 나타내면 위와 같이 나타낼 수 있습니다. 증가분에 대응하도록 식을 색으로 표현하였습니다.
+- 여기서 $$ \lim_{\Delta x \to 0} $$ 으로 인하여 $$ \Delta x $$는 0으로 수렴하게 되므로 회색 영역의 값은 무시할 수 있게 됩니다.
+- 여기서 `gradient`를 구해보겠습니다.
+
+<br>
+
+$$ \lim_{\Delta x \to 0} \Bigl( \frac{ \Delta A(x) }{ \Delta x } \Bigr) = \lim_{\Delta x \to 0} \Bigl( \frac{ f(x)( g(x + \Delta x) - g(x) ) + g(x)( f(x + \Delta x) - f(x) )  }{ \Delta x } \Bigr) $$
+
+<br>
+
+$$ \lim_{\Delta x \to 0} \Bigl( \frac{ \Delta A(x) }{ \Delta x } \Bigr) = \lim_{\Delta x \to 0} \Bigl( \frac{ f(x)( g(x + \Delta x) - g(x) ) + g(x) }{ \Delta x } + \frac{ g(x)( f(x + \Delta x) - f(x) )  }{ \Delta x } \Bigr) $$
+
+<br>
+
+$$ \lim_{\Delta x \to 0} \Bigl( \frac{ \Delta A(x) }{ \Delta x } \Bigr) = \lim_{\Delta x \to 0} \Bigl( f(x) \frac{ ( g(x + \Delta x) - g(x) ) + g(x) }{ \Delta x } + g(x) \frac{ ( f(x + \Delta x) - f(x) )  }{ \Delta x } \Bigr) $$
+
+<br>
+
+$$ \lim_{\Delta x \to 0} \Bigl( \frac{ \Delta A(x) }{ \Delta x } \Bigr) = \lim_{\Delta x \to 0} ( f(x)g'(x) + g(x)f'(x)) $$
+
+<br>
+
+$$ A'(x) = f(x)g'(x) + f'(x)g(x) $$
+
+<br>
+
+- 다시 정리하면 `Product Rule`은 다음과 같습니다.
+
+<br>
+
+$$ If \ A(x) = f(x)g(x), \ then \ A'(x) = f(x)g'(x) + f'(x)g(x) $$
+
+<br>
+
+
   
+
 
