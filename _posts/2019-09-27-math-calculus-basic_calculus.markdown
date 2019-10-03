@@ -297,6 +297,15 @@ $$ if \ \  A(x) = f(x)g(x), \ \ then \ A'(x) = f(x)g'(x) + f'(x)g(x) $$
 
 <br>
 
+- 같은 원리로 식을 확장해 보겠습니다. $$ u(x) = f(x)g(x)h(x) $$ 라고 하면 `definition of gradient` 에 따라 식을 전개하면 결과는 다음과 같습니다.
+
+<br>
+
+$$ u'(x) = f'(x)g(x)h(x) + f(x)g'(x)h(x) + f(x)g(x)h'(x) $$
+
+<br>
+
+
 
   
 
