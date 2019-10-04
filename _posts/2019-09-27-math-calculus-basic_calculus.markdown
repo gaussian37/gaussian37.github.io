@@ -348,4 +348,20 @@ $$ if \ \ h = h(p) \ \ and \ \ p = p(m) \ \ then, \ \ \frac{dh}{dm} = \frac{dh}{
 
 <br> 
 
-- 이 관계를 
+- 이 관계를 앞의 식에 대입해 보겠습니다.
+
+<br>
+
+$$ h(p) = -\frac{1}{3}p^{2} + p + \frac{1}{5}, \ \ p(m) = e^{m} -1 $$
+
+<br>
+
+$$ \frac{dh}{dp} = 1 - \frac{2}{3}p, \ \ \frac{dp}{dm} = e^{m} $$
+
+<br>
+
+$$ frac{dh}{dp} x \frac{dp}{dm} = (1 - \frac{2}{3}p)e^{m} = (1 - \frac{2}{3}(e^{m} -1))e^{m} $$
+
+<br>
+
+$$ \frac{dh}{dm} = \frac{1}{3}e^{m}(5 - 2e^{m}) $$
