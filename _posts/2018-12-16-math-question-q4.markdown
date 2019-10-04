@@ -3,7 +3,7 @@ layout: post
 title: Q4) Dimension 이란 무엇인가?
 date: 2018-12-16 00:00:00
 img: interview/datascience/likelihood/ds_question.jpg
-categories: [interview-datascience] 
+categories: [ml-question] 
 tags: [interview, datascience, dimension, feature] # add tag
 ---
 

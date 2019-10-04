@@ -3,7 +3,7 @@ layout: post
 title: Q5) 전처리(preprocessing)는 왜 필요할까?
 date: 2018-12-23 00:00:00
 img: interview/datascience/likelihood/ds_question.jpg
-categories: [interview-datascience] 
+categories: [ml-question] 
 tags: [interview, datascience, likelihood] # add tag
 ---
 

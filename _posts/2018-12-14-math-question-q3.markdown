@@ -3,7 +3,7 @@ layout: post
 title: Q3) Batch 사이즈는 중요한가?
 date: 2018-12-14 00:00:00
 img: interview/datascience/likelihood/ds_question.jpg
-categories: [interview-datascience] 
+categories: [ml-question] 
 tags: [interview, datascience, likelihood] # add tag
 ---
 
