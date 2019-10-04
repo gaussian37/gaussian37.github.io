@@ -344,7 +344,7 @@ $$ \frac{dh}{dm} = \frac{1}{3} e^{m} (5 - 2e^{m}) $$
 
 <br>
 
-$$ if \ \ h = h(p) \ \ and \ \ p = p(m) \ \ then, \ \ \frac{dh}{dm} = \frac{dh}{dp} x \frac{dp}{dm} $$
+$$ if \ \ h = h(p) \ \ and \ \ p = p(m) \ \ then, \ \ \frac{dh}{dm} = \frac{dh}{dp} \times \frac{dp}{dm} $$
 
 <br> 
 
