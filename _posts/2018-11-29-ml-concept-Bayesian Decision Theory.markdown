@@ -185,7 +185,7 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
         + 평균 $$ \mu = \frac{1}{N}\sum_{i=1}^{N}x_{i} $$
         + 분산 $$ \sigma^{2} = \frac{1}{N-1}\sum_{i=1}^{N}(x_{i} - \mu) $$
             + 분산을 구할 때, N이 아니라 N-1로 나누어 주었습니다. 바이어스의 영향으로 N-1로 나누어 주어야 합니다.
-            + 참조 : https://gaussian37.github.io/math-question-Q6-the-reason-of-n-1-tem/
+            + 참조 : https://gaussian37.github.io/ml-question-q6/
 
 <br><br>
 

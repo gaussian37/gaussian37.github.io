@@ -69,7 +69,7 @@ tags: [python, machine learning, ml, anomaly detection, 이상치 감지, 가우
     + variance = $$ \sigma^{2} = \frac{1}{m} \sum_{i=1}^{m} (x^{(i)} -\mu)^{2} $$     
         + 이 때 표본 분산을 나누는 term은 정확하게는 m-1 입니다. 하지만 머신러닝과 같이 표본 데이터가 많은 경우에는 m으로 두고 계산해도 대동소이 합니다.
         + 왜 m-1로 나눠야 하는지는 다음 링크를 참조해 주세요.
-            + https://gaussian37.github.io/math-question-Q6-the-reason-of-n-1-tem/
+            + https://gaussian37.github.io/ml-question-q6/
 
 <br><br>
 

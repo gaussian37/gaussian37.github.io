@@ -3,7 +3,7 @@ layout: post
 title: Q7) 얀센 부등식을 이용한 증명 문제
 date: 2018-12-30 00:00:00
 img: interview/datascience/likelihood/ds_question.jpg
-categories: [math-question] 
+categories: [ml-question] 
 tags: [interview, datascience, sample covariance, n-1] # add tag
 ---
 
