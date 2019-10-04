@@ -6,16 +6,17 @@
             </li>
 
             <li class="nav-item dropdown
-            {% if page.url == '/interview/datascience/' or page.url == '/interview/certificate/' or page.url == '/interview/sap/' or page.url == '/interview/ielts/' or page.url == '/interview/english/' or page.url == '/interview/ps/'%} active {% endif %}">
-                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('interview-dropdown')"
+            {% if page.url == '/ad/concept/' or page.url == '/ad/trend/' or page.url == '/ad/sdcc/' %} active {% endif %}">
+                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('ad-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                    Interview
+                    Autonomous Driving
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="interview-dropdown">
-                    <a class="dropdown-item" href="{{ "/interview/datascience" | prepend: site.baseurl }}">Data Science</a>
-                    <a class="dropdown-item" href="{{ "/interview/ps" | prepend: site.baseurl }}">Problem Solving</a>
-                    <a class="dropdown-item" href="{{ "/interview/english" | prepend: site.baseurl }}">English</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="ad-dropdown">
+                    <a class="dropdown-item" href="{{ "/ad/concept" | prepend: site.baseurl }}">Concept</a>
+                    <a class="dropdown-item" href="{{ "/ad/trend" | prepend: site.baseurl }}">Trend</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ "/ad/sdcc" | prepend: site.baseurl }}">Self-Driving Cars (Coursera)</a>
                 </div>
             </li>
 
@@ -153,6 +154,20 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="vba-dropdown">
                     <a class="dropdown-item" href="{{ "/vba/concept" | prepend: site.baseurl }}">Concept</a>
                     <a class="dropdown-item" href="{{ "/vba/etc" | prepend: site.baseurl }}">Etc</a>
+                </div>
+            </li>
+
+             <li class="nav-item dropdown
+            {% if page.url == '/interview/datascience/' or page.url == '/interview/certificate/' or page.url == '/interview/sap/' or page.url == '/interview/ielts/' or page.url == '/interview/english/' or page.url == '/interview/ps/'%} active {% endif %}">
+                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('interview-dropdown')"
+                   role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Interview
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="interview-dropdown">
+                    <a class="dropdown-item" href="{{ "/interview/datascience" | prepend: site.baseurl }}">Data Science</a>
+                    <a class="dropdown-item" href="{{ "/interview/ps" | prepend: site.baseurl }}">Problem Solving</a>
+                    <a class="dropdown-item" href="{{ "/interview/english" | prepend: site.baseurl }}">English</a>
                 </div>
             </li>
 
