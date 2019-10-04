@@ -3,7 +3,7 @@ layout: post
 title: Problem Solving 글 목차
 date: 9999-01-01 00:00:00
 img: interview/ps/ps.png
-categories: [interview-ps] 
+categories: [math-ps] 
 tags: [ps, c++] # add tag
 ---
 
