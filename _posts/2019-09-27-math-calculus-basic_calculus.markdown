@@ -342,4 +342,10 @@ $$ \frac{dh}{dm} = \frac{1}{3} e^{m} (5 - 2e^{m}) $$
 - 여기서 최종적으로는 **입력값에 대한 최종 함수의 변화율**을 관찰하는 것이지만 계산 과정은 중간에 소거되는 부분을 통하여 계산됩니다.
 - 이 관계를 `chain of derivative relationship` 이라고 하고 간단히 `Chain Rule`이라고 합니다. 정리하면 다음과 같습니다.
 
-$$ if \ \ h = h(p) \ \ and \ \ p = p(m) \ \ then, \ \ \frac{dh}{dm} = \frac{dh}{dp} x \frac{dp}{dm} $$ 
+<br>
+
+$$ if \ \ h = h(p) \ \ and \ \ p = p(m) \ \ then, \ \ \frac{dh}{dm} = \frac{dh}{dp} x \frac{dp}{dm} $$
+
+<br> 
+
+- 이 관계를 
