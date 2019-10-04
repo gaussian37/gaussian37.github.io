@@ -3,7 +3,7 @@ layout: post
 title: C++에서 문제 풀 때 좋은 문법 및 템플릿
 date: 2019-06-02 00:00:00
 img: interview/ps/ps.png
-categories: [interview-ps] 
+categories: [math-ps] 
 tags: [ps, c++] # add tag
 ---
 

@@ -21,7 +21,7 @@
             </li>
 
             <li class="nav-item dropdown
-            {% if page.url == '/math/la/' or page.url == '/math/algorithm/' or page.url == '/math/calculus/' or page.url == '/math/pb/' or page.url == '/math/game/' %} active {% endif %}">
+            {% if page.url == '/math/la/' or page.url == '/math/algorithm/' or page.url == '/math/ps/' or page.url == '/math/calculus/' or page.url == '/math/pb/' or page.url == '/math/game/' %} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('math-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -29,6 +29,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="math-dropdown">
                     <a class="dropdown-item" href="{{ "/math/algorithm" | prepend: site.baseurl }}">Algorithm</a>
+                    <a class="dropdown-item" href="{{ "/math/ps" | prepend: site.baseurl }}">Problem Solving</a>
                     <a class="dropdown-item" href="{{ "/math/la" | prepend: site.baseurl }}">Linear Algebra</a>
                     <a class="dropdown-item" href="{{ "/math/pb" | prepend: site.baseurl }}">Probability</a>
                     <a class="dropdown-item" href="{{ "/math/calculus" | prepend: site.baseurl }}">Calculus</a>

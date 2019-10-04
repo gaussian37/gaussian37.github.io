@@ -1,10 +1,9 @@
 ---
 layout: post
 title: 단어 변환
-
 date: 2019-06-02 00:00:00
 img: interview/ps/ps.png
-categories: [interview-ps] 
+categories: [math-ps] 
 tags: [ps, c++] # add tag
 ---
 
