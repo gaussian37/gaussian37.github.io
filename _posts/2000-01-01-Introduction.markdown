@@ -10,8 +10,8 @@ tags: [Introduction] # add tag
 
 <br><br><br>
 
-+ Name : KIM JINSOL
-+ Linked In : https://www.linkedin.com/in/gaussian37
++ Name : JINSOL KIM
++ Linked In : https://www.linkedin.com/in/jinsolkima
 + Work Experience : 
     - Hyundai Motors Researcher (Feb. 2016 ~ )
     
@@ -20,7 +20,8 @@ tags: [Introduction] # add tag
     + [Deep Learning Specialization (Andrew Ng)](https://www.coursera.org/account/accomplishments/specialization/certificate/7Y5SFDG3F85E)
     + [Machine Learning (Andrew Ng)](https://www.coursera.org/account/accomplishments/certificate/DT55J2YVFRJL)
     + Mathematics for Machine Learning Specialization (Imperial College London)
-    + Machine Learning Specialization (University of Washington)
+    + Accelerated Computer Science Fundamentals (University of Illinois Urbana-Champaign)
+    + Self-Driving Cars (University of Toronto)
                  
 + ROI :
     - Machine/Deep Learning (Python, Pytorch)      
