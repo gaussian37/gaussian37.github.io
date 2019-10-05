@@ -360,8 +360,77 @@ $$ \frac{dh}{dp} = 1 - \frac{2}{3}p, \ \ \frac{dp}{dm} = e^{m} $$
 
 <br>
 
-$$ frac{dh}{dp} x \frac{dp}{dm} = (1 - \frac{2}{3}p)e^{m} = (1 - \frac{2}{3}(e^{m} -1))e^{m} $$
+$$ \frac{dh}{dp} x \frac{dp}{dm} = (1 - \frac{2}{3}p)e^{m} = (1 - \frac{2}{3}(e^{m} -1))e^{m} $$
 
 <br>
 
 $$ \frac{dh}{dm} = \frac{1}{3}e^{m}(5 - 2e^{m}) $$
+
+<br>
+
+### **울프람 알파를 이용한 gradient 계산**
+
+<br>
+
+- 이번에 다루어 볼 예제는 약간 계산이 필요한 예제입니다.
+- 앞에서 배운 `Sum, Power, Product Chain Rule`을 모두 이용하여 한번 식을 전개해보고 `울프람 알파`를 통하여 간단하게 계산하는 방법도 익혀보겠습니다.
+- 다음 식을 한번 미분해 보겠습니다.
+
+<br>
+
+$$ f(x) = \frac{ sin(2x^{5} + 3x) }{ e^{7x} } = sin(2x^{5} + 3x)e^{-7x} $$
+
+<br>
+
+$$ g(x) = sin(2x^{5} + 3x) $$
+
+<br>
+
+$$ g(u) = sin(u), \ \to \ g'(u) = cos(u) $$
+
+<br>
+
+$$ u(x) = 2x^{5} + 3x \ \to \ u'(x) = 10x^{4} + 3 $$
+
+<br>
+
+$$ \frac{dg}{dx} = \frac{dg}{du} \frac{du}{dx} = cos(u)(10x^{4} + 3) = cos(2x^{5} + 3x)(10x^{4} + 3) $$
+
+<br>
+
+$$ h(v) = e^{v} \ \to \ h'(v) = e^{v} $$
+
+<br>
+
+$$ v(x) = -7x \ \to \ v'(x) = -7 $$
+
+<br>
+
+$$ \frac{dh}{dx} = \frac{dh}{dv} \frac{dv}{dx} = -7e^{-7x} $$
+
+<br>
+
+$$ g'(x) = cos(2x^{5} + 3x)(10x^{4} + 3) , \ \ h'(x) = -7e^{-7x} $$
+
+<br>
+
+$$ \frac{df}{x} = \frac{dg}{dx}h + g\frac{dh}{dx} = e^{-7x}( cos(2x^{5} + 3x)(10x^{4} + 3) -7sin(2x^{5} + 3x) ) $$
+
+<br>
+
+- 자, 여기까지가 직접 식을 전개한 것입니다.
+- 매번 미분 문제를 이렇게 해결하기는 어렵습니다. 물론 tensorflow, pytorch 등을 이용하면 자동으로 미분계산을 해줍니다.
+- 이번에 다루어 볼 것은 프로그래밍이 아닌 울프람 알파를 이용하여 바로 계산을 해보겠습니다.
+- `울프람 알파`를 검색해서 사이트를 들어가시거나 Microsoft Store에서 구매해서 사용하셔도 됩니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_calculus/24.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+
+- 먼저 위와같이 검색 창에 `derivative` 형태로 식을 입력하면 자동으로 계산이 되어집니다. 결과는 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_calculus/25.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+
+- 앞에서 식을 전개한 것과 동일한 결과가 나옵니다. 심지어 계산 과정까지 잘 정리되어서 나오니... 직접 계산하지말고 이제 식의 의미를 이해하는 데 집중하는것이 좋을 듯 합니다.
