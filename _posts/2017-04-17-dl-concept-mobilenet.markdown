@@ -18,20 +18,13 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 
 <br>
 
-- 1.논문 리뷰
-- 2.추가 설명 자료
+- 1.추가 설명 자료
+- 2.논문 리뷰
 - 3.Pytorch 코드 리뷰 
 
 <br>
 
-## **1. 논문 리뷰**
-
-<br>
-
-
-<br>
-
-## **2. 추가 설명 자료**
+## **1. 추가 설명 자료**
 
 <br> 
 
@@ -116,9 +109,29 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 - `MobileNet`에서는 **입력 데이터에 필터를 적용할 때, 모든 채널을 한번에 계산해서 아웃풋을 만들어야 하는 것**에 대한 고찰을 합니다.
     - 예를 들어, (100(h) x 100(w) x 3(c)) 이미지가 있고 여기에 (3(h) x 3(w) x 3(c)) 필터를 적용하면 3채널 모두에 필터 연산이 적용 되고 그 값들의 합으로 하나의 스칼라 값이 출력되게 됩니다.
     - `MobileNet`은 왜 3채널 모두에 연산을 다 해야하지? 라는 의문점에서 시작합니다.
--    
+
+<br>
+<center><img src="../assets/img/dl/concept/mobilenet/3.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림과 같이 연산을 하는 것이 기존의 Convolution 연산입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/mobilenet/3.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 반면 위와 같이 연산을 하는 것이 `Depthwise Seperable Convolution`입니다.
+    - 이 연산은 `Depthwise Convolution`과 `Pointwise Convolution`으로 나뉩니다.
+- 왼쪽의 `Depthwise Convolution`을 보면 입력값의 가장 앞쪽 채널인 빨간색 3 x 3 영역만 필터와 연산이 되어 동일한 위치에 스칼라 값으로 출력이 됩니다.
+    - 녹색과 파란색 채널도 각각 필터와 연산이 되어 동일한 위치의 채널에 출력값으로 대응됩니다.
+- 이 계산 과정을 기존의 convolution과 비교하면 기존의 연산에서는 한번 필터를 적용하면 출력값을 모두 더하여 한 개의 출력값으로 만든 반면 `Depthwise Convolution`에서는 채널의 갯수 만큼의 출력값을 가진다는 것입니다. 즉, 채널 방향으로 합치지 않습니다. 
+- 그리고 채널 방향의 연산을 하는 것은 `Pointwise Convolution`에서 합니다. 즉, 1 x 1 convolution을 적용하는 것입니다.       
 
  
+
+<br>
+
+## **2. 논문 리뷰**
 
 <br>
 
