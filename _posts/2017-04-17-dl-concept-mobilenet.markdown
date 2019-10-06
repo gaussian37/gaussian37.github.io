@@ -18,9 +18,9 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 
 <br>
 
-- 1.추가 설명 자료
-- 2.논문 리뷰
-- 3.Pytorch 코드 리뷰 
+- #### 1. 추가 설명 자료
+- #### 2. 논문 리뷰
+- #### 3. Pytorch 코드 리뷰 
 
 <br>
 
@@ -125,7 +125,9 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 - 왼쪽의 `Depthwise Convolution`을 보면 입력값의 가장 앞쪽 채널인 빨간색 3 x 3 영역만 필터와 연산이 되어 동일한 위치에 스칼라 값으로 출력이 됩니다.
     - 녹색과 파란색 채널도 각각 필터와 연산이 되어 동일한 위치의 채널에 출력값으로 대응됩니다.
 - 이 계산 과정을 기존의 convolution과 비교하면 기존의 연산에서는 한번 필터를 적용하면 출력값을 모두 더하여 한 개의 출력값으로 만든 반면 `Depthwise Convolution`에서는 채널의 갯수 만큼의 출력값을 가진다는 것입니다. 즉, 채널 방향으로 합치지 않습니다. 
-- 그리고 채널 방향의 연산을 하는 것은 `Pointwise Convolution`에서 합니다. 즉, 1 x 1 convolution을 적용하는 것입니다.       
+- 그리고 채널 방향의 연산을 하는 것은 `Pointwise Convolution`에서 합니다. 즉, 1 x 1 convolution을 적용하는 것입니다.
+
+       
 
  
 
