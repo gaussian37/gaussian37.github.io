@@ -12,3 +12,6 @@ tags: [deep learning, pytorch] # add tag
 ### **Pytorch 문서 관련 내용**
 
 <br>
+
+- torch.nn
+    - [Conv2d](https://gaussian37.github.io/dl-pytorch-conv2d/)
