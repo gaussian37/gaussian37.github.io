@@ -27,8 +27,8 @@ tags: [cpp, c++, 객체 지향, oop, object oriented] # add tag
 - 8) this 포인터와 연쇄 호출
 - 9) 클래스 코드와 헤더 파일
 - 10) 클래스와 const
-- 11) 정적 멤버 변수
-- 12) 정적 멤버 함수
+- 11) static 멤버 변수
+- 12) static 멤버 함수
 - 13) 친구 함수와 클래스 friend
 - 14) 익명 객체
 - 15) 클래스 안에 포함된 자료형 nested types
@@ -1122,7 +1122,7 @@ public:
 
 <br>
 
-### **12. 정적 멤버 함수**
+### **12. static 멤버 함수**
 
 <br>
 
