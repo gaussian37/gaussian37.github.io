@@ -9,6 +9,7 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 
 - 이번 글에서는 경량화 네트워크로 유명한 `MobileNet`에 대하여 알아보도록 하겠습니다.
     - 이번글은 `MobileNet` 초기 버전(v1) 입니다.
+- MobileNet의 핵심 내용인 [`Depthwise Separable Convolution`]()의 내용을 퀵 하게 알고 싶으면 저의 다른 글도 추천 드립니다.
 - 아래 글의 내용은 [PR12 모바일넷 설명](https://youtu.be/7UoOFKcyIvM) 내용을 글로 읽을 수 있게 옮겼습니다.
 
 <br>
@@ -90,8 +91,14 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 
 - 먼저 `MobilNet`을 다루기 전에 간단하게 **Convolution Operation**에 대하여 다루어 보겠습니다.
 - 위와 같이 인풋의 채널이 3개이면 convolution 연산을 하는 필터의 채널 또한 3개이어야 합니다.
-- 이 때 필터의 갯수가 몇 개 인지에 따라서 아웃풋의 채널의 숫자가 결정되게 됩니다.
-- 즉, 위의 오른쪽 그림과 같이 입력 채널에서는 필터의 크기 만큼 모든 채널의 값들이 **element-wise 곱**으로 연산하여 한 개의 값으로 모두 더해지게 됩니다.
+- 이 때 **필터의 갯수**가 몇 개 인지에 따라서 **아웃풋의 채널의 숫자**가 결정되게 됩니다.
+- 정리하면 `인풋의 채널 수 = 필터의 채널 수`이고 `필터의 갯수 = 아웃풀의 채널 수`가 됩니다.
+- 이 때, **인풋 채널과 필터의 연산 과정**은 위의 오른쪽 그림과 같이 입력 채널에서는 필터의 크기 만큼 모든 채널의 값들이 **element-wise 곱**으로 연산하여 **최종적으로 한 개의 값**으로 모두 더해지게 됩니다.
+
+<br>
+
+- `Depthwise ``VGG`의 네트워크 구조를 살펴보면 
+
 
 <br>
 
