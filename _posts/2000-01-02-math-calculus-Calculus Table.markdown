@@ -14,4 +14,15 @@ tags: [미분적분, calculus] # add tag
 <br>
 
 - [Calculus 기초](https://gaussian37.github.io/math-calculus-basic_calculus/)
+- [Multivariate Calculus 기초](https://gaussian37.github.io/math-calculus-basic_multivariate_calculus/)
+- [Jacobian]()
+- [Hessian]()
+- [Multivariate Chain Rule]()
+- [Backpropagation in Neural Network]()
+- [Taylor series and linearization]()
+- [Optimization]()
+- [Regression]()
+
+<br>
+
 

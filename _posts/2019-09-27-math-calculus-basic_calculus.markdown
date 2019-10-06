@@ -9,7 +9,11 @@ tags: [calculus] # add tag
 
 - 이 글은 Coursera의 Mathematics for Machine Learning: Multivariate Calculus 을 보고 정리한 내용입니다.
 
+<br>
+
 ### **목차**
+
+<br>
 
 - Rise Over Run
 - Definition Of Derivative
