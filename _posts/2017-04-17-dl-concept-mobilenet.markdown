@@ -14,13 +14,13 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 
 <br>
 
-### **목차**
+## **목차**
 
 <br>
 
-- #### 1. 추가 설명 자료
-- #### 2. 논문 리뷰
-- #### 3. Pytorch 코드 리뷰 
+- ### 1. 추가 설명 자료
+- ### 2. 논문 리뷰
+- ### 3. Pytorch 코드 리뷰 
 
 <br>
 
