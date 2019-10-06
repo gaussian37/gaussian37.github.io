@@ -146,11 +146,15 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 - 　$$ M $$ = 인풋 채널의 크기
 - 　$$ N $$ = 아웃풋 채널의 크기(필터의 갯수)
 - **Standard Convolution**의 대략적 계산 비용 
-    - 　$$ D_{K} \times D_{K} \ times M \times N \times D_{F} \times D_{F} $$   
+    - 　$$ D_{K} \times D_{K} \times M \times N \times D_{F} \times D_{F} $$   
 - **Depthwise Separable Convolution**의 대략적 계산 비용
     - 　$$ D_{K} \times D_{K} \times M \times D_{F} \times D_{F} + D_{F} \times D_{F} \times M \times N $$
 - 두 Convolution의 계산 비용 차이 (**Depthwise Separable Version / Standard Version**)
-    -　$$ (D_{K} \times D_{K} \times M \times D_{F} \times D_{F} + D_{F} \times D_{F} \times M \times N) / (D_{K} \times D_{K} \ times M \times N \times D_{F} \times D_{F})  = 1/N + 1/D_{K}^{2} $$  
+    -　$$ (D_{K} \times D_{K} \times M \times D_{F} \times D_{F} + D_{F} \times D_{F} \times M \times N) / (D_{K} \times D_{K} \times M \times N \times D_{F} \times D_{F})  = 1/N + 1/D_{K}^{2} $$
+- 여기서 $$ N $$은 아웃풋 채널의 크기이고 $$ D_{K} $$는 필터의 크기인데 $$ N $$이 $$ D_{K} $$ 보다 일반적으로 훨씬 큰 값이므로 반대로 $$ 1 / D_{K}^{2} $$ 값이 되어 $$ 1 / D_{K}^{2} $$ 배 만큼 계산이 줄었다고 보면 됩니다.
+- 이 때, $$ D_{K} $$는 보통 3이므로 1/9 배 정도 계산량이 감소하였습니다.  
+
+  
 
 <br>
 
