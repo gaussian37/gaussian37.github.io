@@ -122,14 +122,35 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 
 - 반면 위와 같이 연산을 하는 것이 `Depthwise Seperable Convolution`입니다.
     - 이 연산은 `Depthwise Convolution`과 `Pointwise Convolution`으로 나뉩니다.
+- 결과적으로 이 방법을 사용하는 이유를 먼저 알아보면 `연산 속도 증가` 입니다.
 - 왼쪽의 `Depthwise Convolution`을 보면 입력값의 가장 앞쪽 채널인 빨간색 3 x 3 영역만 필터와 연산이 되어 동일한 위치에 스칼라 값으로 출력이 됩니다.
     - 녹색과 파란색 채널도 각각 필터와 연산이 되어 동일한 위치의 채널에 출력값으로 대응됩니다.
 - 이 계산 과정을 기존의 convolution과 비교하면 기존의 연산에서는 한번 필터를 적용하면 출력값을 모두 더하여 한 개의 출력값으로 만든 반면 `Depthwise Convolution`에서는 채널의 갯수 만큼의 출력값을 가진다는 것입니다. 즉, 채널 방향으로 합치지 않습니다. 
 - 그리고 채널 방향의 연산을 하는 것은 `Pointwise Convolution`에서 합니다. 즉, 1 x 1 convolution을 적용하는 것입니다.
 
-       
+<br>
+<center><img src="../assets/img/dl/concept/mobilenet/4.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>       
 
- 
+- 위 이미지는 논문에서 사용된 Standard Convolution Filter와 Depthwise Convolution Filter를 비교하기 위해 사용된 이미지입니다.
+- 먼저 Standard Convolution Filter에서 $$ D_{k} $$는 필터의 height와 width의 크기이고 $$ M $$은 필터의 채널 수 그리고 $$ N $$은 필터의 갯수가 됩니다. 즉 $$ N $$은 아웃풋의 채널수를 이미하기도 합니다.
+- 반면 Depthwise Convolution을 보면 (height, width)의 크기가 $$ D_{k} $$이고 채널이 1인 $$ M $$개의 필터를 이용하여 Depthwise Convolution을 합니다.
+- 그리고 그 결과물을 이용하여 1 x 1 필터 N개를 이용하여 Pointwise Convolution을 합니다.
+- 결과적으로 이렇게 하면 `연산 속도 증가`의 장점이 있습니다.
+
+<br>
+
+- 얼마나 연산 속도가 증가하는 지 한번 살펴보겠습니다.
+- 　$$ D_{K} $$ = 필터의 height/width 크기
+- 　$$ D_{F} $$ = Feature map의 height/width 크기
+- 　$$ M $$ = 인풋 채널의 크기
+- 　$$ N $$ = 아웃풋 채널의 크기(필터의 갯수)
+- **Standard Convolution**의 대략적 계산 비용 
+    - 　$$ D_{K} \times D_{K} \ times M \times N \times D_{F} \times D_{F} $$   
+- **Depthwise Separable Convolution**의 대략적 계산 비용
+    - 　$$ D_{K} \times D_{K} \times M \times D_{F} \times D_{F} + D_{F} \times D_{F} \times M \times N $$
+- 두 Convolution의 계산 비용 차이 (**Depthwise Separable Version / Standard Version**)
+    -　$$ (D_{K} \times D_{K} \times M \times D_{F} \times D_{F} + D_{F} \times D_{F} \times M \times N) / (D_{K} \times D_{K} \ times M \times N \times D_{F} \times D_{F})  = 1/N + 1/D_{K}^{2} $$  
 
 <br>
 
