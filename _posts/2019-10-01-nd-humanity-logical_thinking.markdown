@@ -90,3 +90,22 @@ tags: [로지컬 싱킹, logical thinking] # add tag
 - 위와 같이 매트릭스를 채워나가면 내용을 빠짐없이 검토할 수 있고 판단 근거가 생기는 좋은 장점이 있습니다.
 - 2 x 2 매트릭스가 익숙해지면 2 x 3, 3 x 3 등 다양한 방법의 매트릭스를 사용하면 됩니다.
 
+<br>
+
+<br>
+<center><img src="../assets/img/nd/humanity/mac_logical_thinking/3.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 현상, 원인, 대책, 향후 계획 등의 순서나 프로젝트의 순서를 적기에 적합한 프레임 워크 입니다.
+
+<br>
+<center><img src="../assets/img/nd/humanity/mac_logical_thinking/4.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 서로 연관된 구성 요소의 관계를 표현하기에 적합한 프레임 워크 입니다.
+
+<br>
+<center><img src="../assets/img/nd/humanity/mac_logical_thinking/5.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 상호 인과 관계를 한번에 파악하기 좋은 프레임 워크 입니다.
