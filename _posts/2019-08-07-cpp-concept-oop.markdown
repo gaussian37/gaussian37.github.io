@@ -1001,7 +1001,7 @@ int main() {
 	Something st1;
 	Something st2;
 
-	st1.value_ = 2;
+	st1.m_value = 2;
 
 	cout << &st1.m_value << " " << st1.m_value << endl;
 	cout << &st2.m_value << " " << st2.m_value << endl;
