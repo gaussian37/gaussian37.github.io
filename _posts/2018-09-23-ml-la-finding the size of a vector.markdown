@@ -27,7 +27,7 @@ tags: [Linear algebra] # add tag
 - 예를 들어 2차원에서 unit vector는 각각 $$ i = [1, 0] $$ 과 $$ j = [0, 1] $$의 값을 가집니다.
 
 <br>
-<center><img src="../assets/img/math/la/Finding the size of a vector,angle,projection/0.png" alt="Drawing" style="width: 100px;"/></center>
+<center><img src="../assets/img/math/la/Finding the size of a vector,angle,projection/0.png" alt="Drawing" style="width: 200px;"/></center>
 <br>   
 
 - unit vector는 각 축과 일치하는 방향으로 기본값인 1을 가지므로 어떤 vector는 unit vector를 이용하여 나타낼 수 있습니다.
