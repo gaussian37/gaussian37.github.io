@@ -9,23 +9,16 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
-### CNN 관련 글
+## **CNN 관련**
 
 <br>
 
 - Inception and Xception
-
-
-<br>
-
-### RNN 관련 글
-
-<br> 
-
+- Convolution arithmetic
 
 <br>
 
-### 경량화 네트워크 관련 글
+## **경량화 및 효율적 네트워크 관련**
 
 <br>
 
@@ -39,7 +32,7 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
-### Optimizer 관련 글
+## **Optimizer 관련**
 
 <br> 
 
