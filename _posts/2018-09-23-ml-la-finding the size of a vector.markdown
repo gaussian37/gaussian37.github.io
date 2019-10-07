@@ -47,13 +47,17 @@ tags: [Linear algebra] # add tag
 <br>   
 
 
-## Cosine & dot product
+## **Cosine & dot product**
 
-![cosine](../assets/img/math/la/Finding the size of a vector,angle,projection/cosine.png)
+<br>
+<center><img src="../assets/img/math/la/Finding the size of a vector,angle,projection/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>   
 
-## Projection
+## **Projection**
 
-![projection](../assets/img/math/la/Finding the size of a vector,angle,projection/projection.png)
+<br>
+<center><img src="../assets/img/math/la/Finding the size of a vector,angle,projection/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>   
 
 
  
