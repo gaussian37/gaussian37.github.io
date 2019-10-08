@@ -23,7 +23,7 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 + [복수의 정보를 얻었을 때의 추정(1)](https://gaussian37.github.io/math-pb-bayes-basic10/)
 + [복수의 정보를 얻었을 때의 추정(2)](https://gaussian37.github.io/math-pb-bayes-basic11/)
 + [베이즈 추정에서는 정보를 순차적으로 사용할 수 있다.](https://gaussian37.github.io/math-pb-bayes-basic12/)
-+ 베이즈 추정은 정보를 얻을수록 더 정확해 진다.
++ [베이즈 추정은 정보를 얻을수록 더 정확해 진다.](https://gaussian37.github.io/math-pb-bayes-basic13/)
 + 확률은 면적과 동일한 성질을 지닌다.
 + 정보를 얻은 후 확률의 표시법
 + 더 범용적인 추정을 위한 확률분포도
