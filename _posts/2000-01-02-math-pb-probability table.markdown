@@ -7,9 +7,13 @@ categories: [math-pb]
 tags: [통계학, 수리통계학, 베이지안] # add tag
 ---
 
-통계학 공부 관련 글 목록 입니다.
+<br>
 
-## 베이지안 통계학 기초
+## **베이지안 통계**
+
+<br>
+
+### **세상에서 가장 쉬운 베이지안 통계학**
 
 + [정보를 얻으면 확률이 바뀐다.](https://gaussian37.github.io/math-pb-bayes-basic1/)
 + [베이지안 추정은 때로 직감에 크게 반한다.(1)](https://gaussian37.github.io/math-pb-bayes-basic2/)
@@ -35,7 +39,7 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 
 <br><br>
 
-## [Bayesian statistics: a comprehensive course](https://www.youtube.com/playlist?list=PLFDbGp5YzjqXQ4oE4w9GVWdiokWB9gEpm)
+###  **[Bayesian statistics: a comprehensive course](https://www.youtube.com/playlist?list=PLFDbGp5YzjqXQ4oE4w9GVWdiokWB9gEpm)**
 
 - Bayesian vs frequentist statistics
 - [What is a probability distribution?](https://gaussian37.github.io/math-pb-bayes_stat_05/)
@@ -44,7 +48,7 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 
 <br><br>
 
-## 수리통계학
+## **수리통계학**
 
 + 통계학 개요. 표본추출. 실험
 + 자료의 요약. 도표를 이용한 자료의 정리
