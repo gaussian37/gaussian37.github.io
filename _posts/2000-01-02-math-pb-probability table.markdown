@@ -23,19 +23,19 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 + [명쾌하고 엄밀하지만 쓸 떼가 한정된 네이만-피어슨 식 추정](https://gaussian37.github.io/math-pb-bayes-basic6/)
 + [베이즈 추정은 적은 양의 정보로 그럴듯한 결론을 이끌어 낸다.](https://gaussian37.github.io/math-pb-bayes-basic7/)
 + [베이즈 추정은 최우원리에 근거해 있다.](https://gaussian37.github.io/math-pb-bayes-basic8/)
-+ 베이즈 추정은 때로 직감에 크게 반한다.(2)
++ [베이즈 추정은 때로 직감에 크게 반한다.(2)](https://gaussian37.github.io/math-pb-bayes-basic9/)
 + [복수의 정보를 얻었을 때의 추정(1)](https://gaussian37.github.io/math-pb-bayes-basic10/)
 + [복수의 정보를 얻었을 때의 추정(2)](https://gaussian37.github.io/math-pb-bayes-basic11/)
 + [베이즈 추정에서는 정보를 순차적으로 사용할 수 있다.](https://gaussian37.github.io/math-pb-bayes-basic12/)
 + [베이즈 추정은 정보를 얻을수록 더 정확해 진다.](https://gaussian37.github.io/math-pb-bayes-basic13/)
-+ 확률은 면적과 동일한 성질을 지닌다.
-+ 정보를 얻은 후 확률의 표시법
-+ 더 범용적인 추정을 위한 확률분포도
-+ 두 가지 숫자로 성격이 정해지는 베타분포
-+ 확률분포의 성격을 결정짓는 기대치
-+ 확률분포도를 사용한 고도의 추정(1)
-+ 동전 던지기나 천체 관측에서 관찰되는 정규분포
-+ 확률분포도를 사용한 고도의 추정(2)
++ [확률은 면적과 동일한 성질을 지닌다.](https://gaussian37.github.io/math-pb-bayes-basic14/)
++ [정보를 얻은 후 확률의 표시법](https://gaussian37.github.io/math-pb-bayes-basic15/)
++ [더 범용적인 추정을 위한 확률분포도](https://gaussian37.github.io/math-pb-bayes-basic16/)
++ [두 가지 숫자로 성격이 정해지는 베타분포](https://gaussian37.github.io/math-pb-bayes-basic17/)
++ [확률분포의 성격을 결정짓는 기대치](https://gaussian37.github.io/math-pb-bayes-basic18/)
++ [확률분포도를 사용한 고도의 추정(1)](https://gaussian37.github.io/math-pb-bayes-basic19/)
++ [동전 던지기나 천체 관측에서 관찰되는 정규분포](https://gaussian37.github.io/math-pb-bayes-basic20/)
++ [확률분포도를 사용한 고도의 추정(2)](https://gaussian37.github.io/math-pb-bayes-basic21/)
 
 <br><br>
 
