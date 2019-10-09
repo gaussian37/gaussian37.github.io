@@ -87,19 +87,6 @@
                     <a class="dropdown-item" href="{{ "/vision/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
-            <li class="nav-item dropdown
-            {% if page.url == '/gan/concept/' or page.url == '/gan/etc/'%} active {% endif %}">
-                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('gan-dropdown')"
-                   role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    GAN
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="gan-dropdown">
-                    <a class="dropdown-item" href="{{ "/gan/concept" | prepend: site.baseurl }}">Concept</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ "/gan/etc" | prepend: site.baseurl }}">ETC</a>
-                </div>
-            </li>
 
             <li class="nav-item dropdown
             {% if page.url == '/c/concept' or page.url == '/c/etc/' %} active {% endif %}">
