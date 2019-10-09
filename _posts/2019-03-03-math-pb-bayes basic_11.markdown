@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (베이즈 통계학 기초) 복수의 정보를 얻었을 때의 추정(2)
-date: 2019-03-03 05:00:00
+date: 2019-03-03 11:00:00
 img: math/pb/probability.jpg
 categories: [math-pb] 
 tags: [통계학, 베이지안, 스팸 메일] # add tag

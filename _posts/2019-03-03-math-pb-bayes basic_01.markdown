@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (베이즈 통계학 기초) 정보를 얻으면 확률이 바뀐다.
-date: 2019-02-20 00:00:00
+date: 2019-03-03 01:00:00
 img: math/pb/probability.jpg
 categories: [math-pb] 
 tags: [통계학, 베이지안] # add tag

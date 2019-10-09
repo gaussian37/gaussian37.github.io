@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (베이즈 통계학 기초) 베이즈 추정에서는 정보를 순차적으로 사용할 수 있다.
-date: 2019-03-03 06:00:00
+date: 2019-03-03 12:00:00
 img: math/pb/probability.jpg
 categories: [math-pb] 
 tags: [통계학, 베이지안, 축차합리성] # add tag

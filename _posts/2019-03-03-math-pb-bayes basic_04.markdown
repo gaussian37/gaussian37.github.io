@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (베이즈 통계학 기초) 확률의 확률을 사용하여 추정의 폭을 넓힌다.
-date: 2019-02-26 00:00:00
+date: 2019-03-03 04:00:00
 img: math/pb/probability.jpg
 categories: [math-pb] 
 tags: [통계학, 베이지안, 확률의 확률] # add tag

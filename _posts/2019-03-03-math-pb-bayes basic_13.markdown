@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (베이즈 통계학 기초) 베이즈 추정은 정보를 얻을수록 더 정확해집니다.
-date: 2019-03-03 07:00:00
+date: 2019-03-03 13:00:00
 img: math/pb/probability.jpg
 categories: [math-pb] 
 tags: [통계학, 베이지안, 베이즈 추정] # add tag

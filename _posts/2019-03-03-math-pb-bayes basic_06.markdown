@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (베이즈 통계학 기초) 명쾌하고 엄밀하지만 쓸 데가 한정된 네이만-피어슨 식 추정
-date: 2019-03-01 00:00:00
+date: 2019-03-03 06:00:00
 img: math/pb/probability.jpg
 categories: [math-pb] 
 tags: [통계학, 베이지안, 네이만 피어슨] # add tag

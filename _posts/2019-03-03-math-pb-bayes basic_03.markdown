@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (베이즈 통계학 기초) 주관적인 숫자여도 추정이 가능하다.
-date: 2019-02-21 00:00:00
+date: 2019-03-03 03:00:00
 img: math/pb/probability.jpg
 categories: [math-pb] 
 tags: [통계학, 베이지안, 이유 불충분] # add tag

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (베이즈 통계학 기초) '확률'은 '면적'과 동일한 성질을 지닌다.
-date: 2019-03-03 08:00:00
+date: 2019-03-03 15:00:00
 img: math/pb/probability.jpg
 categories: [math-pb] 
 tags: [통계학, 베이지안, 베이즈 추정] # add tag

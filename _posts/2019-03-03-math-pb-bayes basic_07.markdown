@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (베이즈 통계학 기초) 베이즈 추정은 적은 양의 정보로 그럴듯한 결론을 이끌어 낸다.
-date: 2019-03-02 00:00:00
+date: 2019-03-03 07:00:00
 img: math/pb/probability.jpg
 categories: [math-pb] 
 tags: [통계학, 베이지안, 네이판 피어슨] # add tag
