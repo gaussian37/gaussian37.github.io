@@ -2,8 +2,8 @@
 layout: post
 title: Basic Probability and Information Theory
 date: 2019-08-21 00:00:00
-img: gan/gan.png
-categories: [gan-concept] 
+img: dl/gan.png
+categories: [dl-concept] 
 tags: [probability, information theory, 정보이론, kl divergence] # add tag
 ---
 
@@ -95,14 +95,14 @@ tags: [probability, information theory, 정보이론, kl divergence] # add tag
 - 가로축을 $$ P $$, 세로축을 $$ H(P) $$ 라고 하면 다음과 같은 `Entropy` 크기 변화 분포를 가지게 됩니다.  
 
 <br>
-<center><img src="../assets/img/gan/concept/prob_info/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/prob_info/1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 만약 동전의 앞면이 나올 확률이 0.5라면 $$ H(x) = -\sum_{x}P(x)logP(x) = -(0.5 * log_{2}0.5 + 0.5*log_{2}0.5) = 1
 - 확률분포 $$ p(x) $$에 따른 `Entropy` H(x)에 대한 성질을 보면 다음과 같습니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/prob_info/2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/prob_info/2.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 왼쪽 그림과 같이 **불균형한 분포**에서는 **불확실성이 낮습니다.** 특정 사건이 발생할 확률이 높기 때문에 예측이 가능하지요.
@@ -166,7 +166,7 @@ tags: [probability, information theory, 정보이론, kl divergence] # add tag
 - `Jensen's inequality`는 아래로 볼록한 함수 $$ f $$와 그 때의 정의역 $$ x $$에서 정의됩니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/prob_info/3.PNG" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/prob_info/3.PNG" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 그래프와 같이 $$ f $$함수가 **convex**형태(아래로 볼록)를 가질 때, $$ E[f(x)] \gt f(E[x]) $$가 됩니다.
@@ -193,7 +193,7 @@ tags: [probability, information theory, 정보이론, kl divergence] # add tag
 - 하지만, 두 분포가 다를수록 큰 값을 가지며 둘이 일치할 때에만 0이 되기 때문에 거리와 비슷한 용도로 사용할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/prob_info/4.PNG" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/prob_info/4.PNG" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 다음으로 `KL divergence`와 `log-likelihood`의 관계에 대하여 알아보겠습니다.

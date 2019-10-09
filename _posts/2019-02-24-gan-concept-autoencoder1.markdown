@@ -3,7 +3,7 @@ layout: post
 title: AutoEncoder의 모든것 (1. Revisit Deep Neural Network)
 date: 2019-02-24 00:00:00
 img: gan/concept/autoencoder1/autoencoder.png
-categories: [gan-concept] 
+categories: [dl-concept] 
 tags: [deep learning, autoencoder] # add tag
 ---
 
@@ -15,7 +15,7 @@ tags: [deep learning, autoencoder] # add tag
 </div>
 <br>
 
-<center><img src="../assets/img/gan/concept/autoencoder1/1-1.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-1.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 + AutoEncoder와 관련된 키워드는 다음과 같습니다.
@@ -27,27 +27,27 @@ tags: [deep learning, autoencoder] # add tag
     + 많은 사람들이 이 용도로 AutoEncoder를 사용하고 있습니다. 
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-2.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-2.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 + Nonlinear Dimensionality Reduction과 같은 용도로 사용되는 키워드는 위와 같습니다.
 + 이 때, `Feature Extraction`과 `Manifold learning`은 자주 사용되는 용어입니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-3.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-3.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 + 벤지오의 기술분류표를 보면 AutoEncoder는 Representation Learning에 해당합니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-4.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-4.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 + 이안 굿펠로우의 기술분류표를 보면 `Variational Autoencoder`는 `Maximum Likelihood`와 연관이 되어 있습니다.
 + 따라서 Maximum Likelihood에 대해서도 알아보도록 하겠습니다. 
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-5.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-5.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 + AE(AutoEncoder)는 입력과 출력이 같은 동일한 구조를 가지고 있으면 AE라고 부릅니다.
@@ -60,7 +60,7 @@ tags: [deep learning, autoencoder] # add tag
     + `Generative model learning` : manifold learning을 한 결과를 다시 입력 차원과 똑같이 복원을 하는 데 이것을 Generative model 이라고 합니다.   
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-6.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-6.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 + 앞으로 다룰 내용은 위의 슬라이드에 있는 구성으로 진행할 것입니다.
@@ -72,13 +72,13 @@ tags: [deep learning, autoencoder] # add tag
 + 챕터 5에서는 `AE를 응용하는 방법`에 대하여 알아보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-7.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-7.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 + 챕터1을 시작해 보겠습니다. 챕터1에서는 **AE**는 **Maximum Likelihood**하는 작업인 것을 이해하면 되겠습니다. 
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-8.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-8.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 + 먼저 전통적인 머신러닝 방법부터 살펴보도록 하겠습니다. 
@@ -93,7 +93,7 @@ tags: [deep learning, autoencoder] # add tag
 + 학습이 완료되면 예측을 하고 성능을 테스트 합니다.  
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-9.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-9.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 + 딥러닝에서는 위에서 설명한 머신러닝 방법에서 모델 설정 방법이 조금 바뀌게 됩니다.
@@ -107,7 +107,7 @@ tags: [deep learning, autoencoder] # add tag
             + 조건2 : Loss를 구성할 때, `네트워크의 출력값` 만을 사용한다. 
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-10.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-10.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 + 전체 학습 데이터 셋에 대한 `Loss`를 최소화 하는 파라미터를 찾는데 주로 사용하는 방법은 `Gradient Descent`입니다.
@@ -120,7 +120,7 @@ tags: [deep learning, autoencoder] # add tag
         + `GD`에서는 파라미터를 아무리 바꾸더라도 `Loss`가 줄어들지 않으면 업데이트를 멈춘다는 전략을 취합니다.
 
 <br>        
-<center><img src="../assets/img/gan/concept/autoencoder1/1-11.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-11.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 그런데 한가지 문제점이 있습니다. 업데이트 해야 할 파라미터 $$ \theta $$의 차원이 굉장히 큰 경우에는 어떻게 $$ \theta $$를 변경해야 할까요?
@@ -128,7 +128,7 @@ tags: [deep learning, autoencoder] # add tag
 - 앞의 전략(Loss가 줄어드는 방향으로 파라미터 업데이트)을 만족시키면서 파라미터를 변경하는 방법에 대하여 알아보겠습니다.
 - 머신러닝, 딥러닝에서 사용하는 파라미터 업데이트 방법의 기본은 `taylor expansion`에 기초를 두고 있습니다.
 
-<center><img src="../assets/img/gan/concept/autoencoder1/taylor.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/taylor.png" alt="Drawing" style="width: 600px;"/></center>
 
 <br>
 
@@ -153,7 +153,7 @@ tags: [deep learning, autoencoder] # add tag
     - learning rate가 너무 커서 Loss가 발산하는 경우가 바로 approximation을 잘못한 경우입니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-12.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-12.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 그러면 전체 과정을 한번 보겠습니다. 먼저 $$ \mathcal D $$라는 Training DB가 있고 $$ \theta_{k} $$ 라는 현재 파라미터가 있다고 가정해 봅시다.
@@ -167,7 +167,7 @@ tags: [deep learning, autoencoder] # add tag
 - 1번 업데이트 되는 것을 `step` 이라고 하고 모든 training DB를 한번 다 훑는 것을 `epoch`이라고 하면 1 epoch 당 1 step의 업데이트가 발생하는데 미니 배치를 사용하면 1epoch 당 N/M step의 업데이트가 발생하게 됩니다. 
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-13.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-13.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 우리가 학습해야 할 네트워크의 구조가 딥 뉴럴 네트워크이기 때문에 학습해야 할 파라미터가 weight와 bias로 구성되어 있습니다.
@@ -186,7 +186,7 @@ tags: [deep learning, autoencoder] # add tag
 - 이 구하는 과정이 dynamic programming기법으로 결과 값이 계속 누적되어 효율적으로 계산되므로 빠르게 weight와 bias에 대한 미분값을 구할 수 있습니다.   
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-14.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-14.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 그러면 **backpropagation**에서 **loss function**으로 주로 사용하는 **Mean Square Error**와 **Cross Entropy**에 대하여 알아보려고 합니다.
@@ -217,7 +217,7 @@ tags: [deep learning, autoencoder] # add tag
 - 위 좌, 우 그래프를 보면 초기값의 차이에 따라서 output의 차이가 있는 것을 볼 수 있습니다. 초기값이 왜 결과에 영향을 미칠까요?
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-15.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-15.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
     
 - **backpropagation**을 보면 **activation function**의 미분값이 항상 들어가 있습니다.
@@ -233,7 +233,7 @@ tags: [deep learning, autoencoder] # add tag
     - 즉, 양수의 경우 **gradient**가 1이므로 입력층과 가까운 레이어에도 **gradient**가 전달될 수 있습니다.   
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-16.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-16.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 식은 `Cross Entropy`에 대한 **gradient**값을 계산하는 과정입니다.
@@ -241,14 +241,14 @@ tags: [deep learning, autoencoder] # add tag
 - 즉, **backpropagation**할 때, 레이어가 깊어질수록 값이 줄어드는 것을 개선할 수 있고 초기값에 둔감하게 학습할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-17.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-17.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br> 
 
 - 따라서 **Cross Entropy**를 사용하는 경우 초기값이 학습에 영향을 끼치는 것을 둔감화 시킬 수 있고 학습이 둘 다 잘되는 것을 알 수 있습니다.
 - 정리하면, **backpropagation** 관점에서는 **Cross Entorpy**를 (MSE 대신)Loss function으로 사용하는 것이 더 유리하고 그 이유는 학습할 때, $$ \simga'(z) $$ 항이 없기 때문에 더 깊은 레이어 까지 학습이 가능하기 때문입니다. 
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-18.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-18.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 이번에는 `Maximum Likelihood` 관점에서 Loss function을 살펴보도록 하겠습니다.
@@ -276,7 +276,7 @@ tags: [deep learning, autoencoder] # add tag
 - 이렇게 해석하였을 때의 장점은 **확률 분포 모델**을 찾았기 때문에 고정 입력 값에 고정 출력이 아닌 `샘플링`을 통한 다른 출력을 낼 수 있습니다. (이 내용은 이후에 오토인코더와도 연관되어 있습니다.)
      
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-19.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-19.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 앞에서 사용한 `Negative log likelihood`가 `i.i.d` 조건을 만족시키는 지 한번 살펴보겠습니다.
@@ -287,7 +287,7 @@ tags: [deep learning, autoencoder] # add tag
 - 이 두조건을 모두 만족하기 때문에 $$ -log(p(y \vert f_{\theta}(x))) = -\sum_{i} log(p(y_{i} \vert  f_{\theta}(x_{i}))) $$식을 만족하게 됩니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-20.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-20.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 (위 슬라이드는 일변수 함수에 대한 식을 푼 것입니다.)
@@ -301,20 +301,20 @@ tags: [deep learning, autoencoder] # add tag
 - 반대고 **discrete**한 값은 베르누이 분포를 따르 다고 가정해서 **Cross Entropy**가 좋다고 해석한 것입니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-21.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-21.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 (위 슬라이드는 다변수 함수에 대한 식을 푼 것입니다.)
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-22.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-22.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 마지막으로 **Maximum Likelihood** 관점에서 해석을 할 때, 네트워크의 출력값이 **likelihood**값이 아니라는 것을 다시 상기시키고 가겠습니다.
 - 사전에 확률 분포를 가정하였었고 그 확률 분포를 규정짓는 `파라미터`를 추정하는 것입니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-23.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-23.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 벤지오 교수의 `Log likelihood for Neural Net` 해석을 한번 보겠습니다.
@@ -333,7 +333,7 @@ tags: [deep learning, autoencoder] # add tag
     - 베르누이 분포(멀티누이 분포)로 가정해서 **negative log likelihood**를 최소화 하면 **Cross Entropy**가 됩니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/autoencoder1/1-24.jpg" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/autoencoder1/1-24.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 지금까지 다른 **Loss function**은 **Mean Square Error**와 **Cross Entropy**가 있는데, 각 **Loss function**을 사용하여 학습 시키는 것을 해석을 할 때, 한 경우는 `가우시안`으로 다른 한 경우는 `카테고리컬`한 것으로 생각할 수 있었습니다.

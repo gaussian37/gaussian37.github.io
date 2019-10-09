@@ -2,8 +2,8 @@
 layout: post
 title: MLE(Maximum Likelihood Estimation)와 MAP(Maxim A Posterior)에 관하여
 date: 2019-09-16 00:00:00
-img: gan/gan.png
-categories: [gan-concept] 
+img: dl/gan.png
+categories: [dl-concept] 
 tags: [MLE, ML, Maximum likelihood estimation] # add tag
 ---
 
@@ -44,7 +44,7 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
 - 두 경우 모두 일어날 수 있는 사건이 6개, 11개로 정해져 있으며 각각에 대한 확률을 구할 수 있고 확률의 합은 1이 됩니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/mle_and_map/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/mle_and_map/1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 이번에는 1에서 6 사이의 숫자 중 랜덤으로 아무 숫자나 뽑는다고 가정해 보겠습니다.
@@ -66,7 +66,7 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
 - **PDF**는 특정 구간에 속할 확률을 계산하기 위한 함수이며 **그래프에서 특정 구간에 속한 넓이=특정 구간에 속할 확률**이 되게끔 정한 함수입니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/mle_and_map/2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/mle_and_map/2.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 그림으로 예를 들어 살펴 보겠습니다. 왼쪽의 그림에서 `PDF`의 값은 1에서 6사이에서는 전부 0.2이고 나머지 구간에서는 전부 0인데, 이는 1에서 6사이의 숫자를 뽑는 상황을 그림으로 나타낸 것입니다.
@@ -170,7 +170,7 @@ $$ \hat{\theta} = argmax_{\theta} L(\theta; X) = argmax_{\theta} f(X \vert \thet
     - 그러면 언제 $$ L $$이 최대가 되는지 알아보아야 합니다. $$ L $$이 최대가 되는 지점의 미분값은 0이므로 미분값이 0이 되는 지점의 `p`값을 울프람 알파로 구해보겠습니다.
     
 <br>
-<center><img src="../assets/img/gan/concept/mle_and_map/3.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/mle_and_map/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>         
 
 - **두번째 예 : 키 측정 하기**
@@ -248,7 +248,7 @@ $$ \hat{\theta} = argmax_{\theta} f(\theta \vert X) = argmax_{\theta} \frac{f(X 
 - 그리고`posteriror`는 `likelihood`와 `prior`의 곱에 비례합니다. 따라서 `MAP`는 `MLE`와 `prior`의 곱에 비례하다고 할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/gan/concept/mle_and_map/4.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/mle_and_map/4.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 - 출처: 패턴인식(오일석)       
 
