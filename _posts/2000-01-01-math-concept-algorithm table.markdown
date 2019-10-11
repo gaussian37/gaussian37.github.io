@@ -18,7 +18,7 @@ tags: [algorithm, 알고리즘] # add tag
 - 다이나믹 프로그래밍
 - 문자열
     - KMP
-    - Trie
+    - [Trie](https://gaussian37.github.io/math-algorithm-trie/)
     - Aho-corasick
     - Suffix Array
 - 비트마스크
