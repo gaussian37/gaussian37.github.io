@@ -1,0 +1,9 @@
+---
+layout: post
+title: git 관련 내용 정리
+date: 2019-02-09 00:00:00
+img: nd/etc/git.png
+categories: [nd-etc] 
+tags: [git, git 셋팅] # add tag
+---
+
