@@ -40,6 +40,7 @@ Humanity 관련 글 목차 입니다.
 + 오픈이노베이션 : 지식의 확산을 통한 가치 창출
 + 화폐전쟁 : 보이지 않는 경제 전쟁
 + [자본론 : 김수행 교수님 강의](https://gaussian37.github.io/interview-humanity-the-capital/)
++ [맥킨지식 로지컬 싱킹](https://gaussian37.github.io/nd-humanity-logical_thinking/)
 
 <br><br>
 

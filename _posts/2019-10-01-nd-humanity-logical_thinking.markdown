@@ -7,6 +7,7 @@ categories: [nd-humanity]
 tags: [로지컬 싱킹, logical thinking] # add tag
 ---
 
+- 인문 관련 내용은 다음 [링크](https://gaussian37.github.io/nd-humanity-humanity-table/)를 참조 하시기 바랍니다.
 - 출처 : 맥킨지식 로지컬 싱킹
 
 <br>

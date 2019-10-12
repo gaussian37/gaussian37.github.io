@@ -7,6 +7,7 @@ categories: [nd-humanity]
 tags: [생각에 관한 생각, thinking fast and slow] # add tag
 ---
 
+- 인문 관련 내용은 다음 [링크](https://gaussian37.github.io/nd-humanity-humanity-table/)를 참조 하시기 바랍니다.
 + 출처 : 휴넷 CEO 북클럽
 
 + 생각에 관한 생각 강연을 보고 정리한 글입니다.
