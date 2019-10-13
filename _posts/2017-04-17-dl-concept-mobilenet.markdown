@@ -18,12 +18,12 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 
 <br>
 
-- ### 1. 논문 리뷰 (PR12 영상)
+- ### 1. 논문 리뷰 (PR12 영상으로 대체)
 - ### 2. Pytorch 코드 리뷰 
 
 <br>
 
-## **1. 논문 리뷰 (PR12 영상)**
+## **1. 논문 리뷰 (PR12 영상으로 대체)**
 
 <br> 
 
@@ -166,7 +166,35 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 
 - 위의 `Table 1`이 전체 네트워크 구조입니다. 여기서 `dw`는 depthwise convolution을 뜻하고 `s`는 stride를 뜻합니다.
 - 처음에는 인풋 (224, 224, 3) 이미지를 받아서 일반적인 convolution을 거칩니다. 그 다음부터 `depthwise convolution`과 `pointwise convolution`을 거치게 됩니다. 
-- 마지막에 `global average pooling`을 
+- 마지막에 `global average pooling`을 하고 그 뒤에 `FC layer`를 추가하여 classification 하는 것으로 구성이 되어있습니다.
+
+<br>
+
+- 오른쪽 테이블을 보면 어떤 레이어가 얼만큼의 비중을 차지하는 지 나타냅니다.
+- 연산과 파라미터의 대부분이 `1 x 1 convolution`에 치중이 되어있는 것을 알 수 있습니다. 일반적인 CNN에서는 FC Layer에 연산과 파라미터가 치중되어 있지만 `depthwise separable`구조로 인하여 주요 연산 부분이 변경되었습니다.
+
+<br>
+
+- 그 다음으로 논문에서 소개한 개념은 `width multiplier`와 `resolution multiplier`입니다.
+- 두 값 모두 기존의 컨셉에서 조금 더 작은 네트워크를 만들기 위해 사용되는 `scale` 값이고 값의 범위는 0 ~ 1입니다. 
+- `width multiplier`는 논문에서 $$ \alpha $$로 표현하였고 인풋과 아웃풋의 `채널`에 곱해지는 값입니다.
+    - 논문에서 `thinner model`을 위한 상수로 사용되었으며 `채널`의 크기를 일정 비율 줄여가면서 실험해 보았습니다.   
+- 즉, 채널의 크기를 조정하기 위해 사용되는 값으로 채널의 크기가 $$ M $$ 이면 $$ \alpha M $$으로 표현되어 집니다.
+- 논문에서 사용된 $$ \alpha $$ 값은 1, 0.75, 0.5, 0.25 값입니다.
+- 반면 `resolution multiplier`는 인풋의 height와 width에 곱해지는 상수값입니다. 즉 height와 width가 $$ D_{F} $$이면 $$ \rho D_{F} $$가 됩니다.
+- 기본적으로 (224, 224, 3) 이미지를 인풋으로 넣고 실험해본 상수 $$ \rho $$는 1, 0.857, 0.714, 0.571로 사이즈 기준으로는 224, 192, 160, 128이 됩니다.
+- 이렇게 `width, resolution multiplier`가 적용되면 계산 비용은 다음과 같이 정의됩니다. 채널에는 $$ \alpha $$가 곱해지고 feature map에는 $$ \rho $$가 곱해집니다.
+
+
+<br>
+
+$$ D_{K} \times D_{K} \times \alpha M \times \rho D_{F} \times \rho D_{F} + \alpha M \times \alpha N $$ D_{K} \times D_{K} \times \alpha M \times \rho D_{F} \times \rho D_{F} + \alpha M \times \alpha N \times \rho D_{F} \times \rho_D_{F} $$
+
+<br>
+
+    
+    
+ 
 
 
 <br>
