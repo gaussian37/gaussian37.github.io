@@ -80,6 +80,7 @@ tags: [Linear algebra] # add tag
 <center><img src="../assets/img/math/mfml/mlmf_01/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>   
 
-- 위 계산 과정을 보면 `scalar projection`은 projection 된 벡터의 unit 벡터($$ \hat{r} $$ )와 projection한 벡터($$ s $$)의 
+- 위 계산 과정을 보면 `scalar projection`은 projection 된 벡터의 유닛 벡터($$ \hat{r} $$ )와 projection한 벡터($$ s $$)의 내적이 됨을 알 수 있습니다.
+- `vector projection`은 벡터이기 때문에 개념적으로 스칼라 값에 유닛 벡터를 곱하면 됩니다. 따라서 위 식과 같이 유도될 수 있습니다.
  
  
