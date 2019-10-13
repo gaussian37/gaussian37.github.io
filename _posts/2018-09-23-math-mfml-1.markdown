@@ -2,10 +2,14 @@
 layout: post
 title: Finding the size of a vector, its angle and projection  
 date: 2018-09-15 03:49:00
-img: math/la/overall.jpg
+img: math\mfml\mfml.jpg
 categories: [math-mfml] 
 tags: [Linear algebra] # add tag
 ---
+
+<br>
+
+- [Mathematics for machine learning 전체 글 목록](https://gaussian37.github.io/math-mfml-mfml_table/)은 링크를 참조하시기 바랍니다.
 
 <br>
 
