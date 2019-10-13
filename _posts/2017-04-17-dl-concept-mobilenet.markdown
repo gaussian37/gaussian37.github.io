@@ -18,13 +18,12 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 
 <br>
 
-- ### 1. 추가 설명 자료
-- ### 2. 논문 리뷰
-- ### 3. Pytorch 코드 리뷰 
+- ### 1. 논문 리뷰 (PR12 영상)
+- ### 2. Pytorch 코드 리뷰 
 
 <br>
 
-## **1. 추가 설명 자료**
+## **1. 논문 리뷰 (PR12 영상)**
 
 <br> 
 
@@ -154,15 +153,25 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 - 여기서 $$ N $$은 아웃풋 채널의 크기이고 $$ D_{K} $$는 필터의 크기인데 $$ N $$이 $$ D_{K} $$ 보다 일반적으로 훨씬 큰 값이므로 반대로 $$ 1 / D_{K}^{2} $$ 값이 되어 $$ 1 / D_{K}^{2} $$ 배 만큼 계산이 줄었다고 보면 됩니다.
 - 이 때, $$ D_{K} $$는 보통 3이므로 1/9 배 정도 계산량이 감소하였습니다.  
 
-  
+<br>
+<center><img src="../assets/img/dl/concept/mobilenet/5.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 왼쪽 그림이 일반적인 convolution에서 사용하는 방법이고 오른쪽이 mobilenet에서 사용하는 방법입니다.
+- 모바일넷에서는 3 x 3 depthwise convolution → BN → ReLu → 1 x 1 convolution → BN → ReLU 의 순서로 네트워크를 쌓습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/mobilenet/6.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>  
+
+- 위의 `Table 1`이 전체 네트워크 구조입니다. 여기서 `dw`는 depthwise convolution을 뜻하고 `s`는 stride를 뜻합니다.
+- 처음에는 인풋 (224, 224, 3) 이미지를 받아서 일반적인 convolution을 거칩니다. 그 다음부터 `depthwise convolution`과 `pointwise convolution`을 거치게 됩니다. 
+- 마지막에 `global average pooling`을 
+
 
 <br>
 
-## **2. 논문 리뷰**
-
-<br>
-
-## **3. Pytorch 코드 리뷰**
+## **2. Pytorch 코드 리뷰**
 
 <br>
 

@@ -27,7 +27,7 @@ tags: [Linear algebra] # add tag
 - 예를 들어 2차원에서 unit vector는 각각 $$ i = [1, 0] $$ 과 $$ j = [0, 1] $$의 값을 가집니다.
 
 <br>
-<center><img src="../assets/img/math/la/Finding the size of a vector,angle,projection/0.png" alt="Drawing" style="width: 200px;"/></center>
+<center><img src="../assets/img/math/mfml/mlmf_01/0.png" alt="Drawing" style="width: 200px;"/></center>
 <br>   
 
 - unit vector는 각 축과 일치하는 방향으로 기본값인 1을 가지므로 어떤 vector는 unit vector를 이용하여 나타낼 수 있습니다.
@@ -43,20 +43,32 @@ tags: [Linear algebra] # add tag
 - 아래 이미지에서 다루는 것은 vector의 기본 연산 성질인 `Commutative`, `Distributive`, `Associative` 그리고 vector의 사이즈를 구하는 방법 입니다.
 
 <br>
-<center><img src="../assets/img/math/la/Finding the size of a vector,angle,projection/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="assets/img/math/mfml/mlmf_01/1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>   
 
 
 ## **Cosine & dot product**
 
 <br>
-<center><img src="../assets/img/math/la/Finding the size of a vector,angle,projection/2.png" alt="Drawing" style="width: 800px;"/></center>
-<br>   
+
+- 이번에 다룰 내용은 `Cosine Rule`에 벡터를 적용하여 `Cosine Similarity`라는 식을 한번 전개해 보겠습니다.
+- 여기서 사용할 성질은 바로 위에서 다룬 내용인 $$ r \cdot r = \vert r \vert^{2} $$ 입니다.
+- 여기서  $$ r $$은 벡터이고 $$ \vert r \vert $$는 벡터의 크기인 `norm`으로 스칼라 값입니다.
+- `Cosine Rule`에 사용되야 할 값은 벡터값이 아니라 스칼라 값이기 떄문에 `norm`이 대입 되지만 제곱의 형태이기 때문에 벡터 값으로 변환이 가능합니다. ( $$ r \cdot r = \vert r \vert^{2} $$)
+
+<br>
+<center><img src="../assets/img/math/mfml/mlmf_01/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 마지막 정리된 식을 보면 두 벡터 $$ r, s $$의 값에 따라 두 벡터의 내적이 -1 ~ 1까지의 범위를 가지게 됨을 알 수 있습니다.
+- 1일 때에는 두 벡터가 방향이 완전히 일치할 때 입니다. 즉, 두 벡터 사이의 각이 0도 일 때 입니다.
+- 반면 0일 때에는 두 벡터의 방향이 서로 수직일 때 입니다. 즉, 두 벡터 사이의 각도가 90도일 때 입니다.
+- 마지막으로 -1일 때에는 두 벡터으 ㅣ방향이 완전히 반대일 때 입니다. 즉, 두 벡터 사이의 각이 180도 일 때 입니다.    
 
 ## **Projection**
 
 <br>
-<center><img src="../assets/img/math/la/Finding the size of a vector,angle,projection/3.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/mfml/mlmf_01/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>   
 
 

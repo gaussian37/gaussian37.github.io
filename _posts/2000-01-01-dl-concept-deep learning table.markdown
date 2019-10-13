@@ -9,12 +9,17 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
-## **CNN 관련**
+## **Convolution Neural Network 관련**
 
 <br>
 
 - Inception and Xception
 - Convolution arithmetic
+- SqueezeNet
+- SqueezeNext
+- MobileNet
+- MobileNet V2
+- ShuffleNet
 
 <br>
 
@@ -22,11 +27,6 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
-- SqueezeNet
-- SqueezeNext
-- MobileNet
-- MobileNet V2
-- ShuffleNet
 - CNN 경량화 팁
 - 스마트폰 위의 딥러닝
 
