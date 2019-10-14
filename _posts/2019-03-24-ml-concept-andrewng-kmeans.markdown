@@ -171,4 +171,4 @@ tags: [ml, machine learning, k means, k-means, clustering] # add tag
 + 아래 코드 링크를 참조하면 scikit-learn을 이용하여 K-means 알고리즘을 사용하는 방법에 대하여 확인할 수 있습니다.
 + [코드 링크](https://nbviewer.jupyter.org/github/gaussian37/Machine-Learning-Implementation/blob/master/K-means%20clustering/K-means%20clustering.ipynb)
 
-<img src="../assets/img/ml/concept/k-means/17.PNG" alt="Drawing" style="width: 600px;"/>
+<img src="../assets/img/ml/concept/k-means/17.PNG" alt="Drawing" style="width: 800px;"/>

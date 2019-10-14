@@ -2,7 +2,7 @@
 layout: post
 title: MLE(Maximum Likelihood Estimation)와 MAP(Maxim A Posterior)에 관하여
 date: 2019-09-16 00:00:00
-img: dl/gan.png
+img: dl/concept/mle_and_map/generative.png
 categories: [dl-concept] 
 tags: [MLE, ML, Maximum likelihood estimation] # add tag
 ---
