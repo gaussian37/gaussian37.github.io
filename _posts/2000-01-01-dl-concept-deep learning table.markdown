@@ -15,10 +15,11 @@ tags: [python, deep learning, dl] # add tag
 
 - Inception and Xception
 - Convolution arithmetic
-- SqueezeNet
-- SqueezeNext
-- MobileNet
-- MobileNet V2
+- [Depthwise separable convolution](https://gaussian37.github.io/dl-concept-dwsconv/)
+- [SqueezeNet](https://gaussian37.github.io/dl-concept-squeezenet/)
+- [SqueezeNext](https://gaussian37.github.io/dl-concept-squeezenext/)
+- [MobileNet](https://gaussian37.github.io/dl-concept-mobilenet/)
+- [MobileNet V2](https://gaussian37.github.io/dl-concept-mobilenet2/)
 - ShuffleNet
 
 <br>

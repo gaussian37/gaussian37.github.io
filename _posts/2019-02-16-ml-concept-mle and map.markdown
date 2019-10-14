@@ -2,7 +2,7 @@
 layout: post
 title: ML(Maximum Likelihood)와 MAP(maximum a posterior)
 date: 2019-02-16 00:00:00
-img: ml/concept/mle-and-mlp/mle.jpg
+img: ml/concept/mle-and-mlp/pr.jpg
 categories: [ml-concept] 
 tags: [ml, machine learning, 머신 러닝, mle, map, 우도, 사전확률, 사후확률] # add tag
 ---
