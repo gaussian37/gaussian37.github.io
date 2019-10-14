@@ -2,7 +2,7 @@
 layout: post
 title: Clustering with K-Means Algorithm (Andrew Ng)
 date: 2019-03-24 00:00:00
-img: ml/concept/machineLearning.jpg
+img: ml/concept/k-means/kmeans.png
 categories: [ml-concept] 
 tags: [ml, machine learning, k means, k-means, clustering] # add tag
 ---
