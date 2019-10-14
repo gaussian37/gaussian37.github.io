@@ -13,6 +13,7 @@ tags: [python, machine learning, ml] # add tag
 
 <br>
 
+- [MLE(Maximum Likelihood Estimation)와 MAP(Maxim A Posterior)에 관하여](https://gaussian37.github.io/ml-concept-mlemap)
 - [머신러닝의 평가 지표](https://gaussian37.github.io/ml-concept-ml-evaluation/)    
 - [Anomaly Detection with Gaussian Distribution (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-anomalydetection/)
 - [Recommender System (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-recommender/)
