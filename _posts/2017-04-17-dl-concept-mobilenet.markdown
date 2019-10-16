@@ -157,7 +157,18 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 - 두 Convolution의 계산 비용 차이 (**Depthwise Separable Version / Standard Version**)
     -　$$ (D_{K} \times D_{K} \times M \times D_{F} \times D_{F} + D_{F} \times D_{F} \times M \times N) / (D_{K} \times D_{K} \times M \times N \times D_{F} \times D_{F})  = 1/N + 1/D_{K}^{2} $$
 - 여기서 $$ N $$은 아웃풋 채널의 크기이고 $$ D_{K} $$는 필터의 크기인데 $$ N $$이 $$ D_{K} $$ 보다 일반적으로 훨씬 큰 값이므로 반대로 $$ 1 / D_{K}^{2} $$ 값이 되어 $$ 1 / D_{K}^{2} $$ 배 만큼 계산이 줄었다고 보면 됩니다.
-- 이 때, $$ D_{K} $$는 보통 3이므로 1/9 배 정도 계산량이 감소하였습니다.  
+- 이 때, $$ D_{K} $$는 보통 3이므로 1/9 배 정도 계산량이 감소하였습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/mobilenet/5.1.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>  
+
+- 마지막으로 정리하면 인풋을 받으면 그 인풋을 depth(채널) 별로 나눈 다음
+- 각 채널과 그 채널에 해당하는 3 x 3 필터를 convolution 연산을 해줍니다. 따라서 인풋의 채널수 만큼 3 x 3 필터가 존재합니다.
+- convolution 연산을 마친 feature map들을 다시 stack 합니다.
+- 이 결과물을 다시 1 x 1 convolution을 해줍니다. 그러면 1채널의 매트릭스가 결과물로 나오게 됩니다.
+- 그러면 1 x 1 convolution이 N개이면 N번 연산을 통해 N개의 매트릭스가 결과물로 나오게 되고 그것을 stack하면 volume 형태의 output이 됩니다.
+- 이것이 `depthwise separable convolution` 입니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/mobilenet/6.PNG" alt="Drawing" style="width: 800px;"/></center>
@@ -210,6 +221,7 @@ $$ D_{K} \times D_{K} \times \alpha M \times \rho D_{F} \times \rho D_{F} + \alp
 <center><img src="../assets/img/dl/concept/mobilenet/9.PNG" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 먼저 테이블의 열을 보면 `Accuracy`는 정확도이고 `Million Multi-Adds`는 백만 단위의 곱과 합 연산 수를 뜻합니다. 마지막으로 `Million Parameters`는 파라미터 수를 나타냅니다.
 - `Table 4`는 `depthwise separable conv`가 기본 `conv`연산보다 정확도는 살짝 떨어지지만 네트워크 경량화에는 상당히 효율적인 것을 보여줍니다.
 - `Table 5`는 `narrow`한 네트워크 즉, 네트워크의 height, width가 작은 것과 `shallow`한 네트워크 즉, 네트워크의 깊이가 얕은 것 중에 전략을 취한다면 어떤게 나을까? 라는 실험입니다.
     - 실험의 결과를 보면 shallow한 것 보다 `narrow`한 것이 더 낫다는 결론을 얻습니다.
@@ -219,8 +231,23 @@ $$ D_{K} \times D_{K} \times \alpha M \times \rho D_{F} \times \rho D_{F} + \alp
 <center><img src="../assets/img/dl/concept/mobilenet/10.PNG" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 그림을 보면 가로축은 연산량이라고 보면 되고 (MAC는 Multiply–accumulate operation으로 a = a + (b x c)와 같은 곱과 합의 연산을 말합니다.) 세로축은 정확도 원의 크기가 파라미터의 수입니다.
-- 모바일넷을 보면 
+- 위 그림을 보면 가로축은 연산량이라고 보면 되고 (MAC는 Multiply–accumulate operation으로 a = a + (b x c)와 같은 곱과 합의 연산을 말합니다.) 세로축은 정확도이고 원의 크기가 파라미터의 수입니다.
+- 모바일넷을 보면 정확도가 GoogLeNet이나 VGG16과 비슷한 수준까지 도달할 수 있고 다만, 이 경우에는 모바일넷의 파라미터 수는 GoogLeNet과 유사할 정도로 많아졌으나 연산량 측면에서는 여전히 앞서는 것을 볼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/mobilenet/11.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br> 
+
+- 다른 유명 모델과 비교하여 표로 정리해 놓은 것을 보면 논문에서는 모바일넷의 성능이 좋다는 것을 피력하고 있습니다.
+- 특히 유사한 성격의 경량화 모델인 스퀴즈넷과도 비교를 하였는데, 스퀴즈넷보다 파라미터 수는 약간 많지만 훨씬 적은 연산량으로 더 높은 정확도를 얻을 수 있음을 보여주고 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/mobilenet/12.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
+  
+- Object Detection에서의 평가 결과를 찾아보면 (SSD와 Faster R-CNN에서의 숫자 300, 600은 인풋의 크기에 해당) mAP는 다소 떨어지지만 확실히 연산량과 파라미터 수에서 효율적인점이 강점입니다.
+    - 이런 강점이 모바일 환경에서 Object Detection을 할 수 있는 강점으로 꼽히고 있습니다.
+- 여기에 따로 표시하지 않은 다른 실험들도 있으나 그 맥락은 **모바일넷이 정확성도 어느정도 보장하면서 연산수와 파라미터수가 작다는 것을 강조**하는 논점은 같습니다.
 
 <br>
 

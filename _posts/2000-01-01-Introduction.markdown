@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Curriculum Vitae
+title: Curriculum Vitae and Total Table
 date: 9999-12-31 17:00:00 +0300
 img: interview/cv.PNG
 tags: [Introduction] # add tag
