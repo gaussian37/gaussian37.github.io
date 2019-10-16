@@ -19,6 +19,8 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 <br>
 
 - ### 1. 논문 리뷰 (PR12 영상으로 대체)
+    - #### 1.1. 경량화 네트워크의 필요성
+    - #### 1.2. Small Deep Neural Network 기법
 - ### 2. Pytorch 코드 리뷰 
 
 <br>
@@ -28,7 +30,7 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 <br> 
 
 
-### 경량화 네트워크의 필요성
+### 1.1. 경량화 네트워크의 필요성
 
 <br>
 
@@ -50,7 +52,7 @@ tags: [python, deep learning, dl, MobileNet] # add tag
     
 <br>
 
-### Small Deep Neural Network 기법
+### 1.2. Small Deep Neural Network 기법
 
 <br>
 
@@ -131,6 +133,10 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 <center><img src="../assets/img/dl/concept/mobilenet/4.PNG" alt="Drawing" style="width: 800px;"/></center>
 <br>       
 
+<br>
+<center><img src="../assets/img/dl/concept/mobilenet/5.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
 - 위 이미지는 논문에서 사용된 Standard Convolution Filter와 Depthwise Convolution Filter를 비교하기 위해 사용된 이미지입니다.
 - 먼저 Standard Convolution Filter에서 $$ D_{k} $$는 필터의 height와 width의 크기이고 $$ M $$은 필터의 채널 수 그리고 $$ N $$은 필터의 갯수가 됩니다. 즉 $$ N $$은 아웃풋의 채널수를 이미하기도 합니다.
 - 반면 Depthwise Convolution을 보면 (height, width)의 크기가 $$ D_{k} $$이고 채널이 1인 $$ M $$개의 필터를 이용하여 Depthwise Convolution을 합니다.
@@ -154,14 +160,14 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 - 이 때, $$ D_{K} $$는 보통 3이므로 1/9 배 정도 계산량이 감소하였습니다.  
 
 <br>
-<center><img src="../assets/img/dl/concept/mobilenet/5.PNG" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/mobilenet/6.PNG" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 왼쪽 그림이 일반적인 convolution에서 사용하는 방법이고 오른쪽이 mobilenet에서 사용하는 방법입니다.
 - 모바일넷에서는 3 x 3 depthwise convolution → BN → ReLu → 1 x 1 convolution → BN → ReLU 의 순서로 네트워크를 쌓습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/mobilenet/6.PNG" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/mobilenet/7.PNG" alt="Drawing" style="width: 800px;"/></center>
 <br>  
 
 - 위의 `Table 1`이 전체 네트워크 구조입니다. 여기서 `dw`는 depthwise convolution을 뜻하고 `s`는 stride를 뜻합니다.
@@ -192,6 +198,22 @@ $$ D_{K} \times D_{K} \times \alpha M \times \rho D_{F} \times \rho D_{F} + \alp
 
 <br>
 
+
+<br>
+<center><img src="../assets/img/dl/concept/mobilenet/8.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 여기서 부터는 앞에서 배운 개념의 실험을 통하여 `depthwise separable convolution`과 `width, resolution multiplier`를 사용하면 효율적으로 설계할 수 있음을 나타냅니다.
+- 물론 무조건 작게 만든다는게 좋은 것은 아닙니다. 당연히 작게 만든다는 것은 성능과의 어느 정도 트레이드 오프가 일어나기 때문입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/mobilenet/9.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `Table 4`는 `depthwise separable conv`가 기본 `conv`연산보다 정확도는 살짝 떨어지지만 네트워크 경량화에는 상당히 효율적인 것을 보여줍니다.
+- `Table 5`는 `narrow`한 네트워크 즉, 네트워크의 height, width가 작은 것과 `shallow`한 네트워크 즉, 네트워크의 깊이가 얕은 것 중에 전략을 취한다면 어떤게 나을까? 라는 실험입니다.
+    - 실험의 결과를 보면 shallow한 것 보다 `narrow`한 것이 더 낫다는 결론을 얻습니다.
+    - 즉, 네트워크 경량화를 해야 한다면 깊이를 줄이기 보다는 네트워크의 height, width를 줄이는 게 더 낫다는 것입니다.
 
     
     
