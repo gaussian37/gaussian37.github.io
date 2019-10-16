@@ -213,12 +213,14 @@ $$ D_{K} \times D_{K} \times \alpha M \times \rho D_{F} \times \rho D_{F} + \alp
 - `Table 4`는 `depthwise separable conv`가 기본 `conv`연산보다 정확도는 살짝 떨어지지만 네트워크 경량화에는 상당히 효율적인 것을 보여줍니다.
 - `Table 5`는 `narrow`한 네트워크 즉, 네트워크의 height, width가 작은 것과 `shallow`한 네트워크 즉, 네트워크의 깊이가 얕은 것 중에 전략을 취한다면 어떤게 나을까? 라는 실험입니다.
     - 실험의 결과를 보면 shallow한 것 보다 `narrow`한 것이 더 낫다는 결론을 얻습니다.
-    - 즉, 네트워크 경량화를 해야 한다면 깊이를 줄이기 보다는 네트워크의 height, width를 줄이는 게 더 낫다는 것입니다.
+    - 즉, 네트워크 경량화를 해야 한다면 깊이를 줄이기 보다는 **네트워크의 height, width를 줄이는 게 더 낫다**는 것입니다. 즉, **깊이 있게 쌓는 것이 더 낫다**라는 실험입니다.
 
-    
-    
- 
+<br>
+<center><img src="../assets/img/dl/concept/mobilenet/10.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
+- 위 그림을 보면 가로축은 연산량이라고 보면 되고 (MAC는 Multiply–accumulate operation으로 a = a + (b x c)와 같은 곱과 합의 연산을 말합니다.) 세로축은 정확도 원의 크기가 파라미터의 수입니다.
+- 모바일넷을 보면 
 
 <br>
 
