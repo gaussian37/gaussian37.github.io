@@ -3,15 +3,13 @@ layout: post
 title: Humanity 관련 글 목차
 date: 9998-01-01 00:00:00
 img: nd/humanity/humanity.jpg
-categories: [nd-humanity] 
+categories: [etc-humanity] 
 tags: [인문학, 경영학, 경제학] # add tag
 ---
 
 Humanity 관련 글 목차 입니다.
 
-+ [스타트업 관련 좋은 글 모음](https://gaussian37.github.io/nd-humanity-startup/)
-
-<br><br>
+<br>
 
 ## 경영·경제 관련 도서
 
@@ -19,7 +17,7 @@ Humanity 관련 글 목차 입니다.
 + 블루 오션 전략 : 가치창조를 통한 블루오션의 창출
 + 히든 챔피언 : 숨겨진 1등 기업의 성공 법칙
 + 필립 코틀러의 마켓 3.0 : 영혼이 깃든 마케팅
-+ [생각에 관한 생각 : 행동을 지배하는 생각의 비밀](https://gaussian37.github.io/interview-humanity-Thinking-fast-and-slow/)
++ [생각에 관한 생각 : 행동을 지배하는 생각의 비밀](https://gaussian37.github.io/etc-humanity-Thinking-fast-and-slow/)
 + 죽은 경제학자의 살아있는 아이디어 : 경제사상 필독서
 + 존 코터의 Leading Change : 리더들의 변화주도 8단계 원칙
 + 드림 소사이어티 : 꿈과 감성을 파는 경영의 미래
@@ -39,8 +37,8 @@ Humanity 관련 글 목차 입니다.
 + 학습하는 조직 : 시스템적 사고를 통한 조직 성장
 + 오픈이노베이션 : 지식의 확산을 통한 가치 창출
 + 화폐전쟁 : 보이지 않는 경제 전쟁
-+ [자본론 : 김수행 교수님 강의](https://gaussian37.github.io/interview-humanity-the-capital/)
-+ [맥킨지식 로지컬 싱킹](https://gaussian37.github.io/nd-humanity-logical_thinking/)
++ [자본론 : 김수행 교수님 강의](https://gaussian37.github.io/etc-humanity-the-capital/)
++ [맥킨지식 로지컬 싱킹](https://gaussian37.github.io/etc-humanity-logical_thinking/)
 
 <br><br>
 

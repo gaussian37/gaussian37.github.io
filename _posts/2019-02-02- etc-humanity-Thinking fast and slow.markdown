@@ -3,7 +3,7 @@ layout: post
 title: 생각에 관한 생각 (Thinking fast and slow)
 date: 2019-02-02 00:00:00
 img: nd/humanity/Thinking_Fast_and_Slow/think.png
-categories: [nd-humanity] 
+categories: [etc-humanity] 
 tags: [생각에 관한 생각, thinking fast and slow] # add tag
 ---
 

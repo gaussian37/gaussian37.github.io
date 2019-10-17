@@ -3,7 +3,7 @@ layout: post
 title: 맥킨지식 로지컬 싱킹
 date: 2019-02-09 00:00:00
 img: nd/humanity/mac_logical_thinking/thumbnail.jpg
-categories: [nd-humanity] 
+categories: [etc-humanity] 
 tags: [로지컬 싱킹, logical thinking] # add tag
 ---
 
