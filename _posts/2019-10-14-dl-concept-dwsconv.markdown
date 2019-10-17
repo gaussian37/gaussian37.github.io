@@ -53,6 +53,42 @@ tags: [mobileNet, inception, xception, depthwise convolution, pointwise convolut
 <center><img src="../assets/img/dl/concept/dwsconv/4.png" alt="Drawing" style="width: 300px;"/></center>
 <br>  
 
+- 먼저 `depthwise convolution` 부터 알아보겠습니다. 
+- standard convolution 연산에서는 한 개의 필터가 $$ M $$ 채널 전체에 convolution 연산을 하였습니다.
+- 반면 여기서는 한 개의 필터가 한 개의 채널에만 연산을 합니다. 즉, 인풋의 첫번째 채널에 해당하는 영역을 $$ (D_{F}, D_{F}, M_{1}) $$ 이라고 한다면 이 1채널 인풋과 유일하게 연산되는 필터 $$ (D_{k}, D_{k}, 1) $$이 존재합니다.
+- 그러면 $$ (D_{F}, D_{F}, M_{i}) $$는 $$ (D_{K}, D_{K}, M_{i}) $$와 대응되므로 이 연산에서는 총 $$ M $$개의 필터가 존재하게 됩니다.
+- 연산을 마치면 최종적으로 $$ (D_{G}, D_{G}, N) $$의 volume이 출력됩니다. 
+
+<br>
+<center><img src="../assets/img/dl/concept/dwsconv/5.png" alt="Drawing" style="width: 300px;"/></center>
+<br>  
+
+- 이 다음 연산은 `pointwise convolution` 입니다.
+- depthwise convolution 연산을 마치면 출력이 $$ (D_{G}, D_{G}, M) $$ 이었습니다. 
+- 여기서 1 x 1 convolution을 적용하는 것이 이번 연산의 핵심입니다. $$ (D_{G}, D_{G}, M) $$에 $$ (1, 1, M) $$ 필터를 convolution 연산을 취해줍니다.
+- 그러면 $$ (D_{G}, D_{G}, M) \otimes  (1, 1, M)  = (D_{G}, D_{G}, 1) $$이 됩니다. 이 연산을 $$ N $$개의 $$ (1, 1, M) $$ 필터를 이용하여 적용하면 총 $$ N $$개의 매트릭스($$ (D_{G}, D_{G}, 1) $$ 가 $$ N $$개)가 출력 됩니다.
+- 이 출력물들을 stack 하면 결과적으로 $$ (D_{G}, D_{G}, N) $$의 출력물을 만들 수 있습니다.  
+
+<br>
+
+- 입력과 출력 기준으로 보면 `standard convolution`과 `depthwise separable convolution` 모두 $$ (D_{F}, D_{F}, M) $$을 입력으로 넣어서 $$ (D_{G}, D_{G}, N) $$의 출력을 얻는다는 점은 같습니다.
+- 다만 내부 convolution 연산 과정에서 `depthwise separable` 기법으로 2단계로 나누어 좀 더 연산량과 파라미터 수를 줄였다는 것이 핵심입니다.
+- 그러면 **얼마나 연산량이 줄었는지** 살펴보겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/dwsconv/6.png" alt="Drawing" style="width: 300px;"/></center>
+<br>  
+
+- 첫번째로 `depthwise convolution`의 연산량입니다.
+- 한 위치에서 필터가 연산되는 곱연산은 $$ D_{K}^{2} $$ 이고 한 채널 전체에서 필터가 연산되는 곱연산은 $$ D_{G}^{2} \times D_{K}^{2} $$입니다. 
+- 마지막으로 $$ M $$개의 `채널`에 모두 적용되어야 하므로 총 곱연산은 $$ M \times D_{G}^{2} \times D_{K}^{2} $$가 됩니다.
+- 두번쨰로 `pointwise convolution`의 연산량입니다.
+- 한 위치에서 1x1 필터가 연산되는 곱 연산은 $$ M $$ 입니다. 그리고 한 채널 전체에서 연산되는 곱연산은 $$ D_{G}^{2} \times M $$이 됩니다.
+- 마지막으로 $$ N $$개의 `필터`가 모두 적용되어야 하므로 총 곱연산은 $$ N \times D_{G}^{2} \times M $$이 됩니다.
+
+
+
+
 
 
 
