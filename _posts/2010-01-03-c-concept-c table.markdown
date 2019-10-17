@@ -281,6 +281,7 @@ tags: [c, c language, c 언어] # add tag
 
 <br>
 
+- [struct(구조체)와 union(공용체) 개념]()
 - Enum in C
 - Structures in C
 - Union in C

@@ -20,6 +20,15 @@ tags: [python, machine learning, ml] # add tag
 - [Clustering with K-Means Algorithm (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-kmeans/)
 - [PCA(Principal Component Analysis) (Andrew Ng)](https://gaussian37.github.io/machine-learning-concept-pca/)
 - [t-SNE](https://gaussian37.github.io/ml-concept-t-SNE/)
+- [Decision tree]()
+- [Voting classifier]()
+- [Bagging]()
+- [Random forest]()
+- [AdaBoost]()
+- [Gradient boosting machine]()
+- [XGBoost]()
+- [LightGBM]()
+- [Stacking]()
 
 <br>
 
