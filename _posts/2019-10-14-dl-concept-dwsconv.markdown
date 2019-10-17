@@ -17,7 +17,7 @@ tags: [mobileNet, inception, xception, depthwise convolution, pointwise convolut
 - 제 블로그의 `mobilenet` 관련 글을 참조하셔도 좋습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/dwsconv/1.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/dl/concept/dwsconv/1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 슬라이드는 일반적인 convolution 연산을 나타냅니다.
@@ -34,7 +34,7 @@ tags: [mobileNet, inception, xception, depthwise convolution, pointwise convolut
 - 이것들을 모두 쌓으면 출력단에 $$ (D_{G}, D_{G}, N) $$ shape의 volume이 출력물로 나오게 됩니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/dwsconv/3.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/dl/concept/dwsconv/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>  
 
 - 그러면 이 연산의 연산량이 얼마가 되는지 간략하게 알아보겠습니다. 연산량을 간단하게 알아보기 위해 `곱`연산을 기준으로 알아보겠습니다.
@@ -50,7 +50,7 @@ tags: [mobileNet, inception, xception, depthwise convolution, pointwise convolut
     - `pointwise convolution`: combination stage
 
 <br>
-<center><img src="../assets/img/dl/concept/dwsconv/4.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/dl/concept/dwsconv/4.png" alt="Drawing" style="width: 800px;"/></center>
 <br>  
 
 - 먼저 `depthwise convolution` 부터 알아보겠습니다. 
@@ -60,7 +60,7 @@ tags: [mobileNet, inception, xception, depthwise convolution, pointwise convolut
 - 연산을 마치면 최종적으로 $$ (D_{G}, D_{G}, N) $$의 volume이 출력됩니다. 
 
 <br>
-<center><img src="../assets/img/dl/concept/dwsconv/5.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/dl/concept/dwsconv/5.png" alt="Drawing" style="width: 800px;"/></center>
 <br>  
 
 - 이 다음 연산은 `pointwise convolution` 입니다.
@@ -76,7 +76,7 @@ tags: [mobileNet, inception, xception, depthwise convolution, pointwise convolut
 - 그러면 **얼마나 연산량이 줄었는지** 살펴보겠습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/dwsconv/6.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/dl/concept/dwsconv/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>  
 
 - 첫번째로 `depthwise convolution`의 연산량입니다.
@@ -87,7 +87,7 @@ tags: [mobileNet, inception, xception, depthwise convolution, pointwise convolut
 - 마지막으로 $$ N $$개의 `필터`가 모두 적용되어야 하므로 총 곱연산은 $$ N \times D_{G}^{2} \times M $$이 됩니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/dwsconv/7.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/dl/concept/dwsconv/7.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 그러면 **얼마나 연산량이 줄었나 확인**해보도록 하겠습니다.
@@ -97,7 +97,7 @@ tags: [mobileNet, inception, xception, depthwise convolution, pointwise convolut
 - 즉, 필터의 사이즈에 가장 큰 영향을 받게 되고 필터의 크기는 3을 사용하므로 약 $$ 1/9 $$만큼 연산량이 줄어든것을 확인할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/dwsconv/8.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/dl/concept/dwsconv/8.png" alt="Drawing" style="width: 800px;"/></center>
 <br>    
 
 - 다시 정리하면 위와 같습니다.
