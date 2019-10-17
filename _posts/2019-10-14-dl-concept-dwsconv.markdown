@@ -86,9 +86,19 @@ tags: [mobileNet, inception, xception, depthwise convolution, pointwise convolut
 - 한 위치에서 1x1 필터가 연산되는 곱 연산은 $$ M $$ 입니다. 그리고 한 채널 전체에서 연산되는 곱연산은 $$ D_{G}^{2} \times M $$이 됩니다.
 - 마지막으로 $$ N $$개의 `필터`가 모두 적용되어야 하므로 총 곱연산은 $$ N \times D_{G}^{2} \times M $$이 됩니다.
 
+<br>
+<center><img src="../assets/img/dl/concept/dwsconv/7.png" alt="Drawing" style="width: 300px;"/></center>
+<br>
 
+- 그러면 **얼마나 연산량이 줄었나 확인**해보도록 하겠습니다.
+- `standard convolution`의 연산량은 $$ N \times D_{G}^{2} \times D_{K}^{2} \times M $$ 이고 `depthwise separable convolution`의 연산량은 $$ M \times D_{G}^{2}(D_{K}^{2} + N) $$이 됩니다.
+- 위 슬라이드와 같이 비율을 확인해 보면 $$ (1 / N)  + (1 / D_{K}^{2}) $$이 됩니다. 
+- $$ N $$은 아웃풋 채널의 수이고 $$ K $$는 필터의 사이즈이므로 일반적인 예를 들어 $$ N = 1024, K = 3 $$이라고 하면 $$ (1/1024) + (1/9) = 0.112..$$가 됩니다.
+- 즉, 필터의 사이즈에 가장 큰 영향을 받게 되고 필터의 크기는 3을 사용하므로 약 $$ 1/9 $$만큼 연산량이 줄어든것을 확인할 수 있습니다.
 
+<br>
+<center><img src="../assets/img/dl/concept/dwsconv/8.png" alt="Drawing" style="width: 300px;"/></center>
+<br>    
 
-
-
-
+- 다시 정리하면 위와 같습니다.
+- 개념에 대해서는 다 배웠습니다! 이 연산 기법은 `Xecption`, `Mobilenet V1, V2`에 현재 활발히 사용되고 있으니 정확히 공부해 놓는것이 좋을 것 같습니다.
