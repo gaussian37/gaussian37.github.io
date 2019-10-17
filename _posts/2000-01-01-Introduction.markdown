@@ -34,7 +34,7 @@ tags: [Introduction] # add tag
 
 <br>
 
-## Table of table
+## Total table
 
 <br>
 
