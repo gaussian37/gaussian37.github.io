@@ -103,5 +103,3 @@ INTERNAL_IPS = ['127.0.0.1']
 + 클릭하면 상세 내역도 볼 수 있습니다.
 
 <img src="../assets/img/python/django/django-debug-toolbar/sql.PNG" alt="Drawing" style="width: 500px;"/>
-
-도움이 되셨다면 광고 클릭 한번이 저에게 큰 도움이 됩니다. 감사합니다.

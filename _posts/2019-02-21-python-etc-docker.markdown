@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Docker 와 Azure Containers for Web App 사용하기
+title: Docker 와 Azure Containers for Web App 사용하기 with Django
 date: 2019-02-21 13:46:00
 img: python/etc/docker/docker.png
 categories: [python-etc] 
@@ -45,57 +45,57 @@ tags: [python, docker, 도커] # add tag
 
 <br>       
 
-## **간략히 Docker 살펴보기**
+## **간략히 도커 살펴보기**
 
 <br>
 
-### Docker 란?
+### 도커란?
 
 <br>
 
-+ 빠르고 가벼운 가상화 솔루션
-+ 애플리케이션과 그 실행환경/OS를 모두 포함한 소프트웨어 패키지
-    + Docker Image 
-+ 플랫폼에 상관없이 실행될 수 있는 애플리케이션 **컨테이너를 만드는 기술**
-+ Docker Image는 Container의 형태로 Docker Engine이 있는 어디에서나 실행 가능
-    + 대상 : 로컬 머신(윈도우/맥/리눅스), Azure, AWS, Digital Ocean 등
-    + 하나의 Docker Image를 통해 다수의 Container를 생성할 수 있습니다.
-+ 생성된 Docker Container는 바로 쓰고 버리는 것 (Immutable Infrastructure 패러다임)
-+ Docker Container는 격리되어있어서, 해킹되더라고 Docker Engine이 구동되는 원래의 서버에는 영향을 끼치지 않음
+- 도커는 빠르고 가벼운 가상화 솔루션 입니다. 
+- 도커는 애플리케이션과 그 실행환경 / OS를 모두 포함한 소프트웨어 패키지이고 이것을 `도커 이미지`라고 부릅니다. 
+- 도커는 **플랫폼에 상관없이** 실행될 수 있는 애플리케이션(`도커 이미지 컨테이너`)으로 도커 엔진만 설치되어 있으면 어디에서나 실행이 가능합니다.
+    - 대상: 로컬 머신(윈도우/맥/리눅스), Azure, AWS 등등
+    - 하나의 도커 이미지를 통해 다수의 컨테이너를 생성할 수 있습니다.
+- 생성된 도커 컨테이너는 바로 쓰고 버리는 것 (Immutable Infrastructure 패러다임)
+    - 이전에 Virtual Machine을 사용할 때에는 한 번 생성하면 애지중지 관리를 하였지만 도커에서 컨셉상 그렇게 하진 않습니다.
+- 도커 컨테이너는 격리되어있어서, 해킹되더라도 도커 엔진이 구동되는 원래의 서버에는 영향을 끼치지 않습니다.
 
 <br>
 
-### Docker만의 특징/유의사항
+### **도커만의 특징/유의사항**
 
 <br>
 
-+ Docker 내에서 어떤 프로세스가 도는 지 명확히 하기 위해서
-    + 하나의 Docker 내에서 다양한 프로세스가 구동되는 것을 지양합니다.
-        + **한 종류의 프로세스만을 구동하는 것을 지향합니다.**
-    + 하나의 Docker 내에서 프로세스를 Background 로 구동하는 것을 지양합니다.
-        + **프로세스를 Foreground로 구동하는것을 지향합니다.**
-            + nginx 예시 : nginx -g daemon off;
-        + **실행 로그도 표준출력(stdout)으로 출력합니다.**
+- 도커 내에서는 어떤 프로세스가 도는 지 명확히 하기 위해서 다양한 프로세스가 구동되는 것을 지양합니다.
+    - **즉, 한 종류의 프로세스만을 구동하는 것을 지향합니다.**
+- 또한 한 도커 내에서 프로세스를 백그라운드로 구동하는 것을 지양합니다.
+    - **프로세스를 Foreground로 구동하는것을 지향합니다.**
+        - nginx 예시 : nginx -g daemon off;
+    - **실행 로그도 표준출력(stdout)으로 출력합니다.**
+- 즉, 도커는 **한 프로세스를 Foreground**형태로 돌리는 것을 지향하기 때문에 하나의 도커는 하나의 프로세스 처럼 느껴지게 됩니다.
         
 <br>
 
-### Container Orchestration
+### **Container Orchestration**
 
 <br>
 
-+ 컨테이너 관리 툴의 필요성
-    + 컨테이너 자동 배치 및 복제, 컨테이너 그룹에 대한 로드 밸런싱, 컨테이너 장애 복구, 클러스터 외부에 서비스 노출,
-    + 컨테니터 추가 또는 제거로 확장 및 축소, 컨테이너 서비스 간의 인터페이스를 통한 연결 및 네트워크 포트 노출 제어
-+ 우리가 사용해 볼 `Azure Container for Web App`은 웹 서비스 전용
+- 도커는 원칙적으로 한 프로세스만 돌리게 되므로 하나의 서버에 N개의 프로세스가 필요하면 N개의 도커 컨테이너가 필요한 것이 원칙입니다.
+- 그러면 다양한 서비스를 운영하려면 도커 컨테이너의 갯수도 많아지게 되므로 컨테이너 관리 툴이 필요하게 됩니다.
+- 예를 들어 컨테이너 자동 배치 및 복제, 컨테이너 그룹에 대한 로드 밸런싱, 컨테이너 장애 복구, 컨테니터 추가 또는 제거, 컨테이너 서비스 간의 인터페이스를 통한 연결 및 네트워크 포트 노출 제어등이 있습니다.
+- 도커 컨테이너를 관리하는 다양한 툴이 다양한 회사에서 제공되고 구글의 쿠버네티스도 그 종류 중 하나입니다.
+- 우리가 사용해 볼 도커 컨테이너 관리 툴은 MS의 `Azure Container for Web App`이고 웹서비스 전용 툴입니다.
 
 <br>
 
-### Docker Registry
+### **도커 레지스트리**
 
 <br>
 
-+ Docker 이미지 저장소를 뜻합니다.
-+ 공식 저장소는 Docker Hub : https://hub.docker.com/ (Docker 계의 GitHub)
+- 깃의 저장소인 깃헙과 같이 도커 이미지 저장소를 뜻합니다.
++ 공식 저장소는 도커 Hub : https://hub.docker.com/ (Docker 계의 GitHub) 입니다.
 + Azure Containers for Web App 에서는 지정 Docker Registry로부터 이미지를 읽어들여, Docker Container를 적재합니다.
 
 <br>

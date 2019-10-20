@@ -210,6 +210,3 @@ cv2.destroyAllWindows()
 <img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/ycbcrDst.PNG" alt="Drawing" style="width: 500px;"/>
 
 <br>
-
-
-도움이 되셨다면 광고 클릭 한번이 저에게 큰 도움이 되겠습니다.^^

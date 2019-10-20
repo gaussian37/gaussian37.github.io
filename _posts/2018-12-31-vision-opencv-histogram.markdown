@@ -255,7 +255,3 @@ compareColorHistogram2d(src, histSize, fname)
 <br>
 
 결과는 위와 같이 확인할 수 있습니다. 관련 내용은 본 포스트의 상단의 [github](https://github.com/gaussian37/Vision/tree/master/OpenCV/histogram)을 참조하셔서 README를 읽고 실행해 보시면 되겠습니다.
-
-도움이 되셨다면 광고 클릭 한번이 저에게 큰 도움이 되겠습니다.^^
-
-<a href="https://coupa.ng/bglyCV" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/jikgu1114-640-x-100.jpg" alt=""></a>

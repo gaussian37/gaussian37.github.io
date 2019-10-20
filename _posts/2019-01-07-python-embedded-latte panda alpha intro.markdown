@@ -63,9 +63,6 @@ tags: [embedded, 임베디드, 라떼 판다 알파, latte panda alpha] # add ta
 
 매뉴얼을 보면 상세한 내용이 나옵니다. 한번 정독 하시는게 도움이 될것 같습니다. 물론 영어입니다.
 
-
-도움이 되셨다면 광고 클릭 한번이 저에게 큰 도움이 됩니다. 꾸벅.
-
 <iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.4%2Flogo-01.html%3FtrackingCode%3DAF1042500" width="100%" height="85" frameborder="0" scrolling="no"></iframe>  
 
 

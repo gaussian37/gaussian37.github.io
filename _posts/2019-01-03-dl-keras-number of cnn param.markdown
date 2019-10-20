@@ -40,13 +40,3 @@ Keras에서 `model.summary()`를 하면 parameter의 갯수를 쉽게 구할 수
     + 3 x 3 (필터 크기) x 32 (#입력 채널) x 64(#출력 채널) + 64 = 18496 입니다.
 
 이 내용을 정확히 이해하려면 반드시 **convolution, padding, pooling**등의 내용을 참조하시기 바랍니다.
-
-도움이 되셨다면 광고 클릭 한번이 저에게 큰 도움이 됩니다. 꾸벅.
-
-<a href="https://coupa.ng/bgl1OZ" target="_blank"><img src="https://static.coupangcdn.com/image/affiliate/category/20180610/electronic-640-x-100.jpg" alt=""></a>
-
-<iframe src="//partners.coupang.com/cdn/redirect?url=customjs%2Faffiliate%2Fsearch-bar%2F0.0.4%2Flogo-01.html%3FtrackingCode%3DAF1042200" width="100%" height="85" frameborder="0" scrolling="no"></iframe>  
-
-
-
-
