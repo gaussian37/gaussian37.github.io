@@ -1,11 +1,23 @@
 ---
 layout: post
-title: Gram Matrix used in Style Transfer  
+title: gram matrix used in style transer  
 date: 2018-10-23 05:20:00
 img: vision/concept/gram-matrix/grammatrix.png
-categories: [vision-concept] 
+categories: [dl-concept] 
 tags: [gram matrix, style transfer] # add tag
 ---
+
+
+
+
+- 아래는 영어로 작성(?)해 봤던 `gram matrix 입니다.`
+
+<br>
+
+---
+
+<br>
+
 
 Today, we are going to study about `gram matrix` used in [Style transfer](https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Gatys_Image_Style_Transfer_CVPR_2016_paper.pdf).
 
