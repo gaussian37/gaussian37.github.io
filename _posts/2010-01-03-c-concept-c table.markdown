@@ -261,7 +261,7 @@ tags: [c, c language, c 언어] # add tag
 - Introduction to pointers in C and C++
 - Double Pointer (Pointer to Pointer) in C
 - Why C treats array parameters as pointers?
-- Output of the program | Dereference, Reference, Dereference, Reference
+- Output of the program: Dereference, Reference, Dereference, Reference
 - Dangling, Void , Null and Wild Pointers
 - An Uncommon representation of array elements
 - How to declare a pointer to a function?
@@ -369,8 +369,8 @@ tags: [c, c language, c 언어] # add tag
 - Quine – A self-reproducing program
 - Complicated declarations in C
 - Use of bool in C
-- Sequence Points in C | Set 1
-- Optimization Techniques | Set 2 (swapping),
+- Sequence Points in C: Set 1
+- Optimization Techniques: Set 2 (swapping),
 - ASCII NUL, ASCII 0 (’0?) and Numeric literal 0
 - Little and Big Endian Mystery,
 - Comparator function of qsort() in C
@@ -406,5 +406,5 @@ tags: [c, c language, c 언어] # add tag
 - C Language Interview Questions
 - [Declaration(선언)과 Definition(정의)의 차이점](https://gaussian37.github.io/c-etc-declaration_definition/)
 
-- Commonly Asked C Programming Interview Questions | Set 1
-- Commonly Asked C Programming Interview Questions | Set 2
+- Commonly Asked C Programming Interview Questions: Set 1
+- Commonly Asked C Programming Interview Questions: Set 2
