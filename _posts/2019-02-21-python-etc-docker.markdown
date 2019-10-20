@@ -95,20 +95,23 @@ tags: [python, docker, 도커] # add tag
 <br>
 
 - 깃의 저장소인 깃헙과 같이 도커 이미지 저장소를 뜻합니다.
-+ 공식 저장소는 도커 Hub : https://hub.docker.com/ (Docker 계의 GitHub) 입니다.
-+ Azure Containers for Web App 에서는 지정 Docker Registry로부터 이미지를 읽어들여, Docker Container를 적재합니다.
+- 공식 저장소는 도커 Hub : https://hub.docker.com/ (Docker 계의 GitHub) 입니다.
+- `Azure Containers for Web App` 에서는 도커 레지스트리로부터 이미지를 읽어들여, 도커 컨테이너를 적재합니다.
 
 <br>
 
-### Dockerfile
+### **도커 파일(Dockerfile)**
 
 <br>
 
-+ Docker 이미지를 만들 때, 수행할 명령과 설정들을 시간순으로 기술한 파일
-+ 아래는 Dockerfile의 예제입니다.
-    + Dockerfile의 첫 글자는 대문자 입니다.
+- 도커 파일은 도커 이미지를 만들 때, 수행할 명령과 설정들을 시간순으로 기술한 파일입니다.
+- 도커 파일의 이름은 `Dockerfile`이어야 하고 첫 글자는 대문자 이어야 됩니다.
 
-```python
++ 아래는 도커 파일의 예제입니다.
+
+<br>  
+
+```
 FROM ubuntu:16.04
 
 RUN apt-get update && apt-get install -y python3-pip python3-dev && apt-get clean
@@ -127,16 +130,19 @@ EXPOSE 8000
 CMD ["python3", "/code/manage.py", "runserver", "0.0.0:8000"]
 ```
 
-+ `FROM` ubuntu:16.04
-    + Docker 이미지는 OS 정보를 가지고 있어야 합니다.
-+ `RUN` apt-get update && apt-get install -y python3-pip python3-dev && apt-get clean
-    + 각 OS에 맞는(리눅스는 Shell, 윈도우는 명령 프롬프트) 실행창에서 수행할 명령어
-    + && 명령어로 연결된 것은 && 명령어 앞의 명령이 수행이 정상적으로 완료되어야 뒤에 명령어가 수행된다는 의미 입니다.
-        + 내부적으로 exit code의 return 값이 0이면 성공, 그 이외에는 실패라는 것을 이용하게 됩니다.
+<br>
+
+- `FROM` ubuntu:16.04
+    - 도커 이미지는 OS 정보를 가지고 있어야 합니다.
+- `RUN` apt-get update && apt-get install -y python3-pip python3-dev && apt-get clean
+    - 각 OS에 맞는(리눅스는 Shell, 윈도우는 명령 프롬프트) 실행창에서 수행할 명령어를 입력합니다.
+    - `&&` 명령어로 연결된 것은 && 명령어 앞의 명령 수행이 정상적으로 완료되어야 뒤에 명령어가 수행된다는 의미 입니다.
+        - 내부적으로 exit code의 return 값이 0이면 성공, 그 이외에는 실패라는 것을 이용기 때문이지요.
+    - 반면 `;`으로 명령어가 연결된다면 앞선 명령어의 성공 여부와 상관없이 수행되겠다는 의미가 됩니다.
 + `WORKDIR` /code/
     + 수행되는 workdir을 설정합니다.
 + `ADD` requirements.txt /code/
-    + Docker host측의 파일(requirements.txt)을 Docker image(/code/)로 복사하겠다는 의미 입니다. 
+    + 도커 host측의 파일(requirements.txt)을 도커 이미지(/code/)로 복사하겠다는 의미 입니다. 
 + `ADD` . /code/
     + Docker host측의 파일을 Docker image로 모두 복사하겠다는 의미 입니다.
 + 
