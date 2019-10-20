@@ -144,5 +144,4 @@ CMD ["python3", "/code/manage.py", "runserver", "0.0.0:8000"]
 + `ADD` requirements.txt /code/
     + 도커 host측의 파일(requirements.txt)을 도커 이미지(/code/)로 복사하겠다는 의미 입니다. 
 + `ADD` . /code/
-    + Docker host측의 파일을 Docker image로 모두 복사하겠다는 의미 입니다.
-+ 
+    + 도커 host측의 파일을 도커 이미지로 모두 복사하겠다는 의미 입니다.
