@@ -2,8 +2,8 @@
 layout: post
 title: 리눅스 기본 명령어 및 사용법
 date: 2019-10-20 00:00:00
-img: etc/linux/basic/linux.png
-categories: [etc-linux] 
+img: c/linux/basic/linux.png
+categories: [c-linux] 
 tags: [리눅스, 리눅스 명령어] # add tag
 ---
 
@@ -70,7 +70,7 @@ tags: [리눅스, 리눅스 명령어] # add tag
 - 그 다음 줄부터는 `bash`가 실행할 리눅스 명령어 들을 다음과 같이 입력해 보겠습니다.
 
 <br>
-<center><img src="../assets/img/etc/linux/basic/1.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/c/linux/basic/1.PNG" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 쉘 스크립트를 보면 프로그래밍 지식이 없어도 사용할 수 있는 명령어들 입니다. 그만큼 간단합니다.

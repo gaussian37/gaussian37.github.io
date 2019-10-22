@@ -2,8 +2,8 @@
 layout: post
 title: vim 기능 및 세팅 정리
 date: 2019-02-09 00:00:00
-img: nd/linux/vim/vim.png
-categories: [etc-linux] 
+img: c/linux/vim/vim.png
+categories: [c-linux] 
 tags: [vim, vim 세팅] # add tag
 ---
 
