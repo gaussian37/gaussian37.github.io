@@ -17,6 +17,12 @@ tags: [python, docker, 도커] # add tag
 
 - ### Immutable infrastructure 패러다임
 - ### 간략히 Docker 살펴보기 
+    - #### 도커란?
+    - #### 도커만의 특징/유의사항
+    - #### 컨테이터 Orchestration
+    - #### 도커 레지스트리
+    - #### 도커 파일(Dockerfile)
+- ### 도커 설치하기
 
 <br>
 
@@ -49,7 +55,7 @@ tags: [python, docker, 도커] # add tag
 
 <br>
 
-### 도커란?
+### **도커란?**
 
 <br>
 
@@ -78,7 +84,7 @@ tags: [python, docker, 도커] # add tag
         
 <br>
 
-### **Container Orchestration**
+### **컨테이터 Orchestration**
 
 <br>
 
@@ -139,9 +145,18 @@ CMD ["python3", "/code/manage.py", "runserver", "0.0.0:8000"]
     - `&&` 명령어로 연결된 것은 && 명령어 앞의 명령 수행이 정상적으로 완료되어야 뒤에 명령어가 수행된다는 의미 입니다.
         - 내부적으로 exit code의 return 값이 0이면 성공, 그 이외에는 실패라는 것을 이용기 때문이지요.
     - 반면 `;`으로 명령어가 연결된다면 앞선 명령어의 성공 여부와 상관없이 수행되겠다는 의미가 됩니다.
-+ `WORKDIR` /code/
-    + 수행되는 workdir을 설정합니다.
-+ `ADD` requirements.txt /code/
-    + 도커 host측의 파일(requirements.txt)을 도커 이미지(/code/)로 복사하겠다는 의미 입니다. 
-+ `ADD` . /code/
-    + 도커 host측의 파일을 도커 이미지로 모두 복사하겠다는 의미 입니다.
+- `WORKDIR` /code/
+    - 수행되는 workdir을 설정합니다.
+- `ADD` requirements.txt /code/
+    - 도커 host측의 파일(requirements.txt)을 도커 이미지(/code/)로 복사하겠다는 의미 입니다. 
+- `ADD` . /code/
+    - 도커 host측의 파일을 도커 이미지로 모두 복사하겠다는 의미 입니다.
+- `EXPOSE` 8000
+    - 호스트 측과 연결할 컨테이너 포트 번호를 입력합니다.
+    - 포트는 호스트측 번호와 컨테이너측 번호가 따로 존재 합니다. 여기서 정의되는 것은 컨테이터 측의 포트 번호이고 이 포트 번호를 이용하여 호스트측의 포트와 연결합니다.
+- 여기 까지 사용된 명령어 들은 **도커가 빌드할 때** 사용되는 명령어들 입니다. 반면 `CMD`는 도커가 run 할 때 사용 되는 명령어 입니다.
+
+<br>
+
+
+ 

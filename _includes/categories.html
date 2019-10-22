@@ -92,7 +92,7 @@
             </li>
 
             <li class="nav-item dropdown
-            {% if page.url == '/c/concept' or page.url == '/c/etc/' %} active {% endif %}">
+            {% if page.url == '/c/concept' or page.url == '/c/linux/' or page.url == '/c/etc/' %} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('c-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -100,6 +100,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="c-dropdown">
                     <a class="dropdown-item" href="{{ "/c/concept" | prepend: site.baseurl }}">Concept</a>
+                    <a class="dropdown-item" href="{{ "/c/linux" | prepend: site.baseurl }}">Linux</a>
                     <a class="dropdown-item" href="{{ "/c/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
@@ -137,7 +138,7 @@
             </li>
 
             <li class="nav-item dropdown
-            {% if page.url == '/etc/humanity/' or page.url == '/etc/linux/' or page.url == '/etc/etc/' %} active {% endif %}">
+            {% if page.url == '/etc/humanity/' or page.url == '/etc/etc/' %} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('etc-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -145,7 +146,6 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="etc-dropdown">
                     <a class="dropdown-item" href="{{ "/etc/humanity" | prepend: site.baseurl }}">Humanity</a>
-                    <a class="dropdown-item" href="{{ "/etc/linux" | prepend: site.baseurl }}">Linux</a>
                     <a class="dropdown-item" href="{{ "/etc/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
