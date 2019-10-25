@@ -136,3 +136,20 @@ echo "hello2"
     - Exit code 0        Success
     - Exit code 1        General errors, Miscellaneous errors, such as "divide by zero" and other impermissible operations
     - Exit code 2        Misuse of shell builtins (according to Bash documentation)        Example: empty_function() {}
+
+<br>
+
+- 정리하면 다음과 같습니다.
+- bash용 쉘 스크립트를 작성하려면 텍스트 파일 첫 줄에 `#! /bin/bash`라고 적고 두번째 줄 이후는 자동 실행하고 싶은 쉘 명령어를 작성합니다.
+- 쉘 스크립트는 `chmod +x` 파일명으로 실행 권한을 설정합니다.
+- 명령어가 이상이 생겨서 그 시점에서 스크립트 실행을 중단하고 싶을 때, `if [ $? != 0 ]; then exit; fi`라고 적습니다. 
+
+<br>
+
+## **쉘 변수: 같은 문자열을 스크립트에서 재사용**
+
+<br>
+
+- vim에서 문서를 작성할 때, 같은 오류가 계속 발생한 상황이라면 한번에 모든 것을 고치는 것이 간편합니다.
+ - `esc`를 이용하여 노멀 모드로 돌아간 다음에 `:%s/원문/수정문`을 이용하면 다양한 편집기에서 모두 변환하기를 사용할 수 있듯이 똑같이 한번에 변환 됩니다.
+  
