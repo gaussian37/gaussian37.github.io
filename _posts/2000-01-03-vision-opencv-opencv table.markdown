@@ -43,8 +43,7 @@ tags: [vision, opencv] # add tag
 <br>
 
 - [마우스 클릭으로 ROI 영역 추출 하기](https://gaussian37.github.io/vision-opencv-roi-extraction/)
-
-
+- [마우스로 연속적으로 이미지에 점 찍기](https://gaussian37.github.io/vision-opencv-python-draw_connected_circle/)
 
 <br>
 
