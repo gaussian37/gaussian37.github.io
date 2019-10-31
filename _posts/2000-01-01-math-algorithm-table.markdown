@@ -29,3 +29,5 @@ tags: [algorithm, 알고리즘] # add tag
 - 이분 탐색
 - 이분법
 - 트리
+- 기하
+    - CCW(counter clockwise)
