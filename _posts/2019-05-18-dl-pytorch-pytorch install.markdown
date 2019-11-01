@@ -8,6 +8,7 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 ---
 
 + 이번 글에서는 PyTorch를 사용할 때, 윈도우에서 설치하는 방법과 colab에서 설치하는 방법에 대하여 알아보겠습니다.
+- **가장 최신의 설치 방법**을 확인하고 싶으면 https://pytorch.org/get-started/locally/ 링크를 참조하는 것이 좋습니다.
 
 <br>
 
