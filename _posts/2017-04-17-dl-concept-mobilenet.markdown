@@ -205,7 +205,7 @@ tags: [python, deep learning, dl, MobileNet] # add tag
 
 <br>
 
-$$ D_{K} \times D_{K} \times \alpha M \times \rho D_{F} \times \rho D_{F} + \alpha M \times \alpha N $$ D_{K} \times D_{K} \times \alpha M \times \rho D_{F} \times \rho D_{F} + \alpha M \times \alpha N \times \rho D_{F} \times \rho_D_{F} $$
+$$ D_{K} \times D_{K} \times \alpha M \times \rho D_{F} \times \rho D_{F} + \alpha M \times \alpha N \times \rho D_{F} \times \rho D_{F} $$
 
 <br>
 
