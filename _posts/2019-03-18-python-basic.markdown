@@ -9,14 +9,22 @@ tags: [python, python 기본] # add tag
 
 + 이 글에서는 Python을 사용하면서 필요하다고 느끼는 `Python 기본 문법`에 대하여 알아보겠습니다.
 
-### Comparator를 이용한 클래스 정렬
+<br>
+
+## **Comparator를 이용한 클래스 정렬**
+
+<br>
 
 + 리스트를 정렬할 때 리스트의 원소가 클래스라면 정렬하는 기준을 정해주어야 합니다.
 + 가장 유연하게 정할 수 있는 방법 중 하나인 `Comparator`를 사용하는 방법에 대하여 알아보겠습니다.
 
+<br>
+
 ```python
 sorted(iterable, key, reverse)
 ``` 
+
+<br>
 
 + 위 함수를 이용하여 정렬을 합니다.
 + `iterable` 에는 탐색이 가능한 타입을 입력합니다. 대표적인 예로 정렬할 리스트를 넣으면 됩니다.
@@ -27,24 +35,92 @@ sorted(iterable, key, reverse)
 
 + 여기서 중요한 `key`에 입력할 `comparator`에 대하여 알아보도록 하겠습니다.
 
+<br>
+
 ```python
 sorted(A, key=lambda x:foo(x))
 ```
 
+<br>
+
 + A라는 리스트가 있다고 하겠습니다. A리스트의 원소는 클래스로 (name, age)의 값을 가지고 있다고 가정하겠습니다.
     + 예를들어 ``` A = [("JISU", 28), ("JINSOL", 30)] ```
 + 이 때, 나이 기준으로 정렬하고 싶으면 나이에 대한 기준을 주어야 합니다.
+
+<br>
 
 ```python
 def foo(x):
     return x.age
 ``` 
 
+<br>
+
 + 위 코드와 같이 클래스의 어떤 값으로 기준을 주면 됩니다. 
+
+<br>
 
 ```python
 sorted(A, key=lambda x:foo(x))
 ```
 
+<br>
+
 + 따라서 위와 같이 정의 하면 각 원소는 foo라는 함수를 통하여 어떤 값을 기준으로 가질 지 알게 됩니다.
+
+<br>
+
+## **file read/write 방법**
+
+<br>
+
+- 먼저 텍스트 파일을 읽는 코드 입니다.
+
+<br>
+
+```python
+# 읽을 파일의 경로와 파일 이름을 입력합니다.
+filepath = "C://"
+filename = "test.txt"
+
+# 텍스트 파일을 입력 받기 위한 stream을 open 합니다.
+file_read=open(filepath + '/' + filename, 'r')
+while (1):
+    # 텍스트에서 1줄을 읽습니다.
+    line = file_read.readline()
+    # 개행 문자를 찾고 그 인덱스를 저장합니다.
+    # 개행 문자가 가장 처음에 있으면 0이 저장됩니다.
+    try:
+        valid = line.index('\n')
+    # 개행 문자가 없으면 입력받은 텍스트의 길이를 저장합니다.
+    except:
+        valid = len(line)
+    # 만약 line이 없으면 valid == 0 또는 line은 있으나 개행문자만 있으면 valid == 0
+    # 만약 line은 있으나 개행문자가 없으면 valid > 0
+    # 만약 line이 있고 개행문자도 있으면 valid > 0
+    # 따라서 valid > 0 경우만 parsing 실행
+    if valid
+        # parsing 구분자로 parsing 처리
+        line_to_list = line.split(' ')       
+
+        # 아래 parsing 처리한 리스트를 처리하는 코드 필요
+        ############## 코드 ##############
+        ############## 코드 ##############
+    else:
+        break
+file.close()
+```
+
+<br>
+
+```python
+# 텍스트 파일을 출력 하기 위한 stream을 open 합니다.
+file_write = open(filepath + '/' + filename, 'w')
+s = 'contents...'
+file_write.write(s)
+file_write.close()
+```
+
+<br>
+
 
