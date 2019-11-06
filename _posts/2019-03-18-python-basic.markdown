@@ -123,4 +123,13 @@ file_write.close()
 
 <br>
 
+## **현재 시각 문자열로 출력하는 방법**
 
+<br>
+
+```python
+import time
+
+now = time.localtime()
+now_string = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+```
