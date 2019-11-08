@@ -3,7 +3,7 @@ layout: post
 title: 칼만필터 인트로덕션
 date: 2019-10-27 00:00:00
 img: vision/kalmanfilter/kalman.PNG
-categories: [vision-kalmanfilter] 
+categories: [ad-kalmanfilter] 
 tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 ---
 
@@ -32,7 +32,7 @@ tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 - 이렇게 직접적으로 확인하기는 어려워서 간접적인 방법으로 확인한 상태를 `Estimated state` 라고 하고 기호로 $$ \hat{x} $$ 라고 적겠습니다.   
 
 <br>
-<center><img src="../assets/img/vision/kalmanfilter/introduction/1.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/introduction/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>    
 
 - 만약 우주 여행을 한다고 한다고 한다면(?), 제트 엔진 내부의 온도를 지속적으로 모니터링 해주어서 고장이 나지 않도록 해야 합니다.
@@ -41,7 +41,7 @@ tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 - 위 그림과 같이 제트 엔진 외부에 장착한 센서는 엔진 외부의 온도를 **직접적**으로 관측할 수 있습니다. 이 온도를 $$ T_{ext} $$ 라고 하겠습니다. 그리고 제트 엔진 내부의 온도는 $$ T_{in} $$이라고 하겠습니다.   
 
 <br>
-<center><img src="../assets/img/vision/kalmanfilter/introduction/2.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/introduction/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 그림과 같이 연료 $$ w_{fuel} $$을 투입하면 제트 엔진에서 소비를 할 것이고 이 때, $$ T_{in} $$의 변화가 있을 것입니다. 그리고 제트 엔진 외부에서 직접 $$ T_{ext} $$를 관측할 수 있습니다.
@@ -52,13 +52,13 @@ tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
     - 이 목표를 달성하기 위해 사용 하는 것이 $$ T_{ext}, \hat{T}_{ext} $$ 두 값이 되겠습니다.      
     
 <br>
-<center><img src="../assets/img/vision/kalmanfilter/introduction/3.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/introduction/3.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/kalmanfilter/introduction/4.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/introduction/4.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/kalmanfilter/introduction/5.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/introduction/5.png" alt="Drawing" style="width: 400px;"/></center>
 <br>

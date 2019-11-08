@@ -3,7 +3,7 @@ layout: post
 title: 칼만 필터 이미지 물체 추적
 date: 2019-06-23 01:00:00
 img: vision/kalmanfilter/kalman.PNG
-categories: [vision-kalmanfilter] 
+categories: [ad-kalmanfilter] 
 tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 ---
 

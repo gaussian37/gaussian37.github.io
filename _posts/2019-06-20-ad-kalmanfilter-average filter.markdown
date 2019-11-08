@@ -2,8 +2,8 @@
 layout: post
 title: 평균필터(Average Filter)
 date: 2019-06-22 00:00:00
-img: vision/kalmanfilter/kalman.PNG
-categories: [vision-kalmanfilter] 
+img: ad/kalmanfilter/kalman.PNG
+categories: [ad-kalmanfilter] 
 tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 ---
 
