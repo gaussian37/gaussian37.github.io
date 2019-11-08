@@ -2,7 +2,7 @@
 layout: post
 title: 저주파 통과 필터(low pass filter)
 date: 2019-06-22 00:00:02
-img: ad/kalmanfilter/kalman.PNG
+img: ad/kalmanfilter/kf.PNG
 categories: [ad-kalmanfilter] 
 tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 ---

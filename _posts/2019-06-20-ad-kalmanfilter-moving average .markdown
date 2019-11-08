@@ -2,7 +2,7 @@
 layout: post
 title: 이동평균필터(moving average filter)
 date: 2019-06-22 00:00:01
-img: ad/kalmanfilter/kalman.PNG
+img: aad/kalmanfilter/kf.PNG
 categories: [ad-kalmanfilter] 
 tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 ---

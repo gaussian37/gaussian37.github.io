@@ -2,10 +2,12 @@
 layout: post
 title: 칼만필터 관련 글 목록
 date: 9999-12-28 00:00:00
-img: ad/kalmanfilter/kalman.PNG
-categories: [vision-kalmanfilter] 
+img: ad/kalmanfilter/kf.PNG
+categories: [ad-kalmanfilter] 
 tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 ---
+
+<br>
 
 - [칼만 필터 인트로덕션](https://gaussian37.github.io/ad-kalmanfilter-intro/) 
 - [재귀 필터 : 평균필터(Average Filter)](https://gaussian37.github.io/vision-kalmanfilter-average-filter/)

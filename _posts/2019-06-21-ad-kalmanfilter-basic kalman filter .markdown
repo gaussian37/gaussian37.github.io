@@ -2,7 +2,7 @@
 layout: post
 title: 칼만 필터 기초
 date: 2019-06-23 00:00:00
-img: ad/kalmanfilter/kalman.PNG
+img: ad/kalmanfilter/kf.PNG
 categories: [ad-kalmanfilter] 
 tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 ---

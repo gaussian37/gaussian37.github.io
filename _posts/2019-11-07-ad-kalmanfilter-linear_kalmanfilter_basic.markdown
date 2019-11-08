@@ -2,7 +2,7 @@
 layout: post
 title: 선형 칼만 필터 기초
 date: 2019-11-07 00:00:00
-img: ad/kalmanfilter/kalman.PNG
+img: ad/kalmanfilter/kf.PNG
 categories: [ad-kalmanfilter] 
 tags: [칼만 필터, kalman filter, 선형 칼만 필터] # add tag
 ---
