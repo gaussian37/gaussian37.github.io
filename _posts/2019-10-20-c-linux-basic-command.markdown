@@ -159,3 +159,11 @@ echo "hello2"
     - 예를 들어 `tar xfv 파일경로`는 파일 압축 풀기이고 `tar cfv 파일경로`는 파일 압축을 하는 것입니다.
     - 이 때, `tar_extract="tar xfv"`라고 하고 `tar_compress="tar cfv"`라고 변수 선언을 하면 헷갈리지 않고 사용할 수 있습니다.
     - 이후에는 `$tar_extract` 또는 `$tar_compress`와 같이 사용하면 됩니다.  
+    
+<br>
+
+## **환경 변수: 작업 환경과 상태를 정해서 스크립트 실행**
+
+<br>
+
+- 
