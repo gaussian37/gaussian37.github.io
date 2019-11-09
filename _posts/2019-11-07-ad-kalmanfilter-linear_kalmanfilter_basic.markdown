@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 선형 칼만 필터 기초
+title: 선형 칼만 필터
 date: 2019-11-07 00:00:00
-img: ad/kalmanfilter/kf.PNG
+img: ad/kalmanfilter/kalman_filter.png
 categories: [ad-kalmanfilter] 
 tags: [칼만 필터, kalman filter, 선형 칼만 필터] # add tag
 ---
@@ -13,5 +13,14 @@ tags: [칼만 필터, kalman filter, 선형 칼만 필터] # add tag
 
 <br>
 
+- 이번 글에서는 선형 칼만 필터를 통하여 칼만 필터의 기본 컨셉에 대하여 자세하게 알아보도록 하겠습니다.
 
+<br>
 
+## **목차**
+
+<br>
+
+- ### 칼만 필터란 무엇일까?
+- ### 칼만 필터로 무엇을 할 수 있을까?
+- ### 칼만 필터 
