@@ -3,8 +3,8 @@ layout: post
 title: Linux 관련 글 목차
 date: 9999-12-27 00:00:00
 img: c/os/os.jpg
-categories: [c-os] 
-tags: [os, operating system] # add tag
+categories: [c-linux] 
+tags: [linux, 리눅스, socket, 소켓, tcp/ip, os, operating system] # add tag
 ---
 
 <br>
