@@ -66,7 +66,6 @@ int bind(int sockfd, struct sockaddr *myaddr, socklen_t addrlen);
 #include <sys/socket.h>
 
 int listen(int sockfd, int backlog);
-
 ``` 
 
 <br>
@@ -95,7 +94,7 @@ int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 
 <br>
 
-- 먼저 `연결 요청을 허용하는 소켓의 생성과정`을 정리하면, 소켓의 생성(socket) >>> IP와 PORT번호 할당(bind) >>> 연결 가능한 상태로 변경(listen) >>> 연결요청에 대한 수락(accept)순서로 이루어집니다.
+- 먼저 `연결 요청을 허용하는 소켓의 생성과정`을 정리하면, **소켓의 생성(socket) → IP와 PORT번호 할당(bind) → 연결 가능한 상태로 변경(listen) → 연결요청에 대한 수락(accept)** 순서로 이루어집니다.
 - 이러한 과정을 거치는 프로그램을 `서버`라고 부르고 있습니다. 
 - 일반적으로 `서버`를 보면 연결을 요청하는 클라이언트보다 먼저 실행되어야하고 복잡한 실행 과정을 거치게 됩니다.
-- 
+
