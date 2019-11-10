@@ -19,11 +19,11 @@ tags: [소켓 프로그래밍] # add tag
 
 - ### 1. 네트워크 프로그래밍과 소켓의 이해
 - ### 2. 간단한 서버 코드 (리스닝 소켓) 살펴보기
-- ### 3. 간단한 클라이언트 코드 (연결을 요청하는 소켓) 살펴보기
+- ### 3. 간단한 클라이언트 코드 (클라이언트 소켓) 살펴보기
 - ### 4. 서버 코드와 클라이언트 코드 작동
-- ### 4. 리눅스 기반 파일 조작
-- ### 5. 윈도우 기반으로 구현
-- ### 6. 윈도우 기반 소켓 관련 함수와 예제
+- ### 5. 리눅스 기반 파일 조작
+- ### 6. 윈도우 기반으로 구현
+- ### 7. 윈도우 기반 소켓 관련 함수와 예제
 
 <br>
 
@@ -218,22 +218,109 @@ void ErrorHandling(char *message){
 
 <br>
 
-## **3. 간단한 클라이언트 코드 (연결을 요청하는 소켓) 살펴보기**
+## **3. 간단한 클라이언트 코드 (클라이언트 소켓) 살펴보기**
 
 <br>
 
-- 연결을 요청하는 소켓의 구현에 대하여 다루어 보도록 하겠습니다.
+- 연결을 요청하는 `클라이언트 소켓`의 구현에 대하여 다루어 보도록 하겠습니다.
 - 앞에서 다룬 리스닝 소켓의 코드와 비교하면 상당히 단순한 것이 `connect` 함수를 이용하여 연결만 하기 때문입니다.
-- 즉, `소켓의 생성`과 `연결의 요청`으로 구분됩니다. 일단 코드를 먼저 살펴보겠습니다.
+- 먼저 앞의 `리스닝 소켓`에서 `connect` 함수에 대해서 소개하지 않았는데 리스닝 소켓에서는 사용되자 않고 클라이언트 소켓에서만 사용되기 때문입니다.
+
+<br>
+
+```cpp
+#include <sys/socket.h>
+
+int connect(int sockfd, struct sockaddr *serv_addr, socklen_t addrlen);
+```
+
+<br>
+
+- 위 함수를 통하여 서버로의 연결 요청을 합니다. 성공 시 0을 실패 시 -1을 반환합니다.
+- 다시 한번 정리하면 클라이언트 소켓은 `소켓의 생성`과 `연결의 요청`으로 구분됩니다. 일단 코드를 먼저 살펴보겠습니다.
+
 
 <br>
 
 ```cpp
 // hello_client.c
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
 
+void ErrorHandling(char* message);
+
+int main(int argc, char* argv[]){
+    int sock;
+    struct sockaddr_in serv_addr;
+    char message[30];
+    int str_len;
+
+    if(argc != 3){
+        print("Usage : %s <IP> <port>\n", argv[0]);
+        exit(1);
+    }
+
+    // socket을 생성합니다. 여기서 만든 socket은 listening socket 에서 만든 socket의 정보를 저장할 것입니다.
+    sock = socket(PF_INET, SOCK_STREAM, 0);
+    if(sock == -1){
+        ErrorHandling("socket() error");
+    }
+
+    // socket 초기화
+    memset(&serv_addr, 0, sizeof(serv_addr));
+    // client를 실행할 때, parameter로 IP와 PORT 순서로 받을 예정입니다.
+    // 이 때 받는 IP와 PORT는 서버에서 정의한 IP와 PORT입니다.
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_family.s_addr = inet_addr(argv[1]);
+    serv_addr.sin_port = htons(atoi(argv[2]));
+
+    // 서버에서 생성한 socket과 클라이언트에서 생성한 socket의 IP와 PORT의 정보가 같기 때문에
+    // connect 함수를 통하여 두 socket을 연결할 수 있습니다.
+    if( connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) == -1){
+        ErrorHandling("connect() error");
+    }
+
+    // 이번 예제 코드에서 할 작업은 아래와 같습니다.
+    // 서버와 클라이언트의 연결이 끝난 후, 서버가 write 함수를 통하여 데이터를 송신합니다.
+    // 이 때, 클라이언트는 read 함수를 통하여 데이터를 읽습니다.
+    str_len = read(sock, message, sizeof(message) - 1);
+    if(str_len == -1){
+        ErrorHandling("read() error");
+    }
+
+    // 서버로 부터 받은 데이터를 출력합니다.
+    printf("Message form server: %s \n", message);
+    // 통신이 끝났으니 socket을 제거합니다.
+    close(sock);
+    return 0;
+}
+
+void ErrorHandling(char* message){
+    fputs(message, stderr);
+    fputc('\n', stderr);
+    exit(1);
+}
 ```
 
+<br>
 
+## **4. 서버 코드와 클라이언트 코드 작동**
 
+<br>
 
+- 그러면 앞에서 작성한 `hello_server.c`와 `hello_client.c`를 한번 실행해 보겠습니다.
+- 먼저 다음과 같이 리눅스에서 컴파일하여 실행파일을 만들 수 있습니다.
+    - `gcc hello_server.c -o hello_server`
+- 다음과 같이 파일을 실행할 수 있습니다.
+    - `./hello_server 9190`
+    - 위 뜻은 hello_server 파일을 실행하고 그 인자로 9190을 넘기는 데 그 뜻은 임의로 선정한 `PORT 번호`를 나타냅니다.
+- 동일한 방법으로 클라이언트 파일을 컴파일 할 수 있습니다.
+    - `gcc hello_client.c -o hello_client`
+- 클라이언트 파일을 실행할 때에는 다음과 같이 실행해 보겠습니다.
+    - `./hello_client 127.0.0.1 9190`
+    - 위에서 127.0.0.1은 로컬 컴퓨터를 의미하고 9190은 서버에서 선정한 포트를 나타냅니다.
