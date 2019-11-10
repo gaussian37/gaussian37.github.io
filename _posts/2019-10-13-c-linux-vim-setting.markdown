@@ -18,6 +18,7 @@ tags: [vim, vim 세팅] # add tag
 - ### .vimrc 세팅값
 - ### vundle 설치
 - ### NERDTree 설치
+- ### neocomplete 설치
 - ### vim에서 사용되는 명령어들
 
 <br>
@@ -153,6 +154,95 @@ Plugin 'The-NERD-Tree'
 - 새로운 플러그인을 등록하였으므로 vim을 실행하고 `:PlugInstall`을 입력하면 플러그인이 설치됩니다.
 - 이후 vim을 재시작 한 뒤 `:NERDTree`를 입력하면 파일시스템을 볼 수 있는 창이 생깁니다.
 - 분할된 창 사이를 이동하려면 `Ctrl+W`을 입력하고 왼쪽 트리에서 커서를 이동하려면 `H(왼쪽),J(위),K(아래),L(오른쪽)`을 입력하면 됩니다.
+
+<br>
+
+## **neocomplete 설치**
+
+<br>
+
+- 먼저 아래 명령어를 통하여 레퍼지토리를 다운로드 합니다.
+    - `git clone https://github.com/Shougo/neocomplete.vim`
+- 다운한 파일들을 `~/.vim` 디렉토리로 붙여넣기 합니다. `~/.vim` 안에 파일 및 폴더들을 바로 붙어넣어야 합니다.
+- `vim ~/.vimrc`를 통하여 `vimrc`를 열고 아래 명령어를 끝에 추가합니다.
+    - `let g:neocomplcache_enable_at_startup = 1`
+    - 이 명령어는 수동이 아닌 자동으로 자동 옵션을 켜주는 것입니다.
+- 레퍼지토리에서 설명한 예시 옵션입니다. `./vimrc`에 위 방법과 동일한 방법으로 명령어를 추가해 주시면 됩니다.
+
+<br>
+
+```
+"Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+```
 
 <br>
 
