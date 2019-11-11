@@ -31,3 +31,6 @@ tags: [칼만 필터, kalman filter, 선형 칼만 필터] # add tag
 
 <br>
 
+<br>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/robot_ohnoes.PNG" alt="Drawing" style="width: 400px;"/></center>
+<br>
