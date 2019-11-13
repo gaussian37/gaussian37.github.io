@@ -109,3 +109,11 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
     - 앞선 위치와 속도 관계와 같이 한 가지를 측정하게 되면 다른 값이 어떻게 나오게 되는 지 예측 할 수 있는 것과 같습니다.
 - 이러한 관계를 파악하는 것이 칼만 필터의 한가지 목적이 됩니다. 
 - 불확실환 관측으로 부터 가능한한 더 많은 정보를 얻어내는 것이 우리의 목적입니다.
+
+<br>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/3.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 이러한 상관관계는 `covariance matrix, 공분산`을 통하여 정의될 수 있습니다.
+- 공분산에서 각각의 원소 $$ \Sigma_{ij} $$는 $$ i $$번 째 상태 변수와 $$ j $$ 번째 상태 변수의 상관관계를 나타냅니다.
+    - 당연히 i,j 와의 관계와 j,i와의 관계는 같기 때문에 공분산 행렬은 대칭행렬이 됩니다.
