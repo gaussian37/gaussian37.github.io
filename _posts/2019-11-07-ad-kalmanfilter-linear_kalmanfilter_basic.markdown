@@ -79,14 +79,14 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
 - 이 때, 위치와 속도를 정확하게 알아내기는 어렵습니다. 대신 실제 속도와 위치가 `어떤 범위`안에 속할 것이라는 것 정도는 예측할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/0.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/0.PNG" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 칼만 필터에서는 위치와 속도 두 변수를 랜덤 `가우시안 분포`로 가정합니다. 
 - 각 변수는 평균과 분산의 특성을 가지고 있습니다. 평균 $$ \mu $$는 랜덤 분포의 중심이 되고 분산 $$ \sigma^{2} $$은 불확실성(uncertainty)가 됩니다.
 
 <br>
-<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/1.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/1.PNG" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 그래프를 보면 가로축은 속도이고 세로 축은 위치 입니다.
@@ -97,7 +97,7 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
     - 즉, `uncorrelated` 하다고 말할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/2.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/2.PNG" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 반면에 위 예시는 좀 더 재밌는데요, 위치와 속도가 서로 상관관계를 가지는 것으로 보입니다. 즉, `correlated` 합니다.
@@ -111,7 +111,7 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
 - 불확실환 관측으로 부터 가능한한 더 많은 정보를 얻어내는 것이 우리의 목적입니다.
 
 <br>
-<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/3.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/3.PNG" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 이러한 상관관계는 `covariance matrix, 공분산`을 통하여 정의될 수 있습니다.
@@ -129,6 +129,7 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
 
 <br>
 
+$$
 \begin{equation} \label{eq:statevars} 
 \begin{aligned} 
 \mathbf{\hat{x}}_k &= \begin{bmatrix} 
@@ -142,3 +143,6 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
 \end{bmatrix} 
 \end{aligned} 
 \end{equation}
+$$
+
+<br>
