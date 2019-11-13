@@ -133,3 +133,18 @@ import time
 now = time.localtime()
 now_string = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
 ```
+
+<br>
+
+## **all과 any**
+
+<br>
+
+-`all`을 이용하면 iterable한 객체의 값 중에 False 또는 0이 있으면 False를 반환합니다.
+- 반면 모든 값이 True 또는 0이 아니어야 True를 반환합니다.
+- iterable한 객체이므로 list, tuple, set, dictionary 모두 적용 가능하고 dictionary의 값에서는 key 값을 가지고 판단합니다.
+
+<br>
+
+- `any`를 이용하면 객체의 값 중에 True 또는 0이 아닌 값이 하나라도 있으면 True로 반환합니다.
+- 반면 모든 값이 False 또는 0이어야 False를 반환합니다.
