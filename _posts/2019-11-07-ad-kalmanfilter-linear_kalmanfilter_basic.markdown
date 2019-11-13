@@ -95,3 +95,11 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
 - 그런데 분포의 패턴을 보면 가로축으로만 넓게 분포되어 있고 세로축으로는 넓게 분포되어 있지 않습니다.
 - 중요한 것은 가로축이 증가하면 세로축이 증가한는 등의 상관관계가 없다는 것에 있습니다.
     - 즉, `uncorrelated` 하다고 말할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/2.PNG" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 반면에 위 예시는 좀 더 재밌는데요, 위치와 속도가 서로 상관관계를 가지는 것으로 보입니다. 즉, `correlated` 합니다.
+- 이런 경우에는 특정 위치를 관측하는 것이 특정 속도와 연관이 있다고 해석할 수도 있습니다.
+
