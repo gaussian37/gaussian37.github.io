@@ -148,3 +148,64 @@ now_string = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_
 
 - `any`를 이용하면 객체의 값 중에 True 또는 0이 아닌 값이 하나라도 있으면 True로 반환합니다.
 - 반면 모든 값이 False 또는 0이어야 False를 반환합니다.
+
+<br>
+
+## **lambda**
+
+<br>
+
+- 파이썬에서 `lambda` 는 런타임에 생성해서 사용할 수 있는 익명 함수 입니다. 파이썬에서 `lambda`의 역할은 혼자 쓰일 때라기 
+
+보다는 다양한 다른 함수와 같이 쓰일 때 큰 힘을 발휘합니다.
+    - 예를 들어 `map`, `filter`, `reduce` 등이 있습니다.
+- 먼저 `lambda`에 대한 간략한 소개와 그에 이어서 `map`, `filter`, `reduce`에 어떻게 lambda가 사용하는 지 예를 보여드리곘
+
+습니다.
+- lambda는 일반적인 함수와 다르게 만들어진 곳에서 일시적으로 사용하고 버릴 수 있는 함수입니다.
+
+<br>
+
+```python
+l = lambda x: x**2
+print(l(3))
+: 9 
+
+f = lambda x, y: x + y
+
+print(f(4, 4))
+: 8
+```
+
+<br>
+
+## **map**
+
+<br>
+
+- map 함수와 lambda 함수가 함께 사용될 때 기능들을 간단하게 구현할 수 있습니다.
+- 먼저 map() 은 두 개 이상의 파라미터를 기본적으로 받습니다. 첫 파라미터는 function이고 두번째 파라미터부터는 function에 
+
+적용할 iterable 입니다. 여기서 iterable은 한번에 하나의 멤버를 반환할 수 있는 객체 입니다.
+- 결과물로 function에 의해 변경된 iterator를 반환합니다.
+
+<br>
+
+```python
+r = map(function, iterable1, iterable2, ...)
+```
+
+<br>
+
+- map을 이용한 예시를 한번 살펴보겠습니다.
+
+<br>
+
+```python
+a = [1,2,3,4]
+b = [17,12,11,10]
+list(map(lambda x, y:x+y, a,b))
+: [18, 14, 14, 14]
+```
+
+<br>
