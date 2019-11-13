@@ -209,3 +209,28 @@ list(map(lambda x, y:x+y, a,b))
 ```
 
 <br>
+
+## **filter**
+
+<br>
+
+- filter함수는 두 개의 인자를 가집니다.
+
+<br>
+
+```python 
+r = filter(function, iterable)
+```
+
+<br>
+
+- `filter`에 인자로 사용되는 function은 처리되는 각각의 요소에 대해 Boolean 값을 반환합니다. 
+- True를 반환하면 그 요소는 남게 되고, False 를 반환하면 그 요소는 제거 됩니다.
+
+<br>
+
+```
+a = foo = [1,2,3,4,5]
+list( filter(lambda x: x % 2 == 0, a) )
+: [2, 4]
+```
