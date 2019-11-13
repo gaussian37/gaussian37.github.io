@@ -67,4 +67,18 @@ tags: [칼만 필터, kalman filter, 선형 칼만 필터] # add tag
 
 <br>
 
+- 먼저 어떤 로봇의 상태부터 정의해 보도록 하겠습니다.
+
+<br>
+
+$$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
+
+<br>
+
+- 여기서 $$ p $$는 위치를 나타내고 $$ v $$는 속도를 나타냅니다.
+- 이 때, 위치와 속도를 정확하게 알아내기는 어렵습니다. 대신 실제 속도와 위치가 `어떤 범위`안에 속할 것이라는 것 정도는 예측할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/0.PNG" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
