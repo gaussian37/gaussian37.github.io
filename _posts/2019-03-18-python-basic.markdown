@@ -155,6 +155,7 @@ now_string = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_
 
 <br>
 
+- 출처: https://offbyone.tistory.com/73
 - 파이썬에서 `lambda` 는 런타임에 생성해서 사용할 수 있는 익명 함수 입니다. 파이썬에서 `lambda`의 역할은 혼자 쓰일 때라기 
 
 보다는 다양한 다른 함수와 같이 쓰일 때 큰 힘을 발휘합니다.
@@ -233,4 +234,30 @@ r = filter(function, iterable)
 a = foo = [1,2,3,4,5]
 list( filter(lambda x: x % 2 == 0, a) )
 : [2, 4]
+```
+
+<br>
+
+## **reduce**
+
+<br>
+
+- reduce 함수는 두 개의 필수 인자와 하나의 옵션 인자를 가지는데 function 을 사용해서 iterable을 하나의 값으로 줄입니다.
+
+<br>
+
+```python
+functools.reduce(function, iterable[, initializer])
+```
+
+<br>
+
+- 예를 들어 reduce(function, [1,2,3,4,5]) 에서 list 는 [function(1,2),3,4,5] 로 하나의 요소가 줄고, 요소가 하나가 남을 때까지 reduce(function, [function(1,2),3,4,5]) 를 반복합니다.
+
+<br>
+
+```python
+from functools import reduce
+reduce(lambda x,y: x+y, [1,2,3,4,5])
+: 15
 ```
