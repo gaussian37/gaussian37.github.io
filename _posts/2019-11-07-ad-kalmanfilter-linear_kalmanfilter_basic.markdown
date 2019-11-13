@@ -79,12 +79,12 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
 - 이 때, 위치와 속도를 정확하게 알아내기는 어렵습니다. 대신 실제 속도와 위치가 `어떤 범위`안에 속할 것이라는 것 정도는 예측할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/0.PNG" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/0.PNG" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 칼만 필터에서는 위치와 속도 두 변수를 랜덤 `가우시안 분포`로 가정합니다. 
 - 각 변수는 평균과 분산의 특성을 가지고 있습니다. 평균 $$ \mu $$는 랜덤 분포의 중심이 되고 분산 $$ \sigma^{2} $$은 불확실성(uncertainty)가 됩니다.
 
 <br>
-<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/1.PNG" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/1.PNG" alt="Drawing" style="width: 600px;"/></center>
 <br>
