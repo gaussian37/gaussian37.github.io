@@ -117,3 +117,28 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
 - 이러한 상관관계는 `covariance matrix, 공분산`을 통하여 정의될 수 있습니다.
 - 공분산에서 각각의 원소 $$ \Sigma_{ij} $$는 $$ i $$번 째 상태 변수와 $$ j $$ 번째 상태 변수의 상관관계를 나타냅니다.
     - 당연히 i,j 와의 관계와 j,i와의 관계는 같기 때문에 공분산 행렬은 대칭행렬이 됩니다.
+
+<br>
+
+## **4. 행렬을 통하여 문제 다루어 보기**
+
+<br>
+
+- 앞에서 다룬 내용들을 이제 가우시안을 통하여 한번 모델링 해보려고 합니다.
+- 먼저 $$ k $$번째 타임에 필요한 정보는 2가지 입니다. 최적의 예측치라고 가정하는 $$ \hat{x_{k}} $$ (앞에서 설명한 평균 $$ \mu $$에 해당)과 공분산 행렬 $$ P_{k} $$에 해당합니다.
+
+<br>
+
+\begin{equation} \label{eq:statevars} 
+\begin{aligned} 
+\mathbf{\hat{x}}_k &= \begin{bmatrix} 
+\text{position}\\ 
+\text{velocity} 
+\end{bmatrix}\\ 
+\mathbf{P}_k &= 
+\begin{bmatrix} 
+\Sigma_{pp} & \Sigma_{pv} \\ 
+\Sigma_{vp} & \Sigma_{vv} \\ 
+\end{bmatrix} 
+\end{aligned} 
+\end{equation}
