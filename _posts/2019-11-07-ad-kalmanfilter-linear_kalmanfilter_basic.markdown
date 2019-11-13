@@ -162,3 +162,49 @@ $$
 
 - 이렇게 상태 예측을 하는 것을 보면 공간 상에서 상태를 변환하는 것 처럼 볼 수 있습니다.
 - 공간 상에서의 변환은 행렬을 통하여 나타낼 수 있습니다. 그러면 k-1 번째 상태에서 k 번째 상태로 변환하는 행렬을 $$ F_{k} $$ 라고 두겠습니다.
+
+- 다음 상태의 위치와 속도를 예측하기 위하여 행렬을 어떻게 사용하면 될까요?
+- 이렇게 행렬을 만드는 모델링 작업을 할 때 필요한 것이 운동 방정식과 같은 기존의 알려진 물리 방정식들 입니다.
+
+<br>
+
+$$ 
+
+\begin{split} 
+\color{deeppink}{p_k} &= \color{royalblue}{p_{k-1}} + \Delta t &\color{royalblue}{v_{k-1}} \\ 
+\color{deeppink}{v_k} &= &\color{royalblue}{v_{k-1}} 
+\end{split}
+
+$$
+
+<br>
+
+- 다르게 표현하면 다음과 같습니다.
+
+<br>
+
+$$
+
+\begin{align} 
+\color{deeppink}{\mathbf{\hat{x}}_k} &= \begin{bmatrix} 
+1 & \Delta t \\ 
+0 & 1 
+\end{bmatrix} \color{royalblue}{\mathbf{\hat{x}}_{k-1}} \\ 
+&= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}} \label{statevars} 
+\end{align}
+
+$$
+
+<br>
+
+- 여기서 적용된 식은 "거리 = 움직인 시간 x 속도" 입니다. 따라서 거리의 변화량을 표현할 때 이 식이 적용되었습니다.
+- 현재 이 식에서 속도는 변화가 없는 등속 운동이라는 상황입니다.
+
+<br>
+
+- 여기 까지 살펴보면 운동 방정식을 통하여 `prediction matrix`인 $$ F_{k} $$를 만들었습니다.
+- 하지만 앞에서 살펴본 변수사이의 상관관계를 나타내는 공분산 행렬에 대해서는 아직 다루지 않았습니다.
+
+<br>
+
+- 만약 어떤 분포에 속하는 모든 점들을 행렬 $$ A $$와 곱하게 하면 공분한 행렬 $$ \Sigma $$는 어떻게 될까요?
