@@ -137,7 +137,7 @@
             </li>
 
             <li class="nav-item dropdown
-            {% if page.url == '/etc/humanity/' or page.url == '/etc/etc/' %} active {% endif %}">
+            {% if page.url == '/etc/humanity/' or page.url == '/etc/dev/ or page.url == '/etc/etc/' %} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('etc-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -145,6 +145,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="etc-dropdown">
                     <a class="dropdown-item" href="{{ "/etc/humanity" | prepend: site.baseurl }}">Humanity</a>
+                    <a class="dropdown-item" href="{{ "/etc/dev" | prepend: site.baseurl }}">Dev</a>
                     <a class="dropdown-item" href="{{ "/etc/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
