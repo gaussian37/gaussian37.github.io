@@ -279,3 +279,8 @@ $$
 
 - 여기서 $$ B_{k} $$는 `control matrix`라고 하고 $$ \color{darkorange}{\vec{\mathbf{u}_k}} $$ 은 `control vector`라고 합니다.
 - 만약 다루고 있는 시스템이 간단하여 외부 영향이 없다면 이 부분을 생략해도 됩니다. 즉, 모델링에 따라 적용할 수 있고 적용 안할 수도 있습니다.
+
+<br>
+
+
+
