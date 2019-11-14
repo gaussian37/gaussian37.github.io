@@ -282,5 +282,19 @@ $$
 
 <br>
 
+<br>
+
+### **uncertainty**
+
+<br>
+
+- 만약 시스템이 모델링한 대로 움직이지 않으면 어떻게 될까요?
+- 로봇의 경우에 갑자기 미끄러질수도 있고 드론의 경우 갑작스럽게 강한 바람에 맞닥뜨릴수도 있습니다.
+- 이런 경우에 우리는 정확하게 상태 추적을 하기 어렵습니다. 왜냐하면 이런 예외적인 상황 또는 외력에 대한 고려를 하지 않고 모델링 하였기 떄문입니다.
+- 정확하게 상태를 예측하기는 어렵더라고 이런 예외적인 상황을 모델링에 접목해 보기 위하여 매번의 prediction 때 마다 새로운 uncertainty를 추가해 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/5.PNG" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
 
