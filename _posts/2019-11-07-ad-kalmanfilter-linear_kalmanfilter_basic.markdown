@@ -208,3 +208,14 @@ $$
 <br>
 
 - 만약 어떤 분포에 속하는 모든 점들을 행렬 $$ A $$와 곱하게 하면 공분한 행렬 $$ \Sigma $$는 어떻게 될까요?
+
+<br>
+
+\begin{equation} 
+\begin{split} 
+Cov(x) &= \Sigma\\ 
+Cov(\color{firebrick}{\mathbf{A}}x) &= \color{firebrick}{\mathbf{A}} \Sigma \color{firebrick}{\mathbf{A}}^T 
+\end{split} \label{covident} 
+\end{equation}
+
+<br>
