@@ -236,3 +236,46 @@ $$
 \end{split} 
 \end{equation}
 $$
+
+<br>
+
+### **influence**
+
+<br>
+
+- 여기서 더 추가해야 할 것이 있습니다. 그것은 현재 시스템에 영향을 끼칠 수 있는 요소들 입니다.
+- 예를 들어 자동차나 로봇 같은 경우에 이동 중에 가속도가 붙고 있기 때문에 단순히 (현재 속도 x 이동 시간)만큼만 더 이동하지 않고 가속도 만큼 더 반영 되어 이동하게 됩니다.
+- 물론 속도 또한 가속도가 반영되어 변경되게 됩니다.
+- 물리 시간에 많이 사용하였듯이 가속도를 $$ a $$라고 한번 표현해 보겠습니다. 그러면 다음과 같이 표현할 수 있습니다.
+
+<br>
+
+$$
+
+\begin{split} 
+\color{deeppink}{p_k} &= \color{royalblue}{p_{k-1}} + {\Delta t} &\color{royalblue}{v_{k-1}} + &\frac{1}{2} \color{darkorange}{a} {\Delta t}^2 \\ 
+\color{deeppink}{v_k} &= &\color{royalblue}{v_{k-1}} + & \color{darkorange}{a} {\Delta t} 
+\end{split}
+
+$$
+
+<br>
+
+- 이것을 행렬 형태로 한번 나타내 보겠습니다.
+
+$$
+
+\begin{equation} 
+\begin{split} 
+\color{deeppink}{\mathbf{\hat{x}}_k} &= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}} + \begin{bmatrix} 
+\frac{\Delta t^2}{2} \\ 
+\Delta t 
+\end{bmatrix} \color{darkorange}{a} \\ 
+&= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}} + \mathbf{B}_k \color{darkorange}{\vec{\mathbf{u}_k}} 
+\end{split} 
+\end{equation}
+
+$$
+
+- 여기서 $$ B_{k} $$는 `control matrix`라고 하고 $$ \color{darkorange}{\vec{\mathbf{u}_k}} $$ 은 `control vector`라고 합니다.
+- 만약 다루고 있는 시스템이 간단하여 외부 영향이 없다면 이 부분을 생략해도 됩니다. 즉, 모델링에 따라 적용할 수 있고 적용 안할 수도 있습니다.
