@@ -20,6 +20,7 @@ tags: [리눅스 유틸리티] # add tag
 
 - ### vim
 - ### terminator
+- ### 나눔고딕코딩 폰트 설치
 
 <br>
 
@@ -45,3 +46,10 @@ tags: [리눅스 유틸리티] # add tag
     - ctrl + shift + w 닫기
     - ctrl + shift + q 종료
 
+<br>
+
+## **나눔고딕코딩 설치**
+
+<br>
+
+- `sudo apt install fonts-nanum-coding`
