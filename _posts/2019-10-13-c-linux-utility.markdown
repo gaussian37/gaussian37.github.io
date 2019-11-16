@@ -84,3 +84,22 @@ tags: [리눅스 유틸리티] # add tag
     - \[Byeoru\] convert Hangul to Chinese characters: "hangul-hanja"
     - \[Byeoru\] confirm conversion: "return"
     - \[Byeoru\] cancel conversion: "escape"
+
+- 마지막으로 다음과 같이 명령어를 터미널에서 입력합니다.
+
+<br>
+
+```
+// 오른쪽 Alt키의 기본 키 맵핑을 제거하고 'Hangul'키로 맵핑
+$ xmodmap -e 'remove mod1 = Alt_R'
+$ xmodmap -e 'keycode 108 = Hangul'
+
+// 오른쪽 Ctrl키의 기본 키 맵핑을 제거하고 'Hangul_Hanja'키로 맵핑
+$ xmodmap -e 'remove control = Control_R'
+$ xmodmap -e 'keycode 105 = Hangul_Hanja'
+
+// 키 맵핑 저장
+$ xmodmap -pke > ~/.Xmodmap
+```
+
+<br>
