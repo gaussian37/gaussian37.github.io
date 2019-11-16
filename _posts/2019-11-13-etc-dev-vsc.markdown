@@ -18,5 +18,5 @@ tags: [비주얼 스튜디오 코드 기능, visual studio code] # add tag
 - CTRL + shift + ` :  새 터미널 
 
 <br>
-<center><img src="../assets/img/ad/kalmanfilter/lkf_basic/06.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/lkf_basic/pr.jpg" alt="Drawing" style="width: 400px;"/></center>
 <br>
