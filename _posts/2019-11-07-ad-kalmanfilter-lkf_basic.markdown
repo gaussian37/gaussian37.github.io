@@ -253,7 +253,7 @@ $$
 
 <br>
 
-### **influence**
+### **external influence**
 
 <br>
 
@@ -300,7 +300,7 @@ $$
 
 <br>
 
-### **uncertainty**
+### **external uncertainty**
 
 <br>
 
@@ -325,7 +325,26 @@ $$
 <br>
 
 - 그러면 위 그림과 같이 `noise`가 추가된 prediction 영역을 구할 수 있습니다.
-- 
+- 이것을 식으로 표현할 때에는 공분산을 기존의 식에서 더해주면 됩니다. 따라서 다음과 같이 식이 변형됩니다.
 
+<br>
+
+$$
+\begin{equation} 
+\begin{split} 
+\color{deeppink}{\mathbf{\hat{x}}_k} &= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}} + \mathbf{B}_k \color{darkorange}{\vec{\mathbf{u}_k}} \\ 
+\color{deeppink}{\mathbf{P}_k} &= \mathbf{F_k} \color{royalblue}{\mathbf{P}_{k-1}} \mathbf{F}_k^T + \color{mediumaquamarine}{\mathbf{Q}_k} 
+\end{split} 
+\label{kalpredictfull} 
+\end{equation}
+$$
+
+<br>
+
+- 먼저 첫번째 식에 대해서 설명하겠습니다.
+    - 여기서 $$ \color{deeppink}{\mathbf{\hat{x}}_k} $$는 `새로운 최고의 estimate`이고 $$ \color{royalblue}{\mathbf{\hat{x}}_{k-1}} $$는 `이전의 최고의 estimate` 입니다.
+    - 여기에 $$ \color{darkorange}{\vec{\mathbf{u}_k}} $$ 라는 **알려져 있는** `Influence` 만큼 correction이 더해집니다.
+- 그 다음으로 두번째 식에 대해서 설명하겠습니다.
+    - 새로운 uncertainty인 $$ \color{deeppink}{\mathbf{P}_k} $$는 이전의 uncertainty인 $$ \color{royalblue}{\mathbf{P}_{k-1}} $$로 부터 도출되었고 거기에 외부로 부터의 $$ \color{mediumaquamarine}{\mathbf{Q}_k} $$ 
 
 
