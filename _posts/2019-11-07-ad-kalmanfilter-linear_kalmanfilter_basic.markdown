@@ -56,7 +56,7 @@ tags: [칼만 필터, kalman filter, 선형 칼만 필터] # add tag
 - 만약 이 로봇의 GPS 센서의 정확도가 약 10m라고 가정해 보겠습니다. 만약 이 GPS 센서만을 이용하여 이동을 한다면 정확하게 움직일 수 있을까요? 아마도 절벽에 떨어질 수도 있을 것입니다.
 
 <br>
-<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/robot_ohnoes.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/robot_ohnoes.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 따라서 GPS라는 센서만으로 위치를 파악하기에는 충분하지가 않습니다. 이것을 좀 더 개선을 해야하는데, 개선점을 `칼만 필터`를 통해서 찾아보겠습니다.
@@ -79,14 +79,14 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
 - 이 때, 위치와 속도를 정확하게 알아내기는 어렵습니다. 대신 실제 속도와 위치가 `어떤 범위`안에 속할 것이라는 것 정도는 예측할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/0.PNG" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/0.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 칼만 필터에서는 위치와 속도 두 변수를 랜덤 `가우시안 분포`로 가정합니다. 
 - 각 변수는 평균과 분산의 특성을 가지고 있습니다. 평균 $$ \mu $$는 랜덤 분포의 중심이 되고 분산 $$ \sigma^{2} $$은 불확실성(uncertainty)가 됩니다.
 
 <br>
-<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/1.PNG" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 그래프를 보면 가로축은 속도이고 세로 축은 위치 입니다.
@@ -97,7 +97,7 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
     - 즉, `uncorrelated` 하다고 말할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/2.PNG" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 반면에 위 예시는 좀 더 재밌는데요, 위치와 속도가 서로 상관관계를 가지는 것으로 보입니다. 즉, `correlated` 합니다.
@@ -111,7 +111,7 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
 - 불확실환 관측으로 부터 가능한한 더 많은 정보를 얻어내는 것이 우리의 목적입니다.
 
 <br>
-<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/3.PNG" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/3.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 이러한 상관관계는 `covariance matrix, 공분산`을 통하여 정의될 수 있습니다.
@@ -150,14 +150,14 @@ $$
 - 물론 여기에서는 간단하게 위치와 속도만 사용하고 있습니다. 하지만 어떤 상태를 모델링 하느냐에 따라서 어떤 변수가 추가될 지는 상황에 따라 다릅니다.
 
 <br>
-<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/4.PNG" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/4.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 현재 상태가 (k - 1) 번째 상태라고 가정하고 그 다음 상태인 k번째 상태를 예측해보려고 합니다.
 - 기억할 것은 우리는 어떤 상태가 `진짜`인지는 모르지만 예측 함수를 통하여 새로운 상태(k-1 → k)를 예측한다는 것입니다.
 
 <br>
-<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/5.PNG" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/5.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 이렇게 상태 예측을 하는 것을 보면 공간 상에서 상태를 변환하는 것 처럼 볼 수 있습니다.
@@ -223,7 +223,24 @@ $$
 
 <br>
 
-- 이 식에 대한 자세한 전개 내용은 다음과 같습니다. 단순히 계산적인 측면이니 스킵하셔도 무방합니다. 단 결과는 일단 숙지하고 적용해 보도록 하겠습니다.
+- 이 식에 대한 자세한 전개 내용은 다음과 같습니다. 단순히 계산적인 측면이니 스킵하셔도 무방합니다. 단 결과는 일단 숙지하고 적용해 보도록 하겠습니다. 
+- 그럼 여기서부터 식을 한번 전개해 보도록 하겠습니다.
+- 일반적으로 $$ {\rm COV}[x] $$은 $$ \mathbb{E}[(x - \mathbb{E}[x])(x - \mathbb{E}[x])^T] $$으로 정의됩니다. 
+- 만약 $$ x $$가 
+
+<br>
+
+$$
+\begin{align}{\rm COV}[A x] & = \mathbb{E}[(Ax - \mathbb{E}[Ax])(Ax - \mathbb{E}[Ax])^T] \\
+& = \mathbb{E}[(Ax - A\mathbb{E}[x])(Ax - A\mathbb{E}[x])^T ]\\
+& = \mathbb{E}[A(x - \mathbb{E}[x])(x - \mathbb{E}[x])^T A^T ] \\
+& = A \mathbb{E}[(x - \mathbb{E}[x])(x - \mathbb{E}[x])^T  ]A^T \\
+& = A {\rm COV}[x] A^T \\
+\end{align}
+%%
+
+<br>
+
 - 앞에서 설명한 다음 두 식을 조합해 보겠습니다.
 
 <br>
@@ -277,6 +294,8 @@ $$
 
 $$
 
+<br>
+
 - 여기서 $$ B_{k} $$는 `control matrix`라고 하고 $$ \color{darkorange}{\vec{\mathbf{u}_k}} $$ 은 `control vector`라고 합니다.
 - 만약 다루고 있는 시스템이 간단하여 외부 영향이 없다면 이 부분을 생략해도 됩니다. 즉, 모델링에 따라 적용할 수 있고 적용 안할 수도 있습니다.
 
@@ -294,7 +313,7 @@ $$
 - 정확하게 상태를 예측하기는 어렵더라고 이런 예외적인 상황을 모델링에 접목해 보기 위하여 매번의 prediction 때 마다 새로운 uncertainty를 추가해 보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/5.PNG" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/5.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 
