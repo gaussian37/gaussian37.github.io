@@ -21,6 +21,7 @@ tags: [리눅스 유틸리티] # add tag
 - ### vim
 - ### terminator
 - ### 나눔고딕코딩 폰트 설치
+- ### uim (한글 키보드 사용)
 
 <br>
 
@@ -53,3 +54,33 @@ tags: [리눅스 유틸리티] # add tag
 <br>
 
 - `sudo apt install fonts-nanum-coding`
+
+<br>
+
+## **uim (한글 키보드 사용)**
+
+<br>
+
+- 먼저 `uim`을 설치합니다.
+    - `sudo apt install uim`
+
+<br>
+
+- `Region & Language`에 들어가서 Input source에 English하나만 남기고 지웁니다. 
+    - 예를 들어 language는 영어, Format은 한국, Input source는 English(US)로 해놓으면 됩니다.
+
+<br>
+
+- `Language Support`에서 Keyboard input method가 IBus로 설정되어있을텐데, `uim`으로 바꿔줍니다.
+
+<br>
+
+- 다음으로 사용할 uim을 설정해보겠습니다. (한영전환 단축키와 한자 단축키)
+- `Input Method`를 실행하고 `Global settings 탭`에서 아래 부분을 `벼루` 또는 `Byeoru`로 남겨두고 나머지는 다 지웁니다.
+- `uim` 입력기는 한글 입력기로 `벼루` 또는 `Byeoru`입력기를 사용합니다.
+- 마지막으로 키 바인딩을 위하여 `Byeoru Key bindings 1 탭`에 들어가서 다음과 같이 세팅합니다.
+    - \[Byeoru\] on: "hangul"
+    - \[Byeoru\] off: "hangul"
+    - \[Byeoru\] convert Hangul to Chinese characters: "hangul-hanja"
+    - \[Byeoru\] confirm conversion: "return"
+    - \[Byeoru\] cancel conversion: "escape"

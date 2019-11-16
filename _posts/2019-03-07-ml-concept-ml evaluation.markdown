@@ -7,11 +7,19 @@ categories: [ml-concept]
 tags: [ml, machine learning, 평가 지표, evaluation] # add tag
 ---
 
+<br>
+
 이번 글에서는 머신러닝에서 사용되는 대표적인 평가 지표에 대하여 알아보도록 하겠습니다.
+
+<br>
 
 + 출처 : [다크프로그래머](https://darkpgmr.tistory.com/162)
 
-### Confusion Matrix (혼합 행렬)
+<br>
+
+## **Confusion Matrix (혼합 행렬)**
+
+<br>
 
 + 실제 라벨과 예측 라벨의 일치 갯수를 matrix로 표현하는 기법
 
