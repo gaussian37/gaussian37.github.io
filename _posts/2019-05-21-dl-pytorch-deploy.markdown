@@ -232,7 +232,7 @@ init_net, predict_net = Caffe2Backend.onnx_graph_to_caffe2_net(onnx_model)
 ```python
 with open('init_net.pb', "wb") as fopen: 
     fopen.write(init_net.SerializeToString())
-with open('predict_net.pb'，"wb") as fopen: 
+with open('predict_net.pb', "wb") as fopen: 
     fopen.write(predict_net.SerializeToString())
 ```
 
