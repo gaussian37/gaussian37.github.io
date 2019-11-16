@@ -319,3 +319,13 @@ $$
     - 또한 `gaussian`은 계산 하기에도 상당히 용이한 측면이 있습니다.
 - 그러면 $$ \color{royalblue}{\mathbf{\hat{x}}_{k}} $$는 $$ \color{royalblue}{\mathbf{\hat{x}}_{k-1}} $$ 에서 $$ \color{mediumaquamarine}{\mathbf{Q}_k} $$ 공분산을 가지는 `gaussian` 분포의 범위를 가지는 영역으로 이동했다고 정의할 수 있습니다.
 - 또는 공분산 $$ \color{mediumaquamarine}{\mathbf{Q}_k} $$ 만큼의 `노이즈`가 있는 영역으로 $$ \color{royalblue}{\mathbf{\hat{x}}_{k-1}} \to \color{royalblue}{\mathbf{\hat{x}}_{k}} $$가 이동했다고 보면 됩니다.
+
+<br>
+<center><img src="../assets/img/ad/kalmanfilter/lkf_concept/08.jpg" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 그러면 위 그림과 같이 `noise`가 추가된 prediction 영역을 구할 수 있습니다.
+- 
+
+
+
