@@ -143,7 +143,7 @@ torch.onnx.export(net, dummy_data, "output.onnx")
  
  <br>
 
- ### Caffe2에서 ONNX 모델 사용
+### Caffe2에서 ONNX 모델 사용
 
  <br>
 
