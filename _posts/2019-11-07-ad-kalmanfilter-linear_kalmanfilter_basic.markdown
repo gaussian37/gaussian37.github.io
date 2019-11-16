@@ -307,10 +307,15 @@ $$
 - 만약 시스템이 모델링한 대로 움직이지 않으면 어떻게 될까요?
 - 로봇의 경우에 갑자기 미끄러질수도 있고 드론의 경우 갑작스럽게 강한 바람에 맞닥뜨릴수도 있습니다.
 - 이런 경우에 우리는 정확하게 상태 추적을 하기 어렵습니다. 왜냐하면 이런 예외적인 상황 또는 외력에 대한 고려를 하지 않고 모델링 하였기 떄문입니다.
-- 정확하게 상태를 예측하기는 어렵더라고 이런 예외적인 상황을 모델링에 접목해 보기 위하여 매번의 prediction 때 마다 새로운 uncertainty를 추가해 보도록 하겠습니다.
+- 정확하게 이런 예외적인 상태를 예측하기는 어렵더라도 이런 상황을 모델링에 접목해 보기 위하여 매번의 prediction 때 마다 새로운 uncertainty를 추가해 보도록 하겠습니다.
 
 <br>
 <center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/06.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-
+- 매 상태에서 기존의 estimate는 이제 특정 estimate가 아니라 `범위를 가지는 estimate`가 됩니다.
+- 그러면 여기서 범위는 어떻게 될까요? uncertainty가 어떻게 발생할 지는 아무도 모릅니다. 이런 상황에서 우리는 `gaussian` 분포를 한번 사용해 보려고 합니다. 
+    - 왜냐하면 `gaussian`은 세상에서 발생하는 다양한 확률 분포에 대응될 수 있기 때문입니다. (**중심 극한 이론**)
+    - 또한 `gaussian`은 계산 하기에도 상당히 용이한 측면이 있습니다.
+- 그러면 $$ \color{royalblue}{\mathbf{\hat{x}}_{k}} $$는 $$ \color{royalblue}{\mathbf{\hat{x}}_{k-1}} $$ 에서 $$ \color{mediumaquamarine}{\mathbf{Q}_k} $$ 공분산을 가지는 `gaussian` 분포의 범위를 가지는 영역으로 이동했다고 정의할 수 있습니다.
+- 또는 공분산 $$ \color{mediumaquamarine}{\mathbf{Q}_k} $$ 만큼의 노이즈가 있는 영역으로 $$ \color{royalblue}{\mathbf{\hat{x}}_{k-1}} \to \color{royalblue}{\mathbf{\hat{x}}_{k}} $$가 이동했다고 보면 됩니다.
