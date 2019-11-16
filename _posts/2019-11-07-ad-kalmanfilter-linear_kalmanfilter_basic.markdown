@@ -226,18 +226,20 @@ $$
 - 이 식에 대한 자세한 전개 내용은 다음과 같습니다. 단순히 계산적인 측면이니 스킵하셔도 무방합니다. 단 결과는 일단 숙지하고 적용해 보도록 하겠습니다. 
 - 그럼 여기서부터 식을 한번 전개해 보도록 하겠습니다.
 - 일반적으로 $$ {\rm COV}[x] $$은 $$ \mathbb{E}[(x - \mathbb{E}[x])(x - \mathbb{E}[x])^T] $$으로 정의됩니다. 
-- 만약 $$ x $$가 
+- 이 식을 이용하여 $$ {\rm COV}[A x] $$을 전개하면 아래와 같습니다.
 
 <br>
 
 $$
+
 \begin{align}{\rm COV}[A x] & = \mathbb{E}[(Ax - \mathbb{E}[Ax])(Ax - \mathbb{E}[Ax])^T] \\
 & = \mathbb{E}[(Ax - A\mathbb{E}[x])(Ax - A\mathbb{E}[x])^T ]\\
 & = \mathbb{E}[A(x - \mathbb{E}[x])(x - \mathbb{E}[x])^T A^T ] \\
 & = A \mathbb{E}[(x - \mathbb{E}[x])(x - \mathbb{E}[x])^T  ]A^T \\
 & = A {\rm COV}[x] A^T \\
 \end{align}
-%%
+
+$$
 
 <br>
 
