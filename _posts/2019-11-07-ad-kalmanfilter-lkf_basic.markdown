@@ -343,8 +343,10 @@ $$
 
 - 먼저 첫번째 식에 대해서 설명하겠습니다.
     - 여기서 $$ \color{deeppink}{\mathbf{\hat{x}}_k} $$는 `새로운 최고의 estimate`이고 $$ \color{royalblue}{\mathbf{\hat{x}}_{k-1}} $$는 `이전의 최고의 estimate` 입니다.
-    - 여기에 $$ \color{darkorange}{\vec{\mathbf{u}_k}} $$ 라는 **알려져 있는** `Influence` 만큼 correction이 더해집니다.
+    - 여기에 $$ \color{darkorange}{\vec{\mathbf{u}_k}} $$ 라는 **알려져 있는** `external influence` 만큼 correction이 더해집니다.
 - 그 다음으로 두번째 식에 대해서 설명하겠습니다.
-    - 새로운 uncertainty인 $$ \color{deeppink}{\mathbf{P}_k} $$는 이전의 uncertainty인 $$ \color{royalblue}{\mathbf{P}_{k-1}} $$로 부터 도출되었고 거기에 외부로 부터의 $$ \color{mediumaquamarine}{\mathbf{Q}_k} $$ 
+    - 새로운 uncertainty인 $$ \color{deeppink}{\mathbf{P}_k} $$는 이전의 uncertainty인 $$ \color{royalblue}{\mathbf{P}_{k-1}} $$로 부터 도출되었고 거기에 외부로 부터의 uncertainty인 $$ \color{mediumaquamarine}{\mathbf{Q}_k} $$ 가 추가된 형태입니다.
+    - 즉, `uncertainty`가 시스템 내부에서도 존재하고 시스템 외부에서도 존재한다는 것을 기억해야 합니다.
+
 
 
