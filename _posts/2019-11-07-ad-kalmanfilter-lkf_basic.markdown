@@ -25,7 +25,7 @@ tags: [칼만 필터, kalman filter, 선형 칼만 필터] # add tag
 - ### 2. 칼만 필터로 무엇을 할 수 있을까?
 - ### 3. 어떻게 칼만필터가 문제를 다루는 지 살펴보자
 - ### 4. 행렬을 통하여 문제 다루어 보기
-- ### 5. measurement로 estimate 에 반영해 보기
+- ### 5. 측정값으로 추정치 조정
 - ### 6. gaussian 결합
 - ### 7. 앞에서 다룬 내용 종합
 
@@ -321,7 +321,7 @@ $$
 - 또는 공분산 $$ \color{mediumaquamarine}{\mathbf{Q}_k} $$ 만큼의 `노이즈`가 있는 영역으로 $$ \color{royalblue}{\mathbf{\hat{x}}_{k-1}} \to \color{royalblue}{\mathbf{\hat{x}}_{k}} $$가 이동했다고 보면 됩니다.
 
 <br>
-<center><img src="../assets/img/ad/kf/lkf_concept/08.jpg" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ad/kf/lkf_basic/08.jpg" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 그러면 위 그림과 같이 `noise`가 추가된 prediction 영역을 구할 수 있습니다.
@@ -350,9 +350,17 @@ $$
 
 <br>
 
-## **5. measurement로 estimate 에 반영해 보기**
+## **5. 측정값(measurement)으로 추정치(estimate) 조정**
 
 <br>
 
-- 
+- 시스템의 상태에 관하여 여러가지 정보를 주는 센서들이 여러개가 있습니다. 
+- 예를 들어 여러가지 센서 중 하나는 위치(position)을 읽을 것이고 또 다른 하나는 속도(velocity)를 읽을 것입니다.
+- 각각의 센서는 시스템의 상태에 관하여 알려줄 때, 그 센서 또한 상태 상에서 동작한다는 것을 전제로 삼고 그 상태 상에서 읽은 것을 알려주게 됩니다.
+
+<br>
+<center><img src="../assets/img/ad/kf/lkf_basic/09.jpg" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 속도와 위치에 관련하여 
 
