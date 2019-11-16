@@ -6,7 +6,7 @@
             </li>
 
             <li class="nav-item dropdown
-            {% if page.url == '/ad/concept/' or page.url == '/ad/kalmanfilter/' or page.url == '/ad/sdcc/' %} active {% endif %}">
+            {% if page.url == '/ad/concept/' or page.url == '/ad/kf/' or page.url == '/ad/sdcc/' %} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('ad-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -14,7 +14,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="ad-dropdown">
                     <a class="dropdown-item" href="{{ "/ad/concept" | prepend: site.baseurl }}">Concept</a>
-                    <a class="dropdown-item" href="{{ "/ad/kalmanfilter" | prepend: site.baseurl }}">Kalman filter</a>
+                    <a class="dropdown-item" href="{{ "/ad/kf" | prepend: site.baseurl }}">Kalman filter</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/ad/sdcc" | prepend: site.baseurl }}">Self-Driving Cars (Coursera)</a>
                 </div>

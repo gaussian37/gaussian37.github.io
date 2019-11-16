@@ -2,8 +2,8 @@
 layout: post
 title: 선형 칼만 필터
 date: 2019-11-07 00:00:00
-img: ad/kalmanfilter/kalman_filter.jpg
-categories: [ad-kalmanfilter] 
+img: ad/kf/kalman_filter.jpg
+categories: [ad-kf] 
 tags: [칼만 필터, kalman filter, 선형 칼만 필터] # add tag
 ---
 
@@ -348,5 +348,11 @@ $$
     - 새로운 uncertainty인 $$ \color{deeppink}{\mathbf{P}_k} $$는 이전의 uncertainty인 $$ \color{royalblue}{\mathbf{P}_{k-1}} $$로 부터 도출되었고 거기에 외부로 부터의 uncertainty인 $$ \color{mediumaquamarine}{\mathbf{Q}_k} $$ 가 추가된 형태입니다.
     - 즉, `uncertainty`가 시스템 내부에서도 존재하고 시스템 외부에서도 존재한다는 것을 기억해야 합니다.
 
+<br>
 
+## **5. measurement로 estimate 에 반영해 보기**
+
+<br>
+
+- 
 
