@@ -56,7 +56,7 @@ tags: [칼만 필터, kalman filter, 선형 칼만 필터] # add tag
 - 만약 이 로봇의 GPS 센서의 정확도가 약 10m라고 가정해 보겠습니다. 만약 이 GPS 센서만을 이용하여 이동을 한다면 정확하게 움직일 수 있을까요? 아마도 절벽에 떨어질 수도 있을 것입니다.
 
 <br>
-<center><img src="..\assets\img\ad\kalmanfilter\linear_kf_basic\robot_ohnoes.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ad/kalmanfilter/linear_kf_basic/robot_ohnoes.PNG" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 따라서 GPS라는 센서만으로 위치를 파악하기에는 충분하지가 않습니다. 이것을 좀 더 개선을 해야하는데, 개선점을 `칼만 필터`를 통해서 찾아보겠습니다.
