@@ -452,7 +452,9 @@ $$
 
 $$
 
-\label{gaussequiv} 
+\begin{equation} \label{gaussequiv} 
+\mathcal{N}(x, \color{fuchsia}{\mu_0}, \color{deeppink}{\sigma_0}) \cdot \mathcal{N}(x, \color{yellowgreen}{\mu_1}, \color{mediumaquamarine}{\sigma_1}) \stackrel{?}{=} \mathcal{N}(x, \color{royalblue}{\mu’}, \color{mediumblue}{\sigma’}) 
+\end{equation}
 
 $$
 
@@ -464,15 +466,17 @@ $$
 
 $$
 
-\label{gaussformula} 
+\begin{equation}
+\mathcal{N}(x, \mu,\sigma) = \frac{1}{ \sigma \sqrt{ 2\pi } } e^{ -\frac{ (x – \mu)^2 }{ 2\sigma^2 } } 
+\end{equation}
 
 $$
 
 <br>
 
 - 위 식을 각각의 분포에 대입하여 곱해주면 됩니다.
-- 계산 과정은 아래와 같습니다. 계산 과정이 상관이 없으면 아래 계산 결과로 바로 넘어가셔도 무방합니다.
-- 
+- 계산 과정은 다음 링크를 참조 하시기 바랍니다. 결과만 확인이 필요하시면 넘겨도 됩니다.
+- 간단하게 설명하면 `두 gaussian PDF의 곱은 gaussian PDF로 정리`되기 때문에 곱의 gaussian PDF를 알아보면 다음과
 
 <br>
 
