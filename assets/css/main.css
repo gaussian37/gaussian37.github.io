@@ -2,8 +2,8 @@
 /* Document
    ========================================================================== */
 @font-face {
- font-family:"NanumGothic";
- src: url('../fonts/NanumGothic.ttf');
+ font-family:"NanumGothicCoding";
+ src: url('../fonts/NanumGothicCoding.ttf');
 }
 
 /**
@@ -26,7 +26,7 @@ html {
  * Remove the margin in all browsers (opinionated).
  */
 body {
-  font-family: "NanumGothic"
+  font-family: "NanumGothicCoding"
   margin: 0;
   font-size: 1.3rem;
 }
@@ -91,7 +91,7 @@ hr {
  * 2. Correct the odd `em` font sizing in all browsers.
  */
 pre {
-  font-family: NanumGothic, NanumGothic;
+  font-family: NanumGothicCoding, NanumGothicCoding;
   /* 1 */
   font-size: 1.3em;
   /* 2 */
@@ -147,7 +147,7 @@ strong {
 code,
 kbd,
 samp {
-  font-family: NanumGothic, NanumGothic;
+  font-family: NanumGothicCoding, NanumGothicCoding;
   /* 1 */
   font-size: 1.3em;
   /* 2 */
@@ -780,7 +780,7 @@ html {
 }
 
 body {
-  font-family: 'NanumGothic', sans-serif;
+  font-family: 'NanumGothicCoding', sans-serif;
   font-size: 1.3rem;
   color: #515151;
   background-color: #fbfbfb;
@@ -892,7 +892,7 @@ table tfoot td {
 }
 
 .wrapper {
-  font-family:"NanumGothic";
+  font-family:"NanumGothicCoding";
   max-width: 1250px;
   position: relative;
 }
@@ -1174,7 +1174,7 @@ footer .copyright {
 }
 
 .post .post-content .post-title a {
-  font-family: 'NanumGothic', serif;
+  font-family: 'NanumGothicCoding', serif;
   text-decoration: none;
   color: #000000;
 }
