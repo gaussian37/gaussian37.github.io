@@ -9,6 +9,10 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 
 <br>
 
+- [가우시안 분포의 곱과 합성곱 연산](https://gaussian37.github.io/math-pb-product_convolution_gaussian_pdf/)
+
+<br>
+
 ## **베이지안 통계**
 
 <br>

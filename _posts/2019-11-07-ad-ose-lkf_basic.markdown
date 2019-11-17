@@ -475,7 +475,7 @@ $$
 <br>
 
 - 위 식을 각각의 분포에 대입하여 곱해주면 됩니다.
-- 계산 과정은 다음 링크를 참조 하시기 바랍니다. 결과만 확인이 필요하시면 넘겨도 됩니다.
+- 계산 과정은 다음 [링크](https://gaussian37.github.io/math-pb-product_convolution_gaussian_pdf/)를 참조 하시기 바랍니다. 결과만 확인이 필요하시면 넘겨도 됩니다.
 - 간단하게 설명하면 `두 gaussian PDF의 곱은 gaussian PDF로 정리`되기 때문에 곱의 gaussian PDF를 확인해 보면 다음과 같습니다.
 
 <br>
