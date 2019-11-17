@@ -460,9 +460,102 @@ $$
 
 <br>
 
-- 그러면 위 등식이 만족하도록 식을 전개해 보도록 하겠습니다.
+- 그러면 위 등식이 만족하도록 식을 전개해 보도록 하겠습니다. 전개 방법은 간단합니다. 
 
+<br>
 
+$$
 
+\begin{equation} \label{gaussformula} 
+\mathcal{N}(x, \mu,\sigma) = \frac{1}{ \sigma \sqrt{ 2\pi } } e^{ -\frac{ (x – \mu)^2 }{ 2\sigma^2 } } 
+\end{equation}
 
+$$
+
+<br>
+
+- 위 식을 각각의 분포에 대입하여 곱해주면 됩니다.
+- 계산 과정은 아래와 같습니다. 계산 과정이 상관이 없으면 아래 계산 결과로 바로 넘어가셔도 무방합니다.
+
+<br>
+
+$$
+
+\begin{equation} \label{fusionformula} 
+\begin{aligned} 
+\color{royalblue}{\mu’} &= \mu_0 + \frac{\sigma_0^2 (\mu_1 – \mu_0)} {\sigma_0^2 + \sigma_1^2}\\ 
+\color{mediumblue}{\sigma’}^2 &= \sigma_0^2 – \frac{\sigma_0^4} {\sigma_0^2 + \sigma_1^2} 
+\end{aligned} 
+\end{equation}
+
+$$
+
+<br>
+
+- 여기서 $$ \color{royalblue}{\mu’} $$와 $$ \color{mediumblue}{\sigma’}^2 $$의 식에 동시에 들어가 있는 부분을 따로 떼어 $$ k $$ 라고 지칭해 보겠습니다.
+
+<br>
+
+$$
+
+\begin{equation} \label{gainformula} 
+\color{purple}{\mathbf{k}} = \frac{\sigma_0^2}{\sigma_0^2 + \sigma_1^2} 
+\end{equation}
+
+$$
+
+<br>
+
+- 그러면 식을 다음과 같이 고쳐 쓸 수 있습니다.
+
+<br>
+
+$$
+
+\begin{equation} 
+\begin{split} 
+\color{royalblue}{\mu’} &= \mu_0 + &\color{purple}{\mathbf{k}} (\mu_1 – \mu_0)\\ 
+\color{mediumblue}{\sigma’}^2 &= \sigma_0^2 – &\color{purple}{\mathbf{k}} \sigma_0^2 
+\end{split} \label{update} 
+\end{equation}
+
+$$
+
+<br>
+
+- 이 계산 결과가 1차원 gaussian 분포의 결합에 대한 식입니다. 그러면 2차원 matrix의 경우에는 어떻게 확장할 수 있을까요?
+- 먼저 2차원 gaussian 분포에서 $$ \Sigma $$는 `공분산`을 나타냅니다. 1차원에서는 $$ \sigma^{2} $$이 분산이었었지요. 그리고 2차원 gaussian 분포에서의 평균은 $$ \vec{\mu} $$로 표현되므로 다음과 같습니다.
+
+<br>
+
+$$ 
+
+\begin{equation} \label{matrixgain} 
+\color{purple}{\mathbf{K}} = \Sigma_0 (\Sigma_0 + \Sigma_1)^{-1} 
+\end{equation}
+
+$$
+
+<br>
+
+$$ 
+
+\begin{equation} 
+\begin{split} 
+\color{royalblue}{\vec{\mu}’} &= \vec{\mu_0} + &\color{purple}{\mathbf{K}} (\vec{\mu_1} – \vec{\mu_0})\\ 
+\color{mediumblue}{\Sigma’} &= \Sigma_0 – &\color{purple}{\mathbf{K}} \Sigma_0 
+\end{split} \label{matrixupdate} 
+\end{equation}
+
+$$
+
+<br>
+
+- 여기서 $$ \color{purple}{\mathbf{K}} $$ 행렬은 **Kalman gain**에 해당합니다. 
+
+<br>
+
+## **7. 앞에서 다룬 내용 종합**
+
+<br>
 
