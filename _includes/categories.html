@@ -6,17 +6,17 @@
             </li>
 
             <li class="nav-item dropdown
-            {% if page.url == '/ad/concept/' or page.url == '/ad/kf/' or page.url == '/ad/sdcc/' %} active {% endif %}">
-                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('ad-dropdown')"
+            {% if page.url == '/autodrive/concept/' or page.url == '/autodrive/ose/' or page.url == '/autodrive/sdcc/' %} active {% endif %}">
+                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('autodrive-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     Autonomous Driving
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="ad-dropdown">
-                    <a class="dropdown-item" href="{{ "/ad/concept" | prepend: site.baseurl }}">Concept</a>
-                    <a class="dropdown-item" href="{{ "/ad/kf" | prepend: site.baseurl }}">Kalman filter</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="autodrive-dropdown">
+                    <a class="dropdown-item" href="{{ "/autodrive/concept" | prepend: site.baseurl }}">Concept</a>
+                    <a class="dropdown-item" href="{{ "/autodrive/kf" | prepend: site.baseurl }}">Optimal State Estimation</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ "/ad/sdcc" | prepend: site.baseurl }}">Self-Driving Cars (Coursera)</a>
+                    <a class="dropdown-item" href="{{ "/autodrive/sdcc" | prepend: site.baseurl }}">Self-Driving Cars (Coursera)</a>
                 </div>
             </li>
 
