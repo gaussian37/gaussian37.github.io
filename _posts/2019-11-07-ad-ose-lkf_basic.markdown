@@ -359,7 +359,7 @@ $$
 - 각각의 센서는 시스템의 상태에 관하여 알려줄 때, 그 센서 또한 상태 상에서 동작한다는 것을 전제로 삼고 그 상태 상에서 읽은 것을 알려주게 됩니다.
 
 <br>
-<center><img src="../assets/img/autodrive/ose/lkf_basic/09.jpg" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/09.jpg" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그림과 같이 속도와 위치에 관련하여 
