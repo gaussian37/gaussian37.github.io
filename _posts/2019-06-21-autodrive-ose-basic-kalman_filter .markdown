@@ -1,9 +1,9 @@
 ---
 layout: post
-title: 칼만 필터 기초
+title: (칼만필터는 어렵지 않아) 칼만 필터 기초
 date: 2019-06-23 00:00:00
-img: ad/kalmanfilter/kf.PNG
-categories: [ad-kalmanfilter] 
+img: autodrive/ose/kalman_filter.jpg
+categories: [autodrive-ose] 
 tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 ---
 
@@ -16,9 +16,7 @@ tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 - 이번 글의 목적은 아래 플로우 전체를 이해하기 위한 것이니 천천히 따라가시면 이해가 될 거라고 생각됩니다.
 
 <br>
-
-<center><img src="../assets/img/ad/kalmanfilter/basic/kalman.png" alt="Drawing" style="width: 800px;"/></center>
-
+<center><img src="../assets/img/autodrive/ose/basic/kalman.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 다이어그램을 보면 수식은 조금 어려워 보일 수 있으나 간단히 설명하면 1단계에서 4단계까지 순서대로 수행한다고 생각하시면 됩니다.

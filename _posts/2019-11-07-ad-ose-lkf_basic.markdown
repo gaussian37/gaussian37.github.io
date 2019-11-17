@@ -362,6 +362,60 @@ $$
 <center><img src="../assets/img/autodrive/ose/lkf_basic/09.jpg" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 위 그림과 같이 속도와 위치에 관련하여 
+- 위 그래프의 왼쪽은 앞에서 계산한 속도와 위치 관계에 대한 `prediction` 입니다.
+- 반면 오른쪽 그래프는 실제 `센서`를 통하여 읽어들인 속도와 위치 관계 입니다.
+- `prediction`도 실제 정확한 값이라고 할 수 없지만 센서를 통해 읽어들인 값도 항상 정확한 값이라고 할 수 없습니다. 센서에도 노이즈가 있으니까요.
+- 아무튼 여기에서 보면 `prediction`과 `센서`값 간의 unit이나 scale의 차이가 있을 수 있으니 이것을 변환해 주는 작업이 필요해 보입니다. `prediction`을 `센서`로 변환하기 위한 행렬로 $$ \mathbf{H}_k $$를 사용해보겠습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/10.jpg" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 그러면 위 그림과 같이 $$ \mathbf{H}_k $$을 통하여 변환을 하였습니다.
+
+<br>
+
+$$ 
+
+\begin{equation} 
+\begin{aligned} 
+\vec{\mu}_{\text{expected}} &= \mathbf{H}_k \color{deeppink}{\mathbf{\hat{x}}_k} \\ 
+\mathbf{\Sigma}_{\text{expected}} &= \mathbf{H}_k \color{deeppink}{\mathbf{P}_k} \mathbf{H}_k^T 
+\end{aligned} 
+\end{equation}
+
+$$ 
+
+<br>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/11.jpg" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 그리고 앞에서 부터 계속 고려해 왔던 것이 `노이즈`입니다. 센서를 통해서 읽은 것을 항상 신뢰할 수는 없기 때문이지요.
+- 칼만 필터는 센서의 노이즈를 다루는 데 장점이 있습니다. 즉, 기존의 estimate를 특정 센서값으로 변환하는 것이 아닌 센서값의 `범위`로 변환하는 것입니다. 앞에서 계속 다루었던 내용의 연장입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/12.jpg" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림과 같이 실제 센서가 읽어야 할 값이 있는데, 노이즈로 인하여 센서가 읽은 값이 분포 형태로 나타날 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/13.jpg" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 자 그러면 앞에서 다룬 것 까지 포함하여 2가지 분포를 가지게 됩니다.
+- 첫번째는 transformed prediction 에 관련된 것 (평균이 $$ \vec{\mu}_{\text{expected}} &= \mathbf{H}_k \color{deeppink}{\mathbf{\hat{x}}_k} $$인 분포)으로 분홍색 분포에 해당합니다.
+- 두번쨰는 센서값에 관련된 것 (평균이 $$ \color{yellowgreen}{\vec{\mathbf{z}_k}} $$인 분포)으로 연두색 분포에 해당합니다.
+- 여기서 어떤 분포를 따르는 것이 합당할까요? 두 분포 모두 타당성을 가지고 있기 때문에 두 분포 중 한개를 선택하기 보다는 두 분포를 조정하여 좋은 분포를 사용하는 것이 가장 합당해 보이므로 두 분포가 모두 True 라고 생각되는 교집합 영역의 분포를 따르도록 해보겠습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/14.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 두 분포가 오버랩 된 영역이 각각의 분포에 대한 estimation 보다 더 정확한 분포이므로 이 오버랩 된 영역을 기준으로 `평균`과 `분산`을 구해보도록 하겠습니다.
+
+
+
+
 
 
