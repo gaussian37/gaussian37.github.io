@@ -414,6 +414,53 @@ $$
 
 - 두 분포가 오버랩 된 영역이 각각의 분포에 대한 estimation 보다 더 정확한 분포이므로 이 오버랩 된 영역을 기준으로 `평균`과 `분산`을 구해보도록 하겠습니다.
 
+<br>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/15.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 오버랩된 영역의 평균과 분산을 구하려면 각각의 gaussian 분포의 곱을 통하여 구할 수 있습니다. 
+- 그러면 오버랩된 영역의 gaussian 분포를 구해보도록 하겠습니다.
+
+
+## **6. gaussian 결합**
+
+<br>
+
+- 먼저 가장 간단한 1차원 가우시안 분포에 대한 식을 살펴보도록 하겠습니다. 
+
+<br>
+
+$$
+
+\begin{equation} \label{gaussformula} 
+\mathcal{N}(x, \mu,\sigma) = \frac{1}{ \sigma \sqrt{ 2\pi } } e^{ -\frac{ (x – \mu)^2 }{ 2\sigma^2 } } 
+\end{equation}
+
+$$
+
+<br>
+
+- 여기서 우리가 알고 싶은 것은 두 개의 gaussian 분포를 곱하면 어떻게 되는지 입니다. 
+
+<br>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/16.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 곡선 중에서 **nomalize 되지 않은** 파란색 곡선은 분홍색과 연두색 두 gaussian 분포의 교집합에 해당합니다. 
+
+<br>
+
+$$
+
+\begin{equation} \label{gaussequiv} 
+\mathcal{N}(x, \color{fuchsia}{\mu_0}, \color{deeppink}{\sigma_0}) \cdot \mathcal{N}(x, \color{yellowgreen}{\mu_1}, \color{mediumaquamarine}{\sigma_1}) \stackrel{?}{=} \mathcal{N}(x, \color{royalblue}{\mu’}, \color{mediumblue}{\sigma’}) 
+\end{equation}
+
+$$
+
+<br>
+
+- 그러면 위 등식이 만족하도록 식을 전개해 보도록 하겠습니다.
 
 
 
