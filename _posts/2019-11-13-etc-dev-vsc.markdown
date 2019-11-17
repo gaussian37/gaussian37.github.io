@@ -16,3 +16,6 @@ tags: [비주얼 스튜디오 코드 기능, visual studio code] # add tag
 - ALT + shift + drag : 마우스 커서가 블록을 씌우는 곳에 모두 커서가 생깁니다. 
 - CTRL + ` : 터미널 띄우기 숨기기
 - CTRL + shift + ` :  새 터미널 
+- CTRL + shift + k : 행 삭제
+- CTRL + x : 행 잘라내기
+- CTRL + c : 행 복사하기

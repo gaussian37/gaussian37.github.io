@@ -2,8 +2,8 @@
 layout: post
 title: 선형 칼만 필터
 date: 2019-11-07 00:00:00
-img: ad/kf/kalman_filter.jpg
-categories: [ad-kf] 
+img: autodrive/ose/kalman_filter.jpg
+categories: [autodrive-ose] 
 tags: [칼만 필터, kalman filter, 선형 칼만 필터] # add tag
 ---
 
@@ -74,14 +74,14 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
 - 이 때, 위치와 속도를 정확하게 알아내기는 어렵습니다. 대신 실제 속도와 위치가 `어떤 범위`안에 속할 것이라는 것 정도는 예측할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/ad/kf/lkf_basic/00.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/00.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 칼만 필터에서는 위치와 속도 두 변수를 랜덤 `가우시안 분포`로 가정합니다. 
 - 각 변수는 평균과 분산의 특성을 가지고 있습니다. 평균 $$ \mu $$는 랜덤 분포의 중심이 되고 분산 $$ \sigma^{2} $$은 불확실성(uncertainty)가 됩니다.
 
 <br>
-<center><img src="../assets/img/ad/kf/lkf_basic/01.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/01.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 그래프를 보면 가로축은 속도이고 세로 축은 위치 입니다.
@@ -92,7 +92,7 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
     - 즉, `uncorrelated` 하다고 말할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/ad/kf/lkf_basic/02.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/02.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 반면에 위 예시는 좀 더 재밌는데요, 위치와 속도가 서로 상관관계를 가지는 것으로 보입니다. 즉, `correlated` 합니다.
@@ -106,7 +106,7 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
 - 불확실환 관측으로 부터 가능한한 더 많은 정보를 얻어내는 것이 우리의 목적입니다.
 
 <br>
-<center><img src="../assets/img/ad/kf/lkf_basic/03.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/03.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 이러한 상관관계는 `covariance matrix, 공분산`을 통하여 정의될 수 있습니다.
@@ -145,14 +145,14 @@ $$
 - 물론 여기에서는 간단하게 위치와 속도만 사용하고 있습니다. 하지만 어떤 상태를 모델링 하느냐에 따라서 어떤 변수가 추가될 지는 상황에 따라 다릅니다.
 
 <br>
-<center><img src="../assets/img/ad/kf/lkf_basic/04.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/04.jpg" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 현재 상태가 (k - 1) 번째 상태라고 가정하고 그 다음 상태인 k번째 상태를 예측해보려고 합니다.
 - 기억할 것은 우리는 어떤 상태가 `진짜`인지는 모르지만 예측 함수를 통하여 새로운 상태(k-1 → k)를 예측한다는 것입니다.
 
 <br>
-<center><img src="../assets/img/ad/kf/lkf_basic/05.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/05.jpg" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 이렇게 상태 예측을 하는 것을 보면 공간 상에서 상태를 변환하는 것 처럼 볼 수 있습니다.
@@ -310,7 +310,7 @@ $$
 - 정확하게 이런 예외적인 상태를 예측하기는 어렵더라도 이런 상황을 모델링에 접목해 보기 위하여 매번의 prediction 때 마다 새로운 uncertainty를 추가해 보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/ad/kf/lkf_basic/06.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/06.jpg" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 매 상태에서 기존의 estimate는 이제 특정 estimate가 아니라 `범위를 가지는 estimate`가 됩니다.
@@ -321,7 +321,7 @@ $$
 - 또는 공분산 $$ \color{mediumaquamarine}{\mathbf{Q}_k} $$ 만큼의 `노이즈`가 있는 영역으로 $$ \color{royalblue}{\mathbf{\hat{x}}_{k-1}} \to \color{royalblue}{\mathbf{\hat{x}}_{k}} $$가 이동했다고 보면 됩니다.
 
 <br>
-<center><img src="../assets/img/ad/kf/lkf_basic/08.jpg" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/08.jpg" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 그러면 위 그림과 같이 `noise`가 추가된 prediction 영역을 구할 수 있습니다.
@@ -359,7 +359,7 @@ $$
 - 각각의 센서는 시스템의 상태에 관하여 알려줄 때, 그 센서 또한 상태 상에서 동작한다는 것을 전제로 삼고 그 상태 상에서 읽은 것을 알려주게 됩니다.
 
 <br>
-<center><img src="../assets/img/ad/kf/lkf_basic/09.jpg" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/09.jpg" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 그림과 같이 속도와 위치에 관련하여 
