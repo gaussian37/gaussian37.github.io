@@ -404,7 +404,7 @@ $$
 <br>
 
 - 자 그러면 앞에서 다룬 것 까지 포함하여 2가지 분포를 가지게 됩니다.
-- 첫번째는 transformed prediction 에 관련된 것 (평균이 $$ \vec{\mu}_{\text{expected}} &= \mathbf{H}_k \color{deeppink}{\mathbf{\hat{x}}_k} $$인 분포)으로 분홍색 분포에 해당합니다.
+- 첫번째는 transformed prediction 에 관련된 것 (평균이 $$ \vec{\mu}_{\text{expected}} = \mathbf{H}_k \color{deeppink}{\mathbf{\hat{x}}_k} $$ 인 분포)으로 분홍색 분포에 해당합니다.
 - 두번쨰는 센서값에 관련된 것 (평균이 $$ \color{yellowgreen}{\vec{\mathbf{z}_k}} $$인 분포)으로 연두색 분포에 해당합니다.
 - 여기서 어떤 분포를 따르는 것이 합당할까요? 두 분포 모두 타당성을 가지고 있기 때문에 두 분포 중 한개를 선택하기 보다는 두 분포를 조정하여 좋은 분포를 사용하는 것이 가장 합당해 보이므로 두 분포가 모두 True 라고 생각되는 교집합 영역의 분포를 따르도록 해보겠습니다.
 
