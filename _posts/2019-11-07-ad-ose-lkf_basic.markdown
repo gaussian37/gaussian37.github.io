@@ -452,9 +452,7 @@ $$
 
 $$
 
-\begin{equation} \label{gaussequiv} 
-\mathcal{N}(x, \color{fuchsia}{\mu_0}, \color{deeppink}{\sigma_0}) \cdot \mathcal{N}(x, \color{yellowgreen}{\mu_1}, \color{mediumaquamarine}{\sigma_1}) \stackrel{?}{=} \mathcal{N}(x, \color{royalblue}{\mu’}, \color{mediumblue}{\sigma’}) 
-\end{equation}
+\label{gaussequiv} 
 
 $$
 
@@ -476,6 +474,7 @@ $$
 
 - 위 식을 각각의 분포에 대입하여 곱해주면 됩니다.
 - 계산 과정은 아래와 같습니다. 계산 과정이 상관이 없으면 아래 계산 결과로 바로 넘어가셔도 무방합니다.
+- 
 
 <br>
 
