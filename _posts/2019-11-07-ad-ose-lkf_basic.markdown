@@ -26,7 +26,7 @@ tags: [칼만 필터, kalman filter, 선형 칼만 필터] # add tag
 - ### 3. 어떻게 칼만필터가 문제를 다루는 지 살펴보자
 - ### 4. 행렬을 통하여 문제 다루어 보기
 - ### 5. 측정값으로 추정치 조정
-- ### 6. gaussian 결합
+- ### 6. 가우시안 결합
 - ### 7. 앞에서 다룬 내용 종합
 
 <br>
@@ -314,10 +314,10 @@ $$
 <br>
 
 - 매 상태에서 기존의 estimate는 이제 특정 estimate가 아니라 `범위를 가지는 estimate`가 됩니다.
-- 그러면 여기서 범위는 어떻게 될까요? uncertainty가 어떻게 발생할 지는 아무도 모릅니다. 이런 상황에서 우리는 `gaussian` 분포를 한번 사용해 보려고 합니다. 
-    - 왜냐하면 `gaussian`은 세상에서 발생하는 다양한 확률 분포에 대응될 수 있기 때문입니다. (**중심 극한 이론**)
-    - 또한 `gaussian`은 계산 하기에도 상당히 용이한 측면이 있습니다.
-- 그러면 $$ \color{royalblue}{\mathbf{\hat{x}}_{k}} $$는 $$ \color{royalblue}{\mathbf{\hat{x}}_{k-1}} $$ 에서 $$ \color{mediumaquamarine}{\mathbf{Q}_k} $$ 공분산을 가지는 `gaussian` 분포의 범위를 가지는 영역으로 이동했다고 정의할 수 있습니다.
+- 그러면 여기서 범위는 어떻게 될까요? uncertainty가 어떻게 발생할 지는 아무도 모릅니다. 이런 상황에서 우리는 `가우시안` 분포를 한번 사용해 보려고 합니다. 
+    - 왜냐하면 `가우시안`은 세상에서 발생하는 다양한 확률 분포에 대응될 수 있기 때문입니다. (**중심 극한 이론**)
+    - 또한 `가우시안`은 계산 하기에도 상당히 용이한 측면이 있습니다.
+- 그러면 $$ \color{royalblue}{\mathbf{\hat{x}}_{k}} $$는 $$ \color{royalblue}{\mathbf{\hat{x}}_{k-1}} $$ 에서 $$ \color{mediumaquamarine}{\mathbf{Q}_k} $$ 공분산을 가지는 `가우시안` 분포의 범위를 가지는 영역으로 이동했다고 정의할 수 있습니다.
 - 또는 공분산 $$ \color{mediumaquamarine}{\mathbf{Q}_k} $$ 만큼의 `노이즈`가 있는 영역으로 $$ \color{royalblue}{\mathbf{\hat{x}}_{k-1}} \to \color{royalblue}{\mathbf{\hat{x}}_{k}} $$가 이동했다고 보면 됩니다.
 
 <br>
@@ -418,11 +418,11 @@ $$
 <center><img src="../assets/img/autodrive/ose/lkf_basic/15.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 오버랩된 영역의 평균과 분산을 구하려면 각각의 gaussian 분포의 곱을 통하여 구할 수 있습니다. 
-- 그러면 오버랩된 영역의 gaussian 분포를 구해보도록 하겠습니다.
+- 오버랩된 영역의 평균과 분산을 구하려면 각각의 가우시안 분포의 곱을 통하여 구할 수 있습니다. 
+- 그러면 오버랩된 영역의 가우시안 분포를 구해보도록 하겠습니다.
 
 
-## **6. gaussian 결합**
+## **6. 가우시안 결합**
 
 <br>
 
@@ -440,13 +440,13 @@ $$
 
 <br>
 
-- 여기서 우리가 알고 싶은 것은 두 개의 gaussian 분포를 곱하면 어떻게 되는지 입니다. 
+- 여기서 우리가 알고 싶은 것은 두 개의 가우시안 분포를 곱하면 어떻게 되는지 입니다. 
 
 <br>
 <center><img src="../assets/img/autodrive/ose/lkf_basic/16.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 위 곡선 중에서 **nomalize 되지 않은** 파란색 곡선은 분홍색과 연두색 두 gaussian 분포의 교집합에 해당합니다. 
+- 위 곡선 중에서 **nomalize 되지 않은** 파란색 곡선은 분홍색과 연두색 두 가우시안 분포의 교집합에 해당합니다. 
 
 <br>
 
@@ -476,7 +476,7 @@ $$
 
 - 위 식을 각각의 분포에 대입하여 곱해주면 됩니다.
 - 계산 과정은 다음 [링크](https://gaussian37.github.io/math-pb-product_convolution_gaussian_pdf/)를 참조 하시기 바랍니다. 결과만 확인이 필요하시면 넘겨도 됩니다.
-- 간단하게 설명하면 `두 gaussian PDF의 곱은 gaussian PDF로 정리`되기 때문에 곱의 gaussian PDF를 확인해 보면 다음과 같습니다.
+- 간단하게 설명하면 `두 가우시안 PDF의 곱은 가우시안 PDF로 정리`되기 때문에 곱의 가우시안 PDF를 확인해 보면 다음과 같습니다.
 
 <br>
 
@@ -524,8 +524,8 @@ $$
 
 <br>
 
-- 이 계산 결과가 1차원 gaussian 분포의 결합에 대한 식입니다. 그러면 2차원 matrix의 경우에는 어떻게 확장할 수 있을까요?
-- 먼저 2차원 gaussian 분포에서 $$ \Sigma $$는 `공분산`을 나타냅니다. 1차원에서는 $$ \sigma^{2} $$이 분산이었었지요. 그리고 2차원 gaussian 분포에서의 평균은 $$ \vec{\mu} $$로 표현되므로 다음과 같습니다.
+- 이 계산 결과가 1차원 가우시안 분포의 결합에 대한 식입니다. 그러면 2차원 matrix의 경우에는 어떻게 확장할 수 있을까요?
+- 먼저 2차원 가우시안 분포에서 $$ \Sigma $$는 `공분산`을 나타냅니다. 1차원에서는 $$ \sigma^{2} $$이 분산이었었지요. 그리고 2차원 가우시안 분포에서의 평균은 $$ \vec{\mu} $$로 표현되므로 다음과 같습니다.
 
 <br>
 
@@ -559,4 +559,124 @@ $$
 ## **7. 앞에서 다룬 내용 종합**
 
 <br>
+
+- 여기 까지 계산한 분포는 크게 2가지가 있었습니다.
+- 먼저 `prediction` 또는 `predicted measurement` 입니다.
+
+<br>
+
+$$
+
+(\color{fuchsia}{\mu_0}, \color{deeppink}{\Sigma_0}) = (\color{fuchsia}{\mathbf{H}_k \mathbf{\hat{x}}_k}, \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T})
+
+$$
+
+<br>
+
+- 그 다음으로 `센서값` 또는 `observed measurement`입니다.
+
+<br>
+
+$$
+
+(\color{yellowgreen}{\mu_1}, \color{mediumaquamarine}{\Sigma_1}) = (\color{yellowgreen}{\vec{\mathbf{z}_k}}, \color{mediumaquamarine}{\mathbf{R}_k})
+
+$$ 
+
+<br>
+
+- 그러면 앞에서 구한 두 가우시안 결합의 평균과 분산 식 (아래)에 
+
+<br>
+
+$$ 
+
+\begin{equation} 
+\begin{split} 
+\color{royalblue}{\vec{\mu}’} &= \vec{\mu_0} + &\color{purple}{\mathbf{K}} (\vec{\mu_1} – \vec{\mu_0})\\ 
+\color{mediumblue}{\Sigma’} &= \Sigma_0 – &\color{purple}{\mathbf{K}} \Sigma_0 
+\end{split} \label{matrixupdate} 
+\end{equation}
+
+$$
+
+<br>
+
+- `predicted measurement`와 `observed measurement`를 대입해 보겠습니다. 그러면 결과는 아래와 같습니다.
+
+<br>
+
+$$
+
+\begin{equation} 
+\begin{aligned} 
+\mathbf{H}_k \color{royalblue}{\mathbf{\hat{x}}_k’} &= \color{fuchsia}{\mathbf{H}_k \mathbf{\hat{x}}_k} & + & \color{purple}{\mathbf{K}} ( \color{yellowgreen}{\vec{\mathbf{z}_k}} – \color{fuchsia}{\mathbf{H}_k \mathbf{\hat{x}}_k} ) \\ 
+\mathbf{H}_k \color{royalblue}{\mathbf{P}_k’} \mathbf{H}_k^T &= \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} & – & \color{purple}{\mathbf{K}} \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} 
+\end{aligned} \label {kalunsimplified} 
+\end{equation}
+
+$$
+
+<br>
+
+- 앞에서 **Kalman gain**에 대한 정의를
+
+<br>
+
+$$
+
+\begin{equation} \label{matrixgain} 
+\color{purple}{\mathbf{K}} = \Sigma_0 (\Sigma_0 + \Sigma_1)^{-1} 
+\end{equation}
+
+$$
+
+<br>
+
+- 위와 같이 하였기 때문에, 차례대로 `predicted measurement`의 공분산 값을 대입하면 다음과 같습니다.
+
+<br>
+
+$$
+
+\begin{equation} \label{eq:kalgainunsimplified} 
+\color{purple}{\mathbf{K}} = \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} ( \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} + \color{mediumaquamarine}{\mathbf{R}_k})^{-1} 
+\end{equation}
+
+$$
+
+- 여기서 도출한 식들($$ \mathbf{H}_k \color{royalblue}{\mathbf{\hat{x}}_k’}, \mathbf{H}_k \color{royalblue}{\mathbf{P}_k’} \mathbf{H}_k^T, \color{purple}{\mathbf{K}} $$)을 보면 모두 양변에 $$  \mathbf{H}_k $$가 앞쪽에 있습니다. 양변에서 소거해 보겠습니다.
+- 그리고 소거하고 난 $$ \color{royalblue}{\mathbf{P}_k’} \mathbf{H}_k^T $$식에서 양변을 보면 뒤쪽에 모두 $$ \mathbf{H}_k^T $$가 있으니 양변에서 소거해 보겠습니다.
+
+<br>
+
+$$
+
+\begin{equation} 
+\begin{split} 
+\color{royalblue}{\mathbf{\hat{x}}_k’} &= \color{fuchsia}{\mathbf{\hat{x}}_k} & + & \color{purple}{\mathbf{K}’} ( \color{yellowgreen}{\vec{\mathbf{z}_k}} – \color{fuchsia}{\mathbf{H}_k \mathbf{\hat{x}}_k} ) \\ 
+\color{royalblue}{\mathbf{P}_k’} &= \color{deeppink}{\mathbf{P}_k} & – & \color{purple}{\mathbf{K}’} \color{deeppink}{\mathbf{H}_k \mathbf{P}_k} 
+\end{split} 
+\label{kalupdatefull} 
+\end{equation}
+
+$$
+
+$$
+
+\begin{equation} 
+\color{purple}{\mathbf{K}’} = \color{deeppink}{\mathbf{P}_k \mathbf{H}_k^T} ( \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} + \color{mediumaquamarine}{\mathbf{R}_k})^{-1} 
+\label{kalgainfull} 
+\end{equation}
+
+$$
+
+<br>
+
+- 위 식이 바로 칼만 필터의 **update step**에 해당합니다.
+- 여기서 $$ \color{royalblue}{\mathbf{\hat{x}}_k’} $$가 새로운 최적의 estimate가 됩니다.
+
+
+
+
 
