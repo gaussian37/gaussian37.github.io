@@ -99,7 +99,7 @@ while (1):
     # 만약 line은 있으나 개행문자가 없으면 valid > 0
     # 만약 line이 있고 개행문자도 있으면 valid > 0
     # 따라서 valid > 0 경우만 parsing 실행
-    if valid
+    if valid:
         # parsing 구분자로 parsing 처리
         line_to_list = line.split(' ')       
 
@@ -108,7 +108,7 @@ while (1):
         ############## 코드 ##############
     else:
         break
-file.close()
+file_read.close()
 ```
 
 <br>
