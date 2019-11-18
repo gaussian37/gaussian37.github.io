@@ -24,12 +24,12 @@ tags: [C] # add tag
 ```cpp
 #include <stdio.h>
 
- #define GET_VARIABLE_NAME(varName,holder) sprintf(holder, "%s", #varName)
+ #define GET_VARIABLE_NAME(variable, holder) sprintf(holder, "%s", #variable)
 
 int main() {
     char variable_name[100]; // 출력할 변수명을 저장할 문자열
     GET_VARIABLE_NAME(print_this_variable, variable_name);
-    puts(variable_name);
+    puts(variable_name); // print_this_variable이 출력됩니다.
     return 0;
 }
 ```
