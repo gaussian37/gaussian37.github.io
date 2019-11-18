@@ -156,7 +156,21 @@ tags: [deep learning, squeezenet, 스퀴즈넷] # add tag
 
 - 예를 들어 위와 같이 인풋이 128 채널이 들어오면 1x1을 통해서 16 채널로 줄였다가 다시 1x1 채널로 64개, 3x3 채널로 64개를 만듭니다. 이것을 concatenate를 하여 다시 128 채널의 아웃풋을 만듭니다. 
 
+<br>
+<center><img src="..\assets\img\dl\concept\squeezenet\9.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
+- 위 아키텍쳐들은 논문에서 나온 내용들입니다.
+- 첫번째가 가장 기본적인 스퀴즈넷의 형태이고 가운데가 skip connection을 적용한 형태입니다. 오른쪽 형태는 조금 복잡한 skip connection 형태까지 적용해본 아키텍쳐입니다.
+
+<br>
+<center><img src="..\assets\img\dl\concept\squeezenet\10.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 마지막으로 스퀴즈넷 논문에서 알렉스넷과 비교하여 실험한 결과를 나타냈습니다.
+- 결과적으로 보면 파라미터의 수는 50배 이상을 줄일 수 있으면 accuracy 성능은 유사하게 나올 수 있었습니다.
+    - 그 중 simple skip connection을 해본 모델의 성능이 가장 잘 나왔습니다.
+- 여기서 squeeze layer와 expand layer의 비율에 따라서 성능이 어떻게 변하는 지 또한 실험을 하였으며 논문을 통해 확인하실 수 있습니다.
 
 <br>
 
