@@ -11,6 +11,8 @@ tags: [비주얼 스튜디오 기능, visual studio ] # add tag
 
 ## **SDL 설정을 통한 error C4996 해결 방법**
 
+<br>
+
 - 비주얼 스튜디오 2013 버전 이상부터 scanf 을 사용하면 아래와 같은 에러가 나면서 컴파일이 안되는 경우가 있습니다.
 - 에러 메시지를 보면 `error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.` 라고 나옵니다.
 - 이런 에러가 발생하는 이유는 VS에서 scanf 함수가 취약하니 scanf_s를 사용하거나 _CRT_SECURE_NO_WARNINGS를 사용하도록 하기 때문입니다.
