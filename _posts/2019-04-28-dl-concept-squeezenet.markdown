@@ -31,7 +31,7 @@ tags: [deep learning, squeezenet, 스퀴즈넷] # add tag
 
 - 먼저 스퀴즈넷의 contribution을 살펴보면
     - ImageNet에서 AlexNet 수준의 accuracy를 달성하였지만 AlexNet 보다 50배 작은 파라미터 수를 이용하였다는 것에 의미가 있습니다.
-    - hyperpar parameter를 어떻게 조합하는냐에 따라서 성능과 파라미터의 수가 어떤 관계가 있는지를 확인한 것 또한 의미가 있습니다. 
+    - 또한 hyperpar parameter를 어떻게 조합하는냐에 따라서 성능과 파라미터의 수가 어떤 관계가 있는지를 확인한 것 또한 의미가 있습니다. 
 
 <br>
 
