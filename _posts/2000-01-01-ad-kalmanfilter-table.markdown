@@ -2,8 +2,8 @@
 layout: post
 title: 칼만필터 관련 글 목록
 date: 9999-12-28 00:00:00
-img: ad/kalmanfilter/kf.PNG
-categories: [ad-kalmanfilter] 
+img: autodrive/ose/kalman_filter.jpg
+categories: [autodrive-ose] 
 tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 ---
 
