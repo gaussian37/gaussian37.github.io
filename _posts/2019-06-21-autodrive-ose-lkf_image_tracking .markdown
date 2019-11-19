@@ -2,7 +2,7 @@
 layout: post
 title: (칼만필터는 어렵지 않아) 칼만 필터 이미지 물체 추적
 date: 2019-06-21 01:00:00
-img: ad/kalmanfilter/kalman_filter.jpg
+img: autodrive/ose/kalman_filter.jpg
 categories: [autodrive-ose] 
 tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 ---
