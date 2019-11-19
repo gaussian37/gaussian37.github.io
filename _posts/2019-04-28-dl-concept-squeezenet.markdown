@@ -82,7 +82,7 @@ tags: [deep learning, squeezenet, 스퀴즈넷] # add tag
 
 <br>
 
-- 마지막으로 skip connection` 입니다. 먼저 `skip connection`의 관점은 ResNet과 Segmentation에서 볼 수 있습니다.
+- 마지막으로 `skip connection` 입니다. 먼저 `skip connection`의 관점은 ResNet과 Segmentation에서 볼 수 있습니다.
 
 <br>
 <center><img src="..\assets\img\dl\concept\squeezenet\3.png" alt="Drawing" style="width: 600px;"/></center>
