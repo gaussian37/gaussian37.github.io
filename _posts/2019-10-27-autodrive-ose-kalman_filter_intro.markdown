@@ -2,8 +2,8 @@
 layout: post
 title: 칼만필터 인트로덕션
 date: 2019-10-27 00:00:00
-img: vision/kalmanfilter/kalman.PNG
-categories: [ad-kalmanfilter] 
+img: autodrive/ose/kalman_filter.jpg
+categories: [autodrive-ose] 
 tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 ---
 
