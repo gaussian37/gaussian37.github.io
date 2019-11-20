@@ -61,7 +61,7 @@ tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
 ## **Accuracy**
 
 <br>
-<center><img src="../assets/img/ml/concept/ml-evaluation/1.PNG" alt="Drawing" style="width: 200px;"/></center>
+<center><img src="../assets/img/ml/concept/ml-evaluation/1.PNG" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 
