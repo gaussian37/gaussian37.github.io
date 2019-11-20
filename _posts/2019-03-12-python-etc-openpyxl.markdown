@@ -26,21 +26,21 @@ pip install openpyxl
 
 + openpyxl.load_workbook('파일명')을 통하여 엑셀 **문서를 열 수 있습니다.**
     + 이 때, open한 엑셀 파일을 객체로 받습니다.
-    + ex) ```python excelFile = openpyxl.load_workbook('example.xlsx') ```
+    + ex) `excelFile = openpyxl.load_workbook('example.xlsx')`
 
 <br>
 
 + get_sheet_names()를 이용하여 시트의 **목록을 볼 수 있습니다.**
-    + excelFile.get_sheet_names()
+    + `excelFile.get_sheet_names()`
 
 <br>
 
 + get_sheet_by_name('시트명')으로 특정 **시트를 불러올 수 있습니다.**
     + 이 때 open한 시트를 객체로 받습니다.
-    + ex) ```python sheet1 = excelFile.get_sheet_by_name('Sheet1') ```
+    + ex) `sheet1 = excelFile.get_sheet_by_name('Sheet1')`
 
 + get_active_sheet()로 활성화된 시트를 불러올 수도 있습니다.
-    + ex) ```python sheet2 = excelFile.get_active_sheet()
+    + ex) `sheet2 = excelFile.get_active_sheet()`
 
 <br>
 
@@ -51,16 +51,16 @@ pip install openpyxl
 <br>
 
 + 셀 객체를 접근하면 row/column 또는 좌표자체 그리고 **셀에 저장된 값을 얻을 수 있습니다.**
-    + ```python B1.row ```
-    + ```python B1.column ```
-    + ```python B1.coordinate ```
-    + ```python B1.value ```
+    + ```B1.row ```
+    + ```B1.column ```
+    + ```B1.coordinate ```
+    + ```B1.value ```
 
 <br>
 
 + 셀에 **데이터를 입력**하는 방법에 대하여 알아보겠습니다.
-    + ```python sheet.cell(row=row_index, column=column_index).value = 값 ```
-    + ```python sheet.cell(row=1, column=1).value = 10 ```
+    + ```sheet.cell(row=row_index, column=column_index).value = 값 ```
+    + ```sheet.cell(row=1, column=1).value = 10 ```
         + (1,1) 즉, A1에 10을 대입합니다.
 
 <br>
