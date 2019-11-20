@@ -11,7 +11,6 @@ tags: [vision, deep learning, segmentation] # add tag
 
 - [고전적인 Segmentation 방법들]()
 - [Fully Convolutional Networks for Semantic Segmentation](https://gaussian37.github.io/vision-segmentation-fcn/)
-- [Convolutional and Deconvolutional Network]()
 - [U-Net]()
 - [Mask RCNN]()
 - [DeepLab v3+]()
