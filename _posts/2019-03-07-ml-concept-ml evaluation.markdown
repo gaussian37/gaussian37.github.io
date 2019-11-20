@@ -28,16 +28,16 @@ tags: [ml, machine learning, 평가 지표, evaluation] # add tag
 <br>
 
 - 맞음여부 & 예측한값의 조합으로 표현
-- TP(True Positive) : Positive로 예측해서 True임
+- `TP(True Positive)` : Positive로 예측해서 True임
     - True : 예측이 맞음
     - Positive : 예측값이 Positive(1)
-- FP(False Positive) : Positive로 예측해서 False임
+- `FP(False Positive)` : Positive로 예측해서 False임
     - False : 예측이 틀림
     - Positive : 예측값이 Positive(1)인 경우 (즉, 실제값은 거짓(0)입니다.)
-- FN(False Negative) : Negative로 예측해서 False임
+- `FN(False Negative)` : Negative로 예측해서 False임
     - False : 예측이 틀림
     - Nagative : 예측값이 Negative(0)인 경우 (즉, 실제값은 참(1)입니다.)
-- TF(True Negative) : Negative로 예측해서 True임
+- `TF(True Negative)` : Negative로 예측해서 True임
     - True : 예측이 맞음
     - Negative : 예측값이 Negative(0)인 경우
     
