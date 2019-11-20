@@ -24,7 +24,7 @@ tags: [ml, machine learning, 평가 지표, evaluation] # add tag
 - 실제 라벨과 예측 라벨의 일치 갯수를 matrix로 표현하는 기법
 
 <br>
-<center><img src="../assets/img/ml/concept/ml-evaluation/1.PNG" alt="Drawing" style="width: 400px;"/></<center>>
+<center><img src="../assets/img/ml/concept/ml-evaluation/1.PNG" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 맞음여부 & 예측한값의 조합으로 표현
