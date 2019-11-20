@@ -22,6 +22,7 @@ tags: [리눅스 유틸리티] # add tag
 - ### terminator
 - ### 나눔고딕코딩 폰트 설치
 - ### uim (한글 키보드 사용)
+- ### gparted: GUI 환경 파티션 및 포맷
 
 <br>
 
@@ -103,3 +104,10 @@ $ xmodmap -pke > ~/.Xmodmap
 ```
 
 <br>
+
+## **gparted 설치: GUI 환경 파티션 및 포맷**
+
+<br>
+
+- 파티션을 나누거나 USB 포맷을 다양한 옵션을 걸어서 하고 싶을 때, 명령어가 아닌 GUI 환경해서 하고 싶으면 `gparted`를 통해 쉽게 할 수 있습니다.
+- `sudo apt install gparted` 

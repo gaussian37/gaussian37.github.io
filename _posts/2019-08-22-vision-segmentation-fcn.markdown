@@ -100,7 +100,7 @@ tags: [vision, segmentation, fcn] # add tag
 - 앞에서 설명한 해상도 문제가 위 그림의 아래 부분과 같습니다.
 - 가장 왼쪽의 segmentation 결과를 보면 클래스별로 잘 구분해서 segmentation 하였지만 저해상도와 같이 뭉개져 있는 느낌이 들고 세세한 부분은 부정확하게 segmentation이 되어있습니다.
 - 그래서 고해상도의 이미지 정보를 deconvolution 할 때 사용할 수 있도록 바로 전달해 주는 `skip connection`을 만들어 문제를 개선하였습니다. 
-- 위 그림을 보면 각 `대칭`되는 네트워크 구조에 따라 각 단계별로 `skip connection`이 만들어 지는 것을 볼 수 있습니다. 
+- 위 그림을 보면 각 `대칭`되는 네트워크 구조에 따라 각 단계별로 `skip connection`이 만들어 지는 것을 볼 수 있고 skip connection을 여러개 넣을 때 더 성능이 좋아지는 것을 볼 수 있습니다.
 
 <br>
 <center><img src="..\assets\img\vision\segmentation\fcn\5.png" alt="Drawing" style="width: 600px;"/></center>
