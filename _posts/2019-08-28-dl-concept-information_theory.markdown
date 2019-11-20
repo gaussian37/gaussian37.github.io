@@ -2,7 +2,7 @@
 layout: post
 title: Basic Probability and Information Theory
 date: 2019-08-28 00:00:00
-img: dl/gan.png
+img: dl/concept/deep-neural-network.jpg
 categories: [dl-concept] 
 tags: [probability, information theory, 정보이론, kl divergence] # add tag
 ---
