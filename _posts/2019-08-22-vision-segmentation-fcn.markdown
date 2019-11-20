@@ -14,9 +14,15 @@ tags: [vision, segmentation, fcn] # add tag
 ## **목차**
 
 - ### FCN의 배경
-- ### FCN 구조 설명 - upsampling
 - ### FCN 구조 설명 - downsampling
+- ### FCN 구조 설명 - upsampling
 - ### FCN 구조 설명 - skip connection
+- ### convolutional and deconvolutional network
+- ### pytorch 코드
+
+<br>
+
+- 이 글에서는 FCN의 배경과 전체적인 네트워크 구조를 살펴보고 내용의 핵심이라 할 수 있는 Deconvolution 연산에 대하여 자세히 다루어 보도록 하겠습니다. 마지막으로 pytorch 코드 까지 살펴보겠습니다.
 
 <br>
 
@@ -31,7 +37,7 @@ tags: [vision, segmentation, fcn] # add tag
 
 <br>
 
-## **FCN 구조 설명 - upsampling**
+## **FCN 구조 설명 - downsampling**
 
 <br>
 <center><img src="..\assets\img\vision\segmentation\fcn\0.png" alt="Drawing" style="width: 600px;"/></center>
@@ -49,7 +55,47 @@ tags: [vision, segmentation, fcn] # add tag
 - 그래서 `fully connected layer`를 대신하여 [NIN(Network In Network, 1x1 Network)](https://gaussian37.github.io/dl-dlai-network_in_network/)를 사용하게 됩니다.
     - `NIN`은 현재 효율적인 네트워크 설계를 위해 많이 사용되었고(**차원 축소 및 연산량 감소**) 위에서 언급한 `Inception`에서도 사용되었습니다.
     - `NIN`은 이름 그대로 네트워크 에서 Multi layer perceptron의 역할을 수행하고 있습니다. (위 그림 참조)
+- `Segmentation`을 처리하기 위해서 공간 정보를 유지해야 하기 때문에 `fully connected layer` 자리 대신 `NIN`을 넣게 되면 위 그림의 아래와 같이 volume 형태의 출력을 얻을 수 있습니다.
+- 이 결과를 heatmap으로 그려보면 **공간 정보가 유지되고 있음을 확인**할 수 있습니다.
 
+<br>
+<center><img src="..\assets\img\vision\segmentation\fcn\1.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 앞에서 다룬 내용을 좀 더 입체적으로 표현한 것입니다.
+- 위 그림의 아래 네트워크가 `FCN`에서 사용하는 방식의 앞부분 입니다. 즉, `fully connected layer`가 사라진 것이지요. 대신에 `NIN`을 사용해서 차원을 축소하였습니다. 
+- 이것을 이미지 크기로 복원하려면 다시 `upsample` 하는 작업이 필요한데, 그것은 아래 글에서 계속 알아보겠습니다.
+- 먼저 여기까지 한 작업을 보면 마치 정보를 압축하는 `encoder` 역할을 한것으로 볼 수 있습니다. `featuer`를 추출한 것으로 볼 수 있습니다. 
+
+<br>
+<center><img src="..\assets\img\vision\segmentation\fcn\2.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 참고로 segmentation에서 나타나는 전체적인 구조에서 네트워크의 사이즈가 줄어들었다가 다시 입력크기로 크게 만들때, 각 layer의 feature들의 해상도가 다른데, 이것들을 마지막 layer에서 concat을 하는 등의 합치는 작업을 하면 성능 개선에 도움이 되는 트릭을 사용하였습니다.
+    - 이 트릭을 `fuse feature into depp jet` 이라고 하며 object detection의 `ssd`에서도 사용되었습니다. 
+- 해상도 관련 문제는 segmentaion 결과가 뭉게진 형태인 것으로 나타나는 문제인데 관련 그림은 아래 `skip connection`에서 확인해 보시면 됩니다.
+
+<br>
+
+## **FCN 구조 설명 - upsampling**
+
+<br>
+
+- 지금까지 얘기한 것이 `downsampling`이었고 이제 downsample한 feature를 이미지 크기만큼 다시 `upsampling` 하는 방법에 대하여 다루어 보겠습니다.
+- feature의 크기를 다시 크게 하고 싶을 때 가장 쉽게 생각 할 수 있는 것은 bilinear interpolation 같은 방법일 수 있습니다.
+    - 물론 이런 간단한 방법으로는 성능이 나오지 않기 때문에 다른 방법이 고안되었는데요..
+- encoder 단에서 convolution 연산을 하여 feature를 압축 시킬 때 필터의 parameter를 학습하듯이 decoder 단에서 `deconvolution` 연산 이란 것을 해보고 그 결과 feature를 다시 팽창 시킬 때에도 **parameter를 학습**해보자는 것이 컨셉입니다.
+    - inference 결과를 보면 이 방법이 훨씬 효과적인 것을 확인할 수 있고 직관적으로도 좀 더 딥러닝 네트워크에 가까운 것을 알 수 있습니다. 
+
+<br>
+
+## **FCN 구조 설명 - skip connection**
+
+<br>
+<center><img src="..\assets\img\vision\segmentation\fcn\3.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 앞에서 설명한 해상도 문제
 
 
 
