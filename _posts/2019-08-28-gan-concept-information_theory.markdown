@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Basic Probability and Information Theory
-date: 2019-08-21 00:00:00
+date: 2019-08-28 00:00:00
 img: dl/gan.png
 categories: [dl-concept] 
 tags: [probability, information theory, 정보이론, kl divergence] # add tag
@@ -13,7 +13,6 @@ tags: [probability, information theory, 정보이론, kl divergence] # add tag
 
 <br>
 
-- Pytorch로 시작하는 Generative Model (패스트캠퍼스)
 - https://ratsgo.github.io/convex%20optimization/2017/12/26/convexfunction/
 
 <br>
