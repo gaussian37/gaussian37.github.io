@@ -17,6 +17,7 @@ tags: [vision, segmentation, fcn] # add tag
 - ### FCN 구조 설명 - downsampling
 - ### FCN 구조 설명 - upsampling
 - ### FCN 구조 설명 - skip connection
+- ### FCN 내용 정리
 - ### pytorch 코드
 
 <br>
@@ -118,10 +119,98 @@ tags: [vision, segmentation, fcn] # add tag
 
 - 기대(?)했던 것과 같이 `FCN-8s`가 성능이 가장 좋습니다. 이유는 Encoder 부분에서 압축된 부분을 원본에 가까운 상대적으로 고해상도 영역의 이미지와 sum을 하여 저해상도 문제를 개선할 수 있기 때문입니다. 
 
+<br>
+
+## **FCN 내용 정리**
+
+<br>
+
+- 마지막으로 `FCN` 내용에 대하여 정리해 보겠습니다.
+
+<br>
+<center><img src="..\assets\img\vision\segmentation\fcn\7.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `FCN`은 Segmentation을 하기 위한 딥러닝 네트워크 구조로 원본 이미지를 의미 있는 부분끼리 묶어서 분할하는 기법입니다.
+    - 픽셀 단위의 `classification`을 하므로 이미지 전체 픽셀을 올바른 레이블로 분류해야 하는 다소 복잡한 문제입니다.
+
+<br>
+<center><img src="..\assets\img\vision\segmentation\fcn\8.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 만약 위 그림처럼 Input이 RGB (hetight x width x 3) 또는 흑백(height x width x 1)이미지 일 때 `segmentation` 결과는 위의 오른쪽 그림과 같이 `segmentation map` 형태 (각 클래스별로 출력 채널을 만든 형태)로 나타나고 최종적으로 `argmax`를 취합니다.
+- 즉, 하나의 이미지에서 모든 클래스의 segmentation이 된 결과를 얻기 위하여 한 장의 segmentation 이미지를 생성할 때, upsampling된 각 클래스 별 heatmap에서 가장 높은 확률을 가지는 클래스만 모아주는 것입니다.
+- 따라서 output으로는 각 픽셀별로 어느 클래스에 속하는지 레이블을 나타내는 segmentation map이 되고 **input과 사이즈는 같습니다.**
+
+<br>
+<center><img src="..\assets\img\vision\segmentation\fcn\9.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 알렉스넷이나 VGG등 classification 분류 문제에 자주 쓰인는 네트워크들은 파라미터의 개수와 차원을 줄이는 layer를 가지고 있어서 자세한 위치 정보를 잃게 됩니다. 따라서 `segmentation`에는 적합하지 않습니다.
+- 보통 `segmentation` 모델들은 `downsampling(encoder)`와 `upsampling(decoder)`의 형태를 가지게 되는데 위 그림과 같습니다.
+
+<br>
+<center><img src="..\assets\img\vision\segmentation\fcn\10.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 먼저 `downsampling(encoder)`은 차원을 줄이는 역할을 하게 되는데 stride를 2 이상으로 convolution을 하거나 pooling을 사용하면 `feature` 정보를 잃게 됩니다.
+
+<br>
+<center><img src="..\assets\img\vision\segmentation\fcn\11.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `upsampling(decoder)`는 downsampling을 통해서 받은 결과의 차원을 늘려서 Input과 같은 차원으로 만들어 주는 과정입니다.
+- `FCN`에서는 `strided transpose convolution`을 사용하여 차원을 늘려줍니다.
+
+<br>
+<center><img src="..\assets\img\vision\segmentation\fcn\12.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `strided transpose convolution`을 이해하기 위하여 1차원에서의 예를 살펴보면 위와 같습니다. 동일한 원리로 2차원에서 적용하면 이미지에서 사용한 transpose convolution 입니다.
+
+<br>
+<center><img src="..\assets\img\vision\segmentation\fcn\13.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `FCN`에서는 `classification`에서 classifier로 사용한 FC layer를 버리고 위치 정보를 유지하기 위해 1x1 convolution layer를 사용하였습니다.
+- FC layer를 버림으로 인하여 위치 정보 유지 뿐 아니라 **convolution layer만 사용하게 됨**으로 input size의 제한도 받지 않게 되었습니다.
+- 위 그림에서 각 영역별로 의미를 살펴보면
+    - 1) **feature extraction** : 일반적인 CNN의 구조에서 많이 보이는 convolution layer들로 구성됩니다.
+    - 2) **feature level classification** : 추출된 feature map 각각의 pixel 마다 classification을 수행합니다.
+    - 3) **upsampling**: strided transpose convolution을 통하여 원래의 이미지 사이즈로 키워줍니다.
+    - 4) **segmentation**: 각 클래스의 upsampling된 결과를 사용하여 하나의 segmentation 결과 이미지를 만들어줍니다.
+
+<br>
+<center><img src="..\assets\img\vision\segmentation\fcn\14.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 다시 한번 언급하자면 위와 같은 FC layer를 가지고 있는 네트워크의 특징은 FC layer의 특성으로 인하여 고정된 크기의 입력만 받습니다.
+- 반면 convolution layer만 있으면 이미지 크기에 제한이 없어지고 공간 정보도 유지되어 맨 마지막의 feature map의 1픽셀 값은 원 영상의 32 x 32를 대변하게 됩니다. 
+
+<br>
+<center><img src="..\assets\img\vision\segmentation\fcn\15.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 여러 단계의 convolution layer와 pooling layer를 거치면, feature map의 크기가 감소되나 픽셀 단위의 예측을 하기 위해서는 feature map의 결과를 다시 키우는 과정이 필요합니다.
+
+<br>
+<center><img src="..\assets\img\vision\segmentation\fcn\16.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 1x1 convolution의 결과로 얻어진 Score 값을 원 영상의 크기로 확대하고 strided transpose convolution을 이용하여 필터의 파라미터를 학습을 통해 결정합니다.
+- 그러나 score를 단순히 upsampling 하게 되면 성능에 한계가 발생하여 skip layer를 도입합니다.
+
+<br>
+<center><img src="..\assets\img\vision\segmentation\fcn\17.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 이전 layer는 마지막 convolution layer의 결과보다 세밀한 Feature를 포함하고 있으므로 이전 layer들의 feature를 같이 사용하는 방법으로 좀 더 세밀한(고해상도) 이미지 정보를 얻을 수 있습니다. (FCN-32s < FCN-16s < FCN-8s)
 
 <br>
 
 ## **pytorch 코드**
+
+- 아래 코드는 `VGG`를 back-bone으로 하는 `FCN` 입니다. 위에서 다룬 것 처럼 `FCN-32s, FCN-16s, FCN-8s`를 구현하였습니다.
 
 <br>
 
