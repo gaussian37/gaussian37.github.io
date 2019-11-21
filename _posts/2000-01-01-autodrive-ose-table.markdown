@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 칼만필터 관련 글 목록
+title: Optimal state estimation 관련 글 목록
 date: 9999-12-28 00:00:00
 img: autodrive/ose/kalman_filter.jpg
 categories: [autodrive-ose] 
