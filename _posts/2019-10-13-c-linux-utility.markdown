@@ -111,3 +111,22 @@ $ xmodmap -pke > ~/.Xmodmap
 
 - 파티션을 나누거나 USB 포맷을 다양한 옵션을 걸어서 하고 싶을 때, 명령어가 아닌 GUI 환경해서 하고 싶으면 `gparted`를 통해 쉽게 할 수 있습니다.
 - `sudo apt install gparted` 
+
+<br>
+
+## **putty를 이용한 시리얼 원격 접속**
+
+<br>
+
+- `sudo apt install putty` 명령어로 putty를 설치합니다.
+- 리눅스 PC와 시리얼 통신할 보드를 연결한 다음에 `dmsg | grep tty`를 입력하여 시리얼 통신으로 연결 가능한 포트를 찾습니다.
+- 예를 들어 `[30862.686810] usb 3-4: FTDI USB Serial Device converter now attached to ttyUSB0`와 같이 나옵니다.
+- `sudo putty /dev/ttyUSB0 -serial -sercfg 115200,8,n,1,N` 와 같이 입력하여 원격 통신을 할 수 있습니다.
+- `putty` 명령어 이후의 각 파라미터들은 사실 GUI환경에서 사용자가 입력해 주어야 하는 순서대로 입력된 것입니다.
+- 여기서 각 파라미터를 살펴보겠습니다.
+- **serial line to connect to** : `/dev/ttyUSB0`
+- **speed (baud)** : 115200
+- **data bits** : 8
+- **parity** : n
+- **stop bits** : 1
+- **flow control** : N (OFF)
