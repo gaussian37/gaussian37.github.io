@@ -94,7 +94,6 @@ filtered_data = data.filter(filtered_signal_list).cut(start=10, stop=12)
 signals_data_frame = data.to_dataframe()
 signals_data_frame.to_excel(path + "signals_data_frame.xlsx")
 signals_data_frame.to_csv(path + "signals_data_frame.csv")
-
 ```
 
 <br>

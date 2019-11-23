@@ -7,6 +7,11 @@ categories: [dl-concept]
 tags: [deep learning, cnn, mobilenet, squeezenet, 모바일넷, 스퀴즈넷] # add tag
 ---
 
+<br>
+
+- squeezenet 관련 필자의 다른 블로그 내용 : https://gaussian37.github.io/dl-concept-squeezenet/
+- mobilenet v1 관련 필자의 다른 블로그 내용 : https://gaussian37.github.io/dl-concept-mobilenet/
+
 ## SqueezNet과 MobileNet 사용 목적
 
 + 스마트폰이나 저가형 하드웨어에서 이미지 처리를 하고 싶을 때 기존의 무거운 CNN 모델을 업로드 하기 어렵습니다.

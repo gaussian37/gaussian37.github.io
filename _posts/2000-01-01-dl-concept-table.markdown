@@ -9,17 +9,19 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
-## **Convolution Neural Network 관련**
+## **Backbon Network**
 
 <br>
 
-- Inception and Xception
+- [Inception]()
+- [Xecption]()
+- [ResNet](https://gaussian37.github.io/dl-concept-resnet/)
 - [Convolution arithmetic](https://gaussian37.github.io/dl-concept-covolution_operation/)
 - [Depthwise separable convolution 연산](https://gaussian37.github.io/dl-concept-dwsconv/)
 - [SqueezeNet](https://gaussian37.github.io/dl-concept-squeezenet/)
 - [SqueezeNext](https://gaussian37.github.io/dl-concept-squeezenext/)
 - [MobileNet](https://gaussian37.github.io/dl-concept-mobilenet/)
-- [MobileNet V2](https://gaussian37.github.io/dl-concept-mobilenet2/)
+- [MobileNet v2](https://gaussian37.github.io/dl-concept-mobilenet2/)
 - ShuffleNet
 
 <br>
