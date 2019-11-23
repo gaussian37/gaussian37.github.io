@@ -23,25 +23,25 @@ tags: [python, can, mdf] # add tag
 ## **필요한 라이브러리 설치**
 
 - `asammdf` 공식 라이브러리 페이지 : https://pypi.org/project/asammdf/
-- 필수 라이브러리
+-- `pip install asammdf` 을 통하여 asammdf를 설치할 수 있습니다. 그 전에 아래 필수 라이브러리와 옵션 라이브러리를 먼저 설처히시기 바랍니다.
+- 필수 라이브러리    
     - `pip install twisted`
-    - `pip install asammdf`
-    - `pip install numpy`
-    - `pip install numexpr`
-    - `pip install wheel`
-    - `pip install pandas`
-    - `pip install canmatrix `
-    - `pip install natsort`
-    - `pip install cChardet `
-    - `pip install lxml `
+    - `pip install numpy` : the heart that makes all tick
+    - `pip install numexpr` : for algebraic and rational channel conversions
+    - `pip install wheel` : for installation in virtual environments
+    - `pip install pandas` : for DataFrame export
+    - `pip install canmatrix` : to handle CAN bus logging measurements
+    - `pip install natsort` 
+    - `pip install cChardet` : to detect non-standard unicode encodings
+    - `pip install lxml` : for canmatrix arxml support
 - 옵션 라이브러리
-    - `pip install h5py `
-    - `pip install scipy `
-    - `pip install hdf5storage `
-    - `pip install fastparquet `
-    - `pip install PyQt5 ` 
-    - `pip install pyqtgraph `
-    - `pip install matplotlib ` 
+    - `pip install h5py` : for HDF5 export
+    - `pip install scipy` :  for Matlab v4 and v5 .mat export
+    - `pip install hdf5storage` : for Matlab v7.3 .mat export
+    - `pip install fastparquet` : for parquet export
+    - `pip install PyQt5` : for GUI tool 
+    - `pip install pyqtgraph` : for GUI tool and Signal plotting (preferably the latest develop branch code)
+    - `pip install matplotlib` : as fallback for Signal plotting 
 
 <br>
 
@@ -79,7 +79,11 @@ print(signal_list) # 로깅된 CAN 신호 전체를 볼 수 있습니다.
 
 ### 그래프 출력
 speed = data.get('VehicleSpeed')
-# speed.plot()
+speed.plot()
+
+### 여러 그래프 출력
+for signal in data.select(filtered_signal_list):
+    signal.plot()
 
 ### 필요한 신호만 필터링
 filtered_signal_list = ['VehicleSpeed', 'Throttle']
