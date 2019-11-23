@@ -22,8 +22,26 @@ tags: [python, can, mdf] # add tag
 
 ## **필요한 라이브러리 설치**
 
-- `pip install twisted`
-- `pip install asammdf`
+- `asammdf` 공식 라이브러리 페이지 : https://pypi.org/project/asammdf/
+- 필수 라이브러리
+    - `pip install twisted`
+    - `pip install asammdf`
+    - `pip install numpy`
+    - `pip install numexpr`
+    - `pip install wheel`
+    - `pip install pandas`
+    - `pip install canmatrix `
+    - `pip install natsort`
+    - `pip install cChardet `
+    - `pip install lxml `
+- 옵션 라이브러리
+    - `pip install h5py `
+    - `pip install scipy `
+    - `pip install hdf5storage `
+    - `pip install fastparquet `
+    - `pip install PyQt5 ` 
+    - `pip install pyqtgraph `
+    - `pip install matplotlib ` 
 
 <br>
 
@@ -42,10 +60,42 @@ tags: [python, can, mdf] # add tag
 
 <br>
 
-<center><img src="../assets/img/python/etc/can/1.png" alt="Drawing" style="width: 1000px;"/></center>
+```python
+from asammdf import MDF, Signal
+import pandas as pd
+import numpy as np
+import matplotlib
+# import matplotlib.pyplot as plt
+
+# MDF 파일을 읽어옵니다.
+path = "MDF 파일을 저장한 경로"
+data = MDF(path + "Acceleration_StandingStart.MDF")
+
+### CAN 신호 리스트를 가져 옵니다.
+signal_list = list(data.channels_db)
+# 가져온 리스트에서 시간축은 신호가 아니므로 제외합니다.
+signal_list.remove('t')
+print(signal_list) # 로깅된 CAN 신호 전체를 볼 수 있습니다.
+
+### 그래프 출력
+speed = data.get('VehicleSpeed')
+# speed.plot()
+
+### 필요한 신호만 필터링
+filtered_signal_list = ['VehicleSpeed', 'Throttle']
+# 10초 ~ 12초 사이의 데이터만 필터링
+filtered_data = data.filter(filtered_signal_list).cut(start=10, stop=12)
+
+### 엑셀 파일 또는 CSV 파일로 출력
+signals_data_frame = data.to_dataframe()
+signals_data_frame.to_excel(path + "signals_data_frame.xlsx")
+signals_data_frame.to_csv(path + "signals_data_frame.csv")
+
+```
 
 <br>
 
+- 위 결과에 나타난 `key` 값이 CAN 신호값에 해당합니다. 그리고 `t`는 계측된 전체 시간에 해당합니다.
 - CAN 신호는 dictionary 형태로 저장되어 있으므로 (key, value)로 값 접근이 가능합니다.
 - `.channels_db`에서 확인한 값을 Key 값으로 하면 각 신호의 값을 알 수 있습니다.
 - `t`를 Key 값으로 하면 신호가 기록된 시간을 알 수 있습니다.
