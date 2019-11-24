@@ -17,15 +17,18 @@ tags: [칼만 필터, kalman filter, tracking, 트래킹] # add tag
 <br>
 
 ## **목차**
-    - ### 칼만 필터의 역할
-    - ### State Transition Equation
-    - ### Uncertainties 모델링
-    - ### Control Input (optional)
-    - ### Uncontrolled uncertainties
-    - ### Measurements
-    - ### Fusing information
-    - python & opencv 코드
-    - c++ & opencv 코드 
+
+<br>
+
+- ### 칼만 필터의 역할
+- ### State Transition Equation
+- ### Uncertainties 모델링
+- ### Control Input (optional)
+- ### Uncontrolled uncertainties
+- ### Measurements
+- ### Fusing information
+- ### python & opencv 코드
+- ### c++ & opencv 코드 
 
 <br>
 
@@ -101,6 +104,9 @@ $$ \begin{bmatrix} x_{k} \\ y_{k} \\ z_{k} \\ u_{k} \\ v_{k} \\ w_{k} \\ \end{bm
 <br>
 
 $$ x_{k} = \begin{bmatrix} p_{k} \\ v_{k} \end{bmatrix} $$
+
+<br>
+
 $$ x_{k} = F_{k} x_{k-1} \tag{5} $$
 
 <br>
@@ -126,6 +132,9 @@ $$ x_{k} = F_{k} x_{k-1} \tag{5} $$
 <br>
 
 $$ x_{k} = F_{k} x_{k-1} \tag{5} $$
+
+<br>
+
 $$ P_{k} = F_{K} P_{k-1} F_{k}^{T} $$
 
 <br>
