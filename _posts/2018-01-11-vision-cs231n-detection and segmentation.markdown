@@ -2,7 +2,7 @@
 layout: post
 title: 11. Detection and Segmentation
 date: 2018-01-11 01:00:00
-img: vision/cs231n/cs231n.jpg
+img: vision/cs231n/11/thumbnail.png
 categories: [vision-cs231n] 
 tags: [cs231n, detection, segmentation] # add tag
 ---
