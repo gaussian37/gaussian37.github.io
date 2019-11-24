@@ -78,11 +78,7 @@ nums.reshape(3, 4)
            [6, 7, 8] ]])
 ```
 
-
-
-
-
-
+<br>
 
 ## **Tensor란 무엇인가?**
 
@@ -167,6 +163,8 @@ x = t.to("cpu").numpy()
 <br>
 
 ## **텐서의 인덱스 조작**
+
+<br>
 
 - 텐서의 인덱스를 조작하는 방법은 여러가지가 있습니다.
 - 텐서는 Numpy의 ndarray와 같이 조작하는 것이 가능합니다. 배열처럼 인덱스를 바로지정 가능하고 슬라이스, 마스크 배열을 사용할 수 있습니다.
@@ -320,6 +318,8 @@ chw_img_data.size()
 
 ## **선형 대수 연산**
 
+<br>
+
 - `dot` : 벡터 내적
 - `mv` : 행렬과 벡터의 곱
 - `mm` : 행렬과 행렬의 곱
@@ -361,6 +361,8 @@ plt.plot(x.numpy(), y.numpy())
 <br> 
 
 ## **Tensor 생성
+
+<br>
 
 - 랜덤 넘버 생성
 
@@ -429,6 +431,8 @@ torch.arange(0,3,step=0.5)
 <br>
 
 ## **Tensor 데이터 타입**
+
+<br>
 
 - Float 타입의 m행 n열 Tensor 생성하기
 
@@ -516,6 +520,8 @@ x_cpu
 
 ## **Tensor 사이즈 확인하기**
 
+<br>
+
 - Tensor 사이즈를 확인하려면 `.size()`를 이용하여 확인하면 됩니다.
 
 ```python
@@ -528,6 +534,8 @@ x.size()
 <br>
 
 ## **Index 기능 사용방법**
+
+<br>
 
 - Index는 Tensor에서 특정 값만 조회하는 것을 말합니다. 
 - 배열, 행렬에서도 인덱스 기능을 통하여 특정 값들을 조회하는 것 처럼 Tensor에서도 조회할 수 있습니다.
@@ -601,6 +609,8 @@ tensor([-0.3964,  0.1522])
 <br>
 
 ## **Join 기능 사용 방법**
+
+<br>
 
 - PyTorch에서 `torch.cat(seq, dim)`을 이용하여 concaternate 연산을 할 수 있습니다.
 - `dim`은 concaternate할 방향을 정합니다.
@@ -706,6 +716,8 @@ print(z1)
 
 ## **squeezing 기능 사용 방법**
 
+<br>
+
 - squeeze 함수를 사용하면 dimension 중에 1로 되어 있는 것을 압축할 수 있습니다.
 - dimension이 1이면 사실 불필요한 차원일 수 있기 때문에 squeeze를 이용하여 압축 시키는 것이 때론 필요할 수 있는데, 그 때 사용하는 함수 입니다.
 - `torch.squeeze(input, dim)`으로 사용할 수 있고, dim을 지정하지 않으면 dimeion이 1인 모든 차원을 압축하고 dim을 지정하면 지정한 dimension만 압축합니다.
@@ -749,6 +761,8 @@ tensor([[ 1],
 
 ## **Initialization, 초기화 방법**
 
+<br>
+
 - `init.uniform`함수를 사용하면 `uniform` 또는 `normal` 분포의 초기화 Tensor를 만들 수 있습니다.
 - 또는 상수 형태를 바로 만들 수도 있습니다. 예제는 아래와 같습니다.
 
@@ -783,6 +797,8 @@ x3 = init.constant(torch.FloatTensor(3,4),3.1415)
 <br>
 
 ## **Math Operation**
+
+<br>
 
 - Tensor의 산술 연산 방법에 대하여 알아보겠습니다.
 - `+`연산자 또는 `torch.add()`
@@ -896,6 +912,8 @@ tensor([[0.0000, 0.6931, 1.0986],
 <br>
 
 ## **Matrix Multiplication**
+
+<br>
 
 - `torch.mm(mat1, mat2) -> matrix multiplication`
 - Tensor(행렬)의 곱을 연산하므로 shape이 잘 맞아야 연산이 가능합니다.
