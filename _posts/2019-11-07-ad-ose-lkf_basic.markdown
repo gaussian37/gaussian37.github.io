@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 선형 칼만 필터
+title: 선형 칼만 필터의 원리 이해
 date: 2019-11-07 00:00:00
 img: autodrive/ose/kalman_filter.jpg
 categories: [autodrive-ose] 
