@@ -21,6 +21,11 @@ tags: [칼만 필터, kalman filter, tracking, 트래킹] # add tag
     - ### State Transition Equation
     - ### Uncertainties 모델링
     - ### Control Input (optional)
+    - ### Uncontrolled uncertainties
+    - ### Measurements
+    - ### Fusing information
+    - python & opencv 코드
+    - c++ & opencv 코드 
 
 <br>
 
@@ -115,7 +120,7 @@ $$ x_{k} = F_{k} x_{k-1} \tag{5} $$
 
 - 앞에서 다루었듯이 $$ x_{k} $$를 **predict** 하는 방법은 확인하였는데 공분산 행렬 $$ P_{k} $$는 어떻게 **predict**하면 될까요? 
 - 공분산 행렬의 성질에 따라서 랜덤 확률 변수 $$ y $$가 공분산 $$ \Sigma $$를 가질 때, 랜덤 확률 변수 $$  y $$에 임의의 행렬 $$ A $$를 곱하여 $$ Ay $$를 만든다면 공분산 행렬은 $$ A\Sigma A^{T} $$가 됩니다. (이유는 [링크](https://gaussian37.github.io/ad-ose-lkf_basic/)에서 참조 하시기 바랍니다.)
-- 따라서 이 논리에 따라 $$ P_{k} = F_{K} P_{k-1} F_{k}^{T} $$로 업데이트 될 수 있습니다.
+- 따라서 이 논리에 따라 $$ P_{k} = F_{K} P_{k-1} F_{k}^{T} \tag{6} $$로 업데이트 될 수 있습니다.
 - 여기 까지 정리하면 **predict**하는 방법은 다음과 같습니다.
 
 <br>
@@ -125,4 +130,9 @@ $$ P_{k} = F_{K} P_{k-1} F_{k}^{T} $$
 
 <br>
 
-(optional)
+## **Control Input (optional)**
+
+<br>
+
+- 여기 까지 이전 스텝의 상태를 이용하여 드론의 위치와 속도를 **predict**하는 방법 까지 다루었습니다.
+- 
