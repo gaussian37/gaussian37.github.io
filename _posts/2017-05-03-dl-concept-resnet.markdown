@@ -49,11 +49,29 @@ tags: [python, deep learning, resnet, residual network] # add tag
 ## **Skip Connection**
 
 <br>
-
-<br>
 <center><img src="../assets/img/dl/concept/resnet/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 왼쪽이 일반적인 구조의 (convolutional) neural network 입니다. 입력이 들어오면 layer를 거쳐서 (e.g. convolution filter 와의 연산) activation이 적용되고 이러한 작업이 연속적으로 이루어 지는 것입니다.
 - 반면 오른쪽의 Residual 구조에서는 **입력을 출력과 더해주는 형태**를 가지게 됩니다.
+    - 이 때, 입력에서 출력으로 그대로 더해지는 값을 `identity` 라고 부릅니다.
 - 즉, 위의 형태는 처음 제안되었던 skip connection의 구조로 **feature를 추출하기 전 후를 더하는 특징**을 가지고 있습니다.
+- 논문을 살펴보면 왼쪽의 일반적인 네트워크 구조에서 표현할 수 있는 것은 오른쪽의 Residual 구조에서 똑같이 표현할 수 있다고 잘 설명이 되어있으니 논문을 참조하시면 도움이 됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/resnet/3.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 초기의 ResNet 논문이 나오고 나서 얼마 뒤 약간의 개선된 논문이 바로 나왔는데 Residual 구조가 조금 수정된 Identity Mapping  입니다.
+- 기존에는 한 단위의 feature map을 추출하고 난 후에 activation function을 적용하는 것이 상식이었습니다.
+- 하지만 개선된 구조에서는 네트워크 출력값과 identity를 더할 때 activation function을 적용하지 않고 그냥 더하는 구조를 가지게 됩니다.
+- 대신에 identity는 변경사항은 없지만 네트워크에 변경을 주게 됩니다. 변경 사항은 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/resnet/4.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 네트워크 구조에서 `proposed` 라고 되어 있는 네트워크 구조가 개선된 구조이고 이것은 `Pre-Activation` 이라고 부르고 있습니다.
+
+
+
