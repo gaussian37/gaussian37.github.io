@@ -7,38 +7,98 @@ categories: [dl-pytorch]
 tags: [pytorch, pytorch 설치, colab] # add tag
 ---
 
-+ PyTorch 패키지의 구성 요소
-    + `torch`
-        + main namespace로 tensor등의 다양한 수학 함수가 패키지에 포함되어 있습니다.
-        + NumPy와 같은 구조를 가지고 있습니다.
-    + `torch.autograd`
-        + 자동 미분을 위한 함수가 포함되어 있습니다. 
-        + 자동 미분의 on, off를 제어하는 enable_grad 또는 no_grad나 자체 미분 가능 함수를 정의할 때 사용하는 기반 클래스인 Function등이 포함됩니다.
-    + `torch.nn`
-        + 신경망을 구축하기 위한 다양한 데이터 구조나 레이어가 정의되어 있습니다.
-        + CNN, LSTM, 활성화 함수(ReLu), loss 등이 정의되어 있습니다.
-    + `torch.optim`
-        + SGD 등의 파라미터 최적화 알고리즘 등이 구현되어 있습니다.
-    + `torch.utils.data`
-        + Gradient Descent 계열의 반복 연산을 할 때, 사용하는 미니 배치용 유틸리티 함수가 포함되어 있습니다.
-    + `torch.onnx`
-        + ONNX(Open Neural Network Exchange) 포맷으로 모델을 export 할 때 사용합니다.
-        + ONNX는 서로 다른 딥러닝 프레임워크 간에 모델을 공유할 때 사용하는 새로운 포맷입니다.
+<br>
+
+- PyTorch 패키지의 구성 요소
+    - `torch`
+        - main namespace로 tensor등의 다양한 수학 함수가 패키지에 포함되어 있습니다.
+        - **NumPy와 같은 구조**를 가지고 있어서 numpy와 상당히 비슷한 문법 구조를 가지고 있습니다.
+    - `torch.autograd`
+        - 자동 미분을 위한 함수가 포함되어 있습니다. 
+        - 자동 미분의 on, off를 제어하는 enable_grad 또는 no_grad나 자체 미분 가능 함수를 정의할 때 사용하는 기반 클래스인 Function등이 포함됩니다.
+    - `torch.nn`
+        - 신경망을 구축하기 위한 다양한 데이터 구조나 레이어가 정의되어 있습니다.
+        - CNN, LSTM, 활성화 함수(ReLu), loss 등이 정의되어 있습니다.
+    - `torch.optim`
+        - SGD 등의 파라미터 최적화 알고리즘 등이 구현되어 있습니다.
+    - `torch.utils.data`
+        - Gradient Descent 계열의 반복 연산을 할 때, 사용하는 미니 배치용 유틸리티 함수가 포함되어 있습니다.
+    - `torch.onnx`
+        - ONNX(Open Neural Network eXchange) 포맷으로 모델을 export 할 때 사용합니다.
+        - ONNX는 서로 다른 딥러닝 프레임워크 간에 모델을 공유할 때 사용하는 새로운 포맷입니다.
 
 <br>
 
-## Tensor란 무엇인가?
+## **PyTorch 기초 사용법**
 
-### 텐서의 생성과 변환
+<br>
 
-+ 텐서는 파이토치의 가장 기본이 되는 데이터 구조와 기능에 해당합니다.
-+ 텐서는 다차원 배열을 처리하기 위한 데이터 구조입니다.
-+ API 형태는 `Numpy`의 ndarray와 비슷하며 GPU를 사용하는 계산도 지원합니다.
-+ 텐서는 각 데이터 형태별로 정의되어 있습니다.
-    + `torch.FloatTensor` : 32bit float point
-    + `torch.LongTensor` : 64bit signed integer
-+ GPU 상에서 계산할 때에는 torch.cuda.FloatTensor를 사용합니다. 일반적으로 Tensor는 FloatTensor라고 생각하면 됩니다.
-+ 어떤 형태의 텐서이건 `torch.tensor`라는 함수로 작성할 수 있습니다.
+```python
+nums = torch.arange(9)
+nums
+
+: tensor([0, 1, 2, 3, 4, 5, 6, 7, 8])
+```
+
+<br>
+
+- 먼저 위와 같이 pytorch의 torch라는 것을 통하여 생성할 수 있습니다. 여기서 보면 앞에서 언급한 바와 같이 numpy와 상당히 비슷한 것을 느낄 수 있습니다.
+
+<br>
+
+```python
+nums.shape
+
+: torch.Size([9])
+```
+
+<br>
+
+```python
+type(nums)
+
+: torch.Tensor
+```
+
+<br>
+
+- 여기 까지 보면 뭔가 상당히 numpy 스러운 문법 구조를 가지고 있음을 아실 수 있을 것입니다.
+
+<br>
+
+```python
+nums.numpy()
+
+: array([0, 1, 2, 3, 4, 5, 6, 7, 8], dtype = int64)
+
+nums.reshape(3, 4)
+
+: tensor([ [0, 1, 2],
+           [3, 4, 5],
+           [6, 7, 8] ]])
+```
+
+
+
+
+
+
+
+## **Tensor란 무엇인가?**
+
+<br>
+
+## **텐서의 생성과 변환**
+
+<br>
+
+- 텐서는 파이토치의 가장 기본이 되는 데이터 구조와 기능을 제공하는 다차원 배열을 처리하기 위한 데이터 구조입니다.
+- API 형태는 `Numpy`의 ndarray와 비슷하며 GPU를 사용하는 계산도 지원합니다.
+- 텐서는 각 데이터 형태별로 정의되어 있습니다.
+    - `torch.FloatTensor` : 32bit float point
+    - `torch.LongTensor` : 64bit signed integer
+- GPU 상에서 계산할 때에는 torch.cuda.FloatTensor를 사용합니다. 일반적으로 Tensor는 FloatTensor라고 생각하면 됩니다.
+- 어떤 형태의 텐서이건 `torch.tensor`라는 함수로 작성할 수 있습니다.
 
 ```python
 import torch
@@ -91,8 +151,8 @@ t.size()
 
 <br>
 
-+ 텐서는 Numpy의 ndarray로 쉽게 변환할 수 있습니다.
-+ 단, GPU상의 텐서는 그대로 변환할 수 없으며, CPU로 이동 후에 변환해야 합니다.
+- 텐서는 Numpy의 ndarray로 쉽게 변환할 수 있습니다.
+- 단, GPU상의 텐서는 그대로 변환할 수 없으며, CPU로 이동 후에 변환해야 합니다.
 
 ```python
 # numpy를 사용하여 ndarray로 변환
@@ -106,10 +166,10 @@ x = t.to("cpu").numpy()
 
 <br>
 
-### 텐서의 인덱스 조작
+## **텐서의 인덱스 조작**
 
-+ 텐서의 인덱스를 조작하는 방법은 여러가지가 있습니다.
-+ 텐서는 Numpy의 ndarray와 같이 조작하는 것이 가능합니다. 배열처럼 인덱스를 바로지정 가능하고 슬라이스, 마스크 배열을 사용할 수 있습니다.
+- 텐서의 인덱스를 조작하는 방법은 여러가지가 있습니다.
+- 텐서는 Numpy의 ndarray와 같이 조작하는 것이 가능합니다. 배열처럼 인덱스를 바로지정 가능하고 슬라이스, 마스크 배열을 사용할 수 있습니다.
 
 ```python
 t = torch.tensor([
@@ -138,12 +198,14 @@ t[t > 5] = 20
 
 <br>
 
-### 텐서 연산
+## **텐서 연산**
 
-+ 텐서는 Numpy의 ndarray와 같이 다양한 수학 연산이 가능하며 GPU를 사용할 시에는 더 빠른 연산이 가능합니다.
-+ 텐서에서의 사칙연산은 같은 타입의 텐서 간 또는 텐서와 파이썬의 스칼라 값 사이에서만 가능합니다.
-    + 텐서간이라도 타입이 다르면 연산이 되지 않습니다. FloatTensor와 DoubleTensor간의 사칙연산은 오류가 발생합니다.
-+ 스칼라 값을 연산할 때에는 기본적으로 `broadcasting`이 지원됩니다.
+<br>
+
+- 텐서는 Numpy의 ndarray와 같이 다양한 수학 연산이 가능하며 GPU를 사용할 시에는 더 빠른 연산이 가능합니다.
+- 텐서에서의 사칙연산은 같은 타입의 텐서 간 또는 텐서와 파이썬의 스칼라 값 사이에서만 가능합니다.
+    - 텐서간이라도 타입이 다르면 연산이 되지 않습니다. FloatTensor와 DoubleTensor간의 사칙연산은 오류가 발생합니다.
+- 스칼라 값을 연산할 때에는 기본적으로 `broadcasting`이 지원됩니다.
 
 ```python
 # 길이 3인 벡터
@@ -183,19 +245,28 @@ m + m
         [200., 400., 600.]])
 ```
 
-### 수학 함수 사용
+<br>
 
-+ 텐서에는 다양한 수학 함수가 사용되고 사용 방법은 numpy의 ndarray와 유사합니다.
-    + 자주 사용되는 수학 함수 : abs, sin, cos, exp, log, sqrt
-    + 집계 함수 : sum, max, min, mean, std
-        + ndarray와 마찬가지로 dimension을 지정해주면 어떤 기준으로 집계를 할 지 정할 수 있습니다.
-        + `torch.sum(X, dim=0)`
+## **수학 함수 사용**
 
-### 텐서의 차원 조작
+<br>
 
-+ 텐서의 차원을 변경하는 `view`나 텐서를 결합하는 `stack`, `cat`, 차원을 교환하는 `t`, `transpose`도 사용됩니다.
-+ `view`는 numpy의 reshape와 유사합니다. `cat`은 다른 길이의 텐서를 하나로 묶을 때 사용합니다. 
-+ `transpose`는 행렬의 전치 외에도 차원의 순서를 변경할 때에도 사용됩니다.
+- 텐서에는 다양한 수학 함수가 사용되고 사용 방법은 numpy의 ndarray와 유사합니다.
+    - 자주 사용되는 수학 함수 : abs, sin, cos, exp, log, sqrt
+    - 집계 함수 : sum, max, min, mean, std
+        - ndarray와 마찬가지로 dimension을 지정해주면 어떤 기준으로 집계를 할 지 정할 수 있습니다.
+        - `torch.sum(X, dim=0)`
+
+<br>
+
+## **텐서의 차원 조작**
+
+<br>
+
+- 텐서의 차원을 변경하는 `view`나 텐서를 결합하는 `stack`, `cat`, 차원을 교환하는 `t`, `transpose`도 사용됩니다.
+- `view`는 numpy의 reshape와 유사합니다. 물론 pytorch에도 `reshape` 기능이 있으므로 `view`를 사용하던지 `reshape`을 사용하던지 사용방법은 같으므로 선택해서 사용하면 됩니다.
+-  `cat`은 다른 길이의 텐서를 하나로 묶을 때 사용합니다. 
+- `transpose`는 행렬의 전치 외에도 차원의 순서를 변경할 때에도 사용됩니다.
 
 ```python
 x1 = torch.tensor([
@@ -212,6 +283,10 @@ x1.view(4,1)
         [2.],
         [3.],
         [4.]])
+
+# 2 x 2 행렬을 1차원 벡터로 변형합니다.
+x1.view(-1)
+: tensor([1,2,3,4])
         
 # -1을 사용하면 shape에서 자동 계산 가능한 부분에 한해서 자동으로 입력 됩니다.
 # 계산이 불가능 하면 오류가 발생합니다.
@@ -243,12 +318,12 @@ chw_img_data.size()
 
 <br>
 
-### 선형 대수 연산
+## **선형 대수 연산**
 
-+ `dot` : 벡터 내적
-+ `mv` : 행렬과 벡터의 곱
-+ `mm` : 행렬과 행렬의 곱
-+ `matmul` : 인수의 종류에 따라서 자동으로 dot, mv, mm을 선택
+- `dot` : 벡터 내적
+- `mv` : 행렬과 벡터의 곱
+- `mm` : 행렬과 행렬의 곱
+- `matmul` : 인수의 종류에 따라서 자동으로 dot, mv, mm을 선택
 
 ```python
 a = torch.tensor([1,2,3,4,5,6]).view(3,2)
@@ -280,14 +355,14 @@ plt.plot(x.numpy(), y.numpy())
     
     
 --- 
-+ 출처 : https://github.com/GunhoChoi/PyTorch-FastCampus
-+ 이번 글에서는 Pytorch의 Tensor를 사용하는 간단한 방법에 대하여 알아보겠습니다.
+- 출처 : https://github.com/GunhoChoi/PyTorch-FastCampus
+- 이번 글에서는 Pytorch의 Tensor를 사용하는 간단한 방법에 대하여 알아보겠습니다.
 
 <br> 
 
-### Tensor 생성
+## **Tensor 생성
 
-+ 랜덤 넘버 생성
+- 랜덤 넘버 생성
 
 ```python
 import torch
@@ -301,7 +376,7 @@ print(x)
 
 <br>
 
-+ 순열 생성
+- 순열 생성
 
 ```python
 torch.torch.randperm(5)
@@ -316,18 +391,20 @@ torch.torch.randperm(5)
 
 <br>
 
-+ zeros Tensor 생성
+- zeros Tensor 생성
 
 ```python
-torch.zeros(2,3)
+zeros = torch.zeros(2,3)
 
 : tensor([[0., 0., 0.],
         [0., 0., 0.]])
+
+torch.zeros_like(zeros)
 ```
 
 <br>
 
-+ ones Tensor 생성
+- ones Tensor 생성
 
 ```python
 torch.ones(2,3)
@@ -339,8 +416,8 @@ torch.ones(2,3)
 
 <br>
 
-+ arange를 이용한 Tensor 생성
-+ torch.arange(시작, 끝, step)을 인자로 사용하며 시작은 이상, 끝은 미만의 범위를 가지고 step만큼 간격을 두며 Tensor를 생성합니다. 
+- arange를 이용한 Tensor 생성
+- torch.arange(시작, 끝, step)을 인자로 사용하며 시작은 이상, 끝은 미만의 범위를 가지고 step만큼 간격을 두며 Tensor를 생성합니다. 
 
 ```python
 # torch.arange(start,end,step=1) -> [start,end) with step
@@ -351,9 +428,9 @@ torch.arange(0,3,step=0.5)
 
 <br>
 
-### Tensor 데이터 타입
+## **Tensor 데이터 타입**
 
-+ Float 타입의 m행 n열 Tensor 생성하기
+- Float 타입의 m행 n열 Tensor 생성하기
 
 ```python
 # 2행 3열의 Float 타입의 Tensor 생성
@@ -365,7 +442,7 @@ torch.cuda.FloatTensor(2,3)
 
 <br>
 
-+ 리스트를 입력하여 특정 리스트를 Tensor로 변환하기
+- 리스트를 입력하여 특정 리스트를 Tensor로 변환하기
 
 ```python
 torch.cuda.FloatTensor([2,3])
@@ -375,7 +452,7 @@ torch.cuda.FloatTensor([2,3])
 
 <br>
 
-+ Float 타입을 Int 타입으로 형변환
+- Float 타입을 Int 타입으로 형변환
 
 ```python
 x = torch.cuda.FloatTensor([2,3])
@@ -386,9 +463,13 @@ x.type_as(torch.cuda.IntTensor())
 
 <br>
 
-### Numpy to Tensor 또는 Tensor to Numpy
+## **Numpy to Tensor 또는 Tensor to Numpy**
 
-+ Numpy를 생성한 후 Tensor로 변환한 후 다시 Numpy로 변환하기
+<br>
+
+- Numpy를 생성한 후 Tensor로 변환한 후 다시 Numpy로 변환하기
+
+<br>
 
 ```python
 import numpy as np
@@ -404,12 +485,15 @@ x2.numpy()
 : array([[1, 2, 3],
        [4, 5, 6]])
 ```
+
 <br>
 
-### CPU 타입과 GPU 타입의 Tensor
+## **CPU 타입과 GPU 타입의 Tensor**
 
-+ 딥러닝 프레임워크에서는 CPU와 GPU 두 타입에 대한 Tensor 생성이 가능합니다.
-+ PyTorch에서는 어떻게 사용할 수 있는지 알아보겠습니다.
+<br>
+
+- 딥러닝 프레임워크에서는 CPU와 GPU 두 타입에 대한 Tensor 생성이 가능합니다.
+- PyTorch에서는 어떻게 사용할 수 있는지 알아보겠습니다.
 
 ```python
 x = torch.FloatTensor([[1,2,3],[4,5,6]])
@@ -430,9 +514,9 @@ x_cpu
 
 <br>
 
-### Tensor 사이즈 확인하기
+## **Tensor 사이즈 확인하기**
 
-+ Tensor 사이즈를 확인하려면 `.size()`를 이용하여 확인하면 됩니다.
+- Tensor 사이즈를 확인하려면 `.size()`를 이용하여 확인하면 됩니다.
 
 ```python
 x = torch.cuda.FloatTensor(10, 12, 3, 3)
@@ -443,11 +527,11 @@ x.size()
 
 <br>
 
-### Index 기능 사용방법
+## **Index 기능 사용방법**
 
-+ Index는 Tensor에서 특정 값만 조회하는 것을 말합니다. 
-+ 배열, 행렬에서도 인덱스 기능을 통하여 특정 값들을 조회하는 것 처럼 Tensor에서도 조회할 수 있습니다.
-+ 먼저 `torch.index_select`함수를 이용해 보겠습니다. 파라미터는 input, dim, index가 차례로 입력됩니다.
+- Index는 Tensor에서 특정 값만 조회하는 것을 말합니다. 
+- 배열, 행렬에서도 인덱스 기능을 통하여 특정 값들을 조회하는 것 처럼 Tensor에서도 조회할 수 있습니다.
+- 먼저 `torch.index_select`함수를 이용해 보겠습니다. 파라미터는 input, dim, index가 차례로 입력됩니다.
 
 ```python
 # torch.index_select(input, dim, index)
@@ -468,8 +552,8 @@ torch.index_select(x,0,torch.LongTensor([0,2]))
 
 <br>
 
-+ 이번에는 좀더 파이썬스럽게 인덱싱을 해보겠습니다.
-+ 아래 방법이 좀더 파이썬 유저에게 친숙한 방법입니다.
+- 이번에는 좀더 파이썬스럽게 인덱싱을 해보겠습니다.
+- 아래 방법이 좀더 파이썬 유저에게 친숙한 방법입니다.
 
 ```python
 print(x)
@@ -495,9 +579,9 @@ print(x[0:2, 0:2])
 
 <br>
 
-+ 이번에는 `mask` 기능을 통하여 인덱싱 하는 방법에 대하여 알아보겠습니다.
-+ `torch.masked_select(input, mask)` 함수를 이용하여 선택할 영역에는 `1`을 미선택할 영역은 `0`을 입력 합니다.
-+ 인풋 영역과 마스크할 영역의 크기는 같아야 오류 없이 핸들링 할 수 있습니다.
+- 이번에는 `mask` 기능을 통하여 인덱싱 하는 방법에 대하여 알아보겠습니다.
+- `torch.masked_select(input, mask)` 함수를 이용하여 선택할 영역에는 `1`을 미선택할 영역은 `0`을 입력 합니다.
+- 인풋 영역과 마스크할 영역의 크기는 같아야 오류 없이 핸들링 할 수 있습니다.
 
 ```python
 x = torch.randn(2,3)
@@ -516,10 +600,10 @@ tensor([-0.3964,  0.1522])
 
 <br>
 
-### Join 기능 사용 방법
+## **Join 기능 사용 방법**
 
-+ PyTorch에서 `torch.cat(seq, dim)`을 이용하여 concaternate 연산을 할 수 있습니다.
-+ `dim`은 concaternate할 방향을 정합니다.
+- PyTorch에서 `torch.cat(seq, dim)`을 이용하여 concaternate 연산을 할 수 있습니다.
+- `dim`은 concaternate할 방향을 정합니다.
 
 ```python
 x = torch.cuda.FloatTensor([[1, 2, 3], [4, 5, 6]])
@@ -541,7 +625,7 @@ tensor([[ 1.,  2.,  3., -1., -2., -3.],
 
 <br>
 
-+ `torch.stack` 을 이용하여도 concaternate를 할 수 있습니다.
+- `torch.stack` 을 이용하여도 concaternate를 할 수 있습니다.
 
 ```python
 # torch.stack(sequence,dim=0) -> stack along new dim
@@ -566,10 +650,12 @@ x_stack
 
 <br>
 
-### slicing 기능 사용 방법
+## **slicing 기능 사용 방법**
 
-+ slicing 기능은 Tensor를 몇개의 부분으로 나뉘는 기능입니다.
-+ `torch.chunk(tensor, chunks, dim=0)` 또는 `torch.split(tensor,split_size,dim=0)`함수를 이용하여 Tensor를 나뉠 수 잇습니다
+<br>
+
+- slicing 기능은 Tensor를 몇개의 부분으로 나뉘는 기능입니다.
+- `torch.chunk(tensor, chunks, dim=0)` 또는 `torch.split(tensor,split_size,dim=0)`함수를 이용하여 Tensor를 나뉠 수 잇습니다
 
 ```python
 # torch.chunk(tensor, chunks, dim=0) -> tensor into num chunks
@@ -618,11 +704,11 @@ print(z1)
 
 <br>
 
-### squeezing 기능 사용 방법
+## **squeezing 기능 사용 방법**
 
-+ squeeze 함수를 사용하면 dimension 중에 1로 되어 있는 것을 압축할 수 있습니다.
-+ dimension이 1이면 사실 불필요한 차원일 수 있기 때문에 squeeze를 이용하여 압축 시키는 것이 때론 필요할 수 있는데, 그 때 사용하는 함수 입니다.
-+ `torch.squeeze(input, dim)`으로 사용할 수 있고, dim을 지정하지 않으면 dimeion이 1인 모든 차원을 압축하고 dim을 지정하면 지정한 dimension만 압축합니다.
+- squeeze 함수를 사용하면 dimension 중에 1로 되어 있는 것을 압축할 수 있습니다.
+- dimension이 1이면 사실 불필요한 차원일 수 있기 때문에 squeeze를 이용하여 압축 시키는 것이 때론 필요할 수 있는데, 그 때 사용하는 함수 입니다.
+- `torch.squeeze(input, dim)`으로 사용할 수 있고, dim을 지정하지 않으면 dimeion이 1인 모든 차원을 압축하고 dim을 지정하면 지정한 dimension만 압축합니다.
 
 ```python
 >>> x = torch.zeros(2, 1, 2, 1, 2)
@@ -641,8 +727,8 @@ torch.Size([2, 2, 1, 2])
 
 <br>
 
-+ 반면 unsqueeze 함수를 사용하면 dimension을 추가할 수 있습니다. squeeze와 정확히 반대라고 보시면 됩니다.
-+ unsqueeze 함수는 dimension을 반드시 입력 받게 되어 있습니다.
+- 반면 unsqueeze 함수를 사용하면 dimension을 추가할 수 있습니다. squeeze와 정확히 반대라고 보시면 됩니다.
+- unsqueeze 함수는 dimension을 반드시 입력 받게 되어 있습니다.
 
 ```python
 >>> x = torch.zeros(2,3,4)
@@ -661,10 +747,10 @@ tensor([[ 1],
 
 <br>
 
-### Initialization, 초기화 방법
+## **Initialization, 초기화 방법**
 
-+ `init.uniform`함수를 사용하면 `uniform` 또는 `normal` 분포의 초기화 Tensor를 만들 수 있습니다.
-+ 또는 상수 형태를 바로 만들 수도 있습니다. 예제는 아래와 같습니다.
+- `init.uniform`함수를 사용하면 `uniform` 또는 `normal` 분포의 초기화 Tensor를 만들 수 있습니다.
+- 또는 상수 형태를 바로 만들 수도 있습니다. 예제는 아래와 같습니다.
 
 ```python
 import torch.nn.init as init
@@ -696,10 +782,10 @@ x3 = init.constant(torch.FloatTensor(3,4),3.1415)
 
 <br>
 
-### Math Operation
+## **Math Operation**
 
-+ Tensor의 산술 연산 방법에 대하여 알아보겠습니다.
-+ `+`연산자 또는 `torch.add()`
+- Tensor의 산술 연산 방법에 대하여 알아보겠습니다.
+- `+`연산자 또는 `torch.add()`
 
 ```python
 x1 = torch.FloatTensor([[1,2,3],[4,5,6]])
@@ -715,7 +801,7 @@ add = x1 + x2
 
 <br>
 
-+ `+`연산자를 이용한 broadcasting 또는 `torch.add() with broadcasting`
+- `+`연산자를 이용한 broadcasting 또는 `torch.add() with broadcasting`
 
 ```python
 x1 = torch.FloatTensor([[1,2,3],[4,5,6]])
@@ -727,7 +813,7 @@ x1 = torch.FloatTensor([[1,2,3],[4,5,6]])
 
 <br>
 
-+ `*`연산자 또는 `torch.mul()`
+- `*`연산자 또는 `torch.mul()`
 
 ```python
 x1 = torch.FloatTensor([[1,2,3],[4,5,6]])
@@ -739,7 +825,7 @@ x2 = torch.FloatTensor([[1,2,3],[4,5,6]])
 ```
 <br>
 
-+ `*`연산자를 이용한 broadcasting 또는 `torch.mul() with broadcasting`
+- `*`연산자를 이용한 broadcasting 또는 `torch.mul() with broadcasting`
 
 ```python
 x1 = torch.FloatTensor([[1,2,3],[4,5,6]])
@@ -751,7 +837,7 @@ x1 = torch.FloatTensor([[1,2,3],[4,5,6]])
 
 <br>
 
-+ `/`연산자 또는 `torch.div()`
+- `/`연산자 또는 `torch.div()`
 
 ```python
 x1 = torch.FloatTensor([[1,2,3],[4,5,6]])
@@ -765,7 +851,7 @@ x2 = torch.FloatTensor([[1,2,3],[4,5,6]])
 
 <br>
 
-+ `/`연산자를 이용한 broadcsting 또는 `torch.div() with broadcasting`
+- `/`연산자를 이용한 broadcsting 또는 `torch.div() with broadcasting`
 
 ```python
 x1 = torch.FloatTensor([[1,2,3],[4,5,6]])
@@ -777,7 +863,7 @@ x1 = torch.FloatTensor([[1,2,3],[4,5,6]])
 
 <br>
 
-+ power 연산 : `torch.pow(input,exponent)`
+- power 연산 : `torch.pow(input,exponent)`
 
 ```python
 x1 = torch.FloatTensor([ [1,2,3], [4,5,6] ])
@@ -787,7 +873,7 @@ tensor([[ 1.,  4.,  9.],
 ```
 <br>
 
-+ exponential 연산 : `torch.exp(tensor,out=None)`
+- exponential 연산 : `torch.exp(tensor,out=None)`
 
 ```python
 x1 = torch.FloatTensor([ [1,2,3], [4,5,6] ])
@@ -798,7 +884,7 @@ tensor([[  2.7183,   7.3891,  20.0855],
 
 <br>
 
-+ `torch.log(input, out=None) -> natural logarithm`
+- `torch.log(input, out=None) -> natural logarithm`
 
 ```python
 x1 = torch.FloatTensor([ [1,2,3], [4,5,6] ])
@@ -809,10 +895,10 @@ tensor([[0.0000, 0.6931, 1.0986],
 
 <br>
 
-### Matrix Multiplication
+## **Matrix Multiplication**
 
-+ `torch.mm(mat1, mat2) -> matrix multiplication`
-+ Tensor(행렬)의 곱을 연산하므로 shape이 잘 맞아야 연산이 가능합니다.
+- `torch.mm(mat1, mat2) -> matrix multiplication`
+- Tensor(행렬)의 곱을 연산하므로 shape이 잘 맞아야 연산이 가능합니다.
 
 ```python
 x1 = torch.FloatTensor(3,4)
@@ -822,8 +908,8 @@ torch.mm(x1,x2).size()
 
 <br>
 
-+ `torch.bmm(batch1, batch2) -> batch matrix multiplication`
-+ Tensor(행렬)의 곱을 batch 단위로 처리합니다. `torch.mm`에서는 단일 Tensor(행렬)로 계산을 한 반면에 batch 단위로 한번에 처리하므로 좀 더 효율적입니다.
+- `torch.bmm(batch1, batch2) -> batch matrix multiplication`
+- Tensor(행렬)의 곱을 batch 단위로 처리합니다. `torch.mm`에서는 단일 Tensor(행렬)로 계산을 한 반면에 batch 단위로 한번에 처리하므로 좀 더 효율적입니다.
 
 ```python
 x1 = torch.FloatTensor(10,3,4)
@@ -833,7 +919,7 @@ torch.bmm(x1,x2).size()
 
 <br>
 
-+ `torch.dot(tensor1,tensor2)`는 두 tensor의 dot product 연산을 수행합니다.
+- `torch.dot(tensor1,tensor2)`는 두 tensor의 dot product 연산을 수행합니다.
 
 ```python
 >>> torch.dot(torch.tensor([2, 3]), torch.tensor([2, 1]))
@@ -842,7 +928,7 @@ tensor(7)
 
 <br>
 
-+ `torch.t()`를 이용하면 transposed tensor를 구할 수 있습니다.
+- `torch.t()`를 이용하면 transposed tensor를 구할 수 있습니다.
 
 ```python
 x1 = torch.FloatTensor(2,3)
@@ -856,7 +942,7 @@ torch.Size([3, 2])
 
 <br>
 
-+ 반면 `torch.transpose()`를 이용하여 특정 dimension을 변경할 수 있습니다.
+- 반면 `torch.transpose()`를 이용하여 특정 dimension을 변경할 수 있습니다.
 
 ```python
 x1 = torch.FloatTensor(10,3,4,5)
@@ -872,8 +958,8 @@ torch.Size([10, 3, 5, 4])
 
 <br>
 
-+ `eigenvalue`와 `eigenvector`를 구하는 방법은 아래와 같습니다.
-+ 출력은 각각 `eigenvalue`와 `eigenvector`입니다.
+- `eigenvalue`와 `eigenvector`를 구하는 방법은 아래와 같습니다.
+- 출력은 각각 `eigenvalue`와 `eigenvector`입니다.
 
 ```python
 x1 = torch.FloatTensor(4,4)
