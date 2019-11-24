@@ -113,3 +113,14 @@ tags: [python, deep learning, resnet, residual network] # add tag
 - 위 그림의 가장 왼쪽의 기존 Residual 구조이고 가운데 또는 오른쪽 그림 (두 개는 같지만 시점을 다르게 하였습니다.)은 `Pre-Activation` 구조입니다.
 - 먼저 가운데 그림 시점에서 `Pre-Activation`을 보면 기존의 Residual 구조에 비해 비대칭적인 구조를 적용할 수 있어 네트워크에 다양성을 부과할 수 있고 
 - 오른쪽 그림 시점에서 보면 Activation function을 먼저 적용해 봄으로써 새로운 효과를 주어봤고 실제 성능이 좋았다 라고 설명합니다.
+
+<br>
+
+## **pytorch 코드**
+
+<br>
+
+- 마지막으로 위에서 배운 내용을 pytorch 코드를 통하여 구현해 보도록 하겠습니다.
+
+<br>
+
