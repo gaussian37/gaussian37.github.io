@@ -72,6 +72,16 @@ tags: [python, deep learning, resnet, residual network] # add tag
 <br>
 
 - 위 네트워크 구조에서 `proposed` 라고 되어 있는 네트워크 구조가 개선된 구조이고 이것은 `Pre-Activation` 이라고 부르고 있습니다.
+- 즉, 개선된 구조에서는 네트워크의 처리 순서를 `BN → ReLU → weight →  BN → ReLU → weight`로 변경하였습니다.
+- 실험 결과 기존의 ResNet보다 에러율도 더 낮아지고 학습도 더 잘되는 것으로 논문에서 나타납니다. 
+- 정리하면 `Conv - BN - ReLU` 에서 `BN - ReLU - Conv` 구조로 변경한 것 만으로 성능이 개선되었고 후자에서는 `skip connection`에 어떤 추가 연산도 없이 말 그대로 `Gradient Highway`가 형성되어 극적인 효과를 얻게 되었습니다.
+- 그런데 이 구조는 사실 일반적인 통념과는 조금 다른 구조 입니다. 보통 Convolution 연산을 먼저 한 다음에 Batch Normalization과 Activation function을 적용하는데 `Pre-Activation`에서는 그 순서를 바꾸었습니다.
 
+<br>
+<center><img src="../assets/img/dl/concept/resnet/5.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
-
+- 논문에서 설명하기로는 이러한 구조를 적용한 것이 **asymmetric**과 **pre-activation** 효과를 주기 위해서라고 설명하였습니다.
+- 위 그림의 가장 왼쪽의 기존 Residual 구조이고 가운데 또는 오른쪽 그림 (두 개는 같지만 시점을 다르게 하였습니다.)은 `Pre-Activation` 구조입니다.
+- 먼저 가운데 그림 시점에서 `Pre-Activation`을 보면 기존의 Residual 구조에 비해 비대칭적인 구조를 적용할 수 있어 네트워크에 다양성을 부과할 수 있고 
+- 오른쪽 그림 시점에서 보면 Activation function을 먼저 적용해 봄으로써 새로운 효과를 주어봤고 실제 성능이 좋았다 라고 설명합니다.
