@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 딥 러닝 관련 글 목차
+title: ResNet (Residual Network)
 date: 2017-05-03 00:00:00
 img: dl/concept/resnet/resnet.png
 categories: [dl-concept] 
@@ -18,6 +18,8 @@ tags: [python, deep learning, resnet, residual network] # add tag
 - ### ResNet 관련 배경 
 - ### ResNet의 구조
 - ### Skip Connection
+- ### Bottleneck Architecture
+- ### Identity Mapping
 - ### pytorch 코드
 
 <br>
@@ -57,6 +59,32 @@ tags: [python, deep learning, resnet, residual network] # add tag
     - 이 때, 입력에서 출력으로 그대로 더해지는 값을 `identity` 라고 부릅니다.
 - 즉, 위의 형태는 처음 제안되었던 skip connection의 구조로 **feature를 추출하기 전 후를 더하는 특징**을 가지고 있습니다.
 - 논문을 살펴보면 왼쪽의 일반적인 네트워크 구조에서 표현할 수 있는 것은 오른쪽의 Residual 구조에서 똑같이 표현할 수 있다고 잘 설명이 되어있으니 논문을 참조하시면 도움이 됩니다.
+- 정리하면 Residual 구조에서는 인풋 $$ x $$의 값 또한 그대로 전달 받기 때문에 **입력의 더 작은 fluctuation 검출**을 더 깊은 레이어에서도 가능하게 합니다. 즉, 작은 변화가 발생하여도 더 민감하게 반응해서 학습할 수 있다고 생각하셔도 됩니다. 
+
+<br>
+<center><img src="../assets/img/dl/concept/resnet/2_1.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 컨셉은 기존의 레이어가 깊어질수록 발생하는 Vanishing gradient 문제를 개선할 수 있는 path가 생겼고 따라서 입력의 작은 변화도 깊은 레이어에서 알아챌 수 있도록 한다는 것이었고 실제 실험의 결과에서 그것을 보여줍니다.
+- 이론적으로는 레이어가 깊어질수록 **고차원의 feature 들을 학습해 낼 수 있어서 classification 성능이 높아진다는** 것이 알려져 있지만 일정 레이어 이상으로 깊이가 깊어지면 성능이 나빠지게 되어(Vanishing gradient 나 overfitting 문제) 레이어의 수를 제한적으로 사용해 왔습니다.
+- 그것의 예로 위 왼쪽 그래프를 보면 34 레이어가 오히려 18 레이어 보다 성능이 나빠진 실험 결과를 볼 수 있지요. 
+- 하지만 Residual 구조로 인하여 위 실험과 같이 레이어의 깊이가 깊어짐에 따라서 모델의 성능이 더 좋아진 것을 확인할 수 있습니다.
+- 즉 plain 한 모델의 경우에는 레이어가 일정 깊이 이상으로 깊어지면 학습이 안되었지만 Residual 구조에서는 레이어가 깊어져도 학습이 잘 되는 것을 확인할 수 있습니다. 
+
+<br>
+
+## **Bottleneck Architecture**
+
+<br>
+<center><img src="../assets/img/dl/concept/resnet/6.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 가장 기본적인 Residual 구조에서 조금 변형한 형태의 `Bottleneck` 구조입니다.
+- Residual 구조에서 `1x1 → 3x3 → 1x1` 구조를 이용하여 Bottleneck 구조를 만들어 내었고 Dimension의 Reduction과 Expansion 효과를 주어 **연산 시간 감소** 성능을 얻을 수 있습니다. 
+
+<br>
+
+## **Identity Mapping**
 
 <br>
 <center><img src="../assets/img/dl/concept/resnet/3.png" alt="Drawing" style="width: 600px;"/></center>
