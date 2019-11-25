@@ -3,7 +3,7 @@ layout: post
 title: Numpy와 Pandas로 결측값 처리하기
 date: 2019-01-11 00:00:00
 img: python/pandas/pandas.png
-categories: [python-pandas] 
+categories: [python-basic] 
 tags: [python, pandas, missing value, 결측값] # add tag
 ---
 

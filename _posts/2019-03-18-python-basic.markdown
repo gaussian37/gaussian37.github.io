@@ -3,7 +3,7 @@ layout: post
 title: Python 기본 문법 모음
 date: 2019-03-18 00:00:00
 img: python/pandas/python.jpg
-categories: [python-pandas] 
+categories: [python-basic] 
 tags: [python, python 기본] # add tag
 ---
 

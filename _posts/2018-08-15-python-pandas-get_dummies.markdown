@@ -3,7 +3,7 @@ layout: post
 title: pandas-get_dummies
 date: 2018-08-15 00:00:00
 img: python/pandas/pandas.png
-categories: [python-pandas] 
+categories: [python-basic] 
 tags: [python, pandas, get_dummies] # add tag
 ---
 

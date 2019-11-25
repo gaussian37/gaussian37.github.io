@@ -3,7 +3,7 @@ layout: post
 title: Numpy에서 종종 사용하는 기능 모음
 date: 2019-01-11 00:00:00
 img: python/pandas/numpy.png
-categories: [python-pandas] 
+categories: [python-basic] 
 tags: [Numpy, 넘파이] # add tag
 ---
 

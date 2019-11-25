@@ -3,7 +3,7 @@ layout: post
 title: Category 형태의 Feature를 Ordinal 형태로 변경
 date: 2019-01-14 00:00:00
 img: python/pandas/pandas.png
-categories: [python-pandas] 
+categories: [python-basic] 
 tags: [python, pandas, categorical, ordinal, replace] # add tag
 ---
 
