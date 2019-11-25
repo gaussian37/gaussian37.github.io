@@ -249,7 +249,7 @@ $$
 - 예를 2개의 온도 센서가 있다고 가정해 보겠습니다. 
 
 <br>
-<center><img src="../assets/img/autodrive/ose/lkf_human_tracking_w_opencv/1.jpg" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/lkf_human_tracking_w_opencv/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>   
 
 - 위 그림의 파란색 분포가 나타나는 센서보다 빨간색 분포가 나타나는 센서가 좀 더 신뢰도가 높다고 가정해 보겠습니다.
@@ -262,7 +262,7 @@ $$
     - 참조 : https://gaussian37.github.io/math-pb-product_convolution_gaussian_pdf/
 
 <br>
-<center><img src="../assets/img/autodrive/ose/lkf_human_tracking_w_opencv/2.jpg" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/lkf_human_tracking_w_opencv/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>   
 
 - 따라서 두 가우시안 분포의 곱을 통해서 얻은 결과는 위 그래프와 같이 초록색 가우시안 분포를 얻을 수 있습니다.
