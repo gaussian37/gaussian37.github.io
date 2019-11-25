@@ -624,11 +624,9 @@ $$
 <br>
 
 $$
-
 \begin{equation} \label{matrixgain} 
 \color{purple}{\mathbf{K}} = \Sigma_0 (\Sigma_0 + \Sigma_1)^{-1} 
 \end{equation}
-
 $$
 
 <br>
