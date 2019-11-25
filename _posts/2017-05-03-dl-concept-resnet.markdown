@@ -123,7 +123,18 @@ tags: [python, deep learning, resnet, residual network] # add tag
 - 마지막으로 위에서 배운 내용을 다시 한번 정리하면서 pytorch 코드를 통하여 구현해 보도록 하겠습니다.
 - 앞에서 배운 Residual 구조는 이전 단계에서 뽑았던 특성을 변형시키지 않고 그대로 뒤 레이어로 전달하기 때문에 입력단에서 뽑은 단순한 특성과 뒷부분에서 뽑은 복잡한 특성을 모둥 사용한다는 장점이 있습니다.
 - 또한 더하기 연산은 역전파 계산을 할 때, 기울기가 1이기 때문에 손실이 줄어들거나 하지 않고 모델의 앞부분 까지 잘 전파하기 때문에, 학습 면에서도 GoogLeNet 처럼 보조 레이어가 필요하지 않습니다.
+- 모델의 깊이는 VGG 네트워크보다 훨씬 더 깊어졌고 논문에서는 레이어를 152개 까지 사용하기도 하였습니다.
+- 모델의 크기도 커짐에 따라 GoogLeNet의 `1x1 convolution`을 활용하였고 위에서 다룬 바와 같이 bottleneck이라고 이름을 붙였습니다.
+- 이번 코드에서는 완전히 vanilla 형태의 ResNet 보다는 좀 개선된 bottleneck이 적용된 ResNet을 구현해 보겠습니다.
+- bottleneck은 먼저 `1x1 convolution`으로 **채널 방향을 압축**합니다. 그리고 이 압축된 상태에서 `3x3 convolution`으로 추가 feature를 뽑아내고 다시 `1x1 convolution`을 사용하여 채널의 수를 늘려줍니다.
+    - 이렇게 함으로써 **변수의 수를 줄이면서도 원하는 개수의 feature를 뽑을 수 있도록 합니다.**
 
+<br>
+<center><img src="../assets/img/dl/concept/resnet/7.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 그리고 ResNet을 자세히 살펴보면 위와 네트워크와 같이 실선은 feature map의 가로 세로 해상도가 바뀌지 않는 경우이고 점선은 다운 샘플링으로 인하여 해상도가 바뀌는 경우입니다.
+- 이 경우 이전 단계의 feature map이 가로 세로 방향으로 반 씩 줄어들게 됩니다.
 
 <br>
 
