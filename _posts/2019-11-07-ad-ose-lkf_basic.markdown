@@ -589,15 +589,11 @@ $$
 
 <br>
 
-$$ 
-
-\begin{equation} 
+$$
 \begin{split} 
 \color{royalblue}{\vec{\mu}’} &= \vec{\mu_0} + &\color{purple}{\mathbf{K}} (\vec{\mu_1} – \vec{\mu_0})\\ 
 \color{mediumblue}{\Sigma’} &= \Sigma_0 – &\color{purple}{\mathbf{K}} \Sigma_0 
-\end{split} \label{matrixupdate} 
-\end{equation}
-
+\end{split}
 $$
 
 <br>
@@ -624,7 +620,7 @@ $$
 <br>
 
 $$
-\begin{equation} \label{matrixgain} 
+\begin{equation}
 \color{purple}{\mathbf{K}} = \Sigma_0 (\Sigma_0 + \Sigma_1)^{-1} 
 \end{equation}
 $$
