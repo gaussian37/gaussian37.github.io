@@ -261,3 +261,33 @@ from functools import reduce
 reduce(lambda x,y: x+y, [1,2,3,4,5])
 : 15
 ```
+
+<br>
+
+## **deque은 사이즈 관리를 자동으로 한다.**
+
+<br>
+
+- 파이썬의 deque에서도 queue와 마찬가지로 최대 사이즈를 지정할 수 있습니다.
+- deque의 기본적인 자료 구조 특성으로 인한 편리함 이외에 파이썬에서 제공하는 편리한 기능은 최대 사이즈를 자동으로 관리해 준다는 것입니다.
+- 예를 들어 deque의 최대 크기를 3이라고 하였을 때, 4개의 데이터를 넣으면 4번째 데이터를 넣을 때 내부적으로 첫번째 데이터를 pop 하는 것입니다.
+- 즉 FIFO 구조에 맞게 deque의 최대 크기를 초과할 때 Firtst In 된 데이터를 Pop 하는 기능이 구현되어 있다는 것입니다.
+- 따라서 deque에 최대 크기를 지정한 경우 따로 예외처리를 하지 않아도 되는 편리함이 있습니다.
+
+<br>
+
+```python
+from collections import deque
+dq = deque(maxlen=3)
+dq.append(1)
+dq.append(2)
+dq.append(3)
+dq.append(4)
+
+print(dq)
+: deque([2, 3, 4], maxlen=3)
+```
+
+<br>
+
+
