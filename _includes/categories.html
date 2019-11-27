@@ -91,11 +91,30 @@
             </li>
 
             <li class="nav-item dropdown
+            {% if page.url == '/python/rest/' or page.url == '/python/crawling/' or page.url == '/python/pyqt/' or page.url == '/python/basic/' or page.url == '/python/django/' or page.url == '/python/embedded/' or page.url == '/python/etc/'%} active {% endif %}">
+                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('python-dropdown')"
+                   role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Python
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="python-dropdown">
+                    <a class="dropdown-item" href="{{ "/python/basic" | prepend: site.baseurl }}">Basic & Pandas & Numpy</a>
+                    <a class="dropdown-item" href="{{ "/python/django" | prepend: site.baseurl }}">Django</a>
+                    <a class="dropdown-item" href="{{ "/python/rest" | prepend: site.baseurl }}">Django-RestFramework</a>
+                    <a class="dropdown-item" href="{{ "/python/crawling" | prepend: site.baseurl }}">Crawling</a>
+                    <a class="dropdown-item" href="{{ "/python/embedded" | prepend: site.baseurl }}">Embedded</a>
+                    <a class="dropdown-item" href="{{ "/python/pyqt" | prepend: site.baseurl }}">PyQT</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ "/python/etc" | prepend: site.baseurl }}">ETC</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown
             {% if page.url == '/c/concept' or page.url == '/c/linux/' or page.url == '/c/etc/' %} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('c-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                    C
+                    C 언어
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="c-dropdown">
                     <a class="dropdown-item" href="{{ "/c/concept" | prepend: site.baseurl }}">Concept</a>
@@ -115,25 +134,6 @@
                     <a class="dropdown-item" href="{{ "/cpp/concept" | prepend: site.baseurl }}">Concept</a>
                     <a class="dropdown-item" href="{{ "/cpp/mfc" | prepend: site.baseurl }}">MFC</a>
                     <a class="dropdown-item" href="{{ "/cpp/etc" | prepend: site.baseurl }}">ETC</a>
-                </div>
-            </li>
-
-            <li class="nav-item dropdown
-            {% if page.url == '/python/rest/' or page.url == '/python/crawling/' or page.url == '/python/pyqt/' or page.url == '/python/basic/' or page.url == '/python/django/' or page.url == '/python/embedded/' or page.url == '/python/etc/'%} active {% endif %}">
-                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('python-dropdown')"
-                   role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Python
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="python-dropdown">
-                    <a class="dropdown-item" href="{{ "/python/basic" | prepend: site.baseurl }}">Basic & Pandas & Numpy</a>
-                    <a class="dropdown-item" href="{{ "/python/django" | prepend: site.baseurl }}">Django</a>
-                    <a class="dropdown-item" href="{{ "/python/rest" | prepend: site.baseurl }}">Django-RestFramework</a>
-                    <a class="dropdown-item" href="{{ "/python/crawling" | prepend: site.baseurl }}">Crawling</a>
-                    <a class="dropdown-item" href="{{ "/python/embedded" | prepend: site.baseurl }}">Embedded</a>
-                    <a class="dropdown-item" href="{{ "/python/pyqt" | prepend: site.baseurl }}">PyQT</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ "/python/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
 
