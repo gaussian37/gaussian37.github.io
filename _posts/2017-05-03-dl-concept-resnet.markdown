@@ -138,3 +138,28 @@ tags: [python, deep learning, resnet, residual network] # add tag
 
 <br>
 
+- 먼저 기본적인 합성곱 블록을 구현해 보도록 하겠습니다.
+- nn.Conv2d는 다음 [링크](https://gaussian37.github.io/dl-pytorch-conv2d/)를 참조하시기 바랍니다.
+
+<br>
+
+```python
+
+def conv_block_1(in_dim, out_dim, act_fn, stride = 1):
+    """  bottleneck 구조를 만들기 위한 1x1 convolution """
+    model = nn.Sequential(
+        nn.Conv2d(in_dim, out_dim, kernel_size = 1, stride = stride),
+        act_fn
+    )
+    return model
+
+def conv_block_3(in_dim, out_dim, act_fn):
+    """  bottleneck 구조를 만들기 위한 3x3 convolution """
+    model = nn.Sequential(
+        nn.Conv2d(in_dim, out_dim, kernel_size = 3, stride = 1, padding = 1),
+        act_fn
+    )
+
+```
+
+<br>

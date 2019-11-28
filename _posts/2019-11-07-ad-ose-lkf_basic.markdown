@@ -28,6 +28,7 @@ tags: [칼만 필터, kalman filter, 선형 칼만 필터] # add tag
 - ### 5. 측정값으로 추정치 조정
 - ### 6. 가우시안 결합
 - ### 7. 앞에서 다룬 내용 종합
+- ### 8. 칼만 필터 Flow
 
 <br>
 
@@ -682,3 +683,16 @@ $$
 - 이 계산 과정에서 주의할 것은 `역행렬` 계산입니다. 역행렬이 없을 때에는 이 계산을 할 수 없으니 state estimation을 못할 수 있습니다.
 - 따라서 역행렬이 없는 특이 행렬일 때도 구할 수 있는 [Pseudo-Inverse](https://gaussian37.github.io/math-la-pinv/)를 적용하는 것이 좋습니다.
     - 일반적인 간단한 역행렬 계산(e.g. 가우스 조던 소거법)에서 역행렬을 구할 때 $$ O(n^{3}) $$ 의 연산량인 것과 같이 pseudo inverse를 구할 때에도 $$ O(mn^{2}) $$의 복잡도를 가지므로 연산량 측면에서도 유사합니다.
+
+<br>
+
+## **8. 칼만 필터 Flow**
+
+<br>
+
+- 마지막으로 지금 까지 학습한 칼만 필터의 Flow를 보면서 글을 마무리 하겠습니다.
+- 글을 읽어주셔서 감사합니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/lkf_basic/17.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
