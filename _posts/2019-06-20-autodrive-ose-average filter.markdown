@@ -3,13 +3,11 @@ layout: post
 title: 평균필터(Average Filter)
 date: 2019-06-22 00:00:00
 img: ad/kalmanfilter/kf.PNG
-categories: [ad-kalmanfilter] 
-tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
+categories: [autodrive-ose] 
+tags: [평균 필터, average filter] # add tag
 ---
 
 - 출처 : 칼만필터는 어렵지 않아
-- 칼만필터 관련 코드는 python, c++로 바꿔서 글 올립니다.
-
 - 평균은 데이터의 총합을 데이터 갯수로 나눈 값을 말합니다. 
 - 수식으로 정의하면 $$ \bar{x_{k}} = \frac{x_{1} + x_{2} + ... + x_{k}}{k} $$ 가 됩니다.
 

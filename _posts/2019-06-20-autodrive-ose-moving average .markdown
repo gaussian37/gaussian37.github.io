@@ -4,12 +4,10 @@ title: 이동평균필터(moving average filter)
 date: 2019-06-22 00:00:01
 img: aad/kalmanfilter/kf.PNG
 categories: [ad-kalmanfilter] 
-tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
+tags: [이동 평균 필터, moving average filter] # add tag
 ---
 
 - 출처 : 칼만필터는 어렵지 않아
-- 칼만필터 관련 코드는 python, c++로 바꿔서 글 올립니다.
-
 - 이동 평균은 모든 측정 데이터가 아니라, 지정된 갯수의 최근 측정값만 가지고 계산한 평균입니다.
 - 새로운 데이터가 들어오면 가장 오래된 데이터는 버리는 방식으로 데이터 갯수를 일정하게 유지하면서 평균을 구합니다.
 - n개의 데이터에 대한 이동 평균을 수식으로 표현하면 다음과 같습니다.

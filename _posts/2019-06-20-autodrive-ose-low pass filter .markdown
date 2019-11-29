@@ -3,13 +3,11 @@ layout: post
 title: 저주파 통과 필터(low pass filter)
 date: 2019-06-22 00:00:02
 img: ad/kalmanfilter/kf.PNG
-categories: [ad-kalmanfilter] 
-tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
+categories: [autodrive-ose] 
+tags: [저주파 통과 필터, low pass filter] # add tag
 ---
 
 - 출처 : 칼만필터는 어렵지 않아
-- 칼만필터 관련 코드는 python, c++로 바꿔서 글 올립니다.
-
 - 저주파 통과 필터(low pass filter)는 이름 그대로 저주파 신호는 통과시키고 고주파 신호는 걸러내는 필터를 말합니다.
 - 저주파 통과 필터는 노이즈 제거용으로 많이 사용되는데 대개 측정하려는 신호는 저주파이고 노이즈는 고주파 성분으로 되어 있기 때문입니다.
 - 저주파 통과 필터는 특정 수식의 필터를 지칭하는 고유 명사가 아니라 저주파만 통과시키는 특성을 가진 모든 필터를 총칭하는 일반 명사입니다.
@@ -17,7 +15,7 @@ tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 
 <br>
 
-- 먼저 [이동 평균 필터](https://gaussian37.github.io/vision-kalmanfilter-moving-average/)의 한계에 대하여 먼저 다뤄 보도록 하겠습니다.
+- 먼저 [이동 평균 필터](https://gaussian37.github.io/autodrive-ose-moving-average/)의 한계에 대하여 먼저 다뤄 보도록 하겠습니다.
 - 이동 평균 필터를 실제로 사용해보면 노이즈를 제거하면서 변화 추이를 반영하는게 생각보다 쉽지 않을 수 있습니다.
 - 그 이유는 다음 식을 보면서 설명드리겠습니다.
 - 　$$ \bar{x}_{k} = \frac{x_{k-n+1} + x_{k-n+2} + \cdots + x_{k}}{n} $$
@@ -36,7 +34,7 @@ tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 
 - 최근 측정값에 높은 가중치를 주는 방법으로 앞에서 언급한 1차 저주파 통과 필터가 있습니다.
 - 　$$ \bar{x}_{k} = \alpha \bar{x}_{k-1}+ (1-\alpha)x_{k} \ \ \ (0 \lt \alpha \lt 1) $$ 
--  이 식은 앞의 글 [평균 필터](https://gaussian37.github.io/vision-kalmanfilter-average-filter/)에서 정의한 식과 동일 합니다.
+-  이 식은 앞의 글 [평균 필터](https://gaussian37.github.io/autodrive-ose-average-filter/)에서 정의한 식과 동일 합니다.
     - 평균 필터에서의 $$ \alpha  = \frac{k-1}{k} $$ 였었습니다.
 - 저주파 통과 필터에는 반면 평균과 전혀 상관없는 값입니다. 따라서 여기에서는 평균이라는 용어는사용하지 않고 추정값(estimated value)라는 용어를 쓰겠습니다.
 - 그러면 추정값 $$ x_{k} $$가 과연 이동 평균 필터의 단점을 보완하는지 알아보겠습니다.
