@@ -208,10 +208,48 @@ class ResNet(nn.Module):
         super(ResNet, self).__init__()
         self.act_fn = nn.ReLU()
         self.layer_1 = nn.Sequential(
-            nn.Conv2d
+            nn.Conv2d(3, base_dim, 7, 2, 3),
+            nn.ReLU(),
+            # nn.MaxPool2d(kernel_size, stride, padding)
+            nn.MaxPool2d(3, 2, 1),
         )    
+        self.layer_2 = nn.Sequential(
+            # BottleNeck(in_dim, mid_dim, out_dim, act_fn, down)
+            BottleNeck(base_dim, base_dim, base_dim * 4, self.act_fn),
+            BottleNeck(base_dim * 4, base_dim, base_dim * 4, self.act_fn),
+            BottleNeck(base_dim * 4, base_dim, base_dim * 4, self.act_fn, down = True),
+        )
+        self.layer_3 = nn.Sequential(
+            BottleNeck(base_dim * 4, base_dim * 2, base_dim * 8, self.act_fn),
+            BottleNeck(base_dim * 8, base_dim * 2, base_dim * 8, self.act_fn),
+            BottleNeck(base_dim * 8, base_dim * 2, base_dim * 8, self.act_fn),
+            BottleNeck(base_dim * 8, base_dim * 2, base_dim * 8, self.act_fn, down = True),
+        )
+        self.layer_4 = nn.Sequential(
+            BottleNeck(base_dim * 8, base_dim * 4, base_dim * 16, self.act_fn),
+            BottleNeck(base_dim * 16, base_dim * 4, base_dim * 16, self.act_fn),
+            BottleNeck(base_dim * 16, base_dim * 4, base_dim * 16, self.act_fn),
+            BottleNeck(base_dim * 16, base_dim * 4, base_dim * 16, self.act_fn),
+            BottleNeck(base_dim * 16, base_dim * 4, base_dim * 16, self.act_fn),
+            BottleNeck(base_dim * 16, base_dim * 4, base_dim * 16, self.act_fn, act_fn = True),
+        )
+        self.layer_5 = nn.Sequential(
+            BottleNeck(base_dim * 16, base_dim * 8, base_dim * 32, self.act_fn),
+            BottleNeck(base_dim * 32, base_dim * 8, base_dim * 32, self.act_fn),
+            BottleNeck(base_dim * 32, base_dim * 8, base_dim * 32, self.act_fn),
+        )
+        self.avgpool = nn.AvgPool2d(7, 1)
+        self.fc_layer = nn.Linear(base_dim * 32, num_classes)
+
+    def forward(self, x):
+        out = self.layer_1(x)
+        out = self.layer_2(out)
+        out = self.layer_3(out)
+        out = self.layer_4(out)
+        out = self.layer_5(out)
+        out = self.avgpool(out)
+        out = out.view(batch_size, -1)
+        out = self.fc_layer(out)
+        return out
 ```
-
-
-
 <br>
