@@ -14,4 +14,7 @@ tags: [vision, deep learning, segmentation] # add tag
 - [Convolutional and Deconvolutional Network]()
 - [U-Net]()
 - [Mask RCNN]()
+- [DeepLab]()
+- [DeepLab v2]()
+- [DeepLab v3]()
 - [DeepLab v3+]()
