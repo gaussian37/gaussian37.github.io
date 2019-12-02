@@ -30,7 +30,7 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
-- CNN 경량화 팁
+- [딥러닝 경량화]()
 - 스마트폰 위의 딥러닝
 
 <br>
