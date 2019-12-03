@@ -17,4 +17,4 @@ tags: [vision, deep learning, segmentation] # add tag
 - [DeepLab]()
 - [DeepLab v2]()
 - [DeepLab v3]()
-- [DeepLab v3+]()
+- [DeepLab v3+](https://gaussian37.github.io/vision-segmentatin-deeplabv3plus/)
