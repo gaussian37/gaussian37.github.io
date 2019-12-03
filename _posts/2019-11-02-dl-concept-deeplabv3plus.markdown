@@ -118,6 +118,11 @@ tags: [segmentation, deeplab v3+] # add tag
 
 <br>
 
+- 정리하면 `DeepLab v3+` 에서는 `Atrous Spatial Pyramid Pooling`을 통하여 receptive field를 다양하게 하였고 그 효과로 크고 작은 객체의 segmentation 작업을 잘 할 수 있도록 고안하였습니다.
+- 또한 `U-net`에서 사용한 Encoder-Decoder 구조와 Encoder Decoder 간 concatenation 구조를 적용하는 Upsampling 방식을 사용하여 bilinear interpolation upsampling 보다 좋은 효과를 얻을 수 있었습니다. 
+
+<br>
+
 ## **Pytorch 코드 리뷰**
 
 <br>
