@@ -62,5 +62,6 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
+- [PReLU (Parametric ReLU)](https://gaussian37.github.io/dl-concept-prelu/)
 - [gram matrix used in style transer](https://gaussian37.github.io/dl-concept-grammatrix/)
 - [BatchNormalization, Dropout, Pooling 적용 순서](https://gaussian37.github.io/dl-concept-order_of_regularization_term/)
