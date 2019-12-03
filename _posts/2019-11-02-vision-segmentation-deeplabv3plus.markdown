@@ -2,8 +2,8 @@
 layout: post
 title: DeepLabv3+, Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation
 date: 2019-11-05 00:00:00
-img: dl/concept/deeplabv3plus/deeplabv3plus.png
-categories: [dl-concept] 
+img: vision/segmentation/deeplabv3plus/deeplabv3plus.png
+categories: [vision-segmentation] 
 tags: [segmentation, deeplab v3+] # add tag
 ---
 
@@ -42,7 +42,7 @@ tags: [segmentation, deeplab v3+] # add tag
 - 먼저 DeepLab v3+에서 사용되는 convolution 연산 중에 `Atrous convolution`에 대하여 알아보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/deeplabv3plus/0.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/segmentation/deeplabv3plus/0.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - atrous convolution은 위 그림과 같이 convolution 연산 시 receptive field 사이에 `hole`을 추가하여 receptive field를 확장하는 구조를 가집니다.
@@ -51,7 +51,7 @@ tags: [segmentation, deeplab v3+] # add tag
 - 이렇게 filter 사이에 간격을 주는 이유는 `넓은 영역을 보기 위함`입니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/deeplabv3plus/1.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/segmentation/deeplabv3plus/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 이렇게 atrous convolution을 사용하게 되면 위 그림과 같이 downsampling - convolution - upsampling 과정을 거치는 것보다 더 좋은 성능을 가지는 것을 논문에서 보여줍니다. 
@@ -61,7 +61,7 @@ tags: [segmentation, deeplab v3+] # add tag
 ## **Spatial Pyramid Pooling**
 
 <br>
-<center><img src="../assets/img/dl/concept/deeplabv3plus/2.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/segmentation/deeplabv3plus/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 그런데 atrous convolution을 사용할 때, 고정된 `rate`를 사용하게 되면 필터의 크기가 고정이 되어버리고 다양한 feature 중에서 한정된 feature 밖에 찾지 못하는 문제를 가지게 됩니다.
@@ -70,14 +70,14 @@ tags: [segmentation, deeplab v3+] # add tag
 - 이 내용은 DeepLab V2에서 부터 적용되어 그 이후 v3, v3+ 까지 사용되고 있습니다. 
 
 <br>
-<center><img src="../assets/img/dl/concept/deeplabv3plus/3.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/segmentation/deeplabv3plus/3.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위의 왼쪽 그림은 고정된 rate를 사용한 경우이고 오른쪽 그림은 병렬적으로 다양항 크기의 rate를 사용한 경우입니다.
 - 오른쪽 그림과 같이 `ASPP` 구조를 적용한 경우에는 다양한 **receptive field**에 대응할 수 있는 장점이 있습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/deeplabv3plus/4.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/segmentation/deeplabv3plus/4.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 그러면 `v3+`에서 개선한 내용에 대해서 살펴보겠습니다.
@@ -86,14 +86,14 @@ tags: [segmentation, deeplab v3+] # add tag
 - 위 그림의 (b)과 같은 Encoder - Decoder 형태의 구조를 이용하면 Encoder에서 좀 더 풍부한 semantic 정보를 추출할 수 있으므로 최종적으로 `Spatial Pyramid Pooling`과 `Encoder-Decoder`를 결합해보려고 합니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/deeplabv3plus/5.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/segmentation/deeplabv3plus/5.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - `Encoder` 부분은 `DeepLab v3`에서 다룬 내용과 같습니다. 
 - Encoder 마지막 부분에서는 upsampling을 하기 위해서 마지막에 1x1 convolution을 하고 차원 축소를 한 다음에 upsampling 시 concat하는 방법을 가집니다. 이것은 마치 [U-Net](https://gaussian37.github.io/vision-segmentation-unet/)의 구조와 유사합니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/deeplabv3plus/6.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/segmentation/deeplabv3plus/6.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - DeepLab v3+에서 사용된 backbone 네트워크는 Xception과 ResNet-101입니다. 사용 결과 성능은 유사하나 Xception에서 조금 더 좋은 성능이 나왔다고 하였고 이 때 적용한 Xception 구조는 약간 변경되어 적용되었습니다.
@@ -101,7 +101,7 @@ tags: [segmentation, deeplab v3+] # add tag
 - 그리고 각각의 3x3 depthwise convolution 이후에 추가적으로 batch normalization과 ReLU 함수를 추가하였습니다 
 
 <br>
-<center><img src="../assets/img/dl/concept/deeplabv3plus/7.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/segmentation/deeplabv3plus/7.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - `DeepLab v3+`에 추가된 `Decoder` 부분의 개선 성능을 평가 지표로 살펴보겠습니다.
@@ -110,7 +110,7 @@ tags: [segmentation, deeplab v3+] # add tag
     - 참고로 `mIOU`는 IOU의 평균이고 segmentation에서는 픽셀 단위 기준으로 IOU를 실시하게 됩니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/deeplabv3plus/8.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/segmentation/deeplabv3plus/8.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - segmentation 결과를 보면 가장 오른쪽의 `w/ Decoder` 부분의 성능이 좋아진 것을 볼 수 있습니다.
