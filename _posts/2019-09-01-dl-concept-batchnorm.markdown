@@ -23,6 +23,8 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 - ### Batch
 - ### Internal Covariant Shift
 - ### Batch Normalization
+- ### Internal Covariant Shift 더 알아보기]
+- ### Batch Normalization의 효과
 - ### Pytorch에서의 사용 방법
 
 <br>
@@ -80,5 +82,12 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 - batch normalization은 학습 과정에서 각 배치 단위 별로 데이터가 다양한 분포를 가지더라도 **각 배치별로 평균과 분산을 이용해 정규화**하는 것을 뜻합니다. 
 - 위 그림을 보면 batch 단위나 layer에 따라서 입력 값의 분포가 모두 다르지만 정규화를 통하여 분포를 zero mean gaussian 형태로 만듭니다. 
 - 그러면 평균은 0, 표준 편차는 1로 데이터의 분포를 조정할 수 있습니다.
-- 
+
+<br>
+
+$$ BN(X) = \gamma \Bigl(  \frac{X - \mu_{batch} }{\sigma_{batch} } \Bigr) + \beta $$
+
+<br>
+
+- 여기서 $$ \gamma $$는 스케일링 역할을 하고 $$ \beta $$는 bias입니다. 물론 backprpagation을 통하여 
 
