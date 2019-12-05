@@ -13,16 +13,16 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
-- [Inception]()
-- [Xecption]()
+- [Inception](https://gaussian37.github.io/dl-concept-inception/)
+- [Xecption](https://gaussian37.github.io/dl-concept-xception/)
 - [ResNet](https://gaussian37.github.io/dl-concept-resnet/)
 - [Convolution arithmetic](https://gaussian37.github.io/dl-concept-covolution_operation/)
 - [Depthwise separable convolution 연산](https://gaussian37.github.io/dl-concept-dwsconv/)
 - [SqueezeNet](https://gaussian37.github.io/dl-concept-squeezenet/)
 - [SqueezeNext](https://gaussian37.github.io/dl-concept-squeezenext/)
 - [MobileNet](https://gaussian37.github.io/dl-concept-mobilenet/)
-- [MobileNet v2](https://gaussian37.github.io/dl-concept-mobilenet2/)
-- ShuffleNet
+- [MobileNet v2](https://gaussian37.github.io/dl-concept-mobilenetv2/)
+- [ShuffleNet](https://gaussian37.github.io/dl-concept-shufflenet/)
 
 <br>
 
@@ -64,4 +64,5 @@ tags: [python, deep learning, dl] # add tag
 
 - [PReLU (Parametric ReLU)](https://gaussian37.github.io/dl-concept-prelu/)
 - [gram matrix used in style transer](https://gaussian37.github.io/dl-concept-grammatrix/)
-- [BatchNormalization, Dropout, Pooling 적용 순서](https://gaussian37.github.io/dl-concept-order_of_regularization_term/)
+- [Batch Normalization](https://gaussian37.github.io/dl-concept-batchnorm)
+- [Batch Normalization, Dropout, Pooling 적용 순서](https://gaussian37.github.io/dl-concept-order_of_regularization_term/)
