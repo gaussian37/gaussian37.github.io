@@ -85,9 +85,66 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 
 <br>
 
+- 여기서 중요한 것은 Batch Normalization은 학습 단계와 추론 단계에서 조금 다르게 적용되어야 합니다.
+- 먼저 학습 단계를 살펴보도록 하겠습니다.
+
+<br>
+
 $$ BN(X) = \gamma \Bigl(  \frac{X - \mu_{batch} }{\sigma_{batch} } \Bigr) + \beta $$
 
 <br>
 
-- 여기서 $$ \gamma $$는 스케일링 역할을 하고 $$ \beta $$는 bias입니다. 물론 backprpagation을 통하여 
+- 여기서 $$ \gamma $$는 스케일링 역할을 하고 $$ \beta $$는 bias입니다. 물론 두 값 모두 backprpagation을 통하여 학습을 하게 됩니다.
 
+<br>
+
+$$ \mu_{batch} = \frac{1}{B} \sum_{i} x_{i} $$
+
+<br>
+
+$$ \sigma^{2}_{batch} = \frac{1}{B} \sum_{i} (x_{i} - \mu_{batch})^{2} $$
+
+<br>
+
+### **학습 단계의 배치 정규화**
+
+<br>
+
+- 학습 단계의 BN을 구하기 위하여 사용된 평균과 분산을 구할 때에는 **배치별로 계산**되어야 의미가 있습니다. 그래야 각 배치들이 표준 정규 분포를 각각 따르게 되기 때문이지요. 따라서 평균과 분산을 구할때에도 나눠주는 값이 $$ B $$ 입니다.
+- 학습 단계에서 모든 Feature에 정규화를 해주게 되면 정규화로 인하여 Feature가 동일한 Scale이 되어 learning rate 결정에 유리해집니다.
+- 왜냐하면 Feature의 Scale이 다르면 gradient descent를 하였을 때, gradient가 다르게 되고 같은 learning rate에 대하여 weight마다 반응하는 정도가 달라지게 됩니다.
+    - gradient의 편차가 크면 gradient가 큰 weight에서는 gradient exploding이, 작으면 vanishing 문제가 발생하곤 합니다.
+- 하지만 정규화를 해주면 gradient descent에 따른 weight의 반응이 같아지기 때문에 학습에 유리해집니다. 
+- 여기서 사용된 값 중 $$ \gamma, \bete $$의 역할을 확인하는 것이 필요합니다.
+- 먼저 batch normalization은 activation function 앞에 적용됩니다.
+- batch normalization을 적용하면 weight의 값이 평균이 0, 분산이 1인 상태로 분포가 되어지는데, 이 상태에서 ReLU가 activation으로 적용되면 전체 분포에서 음수에 해당하는 (1/2 비율) 부분이 0이 되어버립니다. 기껏 정규화를 했는데 의미가 없어져 버리게 됩니다.
+- 따라서 $$ \gamma, \bete $$가 정규화 값에 곱해지고 더해져서 ReLU가 적용되더라도 기존의 음수 부분이 모두 0으로 되지 않도록 방지해 주고 있습니다. 물론 이 값은 학습을 통해서 효율적인 결과를 내기 위한 값으로 찾아갑니다. 
+
+<br>
+
+### **추론 단계의 배치 정규화**
+
+<br>
+
+- 이번에는 추론 단계에서의 배치 정규화에 대하여 알아보도록 하겠습니다. 수식으로 먼저 살펴보면
+
+<br>
+
+$$ BN(X) = \gamma \Bigl(  \frac{X - \mu_{BN} }{\sigma_{BN} } \Bigr) + \beta $$
+
+<br>
+
+
+$$ \mu_{BN} = \frac{1}{N} \sum_{i} \mu_{batch}^{i} $$
+
+<br>
+
+$$ \sigma^{2}_{BN} = \frac{1}{N} \sum_{i} \sigma_{batch}^{i} $$
+
+<br>
+
+- 추론 과정에서는 BN에 적용할 평균과 분산에 고정값을 사용합니다.
+- 이 때 사용할 고정된 평균과 분산은 학습 과정에서 이동 평균(moving average) 또는 지수 평균(exponential average)을 통하여 계산한 값입니다. 즉, 학습 하였을 때의 최근 $$ N $$ 개에 대한 평균 값을 고정값으로 사용하는 것입니다. 
+    - 이동 평균을 하면 $$ N $$개 이전의 평균과 분산은 미반영 되지만 지수 평균을 사용하면 전체 데이터가 반영됩니다.
+- 그리고 이 때 사용되는 $$ \gamma, \beta $$는 학습 과정에서 학습한 파라미터 입니다. 
+- 중요한 것은 학습 과정과 추론 과정의 알고리즘이 다르므로 framework에서 사용할 때, `학습`과정인지 `추론`과정인지에 따라 다르게 동작하도록 관리를 잘 해주어야 한다는 것입니다.
