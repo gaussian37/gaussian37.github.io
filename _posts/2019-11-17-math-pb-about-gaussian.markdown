@@ -71,7 +71,7 @@ $$
 
 $$
 
-\small\Sigma_{\color{blue}{11}}=\begin{bmatrix}
+\Sigma_{\color{blue}{11}}=\begin{bmatrix}
 \sigma^2({\color{blue}{x_{11}}}) & \text{cov}(\color{blue}{x_{11},x_{12}}) & \dots & \text{cov}(\color{blue}{x_{11},x_{1h}}) \\
 \text{cov}(\color{blue}{x_{12},x_{11}}) & \sigma^2({\color{blue}{x_{12}}}) & \dots & \text{cov}(\color{blue}{x_{12},x_{1h}}) \\
 \vdots & \vdots & & \vdots \\
@@ -84,7 +84,7 @@ $$
 
 $$
 
-\small \Sigma_{\color{blue}{1}\color{red}{2}}=
+ \Sigma_{\color{blue}{1}\color{red}{2}}=
 \begin{bmatrix}
 \text{cov}({\color{blue}{x_{11}}},\color{red}{x_{21}}) & \text{cov}(\color{blue}{x_{11}},\color{red}{x_{22}}) & \dots & \text{cov}(\color{blue}{x_{11}},\color{red}{x_{2k}}) \\
 \text{cov}({\color{blue}{x_{12}}},\color{red}{x_{21}}) & \text{cov}(\color{blue}{x_{12}},\color{red}{x_{22}}) & \dots & \text{cov}(\color{blue}{x_{12}},\color{red}{x_{2k}}) \\
@@ -98,7 +98,7 @@ $$
 
 $$
 
-\small \Sigma_{\color{red}{2}\color{blue}{1}}=
+ \Sigma_{\color{red}{2}\color{blue}{1}}=
 \begin{bmatrix}
 \text{cov}({\color{red}{x_{21}}},\color{blue}{x_{11}}) & \text{cov}(\color{red}{x_{21}},\color{blue}{x_{12}}) & \dots & \text{cov}(\color{red}{x_{21}},\color{blue}{x_{1h}}) \\\text{cov}({\color{red}{x_{22}}},\color{blue}{x_{11}}) & \text{cov}(\color{red}{x_{22}},\color{blue}{x_{12}}) & \dots & \text{cov}(\color{red}{x_{22}},\color{blue}{x_{1h}}) \\
 \vdots & \vdots & & \vdots \\
@@ -111,7 +111,7 @@ $$
 
 $$
 
-\small \Sigma_{\color{red}{22}}=\begin{bmatrix}
+\Sigma_{\color{red}{22}}=\begin{bmatrix}
 \sigma^2({\color{red}{x_{21}}}) & \text{cov}(\color{red}{x_{21},x_{22}}) & \dots & \text{cov}(\color{red}{x_{21},x_{2k}}) \\
 \text{cov}(\color{red}{x_{22},x_{21}}) & \sigma^2({\color{red}{x_{22}}}) & \dots & \text{cov}(\color{red}{x_{22},x_{2k}}) \\
 \vdots & \vdots & & \vdots \\
