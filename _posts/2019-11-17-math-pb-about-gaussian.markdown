@@ -128,7 +128,7 @@ $$
 
 <br>
 
-$$ \text{cov}{x_{i}, x_{j}} = E[ (x_{i} - \mu_{i})(x_{j} - \mu_{j})] $$
+$$ \text{cov}({x_{i}, x_{j}}) = E[ (x_{i} - \mu_{i})(x_{j} - \mu_{j})] $$
 
 <br>
 
@@ -143,7 +143,7 @@ $$ \text{cov}{x_{i}, x_{j}} = E[ (x_{i} - \mu_{i})(x_{j} - \mu_{j})] $$
 
 <br>
 
-$$ \text{cov}{x_{i}, x_{j}} = E[ (x_{i} - \mu_{i})(x_{j} - \mu_{j}) ] = E[ (x_{i})(x_{j}) ]  = E[x_{i}]E[x_{j}]  = \mu_{i}\mu_{j} = 0 $$
+$$ \text{cov}({x_{i}, x_{j}}) = E[ (x_{i} - \mu_{i})(x_{j} - \mu_{j}) ] = E[ (x_{i})(x_{j}) ]  = E[x_{i}]E[x_{j}]  = \mu_{i}\mu_{j} = 0 $$
 
 <br>
 
