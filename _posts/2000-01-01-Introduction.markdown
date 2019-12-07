@@ -14,23 +14,18 @@ tags: [Introduction] # add tag
 
 - Name : JINSOL KIM
 - Linked In : https://www.linkedin.com/in/jinsolkima
-- Work Experience : 
-    - Hyundai Motors Researcher (Feb. 2016 ~ )
-    
-- Education :
-    - Inha University. B.S. in Computer Science
-    - [Deep Learning Specialization (Andrew Ng)](https://www.coursera.org/account/accomplishments/specialization/certificate/7Y5SFDG3F85E)
-    - [Machine Learning (Andrew Ng)](https://www.coursera.org/account/accomplishments/certificate/DT55J2YVFRJL)
-    - Mathematics for Machine Learning Specialization (Imperial College London)
-    - Accelerated Computer Science Fundamentals (University of Illinois Urbana-Champaign)
-    - Self-Driving Cars (University of Toronto)
-                 
-- ROI :
-    - Machine/Deep Learning (Python, Pytorch)      
-    - Computer Vision
-    - Segmentation
-    - Autonomous Driving
-    - C++, Python
+
+<br>
+
+## **ROI**
+
+<br>
+
+- Python
+- Machine/Deep Learning
+- Computer Vision
+- Segmentation
+- Autonomous Driving
 
 <br>
 
