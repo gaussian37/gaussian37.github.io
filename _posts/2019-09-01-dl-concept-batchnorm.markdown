@@ -26,6 +26,7 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 - ### Batch
 - ### Internal Covariant Shift
 - ### Batch Normalization
+- ### FC Layer와 Convolutional Layer에서의 Batch Normalization
 - ### Internal Covariant Shift 더 알아보기
 - ### Batch Normalization의 효과
 - ### Batch Normalization의 변형 기법들
@@ -293,3 +294,50 @@ $$ \sigma^{2}_{BN} = \frac{1}{N} \sum_{i} \sigma_{batch}^{i} $$
 - 분산이 1인 이유에 대해서는 경험적으로 표준 정규 분포에 따랐다는 의견도 있고 적절한 값을 선택하였다는 의견도 있습니다.
 - 중요한 것은 **BN의 목적이 Variance를 줄이는 것**이므로 **크지않은 Variance를 선택하는 것**이 핵심입니다. 물론 너무 작은 Variance를 주게 되면 Activation의 Input이 0에 수렴해 버리므로 적당한 선의 Variance를 선택하는 것이 중요하겠습니다. (그것이 경험상 1을 주자고 한 것입니다.)
 
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/24.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞의 글에서 편의를 위하여 layer 단으로 Batch Normalization을 표현해 보았는데, BN이 적용되는 것은 Layer 기준으로 적용되는 것이 아니라 `Layer 내부의 노드 기준`으로 Normalization을 하게 됩니다.
+- 위 그림과 같이 $$ x_{i} $$와 $$ z_{i} $$의 weighted sum한 결과를 BN 하게 됩니다. 
+- 위 식에서 추가된 $$ \eta $$는 분산이 0에 가까워 졌을 때, divide by zero를 방지 하기 위하여 추가된 상수입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/25.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Batch Normalization 식 전체를 보면 위와 같습니다.
+- 앞에서 설명한 바와 같이 마지막에 $$ \gamma $$와 $$ \beta $$가 추가된 것을 보실 수 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/26.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- ReLU에 적용하는 경우 기본적인 Batch Normalization은 음수에 해당하는 범위의 반이 0이 되어버릴 수 있습니다.
+- 기껏 Normalization을 해주었는데 반을 잃어버리면 낭비가 심하니 일부 비 대칭적으로 사용할 수 있게 $$ \gamma $$와 $$ \beta $$를 이용하여 더 많은 영역을 activation이 값으로 가져갈 수 있게 합니다.
+- 물론 $$ \gamma $$와 $$ \beta $$는 학습을 통하여 값이 결정됩니다.
+
+<br>
+
+## **Batch Normalization의 효과**
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/27.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이렇게 Batch Normalization을 적용하면 Internal Covariate Shift를 개선하고자 고려했던 weight initialization과 learning rate를 감소하는 것에서 다소 자유로워질 수 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/28.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Batch Normalization의 또 다른 장점으로는 Regularization Effect가 있습니다. 
+- Mini-batch에 들어가는 평균과 분산이 지속적으로 변화는 과정 속에서 분포가 조금씩 바뀌게 되고 학습하는 과정에 weight에 영향을 주게 되기 때문입니다.
+- 만약 평균과 분산이 고정이라면 학습 하는 동안 계속 고정된 값이 연산되기 때문에 특정 weight에 큰 값 즉, 가중치가 큰 weight가 발생할 수 있습니다. 하지만 Batch Normalization에서 평균과 분산이 지속적으로 변하고 weight 업데이트에도 계속 영향을 주어 한 weight에 가중치가 큰 방향으로만 학습되지 않기 때문에 Regularization effect를 얻을 수 있습니다.
+- 이와 같은 효과를 얻기 위해 적용하는 Dropout을 Batch Normalization을 통하여 얻을 수 있기 때문에 이론적으로는 안써도 된다고는 하지만 Batch Normalization - Activation 이후에 Dropout을 써서 효과를 더 낼 수 도 있기 때문에 상황에 맞춰서 사용하시면 됩니다.
+
+<br>
+
+- 정리하면 Batch Normalization은 **Internal Covariate Shift 문제를 개선하기 위하여 고안**되었고 이것은 **Activation에 들어가게 되는 Input의 Range를 제한**시키는 방법으로 문제를 개선하였습니다.
+- 그 결과 학습을 좀 더 안정적으로 할 수 있게 되었고 Internal Covariate Shift 문제를 해결하기 위한 과거의 개선책인 **weight initialization과 small learning rate에서 좀 더 자유로워**졌습니다.
+- 또한 **Regularization effect** 까지 있어서 **overfitting 문제에 좀 더 강건**해 질 수 있습니다.
