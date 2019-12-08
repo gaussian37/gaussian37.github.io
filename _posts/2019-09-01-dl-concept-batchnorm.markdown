@@ -9,9 +9,12 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 
 <br>
 
-- 참조
-- https://youtu.be/TDx8iZHwFtM?list=PLlMkM4tgfjnJhhd4wn5aj8fVTYJwIpWkS
+### 참조 
 
+<br>
+
+- https://youtu.be/TDx8iZHwFtM?list=PLlMkM4tgfjnJhhd4wn5aj8fVTYJwIpWkS
+- https://blog.naver.com/infoefficien/221122737854 (저의 또 다른 블로그)
 - 이번 글에서는 딥러닝 개념에서 중요한 것 중 하나인 `batch normalization`에 대하여 다루어 보도록 하겠습니다.
 
 <br>
@@ -23,8 +26,9 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 - ### Batch
 - ### Internal Covariant Shift
 - ### Batch Normalization
-- ### Internal Covariant Shift 더 알아보기]
+- ### Internal Covariant Shift 더 알아보기
 - ### Batch Normalization의 효과
+- ### Batch Normalization의 변형 기법들
 - ### Pytorch에서의 사용 방법
 
 <br>
@@ -143,8 +147,149 @@ $$ \sigma^{2}_{BN} = \frac{1}{N} \sum_{i} \sigma_{batch}^{i} $$
 
 <br>
 
-- 추론 과정에서는 BN에 적용할 평균과 분산에 고정값을 사용합니다.
+- 추론 과정에서는 `BN`에 적용할 평균과 분산에 고정값을 사용합니다.
+- 왜냐하면 학습 단계에서는 데이터가 배치 단위로 들어오기 때문에 배치의 평균, 분산을 구하는 것이 가능하지만, **테스트 단계에서는 배치 단위로 평균/분산을 구하기가 어려워** 학습 단계에서 배치 단위의 평균/분산을 저장해 놓고 테스트 시에는 평균/분산을 사용합니다.
 - 이 때 사용할 고정된 평균과 분산은 학습 과정에서 이동 평균(moving average) 또는 지수 평균(exponential average)을 통하여 계산한 값입니다. 즉, 학습 하였을 때의 최근 $$ N $$ 개에 대한 평균 값을 고정값으로 사용하는 것입니다. 
     - 이동 평균을 하면 $$ N $$개 이전의 평균과 분산은 미반영 되지만 지수 평균을 사용하면 전체 데이터가 반영됩니다.
 - 그리고 이 때 사용되는 $$ \gamma, \beta $$는 학습 과정에서 학습한 파라미터 입니다. 
-- 중요한 것은 학습 과정과 추론 과정의 알고리즘이 다르므로 framework에서 사용할 때, `학습`과정인지 `추론`과정인지에 따라 다르게 동작하도록 관리를 잘 해주어야 한다는 것입니다.
+- 다시 한번 말하자면 `중요한 것`은 학습 과정과 추론 과정의 알고리즘이 다르므로 framework에서 사용할 때, `학습`과정인지 `추론`과정인지에 따라 다르게 동작하도록 관리를 잘 해주어야 한다는 것입니다. 즉, 추론 과정에서는 framework에서 옵션을 지정하여 평균과 분산을 **moving average/variance**를 사용하도록 해야합니다.
+    - 개인적으로 이 옵션 설정을 잘못 해서 디버깅 한 적이 몇번 있어서.. 강조 합니다.
+
+<br>
+
+## **Internal Covariant Shift 더 알아보기**
+
+<br>
+
+- 앞에서 언급한 Internal Covariant Shift에 대하여 좀 더 자세하게 다루어 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>  
+
+- Neural Netowork에서는 많은 파라미터들에 의해서 학습에 어려움이 있습니다.
+- 위의 노드들을 이은 edge들이 파라미터이니 그 숫자가 꽤 많은것을 시작적으로도 알 수 있지요.
+- 위 그림에서 $$ X $$는 Input 이고 $$ H $$는 Hidden layer 그리고 $$ O $$는 Output layer 입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>  
+
+- 딥러닝에서는 학습의 어려움의 정도가 좀 더 커졌는데 Hidden layer의 layer 수가 점점 더 증가하기 때문입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>  
+
+- 딥러닝에서 Layer가 많아질 때 학습이 어려워지는 이유는 `weight`의 미세한 변화들이 가중이 되어 쌓이면 Hidden Layer의 깊이가 깊어질수록 **그 변화가 누적되어 커지기 때문입니다.**
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>  
+
+- 예를 들어 학습 중에 weight들이 위와 같이 기존과는 다른 형태로 변형될 수 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>  
+
+- 즉, 위와 같이 기존의 Hidden Layer와는 또 다른 Layer의 결과를 가지게 됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br> 
+
+- 논문의 저자는 이 문제를 **Internal Covariate Shift**라고 말합니다.
+- 어떤 문제든지 `Variacne`는 문제를 일으키곤 합니다. 의도한 대로 움직이지 않으니 말이죠.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br> 
+
+- 각 layer의 **Input feature가 조금씩 변해서** Hidden layer에서의 Input feature의 변동량이 누적되게 되면 각 layer에서는 입력되는 값이 전혀 다른 유형의 데이터라고 받아들일 수도 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br> 
+
+- 예를 들어 Training 셋의 분포와 Test 셋의 분포가 다르면 학습이 안되는 것과 같이 같은 학습 과정 속에서도 각 layer에 전달되는 feature의 분포가 다르게 되면 학습하는 데 어려움이 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br> 
+
+- 이 문제는 training 할 때 마다 달라지게 되고 Hidden Layer의 깊이가 깊어질수록 변화가 누적되어 feature의 분포 변화가 더 심해지게 됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/14.png" alt="Drawing" style="width: 800px;"/></center>
+<br> 
+
+- 이 문제를 다루기 위하여 처음에는 weight 초기화를 잘 해주는 방법 또는 작은 learning rate를 주어서 변화량을 줄이려는 방법이 사용되기도 하였습니다.
+- 하지만 weight를 잘 주는 것은 어려운 방법이고 작은 learning rate를 사용하는 방법은 학습이 매우 더디게 되어 local minimum에 빠지는 위험도 존재하였습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/15.png" alt="Drawing" style="width: 800px;"/></center>
+<br> 
+
+- 그래서 weight initialization 또는 learning rate 조절이 아닌 새로운 방법의 솔루션을 제시한 것이 `Batch Normalization`입니다.
+- Hidden layer에서의 변화량에 너무 크지 않으면 학습도 안정하게 될 것이라는 컨셉입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/16.png" alt="Drawing" style="width: 800px;"/></center>
+<br> 
+
+- 위 그림에서 $$ x \to H_{1} $$의 부분을 살펴보면 Input $$ x $$에서 weight를 곱하고 activation을 취하여 최종적으로 Hidden layer $$ H_{1} $$을 가지게 됨을 알 수 있습니다.
+- 여기서 변화하는 부분은 **weight에 따른 가중치가 되는 부분**입니다.
+- Batch normalization에서는 이러한 weight에 따른 가중치의 변화를 줄이는 것을 목표로 합니다. 
+- 따라서 **Activation 하기 전 값의 변화를 줄이는 것**이 Batch Normalization의 목표가 됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/17.png" alt="Drawing" style="width: 800px;"/></center>
+<br> 
+
+- weight와 Input의 연살 결과를 Batch Normalization함으로 scale을 줄게 됩니다. 따라서 변화가 줄어들게 되는 것이지요.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/18.png" alt="Drawing" style="width: 800px;"/></center>
+<br> 
+
+- 왼쪽은 Batch Normalization을 적용한 케이스이고 오른쪽은 적용하지 않은 케이스입니다.
+- 그래프의 x축은 wx를 뜻하고 y축은 activation으로 변환된 값입니다.
+- BN의 경우 Scale을 줄이기 때문에 분포의 variance가 작아지게 됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/19.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 새로운 layer가 추가되면 BN이 적용된 것과 안된것의 차이가 더 벌어지게 됩니다.
+- BN을 사용하지 않으면 변화값들이 점점 더 가중되면서 기존에 학습하였던 분포와는 다른 분포를 가지게 됩니다. 
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/20.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 일반적으로 Batch Normalization에서의 Scale은 평균 0, 분산 1을 사용하고 있습니다. 
+- 즉, 엔지니어링에서 많이 사용하고 있는 `표준 정규 분포`를 따르도록 하고 있는 것이지요.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/21.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Batch Normalization의 output은 Activation이 Input으로 받고 있습니다.
+- 예를 들어 `ReLU`가 BN의 output을 어떻게 받아들이는 지 해석해 보면 ReLU에서는 0보다 큰 값은 linear하게 전달하기 때문에 Non linearity를 주지 못하고 0보다 작은 값은 0으로 수렴해 버리기 때문에 0을 기준으로 대칭되도록 하는 것이 의미가 있습니다. 즉, 너무 양수만 나오도록 또는 너무 음수만 나오도록 하는것을 지양합니다.
+- 이 의도가 평균이 0이 되도록 하는 것과 일치 합니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/22.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 물론 이 해석은 sigmoid에서도 적용될 수 있습니다. sigmoid도 입력이 0 근처에서 의미가 있고 큰 양수나 음수가 되면 1 또는 0으로 수렴해 버리기 때문에 의미가 없어져 버립니다. Vanishing Gradient 문제도 발생하기도 하구요.
+- 따라서 sigmoid 경우에도 BN의 output이 평균이 0이고 그 근처에 유의미한 값의 variance를 갖는 것이 의미가 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/23.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 분산이 1인 이유에 대해서는 경험적으로 표준 정규 분포에 따랐다는 의견도 있고 적절한 값을 선택하였다는 의견도 있습니다.
+- 중요한 것은 **BN의 목적이 Variance를 줄이는 것**이므로 **크지않은 Variance를 선택하는 것**이 핵심입니다. 물론 너무 작은 Variance를 주게 되면 Activation의 Input이 0에 수렴해 버리므로 적당한 선의 Variance를 선택하는 것이 중요하겠습니다. (그것이 경험상 1을 주자고 한 것입니다.)
+
