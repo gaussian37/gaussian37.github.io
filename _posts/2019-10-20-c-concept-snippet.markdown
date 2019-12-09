@@ -14,6 +14,8 @@ tags: [C] # add tag
 <br>
 
 - ### 변수명 출력
+- ### 숫자 → 문자열
+- ### 문자열 → 숫자
 
 <br>
 
@@ -33,3 +35,51 @@ int main() {
     return 0;
 }
 ```
+
+<br>
+
+## **숫자 → 문자열**
+
+<br>
+
+- 숫자를 문자로 변경할 때에는 `sprintf` 함수를 사용합니다.
+
+<br>
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+
+    int a=123;
+    int b=0;
+    char buf[10];
+    
+    sprintf(buf, "%d", a);
+    printf("%s\n",buf); 
+```
+
+<br>
+
+## **문자열 → 숫자**
+
+<br>
+
+- 문자열을 숫자로 바꿀 때에는 아래 함수를 사용하여 바꿀 수 있습니다.
+
+```c
+
+int StringToInteger(char *str) {
+    int ret = 0;
+    while (*str) {
+        ret = ret * 10 + (int)(*str - '0');
+        str++;
+    }
+    return ret;
+}
+
+```
+
+<br>
+
