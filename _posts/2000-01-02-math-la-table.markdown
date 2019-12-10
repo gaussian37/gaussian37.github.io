@@ -9,6 +9,10 @@ tags: [Linear algebra, 선형 대수학] # add tag
 
 <br>
 
+[C언어로 선형대수학 함수 구현](https://github.com/gaussian37/algorithm/tree/master/naive_c_linear_algebra)
+
+<br>
+
 ## **선형 대수학 관련 내용**
 
 <br>
