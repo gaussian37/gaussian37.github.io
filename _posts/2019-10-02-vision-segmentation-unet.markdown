@@ -43,7 +43,7 @@ tags: [segmentation, unet] # add tag
 <center><img src="../assets/img/vision/segmentation/unet/0-1.png" alt="Drawing" style="width: 800;"/></center>
 <br>  
 
-- `U-net`에서의 입출력을 보려면 왼쪽의 이미지를 살펴보면 됩니다. 입력은 세포 단면의 이미지이고 출력은 분할된 이미지가 나오게 됩니다. 화살표 시작점은 이미지가 복잡한데 화살표 끝점의 이미지는 간단해 보이는게 세포 내부/외부의 분할된 결과를 표시하기 때문입니다.
+- `U-net`에서의 입출력을 보려면 위 이미지의 좌(입력) 우(출력)을 살펴보면 됩니다. 입력은 세포 단면의 이미지이고 출력은 분할된 이미지가 나오게 됩니다. 화살표 시작점은 이미지가 복잡한데 화살표 끝점의 이미지는 간단해 보이는게 세포 내부/외부의 분할된 결과를 표시하기 때문입니다.
 - 좀 더 자세하게 말하면 입력 이미지는 채널이 하나인 흑백 이미지이고 모델의 결과로 나오는 텐서는 채널이 2개인 텐서입니다. 
 - 각각의 채널은 해당 픽셀이 세포의 경계선에 해당하는지 아니면 세포의 경계선이 아닌지에 대한 수치라고 볼 수 있습니다.
 - 예를 들어 결과값의 크기가 256 x 256이고 특정 값인 (10, 10)을 살펴보면 2개의 채널로 값을 가지고 있습니다.
@@ -79,7 +79,7 @@ tags: [segmentation, unet] # add tag
 
 - 그러면 patch에 mirroring padding을 적용하게 되면 patch + mirroring padding 간에는 겹치는 구간이 발생하게 됩니다. 
 - 이 단위를 `tile` 이라고 하고 tile 끼리는 겹치기 때문에 `overlap-tile` 이라는 이름으로 소개되었습니다.
-- 일반적으로 mirroring padding을 잘 사용하지는 않는데, u-net은 의학용 데이터를 기반의 논문이었고 의학용 데이터 영역에서는 의미가 있기 때문에 사용하지 않았난 추측이 됩니다.
+- 일반적으로 mirroring padding을 잘 사용하지는 않는데, u-net은 의학용 데이터를 기반의 논문이었고 의학용 데이터 영역에서는 의미가 있기 때문에 사용하지 않았나 추측이 됩니다.
 - 따라서 이후의 pytorch 코드에서는 범용적으로 사용하는 zero padding으로 구현을 하려고 하오니 참조하시기 바랍니다.
 
 <br>
@@ -94,23 +94,23 @@ tags: [segmentation, unet] # add tag
 - 먼저 constracting path의 구조를 살펴보겠습니다. 여기에서는 크게 다음 요소들로 구성되어 있습니다.
     - **3x3 convolution + ReLU**
     - **2x2 max pooling  stride 2**
-    - **1/2배 크기 downsampling + 2배 feature channel** : feature의 크기를 1/2배로 downsample을 할 때  channel을 2배씩 늘리는 형태입니다.
+    - **downsample 시 feature의 크기는 1/2배, channel의 수는 2배**
 - 다음으로 expanding path의 구조를 살펴보겠습니다.
     - **3x3 convolution + ReLU**
-    - **2배 크기 upsampling (2x2 convolution) + 1/2배 feature channel** : feature의 크기를 2배로 upsampling을 할 때 channel을 반으로 줄이는 형태입니다. 이 때, upsampling은 2x2 up-convolution을 사용합니다.
+    - **upsample 시 feature의 크기는 2배(2x2 up-convolution), channler의 수는 1/2배**
     - **copy and crop** : contracting path의 feautre를 copy한 다음 그림에서와 같이 expanding path의 대칭되는 계층에 `concatenation`을 합니다. 이 때 contracting path와 expanding path의 feature 크기가 다르므로 contracting path의 feature를 copy한 다음 concatenation을 할 expanding path의 feature 사이즈에 맞추어서 crop을 합니다. 따라서 이 작업을 `copy and crop`이라고 합니다.
 - 위에서 말씀드린 바와 같이 U-net에서의 skip-connection의 방식은 `concatenation`입니다. sum이 아니지요.
 - backbone network와 비교해 본다면, `ResNet`에서의 skip-connection은 sum 입니다. 즉 실제 element-wise로 덧셈 연산이 이루어 집니다.
 - 반면 `DenseNet`에서는 skip-connection이 sum이 아니라 channel 방향으로 concatenation 하는 것입니다.
 - segmentation과 비교해 보면 [FCN](https://gaussian37.github.io/vision-segmentation-fcn/)은 skip-connection 사용 시 ResNet과 유사하게 sum 연산을 이용하는 반면 `U-net`은 DenseNet과 유사하게 concatenation 연산을 한다고 생각하시면 됩니다.
-- 이런 `Encoder-Decoder` 방식의 대표적인 네트워크가 오토인코더 입니다.
-- 오토인코더에서는 입력 이미지가 압축되다 보면 위치 정보가 어느 정도 손실되게 됩니다.
-- 그렇게 되면 다시 원본 이미지 크기로 복원하는 과정 속에서 정보의 부족 때문에 원래 물체가 있었던 위치에서 어느 정도 이동이 발생하게 됩니다.
-- 이런 복원 과정에 skip connection을 사용하게 되면 원본 이미지의 `위치 정보`를 추가적으로 전달받는 셈이 되므로 비교적으로 정확한 위치를 복원할 수 있게 되고 segmentation 결과도 좋아지게 됩니다.
 
 <br>
 
-
+- `U-net`을 `Encoder-Decoder` 관점에서 살펴보겠습니다.
+  `Encoder-Decoder` 방식의 대표적인 네트워크가 오토인코더 입니다.
+- 오토인코더에서는 입력 이미지가 압축되다 보면 위치 정보가 어느 정도 손실되게 됩니다.
+- 그렇게 되면 다시 원본 이미지 크기로 복원하는 과정 속에서 정보의 부족 때문에 원래 물체가 있었던 위치에서 어느 정도 이동이 발생하게 됩니다.
+- 이런 복원 과정에 skip connection을 사용하게 되면 원본 이미지의 `위치 정보`를 추가적으로 전달받는 셈이 되므로 비교적으로 정확한 위치를 복원할 수 있게 되고 segmentation 결과도 좋아지게 됩니다.
 
 <br>
 
@@ -224,5 +224,9 @@ class UNet(nn.Module):
             out = self.out(up_4)
             return out
 ```
+
+<br>
+
+- forward 함수를 보면 `Encoder` 부분에서는 주어진 연산을 계속 하고 `Decoder` 부분에서는 `torch.cat`을 통하여 `concatenation` 연산이 발생하는 것을 확인할 수 있습니다.
 
 <br>
