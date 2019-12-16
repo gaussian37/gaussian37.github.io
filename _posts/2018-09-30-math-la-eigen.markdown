@@ -137,7 +137,7 @@ tags: [선형대수학, eigen, eigenvalue, eigenvector, eigenbasis] # add tag
 - 이 경우에 행렬연산은 상당히 간단합니다. $$ T = \begin{pmatrix} a & 0 & 0 \\ 0 & b & 0 \\ 0 & 0 & c \\ \end{pmatrix} $$ 이면 $$ T^{n} = \begin{pmatrix} a^{n} & 0 & 0 \\ 0 & b^{n} & 0 \\ 0 & 0 & c^{n} \\ \end{pmatrix} $$가 됩니다.
 - 대각 행렬의 경우 위와 같이 간단하게 연산이 되지만 대각 행렬이 아닌 경우의 n제곱 연산은 어떻게 해야 할까요? 정답은 **대각 행렬이 아닌 행렬을 대각 행렬로 바꾸는 것**에 있습니다.
 - 즉, n제곱을 해야 할 행렬을 대각행렬과 대각행렬이 아닌 행렬의 곱으로 나타내는 방법인데, 이 방법을 `eigenbasis`라고 합니다.
-- **eigenbasis*를 구현하기 위하여 **eigenbasis conversion matrix**를 만들어 보겠습니다. 먼저, **eigenvector**를 열벡터로 구성합니다.
+- **eigenbasis**를 구현하기 위하여 **eigenbasis conversion matrix**를 만들어 보겠습니다. 먼저, **eigenvector**를 열벡터로 구성합니다.
     - 즉, $$ C = (x_{1}, x_{2}, x_{3}) $$가 됩니다. 이 때, $$ x_{1}, x_{2}, x_{3} $$는 열벡터 이며 **eigenvector**입니다.
 - 다음으로 행렬 $$ D $$는 대각 행렬이고 그 대각 성분은 행렬 $$ C $$의 **eigenvector**에 대응하는 **eigenvalue**로 구성되어 있습니다.
     - 즉, $$ C = \begin{pmatrix} \lambda_{1} & 0 & \\ 0 & \lambda_{2} & 0 \\ 0 & 0 & \lambda_{3} \end{pmatrix} $$가 됩니다. 
