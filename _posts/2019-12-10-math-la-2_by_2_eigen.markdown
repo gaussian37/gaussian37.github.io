@@ -64,7 +64,7 @@ $$ \begin{bmatrix} b \\ L_{1} - a \end{bmatrix}, \ \ \begin{bmatrix} b \\ L_{2} 
 
 <br>
 
-$$ \begin{bmatrix} 1 \\ 0 \begin{bmatrix}, \ \ \begin{bmatrix} 0 \\ 1 \end{bmatrix} $$
+$$ \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \ \ \begin{bmatrix} 0 \\ 1 \end{bmatrix} $$
 
 <br>
 
