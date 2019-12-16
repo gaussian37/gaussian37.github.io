@@ -32,7 +32,7 @@ $$ A = \begin{bmatrix} a & b \\ c & d \\ \end{bmatrix} $$
 
 <br>
 
-$$ T = a + b, \ \ D = ad - bc $$
+$$ T = a + d, \ \ D = ad - bc $$
 
 <br>
 
