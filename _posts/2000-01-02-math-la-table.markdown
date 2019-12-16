@@ -69,6 +69,10 @@ tags: [Linear algebra, 선형 대수학] # add tag
 
 <br><br>
 
+## **Gilbert Strang's Linear Algebra**
+
+<br><br>
+
 ## **칸 아카데미 선형 대수학**
 
 <br>
