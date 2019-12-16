@@ -21,7 +21,7 @@ tags: [linear algebra, 고유값, 고유벡터, 고유값 공식] # add tag
 - 확인해 보니 2 x 2의 경우에는 깔끔하지만 3 x 3 이상의 경우에는 closed form의 형태도 상당히 복잡해서 일반적인 방식으로 구하는 것이 나을 것 같습니다. 울프람 알파를 통해 확인한 3 x 3 행렬에서의 고유값, 고유벡터의 값을 구하는 방법은 아래 그림을 참조하시기 바랍니다. 상당히 복잡해서 스킵하겠습니다.
 
 <br>
-<center><img src="../assets/img/math/la/2_by_2_eigen/1.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/la/2_by_2_eigen/1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>   
 
 - 그럼 본론으로 2 x 2 행렬에서의 고유값, 고유벡터를 구하는 방식을 살펴보겠습니다.
@@ -64,7 +64,7 @@ $$ \begin{bmatrix} b \\ L_{1} - a \end{bmatrix}, \ \ \begin{bmatrix} b \\ L_{2} 
 
 <br>
 
-$$ \begin{bmatrix} 1 \\ 0 \ \ \begin{bmatrix} 0 \\ 1 \end{bmatrix} $$
+$$ \begin{bmatrix} 1 \\ 0 \begin{bmatrix}, \ \ \begin{bmatrix} 0 \\ 1 \end{bmatrix} $$
 
 <br>
 

@@ -127,5 +127,11 @@ tags: [Linear algebra, 선형 대수학] # add tag
         + 기저 열과 축열 사이의 관계
         + 후보 기저의 A의 열공간 생성
     
+<br><br>
 
+## **선형 대수학 관련 기타 글들**
+
+<br>
+
+- [2x2 행렬의 고유값과 고유벡터 공식](https://gaussian37.github.io/math-la-2_by_2_eigen/)
 
