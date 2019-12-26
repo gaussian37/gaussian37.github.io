@@ -9,7 +9,7 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
-## **Backbon Network**
+## **Backbone Network**
 
 <br>
 
