@@ -63,6 +63,7 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
+- [Activation function 요약](ttps://gaussian37.github.io/dl-concept-activation_functions/)
 - [PReLU (Parametric ReLU)](https://gaussian37.github.io/dl-concept-prelu/)
 - [gram matrix used in style transer](https://gaussian37.github.io/dl-concept-grammatrix/)
 - [Batch Normalization](https://gaussian37.github.io/dl-concept-batchnorm)
