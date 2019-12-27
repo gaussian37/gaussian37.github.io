@@ -4,7 +4,7 @@ title: Vision 관련 글 목차
 date: 9999-12-30 00:00:00
 img: vision/concept/vision.jpg
 categories: [vision-concept] 
-tags: [vision, opencv] # add tag
+tags: [vision] # add tag
 ---
 
 - [히스토그램 영상 처리](https://gaussian37.github.io/vision-concept-histogram/)
@@ -27,4 +27,4 @@ tags: [vision, opencv] # add tag
 - 그래프 영상 분할 방법
 - 민시프트
 - 워터쉐드
-- 대화식 물체 분할
+- [Optical Flow 알아보기](https://gaussian37.github.io/vision-concept-optical_flow/)
