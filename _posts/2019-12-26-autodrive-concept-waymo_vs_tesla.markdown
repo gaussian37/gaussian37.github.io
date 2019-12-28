@@ -8,13 +8,9 @@ tags: [자율주행, autonomous drive, waymo tesla] # add tag
 ---
 
 <br>
-
-<br>
 <div style="text-align: center;">
-    <iframe src="https://youtu.be/6SCj3S3ZoOU" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/6SCj3S3ZoOU" frameborder="0" allowfullscreen="true" width="600px" height="400px"> </iframe>
 </div>
-<br>
-
 <br>
 
 - 참조한 영상을 살펴보면 `waymo`와 `tesla`의 자율주행 컨셉의 차이는 어떤 센서를 주로 사용하는 지에 따라 나뉘어 있습니다.
