@@ -129,8 +129,19 @@ tags: [딥러닝, 모바일넷 v2, mobilenet v2] # add tag
 
 - 위 그림처럼 고차원의 데이터가 저차원으로 압축되면서 특정 정보들이 저차원의 어떤 영역으로 매핑이 되게 되는데, 이것을 `manifold`라고 이해하고 아래 글을 이해하시면 되겠습니다.
 - 따라서 뉴럴 네트워크의 manifold는 저차원의 subspace로 매핑이 가능하다고 가정해 보겠습니다.
-- 이런 관점에서 보면 어떤 데이터에 관련된 manifold가 `ReLU`를 통과하고 나서도 입력값이 음수가 아니라서 0이 되지 않은 상태라면, `linear transformation` 연산을 거친 것이라고 말할 수 있습니다. 즉, ReLU 식을 보면 알 수 있는것 처럼, identity matrix를 곱한것과 같아서 단순한 linear transformation과 같다고 봐집니다.  
-- 그리고 네트워크를 거치면서 저차원으로 매핑이 되는 연산이 계속 되는데, 이 때, (인풋의 manifold가 인풋 space의 저차원 subspace에 있다는 가정 하에서) ReLU는 manifold 상의 정보를 그대로 유지 한다고 볼 수 있습니다.
+- 이런 관점에서 보면 어떤 데이터에 관련된 manifold가 `ReLU`를 통과하고 나서도 입력값이 음수가 아니라서 0이 되지 않은 상태라면, `ReLU`는 `linear transformation` 연산을 거친 것이라고 말할 수 있습니다. 즉, ReLU 식을 보면 알 수 있는것 처럼, identity matrix를 곱한것과 같아서 단순한 linear transformation과 같다고 봐집니다.  
+- 그리고 네트워크를 거치면서 저차원으로 매핑이 되는 연산이 계속 되는데, 이 때, (인풋의 manifold가 인풋 space의 저차원 subspace에 있다는 가정 하에서) ReLU는 양수의 값은 단순히 그대로 전파하므로 즉, **linear transformation**이므로, manifold 상의 정보를 그대로 유지 한다고 볼 수 있습니다.
+- 즉, 저차원으로 매핑하는 bottleneck architecture를 만들 때, **linear transformation** 역할을 하는 **linear bottleneck layer**를 만들어서 **차원은 줄이되 manifold 상의 중요한 정보들은 그대로 유지**해보자는 것이 컨셉입니다.
+- 여기 까지는 일단 가설이고, 실제로 실험을 하였는데 bottleneck layer를 사용하였을 때, `ReLU`를 사용하면 오히려 성능이 떨어진다는 것을 확인하였습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/mobilenet_v2/5.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
 - ### Inverted Residuals
+
+<br>
+
 - ### Pytorch 코드 리뷰
+
+<br>
