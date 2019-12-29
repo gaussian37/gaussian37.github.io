@@ -21,10 +21,9 @@ tags: [Introduction] # add tag
 
 <br>
 
-- Python
+- C / Python
 - Machine/Deep Learning
-- Computer Vision
-- Segmentation
+- Computer Vision (Detection, Segmentation)
 - Autonomous Driving
 
 <br>
@@ -50,8 +49,8 @@ tags: [Introduction] # add tag
 - [linear algebra 관련 글](https://gaussian37.github.io/math-la-table/)
 - [calculus 관련 글](https://gaussian37.github.io/math-calculus-Table/)
 - [probability 관련 글](https://gaussian37.github.io/math-pb-table/)
-- [mathematics for machine learning 강의](https://gaussian37.github.io/math-mfml-table/)
 - [game theory 관련 글](https://gaussian37.github.io/math-game-table/)
+- [mathematics for machine learning 강의](https://gaussian37.github.io/math-mfml-table/)
 
 <br>
 
@@ -87,4 +86,3 @@ tags: [Introduction] # add tag
 
 - [c 관련 글](https://gaussian37.github.io/c-concept-table/)
 - [Linux 관련 글](https://gaussian37.github.io/c-linux-table/)
-- [c++ 관련 글](https://gaussian37.github.io/cpp-concept-table/)

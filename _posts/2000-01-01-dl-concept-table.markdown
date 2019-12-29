@@ -21,8 +21,8 @@ tags: [python, deep learning, dl] # add tag
 - [SqueezeNet](https://gaussian37.github.io/dl-concept-squeezenet/)
 - [SqueezeNext](https://gaussian37.github.io/dl-concept-squeezenext/)
 - [MobileNet](https://gaussian37.github.io/dl-concept-mobilenet/)
-- [MobileNet v2](https://gaussian37.github.io/dl-concept-mobilenetv2/)
-- [MobileNet v3](https://gaussian37.github.io/dl-concept-mobilenetv3/)
+- [MobileNet v2](https://gaussian37.github.io/dl-concept-mobilenet_v2/)
+- [MobileNet v3](https://gaussian37.github.io/dl-concept-mobilenet_v3/)
 - [ShuffleNet](https://gaussian37.github.io/dl-concept-shufflenet/)
 
 <br>
