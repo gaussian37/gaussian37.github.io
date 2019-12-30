@@ -181,15 +181,9 @@ tags: [딥러닝, 모바일넷 v2, mobilenet v2] # add tag
 - 이 때 multiply-add 연산의 총 수는 다음과 같습니다.
 
 <br>
-
-$$
-
-\color{blue} h \color{blue} \times w \times t \times d' \color{red} \times d' \color{black}+ \color{blue} h \times w \times t \times d' \color{red} \times k \times k \color{black} + \color{blue} h \times w \times d'' \color{red} \times t \times \ d'
-\color{black} = h \times w \times d' \times t(d' + k^{2} + d'')
-
-$$
-
+<center><img src="../assets/img/dl/concept/mobilenet_v2/10.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
 
 - 위 식에서 **파란색**에 해당하는 식이 아웃풋에 관련된 식이고 **빨간색**은 아웃풋을 계산하기 위한 convolution filter의 사이즈를 나타냅니다.
 - 첫번째 식은 1x1 convolution을 곱하기 때문에 `1 x 1 x d'`가 아웃풋에 곱해집니다. 
