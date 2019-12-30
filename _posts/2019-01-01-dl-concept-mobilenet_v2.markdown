@@ -184,7 +184,7 @@ tags: [딥러닝, 모바일넷 v2, mobilenet v2] # add tag
 
 $$
 
-\color{blue} h \times w \times t \times d' \color{red} \times d' \color{black}+ \color{blue} h \times w \times t \times d' \color{red} \times k \times k \color{black} + \color{blue} h \times w \times d'' \color{red} \times t \times \ d'
+\color{blue} h \color{blue}\times \color{blue}w \color{blue}\times \color{blue}t \color{blue}\times \color{blue}d' \color{red}\times \color{red}d' \color{black}+ \color{blue}h \color{blue}\times \color{blue}w \color{blue}\times \color{blue}t \color{blue}\times \color{blue}d' \color{red}\times \color{red}k \color{red}\times \color{red}k \color{black} + \color{blue}h \color{blue}\times \color{blue}w \color{blue}\times \color{blue}d'' \color{red} \color{red}\times \color{red}t \color{red}\times \color{red}d'
 \color{black} = h \times w \times d' \times t(d' + k^{2} + d'')
 
 $$
