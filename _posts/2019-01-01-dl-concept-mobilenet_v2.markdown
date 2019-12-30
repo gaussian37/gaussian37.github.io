@@ -166,7 +166,7 @@ tags: [딥러닝, 모바일넷 v2, mobilenet v2] # add tag
 - 물론 이렇게 하는 이유의 목적은 압축된 narrow layer를 skip connection으로 사용함으로써 메모리 사용량을 줄이기 위함입니다. 
 
 <br>
-<center><img src="../assets/img/dl/concept/mobilenet_v2/9.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/dl/concept/mobilenet_v2/9.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 앞에서 설명한 inverted residual block을 표현하면 위 그림과 같이 나타낼 수 있습니다. 또는 이것을 `Bottleneck Residual Block`이라고 합니다.
