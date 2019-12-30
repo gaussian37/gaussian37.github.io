@@ -2,7 +2,7 @@
 layout: post
 title: VOT(Visual Object Tracking)와 MOT(Multiple Object Tracking)
 date: 2019-12-30 00:00:00
-img: vision/concept/vot_mot/0.png
+img: vision/concept/vot_mot/1.png
 categories: [vision-concept] 
 tags: [vision, vot, mot, tracking] # add tag
 ---
