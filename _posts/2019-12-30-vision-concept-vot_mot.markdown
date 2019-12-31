@@ -77,3 +77,13 @@ tags: [vision, vot, mot, tracking] # add tag
 ## **Multiple Object Tracking의 예**
 
 <br>
+
+- 그러면 MOT를 어떻게 접근하면 될 지 간략하게 다루어 보도록 하겠습니다.
+- 먼저 Tracking은 2가지 단계를 거쳐야 합니다. 첫번째는 각 프레임 별로 Object Detection을 하는 것이고 두번째는 Object Detection 결과를 Tracking과 연관시키는 작업입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/vot_mot/3.png" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+
+- 위 그림처럼 성능이 낮은 Detector는 실제 객체인 사람이 있음에도 불구하고 Detection을 하지 못했으므로 False Negative 가 증가하게 되어 Recall 성능이 낮아지게 됩니다.
+- 좋은 Tracker는 프레임 간의 정보를 이용하여 Detector의 부족한 점들을 보완해주어야 하고 결과적으로 False Negative 또는 False Positive에 대하여 원하는 방법으로 성능을 높여주어야 합니다. 
