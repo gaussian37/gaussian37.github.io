@@ -21,9 +21,6 @@ tags: [python, 세팅, 설치] # add tag
 - ### 가상 환경 세팅
 - ### reqirement 파일 생성
 - ### 내가 사용하는 라이브러리들
-    - opencv-python
-    - cmake, dlib
-    - pyqt5
 
 <br>
 
