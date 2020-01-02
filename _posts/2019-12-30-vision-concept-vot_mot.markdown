@@ -87,3 +87,26 @@ tags: [vision, vot, mot, tracking] # add tag
 
 - 위 그림처럼 성능이 낮은 Detector는 실제 객체인 사람이 있음에도 불구하고 Detection을 하지 못했으므로 False Negative 가 증가하게 되어 Recall 성능이 낮아지게 됩니다.
 - 좋은 Tracker는 프레임 간의 정보를 이용하여 Detector의 부족한 점들을 보완해주어야 하고 결과적으로 False Negative 또는 False Positive에 대하여 원하는 방법으로 성능을 높여주어야 합니다. 
+
+<br>
+<center><img src="../assets/img/vision/concept/vot_mot/4.png" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+
+- Detector의 성능이 확보 된다면 이제 Tracking 처리를 할 Tracker를 만들어야 합니다.
+- Tracking을 하는 방법에는 위와 같이 `online` 방법과 `offline` 방법이 있습니다.
+- `online` tracking은 현재 프레임과 바로 직전의 프레임을 이용하여 tracking을 하는 것이고 `offline` tracking은 실시간이 아닌 전체 비디오를 입력 받고 모든 프레임을 사용하여 tracking 하는 것입니다. 즉, 과거 frame 또는 미래 frame 모두를 이용하는 것입니다.
+- 실용적으로 필요한 것은 `online` tracking이 대부분 입니다. 그 많은 비디오를 저장하는데에도 한계가 있고 tracking은 실시간으로 처리하는 데 목적이 있기 때문입니다. 그래서 이 글에서는 `online` tracking을 위주로 다루어 보겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/vot_mot/5.png" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+
+- **tracking의 핵심**은 현재 프레임에서 detection한 좌표들이 있을 때, 이 좌표들과 직전 프레임에서 detection한 **좌표들을 연결하는 것**에 있습니다.
+- 위 그림과 같이 프레임 간에 좌표들을 연결할 때, 몇 개의 프레임을 사용할 지는 알고리즘 설계 단계에서 선택해야 합니다. 
+- 이 과정은 바로 앞에서 다룬 `online`과 `offline` tracking을 고려하는것과 유사합니다. 이 글에서 다루어 볼 것은 `online` tracking 조건에서 `two-frame method` 입니다. 왜냐하면 가장 간단한 방법이면서 메모리 및 계산량에 효율적이고 무엇보다 `online` tracking에 가장 적합하기 때문입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/vot_mot/6.png" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+
+- 
