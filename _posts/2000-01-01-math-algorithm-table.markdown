@@ -31,3 +31,4 @@ tags: [algorithm, 알고리즘] # add tag
 - 트리
 - 기하
     - CCW(counter clockwise)
+    - [n차원 다각형의 넓이 계산](https://gaussian37.github.io/math-algorithm-polygon_area/)
