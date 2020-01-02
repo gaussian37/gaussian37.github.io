@@ -109,4 +109,66 @@ tags: [vision, vot, mot, tracking] # add tag
 <center><img src="../assets/img/vision/concept/vot_mot/6.png" alt="Drawing" style="width: 600px;"/></center>
 <br> 
 
-- 
+- 프레임 간의 detection 정보들을 연결시키려면 detection 정보 사이의 유사성등을 파악해야 합니다.
+- 시각적인 유사성이나 동작 유사성 등을 이용할 수 있으며 위와 같은 예들을 결합해서 사용할 수도 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/vot_mot/7.png" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+
+- 간단한 방법 몇가지를 소개해 보겠습니다.
+- 첫번째로 아주 간단한 방법 중 하나인 `IoU`, Intersection over Union을 이용하여 tracking 하는 방법입니다.
+    - 소위 `IoU Tracker` 라고 불리는 방법이지요.
+- 이전 프레임과 현재 프레임의 detection의 영역(예를 들어 bounding box)들을 비교합니다. 이 때 비교하는 방법으로 `IoU`를 사용하여 영역이 가장 많이 겹치는 쌍이 결합될 수 있습니다.
+    - 예를 들어, t-1 프레임의 b1 bounding box와 t 프레임의 b2 bounding box의 `IoU`가 0.9이고 이것은 b1 bounding box와 t 프레임의 다른 bounding box와 `IoU`를 비교하였을 때 보다 큰 값이라고 하면 b1과 b2가 결합이 되어야 한다는 뜻입니다.
+- 먼저 이 tracking 방법의 장점은 연산량이 작아서 빠르게 수행할 수 있다는 점입니다. 아주 간단하기 때문이지요.
+- 특히, 객체의 이동속도가 엄청나게 빠르지 않다면 꽤나 성능이 좋습니다. MOT challenge 2017에서 좋은 성적을 거두었습니다.
+- 알고리즘을 정리하면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/vot_mot/9.png" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+
+- 각 track에 대하여 가장 높은 `IoU`를 가지는 detection을 선택합니다. 이 IoU가 임계값보다 크면 트랙에 추가하고 연결되지 않은 detection 목록에서 제거합니다.
+- IoU가 임계값 보다 낮은 track은 track을 끝냅니다. 만약 이 track의 길이가 너무 짧다면 False Positive로 간주할 수 있으므로 제거해도 된다고 판단합니다. 
+- 이 알고리즘에 대하여 다 자세히 알고 싶으면 다음 링크를 참조하시기 바랍니다.
+    - 링크 : https://motchallenge.net/tracker/IOU17
+    - 논문 : http://elvera.nue.tu-berlin.de/files/1517Bochinski2017.pdf
+
+<br>
+
+- 좀 더 정교한 알고리즘에 대하여 알아보도록 하겠습니다.
+- `SORT` 라고 불리는 이 tracking 알고리즘의 이름은 **Simple Online and Realtime Tracking**입니다.
+    - 제 개인적으로도 많이 사용하는 알고리즘 입니다. 왜냐하면 성능이 꽤 괜찮고 빠르기 때문이지요.
+- SORT는 칼만 필터와 헝가리안 알고리즘을 이용합니다. 
+
+<br>
+
+- 1) 칼만 필터를 이용하여 이전 프레임 까지의 tracking 정보를 칼말 prediction을 합니다.
+- 2) 현재 프레임의 객체들의 정보를 detection합니다.
+- 3) 칼만 prediction한 값들과 detection 값들을 헝가리안 알고리즘을 이용하여 매칭합니다.
+    - 거리 값들을 이용하여 헝가리안 알고리즘을 사용하면 매칭된 prediction과 detection 사이의 거리의 총합이 최소가 되는 매칭 쌍들을 찾을 수 있습니다.
+    - 즉, 각 점들 하나 하나가 가장 가까운 점을 찾는다기 보다는 전체적으로 봤을 때 가장 거리가 가깝도록 최적해를 찾는 것이라고 봐야 합니다.
+
+<br>
+
+- `SORT`에 대한 방법론은 다른 글에서 좀 더 자세하게 다루어 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/vot_mot/10.png" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+
+- 앞에서 다룬 `IoU Tracker`와 `SORT` 모두 간단하지만 생각보다 성능이 괜찮아서 `online` tracking에서 사용할 수 있습니다.
+- False Positive 이외에는 `SORT`가 성능이 우세하고 FP에만 `IoU Tracker`가 성능이 우세합니다.
+- 특히, 가장 민간한 오류인 False Negative에서 `SORT`가 더 우세한 이유로 인하여 저는 `SORT`를 사용하는 것을 추천드립니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/vot_mot/11.png" alt="Drawing" style="width: 600px;"/></center>
+
+<br>
+<center><img src="../assets/img/vision/concept/vot_mot/12.png" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+
+- 최근에는 딥러닝의 `RNN` 계열을 이용하여 이 문제를 해결하는 방법도 제안되고 있습니다.
+- RNN 계열을 쓴다는 것은 detection을 위한 뉴럴 네트워크 한개와 별도로 track과 detection을 매칭(association)하기 위한 용도의 뉴럴 네트워크를 추가적으로 사용하는 것입니다. 관련 내용은 아래 논문을 참조 바랍니다.
+- 참조 :https://arxiv.org/abs/1701.01909
