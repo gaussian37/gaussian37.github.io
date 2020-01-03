@@ -67,7 +67,9 @@ tags: [딥러닝, 모바일넷 v2, mobilenet v2] # add tag
 - 두번째 layer인 pointwise convolution 또는 1x1 convolution에서는 depthwise convolution의 결과를 pointwise convolution을 통하여 다음 layer의 인풋으로 합쳐주는 역할을 하였습니다.
 - 그리고 activation function으로 ReLU6를 사용하여 block을 구성하였습니다.
     - 참고로 ReLU6는 `min(max(x, 0), 6)` 식을 따르고 음수는 0으로 6이상의 값은 6으로 수렴시킵니다.
-
+- `ReLU6`를 사용하는 이유는 다음 링크를 참조 하시기 바랍니다.
+    - 링크 : https://gaussian37.github.io/dl-concept-relu6/
+    
 <br>
 
 - 다음으로 `mobilenet v2`입니다.
