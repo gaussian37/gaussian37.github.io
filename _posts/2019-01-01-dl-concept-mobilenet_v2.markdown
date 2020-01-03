@@ -200,7 +200,7 @@ tags: [딥러닝, 모바일넷 v2, mobilenet v2] # add tag
 import torch.nn as nn
 import math
 
-
+# 3 x 3 convolution + BN + ReLU6
 def conv_bn(inp, oup, stride):
     return nn.Sequential(
         nn.Conv2d(inp, oup, 3, stride, 1, bias=False),
@@ -208,7 +208,7 @@ def conv_bn(inp, oup, stride):
         nn.ReLU6(inplace=True)
     )
 
-
+# 1 x 1 convolution + BN + ReLU6
 def conv_1x1_bn(inp, oup):
     return nn.Sequential(
         nn.Conv2d(inp, oup, 1, 1, 0, bias=False),
@@ -226,37 +226,34 @@ class InvertedResidual(nn.Module):
     def __init__(self, inp, oup, stride, expand_ratio):
         super(InvertedResidual, self).__init__()
         self.stride = stride
+        # stride는 반드시 1 또는 2이어야 하므로 조건을 걸어 둡니다.
         assert stride in [1, 2]
 
+        # expansion factor를 이용하여 channel을 확장합니다.
         hidden_dim = int(inp * expand_ratio)
-        self.use_res_connect = self.stride == 1 and inp == oup
 
-        if expand_ratio == 1:
-            self.conv = nn.Sequential(
-                # dw
-                nn.Conv2d(hidden_dim, hidden_dim, 3, stride, 1, groups=hidden_dim, bias=False),
-                nn.BatchNorm2d(hidden_dim),
-                nn.ReLU6(inplace=True),
-                # pw-linear
-                nn.Conv2d(hidden_dim, oup, 1, 1, 0, bias=False),
-                nn.BatchNorm2d(oup),
-            )
-        else:
-            self.conv = nn.Sequential(
-                # pw
-                nn.Conv2d(inp, hidden_dim, 1, 1, 0, bias=False),
-                nn.BatchNorm2d(hidden_dim),
-                nn.ReLU6(inplace=True),
-                # dw
-                nn.Conv2d(hidden_dim, hidden_dim, 3, stride, 1, groups=hidden_dim, bias=False),
-                nn.BatchNorm2d(hidden_dim),
-                nn.ReLU6(inplace=True),
-                # pw-linear
-                nn.Conv2d(hidden_dim, oup, 1, 1, 0, bias=False),
-                nn.BatchNorm2d(oup),
-            )
+        # stride가 1인 경우에만 residual block을 사용합니다.
+        # skip connection을 사용하는 경우 input과 output의 크기가 같아야 합니다.
+        self.use_res_connect = (self.stride == 1) and (inp == oup)
+
+        # Inverted Residual 연산
+        self.conv = nn.Sequential(
+            # point-wise convolution
+            nn.Conv2d(inp, hidden_dim, 1, 1, 0, bias=False),
+            nn.BatchNorm2d(hidden_dim),
+            nn.ReLU6(inplace=True),
+            # depth-wise convolution
+            nn.Conv2d(hidden_dim, hidden_dim, 3, stride, 1, groups=hidden_dim, bias=False),
+            nn.BatchNorm2d(hidden_dim),
+            nn.ReLU6(inplace=True),
+            # point-wise linear convolution
+            nn.Conv2d(hidden_dim, oup, 1, 1, 0, bias=False),
+            nn.BatchNorm2d(oup),
+        )
 
     def forward(self, x):
+        # use_res_connect인 경우만 connection을 연결합니다.
+        # use_res_connect : stride가 1이고 input과 output의 채널 수가 같은 경우 True
         if self.use_res_connect:
             return x + self.conv(x)
         else:
@@ -269,6 +266,10 @@ class MobileNetV2(nn.Module):
         block = InvertedResidual
         input_channel = 32
         last_channel = 1280
+        # t : expansion factor
+        # c : output channel의 수
+        # n : 반복 횟수
+        # s : stride
         interverted_residual_setting = [
             # t, c, n, s
             [1, 16, 1, 1],
@@ -285,8 +286,11 @@ class MobileNetV2(nn.Module):
         # input_channel = make_divisible(input_channel * width_mult)  # first channel is always 32!
         self.last_channel = make_divisible(last_channel * width_mult) if width_mult > 1.0 else last_channel
         self.features = [conv_bn(3, input_channel, 2)]
-        # building inverted residual blocks
+        
+        # Inverted Residual Block을 생성합니다.
+        # features에 feature들의 정보를 차례대로 저장합니다.
         for t, c, n, s in interverted_residual_setting:
+            # width multiplier는 layer의 채널 수를 일정 비율로 줄이는 역할을 합니다.
             output_channel = make_divisible(c * width_mult) if t > 1 else c
             for i in range(n):
                 if i == 0:
@@ -294,8 +298,10 @@ class MobileNetV2(nn.Module):
                 else:
                     self.features.append(block(input_channel, output_channel, 1, expand_ratio=t))
                 input_channel = output_channel
+        
         # building last several layers
         self.features.append(conv_1x1_bn(input_channel, self.last_channel))
+        
         # make it nn.Sequential
         self.features = nn.Sequential(*self.features)
 
