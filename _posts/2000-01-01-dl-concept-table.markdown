@@ -65,6 +65,7 @@ tags: [python, deep learning, dl] # add tag
 
 - [Activation function 요약](https://gaussian37.github.io/dl-concept-activation_functions/)
 - [PReLU (Parametric ReLU)](https://gaussian37.github.io/dl-concept-prelu/)
+- [ReLU6와 ReLU6를 사용하는 이유](https://gaussian37.github.io/dl-concept-relu6/)
 - [gram matrix used in style transer](https://gaussian37.github.io/dl-concept-grammatrix/)
 - [Batch Normalization](https://gaussian37.github.io/dl-concept-batchnorm)
 - [Batch Normalization, Dropout, Pooling 적용 순서](https://gaussian37.github.io/dl-concept-order_of_regularization_term/)
