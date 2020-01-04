@@ -13,6 +13,10 @@ tags: [python, tkinter, pyqt] # add tag
 
 <br>
 
+- [pyqt5 기본 문법](https://gaussian37.github.io/python-gui-pyqt5_basic/)
+
+<br>
+
 ## **Tkinter 관련 글**
 
 <br>
