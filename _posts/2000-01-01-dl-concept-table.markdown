@@ -24,6 +24,8 @@ tags: [python, deep learning, dl] # add tag
 - [MobileNet v2](https://gaussian37.github.io/dl-concept-mobilenet_v2/)
 - [MobileNet v3](https://gaussian37.github.io/dl-concept-mobilenet_v3/)
 - [ShuffleNet](https://gaussian37.github.io/dl-concept-shufflenet/)
+- [NAS, Neural Architecture Search with RL]()
+- [MNasNet]()
 
 <br>
 
@@ -31,6 +33,7 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
+- [Bag of Tricks for Image Classification with Convolutional Neural Networks]()
 - [딥러닝 경량화]()
 - 스마트폰 위의 딥러닝
 
