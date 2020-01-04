@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (OpenCV-Python) 마우스 클릭으로 ROI 영역 추출 하기  
+title: 마우스 클릭으로 ROI 영역 추출 하기  
 date: 2018-12-08 00:00:00
 img: vision/opencv/opencv-python.png
 categories: [vision-opencv] 
