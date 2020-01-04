@@ -79,14 +79,14 @@ tags: [algorithm, 알고리즘, 다각형 넓이] # add tag
 ### 쉬운 케이스
 
 <br>
-<center><img src="../assets/img/math/algorithm/polygon_area/5.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/polygon_area/5.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 두 점이 있을 때, 그 두 점을 연결한 선의 왼쪽 영역을 계속 더해나가는 것입니다.
 - 위 그림을 기준으로 보면 0번째 점과 1번째 점을 연결한 선의 왼쪽 영역인 회색 구간을 전체 넓이에서 더하는 것입니다.
 
 <br>
-<center><img src="../assets/img/math/algorithm/polygon_area/6.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/polygon_area/6.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 여기서 `x축`의 부분만 생각을 조금 바꿔보겠습니다.
@@ -95,14 +95,14 @@ tags: [algorithm, 알고리즘, 다각형 넓이] # add tag
 - 이렇게 변형된 **직사각형** 영역을 계속 더할 것입니다.
 
 <br>
-<center><img src="../assets/img/math/algorithm/polygon_area/7.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/polygon_area/7.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 여기 까지가 y좌표가 가장 아래 점인 점 까지 시계 방향으로 계속 더한 것이라고 가정하겠습니다.
 - 그러면 이제 다각형을 완성하기 위해 점을 이어야 하므로 y좌표 기준으로 위로 올라가 보겠습니다.
 
 <br>
-<center><img src="../assets/img/math/algorithm/polygon_area/8.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/polygon_area/8.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 앞에서 한 것과 똑같은 원리로 왼쪽 영역을 더해 갈 것입니다.
@@ -118,44 +118,44 @@ tags: [algorithm, 알고리즘, 다각형 넓이] # add tag
 <br>
 
 <br>
-<center><img src="../assets/img/math/algorithm/polygon_area/9.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/polygon_area/9.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 앞에서 설명하였는데 **볼록/오목 다각형**에 이 방법이 모두 적용 가능하다고 하였습니다.
 - 그러면 위와 같이 생긴 다각형도 적용이 되어야 하는데 어떻게 되는지 살펴보겠습니다. 결론적으로 말하면 **영역이 더해졌다가 빼졌다가를 반복하면서 내부 영역만 최종적으로 남게** 됩니다.
 
 <br>
-<center><img src="../assets/img/math/algorithm/polygon_area/10.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/polygon_area/10.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 영역의 변화를 살펴보기 위해 모든 꼭지점마다 수평선을 그어보겠습니다.
 
 <br>
-<center><img src="../assets/img/math/algorithm/polygon_area/11.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/polygon_area/11.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 앞의 쉬운 케이스와 같은 원리로 두 점을 연결한 선의 왼쪽 영역을 모두 더해보겠습니다. 그러면 위의 회색 영역만큼 모두 더해집니다.
 
 <br>
-<center><img src="../assets/img/math/algorithm/polygon_area/12.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/polygon_area/12.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 그 다음 y값이 감소하는 방향으로 추가된 노란색 영역은 빼집니다. 따라서 회색 영역은 위 처럼 남게 됩니다.
 
 <br>
-<center><img src="../assets/img/math/algorithm/polygon_area/13.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/polygon_area/13.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 그 다음 파란색 영역 만큼 다시 더해지게 됩니다.
 
 <br>
-<center><img src="../assets/img/math/algorithm/polygon_area/14.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/polygon_area/14.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 다시 노란색 영역 만큼 빠지게 됩니다.
 
 <br>
-<center><img src="../assets/img/math/algorithm/polygon_area/15.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/polygon_area/15.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 최종적으로 회색 영역 만큼 남게 됩니다. 즉 다각형의 내부 영역 만큼만 정확하게 남게 됩니다.
@@ -169,11 +169,11 @@ tags: [algorithm, 알고리즘, 다각형 넓이] # add tag
 - 볼록/오목 다각형에서는 모두 사용할 수 있는 방법이지만 **도형 내부에서 교차하는 영역이 발생**하면 더해지고 빼지는 부분에서 중복이 발생하므로 영역을 구할 수 없습니다. 다음 그림을 참조하시기 바랍니다.
 
 <br>
-<center><img src="../assets/img/math/algorithm/polygon_area/16.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/polygon_area/16.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/math/algorithm/polygon_area/17.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/polygon_area/17.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 ## **c 코드**
