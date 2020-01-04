@@ -9,8 +9,9 @@ tags: [vision, vot, mot, tracking] # add tag
 
 <br>
 
-- 이번 글에서는 Tracking의 개념에 대하여 간략하게 다루어 볼 예정입니다.
+- 이번 글에서는 Tracking의 종류에 대하여 간략하게 다루어 볼 예정입니다.
 - 특히 Tracking의 두 종류인 **Visual Object Tracking**과 **Multiple Object Tracking**이 무엇인지 다루어 보겠습니다.
+- 엄청 자세한 Tracking의 방법론 제 블로그의 다른 글들을 살펴보시면 감사하겠습니다. (Detection + 칼만 필터를 사용해 보시면 됩니다.)
 
 <br>
 
@@ -28,6 +29,39 @@ tags: [vision, vot, mot, tracking] # add tag
 ## **Visual Object Tracking 이란**
 
 <br>
+
+- 이번 글의 첫번째 주제인 VOT(Visual Object Tracking)에 대하여 알아보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/vot_mot/13.png" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+
+- Object Tracking이라는 것은 비디오 영상에서 시간에 따라 움직이는 어떤 물체 또는 여러개의 물체의 위치를 찾는 과정을 말합니다.
+- Object Tracking에서의 출력은 Tracker가 되는데 Tracker는 각 비디오 frame에서의 객체 정보를 가지고 있습니다.
+- 그러면 `VOT`가 다루는 문제는 단일 객체(Single Object)를 다루는 문제에 대해서 설명드리겠습니다.
+- `VOT`는 먼저 단일 객체 (Single Object)를 대상으로 이루어지는 Tracking 문제 입니다.
+- 여기서 중요한 것은 `VOT`에서 주어지는 정보는 **첫 번째 프레임에서의 객체의 위치** 입니다. 이 정보 이외에는 다른 정보가 없습니다.
+- 즉, 객체에 대한 자세한 정보는 모르지만 첫 프레임에서 객체가 어디에 있는지 알면 비디오에서 계속 그 객체를 추적해 나아가야 하는 문제입니다.
+- 그리고 오직 사용 할 수 있는 정보는 현재 프레임과 이전 프레임 2가지 입니다. 
+
+<br>
+<center><img src="../assets/img/vision/concept/vot_mot/14.png" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+
+- VOT 문제를 풀 때 고려해야 할 것들을 보면 먼저 가장 중요한 것 중에 하나인 계산 속도가 있습니다.
+- 그리고 객체의 형상이나 비디오의 방향, 빛 등이 변할 수 있기 때문에 그런 것들에 영향을 받지 않고 성능이 나올 수 있도록 해야 합니다.
+- 또한 객체와 유사한 것들이 다수 출현하였을 때, 예를 들어 객체가 사람인데 사람들 사이에 그 객체가 들어가게 된다면, Occlusion 문제 등이 발생할 수 있고 또는 다른 유사한 객체(사람)를 Tracking 하는 문제가 발생할 수 있습니다.
+- VOT 문제를 푸는 대회도 있습니다. (http://votchallenge.net) 여기에 다양한 데이터 셋과 정보들이 있으니 참조하시면 도움이 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/vot_mot/15.png" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+
+- VOT의 성능을 평가하는 방법은 `Accuracy`, `Robustness`가 있습니다.
+- 이 측정 방법의 기본이 되는 것은 위 그림에서 보여주는 `IoU`입니다. GT 대비해서 얼만큼 Ttacking이 겹치는 지가 기준이 됩니다.
+- `Accuracy`는 비디오 전체에서 얼만큼 `IoU`가 threshold(얼마나 정확하게 tracking 했는지 나타내는 값 ex. 0.8) 보다 높은지를 나타냅니다.
+- `Robustness`는 비디오 전체에서 `IoU`가 threshold(얼마나 부정확하게 tracking 했는지 나타내는 값 ex. 0.2) 보다 낮게 계산되어 위치값을 다시 주어야 하는 경우를 카운트한 값을 나타냅니다. 위 그림에서는 2번 발생하였습니다.
+
 
 ## **Visual Object Tracking의 예**
 
