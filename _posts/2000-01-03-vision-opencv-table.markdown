@@ -7,25 +7,6 @@ categories: [vision-opencv]
 tags: [vision, opencv] # add tag
 ---
 
-<br>
-
-## **opencv with c++**
-
-<br>
-
-### **opencv with c++ 기능**
-
-<br>
-
-### **opencv with c++ use case**
-
-<br><br>
-
-
-## **opencv with python**
-
-<br>
-
 ### **opencv with python 기능**
 
 <br>
@@ -35,6 +16,7 @@ tags: [vision, opencv] # add tag
 - [히스토그램 평활화 - equalizeHist](https://gaussian37.github.io/vision-opencv-equalizeHist/)
 - [코너점(Corner) 검출 - preCornerDetect](https://gaussian37.github.io/vision-opencv-corner-detection/)
 - [코너점(Corner) 검출 - cornerEigenValsAndVecs](https://gaussian37.github.io/vision-opencv-cornerEigenValsAndVecs/)
+- [opencv 선형 칼만 필터](https://gaussian37.github.io/vision-opencv-lkf/)
 
 <br><br>
 

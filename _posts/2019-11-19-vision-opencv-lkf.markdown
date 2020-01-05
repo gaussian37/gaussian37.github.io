@@ -1,18 +1,19 @@
 ---
 layout: post
-title: 선형 칼만 필터로 human tracking (w/ opencv)
+title: opencv를 이용한 선형 칼만 필터 구현 및 예제
 date: 2019-11-19 00:00:00
-img: autodrive/ose/kalman_filter.jpg
-categories: [autodrive-ose] 
-tags: [칼만 필터, kalman filter, tracking, 트래킹] # add tag
+img: vision/opencv/opencv-python.png
+categories: [vision-opencv] 
+tags: [opencv, 칼만 필터, kalman filter, tracking, 트래킹] # add tag
 ---
 
 <br>
 
+- 참조 : Python으로 배우는 OpenCV
 - 이번 글에서는 opencv를 이용하여 칼만필터를 사용하는 방법에 대하여 알아보겠습니다.
-- 전체적으로는 2D 이미지에서 컴퓨터 비전 알고리즘으로 Detection한 포인트를 선형 칼만 필터 알고리즘으로 tracking 할 예정입니다.
+- 최종 목표는 2D 이미지에서 점을 선형 칼만 필터 알고리즘으로 tracking 할 예정입니다.
 - 선형 칼만 필터의 자세한 원리를 이해하고 싶으면 제 블로그의 [이 링크](https://gaussian37.github.io/ad-ose-lkf_basic/)를 참조하시기 바랍니다. 이 글에서는 간략하게만 이해하고 넘어갈 예정입니다.
-- 이 글에서는 opencv를 이용하여 어떻게 칼만 필터를 사용하는 지 관점으로 접근해 보도록 하겠습니다.
+- 먼저 칼만 필터에 대한 간략한 이론을 다루고 opencv를 이용하여 어떻게 칼만 필터를 사용하는 지 관점으로 접근해 보도록 하겠습니다.
 
 <br>
 
@@ -27,7 +28,9 @@ tags: [칼만 필터, kalman filter, tracking, 트래킹] # add tag
 - ### (predict) Uncontrolled uncertainties
 - ### (update) Measurements
 - ### (update) Fusing information
-- ### python & opencv 코드
+- ### opencv의 칼만 필터 함수 설명
+- ### opencv의 칼만 필터 함수 사용
+- ### 마우스 위치 추적 
 
 <br>
 
@@ -206,7 +209,7 @@ $$
 
 <br>
 
-## **Measurements**
+## **(update) Measurements**
 
 <br>
 
