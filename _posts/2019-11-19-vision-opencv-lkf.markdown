@@ -30,7 +30,7 @@ tags: [opencv, 칼만 필터, kalman filter, tracking, 트래킹] # add tag
 - ### (update) Fusing information
 - ### opencv의 칼만 필터 함수 설명
 - ### opencv의 칼만 필터 함수 사용
-- ### 마우스 위치 추적 
+- ### 마우스 위치 추적 구현
 
 <br>
 
@@ -305,12 +305,49 @@ $$
 
 <br>
 
-## **정리**
-
-<br>
-
 - 지금까지 다룬 것을 모두 정리하면 칼만 필터는 **1) 시스템 로직, 2) 컨트롤 인풋**과 독립적인 **센서값**의 `퓨젼`을 통하여 시스템 내부를 tracking 하는 방법입니다.
 - `Predict` : Prediction은 **시스템 로직** 과 **컨트롤 인풋**을 통하여 만들어 집니다. (**Equation 9번 참조**) 
 - `Update` : Update는 measurement값을 prediction에 반영하여 만들어 집니다. (**Equation 10번 참조**) 
+
+<br>
+
+## **opencv의 칼만 필터 함수 설명**
+
+<br>
+
+- opencv에서 제공하는 칼만 필터 함수는 앞에서 설명한 선형 칼만 필터를 구현합니다.
+- 앞에서 쭉 설명한 것과 같이 이동 물체의 status 모델과 measurement에 의해 표현되었습니다. 
+- 지금 부터 설명하는 내용은 opencv 문서 및 관련 책을 참조 하여 식의 기호가 조금 달라지는데 내용은 달라지는 게 없으니 참조하여 보시면 되겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/opencv/lkf/3.png" alt="Drawing" style="width: 400px;"/></center>
+<br>   
+
+- 여기서 k는 이산 시간 (discrete-time)변수이면, k = 0, 1, 2, ...이 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/opencv/lkf/4.png" alt="Drawing" style="width: 400px;"/></center>
+
+<br>
+<center><img src="../assets/img/vision/opencv/lkf/5.png" alt="Drawing" style="width: 400px;"/></center>
+<br>   
+
+- opencv의 칼만 필터 함수와 칼만 필터 과정을 연결해서 표현하면 위 state diagram과 같습니다.
+- 위 표를 보면 칼만 필터에서 사용하는 함수는 크게 2개인 `predict`와 `correct`가 있습니다.
+- 그러면 `객체를 생성`하는 함수, `predict` 그리고 `correct`에 대하여 살펴보면 선형 칼만 필터를 쉽게 사용할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/opencv/lkf/6.png" alt="Drawing" style="width: 400px;"/></center>
+<br>   
+
+- 먼저 `cv2.KalmanFilter` 클래스를 설명하기 위해 위 테이블의 내용을 참조해서 설명해 보겠습니다.
+
+
+
+## **opencv의 칼만 필터 함수 사용**
+
+<br>
+
+## **마우스 위치 추적 구현**
 
 <br>
