@@ -28,7 +28,6 @@ tags: [칼만 필터, kalman filter, tracking, 트래킹] # add tag
 - ### (update) Measurements
 - ### (update) Fusing information
 - ### python & opencv 코드
-- ### c++ & opencv 코드 
 
 <br>
 
@@ -191,6 +190,14 @@ $$
 
 <br>
 
+$$ 
+\tag{9}
+x_{k} = F_{k} x_{k-1} + B_{k}u_{k} \\
+P_{k} = F_{K} P_{k-1} F_{k}^{T} + Q_{k}\\
+$$
+
+<br>
+
 $$ x_{k} = F_{k} x_{k-1} + B_{k}u_{k} $$
 
 <br>
@@ -308,6 +315,7 @@ $$
 <br>
 
 - 지금까지 다룬 것을 모두 정리하면 칼만 필터는 **1) 시스템 로직, 2) 컨트롤 인풋**과 독립적인 **센서값**의 `퓨젼`을 통하여 시스템 내부를 tracking 하는 방법입니다.
+
 
 <br>
 
