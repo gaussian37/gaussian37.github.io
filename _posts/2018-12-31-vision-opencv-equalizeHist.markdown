@@ -179,7 +179,7 @@ y, Cr, Cb = cv2.split(yCrCb)
 # y값을 히스토그램 평활화를 합니다.
 equalizedY = cv2.equalizeHist(y)
 # equalizedY, Cr, Cb를 합쳐서 새로운 yCrCb 이미지를 만듭니다.
-yCrCb2 = cv2.merge([equalizedV, Cr, Cb])
+yCrCb2 = cv2.merge([equalizedY, Cr, Cb])
 # 마지막으로 yCrCb2를 다시 BGR 형태로 변경합니다.
 yCrCbDst = cv2.cvtColor(yCrCb2, cv2.COLOR_YCrCb2BGR)
 
@@ -202,11 +202,5 @@ cv2.destroyAllWindows()
 + hsv 형태에서 밝기값을 평활화 한 영상입니다.
 
 <img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/hsvDst.PNG" alt="Drawing" style="width: 500px;"/>
-
-<br>
-
-+ YCrCb 형태에서 밝기값을 평활화 한 영상입니다.
-
-<img src="../assets/img/vision/opencv/pointprocessing/histogramEqualization/ycbcrDst.PNG" alt="Drawing" style="width: 500px;"/>
 
 <br>

@@ -341,12 +341,22 @@ $$
 <br>   
 
 - 먼저 `cv2.KalmanFilter` 클래스를 설명하기 위해 위 테이블의 내용을 참조해서 설명해 보겠습니다.
+- `cv2.KalmanFilter(state 벡터의 차원, measurement 벡터의 차원, control 벡터의 차원)`
+    - 칼만 필터 클래스 객체를 생성합니다.
+    - 추가적으로 생성되는 행렬의 타입을 지정할 수 있습니다. cv2.cv_32F 또는 cv2.CV_64F 입니다.
+- `retval = cv2.KalmanFilter.predict(control 벡터(옵션))`
+    - 칼만 필터의 예측 상태(predicted state)인 $$ x'_{k} $$ `statePre`를 반환합니다.
+    - control은 외부 컨트롤 벡터인 $$ u_{k} $$를 뜻합니다. 없으면 입력하지 않아도 됩니다.
+- `retval = cv2.KalmanFilter.correct(measurement)`
+    - measurement를 사용하여 상태를 정정하고 $$ x_{k} $$ `statePost`를 반환합니다.
 
-
+<br>
 
 ## **opencv의 칼만 필터 함수 사용**
 
 <br>
+
+
 
 ## **마우스 위치 추적 구현**
 
