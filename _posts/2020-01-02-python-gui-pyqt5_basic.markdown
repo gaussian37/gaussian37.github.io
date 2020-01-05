@@ -19,5 +19,66 @@ tags: [python, pyinstaller] # add tag
 - ### Label Widget
 - ### Buttons
 - ### LineEdit Widget
+    - ID, 비밀번호 입력
 
-- 먼저 아래 간단한 예
+<br>
+<center><img src="../assets/img/python/gui/pyqt5_basic/0.png" alt="Drawing" style="width: 600px;"/></center>
+<br> 
+
+```python
+import sys
+from PyQt5.QtWidgets import *
+
+class Window(QWidget):
+    def __init__(self):
+        super().__init__()
+        # 화면의 (x : 150, y: 50) 위치에서 (width : 300, height : 450) 크기의 윈도우가 생성됩니다.
+        self.setGeometry(150, 50, 300, 450)
+        # Window의 Title을 지정합니다.
+        self.setWindowTitle("윈도우의 제목")
+        self.UI()
+
+    def UI(self):
+        # QLabel은 GUI에 고정된 텍스트를 입력합니다.
+        self.text = QLabel("아이디와 비밀번호를 입력하세요", self)
+        # QWidget 에서 상속받은 객체들은 move 함수를 가지고 있고 
+        # 이 함수는 각 객체의 위치 (x좌표, y좌표)를 나타냅니다.
+        self.text.move(50, 50)       
+
+        # QLineEdit는 사용자로 부터 문자열을 입력 받도록 합니다.
+        self.nameTextBox = QLineEdit(self)
+        # QLineEdit의 setPlaceholderText는 QLineEdit의 기본 값을 나타냅니다.
+        self.nameTextBox.setPlaceholderText("ID를 입력하세요")
+        self.nameTextBox.move(50, 100)
+
+        self.pwdTextBox = QLineEdit(self)
+        self.pwdTextBox.setPlaceholderText("비밀번호를 입력하세요")
+        # QLineEdit의 setEchoMode는 입력 받은 문자열을 비밀번호 처리하듯 보여줍니다. 
+        self.pwdTextBox.setEchoMode(QLineEdit.Password)
+        self.pwdTextBox.move(50, 150)
+
+        # QPushButton은 클릭할 수 있는 버튼을 만듭니다.
+        self.enterButton = QPushButton("입력", self)
+        self.enterButton.move(50, 200)
+        # QPushButton.clicked.connect를 통하여 버튼을 클릭하였을 때 
+        # 동작해야 할 함수를 지정할 수 있습니다.
+        self.enterButton.clicked.connect(self.getValues)
+        
+        # Window를 띄웁니다.
+        self.show()
+
+    def getValues(self):
+        name = self.nameTextBox.text()
+        password = self.pwdTextBox.text()
+        self.text.setText("ID : " + name + ", Password : " + password)
+
+def main():
+    App = QApplication(sys.argv)
+    window = Window()
+    sys.exit(App.exec_())
+
+if __name__ == "__main__":
+    main()
+```
+
+
