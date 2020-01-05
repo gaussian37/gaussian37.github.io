@@ -22,7 +22,7 @@ tags: [python, pyinstaller] # add tag
     - ID, 비밀번호 입력
 
 <br>
-<center><img src="../assets/img/python/gui/pyqt5_basic/0.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/python/gui/pyqt5_basic/0.png" alt="Drawing" style="width: 300px;"/></center>
 <br> 
 
 ```python
