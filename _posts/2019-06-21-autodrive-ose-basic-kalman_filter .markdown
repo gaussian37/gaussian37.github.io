@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (칼만필터는 어렵지 않아) 칼만 필터 기초
+title: 칼만 필터의 전체적인 구조
 date: 2019-06-23 00:00:00
 img: autodrive/ose/kalman_filter.jpg
 categories: [autodrive-ose] 
