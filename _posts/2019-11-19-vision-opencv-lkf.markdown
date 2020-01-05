@@ -320,16 +320,16 @@ $$
 - 지금 부터 설명하는 내용은 opencv 문서 및 관련 책을 참조 하여 식의 기호가 조금 달라지는데 내용은 달라지는 게 없으니 참조하여 보시면 되겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/opencv/lkf/3.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/opencv/lkf/3.png" alt="Drawing" style="width: 500px;"/></center>
 <br>   
 
 - 여기서 k는 이산 시간 (discrete-time)변수이면, k = 0, 1, 2, ...이 됩니다.
 
 <br>
-<center><img src="../assets/img/vision/opencv/lkf/4.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/opencv/lkf/4.png" alt="Drawing" style="width: 500px;"/></center>
 
 <br>
-<center><img src="../assets/img/vision/opencv/lkf/5.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/opencv/lkf/5.png" alt="Drawing" style="width: 500px;"/></center>
 <br>   
 
 - opencv의 칼만 필터 함수와 칼만 필터 과정을 연결해서 표현하면 위 state diagram과 같습니다.
@@ -337,7 +337,7 @@ $$
 - 그러면 `객체를 생성`하는 함수, `predict` 그리고 `correct`에 대하여 살펴보면 선형 칼만 필터를 쉽게 사용할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/opencv/lkf/6.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/opencv/lkf/6.png" alt="Drawing" style="width: 500px;"/></center>
 <br>   
 
 - 먼저 `cv2.KalmanFilter` 클래스를 설명하기 위해 위 테이블의 내용을 참조해서 설명해 보겠습니다.
