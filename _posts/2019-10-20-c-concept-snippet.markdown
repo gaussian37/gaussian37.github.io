@@ -16,6 +16,7 @@ tags: [C] # add tag
 - ### 변수명 출력
 - ### 숫자 → 문자열
 - ### 문자열 → 숫자
+- ### 텍스트 
 
 <br>
 
@@ -83,3 +84,25 @@ int StringToInteger(char *str) {
 
 <br>
 
+## **텍스트 출력**
+
+<br>
+
+- FILE 포인터와 fprintf를 이용하여 텍스트 파일에 출력하는 방법입니다.
+- 아래 코드와 같이 사용 시 fprintf 함수의 파일 포인터에 해당하는 파일에는 fprintf를 통해 출력한 값만 적혀집니다.
+- 물론 printf를 통하여 출력한 출력은 콘솔창에 기존 그대로 찍히게 됩니다.
+
+<br>
+
+```c
+#include <stdio.h>
+
+int main(){
+    // "a" 적용 시 파일 끝에서 부터 계속 이어서 쓴다.
+    // "w" 적용 시 파을을 덮어쓰기 한다.
+    FILE* fp = fopen("output.txt", "w"); 
+    fprintf(fp, "%d %lf\n", 1, 2.0);
+    
+    return 0;
+}
+```
