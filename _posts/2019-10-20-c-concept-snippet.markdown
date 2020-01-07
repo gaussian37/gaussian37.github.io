@@ -16,7 +16,7 @@ tags: [C] # add tag
 - ### 변수명 출력
 - ### 숫자 → 문자열
 - ### 문자열 → 숫자
-- ### 텍스트 
+- ### 텍스트 입/출력 
 
 <br>
 
@@ -84,7 +84,7 @@ int StringToInteger(char *str) {
 
 <br>
 
-## **텍스트 출력**
+## **텍스트 입/출력**
 
 <br>
 
@@ -102,6 +102,28 @@ int main(){
     // "w" 적용 시 파을을 덮어쓰기 한다.
     FILE* fp = fopen("output.txt", "w"); 
     fprintf(fp, "%d %lf\n", 1, 2.0);
+    
+    return 0;
+}
+```
+
+<br>
+
+- 이번에는 반대로 FILE 포인터와 fscanf를 이용하여 텍스트 파일을 읽어서 입력하는 방법입니다.
+- 기본적인 사용법은 scanf와 유사하며 파라미터로 File Pointer를 넘겨주는 것에 차이가 있습니다.
+
+<br>
+
+```c
+#include <stdio.h>
+
+int main(){
+    // "a" 적용 시 파일 끝에서 부터 계속 이어서 쓴다.
+    // "w" 적용 시 파을을 덮어쓰기 한다.
+    int a;
+    double b;
+    FILE* fp = fopen("input.txt", "r"); 
+    fscanf(fp, "%d %lf\n", &a, &b);
     
     return 0;
 }
