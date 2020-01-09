@@ -128,3 +128,29 @@ int main(){
     return 0;
 }
 ```
+
+<br>
+
+- `fscanf` 함수가 더 이상 읽을 것이 없으면 -1을 반환합니다.
+- 아래 코드와 같이 `fscanf`가 -1을 반환할 때 까지 파일을 읽으면 됩니다.
+
+<br>
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+
+	FILE* fp = fopen("input.txt", "r");
+	int a;
+	int ret = 1;
+	while (1) {
+		ret = fscanf(fp, "%d", &a);		
+		if (ret < 0) {
+			break;
+		}
+		printf("%d\n", a);
+	}
+}
+```
