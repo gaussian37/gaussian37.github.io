@@ -3,7 +3,7 @@ layout: post
 title: PyQT5 기본 문법들
 date: 2019-12-09 00:00:00
 img: python/gui/gui.png
-categories: [python-etc] 
+categories: [python-gui] 
 tags: [python, pyinstaller] # add tag
 ---
 
@@ -86,7 +86,7 @@ if __name__ == "__main__":
 - 이번에는 이미지를 삽입하는 방법을 다루어 보겠습니다.
 
 <br>
-<center><img src="../assets/img/python/gui/pyqt5_basic/1.png" alt="Drawing" style="width: 300px;"/></center>
+<center><img src="../assets/img/python/gui/pyqt5_basic/1.png" alt="Drawing" style="width: 800px;"/></center>
 <br> 
 
 ```python
