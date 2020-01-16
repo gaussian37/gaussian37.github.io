@@ -40,6 +40,36 @@ tags: [python, 세팅, 설치] # add tag
 
 <br>
 
+- 리눅스에서 환경 설정은 아래와 같습니다. 
+- 다음과 같이 `pip`를 먼저 설치하고 python3의 버전과 `virtualenv`를 `sudo apt install`을 이용하여 설치합니다.
+- 다음으로 `virtualenv` 명령어를 통하여 가상 환경을 구성합니다.
+
+<br>
+
+```
+sudo apt install python3-pip
+sudo apt install python3.7
+sudo apt install virtualenv
+virtualenv --python=python3.7 myvenv
+```
+<br>
+
+- 윈도우에서는 먼저 파이썬을 원하는 버전에 맞게 설치 파일을 받은 다음에 설치를 한 후
+
+<br>
+
+```
+pip install virtualenv
+virtualenv myenv
+```
+
+<br>
+
+- 위 명령어를 통하여 `virtualenv`를 설치하고 리눅스 방식과 동일하게 가상 환경을 만듭니다.
+
+<br>
+
+- 또는 다음 방법도 있습니다.
 - `python -m venv 가상환경이름` 으로 가상 환경을 만듭니다. `vevn`는 virtual environment의 줄임말입니다.
     - `python -m venv myvenv` 라고 하면 가상환경 이름을 myvenv로 구성한 것입니다.
 - 윈도우 기준으로 가상 환경은 `C:\Users\사용자이름` 폴더에 저장 됩니다.
