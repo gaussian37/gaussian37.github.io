@@ -95,6 +95,7 @@ virtualenv myenv
 - 하지만 이미 설치해야 할 목록이 있다면 자동으로 필요한 목록을 다 설치할 수 있습니다.
 - 그 목록이 바로 `requirements.txt`입니다.
 
+
 <br>
 
 ```
@@ -106,7 +107,9 @@ argparse==1.2.1
 <br>
 
 - 위와 같이 `requirements.txt`에 필요한 라이브러리 입력하면 됩니다. 필요한 특정 버전이 있으면 위 처럼 `==` 를 이용하여 지정하면 되고 지정하지 않으면 최신 버전이 설치됩니다.
-- 그리고 나서 `pip install requirements.txt `를 입력하면 차례대로 설치됩니다.
+- 또는 `pip freeze > requirements.txt` 명령어를 이용하여 패키지 목록을 자동으로 저장할 수 있습니다.
+    - 참고로 `pip freeze` 명령어를 이용하면 가상 환경에 설치된 패키지 리스트를 뽑을 수 있습니다.
+- 그리고 나서 `pip install -r requirements.txt `를 입력하면 차례대로 설치됩니다.
 
 <br>
 
