@@ -19,7 +19,7 @@ tags: [python, toast message] # add tag
 - 사용 방법 :
 
 <br>
-<center><img src="../assets/img/python/gui/plyer/0.png" alt="Drawing" style="width: 300px;"/></center>
+<center><img src="../assets/img/python/gui/plyer/0.png" alt="Drawing" style="width: 800px;"/></center>
 <br> 
 
 ```python
@@ -35,5 +35,5 @@ notification.notify(
 ```
 
 <br>
-<center><img src="../assets/img/python/gui/plyer/1.png" alt="Drawing" style="width: 300px;"/></center>
+<center><img src="../assets/img/python/gui/plyer/1.png" alt="Drawing" style="width: 700px;"/></center>
 <br> 

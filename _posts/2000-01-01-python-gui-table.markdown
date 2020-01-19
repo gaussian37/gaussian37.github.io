@@ -21,3 +21,9 @@ tags: [python, tkinter, pyqt] # add tag
 
 <br>
 
+## **기타**
+
+<br>
+
+- [plyer로 토스트 메시지 생성](https://gaussian37.github.io/python-gui-toast_message/)
+
