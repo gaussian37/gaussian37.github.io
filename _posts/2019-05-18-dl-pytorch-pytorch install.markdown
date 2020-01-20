@@ -9,6 +9,7 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 
 + 이번 글에서는 PyTorch를 사용할 때, 윈도우에서 설치하는 방법과 colab에서 설치하는 방법에 대하여 알아보겠습니다.
 - **가장 최신의 설치 방법**을 확인하고 싶으면 https://pytorch.org/get-started/locally/ 링크를 참조하는 것이 좋습니다.
+- 아래 쓴 글의 내용은 시간이 지나면 틀릴 수도 있습니다. `pytorch` 공식 링크를 따르는 것을 추천드립니다.
 
 <br>
 
@@ -39,6 +40,7 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 + `conda create -n 가상환경이름 python=3.6`
 + `activate 가상환경이름`
 + `conda install pytorch -c pytorch`
+    - 또는 `pip install torch` (윈도우에서는 pytorch가 아니라 torch로 pytorch를 설치합니다.)
 + `conda install -c pytorch torchvision`
     + 또는 `pip install torchvision` 
 + `conda install ipykernel`
