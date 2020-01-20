@@ -37,3 +37,8 @@ notification.notify(
 <br>
 <center><img src="../assets/img/python/gui/plyer/1.png" alt="Drawing" style="width: 700px;"/></center>
 <br> 
+
+- 추가적으로 다음 링크를 참조하시면 다양한 방법의 토스트 메시지를 남길 수 있습니다.
+- https://towardsdatascience.com/how-to-make-windows-10-toast-notifications-with-python-fb3c27ae45b9
+- https://www.devdungeon.com/content/windows-desktop-notifications-python
+- https://www.devdungeon.com/content/desktop-notifications-linux-python
