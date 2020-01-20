@@ -105,7 +105,7 @@ Estimated Total Size (MB): 746.96
 - 위 주소를 브라우저에 입력하면 아래와 같은 `visdom` 환경을 사용할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/dl/pytorch/observe/0.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/pytorch/observe/0.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 ```python
@@ -150,13 +150,13 @@ images_window = viz.images(
 ```
 
 <br>
-<center><img src="../assets/img/dl/pytorch/observe/2.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/pytorch/observe/2.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 여기서 3채널 이상의 채널을 입력하였을 때에는 위와 같이 펼쳐 10개의 RGB 이미지를 펼쳐주는 것을 볼 수 있습니다.
 
 <br>
-<center><img src="../assets/img/dl/pytorch/observe/3.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/pytorch/observe/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 다양한 그래프를 깔끔하게 그려줄 수도 있습니다. 이 기능들은 `plot.ly`를 이용한 것입니다.
