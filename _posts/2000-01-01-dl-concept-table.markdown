@@ -34,7 +34,7 @@ tags: [python, deep learning, dl] # add tag
 <br>
 
 - [Bag of Tricks for Image Classification with Convolutional Neural Networks]()
-- [경량 딥러닝 기술 동향]()
+- [경량 딥러닝 기술 동향](https://gaussian37.github.io/dl-concept-light_weight_dl/)
 - 스마트폰 위의 딥러닝
 
 <br>
