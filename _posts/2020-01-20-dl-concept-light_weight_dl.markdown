@@ -71,12 +71,59 @@ tags: [lightweight, deep learning, 경량 딥러닝] # add tag
 ### **DenseNet**
 
 <br>
+<center><img src="../assets/img/dl/concept/light_weight_dl/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 - 기존 신경망 모델 구조의 여러 장점을 모아서 DenseNet이 소개 되었습니다. DenseNet에서는 기존 Feature map에 덧셈 연산을 통해 합치는 것이 아니라 **concat 해서 쌓아가는 과정**을 통해 성능을 높이고자 하였습니다.
-- 또한 이전에는 가장 마지막 레이어에서 추출한 정보를 이용하여 문제를 해결하였는데 (e.g. classification) DenseNet에서는 이전의 모든 층에서의 정보를 취득하는 형태가 가능하게 되었습니다. 이를 통해, 기존의 다른 네트워크보다 좁게 설계가 가능해 지고 **파라미터의 수를 줄일 수 **있게 되었습니다.
+- 또한 이전에는 가장 마지막 레이어에서 추출한 정보를 이용하여 문제를 해결하였는데 (e.g. classification) DenseNet에서는 이전의 모든 층에서의 정보를 취득하는 형태가 가능하게 되었습니다. 이를 통해, 기존의 다른 네트워크보다 좁게 설계가 가능해 지고 **파라미터의 수를 줄일 수** 있게 되었습니다.
+- 위 그림을 보면 기존에는 전 후 레이어 간의 연결 또는 Skip Connection 에 의한 연결만 존재하였지만 DenseNet에서는 다양한 연결이 접목되어 있음을 알 수 있습니다.
 
+<br>
+
+### **SqueezeNet**
+
+<br>
+<center><img src="../assets/img/dl/concept/light_weight_dl/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 스퀴즈넷은 기본적으로 사용하는 3 x 3 convolution 필터를 1 x 1 필터로 대체하여 9배 적은 파라미터를 가지고 1 x 1 convolution 연산을 통하여 채널 수를 줄였다가 다시 늘리는 `Fire Module` 기법을 제안하였습니다.
+- 또한 다운 샘플링 하는 시점을 레이어 뒤에서 (늦게) 적용하여 한번에 필터가 볼 수 있는 영역을 좁히면서 해당 이미지의 정보를 압축시키는 효과를 볼 수 있게 하였습니다.
+
+<br>
+
+- 위에서 **모델 구조 변경 기술**의 방법을 이용하여 성능을 개선한 `ResNet`, `DenseNet`, `SqueezeNet`을 살펴보았습니다.
+- 그러면 다음으로 **효율적인 합성곱 필터 기술**에 대하여 살펴보도록 하겠습니다.
+
+<br>
 
 ## **효율적인 합성곱 필터 기술**
+
+<br>
+
+- 모델 구조를 변경하는 다양한 경량 딥러닝 기법은 점차 **채널을 분리하여 학습**시키면서 **연산량과 변수의 갯수를 줄일 수 있는 연구**로 확장되었습니다.
+- 일반적인 합성곱은 채널 방향으로 모두 연산을 수행하여 하나의 feature를 추출하는 반면, 채널 별로 (**Depthwise**)로 합성곱을 수행하고, 다시 점 별(**Pointwise**)로 연산을 나누어 전체 파라미터를 줄이는 것과 같이 다양한 합성곱 필터를 설계하기 시작하였습니다.
+- 이후에는 점 별 **그룹 형태로 섞는** 셔플 방법 또한 고안 되었습니다.
+
+<br>
+
+### **MobileNet**
+
+<br>
+<center><img src="../assets/img/dl/concept/light_weight_dl/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 기존의 합성곱 필터를 채널 단위로 먼저 convolution 연산을 하고, 그 결과를 하나의 픽셀에 대하여 합성곱 연산하는 것으로 나눔으로써 3 x 3 필터 기준으로 약 8 ~ 9배의 연산량 감소 효과를 얻을 수 있었습니다.
+
+<br>
+
+### **ShuffleNet**
+
+<br>
+<center><img src="../assets/img/dl/concept/light_weight_dl/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `ShuffleNet`에서는 바로 앞의 MobilenNet에서 사용된 Depthwise Convolution과 Pointwise Convolution이 그대로 사용됩니다.
+- 단 추가적으로 사용되는 것은, Pointwise Convolution 연산 시, 특정 영역의 채널에 대해서만 연산을 취하는 형태로 설계하면 연산량을 줄일 수 있을것으로 판단하여 인풋의 각 그룹이 잘 섞일 수 있도록 개선한 것입니다.
 
 <br>
 
@@ -84,9 +131,15 @@ tags: [lightweight, deep learning, 경량 딥러닝] # add tag
 
 <br>
 
-## **모델 압축 기술**
+- 강화 학습 기법이 적용된 다양한 응용이 활발히 연구되고 있는데, 모델 설계과 Convolution 필터 설계 시에 강화 학습 기법을 적용하여 적합한 딥 러닝 네트워크를 자동 탐색하는 기법들이 소개되고 있습니다.
+- 기존의 뉴럴 네트워크 최적화는 `MACs(Multiplier - Accumulators)` 또는 `FLOPs(Floating Operations Per Seconds)`에 의존하였으나, 실용적인 방식인 `Latency` 또는 `Energy Consumption` 문제로 기준이 바뀌고 있습니다.
+- Inference에 최적화된 신경망을 자동 생성 하거나 연산량 대비 모델의 압축비를 조정하는 데 사용하여 신경망을 생성, 훈련, 배포하는 과정을 크게 단축시키는 역할을 하였습니다.
+
+## **알고리즘 경량화**
 
 <br>
+
+- 알고리즘 경량화는 기존 알고리즘의 불필요한 파라미터를 제거하거나, 파라미터의 공통된 값을 가지고 공유하거나 파라미터의 representation 능력을 잃지 않으면서 **기존 모델의 크기를 줄이는** 방법입니다.
 
 ## **Knowledge Distillation**
 
