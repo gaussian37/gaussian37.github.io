@@ -13,6 +13,7 @@ tags: [비주얼 스튜디오 코드 기능, visual studio code] # add tag
 
 - ### Visual Studio Code 단축키
 - ### Visual Studio Code에서 Python interpretor 설정
+- ### Visual Studio COde에서 C/C++ 실행하기
 
 <br>
 
@@ -83,4 +84,24 @@ Edit in settings.json
 
 <br>
 
+## **Visual Studio COde에서 C/C++ 실행하기**
 
+<br>
+
+- 먼저 리눅스 환경의 visual studio code 에서 C를 실행하는 방법에 대하여 알아보겠습니다.
+- 비주얼 스튜디오 코드를 설치한 후에 빌드 관련 프로그램을 설치합니다.
+
+<br>
+
+```python
+sudo apt install build-essential
+```
+
+<br>
+
+- 그 다음 플러그인 2개를 설치합니다.
+    - `C/C++` 플러그인과 `Code Runner`
+
+<br>
+
+- 리눅스에는 기본적으로 C/C++ 컴파일러가 설치되어 있기 떄문에 위 작업만 하면 C 코드 실행이 가능합니다.
