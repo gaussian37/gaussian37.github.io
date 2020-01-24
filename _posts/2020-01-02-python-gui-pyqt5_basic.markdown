@@ -20,6 +20,8 @@ tags: [python, pyinstaller] # add tag
 - ### Buttons
 - ### LineEdit Widget
     - ID, 비밀번호 입력
+- ### CheckBox
+- ### 폴더 디렉토리 설정
 
 <br>
 <center><img src="../assets/img/python/gui/pyqt5_basic/0.png" alt="Drawing" style="width: 300px;"/></center>
@@ -135,5 +137,40 @@ if __name__ == "__main__":
     main()
 ```
 
+<br>
 
+- `checkbox`를 사용하려면 다음과 같이 `UI`에 입력하면 됩니다.
 
+<br>
+
+```python
+self.checkbox = QCheckBox("This is checkbox", self)
+```
+
+<br>
+
+- 그리고 이 체크박스가 체크되었는 지 아닌 지 확인 하려면 다음과 같이 확인하면 됩니다.
+- 즉, 어떤 함수에서 다음과 같이 작성하면 체크박스 여부에 따라 프로그램을 작성해 나아갈 수 있습니다.
+
+<br>
+
+```python
+if (self.checkbox.isChecked()):
+    print("Checkbox is checked")
+```
+
+<br>
+
+- `폴더 디렉토리`를 설정하는 방법에 대하여 알아보겠습니다.
+- 기본적으로 다음 명령어를 입력하면 폴더를 선택할 Window가 생성됩니다. (윈도우 이름에 아래 문자열과 같이 입력됩니다. Select Directory)
+- 폴더를 선택하면 그 폴더의 경로가 문자열로 저장됩니다.
+
+<br>
+
+```python
+path_name = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
+```
+
+<br>
+
+- 실질적으로 사용하려면 메뉴나 버튼을 눌렀을 때, 이벤트 식으로 위 명령어가 실행되도록 하면 됩니다.

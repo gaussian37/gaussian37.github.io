@@ -290,4 +290,28 @@ print(dq)
 
 <br>
 
+## **현재 시각 출력하기****
 
+<br>
+
+- `datetime`을 이용하면 현재 시각을 출력할 수 있습니다.
+
+<br>
+
+```python
+from datetime import datetime
+now = datetime.now()
+print( now )
+print( now.year )
+print( now.month )
+print( now.day )
+print( now.hour )
+print( now.minute )
+print( now.second )
+print ( '%s-%s-%s' % ( now.year, now.month, now.day ) )
+
+def GetPresentTime():
+    now = datetime.now()
+    ret = "%s-%s-%s-%s-%s-%s" % ( now.year, now.month, now.day, now.hour, now.minute, now.second)
+    return ret
+```
