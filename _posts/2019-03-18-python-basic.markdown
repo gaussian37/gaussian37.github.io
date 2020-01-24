@@ -315,3 +315,20 @@ def GetPresentTime():
     ret = "%s-%s-%s-%s-%s-%s" % ( now.year, now.month, now.day, now.hour, now.minute, now.second)
     return ret
 ```
+
+<br>
+
+## **파이썬 프로그램 정상 종료 시키기**
+
+<br>
+
+- 파이썬에서 프로그램을 정상 종료 시키려면 `sys` 라이브러리를 통하여 종료시키면 안정적으로 종료됩니다.
+
+<br>
+
+```python
+import sys
+sys.exit()
+```
+
+<br>
