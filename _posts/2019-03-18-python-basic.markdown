@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Python 기본 문법 모음
+title: Python 기본 문법 snippets
 date: 2019-03-18 00:00:00
 img: python/pandas/python.jpg
 categories: [python-basic] 
@@ -329,6 +329,42 @@ def GetPresentTime():
 ```python
 import sys
 sys.exit()
+```
+
+<br>
+
+## **파이썬에서 폴더 및 파일 있는지 확인 후 생성**
+
+<br>
+
+- 파이썬에서 어떤 폴더나 파일이 있는 지 확인하고 없으면 생성해야 하는 경우가 있습니다.
+- 먼저 폴더가 있는 지 확인하고 폴더가 없으면 폴더를 생성하는 코드는 다음과 같습니다.
+
+<br>
+
+```python
+import os
+
+folder_name = "test"
+
+if os.path.isdir(folder_name) == False:
+    os.mkdir(folder_name)
+```
+
+<br>
+
+- 이번에는 파이썬에서 어떤 파일이 있는 지 확인하고 없으면 파일을 생성하는 코드입니다.
+
+<br>
+
+```python
+import os
+
+file_name = "test.txt"
+
+if os.path.isfile(file_name) == False:
+    f = open("file_name", "w")
+    ...
 ```
 
 <br>
