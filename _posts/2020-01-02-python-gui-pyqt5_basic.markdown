@@ -19,9 +19,10 @@ tags: [python, pyinstaller] # add tag
 - ### Label Widget
 - ### Buttons
 - ### LineEdit Widget
-    - ID, 비밀번호 입력
+    - #### ID, 비밀번호 입력
 - ### CheckBox
 - ### 폴더 디렉토리 설정
+- ### 메시지 박스
 
 <br>
 <center><img src="../assets/img/python/gui/pyqt5_basic/0.png" alt="Drawing" style="width: 300px;"/></center>
@@ -174,3 +175,18 @@ path_name = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
 <br>
 
 - 실질적으로 사용하려면 메뉴나 버튼을 눌렀을 때, 이벤트 식으로 위 명령어가 실행되도록 하면 됩니다.
+
+<br>
+
+## **메시지 박스**
+
+<br>
+
+- 메시지 박스를 생성하려면 아래 코드의 `QMessageBox`를 이용하면 됩니다.
+
+<br>
+
+```python
+from PyQt5.QtWidgets import QMessageBox
+QMessageBox.about(self, "Title", "Message")
+ ```
