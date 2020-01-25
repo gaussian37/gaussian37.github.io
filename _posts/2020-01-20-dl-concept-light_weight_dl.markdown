@@ -140,8 +140,44 @@ tags: [lightweight, deep learning, 경량 딥러닝] # add tag
 <br>
 
 - 알고리즘 경량화는 기존 알고리즘의 불필요한 파라미터를 제거하거나, 파라미터의 공통된 값을 가지고 공유하거나 파라미터의 representation 능력을 잃지 않으면서 **기존 모델의 크기를 줄이는** 방법입니다.
+    - 대표적으로 **Model Compression**이나 **Knowledge Distillation**의 방법등이 있습니다.
+
+<br>
+
+## **Model Compression**
+
+<br>
+
+- Model Compression의 첫번째 방법으로 `weight pruning` 방법이 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/light_weight_dl/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 기존 신경망이 가지고 있는 weight 중에 inference를 위해서 필요한 값은 비교적 작은 값들에 대한 내성을 가지므로, **작은 가중치값을 모두 0으로 하여 네트워크의 모델 크기를 줄이는 기술**입니다.
+- `weight pruning` 이후에는 training을 다시 하여 성능을 높일 수 있는 방향으로 뉴럴 네트워크를 튜닝하는 방식으로 진행됩니다.
+- 위 그림을 참조하시면 `weight pruning`에 대하여 직관적으로 확인하실 수 있습니다.
+
+<br>
+
+- 다음으로 `quantization`과 `binarization`에 대하여 알아보겠습니다.
+- 이 두 기법 모두 기존의 신경망의 **부동 소수점을 줄이는 데 그 목적이 있습니다.**
+- `quantization`의 경우 **특정 비트** 수 만큼 줄여서 계산하는 방법입니다. 예를 들어 32비트 소수점을 8비트로 줄여서 연산을 수행합니다.
+- `binarization`은 신경망이 가지고 있는 가중치와 층 사이의 입력을 부호에 따라 -1 또는 1의 이진 형태의 값으로 변환하여 기존의 부동 소숫점을 사용하는 신경망들에 비해 용량과 연산량을 대폭 압축시키는 기술입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/light_weight_dl/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 ## **Knowledge Distillation**
 
 <br>
 
+- `Knowledge Distillation`은 앙상블 기법을 통해 학습된 다수의 큰 네트워크들로부터 작은 하나의 네트워크에 지식을 전달하는 기법입니다.
+- 다수의 큰 네트워크들인 `Teacher` 모델에서 출력은 일반적으로 특정 레이블에 대한 하나의 확률값만을 나타내지만, `Student` 모델 학습 시에 모델의 Loss와 `Teacher` 모델의 Loss를 동시에 반영하는 형태로 `Student` 모델을 학습에 활용합니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/light_weight_dl/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 이미지에서의 `Loss` 식을 살펴보면 `Knowlege Distillation`을 위하여 어떻게 Loss를 설계해야 하는 지 알 수 있습니다.
