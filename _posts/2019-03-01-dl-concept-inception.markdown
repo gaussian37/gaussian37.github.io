@@ -63,6 +63,7 @@ tags: [딥러닝, inception, 인셉션] # add tag
 <br>
 
 - 인셉션 모듈에는 1x1 연산, 1x1 연산 + 3x3 연산, 1x1 연산 + 5x5 연산, 3x3 맥스 풀링 + 1x1 연산 이렇게 4가지 연산이 있고 각각의 연산들을 채널 차원으로 붙여줍니다.
+- 참고로 `nn.Conv2d` 함수의 파라미터는 각각 #input_channels, #output_channels, kernel_size, stride, padding, dilation, groups, bias, padding_mode 순서이고 아래 코드에서 사용하는 것은 **#input_channels, #output_channels, kernel_size, stride, padding** 까지 입니다.
 
 <br>
 
@@ -139,4 +140,62 @@ class inception_module(nn.Module):
 
 <br>
 
-- 마지막으로 
+- 마지막으로 위 `Inception` 모듈을 이용하여 `GoogLeNet`을 작성하면 다음과 같습니다.
+- 처음 입력은 컬러 이미지 라는 가정 하에 3채널을 입력받습니다.
+
+<br>
+
+```python
+class GoogLeNet(nn.Module):
+    def __init__(self, base_dim, num_classes = 2):
+        super(GoogLeNet, self).__init__()
+        self.layer_1 = nn.Sequential(
+            nn.Conv2d(3, base_dim, 7, 2, 3),
+            nn.MaxPool2d(3, 2, 1),
+            nn.Conv2d(base_dim, base_dim * 3, 3, 1, 1),
+            nn.MaxPool2d(3, 2, 1),
+        )
+
+        self.layer_2 = nn.Sequential(
+            # inception_module(in_dim, out_dim_1, mid_dim_3, out_dim_3, mid_dim_5, out_dim_5, pool)
+            inception_module(base_dim * 3, 64, 96, 128, 16, 32, 32),
+            inception_module(base_dim * 4, 128, 128, 192, 32, 96, 64),
+            nn.MaxPool2d(3, 2, 1),
+        )
+
+        self.layer_3 = nn.Sequential(
+            # inception_module(in_dim, out_dim_1, mid_dim_3, out_dim_3, mid_dim_5, out_dim_5, pool)
+            inception_module(480, 192, 96, 208, 16, 48, 64),
+            inception_module(512, 160, 112, 224, 24, 64, 64),
+            inception_module(512, 128, 128, 256, 24, 64, 64),
+            inception_module(512, 112, 144, 288, 32, 64, 64),
+            inception_module(528, 256, 160, 320, 32, 128, 128),
+            nn.MaxPool2d(3, 2, 1),
+        )
+
+        self.layer_4 = nn.Sequential(
+            # inception_module(in_dim, out_dim_1, mid_dim_3, out_dim_3, mid_dim_5, out_dim_5, pool)
+            inception_module(832, 256, 160, 320, 32, 128, 128),
+            inception_module(832, 384, 192, 384, 48, 128, 128),
+            nn.AvgPool2d(7, 1),
+        )
+
+        self.layer_5 = nn.Dropout2d(0.4)
+        self.fc_layer = nn.Linear(1024, num_classes)
+
+    def forward(self, x):
+        out = self.layer_1(x)
+        out = self.layer_2(out)
+        out = self.layer_3(out)
+        out = self.layer_4(out)
+        out = self.layer_5(out)
+        out = out.view(out.size(0), -1)
+        out = self.fc_layer(out)
+
+        return out
+
+
+
+
+
+```
