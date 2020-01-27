@@ -142,6 +142,7 @@ class inception_module(nn.Module):
 
 - 마지막으로 위 `Inception` 모듈을 이용하여 `GoogLeNet`을 작성하면 다음과 같습니다.
 - 처음 입력은 컬러 이미지 라는 가정 하에 3채널을 입력받습니다.
+- 각 `inception module`의 input의 크기는 이전 inception module의 **out_dim_1 + out_dim_3 + out_dim_5 + pool**과 같습니다.
 
 <br>
 
@@ -193,9 +194,4 @@ class GoogLeNet(nn.Module):
         out = self.fc_layer(out)
 
         return out
-
-
-
-
-
 ```
