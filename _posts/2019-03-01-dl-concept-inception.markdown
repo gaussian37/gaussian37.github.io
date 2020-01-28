@@ -9,6 +9,7 @@ tags: [딥러닝, inception, 인셉션] # add tag
 
 <br>
 
+- 참조 : https://youtu.be/V0dLhyg5_Dw
 - 이번 글에서는 GoogLeNet 또는 Inception이라는 딥 뉴럴 네트워크에 대하여 알아보도록 하겠습니다.
 
 <br>
@@ -17,15 +18,88 @@ tags: [딥러닝, inception, 인셉션] # add tag
 
 <br>
 
-- ### Inception
+- ### Inception motivation
+- ### Inception Module 
 - ### Pytorch 코드
 
 <br>
+
+## **Inception motivation**
+
+<br>
+
+- 딥 뉴럴 네트워크는 깊고 넓은 네트워크가 성능에 더 좋다 라는 관점이 있었으나 그것에 대한 단점들을 해결하는 과정에서 나온 아이디어들을 적용하였습니다.
+- 단순히 깊고 넓은 네트워크는 학습시키는 데 오래 걸린다는 단점이 있었습니다. (연산량과 파라미터가 너무 많기 때문이지요)
+- 먼저 **파라미터의 수를 줄이는 방법**은 **1x1 convolution과 Tensor factorization**을 이용하여 그 수를 줄일 수 있었습니다.
+    - 먼저 [1x1 convolution](https://gaussian37.github.io/dl-dlai-network_in_network/)을 이용하면 width, height의 크기는 유지하되 채널의 수만 줄일 수 있기 때문에 채널의 수를 줄였다가 다시 늘리는 방법으로 파라미터의 수를 줄일 수 있습니다.
+    - 다음으로 `Tensor factorization`은 행렬을 곱하기 전 상태의 파라미터를 저장함으로써 행렬의 곱 이후에 늘어나는 파라미터의 갯수에 대비하여 파라미터 수를 적게 저장하는 방법입니다.
+
+    <br>
+
+    $$ 
+    \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} \begin{bmatrix} 4 & 5 & 6 \end{bmatrix} 
+    = \begin{bmatrix} 4 & 5 & 6 \\ 8& 10 & 12 \\ 12 & 15 & 18 \end{bmatrix}
+    $$ 
+
+    <br>
+
+    - 위 식을 보면 계산하기 전에는 파라미터가 6개였지만 계산 후에는 파라미터가 총 9개로 늘어났습니다. 이렇게 matrix 곱을 factorizaion 하였을 때 파라미터의 수가 줄어드는 경향이 있기 때문에 이 방식을(`Tensor factorization`) 이용하여 파라미터를 줄일 수 있었습니다.
+- 그 다음으로 **연산을 효율적으로 하는 방법**은 matrix 연산을 dense 하게 해야합니다.
+    - CNN 계열에서 가장 많은 연산이 필요한 것은 convolution filter(kernel)을 stride 만큼 옮겨가면서 feature와의 convolution 연산 (matrix의 dot product 연산)을 하는 것인데 이런 matrix 연산을 할 때, GPU의 성능을 최대화 하려면 matrix 자체가 dense 해야 한다는 것입니다. (즉, matrix에 0이 많지 않고 유효한 숫자가 많아야 한다는 뜻입니다.)
+
+<br>
+
+- 조금 전에 다루어 본 것은 **파라미터의 수와 연산의 효율**에 관련된 내용이었습니다.
+- 이번에 다루어 볼 내용은 **학습이 어려운 문제**에 대하여 다루어 보려고 합니다.
+- 학습이 어려운 이유는 크게 2가지 문제 입니다. 첫번째가 **gradient vanishing** 문제이고 두번째가 **over fitting** 문제이지요.
+- 먼저 `Inception`에서 다룬 것은 깊은 layer까지 정보를 전달하기 위하여 `auxilliary layer`를 사용한 것입니다.
+    - 일반적인 네트워크에서는 마지막의 output에 해당하는 값과 label 값을 비교하여 오차를 구하고 그 오차를 통해 backpropagation 하는 방법을 이용하는데 inception에서는 layer가 깊어짐으로 인해 발생하는 gradient vanishing 문제를 해결하기 위해 중간 중간에도 오차를 계산하여 backpropagation을 전달하는 `auxilliary layer`를 추가적으로 두게 됩니다.
+- 또한 overfitting이 덜 되는 general한 구조를 만들기 위해서는 **sparse한 convolution**을 도입하는 방법을 사용합니다.
+    - 마치 dropout을 적용하듯이 네트워크 자체를 sparse 하게 만드는 것이 개선점입니다.
+    - 앞에서 다룬 내용과 종합하면 **matrix 자체는 dense하게 만들되 네트워크 자체는 sparse 하도록 만드는 것**을 고민하였다고 할 수 있겠습니다.
+
+<br>
+
+## **Inception Module**
+
+<br>
+
+- 앞에서 살펴본 motivation을 바탕으로 만들게 된 것이 `Inception module` 입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/inception/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 모듈을 보면 다양한 크기의 convolution filter가 있습니다.
+- 이는 다양한 feature를 뽑기 위하여 여러 종류의 convolution filter를 병렬로 사용한 것인데 
+
+- 위 그림은 기본적인 Inception 모듈(naive version)에 해당합니다. 이전 레이어의 출력에 다양한 필터 크기로 합성곱 연산을 한 것을 확인 할 수 있습니다.
+- 여기서 사용한 convolution 필터는 1x1, 3x3, 5x5 이고 추가적으로 3x3 맥스 풀링을 사용하였는데 이렇게 다양한 필터를 사용한 이유는 input feature에서 의미있는 feature를 뽑아내기 위해서는 다양한 representation을 받아들일 수 있는 필터들이 필요하기 때문입니다.
+- input feature의 어떤 특징이 있다고 할 때, 그 특징들과 필터 간의 correlation이 어떻게 분포되어 있는지 모르기 때문에 다양한 필터를 사용했다고 이해하시면 됩니다. 
+- 이런 이유로 `Inception`을 개발할 당시에는 다양한 필터를 병렬적으로 사용하는 것이 좋다고 판단하여 위 그림 처럼 사용하게 되었습니다.
+- 다른 글에서 설명하였지만 convolution filter의 경우 이미지 내의 detail한 특성을 잡아낼 수 있고 MaxPooling 같은 경우 invariant한 특성을 잡아낼 수 있기 때문에, 이 두 종류를 같이 사용하였습니다.
+- 논문에서 표현하기로는 **다양한 feature를 뽑기 위해 여러 convolution filter를 병렬로 사용하는 것을** `local sparse structure conv`라고 설명하였고 이것이 네트워크 전체가 sparse 해지게 되어 앞에서 설명한 학습에 유리한 조건이 된다고 말합니다.
+- 또한 convolution filter와 MaxPooling을 **concatenation** 연산으로 합칠 때, 이것을 `dense matrix` 연산으로 표현하였고 앞에서 설명한 효율적인 연산 방법에 해당한다고 설명하였습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/inception/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 살펴본 naive version의 Inception module에서 한발 더 나아가 1x1 convolution을 적용하여 채널 수를 줄여 파라미터의 수를 더 줄이는 방향으로 모듈을 설계하였습니다. (참고로 pooling에서는 width, height의 resolution은 감소하였지만 concat하기 위한 크기를 맞추기 위해 채널은 감소하지 않았습니다.)
+- 또한 1x1 convolution을 이용하면 채널의 수를 마음대로 조절할 수 있기 때문에, concatenation 할 때 채널의 크기를 맞추는 데에도 용이합니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/inception/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞의 Inception module을 이용하여 위 아키텍쳐 처럼 네트워크를 완성 시킨것이 `Inception v1 (GoogLeNet)`이 되겠습니다.
+- 결과적으로 성능도 올리면서 그 당시에 유명했던 AlexNet의 1/12배 파라미터를 사용한 것과 더 적은 연산을 사용한 것에 의의가 있었습니다.
 
 ## **Pytorch 코드**
 
 <br>
 
+- 이번 글에서 살펴 볼 Pytorch 코드는 `Inception v1, GoogLeNet` 입니다. 가장 기본이 되는 코드이니 이 코드를 이해하시면 다른 버전을 작성하는 데에도 큰 무리는 없을 것입니다.
 - 앞에서 살펴본 `Inception Module`에 대한 내용을 다시 한번 정리하면서 Pytorch 코드에 대하여 살펴보도록 하겠습니다.
 - 살펴본 것 처럼 네트워크 전체의 구조가 다소 복잡한 감이 있지만 자세히 살펴보면 반복적인 형태를 띄기 때문에 하나씩 모듈별로 하나씩 살펴보면 코드를 이해하힐 수 있을 것입니다.
 
