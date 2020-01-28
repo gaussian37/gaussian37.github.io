@@ -14,12 +14,13 @@ tags: [딥러닝, inception, 인셉션] # add tag
 
 <br>
 
-**목차**
+## **목차**
 
 <br>
 
 - ### Inception motivation
 - ### Inception Module 
+- ### Auxiliary Classifier
 - ### Pytorch 코드
 
 <br>
@@ -52,8 +53,8 @@ tags: [딥러닝, inception, 인셉션] # add tag
 - 조금 전에 다루어 본 것은 **파라미터의 수와 연산의 효율**에 관련된 내용이었습니다.
 - 이번에 다루어 볼 내용은 **학습이 어려운 문제**에 대하여 다루어 보려고 합니다.
 - 학습이 어려운 이유는 크게 2가지 문제 입니다. 첫번째가 **gradient vanishing** 문제이고 두번째가 **over fitting** 문제이지요.
-- 먼저 `Inception`에서 다룬 것은 깊은 layer까지 정보를 전달하기 위하여 `auxilliary layer`를 사용한 것입니다.
-    - 일반적인 네트워크에서는 마지막의 output에 해당하는 값과 label 값을 비교하여 오차를 구하고 그 오차를 통해 backpropagation 하는 방법을 이용하는데 inception에서는 layer가 깊어짐으로 인해 발생하는 gradient vanishing 문제를 해결하기 위해 중간 중간에도 오차를 계산하여 backpropagation을 전달하는 `auxilliary layer`를 추가적으로 두게 됩니다.
+- 먼저 `Inception`에서 다룬 것은 깊은 layer까지 정보를 전달하기 위하여 `auxiliary layer`를 사용한 것입니다.
+    - 일반적인 네트워크에서는 마지막의 output에 해당하는 값과 label 값을 비교하여 오차를 구하고 그 오차를 통해 backpropagation 하는 방법을 이용하는데 inception에서는 layer가 깊어짐으로 인해 발생하는 gradient vanishing 문제를 해결하기 위해 중간 중간에도 오차를 계산하여 backpropagation을 전달하는 `auxiliary layer`를 추가적으로 두게 됩니다.
 - 또한 overfitting이 덜 되는 general한 구조를 만들기 위해서는 **sparse한 convolution**을 도입하는 방법을 사용합니다.
     - 마치 dropout을 적용하듯이 네트워크 자체를 sparse 하게 만드는 것이 개선점입니다.
     - 앞에서 다룬 내용과 종합하면 **matrix 자체는 dense하게 만들되 네트워크 자체는 sparse 하도록 만드는 것**을 고민하였다고 할 수 있겠습니다.
@@ -94,6 +95,19 @@ tags: [딥러닝, inception, 인셉션] # add tag
 
 - 앞의 Inception module을 이용하여 위 아키텍쳐 처럼 네트워크를 완성 시킨것이 `Inception v1 (GoogLeNet)`이 되겠습니다.
 - 결과적으로 성능도 올리면서 그 당시에 유명했던 AlexNet의 1/12배 파라미터를 사용한 것과 더 적은 연산을 사용한 것에 의의가 있었습니다.
+
+<br>
+
+## **Auxiliary Classifier**
+
+<br>
+<center><img src="../assets/img/dl/concept/inception/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
+
+
+<br>
 
 ## **Pytorch 코드**
 
