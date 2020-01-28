@@ -9,7 +9,9 @@ tags: [딥러닝, inception, 인셉션] # add tag
 
 <br>
 
-- 참조 : https://youtu.be/V0dLhyg5_Dw
+- 참조 : 
+    - https://youtu.be/V0dLhyg5_Dw
+    - https://m.blog.naver.com/laonple/220808903260
 - 이번 글에서는 GoogLeNet 또는 Inception이라는 딥 뉴럴 네트워크에 대하여 알아보도록 하겠습니다.
 
 <br>
@@ -19,8 +21,11 @@ tags: [딥러닝, inception, 인셉션] # add tag
 <br>
 
 - ### Inception motivation
-- ### Inception Module 
-- ### Auxiliary Classifier
+- ### Inception Module (v1)
+- ### Auxiliary Loss
+- ### BN(Batch Normalization) Inception
+- ### Tensor Factorization
+- ### Inception v2, v3
 - ### Pytorch 코드
 
 <br>
@@ -33,7 +38,7 @@ tags: [딥러닝, inception, 인셉션] # add tag
 - 단순히 깊고 넓은 네트워크는 학습시키는 데 오래 걸린다는 단점이 있었습니다. (연산량과 파라미터가 너무 많기 때문이지요)
 - 먼저 **파라미터의 수를 줄이는 방법**은 **1x1 convolution과 Tensor factorization**을 이용하여 그 수를 줄일 수 있었습니다.
     - 먼저 [1x1 convolution](https://gaussian37.github.io/dl-dlai-network_in_network/)을 이용하면 width, height의 크기는 유지하되 채널의 수만 줄일 수 있기 때문에 채널의 수를 줄였다가 다시 늘리는 방법으로 파라미터의 수를 줄일 수 있습니다.
-    - 다음으로 `Tensor factorization`은 행렬을 곱하기 전 상태의 파라미터를 저장함으로써 행렬의 곱 이후에 늘어나는 파라미터의 갯수에 대비하여 파라미터 수를 적게 저장하는 방법입니다.
+    - 다음으로 `Tensor factorization`은 행렬을 곱하기 전 상태의 파라미터를 저장함으로써 행렬의 곱 이후에 늘어나는 파라미터의 갯수에 대비하여 파라미터 수를 적게 저장하는 방법입니다. **비유**를 하면 다음과 같습니다.
 
     <br>
 
@@ -45,6 +50,7 @@ tags: [딥러닝, inception, 인셉션] # add tag
     <br>
 
     - 위 식을 보면 계산하기 전에는 파라미터가 6개였지만 계산 후에는 파라미터가 총 9개로 늘어났습니다. 이렇게 matrix 곱을 factorizaion 하였을 때 파라미터의 수가 줄어드는 경향이 있기 때문에 이 방식을(`Tensor factorization`) 이용하여 파라미터를 줄일 수 있었습니다.
+    - 자세한 내용은 이 글의 뒷부분에서 다루어 보겠습니다.
 - 그 다음으로 **연산을 효율적으로 하는 방법**은 matrix 연산을 dense 하게 해야합니다.
     - CNN 계열에서 가장 많은 연산이 필요한 것은 convolution filter(kernel)을 stride 만큼 옮겨가면서 feature와의 convolution 연산 (matrix의 dot product 연산)을 하는 것인데 이런 matrix 연산을 할 때, GPU의 성능을 최대화 하려면 matrix 자체가 dense 해야 한다는 것입니다. (즉, matrix에 0이 많지 않고 유효한 숫자가 많아야 한다는 뜻입니다.)
 
@@ -61,7 +67,7 @@ tags: [딥러닝, inception, 인셉션] # add tag
 
 <br>
 
-## **Inception Module**
+## **Inception Module (v1)**
 
 <br>
 
@@ -98,14 +104,112 @@ tags: [딥러닝, inception, 인셉션] # add tag
 
 <br>
 
-## **Auxiliary Classifier**
+## **Auxiliary Loss**
 
 <br>
 <center><img src="../assets/img/dl/concept/inception/7.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- `Auxiliary Loss` 깊어진 layer에서 발생하는 vanishing gradient 문제를 개선하기 위하여 적용된 트릭입니다.
+- 중간 중간에 Loss를 계산할 수 있는 layer를 추가적으로 만들어서 최종 loss에 반영하게 됩니다.
+    - 즉 label이 있으면 최종 output에서 loss를 계산할 때 사용하고 중간 중간에도 있는 `Auxiliary loss`에서도 값을 계산해서 반영합니다.
+- 물론 최종 output에 의해 계산된 loss가 더 중요하므로 가중치를 더 줘야 하는 것이 합당합니다. 위 그림을 보면 Loss를 어떻게 주는 지 볼 수 있습니다.
+- 실제 output에 의해 계산된 loss가 100%라면 `auxiliary loss`에는 30%의 가중치만 준 것을 알 수 있습니다.
+- 여기서 사용된 `auxiliary loss`는 training 할 때에만 사용되고 inference할 때에는 사용되지 않습니다. 당연히 **최종 출력은 하나만 나와야 하니 가장 중요한 최종 output을 사용하는 것이 합당**합니다.
 
+<br>
 
+## **BN(Batch Normalization) Inception**
+
+<br>
+
+- 그 다음으로 살펴 볼 것은 Inception에 `Batch normalization`을 적용한 것입니다. 요즘에는 BN의 개념이 일반화되고 그 효과도 입증되어 많은 딥러닝 네트워크에서 사용되고 있기에 관련 내용은 친숙하게 살펴보실 수 있을 것입니다.
+- 만약 Batch normalization에 대한 내용을 참조하시려면 다음 링크를 확인해 보세요 : https://gaussian37.github.io/dl-concept-batchnorm/
+- 그러면 BN Inception에 대하여 간단하게 살펴보겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/inception/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 식과 같이 BN은 학습의 안정성을 위하여 각각의 학습 데이터 batch 마다 normalization을 해줍니다.
+- 이 mini batch의 평균과 분산을 구하여 normalization을 하고 학습을 통하여 normalization 한 결과에 곱할 scale과 더할 shift 값을 구하게 됩니다.
+- 따라서 최종적으로 `normalization * scale + shift`가 출력이 되고 이 값이 안정적인 학습에 도움이 되게 됩니다.
+    - scale과 shift는 batch가 학습이 잘되는 공간에 맵핑 하기 위한 변환 값이라고 보시면 되고 학습을 통해 최적의 값을 구하게 되니 어떤 값을 사용해야 할 지 정할 문제는 없습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/inception/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Batch Normalization은 위 그림과 같이 Convolution filter를 적용하고 Activation을 적용하기 이전 그 사이에 사용하고 있습니다. (Batch Normalization 논문 참조)
+- 따라서 `Inception module`에서 **Convolution - BN - ReLU** 순서로 적용하면 됩니다.
+
+<br>
+
+## **Tensor Factorization**
+
+<br>
+<center><img src="../assets/img/dl/concept/inception/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 간략하게 설명한 `Tensor Factorization`에 대하여 자세하게 알아보겠습니다. 
+- 위 그림의 가장 아래 필터를 보면 5x5 convolution 필터가 있는데 만약 5x5 convolution 필터를 한번 거친다면 그 영역에 해당하는 output은 크기가 1x1인 feature가 됩니다.
+- 그런데 위 그림 처럼 5x5 영역에 3x3 convolution 필터를 stride = 1로 이동하면서 9군데 부분(width, height 방향으로 3칸씩 이동)에 convolution 연산을 하고 그 연산의 output인 3x3 영역의 feature를 다시 3x3 convolution 하게 되면 그 결과 또한 1x1 feature가 됩니다.
+- 여기서 살펴볼 것은 5x5 convolution을 바로 적용하면 필터에 25개의 파라미터가 존재하게 되지만 3x3 convolution을 2번 사용하게 되면 18개의 파라미터만을 사용하게 됩니다. 물론 연산량은 더 증가하게 되지만 말이죠.
+- 이런 트릭을 이용하면 같은 크기의 output feature를 만드는 데 파라미터의 숫자를 줄일 수 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/inception/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 케이스도 동일하게 적용할 수 있습니다.
+- 3x3 convolution 필터를 적용해서 1x1 output feature를 만드는 데에 9개의 파라미터를 사용할 수도 있지만 3x1 convolution 필터와 1x3 convolution 필터를 이용하면 6개의 파라미터를 사용하여 동일한 출력을 만들어 낼 수도 있습니다.
+
+<br>
+
+## **Inception v2, v3**
+
+<br>
+
+- 처음에 살펴본 `Inception module`은 Inception v1(GoogLeNet)에 해당하는 딥러닝 네트워크이고 직전에 다른 `Tensor Factorization`등의 최적화 기법들을 적용한 것이 개선된 버전인 `v2`, `v3` 버전입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/inception/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 먼저 위 처럼 inception module을 개선한 것이 `Inception Module A` 라고 하고 `inception v2`에 사용됩니다.
+- 물론 `inception v3`의 레이어에서도 사용이 됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/inception/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 설명한 것과 같이 `1xn`, `nx1` convolution을 적용하여 최적화 한것을 `Inception Module B` 라고 합니다. 이 모듈에서는 모듈 A에 비해 연산량을 33% 절감하였다고 논문에서 설명합니다.
+- 위에서 `n`에 3을 대입하면 개선 전/후가 대응이 됩니다.
+- 위 방식은 `Inception v3`에서 부터 적용됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/inception/14.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- resolution을 줄이기 위한 방법으로는 크게 2가지가 있습니다. Convolution 연산 시 **stride를 2 이상**으로 가져가거나, **Pooling**을 하는 것입니다.
+- 이 때, Convolution 연산의 **stride를 적용하여 resolution을 줄이게** 되면 **연산량이 다소 많아지게 되고** 반면 **Pooling을 이용하여 resolution을 줄이면** Representational Bottleneck 이라는 문제가 발생하는 데 말 그대로 resolution이 갑자기 확 줄어들어서 **정보를 잃게 되는 것**을 말합니다.
+- 그래서 Convolution 연산의 stride 적용과 MaxPooling을 병렬적으로 하는 방법을 적용하는 `Grid Size Reduction` 방법이 `Inception Module v1`부터 전체적으로 반영이 되어있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/inception/15.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 마지막으로 소개할 `Inception Module C`는 직전에 언급한 **Representational Bottleneck** 문제를 완화하기 위해서 좀 더 깊게가 아닌 좀더 넓게 concatenation 하는 방법으로 만들어본 모듈입니다.
+- 모듈 내부에서 Convolution + stride나 Pooling이 깊게 적용되면 **Representational Bottleneck**문제가 더 악화되니 옆으로 쌓아보려는 시도라고 보시면 됩니다.
+- 이 모듈은 `Inception v3`에서 output 단에 사용되었습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/inception/16.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 네트워크 아키텍쳐가 `Inception v3`가 되겠습니다.
+- 앞에서 설명한 `Inception Module A, B, C` 그리고 `Grid Size Reduction`이 적용된 형태입니다.
+- 처음에 살펴본 `Inception v1` GoogLeNet에서 적용된 Auxiliary Loss는 2개였는데 1개로 축소되었는데 사실상 효과가 크게 좋지 않았기 때문이라고 유추할 수 있습니다. 현재 이런 Loss를 쓰는 네트워크는 거의 없으니 말이지요.
 
 <br>
 
