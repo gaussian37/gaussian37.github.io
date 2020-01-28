@@ -148,7 +148,7 @@ tags: [딥러닝, inception, 인셉션] # add tag
 ## **Tensor Factorization**
 
 <br>
-<center><img src="../assets/img/dl/concept/inception/10.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/inception/10.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 앞에서 간략하게 설명한 `Tensor Factorization`에 대하여 자세하게 알아보겠습니다. 
@@ -158,7 +158,7 @@ tags: [딥러닝, inception, 인셉션] # add tag
 - 이런 트릭을 이용하면 같은 크기의 output feature를 만드는 데 파라미터의 숫자를 줄일 수 있습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/inception/11.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/inception/11.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 케이스도 동일하게 적용할 수 있습니다.
