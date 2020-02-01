@@ -21,7 +21,7 @@ tags: [dilated residual network, DRN] # add tag
 
 - ### Dilated Convolution 이란
 - ### Dilated Convolution 적용 이유
-- ### Pytorch 코드
+- ### Dilated Residual Network와 Pytorch 코드
 
 <br>
 
@@ -57,17 +57,11 @@ tags: [dilated residual network, DRN] # add tag
 
 <br>
 
-## **Dilated Residual Networks**
+## **Dilated Residual Network와 Pytorch 코드**
 
 <br>
 
--
-
-<br>
-
-## **Pytorch 코드**
-
-<br>
+- Pytorch 코드를 살펴보면서 Dilated Convolution이 어떻게 적용되는 지 살펴보겠습니다.
 
 ```python
 import math
@@ -87,25 +81,32 @@ model_urls = {
 
 
 def conv3x3(in_planes, out_planes, stride=1):
-    "3x3 convolution with padding"
-    return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
-                     padding=1, bias=False)
+    '''
+    - 입력 : 입력 채녈 수, 출력 채널 수, stride
+    - 출력 : convolution 필터를 적용한 feature
+    - 3x3 필터를 사용하는 기본적인 convolution 필터 함수
+    - #filter = 3x3, #padding = 1로 고정
+    '''
+    return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride, padding=1, bias=False)
 
 
 class BasicBlock(nn.Module):
-    """ResNet BasicBlock
-    """
+    '''
+    ResNet BasicBlock
+    - 입력 : in_planes(입력 채널 수), out_planes(출력 채널 수), stride, dilation, downsample, previous_dilation
+    - 출력 : BasicBlock 객체 
+    - Convolution - BatchNorm - ReLU 2번을 하면서 skip connection을 만든다. 필요 시 downsample도 수행함
+    '''
     expansion = 1
-    def __init__(self, inplanes, planes, stride=1, dilation=1, downsample=None, previous_dilation=1,
-                 norm_layer=None):
+    def __init__(self, in_planes, out_planes, stride=1, dilation=1, downsample=None, previous_dilation=1):
         super(BasicBlock, self).__init__()
-        self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=3, stride=stride,
+        self.conv1 = nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
                                padding=dilation, dilation=dilation, bias=False)
-        self.bn1 = norm_layer(planes)
+        self.bn1 = nn.BatchNorm2d(out_planes)
         self.relu = nn.ReLU(inplace=True)
-        self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=1,
+        self.conv2 = nn.Conv2d(out_planes, out_planes, kernel_size=3, stride=1,
                                padding=previous_dilation, dilation=previous_dilation, bias=False)
-        self.bn2 = norm_layer(planes)
+        self.bn2 = nn.BatchNorm2d(out_planes)
         self.downsample = downsample
         self.stride = stride
 
@@ -129,22 +130,25 @@ class BasicBlock(nn.Module):
 
 
 class Bottleneck(nn.Module):
-    """ResNet Bottleneck
-    """
-    # pylint: disable=unused-argument
+    '''
+    ResNet Bottleneck
+    - 입력 : in_planes(입력 채널 수), out_planes(출력 채널 수), stride, dilation, downsample, previous_dilation
+    - 출력 : Bottleneck 객체 
+    - Convolution - BatchNorm - ReLU 3번을 하면서 Bottleneck 구조와 skip connection을 만든다. 필요 시 downsample도 수행함
+    '''
     expansion = 4
-    def __init__(self, inplanes, planes, stride=1, dilation=1,
-                 downsample=None, previous_dilation=1, norm_layer=None):
+    def __init__(self, inplanes, out_planes, stride=1, dilation=1,
+                 downsample=None, previous_dilation=1):
         super(Bottleneck, self).__init__()
-        self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, bias=False)
-        self.bn1 = norm_layer(planes)
+        self.conv1 = nn.Conv2d(inplanes, out_planes, kernel_size=1, bias=False)
+        self.bn1 = nn.BatchNorm2d(out_planes)
         self.conv2 = nn.Conv2d(
-            planes, planes, kernel_size=3, stride=stride,
+            out_planes, out_planes, kernel_size=3, stride=stride,
             padding=dilation, dilation=dilation, bias=False)
-        self.bn2 = norm_layer(planes)
+        self.bn2 = nn.BatchNorm2d(out_planes)
         self.conv3 = nn.Conv2d(
-            planes, planes * 4, kernel_size=1, bias=False)
-        self.bn3 = norm_layer(planes * 4)
+            out_planes, out_planes * 4, kernel_size=1, bias=False)
+        self.bn3 = nn.BatchNorm2d(out_planes * 4)
         self.relu = nn.ReLU(inplace=True)
         self.downsample = downsample
         self.dilation = dilation

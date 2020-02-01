@@ -16,6 +16,7 @@ tags: [python, deep learning, dl] # add tag
 - [Inception](https://gaussian37.github.io/dl-concept-inception/)
 - [Xecption](https://gaussian37.github.io/dl-concept-xception/)
 - [ResNet](https://gaussian37.github.io/dl-concept-resnet/)
+- [Dilated ResNet](https://gaussian37.github.io/dl-concept-dilated_residual_network/)
 - [Convolution arithmetic](https://gaussian37.github.io/dl-concept-covolution_operation/)
 - [Depthwise separable convolution 연산](https://gaussian37.github.io/dl-concept-dwsconv/)
 - [SqueezeNet](https://gaussian37.github.io/dl-concept-squeezenet/)
