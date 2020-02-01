@@ -32,7 +32,47 @@ tags: [python, oop, object oriented, 객체 지향] # add tag
 <br>
 
 - `super()`에 대하여 알아보도록 하겠습니다. 다음 링크를 참조하였습니다. (https://youtu.be/6-XxUwTvsP8)
+- `super()`는 자식 클래스에서 부모 클래스의 멤버 함수를 사용하고 싶은 경우에 사용합니다.
+    - 따라서 `super().부모클래스_멤버함수`
 
+```python
+class Mammal():
+    def __init__(self, name):
+        self.name = name
 
+    def walk(self):
+        print("walking")
+
+    def eat(self):
+        print("eating")
+
+    def greet(self):
+        print("{} is greeting".format(self.name))
+
+class Human(Mammal):
+
+    def __init__(self, name, hand):
+        super().__init__(name)
+        self.hand = hand
+
+    def wave(self):
+        print("With shacking {} hand,".format(self.hand))
+
+    def greet(self):
+        self.wave()
+        super().greet()
+
+person = Human("Peter", "right")
+person.greet()
+
+With shacking right hand,
+Peter is greeting
+```
+
+<br>
+
+- 위 클래스에서 Mammal이 부모 클래스이고 Human이 자식 클래스 입니다.
+- 이 때, Human 클래스의 `__init()__`을 살펴보면 `super().__init__(name)`이 있습니다.
+- 이 함수에 사용된 `super()`를 이용하여 부모 클래스인 Mammal에 접근하고 Mammal의 멤버 함수인 `__init__`에 접근하여 초기화 작업까지 하게 됩니다.
 
 
