@@ -137,10 +137,10 @@ class Bottleneck(nn.Module):
     - Convolution - BatchNorm - ReLU 3번을 하면서 Bottleneck 구조와 skip connection을 만든다. 필요 시 downsample도 수행함
     '''
     expansion = 4
-    def __init__(self, inplanes, out_planes, stride=1, dilation=1,
+    def __init__(self, in_planes, out_planes, stride=1, dilation=1,
                  downsample=None, previous_dilation=1):
         super(Bottleneck, self).__init__()
-        self.conv1 = nn.Conv2d(inplanes, out_planes, kernel_size=1, bias=False)
+        self.conv1 = nn.Conv2d(in_planes, out_planes, kernel_size=1, bias=False)
         self.bn1 = nn.BatchNorm2d(out_planes)
         self.conv2 = nn.Conv2d(
             out_planes, out_planes, kernel_size=3, stride=stride,
@@ -188,43 +188,33 @@ class ResNet(nn.Module):
     """Dilated Pre-trained ResNet Model, which reduces the stride of 8 featuremaps at conv5.
     Parameters
     ----------
-    block : Block
-        Class for the residual block. Options are BasicBlockV1, BottleneckV1.
-    layers : list of int
-        Numbers of layers in each block
-    classes : int, default 1000
-        Number of classification classes.
-    dilated : bool, default False
-        Applying dilation strategy to pretrained ResNet yielding a stride-8 model,
-        typically used in Semantic Segmentation.
-    norm_layer : object
-        Normalization layer used in backbone network (default: :class:`mxnet.gluon.nn.BatchNorm`;
-        for Synchronized Cross-GPU BachNormalization).
-    Reference:
-        - He, Kaiming, et al. "Deep residual learning for image recognition." Proceedings of the IEEE conference on computer vision and pattern recognition. 2016.
-        - Yu, Fisher, and Vladlen Koltun. "Multi-scale context aggregation by dilated convolutions."
+    - block : BasicBlock 또는 Bottleneck
+        - Residual Block의 타입을 정합니다. 
+        - 타입은 BasicBlock 또는 Bottleneck으로 위에 선언한 클래스에 해당합니다.
+    layers : int 값을 가지는 list
+        - 각각의 block에서의 layer 수를 입력
+    classes : int, 기본값은 1000
+        - classification 할 class의 갯수
+    dilated : bool, 기본값은 True
+        - Dilated Convolution을 적용 할 지에 대한 Bool 값
     """
-    # pylint: disable=unused-variable
-    def __init__(self, block, layers, num_classes=1000, dilated=True, norm_layer=nn.BatchNorm2d):
-        self.inplanes = 64
+
+    def __init__(self, block, layers, num_classes=1000, dilated=True):
+        self.in_planes = 64
         super(ResNet, self).__init__()
         self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3,
                                bias=False)
-        self.bn1 = norm_layer(64)
+        self.bn1 = nn.BatchNorm2d(64)
         self.relu = nn.ReLU(inplace=True)
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
-        self.layer1 = self._make_layer(block, 64, layers[0], norm_layer=norm_layer)
-        self.layer2 = self._make_layer(block, 128, layers[1], stride=2, norm_layer=norm_layer)
+        self.layer1 = self._make_layer(block, 64, layers[0])
+        self.layer2 = self._make_layer(block, 128, layers[1], stride=2)
         if dilated:
-            self.layer3 = self._make_layer(block, 256, layers[2], stride=1,
-                                           dilation=2, norm_layer=norm_layer)
-            self.layer4 = self._make_layer(block, 512, layers[3], stride=1,
-                                           dilation=4, norm_layer=norm_layer)
+            self.layer3 = self._make_layer(block, 256, layers[2], stride=1, dilation=2)
+            self.layer4 = self._make_layer(block, 512, layers[3], stride=1, dilation=4)
         else:
-            self.layer3 = self._make_layer(block, 256, layers[2], stride=2,
-                                           norm_layer=norm_layer)
-            self.layer4 = self._make_layer(block, 512, layers[3], stride=2,
-                                           norm_layer=norm_layer)
+            self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
+            self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
         self.avgpool = nn.AvgPool2d(7)
         self.fc = nn.Linear(512 * block.expansion, num_classes)
 
@@ -232,33 +222,32 @@ class ResNet(nn.Module):
             if isinstance(m, nn.Conv2d):
                 n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
                 m.weight.data.normal_(0, math.sqrt(2. / n))
-            elif isinstance(m, norm_layer):
+            elif isinstance(m):
                 m.weight.data.fill_(1)
                 m.bias.data.zero_()
 
-    def _make_layer(self, block, planes, blocks, stride=1, dilation=1, norm_layer=None):
+    def _make_layer(self, block, planes, blocks, stride=1, dilation=1):
         downsample = None
-        if stride != 1 or self.inplanes != planes * block.expansion:
+        if stride != 1 or self.in_planes != planes * block.expansion:
             downsample = nn.Sequential(
-                nn.Conv2d(self.inplanes, planes * block.expansion,
+                nn.Conv2d(self.in_planes, planes * block.expansion,
                           kernel_size=1, stride=stride, bias=False),
-                norm_layer(planes * block.expansion),
+                nn.BatchNorm2d(planes * block.expansion),
             )
 
         layers = []
         if dilation == 1 or dilation == 2:
-            layers.append(block(self.inplanes, planes, stride, dilation=1,
-                                downsample=downsample, previous_dilation=dilation, norm_layer=norm_layer))
+            layers.append(block(self.in_planes, planes, stride, dilation=1,
+                                downsample=downsample, previous_dilation=dilation))
         elif dilation == 4:
-            layers.append(block(self.inplanes, planes, stride, dilation=2,
-                                downsample=downsample, previous_dilation=dilation, norm_layer=norm_layer))
+            layers.append(block(self.in_planes, planes, stride, dilation=2,
+                                downsample=downsample, previous_dilation=dilation))
         else:
             raise RuntimeError("=> unknown dilation size: {}".format(dilation))
 
-        self.inplanes = planes * block.expansion
+        self.in_planes = planes * block.expansion
         for i in range(1, blocks):
-            layers.append(block(self.inplanes, planes, dilation=dilation, previous_dilation=dilation,
-                                norm_layer=norm_layer))
+            layers.append(block(self.in_planes, planes, dilation=dilation, previous_dilation=dilation))
 
         return nn.Sequential(*layers)
 
