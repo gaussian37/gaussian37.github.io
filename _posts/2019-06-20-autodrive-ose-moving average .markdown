@@ -2,7 +2,7 @@
 layout: post
 title: 이동평균필터(moving average filter)
 date: 2019-06-22 00:00:01
-img: aad/kalmanfilter/kf.PNG
+img: autodrive/ose/kalman_filter.jpg
 categories: [ad-kalmanfilter] 
 tags: [이동 평균 필터, moving average filter] # add tag
 ---

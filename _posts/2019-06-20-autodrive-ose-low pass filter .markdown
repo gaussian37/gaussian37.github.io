@@ -2,7 +2,7 @@
 layout: post
 title: 저주파 통과 필터(low pass filter)
 date: 2019-06-22 00:00:02
-img: ad/kalmanfilter/kf.PNG
+img: autodrive/ose/kalman_filter.jpg
 categories: [autodrive-ose] 
 tags: [저주파 통과 필터, low pass filter] # add tag
 ---

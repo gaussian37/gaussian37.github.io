@@ -2,7 +2,7 @@
 layout: post
 title: 평균필터(Average Filter)
 date: 2019-06-22 00:00:00
-img: ad/kalmanfilter/kf.PNG
+img: autodrive/ose/kalman_filter.jpg
 categories: [autodrive-ose] 
 tags: [평균 필터, average filter] # add tag
 ---
