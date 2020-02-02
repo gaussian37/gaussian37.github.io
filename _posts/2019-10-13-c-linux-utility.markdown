@@ -62,6 +62,7 @@ tags: [리눅스 유틸리티] # add tag
 
 <br>
 
+- 참조 : https://pangtrue.tistory.com/70
 - 먼저 `uim`을 설치합니다.
     - `sudo apt install uim`
 
