@@ -10,7 +10,7 @@ tags: [python, asterisk, 별] # add tag
 <br>
 
 - 참조 : https://medium.com/understand-the-python/understanding-the-asterisk-of-python-8b9daaa4a558
-- C언어에서 주소값 변수의 값 참조를 할 떄 `*`를 사용하듯이 파이썬에서도 산술 연산 이외에 사용되는 
+- C언어에서 주소값 변수의 값 참조를 할 떄 `*`를 사용하듯이 파이썬에서도 산술 연산과 그 이외의 기능에 대하여 알아보도록 하겠습니다.
 
 <br>
 
@@ -146,7 +146,7 @@ def print_name(**kwargs, *args):
 
 <br>
 
-## **컨테이터 unpacking **
+## **컨테이터 unpacking**
 
 <br>
 
