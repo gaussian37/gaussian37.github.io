@@ -23,6 +23,7 @@ tags: [리눅스 유틸리티] # add tag
 - ### 나눔고딕코딩 폰트 설치
 - ### uim (한글 키보드 사용)
 - ### gparted: GUI 환경 파티션 및 포맷
+- ### (Window) : minGW 
 
 <br>
 
@@ -131,3 +132,26 @@ $ xmodmap -pke > ~/.Xmodmap
 - **parity** : n
 - **stop bits** : 1
 - **flow control** : N (OFF)
+
+<br>
+
+## **(Window) : minGW**
+
+<br>
+
+- 윈도우에서 C언어를 사용하고 싶을 때, 비주얼 스튜디오는 너무 과하다고 생각되면 `minGW(minimal GNU for Window)`를 사용하시면 됩니다.
+- 설치 링크 : http://mingw-w64.org/doku.php/download/mingw-builds
+    - 요즘 사용하시는 대부분의 컴퓨터가 64비트인 것을 참조하여 위 링크를 올렸습니다.
+
+<br>
+<center><img src="../assets/img/c/linux/utility/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 다은 받은 파일을 실행 하였을 때, 64비트 컴퓨터를 사용하신다면 위와 같이 입력하면 됩니다.
+- 저 같은 경우에 `minGW`를 다음 경로에 설치하였습니다.
+    - 예) C:\Program Files\mingw-w64\
+- 설치한 경로를 찾아서 더 하위 경로인 bin 디렉토리 까지 찾아보겠습니다.
+    - 예) C:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin
+- bin 디렉토리까지의 경로를 **고급시스템설정보기-환경변수-시스템변수-path**에 추가합니다.
+    - 추가하는 목적은 어느 경로에서도 바로 bin 까지의 경로를 접근할 수 있게 하여, 어느 경로에 있더라도 `minGW`를 사용할 수 있도록 합니다.
+- 커맨드 창을 열어 어떠한 경로에서라도 `gcc --version`을 입력하셨을 때, 정상적으로 실행이 된다면 `minGW`를 사용하실 수 있습니다.
