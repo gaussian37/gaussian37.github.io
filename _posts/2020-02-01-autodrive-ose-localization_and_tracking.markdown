@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Localization과 Tracking
+title: 자율주행에서의 Localization과 Tracking
 date: 2020-02-01 00:00:00
 img: autodrive/ose/kalman_filter.jpg
 categories: [autodrive-ose] 
@@ -9,4 +9,55 @@ tags: [Optimal State Estimation, 최정 상태 이론, Localization, Tracking] #
 
 <br>
 
+- 이번 글에서는 간단하게 자율주행에서의 Localization과 Tracking의 차이에 대하여 알아보도록 하겠습니다.
+- 먼저 `Localization` 문제는 자차의 키네마틱 정보를 인식하는데 이 때, `부정확한 센서값`과 `컨트롤 입력값`을 사용합니다.
+- 또한 자차의 키네마직 정보를 부정확할 수 있는 센서값을 이용하여 더 정확하게 예측하는 것이고 이를 재귀적으로 구현합니다.
 
+<br>
+
+- 반면 `Tracking` 문제는 위의 `Localization` 문제에서 정보 하나가 더 빠지게 됩니다. 바로 `컨트롤 입력값` 입니다.
+- 예를 들어 `Localization`은 컨트롤 입력값을 받기 때문에 예를들어 Accelerator 페달을 얼만큼 밟았는 지, 휠을 몇 도 움직였는 지 등을 알 수 있습니다.
+- 반면 `Tracking`에서는 컨트롤 입력값이 빠지기 때문에 `Localization`에 비해 다소 문제가 어려워 집니다.
+
+<br>
+
+- 이를 확률적인 관적에서 다루어 보겠습니다. 먼저 `Localization` 입니다.
+- $$ x_{t} $$는 t 시점의 위치, $$ z_{t} $$는 t 시점의 센서값, $$ u_{t} $$는 t 시점의 컨트롤 입력값 입니다.
+
+<br>
+
+$$ p(x_{t} \vert x_{0:t-1}, z_{1:t-1}, u_{1:t}) = p(x_{t} \vert x_{t-1}, u_{t}) $$
+
+<br>
+
+- 위 식의 좌변은 처음부터 직전 시점의 위치와 센서값 그리고 컨트롤 입력값을 이용하여 현재 시점 t에서의 위치를 추정하는 확률식입니다.
+- 우변을 보면 조건부에서 위치값인 $$ x $$ 이외에는 모두 생략되었는데 그 이유는 **독립이라는 가정하에 직전 데이터인 $$ x_{t-1} $$와 $$ u_{t} $$를 제외하고 모두 생략**하였습니다. (물론 상황에 따라 종속적인 경우가 있다면 추가로 곱해주어도 상관없습니다.)
+
+<br>
+
+$$ p(z_{t} \vert x_{0:t}, z_{1:t-1}, u_{1:t}) = p(z_{t} \vert x_{t}) $$
+
+<br>
+
+- 위 식은 앞에서 구한 $$ x_{t} $$를 기반으로 센서값인 $$ z_{t} $$를 업데이트 합니다.
+- 필요한 $$ x_{t} $$와 $$ z_{t} $$를 구하였기 때문에, 최종적으로 믿고 싶은 위치인 $$ bel(x_{t}) $$는 다음과 같습니다.
+
+<br>
+
+$$ bel(x_{t}) = p(x_{t} \vert z_{1:t}, u_{1:t}) $$
+
+<br>
+
+- 그러면 `Localization`과 `Tracking`의 차이는 컨트롤 입력값을 직접적으로 받는 지 아닌지이므로 위에서 다룬 식에서 $$ u $$만 지우면 됩니다.
+
+<br>
+
+$$ p(x_{t} \vert x_{0:t-1}, z_{1:t-1}) = p(x_{t} \vert x_{t-1}) $$
+
+<br>
+
+$$ p(z_{t} \vert x_{0:t}, z_{1:t-1}) = p(z_{t} \vert x_{t}) $$
+
+<br>
+
+$$ bel(x_{t}) = p(x_{t} \vert z_{1:t}) $$
