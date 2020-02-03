@@ -88,43 +88,34 @@ $$ \frac{1}{k} = 1 - \alpha $$
 - 평균 필터는 평균 계산 외에 센서 초기화에도 유용하게 사용됩니다. 체중계의 경우 무게 센서는 여러 이유로 영점이 바뀌게 되는데 처음 일정 시간동안의 센서값의 평균을 초기값으로 잡아 영점을 잡으면 초기화 작업을 쉽게 할 수 있습니다.
 - 만약 이 작업을 배치식으로 하면 메모리 값도 많이 필요하게 됩니다. 하지만 재귀식을 이용하면 이전 스텝의 값과 샘플의 갯수만 기억하면 됩니다.
 
+<br>
+
 ### 평균 필터 C 코드
 
-- cpp 코드
+<br>
 
 ```cpp
-class AvgFilter {
-public:
-	// 이전 스텝까지의 평균을 저장하는 변수
-	double prevAvg;
-	// 샘플의 갯수
-	double k;
+int num_of_sample;
+double prev_average;
 
-	AvgFilter() {
-		prevAvg = 0.0;
-		k = 0;
-	}
+double AvgFilter(double x){
 
-	// 평균 필터 계산 및 업데이트
-	// 입력 인자 : 현재 스텝의 관측값
-	double avgFilter(double x) {
+    double average, alpha;
 
-		// 샘플 수 +1
-		k += 1;
-		
-		// 평균 필터의 alpha 값
-		double alpha = (k - 1) / (k + 0.0);
+    // 샘플 수 +1 (+1 the number of sample)
+    num_of_sample += 1;
 
-		// 평균 필터의 재귀식
-		double avg = alpha * prevAvg + (1 - alpha) * x;		
-		
-		// 평균 필터의 이전 스텝값 업데이트
-		prevAvg = avg;
+    // 평균 필터의 alpha 값 (alpha of average filter)
+    alpha = (num_of_sample - 1) / (num_of_sample + 0.0);
 
-		return avg;
-	}
+    // 평균 필터의 재귀식 (recursive expression of average filter)
+    average = alpha * prev_average + (1 - alpha) * x;
 
-};
+    // 평균 필터의 이전 상태값 업데이트 (update previous state value of average filter)
+    prev_average = average;
+
+    return average;
+}
 ```
 
 <br>
