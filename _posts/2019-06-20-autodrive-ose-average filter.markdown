@@ -81,43 +81,14 @@ $$ \frac{1}{k} = 1 - \alpha $$
 <br>
 
 - 따라서 $$ \bar{x}_{k} = \frac{k-1}{k} \bar{x}_{k-1} + \frac{1}{k} x_{k} = \alpha \bar{x}_{k-1} + (1-\alpha)x_{k} $$ 관계가 성립합니다.
-- 위 식을 평균 필터(averaging filter) 라고 합니다.
+- 위 식을 `평균 필터(averaging filter)` 라고 합니다.
 
 <br>
 
 - 평균 필터는 평균 계산 외에 센서 초기화에도 유용하게 사용됩니다. 체중계의 경우 무게 센서는 여러 이유로 영점이 바뀌게 되는데 처음 일정 시간동안의 센서값의 평균을 초기값으로 잡아 영점을 잡으면 초기화 작업을 쉽게 할 수 있습니다.
 - 만약 이 작업을 배치식으로 하면 메모리 값도 많이 필요하게 됩니다. 하지만 재귀식을 이용하면 이전 스텝의 값과 샘플의 갯수만 기억하면 됩니다.
 
-### 평균 필터 코드
-
-- python 코드
-
-```python
-# 평균 필터 클래스
-class AvgFilter:
-
-    # 이전 스텝까지의 평균을 저장하는 변수
-    prevAvg = 0
-    # 샘플의 갯수
-    k = 0
-    
-    # 평균 필터 계산 및 업데이트
-    # 입력 인자 : 현재 스텝의 관측값
-    def avgFilter(self, x):
-        
-        # 샘플 수 +1
-        self.k += 1
-        # 평균 필터의 alpha값
-        alpha = (self.k-1) / self.k
-        # 평균 필터 재귀식
-        avg = alpha * self.prevAvg + (1 - alpha) * x
-        # 평균 필터의 이전 스텝값 업데이트
-        self.prevAvg = avg
-        
-        return avg
-```
-
-<br>
+### 평균 필터 C 코드
 
 - cpp 코드
 

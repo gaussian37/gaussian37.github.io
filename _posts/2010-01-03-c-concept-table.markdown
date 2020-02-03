@@ -22,5 +22,5 @@ tags: [c, c language, c 언어] # add tag
 - [레지스터, 스택, 힙, 동적 메모리, 다중 포인터]()
 - [C 기본 자료구조]()
 - [const char *p, char * const p 그리고 const char * const p](https://gaussian37.github.io/c-concept-const_char_pointer/)
-- [Declaration(선언)과 Definition(정의)의 차이점](https://gaussian37.github.io/c-etc-declaration_definition/)
+- [Declaration(선언)과 Definition(정의)의 차이점](https://gaussian37.github.io/c-concept-declaration_definition/)
 
