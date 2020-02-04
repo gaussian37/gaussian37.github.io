@@ -1,14 +1,14 @@
 ---
 layout: post
-title: Curriculum Vitae and Total Table
+title: 글 목록
 date: 9999-12-31 23:00:00 +0300
 img: interview/cv.PNG
-tags: [Introduction] # add tag
+tags: [table] # add tag
 ---
 
 <br>
 
-## Curriculum Vitae
+## Author
 
 <br>
 
@@ -23,7 +23,7 @@ tags: [Introduction] # add tag
 
 - C / Python
 - Machine/Deep Learning
-- Computer Vision (Detection, Segmentation)
+- Computer Vision (Segmentation, Detection)
 - Autonomous Driving
 
 <br>
