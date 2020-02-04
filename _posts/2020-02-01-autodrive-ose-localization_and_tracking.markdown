@@ -16,6 +16,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, Localization, Tracking] #
 <br>
 
 - 반면 `Tracking` 문제는 위의 `Localization` 문제에서 정보 하나가 빠지게 됩니다. 바로 `컨트롤 입력값` 입니다.
+- `Tracking`이라고 하면 자차의 상태가 아니라 주변 차 또는 자차 이외의 무언가의 상태를 추정하는 것이기 때문에 `Localization` 때와 같이 컨트롤 입력값을 받을 수 없습니다.
 - 예를 들어 `Localization`은 **컨트롤 입력값**을 받기 때문에 예를들어 Accelerator 페달을 얼만큼 밟았는 지, 휠을 몇 도 움직였는 지 등을 알 수 있습니다.
 - 반면 `Tracking`에서는 컨트롤 입력값이 빠지기 때문에 `Localization`에 비해 다소 문제가 어려워 집니다.
 
@@ -61,3 +62,13 @@ $$ p(z_{t} \vert x_{0:t}, z_{1:t-1}) = p(z_{t} \vert x_{t}) $$
 <br>
 
 $$ bel(x_{t}) = p(x_{t} \vert z_{1:t}) $$
+
+<br>
+
+- 최적 상태 추정을 위해 사용되는 `칼만 필터`에서 Contorl Matrix와 Control Input이 있습니다.
+- `Localization` 문제를 풀 때에는 주어진 Control Input이 있기 때문에 이 값이 존재하지만, `Tracking` 문제에서는 이 값이 존재하지 않으므로 생략됩니다.
+- 따라서 칼만 필터에서의 `Tracking`에서는 Control Input이 명시되지 않기 때문에 따로 입력되지는 않지만 그만큼 Control Input에 대한 `state variance`를 어떻게 선정하는 지가 상당히 중요해집니다.
+
+<br>
+
+[Optimal State Estimation 목차](https://gaussian37.github.io/autodrive-ose-table/)
