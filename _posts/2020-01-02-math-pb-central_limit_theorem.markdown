@@ -9,7 +9,7 @@ tags: [통계학, 정규분포, 가우시안, 중심 극한 이론] # add tag
 
 <br>
 
-<span style="text-align:center"> [통계학 관련 글 목록](https://gaussian37.github.io/math-pb-table/)</span>
+<span style="text-align:center">[통계학 관련 글 목록](https://gaussian37.github.io/math-pb-table/)</span>
 
 <br>
 
@@ -45,6 +45,6 @@ tags: [통계학, 정규분포, 가우시안, 중심 극한 이론] # add tag
 
 <br>
 
-<span style="text-align:center">[통계학 관련 글 목록](https://gaussian37.github.io/math-pb-table/)</span>
+->[통계학 관련 글 목록](https://gaussian37.github.io/math-pb-table/)<-
 
 <br>
