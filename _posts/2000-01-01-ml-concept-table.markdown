@@ -9,7 +9,7 @@ tags: [python, machine learning, ml] # add tag
 
 <br>
 
-## **Mahince Learning 관련 주요 개념**
+## **Mahince Learning 개념**
 
 <br>
 
@@ -32,10 +32,7 @@ tags: [python, machine learning, ml] # add tag
 
 <br>
 
-## **Pattern Recognition (오일석)**
-
-<br>
-    
 - 베이시언 결정 이론
 - 확률과 통계
 - [ML(Maximum Likelihood)와 MAP(maximum a posterior)](https://gaussian37.github.io/ml-concept-mle-and-map/)
+- [가우시안 분포와 분별 함수](https://gaussian37.github.io/ml-concept-gaussian_discriminator/)

@@ -1,0 +1,69 @@
+---
+layout: post
+title: 가우시안 분포와 분별 함수
+date: 2020-02-01 00:00:00
+img: ml/concept/pr.png
+categories: [ml-concept] 
+tags: [가우시안, 분별 함수, 패턴 인식] # add tag
+---
+
+<br>
+
+[머신러닝 글 목록](https://gaussian37.github.io/ml-concept-table/)
+
+
+<br>
+
+- 참조 : 패턴인식 (오일석)
+- 이번 글에서는 가우시안 분포를 이용한 분별 함수에 대하여 알아보도록 하겠습니다.
+
+<br>
+
+- 일반적으로 패턴 x개가 입력되면 M개 부류에 대해 `사후 확률` $$ P(w_{i} \vert x) $$를 계산하고 그들 중 가장 큰 값을 갖는 부류로 분류하면 됩니다.
+- 하지만 사후 확률을 직접 계산하는 것은 현실적으로 매우 어렵습니다.
+- 따라서 베이스 정리에 따라 상대적으로 계산이 쉬운 `사전 확률` $$ P(w_{i}) $$와 `가능도` $$ p(x \vert w_{i}) $$의 곱으로 대치하여 계산합니다.
+- 그렇다고 하더라도 사전 확률을 구하는 것은 비교적 쉽지만 `가능도`의 추정은 경우에 따라 어려울 수도 있습니다.
+- 이번 글에서는 training set이 `가우시안 분포(정규 분포)`와 유사한 형태로 나타났다는 가정하에서 전개해 보려고 합니다. 즉, **가우시안 분포에 베이지안 분류기**를 접목하는 것이 이 글의 목적입니다.
+    - 따라서 가능도 $$ p(x \vert w_{i}) $$가 정규 분포를 따르는 특수한 경우에 대하여 분류기가 가지는 성질을 분석해보려고 합니다.
+    - 특히, **두 클래스의 영역을 나누는 decision boundary가 어떤 모양을 갖는지에 대한 분석이 주를 이룹니다.
+- 특히 가우시안 분포에 대한 가정이 의미가 있는 것은 현실 세계의 많은 분포가 가우시안 분포를 따르기 때문입니다.
+    - 이와 관련된 내용으로 [중심 극한 이론](https://gaussian37.github.io/math-pb-central_limit_theorem/)이 있으니 링크를 참조하시기 바랍니다.
+- 또한 `평균`과 `분산`이라는 단 2개의 매개 변수 만으로 확률 분포를 컨트롤 하기 때문에 다루기가 쉽습니다.
+- 그리고 가우시안 분포는 수학적인 특성이나 계산할 때 편한 장점들이 많습니다.
+
+<br>
+
+- 먼저 가우시안 분포는 간단한 `1차원` 형태와 `d차원`인 경우를 구분하여 식으로 나타냅니다.
+- 익히 알고있는 것처럼 가우시안 분포 또는 정규(Normal) 분포는 $$ N(\mu, \sigma^{2}) $$ 또는 $$ N(\mu, \Sigma) $$ 형태로 표현 가능합니다.
+- 먼저 잘 아시겠지만 `1차원` 가우시안 분포는 다음 분포와 식을 따릅니다.
+- 1차원에서의 $$ \mu $$와 $$ \sigma^{2} $$은 각각 평균과 분산입니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/gaussian_discriminator/0.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+$$ N(\mu, \sigma^{2}) = \frac{1}{(2\pi^{1/2}\sigma)} exp(-\frac{(x - \mu)}{2\sigma^{2}}) $$
+
+<br>
+
+- d차원에서의 $$ \mu $$는 평균 **벡터**이고 $$ \Sigma $$는 **d x d**크기의 공분산 **행렬**입니다.
+- 그리고 $$ \vert \Sigma \vert $$와 $$ \Sigma^{-1} $$은 각각 행렬 $$ \Sigma $$의 행렬식(determinant)과 역행렬입니다.  
+
+<br>
+
+$$ N(\mu, \Sigma) = \frac{1}{(2\pi)^{d/2}\vert \Sigma \vert^{1/2} exp(-\frac{1}{2}(x - \mu)^{T}\Sigma^{-1}(x - \mu) )}
+
+<br>
+<center><img src="../assets/img/ml/concept/gaussian_discriminator/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 클래스 $$ w_{i} $$가 평균 벡터 $$ \mu_{i} $$와 공분산 행렬 $$ \Sigma_{i} $$를 갖는 가우시안 분포라고 가정해 보겠습니다.
+- 그러면 **가능도(likelihood)**는 다음 식과 같이 나타낼 수 있습니다.
+
+<br>
+
+$$ p(x \vert w_{i}) = N(\mu_{i}, \Sigma_{i}) = \frac{1}{(2\pi)^{d/2} \vert \Sigma_{i} \vert ^{1/2} exp(-\frac{1}{2}(x - \mu_{i})^{T} \Sigma_{i}^{-1}(x - \mu_{i}))} $$
+
+<br>
+
+[머신러닝 글 목록](https://gaussian37.github.io/ml-concept-table/)

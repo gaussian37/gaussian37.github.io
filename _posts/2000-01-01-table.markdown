@@ -24,7 +24,7 @@ tags: [table] # add tag
 - C / Python
 - Machine/Deep Learning
 - Computer Vision (Segmentation, Detection)
-- Autonomous Driving
+- Optimal State Estimation
 
 <br>
 
