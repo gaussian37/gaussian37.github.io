@@ -1,10 +1,10 @@
 ---
 layout: post
-title: 가우시안 분포와 분별 함수
+title: 가우시안 분포와 분별 함수 (선형 분별 분석(LDA), 2차 분별 분석(QDA))
 date: 2020-02-01 00:00:00
 img: ml/concept/pr.png
 categories: [ml-concept] 
-tags: [가우시안, 분별 함수, 패턴 인식] # add tag
+tags: [가우시안, 분별 함수, 패턴 인식, 선형 분별 분석, 2차 분별 분석] # add tag
 ---
 
 <br>
@@ -62,7 +62,29 @@ $$ N(\mu, \Sigma) = \frac{1}{(2\pi)^{d/2}\vert \Sigma \vert^{1/2} exp(-\frac{1}{
 
 <br>
 
-$$ p(x \vert w_{i}) = N(\mu_{i}, \Sigma_{i}) = \frac{1}{(2\pi)^{d/2} \vert \Sigma_{i} \vert ^{1/2} exp(-\frac{1}{2}(x - \mu_{i})^{T} \Sigma_{i}^{-1}(x - \mu_{i}))} $$
+$$ p(x \vert w_{i}) = N(\mu_{i}, \Sigma_{i}) = \frac{1}{(2\pi)^{d/2} \vert \Sigma_{i} \vert ^{1/2} \text{exp} (-\frac{1}{2}(x - \mu_{i})^{T} \Sigma_{i}^{-1}(x - \mu_{i}))} $$
+
+<br>
+
+- 위에서 선언한 가능도($$ p(x \vert w_{i}) $$)와 사전 확률($$ P(w_{i}) $$)을 이용하여 사후 확률 $$ p(x \vert w_{i}) P(w_{i}) $$를 구할 때, 단조 증가 함수 성질을 이용하여 `log`를 취해 식을 간단하게 해보도록 하겠습니다. 여기서 가능도에 있는 지수를 없애기 위해 `ln`을 적용해 보겠습니다.
+
+<br>
+
+$$ g_{i}(x) = ln(f(x)) = ln(p(x \vert w_{i})P(w_{i})) $$
+
+$$ = ln(N(\mu_{i}, \Sigma_{i})) + ln(P(w_{i})) $$
+
+$$ = -\frac{1}{2}(x - \mu_[i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) - \frac{d}{2}ln(2\pi) - \frac{1}{2}ln(\vert \Sigma_{i} \vert) + ln(P(w_{i})) $$
+
+$$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x -x^{T}\Sigma_{i}^{-1}\mu_{i} - \mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}ln(2\pi) - \frac{1}{2}ln(\vert \Sigma_{i} \vert) + ln(P(w_{i})) $$
+
+<br>
+
+- 여기서 $$ \Sigma^{-1} $$이 대칭행렬이므로 다음과 같이 정리할 수 있습니다.
+
+<br>
+
+$$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x - 2\mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}ln(2\pi) - \frac{1}{2}ln(\vert \Sigma_{i} \vert) + ln(P(w_{i})) $$
 
 <br>
 
