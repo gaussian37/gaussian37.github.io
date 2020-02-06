@@ -74,7 +74,7 @@ $$ g_{i}(x) = ln(f(x)) = ln(p(x \vert w_{i})P(w_{i})) $$
 
 $$ = ln(N(\mu_{i}, \Sigma_{i})) + ln(P(w_{i})) $$
 
-$$ = -\frac{1}{2}(x - \mu_[i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) - \frac{d}{2}ln(2\pi) - \frac{1}{2}ln(\vert \Sigma_{i} \vert) + ln(P(w_{i})) $$
+$$ = -\frac{1}{2}(x - \mu_{i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) - \frac{d}{2}ln(2\pi) - \frac{1}{2}ln(\vert \Sigma_{i} \vert) + ln(P(w_{i})) $$
 
 $$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x -x^{T}\Sigma_{i}^{-1}\mu_{i} - \mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}ln(2\pi) - \frac{1}{2}ln(\vert \Sigma_{i} \vert) + ln(P(w_{i})) $$
 
