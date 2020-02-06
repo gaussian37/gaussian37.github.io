@@ -39,7 +39,7 @@ tags: [가우시안, 분별 함수, 패턴 인식] # add tag
 - 1차원에서의 $$ \mu $$와 $$ \sigma^{2} $$은 각각 평균과 분산입니다.
 
 <br>
-<center><img src="../assets/img/ml/concept/gaussian_discriminator/0.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/ml/concept/gaussian_discriminator/0.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 $$ N(\mu, \sigma^{2}) = \frac{1}{(2\pi^{1/2}\sigma)} exp(-\frac{(x - \mu)}{2\sigma^{2}}) $$
@@ -51,10 +51,10 @@ $$ N(\mu, \sigma^{2}) = \frac{1}{(2\pi^{1/2}\sigma)} exp(-\frac{(x - \mu)}{2\sig
 
 <br>
 
-$$ N(\mu, \Sigma) = \frac{1}{(2\pi)^{d/2}\vert \Sigma \vert^{1/2} exp(-\frac{1}{2}(x - \mu)^{T}\Sigma^{-1}(x - \mu) )}
+$$ N(\mu, \Sigma) = \frac{1}{(2\pi)^{d/2}\vert \Sigma \vert^{1/2} exp(-\frac{1}{2}(x - \mu)^{T}\Sigma^{-1}(x - \mu) )}  $$
 
 <br>
-<center><img src="../assets/img/ml/concept/gaussian_discriminator/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/ml/concept/gaussian_discriminator/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 클래스 $$ w_{i} $$가 평균 벡터 $$ \mu_{i} $$와 공분산 행렬 $$ \Sigma_{i} $$를 갖는 가우시안 분포라고 가정해 보겠습니다.
