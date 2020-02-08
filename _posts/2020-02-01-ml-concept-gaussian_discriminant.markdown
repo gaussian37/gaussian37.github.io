@@ -78,13 +78,13 @@ $$ p(x \vert w_{i}) = N(\mu_{i}, \Sigma_{i}) = \frac{1}{(2\pi)^{d/2} \vert \Sigm
 
 <br>
 
-$$ g_{i}(x) = \text{ln(f(x)) = \text{ln(p(x \vert w_{i})P(w_{i})) $$
+$$ g_{i}(x) = \text{ln}(f(x)) = \text{ln}(p(x \vert w_{i})P(w_{i})) $$
 
-$$ = \text{ln(N(\mu_{i}, \Sigma_{i})) + \text{ln(P(w_{i})) $$
+$$ = \text{ln}(N(\mu_{i}, \Sigma_{i})) + \text{ln}(P(w_{i})) $$
 
-$$ = -\frac{1}{2}(x - \mu_{i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) - \frac{d}{2}\text{ln(2\pi) - \frac{1}{2}\text{ln(\vert \Sigma_{i} \vert) + \text{ln(P(w_{i})) $$
+$$ = -\frac{1}{2}(x - \mu_{i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma_{i} \vert) + \text{ln}(P(w_{i})) $$
 
-$$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x -x^{T}\Sigma_{i}^{-1}\mu_{i} - \mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}\text{ln(2\pi) - \frac{1}{2}\text{ln(\vert \Sigma_{i} \vert) + \text{ln(P(w_{i})) $$
+$$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x -x^{T}\Sigma_{i}^{-1}\mu_{i} - \mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma_{i} \vert) + \text{ln}(P(w_{i})) $$
 
 <br>
 
@@ -92,7 +92,7 @@ $$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x -x^{T}\Sigma_{i}^{-1}\mu_{i} - \mu_{i}^{
 
 <br>
 
-$$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x - 2\mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}\text{ln(2\pi) - \frac{1}{2}\text{ln(\vert \Sigma_{i} \vert) + \text{ln(P(w_{i})) $$
+$$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x - 2\mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma_{i} \vert) + \text{ln}(P(w_{i})) $$
 
 <br>
 
@@ -119,7 +119,7 @@ $$ \Sigma_{i}  = \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} $$
 
 <br>
 
-$$ g_{i}(x) = -\frac{1}{2} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} - \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr)^{T} \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix}^{-1} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -  \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr) - \frac{2}{2} \text{ln(2\pi)} -\frac{1}{2} \text{ln}( \vert \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} \vert) + \text{ln}(P(w_{i})) $$
+$$ g_{i}(x) = -\frac{1}{2} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} - \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr)^{T} \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix}^{-1} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -  \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr) - \frac{2}{2} \text{ln}(2\pi)} -\frac{1}{2} \text{ln}( \vert \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} \vert) + \text{ln}(P(w_{i})) $$
 
 <br>
 
