@@ -2,7 +2,7 @@
 layout: post
 title: AutoEncoder의 모든것 (1. Revisit Deep Neural Network)
 date: 2019-02-24 00:00:00
-img: gan/concept/autoencoder1/autoencoder.png
+img: dl/concept/autoencoder1/autoencoder.png
 categories: [dl-concept] 
 tags: [deep learning, autoencoder] # add tag
 ---

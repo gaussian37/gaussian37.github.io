@@ -55,8 +55,8 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
-- [AutoEncoder의 모든것 (1) : Revisit Deep Neural Network](https://gaussian37.github.io/gan-concept-autoencoder1/)
-- [AutoEncoder의 모든것 (2) : Manifold Learning](https://gaussian37.github.io/gan-concept-autoencoder2/)
+- [AutoEncoder의 모든것 (1) : Revisit Deep Neural Network](https://gaussian37.github.io/dl-concept-autoencoder1/)
+- [AutoEncoder의 모든것 (2) : Manifold Learning](https://gaussian37.github.io/dl-concept-autoencoder2/)
 - AutoEncoder의 모든것 (3) : 
 - AutoEncoder의 모든것 (4)
 - AutoEncoder의 모든것 (5)
