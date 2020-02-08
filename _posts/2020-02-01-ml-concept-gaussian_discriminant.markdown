@@ -146,7 +146,7 @@ $$ g_{ij} = g_{i}(x) - g_{j}(x) $$
 - 두 클래스의 decision boundary를 나타내면 다음과 같습니다.
 
 <br>
-<center><img src="../assets/img/ml/concept/gaussian_discriminant/1.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ml/concept/gaussian_discriminant/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 다음으로 알아볼 것은 각 클래스 별로 같은 공분산을 가지는 경우와 그렇지 않은 경우에 따라서 해석 방법이 다릅니다. 그것에 대하여 알아보겠습니다. 
