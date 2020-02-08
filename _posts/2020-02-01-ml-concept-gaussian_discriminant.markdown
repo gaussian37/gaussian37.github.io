@@ -52,7 +52,7 @@ tags: [가우시안, 분별 함수, 패턴 인식, 선형 분별 분석, 2차 �
 <center><img src="../assets/img/ml/concept/gaussian_discriminant/0.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-$$ N(\mu, \sigma^{2}) = \frac{1}{(2\pi^{1/2}\sigma)} exp(-\frac{(x - \mu)^{2}}{2\sigma^{2}}) $$
+$$ N(\mu, \sigma^{2}) = \frac{1}{(2\pi)^{1/2}\sigma} exp(-\frac{(x - \mu)^{2}}{2\sigma^{2}}) $$
 
 <br>
 
