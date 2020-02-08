@@ -149,7 +149,31 @@ $$ g_{ij} = g_{i}(x) - g_{j}(x) $$
 <center><img src="../assets/img/ml/concept/gaussian_discriminant/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 다음으로 알아볼 것은 각 클래스 별로 같은 공분산을 가지는 경우와 그렇지 않은 경우에 따라서 해석 방법이 다릅니다. 그것에 대하여 알아보겠습니다. 
+- 다음으로 알아볼 것은 각 **클래스 별로 같은** `공분산`을 가지는 경우와 **그렇지 않은 경우**에 따라서 해석 방법이 다릅니다. 그것에 대하여 알아보겠습니다. 
+
+<br>
+
+## **Linear Discriminant**
+
+<br>
+
+- 먼저 클래스 별로 같은 공분산을 가지는 경우에 대하여 다루어 보도록 하겠습니다.
+- 이 상황에서는 각 클래스의 $$ \Sigma_{i} $$가 모두 같으므로 $$ \Sigma $$라고 적어도 되니 편의상 통일하여 적겠습니다.
+
+<br>
+
+$$ = -\frac{1}{2}(x^{T}\Sigma^{-1}x - 2\mu_{i}^{T}\Sigma^{-1}x + \mu_{i}^{T}\Sigma^{-1}\mu_{i}) - \frac{d}{2}ln(2\pi) - \frac{1}{2}ln(\vert \Sigma \vert) + ln(P(w_{i})) $$
+
+<br>
+
+- 여기서 $$ i $$ 항과 관련된 것과 관련되지 않은 것을 분리해서 정리해보겠습니다.
+
+<br>
+
+$$ \frac{1}{2}(-2\mu_{i}^{T}\Sigma^{-1}x -\mu_{i}^{T}\Sigma^{-1}\mu_{i} + 2ln(P(w_{i}))) -\frac{1}{2}(x^{T}\Sigma^{-1}x + d\text{ln}(2\pi)) + \text{ln}\vert \Sigma \vert) $$
+
+
+## **Quadratic Discriminant**
 
 
 [머신러닝 글 목록](https://gaussian37.github.io/ml-concept-table/)
