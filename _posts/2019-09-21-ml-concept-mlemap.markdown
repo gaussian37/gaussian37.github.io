@@ -17,7 +17,6 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
 
 <br>
 
-- 이번 글에서는 GAN을 시작하기에 앞서서 필수적인 통계적 개념을 다루려고 합니다.
 - 통계학 및 머신러닝 전반적으로 아주 중요한 개념인 MLE(Maximum Likelihood Estimation)와 MAP(Maximum A Posterior)에 대하여 다루어 보겠습니다.
 - 제 블로그의 [다른 글](https://gaussian37.github.io/ml-concept-mle-and-map/)을 참조하셔도 충분합니다. 
 
