@@ -111,7 +111,7 @@ $$ \Sigma_{i}  = \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} $$
 
 <br>
 
-$$ g_{i}(x) = -\frac{1}{2} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix}  \Biggr)
+$$ g_{i}(x) = -\frac{1}{2} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -  \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr)^{T}  \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix}^{-1} $$
 
 
 [머신러닝 글 목록](https://gaussian37.github.io/ml-concept-table/)
