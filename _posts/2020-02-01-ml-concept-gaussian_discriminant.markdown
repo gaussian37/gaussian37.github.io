@@ -22,8 +22,10 @@ tags: [가우시안, 분별 함수, 패턴 인식, 선형 분별 분석, 2차 �
 ## **목차**
 
 - ### gaussian distribution과 discriminant function
-- ### Linear Discriminant
-- ### Quadratic Discriminant
+- ### Linear Discriminant Analysis
+- ### LDA 예제
+- ### Quadratic Discriminant Analysis
+- ### QDA 예제
 
 <br>
 
@@ -50,7 +52,7 @@ tags: [가우시안, 분별 함수, 패턴 인식, 선형 분별 분석, 2차 �
 <center><img src="../assets/img/ml/concept/gaussian_discriminant/0.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-$$ N(\mu, \sigma^{2}) = \frac{1}{(2\pi^{1/2}\sigma)} exp(-\frac{(x - \mu)}{2\sigma^{2}}) $$
+$$ N(\mu, \sigma^{2}) = \frac{1}{(2\pi^{1/2}\sigma)} exp(-\frac{(x - \mu)^{2}}{2\sigma^{2}}) $$
 
 <br>
 
@@ -153,7 +155,7 @@ $$ g_{ij} = g_{i}(x) - g_{j}(x) $$
 
 <br>
 
-## **Linear Discriminant**
+## **Linear Discriminant Analysis**
 
 <br>
 
@@ -199,7 +201,37 @@ $$ = (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T}\Biggl(x - \Biggl( \frac{1}{2}(\mu_{i} 
 
 - 여기에서 $$ (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T} $$ 를 $$ w $$라고 하고 $$ \Biggl( \frac{1}{2}(\mu_{i} + \mu_{j}) - \frac{\mu_{i} - \mu_{j}}{(\mu_{i} - \mu_{j})^{T}\Sigma^{-1}(\mu_{i} - \mu_{j})} \text{ln}\frac{P(w_{i})}{P(w_{j})} \Biggr) $$를 $$ x_{0} $$ 라고 정의하면 위와 같이 정리할 수 있습니다.
 
-## **Quadratic Discriminant**
+<br>
+
+- 위 식을 기하학적으로 살펴보면 $$ g_{ij}(x) $$ 가 1차식 형태를 따르므로 decision boundary가 직선의 형태가 뜀을 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/gaussian_discriminant/3.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림은 두 클래스 $$ w_{i}, w_{j} $$의 가우시안 분포를 등고선 형태로 표현한 그림입니다.
+- 두 클래스의 공분산이 같기 때문에 같은 모양의 타원을 띔을 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/gaussian_discriminant/4.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 만약 공분산의 형태가 $$ \sigma^{2}I $$ (I는 Identity)라면 위 그림과 같이 타원이 아닌 원의 형태를 띕니다.
+- decision boundary를 구하려면 위 식에서 $$ x_{0} = 0 $$을 만족하여 $$ g_{ij}(x) = 0 $$이 되는 경계입니다.
+- 따럿 $$ g_{ij}(x) $$가 1차식임을 이용하면 decision boundary는 $$ x_{0} = 0 $$이고 $$ w = \Sigma^{-1}(\mu_{i} - \mu_{j}) $$와 수직인 직선을 찾으면 됩니다. 그 직선이 decision boundary가 되고 그 지점에서는 $$ g_{ij}(x) = 0 $$을 만족합니다.
+- 만약 비교하는 두 클래스의 사전 확률이 같으면 $$ \text{ln}(P(w_{i}) / P(w_{j}) ) = 0 $$이 됩니다.
+- 즉, $$ x_{0} = 1/2(\mu_{i} + \mu_{j}) $$인 지점이 decision boundary가 되는데 이 지점은 $$ \mu_{i} $$와 $$ \mu_{j} $$의 중점입니다.
+- 추가적으로 식을 살펴보면 $$ P(w_{i}) > P(w_{j}) $$이면 decision boundary는 $$ \mu_{j} $$에 가까워집니다.
+    - 즉, $$ mu_{i} $$를 중심으로 하는 분포에 속할 영역이 더 넓어진다고 해설할 수도 있습니다.
+
+<br>
+
+- 지금까지 한것을 정리하면 **클래스의 공분산이 같은 가우시안 분포에서는 decision boundary로 linear classifier**를 얻었습니다.
+- 이런 과정을 통하여 linear classifier를 만드는 방법을 `LDA(Linear Discriminant Analysis)` 라고 합니다.
+
+## **LDA 예제**
+## **Quadratic Discriminant Analysis**
+## **QDA 예제**
 
 
 
