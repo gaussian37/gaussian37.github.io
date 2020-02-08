@@ -35,4 +35,4 @@ tags: [python, machine learning, ml] # add tag
 - 베이시언 결정 이론
 - 확률과 통계
 - [ML(Maximum Likelihood)와 MAP(maximum a posterior)](https://gaussian37.github.io/ml-concept-mle-and-map/)
-- [가우시안 분포와 분별 함수](https://gaussian37.github.io/ml-concept-gaussian_discriminator/)
+- [가우시안 분포와 분별 함수](https://gaussian37.github.io/ml-concept-gaussian_discriminant/)
