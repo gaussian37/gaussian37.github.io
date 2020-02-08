@@ -119,7 +119,7 @@ $$ \Sigma_{i}  = \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} $$
 
 <br>
 
-$$ g_{i}(x) = -\frac{1}{2} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} - \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr)^{T} \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix}^{-1} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -  \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr) - \frac{2}{2} \text{ln}(2\pi)} -\frac{1}{2} \text{ln}( \vert \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} \vert) + \text{ln}(P(w_{i})) $$
+$$ g_{i}(x) = -\frac{1}{2} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} - \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr)^{T} \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix}^{-1} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -  \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr) - \frac{2}{2} \text{ln}(2\pi) -\frac{1}{2} \text{ln}( \vert \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} \vert) + \text{ln}(P(w_{i})) $$
 
 <br>
 
