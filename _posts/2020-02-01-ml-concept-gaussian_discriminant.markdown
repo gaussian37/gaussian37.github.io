@@ -197,7 +197,7 @@ $$ g_{ij})(x) = g_{i}(x) - g_{j}(x) = (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T}x + (\
 
 $$ = (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T}\Biggl(x - \Biggl( \frac{1}{2}(\mu_{i} + \mu_{j}) - \frac{\mu_{i} - \mu_{j}}{(\mu_{i} - \mu_{j})^{T}\Sigma^{-1}(\mu_{i} - \mu_{j})} \text{ln}\frac{P(w_{i})}{P(w_{j})} \Biggr)\Biggr) = w^{T}(x - x_{0}) $$
 
-- 
+- 여기에서 $$ (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T} $$ 를 $$ w $$라고 하고 $$ \Biggl( \frac{1}{2}(\mu_{i} + \mu_{j}) - \frac{\mu_{i} - \mu_{j}}{(\mu_{i} - \mu_{j})^{T}\Sigma^{-1}(\mu_{i} - \mu_{j})} \text{ln}\frac{P(w_{i})}{P(w_{j})} \Biggr) $$를 $$ x_{0} $$ 라고 정의하면 위와 같이 정리할 수 있습니다.
 
 ## **Quadratic Discriminant**
 
