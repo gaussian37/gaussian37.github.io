@@ -51,7 +51,7 @@ $$ N(\mu, \sigma^{2}) = \frac{1}{(2\pi^{1/2}\sigma)} exp(-\frac{(x - \mu)}{2\sig
 
 <br>
 
-$$ N(\mu, \Sigma) = \frac{1}{(2\pi)^{d/2}\vert \Sigma \vert^{1/2} exp(-\frac{1}{2}(x - \mu)^{T}\Sigma^{-1}(x - \mu) )}  $$
+$$ N(\mu, \Sigma) = \frac{1}{(2\pi)^{d/2}\vert \Sigma \vert^{1/2}} \text{exp}(-\frac{1}{2}(x - \mu)^{T}\Sigma^{-1}(x - \mu) )  $$
 
 <br>
 <center><img src="../assets/img/ml/concept/gaussian_discriminator/1.png" alt="Drawing" style="width: 400px;"/></center>
@@ -95,6 +95,23 @@ $$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x - 2\mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}
 <br>
 
 - 앞에서 전개한 식을 이해하기 위해서 2차원 실수 공간에 정의된 $$ x = (x_{1}, x_{2})^{T} $$ 에 대하여 다루어 보겠습니다.
-- 이 때 클래스 $$ w_{i} $$는 $$ \mu_{i} = (3, 1)^{T} $$와 $$ \Sigma_{i}  = $$ \begin{pmatrix} 2 & 0 \\ 0 & 2 \end{pmatrix} $$를 갖는다고 가정하겠습니다.
+- 이 때 클래스는 다음 성질을 따른다고 가정하겠습니다.
+
+<br>
+
+$$ w_{i} = \mu_{i} = (3, 1)^{T} $$
+
+<br>
+ 
+$$ \Sigma_{i}  = $$ \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} $$
+
+<br>
+
+- 위 값을 앞에서 전개한 식에 대입해 보도록 하겠습니다.
+
+<br>
+
+$$ g_{i}(x) = -\frac{1}{2} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix}  \Biggr)
+
 
 [머신러닝 글 목록](https://gaussian37.github.io/ml-concept-table/)
