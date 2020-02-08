@@ -78,13 +78,13 @@ $$ p(x \vert w_{i}) = N(\mu_{i}, \Sigma_{i}) = \frac{1}{(2\pi)^{d/2} \vert \Sigm
 
 <br>
 
-$$ g_{i}(x) = ln(f(x)) = ln(p(x \vert w_{i})P(w_{i})) $$
+$$ g_{i}(x) = \text{ln(f(x)) = \text{ln(p(x \vert w_{i})P(w_{i})) $$
 
-$$ = ln(N(\mu_{i}, \Sigma_{i})) + ln(P(w_{i})) $$
+$$ = \text{ln(N(\mu_{i}, \Sigma_{i})) + \text{ln(P(w_{i})) $$
 
-$$ = -\frac{1}{2}(x - \mu_{i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) - \frac{d}{2}ln(2\pi) - \frac{1}{2}ln(\vert \Sigma_{i} \vert) + ln(P(w_{i})) $$
+$$ = -\frac{1}{2}(x - \mu_{i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) - \frac{d}{2}\text{ln(2\pi) - \frac{1}{2}\text{ln(\vert \Sigma_{i} \vert) + \text{ln(P(w_{i})) $$
 
-$$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x -x^{T}\Sigma_{i}^{-1}\mu_{i} - \mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}ln(2\pi) - \frac{1}{2}ln(\vert \Sigma_{i} \vert) + ln(P(w_{i})) $$
+$$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x -x^{T}\Sigma_{i}^{-1}\mu_{i} - \mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}\text{ln(2\pi) - \frac{1}{2}\text{ln(\vert \Sigma_{i} \vert) + \text{ln(P(w_{i})) $$
 
 <br>
 
@@ -92,7 +92,7 @@ $$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x -x^{T}\Sigma_{i}^{-1}\mu_{i} - \mu_{i}^{
 
 <br>
 
-$$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x - 2\mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}ln(2\pi) - \frac{1}{2}ln(\vert \Sigma_{i} \vert) + ln(P(w_{i})) $$
+$$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x - 2\mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}\text{ln(2\pi) - \frac{1}{2}\text{ln(\vert \Sigma_{i} \vert) + \text{ln(P(w_{i})) $$
 
 <br>
 
@@ -119,15 +119,15 @@ $$ \Sigma_{i}  = \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} $$
 
 <br>
 
-$$ g_{i}(x) = -\frac{1}{2} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -  \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr)^{T}  \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix}^{-1} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -  \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr) - \frac{2}{2} ln(2\pi) -\frac{1}{2} ln\vert \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} \vert + ln(P(w_{i})) $$
+$$ g_{i}(x) = -\frac{1}{2} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -  \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr)^{T}  \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix}^{-1} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -  \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr) - \frac{2}{2} \text{ln(2\pi) -\frac{1}{2} \text{ln\vert \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} \vert + \text{ln(P(w_{i})) $$
 
 <br>
 
-$$ = -\frac{1}{2} \begin{pmatrix} x_{1} -3 & x_{2} - 1 \end{pmatrix} \begin{pmatrix} 1/2 & 0 \\ 0 & 1/2 \\ \end{pmatrix}^{-1} \begin{pmatrix} x_{1} - 3 \\ x_{2} -1 \end{pmatrix} ln(2\pi) -\frac{1}{2} ln(4) + ln(P(w_{i})) $$
+$$ = -\frac{1}{2} \begin{pmatrix} x_{1} -3 & x_{2} - 1 \end{pmatrix} \begin{pmatrix} 1/2 & 0 \\ 0 & 1/2 \\ \end{pmatrix}^{-1} \begin{pmatrix} x_{1} - 3 \\ x_{2} -1 \end{pmatrix} \text{ln(2\pi) -\frac{1}{2} \text{ln(4) + \text{ln(P(w_{i})) $$
 
 <br>
 
-$$ = -\frac{1}{4}(x_{1}^{2} + x_{1}^{2}) + \frac{1}{2}(3x_{1} + x_{2}) -\frac{1}{2}(5 + 2ln(2\pi) + ln(4) - 2ln(P(w_{i}))) $$
+$$ = -\frac{1}{4}(x_{1}^{2} + x_{1}^{2}) + \frac{1}{2}(3x_{1} + x_{2}) -\frac{1}{2}(5 + 2\text{ln(2\pi) + \text{ln(4) - 2\text{ln(P(w_{i}))) $$
 
 <br>
 
@@ -162,7 +162,7 @@ $$ g_{ij} = g_{i}(x) - g_{j}(x) $$
 
 <br>
 
-$$ = -\frac{1}{2}(x^{T}\Sigma^{-1}x - 2\mu_{i}^{T}\Sigma^{-1}x + \mu_{i}^{T}\Sigma^{-1}\mu_{i}) - \frac{d}{2}ln(2\pi) - \frac{1}{2}ln(\vert \Sigma \vert) + ln(P(w_{i})) $$
+$$ = -\frac{1}{2}(x^{T}\Sigma^{-1}x - 2\mu_{i}^{T}\Sigma^{-1}x + \mu_{i}^{T}\Sigma^{-1}\mu_{i}) - \frac{d}{2}\text{ln(2\pi) - \frac{1}{2}\text{ln(\vert \Sigma \vert) + \text{ln(P(w_{i})) $$
 
 <br>
 
@@ -170,10 +170,35 @@ $$ = -\frac{1}{2}(x^{T}\Sigma^{-1}x - 2\mu_{i}^{T}\Sigma^{-1}x + \mu_{i}^{T}\Sig
 
 <br>
 
-$$ \frac{1}{2}(-2\mu_{i}^{T}\Sigma^{-1}x -\mu_{i}^{T}\Sigma^{-1}\mu_{i} + 2ln(P(w_{i}))) -\frac{1}{2}(x^{T}\Sigma^{-1}x + d\text{ln}(2\pi)) + \text{ln}\vert \Sigma \vert) $$
+$$ \frac{1}{2}(-2\mu_{i}^{T}\Sigma^{-1}x -\mu_{i}^{T}\Sigma^{-1}\mu_{i} + 2\text{ln(P(w_{i}))) -\frac{1}{2}(x^{T}\Sigma^{-1}x + d\text{ln}(2\pi)) + \text{ln}\vert \Sigma \vert) $$
 
+<br>
+
+- 위 식에서 첫번째 항은 $$ i $$와 관련이 있는 항들이고 두번째 항은 $$ i $$와 무관합니다.
+- 이렇게 나눈 이유는 $$ i $$항과 무관한 항은 $$ g_{i}(x) $$에서 어떤 $$ i $$가 들어가더라도 똑같은 값을 가지므로 $$ g_{ij}(x) = g_{i}(x) - g_{j}(x) $$ 에서는 소거되므로 생략해도 됩니다. (물론 위 식은 단일 클래스에 대한 식이지만 미리 목적에 맞게 필요없는 항은 사전에 삭제한다는 뜻입니다.)
+    - 즉, 우리과 관심을 가져야 하는 것은 함수 값 자체라기보다는 두 함수값을 비교하였을 때의 결과이기 때문에 식을 간단하게 만들 수 있습니다.
+- 이렇게 식을 정리하였을 때, 유일한 2차항인 $$ x^{T} \Sigma^{-1} x $$가 소거됩니다.
+- 결국 **클래스 별로 동일한 공분산을 가질 때, 분별 함수는 1차식이 됩니다.**
+- 이 식을 선형 방정식의 형태로 다시 정리해 보도록 하겠습니다.
+
+<br>
+
+$$ g_{i}(x) = (\Sigma^{-1} \mu_{i})^{T})x + (\text{ln}(P(w_{i})) -\frac{1}{2}\mu_{i}^{T}\Sigma^{-1}\mu_{i}) = w_{i}^{T}x + b_{i} $$
+
+<br>
+
+- 그러면 위 식을 이용하여 비교 식 $$ g_{ij}(x) $$에 대하여 다루어 보겠습니다.
+
+<br>
+
+$$ g_{ij})(x) = g_{i}(x) - g_{j}(x) = (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T}x + (\text{ln}(P(w_{i})) -\text{ln}(P(w_{j})) -\frac{1}{2} \mu_{i}^{T}\Sigma^{-1}\mu_{i} + \frac{1}{2}\mu_{j}^{T}\Sigma^{-1}\mu_{j} ) $$
+
+<br>
+
+$$ = (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T}\Biggl(x - \Biggl( \frac{1}{2}(\mu_{i} + \mu_{j}) - \frac{\mu_{i} - \mu_{j}}{(\mu_{i} - \mu_{j})^{T}\Sigma^{-1}(\mu_{i} - \mu_{j})} \text{ln}\frac{P(w_{i})}{P(w_{j})} \Biggr)\Biggr) = w^{T}(x - x_{0})
 
 ## **Quadratic Discriminant**
+
 
 
 [머신러닝 글 목록](https://gaussian37.github.io/ml-concept-table/)
