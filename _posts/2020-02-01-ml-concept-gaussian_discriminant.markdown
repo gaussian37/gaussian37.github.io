@@ -19,6 +19,14 @@ tags: [가우시안, 분별 함수, 패턴 인식, 선형 분별 분석, 2차 �
 
 <br>
 
+## **목차**
+
+- ### gaussian distribution과 discriminant function
+- ### Linear Discriminant
+- ### Quadratic Discriminant
+
+<br>
+
 - 일반적으로 패턴 x개가 입력되면 M개 부류에 대해 `사후 확률` $$ P(w_{i} \vert x) $$를 계산하고 그들 중 가장 큰 값을 갖는 부류로 분류하면 됩니다.
 - 하지만 사후 확률을 직접 계산하는 것은 현실적으로 매우 어렵습니다.
 - 따라서 베이스 정리에 따라 상대적으로 계산이 쉬운 `사전 확률` $$ P(w_{i}) $$와 `가능도` $$ p(x \vert w_{i}) $$의 곱으로 대치하여 계산합니다.
@@ -39,7 +47,7 @@ tags: [가우시안, 분별 함수, 패턴 인식, 선형 분별 분석, 2차 �
 - 1차원에서의 $$ \mu $$와 $$ \sigma^{2} $$은 각각 평균과 분산입니다.
 
 <br>
-<center><img src="../assets/img/ml/concept/gaussian_discriminator/0.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ml/concept/gaussian_discriminant/0.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 $$ N(\mu, \sigma^{2}) = \frac{1}{(2\pi^{1/2}\sigma)} exp(-\frac{(x - \mu)}{2\sigma^{2}}) $$
@@ -54,7 +62,7 @@ $$ N(\mu, \sigma^{2}) = \frac{1}{(2\pi^{1/2}\sigma)} exp(-\frac{(x - \mu)}{2\sig
 $$ N(\mu, \Sigma) = \frac{1}{(2\pi)^{d/2}\vert \Sigma \vert^{1/2}} \text{exp}(-\frac{1}{2}(x - \mu)^{T}\Sigma^{-1}(x - \mu) )  $$
 
 <br>
-<center><img src="../assets/img/ml/concept/gaussian_discriminator/1.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ml/concept/gaussian_discriminant/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 클래스 $$ w_{i} $$가 평균 벡터 $$ \mu_{i} $$와 공분산 행렬 $$ \Sigma_{i} $$를 갖는 가우시안 분포라고 가정해 보겠습니다.
@@ -111,7 +119,37 @@ $$ \Sigma_{i}  = \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} $$
 
 <br>
 
-$$ g_{i}(x) = -\frac{1}{2} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -  \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr)^{T}  \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix}^{-1} $$
+$$ g_{i}(x) = -\frac{1}{2} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -  \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr)^{T}  \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix}^{-1} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -  \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr) - \frac{2}{2} ln(2\pi) -\frac{1}{2} ln\vert \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} \vert + ln(P(w_{i})) $$
+
+<br>
+
+$$ = -\frac{1}{2} \begin{pmatrix} x_{1} -3 & x_{2} - 1 \end{pmatrix} \begin{pmatrix} 1/2 & 0 \\ 0 & 1/2 \\ \end{pmatrix}^{-1} \begin{pmatrix} x_{1} - 3 \\ x_{2} -1 \end{pmatrix} ln(2\pi) -\frac{1}{2} ln(4) + ln(P(w_{i})) $$
+
+<br>
+
+$$ = -\frac{1}{4}(x_{1}^{2} + x_{1}^{2}) + \frac{1}{2}(3x_{1} + x_{2}) -\frac{1}{2}(5 + 2ln(2\pi) + ln(4) - 2ln(P(w_{i}))) $$
+
+<br>
+
+- 위 식의 term을 보면 처음에는 2차식, 두번째는 1차식 그리고 마지막은 상수항으로 정리됨을 알 수 있습니다.
+- 즉, 특징 벡터의 차원에 따라 같은 차원으로 정리 됩니다.
+- 위 식은 $$ w_{i} $$의 클래스에 속하는 어떤 값에 대한 `사후 확률`을 뜻합니다. 그러면 이 값을 좀 더 해석해 보겠습니다.
+- 두 클래스 $$ w_{i}, w_{j} $$의 decision boundary에 대하여 알아보면 어떤 데이터 $$ x $$가 decision boundary에 존재한다면 $$ g_{i}(x) = g_{j}(x) $$가 되어야 합니다.
+- 이 식을 다음과 같이 정리할 수 있습니다.
+
+<br>
+
+$$ g_{ij} = g_{i}(x) - g_{j}(x) $$
+
+<br>
+
+- 두 클래스의 decision boundary를 나타내면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/gaussian_discriminant/1.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 다음으로 알아볼 것은 각 클래스 별로 같은 공분산을 가지는 경우와 그렇지 않은 경우에 따라서 해석 방법이 다릅니다. 그것에 대하여 알아보겠습니다. 
 
 
 [머신러닝 글 목록](https://gaussian37.github.io/ml-concept-table/)
