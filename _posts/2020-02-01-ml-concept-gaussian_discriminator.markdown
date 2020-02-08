@@ -103,7 +103,7 @@ $$ w_{i} = \mu_{i} = (3, 1)^{T} $$
 
 <br>
  
-$$ \Sigma_{i}  = $$ \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} $$
+$$ \Sigma_{i}  = \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} $$
 
 <br>
 
