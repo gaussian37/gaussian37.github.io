@@ -123,11 +123,11 @@ $$ g_{i}(x) = -\frac{1}{2} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} 
 
 <br>
 
-$$ = -\frac{1}{2} \begin{pmatrix} x_{1} -3 & x_{2} - 1 \end{pmatrix} \begin{pmatrix} 1/2 & 0 \\ 0 & 1/2 \\ \end{pmatrix}^{-1} \begin{pmatrix} x_{1} - 3 \\ x_{2} -1 \end{pmatrix} \text{ln(2\pi) -\frac{1}{2} \text{ln(4) + \text{ln(P(w_{i})) $$
+$$ = -\frac{1}{2} \begin{pmatrix} x_{1} -3 & x_{2} - 1 \end{pmatrix} \begin{pmatrix} 1/2 & 0 \\ 0 & 1/2 \\ \end{pmatrix}^{-1} \begin{pmatrix} x_{1} - 3 \\ x_{2} -1 \end{pmatrix} \text{ln}(2\pi) -\frac{1}{2} \text{ln}(4) + \text{ln}(P(w_{i})) $$
 
 <br>
 
-$$ = -\frac{1}{4}(x_{1}^{2} + x_{1}^{2}) + \frac{1}{2}(3x_{1} + x_{2}) -\frac{1}{2}(5 + 2\text{ln(2\pi) + \text{ln(4) - 2\text{ln(P(w_{i}))) $$
+$$ = -\frac{1}{4}(x_{1}^{2} + x_{1}^{2}) + \frac{1}{2}(3x_{1} + x_{2}) -\frac{1}{2}(5 + 2\text{ln}(2\pi) + \text{ln}(4) - 2\text{ln}(P(w_{i}))) $$
 
 <br>
 
@@ -162,7 +162,7 @@ $$ g_{ij} = g_{i}(x) - g_{j}(x) $$
 
 <br>
 
-$$ = -\frac{1}{2}(x^{T}\Sigma^{-1}x - 2\mu_{i}^{T}\Sigma^{-1}x + \mu_{i}^{T}\Sigma^{-1}\mu_{i}) - \frac{d}{2}\text{ln(2\pi) - \frac{1}{2}\text{ln(\vert \Sigma \vert) + \text{ln(P(w_{i})) $$
+$$ = -\frac{1}{2}(x^{T}\Sigma^{-1}x - 2\mu_{i}^{T}\Sigma^{-1}x + \mu_{i}^{T}\Sigma^{-1}\mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma \vert) + \text{ln}(P(w_{i})) $$
 
 <br>
 
@@ -170,7 +170,7 @@ $$ = -\frac{1}{2}(x^{T}\Sigma^{-1}x - 2\mu_{i}^{T}\Sigma^{-1}x + \mu_{i}^{T}\Sig
 
 <br>
 
-$$ \frac{1}{2}(-2\mu_{i}^{T}\Sigma^{-1}x -\mu_{i}^{T}\Sigma^{-1}\mu_{i} + 2\text{ln(P(w_{i}))) -\frac{1}{2}(x^{T}\Sigma^{-1}x + d\text{ln}(2\pi)) + \text{ln}\vert \Sigma \vert) $$
+$$ \frac{1}{2}(-2\mu_{i}^{T}\Sigma^{-1}x -\mu_{i}^{T}\Sigma^{-1}\mu_{i} + 2\text{ln}(P(w_{i}))) -\frac{1}{2}(x^{T}\Sigma^{-1}x + d\text{ln}(2\pi)) + \text{ln}\vert \Sigma \vert) $$
 
 <br>
 
