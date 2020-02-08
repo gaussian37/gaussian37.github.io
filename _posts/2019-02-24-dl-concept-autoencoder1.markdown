@@ -10,10 +10,6 @@ tags: [deep learning, autoencoder] # add tag
 + 이 글은 오토인코더의 모든것 강의를 보고 요약한 글입니다.
 
 <br>
-<div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/o_peo6U7IRM" frameborder="0" allowfullscreen="true" width="800px" height="800px"> </iframe>
-</div>
-<br>
 
 <center><img src="../assets/img/dl/concept/autoencoder1/1-1.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
