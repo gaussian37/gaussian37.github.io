@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Q6) 표본분산에서 왜 n-1로 나누어 줄까?
+title: 표본분산에서 n-1로 나누어 주는 이유
 date: 2018-12-30 00:00:00
-img: interview/datascience/likelihood/ds_question.jpg
-categories: [ml-question] 
+img: math/pb/probability.jpg
+categories: [math-pb] 
 tags: [interview, datascience, sample covariance, n-1] # add tag
 ---
 
@@ -26,7 +26,11 @@ tags: [interview, datascience, sample covariance, n-1] # add tag
 
 입니다. 3번을 4번보다 먼저 보는 이유는 우리의 목적이 `표본분산`에 있기 때문입니다.
 
+<br>
+
 ## 1. 평균과 분산
+
+<br>
 
 + 평균은 $$ E(X) = m $$ 이고 분산은 $$ V(X) = E(X-m)^{2} $$ 입니다.
 + 그렇다면 분산은 왜 변량에서 `평균`을 뺀 값을 제곱할까요? 
@@ -44,6 +48,8 @@ tags: [interview, datascience, sample covariance, n-1] # add tag
         
 ## 2. 모평균과 모분산
 
+<br>
+
 + 모평균 : m
 + 모분산 : $$ \sigma^{2} $$
 + 모평균과 모분산은 정해진 `상수`이고, 중요한 것은 `모른다` 입니다. 현실적으로 알 수 없는 값입니다.
@@ -53,6 +59,8 @@ tags: [interview, datascience, sample covariance, n-1] # add tag
 <br><br>
 
 ## 3. 표본평균의 평균과 표본평균의 분산
+
+<br>
 
 + 모집단에서 선택한 표본들을 평균낸것을 `표본평균` $$ \bar{X} $$ 라고 하겠습니다.
     + 그러면 `표본평균` $$ \bar{X} = X_{1}, X_{2}, ..., X_{n} $$ 으로 나타낼 수 있습니다.  
@@ -78,6 +86,8 @@ tags: [interview, datascience, sample covariance, n-1] # add tag
                 
 ## 4. 표본평균과 표분분산
 
+<br>
+
 자 마지막으로 저희가 구하려고 하는 표본분산에 다가가 보겠습니다.
 
 + 표본평균 : $$ \{ X_{1}, X_{2}, ... , X_{n} \} $$ 샘플을 뽑았을 때 이 샘플들 간의 평균입니다.
@@ -92,6 +102,8 @@ tags: [interview, datascience, sample covariance, n-1] # add tag
 <br><br>
 
 ## 5. 표본분산에서 분모가 n-1인 이유
+
+<br>
 
 + 일단 분모가 n-1이 되야 하는것에 대한 배경이 있습니다. 먼저 분모는 n인 채로 다음 두 방법으로 분산을 구해보겠습니다.
     + 표본평균 사용 : $$ \frac{(X_{1} - \bar{X})^{2} + (X_{2} - \bar{X})^{2} + ... + (X_{n} - \bar{X})^{2}}{n} $$ 

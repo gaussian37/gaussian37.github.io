@@ -229,9 +229,31 @@ $$ = (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T}\Biggl(x - \Biggl( \frac{1}{2}(\mu_{i} 
 - 지금까지 한것을 정리하면 **클래스의 공분산이 같은 가우시안 분포에서는 decision boundary로 linear classifier**를 얻었습니다.
 - 이런 과정을 통하여 linear classifier를 만드는 방법을 `LDA(Linear Discriminant Analysis)` 라고 합니다.
 
+<br>
+
 ## **LDA 예제**
+
+<br>
+
+- 1번 클래스($$ w_{1} $$)와 2번 클래스($$ w_{2} $$)가 있고 현재 각각 4개씩의 샘플을 가지고 있다고 가정해 보곘습니다.
+
+<br>
+
+$$ w_{1} = \{ (1, 2)^{T}, (3, 1)^{T}, (5, 2)^{T}, (3, 3)^{T} \} $$
+
+$$ w_{2} = \{ (6, 6)^{T}, (8, 5)^{T}, (10, 6)^{T}, (8, 7)^{T} \} $$
+
+<br>
+
+- 그러면 위 데이터를 기준으로 
+
 ## **Quadratic Discriminant Analysis**
+
+<br>
+
 ## **QDA 예제**
+
+<br>
 
 
 
