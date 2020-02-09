@@ -245,7 +245,24 @@ $$ w_{2} = \{ (6, 6)^{T}, (8, 5)^{T}, (10, 6)^{T}, (8, 7)^{T} \} $$
 
 <br>
 
-- 그러면 위 데이터를 기준으로 
+- 그러면 위 데이터를 기준으로 평균과 공분산을 구해보도록 하겠습니다.
+- 먼저 평균입니다.
+
+<br>
+
+$$ 
+
+\mu_{1} = \frac{1}{4} \Biggl( \begin{pmatrix} 1 \\ 2 \end{pmatrix} + \begin{pmatrix} 3 \\ 1 \end{pmatrix} + \begin{pmatrix} 5 \\ 2 \end{pmatrix} + \begin{pmatrix} 3 \\ 3 \end{pmatrix} \Biggr) = \begin{pmatrix} 3 \\ 2 \end{pmatrix}
+
+$$
+
+$$ 
+
+\mu_{2} = \frac{1}{4} \Biggl( \begin{pmatrix} 6 \\ 6 \end{pmatrix} + \begin{pmatrix} 8 \\ 5 \end{pmatrix} + \begin{pmatrix} 10 \\ 6 \end{pmatrix} + \begin{pmatrix} 8 \\ 7 \end{pmatrix} \Biggr) = \begin{pmatrix} 8 \\ 6 \end{pmatrix}
+
+$$
+
+
 
 ## **Quadratic Discriminant Analysis**
 
