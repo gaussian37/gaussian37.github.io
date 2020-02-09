@@ -218,7 +218,7 @@ $$ = (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T}\Biggl(x - \Biggl( \frac{1}{2}(\mu_{i} 
 
 - 만약 공분산의 형태가 $$ \sigma^{2}I $$ (I는 Identity)라면 위 그림과 같이 타원이 아닌 원의 형태를 띕니다.
 - decision boundary를 구하려면 위 식에서 $$ x_{0} = 0 $$을 만족하여 $$ g_{ij}(x) = 0 $$이 되는 경계입니다.
-- 따럿 $$ g_{ij}(x) $$가 1차식임을 이용하면 decision boundary는 $$ x_{0} = 0 $$이고 $$ w = \Sigma^{-1}(\mu_{i} - \mu_{j}) $$와 수직인 직선을 찾으면 됩니다. 그 직선이 decision boundary가 되고 그 지점에서는 $$ g_{ij}(x) = 0 $$을 만족합니다.
+- 따라서 $$ g_{ij}(x) $$가 1차식임을 이용하면 decision boundary는 $$ x_{0} $$를 지나면서 $$ w = \Sigma^{-1}(\mu_{i} - \mu_{j}) $$와 직교하는 직선을 찾으면 됩니다. 그 직선이 decision boundary가 되고 그 지점에서는 $$ g_{ij}(x) = 0 $$을 만족합니다.
 - 만약 비교하는 두 클래스의 사전 확률이 같으면 $$ \text{ln}(P(w_{i}) / P(w_{j}) ) = 0 $$이 됩니다.
 - 즉, $$ x_{0} = 1/2(\mu_{i} + \mu_{j}) $$인 지점이 decision boundary가 되는데 이 지점은 $$ \mu_{i} $$와 $$ \mu_{j} $$의 중점입니다.
 - 추가적으로 식을 살펴보면 $$ P(w_{i}) > P(w_{j}) $$이면 decision boundary는 $$ \mu_{j} $$에 가까워집니다.
@@ -306,6 +306,26 @@ $$ \Sigma = \begin{pmatrix} 8/3 & 0 \\ 0 & 2/3 \end{pmatrix} $$
 <br>
 
 - 공분산이 $$ \sigma^{2} I $$ 형태가 아니므로 기하학적으로는 타원형의 분포를 띄는 가우시안 분포에 해당합니다.
+- 그러면 앞에서 다룬 $$ g_{ij}(x) $$와 $$ \mu_{1}, \mu_{2}, \Sigma_{1}, \Sigma_{2} $$를 이용해서 식을 전개해 보겠습니다.
+
+<br>
+
+식 전개 해야함..
+
+<br>
+
+- 그러면 $$ g_{12}(x) = 0 $$으로 두고 아직 정해지지 않은 사전 확률인 $$ P(w_{1}), P(w_{2}) $$을 바꾸어가면서 사전 확률에 따라 decision boundary가 어떻게 바뀌는 지 살펴보겠습니다.
+- 1) $$ P(w_{1}) = 0.5, P(w_{2}) = 0.5 $$인 경우 : $$ 5x_{1} + 16x_{2} - 91.5 = 0 $$
+- 2) $$ P(w_{1}) = 0.8, P(w_{2}) = 0.2 $$인 경우 : $$ 5x_{1} + 16x_{2} - 95.157 = 0 $$
+- 3) $$ P(w_{1}) = 0.2, P(w_{2}) = 0.8 $$인 경우 : $$ 5x_{1} + 16x_{2} - 87.803 = 0 $$
+
+<br>
+<center><img src="../assets/img/ml/concept/gaussian_discriminant/5.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 기하학적으로 decision boundary는 두 평균 벡터를 이은 벡터 $$ \mu_{1} - \mu_{2} $$를 선형 변환한 $$ \Sigma^{-1}(\mu_{1} - \mu_{2}) $$와 직교한 것을 알 수 있습니다.
+
+<br>
 
 ## **Quadratic Discriminant Analysis**
 
