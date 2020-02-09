@@ -262,6 +262,23 @@ $$
 
 $$
 
+<br>
+
+- 그 다음으로 공분산을 구해보도록 하겠습니다.
+- 공분산의 각 원소는 다음 식을 이용하여 구할 수 있습니다.
+
+<br>
+
+$$ \sigma(x, x) = \frac{ \sum_{i=1}^{n}(x_{i} - \mu_{x})^{2} }{n-1} = E[ (X - E(X))(X - E(X)) ] $$
+
+$$ \sigma(x, y) = \frac{ \sum_{i=1}^{n}(x_{i} - \mu_{x})(y_{i} - \mu_{y}) }{n-1} = E[ (X - E(X))(Y - E(Y)) ]$$
+
+$$ \sigma(y, x) = \frac{ \sum_{i=1}^{n}(y_{i} - \mu_{y})(x_{i} - \mu_{x}) }{n-1} = E[ (Y - E(Y))(X - E(X)) ] $$
+
+$$ \sigma(y, y) = \frac{ \sum_{i=1}^{n}(y_{i} - \mu_{y})^{2} }{n-1} = E[ (Y - E(Y))(Y - E(Y)) ] $$
+
+<br>
+
 
 
 ## **Quadratic Discriminant Analysis**
