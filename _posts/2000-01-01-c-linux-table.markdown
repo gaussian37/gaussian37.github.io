@@ -12,6 +12,14 @@ tags: [linux, 리눅스, socket, 소켓, tcp/ip, os, operating system] # add tag
 - [리눅스 기본 명령어 및 사용법](https://gaussian37.github.io/c-linux-basic-command/)
 - [vim 기능 및 세팅 정리](https://gaussian37.github.io/c-linux-vim-setting/)
 
+<br>
+
+## **Linux System Programming**
+
+<br>
+
+- [프로세스와 쓰레드](https://gaussian37.github.io/c-linux-process_and_thread/)
+
 ## **TCP/IP 소켓 프로그래밍**
 
 <br>
