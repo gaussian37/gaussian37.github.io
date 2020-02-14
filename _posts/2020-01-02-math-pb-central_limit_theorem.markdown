@@ -17,7 +17,7 @@ tags: [통계학, 정규분포, 가우시안, 중심 극한 이론] # add tag
 - 이번 글에서는 `중심 극한 이론(Central Limit Theorem)`에 대하여 알아보도록 하겠습니다.
 
 <br>
-<span style="text-align:center"><img src="../assets/img/math/pb/central_limit_theorem/1.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/math/pb/central_limit_theorem/1.png" alt="Drawing" style="width: 600px;"/></center>
 <br> 
 
 - 만약 위 노란색 그래프 처럼 확률 값을 가지는 확률 분포가 있다고 가정하겠습니다.
