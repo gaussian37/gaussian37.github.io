@@ -310,8 +310,7 @@ $$ \Sigma = \begin{pmatrix} 8/3 & 0 \\ 0 & 2/3 \end{pmatrix} $$
 
 <br>
 
-$$ g_{12}(x) = \Biggl(\begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 3 - 8 & 2 - 6 \end{pmatrix} \Biggr)^{T} x  + 
-\Biggl(\text{ln}(P(w_{1})) - \text{ln}(P(w_{2})) - \frac{1}{2}\begin{pmatrix} 3 & 2 \end{pmatrix} \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 3 \\ 2 \end{pmatrix} + \frac{1}{2} }\begin{pmatrix} 8 & 6 \end{pmatrix} \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 8 \\ 6 \end{pmatrix} \Biggr) $$
+$$ g_{12}(x) = \Biggl(\begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 3 - 8 \\ 2 - 6 \end{pmatrix} \Biggr)^{T} x + \Biggl(\text{ln}(P(w_{1})) - \text{ln}(P(w_{2})) - \frac{1}{2}\begin{pmatrix} 3 & 2 \end{pmatrix} \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 3 \\ 2 \end{pmatrix} + \frac{1}{2} \begin{pmatrix} 8 \ 6 \end{pmatrix} \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 8 \\ 6 \end{pmatrix} \Biggr) $$
 
 $$ = \begin{pmatrix} -15/8 & -6 \end{pmatrix} \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} + (\text{ln}P(w_{1}) - \text{ln}P(w_{2}) + 34.3125) $$
 
