@@ -29,7 +29,7 @@ tags: [ccw, counter clockwise] # add tag
 
 <br>
 
-$$ p_{1} \times p_{2}  = \text{det} \begin{pmatrix} x_{1} & x_{2} \\ y_{1} & y_{2} \end{pmatirx} = x_{1}y_{2} - x_{2}y_{1} = -p_{2} \times p_{1} $$
+$$ p_{1} \times p_{2}  = \text{det} \begin{pmatrix} x_{1} & x_{2} \\ y_{1} & y_{2} \end{pmatrix} = x_{1}y_{2} - x_{2}y_{1} = -p_{2} \times p_{1} $$
 
 <br>
 
