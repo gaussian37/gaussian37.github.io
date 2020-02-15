@@ -38,6 +38,25 @@ $$ v_{1} \times v_{2} = (x_{2} - x_{1})(y_{3} - y_{1}) - (x_{3} - x_{1})(y_{2} -
 <br>
 
 ```cpp
+/*
+- input : p1 = (x1, y1), p2 = (x2, y2), p3 = (x3, y2)
+- output : 1 (counter clockwise), 0 (collinear), -1 (clockwise)
+※ vector v1 = (p2 - p1), vector v2 = (p3 - p1) 
+*/
+int ccw(int x1, int y1, int x2, int y2, int x3, int y3){
+    int cross_product = (x2 - x1)*(y3 - y1) - (x3 - x1)*(y2 - y1);
 
+    if (cross_product > 0){
+        return 1;
+    }
+    else if (cross_product < 0){
+        return -1;
+    }
+    else{
+        return 0;
+    }
+}
 ```
 
+- 위 코드에서 세 점 $$ p_{1}, p_{2}, p_{3} $$의 좌표값을 입력으로 넣으면 출력으로 1, 0, -1을 주는 `ccw` 함수 코드입니다.
+- 결과값은 $$ p_{1}, p_{2} $$가 이루는 벡터를 기준으로 $$ p_{1}, p_{3} $$가 이루는 벡터의 위치를 나타내고 1은 반시계 방향(counter clockwise), 0은 겹치는 방향 (collinear), -1은 시계 방향(clockwise)이 됩니다.
