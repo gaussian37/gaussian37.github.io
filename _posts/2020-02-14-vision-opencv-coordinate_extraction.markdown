@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 마우스 클릭으로 좌표값 추출하기  
+title: 이미지에서 마우스 클릭 좌표값 추출하기  
 date: 2020-02-14 00:00:00
 img: vision/opencv/opencv-python.png
 categories: [vision-opencv] 
