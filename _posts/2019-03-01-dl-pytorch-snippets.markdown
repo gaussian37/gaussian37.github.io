@@ -15,7 +15,10 @@ tags: [pytorch, snippets] # add tag
 <br>
 
 ## **목차**
-    - ### GPU/CPU Device 세팅 코드
+
+<br>
+    
+- ### GPU/CPU Device 세팅 코드
 
 <br>
 
@@ -24,7 +27,7 @@ tags: [pytorch, snippets] # add tag
 <br>
 
 ```python
-device = torch.device("cuda" if torch.cuda.torch.cuda.is_available() else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 ```
 
 <br>
