@@ -125,4 +125,9 @@ if __name__ == "__main__":
 
 <br>
 
+- 위 코드를 실행하면 매 이미지마다 최대 `num_points` 갯수 만큼 점을 클릭할 수 있고 클릭한 점의 좌표를 텍스트로 저장할 수 있습니다.
+- 만약 `num_points` 갯수 이상의 점을 클릭하게 되면 가장 먼저 입력한 점은 무시 됩니다.
+
+<br>
+
 [opencv 관련 글 목록](https://gaussian37.github.io/vision-opencv-table/)
