@@ -9,9 +9,11 @@ tags: [Linear algebra, 선형대수학, 벡터, 외적] # add tag
 
 <br>
 
-출처 : 칸 아카데미 선형대수학 (https://ko.khanacademy.org/math/linear-algebra/vectors-and-spaces)
+[선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-table/)
 
-+ [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-Linear-Algebra-Table/)
+<br>
+
+출처 : 칸 아카데미 선형대수학 (https://ko.khanacademy.org/math/linear-algebra/vectors-and-spaces)
 
 이번 글에서는 `외적(cross product)`와 sin 값의 관계에 대하여 알아보도록 하겠습니다.
 
@@ -41,7 +43,21 @@ tags: [Linear algebra, 선형대수학, 벡터, 외적] # add tag
 <center><img src="../assets/img/math/la/cross product and sin of angle/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-+ 최종적으로 $$ \Vert \vec{a} \times \vec{b} \Vert^{2} + (\Vert \vec{a} \Vert^{2} \ \Vert \vec{b} \Vert^{2} cos\theta)^{2} $$ 을 정리해 보면
-    + 다음과 같습니다. $$ \Vert \vec{a} \times \vec{b} \Vert^{2} = \Vert \vec{a} \Vert^{2} \ \Vert \vec{b} \Vert^{2}(1 - cos^{2}\theta $$ 가 됩니다.
++ 최종적으로 $$ \Vert \vec{a} \times \vec{b} \Vert^{2} + (\Vert \vec{a} \Vert^{2} \ \Vert \vec{b} \Vert^{2} cos\theta)^{2} $$ 을 정리해 보면 다음과 같습니다. 
+    + 좌/우변을 정리하면 $$ \Vert \vec{a} \times \vec{b} \Vert^{2} = \Vert \vec{a} \Vert^{2} \ \Vert \vec{b} \Vert^{2}(1 - cos^{2}\theta) $$ 가 됩니다.
     + 그리고 $$ sin^{2}\theta  = 1 - cos^{2}\theta $$ 를 이용하면
     + 처음에 정의한 식인 $$ \Vert \vec{a} \times \vec{b} \Vert = \Vert \vec{a} \Vert \ \Vert \vec{b} \Vert sin \theta $$ 를 얻을 수 있습니다.
+
+<br>
+
+- 앞에서 전개한 식을 다시 살펴 보면 $$ \Vert \vec{a} \times \vec{b} \Vert $$를 전개하였고 식을 정리한 결과 다음과 같은 외적의 관계식을 구할 수 있었습니다.
+
+<br>
+
+$$ \Vert \vec{a} \times \vec{b} \Vert = \Vert \vec{a} \Vert \Vert \vec{b} \Vert \text{sin}\theta $$
+
+<br>
+
+[선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-table/)
+
+<br>
