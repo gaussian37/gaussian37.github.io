@@ -31,8 +31,8 @@ tags: [Optimal State Estimation, 최정 상태 이론, 상태 방정식] # add t
 - 먼저 각 식에 들어가 있는 모든 성분의 의미를 분석해 보면 위와 같습니다.
 - 여기서 $$ k $$는 몇 번째 step인 지에 해당합니다. 
 - 　$$ x(k) $$는 k번째 step의 물체의 위치 상태에 해당합니다.
-- 　$$ \dot{x(k)} $$는 k번째의 step의 물체의 속도에 해당합니다.
-- 　$$ \ddot{x(k)} $$는 k번째의 step의 물체의 가속도에 해당합니다.
+- 　$$ \dot{x}(k) $$는 k번째의 step의 물체의 속도에 해당합니다.
+- 　$$ \ddot{x}(k) $$는 k번째의 step의 물체의 가속도에 해당합니다.
 - 　$$ T $$는 각 step 간 시간 간격을 뜻합니다.
 
 <br>
@@ -52,7 +52,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 상태 방정식] # add t
 - 위 물체가 자동차라고 하였을 때, 가속도를 주기 위해 엑셀을 밟아야 하는데 정확히 $$ u(k) $$ 만큼의 가속도를 줄 정도로 엑셀을 밟는 것은 사실 매우 어렵습니다. 따라서 이런 `contorl input`에는 `noise`가 발생하는 데 이 노이즈를 고려해 주어야 하기 때문에 $$ w(k) $$를 같이 고려해 주어야 합니다.
 
 <br>
-<center><img src="../assets/img/autodrive/ose/state_equation/3.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/autodrive/ose/state_equation/3.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 다음은 속도에 대한 식을 다루어 보겠습니다. 위 식의 각 항의 의미는 앞에서 다 다루었기 때문에 생략하겠습니다.
@@ -60,13 +60,13 @@ tags: [Optimal State Estimation, 최정 상태 이론, 상태 방정식] # add t
 - 물론 앞에서 다루었듯이 contrl input에 대한 노이즈 까지 같이 고려하였습니다.
 
 <br>
-<center><img src="../assets/img/autodrive/ose/state_equation/4.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/autodrive/ose/state_equation/4.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 마지막으로 가속도에 대한 식이 위와 같습니다.
 
 <br>
-<center><img src="../assets/img/autodrive/ose/state_equation/5.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/autodrive/ose/state_equation/5.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 식에서 $$ z(k) $$는 위치를 가리키는 센서 데이터를 나타냅니다.
