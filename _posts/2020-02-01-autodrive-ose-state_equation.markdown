@@ -56,7 +56,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 상태 방정식] # add t
 <br>
 
 - 다음은 속도에 대한 식을 다루어 보겠습니다. 위 식의 각 항의 의미는 앞에서 다 다루었기 때문에 생략하겠습니다.
-- **속도 = 현재 속도 + 가속도 * 시간**의 물리 법칙을 따르기 떄문에 위 식과 같이 적을 수 있습니다. 
+- **속도 = 현재 속도 + 가속도 * 시간**의 물리 법칙을 따르기 때문에 위 식과 같이 적을 수 있습니다. 
 - 물론 앞에서 다루었듯이 contrl input에 대한 노이즈 까지 같이 고려하였습니다.
 
 <br>
@@ -66,7 +66,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 상태 방정식] # add t
 - 마지막으로 가속도에 대한 식이 위와 같습니다.
 
 <br>
-<center><img src="../assets/img/autodrive/ose/state_equation/5.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/state_equation/5.png" alt="Drawing" style="width: 200px;"/></center>
 <br>
 
 - 위 식에서 $$ z(k) $$는 위치를 가리키는 센서 데이터를 나타냅니다.
@@ -79,10 +79,11 @@ tags: [Optimal State Estimation, 최정 상태 이론, 상태 방정식] # add t
 - 그리고 $$ B $$ 행렬을 `control matrix`라고 합니다. control input을 어떻게 줄 지에 대한 정의를 내려주기 때문입니다.
 
 <br>
-<center><img src="../assets/img/autodrive/ose/state_equation/7.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/autodrive/ose/state_equation/7.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 위 식의 $$ C $$ 행렬을 `transition matrix` 라고 합니다. 이 행렬은 **상태 추정식에 존재하는 차원 3개(위치, 속도, 가속도)를 센서 데이터의 차원(위치)과 맞추어** 줍니다. 일반적으로 모델링한 식의 차원의 수가 더 많고 센서 데이터의 차원의 수가 더 작으므로 높은 차원을 낮은 차원으로 매핑 하는게 쉬우므로 모델링 식의 차원을 센서 데이터의 차원으로 맞춰줍니다.
+- 위 식의 $$ C $$ 행렬을 `transition matrix` 라고 합니다. 이 행렬은 **상태 추정식에 존재하는 차원 3개(위치, 속도, 가속도)를 센서 데이터의 1개 차원(위치)과 맞추어** 줍니다. 일반적으로 모델링한 식의 차원의 수가 더 많고 센서 데이터의 차원의 수가 더 작으므로 높은 차원을 낮은 차원으로 매핑 하는게 쉬우므로 모델링 식의 차원을 센서 데이터의 차원으로 맞춰줍니다.
+- 앞에서 세운 식을 간략하게 표시하면 다음과 같습니다. 이 식이 상태방정식의 최종입니다.
 
 
 <br>
