@@ -38,7 +38,7 @@ tags: [Linear algebra, 선형대수학, 벡터, 외적] # add tag
     + 앞의 슬라이드의 `외적을 제곱한 결과`와 현재 슬라이드의 `내적을 제곱한 결과`를 비교해 보면 마지막 term이 `서로 상쇄` 될 수 있음을 보입니다. 즉 마지막 term 합은 0입니다.
 
 <br>
-<center><img src="../assets/img/math/la/cross product and sin of angle/3.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/math/la/cross product and sin of angle/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 + 최종적으로 $$ \Vert \vec{a} \times \vec{b} \Vert^{2} + (\Vert \vec{a} \Vert \ \Vert \vec{b} \Vert^{2} cos\theta)^{2} $$ 을 정리해 보면
