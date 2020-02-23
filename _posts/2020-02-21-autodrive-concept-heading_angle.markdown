@@ -72,7 +72,7 @@ tags: [헤딩 각, heading angle] # add tag
 
 <br>
 
-$$ \theta = \text{sin}^{-1} \frac{ \vert v_{1} \times \v_{2} \vert }{\vert v_{1} \vert \vert v_{2} \vert} $$
+$$ \theta = \text{sin}^{-1} \frac{ \vert v_{1} \times v_{2} \vert }{\vert v_{1} \vert \vert v_{2} \vert} $$
 
 <br>
 
