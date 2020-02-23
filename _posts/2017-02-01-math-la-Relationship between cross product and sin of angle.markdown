@@ -41,7 +41,7 @@ tags: [Linear algebra, 선형대수학, 벡터, 외적] # add tag
 <center><img src="../assets/img/math/la/cross product and sin of angle/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-+ 최종적으로 $$ \Vert \vec{a} \times \vec{b} \Vert^{2} + (\Vert \vec{a} \Vert \ \Vert \vec{b} \Vert^{2} cos\theta)^{2} $$ 을 정리해 보면
++ 최종적으로 $$ \Vert \vec{a} \times \vec{b} \Vert^{2} + (\Vert \vec{a} \Vert^{2} \ \Vert \vec{b} \Vert^{2} cos\theta)^{2} $$ 을 정리해 보면
     + 다음과 같습니다. $$ \Vert \vec{a} \times \vec{b} \Vert^{2} = \Vert \vec{a} \Vert^{2} \ \Vert \vec{b} \Vert^{2}(1 - cos^{2}\theta $$ 가 됩니다.
     + 그리고 $$ sin^{2}\theta  = 1 - cos^{2}\theta $$ 를 이용하면
     + 처음에 정의한 식인 $$ \Vert \vec{a} \times \vec{b} \Vert = \Vert \vec{a} \Vert \ \Vert \vec{b} \Vert sin \theta $$ 를 얻을 수 있습니다.
