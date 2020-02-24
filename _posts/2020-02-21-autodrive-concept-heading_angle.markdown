@@ -99,40 +99,7 @@ $$ \theta = \text{sin}^{-1} \Bigl( \frac{ x_{1}y_{2} - y_{1}x_{2} }{ \sqrt{x_{1}
 
 <br>
 
-```cpp
-#include <stdio.h>
-#include <math.h>
-
-typedef struct Vector{
-    double x;
-    double y;
-}Vector;
-
-Vector VectorSubtractVector(Vector dest, Vector start){
-    Vector ret;
-    ret.x = dest.x - start.x;
-    ret.y = dest.y - start.y;
-    return ret;
-}
-
-double GetHeadingAngle(Vector v1, Vector v2){
-    double ret;
-    ret = asin((v1.x*v2.y-v1.y*v2.x)/(sqrt(v1.x*v1.x + v1.y*v1.y)*sqrt(v2.x*v2.x + v2.y*v2.y)))*180/M_PI;
-    return ret;
-}
-
-int main(){
-
-    Vector v1, v2, v3;
-
-    v1.x = 0;   v1.y = 1;
-    v2.x = 1;   v2.y = 0;
-    v3.x = -1;  v3.y = 3;
-
-    // v1 벡터를 기준으로 v1과 (v3 - v2) 사이의 헤딩각을 구한다.
-    printf("%lf\n", GetHeadingAngle(v1, VectorSubtractVector(v3, v2)));
-}
-```
+<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/headingangleex1?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 
 <br>
 
@@ -191,57 +158,7 @@ $$ \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} $$
 - 그러면 위 행렬을 벡터 $$ p_{r} - p_{l} $$에 곱하면 회전한 벡터를 구할 수 있고 회전한 벡터를 이용하여 외적의 성질을 이용하면 헤딩각을 구할 수 있습니다.
 
 <br>
-
-<iframe height="400px" width="100%" src="https://repl.it/@gaussian37/LostBurdensomeRobots?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
-
-<br>
-
-<br>
-
-```cpp
-#include <stdio.h>
-#include <math.h>
-
-typedef struct Vector{
-    double x;
-    double y;
-}Vector;
-
-Vector VectorSubtractVector(Vector dest, Vector start){
-    Vector ret;
-    ret.x = dest.x - start.x;
-    ret.y = dest.y - start.y;
-    return ret;
-}
-
-double GetHeadingAngle(Vector v1, Vector v2){
-    double ret;
-    ret = asin((v1.x*v2.y-v1.y*v2.x)/(sqrt(v1.x*v1.x + v1.y*v1.y)*sqrt(v2.x*v2.x + v2.y*v2.y)))*180/M_PI;
-    return ret;
-}
-
-Vector Rorate90(Vector v, int ccw){
-    Vector ret;
-
-    if(ccw == 1){
-        ret.x = -v.y;
-        ret.y =  v.x;
-    }
-    else{
-        ret.x =  v.y;
-        ret.y = -v.x;
-    }
-    return ret;
-}
-
-int main(){
-    Vector v1, v2, v3;
-    v1.x = 0;     v1.y = 1;
-    v2.x = -1;    v2.y = -2;
-    v3.x = -2;    v3.y = -1;
-    printf("%lf\n", GetHeadingAngle(v1, Rorate90(VectorSubtractVector(v3, v2), 1)));
-}
-```
+<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/headingangleex2?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 
 <br>
 
