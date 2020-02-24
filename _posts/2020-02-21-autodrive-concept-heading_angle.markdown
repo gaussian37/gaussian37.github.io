@@ -99,7 +99,7 @@ $$ \theta = \text{sin}^{-1} \Bigl( \frac{ x_{1}y_{2} - y_{1}x_{2} }{ \sqrt{x_{1}
 
 <br>
 
-<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/headingangleex1?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+<iframe height="1000px" width="100%" src="https://repl.it/@gaussian37/headingangleex1?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 
 <br>
 
@@ -158,7 +158,7 @@ $$ \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} $$
 - 그러면 위 행렬을 벡터 $$ p_{r} - p_{l} $$에 곱하면 회전한 벡터를 구할 수 있고 회전한 벡터를 이용하여 외적의 성질을 이용하면 헤딩각을 구할 수 있습니다.
 
 <br>
-<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/headingangleex2?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+<iframe height="1000px" width="100%" src="https://repl.it/@gaussian37/headingangleex2?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 
 <br>
 
