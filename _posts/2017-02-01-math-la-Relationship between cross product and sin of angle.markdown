@@ -61,5 +61,3 @@ $$ \Vert \vec{a} \times \vec{b} \Vert = \Vert \vec{a} \Vert \Vert \vec{b} \Vert 
 [선형대수학 전체 글 목록](https://gaussian37.github.io/math-la-table/)
 
 <br>
-
-<iframe height="400px" width="100%" src="https://repl.it/@gaussian37/LostBurdensomeRobots?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
