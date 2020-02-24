@@ -82,7 +82,7 @@ $$ \theta = \text{sin}^{-1} \frac{ \vert v_{1} \times v_{2} \vert }{\vert v_{1} 
 
 <br>
 
-$$ \theta = \text{sin}^{-1} \Bigl( \frac{ x_{1}y_{2} - y_{1}x_{2} }{ \sqrt{x_{1}^{2} + y_{1}^{2}} + \sqrt{x_{2}^{2} + y_{2}^{2}} }  \Bigr) $$
+$$ \theta = \text{sin}^{-1} \Bigl( \frac{ x_{1}y_{2} - y_{1}x_{2} }{ \sqrt{x_{1}^{2} + y_{1}^{2}} \sqrt{x_{2}^{2} + y_{2}^{2}} }  \Bigr) $$
 
 <br>
 
@@ -96,6 +96,43 @@ $$ \theta = \text{sin}^{-1} \Bigl( \frac{ x_{1}y_{2} - y_{1}x_{2} }{ \sqrt{x_{1}
 - 여기서 기준이 되는 $$ v_{1} = (0, 1) $$의 벡터로 잡을 수 있습니다. 현재 구하려고 하는 값이 각도이니 벡터의 크기는 계산이 편하게 잡겠습니다.
 - 그러면 빨간색 차의 방향은 $$ p_{1} $$을 시작점 $$ p_{2} $$를 끝점으로 하는 벡터를 가지고 이 벡터는 $$ v_{2} = p_{2} - p_{1}  = (-2, 3) $$ 이 됩니다.
 - 위에서 정한 $$ v_{1}, v_{2} $$를 이용하여 각도를 구하면 $$ \theta = \text{sin}^{-1}(4 / \sqrt{13}) \approx 0.588 $$이고 약 33.69도 가 됩니다.
+
+<br>
+
+```cpp
+#include <stdio.h>
+#include <math.h>
+
+typedef struct Vector{
+    double x;
+    double y;
+}Vector;
+
+Vector VectorSubtractVector(Vector dest, Vector start){
+    Vector ret;
+    ret.x = dest.x - start.x;
+    ret.y = dest.y - start.y;
+    return ret;
+}
+
+double GetHeadingAngle(Vector v1, Vector v2){
+    double ret;
+    ret = asin((v1.x*v2.y-v1.y*v2.x)/(sqrt(v1.x*v1.x + v1.y*v1.y)*sqrt(v2.x*v2.x + v2.y*v2.y)))*180/M_PI;
+    return ret;
+}
+
+int main(){
+
+    Vector v1, v2, v3;
+
+    v1.x = 0;   v1.y = 1;
+    v2.x = 1;   v2.y = 0;
+    v3.x = -1;  v3.y = 3;
+
+    // v1 벡터를 기준으로 v1과 (v3 - v2) 사이의 헤딩각을 구한다.
+    printf("%lf\n", GetHeadingAngle(v1, VectorSubtractVector(v3, v2)));
+}
+```
 
 <br>
 
@@ -148,6 +185,57 @@ $$ \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} $$
 <br>
 
 $$ \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} $$
+
+<br>
+
+- 그러면 위 행렬을 벡터 $$ p_{r} - p_{l} $$에 곱하면 회전한 벡터를 구할 수 있고 회전한 벡터를 이용하여 외적의 성질을 이용하면 헤딩각을 구할 수 있습니다.
+
+<br>
+
+```cpp
+#include <stdio.h>
+#include <math.h>
+
+typedef struct Vector{
+    double x;
+    double y;
+}Vector;
+
+Vector VectorSubtractVector(Vector dest, Vector start){
+    Vector ret;
+    ret.x = dest.x - start.x;
+    ret.y = dest.y - start.y;
+    return ret;
+}
+
+double GetHeadingAngle(Vector v1, Vector v2){
+    double ret;
+    ret = asin((v1.x*v2.y-v1.y*v2.x)/(sqrt(v1.x*v1.x + v1.y*v1.y)*sqrt(v2.x*v2.x + v2.y*v2.y)))*180/M_PI;
+    return ret;
+}
+
+Vector Rorate90(Vector v, int ccw){
+    Vector ret;
+
+    if(ccw == 1){
+        ret.x = -v.y;
+        ret.y =  v.x;
+    }
+    else{
+        ret.x =  v.y;
+        ret.y = -v.x;
+    }
+    return ret;
+}
+
+int main(){
+    Vector v1, v2, v3;
+    v1.x = 0;     v1.y = 1;
+    v2.x = -1;    v2.y = -2;
+    v3.x = -2;    v3.y = -1;
+    printf("%lf\n", GetHeadingAngle(v1, Rorate90(VectorSubtractVector(v3, v2), 1)));
+}
+```
 
 <br>
 
