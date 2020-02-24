@@ -120,6 +120,34 @@ $$ \theta = \text{sin}^{-1} \Bigl( \frac{ x_{1}y_{2} - y_{1}x_{2} }{ \sqrt{x_{1}
 
 - 위 그림과 같이 차의 엣지를 이용하여 양쪽 끝 두 점을 얻었다고 가정하고 그 두점을 이용하여 헤딩각을 얻는다고 가정해 보겠습니다.
 
+<br>
+<center><img src="../assets/img/autodrive/concept/heading_angle/7.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 앞에서 다룬 것과 같이 방향이 없으면 빨간색 차의 방향은 두가지로 정할 수 있습니다.
+- 위 그림과 같이 임의로 파란색 점을 있는 방향을 정해 보도록 하겠습니다. (왼쪽 바퀴 → 오른쪽 바퀴)
+- 왼쪽 바퀴의 점을 $$ p_{l} $$ 라고 하고 오른쪽 바퀴의 점을 $$ p_{r} $$ 라고 하면 위 그림의 파란색 벡터는 $$ p_{r} - p_{l} $$이 됩니다.
+- 이 벡터를 90도 또는 -90도로 회전해 보도록 하겠습니다. 벡터의 회전 변환은 직교 행렬을 통하여 쉽게 변환할 수 있습니다.
+
+<br>
+
+$$ \begin{pmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{pmatrix} $$
+
+<br>
+
+- 여기서 반시계 방향으로 90도 회전은 (+90도) $$ \theta $$에 90을 대입한 것과 같습니다.
+
+<br>
+
+$$ \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} $$
+
+<br>
+
+- 반면 시계 방향으로 90도 회전은 (-90도) $$ \theta $$에 -90을 대입한 것과 같습니다.
+
+<br>
+
+$$ \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} $$
 
 <br>
 
