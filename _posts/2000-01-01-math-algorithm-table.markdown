@@ -30,5 +30,6 @@ tags: [algorithm, 알고리즘] # add tag
 - 이분법
 - 트리
 - 기하
-    - CCW(counter clockwise)
+    - [CCW(counter clockwise)](https://gaussian37.github.io/math-algorithm-ccw/)
     - [n차원 다각형의 넓이 계산](https://gaussian37.github.io/math-algorithm-polygon_area/)
+    - [선분의 교차](https://gaussian37.github.io/math-algorithm-line_intersection/)
