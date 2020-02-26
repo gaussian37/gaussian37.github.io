@@ -7,8 +7,8 @@ categories: [math-algorithm]
 tags: [ccw, counter clockwise] # add tag
 ---
 
-- 어떤 두 벡터의 방향 관계성을 보기 위해서는 어떤 벡터 $$ v_{1} $$이 또 다른 벡터 $$ v_{2} $$에 대하여 **시계 방향(clockwise)에 존재하는지, 반시계 방향(counter clockwise)에 존재하는 지** 를 통하여 알 수 있습니다.
-- 또는 세 점의 방향 관계성이라고 생각할 수도 있는 것이 세 점 $$ p_{1}, p_{2}, p_{3} $$이 있다고 하였을 때, $$ p_{1}, p_{2} $$를 이은 벡터와 $$ p_{2}, p_{3} $$를 이은 벡터라고 생각할 수도 있습니다.
+- 어떤 두 벡터의 방향 관계성을 보기 위해서는 어떤 벡터 $$ v_{1} $$에서 또 다른 벡터 $$ v_{2} $$로 회전 시 **시계 방향(clockwise)으로 회전 하는 지 , 반시계 방향(counter clockwise)으로 회전 하는 지** 를 통하여 알 수 있습니다.
+- 또는 세 점의 방향 관계성이라고 생각할 수도 있는 것이 세 점 $$ p_{1}, p_{2}, p_{3} $$이 있다고 하였을 때, $$v_{1} $$이 $$ p_{1}, p_{2} $$를 이은 벡터이고 $$ v_{2} $$가 $$ p_{2}, p_{3} $$를 이은 벡터라고 생각하면 세 점이 어떤 방향으로 위치해 있는 지 알 수 있습니다.
 
 <br>
 <center><img src="../assets/img/math/algorithm/ccw/0.png" alt="Drawing" style="width: 800px;"/></center>
@@ -41,28 +41,5 @@ $$ v_{1} \times v_{2} = (x_{2} - x_{1})(y_{3} - y_{1}) - (x_{3} - x_{1})(y_{2} -
 <iframe height="800px" width="100%" src="https://repl.it/@gaussian37/ccw?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 <br>
 
-```cpp
-/*
-- input : p1 = (x1, y1), p2 = (x2, y2), p3 = (x3, y2)
-- output : 1 (counter clockwise), 0 (collinear), -1 (clockwise)
-※ vector v1 = (p2 - p1), vector v2 = (p3 - p1) 
-*/
-int ccw(int x1, int y1, int x2, int y2, int x3, int y3){
-    int cross_product = (x2 - x1)*(y3 - y1) - (x3 - x1)*(y2 - y1);
-
-    if (cross_product > 0){
-        return 1;
-    }
-    else if (cross_product < 0){
-        return -1;
-    }
-    else{
-        return 0;
-    }
-}
-```
-
-<br>
-
-- 위 코드에서 세 점 $$ p_{1}, p_{2}, p_{3} $$의 좌표값을 입력으로 넣으면 출력으로 1, 0, -1을 주는 `ccw` 함수 코드입니다.
+- 위 코드의 `ccw` 함수는 세 점 $$ p_{1}, p_{2}, p_{3} $$의 좌표값을 입력으로 넣으면 출력으로 1, 0, -1을 반환해 줍니다.
 - 결과값은 $$ p_{1}, p_{2} $$가 이루는 벡터를 기준으로 $$ p_{1}, p_{3} $$가 이루는 벡터의 위치를 나타내고 1은 반시계 방향(counter clockwise), 0은 겹치는 방향 (collinear), -1은 시계 방향(clockwise)이 됩니다.
