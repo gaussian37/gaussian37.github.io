@@ -30,13 +30,19 @@ tags: [algorithm, 선분의 교차] # add tag
 - 이 때, 확인해 볼 것은 $$ v_{1}, v_{2} $$의 방향과 $$ v_{1}, v_{3} $$의 방향 입니다.
 
 <br>
-<center><img src="../assets/img/math/algorithm/line_intersection/0.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/algorithm/line_intersection/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 그림에서 $$ v_{1} $$은 $$ v_{2} $$의 시계 방향에 있으므로 ccw의 결과는 음수가 나옵니다.
 - 반면 $$ v_{1} $$은 $$ v_{3} $$의 반시계 방향에 있으므로 ccw의 결과는 양수가 나옵니다.
 - 위와 같은 케이스의 선분의 교차에서는 위 방법으로 벡터 쌍들의 ccw를 구하고 그 방향이 다르면 선분이 교차한다고 말할 수 있습니다.
-- 위 케이스는 가장 일반적인 경우이고 이제 한계 상황들에 대하여 다루어 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/math/algorithm/line_intersection/2.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+
+- 하지만 만약 위와 같은 경우에는 앞에서 다룬 방법과 벡터의 방향은 같지만 선분이 교차하지 않습니다.
 
 
 

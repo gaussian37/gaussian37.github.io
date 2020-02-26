@@ -37,6 +37,10 @@ $$ v_{1} \times v_{2} = (x_{2} - x_{1})(y_{3} - y_{1}) - (x_{3} - x_{1})(y_{2} -
 
 <br>
 
+<br>
+<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/ccw?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+<br>
+
 ```cpp
 /*
 - input : p1 = (x1, y1), p2 = (x2, y2), p3 = (x3, y2)
