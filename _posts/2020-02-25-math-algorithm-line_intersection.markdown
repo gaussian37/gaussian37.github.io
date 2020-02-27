@@ -69,13 +69,22 @@ tags: [algorithm, 선분의 교차] # add tag
 - 먼저 3개의 점이 같은 직선상에 있는 경우 부터 다루어 보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/math/algorithm/line_intersection/5.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/algorithm/line_intersection/5.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 같은 경우는 p1, p2, p3가 모두 같은 직선상에 있는 케이스 입니다. **만약 위와 같은 경우도 선분이 교차 한다고 가정**한다면 p1 - p2 - p3의 ccw는 동일선상에 있으므로 0이 나오게 됩니다.
 - 즉, `ccw(p1, p2, p3) * ccw(p1, p2, p4) == 0`만 만족하거나 또는`ccw(p3, p4, p1) * ccw(p3, p4, p2) == 0`만 만족하는 경우(**둘 중에 하나만 0**인 경우)에만 3점이 같은 직선에 속하게 되고 문제의 정의에 따라서 선분이 교차한다고 할 수 있습니다.
 - 그러면 위 두 식 모두 0을 만족하게 되는 경우를 다루어 보겠습니다. 그 케이스 바로 4개의 점들이 모두 같은 직선 상에 있는 경우입니다.
 
+<br>
+<center><img src="../assets/img/math/algorithm/line_intersection/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림과 같이 4개의 점들이 같은 선상에 있는 경우에서 두 선이 겹치려면 위 그림의 아래 케이스 처럼 겹치는 방법이 있습니다.
+- 겹치는 관계를 가지려면 좌표의 대소 관계를 비교하였을 때 p2가 p3보다 크고 p4가 p1 보다 커야합니다.
+- 이 때 좌표의 대소 관계는 축의 순서를 정하고 그 축의 각 값의 대소 관계를 비교하는 것입니다.
+    - 예를 들어 x축 y축 순서를 가지고 p1의 x값이 p2의 x 값보다 크다면 p1 > p2이고 만약 x값이 같다면 p1의 y값이 p2의 y값보다 크다면 p1 > p2가 됩니다.
+- 정리하면 p1, p2가 이루는 직선과 p3, p4가 이루는 직선이 있고 **p1 < p2**와 **p3 < p4**를 만족한다고 할 때, `p3 < p2 && p1 < p4`를 만족하면 두 직선은 교차합니다.
 
 <br>
 
