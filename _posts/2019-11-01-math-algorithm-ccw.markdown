@@ -49,6 +49,6 @@ $$ v_{1} \times v_{2} = (x_{2} - x_{1})(y_{3} - y_{1}) - (x_{3} - x_{1})(y_{2} -
 - 아래 코드는 점 3개를 입력으로 받지 않고 2개의 벡터를 입력으로 받는 코드입니다.
 
 <br>
-<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/ccw_vector?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/ccwvector?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 
 <br>
