@@ -7,6 +7,12 @@ categories: [math-algorithm]
 tags: [ccw, counter clockwise] # add tag
 ---
 
+<br>
+
+[알고리즘 관련 글 목차](https://gaussian37.github.io/math-algorithm-table/)
+
+<br>
+
 - 어떤 두 벡터의 방향 관계성을 보기 위해서는 어떤 벡터 $$ v_{1} $$에서 또 다른 벡터 $$ v_{2} $$로 회전 시 **시계 방향(clockwise)으로 회전 하는 지 , 반시계 방향(counter clockwise)으로 회전 하는 지** 를 통하여 알 수 있습니다.
 - 또는 세 점의 방향 관계성이라고 생각할 수도 있는 것이 세 점 $$ p_{1}, p_{2}, p_{3} $$이 있다고 하였을 때, $$v_{1} $$이 $$ p_{1}, p_{2} $$를 이은 벡터이고 $$ v_{2} $$가 $$ p_{2}, p_{3} $$를 이은 벡터라고 생각하면 세 점이 어떤 방향으로 위치해 있는 지 알 수 있습니다.
 
@@ -50,5 +56,9 @@ $$ v_{1} \times v_{2} = (x_{2} - x_{1})(y_{3} - y_{1}) - (x_{3} - x_{1})(y_{2} -
 
 <br>
 <iframe height="800px" width="100%" src="https://repl.it/@gaussian37/ccwvector?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+
+<br>
+
+[알고리즘 관련 글 목차](https://gaussian37.github.io/math-algorithm-table/)
 
 <br>
