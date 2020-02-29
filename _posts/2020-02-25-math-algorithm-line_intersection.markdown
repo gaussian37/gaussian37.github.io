@@ -88,6 +88,10 @@ tags: [algorithm, 선분의 교차] # add tag
 
 <br>
 
+<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/lineintersection?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+
+<br>
+
 [알고리즘 관련 글 목차](https://gaussian37.github.io/math-algorithm-table/)
 
 <br>
