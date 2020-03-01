@@ -134,4 +134,4 @@ tags: [Linear algebra, 선형 대수학] # add tag
 <br>
 
 - [2x2 행렬의 고유값과 고유벡터 공식](https://gaussian37.github.io/math-la-2_by_2_eigen/)
-
+- [회전 변환 행렬 (2D, 3D)](https://gaussian37.github.io/math-la-rotation_matrix/)
