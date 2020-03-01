@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 베이즈 필터
+title: 베이즈 필터 (Bayes filter)
 date: 2020-02-01 00:00:00
 img: autodrive/ose/kalman_filter.jpg
 categories: [autodrive-ose] 
