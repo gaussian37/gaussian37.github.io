@@ -52,7 +52,7 @@ $$ \begin{bmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \t
 
 $$ R(\frac{\pi}{2}) = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} $$
 
-$$ R(\frac{\pi}) = \begin{bmatrix} -1 & 0 \\ 0 & -1 \end{bmatrix} $$
+$$ R(\frac{\pi}{2}) = \begin{bmatrix} -1 & 0 \\ 0 & -1 \end{bmatrix} $$
 
 $$ R(\frac{3\pi}{2}) = \begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix} $$
 
@@ -93,9 +93,6 @@ $$ R = R_{z}(\alpha)R_{y}(\beta)R_{x}(\gamma) = \begin{bmatrix} \text{cos}\alpha
 <br>
 
 - 위 변환 행렬을 모두 곱하면 roll, pitch, yaw angle을 모두 고려한 회전을 나타낼 수 있습니다.
-
-<br>
-
 - 위 식을 풀어서 나타내면 다음과 같습니다.
 
 <br>
