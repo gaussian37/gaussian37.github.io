@@ -185,7 +185,7 @@ $$ \frac{1}{2}(-2\mu_{i}^{T}\Sigma^{-1}x -\mu_{i}^{T}\Sigma^{-1}\mu_{i} + 2\text
 
 <br>
 
-$$ g_{i}(x) = ((\Sigma^{-1} \mu_{i})^{T})x + (\text{ln}(P(w_{i})) -\frac{1}{2}\mu_{i}^{T}\Sigma^{-1}\mu_{i}) = w_{i}^{T}x + b_{i} $$
+$$ g_{i}(x) = (\Sigma^{-1} \mu_{i})^{T}x + (\text{ln}(P(w_{i})) -\frac{1}{2}\mu_{i}^{T}\Sigma^{-1}\mu_{i}) = w_{i}^{T}x + b_{i} $$
 
 <br>
 
@@ -430,6 +430,29 @@ $$ g_{12}(x) = g_{1}(x) - g_{2}(x) = \frac{9}{16}x_{1}^{2} - \frac{9}{16}x_{2}^{
 - likelihood가 가우시안이 되었으므로 다루어야 할 변수는 **평균과 분산** 두가지가 되었습니다.
 - 이 때, 각 클래스 별로 평균은 다를 수 있지만 분산은 같다고 가정하게 되면 `LDA`(Linear Discriminant Analysis)라는 식을 도출할 수 있고 이 식은 1차식이 됩니다.
 - 반면 각 클래스 별로 평균도 다를 수 있고 분산도 다를 수 있다고 가정하면 `QDA`(Quadratic Discriminant Analysis)라는 식을 도출할 수 있고 이 식은 2차식이 됩니다.
+- `LDA`와 `QDA` 모두 각 클래스 별로 데이터들을 사전에 준비해 놓으면 `LDA`는 클래스 별 평균과 클래스 전체에 적용되는 공분산을 구할 수 있고 `QDA`는 클래스 별 평균과 공분산을 구할 수 있습니다.
+- 각 클래스별 평균과 공분산을 구하였다면 그 값을 이용하여 각 클래스 $$ i $$ 별로 적용할 수 있습니다.
+
+<br>
+
+#### **LDA**
+
+<br>
+
+$$ g_{i}(x) = (\Sigma^{-1} \mu_{i})^{T}x + (\text{ln}(P(w_{i})) -\frac{1}{2}\mu_{i}^{T}\Sigma^{-1}\mu_{i}) $$
+
+<br> 
+
+#### **QDA**
+
+<br>
+
+$$ g_{i}(x) = -\frac{1}{2}x^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}x + \Biggl( -\frac{1}{2}\mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i} -\frac{1}{2}\text{ln}\vert \Sigma_{i} \vert + \text{ln}(P(w_{i})) \Biggr) $$
+
+<br>
+
+- 각 클래스 별 평균과 공분산을 구하였으므로 각 클래스 $$ i $$에 해당하는 평균과 공분산 그리고 사전 확률(prior) 까지 대입하여 계산을 하면 classifier가 완성이 됩니다.
+- 이후에 어떤 인풋값 $$ x $$가 들어왔을 때 **사후 확률(posterior)**가 최대가 되는 $$ argmax_{i} g_{i}(x) $$를 선택하면 됩니다.
 
 <br>
 
