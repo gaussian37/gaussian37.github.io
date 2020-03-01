@@ -1,6 +1,6 @@
 ---
 layout: post
-title: C 언어에서 필요한 snippet
+title: C 언어 코드 snippet
 date: 2019-10-20 00:00:00
 img: c/c.png
 categories: [c-concept] 

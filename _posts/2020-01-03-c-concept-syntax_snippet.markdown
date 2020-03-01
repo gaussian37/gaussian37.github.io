@@ -1,6 +1,6 @@
 ---
 layout: post
-title: C 언어 문법 관련 이것 저것
+title: C 언어 문법 snippet
 date: 2020-01-03 00:00:00
 img: c/c.png
 categories: [c-concept] 

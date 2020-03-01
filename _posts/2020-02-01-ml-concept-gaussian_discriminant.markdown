@@ -26,6 +26,7 @@ tags: [가우시안, 분별 함수, 패턴 인식, 선형 분별 분석, 2차 �
 - ### LDA 예제
 - ### Quadratic Discriminant Analysis
 - ### QDA 예제
+- ### 정리
 
 <br>
 
@@ -363,12 +364,73 @@ $$ g_{i}(x) = -\frac{1}{2}x^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}x + 
 <center><img src="../assets/img/ml/concept/gaussian_discriminant/6.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-<br>
-
 ## **QDA 예제**
 
 <br>
 
+- `QDA`를 적용한 예제에 대하여 한번 살펴보도록 하겠습니다.
+- 먼저 `QDA`에 적용하려면 앞에서 다룬 $$ g_{i}(x) $$ 식에 클래스 별 데이터의  **평균과 공분산**을 구하여 모델식에서 평균과 공분산에 해당하는 부분을 세팅해 주면 됩니다.
+- 만약 다음과 같은 데이터 셋이 있다고 가정해 보겠습니다.
 
+<br>
+
+$$ w_{1} = (1, 2)^{T}, (3, 1)^{T}, (5, 2)^{T}, (3, 3)^{T} $$
+
+$$ w_{2} = (7, 6)^{T}, (8, 4)^{T}, (9, 6)^{T}, (8, 8)^{T} $$
+
+<br>
+
+- 이 데이터를 가지고 클래스 1과 2의 평균과 공분산을 구하면 다음과 같습니다.
+
+<br>
+
+$$ \mu_{1} = \begin{pmatrix} 3 \\ 2 \end{pmatrix}, \Sigma_{1} = \begin{pmatrix} 8/3 & 0 \\ 0 & 2/3 \end{pmatrix} $$
+
+$$ \mu_{2} = \begin{pmatrix} 8 \\ 6 \end{pmatrix}, \Sigma_{2} = \begin{pmatrix} 2/3 & 0 \\ 0 & 8/3 \end{pmatrix} $$
+
+<br>
+
+- 방금 구한 평균과 공분산을 $$ g_{i}(x) $$에 대입하여 $$ g_{1}(x) $$와 $$ g_{2}(x) $$를 구해보도록 하겠습니다.
+
+<br>
+
+$$ g_{1}(x) = -\frac{1}{2} \begin{pmatrix} x_{1} & x_{2} \end{pmatrix}  \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} + \begin{pmatrix} 3 & 2 \end{pmatrix}  \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -\frac{1}{2} \begin{pmatrix}3 & 2 \end{pmatrix}  \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 3 \\ 2 \end{pmatrix} -\frac{1}{2}\text{ln} \begin{vmatrix} \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \end{vmatrix} + \text{ln}P(w_{1})$$
+
+$$ = -\frac{3}{16}x_{1}^{2} -\frac{3}{4}x_{2}^{2} + \frac{9}{8}x_{1} + 3x_{2} - \frac{75}{16} -\frac{1}{2}\text{ln}\frac{16}{9} + \text{ln}P(w_{1}) $$
+
+<br>
+
+$$ g_{2}(x) = -\frac{1}{2} \begin{pmatrix} x_{1} & x_{2} \end{pmatrix}  \begin{pmatrix} 3/2 & 0 \\ 0 & 3/8 \end{pmatrix} \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} + \begin{pmatrix} 8 & 6 \end{pmatrix}  \begin{pmatrix} 3/2 & 0 \\ 0 & 3/8 \end{pmatrix} \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -\frac{1}{2} \begin{pmatrix}8 & 6 \end{pmatrix}  \begin{pmatrix} 3/2 & 0 \\ 0 & 3/8 \end{pmatrix} \begin{pmatrix} 8 \\ 6 \end{pmatrix} -\frac{1}{2}\text{ln} \begin{vmatrix} \begin{pmatrix} 3/2 & 0 \\ 0 & 3/8 \end{pmatrix} \end{vmatrix} + \text{ln}P(w_{2})$$
+
+$$ = -\frac{3}{4}x_{1}^{2} -\frac{3}{16}x_{2}^{2} + 12x_{1} + \frac{18}{8}x_{2} - \frac{219}{4} -\frac{1}{2}\text{ln}\frac{16}{9} + \text{ln}P(w_{2}) $$
+
+<br>
+
+$$ g_{12}(x) = g_{1}(x) - g_{2}(x) = \frac{9}{16}x_{1}^{2} - \frac{9}{16}x_{2}^{2} -\frac{87}{8}x_{1} + \frac{3}{4}x_{2} + \frac{801}{16} + \text{ln}P(w_{1}) - \text{ln}P(w_{2}) $$
+
+<br>
+
+- 위와 같이 decision boundary를 $$ g_{12}(x) = 0 $$으로 두고 사전 확률을 바꾸어 보면 decision boundary가 어떻게 움직이는 지 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/gaussian_discriminant/7.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 $$ P(w_{1}) > P(w_{2}) $$일 때, decision boundary는 $$ \mu_{2} $$에 가까워집니다. 즉, 클래스 1번의 영역이 넓어지므로 확률적으로 클래스 1로 분류될 가능성이 커지게 됩니다.
+
+<br>
+
+## **정리**
+
+<br>
+
+- Linear Discriminant Analysis과 Quadratic Discriminant Analysis 모두 사후 확률 분포 (posterior) 입니다.
+- 사후 확률 분포를 바로 구하는 것은 매우 어려운 일이기 때문에 베이즈 정리를 이용하여 가능도(likelihood)와 사전 확률(prior)를 이용하여 사후 확률을 구하는 문제로 바꾸었습니다.
+- 하지만 likelihood를 구한 것 또한 꽤 어려운 일일 수 있으므로 **likelihood를 가우시안으로 가정**을 하고 문제를 단순화 시킵니다.
+- likelihood가 가우시안이 되었으므로 다루어야 할 변수는 **평균과 분산** 두가지가 되었습니다.
+- 이 때, 각 클래스 별로 평균은 다를 수 있지만 분산은 같다고 가정하게 되면 `LDA`(Linear Discriminant Analysis)라는 식을 도출할 수 있고 이 식은 1차식이 됩니다.
+- 반면 각 클래스 별로 평균도 다를 수 있고 분산도 다를 수 있다고 가정하면 `QDA`(Quadratic Discriminant Analysis)라는 식을 도출할 수 있고 이 식은 2차식이 됩니다.
+
+<br>
 
 [머신러닝 글 목록](https://gaussian37.github.io/ml-concept-table/)
