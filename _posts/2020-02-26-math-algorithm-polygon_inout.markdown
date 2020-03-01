@@ -45,6 +45,14 @@ tags: [algorithm, 다각형의 내부 외부] # add tag
 - 다각형의 선분에 걸쳐 있는 점 또한 다각형의 내부로 봐야 한다는 가정하에 설명하면 위와 같은 경우에 교차점은 2개이므로 오검출을 하게 됩니다.
 - 따라서 앞에서 설명한 과정을 하기 전에 점이 선분 위에 있는 지 먼저 살펴보고 선분 위에 있다면 다각형의 내부로 판단하면 됩니다.
 
+<br>
+
+- 여기서 꼭 기억해야 할 점은 n개의 꼭지점을 입력 받아서 차례대로 선분을 연결하였을 때 n개의 선분을 만들기 위해 배열의 마지막에 처음으로 입력 받은 꼭지점을 다시 입력해주거나 마지막 꼭지점과 첫번째 꼭지점을 다시 연결해주는 것을 잊지 말아야 합니다.
+- 즉, (1번째 꼭지점, 2번째 꼭지점), ..., (n-1 번째 꼭지점, n번째 꼭지점), (n번째 꼭지점, 1번째 꼭지점) 이렇게 이어야 다각형이 완성됩니다.
+
+<br>
+
+<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/polygoninout?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 
 <br>
 
