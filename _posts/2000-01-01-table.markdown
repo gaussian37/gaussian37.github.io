@@ -14,7 +14,7 @@ tags: [table] # add tag
 
 - Name : JINSOL KIM
 - Linked In : https://www.linkedin.com/in/jinsolkima
-- Life is not greedy and complete search but dynamic programming.
+- Life is gaussian and dynamic programming.
 
 <br>
 
