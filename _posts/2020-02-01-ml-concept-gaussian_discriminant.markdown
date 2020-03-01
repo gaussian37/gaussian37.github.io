@@ -91,6 +91,7 @@ $$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x -x^{T}\Sigma_{i}^{-1}\mu_{i} - \mu_{i}^{
 <br>
 
 - 여기서 $$ \Sigma^{-1} $$이 대칭행렬이므로 다음과 같이 정리할 수 있습니다.
+- 대칭 행렬 양 옆으로 곱해진 행렬의 곱은 교환 법칙이 성립합니다. ($$ B $$ 가 대칭행렬일 때, $$ A \cdot B \cdot C == C \cdot B \cdot A $$)
 
 <br>
 
@@ -105,14 +106,12 @@ $$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x - 2\mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}
 <br>
 
 - 앞에서 전개한 식을 이해하기 위해서 2차원 실수 공간에 정의된 $$ x = (x_{1}, x_{2})^{T} $$ 에 대하여 다루어 보겠습니다.
-- 이 때 클래스는 다음 성질을 따른다고 가정하겠습니다.
+- 이 때 클래스 $$ w_{i} $$는 다음 성질을 따른다고 가정하겠습니다.
 
 <br>
 
-$$ w_{i} = \mu_{i} = (3, 1)^{T} $$
+$$ \mu_{i} = (3, 1)^{T} $$
 
-<br>
- 
 $$ \Sigma_{i}  = \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} $$
 
 <br>
@@ -134,7 +133,7 @@ $$ = -\frac{1}{4}(x_{1}^{2} + x_{1}^{2}) + \frac{1}{2}(3x_{1} + x_{2}) -\frac{1}
 <br>
 
 - 위 식의 term을 보면 처음에는 2차식, 두번째는 1차식 그리고 마지막은 상수항으로 정리됨을 알 수 있습니다.
-- 즉, 특징 벡터의 차원에 따라 같은 차원으로 정리 됩니다.
+- 즉, **특징 벡터의 차원에 따라 같은 차원으로** 정리 됩니다.
 - 위 식은 $$ w_{i} $$의 클래스에 속하는 어떤 값에 대한 `사후 확률`을 뜻합니다. 그러면 이 값을 좀 더 해석해 보겠습니다.
 - 두 클래스 $$ w_{i}, w_{j} $$의 decision boundary에 대하여 알아보면 어떤 데이터 $$ x $$가 decision boundary에 존재한다면 $$ g_{i}(x) = g_{j}(x) $$가 되어야 합니다.
 - 이 식을 다음과 같이 정리할 수 있습니다.
@@ -185,7 +184,7 @@ $$ \frac{1}{2}(-2\mu_{i}^{T}\Sigma^{-1}x -\mu_{i}^{T}\Sigma^{-1}\mu_{i} + 2\text
 
 <br>
 
-$$ g_{i}(x) = (\Sigma^{-1} \mu_{i})^{T})x + (\text{ln}(P(w_{i})) -\frac{1}{2}\mu_{i}^{T}\Sigma^{-1}\mu_{i}) = w_{i}^{T}x + b_{i} $$
+$$ g_{i}(x) = ((\Sigma^{-1} \mu_{i})^{T})x + (\text{ln}(P(w_{i})) -\frac{1}{2}\mu_{i}^{T}\Sigma^{-1}\mu_{i}) = w_{i}^{T}x + b_{i} $$
 
 <br>
 
@@ -193,7 +192,7 @@ $$ g_{i}(x) = (\Sigma^{-1} \mu_{i})^{T})x + (\text{ln}(P(w_{i})) -\frac{1}{2}\mu
 
 <br>
 
-$$ g_{ij})(x) = g_{i}(x) - g_{j}(x) = (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T}x + (\text{ln}(P(w_{i})) -\text{ln}(P(w_{j})) -\frac{1}{2} \mu_{i}^{T}\Sigma^{-1}\mu_{i} + \frac{1}{2}\mu_{j}^{T}\Sigma^{-1}\mu_{j} ) $$
+$$ g_{ij}(x) = g_{i}(x) - g_{j}(x) = (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T}x + (\text{ln}(P(w_{i})) -\text{ln}(P(w_{j})) -\frac{1}{2} \mu_{i}^{T}\Sigma^{-1}\mu_{i} + \frac{1}{2}\mu_{j}^{T}\Sigma^{-1}\mu_{j} ) $$
 
 <br>
 
@@ -335,7 +334,34 @@ $$ = \frac{-15}{8}x_{1} -6x_{2} + (\text{ln}(P(w_{1})) - \text{ln}(P(w_{2})) + 3
 
 <br>
 
-- 
+- 앞에서 다룬 Linear Discriminant Analysis는 각 클래스 별로 공분산이 모두 같다는 가정으로 인하여 $$ \Sigma_{i} $$에서 인덱스 $$ i $$를 빼고 $$ \Sigma $$로 표현하였습니다. 가정 그대로 공분산이 모두 같이 때문입니다.
+- 즉, `Linear Discriminant Analysis`에서는 **각 클래스 별 평균은 다를 수 있으나 공분산은 모두 같다는 전제 조건**이 있습니다.
+- 반면 이번에 알아볼 `Quadratic Discriminant Analysis`에서는 **각 클래스 별 평균과 공분산 모두 다를 수 있다는 전제 조건**을 적용합니다.
+- 앞에서 정리한 식 $$ g(x) $$를 다시 사용해 보도록 하겠습니다.
+
+<br>
+
+$$ g_{i}(x) = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x - 2\mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma_{i} \vert) + \text{ln}(P(w_{i})) $$
+
+<br>
+
+- `QDA`에서는 공분산이 각 클래스 별로 다르므로 공분산에도 인덱스 $$ i $$가 모두 적용 되어 있습니다. 따라서 상수항 처럼 취급되는 것은 $$ \frac{d}{2}\text{ln}2\pi $$ 뿐입니다.
+- decision boundary를 구할 때 $$ g_{ij}(x) = g_{i}(x) - g_{j}(x) $$를 이용하므로 상수항은 소거해서 생각해도 상관없습니다.
+- 그러면 위에서 정리한 식 $$ g_{i}(x) $$를 다시 정리하면 다음과 같습니다.
+
+<br>
+
+$$ g_{i}(x) = -\frac{1}{2}x^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}x + \Biggl( -\frac{1}{2}\mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i} -\frac{1}{2}\text{ln}\vert \Sigma_{i} \vert + \text{ln}(P(w_{i})) \Biggr) $$
+
+<br>
+
+- 위 식의 우변에서 `첫번째 항`은 **2차식**이고 `두번째 항`은 **1차식** 그리고 `세번째 항`은 상수항 입니다.
+- 따라서 구해야 할 $$ g_{ij}(x) = g_{i}(x) - g_{j}(x) $$ 또한 2차식을 띄게 됩니다.
+- decision boundary는 $$ g_{ij}(x) = 0 $$을 만족하는 식이고 2차식을 따르므로 2차원 형태의 포물선 / 쌍곡선 / 타원 등의 형태로 나타날 수 있습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/gaussian_discriminant/6.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
 <br>
 
