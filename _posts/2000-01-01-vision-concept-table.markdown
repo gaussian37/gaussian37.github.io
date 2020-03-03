@@ -28,4 +28,3 @@ tags: [vision] # add tag
 - 민시프트
 - 워터쉐드
 - [Optical Flow 알아보기](https://gaussian37.github.io/vision-concept-optical_flow/)
-- [다양한 IOU(Intersection over Union) 구하는 법](https://gaussian37.github.io/vision-concept-iou/)

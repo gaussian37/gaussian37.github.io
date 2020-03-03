@@ -2,14 +2,14 @@
 layout: post
 title: 다양한 IOU(Intersection over Union) 구하는 법
 date: 2020-03-01 00:00:00
-img: vision/concept/iou/0.png
-categories: [vision-concept] 
+img: math/algorithm/concept/iou/0.png
+categories: [math-algorithm] 
 tags: [IoU, Intersection over Union] # add tag
 ---
 
 <br>
 
-[Vision 관련 글 목차](https://gaussian37.github.io/vision-concept-table/)
+[알고리즘 관련 글 목차](https://gaussian37.github.io/math-algorithm-table/)
 
 <br>
 
@@ -32,20 +32,20 @@ tags: [IoU, Intersection over Union] # add tag
     - 참조 : https://inspace4u.github.io/dllab/lecture/2017/09/28/IoU.html
 
 <br>
-<center><img src="../assets/img/vision/concept/iou/1.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/algorithm/iou/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 두 영역이 위 처럼 겹칠 때, 얼만큼 겹친다고 정량적으로 나타낼 수 있는 방법이 `IoU`가 됩니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/iou/2.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/math/algorithm/iou/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 여기서 `I`에 해당하는 Intersection은 두 영역의 교집합이 되고 `U`에 해당하는 Union은 두 영역의 합집합이 됩니다.
 - 이 값을 구하기 위해서는 두 영역에 대한 정보를 이용하여 Intersection을 먼저 구하고 $$ A \cup B = A + B - A \cap B $$를 이용하여 Union의 값을 구하면 됩니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/iou/3.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/iou/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 즉 위와 같이 구하면 됩니다. 그러면 어떻게 위의 그림과 같이 구할 수 있는지 2가지 경우로 나누어서 살펴보도록 하겠습니다.
@@ -57,7 +57,7 @@ tags: [IoU, Intersection over Union] # add tag
 ## **두 영역이 직사각형이고 각 축과 수평할 때 IoU**
 
 <br>
-<center><img src="../assets/img/vision/concept/iou/4.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/iou/4.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 출처 : https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781789346640/6/ch06lvl1sec51/calculating-an-intersection-over-a-union-between-two-images
@@ -81,14 +81,14 @@ intersection_y_length = min(max_y1, max_y2) - max(min_y1, min_y2);
 - intersection의 x축에 평행한 변의 길이와 y축에 평행한 변의 길이는 위 코드와 같이 A와 B 직사각형에서 각 축 최대 값 중 작은것을 선택하고 각 축 최대 값 중 작은 것을 선택하면 변이 선택이 됩니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/iou/5.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/iou/5.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 즉, 위 그림과 같이 만들 수 있습니다.
 - 위 그림처럼 두 영역의 좌표값이 각각 2개씩 들어오게 되면 쉽게 IoU를 계산할 수 있게 됩니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/iou/6.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/iou/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 만약 두 영역이 겹치지 않으면 x축의 길이와 y축의 길이가 음수가 되게 됩니다.
@@ -96,7 +96,7 @@ intersection_y_length = min(max_y1, max_y2) - max(min_y1, min_y2);
 - 다음 예를 한번 살펴보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/iou/7.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/algorithm/iou/7.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 그림에서 `IoU`는 Intersection : 2, Union : 13 으로 2 / 13 = 0.1538.. 입니다.
@@ -120,10 +120,17 @@ intersection_y_length = min(max_y1, max_y2) - max(min_y1, min_y2);
 - 이번에는 임의의 볼록 다각형 2개의 IoU를 구하는 방법에 대하여 알아보도록 하겠습니다.
 - 이 글을 이해하기 위해서는 [ccw](https://gaussian37.github.io/math-algorithm-ccw/), [다각형의 넓이 계산](https://gaussian37.github.io/math-algorithm-polygon_area/), [선분의 교차](https://gaussian37.github.io/math-algorithm-line_intersection/) 그리고 [다각형 내부의 점](https://gaussian37.github.io/math-algorithm-polygon_inout/)을 사전에 이해하셔야 하며 더 간단한 방법이 있으면 공유 부탁드립니다.
 
+<br>
+
+- ① 먼저 두 볼록 다각형 A, B의 교차 점을 구합니다.
+- ② A의 꼭지점 중에 B의 내부에 있는 점과 반대로 B의 꼭지점 중에 A에 있는 점을 구합니다.
+- ①과 ②에서 구한 꼭지점들을 반시계 방향으로 정렬합니다.
+- 정렬한 꼭지점들을 이용하여 Intersection을 구할 수 있습니다.
+
 
 <br>
 
-[Vision 관련 글 목차](https://gaussian37.github.io/math-la-table/)
+[알고리즘 관련 글 목차](https://gaussian37.github.io/math-algorithm-table/)
 
 <br>
 

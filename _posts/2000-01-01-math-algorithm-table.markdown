@@ -34,3 +34,4 @@ tags: [algorithm, 알고리즘] # add tag
     - [n차원 다각형의 넓이 계산](https://gaussian37.github.io/math-algorithm-polygon_area/)
     - [선분의 교차](https://gaussian37.github.io/math-algorithm-line_intersection/)
     - [점의 다각형의 내부 또는 외부 위치 확인](https://gaussian37.github.io/math-algorithm-polygon_inout/)
+    - [다양한 IOU(Intersection over Union) 구하는 법](https://gaussian37.github.io/math-algorithm-iou/)
