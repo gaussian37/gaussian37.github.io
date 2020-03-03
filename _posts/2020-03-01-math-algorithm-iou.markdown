@@ -2,7 +2,7 @@
 layout: post
 title: 다양한 IOU(Intersection over Union) 구하는 법
 date: 2020-03-01 00:00:00
-img: math/algorithm/concept/iou/0.png
+img: math/algorithm/iou/0.png
 categories: [math-algorithm] 
 tags: [IoU, Intersection over Union] # add tag
 ---
@@ -122,13 +122,25 @@ intersection_y_length = min(max_y1, max_y2) - max(min_y1, min_y2);
 
 <br>
 
-- ① 먼저 두 볼록 다각형 A, B의 교차 점을 구합니다.
-- ② A의 꼭지점 중에 B의 내부에 있는 점과 반대로 B의 꼭지점 중에 A에 있는 점을 구합니다.
-- ①과 ②에서 구한 꼭지점들을 반시계 방향으로 정렬합니다.
-- 정렬한 꼭지점들을 이용하여 Intersection을 구할 수 있습니다.
-
+- 먼저 방법은 다음과 같습니다.
+    - ① 먼저 두 볼록 다각형 A, B의 교차 점을 구합니다.
+    - ② A의 꼭지점 중에 B의 내부에 있는 점과 반대로 B의 꼭지점 중에 A에 있는 점을 구합니다.
+    - ①과 ②에서 구한 꼭지점들을 반시계 방향으로 정렬합니다. (넓이를 구하기 위한 목적)
+    - 정렬한 꼭지점들을 이용하여 Intersection을 구할 수 있습니다.
 
 <br>
+<center><img src="../assets/img/math/algorithm/iou/8.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 예를 들어 위 그림에서 5각형을 A, 8각형을 B라고 가정해 보겠습니다.
+- 먼저 두 다각형의 교차점을 구하여 검은색 점으로 표현하였습니다.
+- 그 다음 빨간색 점은 각 다각형의 꼭지점이 다른 다각형의 내부에 위치할 때입니다.
+- 이 꼭점들을 반시계 방향으로 정렬합니다. 2-5-1-3-4
+- 정렬한 꼭지점들을 이용하여 Intersection의 넓이를 구할 수 있습니다.
+
+<br>
+
+- 
 
 [알고리즘 관련 글 목차](https://gaussian37.github.io/math-algorithm-table/)
 
