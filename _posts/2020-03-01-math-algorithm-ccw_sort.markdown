@@ -40,14 +40,29 @@ long long dist(const Point* p1, const Point* p2){
     return (long long)(p1->x - p2->x)*(p1->x - p2->x) + (long long)(p1->y - p2->y)*(p1->y - p2->y);
 }
 
+int ccw(const Point* p1, const Point* p2, const Point* p3){
+
+    int cross_product = (p2->x - p1->x)*(p3->y - p1->y) - (p3->x - p1->x)*(p2->y - p1->y);
+
+    if (cross_product > 0){
+        return 1;
+    }
+    else if (cross_product < 0){
+        return -1;
+    }
+    else{
+        return 0;
+    }
+}
+
 // right가 left의 반시계 방향에 있으면 true이다.
 // true if right is counterclockwise to left.
 Point p;
 int comparator(const Point* left, const Point* right){
     int ret;
-    int direction = ccw(p, left, right);
+    int direction = ccw(&p, left, right);
     if(direction == 0){
-        ret = (dist(&p, left) <= dist(&p, right));
+        ret = (dist(&p, left) < dist(&p, right));
     }
     else if(direction == 1){
         ret = 1;
@@ -64,6 +79,17 @@ int comparator(const Point* left, const Point* right){
 
 - 위 `comparator`를 정렬할 때 사용하면 됩니다.
 - 그러면 다음 코드에서 실제 퀵소트를 이용하여 어떻게 정렬하면 되는 지 다루어 보겠습니다.
+- 예제의 인풋은 다음 그림과 같고 시작점을 기준으로 반시계 방향으로 정렬되어야 합니다.
+
+<br>
+<center><img src="../assets/img/math/algorithm/ccw_sort/2.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+
+<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/ccwsort?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+
+<br>
 
 <br>
 
