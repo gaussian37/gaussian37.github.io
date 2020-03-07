@@ -142,7 +142,13 @@ intersection_y_length = min(max_y1, max_y2) - max(min_y1, min_y2);
 
 - 먼저 ① 과정인 두 볼록 다각형 A, B의 교차점을 구하는 방법은 A의 5개의 선분과 B의 8개의 선분 총 40쌍을 가지고 교차하는 지 살펴보면 됩니다. ([선분의 교차](https://gaussian37.github.io/math-algorithm-line_intersection/))
 - 그 다음 ② 과정은 A의 꼭지점이 5개가 B의 내부에 있는지 확인하고 반대로 B의 꼭지점 8개가 A의 내부에 있는 지 확인합니다.([다각형 내부의 점 확인](https://gaussian37.github.io/math-algorithm-polygon_inout/))
-- 마지막으로 점을 정렬할 때, 반시계 방향으로 점들을 정렬합니다. (좌표를 반시계 방향으로 정렬)
+- 마지막으로 점을 정렬할 때, 반시계 방향으로 점들을 정렬합니다. ([좌표를 반시계 방향으로 정렬](https://gaussian37.github.io/math-algorithm-ccw_sort/))
+- 정렬한 좌표들을 이용하여 Intersection에 해당하는 넓이를 구합니다. ([n각형의 넓이 계산](https://gaussian37.github.io/math-algorithm-polygon_area/))
+
+<br>
+
+
+
 
 <br>
 
