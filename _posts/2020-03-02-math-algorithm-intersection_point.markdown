@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 두 직선의 교점
+title: 두 선분(직선)의 교점
 date: 2020-03-02 00:00:00
-img: math/algorithm/iou/0.png
+img: math/algorithm/intersection_point/0.png
 categories: [math-algorithm] 
 tags: [두 직선의 교점, intersection] # add tag
 ---
