@@ -17,13 +17,14 @@ tags: [두 직선의 교점, intersection] # add tag
 
 <br>
 
-**목차**
+## **목차**
 
 <br>
 
 - ### 점의 좌표 4개가 주어졌을 때, 교점
 - ### 표준형 식에서의 교점
 - ### 일반형 식에서의 교점
+- ### C 코드
 
 <br>
 
@@ -97,6 +98,28 @@ $$ (P_{x}, P_{y}) = \Biggl( \frac{b_{1}c_{2} - b_{2}c_{1}}{a_{1}b_{2} - a_{2}b_{
 <br>
 
 - 이 때에도, $$ a_{1}b_{2} - a_{2}b_{1} = 0 $$이면 두 직선은 평행 또는 일치합니다.
+
+<br>
+
+## **C 코드**
+
+<br>
+
+- 마지막으로 위에서 다룬 내용을 C 코드로 옮겨서 실행해 보도록 하겠습니다.
+- 코드에서 다루어 볼 예제는 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/algorithm/intersection_point/1.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 아래 코드의 각각의 함수는 4개의 점, 표준형 식, 일반형 식이 주어졌을 때, 교차점을 구하는 함수 입니다.
+
+<br>
+
+<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/lineintersectionpoint?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+
+<br>
+
 
 <br>
 
