@@ -152,6 +152,14 @@ intersection_y_length = min(max_y1, max_y2) - max(min_y1, min_y2);
 - 그러면 위 예제를 이용하여 intersection을 구해보도록 하겠습니다.
 - 오각형의 좌표는 (1, 2), (3, 1), (4, 2), (3, 4), (1, 3) 이고 사각형의 좌표는 (2, 3), (3, 2), (5, 3), (5, 4) 입니다.
 
+<br>
+
+<br>
+
+<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/polygoniou?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+
+<br>
+
 
 
 <br>
