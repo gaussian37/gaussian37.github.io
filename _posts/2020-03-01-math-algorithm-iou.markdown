@@ -146,7 +146,11 @@ intersection_y_length = min(max_y1, max_y2) - max(min_y1, min_y2);
 - 정렬한 좌표들을 이용하여 Intersection에 해당하는 넓이를 구합니다. ([n각형의 넓이 계산](https://gaussian37.github.io/math-algorithm-polygon_area/))
 
 <br>
+<center><img src="../assets/img/math/algorithm/iou/9.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
+- 그러면 위 예제를 이용하여 intersection을 구해보도록 하겠습니다.
+- 오각형의 좌표는 (1, 2), (3, 1), (4, 2), (3, 4), (1, 3) 이고 사각형의 좌표는 (2, 3), (3, 2), (5, 3), (5, 4) 입니다.
 
 
 
