@@ -342,7 +342,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 
 <br>
 
-## 이클리스에서 OpenCV 연동하기
+## **이클리스에서 OpenCV 연동하기**
 
 <br>
 
