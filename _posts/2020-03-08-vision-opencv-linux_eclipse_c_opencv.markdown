@@ -316,7 +316,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
     - `cat /proc/cpuinfo | grep processor | wc -l`
     - 결과로 4가 나오면 사용중인 CPU의 코어수가 4입니다.
 - **opencv/opencv-4.0.1/build** 경로에서 `make` 명령을 사용하여 컴파일을 시작합니다. -j 다음에 위에서 확인한 숫자를 붙여서 실행해줍니다. 앞에 time을 붙여서 실행하면 컴파일 완료 후 걸리는 경과를 알려줍니다.
-    -`time make -j4`
+    - `time make -j4`
 - 이제 컴파일을 완료하였으므로 **컴파일 결과물을 설치**합니다.
     - `sudo make install`
 - 그 다음 `cat /etc/ld.so.conf.d/*` 명령어를 터미널에서 입력하여 출력물에서 **/usr/local/lib** 를 포함하는 설정 파일이 있는 지 확인합니다.
