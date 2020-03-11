@@ -352,11 +352,12 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 - 탭 안에 보면 크게 `GCC C++ Compiler`, `GCC C Compiler` 그리고 `GCC C++ Linker`가 있습니다.
 - 먼저 `GCC C++ Compiler` 부분을 살펴보도록 하겠습니다.
     - `Dialect` → `Language standard` → `ISO C++ 11`
-    - `Include` → `Include paths`에 opencv가 설치 된 폴더의 위치를 입력 합니다. 보통 `/usr/local/include/`가 됩니다.
+    - `Include` → `Include paths`에 opencv 또는 opencv2가 설치 된 폴더의 위치를 입력 합니다. 보통 `/usr/local/include/`가 됩니다.
+        - 제 pc에서 opencv4를 설치하였을 때 `/usr/local/include/opencv4/` 까지 가면 그 안에 opencv2가 있었기 때문에 `/usr/local/include/opencv4/`까지 입력하였습니다. pc마다 다르니 참조하시기 바랍니다.
     - 원활한 동작을 위하여 `Optimization` → `optimization level` → `-o2`로 입력합니다.
 - 다음으로 `GCC CCompiler` 부분도 C++과 유사하게 설정해 주면 됩니다.
     - `Dialect` → `Language standard` → `ISO C99`
-    - `Include` → `Include paths`에 opencv가 설치 된 폴더의 위치를 입력 합니다. 보통 `/usr/local/include/`가 됩니다.
+    - `Include` → `Include paths`에 opencv가 설치 된 폴더의 위치를 입력 합니다. 보통 `/usr/local/include/`가 됩니다. (여기서도 GCC C++ Compiler와 동일한 방법으로 입력해 주시면 됩니다.)
     - 원활한 동작을 위하여 `Optimization` → `optimization level` → `-o2`로 입력합니다.
 - 마지막으로 `GCC C++ Linker`를 추가해 주겠습니다. `Libraries` → `Libraries`에 아래 내용들을 추가하면 됩니다.
     - opencv_core
