@@ -21,7 +21,7 @@ Set image url and path
 
 
 ```
-imgURL = "https://gaussian37.github.io/assets/img/kjsandkjs.jpg"
+imgURL = "https://gaussian37.github.io/assets/img/My/kjsandkjs.jpg"
 htmlURL = "https://gaussian37.github.io"
 savePath1 = "./data/sample.jpg"
 savePath2 = "./data/index.html"
