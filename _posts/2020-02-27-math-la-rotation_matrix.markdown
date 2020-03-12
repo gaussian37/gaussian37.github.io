@@ -120,6 +120,54 @@ $$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \text{cos}\theta & -
 
 <br>
 
+- 앞에서 다룬 내용은 모두 `원점`을 기준으로 회전한 것입니다. 좀 더 일반적인 케이스를 적용하기 위해 기준이 원점이 아니라 특정 좌표를 기준으로 회전 시켜보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/math/la/rotation_matrix/5.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림을 보면 원점을 기준으로 30도 회전한 것을 알 수 있습니다. 
+
+<br>
+<center><img src="../assets/img/math/la/rotation_matrix/6.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 반면에 위 그림에서는 회전한 기준을 보면 (1, 0)임을 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/la/rotation_matrix/7.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 지금부터 해야할 작업은 위 그림 처럼 **기준점에서 각 점 방향으로의 벡터를 회전**하는 것입니다. (물론 반시계 방향 회전이 + 회전 각도 입니다.)
+
+<br>
+<center><img src="../assets/img/math/la/rotation_matrix/8.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- ① 기준점을 $$ v_{0} = (x_{base}, y_{base}) $$ 이라고 하면 각 점 방향으로의 벡터는 $$ v_{i} - v_{0} = (x_{i} - x_{base}, y_{i} - y_{base}) $$이 됩니다.
+- ② 이 벡터를 앞에서 알아본 변환 행렬을 이용하여 회전 시키면 됩니다.
+
+<br>
+
+$$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{pmatrix} \begin{pmatrix} x - x_{base} \\ y - y_{base} \end{pmatrix} $$
+
+<br>
+
+- 여기 까지 계산 하면 ($$ (0, 0) $$ → $$ (x - x_{base}, y - y_{base}) $$) 방향과 크기의 벡터가 $$ \theta $$ 만큼 회전하여 $$ (x', y') $$가 되었습니다.
+- ③ 벡터의 시작점을 회전 기준인 $$ (x_{base}, y_{base}) $$으로 옮겨줍니다.
+- ①, ②, ③ 과정을 식으로 옮기면 다음과 같습니다.
+
+<br>
+
+$$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{pmatrix} \begin{pmatrix} x - x_{base} \\ y - y_{base} \end{pmatrix} + \begin{pmatrix} x_{base} \\ y_{base} \end{pmatrix}$$
+
+<br>
+
+<br>
+
+<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/rotatecoordinate?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+
+<br>
 
 <br>
 
@@ -128,7 +176,7 @@ $$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \text{cos}\theta & -
 <br>
 
 - 3D에서의 회전 변환은 2차원에서 사용한 회전 변환 행렬을 유사하게 사용합니다. 다만 이 때, 3차원에 맞춰서 행렬의 차원이 늘어나게 되고 각 차원별로 회전을 고려해 주어야 합니다.
-- 예를 들어서 $$ R_{x}(\theta) $$는 x축을 중심으로 
+- 예를 들어서 $$ R_{x}(\theta) $$는 x축을 중심으로 회전하는 행렬 변환이고 $$ R_{y}(\theta) $$는 y축을 중심으로 $$ R_{z}}(\theta) $$는 z축을 중심으로 회전하는 행렬 변환입니다.
 
 <br>
 
