@@ -11,7 +11,8 @@ tags: [선형대수학, 회전 변환, rotation, rotation matrix] # add tag
 
 <br>
 
-- 출처 : https://en.wikipedia.org/wiki/Rotation_matrix
+- 참조 : https://en.wikipedia.org/wiki/Rotation_matrix
+- 참조 : https://ko.wikipedia.org/wiki/회전변환행렬
 
 <br>
 
@@ -55,6 +56,78 @@ $$ R(\frac{\pi}{2}) = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} $$
 $$ R(\frac{\pi}{2}) = \begin{bmatrix} -1 & 0 \\ 0 & -1 \end{bmatrix} $$
 
 $$ R(\frac{3\pi}{2}) = \begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix} $$
+
+<br>
+
+### **회전 변환 행렬 유도**
+
+<br>
+
+- 회전 변환을 다루는 방법에 대해서는 위 글에서 다루었습니다. 그러면 왜 저런 형태의 행렬식이 유도되었는 지에 대하여 다루어 보겠습니다.
+
+<br>
+<center><img src="../assets/img/math/la/rotation_matrix/3.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 먼저 앞에서 다룬 회전 변환은 원점을 기준으로 회전을 하게 됩니다. 따라서 위 그림에서도 원점을 중심으로 `P`가 `P'`로 어떻게 변환되는 지 다루어 보도록 하겠습니다.
+- 아래 식에서 $$ P, \overline{OP}, \text{cos}(\alpha), \text{sin}(\alpha) $$를 정의해 보겠습니다.
+
+<br>
+
+$$ P = (x, y) $$
+
+$$ \overline{OP} = l = \sqrt{(x - 0)^{2} + (y - 0)^{2})} = \sqrt{x^{2} + y^{2}} $$
+
+$$ \text{cos}(\alpha) = \frac{x}{\overline{OP}} = \frac{x}{\sqrt{x^{2} + y^{2}}} $$
+
+$$ \text{sin}(\alpha) = \frac{y}{\overline{OP}} = \frac{y}{\sqrt{x^{2} + y^{2}}} $$
+
+<br>
+
+- 위 식을 그대로 이용하여 $$ P' $$에 적용해 보도록 하겠습니다. $$ P' = (x', y') $$는  $$ P = (x, y) $$를 $$ +\theta$$ 만큼 회전 시킨 것이므로 회전 각도 만큼 반영해여 식을 적어보겠습니다.
+
+<br>
+
+$$ x' = \sqrt{x^{2} + y^{2}} \text{cos}(\alpha + \theta) $$
+
+$$ y' = \sqrt{x^{2} + y^{2}} \text{sin}(\alpha + \theta) $$
+
+<br>
+<center><img src="../assets/img/math/la/rotation_matrix/4.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 삼각함수의 덧셈 정리를 이용하여 식을 풀어보도록 하겠습니다.
+
+<br>
+
+$$ x' = \sqrt{x^{2} + y^{2}}(\text{cos}(\alpha)\text{cos}(\theta) -\text{sin}(\alpha)\text{sin}(\theta)) $$
+
+$$ x' = \Biggl(\sqrt{x^{2} + y^{2}}\frac{x}{\sqrt{x^{2} + y^{2}}}\text{cos}(\theta) -  \sqrt{x^{2} + y^{2}}\frac{y}{\sqrt{x^{2} + y^{2}}}\text{sin}(\theta) \Biggr) $$
+
+$$ x' = x\text{cos}(\theta) - y\text{sin}(\theta) $$
+
+$$ y' = \sqrt{x^{2} + y^{2}}\text{sin}(\alpha + \theta) $$
+
+$$ y' = \sqrt{x^{2} + y^{2}}(\text{sin}(\alpha)\text{cos}(\theta) + \text{cos}(\alpha)\text{sin}(\theta)) $$
+
+$$ y' = \Biggl(\sqrt{x^{2} + y^{2}}\frac{y}{\sqrt{x^{2} + y^{2}}}\text{cos}(\theta) + \sqrt{x^{2} + y^{2}}\frac{x}{\sqrt{x^{2} + y^{2}}}\text{sin}(\theta) \Biggr) $$
+
+$$ y' = y\text{cos}(\theta) + x\text{sin}(\theta) = x\text{sin}(\theta) + y\text{cos}(\theta) $$
+
+<br>
+
+- 위에서 유도한 식을 정리하면 다음과 같습니다.
+
+<br>
+
+$$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} $$
+
+<br>
+
+### **임의의 점을 중심으로 회전 변환**
+
+<br>
+
 
 <br>
 
