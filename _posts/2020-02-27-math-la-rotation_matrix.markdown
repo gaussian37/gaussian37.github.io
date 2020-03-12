@@ -104,7 +104,7 @@ $$ x' = \sqrt{x^{2} + y^{2}}(\text{cos}(\alpha)\text{cos}(\theta) -\text{sin}(\a
 
 <br>
 
-$$ y' = \sqrt{x^{2} + y^{2}}\text{sin}(\alpha + \theta) = \sqrt{x^{2} + y^{2}}(\text{sin}(\alpha)\text{cos}(\theta) + \text{cos}(\alpha)\text{sin}(\theta)) = \Biggl(\sqrt{x^{2} + y^{2}}\frac{y}{\sqrt{x^{2} + y^{2}}}\text{cos}(\theta) + \sqrt{x^{2} + y^{2}}\frac{x}{\sqrt{x^{2} + y^{2}}}\text{sin}(\theta) \Biggr) = y\text{cos}(\theta) + x\text{sin}(\theta) = x\text{sin}(\theta) + y\text{cos}(\theta) $$
+$$ y' = \sqrt{x^{2} + y^{2}}\text{sin}(\alpha + \theta) = \sqrt{x^{2} + y^{2}}(\text{sin}(\alpha)\text{cos}(\theta) + \text{cos}(\alpha)\text{sin}(\theta)) = \Biggl(\sqrt{x^{2} + y^{2}}\frac{y}{\sqrt{x^{2} + y^{2}}}\text{cos}(\theta) + \sqrt{x^{2} + y^{2}}\frac{x}{\sqrt{x^{2} + y^{2}}}\text{sin}(\theta) \Biggr) = y\text{cos}(\theta) + x\text{sin}(\theta) $$
 
 <br>
 
@@ -148,7 +148,7 @@ $$ R_{z}(\theta) = \begin{bmatrix} \text{cos}\theta & -\text{sin}\theta & 0 \\ \
 
 - 일반적으로 `roll`은 x축을 기준으로 회전한 양을 뜻하고 `pitch`는 y축을 기준으로 회전한 양 그리고 `yaw`는 z축을 기준으로 회전한 양을 뜻합니다. 위 그림처럼 생각하시면 됩니다.
     - 예를 들어 자동차가 좌회전 또는 우회전을 한다면 z축을 기준으로 회전을 하는 것이므로 `yaw`의 변화가 있게 됩니다.
-- 그러면 $$ R_{x}(\theta) $$, $$ R_{y}(\theta) $$ 그리고 $$ R_{z}}(\theta) $$ 각각 x축, y축, z축을 기준으로 회전하는 회전 변환 행렬이 됩니다.
+- 그러면 $$ R_{x}(\theta) $$, $$ R_{y}(\theta) $$ 그리고 $$ R_{z}(\theta) $$ 각각 x축, y축, z축을 기준으로 회전하는 회전 변환 행렬이 됩니다.
 - x축을 기준으로 회전한 `roll angle`을 $$ \gamma $$, y축을 기준으로 회전한 `pitch angle`을 $$ \beta $$ 마지막으로 z축을 기준으로 회전한 `yaw angle`을 $$ \alpha $$로 두겠습니다.
 
 <br>
