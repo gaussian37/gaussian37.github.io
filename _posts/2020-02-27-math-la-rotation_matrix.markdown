@@ -100,19 +100,11 @@ $$ y' = \sqrt{x^{2} + y^{2}} \text{sin}(\alpha + \theta) $$
 
 <br>
 
-$$ x' = \sqrt{x^{2} + y^{2}}(\text{cos}(\alpha)\text{cos}(\theta) -\text{sin}(\alpha)\text{sin}(\theta)) $$
+$$ x' = \sqrt{x^{2} + y^{2}}(\text{cos}(\alpha)\text{cos}(\theta) -\text{sin}(\alpha)\text{sin}(\theta)) = \Biggl(\sqrt{x^{2} + y^{2}}\frac{x}{\sqrt{x^{2} + y^{2}}}\text{cos}(\theta) -  \sqrt{x^{2} + y^{2}}\frac{y}{\sqrt{x^{2} + y^{2}}}\text{sin}(\theta) \Biggr) = x\text{cos}(\theta) - y\text{sin}(\theta) $$
 
-$$ x' = \Biggl(\sqrt{x^{2} + y^{2}}\frac{x}{\sqrt{x^{2} + y^{2}}}\text{cos}(\theta) -  \sqrt{x^{2} + y^{2}}\frac{y}{\sqrt{x^{2} + y^{2}}}\text{sin}(\theta) \Biggr) $$
+<br>
 
-$$ x' = x\text{cos}(\theta) - y\text{sin}(\theta) $$
-
-$$ y' = \sqrt{x^{2} + y^{2}}\text{sin}(\alpha + \theta) $$
-
-$$ y' = \sqrt{x^{2} + y^{2}}(\text{sin}(\alpha)\text{cos}(\theta) + \text{cos}(\alpha)\text{sin}(\theta)) $$
-
-$$ y' = \Biggl(\sqrt{x^{2} + y^{2}}\frac{y}{\sqrt{x^{2} + y^{2}}}\text{cos}(\theta) + \sqrt{x^{2} + y^{2}}\frac{x}{\sqrt{x^{2} + y^{2}}}\text{sin}(\theta) \Biggr) $$
-
-$$ y' = y\text{cos}(\theta) + x\text{sin}(\theta) = x\text{sin}(\theta) + y\text{cos}(\theta) $$
+$$ y' = \sqrt{x^{2} + y^{2}}\text{sin}(\alpha + \theta) = \sqrt{x^{2} + y^{2}}(\text{sin}(\alpha)\text{cos}(\theta) + \text{cos}(\alpha)\text{sin}(\theta)) = \Biggl(\sqrt{x^{2} + y^{2}}\frac{y}{\sqrt{x^{2} + y^{2}}}\text{cos}(\theta) + \sqrt{x^{2} + y^{2}}\frac{x}{\sqrt{x^{2} + y^{2}}}\text{sin}(\theta) \Biggr) = y\text{cos}(\theta) + x\text{sin}(\theta) = x\text{sin}(\theta) + y\text{cos}(\theta) $$
 
 <br>
 
