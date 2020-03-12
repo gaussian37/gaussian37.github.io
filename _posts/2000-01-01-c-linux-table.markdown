@@ -20,6 +20,8 @@ tags: [linux, 리눅스, socket, 소켓, tcp/ip, os, operating system] # add tag
 
 - [프로세스와 쓰레드](https://gaussian37.github.io/c-linux-process_and_thread/)
 
+<br>
+
 ## **TCP/IP 소켓 프로그래밍**
 
 <br>
@@ -52,3 +54,4 @@ tags: [linux, 리눅스, socket, 소켓, tcp/ip, os, operating system] # add tag
 <br>
 
 - [Operating system introduction](https://gaussian37.github.io/c-os-introduction/)
+- [latency와 throughput](https://gaussian37.github.io/c-linux-latency_and_throughput/)
