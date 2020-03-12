@@ -33,7 +33,7 @@ tags: [C] # add tag
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 #define ABS(x) ((x)<0 ? -(x) : (x))
-#defin INF 999999999
+#define INF 999999999
 ```
 
 <br>
