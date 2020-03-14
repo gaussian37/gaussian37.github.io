@@ -82,6 +82,13 @@ $$ g_{i}(x) = -\frac{1}{2}(x - \mu_{i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) $$
 <br>
 
 - 공분산은 위 식과 같이 구할 수 있습니다. 관련 식은 [가우시안 분포와 분별 함수](https://gaussian37.github.io/ml-concept-gaussian_discriminant/)에서 살펴보시기 바랍니다.
+
+<br>
+
+$$ \Sigma = \begin{pmatrix} 8/3 & 0 \\ 0 2/3 \end{pmatrix} $$
+
+<br>
+
 - 먼저 $$ \mu_{1} $$ 까지의 마할라노비스 거리를 구해보겠습니다.
 
 <br>
