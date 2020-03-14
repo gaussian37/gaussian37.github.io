@@ -33,6 +33,7 @@ tags: [python, machine learning, ml] # add tag
 - 확률과 통계
 - [ML(Maximum Likelihood)와 MAP(maximum a posterior)](https://gaussian37.github.io/ml-concept-mle-and-map/)
 - [가우시안 분포와 분별 함수 (선형 분별 분석(LDA), 2차 분별 분석(QDA))](https://gaussian37.github.io/ml-concept-gaussian_discriminant/)
+- [마할라노비스 거리(mahalanobis distance)](https://gaussian37.github.io/ml-concept-mahalanobis_distance/)
 
 <br>
 
