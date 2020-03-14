@@ -2,7 +2,7 @@
 layout: post
 title: 마할라노비스 거리(Mahalanobis distance)
 date: 2020-02-01 00:00:00
-img: ml/concept/pr.png
+img: ml/concept/mahalanobis_distance/0.png
 categories: [ml-concept] 
 tags: [가우시안, 분별 함수, 패턴 인식, 선형 분별 분석, 2차 분별 분석] # add tag
 ---
