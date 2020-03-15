@@ -37,8 +37,10 @@ tags: [table] # add tag
 
 <br>
 
-- [Autonomous Driving 관련 글](https://gaussian37.github.io/autodrive-concept-table/)
-- [optimal state estimation 관련 글](https://gaussian37.github.io/autodrive-ose-table/)
+- [Autonomous Driving](https://gaussian37.github.io/autodrive-concept-table/)
+- [optimal state estimation](https://gaussian37.github.io/autodrive-ose-table/)
+- [Automotive](https://gaussian37.github.io/autodrive-automotive-table/)
+- [Self-Driving Cars (Coursera)](https://gaussian37.github.io/autodrive-sdcc-table/)
 
 <br>
 
@@ -46,13 +48,13 @@ tags: [table] # add tag
 
 <br>
 
-- [algorithm 관련 글](https://gaussian37.github.io/math-algorithm-table/)
-- [problem solving 관련 글](https://gaussian37.github.io/math-ps-table/)
-- [linear algebra 관련 글](https://gaussian37.github.io/math-la-table/)
-- [calculus 관련 글](https://gaussian37.github.io/math-calculus-Table/)
-- [probability 관련 글](https://gaussian37.github.io/math-pb-table/)
-- [game theory 관련 글](https://gaussian37.github.io/math-game-table/)
-- [mathematics for machine learning 강의](https://gaussian37.github.io/math-mfml-table/)
+- [Algorithm](https://gaussian37.github.io/math-algorithm-table/)
+- [Problem solving](https://gaussian37.github.io/math-ps-table/)
+- [Linear algebra](https://gaussian37.github.io/math-la-table/)
+- [Calculus](https://gaussian37.github.io/math-calculus-Table/)
+- [Probability](https://gaussian37.github.io/math-pb-table/)
+- [Game theory](https://gaussian37.github.io/math-game-table/)
+- [Mathematics for machine learning](https://gaussian37.github.io/math-mfml-table/)
 
 <br>
 
