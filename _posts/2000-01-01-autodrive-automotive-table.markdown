@@ -17,4 +17,4 @@ tags: [automotive, vehicle dynamics, 자동차 공학, 차량 동역학] # add t
 
 <br>
 
-- [자동차와 마찰력]()
+- [자동차와 마찰력](https://gaussian37.github.io/autodrive-automotive-friction/)
