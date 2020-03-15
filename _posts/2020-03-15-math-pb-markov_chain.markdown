@@ -14,7 +14,16 @@ tags: [마코프 체인, Markov chain] # add tag
 - 이번 글에서는 마코프 체인에 대하여 간략하게 알아보겠습니다.
 
 
-<h2><a href="https://ko.khanacademy.org/computing/computer-science/informationtheory/moderninfotheory/pi/markov-chain-exploration">마르코프 체인</a></h2><script src="https://ko.khanacademy.org/computer-science/markov-chain-exploration/Interactive:x9ac63c8f9bbfd6cf/embed.js?editor=yes&buttons=yes&author=yes&embed=yes"></script>
+- 다음 링크를 클릭하면 마코프 체인에 대한 시뮬레이션을 해볼 수 있습니다.
+
+<br>
+
+<h2><a href="https://ko.khanacademy.org/computing/computer-science/informationtheory/moderninfotheory/pi/markov-chain-exploration">마코프 체인</a></h2><script src="https://ko.khanacademy.org/computer-science/markov-chain-exploration/Interactive:x9ac63c8f9bbfd6cf/embed.js?editor=yes&buttons=yes&author=yes&embed=yes"></script>
+
+<br>
+<center><img src="../assets/img/math/pb/markov_chain/0.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
 
 
 <br>
