@@ -7,7 +7,7 @@ categories: [math-pb]
 tags: [마코프 체인, Markov chain] # add tag
 ---
 
-- [통계학 관련 글 목록](https://gaussian37.github.io/math-pb-probability-table/)
+- [통계학 관련 글 목록](https://gaussian37.github.io/math-pb-table/)
 
 <br>
 
@@ -95,7 +95,7 @@ $$ \text{trasition matrix} = \begin{pmatrix} 0.8 & 0.2 \\ 0.72 & 0.28 \end{pmatr
 
 <br>
 
-- [통계학 관련 글 목록](https://gaussian37.github.io/math-pb-probability-table/)
+- [통계학 관련 글 목록](https://gaussian37.github.io/math-pb-table/)
 
 <br>
 
