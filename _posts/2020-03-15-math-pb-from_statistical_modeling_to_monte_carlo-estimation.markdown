@@ -38,6 +38,28 @@ tags: [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov c
 <br>
 
 - 그러면 `statistical model`을 어떻게 모델링 하는 지 스텝 별로 차례대로 알아보도록 하겠습니다.
+- **① Understand the problem**
+    - 모델을 정의하기 전에 분석해야 할 문제를 정확히 이해해야 합니다. 예를 들어 여러 데이터를 모았는데 단위가 다르다면 모델링이 시작부터 잘못될 수도 있습니다.
+- **② Plan & Collect data**
+    - 어떻게 데이터를 모으고 얼마나 많이 모을 지 계획해야 합니다. 어떤 계획을 세워서 데이터를 모으느냐에 따라서 데이터의 질이 달라집니다. 특히 데이터가 **다양한 케이스를 모두 포함시킬 수 있도록 하려면** 계획을 잘 세우지 않으면 특정 케이스만 모이게 될 가능성이 높습니다.
+- **③ Explore your data**
+    - 수집한 데이터를 시각화하여 데이터를 이해하는 단계입니다. 이 단계에서는 데이터에서 나타나는 변수들 간의 관계에 대하여 살펴보고 어떤 statistical model을 사용할 지 결정하기 위한 정확한 데이터 이해를 해야합니다.
+- **④ Postulate model**
+    - 앞에서 데이터가 어떤 지 이해하였다면, 데이터를 잘 표현할 수 있는 모델을 선정해야합니다. 모델을 선정할 때에는 model complexity와 model generalizability의 tradeoff(`bias - variance tradeoff`)를 고려하여 선정해야 하는데 정확한 데이터에 대한 이해가 있으면 선정하는 데 도움이 됩니다. 즉, 복잡한 모델은 overfitting 문제를 만들 수 있는데 어느 정도 복잡한 모델을 사용할 지에 대한 기준은 데이터를 통해 정해야 합니다.
+- **⑤ Fit model**
+    - 이 단계에서는 모델에서 사용되는 파라미터들을 추정해야 합니다. 이 글에서는 bayesian 방법으로 파라미터 추정을 할 예정입니다.
+    - 정확히 이 단계에서 **Bayesian과 Frequentist의 패러다임이 나뉘게** 됩니다.
+- **⑥ Check model**
+    - 선정한 모델과 파라미터 추정이 잘 되었는 지 확인하는 단계입니다. 적절한 metric을 이용하여 얼마나 데이터에 대한 일반화 성능이 좋은지 확인합니다.
+- **⑦ Iterate ④, ⑤, ⑥**
+    - 더 좋은 성능을 내기 위하여 모델을 다시 선택하거나 (④) 파라미터 추정(⑤)을 다시해본 뒤 성능 측정(⑥)을 하는 과정을 반복합니다.
+- **⑧ Use model**
+    - 수집한 데이터에 가장 적합한 모델과 파라미터를 찾았다면 이 모델을 사용합니다. 
+
+<br>
+
+- 지금까지 `statistical modeling`이 무엇이고 어떤 과정을 거치는 것인 지 알아보았습니다.
+- 앞에서 설명하던 중 `Fit model`을 할 때에 Bayesian 패러다임을 사용할 것이라고 말하였는데 지금부터 Bayesian modeling에 대하여 간략히 알아보도록 하겠습니다.
 
 <br>
 
@@ -45,7 +67,6 @@ tags: [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov c
 
 <br>
 
-- 그러면 앞에서 배운 
 
 <br>
 
