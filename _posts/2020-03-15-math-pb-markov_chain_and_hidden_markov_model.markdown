@@ -91,6 +91,8 @@ $$ \text{trasition matrix} = \begin{pmatrix} 0.8 & 0.2 \\ 0.72 & 0.28 \end{pmatr
 
 <br>
 
+- 앞에서 배운 Markov Chain을 이용하여 `HMM(Hidden Markov Model)`에 대하여 다루어 보도록 하겠습니다.
+
 
 
 <br>
