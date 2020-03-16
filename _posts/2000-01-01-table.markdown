@@ -62,8 +62,8 @@ tags: [table] # add tag
 
 <br>
 
-- [machine learning 관련 글](https://gaussian37.github.io/ml-concept-table/)
-- [prml 관련 글](https://gaussian37.github.io/ml-prml-table/)
+- [machine learning](https://gaussian37.github.io/ml-concept-table/)
+- [PRML](https://gaussian37.github.io/ml-prml-table/)
 
 <br>
 
@@ -71,9 +71,9 @@ tags: [table] # add tag
 
 <br>
 
-- [deep learning 관련 글](https://gaussian37.github.io/dl-concept-table/)
-- [pytorch 관련 글](https://gaussian37.github.io/dl-pytorch-table/)
-- [deeplearning.ai 강의](https://gaussian37.github.io/dl-dlai-table/)
+- [deep learning](https://gaussian37.github.io/dl-concept-table/)
+- [pytorch](https://gaussian37.github.io/dl-pytorch-table/)
+- [deeplearning.ai](https://gaussian37.github.io/dl-dlai-table/)
 
 <br>
 
@@ -81,12 +81,12 @@ tags: [table] # add tag
 
 <br>
 
-- [vision 관련 글](https://gaussian37.github.io/vision-concept-table/)
-- [segmentation 관련 글](https://gaussian37.github.io/vision-segmentation-table/)
-- [detection 관련 글](https://gaussian37.github.io/vision-detection-table/)
-- [opencv 관련 글](https://gaussian37.github.io/vision-opencv-table/)
+- [vision](https://gaussian37.github.io/vision-concept-table/)
+- [segmentation](https://gaussian37.github.io/vision-segmentation-table/)
+- [detection](https://gaussian37.github.io/vision-detection-table/)
+- [opencv](https://gaussian37.github.io/vision-opencv-table/)
 
 <br>
 
-- [c 관련 글](https://gaussian37.github.io/c-concept-table/)
-- [Linux 관련 글](https://gaussian37.github.io/c-linux-table/)
+- [C](https://gaussian37.github.io/c-concept-table/)
+- [Linux](https://gaussian37.github.io/c-linux-table/)

@@ -45,21 +45,14 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 
 <br><br>
 
-## **Bayesian Statistics: Techniques and Models**
-
-<br>
-
-- [Statistical modeling and Monte Carlo estimation]()
-- [Markov chain Monte Carlo (MCMC)]()
-
-<br><br>
-
 ## **[Bayesian statistics: a comprehensive course](https://www.youtube.com/playlist?list=PLFDbGp5YzjqXQ4oE4w9GVWdiokWB9gEpm)**
 
 - Bayesian vs frequentist statistics
 - [What is a probability distribution?](https://gaussian37.github.io/math-pb-bayes_stat_05/)
 - [What is a marginal probability?](https://gaussian37.github.io/math-pb-bayes_stat_06/)
 - [What is a conditional probability?](https://gaussian37.github.io/math-pb-bayes_stat_07/)
+- [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov chain.]()
+- [Markov chain Monte Carlo (MCMC)]()
 
 <br><br>
 
