@@ -24,7 +24,7 @@ tags: [자동차 공학, 전기 자동차] # add tag
 - 일단 전기차의 에너지 효율은 매우 높은 상태이고 앞으로 점점 더 개선해야 할 문제는 **배터리의 에너지 밀도나 충전 시스템**입니다. 즉 에너지를 저장하는 것이 개선해야 할 문제인 것이죠.
 
 <br>
-<center><img src="../assets/img/autodrive/automotive/ev/0.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/autodrive/automotive/ev/0.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 모터는 인휠 모터라고 하면 자동차의 휠 속에 모터를 장치해서 직접 타이어를 구동하기 때문에 전기 자동차 중에서도 특히 에너지 효율이 높다고 알려져 있습니다.
