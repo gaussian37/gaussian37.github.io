@@ -2,7 +2,7 @@
 layout: post
 title: 순차 데이터 인식을 위한 Markov chain 과 Hidden markov model
 date: 2020-03-15 00:00:00
-img: ml/concept/markov_cahin/markov_chain.png
+img: ml/concept/markov_chain/markov_chain.png
 categories: [ml-concept] 
 tags: [마코프 체인, Markov chain] # add tag
 ---
