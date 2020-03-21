@@ -1,13 +1,37 @@
 ---
 layout: post
-title: Python 기본 문법 snippets
+title: Python 기본 문법 및 코드 snippets
 date: 2019-03-18 00:00:00
 img: python/pandas/python.jpg
 categories: [python-basic] 
 tags: [python, python 기본] # add tag
 ---
 
-+ 이 글에서는 Python을 사용하면서 필요하다고 느끼는 `Python 기본 문법`에 대하여 알아보겠습니다.
+- 이 글에서는 Python을 사용하면서 필요하다고 느끼는 `Python 기본 문법 및 코드`에 대하여 알아보겠습니다.
+
+<br>
+
+## **목차**
+
+- ### Comparator를 이용한 클래스 정렬
+- ### file read/write 방법
+- ### 현재 시각 문자열로 출력하는 방법
+- ### all과 any
+- ### lambda
+- ### map
+- ### filter
+- ### reduce
+- ### deque은 사이즈 관리를 자동으로 한다.
+- ### 현재 시각 출력하기
+- ### 파이썬 프로그램 정상 종료 시키기
+- ### 파이썬에서 폴더 및 파일 있는지 확인 후 생성
+- ### 리스트 내부의 경우의 수 조합하기
+- ### 모듈이 설치 되었는 지 확인
+- ### pip가 설치가 안되어 있으면 설치
+- ### 모듈이 설치가 안되어 있으면 설치
+
+
+
 
 <br>
 
@@ -384,3 +408,53 @@ list(product(*items))
 ```
 
 <br>
+
+## **모듈이 설치 되었는 지 확인**
+
+<br>
+
+```python
+import sys
+'numpy' in sys.modules
+>> True
+```
+
+<br>
+
+## **pip가 설치가 안되어 있으면 설치**
+
+<br>
+
+```python
+import sys
+import subprocess
+
+# pip가 없으면 pip를 설치한다.
+try:
+    import pip
+except ImportError:
+    print("Install pip for python3")
+    subprocess.call(['sudo', 'apt-get', 'install', 'python3-pip'])
+```
+
+<br>
+
+## **모듈이 설치가 안되어 있으면 설치**
+
+<br>
+
+```python
+import sys
+import subprocess
+
+# pandas가 없으면 pandas를 설치한다.
+try:
+    import pandas as pd
+except ModuleNotFoundError:
+    print("Install pandas in python3")
+    subprocess.call([sys.executable, "-m", "pip", "install", 'pandas'])
+finally:
+    import pandas as pd
+```
+
+<br.>
