@@ -93,6 +93,105 @@ $$ \text{trasition matrix} = \begin{pmatrix} 0.8 & 0.2 \\ 0.72 & 0.28 \end{pmatr
 
 - 앞에서 배운 Markov Chain을 이용하여 `HMM(Hidden Markov Model)`에 대하여 다루어 보도록 하겠습니다.
 
+<br>
+<center><img src="../assets/img/math/pb/markov_chain/5.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림처럼 어떤 사람A는 해가 떳을 때에는 80%의 확률로 기분이 좋고 20%의 확률로 기분이 나쁘다고 가정해보겠습니다. 반면 날씨가 안좋을 때에는 40% 확률로 기분이 좋고 60% 확률로 기분이 나쁘다고 가정해보겠습니다.
+- 이 때 멀리 떨어진 다른 사람B가 A에게 전화를 해서 A의 기분을 파악하고 A가 있는 날씨를 추정한다고 해보겠습니다.
+
+<br>
+<center><img src="../assets/img/math/pb/markov_chain/6.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 이 때, 각각의 요일을 독립적으로 본다고 하면 기분이 좋은 날은 해가 떴을 가능성이 높고 기분이 안좋은 날은 날씨가 안좋을 가능성이 높으므로 위 처럼 판단할 수 있습니다.
+- 하지만 위와 같은 상황이 현실적으로 발생할 수 있을까요? 날씨가 좋았다 비왔다 번갈아 계속 일어날 가능성은 매우 낮습니다. 
+- 특히 날씨와 같은 경우는 독립적이지 않습니다. 어제의 날씨가 오늘의 날씨에 영향을 줄 수도 있기 때문입니다.
+
+<br>
+<center><img src="../assets/img/math/pb/markov_chain/7.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위와 같이 날씨가 변경되는 확률까지 도입된다면 상황은 조금 달라집니다.
+- 보통 날씨는 연속되는 경향이 있으니 위와 같이 날씨의 상태 변화를 확률로 나타낼 수 있습니다.
+- 그러면 위 모델에서는 2개 타입의 상태 (날씨, 기분)이 존재하고 기분이란 것은 직접 관측할 수 있는 것이므로 `observation`이라 하고 날씨는 기분을 통해 추정하는 것으로 `hidden` 이라고 하곘습니다.
+
+<br>
+<center><img src="../assets/img/math/pb/markov_chain/8.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 여기서 `hidden state` 간의 확률을 `transition probability`라고 합니다. 말 그대로 hidden state가 천이되는 확률을 나타내기 때문입니다.
+
+<br>
+<center><img src="../assets/img/math/pb/markov_chain/9.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 반면 `hidden state`에서 뻗어나온 확률을 `emission probability` 라고 합니다.
+
+<br>
+
+- 그러면 위와 같은 Hidden Markov Model을 완성시키기 위해서는 몇가지 확인해야 할 사항들이 있습니다. 예를 들면 다음과 같은 것들을 해결해야 합니다.
+- ① Hidden Markov Model들의 확률들은 어떻게 찾을 것인가?
+- ② (어떤 정보도 주어지지 않은) 어떤 임의의 날이 해가 뜨는 지 비가 오는 지 어떻게 알 것인가?
+- ③ (어떤 정보가 주어짐 ) A가 오늘 기분이 좋다면, 해가 뜬 확률과 비가 올 확률은 어떻게 구할 것인가?
+- ④ 만약 A의 기분이 3일 동안 좋음, 나쁨, 좋음이면 날씨는 어떠하였을까?
+
+<br>
+
+- 그러면 첫번째, ① Hidden Markov Model들의 확률들은 어떻게 찾을 것인가? 부터 해결해 보겠습니다.
+
+<br>
+<center><img src="../assets/img/math/pb/markov_chain/10.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 먼저 transition probability는 실제 데이터를 수집하여 구해야 합니다. 날씨와 같은 경우 일기 예보등을 구해서 맑음과 비옴에 대한 상관 관계가 어떤지 위 처럼 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/pb/markov_chain/11.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 그 다음 emission probability 또한 실제 데이터를 기반으로 구할 수 있습니다.
+- 위 그림처럼 날씨의 상태에 따라 A의 기분을 기록해 놓고 날씨에 따른 기분의 확률을 계산해 놓아야 합니다. 
+
+<br>
+
+- ② (어떤 정보도 주어지지 않은) 어떤 임의의 날이 해가 뜨는 지 비가 오는 지 어떻게 알 것인가?
+
+<br>
+<center><img src="../assets/img/math/pb/markov_chain/12.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 앞에서 살펴본 데이터 기준으로 해가 뜬 날의 날 수가 2배 더 많은 것을 사전에 확인할 수 있습니다.
+- 그리고 다음과 같이 transition probability를 통해 식을 만들어 보겠습니다.
+
+<br>
+<center><img src="../assets/img/math/pb/markov_chain/13.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 각각의 상태 `S`와 `R`은 각 상태로 유입되는 상태의 확률만 모아서 식을 정의할 수 있습니다.
+- 이 때 `S`에 있을 확률과 `R`에 있을 확률의 합은 1이 되어야 하고 앞에서 확인한 바와 같이 전체 사건을 기준으로 `S`에 있을 확률이 2배 높습니다.
+- 따라서 어떤 정보가 없다면 높은 확률의 상태를 초깃값으로 가져가는 것이 합당합니다.
+
+<br>
+
+- ③ (어떤 정보가 주어짐 ) A가 오늘 기분이 좋다면, 해가 뜬 확률과 비가 올 확률은 어떻게 구할 것인가?
+- 이 문제를 해결하기 위해서는 `Beyes theorem`을 이용해야 합니다. 왜냐하면 **A가 오늘 기분이 좋다면** 이란 observation 조건이 있기 때문입니다.
+- 오늘 기분이 좋다고 단순히 오늘이 날씨가 좋다고 판단하였을 때의 문제는 앞에서 다룬 것 처럼 날씨가 오락가락 할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/pb/markov_chain/14.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- Bayes theorem에는 `prior`, `likelihood`, `posterior`가 있습니다. 위 예제를 통해 prior와 posterior에 대한 정의를 해보면 다음과 같습니다.
+    - `posterior` : 최종적으로 구하고 싶은 기분이 주어졌을 때, 날씨를 추측하는 것으로 $$ P(\text{날씨의 상태} \vert \text{기분의 상태})$$ 가 됩니다. 가장 알고 싶은 것이지만 현재 바로 추정할 수는 없습니다.
+    - `likelihood` : ① 과정에서 살펴보았습니다. 실제 날씨를 통해 그날의 기분을 기록해서 나타내었습니다. 즉 날씨가 주어졌을 때, 기분을 나타내므로 $$ P(\text{기분의 상태} \vert \text{날씨의 상태})$$ 가 됩니다.
+    - `prior` : likelihood의 condition에 해당합니다. 즉, likelihood의 조건인 날씨의 상태가 되어 $$ P(\text{날씨의 상태}) $$가 됩니다.
+- 구해야 할 posterior는 $$ P(\text{날씨의 상태} \vert \text{기분의 상태})$$입니다. 예를 들어 $$ P(\text{해} \vert \text{기분좋음}) $$ 같은 것입니다.
+- posterior는 prior와 likelihood를 통해 구할 수 있으므로 다음과 같이 구해보겠습니다.
+
+<br>
+<center><img src="../assets/img/math/pb/markov_chain/15.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
 
 <br>
