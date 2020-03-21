@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 확률과 통계
+title: 확률과 통계 기초
 date: 2018-11-29 08:42:00
 img: ml/concept/bayesian-dicition-theory/Bayes_Theorem_web.png
 categories: [ml-concept] 
@@ -13,15 +13,20 @@ tags: [Bayesian, Bayesian Decision, joint probability, marginal probability] # a
 
 자 그러면 시작해 보겠습니다.
 
-## 확률 기초
+<br>
 
----
-
-![1](../assets/img/ml/concept/bayesian-dicition-theory/1.png)
+## **확률 기초**
 
 <br>
 
-### Discrete & Continuous Probability
+
+<br>
+<center><img src="../assets/img/ml/concept/bayesian-dicition-theory/1.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+### **Discrete & Continuous Probability**
+
+<br>
 
 + 주사위를 던졌을 때 3이 나올 확률(probability)는 $$ \frac{1}{6} $$ 입니다.
     + 이것을 기호로 표시하면 $$ P(X = 3) = \frac{1}{6} $$

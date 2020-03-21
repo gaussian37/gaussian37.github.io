@@ -9,7 +9,7 @@ tags: [python, machine learning, ml] # add tag
 
 <br>
 
-- 확률과 통계
+- 확률과 통계 기초
 - 베이시언 결정 이론
 - [ML(Maximum Likelihood)와 MAP(maximum a posterior)](https://gaussian37.github.io/ml-concept-mle-and-map/)
 - [MLE(Maximum Likelihood Estimation)와 MAP(Maxim A Posterior)에 관하여](https://gaussian37.github.io/ml-concept-mlemap)
