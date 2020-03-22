@@ -15,7 +15,13 @@ tags: [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov c
 
 <br>
 
-## **Statistical modeling**
+## **목차**
+
+<br>
+
+- ### Statistical model이란?
+- ### Modeling process
+- ### Bayesian modeling
 
 <br>
 
