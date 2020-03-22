@@ -33,9 +33,11 @@ tags: [python, python 기본] # add tag
 - ### pip가 설치가 안되어 있으면 설치
 - ### 모듈이 설치가 안되어 있으면 설치
 - ### argparse 사용법
-- ### 문자열 검색 : startswith, endswith, in, find
+- ### 문자열 검색 : startswith, endswith, in, find, re
 - ### 디렉토리(+ 파일) 복사하기
 - ### 디렉토리(- 파일) 복사하기
+- ### 입력한 디렉토리의 부모 디렉토리 출력
+- ### 특정 문자를 기준으로 split
 
 <br>
 
@@ -556,7 +558,7 @@ True
 import shutil
 src = './dir1'
 dest = './dir2'
-shutil.copytree(src, destd)
+shutil.copytree(src, dest)
 ```
 
 <br>
@@ -566,17 +568,64 @@ shutil.copytree(src, destd)
 <br>
 
 - 디렉토리 내부의 파일은 무시하고 디렉토리 구조만 복사하려면 다음 함수를 사용하면 됩니다.
-- root는 복사할 디렉토리이고 new_root에는 새로 생설할 디렉토리의 이름을 입력하면 생성과 동시에 복사됩니다.
+- 앞에서 다룬 `shutil.copytree` 함수에서 `ignore` 옵션으로 아래 함수를 넘겨주면 파일은 복사하지 않습니다.
+
+<br>
+
+```python
+import shutil
+
+def OnlyDirectoryCopy(dir, files):
+    return [f for f in files if os.path.isfile(os.path.join(dir, f))]
+
+src = './dir1'
+dest = './dir2'
+shutil.copytree(src, dest, ignore=OnlyDirectoryCopy)
+```
+
+<br>
+
+## **입력한 디렉토리의 부모 디렉토리 출력**
+
+<br>
+
+- 아래 코드는 입력한 `input_path`의 부모 디렉토리를 가져옵니다.
 
 <br>
 
 ```python
 import os
-
-def CloneDirStructure(root, new_root):
-    """Walk through root folders and copy to new root"""
-    root_len = len(root) + 1
-    for root_path, _, _ in os.walk(root):
-        new_folder = path.join(new_root, root_path[root_len:])
-        os.mkdir(new_folder)
+os.path.abspath(os.path.join(input_path, os.pardir))
 ```
+
+<br>
+
+## **특정 문자를 기준으로 split**
+
+<br>
+
+- 특정 문자를 기준으로 문자열을 split 하는 방법은 문자열 자체의 split 함수를 이용하는 방법과 regular expression을 이용하는 2가지 방법이 있습니다.
+
+<br>
+
+```python
+>> s = 'image.png'
+>> s.split('.')
+['image', 'png']
+```
+
+<br>
+
+- 반면 split 해야 하는 문자의 기준이 많아지면 regular expression을 이용해서 처리하면 됩니다.
+
+<br>
+
+```python
+import re
+
+>> s = 'A_B_C.png'
+>> re.split('[_.]', s)
+['A', 'B', 'C', 'png']
+```
+
+<br>
