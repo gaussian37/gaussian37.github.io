@@ -2,7 +2,7 @@
 layout: post
 title: Python 기본 문법 및 코드 snippets
 date: 2019-03-18 00:00:00
-img: python/pandas/python.jpg
+img: python/basic/python.jpg
 categories: [python-basic] 
 tags: [python, python 기본] # add tag
 ---
@@ -29,6 +29,7 @@ tags: [python, python 기본] # add tag
 - ### 모듈이 설치 되었는 지 확인
 - ### pip가 설치가 안되어 있으면 설치
 - ### 모듈이 설치가 안되어 있으면 설치
+- ### argparse 사용법
 
 
 
@@ -457,4 +458,18 @@ finally:
     import pandas as pd
 ```
 
-<br.>
+<br>
+
+## **argparse 사용법**
+
+<br>
+
+```python
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument('--input', required=True, help='Enter the input')
+args = parser.parse_args()
+print(args.input)
+```
+
+<br>
