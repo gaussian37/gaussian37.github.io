@@ -13,6 +13,9 @@ tags: [python, python 기본] # add tag
 
 ## **목차**
 
+<br>
+
+- ### if __name__ == "__main__": 사용 이유
 - ### Comparator를 이용한 클래스 정렬
 - ### file read/write 방법
 - ### 현재 시각 문자열로 출력하는 방법
@@ -30,9 +33,18 @@ tags: [python, python 기본] # add tag
 - ### pip가 설치가 안되어 있으면 설치
 - ### 모듈이 설치가 안되어 있으면 설치
 - ### argparse 사용법
+- ### 문자열 검색 : startswith, endswith, in, find
 
+<br>
 
+## **if __name__ == "__main__": 사용 이유**
 
+<br>
+
+- 어떤 파이선 파일을 만들었을 때, 그 파이썬 파일을 import 하면 그 파일 안에 있는 함수들을 사용할 수 있게 됩니다.
+- 이 때 `if __name__ == "__main__"`을 이용하여 main 함수를 컨트롤 하지 않으면 전역 변수 영역에 선언된 모든 함수들이 실행되게 됩니다.
+- 예를 들어 `print` 함수들이 전역 변수 영역에 정의되어 있다면 `import` 할 때, 실행되어 원하지 않는 결과가 출력될 수 있습니다.
+- 즉, 다른 파이썬에서 import 하였을 때, `def`로 정의된 함수들만 `import`되도록 하기 위해서는 main 함수를 통해 컨트롤 해야 합니다. 
 
 <br>
 
@@ -470,6 +482,61 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--input', required=True, help='Enter the input')
 args = parser.parse_args()
 print(args.input)
+```
+
+<br>
+
+## **문자열 검색 : startswith, endswith, in, find**
+
+<br>
+
+- 파이썬의 문자열 내부를 검색할 때 대표적으로 사용하는 함수에 대하여 알아보도록 하겠습니다.
+- `startswith` : 특정 prefix로 시작하는 지 찾습니다.
+
+<br>
+
+```python
+>> s = 'this is string.'
+>> s.startswith('this')
+True
+```
+
+<br>
+
+- `endswith` : 특정 suffix로 끝나는 지 찾습니다.
+
+<br>
+
+```python
+>> s = 'this is string.'
+>> s.endswith('string.')
+True
+```
+
+<br>
+
+- `in`을 이용하면 특정 문자열을 포함하고 있는 지 확인합니다.
+
+<br>
+
+```python
+>> s = 'this is string.'
+>> 'is' in s
+True
+```
+
+<br>
+
+- `find`: 특정 문자열이 위치하는 인덱스를 찾습니다. 찾으면 그 위치의 인덱스를 반환하고 찾지못하면 -1을 반환합니다.
+
+<br>
+
+```python
+>> s = 'this is string.'
+>> s.find('string')
+8
+>> s.find('no')
+-1
 ```
 
 <br>
