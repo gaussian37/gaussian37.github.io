@@ -15,12 +15,13 @@ tags: [pandas, python, python 기본] # add tag
 
 <br>
 
-- ### read_csv(excel) 함수를 통하여 파일 읽을 때 팁
+- ### read_csv(excel) 함수를 통하여 파일 읽을 때
+- ### to_csv(excel) 함수를 통하여 파일 쓸 때
 
 
 <br>
 
-## **read_csv(excel) 함수를 통하여 파일 읽을 때 팁**
+## **read_csv(excel) 함수를 통하여 파일 읽을 때**
 
 <br>
 
@@ -31,3 +32,15 @@ tags: [pandas, python, python 기본] # add tag
 - ③ 파일을 읽을 때, 구분자의 기준을 주고 싶다면 다음 옵션을 줍니다.
     - `sep = ','`, 특정 문자를 입력하면 됩니다.
 
+<br>
+
+## **to_csv(excel) 함수를 통하여 파일 쓸 때**
+
+<br>
+
+- ① 파일을 쓸 때, 첫 열의 인덱스(0, 1, 2, ...)를 만들고 싶지 않다면 다음 옵션을 준다.
+    - `index = False`
+- ② 파일을 쓸 때, 첫 행에 헤더를 만들고 싶지 않다면 다음 옵션을 줍니다.
+    - `header = None`
+- ③ 파일을 쓸 때, 구분자의 기준을 주고 싶다면 다음 옵션을 줍니다.
+    - `sep = ','`, 특정 문자를 입력하면 됩니다.
