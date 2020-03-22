@@ -34,6 +34,8 @@ tags: [python, python 기본] # add tag
 - ### 모듈이 설치가 안되어 있으면 설치
 - ### argparse 사용법
 - ### 문자열 검색 : startswith, endswith, in, find
+- ### 디렉토리(+ 파일) 복사하기
+- ### 디렉토리(- 파일) 복사하기
 
 <br>
 
@@ -540,3 +542,41 @@ True
 ```
 
 <br>
+
+## **디렉토리(+ 파일) 복사하기**
+
+<br>
+
+- 어떤 디렉토리 내부의 모든 디렉토리 구조와 파일을 복사하고 싶으면 다음 코드를 사용하면 됩니다.
+- 아래 코드는 현재 경로에 있는 `dir1` 이라는 폴더 전체를 `dir2`로 복사합니다. 내부의 폴더 구조와 파일 까지 모두 복사합니다.
+
+<br>
+
+```python
+import shutil
+src = './dir1'
+dest = './dir2'
+shutil.copytree(src, destd)
+```
+
+<br>
+
+## **디렉토리(- 파일) 복사하기**
+
+<br>
+
+- 디렉토리 내부의 파일은 무시하고 디렉토리 구조만 복사하려면 다음 함수를 사용하면 됩니다.
+- root는 복사할 디렉토리이고 new_root에는 새로 생설할 디렉토리의 이름을 입력하면 생성과 동시에 복사됩니다.
+
+<br>
+
+```python
+import os
+
+def CloneDirStructure(root, new_root):
+    """Walk through root folders and copy to new root"""
+    root_len = len(root) + 1
+    for root_path, _, _ in os.walk(root):
+        new_folder = path.join(new_root, root_path[root_len:])
+        os.mkdir(new_folder)
+```
