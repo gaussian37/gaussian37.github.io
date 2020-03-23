@@ -74,6 +74,8 @@ tags: [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov c
 <br>
 
 
+
+
 <br>
 
 - [통계학 관련 글 목록](https://gaussian37.github.io/math-pb-table/)
