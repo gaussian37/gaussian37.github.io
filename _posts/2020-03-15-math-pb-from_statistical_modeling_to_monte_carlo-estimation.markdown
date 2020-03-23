@@ -69,10 +69,65 @@ tags: [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov c
 
 <br>
 
-## **Bayesian modeling**
+## **Components of Bayesian models**
 
 <br>
 
+- 이번에는 주제를 바꿔서 `bayesian modeling`에 대하여 다루어 보도록 하겠습니다. 쉽게 예를 들어서 설명해 보겠습니다.
+- 15명의 사람이 있고 이 사람들의 키가 정규 분포를 따른다고 가정해 보겠습니다. 그러면 다음 식처럼 분포를 정의할 수 있습니다.
+
+<br>
+
+$$ n = 15, y_{i} = \mu + \epsilon_{i}, \epsion_{i} ~ N(0, \sigma^{2}) (i.i.d) $$
+
+$$ y_{i} ~ N(\mu, \sigma^{2}) (i.i.d) $$
+
+<br>
+
+- 위 식을 이용할 때, 여기 까지는 frequentist와 bayesian의 접근 방법이 같습니다.
+- 여기 까지 `frequentist`의 접근 방법은 $$ \mu $$와 $$ \sigma $$를 알기 위해서 가지고 있는 표본을 이용하여 이 값들을 구하고 만약 샘플링을 다시 한다면 다시 계산하여 이 값을 구하는 방식을 이용합니다. 일반적인 사람들이 많이 사용하는 방법입니다.
+- 반면 `bayesian`의 접근 방법은 $$ \mu $$와 $$ \sigma $$를 각각 고유한 확률 분포를 가지는 random variable로 다루는 방식입니다. 이 변수들을 각각 다룰 때, 이것을 `prior` 라고 합니다.
+- 베이지안에는 크게 3가지 요소인 `likelihood`, `prior`, `posterior`가 있습니다.
+- `likelihood`는 **데이터에 대한 확률적 모델의 값**입니다. `데이터에 대한` 이란 의미에서는 데이터를 나타내는 파라미터 $$ \theta $$로 표현할 수 있고 `확률적 모델`에서 확률 모델을 $$ y $$ 라고 한다면 (확률 모델은 정규분포가 될 수도 있고 이항 분포가 될수도 있고 아니면 다양한 다른 다양한 분포가 될 수 있습니다.) `likelihood`는 다음과 같습니다.
+
+<br>
+
+$$ \text{likelihood} = p(y \vert \theta) $$
+
+<br>
+
+- `prior`는 **데이터의 확률**입니다. 앞에서 frequentist의 접근 방법에서 $$ \mu $$와 $$ \sigma $$ 값을 얻을 때, 단순히 주어진 데이터를 통해서 구한 것과 의미가 같습니다. frequentist의 방법에서는 $$ \mu $$와 $$ \sigma $$의 값이 목적이지만 `prior`는 그런 데이터가 나올 확률이 목적입니다.
+
+<br>
+
+$$ \text{prior} = p(\theta) $$
+
+<br>
+
+- **데이터가 나올 확률**과 **그 데이터에 대한 확률적 모델**을 연관시켜서 보면 joint distribution 형태로 나타낼 수 있습니다.
+
+<br>
+
+$$ p(y, \theta) = p(\theta)p(y \vert \theta) $$
+
+<br>
+
+- `posterior`는 likelihood와 반대로 **확률적 모델의 값에 대한 데이터의 확률**입니다. 이 값은 앞에서 정의한 joint distribution을 이용하여 다음과 같이 표현할 수 있습니다.
+
+<br>
+
+$$ p(\theta \vert y) = \frac{p(\theta, y)}{p(y)} = \frac{p(\theta, y)}{\int p(\theta, y)d\theta} = \frac{p(y \vert \theta)p(\theta)}{\int p(y \vert \theta)p(\theta)d\theta} $$
+
+<br>
+
+- 위 식을 보면 조건부 확률로 분모가 $$ p(y) $$가 되어 즉, 확률적 모델의 값이 $$ p(y) $$가 되었을 때의 경우로 한정이 되고 그 때, 데이터 $$ \theta $$가 나올 확률을 나타냅니다.
+- 또한 위 식의 $$ \int $$는 일반화 시키기 위해 사용한 식의 기호이며 이산 확률 변수의 경우 $$ \sum $$으로 대체해도 됩니다. 
+
+<br>
+
+## **Model specification**
+
+<br>
 
 
 
