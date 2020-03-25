@@ -80,9 +80,9 @@ tags: [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov c
 
 <br>
 
-$$ n = 15, y_{i} = \mu + \epsilon_{i}, \epsilon_{i} \sim N(0, \sigma^{2}) \ (i.i.d) $$
+$$ n = 15, \ \ \ \  y_{i} = \mu + \epsilon_{i}, \ \ \ \  \epsilon_{i} \sim N(0, \sigma^{2}) \dots ( 	ext{i.i.d}) $$
 
-$$ y_{i} \sim N(\mu, \sigma^{2}) \ (i.i.d) $$
+$$ y_{i} \sim N(\mu, \sigma^{2}) \dots ( 	ext{i.i.d}) $$
 
 <br>
 
@@ -131,10 +131,27 @@ $$ p(\theta \vert y) = \frac{p(\theta, y)}{p(y)} = \frac{p(\theta, y)}{\int p(\t
 
 <br>
 
-
+- 모델을 fitting 하기 전에 먼저 모든 구성 요소를 지정해야 합니다. 이를 위한 한 가지 편리한 방법은 모델을 계층적 형식(hierarchical form)으로 표현해 보는 것입니다. 즉, 계층별로 모델이 레이어(단계)에 지정되어 있음을 의미합니다.
+- 앞에서 다룬 키에 관한 예제를 이용해서 다시 살펴보도록 하겠습니다.
+- 먼저 random variable인 $$  y_{i} \vert \mu, \sigma^{2} $$에 대하여 알아보겠습니다.
 
 <br>
+
+$$ y_{i} \vert \mu, \sigma^{2} \ \sim \ N(\mu, \sigma^{2}) \dots (\text{i.i.d}), \ \ \ i = 1, 2, ..., n $$
+
+<br>
+
+- 그 다음 `prior`에 대하여 알아보겠습니다. 이 때, $$ \mu $$와 $$ \sigma $$는 독립이라고 가정하겠습니다. 평균과 분산을 독립이라고 가정하였기 때문에 분리해서 표현할 수 있습니다. 
+
+<br>
+
+$$ p(\mu, \sigma^{2}) = p(\mu)p(\sigma^{2}) $$
+
+<br>
+
+- 
 
 - [통계학 관련 글 목록](https://gaussian37.github.io/math-pb-table/)
 
 <br>
+
