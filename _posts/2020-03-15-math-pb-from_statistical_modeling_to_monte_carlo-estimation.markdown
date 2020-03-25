@@ -27,6 +27,8 @@ tags: [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov c
 
 ### **Statistical model이란?**
 
+<br>
+
 - `statistical model`이 무엇일까요?  statistical model은 **데이터 생성 과정을 모델링** 한 것입니다. statistical model은 다양한 변수들의 관계에 대하여 설명하는데 이 변수들은 데이터 속에서 매우 다양하게 나타나고 불확실하게 나타나는 특성을 가집니다. 
 - 예를 들어 변수들이 너무 다양하거나 변수들의 관계가 너무 복잡하면 변수들 간의 관계를 알아차리기가 어려워 random behavior 형태로 데이터가 나타날 수 있습니다. 
 - 이러한 random behavior들의 불확실성과 다양성을 나타내기 위해서는 `확률 이론`을 도입해서 나타낼 수 있습니다. 이 때 사용하는 것이 바로 `statistical model`이 됩니다.
@@ -78,9 +80,9 @@ tags: [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov c
 
 <br>
 
-$$ n = 15, y_{i} = \mu + \epsilon_{i}, \epsion_{i} ~ N(0, \sigma^{2}) (i.i.d) $$
+$$ n = 15, y_{i} = \mu + \epsilon_{i}, \epsilon_{i} \sim N(0, \sigma^{2}) \ (i.i.d) $$
 
-$$ y_{i} ~ N(\mu, \sigma^{2}) (i.i.d) $$
+$$ y_{i} \sim N(\mu, \sigma^{2}) \ (i.i.d) $$
 
 <br>
 
