@@ -141,7 +141,7 @@ $$ y_{i} \vert \mu, \sigma^{2} \ \sim \ N(\mu, \sigma^{2}) \dots (\text{i.i.d}),
 
 <br>
 
-- 그 다음 `prior`에 대하여 알아보겠습니다. 이 때, $$ \mu $$와 $$ \sigma $$는 독립이라고 가정하겠습니다. 평균과 분산을 독립이라고 가정하였기 때문에 분리해서 표현할 수 있습니다. 
+- 그 다음 `prior`에 대하여 알아보겠습니다. 이 때, $$ \mu $$와 $$ \sigma $$는 독립이라고 가정하겠습니다. 평균과 분산을 독립이라고 가정하였기 때문에 분리해서 표현할 수 있습니다.
 
 <br>
 
@@ -149,7 +149,9 @@ $$ p(\mu, \sigma^{2}) = p(\mu)p(\sigma^{2}) $$
 
 <br>
 
-- 
+- 그리고 $$ \sigma^{2} $$의 값을 알면 $$ \mu $$ 이전의 conjugate가 `정규 분포`이고, $$ \mu $$가 알려져있을 때 $$ \sigma^{2} $$ 이전의 conjugate가 inverse gamma distribution이라는 것이 알려져 있습니다.
+
+<br>
 
 - [통계학 관련 글 목록](https://gaussian37.github.io/math-pb-table/)
 
