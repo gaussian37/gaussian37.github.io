@@ -149,7 +149,34 @@ $$ p(\mu, \sigma^{2}) = p(\mu)p(\sigma^{2}) $$
 
 <br>
 
-- 그리고 $$ \sigma^{2} $$의 값을 알면 $$ \mu $$ 이전의 conjugate가 `정규 분포`이고, $$ \mu $$가 알려져있을 때 $$ \sigma^{2} $$ 이전의 conjugate가 inverse gamma distribution이라는 것이 알려져 있습니다.
+- 그리고 $$ \sigma^{2} $$의 값을 알면 $$ \mu $$ 의 conjugate가 `정규 분포`이고, $$ \mu $$가 알려져있을 때 $$ \sigma^{2} $$ 의 conjugate가 inverse gamma distribution이라는 것이 알려져 있습니다. 따라서 다음과 같이 적어보겠습니다. 아래 파라미터의 인덱스 0은 단순히 숫자를 표시하기 위해 적었습니다.
+
+<br>
+
+$$ \mu \ \sim \ N(\mu_{0}, \sigma_{0}^{2}) $$
+
+$$ \sigma^{2} \ \sim \ \text{Inverse Gamma}(\nu_{0}, \beta_{0}}) $$
+
+<br>
+
+- 이제 위 식을 이용하여 `prior` 에서 `likelihood` 까지 어떻게 graphic 하게 표현해보겠습니다.
+
+<br>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/1.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림에서 한 개의 동그라미는 `자체적으로 분포`를 가지는 random variable 임을 뜻합니다.
+- 두 개의 동그라미는 데이터에서 `관측`이 가능한 random variable임을 뜻합니다.
+- 화살표의 뜻은 도착점의 random variable이 시작점의 random variable에 종속적이라는 뜻입니다. 즉, $$ y_{i} $$는 $$ \mu $$와 $$ \sigma^{2} $$에 종속적입니다.
+
+<br>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 정리해서 표현할 수도 있습니다.
+- 위와 같이 graphic 하게 표현할 때, 시작점은 dependency가 없는 random variable에서 부터 시작하면 됩니다.
+- 예제에서는 $$ \mu $$와 $$ \sigma $$가 그 시작점이 될 수 있고 이 시작점이 바로 `prior`가 됩니다.
+
 
 <br>
 
