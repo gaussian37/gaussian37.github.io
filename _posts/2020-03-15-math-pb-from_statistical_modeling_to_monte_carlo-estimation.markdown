@@ -21,7 +21,9 @@ tags: [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov c
 
 - ### Statistical model이란?
 - ### Modeling process
-- ### Bayesian modeling
+- ### Components of Bayesian models
+- ### Model specification
+- ### Posterior derivation
 
 <br>
 
@@ -155,7 +157,7 @@ $$ p(\mu, \sigma^{2}) = p(\mu)p(\sigma^{2}) $$
 
 $$ \mu \ \sim \ N(\mu_{0}, \sigma_{0}^{2}) $$
 
-$$ \sigma^{2} \ \sim \ \text{Inverse Gamma}(\nu_{0}, \beta_{0}}) $$
+$$ \sigma^{2} \ \sim \ \text{Inverse Gamma}(\nu_{0}, \beta_{0}) $$
 
 <br>
 
@@ -170,12 +172,16 @@ $$ \sigma^{2} \ \sim \ \text{Inverse Gamma}(\nu_{0}, \beta_{0}}) $$
 - 화살표의 뜻은 도착점의 random variable이 시작점의 random variable에 종속적이라는 뜻입니다. 즉, $$ y_{i} $$는 $$ \mu $$와 $$ \sigma^{2} $$에 종속적입니다.
 
 <br>
-<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2.png" alt="Drawing" style="width: 300px;"/></center>
 <br>
 
 - 위 그림과 같이 정리해서 표현할 수도 있습니다.
 - 위와 같이 graphic 하게 표현할 때, 시작점은 dependency가 없는 random variable에서 부터 시작하면 됩니다.
 - 예제에서는 $$ \mu $$와 $$ \sigma $$가 그 시작점이 될 수 있고 이 시작점이 바로 `prior`가 됩니다.
+
+<br>
+
+- ## Posterior derivation
 
 
 <br>
