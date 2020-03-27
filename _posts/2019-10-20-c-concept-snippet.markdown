@@ -30,6 +30,9 @@ tags: [C] # add tag
 <br>
 
 ```cpp
+#define PI 3.141592
+#define TRUE 1
+#define FALSE 0
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 #define ABS(x) ((x)<0 ? -(x) : (x))
