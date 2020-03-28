@@ -181,7 +181,54 @@ $$ \sigma^{2} \ \sim \ \text{Inverse Gamma}(\nu_{0}, \beta_{0}) $$
 
 <br>
 
-- ## Posterior derivation
+- ## **Posterior derivation**
+
+<br>
+
+- `Posterior`에 대하여 알아보기 위해 다음과 같은 hierarchical model 예제를 정의해 보겠습니다.
+
+<br>
+
+$$ y_{i} \vert \mu, \sigma^{2} \sim N(\mu, \sigma^{2}) $$
+
+$$ \mu \vert \sigma^{2} \sim N(\mu_{0}, \sigma^{2}) $$
+
+$$ \sigma^{2} \sim \text{inverse gamma}(\nu_{0}, \beta_{0}) $$
+
+<br>
+
+- 위 식을 그래프로 나타내면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/3.png" alt="Drawing" style="width: 300px;"/></center>
+<br>
+
+- 이 식을 joint distribution 형태로 나타내 보겠습니다.
+
+<br>
+
+$$ p(y_{1}, \cdots, y_{n}, \mu, \sigma^{2}) = p(y_{1}, \cdots, y_{n} \vert \mu, \sigma^{2})p(\mu \vert \sigma^{2})p(\sigma^{2})  = \prod_{i=1}^{n} = \Biggl( N(y_{i} \vert \mu, \sigma^{2}) \Biggr) \times N(\mu \vert \mu_{0}, \sigma^{2}) \times \text{inverse gamma}(\sigma^{2} \vert \nu_{0}, \beta_{0}) $$
+
+<br>
+
+- 그리고 앞에서 다룬 베이즈 이론을 이용해 보겠습니다.
+
+<br>
+
+$$ p(\theta \vert y) = \frac{ p(y \vert \theta)p(\theta) }{ \int p(y \vert \theta)p(\theta) d\theta} \propto p(y \vert \theta)p(\theta) $$
+
+<br>
+
+- 베이즈 이론을 이용하면 `prior`와 `likelihood`의 곱은 `posterior`에 비례합니다. (분모는 확률의 값을 0과 1사이로 노말라이즈 해주는 역할 일 뿐입니다.)
+- 그러면 앞에서 다룬 joint distribution인 $$ p(y_{1}, \cdots, y_{n}, \mu, \sigma^{2}) $$ 또한 다음과 같이 `prior`와 `likelihood`의 나타나지게 됩니다. $$ p(y_{1}, \cdots, y_{n} \vert \mu, \sigma^{2})p(\mu \vert \sigma^{2})p(\sigma^{2}) $$
+- 따라서 `joint probability`, `prior`와 `likelihood`의 곱을 `posterior`와의 비례식으로 표현하면 다음과 같이 정리할 수 있습니다.
+
+<br>
+
+$$ p(y_{1}, \cdots, y_{n}, \mu, \sigma^{2}) = p(y_{1}, \cdots, y_{n} \vert \mu, \sigma^{2})p(\mu \vert \sigma^{2})p(\sigma^{2}) \propto p(\mu, \sigma^{2} \vert y_{1}, \cdots y_{n}) $$
+
+<br>
+
 
 
 <br>
