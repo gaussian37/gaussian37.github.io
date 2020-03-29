@@ -267,7 +267,8 @@ $$ p(\mu \vert y_{1}, \cdots , y_{n}) \ \propto \ \prod_{i=1}^{n} \Biggl( \frac{
 
 <br>
 
-- `posterior`는 위 식처럼 전개할 수 있습니다.
+- `posterior`는 위 식처럼 전개할 수 있습니다. 위 식의 결과는 `prior`와 상당히 다른 형태입니다. 즉, `non-conjugate model`의 예시가 됩니다.
+
 
 
 <br>
