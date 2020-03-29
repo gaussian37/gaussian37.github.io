@@ -24,6 +24,7 @@ tags: [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov c
 - ### Components of Bayesian models
 - ### Model specification
 - ### Posterior derivation
+- ### Non-conjugate models
 
 <br>
 
@@ -229,6 +230,40 @@ $$ p(y_{1}, \cdots, y_{n}, \mu, \sigma^{2}) = p(y_{1}, \cdots, y_{n} \vert \mu, 
 
 <br>
 
+- 지금까지 살펴본 식들을 보면 `prior`는 $$ p(\theta ) $$가 되고 `posterior`는 $$ p(\theta \vert y) $$가 됩니다.
+- 즉, 기존에 가지고 있는 데이터에 대한 확률을 확률적 모델을 이용하여 업데이트 한 것이 됩니다.
+- 이 때, `prior`와 `posterior`의 확률 분포는 동일한 확률분포를 뛸까요? 그런 경우도 있고 그렇지 않은 경우도 있습니다.
+- 만약 `prior`와 `posterior`의 확률 분포가 같은 확률 분포족에 속한다면`conjugate distribution` 이라 하고 이 때의 `prior`를 `conjugate prior` 라고 합니다.
+- 특히 몇몇 분포들은 closed form 형태로 `conjugate distribution`을 띄기 때문에 마치 점화식 형태로 표현 가능합니다.
+- 하지만 많은 분포들은 `Non-conjugate` 관계를 가집니다. `None-conjugate` 관계를 가지면 어떻게 표현되는 지 알아보겠습니다.
+
+<br>
+
+## **Non-conjugate models**
+
+<br>
+
+- 그러면 깔끔하게 conjugate distribution 형태를 가지지 않는 `non-conjugate model`을 살펴보겠습니다.
+- 예를 들어 다음과 같습니다.
+
+<br>
+
+$$ y_{i} \vert \mu \ \sim \ N(\mu, 1) $$
+
+$$ \mu \ ~ \ \frac{1}{\pi(1 + \mu^{2})} $$
+
+<br>
+
+- 위 식과 같은 계층 형식이 있다고 하면 `posterior`를 다음과 같이 적을 수 있습니다.
+- 첫번째 식에서 $$ y_{i} \vert \mu $$는 표준 정규 분포를 따른다고 하고 $$ \mu $$는 두번째 식의 분포에 의해 샘플링 된다고 가정하겠습니다.
+
+<br>
+
+$$ p(\mu \vert y_{1}, \cdots , y_{n}) \ \propto \ \prod_{i=1}^{n} \Biggl( \frac{1}{\sqrt{2\pi}}\text{exp}(-\frac{1}{2}(y_{i} - \mu)^{2})  \Biggr)\frac{1}{\pi(1 + \mu^{2})} \\ \propto \text{exp}\Biggl( -\frac{1}{2} \sum_{i=1}^{n} (y_{i} - \mu)^{2} \Biggr) \frac{1}{\pi(1 + \mu^{2})} \\ \propto \text{exp} \Biggl( -\frac{1}{2}\Biggl( \sum_{i=1}^{n}y_{i}^{2} - 2\mu\sum_{i=1}^{n}y_{i} + n\mu^{2} \Biggr)\Biggr)\frac{1}{\pi(1 + \mu^{2})} \\ \propto \frac{\text{exp}\Biggl(n(\bar{y}\mu - \frac{\mu^{2}}{2}) \Biggr)}{1 + \mu^{2}} $$
+
+<br>
+
+- `posterior`는 위 식처럼 전개할 수 있습니다.
 
 
 <br>

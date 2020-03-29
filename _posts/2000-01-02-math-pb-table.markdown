@@ -53,6 +53,7 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 - [What is a conditional probability?](https://gaussian37.github.io/math-pb-bayes_stat_07/)
 - [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov chain.](https://gaussian37.github.io/math-pb-from_statistical_modeling_to_monte_carlo-estimation/)
 - [Markov chain Monte Carlo (MCMC)]()
+- [JAGS(Just Another Gibbs Sampler) 사용 방법]()
 
 <br><br>
 
