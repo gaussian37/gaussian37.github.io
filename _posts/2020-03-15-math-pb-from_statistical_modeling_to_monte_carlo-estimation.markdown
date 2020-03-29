@@ -259,11 +259,7 @@ $$ \mu \ ~ \ \frac{1}{\pi(1 + \mu^{2})} $$
 
 <br>
 
-<body>
-    <div style="width:0; float:left;">
 $$ p(\mu \vert y_{1}, \cdots , y_{n}) \ \propto \ \prod_{i=1}^{n} \Biggl( \frac{1}{\sqrt{2\pi}}\text{exp}(-\frac{1}{2}(y_{i} - \mu)^{2})  \Biggr)\frac{1}{\pi(1 + \mu^{2})} \\ \propto \text{exp}\Biggl( -\frac{1}{2} \sum_{i=1}^{n} (y_{i} - \mu)^{2} \Biggr) \frac{1}{\pi(1 + \mu^{2})} \\ \propto \text{exp} \Biggl( -\frac{1}{2}\Biggl( \sum_{i=1}^{n}y_{i}^{2} - 2\mu\sum_{i=1}^{n}y_{i} + n\mu^{2} \Biggr)\Biggr)\frac{1}{\pi(1 + \mu^{2})} \\ \propto \frac{\text{exp}\Biggl(n(\bar{y}\mu - \frac{\mu^{2}}{2}) \Biggr)}{1 + \mu^{2}} $$
-    </div>
-</body>
 
 <br>
 
