@@ -269,7 +269,11 @@ $$ p(\mu \vert y_{1}, \cdots , y_{n}) \ \propto \ \prod_{i=1}^{n} \Biggl( \frac{
 
 - `posterior`는 위 식처럼 전개할 수 있습니다. 위 식의 결과는 `prior`와 상당히 다른 형태입니다. 즉, `non-conjugate model`의 예시가 됩니다.
 
+<br>
 
+- 심지어 파라미터의 갯수가 많아지고 `prior`와 `likelihood`의 식이 복잡해질수록 `posterior`는 `non-conjugate`가 되는 경향이 커지고 심지어 계산하기 어려울 정도로 식이 복잡해 지기도 합니다.
+- 경우에 따라서는 식으로 나타나 지기도 어려운 경우가 생기기도 합니다.
+- 이런 문제를 계산 하는 방법에 대하여 앞으로 다루어 보도록 하겠습니다.
 
 <br>
 
