@@ -25,6 +25,7 @@ tags: [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov c
 - ### Model specification
 - ### Posterior derivation
 - ### Non-conjugate models
+- ### Monte Carlo integration
 
 <br>
 
@@ -92,6 +93,9 @@ $$ y_{i} \sim N(\mu, \sigma^{2}) \dots ( 	ext{i.i.d}) $$
 - 위 식을 이용할 때, 여기 까지는 frequentist와 bayesian의 접근 방법이 같습니다.
 - 여기 까지 `frequentist`의 접근 방법은 $$ \mu $$와 $$ \sigma $$를 알기 위해서 가지고 있는 표본을 이용하여 이 값들을 구하고 만약 샘플링을 다시 한다면 다시 계산하여 이 값을 구하는 방식을 이용합니다. 일반적인 사람들이 많이 사용하는 방법입니다.
 - 반면 `bayesian`의 접근 방법은 $$ \mu $$와 $$ \sigma $$를 각각 고유한 확률 분포를 가지는 random variable로 다루는 방식입니다. 이 변수들을 각각 다룰 때, 이것을 `prior` 라고 합니다.
+- 다시 정리하면 `frequentist`와 `bayesian`의 가장 큰 차이점은 다음과 같습니다.
+    - `frequentist` : unknown paramter를 constant로 둔다.
+    - `bayesian` : unkown paramter를 random variable로 둔다.
 - 베이지안에는 크게 3가지 요소인 `likelihood`, `prior`, `posterior`가 있습니다.
 - `likelihood`는 **데이터에 대한 확률적 모델의 값**입니다. `데이터에 대한` 이란 의미에서는 데이터를 나타내는 파라미터 $$ \theta $$로 표현할 수 있고 `확률적 모델`에서 확률 모델을 $$ y $$ 라고 한다면 (확률 모델은 정규분포가 될 수도 있고 이항 분포가 될수도 있고 아니면 다양한 다른 다양한 분포가 될 수 있습니다.) `likelihood`는 다음과 같습니다.
 
@@ -270,6 +274,49 @@ $$ p(\mu \vert y_{1}, \cdots , y_{n}) \ \propto \ \prod_{i=1}^{n} \Biggl( \frac{
 - 심지어 파라미터의 갯수가 많아지고 `prior`와 `likelihood`의 식이 복잡해질수록 `posterior`는 `non-conjugate`가 되는 경향이 커지고 심지어 계산하기 어려울 정도로 식이 복잡해 지기도 합니다.
 - 경우에 따라서는 식으로 나타나 지기도 어려운 경우가 생기기도 합니다.
 - 이런 문제를 계산 하는 방법에 대하여 앞으로 다루어 보도록 하겠습니다.
+
+<br>
+
+- 여기 까지 개념을 정리하기 위해 다음 문제들을 한번 풀어보시길 권장합니다.
+
+<br>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_1.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_2.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_3.png" alt="Drawing" style="width: 300px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_4.png" alt="Drawing" style="width: 300px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_5.png" alt="Drawing" style="width: 300px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_6_1.png" alt="Drawing" style="width: 300px;"/></center>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_6_2.png" alt="Drawing" style="width: 300px;"/></center>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_6_3.png" alt="Drawing" style="width: 300px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_7.png" alt="Drawing" style="width: 300px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_8.png" alt="Drawing" style="width: 300px;"/></center>
+<br>
+
+## **Monte Carlo integration**
+
+<br>
+
 
 <br>
 
