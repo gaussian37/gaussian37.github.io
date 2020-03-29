@@ -280,37 +280,37 @@ $$ p(\mu \vert y_{1}, \cdots , y_{n}) \ \propto \ \prod_{i=1}^{n} \Biggl( \frac{
 - 여기 까지 개념을 정리하기 위해 다음 문제들을 한번 풀어보시길 권장합니다.
 
 <br>
-<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_1.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_2.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_2.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_3.png" alt="Drawing" style="width: 300px;"/></center>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_4.png" alt="Drawing" style="width: 300px;"/></center>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_4.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_5.png" alt="Drawing" style="width: 300px;"/></center>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_5.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_6_1.png" alt="Drawing" style="width: 300px;"/></center>
-<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_6_2.png" alt="Drawing" style="width: 300px;"/></center>
-<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_6_3.png" alt="Drawing" style="width: 300px;"/></center>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_6_1.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_6_2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_6_3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_7.png" alt="Drawing" style="width: 300px;"/></center>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_7.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_8.png" alt="Drawing" style="width: 300px;"/></center>
+<center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2_8.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 ## **Monte Carlo integration**
