@@ -18,3 +18,7 @@ tags: [opencv, 이미지, 중앙 정렬] # add tag
 
 
 - 위 코드의 `CenteringImage` 함수를 이용하면 첫 번째 인자로 들어가는 큰 이미지에 두번째 인자인 작은 이미지를 중앙 정렬하여 삽입합니다.
+
+<br>
+<center><img src="../assets/img/vision/opencv/centering_image/0.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
