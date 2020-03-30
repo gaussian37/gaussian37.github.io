@@ -256,6 +256,20 @@ No package 'opencv' found
 
 <br>
 
+- 기본 기능들만 설치하려면 다음 설정을 터미널에 입력합니다. 이 설정은 opencv_contrib 및 추가 기능 없이 기본 기능한 설치합니다.
+
+<br>
+
+```
+cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
+```
+
+<br>
+
+- 아래 세팅을 하면 필요한 거의 모든 기능을 다 설치하게 됩니다.
+
+<br>
+
 ```
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D CMAKE_INSTALL_PREFIX=/usr/local \
