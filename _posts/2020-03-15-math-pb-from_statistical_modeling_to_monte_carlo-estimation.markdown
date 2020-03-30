@@ -371,10 +371,11 @@ $$ h(\theta) \ \ \int h(\theta)p(\theta)d\theta = E[h(\theta)] \approx \frac{1}{
 
 $$ h(\theta) = I_{\theta < 5}(\theta) $$
 
-$$  $$
+$$ E(h(\theta)) = \int_{0}^{\infty} I_{\theta < 5}(\theta) p(\theta) d\theta = \int_{0}^{5} 1 \cdot p(\theta) d\theta + \int_{5}^{\infty} 0 \cdot p(\theta) d\theta = \text{Pr}[0 \gt \theta \gt 5] \approx \frac{1}{m} \sum_{i=1}^{m} I_{\theta^{*} < 5}(\theta_{i}^{*}) $$
 
+<br>
 
-
+- 위 식의 마지막 항을 보면 얼마나 많은 $$ \theta^{*} $$가 조건을 충족하는 지에 대한 평균을 내는 것이고 샘플링 횟수가 많아질수록 적분 형태의 이론적인 평균과 유사해짐을 나타냅니다. 
 
 <br>
 
