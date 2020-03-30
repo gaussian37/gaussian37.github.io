@@ -13,7 +13,7 @@ tags: [opencv, 이미지, 중앙 정렬] # add tag
 - 이 방법을 적용하면 큰 이미지안에 작은 이미지를 넣을 수도 있고 큰 배경 안에 어떤 이미지를 중앙 정렬하여 넣을 수 있습니다.
 
 <br>
-<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/centeringimage?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/CenteringImage?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 <br>
 
 
