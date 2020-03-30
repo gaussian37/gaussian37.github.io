@@ -26,6 +26,7 @@ tags: [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov c
 - ### Posterior derivation
 - ### Non-conjugate models
 - ### Monte Carlo integration
+- ### Monte Carlo error and marginalization
 
 <br>
 
@@ -376,6 +377,15 @@ $$ E(h(\theta)) = \int_{0}^{\infty} I_{\theta < 5}(\theta) p(\theta) d\theta = \
 <br>
 
 - 위 식의 마지막 항을 보면 얼마나 많은 $$ \theta^{*} $$가 조건을 충족하는 지에 대한 평균을 내는 것이고 샘플링 횟수가 많아질수록 적분 형태의 이론적인 평균과 유사해짐을 나타냅니다. 
+
+<br>
+
+## **Monte Carlo error and marginalization**
+
+<br>
+
+
+
 
 <br>
 
