@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 이미지를 이용하여 비디오를 만들기
-date: 2019-11-19 00:00:00
+date: 2020-03-19 00:00:00
 img: vision/opencv/opencv-python.png
 categories: [vision-opencv] 
 tags: [opencv, 이미지, 비디오] # add tag
