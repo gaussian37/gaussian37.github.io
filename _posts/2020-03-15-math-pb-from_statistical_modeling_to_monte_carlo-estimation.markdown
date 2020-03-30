@@ -361,7 +361,7 @@ $$ \text{var}(\theta) = \int_{0}^{\infty}(\theta - E(\theta))^{2} p(\theta) d\th
 
 <br>
 
-$$ h(\theta) \ \ \int h(\theta)p(\theta)d\theta = E[h(\theta)] \approx \frac{1}{m}\sum_{i=1}^{m}h(\theta_{i}^{*}) $$
+$$ \int h(\theta)p(\theta)d\theta = E[h(\theta)] \approx \frac{1}{m}\sum_{i=1}^{m}h(\theta_{i}^{*}) $$
 
 <br>
 
