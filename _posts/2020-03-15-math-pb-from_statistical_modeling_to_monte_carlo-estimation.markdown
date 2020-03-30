@@ -317,6 +317,64 @@ $$ p(\mu \vert y_{1}, \cdots , y_{n}) \ \propto \ \prod_{i=1}^{n} \Biggl( \frac{
 
 <br>
 
+- 복잡한 posterior distribution을 시뮬레이션 하기 위해서 `Monte Carlo estimation`에 대하여 배워보도록 하겠습니다.
+- Monte Carlo estimation은 확률 분포로 부터 도출한 시뮬레이션 방법입니다. 이 방법을 통하여 어떤 분포의 의미있는 값들을 (평균, 분산, 어떤 사건의 확률값등) 계산할 수 있습니다.
+- 확률 값들을 계산하기 위해서 대부분 적분의 과정이 필요한 데, 쉬운 적분 방법이 있는 경우가 아니라면 계산이 매우 어렵거나 직접 계산하는 것이 불가능한 경우들이 있습니다.
+- 예를 들어 다음과 같은 확률 변수 $$ theta $$가 있다고 가정해 보겠습니다.
+
+<br>
+
+ $$ \theta \ \sim \ \text{Gamma}(a, b) $$ 
+ 
+ $$ E(\theta) = \int_{0}^{\infty} \theta p(\theta) d\theta = \int_{0}^{\infty} \frac{b^{a}}{\Gamma(a)}\theta^{a-1}e^{-b\theta}d\theta = \frac{a}{b} $$
+
+<br>
+
+- 확률 변수 $$ \theta $$는 감마 분포를 따른다고 하면 평균 값은 위 식과 같이 적분의 형태를 통한 기대값으로 나타낼 수 있고 알려진 대로 a/b로 정리할 수 있습니다. 
+- 사실 위 식을 직접 계산하려면 상당히 어려운데 어떻게 간단하게 a/b로 정리할 수 있을까요?
+
+<br>
+
+$$ \theta^{*}_{i} \ \ i = 1, \cdots m $$
+
+<br>
+
+- 여기서 $$ \theta^{*}_{i} $$를 샘플링한 특정 확률 변수라고 두고 아주 큰 수 $$ m $$ 까지 샘플링 한다고 해보겠습니다.
+
+<br>
+
+$$ \bar{\theta}^{*} = \frac{1}{m} \sum_{i = 1}^{m} \theta_{i}^{*} $$
+
+<br>
+
+- 아주 많은 갯수의 샘플링된 확률 변수를 사용하였기 때문에 큰 수의 법칙에 따라 $$ \bar{\theta}^{*} $$는 정규분포를 따르고 이 **표본 정규분포의 평균은 실제 평균 값** 을 가집니다.
+- 또한 샘플링된 확률 변수를 사용하여 구한 분산은 실제 분산을 $$ m $$으로 나눈 값이 됩니다.
+
+<br>
+
+$$ \text{var}(\theta) = \int_{0}^{\infty}(\theta - E(\theta))^{2} p(\theta) d\theta $$
+
+<br>
+
+- 이론적으로 구한 분산이 위와 같으니 표본의 확률 변수에 대한 분산은 $$ \text{var}(\theta) / m $$이 됩니다.
+- `Monte Carlo estimation`을 통한 평균 계산을 정리하면 다음과 같습니다.
+
+<br>
+
+$$ h(\theta) \ \ \int h(\theta)p(\theta)d\theta = E[h(\theta)] \approx \frac{1}{m}\sum_{i=1}^{m}h(\theta_{i}^{*}) $$
+
+<br>
+
+- 그러면 위 정의를 이용하여 다음 예제를 풀어보겠습니다. $$ I_{A}(\theta) $$ 함수는 확률 변수 $$ \theta $$가 조건 $$ A $$를 만족하면 1을 반환하는 함수입니다.
+
+<br>
+
+$$ h(\theta) = I_{\theta < 5}(\theta) $$
+
+$$  $$
+
+
+
 
 <br>
 
