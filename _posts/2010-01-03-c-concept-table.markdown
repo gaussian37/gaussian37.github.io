@@ -13,7 +13,8 @@ tags: [c, c language, c 언어] # add tag
 
 <br>
 
-- [C 언어 문법 관련 이것 저것](https://gaussian37.github.io/c-concept-syntax_snippet/)
+- [C 언어 문법 snippet](https://gaussian37.github.io/c-concept-syntax_snippet/)
+- [C 언어 코드 snippet](https://gaussian37.github.io/c-concept-code_snippet/)
 - [C 포인터 정리]()
 - [C 스타일 문자열 및 출력]()
 - [C 스타일 입출력]()
