@@ -25,7 +25,6 @@ tags: [python, python 기본] # add tag
 - ### filter
 - ### reduce
 - ### deque은 사이즈 관리를 자동으로 한다.
-- ### 현재 시각 출력하기
 - ### 파이썬 프로그램 정상 종료 시키기
 - ### 파이썬에서 폴더 및 파일 있는지 확인 후 생성
 - ### 리스트 내부의 경우의 수 조합하기
@@ -38,6 +37,8 @@ tags: [python, python 기본] # add tag
 - ### 디렉토리(- 파일) 복사하기
 - ### 입력한 디렉토리의 부모 디렉토리 출력
 - ### 특정 문자를 기준으로 split
+- ### 특정 경로의 특정 확장자 파일명만 prefix 추가
+- ### 특정 경로의 특정 확장자 파일명만 suffix 추가
 
 <br>
 
@@ -173,6 +174,34 @@ import time
 
 now = time.localtime()
 now_string = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+```
+
+<br>
+
+- 또는 다음과 같은 방법이 있습니다.
+
+<br>
+
+- `datetime`을 이용하면 현재 시각을 출력할 수 있습니다.
+
+<br>
+
+```python
+from datetime import datetime
+now = datetime.now()
+print( now )
+print( now.year )
+print( now.month )
+print( now.day )
+print( now.hour )
+print( now.minute )
+print( now.second )
+print ( '%s-%s-%s' % ( now.year, now.month, now.day ) )
+
+def GetPresentTime():
+    now = datetime.now()
+    ret = "%s-%s-%s-%s-%s-%s" % ( now.year, now.month, now.day, now.hour, now.minute, now.second)
+    return ret
 ```
 
 <br>
@@ -327,34 +356,6 @@ dq.append(4)
 
 print(dq)
 : deque([2, 3, 4], maxlen=3)
-```
-
-<br>
-
-## **현재 시각 출력하기**
-
-<br>
-
-- `datetime`을 이용하면 현재 시각을 출력할 수 있습니다.
-
-<br>
-
-```python
-from datetime import datetime
-now = datetime.now()
-print( now )
-print( now.year )
-print( now.month )
-print( now.day )
-print( now.hour )
-print( now.minute )
-print( now.second )
-print ( '%s-%s-%s' % ( now.year, now.month, now.day ) )
-
-def GetPresentTime():
-    now = datetime.now()
-    ret = "%s-%s-%s-%s-%s-%s" % ( now.year, now.month, now.day, now.hour, now.minute, now.second)
-    return ret
 ```
 
 <br>
@@ -629,3 +630,68 @@ import re
 ```
 
 <br>
+
+## **특정 경로의 특정 확장자 파일명만 prefix 추가**
+
+<br>
+
+- `path`와 그 `path` 안의 확장자인 `ext`를 입력 받고 그 확장자에 해당하는 파일명에 어떤 `prefix`를 넣고 싶으면 다음 코드를 사용하면 됩니다.
+- 예를 들어 `path=C:\test`이고 `ext=png` 이고 `prefix=200101_`이면 **C:\test** 경로에서 **png**파일만 선택하여 입력받은 접두사인 **200101_**을 파일명 앞에 붙입니다,
+
+<br>
+
+```python
+import os
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--path', required = True)
+parser.add_argument('--ext', required = True)
+parser.add_argument('--prefix', required= True)
+args = parser.parse_args()
+
+temp_filenames = os.listdir(args.path)
+filenames = []
+
+for filename in temp_filenames:
+    extension = filename.split('.')[-1]
+    if extension == args.ext:
+        filenames.append(filename)
+
+for filename in filenames:
+    os.rename(args.path + '/' + filename, args.path + '/' + args.prefix + filename)
+
+```
+
+<br>
+
+## **특정 경로의 특정 확장자 파일명만 suffix 추가**
+
+<br>
+
+- `path`와 그 `path` 안의 확장자인 `ext`를 입력 받고 그 확장자에 해당하는 파일명에 어떤 `suffix`를 넣고 싶으면 다음 코드를 사용하면 됩니다.
+- 예를 들어 `path=C:\test`이고 `ext=png` 이고 `prefix=_200101`이면 **C:\test** 경로에서 **png**파일만 선택하여 입력받은 접두사인 **_200101**을 파일명 앞에 붙입니다,
+
+<br>
+
+```python
+import os
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--path', required = True)
+parser.add_argument('--ext', required = True)
+parser.add_argument('--suffix', required= True)
+args = parser.parse_args()
+
+temp_filenames = os.listdir(args.path)
+filenames = []
+
+for filename in temp_filenames:
+    extension = filename.split('.')[-1]
+    if extension == args.ext:
+        filenames.append(filename)
+
+for filename in filenames:
+    os.rename(args.path + '/' + filename, args.path + '/' + filename.split('.')[-2] + args.suffix + '.' + filename.split('.')[-1])
+```
