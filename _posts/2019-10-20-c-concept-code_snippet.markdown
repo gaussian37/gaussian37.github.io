@@ -20,6 +20,8 @@ tags: [C] # add tag
 - ### 텍스트 입/출력 
 - ### 파일 존재하는 지 확인
 - ### 특정 문자를 기준으로 문자열 split
+- ### 부분 문자열 (substr) 저장
+- ### 부분 문자열 (substr) 출력
 
 <br>
 
@@ -248,3 +250,13 @@ int StringTokenizer(const char* str, const char* delim, int* tokenize, int max_t
     return token_count;
 }
 ```
+
+<br>
+
+## **부분 문자열 (substr) 저장**
+
+<br>
+
+## **부분 문자열 (substr) 출력**
+
+<br>
