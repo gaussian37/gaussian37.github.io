@@ -19,6 +19,7 @@ tags: [C] # add tag
 - ### 문자열 → 숫자
 - ### 텍스트 입/출력 
 - ### 파일 존재하는 지 확인
+- ### 특정 문자를 기준으로 문자열 split
 
 <br>
 
@@ -201,5 +202,48 @@ int FileExists(const char *file_name){
     }
 
     return ret;
+}
+```
+
+<br>
+
+## **특정 문자를 기준으로 문자열 split**
+
+<br>
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// str배열을 delim의 문자들로 split한 후 
+int StringTokenizer(const char* str, const char* delim, int* tokenize, int max_tokenize_index){
+    
+    int token_count = 0;
+    int str_len = strlen(str);    
+    
+    // initialize
+    char *s;    
+    s = (char*)malloc(sizeof(char)*str_len);
+    strcpy(s, str);
+    memset(tokenize, -1, (int)sizeof(tokenize));
+
+    char *start_point = s;
+    char *ptr = strtok(s, delim);
+    
+    while (ptr != NULL){
+
+        if(token_count >= max_tokenize_index){
+            printf("The number of token exceeds maximum index of tokenize array.\n");
+            exit(1);
+        }
+        tokenize[token_count++] = (int)(ptr - start_point); 		
+		ptr = strtok(NULL, delim);
+	}
+
+    tokenize[token_count] = str_len;
+
+    free(s);
+    return token_count;
 }
 ```
