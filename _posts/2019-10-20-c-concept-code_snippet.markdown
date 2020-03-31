@@ -216,13 +216,14 @@ int FileExists(const char *file_name){
 #include <stdlib.h>
 #include <string.h>
 
-// str배열을 delim의 문자들로 split한 후 
+// str배열을 delim의 문자들로 split한 후 tokenize 배열에 시작 인덱스들을 저장하고 저장된 인덱스의 갯수를 반환한다.
+// 사용 방법 : StringTokenizer(str, delim, tokenize, sizeof(tokenize)/sizeof(int));
 int StringTokenizer(const char* str, const char* delim, int* tokenize, int max_tokenize_index){
     
     int token_count = 0;
     int str_len = strlen(str);    
     
-    // initialize
+    // initialize string and tokenize
     char *s;    
     s = (char*)malloc(sizeof(char)*str_len);
     strcpy(s, str);
@@ -239,7 +240,7 @@ int StringTokenizer(const char* str, const char* delim, int* tokenize, int max_t
         }
         tokenize[token_count++] = (int)(ptr - start_point); 		
 		ptr = strtok(NULL, delim);
-	}
+    }
 
     tokenize[token_count] = str_len;
 
