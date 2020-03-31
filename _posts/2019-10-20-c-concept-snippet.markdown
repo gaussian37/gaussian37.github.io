@@ -18,6 +18,7 @@ tags: [C] # add tag
 - ### 숫자 → 문자열
 - ### 문자열 → 숫자
 - ### 텍스트 입/출력 
+- ### 파일 존재하는 지 확인
 
 <br>
 
@@ -173,5 +174,28 @@ int main() {
 		}
 		printf("%d\n", a);
 	}
+}
+```
+
+<br>
+
+## **파일 존재하는 지 확인**
+
+<br>
+
+- 다음은 파일 경로를 입력하였을 때, 그 파일이 존재하는 지 확인하는 코드 입니다.
+
+<br>
+
+```c
+int exists(const char *fname)
+{
+    FILE *file;
+    if ((file = fopen(fname, "r")))
+    {
+        fclose(file);
+        return 1;
+    }
+    return 0;
 }
 ```
