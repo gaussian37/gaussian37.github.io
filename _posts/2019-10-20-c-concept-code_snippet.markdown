@@ -225,7 +225,7 @@ int StringTokenizer(const char* str, const char* delim, int* tokenize, int max_t
     
     // initialize string and tokenize
     char *s;    
-    s = (char*)malloc(sizeof(char)*str_len);
+    s = (char*)malloc(sizeof(char)*(str_len + 1));
     strcpy(s, str);
     memset(tokenize, -1, (int)sizeof(tokenize));
 
