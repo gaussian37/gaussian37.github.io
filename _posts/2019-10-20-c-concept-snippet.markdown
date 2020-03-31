@@ -188,14 +188,18 @@ int main() {
 <br>
 
 ```c
-int exists(const char *fname)
-{
+// 입력 받은 경로에 파일이 존재하는 지 확인한다.
+int FileExists(const char *file_name){
     FILE *file;
-    if ((file = fopen(fname, "r")))
-    {
+    int ret;
+    if ((file = fopen(file_name, "r"))){
         fclose(file);
-        return 1;
+        ret = 1;
     }
-    return 0;
+    else{
+        ret = 0;
+    }
+
+    return ret;
 }
 ```
