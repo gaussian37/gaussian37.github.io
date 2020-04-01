@@ -11,6 +11,7 @@ tags: [리눅스, 이클립스, opencv] # add tag
 
 - 참조1 : https://agiantmind.tistory.com/182
 - 참조2 : https://webnautes.tistory.com/1186
+- 참조3 : https://docs.opencv.org/3.4/d7/d9f/tutorial_linux_install.html
 - 이번 글에서는 리눅스에서 이클립스를 이용하여 OpenCV C++ 버전을 사용하는 방법에 대하여 정리하겠습니다.
 
 <br>
