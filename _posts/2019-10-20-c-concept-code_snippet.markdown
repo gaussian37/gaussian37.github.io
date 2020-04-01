@@ -257,6 +257,48 @@ int StringTokenizer(const char* str, const char* delim, int* tokenize, int max_t
 
 <br>
 
+- 단순히 부분문자열을 구하려면 `strncpy` 함수를 사용 하면 됩니다.
+    - `strncpy(dest, str + 시작인덱스, 길이)`
+- 좀 더 안전한 형태의 함수를 사용하려면 다음 함수를 사용하면 됩니다. `SubstringToDest` 함수는 파라미터로 받은 `dest` 배열에 부분 문자열을 저장하는 형태이고 `GetSubstring`은 함수 내에서 동적 할당을 하여 반환값으로 새로운 부분 문자열을 반환하는 방법입니다.
+
+<br>
+
+```c
+// str 문자열에서 [begin, end) 범위의 부분 문자열을 dest에 저장한다.
+void SubstringToDest(const char* str, char* dest, int begin, int end){    
+    int str_len = strlen(str);
+    
+    if (begin < 0 || end < str_len){
+        printf("begin or end index is out of memory.");
+        exit(1);
+    }
+    else{
+        strncpy(dest, str + begin, begin + end);
+    }
+}
+
+// str 문자열에서 [begin, end) 범위의 부분 문자열을 반환한다.
+// malloc을 사용하였으므로 free로 해제해주어야 한다.
+char* GetSubstring(const char *str, int begin, int end){	
+
+    char *ret;
+    int str_len = strlen(str);
+
+    if (begin < 0 || end < str_len){
+        printf("begin or end index is out of memory.");
+        exit(1);
+    }
+    else{
+        int len = end - begin;
+        ret = (char*)malloc(sizeof(char) * (len + 1));	
+        strncpy(ret, (str + begin), len);	
+    }
+	return ret;
+}
+```
+
+<br>
+
 ## **부분 문자열 (substr) 출력**
 
 <br>
