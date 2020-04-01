@@ -276,7 +276,7 @@ char* GetSubstring(const char *str, int begin, int end){
 
 // str 문자열에서 [begin, end) 범위의 부분 문자열을 dest에 저장한다.
 void SubstringToDest(const char* str, char* dest, int begin, int end){
-    strncpy(dest, str + begin, begin + end);
+    strncpy(dest, str + begin, end - begin);
 }
 ```
 
