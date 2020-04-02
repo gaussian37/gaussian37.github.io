@@ -19,6 +19,7 @@ tags: [C] # add tag
 - ### 문자열 → 숫자
 - ### 텍스트 입/출력 
 - ### 파일 존재하는 지 확인
+- ### 기본 문자열 관련 함수
 - ### 특정 문자를 기준으로 문자열 split
 - ### 부분 문자열 (substr) 저장
 - ### 부분 문자열 (substr) 출력
@@ -206,6 +207,25 @@ int FileExists(const char *file_name){
     return ret;
 }
 ```
+
+<br>
+
+## **기본 문자열 관련 함수**
+
+<br>
+
+- `strlen` : 문자열 길이 반환
+    - 예) `strlen(str)`
+- `strcmp` : 문자열 비교
+    - 예) `strcmp(str1, str2)`
+- `strncmp` : 문자열 n개 비교
+    - 예) `strcmp(str1, str2, 8)`
+- `strcpy` : 문자열을 복사하는 함수 인자로 주소값을 받습니다.
+    - 예) `strcpy(dest, src)`. 여기서 dest는 복사를 할 곳의 시작 `주소`이고 src는 복사할 문자열의 시작 `주소`입니다.
+    - 따라서 문자열의 시작 주소가 들어가야 합니다.
+
+
+
 
 <br>
 
