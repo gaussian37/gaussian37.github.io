@@ -27,6 +27,7 @@ tags: [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov c
 - ### Non-conjugate models
 - ### Monte Carlo integration
 - ### Monte Carlo error and marginalization
+- ### Computing examples
 
 <br>
 
@@ -439,6 +440,14 @@ $$ p(y, \phi) = p(\phi)p(\y \vert \phi) $$
 - 만약 $$ y $$에 대한 malginal distribution을 직접 구한다면 계산이 상당히 복잡해 질 수 있습니다. 즉, $$ phi $$에 대하여 적분이 필요한데 적분 계산 자체가 어렵기 때문입니다. 
 - 만약 joint distribution을 통하여 바로 샘플을 도출할 수 있다면 $$ \phi_{i}^{*} $$를 이용한 계산을 하지 않아도 되고 $$ y_{i]^{*} $$를 marginal distribution을 통하여 얻은 샘플로 바로 사용할 수 있습니다. (앞에서 다룬 `prior predictive distribution` 내용 입니다.)
 - 그러면 이 성질을 이용해서 `posterior distribution`에 대한 근사 추정을 해보도록 하겠습니다.
+
+<br>
+
+## **Computing examples**
+
+<br>
+
+
 
 <br>
 
