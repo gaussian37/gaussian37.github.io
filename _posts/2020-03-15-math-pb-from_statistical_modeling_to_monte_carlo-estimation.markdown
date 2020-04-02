@@ -448,7 +448,6 @@ $$ p(y, \phi) = p(\phi)p(\y \vert \phi) $$
 <br>
 
 
-
 <br>
 
 - [통계학 관련 글 목록](https://gaussian37.github.io/math-pb-table/)
