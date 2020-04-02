@@ -385,7 +385,60 @@ $$ E(h(\theta)) = \int_{0}^{\infty} I_{\theta < 5}(\theta) p(\theta) d\theta = \
 <br>
 
 - Monte Carlo 샘플링은 얼마나 좋은 방법일까요? 중심 극한 이론에 따르면 `variance`는 결국 샘플링한 사이즈 `m`에 영향을 받게 됩니다. 따라서 더 나은 예측을 하기 위해서는 `m`의 크기를 더 크게 잡는 것이 중요합니다.
+- 예를 들어 $$ \theta $$가 확률 변수이고 확률 변수의 표본을 $$ \theta^{*} $$ 라고 한다면 `표본 평균`을 $$ \bar{\theta^{*}} $$ 라 하고 표본 평균은 아래 식과 같은 분포를 따릅니다.
 
+<br>
+
+$$ \bar{\theta^{*}} \ \sim \ N(E(\theta) , \frac{var(\theta)}{m} $$
+
+<br>
+
+- 이 때, 표본 분산은 다음 식을 따릅니다.
+
+<br>
+
+$$ \bar{var(\theta)} = \frac{1}{m} \sum_{i=1}^{m} (\theta_{i}^{*} - \bar{\theta}^{*})^{2} $$
+
+<br>
+
+- 위 식에서 원래 `m-1`로 나누어야 합니다. ([표본분산의 평균이 모분산과 같아지게 하기 위해서](https://gaussian37.github.io/math-pb-sample_covariance_n-1/)입니다.)
+- 지금 다루는 `m`은 굉장히 큰 수라고 가정하기 때문에 `m-1`과 `m`으로 나눌 때의 큰 차이가 없으므로 편의상 `m` 이라고 사용하겠습니다.
+- 이 때, Monte Carlo에서 다루는 `standard error`는 다음과 같습니다.
+
+<br>
+
+$$ \sqrt{\frac{\bar{var(\theta)}}{m} } $$
+
+<br>
+
+- 표본 분산을 표본의 크기로 나눈 다음에 다시 루트를 취해주는 형태입니다. 간단히 말해서 분산이란 얼마나 평균에서 떨어져 있는 지를 나타내므로 불확실성에 영향을 주는데 위 식에서 표본의 크기로 나누기 때문에 표본의 크기가 무한히 커진다면 `standard error`는 0에 수렴하게 됩니다.
+
+<br>
+
+- 이번에는 `marginalization`에 대하여 살펴보기 위해 다음 식을 예제로 살펴보겠습니다.
+
+<br>
+
+$$ y \vert \phi \ \sim \ \text{Bin}(10, \phi) $$
+
+$$ \phi \ \sim \ \text{Beta}(2, 2) $$
+
+- 위 분포를 이용하여 joint distribution을 만들면 다음과 같습니다.
+
+<br>
+
+$$ p(y, \phi) = p(\phi)p(\y \vert \phi) $$
+
+<br>
+
+- 그러면 Monte Carlo를 Simulation 하기 위한 절차는 다음과 같습니다.
+- ① : Beta 분포로 부터 $$ \theta_{i}^{*} $$를 샘플링 합니다.
+- ② : 샘플링 한 $$ \theta_{i}^{*} $$가 주어졌을 때, $$ y_{i}^{*} $$를 $$ y_{i}^{*} \ \sim \ \text{Bin}(10, \phi_{i}^{*}) $$에서 도출합니다.
+- ③ : ①, ② 과정을 통하여 $$ (y_{i}^{*}, \phi_{i}^{*}) $$의 쌍을 만들 수 있습니다.
+- `Monte Carlo Simulation`의 가장 큰 장점 중 하나는 `malginalization`이 상당히 쉽다는 것입니다. 
+- 만약 $$ y $$에 대한 malginal distribution을 직접 구한다면 계산이 상당히 복잡해 질 수 있습니다. 즉, $$ phi $$에 대하여 적분이 필요한데 적분 계산 자체가 어렵기 때문입니다. 
+- 만약 joint distribution을 통하여 바로 샘플을 도출할 수 있다면 $$ \phi_{i}^{*} $$를 이용한 계산을 하지 않아도 되고 $$ y_{i]^{*} $$를 marginal distribution을 통하여 얻은 샘플로 바로 사용할 수 있습니다. (앞에서 다룬 `prior predictive distribution` 내용 입니다.)
+- 그러면 이 성질을 이용해서 `posterior distribution`에 대한 근사 추정을 해보도록 하겠습니다.
 
 <br>
 
