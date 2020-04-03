@@ -222,7 +222,14 @@ int FileExists(const char *file_name){
     - 예) `strcmp(str1, str2, 8)`
 - `strcpy` : 문자열을 복사하는 함수 인자로 주소값을 받습니다.
     - 예) `strcpy(dest, src)`. 여기서 dest는 복사를 할 곳의 시작 `주소`이고 src는 복사할 문자열의 시작 `주소`입니다.
-    - 따라서 문자열의 시작 주소가 들어가야 합니다.
+    - 따라서 문자열의 시작 주소를 적절하게 응용하여 사용하면 좋습니다.
+- `strncpy`: 문자열 n개 복사
+    - 예) `strncpy(dest, src, 8)`
+- `strcat` : 새로운 문자열을 기존 문자열 끝에 붙입니다. 따라서 기존 문자열의 NULL을 찾고 그 위치에서 부터 새로운 문자열을 붙입니다.
+    - 예) `strcat(dest, src)`
+- `strncat` : 새로운 문자열을 기존 문자열 끝에 n개 붙입니다.
+    - 예) `strncat(dest, src, 8)`
+
 
 
 
