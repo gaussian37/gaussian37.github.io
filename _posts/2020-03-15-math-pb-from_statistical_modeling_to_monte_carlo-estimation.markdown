@@ -27,7 +27,7 @@ tags: [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov c
 - ### Non-conjugate models
 - ### Monte Carlo integration
 - ### Monte Carlo error and marginalization
-- ### Computing examples
+- ### Computing examples (with Python)
 
 <br>
 
@@ -446,6 +446,7 @@ $$ p(y, \phi) = p(\phi)p(\y \vert \phi) $$
 ## **Computing examples**
 
 <br>
+
 
 
 <br>
