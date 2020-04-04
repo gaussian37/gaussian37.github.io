@@ -107,6 +107,36 @@ $$ \text{Var}[Y] = np(1-p) $$
 
 <br>
 
+## **Discrete : Poisson**
+
+<br>
+
+- Poisson distribution은 다양한 상황에서의 어떤 event 발생에 대한 counting을 하기 위한 목적으로 사용됩니다.
+- 파라미터 $$ \lambda > 0 $$ 는 우리가 어떤 event의 발생을 관찰할 때, 그 event 발생의 빈도를 나타냅니다.
+
+<br>
+
+$$ X \ \sim \ Pois(\lambda) $$
+
+$$ P(X = x \vert \lambda) = \frac{\lambda^{x}exp(-\lambda)}{x!} $$
+
+$$ E[X] = \lambda $$
+
+$$ \text{Var}[X] = \lambda $$
+
+<br>
+
+- `Poisson process`는 평균적으로 **특정 시간 동안 어떤 event가 $$ \lambda $$ 만큼 발생**하고, 각각의 event가 발생하는 것은 서로 독립적이라는 전제하에 정의됩니다.
+- `Poisson`과 관련된 내용은 이해하기 어려울 수 있으니 예를 한가지 들어보겠습니다.
+- 어떤 지역에 `1주일`에 `평균 2번`의 지진이 발생한다고 가정해 보겠습니다. 다음 2주 동안 최소 3번 이상의 지진이 발생할 확률은 어떻게 될까요?
+- 이 문제를 Poisson process로 접근하기 위해서 현재 가지고 있는 데이터인 평균 2회/1주일 → 평균 4회/2주일로 확장시켜 보겠습니다.
+- 그러면 $$ X \ \sim \ Pois(4) $$를 따르게 됩니다. 즉, $$ \lambda = 4 $$가 됩니다.
+
+<br>
+
+$$ P(X \ge 3) = 1 - P(X \le 2) = 1 - P(X = 0) - P(X = 1) - P(X = 2) = 1 - e^{-4} - 4e^{-4} - \frac{4^{2}e^{-4}}{2} =  1 - 13e^{-4} = 0.762 $$
+
+<br>
 
 
 <br>
