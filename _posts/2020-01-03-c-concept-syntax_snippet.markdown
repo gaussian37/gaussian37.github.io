@@ -20,6 +20,7 @@ tags: [c, c language, c 언어] # add tag
 - ### printf 출력 관련
 - ### scanf 입력 관련
 - ### 변수 주소 구조
+- ### sizeof 관련
 
 <br>
 
@@ -119,5 +120,20 @@ printf("value : %d, address : %p\n", a, &a);
 <br>
 
 <iframe height="800px" width="100%" src="https://repl.it/@gaussian37/addresscheck?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+
+<br>
+
+## **sizeof 관련**
+
+<br>
+
+- `sizeof`를 이용할 때, 정적 배열과 동적 배열에서의 사용 시 고려해야 할 점에 대하여 확인해 보겠습니다.
+- 정적 배열의 주소에 sizeof를 이용하면 배열 전체의 크기가 반환되는 반면, 동적 배열의 주소에 sizeof를 이용하면 포인터의 크기만 반환됩니다.
+- 정적 배열 주소의 크기를 구하는 경우 비록 주소의 크기이지만 **배열 전체의 크기가 반환**되는 이유는 정적 배열의 경우 compile 단계에서 배열의 크기를 알 수 있기 때문에 배열의 대표 주소의 크기를 구하면 배열의 크기가 반환 되도록 설정되었습니다. 반면 동적 배열의 경우 runtime 단계에서 배열의 크기를 알 수 있기 때문에 배열의 대표 주소의 크기는 단순히 포인터 변수의 크기만 반환하도록 되어있습니다.
+- 또한 함수의 파라미터로 정적 배열을 입력 받은 경우에는 주소의 크기가 포인터 변수의 크기만 반환하도록 되어 있습니다. 파라미터로 넘겨 받을 때에는 `call by pointer` 방식으로 넘겨 받기 때문에 포인터의 크기 만큼만 함수로 전달됩니다.
+
+<br>
+
+<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/sizeofcheck?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 
 <br>
