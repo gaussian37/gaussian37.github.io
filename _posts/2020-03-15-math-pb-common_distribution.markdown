@@ -138,6 +138,100 @@ $$ P(X \ge 3) = 1 - P(X \le 2) = 1 - P(X = 0) - P(X = 1) - P(X = 2) = 1 - e^{-4}
 
 <br>
 
+## **Discrete : Geometric**
+
+<br>
+
+- 기하 분포는 **첫 번째 성공을 달성하기 전**의 `실패 수`, 즉 성공을 볼 때까지의 `Bernoulli 실패 수` (예 : 동전을 뒤집을 때의 첫 번째 앞면)입니다.
+- 확률 변수 $$ X $$는 0으로 시작하는 양의 정수 값을 갖습니다. 즉 0인 경우는 실패의 수가 0이게 되는 확률이 됩니다.
+
+<br>
+
+$$ X \ \sim \ \text{Geo}(p) $$
+
+$$ P(X =  x \ vert p) = p(1 - p)^{x} \ \ \ \ for x = 0, 1, 2, ... $$
+
+$$ E[X] = \frac{1 - p}{p} $$
+
+<br>
+
+- 기하 분포에서는 성공 확률이 p이면 첫 번째 성공까지의 예상 시행 횟수는 1/p이고 첫 번째 성공까지의 예상 실패 횟수는 (1-p)/p입니다.
+- 예를 들어보겠습니다. 동전을 4번 던져서 4번 중에 앞면이 나오는 것이 모두 `실패`할 확률은 얼마일까요? 이 질문은 $$ P(X > 3), X \ \sim \ \text{Geo}(0.5) $$가 됩니다. 즉 $$ P(X = 0) $$은 앞면이 나올 때 까지 실패 횟수가 0번이라는 뜻으로 던지자 마자 앞면이 나올 확률입니다. $$ P(X = 1) $$은 앞면이 나올 때 까지 실패 횟수가 1번일 확률을 나타냅니다.
+- 그러면  $$ P(X > 3) $$은 앞면이 나올 때 까지 실패 횟수가 4번 이상인 경우를 뜻합니다. 4번 던져서 실패 횟수가 4번 이상인 경우이므로 앞면이 나오지 않을 확률과 같습니다. 계산하면 다음과 같습니다.
+
+<br>
+
+$$ P(X > 3) = 1 - P(X = 0) - P(X = 1) - P(X = 2) - P(X = 3) = 1 - (1/2)\cdot 1 - (1/2)\cdot(1/2) - (1/2)\cdot(1/2)^{2} - (1/2)\cdot(1/2)^{3} = 1/16 $$
+
+<br>
+
+## **Discrete : Negative Binomial**
+
+<br>
+
+
+<br>
+
+## **Discrete : Multinomial**
+
+<br>
+
+- 지금 부터는 Continuous distribution(연속 확률 분포)에 대하여 알아보도록 하겠습니다.
+
+<br>
+
+## **Continuous : Uniform**
+
+<br>
+
+<br>
+
+## **Continuous : Beta**
+
+<br>
+
+<br>
+
+## **Continuous : Exponential**
+
+<br>
+
+<br>
+
+## **Continuous : Double Exponential**
+
+<br>
+
+<br>
+
+## **Continuous : Gamma**
+
+<br>
+
+<br>
+
+## **Continuous : Inverse-Gamma**
+
+<br>
+
+<br>
+
+## **Continuous : Normal**
+
+<br>
+
+<br>
+
+## **Continuous : t**
+
+<br>
+
+<br>
+
+## **Continuous : Dirichlet**
+
+<br>
+
 
 <br>
 
