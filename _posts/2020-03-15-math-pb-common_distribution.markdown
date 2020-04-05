@@ -56,7 +56,7 @@ $$ X \ \sim \ \text{Uniform}(N) $$
 
 $$ P(X = x \vert N) =  \frac{1}{N} \ \ \ \ \text{for} \  x = 1, 2, ... , N $$
 
-$$ E[X] = \frac{N+1}{2} $$
+$$ \text{E}[X] = \frac{N+1}{2} $$
 
 $$ \text{Var}[X] = \frac{N^{2} - 1}{12} $$
 
@@ -78,7 +78,7 @@ $$ X \ \sim \ Bern(p) $$
 
 $$ P(X = x \vert p) = p^{x}(1 - p)^{1-x} \ \ \ \ \text{for} \ x = 0, 1 $$
 
-$$ E[X] = p $$
+$$ \text{E}[X] = p $$
 
 $$ \text{Var}[X] = p(1-p) $$
 
@@ -101,7 +101,7 @@ $$ Y \ \sim \ \text{Binom}(n, p) $$
 
 $$ P(Y = y \vert n, p) = \begin{pmatrix} n \\ y \end{pmatrix} p^{y}(1 - p)^{n - y} \ \ \ \ \text{for} \ y = 0, 1, ... , n $$
 
-$$ E[Y] = np $$
+$$ \text{E}[Y] = np $$
 
 $$ \text{Var}[Y] = np(1-p) $$
 
@@ -120,7 +120,7 @@ $$ X \ \sim \ Pois(\lambda) $$
 
 $$ P(X = x \vert \lambda) = \frac{\lambda^{x}exp(-\lambda)}{x!} $$
 
-$$ E[X] = \lambda $$
+$$ \text{E}[X] = \lambda $$
 
 $$ \text{Var}[X] = \lambda $$
 
@@ -151,7 +151,7 @@ $$ X \ \sim \ \text{Geo}(p) $$
 
 $$ P(X =  x \ vert p) = p(1 - p)^{x} \ \ \ \ \text{for} \  x = 0, 1, 2, ... $$
 
-$$ E[X] = \frac{1 - p}{p} $$
+$$ \text{E}[X] = \frac{1 - p}{p} $$
 
 <br>
 
@@ -207,6 +207,24 @@ $$ P(X > 3) = 1 - P(X = 0) - P(X = 1) - P(X = 2) - P(X = 3) = 1 - (1/2)\cdot 1 -
 ## **Continuous : Gamma**
 
 <br>
+
+- 만약 $$ X_{1}, X_{2}, \cdots , X_{n} $$이 어떤 사건이 발생하기 까지의 대기 시간(waiting time)이라고 하고 또한 이 시간이 서로 independent이며 $$ \text{Exp}(\lambda) $$ 에 identically distributed 하다고 가정하겠습니다.
+- 이 때, n 개의 사건이 발생하는 데 걸리는 대기 시간의 총 합  $$ Y $$는 $$ Y = \sum_{i=1}^{n} X_{i} $$가 되고 이 값은 `감마 분포(gamma distribution)`을 따릅니다. 감마 분포는 shape parameter인 $$ \alpha = n $$과 rate parameter인 $$ \beta = \lambda $$에 의해 결정됩니다.
+
+<br>
+
+$$ Y \ \sim \ \text{Gamma}(\alpha, \beta) \ \ \ \ (\alpha \gt 0, \beta \gt 0) $$
+
+$$ f(y \vert \alpha, \beta) = \frac{\beta^{\alpha}}{\Gamma(\alpha)}y^{\alpha - 1}e^{-\beta y}I_{y \ge 0}(y) $$
+
+$$ \text{E}[Y] = \frac{\alpha}{\beta} $$
+
+$$ \text{Var} = \frac{\alpha}{\beta^{2}}$$
+
+<br>
+
+- 위 식에서 $$ \Gamma(\cdot) $$는 `gamma function` 이라고 하며, factorial function의 일반화 식으로 정수가 아닌 값의 factorial을 구할 수 있습니다. 정수가 입력으로 들어왔을 때에는 $$ \Gamma(n) = (n-1)! $$이 됩니다.
+- 
 
 <br>
 
