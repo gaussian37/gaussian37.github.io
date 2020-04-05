@@ -54,7 +54,7 @@ tags: [기본 확률 분포, uniform, Bernoulli, Binomial, Poisson, Geometric, N
 
 $$ X \ \sim \ \text{Uniform}(N) $$
 
-$$ P(X = x \vert N) =  \frac{1}{N} \ \text{for} \  x = 1, 2, ... , N $$
+$$ P(X = x \vert N) =  \frac{1}{N} \ \ \ \ \text{for} \  x = 1, 2, ... , N $$
 
 $$ E[X] = \frac{N+1}{2} $$
 
@@ -76,7 +76,7 @@ $$ \text{Var}[X] = \frac{N^{2} - 1}{12} $$
 
 $$ X \ \sim \ Bern(p) $$
 
-$$ P(X = x \vert p) = p^{x}(1 - p)^{1-x} \ \ \ \ for x = 0, 1 $$
+$$ P(X = x \vert p) = p^{x}(1 - p)^{1-x} \ \ \ \ \text{for} \ x = 0, 1 $$
 
 $$ E[X] = p $$
 
