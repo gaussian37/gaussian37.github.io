@@ -54,7 +54,7 @@ tags: [기본 확률 분포, uniform, Bernoulli, Binomial, Poisson, Geometric, N
 
 $$ X \ \sim \ \text{Uniform}(N) $$
 
-$$ P(X = x \vert N) =  \frac{1}{N} \ for x = 1, 2, ... , N $$
+$$ P(X = x \vert N) =  \frac{1}{N} \ \text{for} \  x = 1, 2, ... , N $$
 
 $$ E[X] = \frac{N+1}{2} $$
 
@@ -97,9 +97,9 @@ $$ \text{Var}[X] = p(1-p) $$
 
 <br>
 
-$$ Y \ \sim \ Binom(n, p) $$
+$$ Y \ \sim \ \text{Binom}(n, p) $$
 
-$$ P(Y = y \vert n, p) = \begin{pmatirx} n \\ y \end{pmatrix} p^{y}(1 - p)^{n - y} \ \ \ \ for y = 0, 1, ... , n $$
+$$ P(Y = y \vert n, p) = \begin{pmatrix} n \\ y \end{pmatrix} p^{y}(1 - p)^{n - y} \ \ \ \ \text{for} \ y = 0, 1, ... , n $$
 
 $$ E[Y] = np $$
 
@@ -149,7 +149,7 @@ $$ P(X \ge 3) = 1 - P(X \le 2) = 1 - P(X = 0) - P(X = 1) - P(X = 2) = 1 - e^{-4}
 
 $$ X \ \sim \ \text{Geo}(p) $$
 
-$$ P(X =  x \ vert p) = p(1 - p)^{x} \ \ \ \ for x = 0, 1, 2, ... $$
+$$ P(X =  x \ vert p) = p(1 - p)^{x} \ \ \ \ \text{for} \  x = 0, 1, 2, ... $$
 
 $$ E[X] = \frac{1 - p}{p} $$
 
