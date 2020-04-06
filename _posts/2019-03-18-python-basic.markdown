@@ -24,7 +24,7 @@ tags: [python, python 기본] # add tag
 - ### map
 - ### filter
 - ### reduce
-- ### for loop 스타일 (zip, c, enumerate, sorted, filter)
+- ### for loop 스타일 (zip, range, enumerate, sorted, filter)
 - ### deque은 사이즈 관리를 자동으로 한다.
 - ### 파이썬 프로그램 정상 종료 시키기
 - ### 파이썬에서 폴더 및 파일 있는지 확인 후 생성
@@ -335,12 +335,12 @@ reduce(lambda x,y: x+y, [1,2,3,4,5])
 
 <br>
 
-## **for loop 스타일 (zip, c, enumerate, sorted, filter)**
+## **for loop 스타일 (zip, range, enumerate, sorted, filter)**
 
 <br>
 
 - 파이썬에서 대표적으로 사용할 수 있는 for loop의 스타일에 대하여 정리해 보겠습니다.
-- 크게 `zip`, `c`, `enumerate`, `sorted`, `filter` 를 이용한 스타일이 있습니다. 차례대로 알아보겠습니다.
+- 크게 `zip`, `range`, `enumerate`, `sorted`, `filter` 를 이용한 스타일이 있습니다. 차례대로 알아보겠습니다.
 - 먼저 `zip` 스타일 입니다. `zip` 스타일은 여러 종류의 저장된 데이터를 한 번에 사용하기 위해 사용됩니다.
 
 <br>
@@ -355,6 +355,65 @@ for oddnum, evennum in zip(odds,evens):
 
 <br>
 
+- 다음으로는 `range`를 이용한 방법으로 주로 C언어에서 사용되는 타입과 같습니다.
+
+<br>
+
+```python
+for i in range(10):
+    print(i)    
+```
+
+<br>
+
+- `enumerate`를 이용한 방법은 데이터와 그 데이터의 인덱스를 같이 사용할 때 사용합니다.
+- 아래 코드에서 `i`는 0, 1, 2, ... 순서로 입력됩니다.
+
+<br>
+
+```python
+
+A = [10, 20, 30, 40, 50]
+for i, data in ennerate(A):
+    print(i, data)
+```
+
+<br>
+
+- 만약 임시로 정렬된 데이터가 필요하다면 새로 할당할 필요 없이 `sorted`를 이용하여 for loop을 사용할 수 있습니다.
+
+<br>
+
+```python
+l = [15,6,1,8]
+for i in sorted(l):
+    print(i)
+    
+for i in sorted(l,reverse = True):
+    print(i)
+```
+
+<br>
+
+- 이 때, 정렬하는 방법으로 `lambda` 식을 이용할 수도 있습니다.
+    - `l.sort(key=lambda s: s[::-1])`
+
+<br>
+
+- 마지막으로 필요한 데이터만 for loop 에서 탐색하기 위하여 `filter` 함수를 사용하는 방법이 있습니다.
+
+<br>
+
+```python
+people = [{"name": "John", "id": 1}, {"name": "Mike", "id": 4}, {"name": "Sandra", "id": 2}, {"name": "Jennifer", "id": 3}]
+for person in filter(lambda i: i["id"] % 2 == 0, people):
+...     print(person)
+... 
+{'name': 'Mike', 'id': 4}
+{'name': 'Sandra', 'id': 2}
+```
+
+<br>
 
 ## **deque은 사이즈 관리를 자동으로 한다.**
 
