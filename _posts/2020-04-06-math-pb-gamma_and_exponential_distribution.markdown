@@ -47,6 +47,7 @@ $$ \Gamma(\alpha) = \int_{0}^{\infty}x^{\alpha - 1}e^{-x} dx $$
 - 위 감마 함수는 대표적으로 다음 성질이 성립합니다.
 - ① $$ \alpha > 1 $$일 때, $$ \Gamma(\alpha) = (\alpha -1)\Gamma(\alpha - 1) $$
 - ② $$ \Gamma(1) = 1 $$이고 양의 정수  n에 대하여 $$ \Gamma(n) = (n - 1)! $$
+- ③ $$ \Gamma(\frac{1]{2}) = \sqrt(\pi) $$
 
 <br>
 
@@ -81,7 +82,11 @@ $$ \Gamma(1) = \int_{0}^{\infty}e^{-x} dx = -e^{-x} \vert_{0}^{\infty} = 1 $$
 
 <br>
 
-$$ \Gamma(n) = (n - 1)\Gamma(n-1) = (n - 1)(n - 2)\Gamma(n-3) = ... = (n - 1)! $$
+$$ \Gamma(n) = (n - 1)\Gamma(n-1) = (n - 1)(n - 2)\Gamma(n-3) = (n - 1)(n - 2) ... (1)\Gamma(1) = (n - 1)! $$
+
+<br>
+
+- 마지막으로 ③ 식에 대하여 다루어 보겠습니다. 실제로 감마 함수를 사용할 때, $$ \Gamma(\frac{1}{2}) = \sqrt{\pi} $$를 많이 이용하는데 이 값이 어떻게 도출되는 지 다루어 보겠습니다. 이 값은 `치환 적분`과 `극좌표`를 이용하여 구할 수 있습니다.
 
 
 <br>
