@@ -24,6 +24,7 @@ tags: [python, python 기본] # add tag
 - ### map
 - ### filter
 - ### reduce
+- ### for loop 스타일 (zip, c, enumerate, sorted, filter)
 - ### deque은 사이즈 관리를 자동으로 한다.
 - ### 파이썬 프로그램 정상 종료 시키기
 - ### 파이썬에서 폴더 및 파일 있는지 확인 후 생성
@@ -333,6 +334,27 @@ reduce(lambda x,y: x+y, [1,2,3,4,5])
 ```
 
 <br>
+
+## **for loop 스타일 (zip, c, enumerate, sorted, filter)**
+
+<br>
+
+- 파이썬에서 대표적으로 사용할 수 있는 for loop의 스타일에 대하여 정리해 보겠습니다.
+- 크게 `zip`, `c`, `enumerate`, `sorted`, `filter` 를 이용한 스타일이 있습니다. 차례대로 알아보겠습니다.
+- 먼저 `zip` 스타일 입니다. `zip` 스타일은 여러 종류의 저장된 데이터를 한 번에 사용하기 위해 사용됩니다.
+
+<br>
+
+```python
+odds = [1,3,5,7,9]
+evens = [2,4,6,8,10]
+for oddnum, evennum in zip(odds,evens):
+    print(oddnum)
+    print(evennum)
+```
+
+<br>
+
 
 ## **deque은 사이즈 관리를 자동으로 한다.**
 
