@@ -47,7 +47,7 @@ $$ \Gamma(\alpha) = \int_{0}^{\infty}x^{\alpha - 1}e^{-x} dx $$
 - 위 감마 함수는 대표적으로 다음 성질이 성립합니다.
 - ① $$ \alpha > 1 $$일 때, $$ \Gamma(\alpha) = (\alpha -1)\Gamma(\alpha - 1) $$
 - ② $$ \Gamma(1) = 1 $$이고 양의 정수  n에 대하여 $$ \Gamma(n) = (n - 1)! $$
-- ③ $$ \Gamma(\frac{1]{2}) = \sqrt(\pi) $$
+- ③ $$ \Gamma(\frac{1]{2}) = \sqrt{\pi} $$
 
 <br>
 
@@ -70,7 +70,7 @@ $$ \int f'(x)g(x) = f(x)g(x) - \int f(x)g'(x) $$
 
 $$ \Gamma(\alpha) = -x^{\alpha - 1}e^{-x}\vert^{\infty}_{0} + \int^{\infty}_{0} (\alpha - 1)x^{\alpha - 2}e^{-x} dx $$
 
-$$ (\alpha - 1)\Gamma(\alpha -1) $$
+$$ = (\alpha - 1)\Gamma(\alpha -1) $$
 
 <br>
 
