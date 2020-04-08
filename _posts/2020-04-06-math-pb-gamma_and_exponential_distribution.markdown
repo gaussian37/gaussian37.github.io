@@ -88,6 +88,29 @@ $$ \Gamma(n) = (n - 1)\Gamma(n-1) = (n - 1)(n - 2)\Gamma(n-3) = (n - 1)(n - 2) .
 
 - 마지막으로 ③ 식에 대하여 다루어 보겠습니다. 실제로 감마 함수를 사용할 때, $$ \Gamma(\frac{1}{2}) = \sqrt{\pi} $$를 많이 이용하는데 이 값이 어떻게 도출되는 지 다루어 보겠습니다. 이 값은 `치환 적분`과 `극좌표`를 이용하여 구할 수 있습니다.
 
+<br>
+
+$$ \Gamma(\alpha) = \int_{0}^{\infty} t^{\alpha - 1} e^{-t} dt $$
+
+$$ \Gamma(\frac{1}{2}) = \int_{0}^{\infty} t^{-\frac{1}{2}} e^{-t}dt $$
+
+<br>
+
+- 이 때, $$ x = \sqrt{t} $$로 치환하면, $$ dx = \frac{1}{2}t^{-\frac{1}{2}} dt $$가 됩니다.
+
+<br>
+
+$$ \Gamma(\frac{1}{2}) = 2 \int_{0}^{\infty} e^{-x^{2}} dx $$
+
+$$ \Gamma(\frac{1}{2})^{2} = 4 \int_{0}^{\infty} e^{-x^{2}} dx \int_{0}^{\infty} e^{-y^{2}} dy $$
+
+$$ = 4\int_{0}^{\infty} \Bigl(\int_{0}^{\infty} e^{-x^{2}} \Bigr)dx e^{-y^{2}} dy $$
+
+$$ = 4\int_{0}^{\infty} \Bigl(\int_{0}^{\infty} e^{-x^{2}} \Bigr)dx e^{-y^{2}} dy $$
+
+<br>
+
+
 
 <br>
 
