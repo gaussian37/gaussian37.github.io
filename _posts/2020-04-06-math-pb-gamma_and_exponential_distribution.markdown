@@ -104,13 +104,71 @@ $$ \Gamma(\frac{1}{2}) = 2 \int_{0}^{\infty} e^{-x^{2}} dx $$
 
 $$ \Gamma(\frac{1}{2})^{2} = 4 \int_{0}^{\infty} e^{-x^{2}} dx \int_{0}^{\infty} e^{-y^{2}} dy $$
 
-$$ = 4\int_{0}^{\infty} \Bigl(\int_{0}^{\infty} e^{-x^{2}} \Bigr)dx e^{-y^{2}} dy $$
+$$ = 4\int_{0}^{\infty} \Bigl(\int_{0}^{\infty} e^{-x^{2}} \Bigr)dx \ e^{-y^{2}} dy $$
 
 $$ = 4\int_{0}^{\infty}\int_{0}^{\infty} e^{-x^{2}}e^{-y^{2}}dx \ dy $$
 
 $$ = 4\int_{0}^{\infty}\int_{0}^{\infty} e^{-(x^{2} + y^{2})} dx \ dy $$
 
 <br>
+
+- 위 식에서 사용된 $$ x, y $$를 극좌표가 사용되는 공간으로 가져와서 변환해 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/math/pb/gamma_and_exponential_distribution/0.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 $$ x, y $$는 $$ r, \theta $$ 로 변환될 수 있고 범위도 변하게 되어 다음 식과 같아 집니다.
+
+<br>
+
+$$ \int\int\ f(x, y)\ dx\ dy = \int\int\ f(r\cos(\theta), r\sin(\theta))\ r\ dr \ d\theta $$
+
+<br>
+
+- 따라서 나머지 식을 전개하면 다음과 같이 정리됩니다.
+
+<br>
+
+$$ \Gamma(\frac{1}{2})^{2} = 4 \int_{0}^{\frac{\pi}{2}} \int_{0}{\infty} e^{-r^{2}}r \ dr \ d\theta $$
+
+<br>
+
+- 여기서 $$ \int_{0}{\infty} e^{-r^{2}}r \ dr $$ 부분과 $$ \theta $$는 관련이 전혀 없으므로 $$ \theta $$ 관련 적분 밖으로 나올 수 있습니다.
+
+<br>
+
+$$ = 4 \int_{0}{\infty} \Biggl( \int_{0}^{\frac{\pi}{2}}1 \ d\theta \Biggr) e^{-r^{2}}r \ dr  $$
+
+$$ = 4 \cdot \frac{\pi}{2} \int_{0}^{\infty} re^{-r^{2}}\ dr\ d\theta $$
+
+<br>
+
+- 치환 적분을 통해 식을 전개 합니다. $$ u = -r^{2}, du = -2rdr $$로 치환합니다. 그러면 다음 식과 같이 됩니다.
+
+<br>
+
+$$ = 4 \cdot \frac{\pi}{2} \int_{0}^{\infty} re^{-u}\ \frac{-1}{2r}du $$
+
+$$ = 4 \cdot \frac{\pi}{2} \cdot (-\frac{1}{2}) \int_{0}^{\infty} e^{-u} du $$
+
+$$ = 4 \cdot \frac{\pi}{2} \cdot (-\frac{1}{2}) [ e^{-u} ]_{0}^{\infty} $$
+
+$$ = \pi $$
+
+<br>
+
+- 따라서 양변에 루트를 적용하면 최종적으로 다음과 같이 정리 됩니다.
+
+<br>
+
+$$ \Gamma(\frac{1}{2}) = \sqrt{\pi} $$
+
+<br>
+
+
+
+
 
 
 
