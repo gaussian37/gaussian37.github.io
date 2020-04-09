@@ -130,7 +130,7 @@ $$ \int\int\ f(x, y)\ dx\ dy = \int\int\ f(r\cos(\theta), r\sin(\theta))\ r\ dr 
 
 <br>
 
-$$ \Gamma(\frac{1}{2})^{2} = 4 \int_{0}^{\frac{\pi}{2}} \int_{0}{\infty} e^{-r^{2}}r \ dr \ d\theta $$
+$$ \Gamma(\frac{1}{2})^{2} = 4 \int_{0}^{\frac{\pi}{2}} \int_{0}^{\infty} e^{-r^{2}}r \ dr \ d\theta $$
 
 <br>
 
@@ -138,7 +138,7 @@ $$ \Gamma(\frac{1}{2})^{2} = 4 \int_{0}^{\frac{\pi}{2}} \int_{0}{\infty} e^{-r^{
 
 <br>
 
-$$ = 4 \int_{0}{\infty} \Biggl( \int_{0}^{\frac{\pi}{2}}1 \ d\theta \Biggr) e^{-r^{2}}r \ dr  $$
+$$ = 4 \int_{0}^{\infty} \Biggl( \int_{0}^{\frac{\pi}{2}}1 \ d\theta \Biggr) e^{-r^{2}}r \ dr  $$
 
 $$ = 4 \cdot \frac{\pi}{2} \int_{0}^{\infty} re^{-r^{2}}\ dr\ d\theta $$
 
