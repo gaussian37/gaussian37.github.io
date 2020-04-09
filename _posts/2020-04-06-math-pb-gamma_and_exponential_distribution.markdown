@@ -47,7 +47,7 @@ $$ \Gamma(\alpha) = \int_{0}^{\infty}x^{\alpha - 1}e^{-x} dx $$
 - 위 감마 함수는 대표적으로 다음 성질이 성립합니다.
 - ① $$ \alpha > 1 $$일 때, $$ \Gamma(\alpha) = (\alpha -1)\Gamma(\alpha - 1) $$
 - ② $$ \Gamma(1) = 1 $$이고 양의 정수  n에 대하여 $$ \Gamma(n) = (n - 1)! $$
-- ③ $$ \Gamma(\frac{1]{2}) = \sqrt{\pi} $$
+- ③ $$ \Gamma(\frac{1}{2}) = \sqrt{\pi} $$
 
 <br>
 
@@ -106,7 +106,9 @@ $$ \Gamma(\frac{1}{2})^{2} = 4 \int_{0}^{\infty} e^{-x^{2}} dx \int_{0}^{\infty}
 
 $$ = 4\int_{0}^{\infty} \Bigl(\int_{0}^{\infty} e^{-x^{2}} \Bigr)dx e^{-y^{2}} dy $$
 
-$$ = 4\int_{0}^{\infty} \Bigl(\int_{0}^{\infty} e^{-x^{2}} \Bigr)dx e^{-y^{2}} dy $$
+$$ = 4\int_{0}^{\infty}\int_{0}^{\infty} e^{-x^{2}}e^{-y^{2}}dx \ dy $$
+
+$$ = 4\int_{0}^{\infty}\int_{0}^{\infty} e^{-(x^{2} + y^{2})} dx \ dy $$
 
 <br>
 
