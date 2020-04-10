@@ -48,8 +48,8 @@ tags: [algorithm, 알고리즘] # add tag
 
 <br>
 
-- [알고리즘의 역할](https://gaussian37.github.io/math-algorithm-role_of_algorithm/)
-- 삽입 정렬. 알고리즘의 분석
+- [알고리즘의 역할](https://gaussian37.github.io/math-algorithm-clrs-role_of_algorithm/)
+- [삽입 정렬과 알고리즘의 분석](https://gaussian37.github.io/math-algorithm-clrs-insertion_sort_and_algorithm_analysis/)
 - 알고리즘의 설계
 - 점근적 표기
 - 표준 표기법과 함수

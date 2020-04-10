@@ -9,6 +9,14 @@ tags: [algorithm, 알고리즘] # add tag
 
 <br>
 
+- [알고리즘 글 목록](https://gaussian37.github.io/math-algorithm-table/)
+
+<br>
+
+- 이 글은 CLRS(Introduction to algorithm) 책을 요약한 것이므로 자세한 내용은 CLRS 책을 참조하시기 바랍니다.
+
+<br>
+
 ## **알고리즘**
 
 <br>
@@ -41,3 +49,9 @@ tags: [algorithm, 알고리즘] # add tag
 - 반면 `성능 분석`은 구현이 불필요 하여 많은 연구자들이 이 방법을 이용하고 있습니다.
 - `성능 분석`을 할 때에는 `시간 복잡도`와 `공간 복잡도`를 통하여 나타내고 특히 알고리즘의 성능 분석은 `시간 복잡도`에 중점을 둡니다.
 - `시간 복잡도`는 입력 수 (n)에 따른 연산의 실행 횟수를 나타냅니다.
+
+<br>
+
+- [알고리즘 글 목록](https://gaussian37.github.io/math-algorithm-table/)
+
+<br>
