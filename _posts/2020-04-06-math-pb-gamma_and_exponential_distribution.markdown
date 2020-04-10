@@ -115,7 +115,7 @@ $$ = 4\int_{0}^{\infty}\int_{0}^{\infty} e^{-(x^{2} + y^{2})} dx \ dy $$
 - 위 식에서 사용된 $$ x, y $$를 극좌표가 사용되는 공간으로 가져와서 변환해 보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/math/pb/gamma_and_exponential_distribution/0.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/pb/gamma_and_exponential_distribution/0.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 그림과 같이 $$ x, y $$는 $$ r, \theta $$ 로 변환될 수 있고 범위도 변하게 되어 다음 식과 같아 집니다.
