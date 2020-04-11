@@ -28,16 +28,16 @@ tags: [algorithm, 알고리즘] # add tag
 
 - `Insertion Sort`의 `pseudo code`에 대하여 알아보겠습니다.
 - 입력 : n개 수의 수열 $$ a_{1}, a_{2}, \cdots , a_{n} $$ 아래 pseudo code에서는 배열 $$ A[ 1 ... n ] $$으로 나타남
-- 출력 : $$ a_{1}' \ge a_{2}' \ge \cdots \ge a_{n}'으로 오름차순 정렬된 수열
+- 출력 : $$ a_{1}' \ge a_{2}' \ge \cdots \ge a_{n}' $$으로 오름차순 정렬된 수열
 
 <br>
-<center><img src="../assets/img/math/algorithm/clrs_insertion_sor_and_algorithm_analysis/0.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/clrs_insertion_sor_and_algorithm_analysis/0.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 pseudo code가 동작하는 방식은 아래 그림과 같습니다.
 
 <br>
-<center><img src="../assets/img/math/algorithm/clrs_insertion_sor_and_algorithm_analysis/2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/clrs_insertion_sor_and_algorithm_analysis/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 #### **루프 불변성 (`수학적 귀납법`)의 타당성 증명**
@@ -70,7 +70,7 @@ tags: [algorithm, 알고리즘] # add tag
 - **삽입 정렬 알고리즘의 분석**을 해보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/math/algorithm/clrs_insertion_sor_and_algorithm_analysis/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/algorithm/clrs_insertion_sor_and_algorithm_analysis/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 pseudo code의 `cost`는 수행 시간을 뜻하고 `time`은 연산 횟수라고 생각하시면 됩니다.
