@@ -255,12 +255,48 @@ $$ 1 = \int_{0}^{\infty} \frac{1}{\Gamma(\alpha)}t^{\alpha-1}e^{-t}dt $$
 
 $$ 1 = \int_{0}^{infty} \frac{1}{\Gamma(\alpha)}t^{\alpha-1}e^{-t}\ dt = \int_{0}^{\infty}\frac{1}{\Gamma(\alpha)} (\frac{x}{\beta})^{\alpha-1}e^{-\frac{x}{\beta}}\frac{1}{\beta} \ dx $$
 
-$$ = \int_{0}^{\infty} \frac{1}{\beta^{\alpha}\Gamma(\alpha)}x^{\alpha-1}e^{-\frac{x}{\beta}} $$
+$$ = \int_{0}^{\infty} \frac{1}{\beta^{\alpha}\Gamma(\alpha)}x^{\alpha-1}e^{-\frac{x}{\beta}} \ dx  = \int_{0}^{\infty} f(x; \alpha, \beta) \ dx $$
 
+<br>
 
 ## **감마 분포의 평균과 분산**
 
 <br>
+
+- 감마 분포의 평균과 분산은 다음과 같습니다.
+
+<br>
+
+$$ \mu = \alpha\beta $$
+
+$$ \sigma^{2} = \alpha\beta^{2} $$
+
+<br>
+
+- 위 결과가 감마 분포와 감마 함수를 통해 어떻게 도출되는 지 알아보도록 하겠습니다.
+- 먼저 평균 $$ \mu = E(X) $$ 를 알아보도록 하겠습니다.
+
+<br>
+
+$$ \mu = E(X) = x\cdot f(x; \alpha, \beta) = \frac{1}{\beta^{\alpha}\Gamma(\alpha)} \int_{0}^{\infty} x^{\alpha}e^{-\frac{x}{\beta}} \ dx $$
+
+$$ y = \frac{x}{\beta} \ \ \ \ \text{substitution : } \ \ x = \beta y, dx = \beta dy $$
+
+$$ \mu = \frac{\beta}{\Gamma(\alpha)} \int_{0}^{\infty} e^{-y} \ dy = \frac{\beta}{\Gamma(\alpha)}\Gamma(\alpha + 1) = \alpha\beta $$
+
+$$ \because \ \Gamma(\alpha) = \int_{0}^{\infty}t^{\alpha-1}e^{-t} \ dt, \Gamma(\alpha) = (\alpha-1)\Gamma(\alpha-1) $$
+
+<br>
+
+- 다음으로 분산 $$ \sigma^{2} = E(X^{2}) - E(X)^{2} $$을 알아보도록 하겠습니다.
+
+<br>
+
+$$ E(X^{2}) = \frac{1}{\beta^{\alpha}\Gamma(\alpha)} \int_{0}^{\infty} x^{\alpha+1}e^{-\frac{x}{\beta}} \ dx = \frac{\beta^{2}}{\Gamma(\alpha)} \int_{0}^{\infty} y^{\alpha+1}e^{-y} \ dy $$
+
+$$ \frac{\beta^{2}}{\Gamma(\alpha)}\Gamma(\alpha+2) = \frac{\beta^{2}}{\Gamma(\alpha)}\alpha(\alpha+1)\Gamma(\alpha) = \alpha(\alpha+1)\beta^{2} $$
+
+$$ \sigma^{2} = E(X^{2}) - \mu^{2} = \alpha^{2}\beta^{2} + \alpha\beta^{2} - \alpha^{2}\beta^{2} = \alpha\beta^{2} $$
 
 <br>
 
@@ -268,12 +304,34 @@ $$ = \int_{0}^{\infty} \frac{1}{\beta^{\alpha}\Gamma(\alpha)}x^{\alpha-1}e^{-\fr
 
 <br>
 
+- 감마 분포의 평균과 분산을 통해 지수 분포의 평균과 분산을 구해보겠습니다. 지수 분포는 감마 분포에서 $$ \alpha = 1 $$인 케이스입니다.
+
+<br>
+
+$$ \mu = \beta $$
+
+$$ \sigma^{2} = \beta^{2} $$
 
 <br>
 
 ## **포아송 과정과의 관계**
 
 <br>
+
+- 포아송 분포는 어떤 길이의 시간이나 공간에서 특정한 시간이 발생할 확률을 나타냅니다. 
+    - 주어진 시간간격/영역 동안 평균 $$ \mu = \lambda t $$번 발생할 때, $$ x $$번 발생할 확률
+
+<br>
+
+$$ p(x, \lambda t) = \frac{e^{\lambda t}(\lambda t)^{x}}{x} \ \ \ \ (x = 0, 1, 2, ...) $$
+
+<br>
+
+- 포아송 분포를 응용하면 $$ t $$ 시간 동안 하나의 사건도 발생하지 않을 확률을 구할 수 있습니다.
+
+<br>
+
+$$ p(0; \lambda t) = \frac{e^{\lambda t}(\lambda t)^{0}}{0!} = e^{-\lambda t} $$
 
 <br>
 
