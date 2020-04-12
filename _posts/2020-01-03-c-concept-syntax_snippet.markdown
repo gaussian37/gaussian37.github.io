@@ -13,7 +13,9 @@ tags: [c, c language, c 언어] # add tag
 
 <br>
 
+- ### declaration(선언)과 definition(정의) 차이
 - ### char[]와 char*의 차이
+- ### const char *와 char const *의 차이
 - ### 문자 상수 리스트
 - ### 조건 연산자 (? : )
 - ### 쉬프트 연산자 (<<, >>)
@@ -24,12 +26,197 @@ tags: [c, c language, c 언어] # add tag
 
 <br>
 
+## **declaration(선언)과 definition(정의) 차이**
+
+<br>
+
+- C/C++ 언어 관련 글을 읽다가 보면 `declaration`과 `definition`이라는 용어가 나오는데 그 차이점에 대하여 알아보겠습니다.
+- 먼저 `declaration(선언)`에 대하여 알아보도록 하겠습니다.
+- 변수 선언은 컴파일러에 변수명, 변수 타입 그리고 초깃값이 정의되어 있다면 초깃값 까지 전달하는 역할을 합니다. 즉, `변수 선언`은 **컴파일러에 어떤 변수에 대한 상세한 정보를 주는 역할**을 합니다.
+- 그러면 `definition(정의)`는 무슨 역할을 할까요?
+- 정의는 선언한 변수가 어디에 저장되는지를 나타냅니다. 즉, **변수가 메모리 영역에 할당되는 순간**을 `정의`라고 합니다.
+
+<br>
+
+- 보통 C언어에서는 선언과 정의가 동시에 발생합니다. 그래서 전혀 차이가 없어 보입니다. 
+- 예를 들면 선언과 정의가 동시에 발생하는 것이 다음과 같습니다.
+
+<br>
+
+```c
+int a; //선언과 정의가 동시에 적용
+```
+
+<br>
+
+- C언어의 변수에서는 선언과 정의가 보통 동시에 발생하기 때문에 차이점을 잘 모를 수 있으나 함수에서는 차이점이 확연히 나타납니다.
+- 함수의 선언 또한 컴파일러에게 함수의 상세한 정보를 알려줍니다. 즉,함수명, 리턴타입, 매개변수 등등을 컴파일러에 전달해줍니다.
+
+<br>
+
+```c
+int add(int, int) // 함수의 선언
+```
+
+<br>
+
+- 위 함수의 선언은 함수명, 리턴 타입 그리고 2개의 매개변수가 있다는 것을 컴파일러에 알려줍니다.
+- 하지만 이 단계에서는 아직 함수가 메모리에 할당되지는 않습니다.
+
+<br>
+
+```c
+// 함수의 정의
+int add(int a, int b)
+{
+    return (a+b);
+}
+```
+
+<br>
+
+- 정의 단계에서는 위 함수가 **메모리 영역에 할당**됩니다. 
+
+<br>
+
+- 정리해 보겠습니다.
+- `Declaration(선언)`: 변수나 함수는 여러번 선언될 수 있고 이 단계에서는 메모리에 할당되지 않습니다. 이 단계에서는 컴파일러에 변수나 함수의 정보만 알려줍니다.
+- `Definition(정의)`: 변수나 함수는 딱 한번 정의되고 이 단계에서 메모리에 할당됩니다. 
+
+
+<br>
+
 ## **char[]와 char*의 차이**
 
 <br>
 
 - 문자열을 정의하는 방법에는 두가지 방법인 `char[]`와 `char*`가 있습니다.
 - 두 방법의 차이는 `char str[] = "abc";`에서 str은 문자열 변수이고 `char* s = "abc";`는 문자열 상수입니다. 즉 문자열 변수는 변경이 가능하지만 문자열 상수는 변경이 불가능 합니다.
+
+<br>
+
+## **const char *와 char const *의 차이**
+
+<br>
+
+- `const char *`와 `char const *`의 차이점에 대하여 알아보도록 하겠습니다.
+
+<br>
+
+### const char * : pointer to constant
+
+<br>
+
+- **pointer to constant**는 포인터가 가리키는 값이 변경될 수는 없고 포인터가 변경될 수는 있습니다.
+
+<br>
+<img src="../assets/img/c/concept/const_char_pointer/1.png" alt="Drawing" style="width: 600px;"/>
+<br>
+
+- 즉 위 그림과 같이 포인터가 가리키는 주소 자체를 주소1 에서 주소2로 변경하는 것은 가능하지만 만약 주소1의 값을 값1'로 바꾸려고 하면 에러가 납니다.
+- 따라서 **pointer to constant**에서는 **포인터가 가리키는 값**이 `상수`가 됩니다.
+- 아래 코드를 보면 포인터는 변경될 수 있지만 포인터가 가리키는 값이 변경되면 에러가 발생합니다. 
+
+```cpp
+#include<stdio.h> 
+#include<stdlib.h> 
+
+int main()
+{
+	char a = 'A', b = 'B';
+	const char* ptr = &a;
+
+	//*ptr = b; 포인터가 가리키는 값이 변경되는 것은 에러가 발생합니다.
+	 
+
+	// 포인터는 변경될 수 있습니다.
+	printf("value pointed to by ptr: %c\n", *ptr);
+	ptr = &b;
+	printf("value pointed to by ptr: %c\n", *ptr);
+}
+
+```
+
+<br>
+
+### char const * : constant pointer
+
+<br>
+
+- 반면에 `char const *`는 `const`의 위치가 변경되어 상수화 되는 대상이 변경됩니다. 먼저 이런 방법은 **constant pointer**라고 합니다.
+- **constant pointer**는 포인터 주소값을 상수화 시킵니다. 즉, 주소값이 변경이 안됩니다. 
+- 반면에 주소가 가리키는 값에 대한 제한은 없기 때문에 값은 변경할 수 있습니다. 
+
+<br>
+<img src="../assets/img/c/concept/const_char_pointer/2.png" alt="Drawing" style="width: 600px;"/>
+<br>  
+
+- 예를 들면 위 코드와 같이 주소값은 변경할 수 없지만 주소값이 가리키는 값은 변경이 가능합니다.
+- 이 내용을 코드로 알아보면 다음과 같습니다.
+
+<br>
+
+```cpp
+// char* const p 
+#include<stdio.h> 
+#include<stdlib.h> 
+
+int main()
+{
+	char a = 'A', b = 'B';
+	char* const ptr = &a;
+	printf("Value pointed to by ptr: %c\n", *ptr);
+	printf("Address ptr is pointing to: %d\n\n", ptr);
+
+	//ptr = &b; 주소값을 변경하는 것은 오류가 발생합니다.
+
+	// 포인터가 가리키는 주소의 값을 변경하는 것은 가능합니다.
+	*ptr = b;
+	printf("Value pointed to by ptr: %c\n", *ptr);
+	printf("Address ptr is pointing to: %d\n", ptr);
+}
+```
+
+<br>
+
+- 정리하면 `const char*` 즉, **pointer to constant**는 **포인터가 가리키는 대상(값)이 상수화** 됩니다. 따라서 포인터 변수가 가지는 주소값은 변경 가능하지만 주소가 가리키는 값은 변경 불가합니다.
+- 반면 `char const *`즉, **constant pointer**는 **포인터 주소값이 상수화**가 됩니다. 따라서 포인터 변수가 가지고 있는 주소값은 변경 불가능 합니다. 하지만 주소값이 가리키는 값에 대한 제약은 없으므로 값 변경은 가능합니다.
+
+<br>
+
+### const char const * : constant pointer to constant
+
+<br>
+
+- 앞에서 설명한 **pointer to constant** 조건과 **constant pointer**의 조건을 결합한 형태입니다.
+- 따라서 포인터 변수의 주소값을 변경하는 것도 불가능하고 주소값이 가리키는 값을 변경하는 것도 불가능합니다.
+
+<br>
+
+```cpp
+// C program to illustrate 
+//const char * const ptr 
+#include<stdio.h> 
+#include<stdlib.h> 
+
+int main() 
+{ 
+	char a ='A', b ='B'; 
+	const char *const ptr = &a; 
+	
+	printf( "Value pointed to by ptr: %c\n", *ptr); 
+	printf( "Address ptr is pointing to: %d\n\n", ptr); 
+
+	// ptr = &b; illegal statement (assignment of read-only variable ptr) 
+	// *ptr = b; illegal statement (assignment of read-only location *ptr) 
+
+} 
+
+```
+
+<br>
+
+- 위 코드를 보면 `const char *cost ptr`로 생성된 포인터 변수는 주소값을 바꾸는 것과 주소값이 가리키는 값을 변경하는 것 모두가 금지됩니다.
 
 <br>
 
@@ -137,3 +324,16 @@ printf("value : %d, address : %p\n", a, &a);
 <iframe height="800px" width="100%" src="https://repl.it/@gaussian37/sizeofcheck?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 
 <br>
+
+- 위에서 설명한 이유를 이해하여 문자열 배열의 크기와 문자열의 길이의 차이점에 대하여 명확하게 이해할 수 있습니다.
+
+<br>
+
+<iframe height="800px" width="100%" src="https://repl.it/@gaussian37/sizeofandstrlen?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+
+<br>
+
+- 위 코드의 `str1`은 배열의 크기는 100이지만 문자열의 길이는 5가 됩니다. 문자열의 길이에서 NULL 문자는 제외됩니다.
+- `str2`의 경우 배열의 크기는 NULL 문자를 포함하여 5이지만 문자열의 길이는 5가 됩니다.
+- `str3`, `str4`도 동일한 원리로 이해할 수 있습니다.
+- 마지막으로 `str5`는 동적 할당을 통하여 문자열의 공간을 생성한 것입니다. 이 때에는 sizeof의 결과가 배열의 크기가 아니라 문자열 포인터의 크기가 반환됩니다. 반면 strlen을 이용한 문자열 길이는 앞선 예와 똑같이 5가 출력됩니다.
