@@ -7,7 +7,9 @@ categories: [vision-opencv]
 tags: [vision, opencv] # add tag
 ---
 
-### **opencv with python 기능**
+<br>
+
+## **opencv with python 기능**
 
 <br>
 
@@ -20,13 +22,26 @@ tags: [vision, opencv] # add tag
 
 <br><br>
 
-### **opencv with python use case**
+## **opencv with python use case**
 
 <br>
 
 - [마우스 클릭으로 ROI 영역 추출 하기](https://gaussian37.github.io/vision-opencv-roi-extraction/)
 - [마우스로 연속적으로 이미지에 점 찍기](https://gaussian37.github.io/vision-opencv-python-draw_connected_circle/)
+- [이미지를 이용하여 비디오를 만들기](https://gaussian37.github.io/vision-opencv-make_video_with_images/)
+
+<br><br>
+
+## **opencv with c 기능**
 
 <br>
 
+- [Visual Studio 프로젝트 opencv 세팅]()
+- [리눅스에서 이클립스로 opencv 사용하기](https://gaussian37.github.io/vision-opencv-linux_eclipse_c_opencv/)
+
+<br><br>
+
+## **opencv with python use case**
+
+<br>
 
