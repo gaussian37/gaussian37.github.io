@@ -126,6 +126,27 @@ $$ \int\int\ f(x, y)\ dx\ dy = \int\int\ f(r\cos(\theta), r\sin(\theta))\ r\ dr 
 
 <br>
 
+- 위 식에서 $$ dx\ dy $$ 가 $$ r\ dr \ d\theta $$ 로 변환된 이유는 다음과 같습니다.
+
+<br>
+
+$$ x = r\cos\theta $$
+
+$$ y = r\sin\theta $$
+
+<br>
+
+- 위 식에서 $$ r, \theta $$를 이용하여 야코비안으로 변수 변환하면 다음과 같이 전개됩니다.
+
+<br>
+
+$$ \begin{vmatrix} \frac{\partial(x, y)}{\partial(r, \theta)} \end{vmatrix} $$
+
+$$ = \begin{vmatrix} \cos\theta & -r\sin\theta \\ \sin\theta & r\cos\theta \end{vmatrix} $$
+
+$$ = r\cos^{2}\theta + r\sin^{2}\theta = r $$
+
+
 - 따라서 나머지 식을 전개하면 다음과 같이 정리됩니다.
 
 <br>
@@ -134,7 +155,7 @@ $$ \Gamma(\frac{1}{2})^{2} = 4 \int_{0}^{\frac{\pi}{2}} \int_{0}^{\infty} e^{-r^
 
 <br>
 
-- 여기서 $$ \int_{0}{\infty} e^{-r^{2}}r \ dr $$ 부분과 $$ \theta $$는 관련이 전혀 없으므로 $$ \theta $$ 관련 적분 밖으로 나올 수 있습니다.
+- 여기서 $$ \int_{0}^{\infty} e^{-r^{2}}r \ dr $$ 부분과 $$ \theta $$는 관련이 전혀 없으므로 $$ \theta $$ 관련 적분 밖으로 나올 수 있습니다.
 
 <br>
 
@@ -174,7 +195,39 @@ $$ \Gamma(\frac{1}{2}) = \sqrt{\pi} $$
 
 <br>
 
+- 앞에서 살펴본 감마 함수를 이용하여 감마 분포에 대하여 알아보도록 하겠습니다. 먼저 감마분포의 정의는 다음과 같습니다.
+- 연속 확률 변수 $$ X $$의 확률 밀도 함수가 아래와 같이 주어질 때, $$ X $$는 모수 $$ \alpha, \beta $$를 가지는 감마 분포를 따릅니다.
+
 <br>
+
+$$ f(x; \alpha, \beta) = \begin{cases} \frac{1}{\beta^{\alpha}\Gamma(\alpha)}x^{\alpha - 1}e^{-\frac{x}{\beta}}, & x > 0 \\ 0, & \text{else} \ x \end{cases} $$
+
+$$ (\alpha > 0, \beta > 0) $$
+
+<br>
+
+<br>
+<center><img src="../assets/img/math/pb/gamma_and_exponential_distribution/0.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 감바 분포의 분포 곡선은 위 그림과 같고 그 모양은 파라미터인 $$ \alpha, \beta $$에 따라 달라지게 됩니다.
+- 이 때, $$ \alpha $$는 분포의 모양을 결정하므로 `shape parameter` 라고 하며 $$ \beta $$는 크기를 결정하기 때문에 `scale parameter` 라고 합니다.
+- 왼쪽 그림에서는 $$ \alpha $$를 고정한 상태에서 $$ \beta $$를 변경하여 가로 세로의 비율이 조정된 형태를 관찰할 수 있습니다.
+- 오른쪽 그림에서는 $$ \beta $$를 고정한 상태에서 $$ \alpha $$를 변경하여 그래프의 모양이 변경되는 것을 관찰할 수 있습니다.
+
+<br>
+
+- 지수 분포는 감마 분포의 `shape parameter` $$ \alpha = 1 $$인 특수한 경우로 정의됩니다.
+- 따라서 감마 분포로 부터 도출된 지수 분포의 정의는 다음과 같습니다.
+
+<br>
+
+$$ f(x; \beta) = \begin{cases} \frac{1}{\beta}e^{-\frac{x}{\beta}}, & x > 0 \\ 0 & \text{else} \ x \end{cases} $$
+
+$$ (\beta > 0) $$
+
+<br>
+
 
 ## **감마 분포의 평균과 분산**
 
