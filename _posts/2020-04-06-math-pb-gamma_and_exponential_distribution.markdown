@@ -242,6 +242,21 @@ $$ \Gamma(\alpha) = \int_{0}^{\infty} t^{\alpha -1}e^{-t} dt $$
 
 - 감마 함수의 양변에 $$ \Gamma(\alpha) $$로 나누겠습니다.
 
+<br>
+
+$$ 1 = \int_{0}^{\infty} \frac{1}{\Gamma(\alpha)}t^{\alpha-1}e^{-t}dt $$
+
+<br>
+
+- 양수 $$ \beta $$에 대하여 $$ t = \frac{x}{\beta} $$ 라고 하면 $$ dt = \frac{1}{\beta}dx $$ 가 됩니다.
+- 앞에서 전개한 식에 $$ t = \frac{x}{\beta} $$과 $$ dt = \frac{1}{\beta}dx $$를 대입해 보겠습니다.
+
+<br>
+
+$$ 1 = \int_{0}^{infty} \frac{1}{\Gamma(\alpha)}t^{\alpha-1}e^{-t}\ dt = \int_{0}^{\infty}\frac{1}{\Gamma(\alpha)} (\frac{x}{\beta})^{\alpha-1}e^{-\frac{x}{\beta}}\frac{1}{\beta} \ dx $$
+
+$$ = \int_{0}^{\infty} \frac{1}{\beta^{\alpha}\Gamma(\alpha)}x^{\alpha-1}e^{-\frac{x}{\beta}} $$
+
 
 ## **감마 분포의 평균과 분산**
 
