@@ -36,12 +36,12 @@ tags: [vision, opencv] # add tag
 
 <br>
 
-- [Visual Studio 프로젝트 opencv 세팅]()
+- [Visual Studio 프로젝트 opencv 세팅](https://gaussian37.github.io/vision-opencv-visual_studio_setting/)
 - [리눅스에서 이클립스로 opencv 사용하기](https://gaussian37.github.io/vision-opencv-linux_eclipse_c_opencv/)
 
 <br><br>
 
-## **opencv with python use case**
+## **opencv with C use case**
 
 <br>
 
