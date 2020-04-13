@@ -207,10 +207,10 @@ $$ (\alpha > 0, \beta > 0) $$
 <br>
 
 <br>
-<center><img src="../assets/img/math/pb/gamma_and_exponential_distribution/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/pb/gamma_and_exponential_distribution/0.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 감마 분포의 분포 곡선은 위 그림과 같고 그 모양은 파라미터인 $$ \alpha, \beta $$에 따라 달라지게 됩니다.
+- 감바 분포의 분포 곡선은 위 그림과 같고 그 모양은 파라미터인 $$ \alpha, \beta $$에 따라 달라지게 됩니다.
 - 이 때, $$ \alpha $$는 분포의 모양을 결정하므로 `shape parameter` 라고 하며 $$ \beta $$는 크기를 결정하기 때문에 `scale parameter` 라고 합니다.
 - 왼쪽 그림에서는 $$ \alpha $$를 고정한 상태에서 $$ \beta $$를 변경하여 가로 세로의 비율이 조정된 형태를 관찰할 수 있습니다.
 - 오른쪽 그림에서는 $$ \beta $$를 고정한 상태에서 $$ \alpha $$를 변경하여 그래프의 모양이 변경되는 것을 관찰할 수 있습니다.
@@ -323,7 +323,7 @@ $$ \sigma^{2} = \beta^{2} $$
 
 <br>
 
-$$ p(x, \lambda t) = \frac{e^{\lambda t}(\lambda t)^{x}}{x} \ \ \ \ (x = 0, 1, 2, ...) $$
+$$ p(x, \lambda t) = \frac{e^{\lambda t}(\lambda t)^{x}}{x!} \ \ \ \ (x = 0, 1, 2, ...) $$
 
 <br>
 
@@ -334,6 +334,12 @@ $$ p(x, \lambda t) = \frac{e^{\lambda t}(\lambda t)^{x}}{x} \ \ \ \ (x = 0, 1, 2
 $$ p(0; \lambda t) = \frac{e^{\lambda t}(\lambda t)^{0}}{0!} = e^{-\lambda t} $$
 
 <br>
+
+- 이번에는 관점을 조금 바꾸어서 확률 변수 $$ x $$를 **첫번째 포아송 사건이 발생하기까지의 소요된 시간**으로 보고 $$ f(x) $$를 $$ x $$의 확률밀도함수라고 생각하겠습니다.
+- 그러면 **첫번째 사건이 발생하기까지 걸린 시간**이 $$ x $$보다 클 확률 = $$ x $$ 시간 내 **포아송 사건이 1 건도 발생하지 않을 확률**이 됩니다.
+<br>
+
+<
 
 ## **확률 분포 정리**
 
