@@ -207,10 +207,10 @@ $$ (\alpha > 0, \beta > 0) $$
 <br>
 
 <br>
-<center><img src="../assets/img/math/pb/gamma_and_exponential_distribution/0.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/pb/gamma_and_exponential_distribution/1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 감바 분포의 분포 곡선은 위 그림과 같고 그 모양은 파라미터인 $$ \alpha, \beta $$에 따라 달라지게 됩니다.
+- 감마 분포의 분포 곡선은 위 그림과 같고 그 모양은 파라미터인 $$ \alpha, \beta $$에 따라 달라지게 됩니다.
 - 이 때, $$ \alpha $$는 분포의 모양을 결정하므로 `shape parameter` 라고 하며 $$ \beta $$는 크기를 결정하기 때문에 `scale parameter` 라고 합니다.
 - 왼쪽 그림에서는 $$ \alpha $$를 고정한 상태에서 $$ \beta $$를 변경하여 가로 세로의 비율이 조정된 형태를 관찰할 수 있습니다.
 - 오른쪽 그림에서는 $$ \beta $$를 고정한 상태에서 $$ \alpha $$를 변경하여 그래프의 모양이 변경되는 것을 관찰할 수 있습니다.
