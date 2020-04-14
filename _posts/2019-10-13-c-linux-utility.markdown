@@ -23,7 +23,8 @@ tags: [리눅스 유틸리티] # add tag
 - ### 나눔고딕코딩 폰트 설치
 - ### uim (한글 키보드 사용)
 - ### gparted: GUI 환경 파티션 및 포맷
-- ### (Window) : minGW 
+- ### (Window) : minGW
+- ### xclip을 이용한 clipboard 복사 
 
 <br>
 
@@ -155,3 +156,24 @@ $ xmodmap -pke > ~/.Xmodmap
 - bin 디렉토리까지의 경로를 **고급시스템설정보기-환경변수-시스템변수-path**에 추가합니다.
     - 추가하는 목적은 어느 경로에서도 바로 bin 까지의 경로를 접근할 수 있게 하여, 어느 경로에 있더라도 `minGW`를 사용할 수 있도록 합니다.
 - 커맨드 창을 열어 어떠한 경로에서라도 `gcc --version`을 입력하셨을 때, 정상적으로 실행이 된다면 `minGW`를 사용하실 수 있습니다.
+
+<br>
+
+## **xclip을 이용한 clipboard 복사**
+
+<br>
+
+- 리눅스 터미널에서 copy & paste를 하려고 할 때, 마우스를 사용하지 않는 방법에 대하여 알아보겠습니다.
+- 즉, 키보드만을 이용하여 특정 내용을 copy 하거나 복사하려고 할 때 입니다.
+- 먼저 클립보드에 복사된 내용을 터미널에 붙어넣기 할 때에는 간단합니다.
+    - 터미널에 클립보드에 복사된 내용 붙여넣기 : `ctrl + shift + v`
+- 만약 마우스로 터미널의 어떤 영역을 드래그 한 상태에서 클립보드로 복사하고 싶다면 다음 키 조합으로 사용 가능합니다.
+    - 터미널에 드래그 된 영역 클립보드로 복사하기 : `ctrl + shift + c`
+- 그러면 터미널의 출력 결과를 클립보드로 복사하기 위한 방법에 대하여 알아보기 위해 다음 앱을 설치합니다.
+    - `suto apt-get install xclip`
+- 터미널의 출력 결과를 클립보드로 복사하고 싶으면 다음 명령어를 이용합니다.
+    - `명령어 | xclip -selection clipboard`
+    - 예를 들어 `pwd | xclip -selection clipboard`와 같이 이용하면 pwd 결과를 파이프를 통하여 xclip으로 보내고 그 결과를 클립보드로 저장합니다.
+- 하지만 매번 `| xclip -selection clipboard`를 써야하는 것은 불편하기 때문에 `alias`를 이용하여 간편하게 사용해보겠습니다.
+    - `alias ccopy='xclip -selection clipboard'`
+    - 이 경우 `pwd | ccopy` 라고만 쓰면 됩니다.
