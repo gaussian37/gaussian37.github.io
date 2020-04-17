@@ -25,6 +25,11 @@ tags: [linux, 리눅스, 명령어, command] # add tag
 
 <br>
 
+- 리눅스에서 `sudo apt-get install`을 이용하여 패키지를 설치하는 도중 오류가 발생하면 이후에 더이상 패키지 설치가 안되는 경우가 발생합니다.
+- 이것은 패키지가 설치되는 부분에 `lock`이 발생한 것으로 그 부분에 해당하는 `lock`을 아래 명령어를 통하여 제거하면 됩니다.
+
+<br>
+
 ```
 sudo rm /var/lib/apt/lists/lock
 sudo rm /var/cache/apt/archives/lock
