@@ -17,6 +17,7 @@ tags: [C] # add tag
 - ### 변수명 출력
 - ### 숫자 → 문자열
 - ### 문자열 → 숫자
+- ### 정수 → 바이너리 문자열
 - ### 텍스트 입/출력 
 - ### 파일 존재하는 지 확인
 - ### 기본 문자열 관련 함수
@@ -106,6 +107,41 @@ int StringToInteger(char *str) {
     return ret;
 }
 
+```
+
+<br>
+
+## **정수 → 바이너리 문자열**
+
+<br>
+
+- 아래 코드는 정수를 입력 받아서 바이너리 형태로 출력하는 코드 입니다. 그 정수의 이진수 값을 알고 싶을 때 사용하시면 됩니다.
+
+<br>
+
+```c
+void PrintIntToBinary(int n){
+
+    char str[100];
+    int i = 0;
+
+    printf("%d : ", n);
+    do{
+        if (n % 2 == 0){
+            str[i] = '0';
+        }
+        else{
+            str[i] = '1';
+        }
+        n /= 2;
+        i++;
+    }while(n > 0);
+
+    while(i > 0){
+        printf("%c", str[--i]);
+    }
+    printf("\n");
+}
 ```
 
 <br>
