@@ -16,3 +16,19 @@ tags: [linux, 리눅스, 명령어, command] # add tag
 ## **목차**
 
 <br>
+
+- ### Could not get lock /var/lib/dpkg/lock - open 오류 수정
+
+<br>
+
+## **Could not get lock /var/lib/dpkg/lock - open 오류 수정**
+
+<br>
+
+```
+sudo rm /var/lib/apt/lists/lock
+sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock
+```
+
+<br>
