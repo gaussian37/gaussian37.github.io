@@ -85,7 +85,7 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 - 연속형 균일분포. 정규분포. 표준정규분포
 - 정규분포의 적용. 이항분포의 정규근사
 - [감마분포와 지수분포](https://gaussian37.github.io/math-pb-gamma_and_exponential_distribution/)
-- [감마분포와 지수분포의 적용]((https://gaussian37.github.io/math-pb-gamma_and_exponential_distribution/))
+- [감마분포와 지수분포의 적용](https://gaussian37.github.io/math-pb-gamma_and_exponential_distribution/)
 - 무기억성관련
 - 카이제곱 분포. 로그정규 분포. 와이블 분포
 - [베타분포](https://gaussian37.github.io/math-pb-beta-distribution/)
