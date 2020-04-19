@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 감마분포와 지수분포 (Gamma distribution and Exponential distribution) 의 적용
-date: 2020-04-19 00:00:00
+date: 2020-04-15 00:00:00
 img: math/pb/probability.jpg
 categories: [math-pb] 
 tags: [gamma distribution, exponential distribution, 감마분포, 지수분포 ] # add tag
