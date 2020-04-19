@@ -107,9 +107,11 @@ $$ P(X \ge 2) = \sum_{x = 2}^{5} b(x; 5, 0.2) = 1 - \sum_{0}^{1}b(x; 5, 0.2) \ap
 
 <br>
 
-$$ P(X \le 1) = \int_{0}^{1} \frac{1}{\beta^{2}}x e^{-\frac{x}{\beta}} dx = 25 \int_{0}^{1}x e^{-5x} = 1 - e^{-5}(1 + 5) = 0.96 $$
+$$ P(X \le 1) = \int_{0}^{1} \frac{1}{\beta^{2}\Gamma(2)}x e^{-\frac{x}{\beta}} dx = 25 \int_{0}^{1}x e^{-5x} = 1 - e^{-5}(1 + 5) = 0.96 $$
 
- 
+<br>
+
+
 
 <br>
 
