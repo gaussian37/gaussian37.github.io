@@ -111,6 +111,14 @@ $$ P(X \le 1) = \int_{0}^{1} \frac{1}{\beta^{2}\Gamma(2)}x e^{-\frac{x}{\beta}} 
 
 <br>
 
+- 예5) 어떤 의학 실험에서는 독극물이 생존 시간에 미치는 영향을 살펴보기 위하여 쥐를 이용하여 용량 반응 검사를 수행한다고 가정하겠습니다. 연구에 의하면 일정량의 독극물에 대한 생존 시간은 $$ \alpha = 5, \beta = 10 $$인 감마 분포를 따른다고 합니다. 즉, 문제를 해석하면 ...
+
+<br>
+
+
+<br>
+<center><img src="../assets/img/math/pb/gamma_and_exponential_distribution_application/0.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 
 <br>
