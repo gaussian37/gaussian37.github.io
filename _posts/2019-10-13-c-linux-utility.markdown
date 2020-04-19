@@ -24,7 +24,8 @@ tags: [리눅스 유틸리티] # add tag
 - ### uim (한글 키보드 사용)
 - ### gparted: GUI 환경 파티션 및 포맷
 - ### (Window) : minGW
-- ### xclip을 이용한 clipboard 복사 
+- ### xclip을 이용한 clipboard 복사
+- ### octave 설치 및 octave 패키지 설치 방법
 
 <br>
 
@@ -177,3 +178,26 @@ $ xmodmap -pke > ~/.Xmodmap
 - 하지만 매번 `| xclip -selection clipboard`를 써야하는 것은 불편하기 때문에 `alias`를 이용하여 간편하게 사용해보겠습니다.
     - `alias ccopy='xclip -selection clipboard'`
     - 이 경우 `pwd | ccopy` 라고만 쓰면 됩니다.
+
+<br>
+
+## **octave 설치 및 octave 패키지 설치 방법**
+
+<br>
+
+- 리눅스에서 MATLAB을 사용하고 싶을 때, 따로 설치하기 부담스럽거나 라이센스가 없다면 간이적으로 `octave`를 설치하여 사용할 수 있습니다.
+- 사실상 Simulink를 사용하지 않는다면 MATLAB 대신 `octave`로 거의 사용하실 수 있습니다.
+- 공식 홈페이지 : https://www.gnu.org/software/octave/
+- 설치 방법 : `sudo apt-get install octave`
+- octave를 설치한 다음 실행은 터미널에서 `octave`만 치면 GUI 환경이 기본적으로 실행되고 다양한 옵션을 주고 싶으면 `octave -h`를 이용하여 옵션을 확인할 수 있습니다.
+- MATLAB에는 툴박스라는 것을 유료로 제공하여 추가 함수 등을 구매해서 사용할 수 있지만 `octave`에서는 추가 패키지만 설치하면 사용할 수 있습니다. 관련 패키지의 정보는 아래 링크에서 확인하실 수 있습니다.
+    - 패키지 관령 정보 :https://octave.sourceforge.io/packages.php
+- 패키지는 octave를 실행한 다음 octave의 커맨드 창에서 다음 명령어를 통해 설치를 할 수 있습니다.
+    - `pkg install -forge package_name`
+    - 예를 들어 `pkg install -forge image`를 입력하면 image 관련 패키지가 설치 됩니다.
+- 패키지를 설치한 다음 패키지를 사용하고 싶으면 다음 명령어를 매번 실행해 주어야 합니다.
+    - `pkg load package_name`
+    - 예를 들어 `pkg load image`를 입력하면 됩니다.
+- 만약 어떤 패키지를 계속 사용할 예정이라면 디폴트 값으로 설정해 주어야 하는데 터미널에 `vim ~/.octaverc` 또는 `gedit ~/.octaverc`를 입력하여 위에서 설명한 것과 같이 `pkg load package_name`을 입력해 줍니다. 예를 들어 `pkg load image`를 입력하면 됩니다.
+- `~/`은 `home` 디렉토리를 뜻하는 명령이고 `.octaverc`는 octave를 실행할 때, 같이 실행되는 명령어들을 모아두는 숨김 파일 형태입니다.
+- 따라서 octave를 실행할 때, pkg load 명령어가 실행되므로 기본값으로 패키지를 등록해서 사용할 수 있습니다.
