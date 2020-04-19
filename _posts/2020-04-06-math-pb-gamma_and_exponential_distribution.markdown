@@ -348,7 +348,7 @@ $$ P(X > x) = e^{\lambda x} $$
 
 <br>
 
-$$ P(0 \ge X \ge x) = 1 - e^{\lambda x} = \int_{0}^{x} f(t) \ dt $$
+$$ P(0 \le X \le x) = 1 - e^{\lambda x} = \int_{0}^{x} f(t) \ dt $$
 
 <br>
 
