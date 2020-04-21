@@ -254,17 +254,15 @@ int main()
 
 <br>
 
+
 - `printf`의 `conversion specifier(변환(형식) 지정자)`는 `%[flags][width][.precision][length]specifier` 형태를 갖습니다.
+- 예를 들면 아래와 같습니다.
 
 <br>
 
 ```c
 printf("%10.5hi", 256);
 ```
-
-<br>
-
-- 예를 들면 
 
 <br>
 
