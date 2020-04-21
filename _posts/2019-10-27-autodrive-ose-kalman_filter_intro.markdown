@@ -52,13 +52,13 @@ tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
     - 이 목표를 달성하기 위해 사용 하는 것이 $$ T_{ext}, \hat{T}_{ext} $$ 두 값이 되겠습니다.      
     
 <br>
-<center><img src="../assets/img/autodrive/ose/introduction/3.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/introduction/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/autodrive/ose/introduction/4.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/introduction/4.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/autodrive/ose/introduction/5.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/introduction/5.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
