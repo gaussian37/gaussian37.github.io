@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 자코비안 
+title: Jacobian(자코비안) 이란?
 date: 2019-02-06 00:00:00
 img: math/calculus/jacobian/jacobian.png
 categories: [math-calculus] 
@@ -33,17 +33,16 @@ tags: [Jacobian, 자코비안] # add tag
 <center><img src="../assets/img/math/calculus/jacobian/2.png" alt="Drawing" style="width: 300px;"/></center>
 <br>
     
-- 여기서 `J`가 앞의 그래프 예시에 있는 함수 $$ f'(x) $$ 입니다.
-- 식을 정리하면 $$ y_{1} + Jdq $$가 됨을 확인할 수 있습니다.
+- 여기서 `J`가 앞의 그래프 예시에 있는 함수 $$ f'(x) $$ 입니다. 따라서 식을 정리하면 $$ y_{1} + f'dq = y_{1} + Jdq $$가 됨을 확인할 수 있습니다.
+
+<br>
  
-- 위키피디아의 Jacobian 행렬 정의는 다음과 같습니다.
-- "The Jacobian matrix is the matrix of all first-order partial derivatives of a vector-valued function" 
-- 자코비안 행렬은 모든 벡터들의 `first-order 편미분값`으로된 행렬 입니다. **다변수 함수일 때의 미분값**입니다.
+- 위키피디아의 Jacobian 행렬 정의를 찾아보면 **"The Jacobian matrix is the matrix of all first-order partial derivatives of a vector-valued function"** 으로 나옵니다. 
+- 즉, 자코비안 행렬은 모든 벡터들의 `1차 편미분값`으로된 행렬로 각 행렬의 값은 **다변수 함수일 때의 미분값**입니다.
 
 <br>
     
-- 첫 그래프를 보고 `자코비안을 구한 이유`에 대해서 다시 생각해 보면, $$ q = f^{-1}(x) $$ 를 구하기 어려웠기 때문이었습니다.
-- 이 문제를 자코비안의 역행렬을 이용하여 푼다면 근사해를 구할 수 있습니다.
+- 첫 그래프를 보고 `자코비안을 구한 이유`에 대해서 다시 생각해 보면, $$ q = f^{-1}(x) $$를 구하기 어렵기 때문에 선형화 하여 근사값을 구한 것입니다. 따라서 이 문제를 자코비안의 역행렬을 이용하여 푼다면 근사해를 구할 수 있습니다.
 
 <br>
     
