@@ -22,7 +22,7 @@ tags: [Jacobian, 자코비안] # add tag
 - 만약 $$ x = (x_{1}, x_{2}, ...), y = (y_{1}, y_{2}, ...) $$와 같은 경우 미분값이 스칼라 값이 아니라 `행렬`형태로 나오게 됩니다.
 
 <br>
-<center><img src="../assets/img/math/calculus/jacobian/2.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/calculus/jacobian/2.png" alt="Drawing" style="width: 300px;"/></center>
 <br>
     
 - 여기서 `J`가 앞의 그래프 예시에 있는 함수 $$ f'(x) $$ 입니다.
