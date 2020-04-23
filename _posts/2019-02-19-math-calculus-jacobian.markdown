@@ -10,6 +10,7 @@ tags: [Jacobian, 자코비안] # add tag
 <br>
 
 - 참조 : http://t-robotics.blogspot.com/2013/12/jacobian.html#.XGlnkegzaUk
+- 참조 : https://suhak.tistory.com/944
 
 <br>
 
@@ -33,7 +34,8 @@ tags: [Jacobian, 자코비안] # add tag
 <center><img src="../assets/img/math/calculus/jacobian/2.png" alt="Drawing" style="width: 300px;"/></center>
 <br>
     
-- 여기서 `J`가 앞의 그래프 예시에 있는 함수 $$ f'(x) $$ 입니다. 따라서 식을 정리하면 $$ y_{1} + f'dq = y_{1} + Jdq $$가 됨을 확인할 수 있습니다.
+- 여기서 `J`가 앞의 그래프 예시에 있는 함수 $$ f'(x) $$ 입니다.
+- 여기서 
 
 <br>
  
