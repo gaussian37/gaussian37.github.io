@@ -7,19 +7,27 @@ categories: [math-calculus]
 tags: [Jacobian, 자코비안] # add tag
 ---
 
-+ 출처 : 
-    + http://t-robotics.blogspot.com/2013/12/jacobian.html#.XGlnkegzaUk
+<br>
 
-+ 복잡하게 얽혀있는 식을 미분을 통하여 `linear approximation` 시킴으로써 간단한 근사 선형식을 만들어 주는 것입니다.
-+ 미분 기울기를 통하여 $$ \Delta x $$ 후의 y값을 선형 근사하여 예측하는 것과 비슷한 원리 입니다.
+- 참조 : http://t-robotics.blogspot.com/2013/12/jacobian.html#.XGlnkegzaUk
+
+<br>
+
+- 자코비안은 다양한 문제에서 `approximation` 접근법을 사용할 때 자주 사용 되는 방법입니다.
+- 예를 들어 비선형 칼만필터를 사용할 때, 비선형 식을 선형으로 근사시켜서 모델링 할 때 사용하는 Extended Kalman Filter가 대표적인 예가 될 수 있습니다.
+- 자코비안은 정말 많이 쓰기 때문에 익혀두면 상당히 좋습니다. 이 글에서 자코비안에 대하여 다루어 보도록 하겠습니다.
+
+<br>
 
 <br>
 <center><img src="../assets/img/math/calculus/jacobian/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 여기서 알고 싶은 것은 $$ f'(x_{1}) $$ 에서의 함수 입니다.  
-- 　$$ y = f(x) $$와 같은 1변수 함수에서는 미분값도 스칼라 값이 나오기도 합니다.
-- 만약 $$ x = (x_{1}, x_{2}, ...), y = (y_{1}, y_{2}, ...) $$와 같은 경우 미분값이 스칼라 값이 아니라 `행렬`형태로 나오게 됩니다.
+- 앞에서 말했듯이 `자코비안의 목적`은 복잡하게 얽혀있는 식을 미분을 통하여 `linear approximation` 시킴으로써 간단한 `근사 선형식`을 만들어 주는 것입니다.
+- 위 그래프에서 미분 기울기를 통하여 $$ \Delta x $$ 후의 y값을 `선형 근사`하여 예측하는 것과 비슷한 원리 입니다.
+- 그런데 위 그래프에서 가장 알고 싶은 것은 $$ f'(x_{1}) $$ 에서의 함수 입니다.  
+- 물론 $$ y = f(x) $$와 같은 `1변수 함수`에서는 미분값도 스칼라 값이 나오기도 합니다. 
+- 하지만 $$ x = (x_{1}, x_{2}, ...), y = (y_{1}, y_{2}, ...) $$와 같이 일반화한 경우 미분값이 스칼라 값이 아니라 `행렬`형태로 나오게 됩니다.
 
 <br>
 <center><img src="../assets/img/math/calculus/jacobian/2.png" alt="Drawing" style="width: 300px;"/></center>
