@@ -36,13 +36,19 @@ tags: [opencv, 이미지, 이미지 선택] # add tag
 ## **Input 데이터 준비**
 
 <br>
-<center><img src="../assets/img/vision/opencv/images_selection/3.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/opencv/images_selection/3.png" alt="Drawing" style="width: 300;"/></center>
 <br>
 
 - 위에서 다룬 5가지 이미지 프로세싱 처리한 결과를 각 폴더에 따로 저장해 보겠습니다.
 - 예를 들어 image1 폴더는 1번 프로세싱, image2 폴더는 2번 프로세싱, ... 이렇게 처리한 결과를 각 폴더에 저장해 놓습니다.
 
 <br>
+
+## **실행 방법**
+
+<br>
+
+
 
 
 
