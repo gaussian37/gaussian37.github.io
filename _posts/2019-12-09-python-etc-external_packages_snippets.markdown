@@ -1,11 +1,23 @@
 ---
 layout: post
-title: pygame으로 mp3 출력
+title: python 외부 package snippets
 date: 2019-12-09 00:00:00
-img: python/etc/pygame/0.png
+img: python/etc/external_packages/0.png
 categories: [python-etc] 
-tags: [python, pygame] # add tag
+tags: [python, external packages, snippets] # add tag
 ---
+<br>
+
+## **목차**
+
+<br>
+
+- ### pygame 으로 mp3 파일 출력
+- ### pyautogui 으로 화면 해상도 출력
+
+<br>
+
+## **pygame 으로 mp3 파일 출력**
 
 <br>
 
@@ -32,3 +44,21 @@ pygame.mixer.music.stop()
 
 - `pygame`에서 mp3를 재생하게 되면 background에서 돌아가게 됩니다.
 - 따라서 play()와 stop()사이에 어떤 작업을 처리할 수 있습니다.
+
+<br>
+
+## **pyautogui 으로 화면 해상도 출력**
+
+<br>
+
+- 파이썬 코드를 이용하여 화면 해상도를 확인하고 싶을 때 `pyautogui`를 이용할 수 있습니다.
+
+<br>
+
+```python
+import pyautogui
+width_resolution, height_resolution = pyautogui.size()
+```
+
+<br>
+
