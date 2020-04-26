@@ -31,6 +31,7 @@ tags: [vision, opencv] # add tag
 - [이미지를 이용하여 비디오를 만들기](https://gaussian37.github.io/vision-opencv-make_video_with_images/)
 - [작은 이미지가 큰 이미지의 중심에 오도록 적용](https://gaussian37.github.io/vision-opencv-centering_image/)
 - [이미지에서 마우스 클릭 좌표값 추출하기](https://gaussian37.github.io/vision-opencv-coordinate_extraction/)
+- [이미지들 중에서 이미지 선택하기](https://gaussian37.github.io/vision-opencv-images_selection/)
 
 
 <br><br>
