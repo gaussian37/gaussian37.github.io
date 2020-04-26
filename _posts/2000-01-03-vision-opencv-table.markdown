@@ -29,6 +29,9 @@ tags: [vision, opencv] # add tag
 - [마우스 클릭으로 ROI 영역 추출 하기](https://gaussian37.github.io/vision-opencv-roi-extraction/)
 - [마우스로 연속적으로 이미지에 점 찍기](https://gaussian37.github.io/vision-opencv-python-draw_connected_circle/)
 - [이미지를 이용하여 비디오를 만들기](https://gaussian37.github.io/vision-opencv-make_video_with_images/)
+- [작은 이미지가 큰 이미지의 중심에 오도록 적용](https://gaussian37.github.io/vision-opencv-centering_image/)
+- [이미지에서 마우스 클릭 좌표값 추출하기](https://gaussian37.github.io/vision-opencv-coordinate_extraction/)
+
 
 <br><br>
 
