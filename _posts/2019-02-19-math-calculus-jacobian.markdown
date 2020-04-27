@@ -15,7 +15,7 @@ tags: [Jacobian, 자코비안] # add tag
 <br>
 
 - 자코비안은 다양한 문제에서 `approximation` 접근법을 사용할 때 자주 사용 되는 방법입니다.
-- 예를 들어 비선형 칼만필터를 사용할 때, 비선형 식을 선형으로 근사시켜서 모델링 할 때 사용하는 Extended Kalman Filter가 대표적인 예가 될 수 있습니다.
+- 예를 들어 비선형 칼만필터를 사용할 때, 비선형 식을 선형으로 근사시켜서 모델링 할 때 사용하는 **Extended Kalman Filter**가 대표적인 예가 될 수 있습니다.
 - 자코비안은 정말 많이 쓰기 때문에 익혀두면 상당히 좋습니다. 이 글에서 자코비안에 대하여 다루어 보도록 하겠습니다.
 
 <br>
@@ -35,7 +35,6 @@ tags: [Jacobian, 자코비안] # add tag
 <br>
     
 - 여기서 `J`가 앞의 그래프 예시에 있는 함수 $$ f'(x) $$ 입니다.
-- 여기서 
 
 <br>
  
@@ -55,3 +54,15 @@ $$ dq = J^{-1}dx $$
 $$ \therefore q_{2} = q_{1} + J^{-1}dx  $$
     
 <br>
+
+- 이번에는 다른 방법을 통하여 자코비안의 사용 예시를 설명드리겠습니다.
+
+<br>
+
+$$ \int_{a}^{b}f(g(x))g^{\prime}(x)dx=\int_{g(a)}^{g(b)}f(u)du \quad\quad( u=g(x)\; \iff \;du=g^{\prime}(x)dx) $$
+
+<br>
+
+$$ \begin{split}\int_{0}^{1} \sqrt{1-x^2} d x  &=\int_{0}^{\pi/2} \sqrt{1-\sin^2 \theta} \cos \theta d \theta \quad (x=\sin \theta\; \iff \;dx=\cos \theta d \theta) \\ &=\int_{0}^{\pi/2} \cos^2 \theta d \theta =\int_{0}^{\pi/2} \frac{1}{2} (1+\cos 2 \theta) d \theta \\ &= \frac{1}{2} \left[ \theta + \frac{1}{2} \sin 2 \theta \right]_0^{\pi/2}=\frac{\pi}{4} \end{split} $$
+
+$$ \cos{2\theta} = 2\cos{\alpha}^{2} - 1 $$
