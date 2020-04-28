@@ -357,6 +357,11 @@ def main():
     path, row, col = GetArgument()
     # 작업할 directory의 갯수와 이름을 받습니다.
     num_dir, dir_names = GetDirectories(path)
+    
+    if row * col < num_dir:
+        print("Error : The number of image areas is smaller than directories.")
+        exit(1)
+    
     # 각 directory 별 이미지 이름들과 작업해야할 이미지의 갯수를 받습니다.
     num_images, image_names_list = GetImageNamesList(path, dir_names)
     # 이미지 선택 코드를 실행합니다.
