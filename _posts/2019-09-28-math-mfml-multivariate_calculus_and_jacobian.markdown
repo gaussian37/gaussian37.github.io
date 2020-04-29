@@ -22,6 +22,9 @@ tags: [calculus, multivariate calculus, jacobian] # add tag
 <br>
 
 - ### variables, constants & context
+- ### differentiate with respect to anything
+- ### jacobian
+- ### jacobian applied
 
 <br>
 
@@ -58,6 +61,55 @@ tags: [calculus, multivariate calculus, jacobian] # add tag
 - 만약 내가 **운전자** 입장에서 variable들을 관찰해 본다면 $$ m $$과 $$ d $$는 고정된 상수 값입니다. 왜냐하면 운전중에 이 값은 변경할 수 없는 값이기 때문입니다.
 - 운전자 입장에서 자연스러운 위 식의 해석을 하려면 $$ F $$가 `independent variable`이고 $$ a $$와 $$ v $$가 `dependent variable`이어야 합니다. 왜냐하면 엔진이 내는 힘에 따라서 속도와 가속도가 어떻게 변하는 지를 접근하는 것이 적합하기 때문입니다.
 - 이렇게 해석하면 $$ m, d $$는 `constant`이고 $$ a, v $$는 `dependent variable`이고 $$ F $$는 `independent variable`이 됩니다.
+
+<br>
+
+- 반면에 자동차 설계를 하는 입장에서는 특정 velocity와 acceleration이 정해져 있고 mass와 drag coefficient가 변화할 때, 엔진의 힘이 어떻게 변화하는 지 관찰해야 할 수 있습니다.
+- 이 경우에는 $$ a, v $$가 `constant`이고 $$ m, d $$가 `independent variable`이고 $$ F $$가 `dependent variable`이 됩니다.
+- 즉, 요점은 상황에 따라 어떤 값이 `constant`, `independent/dependent variable`이 될 수 있기 때문에 그 문맥을 잘 파악하는 것이 중요하다는 점입니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/4.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 이번에는 다른 예제를 한번 살펴보겠습니다. 위 그림과 같이 생긴 캔이 있고 이 캔의 전개도를 펼쳐보았습니다. 옆면에 해당하는 사각형의 세로 길이는 $$ h $$ 이고 가로 길이는 밑면인 원의 둘레인 $$ 2\pi r $$이 됩니다.
+- 이 캔이 가지는 mass를 한번 구해보면 다음과 같습니다. 여기서 사용된 $$ t $$ 는 thickness이고 $$ \rho $$는 density 입니다.
+
+<br>
+
+$$ m = 2\pi r^{2} t \rho + 2\pi r h t \rho $$  
+
+<br>
+
+- 이 식에서는 $$ \pi $$ 빼고는 모든 값이 variable이 될 수 있습니다. radius, height, tickness, density 모두가 변화할 수 있는 값입니다.
+- 그러면 변화할 수 있는 값에 대하여 미분을 해보겠습니다. 즉, $$ r, h, t, \rho $$에 대하여 각각의 미분을 하려고 합니다.
+- 여기서 중요한 것은 어떤 variable에 대하여 미분을 하면 나머지 변수들은 상수 취급을 할 수 있다는 것입니다. 
+- 미분 즉, derivative의 정의가 특정 값의 변화에 따른 함수 값의 변화 (rise over run) 이기 때문에 **미분해야 할 특정 값이 정해지면 나머지 변수들은 상수 취급을 하는 것이 정의에 맞습니다.**
+- 그러면 각 변수에 대하여 미분을 해보도록 하겠습니다.
+
+<br>
+
+$$ m = 2\pi r^{2} t \rho + 2\pi r h t \rho $$  
+
+$$ \frac{\partial m}{\partial h} = 2\pi r t \rho $$
+
+$$ \frac{\partial m}{\partial r} = 4\pi r t \rho + 2\pi t \rho $$
+
+$$ \frac{\partial m}{\partial t} = 2\pi r^{2} \rho + 2\pi r h \rho $$
+
+$$ \frac{\partial m}{\partial \rho} = 2\pi r^{2} t + 2\pi r h t $$
+
+<br>
+
+- 위 수식 기호에서 볼 수 있는 것 처럼 `multivariate` 상황에서 미분을 할 때에는 $$ \text{d} $$ 대신 $$ \partial $$을 씁니다. 
+- 수식의 결과를 보면 미분하려는 변수가 없는 항이 소거되는 것을 볼 수 있는데 이것은 특정 상수를 미분하면 소거하는 것과 똑같은 이유입니다.
+- 위 수식과 같은 전개를 `partial differentiation` 이라고 합니다. partial differentiation을 이용하면 multi dimensional problem을 다룰 수 있습니다. 여러개의 변수를 동시에 생각하지 않고 변수들을 분리해서 생각하기 때문에 1d differentiation 문제를 해결하는 것 처럼 접근할 수 있는 것입니다. 
+
+<br>
+
+## **differentiate with respect to anything**
+
+<br>
 
 
 <br>
