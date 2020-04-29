@@ -380,15 +380,15 @@ $$ \frac{\text{d}h}{\text{d}m} = \frac{1}{3}e^{m}(5 - 2e^{m}) $$
 
 <br>
 
-$$ f(x) = \frac{ sin(2x^{5} + 3x) }{ e^{7x} } = sin(2x^{5} + 3x)e^{-7x} $$
+$$ f(x) = \frac{ \sin{2x^{5} + 3x} }{ e^{7x} } = \sin{2x^{5} + 3x}e^{-7x} $$
 
 <br>
 
-$$ g(x) = sin(2x^{5} + 3x) $$
+$$ g(x) = \sin{2x^{5} + 3x} $$
 
 <br>
 
-$$ g(u) = sin(u), \ \to \ g'(u) = cos(u) $$
+$$ g(u) = \sin{u}, \ \to \ g'(u) = \cos{u} $$
 
 <br>
 
@@ -396,7 +396,7 @@ $$ u(x) = 2x^{5} + 3x \ \to \ u'(x) = 10x^{4} + 3 $$
 
 <br>
 
-$$ \frac{dg}{dx} = \frac{dg}{du} \frac{du}{dx} = cos(u)(10x^{4} + 3) = cos(2x^{5} + 3x)(10x^{4} + 3) $$
+$$ \frac{\text{d}g}{\text{d}x} = \frac{\text{d}g}{\text{d}u} \frac{\text{d}u}{\text{d}x} = \cos{u}(10x^{4} + 3) = \cos{2x^{5} + 3x}(10x^{4} + 3) $$
 
 <br>
 
@@ -408,7 +408,7 @@ $$ v(x) = -7x \ \to \ v'(x) = -7 $$
 
 <br>
 
-$$ \frac{dh}{dx} = \frac{dh}{dv} \frac{dv}{dx} = -7e^{-7x} $$
+$$ \frac{\text{d}h}{\text{d}x} = \frac{\text{d}h}{\text{d}v} \frac{\text{d}v}{\text{d}x} = -7e^{-7x} $$
 
 <br>
 
@@ -416,7 +416,7 @@ $$ g'(x) = cos(2x^{5} + 3x)(10x^{4} + 3) , \ \ h'(x) = -7e^{-7x} $$
 
 <br>
 
-$$ \frac{df}{x} = \frac{dg}{dx}h + g\frac{dh}{dx} = e^{-7x}( cos(2x^{5} + 3x)(10x^{4} + 3) -7sin(2x^{5} + 3x) ) $$
+$$ \frac{\text{d}f}{x} = \frac{\text{d}g}{\text{d}x}h + g\frac{\text{d}h}{\text{d}x} = e^{-7x}( \cos{2x^{5} + 3x}(10x^{4} + 3) -7\sin{2x^{5} + 3x} ) $$
 
 <br>
 
