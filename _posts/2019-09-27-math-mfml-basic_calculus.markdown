@@ -36,7 +36,7 @@ tags: [calculus] # add tag
 
 - 그러면 위 그림을 어떻게 해석하면 될까요? **입력 변수에 관하여 함수값이 어떻게 바뀌는지를 살피는 것**이 목적입니다.
 - 위 입력값은 `X축`인 시간입니다. 그러면 시간에 따라 함수값인 `Speed`가 어떻게 바뀌는지 살펴보면 시간에 따라 다양하게 변화하고 있습니다.
-- 이 때의 변화량을 알고 싶습니다. 변화량을 확인하   고 싶으면 곡선에 접하는 선의 기울기를 이용하여 확인할 수 있습니다.
+- 이 때의 변화량을 알고 싶습니다. 변화량을 확인하고 싶으면 곡선에 접하는 선의 기울기를 이용하여 확인할 수 있습니다.
 
 <br>
 <center><img src="../assets/img/math/calculus/basic_calculus/2.gif" alt="Drawing" style="width: 600px;"/></center>
@@ -170,7 +170,7 @@ $$ f'(x) = \lim_{\Delta x \to 0} = \Bigl( \frac{ 3(x + \Delta x) + 2 - (3x + 2) 
 
 <br>
 
-$$ f'(x) = \lim_{\Delta x \to 0}\Bigl( \frac{ 5(x + \Delta x)^{2} - 5x^{2} }{\Delta x} \Bigr) = \lim_{\Delta x \to 0}\Bigl( \frac{5x^{2} + 10x\Delta x + 5\delta x^{2} - 5x^{2} }{\Delta x} \Bigr) = \lim_{\Delta x \to 0}(10x + 5\Delta x) = 10x $$
+$$ f'(x) = \lim_{\Delta x \to 0}\Bigl( \frac{ 5(x + \Delta x)^{2} - 5x^{2} }{\Delta x} \Bigr) = \lim_{\Delta x \to 0}\Bigl( \frac{5x^{2} + 10x\Delta x + 5(\Delta x)^{2} - 5x^{2} }{\Delta x} \Bigr) = \lim_{\Delta x \to 0}(10x + 5\Delta x) = 10x $$
 
 <br>
 
@@ -178,7 +178,7 @@ $$ f'(x) = \lim_{\Delta x \to 0}\Bigl( \frac{ 5(x + \Delta x)^{2} - 5x^{2} }{\De
 
 <br>
 
-$$ \frac{d}{dx} (f(x) + g(x)) =  \frac{df(x)}{dx} + \frac{dg(x)}{dx} \ \cdots \ Sum \ Rule $$
+$$ \frac{d}{dx} (f(x) + g(x)) =  \frac{df(x)}{dx} + \frac{dg(x)}{dx} \ \cdots \text{Sum Rule} $$
 
 <br>
 
@@ -186,7 +186,7 @@ $$ \frac{d}{dx} (f(x) + g(x)) =  \frac{df(x)}{dx} + \frac{dg(x)}{dx} \ \cdots \ 
 
 <br>
 
-$$ f(x) = ax^{b}, f'(x) = abx^{b-1} \ \cdots \ Power \ Rule $$
+$$ f(x) = ax^{b}, f'(x) = abx^{b-1} \ \cdots \text{Power Rule} $$
 
 <br>
 
@@ -222,11 +222,16 @@ $$ f'(x) = \lim_{x \to 0} \Biggl( \frac{ \frac{1}{x + \Delta x} - \frac{1}{x} }{
 - 위와 같이 $$ sin(x) $$와 $$ cos(x) $$의 `gradient`는 서로 관계를 가지게 됩니다. 즉 $$ sin(x) $$의 `gradient`는 $$ cos(x) $$가 되고 $$ cos(x) $$의 `gradient`는 $$ -sin(x) $$가 됩니다.
 - 이렇게 되는 이유는 실질적인 $$ sin(x) $$와 $$ cos(x) $$의 `gradient`를 계산해 본 결과 확인할 수도 있지만 `오일러 공식`에 의한 삼각함수와 지수함수의 관계를 통해서도 확인해 볼 수 있습니다.
     - 참조 자료: https://suhak.tistory.com/163
-- 오일러 공식: $$ e^{ix} = cos(x) + i*sin(x) $$
 
 <br>
 
-$$ sin(x) = \frac{ e^{ix} - e^{ix} }{2i}, \ cos(x) = \frac{ e^{ix} + e^{ix} }{2i} $$
+$$ \text{Euler formula : } e^{ix} = \cos{x} + i*\sin{x} $$
+
+<br>
+
+$$ \sin{x} = \frac{ e^{ix} - e^{ix} }{2i} $$
+
+$$ \cos{x} = \frac{ e^{ix} + e^{ix} }{2i} $$
 
 <br>
 
