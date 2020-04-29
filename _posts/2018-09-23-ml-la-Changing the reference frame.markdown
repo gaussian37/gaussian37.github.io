@@ -3,8 +3,8 @@ layout: post
 title: Changing the reference frame  
 date: 2018-09-23 03:49:00
 img: math/la/overall.jpg
-categories: [math-la] 
-tags: [Linear algebra] # add tag
+categories: [math-mfml] 
+tags: [Linear algebra, Coursera, Mathematics for machine learning] # add tag
 ---
 
 ![chage bias](../assets/img/math/la/Change the reference frame/change_bias.png)

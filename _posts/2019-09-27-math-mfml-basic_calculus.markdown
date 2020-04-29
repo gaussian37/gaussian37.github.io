@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Calculus 기초
+title: Basic Calculus
 date: 2019-09-27 00:00:00
-img: math/calculus/overall.jpg
-categories: [math-calculus] 
+img: math/mfml/mfml.jpg
+categories: [math-mfml] 
 tags: [calculus] # add tag
 ---
 

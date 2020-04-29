@@ -3,7 +3,7 @@ layout: post
 title: Eienstein summation convention  
 date: 2018-09-27 15:00:00
 img: math/la/overall.jpg
-categories: [math-la] 
+categories: [math-mfml] 
 tags: [Linear algebra, eienstein summation convetion] # add tag
 ---
 

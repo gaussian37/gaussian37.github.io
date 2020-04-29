@@ -31,6 +31,8 @@ tags: [코세라, coursera, mathemacis for machine learning] # add tag
 
 <br>
 
+- [Calculus 기초](https://gaussian37.github.io/math-mfml-basic_calculus)/)
+
 
 <br>
 

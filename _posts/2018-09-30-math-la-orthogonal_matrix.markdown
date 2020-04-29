@@ -3,7 +3,7 @@ layout: post
 title: orthogonal matrix  
 date: 2018-09-27 15:00:00
 img: math/la/overall.jpg
-categories: [math-la] 
+categories: [math-mfml] 
 tags: [선형대수학, linear algebra, orthogonal matrix] # add tag
 ---
 

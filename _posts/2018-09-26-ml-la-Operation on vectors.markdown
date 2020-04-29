@@ -3,8 +3,8 @@ layout: post
 title: Operation on vectors  
 date: 2018-09-26 19:10:00
 img: math/la/overall.jpg
-categories: [math-la] 
-tags: [Linear algebra] # add tag
+categories: [math-mfml] 
+tags: [Linear algebra, coursera, Mathematics for machine learning] # add tag
 ---
 
 ### How matrices transform space
