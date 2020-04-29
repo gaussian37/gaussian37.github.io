@@ -276,19 +276,7 @@ $$ f'(x) = \lim_{x \to 0} \Bigl( \frac{f(x + \Delta x) - f(x) }{\Delta x} \Bigr)
 
 <br>
 
-$$ \lim_{\Delta x \to 0} \Bigl( \frac{ \Delta A(x) }{ \Delta x } \Bigr) = \lim_{\Delta x \to 0} \Bigl( \frac{ f(x)( g(x + \Delta x) - g(x) ) + g(x)( f(x + \Delta x) - f(x) )  }{ \Delta x } \Bigr) $$
-
-<br>
-
-$$ \lim_{\Delta x \to 0} \Bigl( \frac{ \Delta A(x) }{ \Delta x } \Bigr) = \lim_{\Delta x \to 0} \Bigl( \frac{ f(x)( g(x + \Delta x) - g(x) ) + g(x) }{ \Delta x } + \frac{ g(x)( f(x + \Delta x) - f(x) )  }{ \Delta x } \Bigr) $$
-
-<br>
-
-$$ \lim_{\Delta x \to 0} \Bigl( \frac{ \Delta A(x) }{ \Delta x } \Bigr) = \lim_{\Delta x \to 0} \Bigl( f(x) \frac{ ( g(x + \Delta x) - g(x) ) + g(x) }{ \Delta x } + g(x) \frac{ ( f(x + \Delta x) - f(x) )  }{ \Delta x } \Bigr) $$
-
-<br>
-
-$$ \lim_{\Delta x \to 0} \Bigl( \frac{ \Delta A(x) }{ \Delta x } \Bigr) = \lim_{\Delta x \to 0} ( f(x)g'(x) + g(x)f'(x)) $$
+$$ \begin{split} \lim_{\Delta x \to 0} \Bigl( \frac{ \Delta A(x) }{ \Delta x } \Bigr) &= \lim_{\Delta x \to 0} \Bigl( \frac{ f(x)( g(x + \Delta x) - g(x) ) + g(x)( f(x + \Delta x) - f(x) )  }{ \Delta x } \Bigr) \\ &= \lim_{\Delta x \to 0} \Bigl( \frac{ f(x)( g(x + \Delta x) - g(x) ) + g(x) }{ \Delta x } + \frac{ g(x)( f(x + \Delta x) - f(x) )  }{ \Delta x } \Bigr) \\ &= \lim_{\Delta x \to 0} \Bigl( f(x) \frac{ ( g(x + \Delta x) - g(x) ) + g(x) }{ \Delta x } + g(x) \frac{ ( f(x + \Delta x) - f(x) )  }{ \Delta x } \Bigr) \\ &= \lim_{\Delta x \to 0} ( f(x)g'(x) + g(x)f'(x)) \end{split} $$
 
 <br>
 
