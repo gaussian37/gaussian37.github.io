@@ -288,7 +288,7 @@ $$ A'(x) = f(x)g'(x) + f'(x)g(x) $$
 
 <br>
 
-$$ \text{if} \ \  A(x) = f(x)g(x), \ \ \text{then} \ A'(x) = f(x)g'(x) + f'(x)g(x) $$
+$$ \text{if} \ \  A(x) = f(x)g(x), \ \ \text{then} \ \ A'(x) = f(x)g'(x) + f'(x)g(x) $$
 
 <br>
 
@@ -333,7 +333,14 @@ $$ \frac{dh}{dm} = \frac{1}{3} e^{m} (5 - 2e^{m}) $$
 
 <br>
 
-- 위 식이 전개된 순서를 보면 $$ \frac{dh}{dp} x \frac{dp}{dm} = \frac{dh}{dm} $$이 됩니다.
+- 위 식이 전개된 순서를 보면 다음과 같습니다.
+
+<br>
+
+$$ \frac{dh}{dp} x \frac{dp}{dm} = \frac{dh}{dm} $$
+
+<br>
+
 - 여기서 최종적으로는 **입력값에 대한 최종 함수의 변화율**을 관찰하는 것이지만 계산 과정은 중간에 소거되는 부분을 통하여 계산됩니다.
 - 이 관계를 `chain of derivative relationship` 이라고 하고 간단히 `Chain Rule`이라고 합니다. 정리하면 다음과 같습니다.
 
