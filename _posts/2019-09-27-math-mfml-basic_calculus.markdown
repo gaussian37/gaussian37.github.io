@@ -15,13 +15,11 @@ tags: [calculus] # add tag
 
 <br>
 
-- Rise Over Run
-- Definition Of Derivative
-    - `Sum Rule`
-    - `Power Rule`
-- `Product Rule`
-- `Chain Rule`
-- 울프람 알파를 이용한 `gradient` 계산
+- ### Rise Over Run
+- ### Definition Of Derivative
+- ### Product Rule
+- ### Chain Rule
+- ### 울프람 알파를 이용한 `gradient` 계산
 
 <br>
 
