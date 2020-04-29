@@ -337,7 +337,7 @@ $$ \frac{dh}{dm} = \frac{1}{3} e^{m} (5 - 2e^{m}) $$
 
 <br>
 
-$$ \frac{dh}{dp} x \frac{dp}{dm} = \frac{dh}{dm} $$
+$$ \frac{\text{d}h}{\text{d}p}\frac{\text{d}p}{\text{d}m} = \frac{\text{d}h}{\text{d}m} $$
 
 <br>
 
@@ -346,7 +346,7 @@ $$ \frac{dh}{dp} x \frac{dp}{dm} = \frac{dh}{dm} $$
 
 <br>
 
-$$ if \ \ h = h(p) \ \ and \ \ p = p(m) \ \ then, \ \ \frac{dh}{dm} = \frac{dh}{dp} \times \frac{dp}{dm} $$
+$$ \text{if} \ \ h = h(p) \ \ \text{and} \ \ p = p(m) \\ \text{then}, \frac{\text{d}h}{dm} = \frac{\text{d}h}{\text{d}p} \times \frac{\text{d}p}{\text{d}m} $$
 
 <br> 
 
@@ -358,15 +358,15 @@ $$ h(p) = -\frac{1}{3}p^{2} + p + \frac{1}{5}, \ \ p(m) = e^{m} -1 $$
 
 <br>
 
-$$ \frac{dh}{dp} = 1 - \frac{2}{3}p, \ \ \frac{dp}{dm} = e^{m} $$
+$$ \frac{\text{d}h}{\text{d}p} = 1 - \frac{2}{3}p, \ \ \frac{\text{d}p}{\text{d}m} = e^{m} $$
 
 <br>
 
-$$ \frac{dh}{dp} x \frac{dp}{dm} = (1 - \frac{2}{3}p)e^{m} = (1 - \frac{2}{3}(e^{m} -1))e^{m} $$
+$$ \frac{\text{d}h}{dp}\frac{dp}{dm} = (1 - \frac{2}{3}p)e^{m} = (1 - \frac{2}{3}(e^{m} -1))e^{m} $$
 
 <br>
 
-$$ \frac{dh}{dm} = \frac{1}{3}e^{m}(5 - 2e^{m}) $$
+$$ \frac{\text{d}h}{\text{d}m} = \frac{1}{3}e^{m}(5 - 2e^{m}) $$
 
 <br>
 
