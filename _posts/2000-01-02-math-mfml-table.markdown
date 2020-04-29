@@ -2,7 +2,7 @@
 layout: post
 title: Mathematics for machine learning 글 목록
 date: 9999-12-23 00:00:00
-img: math\mfml\mfml.jpg
+img: math/mfml/mfml.jpg
 categories: [math-mfml] 
 tags: [코세라, coursera, mathemacis for machine learning] # add tag
 ---
@@ -31,7 +31,7 @@ tags: [코세라, coursera, mathemacis for machine learning] # add tag
 
 <br>
 
-- [Calculus 기초](https://gaussian37.github.io/math-mfml-basic_calculus)/)
+- [Calculus 기초](https://gaussian37.github.io/math-mfml-basic_calculus)
 
 
 <br>
