@@ -219,8 +219,8 @@ $$ \frac{\text{d}f(x, y, z)}{\text{d}t} = \cos{(t-1)}e + t^{-2}\sin{(t-1)}e \tim
 
 <br>
 
-- 앞에서 배운 `partial derivative`를 좀 더 간편하게 표현하기 위하여 선형 대수학의 개념을 조금 끌어와서 `jacobian` 행렬이란 것에 대하여 알아보도록 하겠습니다.
-- `jacobian` 행렬은 multivariate를 가지는 어떤 function에 각각의 variable에 관하여 미분을 하였을 때의 결과를 행 벡터 형식으로 나타내는 것입니다.
+- 앞에서 배운 `partial derivative`를 좀 더 간편하게 표현하기 위하여 선형 대수학의 개념을 조금 끌어와서 `jacobian` 벡터란 것에 대하여 알아보도록 하겠습니다.
+- `jacobian` 벡터는 multivariate를 가지는 어떤 function에 각각의 variable에 관하여 미분을 하였을 때의 결과를 행벡터 형식으로 나타낸 것입니다.
 
 <br>
 
@@ -230,7 +230,7 @@ $$ J = \begin{bmatrix} \frac{\partial f}{\partial x_{1}} & \frac{\partial f}{\pa
 
 <br>
 
-- 예를 들어 다음 식을 자코비안 행렬 `J`로 나타내 보겠습니다.
+- 예를 들어 다음 식을 자코비안 벡터 `J`로 나타내 보겠습니다.
 
 <br>
 
@@ -253,17 +253,19 @@ $$ \therefore \quad J = (2xy, x^{2}, 3) $$
 <br>
 
 - 위 그림과 같이 3차원 데이터를 색(밝은 노란색 : z값이 큼, 짙은 파란색 : z값이 작음)과 등고선 형태로 나타낸 그래프가 있다고 생각해 보겠습니다.
-- 그러면 지금부터 각 지점에서 **자코비안 행렬을 적용하였을 때, 그 값의 의미**에 대하여 알아보겠습니다.
+- 그러면 지금부터 각 지점에서 **자코비안 벡터를 적용하였을 때, 그 값의 의미**에 대하여 알아보겠습니다.
 
 <br>
 <center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/9.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 자코비안은 미분 즉, 변화량을 벡터 형태로 가지고 있는 행렬 입니다. 변화량을 2차원 그래프 또는 3차원 그래프에서 나타내면 그래프에서의 `경사`로 나타낼 수 있고 위 그래프가 하나의 예시가 될 수 있습니다.
+- 여기서 자코비안은 미분 즉, 변화량을 가지고 있는 벡터 입니다. 변화량을 2차원 그래프 또는 3차원 그래프에서 나타내면 그래프에서의 `경사`로 나타낼 수 있고 위 그래프가 하나의 예시가 될 수 있습니다.
 - 등고선으로 나타내었을 때, 등고선이 빽빽할수록 경사가 가파른 것이고 변화량이 크다고 말할 수 있습니다.
-- 위 그래프와 같은 값을 가지는 함수에서 자코비안 행렬을 구하면 **각 지점에서의 함수의 변화량을 얻을 수 있습니다.**
+- 위 그래프와 같은 값을 가지는 함수에서 자코비안 벡터를 구하면 **각 지점에서의 함수의 변화량을 얻을 수 있습니다.**
+    - 말 그대로 벡터이기 때문에 **크기와 방향**을 모두 가지고 있습니다.
     - 위 그래프에서 화살표의 길이가 길고 선명하면 변화량이 큰 것입니다.
-- 따라서 4개의 점 A, B, C, D 중에서 A지점의 변화량이 가장 크므로 자코비안 행렬의 값 또한 가장 큽니다.
+    - 따라서 특정 지점의 변화량을 나타내려면 그 **특정 지점을 시작점**으로 하고 **자코비안 벡터값을 크기와 방향**으로 나타내면 위 그림과 같은 vector field를 나타낼 수 있습니다.
+- 따라서 4개의 점 A, B, C, D 중에서 A지점의 변화량이 가장 크므로 자코비안 벡터의 값 또한 가장 큽니다.
 - 반면 가장 밝은 곳 또는 가장 어두운 곳은 flat 하므로(변화량이 작으므로) 자코비안의 값은 작아지게 됩니다.
 
 <br>
@@ -272,7 +274,65 @@ $$ \therefore \quad J = (2xy, x^{2}, 3) $$
 
 <br>
 
-- 
+- 앞에서 배운 `jacobian` 개념을 벡터에서 `행렬`로 확장시켜 보겠습니다. jacobian을 행렬로 확장시키면 **함수값이 벡터 형태를 가지는 경우**를 다룰 수 있습니다. 
+- 먼저 간단한 식을 이용하여 jacobian 벡터를 구해보도록 하겠습니다.
+
+<br>
+
+$$ f(x, y) = e^{-(x^{2} + y^{2})} $$
+
+$$ J = \begin{bmatrix} -2xe^{-(x^{2} + y^{2})}, & -2ye^{-(x^{2} + y^{2})} \end{bmatrix} $$
+
+<br>
+
+- jacobian 벡터는 말 그대로 벡터이기 때문에 값과 크기를 가집니다. 몇 가지 예제를 구해보겠습니다.
+
+<br>
+
+$$ J(-1, 1) = \begin{bmatrix} -2xe^{-2}, & -2ye^{-2} \end{bmatrix} = \begin{bmatrix} 0.27, & -0.27 \end{bmatrix}
+
+$$ J(2, 2) = \begin{bmatrix} -0.001, & -0.001 \end{bmatrix} $$
+
+$$ J(0, 0) = \begin{bmatrix} 0, & 0 \end{bmatrix} $$
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/10.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 앞에서 구한 3가지 jacobian 벡터를 각 시작점에서 벡터로 나타내면 왼쪽 그림과 같습니다. 
+- 이것을 전체 값에 확장해서 vector field로 나타내면 오른쪽 그림처럼 나타낼 수 있습니다.
+- 특히 노란색 지점과 같이 minimum 값을 가지는 경우를 `saddle` 이라고도 합니다.
+- 여기까지는 앞에서 배운 내용과 같습니다. 이제 확장해 보도록 하겠습니다.
+
+<br>
+
+- 다음과 같은 두 공간이 있다고 가정해 보겠습니다. 한 공간은 $$ x, y $$로 이루어져 있고 다른 공간은  $$ u, v $$로 이루어져 있습니다. 특히 $$ u, v $$는 아래와 같이 $$ x, y $$로 이루어져 있습니다.
+
+<br>
+
+$$ u(x, y) = x - 2y $$
+
+$$ v(x, y) = 3y - 2x $$
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/11.gif" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 앞의 예제에서는 함수 식이 하나 밖에 없었기 때문에 jacobian을 벡터 형태로 나타내었습니다.
+- 하지만 이번 경우에는 함수 식이 2개로 늘었습니다. 따라서 jacobian의 행벡터를 누적해서 아래로 쌓아서 행렬 형태로 만들면 이 문제를 해결할 수 있습니다. 이러한 이유로 보통 사용하는 열벡터 대신 행벡터를 앞에서 사용하였습니다.
+
+<br>
+
+$$ u(x, y) = x - 2y $$
+
+$$ v(x, y) = 3y - 2x $$
+
+$$ J_{u} = \begin{bmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} \end{bmatrix} $$
+
+$$ J_{v} = \begin{bmatrix} \frac{\partial v}{\partial x} & \frac{\partial v}{\partial y} \end{bmatrix} $$
+
+$$ J = \begin{bmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} \\ \frac{\partial v}{\partial x} & \frac{\partial v}{\partial y} \end{bmatrix} $$
+
 
 <br>
 
