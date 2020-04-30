@@ -115,7 +115,7 @@ $$ \frac{\partial m}{\partial \rho} = 2\pi r^{2} t + 2\pi r h t $$
 
 <br>
 
-$$ f(x, y, z) = \sin{(x)} e^{yz&{2}} $$
+$$ f(x, y, z) = \sin{(x)} e^{yz^{2}} $$
 
 <br>
 
@@ -271,6 +271,8 @@ $$ \therefore \quad J = (2xy, x^{2}, 3) $$
 ## **jacobian applied**
 
 <br>
+
+- 
 
 <br>
 
