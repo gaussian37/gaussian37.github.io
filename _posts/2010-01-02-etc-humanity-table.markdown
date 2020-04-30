@@ -2,7 +2,7 @@
 layout: post
 title: Humanity 관련 글 목차
 date: 9998-01-01 00:00:00
-img: nd/humanity/humanity.jpg
+img: etc/humanity/humanity.jpg
 categories: [etc-humanity] 
 tags: [인문학, 경영학, 경제학] # add tag
 ---
@@ -11,7 +11,7 @@ Humanity 관련 글 목차 입니다.
 
 <br>
 
-## 경영·경제 관련 도서
+## **경영·경제 관련 도서**
 
 + 마이클 포터의 경쟁 우위 : 경쟁전략의 바이블
 + 블루 오션 전략 : 가치창조를 통한 블루오션의 창출
@@ -41,6 +41,8 @@ Humanity 관련 글 목차 입니다.
 + [맥킨지식 로지컬 싱킹](https://gaussian37.github.io/etc-humanity-logical_thinking/)
 
 <br><br>
+
+- [책 읽어드립니다. 시즌 1](https://gaussian37.github.io/etc-humanity-read_you_books_1/)
 
 
 

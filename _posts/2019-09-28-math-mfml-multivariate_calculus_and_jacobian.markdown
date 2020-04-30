@@ -103,7 +103,7 @@ $$ \frac{\partial m}{\partial \rho} = 2\pi r^{2} t + 2\pi r h t $$
 
 - 위 수식 기호에서 볼 수 있는 것 처럼 `multivariate` 상황에서 미분을 할 때에는 $$ \text{d} $$ 대신 $$ \partial $$을 씁니다. 
 - 수식의 결과를 보면 미분하려는 변수가 없는 항이 소거되는 것을 볼 수 있는데 이것은 특정 상수를 미분하면 소거하는 것과 똑같은 이유입니다.
-- 위 수식과 같은 전개를 `partial differentiation` 이라고 합니다. partial differentiation을 이용하면 multi dimensional problem을 다룰 수 있습니다. 여러개의 변수를 동시에 생각하지 않고 변수들을 분리해서 생각하기 때문에 1d differentiation 문제를 해결하는 것 처럼 접근할 수 있는 것입니다. 
+- 위 수식과 같은 전개를 `partial derevative` 이라고 합니다. partial derevative을 이용하면 multi dimensional problem을 다룰 수 있습니다. 여러개의 변수를 동시에 생각하지 않고 변수들을 분리해서 생각하기 때문에 1d differentiation 문제를 해결하는 것 처럼 접근할 수 있는 것입니다. 
 
 <br>
 
@@ -111,6 +111,92 @@ $$ \frac{\partial m}{\partial \rho} = 2\pi r^{2} t + 2\pi r h t $$
 
 <br>
 
+- 앞에서 배운 `partial derevative`를 조금 더 복잡한 수식에 대입하여 한번 살펴보도록 하겠습니다.
+
+<br>
+
+$$ f(x, y, z) = \sin{(x)} e^{yz&{2}} $$
+
+<br>
+
+- 그러면 $$ x, y, z $$ 각각에 대하여 미분을 해보도록 하겠습니다.
+
+<br>
+
+$$ \frac{\partial f}{\partial x} = \cos{(x)} e^{yz^{2}} $$
+
+$$ \frac{\partial f}{\partial y} = \sin{(x)} e^{yz^{2}} z^{2} $$
+
+$$ \frac{\partial f}{\partial z} = \sin{(x)} e^{yz^{2}} 2yz $$
+
+<br>
+
+- 그러면 각각의 `partial derivative` 결과를 이용하여 좀 더 응용된 문제를 풀어보겠습니다.
+- 만약 $$ x, y, z $$가 변수 $$ t $$를 치환한 형태라고 생각해 보겠습니다.
+
+<br>
+
+$$ x = t - 1 $$
+
+$$ y = t^{2} $$
+
+$$ z = \frac{1}{t} $$
+
+<br>
+
+- 이 식의 경우 좀 간단하기 때문에 실질적으로는 다음과 같이 간단하게 정리 됩니다.
+
+<br>
+
+$$ f(t) = \sin{(t - 1)}e^{t^{2}(\frac{1}{t})^{2}} = \sin{(t - 1)}e $$
+
+$$ \frac{\text{d}f(t)}{\text{d}t} = \cos{(t-1)}e $$
+
+<br>
+
+- 하지만 이와 같은 경우는 사실 상당히 운이 좋아서 간단하게 정리되었습니다.
+- 많은 경우 직접 대입하였을 때, 더 복잡해 지는 경우가 많기 때문에 이번에는 치환한 형태를 이용해 보도록 하겠습니다.
+- 앞에서 다룬 `partial derivative`를 살펴보면 `multivariate` 케이스를 단일 변수를 이용하여 접근하는 방법을 사용하였습니다.
+- 이번에 다룰 `total derivative`는 `partial derivative`의 합은 원 함수의 `derivative`가 된다는 성질을 이용하는 방법입니다.
+- 즉 앞에서 $$ \text{d}f(t) / \text{d}t $$ 의 결과와 각각의 partial derivative인 $$ \text{d}f(x, y, z) / \partial x $$, $$ \text{d}f(x, y, z) / \partial y $$, $$ \text{d}f(x, y, z) / \partial z $$를 모두 합친 것에 $$ x = t-1, y = t^{2}, z = 1/t $$를 대입한 것의 결과가 같다는 것입니다.
+- 정리하면 변수 $$ t $$로 이루어진 어떤 식을 치환한 값인$$ x, y, z $$로 이루어진 식 $$ f(x, y, z) $$를 $$ t $$로 정리한 다음 $$ t $$에 대하여 미분한 식을 ①이라 하고
+- 그 다음으로 $$ f(x, y, z) $$를 각각의 $$ x, y, z $$에 대하여 partial derivative를 구한 뒤 모두 더한 값에 $$ t $$로 이루어진 치환식을 대입하면 결과가 같다는 것이 `total derivative`입니다.
+- 즉, **① 대입 → 미분**을 할 것인지 **② 편미분 → 대입**할 것인에 대한 순서의 차이입니다.
+- 하지만 ②의 경우 치환을 한 상태이기 떄문에 식이 간단해져 있고 편미분의 특성상 미분의 결과가 간단해 지기 때문에 ②를 이용하면 식을 좀 더 간단하게 전개할 수 있는 경우가 많습니다.
+- 앞의 예제를 `total derivative` 방법을 통해 풀어보겠습니다.
+
+<br>
+
+$$ \frac{\text{d}f(x, y, z)}{\text{d}t} = \frac{\partial f}{\partial x}\frac{\text{d}x}{\text{d}t} + \frac{\partial f}{\partial y}\frac{\text{d}y}{\text{d}t} + \frac{\partial f}{\partial z}\frac{\text{d}z}{\text{d}t} $$
+
+$$ x = t - 1 \quad y = t^{2} \quad z = \frac{1}{t} $$
+
+$$ \frac{\partial f}{\partial x} = \cos{(x)}e^{yz^{2}} \quad \frac{\text{d}x}{\text{d}t} = 1 $$
+
+$$ \frac{\partial f}{\partial y} = z^{2}\sin{(x)}e^{yz^{2}} \quad \frac{\text{d}y}{\text{d}t} = 2t $$
+
+$$ \frac{\partial f}{\partial z} = 2yz \sin{(x)}e^{yz^{2}} \quad \frac{\text{d}z}{\text{d}t} = -t^{-2} $$
+
+$$ \frac{\text{d}f(x, y, z)}{\text{d}t} = \frac{\partial f}{\partial x}\frac{\text{d}x}{\text{d}t} + \frac{\partial f}{\partial y}\frac{\text{d}y}{\text{d}t} + \frac{\partial f}{\partial z}\frac{\text{d}z}{\text{d}t} = \cos{(x)}e^{yz^{2}} \times 1 + z^{2}\sin{(x)}e^{yz^{2}} \times 2t + 2yz \sin{(x)}e^{yz^{2}} \times -t^{-2} $$
+
+- 여기 까지 정리한 것이 `total derivative` 입니다.
+- 그러면 여기서 치환 값인 $$ x, y, z $$에 $$ t $$를 이용한 식들을 대입해 보겠습니다.
+
+<br>
+
+$$ x = t - 1 $$
+
+$$ y = t^{2} $$
+
+$$ z = \frac{1}{t} $$
+
+<br>
+
+$$ \frac{\text{d}f(x, y, z)}{\text{d}t} = \cos{(t-1)}e + t^{-2}\sin{(t-1)}e \times 2t + 2t\sin{(t-1)}e \times (-t^{-2}) = \cos{(t-1)}e $$
+
+<br>
+
+- 따라서 ① 과 ②의 결과가 같음을 알 수 있습니다.
 
 <br>
 
