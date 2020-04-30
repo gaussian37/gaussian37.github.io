@@ -200,7 +200,77 @@ $$ \frac{\text{d}f(x, y, z)}{\text{d}t} = \cos{(t-1)}e + t^{-2}\sin{(t-1)}e \tim
 
 <br>
 
+- 지금까지 살펴본 내용이 이해가 잘 되었다면 아래 예제를 한번 풀어보시길 권장 드립니다.
+- 예제를 푸시면서 `total derivative`를 사용하면 문제를 쉽게 해결할 수 있다는 것을 느끼시면 됩니다.
 
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/5.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/6.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/7.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+## **jacobian**
+
+<br>
+
+- 앞에서 배운 `partial derivative`를 좀 더 간편하게 표현하기 위하여 선형 대수학의 개념을 조금 끌어와서 `jacobian` 행렬이란 것에 대하여 알아보도록 하겠습니다.
+- `jacobian` 행렬은 multivariate를 가지는 어떤 function에 각각의 variable에 관하여 미분을 하였을 때의 결과를 행 벡터 형식으로 나타내는 것입니다.
+
+<br>
+
+$$ f(x_{1}, x_{2}, ...) $$
+
+$$ J = \begin{bmatrix} \frac{\partial f}{\partial x_{1}} & \frac{\partial f}{\partial x_{2}} & \frac{\partial f}{\partial x_{3}} & ...\end{bmatrix} $$
+
+<br>
+
+- 예를 들어 다음 식을 자코비안 행렬 `J`로 나타내 보겠습니다.
+
+<br>
+
+$$ f(x, y, z) = x^{2}y + z $$
+
+$$ \frac{\partial f}{\partial x} = 2xy $$
+
+$$ \frac{\partial f}{\partial y} = x^{2} $$
+
+$$ \frac{\partial f}{\partial z} = 3 $$
+
+$$ \therefore \quad J = (2xy, x^{2}, 3) $$
+
+<br>
+
+- 위에서 구한 `J`에 대하여 다시 생각해 보면 각 열은 $$ x, y, z $$에 대하여 편미분을 한 것이므로 각 축의 변화량에 의한 함수값의 변화량이라고 생각하시면 됩니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/8.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 3차원 데이터를 색(밝은 노란색 : z값이 큼, 짙은 파란색 : z값이 작음)과 등고선 형태로 나타낸 그래프가 있다고 생각해 보겠습니다.
+- 그러면 지금부터 각 지점에서 **자코비안 행렬을 적용하였을 때, 그 값의 의미**에 대하여 알아보겠습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/9.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 자코비안은 미분 즉, 변화량을 벡터 형태로 가지고 있는 행렬 입니다. 변화량을 2차원 그래프 또는 3차원 그래프에서 나타내면 그래프에서의 `경사`로 나타낼 수 있고 위 그래프가 하나의 예시가 될 수 있습니다.
+- 등고선으로 나타내었을 때, 등고선이 빽빽할수록 경사가 가파른 것이고 변화량이 크다고 말할 수 있습니다.
+- 위 그래프와 같은 값을 가지는 함수에서 자코비안 행렬을 구하면 **각 지점에서의 함수의 변화량을 얻을 수 있습니다.**
+    - 위 그래프에서 화살표의 길이가 길고 선명하면 변화량이 큰 것입니다.
+- 따라서 4개의 점 A, B, C, D 중에서 A지점의 변화량이 가장 크므로 자코비안 행렬의 값 또한 가장 큽니다.
+- 반면 가장 밝은 곳 또는 가장 어두운 곳은 flat 하므로(변화량이 작으므로) 자코비안의 값은 작아지게 됩니다.
+
+<br>
+
+## **jacobian applied**
+
+<br>
 
 <br>
 
