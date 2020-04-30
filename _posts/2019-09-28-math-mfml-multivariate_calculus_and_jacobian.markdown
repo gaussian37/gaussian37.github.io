@@ -200,6 +200,10 @@ $$ \frac{\text{d}f(x, y, z)}{\text{d}t} = \cos{(t-1)}e + t^{-2}\sin{(t-1)}e \tim
 
 <br>
 
+
+
+<br>
+
 [mathematics for machine learning 글 목록](https://gaussian37.github.io/math-mfml-table/)
 
 <br>
