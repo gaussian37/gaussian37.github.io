@@ -204,15 +204,15 @@ $$ \frac{\text{d}f(x, y, z)}{\text{d}t} = \cos{(t-1)}e + t^{-2}\sin{(t-1)}e \tim
 - 예제를 푸시면서 `total derivative`를 사용하면 문제를 쉽게 해결할 수 있다는 것을 느끼시면 됩니다.
 
 <br>
-<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/5.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/5.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/6.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/7.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/7.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 ## **jacobian**
@@ -249,14 +249,14 @@ $$ \therefore \quad J = (2xy, x^{2}, 3) $$
 - 위에서 구한 `J`에 대하여 다시 생각해 보면 각 열은 $$ x, y, z $$에 대하여 편미분을 한 것이므로 각 축의 변화량에 의한 함수값의 변화량이라고 생각하시면 됩니다.
 
 <br>
-<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/8.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/8.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 그림과 같이 3차원 데이터를 색(밝은 노란색 : z값이 큼, 짙은 파란색 : z값이 작음)과 등고선 형태로 나타낸 그래프가 있다고 생각해 보겠습니다.
 - 그러면 지금부터 각 지점에서 **자코비안 벡터를 적용하였을 때, 그 값의 의미**에 대하여 알아보겠습니다.
 
 <br>
-<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/9.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/9.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 여기서 자코비안은 미분 즉, 변화량을 가지고 있는 벡터 입니다. 변화량을 2차원 그래프 또는 3차원 그래프에서 나타내면 그래프에서의 `경사`로 나타낼 수 있고 위 그래프가 하나의 예시가 될 수 있습니다.
@@ -289,14 +289,14 @@ $$ J = \begin{bmatrix} -2xe^{-(x^{2} + y^{2})}, & -2ye^{-(x^{2} + y^{2})} \end{b
 
 <br>
 
-$$ J(-1, 1) = \begin{bmatrix} -2xe^{-2}, & -2ye^{-2} \end{bmatrix} = \begin{bmatrix} 0.27, & -0.27 \end{bmatrix}
+$$ J(-1, 1) = \begin{bmatrix} -2xe^{-2}, & -2ye^{-2} \end{bmatrix} = \begin{bmatrix} 0.27, & -0.27 \end{bmatrix} $$
 
 $$ J(2, 2) = \begin{bmatrix} -0.001, & -0.001 \end{bmatrix} $$
 
 $$ J(0, 0) = \begin{bmatrix} 0, & 0 \end{bmatrix} $$
 
 <br>
-<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/10.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/10.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 앞에서 구한 3가지 jacobian 벡터를 각 시작점에서 벡터로 나타내면 왼쪽 그림과 같습니다. 
@@ -315,7 +315,7 @@ $$ u(x, y) = x - 2y $$
 $$ v(x, y) = 3y - 2x $$
 
 <br>
-<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/11.gif" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/11.gif" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 앞의 예제에서는 함수 식이 하나 밖에 없었기 때문에 jacobian을 벡터 형태로 나타내었습니다.
@@ -335,7 +335,9 @@ $$ J = \begin{bmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partia
 
 <br>
 
-- 특히 위 행렬은 결과적으로 $$ x, y $$공간을 $$ u, v $$ 공간으로 linear transformation 한 형태를 가지게 됩니다.
+- 특히 위 행렬은 결과적으로 $$ x, y $$공간을 $$ u, v $$ 공간으로 단순히 `linear transformation` 한 형태를 가지게 됩니다. (x, y의 계수와 jacobian 행렬의 값을 비교해 보면 $$ x - 2y $$의 계수가 1행의 값이고 $$ -2x + 3y $$가 2행의 값입니다.)
+- 이것은 당연한 것인데 왜냐하면 $$ u, v $$가 **선형식(1차식)**이기 때문입니다.
+- `jacobian`의 묘미는 **1차 (편)미분을 이용하여 공간1 → 공간2로 linear transformation**하는 것입니다.
 
 <br>
 
