@@ -343,9 +343,10 @@ $$ J = \begin{bmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partia
 <br>
 
 - 여기 까지 jacobian을 어떻게 행렬로 나타내는 지 배웠습니다. 그러면 실제 어떤 경우에 jacobian을 사용할 수 있을까요?
-- 첫번째, `partial derivative`가 필요한 순간에 사용할 수 있습니다. `jacobian` 행렬의 각 element가 
-- 우리가 다루는 많은 함수 식들은 non-linear 합니다. 이 **non-linear 공간A를 공간B로 linear transformation할 때, jacobian 행렬**을 사용할 수 있습니다.
-- 여기서 살펴볼 예제는 
+- 첫번째, `partial derivative`가 필요한 순간에 사용할 수 있습니다. `jacobian` 행렬의 각 element가 partial derivative를 수식이기 때문에 따로 계산할 것 없이 이 행렬에 값을 적용하는 것만으로 partial derivative 결과를 얻을 수 있습니다.
+- 두번째, 앞에서 설명한 것과 같이 `linear transformation` 하기 위함입니다. 우리가 다루는 많은 함수 식들은 non-linear 합니다. 이 **non-linear 공간A를 공간B로 linear transformation할 때, jacobian 행렬**을 사용할 수 있습니다. 
+- 이 때, 공간 A에서 공간 B로 transformation할 때, 그 `변화량` 만큼 곱을 해주게 되는데, 이 때 발생하는 변화량이 `jacobian 행렬의 행렬식`인 `determinant`가 됩니다.
+- jacobian 벡터에서는 변화량을 벡터로 구할 수 있었다면 jacobian 행렬에서는 변화량을 영역으로 구할 수 있습니다. (2차원에서는 면적이 되겠지요)
 
 <br>
 
