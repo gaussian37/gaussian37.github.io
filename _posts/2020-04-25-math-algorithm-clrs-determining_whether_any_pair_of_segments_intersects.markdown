@@ -34,7 +34,13 @@ tags: [algorithm, 알고리즘] # add tag
 <br>
 
 - [이전 글]()에서 살펴본 내용은 선분이 2개가 있을 때, 2개의 선분의 관계에 대하여 알아보았습니다.
-- 이번 글에서 살펴볼 내용은 임의의 선분 n개가 존재할 때, n개의 선분들 사이에 교차되는 점이 있는 지, 선분들 간의 관계를 알아보도록 하겠습니다.
+- 이번 글에서 살펴볼 내용은 **임의의 선분 n개**가 존재할 때, **n개의 선분들 사이에 교차되는 점**이 있는 지, 선분들 간의 관계를 알아보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/math/algorithm/clrs_determining_whether_any_pair_of_segments_intersects/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
 
 <br>
 
