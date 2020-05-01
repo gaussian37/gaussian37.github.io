@@ -343,8 +343,9 @@ $$ J = \begin{bmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partia
 <br>
 
 - 여기 까지 jacobian을 어떻게 행렬로 나타내는 지 배웠습니다. 그러면 실제 어떤 경우에 jacobian을 사용할 수 있을까요?
-- 우리가 다루는 많은 함수 식들은 non-linear 합니다. 특히 non-linear한 정도가 심한 경우 다루기가 까다로운 데 이 때 non-linear를 linear로 근사화 시키는 방법을 사용하곤 합니다. non-linear한 영역도 확대시켜보면 linear하게 보이기 때문이지요.
-- 
+- 첫번째, `partial derivative`가 필요한 순간에 사용할 수 있습니다. `jacobian` 행렬의 각 element가 
+- 우리가 다루는 많은 함수 식들은 non-linear 합니다. 이 **non-linear 공간A를 공간B로 linear transformation할 때, jacobian 행렬**을 사용할 수 있습니다.
+- 여기서 살펴볼 예제는 
 
 <br>
 
