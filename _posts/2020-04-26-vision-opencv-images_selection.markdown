@@ -301,10 +301,11 @@ def ImageSelection(path, row, col, num_dir, dir_names, num_images, image_names_l
 
     # 출력 csv 파일 셋팅
     now = datetime.now()
-    now_str = "%s_%s_%s_%s_%s_%s" % ( now.year, now.month, now.day, now.hour, now.minute, now.second)
-    # 텍스트 파일을 출력 하기 위한 stream을 open 합니다.
+    now_str = "%s_%s_%s_%s_%s_%s" % ( now.year, now.month, now.day, now.hour, now.minute, now.second)    
+
     file_write = open('./' + now_str + '.csv', 'w')
     file_write.write('frame_number,selected_folder\n')
+    file_write.close()
     
     # 반복 해야 할 이미지의 갯수 만큼
     for frame_idx, image_idx in enumerate(range(num_images)):
@@ -335,6 +336,9 @@ def ImageSelection(path, row, col, num_dir, dir_names, num_images, image_names_l
 
             # 키보드에 n을 입력하였을 때, 선택한 영역을 csv에 저장하고 다음 이미지 셋으로 넘어갑니다.
             if key == ord('n'):
+                # 텍스트 파일을 출력 하기 위한 stream을 open 합니다.
+                # 예상치 못한 프로그램 종료를 대비하여 매번 저장하고 append 방식으로 결과를 추가한다.
+                file_write = open('./' + now_str + '.csv', 'a+')
                 result_str = str(frame_idx + 1)
                 for i, state in enumerate(states):
                     if state:
@@ -342,6 +346,7 @@ def ImageSelection(path, row, col, num_dir, dir_names, num_images, image_names_l
                         result_str += dir_names[i]
                 result_str += '\n'
                 file_write.write(result_str)
+                file_write.close()
                 break
             # 키보드에 esc를 입력하였을 때, 프로그램을 종료합니다.
             elif key == 27:
