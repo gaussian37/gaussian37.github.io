@@ -114,4 +114,30 @@ Ubuntu-18.04    Stopped         1
 <br>
 
 - 위 출력의 뜻은 현재 사용하고 있는 `wsl`의 버전이 우분투 18.04이고 버전은 1이라는 것입니다. 이제 버전을 2로 바꾸어 보겠습니다.
-- `powershell`에 `wsl --set-version Ubuntu-18.04 2`
+- `powershell`에 `wsl --set-version Ubuntu-18.04 2` 명령어를 입력합니다.
+- 만약 `Conversion in progress, this may take a few minutes..` 라는 내용이 출력이 되지 않고 커널의 버전이 낮다는 내용이 출력되면 다음 링크에 들어가서 커널을 업데이트 한 다음 다시 시도해 봅니다. (이 작업은 금방 끝납니다.)보통 이 경우는 기존에 우분투를 설치한 상태에서 윈도우 업데이트를 하였다면 이전 버전의 리눅스 커널이 설치되었을 수 있습니다.
+    - 링크 : https://docs.microsoft.com/en-us/windows/wsl/wsl2-kernel
+- 만약 정상적으로 작업이 된다면 다음과 같은 출력이 powershell에 나타납니다.
+
+<br>
+
+```
+Conversion in progress, this may take a few minutes..
+For information on key differences with WSL 2 please visit https://aka.ms/wsl2
+Conversion complete.
+```
+
+<br>
+
+- 이제 `wsl 2`가 정상적으로 셋팅이 되었는 지 `wsl -l -v` 명령어를 입력해 보겠습니다.
+
+<br>
+
+```
+NAME            STATE           VERSION
+Ubuntu-18.04    Stopped         2  
+```
+
+<br>
+
+- 위와 같이 VERSION이 2로 변경 되었다면 정상적으로 셋팅된 것입니다.

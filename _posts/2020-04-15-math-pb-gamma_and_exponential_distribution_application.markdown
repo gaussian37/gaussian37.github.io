@@ -125,6 +125,11 @@ $$ P(X \le 60) = \frac{1}{\beta^{5}} \int_{0}^{60} \frac{x^{\alpha-1}e^{-\frac{x
 
 - 식의 계산이 복잡하므로 아래 `불완전 감마함수 표`를 이용하여 값을 구하겠습니다. 물론 컴퓨터를 이용하여 구하면 위 식을 그대로 이용하시면 됩니다.
 
+<br>
+
+$$ y = \frac{x}{\beta} \ \to \ x = \beta y \ \therefore \ dx = \beta dy $$
+
+<br>
 
 <br>
 <center><img src="../assets/img/math/pb/gamma_and_exponential_distribution_application/0.png" alt="Drawing" style="width: 800px;"/></center>
