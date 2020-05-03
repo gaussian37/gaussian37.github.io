@@ -141,3 +141,24 @@ Ubuntu-18.04    Stopped         2
 <br>
 
 - 위와 같이 VERSION이 2로 변경 되었다면 정상적으로 셋팅된 것입니다.
+
+<br>
+
+## **wsl 사용 팁 모음**
+
+<br>
+
+- `wsl` 사용 시 유용한 팁들을 한번 모아보겠습니다.
+
+<br>
+
+- `sudo apt install`을 하였을 때, `Unable to locate package` 라는 에러가 발생하는 경우가 있습니다. 그 경우는 Ubuntu의 Repository 접근 권한이 허용이 안된 경우 입니다. 이 경우 아래 명령어를 통해 enable 시켜주면 됩니다.
+
+<br>
+
+```
+sudo add-apt-repository universe
+```
+
+<br>
+
