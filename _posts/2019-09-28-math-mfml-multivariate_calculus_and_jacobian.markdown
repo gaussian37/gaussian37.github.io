@@ -414,7 +414,11 @@ $$ J = \begin{bmatrix} -2xe^{-(x^{2} + y^{2})}, & -2ye^{-(x^{2} + y^{2})} \end{b
 
 <br>
 
-작성중
+$$ H = \begin{bmatrix} \partial^{2} f / \partial x_{1}^{2} & \partial^{2} f / \partial x_{1}x_{2} & \cdots & \partial^{2} f / \partial x_{1}x_{n} \\ \partial^{2} f / \partial x_{2}x_{1} & \partial^{2} f / \partial x_{2}^{2} & \cdots & \partial^{2} f / \partial x_{2}x_{n} \\ \vdots & \vdots & \ddots & \vdots \\ \partial^{2} f / \partial x_{n}x_{1} & \partial^{2} f / \partial x_{n}x_{2} & \cdots & \partial^{2} f / \partial x_{n}^{2} \end{bmatrix} $$
+
+<br>
+
+- `hessian` 행렬을 보면 각 $$ (i, j) $$는 $$ \partial^{2} f / \partial x_{i}x_{j} $$가 됨을 알 수 있습니다.
 
 <br>
 

@@ -86,8 +86,14 @@ export WIN_HOME=/mnt/c/Users/$WIN_USER
 <center><img src="../assets/img/etc/dev/wsl/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 만약 실제 Ubuntu와 같이 GUI 환경에서 리눅스를 사용하고 싶으면 여러가지 방법이 있겠지만 이 글에서는 
+- 만약 실제 Ubuntu와 같이 GUI 환경에서 리눅스를 사용하고 싶으면 여러가지 방법(대표적인 것이 GNONE, KDE가 있습니다.)이 있겠지만 이 글에서는 아주 가벼운 `xfce`를 설치해서 실행해 보도록 하겠습니다. 물론 GUI 환경을 실행하고 싶다면 위 GUI 환경 셋팅을 완료하셔야 합니다.
+    - 참조 : https://www.xfce.org/
+- 설치 방법 : `sudo apt-get install xfce4`
+- 설치가 완료되면 wsl 터미널에 `startxfce4`를 입력하여 GUI 환경을 실행합니다.
 
+<br>
+<center><img src="../assets/img/etc/dev/wsl/3.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
 <br>
 
