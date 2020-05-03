@@ -1,11 +1,15 @@
 ---
 layout: post
-title: windows 10에서 wsl2 세팅 하는 방법
+title: 윈도우 10 에서 wsl2 세팅 하는 방법
 date: 2019-11-23 00:00:00
 img: etc\dev\wsl2\0.png
 categories: [etc-dev] 
-tags: [window10, wsl2] # add tag
+tags: [window10, 윈도우 10, wsl, wsl2] # add tag
 ---
+
+<br>
+
+- 참조 : https://docs.microsoft.com/en-us/windows/wsl/wsl2-install
 
 <br>
 
@@ -15,9 +19,7 @@ tags: [window10, wsl2] # add tag
 
 <br>
 
-- 현재 (2020년 초 기준) `Microsoft store`에서 `Ubuntu`를 설치하게 되면 `wsl` 1버전이 설치됩니다,
-- 반면 조금의 설정을 더 거치면 `wsl` 2버전이 설치가 되는데 이번 글에서는 `wsl 2`를 설치하는 방법에 대하여 알아보겠습니다.
-- 시간이 지나서 자동적으로 `wsl 2`가 Microsoft store에서 자동적으로 설치되길 바라면서 글을 적어봅니다. 
+- 현재 (2020년 초 기준) `Microsoft store`에서 `Ubuntu`를 설치하게 되면 `wsl` 1버전이 기본적으로 설정되는데, 여기서 설정만 2버전으로 바꾸어 주면 wsl 2를 사용할 수 있습니다.
 
 <br>
 
@@ -57,9 +59,15 @@ Linux 바이너리는 시스템 호출을 사용하여 파일 액세스, 메모�
 
 <br>
 
-- 설치를 하기 전에 다음 2가지 세팅은 먼저 해주시길 바랍니다.
+- 설치를 하기 전에 다음 2가지 세팅은 먼저 해주시길 바랍니다. 특히 **② 은 반드시 하셔야 합니다.**
 - ① **언어 설정은 영어**로 하길 매우 권장합니다. 한글로 하다가 powershell 부분에서 막힌 것도 있고해서... 영어 기준으로 블로그 내용을 따라하시길 추천드립니다.
-- ② **windows 10을 업데이트** 하시기 바랍니다. command 창에서 `winver`을 입력하면 윈도우 버전으 정보가 나타나는데 이때 `OS Build`의 버전이 `18917` 보다 낮으면 `wsl 2`를 실행할 수 없습니다.
+- ② **windows 10을 업데이트** 하시기 바랍니다. command 창에서 `winver`을 입력하면 윈도우 버전으 정보가 나타나는데 이때 `OS Build`의 버전이 `18917` 보다 낮으면 `wsl 2`를 실행할 수 없습니다. 따라서 숫자가 18917 보다 낮으면 windows update가 필요합니다.
+
+<br>
+<center><img src="../assets/img/etc/dev/wsl2/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림과 같이 `OS Build`가 18917 보다 커야합니다.
 
 <br>
 
@@ -87,3 +95,23 @@ Linux 바이너리는 시스템 호출을 사용하여 파일 액세스, 메모�
 - 이제 설치는 끝났습니다. 한번 실행해 보겠습니다.
 - `Windows PowerShell`을 실행합니다.
 - PowerShell에서 `wsl -l`을 입력하면 현재 사용중인 `wsl`의 정보가 나타납니다. 여기 까지 따라하셨다면 Default ubuntu가 설치되었다고 출력될 것입니다. 
+
+<br>
+
+## **wsl2 셋팅**
+
+<br>
+
+- `powershell`을 실행시킨 다음에 `wsl -l -v` 라는 명령어를 입력하면 다음과 같이 출력됩니다.
+
+<br>
+
+```
+NAME            STATE           VERSION
+Ubuntu-18.04    Stopped         1  
+```
+
+<br>
+
+- 위 출력의 뜻은 현재 사용하고 있는 `wsl`의 버전이 우분투 18.04이고 버전은 1이라는 것입니다. 이제 버전을 2로 바꾸어 보겠습니다.
+- `powershell`에 `wsl --set-version Ubuntu-18.04 2`
