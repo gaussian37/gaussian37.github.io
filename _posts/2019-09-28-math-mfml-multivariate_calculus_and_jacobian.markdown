@@ -25,6 +25,8 @@ tags: [calculus, multivariate calculus, jacobian] # add tag
 - ### differentiate with respect to anything
 - ### jacobian
 - ### jacobian applied
+- ### Sandpit
+- ### Hessian
 
 <br>
 
@@ -347,6 +349,72 @@ $$ J = \begin{bmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partia
 - 두번째, 앞에서 설명한 것과 같이 `linear transformation` 하기 위함입니다. 우리가 다루는 많은 함수 식들은 non-linear 합니다. 이 **non-linear 공간A를 공간B로 linear transformation할 때, jacobian 행렬**을 사용할 수 있습니다. 
 - 이 때, 공간 A에서 공간 B로 transformation할 때, 그 `변화량` 만큼 곱을 해주게 되는데, 이 때 발생하는 변화량이 `jacobian 행렬의 행렬식`인 `determinant`가 됩니다.
     - jacobian 벡터에서는 변화량을 벡터로 구할 수 있었다면 jacobian 행렬에서는 변화량을 영역으로 구할 수 있습니다. (2차원에서는 면적이 되겠지요)
+
+<br>
+
+## **Sandpit 예제**
+
+<br>
+
+- jacobian이 multivariate system의 gradient를 구한다는 것을 배웠습니다. 
+- 이 개념에 대한 좀 더 직관적인 이해를 돕기 위하여 지금부터 `sandpit` 이란 놀이(?)를 한번 해보도록 하겠습니다. (사실 coursera에서 혼자 놀아본 것일뿐... 블로그에서 기능이 제공되진 않습니다.)
+- 그 전에 `optimization`이란 개념에 대하여 간단하게 다루어 보겠습니다. optimization은 가능한한 좋도록 하려는 의도로 일상 생활에서도 많이 쓰는 단어인데 공학에서 사용하는 optimization은 어떤 함수의 입력값이 들어갔을 때, 그 결과로 최댓값 또는 최솟값을 도출해 내는 것을 말합니다. 예를 들어 **최단** 거리를 구하는 것, **최소** 비용을 구하는 것 또는 이익을 **최대화** 하는 것 등이 있습니다.
+- 앞에서 다룬 예제를 다시 살펴보겠습니다.
+
+<br>
+
+$$ f(x, y) = e^{-(x^{2} + y^{2})} $$
+
+$$ J = \begin{bmatrix} -2xe^{-(x^{2} + y^{2})}, & -2ye^{-(x^{2} + y^{2})} \end{bmatrix} = 0 $$
+
+<br>
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/12.gif" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 예제에서 optimal한 지점은 **경사가 가장 최소가 되는 지점**이 되도록 문제를 설정하는 것이 합당해 보입니다. 그리고 이 예제에서 경사가 가장 최소가 되는 지점에서 최댓값을 가지게 됩니다.
+
+<br>
+
+- 반면 식이 좀 복잡해 지기 시작하면 위 예제보다 함수 값 분포를 다루기가 까다로워집니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/13.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 식이 복잡해 지면 경사가 최소가 되는 지점이 여러 군데 나타날 수 있습니다. 위 그림의 $$ A, B, C, D, E $$ 모두 경사가 최소가 되는 지점입니다. 하지만 값이 최대가 되는 지점 또는 최소가 되는 지점은 1군데 씩 있습니다.
+- 예를 들어 $$ A $$에서는 경사가 최소가 되고 또한 값은 최대가 되는 지점입니다. 이런 지점을 `global maximum`이라고 합니다. 반면 $$ D $$에서는 경사가 최소가 되고 값 또한 최소가 되는 지점입니다. 이런 지점을 `global minimum`이라고 합니다. 나머지 부분은 `local maximum/minimum`이 되는 부분이 됩니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/14.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 만약 임의의 어떤 지점에서 `maximum/minimum` 지점을 찾아가려면 어떻게 하면 될까요?
+- 앞에서 다루었듯이 각 지점의 좌표를 jacobian 벡터에 대입하면 그 지점에서의 벡터값을 구할 수 있습니다. 그 벡터값의 크기와 방향을 변화가 큰 지 작은 지 알 수 있습니다.
+- 모든 지점에서 벡터 형태로 나타내면 위 그림과 같이 나타낼 수 있습니다. 그러면 화살표 방향대로 이동만 하더라도 `optimization`을 할 수 있습니다. 
+- 하지만 화살표 방향만 따라가면 optimization은 되지만 그것이 항상 global optimization이 된다고는 보장할 수 없습니다. 사실 이 문제는 machine learning이 풀어야 할 숙제이기도 합니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/15.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림은 coursera에서 제공하는 실습 환경의 예제입니다. 그냥 단순히 jacobian 벡터에 좌표 값을 대입하면 벡터의 크기와 방향이 표시되고 그것을 이용하여 global minimum을 찾는 게임 입니다.
+- 요점은 인간이 느끼는 이 optimization 방법을 machine learning에서도 똑같이 쓴다는 것입니다. 저희가 시각적으로 보고 판단한 것을 컴퓨터는 단순히 수치값으로만 해석한다는 차이점이 있을 뿐 접근 방법은 완전히 같습니다.
+
+<br>
+
+## **Hessian**
+
+<br>
+
+- 이번에는 `jacobian`과 쌍으로 같이 소개되는 `hessian`에 대하여 다루어 보겠습니다. hessian 또한 multivariate system과 관련된 개념입니다.
+- `hessian`을 단순히 말하면 jacobian 벡터의 확장이라고 말할 수 있습니다.
+- jacobian에서는 **어떤 함수 식**의 **1차 미분 한 결과**를 `벡터` 형태로 모은 것(여기서 다루는 jacobian은 행렬이 아닌 벡터입니다.)인 반면 hessian은 jacobian 벡터를 한번 더 각 변수에 대하여 다시 한번 미분한 2차 미분의 결과를 모은 것입니다. 수식을 통해 보면 쉽게 이해하실 수 있습니다.
+
+<br>
+
+작성중
 
 <br>
 
