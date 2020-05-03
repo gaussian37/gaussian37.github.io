@@ -2,7 +2,7 @@
 layout: post
 title: WSL(Windows Subsystem for Linux) 사용 관련 snippets
 date: 2019-11-23 00:00:00
-img: etc\dev\wsl2\0.png
+img: etc/dev/wsl/0.png
 categories: [etc-dev] 
 tags: [window10, 윈도우 10, wsl, wsl2] # add tag
 ---
@@ -21,6 +21,7 @@ tags: [window10, 윈도우 10, wsl, wsl2] # add tag
 <br>
 
 - ### sudo apt install 이 안될 때
+- ### wsl에서 사용하면 좋은 export
 - ### GUI 방식으로 실행 시키고 싶을 때
 - ### wsl2 셋팅 방법
 
@@ -40,13 +41,53 @@ sudo add-apt-repository universe
 
 <br>
 
+## **wsl에서 사용하면 좋은 export**
+
+<br>
+
+- wsl을 사용할 때, 불편할 것들을 개선하기 위하여 제가 사용하는 `export`등을 적어 놓아봅니다.
+- 특히 `export` 할 것은 기본 경로(`/home/{USER}` 또는 `~/`)의 `.bashrc` 파일에 적어놓으면 wsl을 매번 켤 때 마다 자동으로 호출됩니다.
+- 즉, `vi ~/.bashrc` 또는 `vim ~/.bashrc`를 입력하여 `.bashrc` 파일을 열고 가장 아래에 다음 export 를 추가하면 됩니다.
+
+<br>
+
+```
+export LINUX_USER=리눅스_사용자명
+export WIN_USER=윈도우_사용자명
+export WIN_HOME=/mnt/c/Users/$WIN_USER
+```
+
+<br>
+
+- 참고로 `./bashrc`에 명령어들을 추가한 뒤 적용하고 싶으면 리눅스 재부팅 또는 `. ~/.bashrc` 명령어를 실행시키면 됩니다.
+
+<br>
+
 ## **GUI 방식으로 실행 시키고 싶을 때**
 
 <br>
 
+- **2020.05.01 기준으로 wsl1에서만 GUI가 됩니다. wsl2에서는 can't display 오류가 발생하오니 주의 바랍니다.**
 - `wsl`에서 실행한 프로그램이 CLI 환경에서만 돌아간다면 실제 사용하는 리눅스에 비해 너무나 불편합니다.
 - 이번에 살펴볼 내용은 wsl에서 GUI 기반의 프로그램을 실행시키고 실제로 GUI(eclipse, gedit 등등)를 실행시켜 보겠습니다.
 - 참고로 **visual studio code**는 MS에서 특별히 신경을 쓴 덕분인지, 따로 셋팅을 하지 않아도 `code`란 명령어를 통해 GUI 환경을 실행시킬 수 있습니다.
+
+<br>
+
+- ① `./bashrc`에 `export DISPLAY=:0.0`를 추가합니다. vi/vim을 열어서 마지막에 추가해도 되고 아래 명령어를 이용하면 자동 추가 됩니다.
+    - echo "export DISPLAY=:0.0" >> ~/.bashrc
+- ② `. ~/.bashrc` 명령어 실행
+- ③ 다음 sourceforge 링크를 접속하여 `VcXsrv`를 설치합니다. 이것은 윈도우 용 `X server`로 window에서 `wsl`에 접근할 때 사용한다고 생각하시면 됩니다. ①에서 설정한 DISPLAY 주소인 localhost:0.0 으로 X server가 접근하여 Graphic을 출력합니다.
+    - 링크 : https://sourceforge.net/projects/vcxsrv/
+- ④ 설치가 완료되면 `XLaunch`란 것이 생기는 데 실행합니다. 실행하면 셋팅값들이 나오는데 default 값을 사용해도 상관없으니 계속 다음을 누르시면 됩니다.
+- ⑤ wsl에서 graphic 기반의 프로그램을 아무거나 실행해 보시면 됩니다. 아래는 `gedit`을 한번 실행해 본 결과입니다.
+
+<br>
+<center><img src="../assets/img/etc/dev/wsl/2.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 만약 실제 Ubuntu와 같이 GUI 환경에서 리눅스를 사용하고 싶으면 여러가지 방법이 있겠지만 이 글에서는 
+
 
 <br>
 
@@ -109,7 +150,7 @@ Linux 바이너리는 시스템 호출을 사용하여 파일 액세스, 메모�
 - ② **windows 10을 업데이트** 하시기 바랍니다. command 창에서 `winver`을 입력하면 윈도우 버전으 정보가 나타나는데 이때 `OS Build`의 버전이 `18917` 보다 낮으면 `wsl 2`를 실행할 수 없습니다. 따라서 숫자가 18917 보다 낮으면 windows update가 필요합니다.
 
 <br>
-<center><img src="../assets/img/etc/dev/wsl2/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/etc/dev/wsl/1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그림과 같이 `OS Build`가 18917 보다 커야합니다.

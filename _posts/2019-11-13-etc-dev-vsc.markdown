@@ -2,7 +2,7 @@
 layout: post
 title: Visual Studio Code 기능
 date: 2019-11-13 00:00:00
-img: etc\dev\vsc\vsc.png
+img: etc/dev/vsc/vsc.png
 categories: [etc-dev] 
 tags: [비주얼 스튜디오 코드 기능, visual studio code] # add tag
 ---
