@@ -2,7 +2,7 @@
 layout: post
 title: Visual Studio 세팅 snippets
 date: 2019-11-19 00:00:00
-img: etc/dev/vs/vs.png
+img: etc/dev/vs/0.png
 categories: [etc-dev] 
 tags: [비주얼 스튜디오 기능, visual studio ] # add tag
 ---
