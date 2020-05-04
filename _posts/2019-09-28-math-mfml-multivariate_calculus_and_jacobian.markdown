@@ -1,7 +1,7 @@
 ---
 layout: post
 title: multivariate calculus와 jacobian
-date: 2019-09-27 00:00:00
+date: 2019-09-28 00:00:00
 img: math/mfml/mfml.jpg
 categories: [math-mfml] 
 tags: [calculus, multivariate calculus, jacobian, total derivative, hessian] # add tag
