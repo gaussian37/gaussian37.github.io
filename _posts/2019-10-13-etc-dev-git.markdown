@@ -62,7 +62,7 @@ tags: [git, git 셋팅] # add tag
 - 이렇게 하려면 명령어 `git status`를 실행하여 마지막으로 변경 내용을 저장한 이후 수정된 파일 목록을 통해 확인할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/etc/git/1.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/etc/dev/git/1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 ## **git status**
@@ -74,7 +74,7 @@ tags: [git, git 셋팅] # add tag
 - 원하는 만큼 더 많은 항목을 추가하거나 자주 꺼내 놓을 수 있지만, 우편함에 파일을 넣은 후에는 더 이상 변경할 수 없습니다.
 
 <br>
-<center><img src="../assets/img/etc/git/2.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/etc/dev/git/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - `git status`는 이 stating 영역에 있는 파일과 아직 배치되지 않은 변경 사항이 있는 파일을 표시합니다. 
