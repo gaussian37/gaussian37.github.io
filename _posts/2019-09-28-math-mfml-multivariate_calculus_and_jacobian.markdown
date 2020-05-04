@@ -27,6 +27,7 @@ tags: [calculus, multivariate calculus, jacobian] # add tag
 - ### jacobian applied
 - ### Sandpit
 - ### Hessian
+- ### Reality is hard
 
 <br>
 
@@ -418,7 +419,68 @@ $$ H = \begin{bmatrix} \partial^{2} f / \partial x_{1}^{2} & \partial^{2} f / \p
 
 <br>
 
-- `hessian` 행렬을 보면 각 $$ (i, j) $$는 $$ \partial^{2} f / \partial x_{i}x_{j} $$가 됨을 알 수 있습니다.
+- `hessian` 행렬을 보면 각 $$ (i, j) $$는 $$ \partial^{2} f / \partial x_{i}x_{j} $$가 됨을 알 수 있습니다. 식을 보면 알 수 있겠지만 `hessian` 행렬은 대칭적인 것 또한 알 수 있습니다. (아래 예제를 참조하시기 바랍니다.)
+- 따라서 `hessian` 행렬은 변수의 갯수가 $$ n $$개일 때, $$ n \times n $$ 크기의 대칭 행렬이 됩니다.
+- `hessian`을 손으로 구할 때에는 `jacobian`을 먼저 구한 다음에 jacobian의 결과를 가지고 행렬을 만들 수 있습니다. 한번 예제를 보겠습니다.
+
+<br>
+
+$$ f(x, y, z) = x^{2} y z $$
+
+$$ J = \begin{bmatrix} 2xyz & x^{2}z & x^{2}y \end{bmatrix} $$
+
+$$ H = \begin{bmatrix} 2yz & 2xz & 2xy \\ 2xz & 0 & x^{2} \\ 2xy & x^{2} & 0 \end{bmatrix} $$
+
+<br>
+
+- 그러면 `hessian` 행렬은 언제 사용할 수 있을까요?
+
+<br>
+
+$$ f(x,y) = x^{2} + y^{2} $$
+
+$$ J = \begin{bmatrix} 2x & 2y \end{bmatrix} $$
+
+$$ H = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix} $$
+
+$$ \vert H \vert = 4 $$
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/16.gif" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- `hessian`을 통하여 알 수 있는 것은 함수 $$ f $$가 `global optimization`이 있는 형태인 지 그리고 있다면 `global minimum`인 지 `global maximum`인 지 판단해줍니다.
+- 먼저 `determinant`가 **양수**이면 `global optimization`이 가능한 형태입니다.
+- 그리고 hessian 행렬의 가장 왼쪽 상단의 값이 양수이면 `global minimum`을 가지게 됩니다. 반면 음수이면 `global maximum`을 가지게 됩니다.
+
+<br>
+
+- 반면 다음과 같은 예제를 한번 살펴보겠습니다.
+
+<br>
+
+$$ f(x, y) = x^{2} - y^{2} $$
+
+$$ J = \begin{bmatrix} 2x & -2y \end{bmatrix} $$
+
+$$ H = \begin{bmatrix} 2 & 0 \\ 0 & -2 \end{bmatrix} $$
+
+$$ \vert H \vert = -4 $$
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/17.gif" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 이 경우를 보면 앞의 예제와는 다르게 `global optimization`이 없습니다. 실제 값의 분포로도 알 수 있지만 `hessian` 행렬의 determinant를 보면 음수인 것을 통해서도 알 수 있습니다.
+- 특히 위 그림과 같이 생긴 형태를 `saddle point` 라고 합니다. 이 경우가 optimization을 찾기 힘든 대표적인 예로 유명합니다. 왜냐하면 보는 관점에 따라서 minimum이기도 하고 maximum 이기도 하기 때문입니다.
+
+<br>
+
+## **Reality is hard**
+
+<br>
+
+
 
 <br>
 
