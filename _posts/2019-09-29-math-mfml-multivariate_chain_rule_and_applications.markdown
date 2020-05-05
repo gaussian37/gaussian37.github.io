@@ -161,9 +161,51 @@ $$ \frac{\text{d}f}{\text{d}t} = \color{orange}\frac{\partial f}{\partial x} \co
 - 지금부터는 간단한 `neural network`를 살펴보면서 앞에서 배운 `multivariate chain rule`이 어떻게 사용되는 지 알아보도록 하겠습니다.
 - 이 글의 초점은 `multivariate chain rule`의 `neural network`에서의 역할입니다. `neural netowork`에 대하여 알고 싶으시면 다음 링크를 참조하시기 바랍니다.
     - 링크 : https://gaussian37.github.io/dl-concept-table/
+- 따라서 이번 글에서는 기본적인 neural network의 형태인 dnn(deep neural network)을 다룰 것이고 이는 단순히 fully connected 방식으로 연결한 구조입니다. 이 구조가 가장 간단하면서도 `multivariate chain rule`를 설명하기 용이합니다. 그러면 시작하겠습니다.
 
 <br>
 
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/1.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- neural network가 하는 역할은 무궁무진 하지만, 사실 단순한 함수에 불과합니다. input이 있고 그 input에 대하여 처리를 한 다음에 output을 만들어 내는 말 그대로 함수입니다.
+- 위 그림에서 원을 `neuron` 이라고 합니다. 선이 각각의 neuron을 이어주는 역할을 합니다. 
+
+<br>
+
+$$ a^{(0)} \to a^{(1)}$$
+
+<br>
+
+- 예를 들어 $$ a^{(0)} $$ neuron 에서 $$ a^{(1)} $$의 neuron으로 연결이 되었다면, 이 연결을 수식으로 나타내면 다음과 같습니다.
+
+<br>
+
+$$ a^{(1)} = \sigma(wa^{(0)} + b) $$
+
+$$ a \Rightarrow \text{"activity"} $$
+
+$$ w \Rightarrow \text{"weight"} $$
+
+$$ b \Rightarrow \text{"bias"} $$
+
+$$ \sigma \Rightarrow \text{"activation function"} $$
+
+<br>
+
+- 각 기호의 역할을 간단히 적으면 $$ a $$가 `input`, $$ w $$는 위의 neuron을 연결해 주는 선의 역할로 `weight` 값이고 역할은 input에 곱해지는 역할입니다. $$ w $$가 곱해지는 값이라면 $$ b $$는 더해지는 값으로 `bias` 입니다.
+- 마지막으로 $$ \sigma $$는 이 neuron이 켜질 지, 꺼질 지 결정하는 함수입니다. 실제 사람의 신경 세포도 전기적 신호에 따라서 반응을 하거나 안하거나 선택이 됩니다. 수많은 neuron들이 동시에 반응을 하고 이 조합들을 통해 어떤 판단을 하게됩니다. 여기서 **반응을 하거나 안하거나 선택**하는 것은 마치 `threshold` 역할을 하는 것처럼 보입니다. $$ \sigma $$ 함수는 threshold 역할을 합니다. 이렇게 threshold를 넘었을 때와 넘지 못했을 때를 **활성화/비활성화** 라는 용어를 사용하여 neuron이 켜지는 지 꺼지는 지를 나타내기 때문에 `activation function`이라고 합니다.
+    - 다양한 activation function을 참조 하시기 바랍니다.
+    - 링크 : https://gaussian37.github.io/dl-concept-activation_functions/
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/2.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림은 대표적인 activation function 중의 하나인 `tanh`로 0을 기준으로 함수 값이 양수 / 음수로 나뉘게 됨을 볼 수 있습니다.
+
+<br>
 
 
 
