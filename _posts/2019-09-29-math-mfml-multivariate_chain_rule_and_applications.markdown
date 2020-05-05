@@ -157,8 +157,15 @@ $$ \frac{\text{d}f}{\text{d}t} = \color{orange}\frac{\partial f}{\partial x} \co
 
 <br>
 
-- 21세기는 가히 머신 러닝의 시대라고 말할 수 있습니다. 특히 딥러닝의 시대가 밝아진 것이지요.
-- 
+- 21세기는 가히 머신 러닝의 시대라고 말할 수 있습니다. 특히 neural network의 시대가 밝아진 것이지요.
+- 지금부터는 간단한 `neural network`를 살펴보면서 앞에서 배운 `multivariate chain rule`이 어떻게 사용되는 지 알아보도록 하겠습니다.
+- 이 글의 초점은 `multivariate chain rule`의 `neural network`에서의 역할입니다. `neural netowork`에 대하여 알고 싶으시면 다음 링크를 참조하시기 바랍니다.
+    - 링크 : https://gaussian37.github.io/dl-concept-table/
+
+<br>
+
+
+
 
 <br>
 
