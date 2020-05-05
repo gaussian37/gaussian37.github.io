@@ -8,13 +8,12 @@ tags: [table] # add tag
 
 <br>
 
-## Author
+## **Author**
 
 <br>
 
-- Name : JINSOL KIM
-- Linked In : https://www.linkedin.com/in/jinsolkima
-- Life is gaussian and dynamic programming.
+- Name : [JINSOL KIM](https://www.linkedin.com/in/jinsolkima)
+- **Life is `gaussian` and `dynamic programming`.**
 
 <br>
 
