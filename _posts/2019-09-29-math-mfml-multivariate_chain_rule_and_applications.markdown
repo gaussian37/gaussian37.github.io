@@ -107,9 +107,9 @@ $$ \frac{\text{d}f}{\text{d}t} = J_{f} \frac{\text{d}x}{\text{d}t} $$
 
 $$ f(x) = 5x \\ x(u) = 1 - u \\ u(t) = t^{2} $$
 
-$$ \color{red}{f(t)} = \color{red}5(1-t^{2}) = \color{red}5 - 5t^{4} $$
+$$ \color{red}{f(t)} = \color{red}{5(1-t^{2})} = \color{red}{5 - 5t^{4}} $$
 
-$$ \color{red} \frac{\text{d}f}{\text{d}t} = -10t \\$$
+$$ \color{red}\frac{\text{d}f}{\text{d}t} = -10t \\$$
 
 $$ \color{blue}\frac{\text{d}f}{\text{d}t} = \color{blue}\frac{\text{d}f}{\text{d}x}\frac{\text{d}x}{\text{d}u}\frac{\text{d}u}{\text{d}t} \\ = \color{blue}(5)(-1)(2t) = -10t  $$
 
