@@ -122,11 +122,11 @@ $$ \color{blue}{\frac{\text{d}f}{\text{d}t}} = \color{blue}{\frac{\text{d}f}{\te
 
 $$ f(x(u(t)))$$
 
-$$ \color{orange}f(x) = f(x_{1}, x_{2}) $$
+$$ \color{orange}{f(x) = f(x_{1}, x_{2})} $$
 
-$$ \color{green}x(u) = \begin{bmatrix} x_{1}(u_{1}, u_{2}) \\ x_{2}(u_{1}, u_{2}) \end{bmatrix} $$ 
+$$ \color{green}{x(u) = \begin{bmatrix} x_{1}(u_{1}, u_{2}) \\ x_{2}(u_{1}, u_{2}) \end{bmatrix}} $$ 
 
-$$ \color{purple}u(t) = \begin{bmatrix} u_{1}(t) \\ u_{2}(t) \end{bmatrix} $$
+$$ \color{purple}{u(t) = \begin{bmatrix} u_{1}(t) \\ u_{2}(t) \end{bmatrix}} $$
 
 <br>
 
@@ -135,7 +135,7 @@ $$ \color{purple}u(t) = \begin{bmatrix} u_{1}(t) \\ u_{2}(t) \end{bmatrix} $$
 
 <br>
 
-$$ \frac{\text{d}f}{\text{d}t} = \color{orange}\frac{\partial f}{\partial x} \color{green}\frac{\partial x}{\partial u}\color{purple}\frac{\text{d}u}{\text{d}t} $$
+$$ \frac{\text{d}f}{\text{d}t} = \color{orange}{\frac{\partial f}{\partial x}} \color{green}{\frac{\partial x}{\partial u}}\color{purple}{\frac{\text{d}u}{\text{d}t}} $$
 
 <br>
 
@@ -143,11 +143,11 @@ $$ \frac{\text{d}f}{\text{d}t} = \color{orange}\frac{\partial f}{\partial x} \co
 
 <br>
 
-$$ \frac{\text{d}f}{\text{d}t} = \color{orange}\frac{\partial f}{\partial x} \color{green}\frac{\partial x}{\partial u}\color{purple}\frac{\text{d}u}{\text{d}t} = \color{orange}\begin{bmatrix} \frac{\partial f}{\partial x_{1}} & \frac{\partial f}{\partial x_{2}} \end{bmatrix} \color{green}\begin{bmatrix} \frac{\partial x_{1}}{\partial u_{1}} & \frac{\partial x_{1}}{\partial u_{2}} \\ \frac{\partial x_{2}}{\partial u_{1}} & \frac{\partial x_{2}}{\partial u_{2}} \end{bmatrix} \color{purple}\begin{bmatrix} \frac{\text{d}u_{1}}{\text{d}t} \\ \frac{\text{d}u_{2}}{\text{d}t} \end{bmatrix} $$
+$$ \frac{\text{d}f}{\text{d}t} = \color{orange}{\frac{\partial f}{\partial x}} \color{green}{\frac{\partial x}{\partial u}}\color{purple}{\frac{\text{d}u}{\text{d}t}} = \color{orange}{\begin{bmatrix} \frac{\partial f}{\partial x_{1}} & \frac{\partial f}{\partial x_{2}} \end{bmatrix}} \color{green}{\begin{bmatrix} \frac{\partial x_{1}}{\partial u_{1}} & \frac{\partial x_{1}}{\partial u_{2}} \\ \frac{\partial x_{2}}{\partial u_{1}} & \frac{\partial x_{2}}{\partial u_{2}} \end{bmatrix}} \color{purple}{\begin{bmatrix} \frac{\text{d}u_{1}}{\text{d}t} \\ \frac{\text{d}u_{2}}{\text{d}t} \end{bmatrix}} $$
 
 <br>
 
-- 연산의 각 shape을 살펴보면 $$ (1 \times 1) = \color{orange}(1 \times 2)\color{green}(2 \times 2)\color{purple}(2 \times 1) $$ 가 됩니다.
+- 연산의 각 shape을 살펴보면 $$ (1 \times 1) = \color{orange}{(1 \times 2)}\color{green}{(2 \times 2)}\color{purple}{(2 \times 1)} $$ 가 됩니다.
 - 특히, 유심히 봐야할 것은 각 단계를 보면 모두 `jacobian` (벡터/행렬) 이라는 것입니다.
 - 앞의 글에서 배운 `jacobian`이 `chain rule`에서 얼마나 잘 활용되는 지 이해하셨으면 여기 까지의 핵심을 잘 따라오신 것입니다.
 
