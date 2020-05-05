@@ -254,9 +254,32 @@ $$ a^{(1)} = \sigma(W^{(1)} \cdot a^{(0)} + b^{(1)}) $$
 
 - 지금 까지 배운 내용을 일반화 시키면 위와 같이 정리할 수 있습니다. 
 
+<br>
 
+- 마지막으로 추가해 볼 것은 `layer` 입니다. 
 
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/8.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
+$$ \color{fuchsia}{a^{(1)}} = \sigma(W^{(1)} \cdot a^{(0)} + b^{(1)} ) $$
+
+$$ a^{(2)} = \sigma(W^{(2)} \cdot \color{fuchsia}{a^{(1)}} + b^{(2)} ) $$
+
+<br>
+
+- 최종적으로 `input`, `layer`, `output`을 모두 고려한 일반화를 하면 식은 다음과 같습니다.
+
+<br>
+
+$$ a^{(L)} = \sigma(W^{(L)} \cdot a^{(L-1)} + b^{L}) $$
+
+<br>
+
+- 여기서 $$ a^{(L)} $$과 $$ a^{(L-1)} $$의 크기는 풀려고 하는 문제에 따라 다를 수 있습니다. 즉, 처음 모델링 할 때 정해주어야 하는 것입니다.
+- 하지만 $$ W $$와 $$ b $$의 크기는 $$ a $$에 따라 정해집니다. 그 이유는 위 그림들을 보면 알 수 있습니다.
+    - ① $$ W^{(L)} $$의 크기 : $$ \text{number of neuron in } a^{(L-1)} \times \text{number of neuron in } a^{(L)} $$
+    - ② $$ b^{(L)} $$의 크기 : $$ \text{number of neuron in } a^{(L)} $$
 
 <br>
 
