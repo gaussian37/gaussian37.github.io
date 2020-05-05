@@ -173,9 +173,7 @@ $$ \frac{\text{d}f}{\text{d}t} = \color{orange}{\frac{\partial f}{\partial x}} \
 - 위 그림에서 원을 `neuron` 이라고 합니다. 선이 각각의 neuron을 이어주는 역할을 합니다. 
 
 <br>
-
-$$ a^{(0)} \to a^{(1)}$$
-
+<center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/3.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 예를 들어 $$ a^{(0)} $$ neuron 에서 $$ a^{(1)} $$의 neuron으로 연결이 되었다면, 이 연결을 수식으로 나타내면 다음과 같습니다.
@@ -204,8 +202,59 @@ $$ \sigma \Rightarrow \text{"activation function"} $$
 <br>
 
 - 위 그림은 대표적인 activation function 중의 하나인 `tanh`로 0을 기준으로 함수 값이 양수 / 음수로 나뉘게 됨을 볼 수 있습니다.
+- 이처럼 $$ \sigma $$는 `non-linear function`의 형태를 가집니다. 왜냐하면 이러한 non-linear function이 중간에 적용되지 않으면 계속 linear transformation만 발생하기 때문입니다. 즉, linear classifier 밖에 할 수 없게 되기 때문에 항상 $$ \sigma $$는 `non-linear function`을 사용합니다.
+- 지금까지 neural network에서 사용하는 기호인 $$ a^{(i)}, w, b, \sigma $$에 대하여 알아보았습니다.
+- 지금부터는 neuron을 좀 더 사용해 보도록 하겠습니다.
 
 <br>
+<center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/4.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같은 neuron을 구성하면 그 식은 다음과 같이 확장됩니다.
+
+<br>
+
+$$ a^{(1)} = \sigma(w_{0}a_{0}^{(0)} + w_{1}a_{1}^{(0)} + b) $$
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/5.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+$$ a^{(1)} = \sigma(w_{0}a_{0}^{(0)} + w_{1}a_{1}^{(0)} + w_{2}a_{2}^{(0)} + b) $$
+
+<br>
+
+- 즉, neuron이 추가될 수록 $$ w_{j}a_{j}^{(i)} $$만 추가되면 됩니다. 일반화 시키면 다음과 같습니다.
+
+<br>
+
+$$ \sigma \Biggl(\biggl(\sum_{j=0}^n w_{j}a_{j}^{(i)} \biggr) + b \Biggr) = \sigma(w \cdot a(i) + b) $$
+
+<br>
+
+- 이번에는 출력 neuron의 갯수를 한 개 더 늘려보겠습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/6.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+$$ \color{lime}{a_{0}^{(1)}} = \sigma(\color{lime}{w_{0}} \cdot a^{0} + \color{lime}{b_{0}}) $$
+
+$$ \color{fuchsia}{a_{1}^{(1)}} = \sigma(\color{fuchsia}{w_{1}} \cdot a^{0} + \color{fuchsia}{b_{1}}) $$
+
+$$ a^{(1)} = \sigma(W^{(1)} \cdot a^{(0)} + b^{(1)}) $$
+
+<br>
+
+- 출력의 neuron 갯수가 추가됨에 따라 $$ W $$는 `matrix`로 $$ b $$는 `vector`가 된 것을 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 지금 까지 배운 내용을 일반화 시키면 위와 같이 정리할 수 있습니다. 
+
+
 
 
 
