@@ -100,7 +100,56 @@ $$ \frac{\partial f}{\partial x} = \begin{bmatrix} \partial f / \partial x_{1} \
 $$ \frac{\text{d}f}{\text{d}t} = J_{f} \frac{\text{d}x}{\text{d}t} $$
 
 <br>
-    
+
+- `chain rule`은 말 그대로 여러 단계에 걸쳐서 연쇄(chain)적으로 적용 가능합니다. 먼저 아래 예제에서 `univariate` 케이스 & 2단계 chain rule을 적용한 케이스에 대해서 살펴보겠습니다.
+
+<br>
+
+$$ f(x) = 5x \\ x(u) = 1 - u \\ u(t) = t^{2} $$
+
+$$ \color{red}{f(t)} = \color{red}5(1-t^{2}) = \color{red}5 - 5t^{4} $$
+
+$$ \color{red} \frac{\text{d}f}{\text{d}t} = -10t \\$$
+
+$$ \color{blue}\frac{\text{d}f}{\text{d}t} = \color{blue}\frac{\text{d}f}{\text{d}x}\frac{\text{d}x}{\text{d}u}\frac{\text{d}u}{\text{d}t} \\ = \color{blue}(5)(-1)(2t) = -10t  $$
+
+<br>
+
+- 대입을 하여 미분을 한 경우와 chain rule을 이용하여 미분을 한 경우 동일한 결과를 얻을 수 있습니다. 따라서 `univariate`에서 2단계, 3단계,  또는 n단계의 `chain rule`을 이용하여 미분을 하는 것과 일일이 대입해서 미분을 하는 것의 결과는 같습니다.
+- 물론 이 글의 목적처럼 `multivariate`에서도 `chain rule`을 적용하면 2단계, 3단계, n단계 까지 모두 적용가능합니다. 한번 살펴보겠습니다. 이번에는 `multivariate`입니다.
+
+<br>
+
+$$ f(x(u(t)))$$
+
+$$ \color{orange}f(x) = f(x_{1}, x_{2}) $$
+
+$$ \color{green}x(u) = \begin{bmatrix} x_{1}(u_{1}, u_{2}) \\ x_{2}(u_{1}, u_{2}) \end{bmatrix} $$ 
+
+$$ \color{purple}u(t) = \begin{bmatrix} u_{1}(t) \\ u_{2}(t) \end{bmatrix} $$
+
+<br>
+
+- 위 식을 정리해 보면, $$ x = (x_{1}, x_{2}) $$로 벡터이고, $$ u = (u_{1}, u_{2}) $$로 벡터입니다. 용어로 나타내면 $$ x $$와 $$ u $$는 `vector valued function` 이라고 합니다.
+- 함수의 `independent`한 변수인 $$ t $$가 `scalar input`이라 하고 함수의 출력 또한 `scalar output`이라고 하면 univariate 케이스와 동일하게 표현할 수 있습니다.
+
+<br>
+
+$$ \frac{\text{d}f}{\text{d}t} = \color{orange}\frac{\partial f}{\partial x} \color{green}\frac{\partial x}{\partial u}\color{purple}\frac{\text{d}u}{\text{d}t} $$
+
+<br>
+
+- 따라서 `chain rule`을 적용하여 계산한 결과를 보면 다음과 같습니다.
+
+<br>
+
+$$ \frac{\text{d}f}{\text{d}t} = \color{orange}\frac{\partial f}{\partial x} \color{green}\frac{\partial x}{\partial u}\color{purple}\frac{\text{d}u}{\text{d}t} = \color{orange}\begin{bmatrix} \frac{\partial f}{\partial x_{1}} & \frac{\partial f}{\partial x_{2}} \end{bmatrix} \color{green}\begin{bmatrix} \frac{\partial x_{1}}{\partial u_{1}} & \frac{\partial x_{1}}{\partial u_{2}} \\ \frac{\partial x_{2}}{\partial u_{1}} & \frac{\partial x_{2}}{\partial u_{2}} \end{bmatrix} \color{purple}\begin{bmatrix} \frac{\text{d}u_{1}}{\text{d}t} \\ \frac{\text{d}u_{2}}{\text{d}t} \end{bmatrix} $$
+
+<br>
+
+- 연산의 각 shape을 살펴보면 $$ (1 \times 1) = \color{orange}(1 \times 2)\color{green}(2 \times 2)\color{purple}(2 \times 1) $$ 가 됩니다.
+- 특히, 유심히 봐야할 것은 각 단계를 보면 모두 `jacobian` (벡터/행렬) 이라는 것입니다.
+- 앞의 글에서 배운 `jacobian`이 `chain rule`에서 얼마나 잘 활용되는 지 이해하셨으면 여기 까지의 핵심을 잘 따라오신 것입니다.
 
 <br>
 
