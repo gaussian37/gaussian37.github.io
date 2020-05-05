@@ -153,6 +153,15 @@ $$ \frac{\text{d}f}{\text{d}t} = \color{orange}\frac{\partial f}{\partial x} \co
 
 <br>
 
+## **neural network**
+
+<br>
+
+- 21세기는 가히 머신 러닝의 시대라고 말할 수 있습니다. 특히 딥러닝의 시대가 밝아진 것이지요.
+- 
+
+<br>
+
 [mathematics for machine learning 글 목록](https://gaussian37.github.io/math-mfml-table/)
 
 <br>

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: opencv 관련 글 목차   
-date: 9999-01-01 00:00:00
+date: 2000-01-01 00:00:00
 img: vision/opencv/opencv.png
 categories: [vision-opencv] 
 tags: [vision, opencv] # add tag

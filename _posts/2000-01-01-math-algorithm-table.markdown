@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 알고리즘 관련 글 목차
-date: 9999-12-24 00:00:00
+date: 2000-01-01 00:00:00
 img: math/algorithm/algorithm.png
 categories: [math-algorithm] 
 tags: [algorithm, 알고리즘] # add tag

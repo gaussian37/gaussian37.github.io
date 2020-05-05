@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Autonomous Driving 관련 글 목록
-date: 9999-12-28 00:00:00
+date: 2000-01-01 00:00:00
 img: autodrive/concept/autodrive.jpg
 categories: [autodrive-concept] 
 tags: [자율주행, 자율주행 자동차, autodrive, self-driving] # add tag

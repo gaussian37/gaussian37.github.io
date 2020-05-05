@@ -1,7 +1,7 @@
 ---
 layout: post
 title: PRML 관련 글 목차
-date: 9999-11-01 00:00:00
+date: 2000-01-01 00:00:00
 img: ml/prml/prml.png
 categories: [ml-prml] 
 tags: [python, machine learning, ml, prml] # add tag

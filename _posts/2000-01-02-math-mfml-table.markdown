@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Mathematics for machine learning 글 목록
-date: 9999-12-23 00:00:00
+date: 2000-01-01 00:00:00
 img: math/mfml/mfml.jpg
 categories: [math-mfml] 
 tags: [코세라, coursera, mathemacis for machine learning] # add tag

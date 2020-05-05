@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 게임 이론 글 목차
-date: 9999-01-02 00:00:00
+date: 2000-01-01 00:00:00
 img: math/game/gametheory.png
 categories: [math-game] 
 tags: [game, game theory, 게임, 게임 이론] # add tag

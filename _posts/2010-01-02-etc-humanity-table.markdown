@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Humanity 관련 글 목차
-date: 9998-01-01 00:00:00
+date: 2000-01-01 00:00:00
 img: etc/humanity/humanity.jpg
 categories: [etc-humanity] 
 tags: [인문학, 경영학, 경제학] # add tag

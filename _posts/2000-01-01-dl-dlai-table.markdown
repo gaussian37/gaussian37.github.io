@@ -1,7 +1,7 @@
 ---
 layout: post
 title: deeplearning.ai 목차
-date: 9999-11-04 00:00:00
+date: 2000-01-01 00:00:00
 img: dl/dlai/dlai.png
 categories: [dl-dlai] 
 tags: [coursera, deep learning, andrew ng] # add tag

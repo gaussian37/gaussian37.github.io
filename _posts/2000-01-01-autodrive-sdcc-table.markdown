@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Self-Driving Cars (Coursera)
-date: 9999-12-28 00:00:00
+date: 2000-01-01 00:00:00
 img: autodrive/sdcc/sdcc.png
 categories: [autodrive-sdcc] 
 tags: [코세라, coursera, self driving cars, 자율주행, 자율주행 자동차] # add tag
