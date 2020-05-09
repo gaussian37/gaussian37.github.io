@@ -17,6 +17,7 @@ tags: [Linear algebra, 선형 대수학] # add tag
 
 <br>
 
+- [Vision of Linear Algebra 2020, Gilbert Strang]()
 - 선형대수학 주요 용어
 - 역행렬과 행렬식
 - [고유값과 고유벡터](https://gaussian37.github.io/math-la-eigen/)
