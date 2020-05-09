@@ -280,6 +280,8 @@ $$ a^{(L)} = \sigma(W^{(L)} \cdot a^{(L-1)} + b^{L}) $$
     - ① $$ W^{(L)} $$의 크기 : $$ \text{number of neuron in } a^{(L-1)} \times \text{number of neuron in } a^{(L)} $$
     - ② $$ b^{(L)} $$의 크기 : $$ \text{number of neuron in } a^{(L)} $$
 
+
+
 <br>
 
 [mathematics for machine learning 글 목록](https://gaussian37.github.io/math-mfml-table/)
