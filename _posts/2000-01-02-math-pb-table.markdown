@@ -12,7 +12,7 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 <br>
 
 - [중심 극한 이론](https://gaussian37.github.io/math-pb-central_limit_theorem/)
-- [가우시안 관련](https://gaussian37.github.io/math-pb-about-gaussian/)
+- [가우시안 관련](https://gaussian37.github.io/math-pb-about_gaussian/)
 - [가우시안 분포의 곱과 합성곱 연산](https://gaussian37.github.io/math-pb-product_convolution_gaussian_pdf/)
 
 <br>
