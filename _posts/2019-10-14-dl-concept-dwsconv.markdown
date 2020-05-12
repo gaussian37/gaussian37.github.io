@@ -57,7 +57,7 @@ tags: [mobileNet, inception, xception, depthwise convolution, pointwise convolut
 - standard convolution 연산에서는 한 개의 필터가 $$ M $$ 채널 전체에 convolution 연산을 하였습니다.
 - 반면 여기서는 한 개의 필터가 한 개의 채널에만 연산을 합니다. 즉, 인풋의 첫번째 채널에 해당하는 영역을 $$ (D_{F}, D_{F}, M_{1}) $$ 이라고 한다면 이 1채널 인풋과 유일하게 연산되는 필터 $$ (D_{k}, D_{k}, 1) $$이 존재합니다.
 - 그러면 $$ (D_{F}, D_{F}, M_{i}) $$는 $$ (D_{K}, D_{K}, M_{i}) $$와 대응되므로 이 연산에서는 총 $$ M $$개의 필터가 존재하게 됩니다.
-- 연산을 마치면 최종적으로 $$ (D_{G}, D_{G}, N) $$의 volume이 출력됩니다. 
+- 연산을 마치면 최종적으로 $$ (D_{G}, D_{G}, M) $$의 volume이 출력됩니다. 
 
 <br>
 <center><img src="../assets/img/dl/concept/dwsconv/5.png" alt="Drawing" style="width: 800px;"/></center>
