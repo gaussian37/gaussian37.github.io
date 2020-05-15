@@ -31,11 +31,17 @@ tags: [gaussian, 가우시안] # add tag
 
 <br>
 
-$$ \int_{-\infty}^{\infty} e^{-x^{2}} dx $$ = \sqrt{\pi} $$ 
+$$ \int_{-\infty}^{\infty} e^{-x^{2}} dx = \sqrt{\pi} $$ 
 
 <br>
 
-- 가우스 적분의 증명을 이용하면 가우스 공식의 증명에도 사용할 수 있기 때문에, 가우스 적분의 증명을 어떻게 하는 지 알아보도록 하겠습니다.
+- 가우스 적분의 증명을 이용하면 가우스 분포 공식의 유도에도 사용할 수 있기 때문에, 가우스 적분의 증명을 어떻게 하는 지 알아보도록 하겠습니다.
+
+<br>
+
+$$ I = \int_{-\infty}^{\infty} e^{-x^{2}} dx $$
+
+$$ I^{2} = \Biggl( \int_{-\infty}^{\infty} e^{-x^{2}} dx \Biggr) = \int_{-\infty}^{\infty} e^{-x^{2}} dx \int_{-\infty}^{\infty} e^{-y^{2}} dy \\ \because \text{variable x is so called dummy variable. For this reason, it's possible } x \to y  $$
 
 
 <br>
