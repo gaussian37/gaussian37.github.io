@@ -2,9 +2,9 @@
 layout: post
 title: 가우시안 관련
 date: 2019-11-17 00:00:00
-img: math/pb/gaussian/gaussian.png
+img: math/pb/about_gaussian/0.png
 categories: [math-pb] 
-tags: [gaussian, 가우시안] # add tag
+tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식] # add tag
 ---
 
 <br>
@@ -18,7 +18,7 @@ tags: [gaussian, 가우시안] # add tag
 <br>
 
 - ### 가우스 적분 증명
-- ### 가우스 공식 증명
+- ### 가우스 분포 공식 증명
 - ### covariance와 zero-mean gaussian의 covariance
 
 <br><br>
@@ -41,12 +41,51 @@ $$ \int_{-\infty}^{\infty} e^{-x^{2}} dx = \sqrt{\pi} $$
 
 $$ I = \int_{-\infty}^{\infty} e^{-x^{2}} dx $$
 
-$$ I^{2} = \Biggl( \int_{-\infty}^{\infty} e^{-x^{2}} dx \Biggr) = \int_{-\infty}^{\infty} e^{-x^{2}} dx \int_{-\infty}^{\infty} e^{-y^{2}} dy \\ \because \text{variable x is so called dummy variable. For this reason, it's possible } x \to y  $$
-
+$$ I^{2} = \Biggl( \int_{-\infty}^{\infty} e^{-x^{2}} dx \Biggr) = \int_{-\infty}^{\infty} e^{-x^{2}} dx \int_{-\infty}^{\infty} e^{-y^{2}} dy $$
 
 <br>
 
-## **가우스 공식 증명**
+- 위 식에서 $$ x $$ 변수는 소위 말하는 더미 변수이므로 한 개의 $$ x $$를  $$ y $$ 로 변경하였습니다.
+
+<br>
+
+$$ \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} e^{-(x^{2} + y^{2})} dx dy $$
+
+<br>
+
+- 식을 정리하면 위와 같이 두 변수 $$ x, y $$에 대하여 정리할 수 있습니다.
+- 이 식을 풀기 위해 `극좌표` 개념을 가져오도록 하겠습니다. 극 좌표는 $$ (r, \theta) $$로 좌표 평면의 좌표를 표현하는 방법입니다.
+- 그러면 $$ x, y $$ 축을 이용하여 $$ (x, y) $$로 나타내는 좌표계와 $$ (r, \theta) $$로 나타내는 좌표계의 관계를 살펴보면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/pb/about_gaussian/1.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 식에 따라서 $$ x^{2} + y^{2} = r^{2} $$이 성립합니다. 물론 원의 방정식에 의한 관계라고 이해하셔도 무방합니다.
+
+<br>
+
+$$ x^{2} + y^{2} = (r \cos{(\theta)})^{2} + (r \sin{(\theta)})^{2} = r^{2}(\cos^{2}{(\theta)} + \sin^{2}{(\theta)}) = r^{2} $$
+
+<br>
+
+- 이렇게 $$ (x, y) $$ 좌표를 $$ (r, \theta) $$의 극좌표로 바꾸는 이유는 **적분을 하기 위함**입니다. 즉, 적분할 때, $$ dx, dy $$를 $$ dr, d\theta $$로 바꾸려고 합니다.
+- 그러면 적분의 구간은 $$ x : (-\infty, \infty), \  y : (-\infty, \infty) \to r : (0, \infty), \ \theta : (0, 2\pi)  $$로 변경됩니다.
+
+<br>
+<center><img src="../assets/img/math/pb/about_gaussian/2.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 즉, 위 그림과 같이 기존의 $$ (x, y) $$ 좌표계에서는 $$ x, y $$의 값이 음의 무한대에서 양의 무한대의 영역의 범위를 가지게 되므로 좌표계 전체 영역을 적분 할 수 있는 반면 극좌표계에서는 원점에서 시작하는 선 $$ r $$의 길이가 0에서 양의 무한대의 영역의 범위를 가지고 그 선의 이동 영역이 0에서 $$ 2\pi $$ 만큼의 범위를 가지게 되므로 **똑같이 좌표계 전체 영역을 적분**할 수 있게 됩니다.
+- 따라서 **적분하는 영역은 같으나 접근 방식이 다르다**고 이해하시면 됩니다.
+
+<br>
+
+- 그러면 $$ dx \cdot dy $$를 $$ dr \cdot d\theta $$로 변환하면 그 변환 term은 얼만큼 곱해주어야 할까요?
+
+<br>
+
+## **가우스 분포 공식 증명**
 
 <br>
 
