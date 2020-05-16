@@ -54,8 +54,13 @@ $$ \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} e^{-(x^{2} + y^{2})} dx dy $$
 <br>
 
 - 식을 정리하면 위와 같이 두 변수 $$ x, y $$에 대하여 정리할 수 있습니다.
-- 이 식을 풀기 위해 `극좌표` 개념을 가져오도록 하겠습니다. 극 좌표는 $$ (r, \theta) $$로 좌표 평면의 좌표를 표현하는 방법입니다.
-- 그러면 $$ x, y $$ 축을 이용하여 $$ (x, y) $$로 나타내는 좌표계와 $$ (r, \theta) $$로 나타내는 좌표계의 관계를 살펴보면 다음과 같습니다.
+- 이 식을 풀기 위해 `극 좌표계` 개념을 가져오도록 하겠습니다. 극 좌표계는 $$ (r, \theta) $$로 좌표 평면의 좌표를 표현하는 방법입니다. 여기서 $$ \theta $$의 단위는 `radian`입니다. 아래 그림을 참조하시기 바랍니다.
+
+<br>
+<center><img src="../assets/img/math/pb/about_gaussian/4.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 그러면 $$ x, y $$ 축을 이용하여 $$ (x, y) $$로 나타내는 직교 좌표계와 $$ (r, \theta) $$로 나타내는 극 좌표계의 관계를 살펴보면 다음과 같습니다.
 
 <br>
 <center><img src="../assets/img/math/pb/about_gaussian/1.png" alt="Drawing" style="width: 400px;"/></center>
@@ -69,19 +74,45 @@ $$ x^{2} + y^{2} = (r \cos{(\theta)})^{2} + (r \sin{(\theta)})^{2} = r^{2}(\cos^
 
 <br>
 
-- 이렇게 $$ (x, y) $$ 좌표를 $$ (r, \theta) $$의 극좌표로 바꾸는 이유는 **적분을 하기 위함**입니다. 즉, 적분할 때, $$ dx, dy $$를 $$ dr, d\theta $$로 바꾸려고 합니다.
+- 이렇게 직교 좌표계를 극 좌표계로 바꾸는 이유는 **적분을 하기 위함**입니다. 즉, 적분할 때, $$ dx, dy $$를 $$ dr, d\theta $$로 바꾸려고 합니다.
 - 그러면 적분의 구간은 $$ x : (-\infty, \infty), \  y : (-\infty, \infty) \to r : (0, \infty), \ \theta : (0, 2\pi)  $$로 변경됩니다.
 
 <br>
-<center><img src="../assets/img/math/pb/about_gaussian/2.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/pb/about_gaussian/2.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 즉, 위 그림과 같이 기존의 $$ (x, y) $$ 좌표계에서는 $$ x, y $$의 값이 음의 무한대에서 양의 무한대의 영역의 범위를 가지게 되므로 좌표계 전체 영역을 적분 할 수 있는 반면 극좌표계에서는 원점에서 시작하는 선 $$ r $$의 길이가 0에서 양의 무한대의 영역의 범위를 가지고 그 선의 이동 영역이 0에서 $$ 2\pi $$ 만큼의 범위를 가지게 되므로 **똑같이 좌표계 전체 영역을 적분**할 수 있게 됩니다.
+- 즉, 위 그림과 같이 기존의 직교 좌표계에서는 $$ x, y $$의 값이 음의 무한대에서 양의 무한대의 영역의 범위를 가지게 되므로 좌표계 전체 영역을 적분 할 수 있는 반면 극 좌표계에서는 원점에서 시작하는 선 $$ r $$의 길이가 0에서 양의 무한대의 영역의 범위를 가지고 그 선의 이동 영역이 0에서 $$ 2\pi $$ 만큼의 범위를 가지게 되므로 **똑같이 좌표계 전체 영역을 적분**할 수 있게 됩니다.
 - 따라서 **적분하는 영역은 같으나 접근 방식이 다르다**고 이해하시면 됩니다.
 
 <br>
 
-- 그러면 $$ dx \cdot dy $$를 $$ dr \cdot d\theta $$로 변환하면 그 변환 term은 얼만큼 곱해주어야 할까요?
+- 그러면 $$ dx \cdot dy $$를 $$ dr \cdot d\theta $$로 변환하면 그 변환 term은 얼만큼 곱해주어야 할까요? 아래 그림을 통하여 직교 좌표계에서의 미소 면적과 극 좌표계에서의 `미소 면적`의 차이를 알아보겠습니다.
+
+<br>
+<center><img src="../assets/img/math/pb/about_gaussian/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 먼저 직교 좌표계에서는 $$ x, y $$의 변화량 $$ dx, dy $$에 의해 증가한 미소 면적은 직사각형으로 $$ dx \cdot dy $$ 입니다.
+- 반면 극 좌표계에서 $$ r, \theta $$의 변화량 $$ dr, d\theta $$에 의해 증가한 영역에 대하여 살펴보겠습니다. 호의 길이 $$ l = r\theta $$, 호의 면적은 $$ \frac{1}{2}rl = \frac{1}{2}r^{2}\theta $$ 일 때, 반지름 $$ (r + dr) $$의 호에서 반지름 $$ r $$의 호를 빼는 식입니다.
+
+<br>
+
+$$ \frac{1}{2}(r +  dr)^{2}d\theta - \frac{1}{2}r^{2}d\theta = \frac{d\theta}{2}(r^{2} + 2 \cdot r \cdot dr + dr^{2} - r^{2}) =  r \cdot d\theta \cdot dr + \frac{d\theta}{2}dr^{2} $$
+
+<br>
+
+- 하지만 다음과 같은 적분의 성질을 이용하여 구간을 근사(approximation)하여 면적을 구할 수 있습니다. 
+
+<br>
+<center><img src="../assets/img/math/pb/about_gaussian/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 따라서 호의 면적 차이를 이용하여 넓이를 구하는 방법 대신 $$ \color{blue}{r \cdot d\theta} \color{red}{dr} $$과 같이 사각형의 면적을 구하여 넓이를 구할 수 있습니다. 이 때, 차이는 $$ r \cdot d\theta \cdot dr + \frac{d\theta}{2}dr^{2} - r \cdot d\theta \cdot dr = \frac{d\theta}{2}dr^{2} $$ 가 발생합니다.
+- 이 면적은 반대로 다른 구간에서 근사하면서 더해진다고 봐도 됩니다. 적분이니까요.
+
+
+
+
 
 <br>
 
