@@ -17,9 +17,29 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식] # add 
 
 <br>
 
+- ### 가우스 함수
 - ### 가우스 적분 증명
-- ### 가우스 분포 공식 증명
+- ### 가우시안 분포 공식 증명
 - ### covariance와 zero-mean gaussian의 covariance
+
+<br><br>
+
+## **가우스 함수**
+
+<br>
+
+- 가우스 함수 식은 다음과 같습니다.
+
+<br>
+
+$$ f(x) = a \cdot exp(-\frac{(x - b)^{2}}{c^{2}}) $$
+
+<br>
+
+- 여기서 $$ a (> 0), b, c $$는 실수입니다.
+- 이 함수는 좌우 대칭의 **종(bell) 모양**의 곡선을 가지고 +/- 극한값을 입력으로 받으면 급격히 함수 값이 감소하게 됩니다.
+- 매개변수 $$ a $$의 역할은 종 모양 곡선의 꼭대기 높이가 되고 $$ b $$는 꼭대기 중심의 위치가 됩니다. $$ c $$는 종 모양의 너비를 결정합니다.
+- 가우스 함수의 의미는 **가우스 오차 함수**의 미분값(도함수)이고 가우시안 분포의 밀도 함수가 됩니다.
 
 <br><br>
 
@@ -27,7 +47,7 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식] # add 
 
 <br>
 
-- `가우스 적분`의 증명에 대하여 다루어 보도록 하겠습니다. 가우스 적분의 식은 다음과 같습니다.
+- 위키피디아에 따른 `가우스 적분(Gaussian integral)`의 정의는 가우스 함수에 대한 실수 전체 범위의 적분으로 식은 다음과 같습니다.
 
 <br>
 
@@ -35,13 +55,13 @@ $$ \int_{-\infty}^{\infty} e^{-x^{2}} dx = \sqrt{\pi} $$
 
 <br>
 
-- 가우스 적분의 증명을 이용하면 가우스 분포 공식의 유도에도 사용할 수 있기 때문에, 가우스 적분의 증명을 어떻게 하는 지 알아보도록 하겠습니다.
+- 가우스 적분의 증명을 이용하면 가우시안 분포 공식의 유도에도 사용할 수 있기 때문에, 가우스 적분의 증명을 어떻게 하는 지 알아보도록 하겠습니다.
 
 <br>
 
 $$ I = \int_{-\infty}^{\infty} e^{-x^{2}} dx $$
 
-$$ I^{2} = \Biggl( \int_{-\infty}^{\infty} e^{-x^{2}} dx \Biggr) = \int_{-\infty}^{\infty} e^{-x^{2}} dx \int_{-\infty}^{\infty} e^{-y^{2}} dy $$
+$$ I^{2} = \Biggl( \int_{-\infty}^{\infty} e^{-x^{2}} dx \Biggr)^{2} = \int_{-\infty}^{\infty} e^{-x^{2}} dx \int_{-\infty}^{\infty} e^{-y^{2}} dy $$
 
 <br>
 
@@ -93,30 +113,100 @@ $$ x^{2} + y^{2} = (r \cos{(\theta)})^{2} + (r \sin{(\theta)})^{2} = r^{2}(\cos^
 <br>
 
 - 먼저 직교 좌표계에서는 $$ x, y $$의 변화량 $$ dx, dy $$에 의해 증가한 미소 면적은 직사각형으로 $$ dx \cdot dy $$ 입니다.
-- 반면 극 좌표계에서 $$ r, \theta $$의 변화량 $$ dr, d\theta $$에 의해 증가한 영역에 대하여 살펴보겠습니다. 호의 길이 $$ l = r\theta $$, 호의 면적은 $$ \frac{1}{2}rl = \frac{1}{2}r^{2}\theta $$ 일 때, 반지름 $$ (r + dr) $$의 호에서 반지름 $$ r $$의 호를 빼는 식입니다.
-
-<br>
-
-$$ \frac{1}{2}(r +  dr)^{2}d\theta - \frac{1}{2}r^{2}d\theta = \frac{d\theta}{2}(r^{2} + 2 \cdot r \cdot dr + dr^{2} - r^{2}) =  r \cdot d\theta \cdot dr + \frac{d\theta}{2}dr^{2} $$
-
-<br>
-
-- 하지만 다음과 같은 적분의 성질을 이용하여 구간을 근사(approximation)하여 면적을 구할 수 있습니다. 
+- 반면 극 좌표계에서 $$ r, \theta $$의 변화량 $$ dr, d\theta $$에 의해 증가한 영역은 $$ r \cdot dr \cdot d\theta $$ 입니다.
+- (먼저 추상적으로 설명해 보면) 다음과 같은 적분의 성질을 보면 적분 구간을 근사(approximation)하여 면적을 구하는 것을 볼 수 있습니다.
 
 <br>
 <center><img src="../assets/img/math/pb/about_gaussian/5.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 따라서 호의 면적 차이를 이용하여 넓이를 구하는 방법 대신 $$ \color{blue}{r \cdot d\theta} \color{red}{dr} $$과 같이 사각형의 면적을 구하여 넓이를 구할 수 있습니다. 이 때, 차이는 $$ r \cdot d\theta \cdot dr + \frac{d\theta}{2}dr^{2} - r \cdot d\theta \cdot dr = \frac{d\theta}{2}dr^{2} $$ 가 발생합니다.
-- 이 면적은 반대로 다른 구간에서 근사하면서 더해진다고 봐도 됩니다. 적분이니까요.
-
-
-
-
+- 위 그림의 왼쪽 그림을 보면 곡선은 함수 $$ r(\theta) $$를 따르고 $$ \theta $$의 범위는 $$ [a, b] $$입니다. 이 때, 면적 $$ R $$을 한번에 구하기 어렵기 때문에 다음 식을 통해서 근사화 하여 구할 수 있습니다.
 
 <br>
 
-## **가우스 분포 공식 증명**
+$$ \frac{1}{2} \int_{a}^{b} r(\theta)^{2} d\theta $$
+
+<br>
+
+- 위 식을 유도해 보겠습니다. 오른쪽 그림과 같이 구간을 $$ n $$개로 나누고 각 구간을 $$ i =  1, 2, \cdots, n $$에서 $$ \theta_{i} $$이 각 구간의 중점이라고 하고 극에 중심을 두는 부채꼴을 만듭니다. 
+- 이 때, 각 호의 반지름은 $$ r(\theta_{i}) $$, 중심각은 $$ \Delta \theta_{i} $$이면 호의 길이는 $$ r(\theta_{i})\Delta \theta $$가 되고 넓이는 $$ \frac{1}{2}r(\theta_{i})^{2} \Delta \theta $$가 됩니다. 따라서 총 넓이는 [리만 합](https://ko.wikipedia.org/wiki/%EB%A6%AC%EB%A7%8C_%ED%95%A9)에 따라서 다음과 같이 정리됩니다.
+
+<br>
+
+$$ \sum_{i=1}^{n} \frac{1}{2} r(\theta_{i})^{2} \Delta \theta $$
+
+<br>
+
+- 리만 합의 정의에 따라 구간의 갯수 $$ n $$이 증가할수록 그 극한값은 넓이 $$ R $$에 가까워집니다.
+- 이 성질을 이용하면 앞선 그림의 넓이 증가량을 $$ \color{blue}{r \cdot d\theta} \cdot \color{red}{dr} $$의 사각형 넓이로 근사하여 생각할 수 있습니다. 리만 합에 의해 $$ r, \theta $$의 값이 작은 단위로 나누어져서 합쳐진다면 실제 넓이에 가까워질 것이기 때문입니다. 
+- 여기까지가 추상적이고 직관적인 설명이긴 합니다. 좀 더 구체적으로 알고 싶으면 아래 내용을 읽어보시면 도움이 됩니다. (넘어가셔도 됩니다.)
+
+<br>
+
+- 직교 좌표계에서는 미소 면적의 넓이를 $$ dA = dx \cdot dy $$로 표시하였습니다.
+- 그리고 $$ x, y $$는 다음과 같이 $$ r, \theta $$로 나타내어 졌습니다.
+
+<br>
+
+$$ x = r \cos{(\theta)} $$
+
+$$ y = r \sin{(\theta)} $$
+
+<br>
+
+- 여기서 $$ x, y $$ 에 대하여 각각 $$ r, \theta $$에의 변화량을 확인하기 위해 `자코비안`을 구해보면 다음과 같습니다.
+- 아래 자코비안의 1행, 2행은 각각 $$ x, y, $$가 $$ r, \theta $$ 각각의 변화에 따라 얼만큼 변화를 가지는 지 나타냅니다.
+
+<br>
+
+$$ \frac{\partial(x, y)}{\partial(r, \theta)} = \begin{bmatrix} \partial x / \partial r & \partial x / \partial \theta \\ \partial y / \partial r & \partial y / \partial \theta \end{bmatrix} = \begin{bmatrix} \cos{(\theta)} & -r\sin{(\theta)} \\ \sin{(\theta)} & r\cos{(\theta)} \end{bmatrix} $$
+
+- 변화의 **scale**을 구할 때, `determinant`를 사용할 수 있습니다. 지금과 같은 2차원에서 변화의 총량은 변화하였을 때의 `넓이`의 **scale**이 됩니다. 그러면 위에서 구한 자코비안의 determinant를 $$ J $$라고 나타내면 다음과 같습니다.
+
+<br>
+
+$$ J = \begin{vmatrix} \cos{(\theta)} & -r\sin{(\theta)} \\ \sin{(\theta)} & r\cos{(\theta)} \end{vmatrix} = r \cos^{2}{(\theta)} + r \sin^{2}{(\theta)} = r $$
+
+<br>
+
+- 즉, $$ r, \theta $$가 $$ dr, d\theta $$ 만큼 변할 때, 변화하는 양 scale은 $$ J = r $$ 이 됩니다.
+- 따라서 직교 좌표계의 변화량과 극 좌표계의 변화량은 다음 관계를 가집니다.
+
+<br>
+
+$$ dA = dx \cdot dy = J \cdot dr \cdot d\theta = r \cdot dr \cdot d\theta $$
+
+<br>
+<center><img src="../assets/img/math/pb/about_gaussian/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 다시 확인해 보면 극 좌표계에서 $$ r, \theta $$의 변화에 따른 변화량은 직관적인 설명과 자코비안을 통한 설명 모두 $$ r \cdot dr \cdot d\theta $$ 임을 확인할 수 있습니다. 이에 따라서 적분을 직교 좌표계에서 극 좌표계로 변환해 보겠습니다.
+
+<br>
+
+$$ \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} e^{-(x^{2} + y^{2})} \cdot dx \cdot dy = \int_{0}^{2\pi}\int_{0}^{\infty} e^{-r^{2}} \cdot r \cdot dr \cdot d\theta $$
+
+<br>
+
+- 이제 식이 깔끔하게 정리되었으니 단순 치환 적분을 통하여 문제를 풀어보겠습니다.
+
+<br>
+
+$$ -r^{2} = u $$
+
+$$ -2r dr = du $$
+
+$$ r dr = -\frac{1}{2} du $$
+
+$$ \begin{split} \int_{0}^{2\pi}\int_{0}^{\infty} e^{-r^{2}} \cdot r \cdot dr \cdot d\theta &= \int_{0}^{2\pi}\int_{0}^{-\infty} e^{u} (-\frac{1}{2})du d\theta &= -\frac{1}{2} \int_{0}^{2\pi} [e^{u}]_{0}^{-\infty} d\theta &= \frac{1}{2} \int_{0}^{2\pi} d\theta = \pi \end{split}$$
+
+$$ I^{2} = \pi = \Biggl( \int_{-\infty}^{\infty} e^{-x^{2}} dx \Biggr)^{2} $$
+
+$$ \therefore \quad \int_{-\infty}^{\infty} e^{-x^{2}} dx = \sqrt{\pi} $$
+
+<br><br>
+
+## **가우시안 분포 공식 증명**
 
 <br>
 
