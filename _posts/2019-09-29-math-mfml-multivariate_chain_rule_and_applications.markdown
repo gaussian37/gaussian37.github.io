@@ -337,7 +337,6 @@ $$ a^{(L)} = \sigma(W^{(L)} \cdot a^{(L-1)} + b^{(L)}) $$
 - 따라서 위 식과 같이 partial derivative인 $$ \partial C / \partial w $$ 와 $$ \partial C / \partial b $$를 `chain rule`을 통해 구할 수 있습니다.
 - 앞에서 말했듯이 output에서 시작하여 intput 뉴런 방향으로 각 변수에 대하여 `chain rule`을 통해 미분값을 구하므로 이 과정을 `back propagation` 이라고 합니다.
 
-
 <br>
 
 [mathematics for machine learning 글 목록](https://gaussian37.github.io/math-mfml-table/)
