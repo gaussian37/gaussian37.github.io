@@ -229,7 +229,7 @@ $$ \sigma \Biggl(\biggl(\sum_{j=0}^n w_{j}a_{j}^{(i)} \biggr) + b \Biggr) = \sig
 
 <br>
 
-- 이번에는 출력 neuron의 갯수를 한 개 더 늘려보겠습니다.
+- 이번에는 출력 neuron의 갯수를 한 개 더 늘려보겠습니다. 여기서 $$ w_{i} $$는 **벡터**입니다.
 
 <br>
 <center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/6.png" alt="Drawing" style="width: 400px;"/></center>
@@ -249,7 +249,21 @@ $$ a^{(1)} = \sigma(W^{(1)} \cdot a^{(0)} + b^{(1)}) $$
 <center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/7.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 지금 까지 배운 내용을 일반화 시키면 위와 같이 정리할 수 있습니다. 
+- 지금 까지 배운 내용을 일반화 시키면 위와 같이 정리할 수 있습니다.
+- 위 슬라이드는 조금 헷갈릴 수도 있어서 간략하게 설명해 보겠습니다. 먼저 $$ a_{n}^{(l)} $$는 $$ l $$ 번째 layer의 $$ n $$번째 노드 입니다. 단순하게 $$ a^{(l)} $$로 표시하면 이는 $$ a_{0}^{(l)} $$ 부터 $$ a_{n}^{(l)} $$ 까지의 값을 가지는 **벡터**가 됩니다.
+- 이와 유사하게 $$ b_{n}^{(l)} $는 $$ l - 1 $$번째 layer에서 $$ l $$ 번째 layer를 연결할 때 사용하는 bias로 아랫 첨자와 윗 첨자에 대한 의미는 노드와 같습니다. $$ b^{(l)} $$는 $$ l-1 $$번째 layer 노드를 이용하여 $$ l $$번째 layer를 연산할 때 사용되는 bias **벡터**가 됩니다.
+- 조금 헷갈리는 점은 $$ w_{j,i}^{(l)} $$입니다. 이는 $$ a_{j}^{(l-1)} $$ 과 $$ a_{i}^{(l)} $$을 잇는 weight 입니다. 이 모든 weight 들을 한번에 표시한 $$ W^{(l)} $$은 weight **행렬**이 됩니다.
+- 예를 들어 $$ a_{0}^{1} $$을 살펴보겠습니다.
+
+<br>
+
+$$ a_{0}^{1} = \sigma(w_{0,0}^{(1)}a_{0}^{0} + w_{0,1}^{(1)}a_{1}^{0} + \cdots + w_{0,n-1}^{(1)}a_{n-1}^{0} + b_{0}^{(1)}) $$
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/9.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 식으로 표현한 node, weight는 그림의 빨간색 선과 이어진 노드입니다. 노드의 인덱스가 $$ j \to i $$ 로 연결되어 있다는 점만 유의해서 보시면 됩니다.
 
 <br>
 
