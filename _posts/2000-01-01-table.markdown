@@ -43,7 +43,7 @@ tags: [table] # add tag
 <br>
 
 - [Autonomous Driving](https://gaussian37.github.io/autodrive-concept-table/)
-- [optimal state estimation](https://gaussian37.github.io/autodrive-ose-table/)
+- [Optimal State Estimation](https://gaussian37.github.io/autodrive-ose-table/)
 - [Automotive](https://gaussian37.github.io/autodrive-automotive-table/)
 - [Self-Driving Cars (Coursera)](https://gaussian37.github.io/autodrive-sdcc-table/)
 
@@ -54,12 +54,12 @@ tags: [table] # add tag
 <br>
 
 - [Algorithm](https://gaussian37.github.io/math-algorithm-table/)
-- [Problem solving](https://gaussian37.github.io/math-ps-table/)
-- [Linear algebra](https://gaussian37.github.io/math-la-table/)
+- [Problem Solving](https://gaussian37.github.io/math-ps-table/)
+- [Linear Algebra](https://gaussian37.github.io/math-la-table/)
 - [Calculus](https://gaussian37.github.io/math-calculus-Table/)
 - [Probability](https://gaussian37.github.io/math-pb-table/)
-- [Game theory](https://gaussian37.github.io/math-game-table/)
-- [Mathematics for machine learning](https://gaussian37.github.io/math-mfml-table/)
+- [Game Theory](https://gaussian37.github.io/math-game-table/)
+- [Mathematics For Machine Learning](https://gaussian37.github.io/math-mfml-table/)
 
 <br>
 
@@ -67,8 +67,8 @@ tags: [table] # add tag
 
 <br>
 
-- [machine learning](https://gaussian37.github.io/ml-concept-table/)
-- [PRML](https://gaussian37.github.io/ml-prml-table/)
+- [Machine Learning](https://gaussian37.github.io/ml-concept-table/)
+- [Pattern Recognition and Machine Learning](https://gaussian37.github.io/ml-prml-table/)
 
 <br>
 
@@ -76,9 +76,9 @@ tags: [table] # add tag
 
 <br>
 
-- [deep learning](https://gaussian37.github.io/dl-concept-table/)
-- [pytorch](https://gaussian37.github.io/dl-pytorch-table/)
-- [deeplearning.ai](https://gaussian37.github.io/dl-dlai-table/)
+- [Deep Learning](https://gaussian37.github.io/dl-concept-table/)
+- [Pytorch](https://gaussian37.github.io/dl-pytorch-table/)
+- [Deeplearning.ai](https://gaussian37.github.io/dl-dlai-table/)
 
 <br>
 
@@ -86,10 +86,10 @@ tags: [table] # add tag
 
 <br>
 
-- [vision](https://gaussian37.github.io/vision-concept-table/)
-- [segmentation](https://gaussian37.github.io/vision-segmentation-table/)
-- [detection](https://gaussian37.github.io/vision-detection-table/)
-- [opencv](https://gaussian37.github.io/vision-opencv-table/)
+- [Vision](https://gaussian37.github.io/vision-concept-table/)
+- [Segmentation](https://gaussian37.github.io/vision-segmentation-table/)
+- [Detection](https://gaussian37.github.io/vision-detection-table/)
+- [Opencv](https://gaussian37.github.io/vision-opencv-table/)
 
 <br>
 
