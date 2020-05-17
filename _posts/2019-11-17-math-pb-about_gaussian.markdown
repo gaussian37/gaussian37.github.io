@@ -199,7 +199,7 @@ $$ -2r dr = du $$
 
 $$ r dr = -\frac{1}{2} du $$
 
-$$ \begin{split} \int_{0}^{2\pi}\int_{0}^{\infty} e^{-r^{2}} \cdot r \cdot dr \cdot d\theta &= \int_{0}^{2\pi}\int_{0}^{-\infty} e^{u} (-\frac{1}{2})du d\theta &= -\frac{1}{2} \int_{0}^{2\pi} [e^{u}]_{0}^{-\infty} d\theta &= \frac{1}{2} \int_{0}^{2\pi} d\theta = \pi \end{split}$$
+$$ \begin{split} \int_{0}^{2\pi}\int_{0}^{\infty} e^{-r^{2}} \cdot r \cdot dr \cdot d\theta &= \int_{0}^{2\pi}\int_{0}^{-\infty} e^{u} (-\frac{1}{2})du \cdot d\theta &= -\frac{1}{2} \int_{0}^{2\pi} [e^{u}]_{0}^{-\infty} d\theta &= \frac{1}{2} \int_{0}^{2\pi} d\theta = \pi \end{split}$$
 
 $$ I^{2} = \pi = \Biggl( \int_{-\infty}^{\infty} e^{-x^{2}} dx \Biggr)^{2} $$
 
