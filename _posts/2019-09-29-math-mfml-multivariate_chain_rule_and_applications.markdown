@@ -25,7 +25,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 - ### multivariate chain rule
 - ### neural network
-- ### backpropagation
+- ### training neural network
 
 <br>
 
@@ -283,7 +283,7 @@ $$ a^{(2)} = \sigma(W^{(2)} \cdot \color{fuchsia}{a^{(1)}} + b^{(2)} ) $$
 
 <br>
 
-$$ a^{(L)} = \sigma(W^{(L)} \cdot a^{(L-1)} + b^{L}) $$
+$$ a^{(L)} = \sigma(W^{(L)} \cdot a^{(L-1)} + b^{(L)}) $$
 
 <br>
 
@@ -292,6 +292,50 @@ $$ a^{(L)} = \sigma(W^{(L)} \cdot a^{(L-1)} + b^{L}) $$
     - ① $$ W^{(L)} $$의 크기 : $$ \text{number of neuron in } a^{(L-1)} \times \text{number of neuron in } a^{(L)} $$
     - ② $$ b^{(L)} $$의 크기 : $$ \text{number of neuron in } a^{(L)} $$
 
+<br>
+
+## **training neural network**
+
+<br>
+
+- 지금까지 neural network의 간단한 개념에 대하여 다루어 보았고 이를 hidden layer를 포함한 fully connected feed forward network 형태로 나타내 보았습니다. (앞에서 노드를 왼쪽에서 오른쪽으로 연결한 형태의 기본적인 네트워크 형태입니다.)
+- 여기서 성능을 좌우하는 것은 `weight`와 `bias` 입니다. 왜냐하면 input에 어떤 weight가 곱해지고 bias가 더해지느냐에 따라서 최종 output이 달라지기 때문입니다.
+- 그러면 풀려고 하는 문제에 따라서 weight와 bias가 최적이 되도록 잘 셋팅을 해주어야 하는데, 이 과정을 `training` 이라고 합니다. 어떻게 하면 될까요?
+- 대표적인 `training`의 방법은 `back propagation` 입니다. 이렇게 부르는 이유는 학습의 시작을 output 뉴런부터 시작해서 input 뉴런 방향으로 역으로 접근하기 때문입니다. 
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/10.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림에서 주목할 점은 마지막 식 $$ C $$ 입니다. 여기서 $$ a_{i}^{(L)} $$을 마지막 layer의 output 이라고 하면 그 아웃풋에 해당하는 정답 label이 있다고 가정하겠습니다. 그것이 바로 $$ y_{i} $$ 입니다.
+- 따라서 $$ C $$는 output과 label이 얼만큼의 차이가 있는지 제곱합을 하는 식입니다. 0에 가까울 수록 오차가 작다고 말할 수 있습니다.
+
+<br>
+
+- 앞에서 언급한 바와 같이 변화가 필요한 것은 weight와 bias 입니다. 특히 weight의 영향이 굉장히 크므로 weight에 따라 cost가 어떻게 변하는 지 관찰해 보겠습니다.
+- 아래는 단순한 아래로 볼록한 그래프로 최솟값을 가지는 지점이 한 군데인 아주 심플한 형태의 weight와 cost 그래프 입니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 왼쪽 그래프의 $$ w_{0} $$ 지점에서 미분을 하면 양의 변화량을 가짐을 알 수 있습니다. 궁극적으로 도달해야 하는 weight의 위치는 미분의 값이 0인 지점으로 변화량이 없는 곳입니다. 즉, 극소 지점입니다. 따라서 변화량과 반대 방향으로 weight를 변경해 줍니다. 따라서 오른쪽 그래프 처럼 변화량과 반대 방향으로 weight를 이동시켜야 합니다. (화살표의 방향이 바뀐 것을 확인하실 수 있습니다.)
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 하지만 위 그림과 같이 local minima인 지점이 여럿 생기게 된다면 global minima 방향이 아닌 잘못된 방향으로 weight를 변경할 수 있는 문제가 발생하기도 합니다. (어려운 문제긴 하지만 다양한 개선책들이 많이 있습니다. 제 블로그에도...)
+- 중요한 것은 이 계산을 하기 위해서는 미분을 해야 한다는 것이고 위의 neural network와 같이 weight의 갯수가 많은 상황에서는 ($$ w_{0}, w_{1}, ... $$) 각 weight에 따른 `jacobian`을 구해야 한다는 것입니다. 즉, **모든 weight (변수)에 관하여 partial derivative를 하고 그 변화량과 반대 방향으로 weight 값을 변경해주어야 한다는 것이 핵심**입니다.
+- 각 변수에 대하여 jacobian을 구하였다면 `chain rule`을 이용하여 전체 변화량을 계산할 수 있습니다. 다음 예제를 살펴보겠습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/13.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 식을 보면 최종 output은 $$ C $$이고 변수는 $$ w, b $$ 이므로 각 변수 $$ w, b $$에 대하여 partial derivative를 구해주어야 합니다.
+- 따라서 위 식과 같이 partial derivative인 $$ \partial C / \partial w $$ 와 $$ \partial C / \partial b $$를 `chain rule`을 통해 구할 수 있습니다.
+- 앞에서 말했듯이 output에서 시작하여 intput 뉴런 방향으로 각 변수에 대하여 `chain rule`을 통해 미분값을 구하므로 이 과정을 `back propagation` 이라고 합니다.
 
 
 <br>
