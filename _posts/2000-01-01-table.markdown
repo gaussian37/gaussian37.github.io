@@ -44,6 +44,7 @@ tags: [table] # add tag
 
 - [Autonomous Driving](https://gaussian37.github.io/autodrive-concept-table/)
 - [Optimal State Estimation](https://gaussian37.github.io/autodrive-ose-table/)
+- [Probabilistic Robotics]()
 - [Automotive](https://gaussian37.github.io/autodrive-automotive-table/)
 - [Self-Driving Cars (Coursera)](https://gaussian37.github.io/autodrive-sdcc-table/)
 
@@ -56,8 +57,8 @@ tags: [table] # add tag
 - [Algorithm](https://gaussian37.github.io/math-algorithm-table/)
 - [Problem Solving](https://gaussian37.github.io/math-ps-table/)
 - [Linear Algebra](https://gaussian37.github.io/math-la-table/)
-- [Calculus](https://gaussian37.github.io/math-calculus-Table/)
 - [Probability](https://gaussian37.github.io/math-pb-table/)
+- [Calculus](https://gaussian37.github.io/math-calculus-Table/)
 - [Game Theory](https://gaussian37.github.io/math-game-table/)
 - [Mathematics For Machine Learning](https://gaussian37.github.io/math-mfml-table/)
 
@@ -92,6 +93,19 @@ tags: [table] # add tag
 - [Opencv](https://gaussian37.github.io/vision-opencv-table/)
 
 <br>
+
+## **Python**
+
+<br>
+
+- [Basic & Pandas & Numpy]()
+- [Django]()
+- [Django-RestFramework]()
+- [Crawling]()
+- [Embedded]()
+- [GUI]()
+- [ETC]()
+
 
 ## **C**
 

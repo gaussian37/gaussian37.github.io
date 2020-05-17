@@ -37,7 +37,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-$$ f(x, y, z) = \sin{(x)}e^{yz^{2}} $$
+$$ f(x, y, z) = \sin{(x)} \cdot exp(yz^{2}) $$
 
 $$ x = t - 1, \quad y = t^{2}, \quad z = \frac{1}{t} $$
 
@@ -47,7 +47,7 @@ $$ \frac{\text{d}f}{\text{d}t} = \cos{(t-1)}e $$
 
 <br>
 
-- `total derivative`의 내용을 요약하면 `chain rule` 형태의 `multivariate derivative`에서는 각각의 변수의 partial derivative를 통해서 분해하여 chain rule을 적용할 수 있고 그 결과를 모두 합하면 된다는 내용입니다.
+- `total derivative`의 내용을 요약하면 `chain rule` 형태의 `multivariate derivative`에서는 각 변수의 partial derivative를 통해 분해한 뒤, chain rule을 적용할 수 있고 그 결과를 모두 합하면 된다는 내용입니다.
 
 <br>
 
@@ -72,9 +72,7 @@ $$ \frac{\text{d}f}{\text{d}t} = \frac{\partial f}{\partial x} \cdot \frac{\text
 <br>
 
 - 그러면 `multivariate chain rule`에 대하여 조금만 더 자세히 살펴보도록 하겠습니다.
-- 앞의 예제와 같은 형태로 함수가 있다고 가정해 보겠습니다.
-    - 함수 : $$ f(x) $$
-    - 변수 $$ x $$ : 벡터이고 변수 $$ t $$에 dependent 함
+- 앞의 예제와 같은 형태로 함수가 있다고 가정해 보겠습니다. $$ f(x) $$는 함수이고 $$ x $$는 변수 $$ t $$에 dependent 한 벡터입니다.
 - 그러면 $$ f(x(t)) $$ 형태로 적을 수 있습니다. 여기서 `independent`한 변수는 $$ t $$이므로 결국 관심이 있는 것은 $$ t $$의 변화에 대한 함수 $$ f $$의 변화를 알고 싶은 것이 derivative의 목적입니다. 그러면 다음과 같이 compact 하게 쓸 수 있습니다.
 
 <br>
@@ -106,7 +104,7 @@ $$ \frac{\text{d}f}{\text{d}t} = J_{f} \frac{\text{d}x}{\text{d}t} $$
 
 $$ f(x) = 5x \\ x(u) = 1 - u \\ u(t) = t^{2} $$
 
-$$ \color{red{f(t)} = 5(1-t^{2}) = 5 - 5t^{4}} $$
+$$ \color{red}{f(t) = 5(1-t^{2}) = 5 - 5t^{4}} $$
 
 $$ \color{red}{\frac{\text{d}f}{\text{d}t} = -10t} $$
 
