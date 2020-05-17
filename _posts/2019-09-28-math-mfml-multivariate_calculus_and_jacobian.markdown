@@ -339,9 +339,16 @@ $$ J = \begin{bmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partia
 <br>
 
 - 특히 위 행렬은 결과적으로 $$ x, y $$공간을 $$ u, v $$ 공간으로 단순히 `linear transformation` 한 형태를 가지게 됩니다. (x, y의 계수와 jacobian 행렬의 값을 비교해 보면 $$ x - 2y $$의 계수가 1행의 값이고 $$ -2x + 3y $$가 2행의 값입니다.)
-- 이것은 당연한 것인데 왜냐하면 $$ u, v $$가 **선형식(1차식)**이기 때문입니다.
+- 이것은 당연한 것인데 왜냐하면 $$ u, v $$가 **선형식(1차식)**이기 때문입니다. 즉, 변화량이 상수값이기 때문에 항상 그 상수 값 만큼만 변환된 것입니다.
 - `jacobian`의 묘미는 **1차 (편)미분을 이용하여 공간1 → 공간2로 linear transformation**하는 것입니다.
 - **1차 미분을 하는 것이 곡선에 접한 접선의 식을 구하는 것이고 non-linear/linear 한 공간을 linear 한 공간으로 approximation한다고 이해**하면 됩니다.
+
+
+<br>
+
+- 그러면 `jacobian`을 사용하는 유명한 예제인 직교 좌표계를 극 좌표계로 변환하는 예제를 한번 다루어 보겠습니다. 
+    - [링크](https://gaussian37.github.io/math-pb-about_gaussian/)의 가우스 적분 내용을 살펴 보시면 이해가 잘 되실 수 있습니다.
+
 
 <br>
 

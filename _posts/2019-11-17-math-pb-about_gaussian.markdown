@@ -181,7 +181,14 @@ $$ dA = dx \cdot dy = J \cdot dr \cdot d\theta = r \cdot dr \cdot d\theta $$
 <center><img src="../assets/img/math/pb/about_gaussian/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 다시 확인해 보면 극 좌표계에서 $$ r, \theta $$의 변화에 따른 변화량은 직관적인 설명과 자코비안을 통한 설명 모두 $$ r \cdot dr \cdot d\theta $$ 임을 확인할 수 있습니다. 이에 따라서 적분을 직교 좌표계에서 극 좌표계로 변환해 보겠습니다.
+- 다시 확인해 보면 극 좌표계에서 $$ r, \theta $$의 변화에 따른 변화량은 직관적인 설명과 자코비안을 통한 설명 모두 $$ r \cdot dr \cdot d\theta $$ 임을 확인할 수 있습니다. 
+
+<br>
+<center><img src="../assets/img/math/pb/about_gaussian/6.gif" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 변화량의 scale은 $$ r $$ 입니다. 따라서 호의 반지름의 길이인 $$ r $$이 커질수록 미소 면적의 크기가 커짐을 확인할 수 있습니다.
+- 지금 까지 확인한 내용인 직교 좌표계에서 극 좌표계로 변환을 통해 적분을 마무리 해보겠습니다.
 
 <br>
 
