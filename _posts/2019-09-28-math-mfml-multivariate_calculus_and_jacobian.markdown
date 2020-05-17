@@ -349,6 +349,25 @@ $$ J = \begin{bmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partia
 - 그러면 `jacobian`을 사용하는 유명한 예제인 직교 좌표계를 극 좌표계로 변환하는 예제를 한번 다루어 보겠습니다. 
     - [링크](https://gaussian37.github.io/math-pb-about_gaussian/)의 가우스 적분 내용을 살펴 보시면 이해가 잘 되실 수 있습니다.
 
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/19.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이 글에서는 변환의 자세한 의미 보다 jacobian 관점에서 설명을 해보겠습니다. 먼저 $$ x, y $$와 $$ r, \theta $$의 관계식은 삼각 함수를 통해 정의할 수 있습니다. 여기서 $$ x, y $$를 통해 나타내는 좌표계가 직교 좌표계이고 $$ r, \theta $$로 나타내는 좌표계가 극 좌표계 입니다.
+- 직교 좌표계와 극 좌표계는 서로 사용하는 space가 다르기 때문에 서로 다른 변화량을 가지게 됩니다.
+- 직교 좌표계에서의 각 축의 변화 $$ \Delta x, \Delta y $$에 의해 변화량은 $$ \Delta x \cdot \Delta y $$만큼의 값을 가지게 됩니다. 직사각형의 면적 처럼 나타낼 수 있습니다.
+- 직교 좌표계의 변화를 극 좌표계의 변화와 연관 시켜 보려면 `jacobian`을 통하여 linear transformation 하여 두 space의 관계를 보면 됩니다. 그러면 위 슬라이드 처럼 `jacobian matrix` $$ J $$를 구할 수 있습니다.
+- 이 때, $$ J $$의 `determinant`를 계산하면 determinant의 정의에 따라 변화량의 scale을 계산할 수 있습니다. 슬라이드의 계산에 따라 변화량의 scale은 $$ r $$ 입니다.
+
+<br>
+
+$$ \Delta x \cdot \Delta y = r \cdot \Delta r \Delta \theta $$
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/18.gif" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 변화량이 scale이 $$ r $$ 이기 때문에 위 그림처럼 호의 반지름의 길이가 커질 수록 변화량이 커지는 것을 알 수 있습니다.
 
 <br>
 
