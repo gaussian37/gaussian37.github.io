@@ -24,6 +24,7 @@ tags: [C] # add tag
 - ### 특정 문자를 기준으로 문자열 split
 - ### 부분 문자열 (substr) 저장
 - ### 부분 문자열 (substr) 출력
+- ### 현재 시간 출력
 
 <br>
 
@@ -361,3 +362,43 @@ void PrintSubstring(const char* str, int begin, int end){
     printf("\n");
 }
 ```
+
+<br>
+
+## **현재 시간 출력**
+
+<br>
+
+- C에서 현재 시간을 출력할 때, `time.h` 헤더의 `time_t` 와 `localtime 함수`를 사용할 수 있습니다.
+- 아래 코드를 사용하면 year, month, day, hour, minute, second 를 각각 출력할 수 있습니다.
+
+<br>
+
+```c
+time_t t = time(NULL);
+struct tm tm = *localtime(&t);
+printf("%d-%d-%d %d:%d:%d\n", tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+```
+
+<br>
+
+- `tm` 구조체에 대하여 알아보면 다음과 같습니다. 타입은 모두 정수형 입니다.
+
+<br>
+
+```c
+struct tm {
+   int tm_sec;         /* second,  range 0 to 59            */
+   int tm_min;         /* minute, range 0 to 59             */
+   int tm_hour;        /* hour, range 0 to 23            */
+   int tm_mday;        /* day, range 1 to 31             */
+   int tm_mon;         /* month, range 0 to 11             */
+   int tm_year;        /* year, from 1900년                */
+   int tm_wday;        /* day of the week, range sunday(0) to saturday(6) */
+   int tm_yday;        /* elapsed day of year, range 0 to 365  */
+   int tm_isdst;       /* summer time                        */
+};
+```
+
+
+
