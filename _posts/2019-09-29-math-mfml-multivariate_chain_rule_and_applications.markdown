@@ -26,6 +26,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
 - ### multivariate chain rule
 - ### neural network
 - ### training neural network
+- ### backpropagation practice
 
 <br>
 
@@ -336,6 +337,17 @@ $$ a^{(L)} = \sigma(W^{(L)} \cdot a^{(L-1)} + b^{(L)}) $$
 - 위 식을 보면 최종 output은 $$ C $$이고 변수는 $$ w, b $$ 이므로 각 변수 $$ w, b $$에 대하여 partial derivative를 구해주어야 합니다.
 - 따라서 위 식과 같이 partial derivative인 $$ \partial C / \partial w $$ 와 $$ \partial C / \partial b $$를 `chain rule`을 통해 구할 수 있습니다.
 - 앞에서 말했듯이 output에서 시작하여 intput 뉴런 방향으로 각 변수에 대하여 `chain rule`을 통해 미분값을 구하므로 이 과정을 `back propagation` 이라고 합니다.
+
+<br>
+
+## **backpropagation practice**
+
+<br>
+
+
+
+
+
 
 <br>
 
