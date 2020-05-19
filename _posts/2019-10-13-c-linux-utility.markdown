@@ -26,6 +26,7 @@ tags: [리눅스 유틸리티] # add tag
 - ### (Window) : minGW
 - ### xclip을 이용한 clipboard 복사
 - ### octave 설치 및 octave 패키지 설치 방법
+- ### baobab을 이용한 디스크 사용 현황 확인
 
 <br>
 
@@ -201,3 +202,16 @@ $ xmodmap -pke > ~/.Xmodmap
 - 만약 어떤 패키지를 계속 사용할 예정이라면 디폴트 값으로 설정해 주어야 하는데 터미널에 `vim ~/.octaverc` 또는 `gedit ~/.octaverc`를 입력하여 위에서 설명한 것과 같이 `pkg load package_name`을 입력해 줍니다. 예를 들어 `pkg load image`를 입력하면 됩니다.
 - `~/`은 `home` 디렉토리를 뜻하는 명령이고 `.octaverc`는 octave를 실행할 때, 같이 실행되는 명령어들을 모아두는 숨김 파일 형태입니다.
 - 따라서 octave를 실행할 때, pkg load 명령어가 실행되므로 기본값으로 패키지를 등록해서 사용할 수 있습니다.
+
+<br>
+
+## **baobab을 이용한 디스크 사용 현황 확인**
+
+<br>
+
+- 리눅스에서 디스크 사용 현황을 확인 하기 위한 방법으로 크게 2가지가 있습니다.
+- 가장 쉬운 방법은 `df -h` 명령어를 통하여 사용 현황을 확인하는 방법이 있는 데 터미널에서 보기에 시인성이 좋지 않습니다.
+- 반면 `baobab`을 이용하면 recursive 하게 각 폴더 안의 상세 내용 까지 그래픽적으로 확인할 수 있습니다.
+- 설치 : `sudo apt-get install baobab`
+- 실행 : `sudo baobab`
+- 접근 권한이 필요한 디스크의 경우 `sudo baobab`을 명령어를 통해 확인할 수 있으니 `sudo baobab`을 사용하길 권장드립니다.
