@@ -27,6 +27,7 @@ tags: [리눅스 유틸리티] # add tag
 - ### xclip을 이용한 clipboard 복사
 - ### octave 설치 및 octave 패키지 설치 방법
 - ### baobab을 이용한 디스크 사용 현황 확인
+- ### tree를 이용한 디렉토리 구조 출력
 
 <br>
 
@@ -215,3 +216,14 @@ $ xmodmap -pke > ~/.Xmodmap
 - 설치 : `sudo apt-get install baobab`
 - 실행 : `sudo baobab`
 - 접근 권한이 필요한 디스크의 경우 `sudo baobab`을 명령어를 통해 확인할 수 있으니 `sudo baobab`을 사용하길 권장드립니다.
+
+<br>
+
+## **tree를 이용한 디렉토리 구조 출력**
+
+<br>
+
+- `tree` 명령어를 이용하면 현재 위치 기준으로 하부 디렉토리의 구조를 tree 형태로 출력할 수 있습니다.
+- 설치 : `sudo apt-get install tree`
+- 터미널 창에서 `tree` 라고 입력하면 현재 위치 기준으로 모든 하부 디렉토리 구조를 볼 수 있습니다.
+- 만약 `depth` 기준으로 구분이 필요할 때에는 `L` 옵션을 사용하면 됩니다. 예를 들어 `tree -L 1`은 depth가 1인 경우입니다.
