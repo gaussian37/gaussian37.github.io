@@ -344,10 +344,141 @@ $$ a^{(L)} = \sigma(W^{(L)} \cdot a^{(L-1)} + b^{(L)}) $$
 
 <br>
 
+- 이번에는 앞에서 배운 `backpropagation`을 파이썬 코드를 이용하여 다루어 보도록 하겠습니다.
+- 파이썬의 `numpy`를 사용해서 행렬 연산을 해보겠습니다. 먼저 numpy의 `A * B`는 **element-wise multiplication**을 나타내고 `A @ B` 는 **matrix multiplication**을 나타냅니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/14.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 다루어 볼 예제는 위 그림과 같은 구조의 네트워크입니다. 2개의 hidden layer가 있고 첫번째 hidden layer는 6개의 node가 있고 두번째 hidden layer는 7개의 node가 있는 상태입니다.
+- 또한 이번 예제에서 사용해 볼 activation function은 `sigmoid` 입니다. 수식을 정리하면 다음과 같습니다.
+
+<br>
+
+$$ a^{(z)} = \sigma(z^{(n)}) $$
+
+$$ z^{(n)} = W^{(n)}a^{(n-1)} + b^{(n)} $$
+
+$$ \sigma^{(z)} = \frac{1}{exp(-z)} $$
+
+$$ \frac{d\sigma^{(z)}}{dz} = \frac{exp(-z)}{(exp(-z) + 1)^{2}} $$
+
+<br>
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+sigma = lambda z : 1 / (1 + np.exp(-z))
+d_sigma = lambda z : np.exp(-z) / (np.exp(-z) + 1)**2
+
+# 네트워크를 구조로 초기화하고 이미 수행 한 모든 훈련을 재설정합니다.
+def reset_network (n1 = 6, n2 = 7, random=np.random) :
+    global W1, W2, W3, b1, b2, b3
+    W1 = random.randn(n1, 1)
+    W2 = random.randn(n2, n1)
+    W3 = random.randn(2, n2)
+    b1 = random.randn(n1, 1)
+    b2 = random.randn(n2, 1)
+    b3 = random.randn(2, 1)
+
+# 각 activation을 다음 계층으로 전달합니다. 모든 weighted sum과 activation을 반환합니다.
+def network_function(a0) :
+    z1 = W1 @ a0 + b1
+    a1 = sigma(z1)
+    z2 = W2 @ a1 + b2
+    a2 = sigma(z2)
+    z3 = W3 @ a2 + b3
+    a3 = sigma(z3)
+    return a0, z1, a1, z2, a2, z3, a3
 
 
+def cost(x, y) :
+    return np.linalg.norm(network_function(x)[-1] - y)**2 / x.size
+```
 
+<br>
 
+- back propagation을 하기 위해 `weight`와 `bias`에 대하여 `jacobian`을 구해야합니다.
+
+<br>
+
+$$ J_{w^{(3)}} = \frac{\partial C}{\partial W^{(3)}} $$
+
+$$ J_{b^{(3)}} = \frac{\partial C}{\partial b^{(3)}} $$
+
+$$ C = \frac{1}{N} \sum_{k}C_{k} $$
+
+<br>
+
+- `weight`에 대하여 partial derivative를 하기 위해 chain rule을 사용해 보도록 하겠습니다.
+
+<br>
+
+$$ \frac{\partial C}{\partial W^{(3)}} = \frac{\partial C}{\partial a^{(3)}}\frac{\partial a^{(3)}}{\partial z^{(3)}}\frac{\partial z^{(3)}}{\partial W^{(3)}} $$
+
+<br>
+
+- `bias`에 대하여 partial derivative를 해보겠습니다. 방법은 `weight`에 대한 partial derivative와 같습니다.
+
+<br>
+
+$$ \frac{\partial C}{\partial b^{(3)}} = \frac{\partial C}{\partial a^{(3)}}\frac{\partial a^{(3)}}{\partial z^{(3)}}\frac{\partial z^{(3)}}{\partial b^{(3)}} $$
+
+<br>
+
+- 각각의 partial derivative는 다음 식을 따릅니다.
+
+<br>
+
+$$ \frac{C}{\partial a^{(3)}} = 2(a^{(3)} -  y) $$
+
+$$ \frac{\partial a^{(3)}}{\partial z^{(3)}} = \sigma'(z^{(3)}) $$
+
+$$ \frac{\partial z^{(3)}}{\partial W^{(3)}} = a^{(2)} $$
+
+$$ \frac{\partial z^{(3)}}{\partial b^{(3)}} = 1 $$
+
+<br>
+
+- 그러면 위 식을 이용하여 $$ J_{w^{(3)}} $$을 구해보도록 하겠습니다.
+
+<br>
+
+```python
+# 3번째 layer의 weight를 위한 jacobian 입니다.
+def J_W3 (x, y) :
+    # 먼저 네트워크의 각 계층에서 모든 activation 및 weighted sum을 가져옵니다.
+    a0, z1, a1, z2, a2, z3, a3 = network_function(x)
+    # 변수 J를 사용하여 결과의 일부를 저장하고 각 줄에서 업데이트합니다.
+    # 먼저, 위 식을 사용하여 dC / da3을 계산합니다.
+    J = 2 * (a3 - y)
+    # 다음으로 우리가 계산 한 결과에 da3 / dz3 = d_sigma(z3) 을 곱해줍니다.
+    J = J * d_sigma(z3)
+    # 그런 다음 최종 편미분으로 내적을 취합니다. dz3/dW3 = a2
+    # and divide by the number of training examples, for the average over all training examples.
+    J = J @ a2.T / x.size
+    # Finally return the result out of the function.
+    return J
+
+# In this function, you will implement the jacobian for the bias.
+# As you will see from the partial derivatives, only the last partial derivative is different.
+# The first two partial derivatives are the same as previously.
+# ===YOU SHOULD EDIT THIS FUNCTION===
+def J_b3 (x, y) :
+    # As last time, we'll first set up the activations.
+    a0, z1, a1, z2, a2, z3, a3 = network_function(x)
+    # Next you should implement the first two partial derivatives of the Jacobian.
+    # ===COPY TWO LINES FROM THE PREVIOUS FUNCTION TO SET UP THE FIRST TWO JACOBIAN TERMS===
+    J = 2 * (a3 - y)
+    J = J * d_sigma(z3)
+    # For the final line, we don't need to multiply by dz3/db3, because that is multiplying by 1.
+    # We still need to sum over all training examples however.
+    # There is no need to edit this line.
+    J = np.sum(J, axis=1, keepdims=True) / x.size
+    return J
+```
 
 <br>
 
