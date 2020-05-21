@@ -13,6 +13,7 @@ tags: [vision, opencv] # add tag
 
 <br>
 
+- [opencv python snippets](https://gaussian37.github.io/vision-opencv_python_snippets/)
 - [임계값 검출 : threshold, adaptiveThreshold](https://gaussian37.github.io/vision-opencv-threshold/)
 - [히스토그램 계산 : calcHist](https://gaussian37.github.io/vision-opencv-histogram/)
 - [히스토그램 평활화 - equalizeHist](https://gaussian37.github.io/vision-opencv-equalizeHist/)
