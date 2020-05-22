@@ -40,6 +40,7 @@ tags: [python, python 기본] # add tag
 - ### 특정 문자를 기준으로 split
 - ### 특정 경로의 특정 확장자 파일명만 prefix 추가
 - ### 특정 경로의 특정 확장자 파일명만 suffix 추가
+- ### 숫자에 0을 채워서 출력
 
 <br>
 
@@ -776,3 +777,13 @@ for filename in temp_filenames:
 for filename in filenames:
     os.rename(args.path + '/' + filename, args.path + '/' + filename.split('.')[-2] + args.suffix + '.' + filename.split('.')[-1])
 ```
+
+<br>
+
+## **숫자에 0을 채워서 출력**
+
+<br>
+
+- `str.zfill(숫자)` 를 통해 문자열의 공백을 0으로 채울 수 있습니다.
+- `"%03d"`와 같은 형태로 출력하면 정수에 공백을 추가하여 출력할 수 있습니다.
+
