@@ -474,6 +474,226 @@ def J_b3 (x, y) :
 
 <br>
 
+- 다음으로 2번 layer를 위한 `jacobian`을 구해보도록 하겠습니다. partial derivative는 다음과 같습니다.
+
+<br>
+
+$$ \frac{\partial C}{\partial W^{(2)}} = \frac{\partial C}{\partial a^{(3)}} \Biggl( \frac{\partial a^{(3)}}{\partial a^{(2)}} \Biggr) \frac{\partial a^{(2)}}{\partial z^{(2)}} \frac{\partial z^{(2)}}{\partial W^{(2)}} $$
+
+$$ \frac{\partial C}{\partial b^{(2)}} = \frac{\partial C}{\partial a^{(3)}} \Biggl( \frac{\partial a^{(3)}}{\partial a^{(2)}} \Biggr) \frac{\partial a^{(2)}}{\partial z^{(2)}} \frac{\partial z^{(2)}}{\partial b^{(2)}} $$
+
+<br>
+
+- 이 식은 다음 2가지를 제외하면 앞 식과 같습니다.
+- ① $$ a^{(3)} / a^{(2)} $$
+- ② $$ a^{(3)} / a^{(2)} $$ 뒤의 term 부터는 앞 식에 비해 한 단계 낮은 layer를 다룹니다.
+
+
+<br>
+
+- 그리고 $$ a^{(3)} / a^{(2)} $$ 의 식은 다음과 같이 전개 될 수 있습니다.
+
+<br>
+
+$$ \frac{\partial a^{(3)}}{\partial a^{(2)}} = \frac{\partial a^{(3)}}{\partial z^{(3)}} \frac{\partial z^{(3)}}{\partial a^{(2)}} = \sigma'(z^{(3)}) W^{(3)} $$
+
+<br>
+
+- 왜냐하면 $$ a^{n)} = \sigma(z^{(n)}) $$ 이고 $$ {a}^{(n)} = \sigma(z^{(n)}) $$ 이기 때문에 각 term은 다음과 같이 풀어지기 때문입니다.
+
+<br>
+
+$$ \frac{\partial a^{(3)}}{\partial z^{(3)}} = \sigma'(z^{(3)}) $$
+
+$$ \frac{\partial z^{(3)}}{\partial a^{(2)}} = W^{(3)} $$
+
+$$ \frac{\partial a^{(3)}}{\partial z^{(3)}}\frac{\partial z^{(3)}}{\partial a^{(2)}} = \sigma'(z^{(3)})W^{(3)}  = \frac{a^{(3)}}{a^{(2)}}$$
+
+<br>
+
+```python
+def J_W2 (x, y):
+    a0, z1, a1, z2, a2, z3, a3 = network_function(x)
+    J = 2 * (a3 - y) / x.size
+    
+    # 다음 2 줄은 da3 / da2 = σ'(z3)*W3 을 구현하는 것입니다.
+    J = J * d_sigma(z3)
+    J = (J.T @ W3).T
+
+    # 앞에서 다룬 J_W3과 같은 방법으로 전개하지만 layer의 수가 줄어든 차이가 있습니다.
+    J = J * d_sigma(z2)
+    J = J @ a1.T 
+    return J
+
+
+def J_b2 (x, y) :
+    a0, z1, a1, z2, a2, z3, a3 = network_function(x)
+    J = 2 * (a3 - y) / x.size
+    J = J * d_sigma(z3)
+    J = (J.T @ W3).T
+    J = J * d_sigma(z2)
+    J = np.sum(J, axis=1, keepdims=True) 
+    return J
+```
+
+- 이제 첫번째 layer의 weight와 bias를 이용하여 partial derivative를 해보겠습니다. 방법은 앞에서 한 것과 같습니다.
+
+<br>
+
+$$ \frac{\partial C}{\partial W^{(1)}} =
+   \frac{\partial C}{\partial a^{(3)}}
+   \left(
+   \frac{\partial a^{(3)}}{\partial a^{(2)}}
+   \frac{\partial a^{(2)}}{\partial a^{(1)}}
+   \right)
+   \frac{\partial a^{(1)}}{\partial z^{(1)}}
+   \frac{\partial z^{(1)}}{\partial W^{(1)}}
+
+$$
+
+$$
+
+\frac{\partial C}{\partial b^{(1)}} =
+   \frac{\partial C}{\partial a^{(3)}}
+   \left(
+   \frac{\partial a^{(3)}}{\partial a^{(2)}}
+   \frac{\partial a^{(2)}}{\partial a^{(1)}}
+   \right)
+   \frac{\partial a^{(1)}}{\partial z^{(1)}}
+   \frac{\partial z^{(1)}}{\partial b^{(1)}}
+
+$$
+
+<br>
+
+```python
+
+def J_W1 (x, y) :
+    a0, z1, a1, z2, a2, z3, a3 = network_function(x)
+    J = 2 * (a3 - y) / x.size
+    J = J * d_sigma(z3)
+    J = (J.T @ W3).T
+    J = J * d_sigma(z2)
+    J = (J.T @ W2).T
+    J = J * d_sigma(z1)
+    J = J @ a0.T
+    return J
+
+def J_b1 (x, y) :
+    a0, z1, a1, z2, a2, z3, a3 = network_function(x)
+    J = 2 * (a3 - y) / x.size
+    J = J * d_sigma(z3)
+    J = (J.T @ W3).T
+    J = J * d_sigma(z2)
+    J = (J.T @ W2).T
+    J = J * d_sigma(z1)
+    J = np.sum(J, axis=1, keepdims=True)
+    return J
+
+```
+
+<br>
+
+- 나머지 아래 부분은 실습을 하기 위한 데이터 생성 부분과 학습을 위한 코드입니다.
+
+<br>
+
+```python
+import numpy as np
+import matplotlib.colors as mcolors
+import matplotlib.pyplot as plt
+
+def plot_training (x, y, iterations=10000, aggression=3.5, noise=1) :
+    global W1, W2, W3, b1, b2, b3
+    fig,ax = plt.subplots(figsize=(8, 8), dpi= 80)
+    ax.set_xlim([0,1])
+    ax.set_ylim([0,1])
+    ax.set_aspect(1)
+
+    xx = np.arange(0,1.01,0.01)
+    yy = np.arange(0,1.01,0.01)
+    X, Y = np.meshgrid(xx, yy)
+    Z = ((X-0.5)**2 + (Y-1)**2)**(1/2) / (1.25)**(1/2)
+    im = ax.imshow(Z, vmin=0, vmax=1, extent=[0, 1, 1, 0], cmap=blueMap)
+
+    ax.plot(y[0],y[1], lw=1.5, color=green);
+
+    while iterations>=0 :
+        j_W1 = J_W1(x, y) * (1 + np.random.randn() * noise)
+        j_W2 = J_W2(x, y) * (1 + np.random.randn() * noise)
+        j_W3 = J_W3(x, y) * (1 + np.random.randn() * noise)
+        j_b1 = J_b1(x, y) * (1 + np.random.randn() * noise)
+        j_b2 = J_b2(x, y) * (1 + np.random.randn() * noise)
+        j_b3 = J_b3(x, y) * (1 + np.random.randn() * noise)
+
+        W1 = W1 - j_W1 * aggression
+        W2 = W2 - j_W2 * aggression
+        W3 = W3 - j_W3 * aggression
+        b1 = b1 - j_b1 * aggression
+        b2 = b2 - j_b2 * aggression
+        b3 = b3 - j_b3 * aggression
+
+        if (iterations%100==0) :
+            nf = network_function(x)[-1]
+            ax.plot(nf[0],nf[1], lw=2, color=magentaTrans);
+        iterations -= 1
+
+    nf = network_function(x)[-1]
+    ax.plot(nf[0],nf[1], lw=2.5, color=orange);
+
+
+def training_data (N = 100) :
+    x = np.arange(0,1,1/N)
+    y = np.array([
+      16*np.sin(2*np.pi*x)**3,
+      13*np.cos(2*np.pi*x) - 5*np.cos(2*2*np.pi*x) - 2*np.cos(3*2*np.pi*x)- np.cos(4*2*np.pi*x)
+    ]
+    ) / 20
+    y = (y+1)/2
+    x = np.reshape(x, (1, N))
+    #y = np.reshape(y, (2, N))
+    return x, y
+
+def make_colormap(seq):
+    seq = [(None,) * 3, 0.0] + list(seq) + [1.0, (None,) * 3]
+    cdict = {'red': [], 'green': [], 'blue': []}
+    for i, item in enumerate(seq):
+        if isinstance(item, float):
+            r1, g1, b1 = seq[i - 1]
+            r2, g2, b2 = seq[i + 1]
+            cdict['red'].append([item, r1, r2])
+            cdict['green'].append([item, g1, g2])
+            cdict['blue'].append([item, b1, b2])
+    return mcolors.LinearSegmentedColormap('CustomMap', cdict)
+
+magenta = (0xfc/255, 0x75/255, 0xdb/255) # Brighter magenta
+magentaTrans = (0xfc/255, 0x75/255, 0xdb/255, 0.1) # Brighter Transparent magenta
+orange = (218/255, 171/255, 115/255)
+green = (175/255, 219/255, 133/255)
+white = (240/255, 245/255, 250/255)
+blue1 = (70/255, 101/255, 137/255)
+blue2 = (122/255, 174/255, 215/255)
+
+blueMap = make_colormap([blue2, blue1])
+
+```
+
+<br>
+
+- 앞에서 선언한 `jacobian 함수`들과 `plot_training` 그리고 `training_data`을 이용해서 Neural Network 학습을 해볼 수 있습니다.
+
+<br>
+
+```python
+x, y = training_data()
+reset_network()
+
+plot_training(x, y, iterations=10000, aggression=7, noise=1)
+
+```
+
+<br>
+
 
 
 <br>
