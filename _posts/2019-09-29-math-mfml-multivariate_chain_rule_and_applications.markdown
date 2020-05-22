@@ -619,19 +619,12 @@ def plot_training (x, y, iterations=10000, aggression=3.5, noise=1) :
     ax.plot(y[0],y[1], lw=1.5, color=green);
 
     while iterations>=0 :
-        j_W1 = J_W1(x, y) * (1 + np.random.randn() * noise)
-        j_W2 = J_W2(x, y) * (1 + np.random.randn() * noise)
-        j_W3 = J_W3(x, y) * (1 + np.random.randn() * noise)
-        j_b1 = J_b1(x, y) * (1 + np.random.randn() * noise)
-        j_b2 = J_b2(x, y) * (1 + np.random.randn() * noise)
-        j_b3 = J_b3(x, y) * (1 + np.random.randn() * noise)
-
-        W1 = W1 - j_W1 * aggression
-        W2 = W2 - j_W2 * aggression
-        W3 = W3 - j_W3 * aggression
-        b1 = b1 - j_b1 * aggression
-        b2 = b2 - j_b2 * aggression
-        b3 = b3 - j_b3 * aggression
+        W1 = W1 - J_W1(x, y) * aggression
+        W2 = W2 - J_W2(x, y) * aggression
+        W3 = W3 - J_W3(x, y) * aggression
+        b1 = b1 - J_b1(x, y) * aggression
+        b2 = b2 - J_b2(x, y) * aggression
+        b3 = b3 - J_b3(x, y) * aggression
 
         if (iterations%100==0) :
             nf = network_function(x)[-1]
@@ -693,8 +686,29 @@ plot_training(x, y, iterations=10000, aggression=7, noise=1)
 ```
 
 <br>
+<center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/15.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
 
+- 위 코드 중 이 부분이 학습의 핵심 입니다. 아래의 `while` 문을 한번 보시기 바랍니다.
+- `partial derivative`를 이용하여 계산한 값을 빼주어서 weight와 bias를 업데이트 합니다. 앞에서 다룬 내용 그대로 입니다.
+- 여기서 사용된 `aggression`은 얼만큼의 가중치로 변화율을 반영해 줄 것인지에 대한 하이퍼 파라미터로 소위 말하는 `learning rate`입니다.
+
+<br>
+
+```python
+while iterations>=0 :
+    W1 = W1 - J_W1(x, y) * aggression
+    W2 = W2 - J_W2(x, y) * aggression
+    W3 = W3 - J_W3(x, y) * aggression
+    b1 = b1 - J_b1(x, y) * aggression
+    b2 = b2 - J_b2(x, y) * aggression
+    b3 = b3 - J_b3(x, y) * aggression
+```
+
+<br>
+
+- 여기 까지 이번 글에서는 `multivariate chain rule`에 대하여 다루어 보았고 그 개념을 통해 `neural network`를 간략하게 만들어 보았습니다.
 
 <br>
 
