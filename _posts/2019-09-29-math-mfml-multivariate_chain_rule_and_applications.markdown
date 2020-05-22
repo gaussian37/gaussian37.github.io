@@ -453,32 +453,28 @@ def J_W3 (x, y) :
     a0, z1, a1, z2, a2, z3, a3 = network_function(x)
     # 변수 J를 사용하여 결과의 일부를 저장하고 각 줄에서 업데이트합니다.
     # 먼저, 위 식을 사용하여 dC / da3을 계산합니다.
-    J = 2 * (a3 - y)
+    J = 2 * (a3 - y) / x.size
     # 다음으로 우리가 계산 한 결과에 da3 / dz3 = d_sigma(z3) 을 곱해줍니다.
     J = J * d_sigma(z3)
-    # 그런 다음 최종 편미분으로 내적을 취합니다. dz3/dW3 = a2
-    # and divide by the number of training examples, for the average over all training examples.
-    J = J @ a2.T / x.size
-    # Finally return the result out of the function.
+    # 그런 다음 최종 편미분으로 내적을 취합니다. dz3 / dW3 = a2
+    J = J @ a2.T
     return J
 
-# In this function, you will implement the jacobian for the bias.
-# As you will see from the partial derivatives, only the last partial derivative is different.
-# The first two partial derivatives are the same as previously.
-# ===YOU SHOULD EDIT THIS FUNCTION===
+# 이 함수에서는 bias에 대한 자코비안을 구현합니다.
+# partial derivative에서 볼 수 있듯이 마지막 partial derivative만 다릅니다.
+# 처음 두 부분 partial derivative는 이전과 동일합니다.
 def J_b3 (x, y) :
-    # As last time, we'll first set up the activations.
     a0, z1, a1, z2, a2, z3, a3 = network_function(x)
-    # Next you should implement the first two partial derivatives of the Jacobian.
-    # ===COPY TWO LINES FROM THE PREVIOUS FUNCTION TO SET UP THE FIRST TWO JACOBIAN TERMS===
-    J = 2 * (a3 - y)
+    J = 2 * (a3 - y) / x.size
     J = J * d_sigma(z3)
-    # For the final line, we don't need to multiply by dz3/db3, because that is multiplying by 1.
-    # We still need to sum over all training examples however.
-    # There is no need to edit this line.
-    J = np.sum(J, axis=1, keepdims=True) / x.size
+    # 마지막 줄에는 dz3 / db3을 곱할 필요가 없습니다. 왜냐하면 1을 곱하기 때문입니다.
+    J = np.sum(J, axis=1, keepdims=True)
     return J
 ```
+
+<br>
+
+
 
 <br>
 
