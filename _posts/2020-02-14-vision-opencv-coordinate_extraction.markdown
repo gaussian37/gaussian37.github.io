@@ -44,7 +44,7 @@ finally:
 
 # argparse가 없으면 argparse를 설치한다.
 try:
-    import cv2
+    import argparse
 except ModuleNotFoundError:
     print("Install argparse in python3")
     subprocess.call([sys.executable, "-m", "pip", "install", 'argparse'])
