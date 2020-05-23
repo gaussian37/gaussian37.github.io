@@ -16,6 +16,17 @@ tags: [리눅스, 이클립스, opencv] # add tag
 
 <br>
 
+## **목차**
+
+<br>
+
+- ### 이클립스 설치
+- ### OpenCV 설치
+- ### 이클리스에서 OpenCV 연동하기
+- ### 터미널에서 OpenCV 연동 컴파일 및 실행
+
+<br>
+
 ## **이클립스 설치**
 
 <br>
@@ -379,3 +390,29 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
     - opencv_imgcodecs
     - opencv_highgui
     - opencv_imgproc 
+
+<br>
+
+## **터미널에서 OpenCV 연동 컴파일 및 실행**
+
+<br>
+
+- 앞에서 opencv 설치를 완료 하였다는 가정 하에, 이클립스 대신 터미널 창에서 바로 OpenCV를 연동하여 바로 컴파일 및 실행하는 방법에 대하여 알아보겠습니다.
+- `c` 파일을 컴파일 하려면 `gcc`를 사용하시면 되고 `cpp` 파일을 컴파일 하려면 `g++`을 사용하시면 됩니다. 편의상 `gcc`로 두고 설명하겠습니다.
+- 실행 명령어 : `gcc -o "run_file" "src_file" $(package)`
+- 예를 들면 `gcc -o test test.c $(pkg-config --libs --cflags opencv)` 로 할 수 있습니다. 해석하면 현재 경로에 `test` 라는 실행 파일을 생성하는 데, 코드는 `test.c`를 이용한다는 뜻입니다. 이 때, `pkg-config --libs --cflags opencv`를 패키지로 이용하여 컴파일을 한다는 뜻입니다. 
+- 이 명령어를 입력하면 현재 경로에 `test`라는 실행 파일이 생깁니다. 이 파일을 실행하면 됩니다.
+- 물론 원하는 경로에 실행 파일을 생성할 수 있고 원하는 경로의 코드를 불러올 수 있습니다. 그러면 예를 들어 다음과 같이 변경할 수 있습니다.
+    - 예 : `gcc -o /home/gaussian37/test /home/gaussian37/test.c $(pkg-config --libs --cflags opencv)`
+
+<br>
+
+- 추가적으로 `(pkg-config --libs --cflags opencv)`에 대하여 설명드리겠습니다. opencv가 설치된 리눅스 환경의 터미널에서 다음 명령어를 입력해 보시기 바랍니다. 아래 설명은 제 컴퓨터 기준이므로 각자의 컴퓨터에 opencv가 설치된 환경에 따라서 출력물이 다를 수 있습니다.
+- 명령어 1 : `pkg-config --libs opencv`
+    - 출력 : `-L/usr/local/lib -lopencv_stitching -lopencv_superres -lopencv_videostab -lopencv_aruco -lopencv_bgsegm -lopencv_bioinspired -lopencv_ccalib -lopencv_dnn_objdetect -lopencv_dpm -lopencv_face -lopencv_photo -lopencv_freetype -lopencv_fuzzy -lopencv_hfs -lopencv_img_hash -lopencv_line_descriptor -lopencv_optflow -lopencv_reg -lopencv_rgbd -lopencv_saliency -lopencv_stereo -lopencv_structured_light -lopencv_phase_unwrapping -lopencv_surface_matching -lopencv_tracking -lopencv_datasets -lopencv_text -lopencv_dnn -lopencv_plot -lopencv_xfeatures2d -lopencv_shape -lopencv_video -lopencv_ml -lopencv_ximgproc -lopencv_calib3d -lopencv_features2d -lopencv_highgui -lopencv_videoio -lopencv_flann -lopencv_xobjdetect -lopencv_imgcodecs -lopencv_objdetect -lopencv_xphoto -lopencv_imgproc -lopencv_core`
+    - 의미 : 컴파일 할 때 사용할 라이브러리 파일 목록입니다.
+- 명령어 2 : `pkg-config --cflags opencv`
+    - 출력 : `-I/usr/local/include/opencv -I/usr/local/include`
+    - 의미 : opencv가 설치된 패키지의 경로를 나타냅니다.
+`
+
