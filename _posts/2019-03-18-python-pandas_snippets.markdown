@@ -17,6 +17,7 @@ tags: [pandas, python, python 기본] # add tag
 
 - ### read_csv(excel) 함수를 통하여 파일 읽을 때
 - ### to_csv(excel) 함수를 통하여 파일 쓸 때
+- ### column 명 확인
 
 
 <br>
@@ -44,3 +45,22 @@ tags: [pandas, python, python 기본] # add tag
     - `header = None`
 - ③ 파일을 쓸 때, 구분자의 기준을 주고 싶다면 다음 옵션을 줍니다.
     - `sep = ','`, 특정 문자를 입력하면 됩니다.
+
+<br>
+
+## **column 명 확인**
+
+<br>
+
+- DataFrame에서 column의 이름을 확인할 때, 다음과 같습니다.
+
+<br>
+
+```python
+df = pd.read_csv("file.csv")
+column_list = list(df.columns)
+column_list = df.columns.values.tolist()
+```
+
+<br>
+
