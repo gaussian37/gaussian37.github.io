@@ -19,6 +19,7 @@ tags: [opencv, python, snippets] # add tag
 
 - ### window 창 크기 조절하는 방법
 - ### contrast와 brightness 변경 방법
+- ### 이미지 붙이기(hconcat, vconcat)
 
 <br>
 
@@ -80,6 +81,23 @@ new_image = cv.convertScaleAbs(image, alpha=alpha, beta=beta)
 <br>
 
 - 위 코드는 for-loop을 사용하지 않으면서도 opencv 내부적으로 잘 구현되어 있어서 for-loop의 naive한 버전 보다 상당히 빠르게 contrast와 brightness를 적용할 수 있습니다.
+
+<br>
+
+## **이미지 붙이기(hconcat, vconcat)**
+
+<br>
+
+- 이미지를 가로로 또는 세로로 붙이고 싶을 때, 쉽게 사용할 수 있는 함수가 `hconcat`과 `vconcat`이 있습니다.
+- `hconcat`은 horizontal concatenate로 가로로 이미지를 붙이는 것이고 `vconcat`은 vertical concatenate로 세로로 이미지를 붙이는 것입니다.
+- `hconcat`을 이용하려면 가로로 붙여야 하기 때문에 height가 같아야 합니다. 반면 `vconcat`은 세로로 이미지를 붙여야 하기 때문에 width가 같아야 합니다.
+
+<br>
+
+```python
+image = cv2.hconcat([image1, image2, image3])
+image = cv2.vconcat([image1, image2, image3])
+```
 
 <br>
 
