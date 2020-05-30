@@ -129,6 +129,59 @@ $$ \text{where } w_{bias} \in \mathbb R \text{ is the bias of the kernel } w $$
 
 <br>
 
+<br>
+<center><img src="../assets/img/dl/concept/conv/4.gif" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 예제의 속성을 먼저 살펴보면 다음과 같습니다.
+
+<br>
+
+- Input shape : (7, 7, 1)
+- Output shape : (5, 5, 4)
+- Kernel : (3, 3)
+- Padding : (0, 0)
+- Stride : (1, 1)
+- Dilation : (1, 1)
+- Group : 1
+
+<br>
+
+- convolution 연산을 할 때, `layer`를 만드는 이유는 유사한 convolution 연산을 한번에 하기 위해서 입니다. 
+- 예를 들어 위 그림과 같이 kernel의 갯수가 4개 있다고 하면, 각 kernel은 동일한 연산을 하여 4개의 output을 만듭니다.
+
+<br>
+
+$$ G_{out}(x, y) = w_{out} * F(x, y) = \Biggl( \sum_{\delta x = -k_{i}}^{k_{i}} \sum_{\delta y = -k_{j}}^{k_{j}} w_{out}(\delta x, \delta y) \cdot F(x + \delta x, y + \delta y) \Biggr) + {w_{out}}_{bias}$$
+
+<br>
+
+- 앞에서 살펴본 parameter의 갯수를 생각해 보면 kernel의 갯수가 늘어나면 그 늘어난 양에 비례하여 parameter의 갯수가 늘어나는 것을 알 수 있습니다. 
+- kernel의 갯수가 늘어나면 parameter의 갯수가 늘어나고 parameter의 갯수가 늘어나면 **element-wise multiplication**을 해야 할 연산의 갯수 또한 늘어납니다. 따라서 연산량이 늘어서 처리 속도 또한 늘어나게 됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/conv/5.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- kernel의 갯수를 늘린 것 처럼 Input의 갯수를 늘려보겠습니다. 예를 들어 일반적으로 사용하는 RGB와 같은 3채널로 늘려보겠습니다
+
+<br>
+<center><img src="../assets/img/dl/concept/conv/6.gif" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- Input shape : (7, 7, 3)
+- Output shape : (5, 5, 4)
+- Kernel : (3, 3)
+- Padding : (0, 0)
+- Stride : (1, 1)
+- Dilation : (1, 1)
+- Group : 1
+
+<br>
+
+- Input의 갯수가 n개로 늘어나면 같은 kernel이 n번의 convolution 연산이 발생하게 됩니다.
+- 위 그림에서 kernel은 총 4개 입니다. (같은 column은 같은 kernel 입니다.) 각 kernel은 각 Input에 convolution 연산을 하게 되고 그 결과 Input의 갯수 만큼의 element-wise multiplication 결과가 scalar 값으로 나오게 됩니다. 위 예제에서는 3개의 scalar 값이 나오게 됩니다. 이 값을 더하여 1개의 scalar 값을 만들 수 있는데 이 값이 output의 한 픽셀의 값이 됩니다.
+
 
 - ### Kernel의 size 란
 - ### Stride 란
