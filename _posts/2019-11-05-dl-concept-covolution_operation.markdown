@@ -103,8 +103,33 @@ $$ w \text{ is kernel and } -k_{i} \ge \delta x \ge k_{i}, \ \ -k_{j} \ge \delta
 
 - 연산의 과정을 위 예제를 통해 정리해 보겠습니다. 위 예제에서는 Input image의 크기는 (9, 9, 1) 입니다. kernel의 크기는 (3, 3) 입니다. kernel은 Input image의 전 영역을 sliding window 하면서 **element-wise multiplication** 연산을 하게 되고 각 연산은 (1, 1)의 scalar 값을 가지게 됩니다. 
 
-- ### Parameter와 Bias 이란
-- ### Input, output channel의 갯수란
+<br>
+
+## **Trainable parameter와 bias 란**
+
+<br>
+
+- parameter들은 학습 과정 동안 update 됩니다. `Conv2d`에서 학습이 되는 parameter는 무엇일까요? 바로 `kernel` 입니다.
+- 앞의 예제에서 (3, 3) 크기의 kernel을 이용하여 convolution 연산을 하였습니다. 이 때 사용된 9 개의 원소가 학습할 때 업데이트가 되는 parameter 입니다.
+
+<br>
+
+$$ w * F(x, y) = \Biggl( \sum_{\delta x = -k_{i}}^{k_{i}} \sum_{\delta y = -k_{j}}^{k_{j}} w(\delta x, \delta y) \cdot F(x + \delta x, y + \delta y) \Biggr) + w_{bias}$$
+
+$$ \text{where } w_{bias} \in \mathbb R \text{ is the bias of the kernel } w $$
+
+<br>
+
+- 만약 `bias` 까지 포함하여 생각한다면 위 수식처럼 표현할 수 있습니다. `bias`는 convolution product 연산한 값에 덧셈을 해주는 trainable parameter 입니다.
+- 만약 앞에서 다룬 예제에서 (3, 3) kernel에 bias가 추가된다면 parameter의 갯수는 총 몇개가 될까요? 9 + 1 =  10개가 됩니다.
+
+<br>
+
+## **Input, output channel의 갯수란**
+
+<br>
+
+
 - ### Kernel의 size 란
 - ### Stride 란
 - ### Padding 이란
