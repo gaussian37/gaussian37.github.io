@@ -49,7 +49,8 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 
 - Input shape : (7, 7, 3)
 - Output shape : (3, 3, 2)
-- Kernel : (3, 3)
+- Kernel shape : (3, 3)
+- Stride : (2, 2)
 - Padding : (1, 1)
 - Dilation : (2, 2)
 - Group : 1
@@ -79,7 +80,7 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 ## **Kernel 이란**
 
 <br>
-<center><img src="../assets/img/dl/concept/conv/2.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/conv/2.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - kernel 또는 filter라고 하는 convolution matrix는 input image의 전 영역들에 걸쳐서 연산 됩니다.
@@ -139,9 +140,9 @@ $$ \text{where } w_{bias} \in \mathbb R \text{ is the bias of the kernel } w $$
 
 - Input shape : (7, 7, 1)
 - Output shape : (5, 5, 4)
-- Kernel : (3, 3)
-- Padding : (0, 0)
+- Kernel shape : (3, 3)
 - Stride : (1, 1)
+- Padding : (0, 0)
 - Dilation : (1, 1)
 - Group : 1
 
@@ -171,19 +172,52 @@ $$ G_{out}(x, y) = w_{out} * F(x, y) = \Biggl( \sum_{\delta x = -k_{i}}^{k_{i}} 
 
 - Input shape : (7, 7, 3)
 - Output shape : (5, 5, 4)
-- Kernel : (3, 3)
-- Padding : (0, 0)
+- Kernel shape : (3, 3)
 - Stride : (1, 1)
+- Padding : (0, 0)
 - Dilation : (1, 1)
 - Group : 1
 
 <br>
 
 - Input의 갯수가 n개로 늘어나면 같은 kernel이 n번의 convolution 연산이 발생하게 됩니다.
-- 위 그림에서 kernel은 총 4개 입니다. (같은 column은 같은 kernel 입니다.) 각 kernel은 각 Input에 convolution 연산을 하게 되고 그 결과 Input의 갯수 만큼의 element-wise multiplication 결과가 scalar 값으로 나오게 됩니다. 위 예제에서는 3개의 scalar 값이 나오게 됩니다. 이 값을 더하여 1개의 scalar 값을 만들 수 있는데 이 값이 output의 한 픽셀의 값이 됩니다.
+- 위 그림에서 kernel은 총 12개 입니다. 먼저 Input의 각 channel에 kernel이 element-wise multiplication을 하게 됩니다. 이 때, Input의 갯수 만큼의 kernel이 연산에 사용됩니다.
+- 그 다음 필요한 Output의 채널 만큼 이 연산을 반복합니다. 위 예제에서 Output의 채널 수는 4이므로 4번을 반복하게 됩니다.
+- 따라서 사용된 kernel의 갯수는 12개가 됩니다. (Input의 채널 수 * Output의 채널 수)
+- 수식으로 정리하면 다음과 같습니다.
 
+<br>
 
-- ### Kernel의 size 란
+$$ G_{out}(x, y) = \sum_{in=0}^{N_{in}} w_{out, in} * F_{in}(x, y) = \sum_{in=0}^{N_{in}}\Biggl( \Biggl( \sum_{\delta x = -k_{i}}^{k_{i}} \sum_{\delta y = -k_{j}}^{k_{j}} w_{out, in}(\delta x, \delta y) \cdot F_{in}(x + \delta x, y + \delta y) \Biggr) + {w_{out, in}}_{bias} \biggr)$$
+
+<br>
+
+- 앞에서 다룬 내용을 생각해 보면 kernel의 갯수가 늘어남에 따라 parameter 수와 수행 시간이 늘어난다는 것을 확인하였습니다.
+- 즉, Input channel의 갯수가 늘어나면 kernel의 갯수가 늘어나게 되므로 parameter와 수행시간이 늘어나게 됨을 유추할 수 있습니다. 아래 그림을 통해 확인해 보면 됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/conv/7.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+## **Kernel의 size 란**
+
+<br>
+<center><img src="../assets/img/dl/concept/conv/8.gif" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- Input shape : (7, 9, 3)
+- Output shape : (3, 9, 2)
+- Kernel shape : (5, 2)
+- Stride : (1, 1)
+- Padding : (0, 0)
+- Dilation : (1, 1)
+- Group : 1
+
+<br>
+
+- 앞의 모든 예제에서 kernel의 크기를 (3, 3)을 사용하였습니다. 어떤 커널의 크기를 사용하는 지는 딥러닝 네트워크 설계에 달려있습니다. 다만 지금까지 연구되어 온 바로는 (3, 3)을 여러개 사용하는 것이 (5, 5), (7, 7)과 같이 큰 네트워크를 사용하는 것에 비해 효과가 좋다고 알려져 있기 때문에 (3, 3)의 크기의 kernel이 일반적으로 사용되고 있습니다.
+- 바로 위 예제에서는 일반적인 (3, 3) 크기의 kernel 대신 (5, 2)라는 다소 특이한 크기의 kernel을 예제로 사용해 보았습니다. 목적만 뚜렷하다면 height, width의 크기가 달라도 상관없습니다.
+
 - ### Stride 란
 - ### Padding 이란
 - ### Dilation 이란
