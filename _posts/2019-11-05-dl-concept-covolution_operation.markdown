@@ -18,9 +18,9 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 
 <br>
 
-- ### Convolution 연산 이란
+- ### Convolution 연산 소개
 - ### Kernel 이란
-- ### Parameter와 Bias 이란
+- ### Trainable parameter와 bias 란
 - ### Input, output channel의 갯수란
 - ### Kernel의 size 란
 - ### Stride 란
@@ -28,6 +28,10 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 - ### Dilation 이란
 - ### Group 이란
 - ### Output Channel Size 란
+
+<br>
+
+## **Convolution 연산 소개**
 
 <br>
 
@@ -60,11 +64,11 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 - `in_channels` (int) — Number of channels in the input image
 - `out_channels` (int) — Number of channels produced by the convolution
 - `kernel_size` (int or tuple) — Size of the convolving kernel
-- `stride` (int or tuple, optional) — Stride of the convolution. Default: 1
-- `padding` (int or tuple, optional) — Zero-padding added to both sides of the input. Default: 0
-- `dilation` (int or tuple, optional) — Spacing between kernel elements. Default: 1
-- `groups` (int, optional) — Number of blocked connections from input channels to output channels. Default: 1
-- `bias` (bool, optional) — If True, adds a learnable bias to the output. Default: True
+- `stride` (int or tuple, **optional**) — Stride of the convolution. Default: 1
+- `padding` (int or tuple, **optional**) — Zero-padding added to both sides of the input. Default: 0
+- `dilation` (int or tuple, **optional**) — Spacing between kernel elements. Default: 1
+- `groups` (int, **optional**) — Number of blocked connections from input channels to output channels. Default: 1
+- `bias` (bool, **optional**) — If True, adds a learnable bias to the output. Default: True
 
 <br>
 
@@ -72,13 +76,33 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 
 <br>
 
-## **Convolution 연산 이란**
+## **Kernel 이란**
+
+<br>
+<center><img src="../assets/img/dl/concept/conv/2.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- kernel 또는 filter라고 하는 convolution matrix는 input image의 전 영역들에 걸쳐서 연산 됩니다.
+- 일반적으로 **left-top** → **right-bottom** 방향으로 sliding window를 하면서 연산이 됩니다. 이 때 각 영역에서 `convolution product`가 연산됩니다. 이 연산을 거치기 전을 Input image 이라고 한다면 연산 후는 `filtered image` 라고 합니다.
+- 위 그림에서 `convolution product`를 살펴보면 kernel의 각 원소와 1 대 1 대응이 되는 Input 영역이 있고 Input의 값과 kernel의 값을 곱한 뒤 그 결과를 모두 더하면 output 픽셀 하나가 완성됨을 볼 수 있습니다. 즉, **element-wise multiplication** 연산을 합니다.
+- 그러면 이 연산을 수식으로 표현해 보겠습니다.
 
 <br>
 
-- 
+$$  G(x, y) = w * F(x, y) = \sum_{\delta x = -k_{i}}^{k_{i}} \sum_{\delta y = -k_{j}}^{k_{j}} w(\delta x, \delta y) \cdot F(x + \delta x, y + \delta y) $$
 
-- ### Kernel 이란
+$$ w \text{ is kernel and } -k_{i} \ge \delta x \ge k_{i}, \ \ -k_{j} \ge \delta y \ge k_{j} $$
+
+<br>
+
+- 위 수식에서 $$ \detla x, \delta y $$ 각각은 현재 convolution product가 되는 kernel의 중앙 위치가 이미지 좌표계 원점에서 얼마큰 떨어져 있는지를 나타냅니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/conv/3.gif" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 연산의 과정을 위 예제를 통해 정리해 보겠습니다. 위 예제에서는 Input image의 크기는 (9, 9, 1) 입니다. kernel의 크기는 (3, 3) 입니다. kernel은 Input image의 전 영역을 sliding window 하면서 **element-wise multiplication** 연산을 하게 되고 각 연산은 (1, 1)의 scalar 값을 가지게 됩니다. 
+
 - ### Parameter와 Bias 이란
 - ### Input, output channel의 갯수란
 - ### Kernel의 size 란
