@@ -138,8 +138,8 @@ $$ \text{where } w_{bias} \in \mathbb R \text{ is the bias of the kernel } w $$
 
 <br>
 
-- Input shape : (7, 7, 1)
-- Output shape : (5, 5, 4)
+- Input shape : (7, 7, `1`)
+- Output shape : (5, 5, `4`)
 - Kernel shape : (3, 3)
 - Stride : (1, 1)
 - Padding : (0, 0)
@@ -170,8 +170,8 @@ $$ G_{out}(x, y) = w_{out} * F(x, y) = \Biggl( \sum_{\delta x = -k_{i}}^{k_{i}} 
 <center><img src="../assets/img/dl/concept/conv/6.gif" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- Input shape : (7, 7, 3)
-- Output shape : (5, 5, 4)
+- Input shape : (7, 7, `3`)
+- Output shape : (5, 5, `4`)
 - Kernel shape : (3, 3)
 - Stride : (1, 1)
 - Padding : (0, 0)
@@ -207,7 +207,7 @@ $$ G_{out}(x, y) = \sum_{in=0}^{N_{in}} w_{out, in} * F_{in}(x, y) = \sum_{in=0}
 
 - Input shape : (7, 9, 3)
 - Output shape : (3, 9, 2)
-- Kernel shape : (5, 2)
+- `Kernel shape` : **(5, 2)**
 - Stride : (1, 1)
 - Padding : (0, 0)
 - Dilation : (1, 1)
@@ -243,7 +243,7 @@ $$ G_{out}(x, y) = \sum_{in=0}^{N_{in}} w_{out, in} * F_{in}(x, y) = \sum_{in=0}
 - Input shape : (9, 9, 3)
 - Output shape : (7, 3, 2)
 - Kernel shape : (3, 3)
-- Stride : (1, 3)
+- `Stride` : **(1, 3)**
 - Padding : (0, 0)
 - Dilation : (1, 1)
 - Group : 1
@@ -275,7 +275,7 @@ $$ G_{out}(x, y) = \sum_{in=0}^{N_{in}} w_{out, in} * F_{in}(x, y) = \sum_{in=0}
 - Input shape : (7, 7, 2)
 - Output shape : (7, 7, 1)
 - Kernel shape : (3, 3)
-- Padding : (1, 1)
+- `Padding` : **(1, 1)**
 - Stride : (1, 1)
 - Dilation : (1, 1)
 - Group : 1
@@ -299,9 +299,86 @@ $$ G_{out}(x, y) = \sum_{in=0}^{N_{in}} w_{out, in} * F_{in}(x, y) = \sum_{in=0}
 
 <br>
 
+- 이번에는 `dilation`에 대하여 알아보겠습니다. dilation은 kernel의 한 픽셀에서 다른 픽셀 까지의 거리를 나타냅니다.
+- 지금 까지 살펴본 예제들을 보면 모두 dilation은 (1, 1) 이었습니다. 즉, 한 픽셀에서 다른 픽셀 까지 거리가 1로 바로 옆에 붙어있었기 때문입니다. 반면 다음 예제를 한번 살펴보겠습니다.
 
-- ### Group 이란
-- ### Output Channel Size 란
+<br>
+<center><img src="../assets/img/dl/concept/conv/14.gif" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Input shape : (9, 9, 2)
+- Output shape : (5, 9, 1)
+- Kernel shape : (3, 3)
+- Stride : (1, 1)
+- Padding : (2, 2)
+- `Dilation` : **(4, 2)**
+- Group : 1
+
+<br>
+
+- 위 예제의 dilation은 (4, 2) 입니다. 즉, Input과 계산되는 kernel에서 한 픽셀에서 바로 옆의 픽셀 까지의 height 방향으로 4칸 이동해야 하고 width 방향으로 2칸 이동해야 한다는 뜻입니다.
+- 이와 같은 방법을 사용하는 이유는 `receptive field`를 넓히기 위함입니다. 즉, kernel이 한번에 넓은 영역을 보고 학습할 수 있다는 뜻입니다.
+- 만약 dilation이 (1, 1)이면 kernel의 receptive field는 (3, 3)이지만 위 처럼 (4, 2)의 dilation을 적용하면 (4 * (3 - 1) + 1, 2 * (3 - 1) + 1) = (9, 5)가 됩니다.
+ 
+<br>
+<center><img src="../assets/img/dl/concept/conv/15.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 다룬 stride와 padding과 같이 dilation 또한 kernel의 수에 직접적인 영향을 주진 않습니다.
+- stride, padding에 비해 연산량 변화에 대한 영향도 미미합니다.
+
+<br>
+
+## **Group 이란**
+
+<br>
+
+- 이번에 다루어 볼 것은 group 입니다. group은 channel과 연관이 있습니다.
+- 앞에서 다룬 내용들을 보면 Input의 모든 channel과 kernel이 element-wise multiplication 연산을 한 뒤 **합하여 1개의 scalar 값**이 되어 output의 한 픽셀 값이 되었습니다. 여기서 모두 합하여 1개의 값으로 만든다는 것이 group이 1이라는 뜻입니다.
+- 만약 Input channel이 10이고 group이 5라면 element-wise multiplication 연산한 결과를 차례 대로 2개씩 묶어서 5쌍을 만들 수 있습니다. 그러면 Output이 5개가 나오게 됩니다. 예제를 한번 살펴보겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/conv/16.gif" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Input shape : (7, 7, 2)
+- Output shape : (5, 5, 4)
+- Kernel shape : (3, 3)
+- Stride : (2, 2)
+- Padding : (2, 2)
+- Dilation : (1, 1)
+- Group : 2
+
+<br>
+
+- 위 예제를 보면 Input의 channel이 2이고 Group이 2 그리고 kernel 셋이 2개가 있기 때문에 Output의 channel이 4가 됨을 알 수 있습니다.
+- 이렇게 group을 나누는 이유를 보면 다양한 이유가 있을 수 있습니다. 예를 들어 kernel을 연산한 결과를 하나로 합해야 할 이유가 없을 때가 있을 수 있습니다. 즉, Input의 channel 마다 성질이 달라 `independent` 하다면 element-wise multiplication 결과를 굳이 하나로 합칠 필요가 없습니다.
+- 또는 `mobilenet` 에서 사용되는 depthwise separable 연산과 같이 파라미터의 수를 줄이기 위해서도 사용될 수 있습니다. 위 예제를 보시다 시피 **kernel 이 공유되어서 사용되기 때문**입니다.
+- 보통 pytorch와 같은 framework에서는 Input과 Output의 크기를 정한 뒤 group을 지정해줍니다. 이 때, 주의해야 할 점은 연산을 하기 위해 **group이 반드시 Input의 channel과 output의 channel의 공약수**이어야 한다는 점입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/conv/17.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- chnnel은 고정일 때, group의 갯수가 커지면 공유되는 kernel의 수가 많아지므로 파라미터의 갯수는 줄어들게 됩니다.
+- 단순히 파라미터의 갯수가 줄어들면 연산해야 할 양이 작아진다고 생각을 하였었는데 이번에는 조금 다릅니다. 파라미터의 갯수는 줄었지만 output의 channel 수는 오히려 늘어날 수 있기 때문입니다. 위 그래프를 참조하시기 바랍니다.
+
+<br>
+
+## **Output Channel Size 란**
+
+<br>
+
+- 앞에서 다룬 모든 argument 들을 집합하여 Input의 height와 width가 주어졌을 때, Output의 height와 width를 계산하려면 다음과 같이 정리할 수 있습니다.
+- 앞의 내용들을 모두 이해하였다면, 식을 이해하는 데 어려움을 없을 것입니다.
+
+<br>
+
+$$ H_{out} = \Bigl\lfloor \frac{H_{in} + 2P_{H} - D_{H}(K_{H}-1) - 1}{S_{H}} + 1  \Bigr\rfloor $$
+
+$$ W_{out} = \Bigl\lfloor \frac{W_{in} + 2P_{W} - D_{W}(K_{W}-1) - 1}{S_{W}} + 1  \Bigr\rfloor $$
+
+<br>
 
 
 
