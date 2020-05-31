@@ -96,7 +96,7 @@ $$ w \text{ is kernel and } -k_{i} \ge \delta x \ge k_{i}, \ \ -k_{j} \ge \delta
 
 <br>
 
-- 위 수식에서 $$ \detla x, \delta y $$ 각각은 현재 convolution product가 되는 kernel의 중앙 위치가 이미지 좌표계 원점에서 얼마큰 떨어져 있는지를 나타냅니다.
+- 위 수식에서 $$ \delta x, \delta y $$ 각각은 현재 convolution product가 되는 kernel의 중앙 위치가 이미지 좌표계 원점에서 얼만큼 떨어져 있는지를 나타냅니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/conv/3.gif" alt="Drawing" style="width: 800px;"/></center>
