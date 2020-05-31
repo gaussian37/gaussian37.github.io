@@ -11,6 +11,7 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 
 - 출처 : https://towardsdatascience.com/conv2d-to-finally-understand-what-happens-in-the-forward-pass-1bbaafb0b148
 - 출처 : https://github.com/vdumoulin/conv_arithmetic
+- 출처 : https://pytorch.org/docs/master/generated/torch.nn.Conv2d.html
 
 <br>
 
@@ -380,28 +381,12 @@ $$ W_{out} = \Bigl\lfloor \frac{W_{in} + 2P_{W} - D_{W}(K_{W}-1) - 1}{S_{W}} + 1
 
 <br>
 
-
-
-
-
-
-
-
-
-
-
-
-
-<br>
-
-- 아래 애니메이션의 `파란색`이 `인풋`이고 `청록색`이 `아웃풋`입니다.
-
-<br>
-
 ## **Basic Convolution Operation**
 
 <br>
 
+- 지금부터는 앞에서 배운 convolution 연산의 기본적인 성질들을 이용하여 다양한 convolution 연산에 대하여 다루어 보도록 하겠습니다.
+- 아래 애니메이션의 `파란색`이 `인풋`이고 `청록색`이 `아웃풋`입니다.
 - Convolution 연산을 이용하면 input의 feature를 압축하게 되므로 convolution 연산 이후의 feature map의 크기는 더 줄어들게 됩니다.
 - 아래 애니메이션들도 보면 파란색의 인풋이 convolution 연산을 거치면서 청록색 아웃풋 처럼 사이즈가 작아지게 된 것을 볼 수 있습니다.
 
