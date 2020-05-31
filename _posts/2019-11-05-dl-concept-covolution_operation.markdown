@@ -99,7 +99,7 @@ $$ w \text{ is kernel and } -k_{i} \ge \delta x \ge k_{i}, \ \ -k_{j} \ge \delta
 - 위 수식에서 $$ \detla x, \delta y $$ 각각은 현재 convolution product가 되는 kernel의 중앙 위치가 이미지 좌표계 원점에서 얼마큰 떨어져 있는지를 나타냅니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/conv/3.gif" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/conv/3.gif" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 연산의 과정을 위 예제를 통해 정리해 보겠습니다. 위 예제에서는 Input image의 크기는 (9, 9, 1) 입니다. kernel의 크기는 (3, 3) 입니다. kernel은 Input image의 전 영역을 sliding window 하면서 **element-wise multiplication** 연산을 하게 되고 각 연산은 (1, 1)의 scalar 값을 가지게 됩니다. 
@@ -131,7 +131,7 @@ $$ \text{where } w_{bias} \in \mathbb R \text{ is the bias of the kernel } w $$
 <br>
 
 <br>
-<center><img src="../assets/img/dl/concept/conv/4.gif" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/conv/4.gif" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 예제의 속성을 먼저 살펴보면 다음과 같습니다.
@@ -161,13 +161,13 @@ $$ G_{out}(x, y) = w_{out} * F(x, y) = \Biggl( \sum_{\delta x = -k_{i}}^{k_{i}} 
 - kernel의 갯수가 늘어나면 parameter의 갯수가 늘어나고 parameter의 갯수가 늘어나면 **element-wise multiplication**을 해야 할 연산의 갯수 또한 늘어납니다. 따라서 연산량이 늘어서 처리 속도 또한 늘어나게 됩니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/conv/5.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/conv/5.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - kernel의 갯수를 늘린 것 처럼 Input의 갯수를 늘려보겠습니다. 예를 들어 일반적으로 사용하는 RGB와 같은 3채널로 늘려보겠습니다
 
 <br>
-<center><img src="../assets/img/dl/concept/conv/6.gif" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/conv/6.gif" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - Input shape : (7, 7, 3)
@@ -196,13 +196,13 @@ $$ G_{out}(x, y) = \sum_{in=0}^{N_{in}} w_{out, in} * F_{in}(x, y) = \sum_{in=0}
 - 즉, Input channel의 갯수가 늘어나면 kernel의 갯수가 늘어나게 되므로 parameter와 수행시간이 늘어나게 됨을 유추할 수 있습니다. 아래 그림을 통해 확인해 보면 됩니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/conv/7.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/conv/7.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 ## **Kernel의 size 란**
 
 <br>
-<center><img src="../assets/img/dl/concept/conv/8.gif" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/conv/8.gif" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - Input shape : (7, 9, 3)
@@ -217,10 +217,89 @@ $$ G_{out}(x, y) = \sum_{in=0}^{N_{in}} w_{out, in} * F_{in}(x, y) = \sum_{in=0}
 
 - 앞의 모든 예제에서 kernel의 크기를 (3, 3)을 사용하였습니다. 어떤 커널의 크기를 사용하는 지는 딥러닝 네트워크 설계에 달려있습니다. 다만 지금까지 연구되어 온 바로는 (3, 3)을 여러개 사용하는 것이 (5, 5), (7, 7)과 같이 큰 네트워크를 사용하는 것에 비해 효과가 좋다고 알려져 있기 때문에 (3, 3)의 크기의 kernel이 일반적으로 사용되고 있습니다.
 - 바로 위 예제에서는 일반적인 (3, 3) 크기의 kernel 대신 (5, 2)라는 다소 특이한 크기의 kernel을 예제로 사용해 보았습니다. 목적만 뚜렷하다면 height, width의 크기가 달라도 상관없습니다.
+- 특히 kernel의 사이즈를 height, width 모두 홀수를 사용하는 것은 중앙의 pixel 점을 기준으로 대칭적으로 만들기 위함입니다. 대칭적으로 만들어야 연산할 때 고려할 점이 줄어들기 때문이며 물론 목적만 뚜렷하다면 짝수의 크기를 사용해도 상관없습니다.
 
-- ### Stride 란
-- ### Padding 이란
-- ### Dilation 이란
+<br>
+<center><img src="../assets/img/dl/concept/conv/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그래프를 해석하면 kernel의 사이즈가 커질수록 파라미터의 갯수가 늘어나는 것을 볼 수 있습니다.
+- 수행 시간을 비교해 보았을 때 kernel의 사이즈가 클 수록 (파라미터의 갯수가 늘어났기 때문에) 수행 시간이 커지는 것을 알 수 있습니다.
+
+<br>
+
+## **Stride 란**
+
+<br>
+
+- 지금 까지 Input과 kernel을 연산할 때, kernel을 1픽셀 씩 left → right 방향으로 옮기고 1픽셀 씩 top → bottom 방향으로 옮겼습니다.
+- kernel을 옮기는 크기가 `stride` 입니다. 즉, 위에서 살펴본 모든 예제는 stride가 (1, 1)의 크기를 가지는 것으로 height의 방향(top → bottom)으로 1, width의 방향(left → right)으로 1을 적용하였었습니다.
+- 아래 예제에서는 stride를 (1, 3)의 크기로 적용해 보겠습니다. 즉, width의 방향으로는 픽섹을 3칸씩 이동합니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/conv/10.gif" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Input shape : (9, 9, 3)
+- Output shape : (7, 3, 2)
+- Kernel shape : (3, 3)
+- Stride : (1, 3)
+- Padding : (0, 0)
+- Dilation : (1, 1)
+- Group : 1
+
+<br>
+
+- stride의 사용 목적은 `downsampling` 입니다. 즉, Output의 shape을 줄이기 위함입니다.
+- 하지만 위 연산 과정을 보면 stride의 크기를 늘리면 output의 shape이 작아지기는 하지만 parameter의 수는 그대로 인 것을 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/conv/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그래프 처럼 stride의 크기가 변경되더라도 파라미터의 갯수는 모두 같습니다. 하지만 stride의 크기가 커질수록 output이 downsampling 되어서 수행 시간이 줄어드는 것을 알 수 있습니다.
+
+<br>
+
+## **Padding 이란**
+
+<br>
+
+- `padding`은 convolution 연산을 하기 전에 intput의 가장자리에 추가된 픽셀 수를 나타냅니다. 일반적으로 padding 픽셀은 0으로 설정됩니다.
+- 지금 까지 살펴본 예시들을 보면 padding이 모두 0이었기 때문에 convolution 연산을 하면 가장자리의 크기가 줄어들었습니다. 반면 아래 예제를 한번 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/conv/12.gif" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Input shape : (7, 7, 2)
+- Output shape : (7, 7, 1)
+- Kernel shape : (3, 3)
+- Padding : (1, 1)
+- Stride : (1, 1)
+- Dilation : (1, 1)
+- Group : 1
+
+<br>
+
+- 여기서 주목할 점은 Input과 Output의 height와 width의 크기가 그대로 유지되었다는 점입니다. padding을 사용하는 가장 큰 목적 중 하나가 바로 input과 output의 크기를 유지하기 위함입니다.
+- 특히 input, output 크기를 유지해야할 때, **kernel의 사이즈가 (3, 3), padding (1, 1)**은 짝으로 사용되니 알아두면 유용합니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/conv/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞의 stride와 같은 이유로 padding은 output의 크기를 조절하는 역할을 할 뿐 파라미터의 수와 상관 없습니다.
+- 따라서 위 그래프 처럼 padding의 크기에 상관없이 파라미터의 수는 같지만 padding의 크기가 커질수록 수행시간은 커지게 됨을 알 수 있습니다.
+- padding을 할 때, 추가적으로 생성된 가장자리에 어떤 값을 넣을 지는 어떤 padding을 사용하는 지에 따라 다릅니다. zero padding의 경우 0의 값을 넣는 반면 가장자리의 값을 그대로 복사하는 경우도 있고 interpolation 하는 방법으로 값을 넣을 수도 있습니다.
+
+<br>
+
+## **Dilation 이란**
+
+<br>
+
+
 - ### Group 이란
 - ### Output Channel Size 란
 
