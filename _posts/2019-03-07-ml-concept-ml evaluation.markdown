@@ -20,7 +20,7 @@ tags: [ml, machine learning, 평가 지표, evaluation] # add tag
 - 먼저 아래 다룰 내용을 테이블 하나로 요약해 보겠습니다.
 
 <br>
-<center><img src="../assets/img/ml/concept/ml-evaluation/0.jpg" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ml/concept/ml-evaluation/0.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 
