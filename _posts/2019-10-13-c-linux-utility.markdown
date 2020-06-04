@@ -84,9 +84,8 @@ tags: [리눅스 유틸리티] # add tag
 <br>
 
 - 다음으로 사용할 uim을 설정해보겠습니다. (한영전환 단축키와 한자 단축키)
-- `Input Method`를 실행하고 `Global settings 탭`에서 아래 부분을 `벼루` 또는 `Byeoru`로 남겨두고 나머지는 다 지웁니다.
-- `uim` 입력기는 한글 입력기로 `벼루` 또는 `Byeoru`입력기를 사용합니다.
-- 마지막으로 키 바인딩을 위하여 `Byeoru Key bindings 1 탭`에 들어가서 다음과 같이 세팅합니다.
+- `Input Method`를 실행하고 `Global settings 탭`의 `Input method deployment` 영역에서 `Specify default IM` 항목을 체크합니다. `Default Input method`를 `Byeoru`로 두고 `Enabled Input methods`를 `Byeoru` 만 두고 나머지는 제거합니다.
+- 그리고 키 바인딩을 위하여 `Byeoru Key bindings 1 탭`에 들어가서 다음과 같이 세팅합니다.
     - \[Byeoru\] on: "hangul"
     - \[Byeoru\] off: "hangul"
     - \[Byeoru\] convert Hangul to Chinese characters: "hangul-hanja"
@@ -99,15 +98,15 @@ tags: [리눅스 유틸리티] # add tag
 
 ```
 // 오른쪽 Alt키의 기본 키 맵핑을 제거하고 'Hangul'키로 맵핑
-$ xmodmap -e 'remove mod1 = Alt_R'
-$ xmodmap -e 'keycode 108 = Hangul'
+xmodmap -e 'remove mod1 = Alt_R'
+xmodmap -e 'keycode 108 = Hangul'
 
 // 오른쪽 Ctrl키의 기본 키 맵핑을 제거하고 'Hangul_Hanja'키로 맵핑
-$ xmodmap -e 'remove control = Control_R'
-$ xmodmap -e 'keycode 105 = Hangul_Hanja'
+xmodmap -e 'remove control = Control_R'
+xmodmap -e 'keycode 105 = Hangul_Hanja'
 
 // 키 맵핑 저장
-$ xmodmap -pke > ~/.Xmodmap
+xmodmap -pke > ~/.Xmodmap
 ```
 
 <br>
