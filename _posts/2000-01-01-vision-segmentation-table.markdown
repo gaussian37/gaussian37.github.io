@@ -9,12 +9,33 @@ tags: [vision, deep learning, segmentation] # add tag
 
 <br>
 
+- 이 글은 딥러닝을 이용한 Segmentation 모델을 다룬 글들의 목록입니다.
+- Segmentation 모델들의 목록은 유명한 기본 모델들과 [Cityscape Benchmarks](https://www.cityscapes-dataset.com/benchmarks/#scene-labeling-task)에 등록된 논문들입니다.
+- 모델의 분류는 `mIoU` 성능 위주의 모델과 `Realtime`으로 처리 가능한 모델 위주로 분류하였습니다.
+
+<br>
+
+## **Segmentation**의 기초
+
+<br>
+
 - [고전적인 Segmentation 방법들]()
 - [Fully Convolutional Networks for Semantic Segmentation](https://gaussian37.github.io/vision-segmentation-fcn/)
 - [Convolutional and Deconvolutional Network]()
-- [U-Net]()
-- [Mask RCNN]()
+- [U-Net](https://gaussian37.github.io/vision-segmentation-unet/)
+
+<br>
+
+## **mIoU 성능 위주의 모델**
+
 - [DeepLab]()
 - [DeepLab v2]()
 - [DeepLab v3]()
 - [DeepLab v3+](https://gaussian37.github.io/vision-segmentatin-deeplabv3plus/)
+
+<br>
+
+## **Realtime 성능 위주의 모델**
+
+<br>
+
