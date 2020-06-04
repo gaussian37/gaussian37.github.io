@@ -28,6 +28,7 @@ tags: [리눅스 유틸리티] # add tag
 - ### octave 설치 및 octave 패키지 설치 방법
 - ### baobab을 이용한 디스크 사용 현황 확인
 - ### tree를 이용한 디렉토리 구조 출력
+- ### tweak tool을 이용한 GUI 제어
 
 <br>
 
@@ -227,3 +228,15 @@ $ xmodmap -pke > ~/.Xmodmap
 - 설치 : `sudo apt-get install tree`
 - 터미널 창에서 `tree` 라고 입력하면 현재 위치 기준으로 모든 하부 디렉토리 구조를 볼 수 있습니다.
 - 만약 `depth` 기준으로 구분이 필요할 때에는 `L` 옵션을 사용하면 됩니다. 예를 들어 `tree -L 1`은 depth가 1인 경우입니다.
+
+<br>
+
+## **tweak tool을 이용한 GUI 제어**
+
+<br>
+
+- 리눅스 우분투에서 GUI 관련 변경을 하려면 다양한 명령어들을 알아야 하는데 이 기능들을 GUI 환경에서 제어할 수 있도록 설정할 수 있는 tool이 있습니다. 이 tool 이름이 tweak 이고 설치 방법은 다음과 같습니다.
+- 설치 : `sudo apt-get install gnome-tweak-tool`
+- 설치를 마친 다음에 시작키를 누르고 `tweak`을 누르면 그래픽 창이 하나 뜨는데 그 창에서 다양한 기능을 사용해 보면 됩니다.
+
+<br>
