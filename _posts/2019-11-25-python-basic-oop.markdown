@@ -19,11 +19,37 @@ tags: [python, oop, object oriented, 객체 지향] # add tag
 <br>
 
 - ### 클래스와 객체지향 프로그래밍 기초
+- ### __init__과 __call__의 차이점
 - ### 상속과 다형성
 
 <br>
 
 ## **클래스와 객체지향 프로그래밍 기초**
+
+<br>
+
+## __init__과 __call__의 차이점
+
+<br>
+
+```python
+class A:
+    def __init__(self):
+        print("init")
+           
+    def __call__(self):
+        print("call")
+           
+a = A()
+>> init
+
+a()
+>> call
+```
+
+<br>
+
+- `__init__`은 객체를 생성할 때 실행 되는 constructor이고 `__call__`은 생성된 객체에서 객체 이름을 그대로 이용하여 함수처럼 사용할 때 호출되는 함수입니다.
 
 <br>
 
