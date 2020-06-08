@@ -9,7 +9,7 @@ tags: [딥러닝, densenet, densely connected convolution networks] # add tag
 
 <br>
 
-[deep learning 관련 글 목차]()https://gaussian37.github.io/dl-concept-table/
+[deep learning 관련 글 목차](https://gaussian37.github.io/dl-concept-table/)
 
 <br>
 
@@ -63,19 +63,23 @@ tags: [딥러닝, densenet, densely connected convolution networks] # add tag
 - 이 문제를 개선하기 위해 중간 중간에 `Auxiliary classifier`라는 노란색 부분의 classifier가 존재하여 무조건 끝에서 부터 학습하는 것이 아니라 중간에서도 학습이 가능하도록 만들었습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/densenet/4.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/densenet/4.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 이렇게 네트워크의 복잡도가 올라가게 되면 단순히 네트워크를 깊게 쌓는 것이 성능을 높이는 방법이 될 수 없다는 것을 알 수 있었습니다. 위 그래프 처럼 학습을 잘못하게 되면 같은 iteration에서도 성능이 낮음을 알 수 있습니다.
 
 <br>
+<br>
 <center><img src="../assets/img/dl/concept/densenet/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 <br>
 
 - 여기서 부터가 앞에서 말한 ResNet 입니다. ResNet에서는 중간 중간에 껑충 껑충 뛰는 edge가 output에서 부터 멀리 까지 학습 할 수 있도록 bypass 역할을 함으로써 gradient가 멀리 까지 전파될 수 있도록 합니다.
 
 <br>
+<br>
 <center><img src="../assets/img/dl/concept/densenet/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 <br>
 
 - ResNet의 핵심 부분인 Residual Block을 살펴보겠습니다. 위 그림의 왼쪽이 초기 형태의 `Residual Block`이고 오른쪽이 `Residual Block + Bottleneck` 형태입니다.
@@ -200,7 +204,7 @@ $$ x_{l} = H_{l}([x_{0}, x_{1}, \cdots, x_{l-1}]) $$
 - 논문에서 주로 사용하는 growth rate는 12입니다. 즉 각 convolution layer를 거칠 때 마다 12개의 채널이 증가됩니다. 이를 다른 CNN 모델과 비교해 보면 상대적으로 작은 증가량임을 알 수 있습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/densenet/12.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/densenet/12.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 예를 들어 위의 AlexNet과 VGG를 보면 각 layer의 마지막에 적힌 숫자(e.g. 64, 128, 256, ...)가 channel 수입니다. VGG에서는 대략 2배씩 늘어나는 것에 비하면 growth rate를 통해 등차로 늘어나는 것은 상대적으로 적은 파라미터의 증가라고 해석할 수 있습니다.
@@ -218,6 +222,6 @@ $$ x_{l} = H_{l}([x_{0}, x_{1}, \cdots, x_{l-1}]) $$
 
 <br>
 
-[deep learning 관련 글 목차]()https://gaussian37.github.io/dl-concept-table/
+[deep learning 관련 글 목차](https://gaussian37.github.io/dl-concept-table/)
 
 <br>
