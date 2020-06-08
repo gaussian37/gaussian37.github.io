@@ -34,19 +34,31 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 <br>
 
 + GPU를 범용적으로 사용하기 위해 `CUDA`를 설치해줍니다.
-+ 딥러닝을 사용하기 위해 `cuDNN`을 설치해줍니다.
-+ 아나콘다를 설치해 줍니다.
-+ 아나콘다를 설치하고 차례 차례 다음을 설치해 줍니다.
-+ `conda create -n 가상환경이름 python=3.6`
-+ `activate 가상환경이름`
-+ `conda install pytorch -c pytorch`
-    - 또는 `pip install torch` (윈도우에서는 pytorch가 아니라 torch로 pytorch를 설치합니다.)
-+ `conda install -c pytorch torchvision`
-    + 또는 `pip install torchvision` 
-+ `conda install ipykernel`
-+ `pip install jupyter`
++ 딥러닝을 사용하기 위해 `cuDNN`을 설치해줍니다. 여기까지는 앞의 과정을 그대로 따라하시면 됩니다.
+- 그 다음 과정 부터는 `conda`를 설치한 후 진행하는 방법과 `pip`를 이용하는 방법이 있습니다.
+- 1) `conda`를 설치하려면 다음 링크를 통해 설치 파일을 받은 후 설치하면 됩니다.
+    - https://www.anaconda.com/products/individual
+- 2) `pip`를 이용하여 설치하려면 `virtualenv`를 이용하여 가상환경을 독립적으로 만들고 그 환경에서 설치하는 것을 권장드립니다. 이 방법을 이용하려면 다음 링크를 참조하시기 바랍니다.
+    - https://gaussian37.github.io/python-concept-initial_setting/
+- 위의 `conda` 설치 또는 `pip` 설치 과정이 끝났으면 `pytorch`를 설치 할 가상 환경을 활성화 합니다.
+- 1) `conda`의 경우 다음과 같이 가상 환경을 활성화 합니다.
+    - 가상 환경 생성 : `conda create -n 가상환경이름 python=3.6`
+    - 가상 환경 활성화 : `activate 가상환경이름`
+- 2) `pip` 의 경우 다음과 같이 가상 환경을 활성화 합니다.
+    - 가상 환경 생성 : `virtualenv 가상환경이름`
+    - 가상 환경 활성화 : `가상환경이름\Scripts\activate`
+- 위 두가지 방법 모두 가상 환경 활성화에 성공하면 command prompt의 가장 앞에 `(가상환경이름)`이 추가된 것을 확인할 수 있습니다.
+- 그 다음에는 `pytorch`, `torchvision` 을 설치해 보도록 하겠습니다. 반드시 다음 링크를 접속 하시기 바랍니다.
+    - https://pytorch.org/get-started/locally/
+- 위 링크에서 현재 설치하려는 환경의 옵션을 차례대로 선택합니다. 그러면 설치에 필요한 명령어가 생성됩니다. 그 명령어를 커맨드에 입력하여 pytorch와 torchvision을 설치하면 됩니다.
+- 저의 경우 예를 들어 stable, windows, pip, python, cuda10.2ㄹ를 옵션으로 선택하였습니다. 이 때 설치 커맨드는 다음과 같습니다.
+    - pip install torch===1.5.0 torchvision===0.6.0 -f https://download.pytorch.org/whl/torch_stable.html
 
-+ 실행이 정상적으로 되는지 확인하기 위해 jupyter notebook에서 다음을 실행해 봅니다.
+<br>
+
+- 실행이 정상적으로 되는지 확인하기 위해 다음 코드를 `print(x)` 까지 입력하였을 때, 출력이 정상정으로 되는 지 확인하면 됩니다.
+- 여기서 `.cuda()` 명령어가 GPU를 이용하는 명령어 입니다. 만약 CUDA, cuDNN이 정상적으로 설치되지 않았다면 오류가 발생할 수 있습니다.
+- 만약 오류가 발생하였을 경우 아래 명령어에서 `torch.Tensor(3, 4).cuda()` 대신 `torch.Tensor(3, 4)`을 사용하여 실행해 보시길 바랍니다. 이 경우 문제가 없다면 CUDA, cuDNN 이 설치가 잘못된 것입니다. 반면 이 경우에도 문제가 발생하였다면 pytorch 설치가 잘못된 것입니다.
 
 ```python
 import torch
