@@ -271,6 +271,7 @@ make_dot(model(x), params=dict(model.named_parameters())).render("graph", format
 <br>
 
 - `make_dot` 함수의 2번째 파라미터인 `params`는 dictionary로 출력 시 아래와 같은 값을 가지며 graph의 노드에 내용을 기록합니다.
+- 아래 dictionary 에서 key 값을 이용하여 노드의 description으로 사용됩니다.
 
 <br>
 
