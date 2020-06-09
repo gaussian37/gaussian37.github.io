@@ -27,7 +27,22 @@ tags: [pytorch, summary, ] # add tag
 
 <br>
 
-- 먼저 네트워크의 현황을 쉽게 알아보기 위한 방법으로 `torchsummary` 기능을 사용하는 것입니다.
+- 참조 : https://deepbaksuvision.github.io/Modu_ObjectDetection/posts/03_04_torchsummary.html
+- 참조 : https://medium.com/@umerfarooq_26378/model-summary-in-pytorch-b5a1e4b64d25
+
+- 먼저 네트워크의 현황을 쉽게 알아보기 위한 방법으로 `torchsummary` 기능을 사용하는 것입니다. 사용 방법은 다음과 같습니다.
+
+<br>
+
+```python 
+from torchsummary import summary
+summary(your_model, input_size=(channels, H, W))
+```
+
+<br>
+
+- 즉, 위 사용법에서 볼 수 있듯이 `input_size` 가 반드시 필요하며 이 shape 만큼 forward pass를 만들어 줍니다.
+- 따라서 딥러닝 `model`만 만들고 그 model의 input_size = (channels, height, width)을 안다면 model의 모양과 파라미터 등을 정리해서 볼 수 있습니다.
 
 <br>
 
@@ -90,6 +105,11 @@ Params size (MB): 527.79
 Estimated Total Size (MB): 746.96
 ----------------------------------------------------------------
 ```
+
+<br>
+
+- 위 예제는 pytorch에서 기본적으로 제공하는 이미 선언된 모델을 이용한 것입니다.
+- 이번에는 임의의 다음 코드와 같은 custom 모델을 이용하여 summary를 해보겠습니다.
 
 <br>
 
