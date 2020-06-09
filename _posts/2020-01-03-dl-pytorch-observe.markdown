@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Pytorch의 딥러닝 네트워크 및 학습 현황 확인
+title: Pytorch의 시각화 및 학습 현황 확인
 date: 2020-01-03 00:00:00
 img: dl/pytorch/pytorch.jpg
 categories: [dl-pytorch]
@@ -19,6 +19,7 @@ tags: [pytorch, summary, ] # add tag
 
 - ### torchsummary
 - ### visdom
+- ### graphviz를 통한 모델 시각화
 
 <br>
 
@@ -218,3 +219,82 @@ viz.line(
 <br>
 <center><img src="../assets/img/dl/pytorch/observe/6.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
+
+## **## graphviz를 통한 모델 시각화**
+
+<br>
+
+- pytorch에서 `graphviz`를 통하여 모델을 시각화 할 때, 다음 2가지를 설치해야 합니다.
+    - `graphviz`
+    - `torchviz`
+
+<br>
+
+- 먼저 `graphviz` 설치 방법입니다.
+- windows 사용 시 아래 링크에서 `*.msi` 파일을 받은 후 설치합니다.
+    - windows의 graphviz 설치 파일 : https://graphviz.gitlab.io/_pages/Download/Download_windows.html
+- windows 이외의 환경에서는 아래 링크에 접속 하여 설치합니다.
+    - graphviz 설치 파일 링크 : https://graphviz.gitlab.io/download/
+- wondows 기준으로 기본 경로로 설정하면 다음 경로에 graphviz가 설치됩니다.
+    - 설치된 경로 : C:\Program Files (x86)\Graphviz2.38\bin
+- 계속하여 windows 기준으로 설명하면 설치를 하였을 때의 경로(C:\Program Files (x86)\Graphviz2.38\bin)를 (고급 시스템 설정 보기 - 환경 변수 - path)에 등록 후 재부팅 합니다.
+
+<br>
+
+- 그 다음으로 `torchviz` 설치 방법입니다. 저는 `pip` 환경을 주로 사용하므로 `pip`를 이용한 설치 방법은 다음과 같습니다.
+    - 설치 1 : `pip install torchviz`
+    - 설치 2 : `pip install graphviz`
+
+<br>
+
+- 설치가 완료되면 다음과 같은 방법으로 graph를 그릴 수 있습니다. 아래 코드를 이용하여 간단한 네트워크 구조를 만들어 본 뒤 graph를 생성해 보겠습니다.
+
+<br>
+
+```python
+from torchviz import make_dot
+from torch.autograd import Variable
+
+model = nn.Sequential()
+model.add_module('W0', nn.Linear(8, 16))
+model.add_module('tanh', nn.Tanh())
+
+# Variable을 통하여 Input 생성
+x = Variable(torch.randn(1, 8)) 
+
+# 앞에서 생성한 model에 Input을 x로 입력한 뒤 (model(x))  graph.png 로 이미지를 출력합니다.
+make_dot(model(x), params=dict(model.named_parameters())).render("graph", format="png")
+```
+
+<br>
+<center><img src="../assets/img/dl/pytorch/observe/7.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- `make_dot` 함수의 2번째 파라미터인 `params`는 dictionary로 출력 시 아래와 같은 값을 가지며 graph의 노드에 내용을 기록합니다.
+
+<br>
+
+```python
+{'W0.weight': Parameter containing:
+ tensor([[ 0.0185,  0.2153, -0.1656, -0.0408, -0.2663,  0.0856,  0.1391, -0.1638],
+         [-0.3323, -0.0382,  0.3480,  0.1085, -0.0556,  0.0960,  0.0335, -0.1688],
+         [ 0.0233, -0.1096, -0.0951, -0.1614, -0.3147,  0.0567,  0.0194,  0.0006],
+         [-0.0470, -0.0736,  0.0893,  0.2884, -0.0908, -0.1680, -0.1470,  0.2240],
+         [ 0.2011,  0.0820, -0.2302,  0.0455,  0.0299, -0.2891,  0.1577,  0.1492],
+         [ 0.2150, -0.2890,  0.3529,  0.0599,  0.0362, -0.1695, -0.3131, -0.0038],
+         [-0.2578, -0.1018, -0.1806, -0.1187,  0.3324, -0.2751, -0.0826,  0.2949],
+         [-0.0076,  0.3321, -0.2230, -0.2180,  0.2186, -0.3149, -0.0771, -0.2608],
+         [-0.0456, -0.0793,  0.1187, -0.0683, -0.0952,  0.3463, -0.2887,  0.2991],
+         [ 0.2906,  0.1747, -0.1580, -0.2925, -0.3426,  0.1422, -0.1813, -0.0478],
+         [ 0.2726,  0.2489,  0.2315, -0.1059, -0.2196, -0.0942,  0.0975,  0.0384],
+         [-0.0050,  0.0482, -0.0005, -0.3295, -0.0809,  0.2922,  0.0284, -0.3526],
+         [-0.3084,  0.1586,  0.1185, -0.0663, -0.0610, -0.0461,  0.2608, -0.3014],
+         [ 0.3216,  0.0423,  0.1459,  0.1183, -0.2403,  0.1154, -0.3481, -0.2284],
+         [ 0.3139,  0.0864, -0.1457, -0.2685,  0.2632,  0.1253, -0.0926,  0.2467],
+         [ 0.0160,  0.1017, -0.2498, -0.2490, -0.0378,  0.1362,  0.2760, -0.1610]],
+        requires_grad=True),
+ 'W0.bias': Parameter containing:
+ tensor([-0.0809,  0.2801,  0.0043,  0.2818, -0.1833, -0.0775,  0.2175,  0.3165,
+          0.2796, -0.0485, -0.1416,  0.2230,  0.0059,  0.3444,  0.2317, -0.3440],
+        requires_grad=True)}
+```
