@@ -339,3 +339,37 @@ make_dot(model(x), params=dict(model.named_parameters())).render("graph", format
     - netron 설치 링크 : https://github.com/gaussian37/netron
 - 그 다음 pytorch로 만든 model을 `onnx` 파일 형태로 저장합니다. 관련 내용은 아래 링크를 통해 참조하실 수 있습니다.
     - pytorch onnx 링크 : https://gaussian37.github.io/dl-pytorch-deploy/
+- 퀵 하게 내용을 살펴 보려면 다음과 같은 과정을 이용하여 `onnx` 파일을 저장하면 됩니다. 주석에 유념해서 의미를 해석해 보시기 바랍니다.
+
+<br>
+
+```python
+import torch
+import torchvision # model을 불러오기 위해 import 하였습니다.
+import torch.onnx
+
+# 1. 임의의 model을 사용해도 되며, 실제 사용하는 custom model을 불러와서 저장해 보시기 바랍니다.
+model = torchvision.models.vgg16(pretrained=False)
+
+# 2. model의 파라미터를 OrderedDict 형태로 저장합니다.
+params = model.state_dict()
+
+# 3. 동적 그래프 형태의 pytorch model을 위하여 data를 model로 흘려주기 위한 더미 데이터 입니다.
+dummy_data = torch.empty(1, 3, 224, 224, dtype = torch.float32)
+
+# 4. onnx 파일을 export 해줍니다. 함수에는 차례대로 model, data, 저장할 파일명 순서대로 들어가면 됩니다.
+torch.onnx.export(model, dummy_data, "output.onnx")
+
+```
+
+<br>
+
+- 앞에서 `netron`을 설치하였기 때문에 `onnx` 파일의 아이콘이 `netron` 형태가 되어있을 것입니다. 즉, `onnx`가 더블 클릭을 통해 실행이 가능해 졌습니다.
+- 위 예제에서 다룬 `vgg16` 모델을 한번 불러와 보겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/observe/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림을 보면 modelpropeties 부터 각 layer의 상세한 정보까지 볼 수 있습니다.
+- 이 결과를 저장할 때에는 메뉴의 File → Export 를 한 후 `SVG` 형태로 저장하길 추천드립니다. 웹 브라우저에서 열리며 확대해도 해상도가 깨지지 않습니다. png로 저장하면 나중에 확대해서 보는 데 불편함이 있습니다.
