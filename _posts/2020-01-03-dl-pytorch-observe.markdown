@@ -17,13 +17,14 @@ tags: [pytorch, summary, ] # add tag
 
 <br>
 
-- ### torchsummary
-- ### visdom
+- ### torchsummary를 통한 모델 정보 요약
+- ### visdom을 통한 학습 상태 모니터링
 - ### graphviz를 통한 모델 시각화
+- ### netron을 통한 모델 시각화
 
 <br>
 
-## **torchsummary**
+## **torchsummary를 통한 모델 정보 요약**
 
 <br>
 
@@ -113,7 +114,7 @@ Estimated Total Size (MB): 746.96
 
 <br>
 
-## **visdom**
+## **visdom을 통한 학습 상태 모니터링**
 
 <br>
 
@@ -319,3 +320,22 @@ make_dot(model(x), params=dict(model.named_parameters())).render("graph", format
           0.2796, -0.0485, -0.1416,  0.2230,  0.0059,  0.3444,  0.2317, -0.3440],
         requires_grad=True)}
 ```
+
+<br>
+
+## **netron을 통한 모델 시각화**
+
+<br>
+
+- 앞에서 다룬 `torchsummary`와 `graphviz` 모두 model의 현황을 확인 하기 위한 좋은 방법이지만, 좀 더 세련되고 정보를 가득히 저장할 수 있는 방법이 있습니다. 바로 `netron`을 통한 시각화 방법입니다.
+- 현재 까지 제가 아는 방법 중 가장 세련된 방법이니 이 방법은 꼭 배워두면 좋을 것 같습니다.
+- `netron`은 앞에서 다룬 torchsummary나 graphviz와 같이 현재 메모리에 올라가 있는 `model`을 이용하여 시각화 하는 것이 아니라 파일 형태로 저장한 모델을 이용하여 시각화합니다. 저장한 model 파일을 이용하므로 다양한 framework에서 여러 가지 방식으로 저장한 파일들이 호환이 되도록 만들어졌습니다.
+- 이 글에서 다룰 내용은 `pytorch`에서 만든 `model`을 `onnx` 형태로 저장하고 이 저장한 파일을 시각화 해보겠습니다. 보통 pytorch에서는 `*.pth` 형태로 model을 저장하는데, `*.pth` 파일은 **전체 그래프를 저장하지 않지만** 나머지는 Python 모듈로 인코딩되므로 최상위 노드 만 저장합니다. 따라서 전체 그래프를 저장하는 `onnx` 파일을 이용해야 합니다.
+    - 참조 : https://github.com/lutzroeder/netron/issues/236
+
+<br>
+
+- 먼저 `netron`을 이용하기 위하여 아래 링크에서 각 OS 환경에 맞게 설치 파일을 받아 설치해 줍니다.
+    - netron 설치 링크 : https://github.com/gaussian37/netron
+- 그 다음 pytorch로 만든 model을 `onnx` 파일 형태로 저장합니다. 관련 내용은 아래 링크를 통해 참조하실 수 있습니다.
+    - pytorch onnx 링크 : https://gaussian37.github.io/dl-pytorch-deploy/

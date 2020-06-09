@@ -119,7 +119,7 @@ net.eval()
 
 <br>
 
-### ONNX로 export
+### **ONNX로 export**
 
 <br>
 
@@ -143,7 +143,7 @@ torch.onnx.export(net, dummy_data, "output.onnx")
  
  <br>
 
-### Caffe2에서 ONNX 모델 사용
+### **Caffe2에서 ONNX 모델 사용**
 
  <br>
 
@@ -207,7 +207,7 @@ output[0]
 
 <br>
 
-### ONNX 모델을 caffe2 모델로 저장
+### **ONNX 모델을 caffe2 모델로 저장**
 
 <br>
 
