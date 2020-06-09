@@ -12,7 +12,11 @@ tags: [deep learning, keras, 케라스, 시각화, visualization] # add tag
 케라스로 모델을 만든 다음에 모델을 시각화 하는 데에는 여러가지 방법이 있습니다.
 그 중 3가지 방법을 소개해 드리려고 합니다.
 
-## 1. model.summary()
+<br>
+
+## **1. model.summary()**
+
+<br>
 
 케라스는 layer를 **model**에 순차적으로 저장하고 있습니다.
 model에 차곡차곡 다 저장한 다음에 아래와 같이 입력하면 전반적인 구조를 알 수 있습니다.
@@ -27,7 +31,9 @@ model.summary()
 
 <br>
 
-## 2. graphviz로 시각화 하기
+## **2. graphviz로 시각화 하기**
+
+<br>
 
 graphviz로 시각화 하는 방법은 간단하면서 자세하게 구조가 나오기 때문에 많이 사용하는 방법입니다.
 다음을 먼저 설치합니다.
@@ -54,7 +60,11 @@ SVG(model_to_dot(model, show_shapes=True).create(prog='dot', format='svg'))
 
 ![2](../assets/img/dl/keras/visualization/regular_stacked_lstm.png)
 
-## 3. netron 사용
+<br>
+
+## **3. netron 사용**
+
+<br>
 
 이 블로그 글을 쓴 목적에 해당하는 상당히 아름다운(?) 시각화 방법입니다.
 
@@ -91,7 +101,3 @@ netron을 설치하고 나면 `.h5` 파일의 아이콘이 변경되는 것을 �
 netron을 실행한 후 `.h5` 모델을 불러오거나 시각화 하고 싶은 `.h5` 파일을 실행하면 다음과 같이 결과를 볼 수 있습니다.
 
 ![4](../assets/img/dl/keras/visualization/netron1.PNG)
-
-<br>
-
-도움이 되셨다면 아래 광고 한번 클릭 하시면 너무 도움이 될 것 같습니다. 꾸벅

@@ -87,7 +87,7 @@ torch.save(params, "net.prm", pickle_protocol=4)
 
 <br>
 
-### pytorch에서 학습 완료된 모델 불러오기
+### **pytorch에서 학습 완료된 모델 불러오기**
 
 <br>
 
