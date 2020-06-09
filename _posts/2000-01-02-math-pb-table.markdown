@@ -173,3 +173,4 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 <br>
 
 - [표본분산에서 n-1로 나누어 주는 이유](https://gaussian37.github.io/math-pb-sample_covariance_n-1/)
+- [분포 시각화 사이트](http://bois.caltech.edu/distribution_explorer/index.html)
