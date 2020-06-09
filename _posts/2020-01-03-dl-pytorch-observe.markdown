@@ -220,7 +220,7 @@ viz.line(
 <center><img src="../assets/img/dl/pytorch/observe/6.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-## **## graphviz를 통한 모델 시각화**
+## **graphviz를 통한 모델 시각화**
 
 <br>
 
@@ -267,7 +267,7 @@ make_dot(model(x), params=dict(model.named_parameters())).render("graph", format
 ```
 
 <br>
-<center><img src="../assets/img/dl/pytorch/observe/7.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/pytorch/observe/7.png" alt="Drawing" style="width: 300px;"/></center>
 <br>
 
 - `make_dot` 함수의 2번째 파라미터인 `params`는 dictionary로 출력 시 아래와 같은 값을 가지며 graph의 노드에 내용을 기록합니다.
