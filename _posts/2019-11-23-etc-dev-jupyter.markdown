@@ -34,4 +34,4 @@ tags: [jupyter, notebook, lab] # add tag
 - 이 행의 주석(`#`)을 제거하고 `''` 란 안에 원하는 폴더의 절대 경로 삽입합니다. 디렉토리 구분자는 `\`가 아닌 `/`를 사용합니다. 예를 들면 `c:/temp`와 같이 사용해야 합니다.
 - 저장 후 jupyter를 다시 실행하면 지정한 경로가 working directory로 잡혀있습니다.
 
-
+<br>
