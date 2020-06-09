@@ -133,7 +133,7 @@ $$ x_{l} = H_{l}([x_{0}, x_{1}, \cdots, x_{l-1}]) $$
 - 반면 `growth rate` 라는 값을 통하여 일정하게 등차수열의 형태로 channel 수가 늘어나게 되면 feature의 갯수가 늘어나는 것을 조절할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/densenet/0.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/densenet/0.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 그림은 DenseNet의 핵심인 `dense block`을 설명합니다. 5 layer dense block을 나타내며 growth rate는 4입니다. 각각의 layer는 이전의 같은 dense block의 모든 layer의 feature map들을 input으로 받는 것을 볼 수 있습니다.
