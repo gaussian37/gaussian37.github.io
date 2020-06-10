@@ -75,7 +75,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 ```python
 torch.argmax(input, dim = 0, keepdim = True) # input이 (channel, height, widht) 인 경우
-torch.argmax(input, dim = 1, keepdim = True) # input이 (batch, channel, height, width) 인 
+torch.argmax(input, dim = 1, keepdim = True) # input이 (batch, channel, height, width) 인 경우
 ```
 
 <br>
@@ -112,8 +112,67 @@ tensor([[[1, 0],
          [2, 2]]])
          
  >> torch.argmax(A, dim=0, keepdim = True).shape
+ torch.Size([1, 4, 2])
  
- 
+ >> torch.argmax(A, dim=1)
+ tensor([[0, 0],
+        [2, 0],
+        [0, 3]])
+        
+>> torch.argmax(A, dim=1, keepdim = True)
+tensor([[[0, 0]],
 
+        [[2, 0]],
+
+        [[0, 3]]])
+        
+>> torch.argmax(A, dim=2)
+tensor([[0, 0, 1, 1],
+        [0, 0, 0, 0],
+        [0, 0, 1, 0]])
+        
+>> torch.argmax(A, dim=2).shape
+torch.Size([3, 4])
+
+>> torch.argmax(A, dim=2, keepdim=True)
+tensor([[[0],
+         [0],
+         [1],
+         [1]],
+
+        [[0],
+         [0],
+         [0],
+         [0]],
+
+        [[0],
+         [0],
+         [1],
+         [0]]])
+         
+>> torch.argmax(A, dim=2, keepdim=True).shape
+torch.Size([3, 4, 1])
+
+>> B = torch.rand(3, 2)
+
+tensor([[0.8425, 0.3970],
+        [0.5268, 0.7384],
+        [0.5639, 0.3080]])
+
+>> torch.argmax(B, dim=0)
+tensor([0, 1])
+
+>> torch.argmax(B, dim=0, keepdim=True)
+tensor([[0, 1]])
+
+>> torch.argmax(B, dim=1)
+tensor([0, 1, 0])
+
+>> torch.argmax(B, dim=1, keepdim=True)
+tensor([[0],
+        [1],
+        [0]]) 
 
 ```
+
+<br>
