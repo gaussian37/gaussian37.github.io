@@ -37,6 +37,9 @@ from torch.utils.data import DataLoader # 데이터 세트 관리 및 미니 배
 import torchvision.datasets as datasets # 표준 데이터 세트 모음
 import torchvision.transforms as transforms # 데이터 세트에 적용 할 수있는 변환 관련 함수 모음
 from torch.utils.tensorboard import SummaryWriter # tensorboard에 출력하기 위한 함수 모음
+
+from torchsummary import summary # summary를 통한 model의 현황을 확인 하기 위함
+import torch.onnx # model을 onnx 로 변환하기 위함
 ```
 
 <br>
