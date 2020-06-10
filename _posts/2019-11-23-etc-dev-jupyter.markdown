@@ -18,6 +18,7 @@ tags: [jupyter, notebook, lab] # add tag
 <br>
 
 - ### jupyter 기본 경로 변경
+- ### jupyter lab font 변경
 
 <br>
 
@@ -35,3 +36,11 @@ tags: [jupyter, notebook, lab] # add tag
 - 저장 후 jupyter를 다시 실행하면 지정한 경로가 working directory로 잡혀있습니다.
 
 <br>
+
+## **jupyter lab font 변경**
+
+<br>
+
+- jupyter lab을 실행한 다음 상단의 `Settings` 탭 → `Advanced settings editors`로 들어갑니다.
+- 그 다음 `Notebook`과 `Texteditor` 탭을 각각 클릭해 보면 왼쪽에는 `System defaults`가 있고 오른쪽에는 `User preferences`가 있습니다.
+- `System defaults`의 내용을 복사해서 `User preferences` 에 붙여쓰고 내가 고치고 싶은 부분만 고치면 즉시 반영됩니다. (재실행 필요 없음)
