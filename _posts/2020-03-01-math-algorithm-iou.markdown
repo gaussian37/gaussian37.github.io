@@ -19,7 +19,7 @@ tags: [IoU, Intersection over Union] # add tag
 
 - ### IoU의 정의
 - ### 두 영역이 직사각형이고 각 축과 수평할 때 IoU
-- ### 두 영역이 임의의 볼록 다각형일 때 IoU
+- ### 두 영역이 임의의 (회전한) 볼록 다각형일 때 IoU
 
 <br>
 
@@ -112,7 +112,7 @@ intersection_y_length = min(max_y1, max_y2) - max(min_y1, min_y2);
 
 <br>
 
-## **두 영역이 임의의 볼록 다각형일 때 IoU**
+## **두 영역이 임의의 (회전한) 볼록 다각형일 때 IoU**
 
 <br>
 
