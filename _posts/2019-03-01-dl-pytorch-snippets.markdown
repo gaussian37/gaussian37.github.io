@@ -48,7 +48,7 @@ import torch.onnx # model을 onnx 로 변환하기 위함
 
 <br>
 
-## pytorch 셋팅 관련 코드
+## **pytorch 셋팅 관련 코드**
 
 <br>
 
