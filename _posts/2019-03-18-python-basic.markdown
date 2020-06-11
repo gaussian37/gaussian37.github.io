@@ -46,6 +46,7 @@ tags: [python, python 기본] # add tag
 - ### os 관련 함수 모음
 - ### pickle 사용 방법
 - ### exec을 이용한 문자열로 코드 실행
+- ### local 영역에서 global로 import 
 
 <br>
 
@@ -898,5 +899,43 @@ with open("data.pickle","rb") as fr:
 
 10
 ```
+
+<br>
+
+## **local 영역에서 global로 import**
+
+<br>
+
+- 필요에 따라 어떤 함수 내에서 import를 사용해야 하는 경우가 발생할 수 있습니다. 
+- 이 경우 그 함수 내에서만 import 한 라이브러리를 사용하는 것이라면 상관없지만 모든 영역에서 다 사용하게 만들고 싶으면 아래 코드를 이용하여 import 하면 문제 없이 전체 영역에서 사용할 수 있습니다.
+
+<br>
+
+```python
+def GlobalImport(modulename, shortname = None, asfunction = False):
+    if shortname is None: 
+        shortname = modulename
+    if asfunction is False:
+        globals()[shortname] = __import__(modulename)
+    else:        
+        globals()[shortname] = eval(modulename + "." + shortname)
+
+```
+
+<br>
+
+- 위 함수를 이용하여 local 영역에서 global 하게 import할 수 있습니다. 다음과 같이 사용할 수 있습니다.
+
+<br>
+
+```python
+
+def func():
+    # import numpy as np 를 global에서 선언한 것과 같은 효과
+    GlobalImport('numpy', 'np)
+
+```
+
+<br>
 
 
