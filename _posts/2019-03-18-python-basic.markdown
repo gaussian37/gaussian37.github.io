@@ -823,12 +823,31 @@ a.rstrip()
 <br>
 
 - 파이썬에서 현재 다루고 있는 컴퓨터를 접근하여 파일, 디렉토리 등을 조작할 때, os의 라이브러리 등을 사용할 수 있습니다.
-- 이 글에서는 os 라이브러리를 이용하여 할 수 있는 기능들에 대하여 간략하게 정리해 보도록 하겠습니다.
+- 이 글에서는 os 라이브러리를 이용하여 할 수 있는 기능들에 대하여 간략하게 정리해 보도록 하겠습니다. 먼저 자주 사용할 수 있는 함수 들을 쭉 적은 다음에 차례 대로 설명을 달아보겠습니다.
+
+<br>
+
+```python
+os.environ['HOME'] # 'HOME' 대신에 다양한 시스템 정보들이 들어갈 수 있습니다.
+os.environ.get('HOME')
+os.path.isfile('filename')
+os.path.isdir('dirname')
+
+```
 
 <br>
 
 - `os.environ`은 현재 컴퓨터의 정보 들을 dictionary 형태로 저장합니다. 예를 들어 HOME, APPDATA, USERNAME 등의 정보와 환경 변수에 등록된 PATH 등이 key 값으로 저장되어 있습니다. 
 - 따라서 os.emnviron['HOME']과 같이 입력하면 그 value 값들이 출력됩니다. 하지만 dictionary의 문법에 따라 만약 key 값으로 등록되지 않은 정보를 읽어들일 때, 에러가 발생하므로 코드의 안정성을 위해 다음과 같이 사용하길 추천 드립니다.
 - `os.environ.get('HOME')` : 이 경우 key 값이 없으면 `None`을 출력하고 Key 값이 있으면 그 value를 출력합니다.
+
+<br>
+
+- file 및 directory가 존재하는 지 유무를 확인하려면 다음 명령어를 이용합니다.
+- `os.path.isfile('filename')` 와 `os.path.isdir('dirname')`
+
+<br>
+
+
 
 
