@@ -15,7 +15,7 @@ tags: [python, python 기본] # add tag
 
 <br>
 
-- ### if __name__ == "__main__": 사용 이유
+- ### if __name__ == "__main__" 사용 이유
 - ### Comparator를 이용한 클래스 정렬
 - ### file read/write 방법
 - ### 현재 시각 문자열로 출력하는 방법
@@ -42,6 +42,7 @@ tags: [python, python 기본] # add tag
 - ### 특정 경로의 특정 확장자 파일명만 suffix 추가
 - ### 숫자에 0을 채워서 출력
 - ### 문자열 양 끝의 공백 문자 없애기
+- ### os 관련 함수 모음
 
 <br>
 
@@ -814,3 +815,20 @@ a.rstrip()
 >>> '\n \t aaaa'
 
 ```
+
+<br>
+
+## **os 관련 함수 모음**
+
+<br>
+
+- 파이썬에서 현재 다루고 있는 컴퓨터를 접근하여 파일, 디렉토리 등을 조작할 때, os의 라이브러리 등을 사용할 수 있습니다.
+- 이 글에서는 os 라이브러리를 이용하여 할 수 있는 기능들에 대하여 간략하게 정리해 보도록 하겠습니다.
+
+<br>
+
+- `os.environ`은 현재 컴퓨터의 정보 들을 dictionary 형태로 저장합니다. 예를 들어 HOME, APPDATA, USERNAME 등의 정보와 환경 변수에 등록된 PATH 등이 key 값으로 저장되어 있습니다. 
+- 따라서 os.emnviron['HOME']과 같이 입력하면 그 value 값들이 출력됩니다. 하지만 dictionary의 문법에 따라 만약 key 값으로 등록되지 않은 정보를 읽어들일 때, 에러가 발생하므로 코드의 안정성을 위해 다음과 같이 사용하길 추천 드립니다.
+- `os.environ.get('HOME')` : 이 경우 key 값이 없으면 `None`을 출력하고 Key 값이 있으면 그 value를 출력합니다.
+
+
