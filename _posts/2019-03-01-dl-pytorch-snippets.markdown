@@ -74,14 +74,25 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 <br>
 
 ```python
-torch.argmax(input, dim = 0, keepdim = True) # input이 (channel, height, widht) 인 경우
-torch.argmax(input, dim = 1, keepdim = True) # input이 (batch, channel, height, width) 인 경우
+# 1. input이 (channel, height, widht) 인 경우
+torch.argmax(input, dim = 0, keepdim = True)
+
+# 2. input이 (batch, channel, height, width) 인 경우
+torch.argmax(input, dim = 1, keepdim = True) 
 ```
 
 <br>
 
+- 일반적으로 이미지 처리를 할 때, 출력의 `channel`의 갯수 만큼 클래스 label을 가지고 있는 경우가 많습니다. 이 때, 가장 큰 값을 argmax 함으로써 가장 큰 인덱스를 구할 수 있습니다.
+- 예를 들어 segmentation을 하는 경우 위의 코드와 같은 형태가 그대로 사용될 수 있습니다. 1번 케이스의 경우 batch가 고려되지 않은 것이고 2번 케이스의 경우 batch가 고려된 것입니다. segmentation의 경우 이미지의 height, width의 크기에 channel의 갯수가 label의 갯수와 동일하게 되어 있습니다. 그 중 가장 큰 값을 가지는 channel이 그 픽셀의 label이 되게 됩니다.
+- 따라서 argmax를 취하면 `channel`은 1로 되고 height와 width의 크기는 유지됩니다.
+
+<br>
+
 ```python
->> A = torch.randn(3, 4, 2)
+
+# channel : 3, height : 4, width : 2로 가정합니다.
+>> A = torch.randn(3, 4, 2) 
 >> print(A)
 
 tensor([[[-0.8375,  0.7884],
@@ -153,6 +164,8 @@ tensor([[[0],
 >> torch.argmax(A, dim=2, keepdim=True).shape
 torch.Size([3, 4, 1])
 
+
+# 간단하게 height, width의 크기만을 이용하여 다루어 보겠습니다.
 >> B = torch.rand(3, 2)
 
 tensor([[0.8425, 0.3970],
