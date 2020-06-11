@@ -76,6 +76,9 @@ torch.cuda.device_count()
 # cudnn을 사용하도록 설정. GPU를 사용하고 있으면 기본값은 True 입니다.
 import torch.backends.cudnn as cudnn
 cudnn.enabled = True
+
+# inbuilt cudnn auto-tuner가 사용 중인 hardware에 가장 적합한 알고리즘을 선택하도록 허용합니다.
+cudnn.benchmark = True
 ```
 
 <br>
