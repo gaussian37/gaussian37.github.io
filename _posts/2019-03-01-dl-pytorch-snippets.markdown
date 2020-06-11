@@ -21,7 +21,8 @@ tags: [pytorch, snippets] # add tag
 - ### pytorch import 모음
 - ### pytorch 셋팅 관련 코드
 - ### GPU 셋팅 관련 코드
-- ### tensor.argmx(input, dim, keepdim)
+- ### torch.argmx(input, dim, keepdim)
+- ### torch.from_numpy(numpy.ndarray)
 
 <br>
 
@@ -83,7 +84,7 @@ cudnn.enabled = True
 
 <br>
 
-## **tensor.argmx(input, dim, keepdim)**
+## **torch.argmx(input, dim, keepdim)**
 
 <br>
 
@@ -213,3 +214,16 @@ tensor([[0],
 ```
 
 <br>
+
+## **torch.from_numpy(numpy.ndarray)**
+
+<br>
+
+- torch에서 numpy를 이용해 선언한 데이터를 Tensor 타입으로 변환하려면 아래와 같이 사용할 수 있습니다.
+
+<br>
+
+```python
+A = np.random.rand(3, 100, 100)
+torch.from_numpy(A)
+```
