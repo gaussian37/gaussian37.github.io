@@ -7,7 +7,8 @@ categories: [python-basic]
 tags: [python, python 기본] # add tag
 ---
 
-- 이 글에서는 Python을 사용하면서 필요하다고 느끼는 `Python 기본 문법 및 코드`에 대하여 알아보겠습니다.
+- 이 글에서는 Python을 사용하면서 필요하다고 느끼는 `Python 기본 문법 및 코드`에 대하여 알아보겠습니다. 
+- 목차를 검색하셔서 사용하시기 바랍니다.
 
 <br>
 
@@ -43,6 +44,7 @@ tags: [python, python 기본] # add tag
 - ### 숫자에 0을 채워서 출력
 - ### 문자열 양 끝의 공백 문자 없애기
 - ### os 관련 함수 모음
+- ### pickle 사용 방법
 
 <br>
 
@@ -848,6 +850,33 @@ os.path.isdir('dirname')
 
 <br>
 
+## **pickle 사용 방법**
 
+<br>
 
+- `pickle`은 파이썬 전용으로 편리하게 데이터를 저장 및 불러오기 위한 도구입니다. 즉, 파이썬의 모든 것들을 그냥 `binary` 형태로 저장할 수 있습니다. 
+- 예를 들어 파이썬에서 사용한 어떤 객체를 저장했다가 나중에 다시 쓰고 싶은데, 그냥 바로 이 객체를 저장할 때 사용할 수 있습니다.
+- 또한 `pickle`은 binary 파일 자체로 저장하여 압축률도 높기 때문에 저용량으로 압축해서 저장할 수 있습니다.
+- 따라서 데이터를 저장해야할 때, 1) 객체 자체로 저장하고 싶고 2) 파이썬에서 사용할 것이고 3) 저용량으로 압축하고 싶다면 `pickle`을 쓰길 강력하게 추천드립니다.
+- 사용하실 때에는 아래 코드를 이용하셔서 사용 하시면 도움이 됩니다.
+
+<br>
+
+```python
+import pickle
+
+# 샘플 데이터를 생성하기 위해 numpy를 이용해 보겠습니다.
+# 이 때, 어느 데이터든 상관없습니다. numpy 말고 list, dictionary 등등 아무 거나 사용하셔도 됩니다.
+import numpy as np
+A = np.random.rand(10, 10, 10)
+ 
+## Save pickle
+with open("data.pickle","wb") as fw:
+    pickle.dump(A, fw)
+ 
+## Load pickle
+with open("data.pickle","rb") as fr:
+    B = pickle.load(fr)
+
+```
 
