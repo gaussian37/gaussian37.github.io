@@ -120,78 +120,70 @@ torch.argmax(input, dim = 1, keepdim = True)
 ```python
 
 # channel : 3, height : 4, width : 2로 가정합니다.
->> A = torch.randn(3, 4, 2) 
+>> A = torch.randint(10, (3, 4, 2))
 >> print(A)
 
-tensor([[[-0.8375,  0.7884],
-         [-0.8836, -1.0729],
-         [ 1.0928,  0.5377],
-         [-0.0916,  0.8920]],
+tensor([[[8, 4],
+         [3, 6],
+         [2, 5],
+         [9, 6]],
 
-        [[-1.5294,  0.1188],
-         [-0.8611, -1.0401],
-         [-0.3119, -0.6326],
-         [ 0.5503,  0.5102]],
+        [[4, 5],
+         [6, 4],
+         [9, 2],
+         [5, 6]],
 
-        [[-0.0564, -0.3603],
-         [ 0.6313,  1.2920],
-         [ 1.1927, -1.3898],
-         [-0.1280, -1.7702]]])
+        [[1, 2],
+         [5, 1],
+         [6, 2],
+         [0, 4]]])
          
  >> torch.argmax(A, dim=0)
-  tensor([[1, 0],
-        [1, 1],
+tensor([[0, 1],
         [1, 0],
-        [2, 2]])
-        
+        [1, 0],
+        [0, 1]])
+
+>> torch.argmax(A, dim=0).shape
+torch.Size([4, 2])
+
 >> torch.argmax(A, dim=0, keepdim = True)
-tensor([[[1, 0],
-         [1, 1],
+tensor([[[0, 1],
          [1, 0],
-         [2, 2]]])
+         [1, 0],
+         [0, 1]]])
          
  >> torch.argmax(A, dim=0, keepdim = True).shape
  torch.Size([1, 4, 2])
+
+
+>> torch.argmax(A, dim=1)
+tensor([[3, 3],
+        [2, 3],
+        [2, 3]])
  
- >> torch.argmax(A, dim=1)
- tensor([[0, 0],
-        [2, 0],
-        [0, 3]])
+ >> torch.argmax(A, dim=1).shape
+torch.Size([3, 2])
         
 >> torch.argmax(A, dim=1, keepdim = True)
-tensor([[[0, 0]],
+tensor([[[3, 3]],
 
-        [[2, 0]],
+        [[2, 3]],
 
-        [[0, 3]]])
-        
+        [[2, 3]]])
+
+>> torch.argmax(A, dim=1, keepdim = True).shape
+torch.Size([3, 1, 2])
+
+
+
 >> torch.argmax(A, dim=2)
-tensor([[0, 0, 1, 1],
-        [0, 0, 0, 0],
-        [0, 0, 1, 0]])
-        
 >> torch.argmax(A, dim=2).shape
-torch.Size([3, 4])
-
 >> torch.argmax(A, dim=2, keepdim=True)
-tensor([[[0],
-         [0],
-         [1],
-         [1]],
-
-        [[0],
-         [0],
-         [0],
-         [0]],
-
-        [[0],
-         [0],
-         [1],
-         [0]]])
-         
 >> torch.argmax(A, dim=2, keepdim=True).shape
-torch.Size([3, 4, 1])
 ```
+
+<br>
 
 - 이번에는 간단하게 height와 width만 고려하여 다루어 보겠습니다.
 
