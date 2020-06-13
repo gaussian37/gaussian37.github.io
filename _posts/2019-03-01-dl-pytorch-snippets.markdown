@@ -191,8 +191,13 @@ tensor([[[0],
          
 >> torch.argmax(A, dim=2, keepdim=True).shape
 torch.Size([3, 4, 1])
+```
 
+- 이번에는 간단하게 height와 width만 고려하여 다루어 보겠습니다.
 
+<br>
+
+```python
 # 간단하게 height, width의 크기만을 이용하여 다루어 보겠습니다.
 >> B = torch.rand(3, 2)
 
@@ -200,12 +205,14 @@ tensor([[0.8425, 0.3970],
         [0.5268, 0.7384],
         [0.5639, 0.3080]])
 
+# 1번 예제. 아래 첫번째 그림 참조
 >> torch.argmax(B, dim=0)
 tensor([0, 1])
 
 >> torch.argmax(B, dim=0, keepdim=True)
 tensor([[0, 1]])
 
+# 2번 예제. 아래 두번째 그림 참조
 >> torch.argmax(B, dim=1)
 tensor([0, 1, 0])
 
@@ -213,9 +220,20 @@ tensor([0, 1, 0])
 tensor([[0],
         [1],
         [0]]) 
-
 ```
 
+<br>
+
+- 위의 1번 예제에 해당하는 그림입니다. 매트릭스에서 0번째 축은 세로(height)축입니다. 따라서 각 열에서 세로 방향으로 최대값이 선택됩니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/1.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 다음으로 2번 예제에 해당하는 그림입니다. 매트릭스에서 1번째 축은 가로(width)축입니다. 따라서 각 행에서 가로 방향으로 최댁밧이 선택됩니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 ## **torch.from_numpy(numpy.ndarray)**
