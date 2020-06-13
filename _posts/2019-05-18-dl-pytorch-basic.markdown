@@ -9,23 +9,39 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 
 <br>
 
-- PyTorch 패키지의 구성 요소
-    - `torch`
-        - main namespace로 tensor등의 다양한 수학 함수가 패키지에 포함되어 있습니다.
-        - **NumPy와 같은 구조**를 가지고 있어서 numpy와 상당히 비슷한 문법 구조를 가지고 있습니다.
-    - `torch.autograd`
-        - 자동 미분을 위한 함수가 포함되어 있습니다. 
-        - 자동 미분의 on, off를 제어하는 enable_grad 또는 no_grad나 자체 미분 가능 함수를 정의할 때 사용하는 기반 클래스인 Function등이 포함됩니다.
-    - `torch.nn`
-        - 신경망을 구축하기 위한 다양한 데이터 구조나 레이어가 정의되어 있습니다.
-        - CNN, LSTM, 활성화 함수(ReLu), loss 등이 정의되어 있습니다.
-    - `torch.optim`
-        - SGD 등의 파라미터 최적화 알고리즘 등이 구현되어 있습니다.
-    - `torch.utils.data`
-        - Gradient Descent 계열의 반복 연산을 할 때, 사용하는 미니 배치용 유틸리티 함수가 포함되어 있습니다.
-    - `torch.onnx`
-        - ONNX(Open Neural Network eXchange) 포맷으로 모델을 export 할 때 사용합니다.
-        - ONNX는 서로 다른 딥러닝 프레임워크 간에 모델을 공유할 때 사용하는 새로운 포맷입니다.
+## **Pytorch 란?**
+
+<br>
+
+- 출처 : http://www.itworld.co.kr/news/129659
+
+<br>
+<center><img src="../assets/img/dl/pytorch/basic/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
+<br>
+
+## **PyTorch 패키지의 구성 요소**
+
+<br>
+
+- `torch`
+    - main namespace로 tensor등의 다양한 수학 함수가 패키지에 포함되어 있습니다.
+    - **NumPy와 같은 구조**를 가지고 있어서 numpy와 상당히 비슷한 문법 구조를 가지고 있습니다.
+- `torch.autograd`
+    - 자동 미분을 위한 함수가 포함되어 있습니다. 
+    - 자동 미분의 on, off를 제어하는 enable_grad 또는 no_grad나 자체 미분 가능 함수를 정의할 때 사용하는 기반 클래스인 Function등이 포함됩니다.
+- `torch.nn`
+    - 신경망을 구축하기 위한 다양한 데이터 구조나 레이어가 정의되어 있습니다.
+    - CNN, LSTM, 활성화 함수(ReLu), loss 등이 정의되어 있습니다.
+- `torch.optim`
+    - SGD 등의 파라미터 최적화 알고리즘 등이 구현되어 있습니다.
+- `torch.utils.data`
+    - Gradient Descent 계열의 반복 연산을 할 때, 사용하는 미니 배치용 유틸리티 함수가 포함되어 있습니다.
+- `torch.onnx`
+    - ONNX(Open Neural Network eXchange) 포맷으로 모델을 export 할 때 사용합니다.
+    - ONNX는 서로 다른 딥러닝 프레임워크 간에 모델을 공유할 때 사용하는 새로운 포맷입니다.
 
 <br>
 
