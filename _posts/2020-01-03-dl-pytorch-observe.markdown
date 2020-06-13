@@ -9,6 +9,10 @@ tags: [pytorch, summary, ] # add tag
 
 <br>
 
+- 참조 : https://medium.com/@avkashchauhan/deep-learning-and-machine-learning-models-visualization-43ca99aa7931
+
+<br>
+
 - 이 글에서는 Pytorch에서 학습 현황이나 모델 현황들을 정리해 보겠습니다.
 
 <br>
