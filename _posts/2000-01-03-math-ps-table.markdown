@@ -64,6 +64,8 @@ tags: [ps, c++, python] # add tag
     - 행렬에서 0행부터 끝행까지 지나가면서 점수가 최대가 되도록 만드는 dp문제
 - [등굣길](https://gaussian37.github.io/interview-ps-p12913/)(https://programmers.co.kr/learn/courses/30/lessons/12913)
     - 격자 무늬에서 갈 수 있는 경우의 수를 찾는 문제. 중간에 갈 수 없는 영역이 추가됨
+- [정상회담2](https://gaussian37.github.io/math-ps-b1670/)(acmicpc.net/problem/1670)
+    - 원에 둘러 앉아있는 사람들을 짝을 짓고 짝을 지은 사람을 선으로 그었을 때, 그 선이 교차하지 않도록 하는 경우의 수의 총합
         
 <br>
 
