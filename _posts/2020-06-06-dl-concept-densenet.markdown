@@ -239,6 +239,14 @@ $$ x_{l} = H_{l}([x_{0}, x_{1}, \cdots, x_{l-1}]) $$
 - low-level feature 부터 high-level feature 까지 concatenation을 통해 사용할 수 있도록 만들어 내기 때문에 성능 향상에 도움이 된다고 해석할 수 있습니다.
 
 <br>
+<center><img src="../assets/img/dl/concept/densenet/19.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/dl/concept/densenet/20.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
 
 - 마지막으로 **파라미터의 수 감소**입니다.
 
