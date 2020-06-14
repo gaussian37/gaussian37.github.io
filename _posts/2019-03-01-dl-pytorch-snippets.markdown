@@ -380,10 +380,10 @@ if __name__ == '__main__':
 
 - pytorch에서 학습한 결과를 저장하고 불러오는 방법에 대하여 간략하게 다루어 보겠습니다.
 - 아래 코드에서 핵심 함수인 `save_checkpoint`와 `load_checkpoint`를 자세히 살펴보면 어떻게 저장하고 불러오는 지 알 수 있습니다.
-- 이 부분의 구조를 알기 위해서는 `state_dict`에 대하여 이해 할 필요가 있습니다.
-- `state_dict`는 각 계층을 매개변수 Tensor로 매핑되는 dictionary입니다. 이 때, 학습 가능한 매개변수를 갖는 계층(convolution layer, linear layer 등)등이 모델의 `state_dict` 에 항목을 가지게 됩니다.
-- 옵티마이저 객체(torch.optim) 또한 옵티마이저의 상태 뿐만 아니라 사용된 하이퍼 매개변수(Hyperparameter) 정보가 포함된 state_dict를 갖습니다. `state_dict`는 dictionary이기 때문에 쉽게 저장하거나 불러올 수 있습니다.
-- `inference`를 위해 모델을 저장할 때는 학습된 모델의 학습된 **매개변수만 저장**하면 됩니다. `torch.save()`를 사용하여 모델의 state_dict를 저장하는 것이 나중에 모델을 사용할 때 가장 편하게 사용할 수 있는 방법 중 하나입니다.
+- 이 부분의 구조를 알기 위해서는 `state_dict`에 대하여 이해해야 합니다. 먼저 `state_dict`는 dictionary 입니다. 따라서 이 형태에 맞게 데이터를 쉽게 저장하거나 불러올 수 있습니다.
+- `state_dict`에는 각 계층을 매개변수 Tensor로 매핑합니다.(dictionary 이므로 mapping에 용이합니다.) 이 때, 학습 가능한 매개변수를 갖는 계층(convolution layer, linear layer 등)등이 모델의 `state_dict` 에 항목을 가지게 됩니다.
+- 옵티마이저 객체(torch.optim) 또한 옵티마이저의 상태 뿐만 아니라 사용된 Hyperparameter 정보가 포함된 state_dict를 갖습니다. 
+- `inference`를 위해 모델을 저장할 때는 학습된 모델의 학습된 **매개변수만 저장**하며 방법은 `torch.save()` 함수를 이용합니다.
 - PyTorch에서는 모델을 저장할 때 `.pt` 또는 `.pth` 확장자를 사용하는 것이 일반적인 규칙이며 아래 코드와 같이 `tar`를 통한 압축 형태로 `*.pth.tar`와 같이 많이 사용합니다.
 - 이 이후에 `inference` 용도로 사용하려면 반드시 `model.eval()`을 실행하여 dropout 및 batch normalization이 evaluation 모드로 설정되도록 해야 합니다.
 
