@@ -116,6 +116,13 @@ torch.argmax(input, dim = 1, keepdim = True)
 - 따라서 argmax를 취하면 `channel`은 1로 되고 height와 width의 크기는 유지됩니다.
 
 <br>
+<center><img src="../assets/img/dl/pytorch/snippets/1.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림을 예제로 이용하여 각 축에 대하여 argmax한 결과를 알아보도록 하겠습니다.
+- 아래 예제 코드에서는 0번째 (channel), 1번째 (height), 2번째 (width) 방향으로 각각 argmarx를 한 것입니다. 또한 `keepdim`을 기본값인 False로 둘 경우와 True로 둘 경우를 구분하여 어떻게 `shape`이 변화하는 지 살펴보았습니다.
+
+<br>
 
 ```python
 
@@ -123,65 +130,100 @@ torch.argmax(input, dim = 1, keepdim = True)
 >> A = torch.randint(10, (3, 4, 2))
 >> print(A)
 
-tensor([[[8, 4],
+tensor([[[6, 4],
+         [8, 0],
+         [8, 4],
+         [2, 4]],
+
+        [[2, 8],
          [3, 6],
-         [2, 5],
-         [9, 6]],
+         [4, 7],
+         [0, 9]],
 
-        [[4, 5],
-         [6, 4],
-         [9, 2],
-         [5, 6]],
+        [[8, 0],
+         [3, 9],
+         [0, 5],
+         [7, 3]]])
 
-        [[1, 2],
-         [5, 1],
-         [6, 2],
-         [0, 4]]])
-         
+# 0번째 축(channel) 기준 argmax w/o Keepdim
  >> torch.argmax(A, dim=0)
-tensor([[0, 1],
-        [1, 0],
-        [1, 0],
-        [0, 1]])
+tensor([[2, 1],
+        [0, 2],
+        [0, 1],
+        [2, 1]])
 
 >> torch.argmax(A, dim=0).shape
 torch.Size([4, 2])
 
+# 0번째 축(channel) 기준 argmax w/ Keepdim
 >> torch.argmax(A, dim=0, keepdim = True)
-tensor([[[0, 1],
-         [1, 0],
-         [1, 0],
-         [0, 1]]])
-         
+tensor([[[2, 1],
+         [0, 2],
+         [0, 1],
+         [2, 1]]])
+
  >> torch.argmax(A, dim=0, keepdim = True).shape
  torch.Size([1, 4, 2])
 
-
+# 1번째 축(height) 기준 argmax w/o Keepdim
 >> torch.argmax(A, dim=1)
-tensor([[3, 3],
+tensor([[2, 3],
         [2, 3],
-        [2, 3]])
+        [0, 1]])
  
  >> torch.argmax(A, dim=1).shape
 torch.Size([3, 2])
-        
+
+
+# 1번째 축(height) 기준 argmax w/ Keepdim
 >> torch.argmax(A, dim=1, keepdim = True)
-tensor([[[3, 3]],
+tensor([[[2, 3]],
 
         [[2, 3]],
 
-        [[2, 3]]])
+        [[0, 1]]])
 
 >> torch.argmax(A, dim=1, keepdim = True).shape
 torch.Size([3, 1, 2])
 
 
-
+# 2번째 축(width) 기준 argmax w/o Keepdim
 >> torch.argmax(A, dim=2)
+tensor([[0, 0, 0, 1],
+        [1, 1, 1, 1],
+        [0, 1, 1, 0]])
+
 >> torch.argmax(A, dim=2).shape
+torch.Size([3, 4])
+
+# 2번째 축(width) 기준 argmax w/ Keepdim
 >> torch.argmax(A, dim=2, keepdim=True)
+tensor([[[0],
+         [0],
+         [0],
+         [1]],
+
+        [[1],
+         [1],
+         [1],
+         [1]],
+
+        [[0],
+         [1],
+         [1],
+         [0]]])
+
+
 >> torch.argmax(A, dim=2, keepdim=True).shape
+torch.Size([3, 4, 1])
+
 ```
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림을 보면 왼쪽 부터 0번째 축, 1번째 축, 2번째 축 방향을 기준으로 argmax하였을 때 선택된 결과를 노란색 음영으로 표시하였습니다. 위 코드 결과를 그대로 표현한 것으로 이해하는 데 참조하시기 바랍니다.
 
 <br>
 
@@ -219,13 +261,13 @@ tensor([[0],
 - 위의 1번 예제에 해당하는 그림입니다. 매트릭스에서 0번째 축은 세로(height)축입니다. 따라서 각 열에서 세로 방향으로 최대값이 선택됩니다.
 
 <br>
-<center><img src="../assets/img/dl/pytorch/snippets/1.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/pytorch/snippets/3.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 다음으로 2번 예제에 해당하는 그림입니다. 매트릭스에서 1번째 축은 가로(width)축입니다. 따라서 각 행에서 가로 방향으로 최댁밧이 선택됩니다.
 
 <br>
-<center><img src="../assets/img/dl/pytorch/snippets/2.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/pytorch/snippets/4.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 ## **torch.from_numpy(numpy.ndarray)**
