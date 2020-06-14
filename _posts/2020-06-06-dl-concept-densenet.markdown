@@ -13,6 +13,7 @@ tags: [딥러닝, densenet, densely connected convolution networks] # add tag
 
 <br>
 
+- 논문 : https://arxiv.org/pdf/1608.06993.pdf
 - 참조 : https://pytorch.org/hub/pytorch_vision_densenet/
 - 참조 : https://github.com/pytorch/vision/blob/master/torchvision/models/densenet.py
 - 참조 : https://youtu.be/fe2Vn0mwALI?list=WL
@@ -147,6 +148,12 @@ $$ x_{l} = H_{l}([x_{0}, x_{1}, \cdots, x_{l-1}]) $$
 - 앞에서 설명한 concatenation은 모든 layer가 아닌 각각의 `dense block` 내에서 일어납니다. 
 - `dense block`의 개념이 핵심이여 위 아키텍쳐에서 가장 처음에 사용되는 convolution 연산은 input 이미지의 사이즈를 dense block에 맞게 조절하기 위함임으로 이미지의 사이즈에 따라서 사용해도 되고 사용하지 않아도 됩니다.
 
+<br>
+<center><img src="../assets/img/dl/concept/densenet/14.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 
+
 
 
 <br>
@@ -201,6 +208,7 @@ $$ x_{l} = H_{l}([x_{0}, x_{1}, \cdots, x_{l-1}]) $$
 <br>
 
 - DenseNet에서는 앞에서 설명한 `growth rate`를 통하여 channel의 증감량을 조절하고 있습니다. 따라서 이 growth rate를 작게 잡으면 feature를 계속 channel 방향으로 쌓아가더라도 늘어나는 파라미터의 갯수는 많지 않다는 것입니다.
+- 위 그림 예제에서는 `growth rate`는 3입니다. 왜냐하면 layer가 깊어질수록 3개의 channel만 등차적으로 늘어나기 때문입니다.
 - 논문에서 주로 사용하는 growth rate는 12입니다. 즉 각 convolution layer를 거칠 때 마다 12개의 채널이 증가됩니다. 이를 다른 CNN 모델과 비교해 보면 상대적으로 작은 증가량임을 알 수 있습니다.
 
 <br>
