@@ -16,10 +16,13 @@ tags: [python, python 기본] # add tag
 
 <br>
 
+- ### **--- 셋팅 관련 ---**
 - ### if __name__ == "__main__" 사용 이유
+
+<br>
+
+- ### **--- 자주사용하는 함수 ---**
 - ### Comparator를 이용한 클래스 정렬
-- ### file read/write 방법
-- ### 현재 시각 문자열로 출력하는 방법
 - ### all과 any
 - ### lambda
 - ### map
@@ -28,26 +31,34 @@ tags: [python, python 기본] # add tag
 - ### for loop 스타일 (zip, range, enumerate, sorted, filter)
 - ### deque은 사이즈 관리를 자동으로 한다.
 - ### 파이썬 프로그램 정상 종료 시키기
-- ### 파이썬에서 폴더 및 파일 있는지 확인 후 생성
-- ### 리스트 내부의 경우의 수 조합하기
 - ### 모듈이 설치 되었는 지 확인
-- ### pip가 설치가 안되어 있으면 설치
-- ### 모듈이 설치가 안되어 있으면 설치
 - ### argparse 사용법
 - ### 문자열 검색 : startswith, endswith, in, find, re
 - ### 디렉토리(+ 파일) 복사하기
 - ### 디렉토리(- 파일) 복사하기
-- ### 입력한 디렉토리의 부모 디렉토리 출력
 - ### 특정 문자를 기준으로 split
-- ### 특정 경로의 특정 확장자 파일명만 prefix 추가
-- ### 특정 경로의 특정 확장자 파일명만 suffix 추가
 - ### 숫자에 0을 채워서 출력
 - ### 문자열 양 끝의 공백 문자 없애기
 - ### os 관련 함수 모음
 - ### pickle 사용 방법
 - ### exec을 이용한 문자열로 코드 실행
-- ### local 영역에서 global로 import
 - ### type과 isinstance를 통한 데이터 타입 확인
+- ### dir을 통한 module 확인
+- ### enumerate 함수의 응용
+
+<br>
+
+- ### **--- 자주 사용하는 코드 모음 ---**
+- ### file read/write 방법
+- ### 현재 시각 문자열로 출력하는 방법
+- ### 파이썬에서 폴더 및 파일 있는지 확인 후 생성
+- ### 리스트 내부의 경우의 수 조합하기
+- ### pip가 설치가 안되어 있으면 설치
+- ### 모듈이 설치가 안되어 있으면 설치
+- ### 입력한 디렉토리의 부모 디렉토리 출력
+- ### 특정 경로의 특정 확장자 파일명만 prefix 추가
+- ### 특정 경로의 특정 확장자 파일명만 suffix 추가
+- ### local 영역에서 global로 import
 
 <br>
 
@@ -224,6 +235,35 @@ def GetPresentTime():
 - `all`을 이용하면 iterable한 객체의 값 중에 False 또는 0이 있으면 False를 반환합니다.
 - 반면 모든 값이 True 또는 0이 아니어야 True를 반환합니다.
 - iterable한 객체이므로 list, tuple, set, dictionary 모두 적용 가능하고 dictionary의 값에서는 key 값을 가지고 판단합니다.
+- **empty string**과 **empty list**는 False로 간주합니다. 아래 코드를 참조하시기 바랍니다.
+
+<br>
+
+```python
+# iterable - a list of booleans
+all([True, True, True])
+# True
+all([True, False, False])
+# False
+
+# iterable - a list of integers (0 is considered false)
+all([1, 2, 3])
+# True
+all([0, 1, 2])
+# False
+
+# iterable - a tuple of string (an empty string is considered false)
+all(('AA', 'BB', 'CC'))
+# True
+all(('AA', 'BB', ''))
+# False
+
+# iterable - a nested list (an empty list is considered false)
+all([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+# True
+all([[1, 2, 3], [4, 5, 6], []])
+# False
+```
 
 <br>
 
@@ -988,5 +1028,78 @@ isinstance(temp_class, Temp)
 
 <br>
 
+## **dir을 통한 module 리스트 확인**
 
+<br>
+
+- `dir` 함수를 이용하면 특정 모듈의 attribute를 확인할 수 있습니다. 
+
+<br>
+
+```python
+>> dir('.')
+
+['DirEntry',  'F_OK',  'MutableMapping',  'O_APPEND',  'O_BINARY',  'O_CREAT', ...]
+
+class Test():
+    def func1():
+        pass
+    def func2():
+        pass
+
+test = Test()
+>> dir(test)
+['__class__','__delattr__','__dict__','__dir__','__doc__','__eq__','__format__','__ge__','__getattribute__','__gt__','__hash__','__init__','__init_subclass__','__le__','__lt__','__module__','__ne__','__new__','__reduce__','__reduce_ex__','__repr__','__setattr__','__sizeof__','__str__','__subclasshook__','__weakref__','func1','func2']
+```
+
+<br>
+
+## **enumerate 함수의 응용**
+
+<br>
+
+- `enumerate`는 주로 for-loop에서 index를 활용하기 위해서 많이 사용되곤 합니다.
+- 이번 글에서는 `enumerate`를 어떻게 응용하여 사용할 수 있을 지 알아보겠습니다.\
+- 먼저 아래와 같이 enumerate를 이용하여 generator를 만들 수 있습니다. 내용을 확인할 때에는 `next` 함수를 사용하여 접근할 수 있습니다.
+
+<br>
+
+```python
+alphabets = ['A', 'B', 'C', 'D']
+
+# create an enumerate object
+enumberate_alphabet = enumerate(alphabets)
+
+# obtain the next tuple from the enumerate object
+>> next(enumerate_object)
+(0, 'A')
+
+>> next(enumerate_object)
+(1, 'B')
+
+>> next(enumerate_object)
+(2, 'C')
+
+>> next(enumerate_object)
+(3, 'D')
+```
+
+<br>
+
+- enumerator를 이용하여 다양한 형태로 `list`를 만들 수 있습니다.
+
+<br>
+
+```python
+alphabets = ['A', 'B', 'C', 'D']
+enumberate_alphabet = enumerate(alphabets)
+>> list(enumberate_alphabet)
+[(0, 'A'), (1, 'B'), (2, 'C'), (3, 'D')]
+
+alphabets = [index_alphabet for index_alphabet in enumerate(alphabets, start=1)]
+>> print(alphabets)
+[(1, 'A'), (2, 'B'), (3, 'C'), (4, 'D')]
+```
+
+<br>
 
