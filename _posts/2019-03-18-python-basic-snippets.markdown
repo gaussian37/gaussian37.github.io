@@ -46,7 +46,8 @@ tags: [python, python 기본] # add tag
 - ### os 관련 함수 모음
 - ### pickle 사용 방법
 - ### exec을 이용한 문자열로 코드 실행
-- ### local 영역에서 global로 import 
+- ### local 영역에서 global로 import
+- ### type과 isinstance를 통한 데이터 타입 확인
 
 <br>
 
@@ -220,7 +221,7 @@ def GetPresentTime():
 
 <br>
 
--`all`을 이용하면 iterable한 객체의 값 중에 False 또는 0이 있으면 False를 반환합니다.
+- `all`을 이용하면 iterable한 객체의 값 중에 False 또는 0이 있으면 False를 반환합니다.
 - 반면 모든 값이 True 또는 0이 아니어야 True를 반환합니다.
 - iterable한 객체이므로 list, tuple, set, dictionary 모두 적용 가능하고 dictionary의 값에서는 key 값을 가지고 판단합니다.
 
@@ -236,13 +237,9 @@ def GetPresentTime():
 <br>
 
 - 출처: https://offbyone.tistory.com/73
-- 파이썬에서 `lambda` 는 런타임에 생성해서 사용할 수 있는 익명 함수 입니다. 파이썬에서 `lambda`의 역할은 혼자 쓰일 때라기 
-
-보다는 다양한 다른 함수와 같이 쓰일 때 큰 힘을 발휘합니다.
+- 파이썬에서 `lambda` 는 런타임에 생성해서 사용할 수 있는 익명 함수 입니다. 파이썬에서 `lambda`의 역할은 혼자 쓰일 때라기 보다는 다양한 다른 함수와 같이 쓰일 때 큰 힘을 발휘합니다.
     - 예를 들어 `map`, `filter`, `reduce` 등이 있습니다.
-- 먼저 `lambda`에 대한 간략한 소개와 그에 이어서 `map`, `filter`, `reduce`에 어떻게 lambda가 사용하는 지 예를 보여드리곘
-
-습니다.
+- 먼저 `lambda`에 대한 간략한 소개와 그에 이어서 `map`, `filter`, `reduce`에 어떻게 lambda가 사용하는 지 예를 보여드리겠습니다.
 - lambda는 일반적인 함수와 다르게 만들어진 곳에서 일시적으로 사용하고 버릴 수 있는 함수입니다.
 
 <br>
@@ -264,11 +261,11 @@ print(f(4, 4))
 
 <br>
 
-- map 함수와 lambda 함수가 함께 사용될 때 기능들을 간단하게 구현할 수 있습니다.
-- 먼저 map() 은 두 개 이상의 파라미터를 기본적으로 받습니다. 첫 파라미터는 function이고 두번째 파라미터부터는 function에 
-
-적용할 iterable 입니다. 여기서 iterable은 한번에 하나의 멤버를 반환할 수 있는 객체 입니다.
-- 결과물로 function에 의해 변경된 iterator를 반환합니다.
+- `map`은 입력 받은 **function**에 또다른 입력인 **iterable을 mapping 시켜주는 역할**을 합니다.
+- map 함수와 lambda 함수가 함께 사용될 때 복잡한 기능들을 간단하게 구현할 수 있습니다.
+- 먼저 map() 은 두 개 이상의 파라미터를 기본적으로 받습니다. 
+- `첫번째 파라미터`는 **function**이고 `두번째 파라미터`부터는 **function에 적용할 iterable** 입니다. 여기서 iterable은 한번에 하나의 멤버를 반환할 수 있는 객체 입니다.
+- return 값은 function에 의해 변경된 iterator 입니다
 
 <br>
 
@@ -311,7 +308,7 @@ r = filter(function, iterable)
 <br>
 
 ```
-a = foo = [1,2,3,4,5]
+a = [1,2,3,4,5]
 list( filter(lambda x: x % 2 == 0, a) )
 : [2, 4]
 ```
@@ -937,5 +934,58 @@ def func():
 ```
 
 <br>
+
+## **type과 isinstance를 통한 데이터 타입 확인**
+
+<br>
+
+- 파이썬에서 어떤 데이터의 타입을 이용하여 조건문을 사용하고 싶을 때, `isinstance` 함수를 사용할 수 있습니다. 
+- 사용 방법은 `isinstance(변수/상수, 타입명)` 형태로 사용하며 예를 들어 다음과 같이 사용할 수 있습니다.
+
+<br>
+
+```python
+>> isinstance(1, int)
+True
+```
+
+<br>
+
+- 여기서 중요한 것은 내가 찾고자 하는 변수 또는 상수의 타입명을 어떻게 찾을 수 있을까 입니다. 이것은 `type`을 통하여 찾을 수 있습니다. 따라서 다음과 같이 이용하면 됩니다.
+
+<br>
+
+```python
+temp_str = "sample"
+temp_int = 1
+temp_float = 1.23
+
+class Temp():
+    pass    
+temp_class = Temp()
+
+>> type(temp_str)
+str
+>> isinstance(temp_str, str)
+True
+
+>> type(temp_int)
+int
+>> isinstance(temp_int, int)
+True
+
+>> type(temp_float)
+float
+>> isinstance(temp_float, float)
+True
+
+>> type(temp_class)
+__main__.Temp
+isinstance(temp_class, Temp)
+>> True
+```
+
+<br>
+
 
 
