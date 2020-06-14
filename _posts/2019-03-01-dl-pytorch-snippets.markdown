@@ -116,7 +116,7 @@ torch.argmax(input, dim = 1, keepdim = True)
 - 따라서 argmax를 취하면 `channel`은 1로 되고 height와 width의 크기는 유지됩니다.
 
 <br>
-<center><img src="../assets/img/dl/pytorch/snippets/1.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/pytorch/snippets/1.png" alt="Drawing" style="height: 400px;"/></center>
 <br>
 
 - 위 그림을 예제로 이용하여 각 축에 대하여 argmax한 결과를 알아보도록 하겠습니다.
