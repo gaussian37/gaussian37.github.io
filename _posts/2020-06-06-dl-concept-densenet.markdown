@@ -152,9 +152,48 @@ $$ x_{l} = H_{l}([x_{0}, x_{1}, \cdots, x_{l-1}]) $$
 <center><img src="../assets/img/dl/concept/densenet/14.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 
+- 위 architecture 설명을 위한 테이블에서 densenet의 핵심 구간은 `dense block`입니다. 노란색 음영이 있는 행을 유심히 살펴보면 됩니다.
+- 각 행의 초록색 음영의 곱해진 숫자는 각 dense block에 존재하는 layer의 갯수를 뜻합니다.
+- 그리고 각 dense block의 layer와 나머지 layer 들을 모두 합쳤을 때의 총 layer 갯수가 열에 있는 하늘색 숫자에 해당합니다. 즉, DenseNet-`121`의 의미는 121개의 layer를 가지고 있는 DenseNet이라고 생각하시면 됩니다.
+- 여기까지가 기본적인 `DenseNet` 입니다.
 
+<br>
 
+- 지금부터 설명하는 내용은 `DenseNet w/ Bottleneck` 이고 `DenseNet-B`로 표기합니다. 개념은 간단합니다.
+- DenseNet 또한 Network를 깊게 쌓다보니 연산 수가 많이 늘어나는 문제가 있습니다. 따라서 GoogLeNet과 ResNet에서 사용하였던 `Bottleneck layer`를 똑같이 사용하였습니다.
+- 위 테이블을 보면 각 Dense Block은 1x1 conv를 거치고 3x3 conv를 거치게 됩니다. 즉, 1x1 conv를 거칠 때, bottleneck 구조를 만들어 연산량을 줄이게 됩니다.
+- 논문에서 사용한 1x1 conv와 3x3 conv의 output channel 수는 각각 `4k`와 `k`가 되고 `k`는 앞에서 설명한 growth rate입니다. (4라는 숫자의 해석은 나와있지 않습니다. 실험적으로 발견한 것으로 추측됩니다.)
+
+<br>
+<center><img src="../assets/img/dl/concept/densenet/15.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 다음은 `DenseNet w/ Compression` 개념입니다. 이는 `DenseNet-C`로 표기하겠습니다.
+- 이 또한 연산량을 줄이기 위한 방법으로 Dense Block 사이에 `1x1 convolution`을 이용하여 channel 수를 줄이는 방법입니다. 
+- 만약 Dense Block의 output의 channel의 수가 $$ m $$ 이라면 $$ \theta m \quad (0 \lt \theta \le 1) $$의 갯수로 줄입니다. $$ \theta $$가 1이면 compression을 하지 않은 것입니다.
+- 논문에서 사용한 값은 $$ \theta = 0.5 $$입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/densenet/16.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- DenseNet의 성능을 한번 살펴보겠습니다. 성능을 비교할 때 유심히 볼 곳은 빨간색 원에 해당하는 `growth rate`인 `k`와 `Depth` 입니다.
+- 왜냐하면 `growth rate`는 Dense Block의 핵심 하이퍼 파라미터로 propagation을 많이 할 수록 성능이 좋다는 것을 보여주어야 하며 `Depth`가 깊을수록 성능이 좋아야 그만큼 Dense Block이 깊은 layer에서도 학습이 잘된다는 것을 보여주기 때문입니다.
+- 위 테이블을 보면 `growth rate`와 `depth`의 숫자가 클수록 에러도 낮아지는 것을 확인할 수 있습니다. 즉, **growth rate와 depth는 성능과 양의 상관관계**를 가집니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/densenet/17.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 특히 `DenseNet`의 장점 중 하나는 ResNet과 비교하였을 때, 비슷한 성능을 내더라도 그 파라미터의 수가 확실히 작은 것을 볼 수 있습니다.
+- 위 빨간색 동그라미를 참조하면 Error rate가 ResNet은 4.62, DenseNet은 4.51로 유사한 수준이지만 파라미터의 수는 10배 이상 ResNet이 많은 것을 확인할 수 있습니다. 즉 그만큼 DenseNet이 효율적인 네트워크라는 뜻입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/densenet/18.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 또한 ResNet은 Data Augmentation 시 성능 개선이 많이 되었지만 DenseNet은 애초에 성능이 좋고 Augmentation에 의한 개선이 ResNet보다는 미미한 것을 볼 수 있습니다.
+- 그 이유는 Overfitting에 좀 더 강건하다고 해석할 수 있습니다. 왜냐하면 Data Augmentation이 Overfitting을 개선하기 위한 데이터 증식 기법이기 때문입니다.
 
 <br>
 
