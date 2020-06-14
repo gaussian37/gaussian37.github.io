@@ -11,6 +11,7 @@ tags: [pytorch, snippets] # add tag
 
 - 이 글은 pytorch 사용 시 참조할 수 있는 코드들을 모아놓았습니다.
 - 완전히 기본 문법은 [이 글](https://gaussian37.github.io/dl-pytorch-pytorch-tensor-basic/)에서 참조하시기 바랍니다.
+- 이 글에서는 `셋팅 관련` 내용, `자주 사용하는 함수` 그리고 `자주 사용하는 코드` 순으로 정리하였습니다.
 
 <br>
 
@@ -18,11 +19,21 @@ tags: [pytorch, snippets] # add tag
 
 <br>
 
+- ### **--- 셋팅 관련 ---**
 - ### pytorch import 모음
 - ### pytorch 셋팅 관련 코드
 - ### GPU 셋팅 관련 코드
+
+<br>
+
+- ### **--- 자주사용하는 함수 ---**
 - ### torch.argmx(input, dim, keepdim)
 - ### torch.from_numpy(numpy.ndarray)
+
+<br>
+
+- ### **--- 자주 사용하는 코드 모음 ---**
+- ### weight 초기화 방법
 
 <br>
 
@@ -281,4 +292,81 @@ tensor([[0],
 ```python
 A = np.random.rand(3, 100, 100)
 torch.from_numpy(A)
+```
+
+<br>
+
+## **weight 초기화 방법**
+
+<br>
+
+- 이번 글에서는 딥러닝 네트워크 모델에서 각 layer 및 연산에 접근하여 weight를 초기화 하는 방법에 대하여 다루어 보도록 하겠습니다.
+- 아래 코드에서 예제로 사용하는 [He initialization](https://pytorch.org/docs/stable/nn.init.html#torch.nn.init.kaiming_uniform_)은 링크를 참조하시기 바랍니다.
+
+<br>
+
+```python
+# 모든 neural network module, nn.Linear, nn.Conv2d, BatchNorm, Loss function 등.
+import torch.nn as nn 
+# 파라미터가 없는 함수들 모음
+import torch.nn.functional as F 
+
+class CNN(nn.Module):
+    def __init__(self, in_channels, num_classes):
+        super(CNN, self).__init__()
+        self.conv1 = nn.Conv2d(
+                in_channels=in_channels,
+                out_channels=6,
+                kernel_size=(3,3),
+                stride=(1,1),
+                padding=(1,1)
+        )
+        self.pool = nn.MaxPool2d(kernel_size=(2,2), stride = (2,2))
+        self.conv2 = nn.Conv2d(
+                in_channels=6,
+                out_channels=16,
+                kernel_size=(3,3),
+                stride=(1,1),
+                padding=(1,1)
+        )
+        self.fc1 = nn.Linear(16*7*7, num_classes)
+        # 예제의 핵심인 initialize_weights()로 __init__()이 호출될 때 실행됩니다.
+        self.initialize_weights()
+
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        x = self.pool(x)
+        x = F.relu(self.conv2(x))
+        x = self.pool(x)
+        x = x.reshape(x.shape[0], -1)
+        x = self.fc1(x)
+        
+        return x
+    
+    # 각 지정된 연산(Conv2d, BatchNorm2d, Linear)에 따라 각기 다른 초기화를 줄 수 있습니다.
+    def initialize_weights(self):
+        for m in self.modules():
+            # convolution kernel의 weight를 He initialization을 적용한다.
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_uniform_(m.weight)
+                
+                # bias는 상수 0으로 초기화 한다.
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0)
+            
+            elif isinstance(m, nn.BatchNorm2d):
+                nn.init.constant_(m.weight, 1)
+                nn.init.constant_(m.bias, 0)
+        
+            elif isinstance(m, nn.Linear):
+                nn.init.kaiming_uniform_(m.weight)
+                nn.init.constant_(m.bias, 0)
+
+        
+if __name__ == '__main__':
+    model = CNN(in_channels=3,num_classes=10)
+    
+    # He initialization과 Constant로 초기화 한것을 확인할 수 있습니다.
+    for param in model.parameters():
+        print(param)
 ```

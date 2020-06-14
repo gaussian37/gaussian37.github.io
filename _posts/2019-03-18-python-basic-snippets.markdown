@@ -373,14 +373,15 @@ for i in range(10):
 <br>
 
 - `enumerate`를 이용한 방법은 데이터와 그 데이터의 인덱스를 같이 사용할 때 사용합니다.
-- 아래 코드에서 `i`는 0, 1, 2, ... 순서로 입력됩니다.
+- 아래 코드에서 `i`는 기본적으로 0, 1, 2, ... 순서로 입력됩니다.
+- 만약 시작 값을 바꾸고 싶으면 `start` 옵션을 주면 됩니다. 
 
 <br>
 
 ```python
 
 A = [10, 20, 30, 40, 50]
-for i, data in ennerate(A):
+for i, data in ennerate(A, start=1):
     print(i, data)
 ```
 
