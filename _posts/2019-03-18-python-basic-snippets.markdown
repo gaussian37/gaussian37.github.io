@@ -223,7 +223,7 @@ print ( '%s-%s-%s' % ( now.year, now.month, now.day ) )
 
 def GetPresentTime():
     now = datetime.now()
-    ret = "%s-%s-%s-%s-%s-%s" % ( now.year, now.month, now.day, now.hour, now.minute, now.second)
+    ret = "%s_%s_%s_%s_%s_%s" % ( now.year, now.month, now.day, now.hour, now.minute, now.second)
     return ret
 ```
 
