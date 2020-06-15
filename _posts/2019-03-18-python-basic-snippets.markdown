@@ -941,6 +941,20 @@ with open("data.pickle","rb") as fr:
 
 <br>
 
+- 만약 local에서 사용한다면 반드시 `globals()` 또는 `locals()` 옵션을 넣어서 명확하게 해주어야 하며 함수 외에서도 사용하려면 `globals()`를 이용해야 합니다.
+
+<br>
+
+```python
+def func():
+    exec("a = 5", globals())
+    
+>> print(a)
+5
+```
+
+<br>
+
 ## **local 영역에서 global로 import**
 
 <br>
