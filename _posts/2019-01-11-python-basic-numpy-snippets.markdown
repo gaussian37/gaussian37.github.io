@@ -7,7 +7,29 @@ categories: [python-basic]
 tags: [Numpy, 넘파이] # add tag
 ---
 
-Numpy에서 종종 사용하는 기능들을 정리해 보려고 합니다.
+<br>
+
+- 이번 글에서는 Numpy에서 종종 사용하는 기능들을 정리해 보려고 합니다.
+
+<br>
+
+## **목차**
+
+<br>
+
+### **--- 자주 사용하는 함수 ---**
+### np.c_[]
+### np.meshgrid()
+### ravel(), flatten()
+### np.polyfit으로 fitting
+### np.swapaxes
+### 복원/비복원 랜덤 넘버 추출
+
+<br>
+
+### **--- 자주 사용하는 코드 ---**
+
+<br>
 
 <br><br>
 
@@ -138,4 +160,22 @@ np.swapaxes(x,0,1)
 : array([[1],
          [2],
          [3]])       
+```
+
+<br>
+
+## **복원/비복원 랜덤 넘버 추출**
+
+<br>
+
+- 아래 코드는 랜덤 숫자를 추출하는 방법으로 `rng.choice`의 `replace` 인자에 따라서 복원 또는 비복원으로 랜덤 넘버를 추출할 수 있습니다.
+- `replace`가 False 이면 중복없이 추출하고 True이면 중복을 허용합니다. 중복없이 추출할 때에는 size의 최댓값은 `rng.choice`의 첫번째 인자 값을 넘을 수 없습니다.
+
+<br>
+
+```python
+from numpy.random import default_rng
+
+rng = default_rng()
+numbers = rng.choice(20, size=10, replace=False)
 ```
