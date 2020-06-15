@@ -59,6 +59,7 @@ tags: [python, python 기본] # add tag
 - ### 특정 경로의 특정 확장자 파일명만 prefix 추가
 - ### 특정 경로의 특정 확장자 파일명만 suffix 추가
 - ### local 영역에서 global로 import
+- ### 주어진 index 목록에 해당하는 값 불러오기
 
 <br>
 
@@ -1108,3 +1109,27 @@ alphabets = [index_alphabet for index_alphabet in enumerate(alphabets, start=1)]
 
 <br>
 
+## **주어진 index 목록에 해당하는 값 불러오기**
+
+<br>
+
+- 만약 어떤 list가 주어지고 그 list에서 필요한 값의 인덱스만을 저장한 또다른 리스트가 다음과 같이 있다고 가정해 보겠습니다.
+
+<br>
+
+```python
+A = [9, 4, 5, 8, 10, 14]
+index_list = [1, 3, 4]
+```
+
+<br>
+
+- `index_list`의 인덱스에 해당하는 값만을 가져오려고 합니다. 예를 들어 `A[1] = 4, A[3] = 8, A[4] = 10` 를 불러와야 합니다. 이 때, 다음 코드를 이용할 수 있습니다.
+
+<br>
+
+```python
+result_list = [ A[i] for i in index_list ] 
+```
+
+<br>
