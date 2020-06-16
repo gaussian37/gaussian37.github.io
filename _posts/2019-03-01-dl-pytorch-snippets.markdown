@@ -441,7 +441,64 @@ if __name__ == '__main__':
 
 <br>
 
+- Tensor의 dimension을 맞추기 위해서 dimension을 변경해야 할 경우가 있습니다. 특히 이번에 알아볼 경우는 dimension을 축소하는 경우입니다.
+- dimension 축소를 위해서는 `tensor.unsqueeze()` 함수를 이용하고 아래와 같이 응용할 수 있습니다.
+- `torch.unsqueeze()` 함수는 **어떤 dimension의 값이 1일 때, 그 dimension을 제거**해 줍니다.
+
+<br>
+
+```python
+import torch
+
+tensor = torch.rand(1, 5, 5)
+print(tensor.shape)
+# torch.Size([5, 5])
+
+tensor = torch.squeeze(tensor, 0)
+print(tensor.shape)
+# torch.Size([5, 5])
+
+tensor = torch.rand(1, 5, 5)
+tensor = torch.squeeze(tensor, 1)
+print(tensor.shape)
+# torch.Size([1, 5, 5])
+```
+
+<br>
+
+- 위 예제와 같이 `torch.squeeze(tensor, 1)`에서는 dimension의 값이 1이 아니므로 dimension이 제거 되지 않았습니다.
+
+<br>
+
 ## **torch.squeeze(input, dim)**
 
 <br>
+
+- 이번에는 바로 앞의 `unsqueeze` 예제를 이어 Tensor의 dimension을 늘려보도록 하겠습니다.
+- `torch.unsqueeze(input, dim)`은 squeeze와는 반대로 **diemnsion을 늘려주고 그 값은 1**로 만듭니다.
+-  이 때 선택할 수 있는 dimension은 0 부터 마지막 dimension 까지 입니다. 예를 들어 원래 input의 dimension이 2이면 0 (맨 앞), 1 (가운데), 2 (맨 끝)에 dimension을 늘려줄 수 있습니다.
+
+<br>
+
+```python
+import torch
+
+tensor = torch.rand(5, 5)
+print(tensor.shape)
+# torch.Size([5, 5])
+
+tensor = torch.unsqueeze(tensor, 0)
+print(tensor.shape)
+# torch.Size([1, 5, 5])
+
+tensor = torch.rand(5, 5)
+tensor = torch.unsqueeze(tensor, 1)
+print(tensor.shape)
+# torch.Size([5, 1, 5])
+
+tensor = torch.rand(5, 5)
+tensor = torch.unsqueeze(tensor, 2)
+print(tensor.shape)
+# torch.Size([5, 5, 1])
+```
 
