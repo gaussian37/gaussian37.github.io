@@ -69,6 +69,9 @@ import torch.onnx # model을 onnx 로 변환하기 위함
 ```python
 # pytorch 내부적으로 사용하는 seed 값 설정
 torch.manual_seed(seed)
+
+# cuda를 사용할 경우 pytorch 내부적으로 사용하는 seed 값 설정
+torch.cuda.manual_seed(seed) 
 ```
 
 <br>

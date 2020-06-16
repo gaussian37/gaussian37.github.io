@@ -520,6 +520,9 @@ folder_name = "test"
 
 if os.path.isdir(folder_name) == False:
     os.mkdir(folder_name)
+
+if os.path.exists(folder_name) == False:
+    os.makedirs(folder_name)
 ```
 
 <br>
@@ -875,7 +878,12 @@ os.environ['HOME'] # 'HOME' 대신에 다양한 시스템 정보들이 들어갈
 os.environ.get('HOME')
 os.path.isfile('filename')
 os.path.isdir('dirname')
+os.path.exists(path) # path가 존재하는 지 확인
+os.mkdir(folder_name) # 현재 경로에 folder 생성
 
+# 지정된 path에 folder 생성하며 path에 포함된 branch 까지 생성
+# 예를 들어 path가 ./A/B/C 이고 B/C가 없다면 마지막 C를 생성할 때까지 중간에 필요한 폴더 계층을 모두 생성합니다.
+os.makedirs(path) 
 ```
 
 <br>
