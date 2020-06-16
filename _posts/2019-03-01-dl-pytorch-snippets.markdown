@@ -29,6 +29,8 @@ tags: [pytorch, snippets] # add tag
 - ### **--- 자주사용하는 함수 ---**
 - ### torch.argmx(input, dim, keepdim)
 - ### torch.from_numpy(numpy.ndarray)
+- ### torch.unsqueeze(input, dim)
+- ### torch.squeeze(input, dim)
 
 <br>
 
@@ -432,6 +434,14 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+<br>
+
+## **torch.unsqueeze(input, dim)**
+
+<br>
+
+## **torch.squeeze(input, dim)**
 
 <br>
 
