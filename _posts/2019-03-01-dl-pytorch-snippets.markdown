@@ -31,7 +31,7 @@ tags: [pytorch, snippets] # add tag
 - ### torch.from_numpy(numpy.ndarray)
 - ### torch.unsqueeze(input, dim)
 - ### torch.squeeze(input, dim)
-- ### Variable(data, volatile=True)
+- ### Variable(data)
 
 <br>
 
