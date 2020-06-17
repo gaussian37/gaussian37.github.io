@@ -31,6 +31,7 @@ tags: [pytorch, snippets] # add tag
 - ### torch.from_numpy(numpy.ndarray)
 - ### torch.unsqueeze(input, dim)
 - ### torch.squeeze(input, dim)
+- ### Variable(data, volatile=True)
 
 <br>
 
@@ -509,4 +510,37 @@ tensor = torch.unsqueeze(tensor, 2)
 print(tensor.shape)
 # torch.Size([5, 5, 1])
 ```
+
+<br>
+
+## **Variable(data)**
+
+<br>
+
+- `Variable`은 `from torch.autograd import Variable`을 통해 import 할 수 있습니다. 
+- Variable은 tensor에 데이터를 집어 넣을 때, `Variable` 타입으로 기존의 데이터를 변경하여 사용하곤 합니다.
+- Variable을 생성할 때 가장 많이 사용하는 옵션 중 하나는 Variable이 학습이 필요한 weight 인 지 아닌 지 지정해 주는 옵션입니다. 다음과 같이 사용할 수 있습니다.
+
+<br>
+
+```python
+import torch
+from torch.autograd import Variable
+
+v1 = Variable(torch.rand(3), requires_grad = True)
+print(v1)
+# tensor([0.8407, 0.9296, 0.6941], requires_grad=True)
+
+with torch.no_grad():
+    v2 = Variable(torch.rand(3))
+print(v2)
+# tensor([0.3445, 0.2108, 0.4271])
+```
+
+<br>
+
+- 위 처럼  `with torch.no_grad():` 로 감싸준 경우 명확하기 학습이 필요 없음을 명시하므로 가독성에 좋습니다. 즉, `inference` 용도로만 사용한다는 뜻입니다.
+- 이전에는 이를 `volatile` 옵션을 사용하기도 하였습니다. 예를 들어 `volatile = True`의 경우 inference 용도로만 사용한 경우로 위의 no_grad()와 동일한 목적의 Variable로 해석할 수 있습니다. 가끔씩 보이는 legacy 코드에서 volatile 파라미터가 있다면 True 인 경우 inference 용도인 것으로 해석하시면 됩니다.
+
+
 
