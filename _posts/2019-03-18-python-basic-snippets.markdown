@@ -64,26 +64,6 @@ tags: [python, python 기본] # add tag
 
 <br>
 
-- 1. 먼저 숫자를 문자로 변환한 형태의 list를 만들어야 합니다. 이는 `map`을 이용하여 쉽게 구현할 수 있습니다.
-- 2. 그 다음 특정 문자 (seperator)를 기준으로 list의 문자열 원소를 연결하여 하나의 문자열로 만들 수 있습니다.
-
-<br>
-
-```python
-A = [1,2,3,4]
-
-# 1. 먼저 숫자를 문자로 변환한 형태의 list를 만들어야 합니다. 이는 `map`을 이용하여 쉽게 구현할 수 있습니다.
-list(map(str, A)
-
-# 2. 그 다음 특정 문자 (seperator)를 기준으로 list의 문자열 원소를 연결하여 하나의 문자열로 만들 수 있습니다.
-seperator = ','
-seperator.join(list(map(str, A))
-```
-
-<br>
-
-<br>
-
 ## **if __name__ == "__main__": 사용 이유**
 
 <br>
