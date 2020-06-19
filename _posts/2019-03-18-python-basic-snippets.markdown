@@ -60,6 +60,27 @@ tags: [python, python 기본] # add tag
 - ### 특정 경로의 특정 확장자 파일명만 suffix 추가
 - ### local 영역에서 global로 import
 - ### 주어진 index 목록에 해당하는 값 불러오기
+- ### 숫자 형태의 list를 특정 문자로 구분하여 문자열로 변환
+
+<br>
+
+- 1. 먼저 숫자를 문자로 변환한 형태의 list를 만들어야 합니다. 이는 `map`을 이용하여 쉽게 구현할 수 있습니다.
+- 2. 그 다음 특정 문자 (seperator)를 기준으로 list의 문자열 원소를 연결하여 하나의 문자열로 만들 수 있습니다.
+
+<br>
+
+```python
+A = [1,2,3,4]
+
+# 1. 먼저 숫자를 문자로 변환한 형태의 list를 만들어야 합니다. 이는 `map`을 이용하여 쉽게 구현할 수 있습니다.
+list(map(str, A)
+
+# 2. 그 다음 특정 문자 (seperator)를 기준으로 list의 문자열 원소를 연결하여 하나의 문자열로 만들 수 있습니다.
+seperator = ','
+seperator.join(list(map(str, A))
+```
+
+<br>
 
 <br>
 
@@ -1152,6 +1173,28 @@ index_list = [1, 3, 4]
 
 ```python
 result_list = [ A[i] for i in index_list ] 
+```
+
+<br>
+
+## **숫자 형태의 list를 특정 문자로 구분하여 문자열로 변환**
+
+<br>
+
+- 1. 먼저 숫자를 문자로 변환한 형태의 list를 만들어야 합니다. 이는 `map`을 이용하여 쉽게 구현할 수 있습니다.
+- 2. 그 다음 특정 문자 (seperator)를 기준으로 list의 문자열 원소를 연결하여 하나의 문자열로 만들 수 있습니다.
+
+<br>
+
+```python
+A = [1,2,3,4]
+
+# 1. 먼저 숫자를 문자로 변환한 형태의 list를 만들어야 합니다. 이는 `map`을 이용하여 쉽게 구현할 수 있습니다.
+list(map(str, A)
+
+# 2. 그 다음 특정 문자 (seperator)를 기준으로 list의 문자열 원소를 연결하여 하나의 문자열로 만들 수 있습니다.
+seperator = ','
+seperator.join(list(map(str, A))
 ```
 
 <br>
