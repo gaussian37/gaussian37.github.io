@@ -174,24 +174,34 @@ $$ x_{l} = H_{l}([x_{0}, x_{1}, \cdots, x_{l-1}]) $$
 - 논문에서 사용한 값은 $$ \theta = 0.5 $$입니다.
 
 <br>
+<center><img src="../assets/img/dl/concept/densenet/21.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- DenseNet의 성능을 한번 살펴보겠습니다. 위 테이블에서 아래 6개가 이 논문에서 다루고 있는 DenseNet 입니다.
+- 그 중 위의 3개는 순수하게 DenseBlock 만을 적용한 DenseNet인 반면 아래 3개는 `bottleneck layer`와 `compression` 기법을 동시에 적용한 DenseNet입니다.
+
+<br>
 <center><img src="../assets/img/dl/concept/densenet/16.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- DenseNet의 성능을 한번 살펴보겠습니다. 성능을 비교할 때 유심히 볼 곳은 빨간색 원에 해당하는 `growth rate`인 `k`와 `Depth` 입니다.
-- 왜냐하면 `growth rate`는 Dense Block의 핵심 하이퍼 파라미터로 propagation을 많이 할 수록 성능이 좋다는 것을 보여주어야 하며 `Depth`가 깊을수록 성능이 좋아야 그만큼 Dense Block이 깊은 layer에서도 학습이 잘된다는 것을 보여주기 때문입니다.
-- 위 테이블을 보면 `growth rate`와 `depth`의 숫자가 클수록 에러도 낮아지는 것을 확인할 수 있습니다. 즉, **growth rate와 depth는 성능과 양의 상관관계**를 가집니다.
+- 먼저 성능을 비교할 때 유심히 볼 곳은 빨간색 원에 해당하는 `growth rate`인 `k`와 `Depth` 입니다. 왜나하면 네트워크의 변화를 줄 수 있는 방법이 바로 `growth rate`와 `depth` 이기 때문입니다.
+- `growth rate`와 `depth` 값 각각은 이 값을 크게 하였을 때, 네트워크의 크기가 더 커지고 파라미터 수도 증가하게 됩니다. 네트워크의 크기가 더 커질수록 성능도 그에 따라 좋아져야 잘 설계된 네트워크라고 말 할 수 있습니다. 반면 오히려 네트워크의 크기가 커지면서 성능이 나빠지는 경우가 생기는 데 이 경우는 네트워크 설계가 잘 못된 것입니다.
+- 여기서 `growth rate`와 `depth`에 따른 성능의 영향을 살펴 보면 `growth rate`는 Dense Block의 핵심 하이퍼 파라미터로 propagation을 많이 할 수록 성능이 좋다는 것을 보여줍니다. 그리고 `Depth`가 깊음에도 불구하고 성능이 좋아야 그만큼 Dense Block이 깊은 layer에서도 학습이 잘된다는 것을 보여줍니다.
+- 위 테이블을 보면 `growth rate`와 `depth`의 숫자가 클수록 에러도 낮아지는 것을 확인할 수 있습니다. 즉, **growth rate와 depth는 성능과 양의 상관관계**를 가지므로 DenseNet은 잘 설계된 네트워크라고 말할 수 있습니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/densenet/17.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 특히 `DenseNet`의 장점 중 하나는 ResNet과 비교하였을 때, 비슷한 성능을 내더라도 그 파라미터의 수가 확실히 작은 것을 볼 수 있습니다.
+- 그 다음은 `Parameter Efficiency` 관점의 DenseNet의 장점입니다.
+- `DenseNet`의 장점 중 하나는 ResNet과 비교하였을 때, 비슷한 성능을 내더라도 그 파라미터의 수가 확실히 작은 것을 볼 수 있습니다.
 - 위 빨간색 동그라미를 참조하면 Error rate가 ResNet은 4.62, DenseNet은 4.51로 유사한 수준이지만 파라미터의 수는 10배 이상 ResNet이 많은 것을 확인할 수 있습니다. 즉 그만큼 DenseNet이 효율적인 네트워크라는 뜻입니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/densenet/18.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 그 다음은 `Robust in overfitting` 관점의 DenseNet의 장점입니다.
 - 또한 ResNet은 Data Augmentation 시 성능 개선이 많이 되었지만 DenseNet은 애초에 성능이 좋고 Augmentation에 의한 개선이 ResNet보다는 미미한 것을 볼 수 있습니다.
 - 그 이유는 Overfitting에 좀 더 강건하다고 해석할 수 있습니다. 왜냐하면 Data Augmentation이 Overfitting을 개선하기 위한 데이터 증식 기법이기 때문입니다.
 
@@ -237,10 +247,40 @@ $$ x_{l} = H_{l}([x_{0}, x_{1}, \cdots, x_{l-1}]) $$
  
 - 딥러닝에서 Input에 가까운 앞쪽 layer에서는 low-level feature를 만들어 내고 Output에 가까운 뒷쪽 layer에서는 high-level feature를 만들어냅니다.
 - low-level feature 부터 high-level feature 까지 concatenation을 통해 사용할 수 있도록 만들어 내기 때문에 성능 향상에 도움이 된다고 해석할 수 있습니다.
+- 특히 DenseNet 논문에서는 각 DenseBlock에서의 feature들이 어떻게 재사용되는 지 그 영향에 대한 분석을 시각화 하여 아래와 같이 표현하였습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/densenet/24.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림은 **각 source → target으로 propagation된 weight의 값 분포**입니다. 
+- 먼저 위 그림의 `세로축`과 `가로축`에 대하여 살펴보겠습니다. 위 그림의 세로축은 `Source layer` 입니다. 즉, layer가 propagation 하였을 때, 그 Source에 해당하는 layer가 몇번째 layer인 지 나타냅니다.
+- 반면 가로축은 `Target layer`입니다. 즉, Source에서 부터 전파된 layer의 목적지가 어디인지 나타냅니다.
+- 예를 들어 DenseBlock1의 세로축(5), 가로축 (8)에 교차하는 작은 사각형이 의미하는 것은 DenseBlock1에서 5번째 layer에서 시작하여 8번째 layer로 propagation 된 `weight`라고 보시면 됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/densenet/22.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 예를 들어 각 DenseBlock의 **Source는 1인 부분**들을 살펴 보면 각 Block의 **첫 layer**에서 펼쳐진 propagation에 해당합니다. 위 네트워크 아키텍쳐 그림에서 빨간색 동그라미에 해당하는 부분이라고 보시면 됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/densenet/23.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이번에는 관점을 바꾸어 각 DenseBlock의 **Target이 12인 부분**들을 살펴 보면 **다양한 Source에서 weight들이 모이게** 된 것을 확인하실 수 있습니다. 위 네트워크 아케틱쳐 그림에서 빨간색 동그라미에 해당하는 부분이라고 보시면 됩니다.
+
+<br>
+
+- 그 다음으로 각 사각형의 `색깔`에 대하여 살펴보겠습니다.
+- 각 사각형의 색깔은 각 DenseBlock의 weight들이 가지는 그 크기 값을 0 ~ 1 사이 범위로 normalization 한 결과입니다.
+- 빨간색인 1에 가까울 수록 큰 값을 가지고 파란색인 0에 가까울수록 그 값이 작다고 생각하시면 됩니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/densenet/19.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
+
+- 
 
 <br>
 <center><img src="../assets/img/dl/concept/densenet/20.png" alt="Drawing" style="width: 800px;"/></center>
