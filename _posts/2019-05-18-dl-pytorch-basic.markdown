@@ -32,6 +32,9 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 - ### squeezing 기능 사용 방법
 - ### Initialization, 초기화 방법
 - ### Math Operation
+- ### Gradient를 구하는 방법
+
+<br>
 
 ## **Pytorch 란?**
 
@@ -1026,3 +1029,9 @@ x1 = torch.FloatTensor(4,4)
 
 <br>
 
+## **Gradient를 구하는 방법**
+
+<br>
+
+- Pytorch를 이용하여 Gradient를 구하는 방법에 대하여는 제 블로그의 다른 글에서 자세하게 다루었습니다.
+    - 링크 : https://gaussian37.github.io/dl-pytorch-gradient/

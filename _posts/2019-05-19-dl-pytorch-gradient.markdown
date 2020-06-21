@@ -20,6 +20,7 @@ tags: [pytorch, gradient] # add tag
 - ### Autograd 사용 방법
 - ### derivative 기본 예제
 - ### partial derivative 기본 예제
+- ### 학습 모드와 평가 모드
 
 <br>
 
@@ -186,3 +187,38 @@ y.backward()
 print(x.grad, z.grad)
 ## tensor(2.) tensor(12.)
 ```
+
+<br>
+
+## 학습 모드와 평가 모드
+
+<br>
+
+- 앞에서 다룬 모든 예제는 gradient를 구하기 위해서 `tensor`의 속성을 `requires_grad = True`로 설정하였습니다.
+- gradient를 구한다는 것은 학습 대상이 되는 weight 입니다.
+- 반면 학습이 모두 끝나고 학습한 결과를 실행에 옮기는 inference 단계에서는 굳이 학습 모드로 사용할 필요가 없습니다.
+- 이 때, 사용하는 것이 `torch.no_grad()` 입니다. `torch.no_grad()`가 적용된 tensor는 비록 실제 속성은 `requires_grad = True` 이더라도 **gradient를 업데이트 하지 않고, dropout, batchnormalization 등이 적용되지 않습니다.**
+- 아래 코드를 살펴보겠습니다.
+
+<br>
+
+```python
+x = torch.tensor(1.0, requires_grad = True)
+print(x.requires_grad)
+# True
+
+with torch.no_grad():
+    print(x.requires_grad)
+    print((x**2).requires_grad)
+# True
+# False
+
+print(x.requires_grad)
+# True
+```
+
+<br>
+
+- 위 예제를 살펴보면 `with torch.no_grad():`에서 `requires_grad = True`인 tensor가 어떤 연산이 적용될 때, `requires_grad = False`로 변경된 것을 확인할 수 있습니다.
+- 그리고 with 문을 벗어나면 다시 `requires_grad = True`로 원복된 것을 확인하실 수 있습니다.
+- 이러한 방식으로 gradient를 업데이트 하는 모드와 그렇지 않은 모드를 구분하실 수 있습니다.
