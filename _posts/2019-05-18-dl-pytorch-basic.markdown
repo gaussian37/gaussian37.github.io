@@ -17,6 +17,21 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 - ### PyTorch 패키지의 구성 요소
 - ### PyTorch 기초 사용법
 - ### 텐서의 생성과 변환
+- ### 텐서의 인덱스 조작
+- ### 텐서 연산
+- ### 수학 함수 사용
+- ### 텐서의 차원 조작
+- ### Tensor 생성
+- ### Tensor 데이터 타입
+- ### Numpy to Tensor 또는 Tensor to Numpy
+- ### CPU 타입과 GPU 타입의 Tensor
+- ### Tensor 사이즈 확인하기
+- ### Index (slicing) 기능 사용방법
+- ### Join(cat, stack) 기능 사용 방법
+- ### slicing 기능 사용 방법
+- ### squeezing 기능 사용 방법
+- ### Initialization, 초기화 방법
+- ### Math Operation
 
 ## **Pytorch 란?**
 
@@ -184,6 +199,22 @@ x = t.to("cpu").numpy()
 
 <br>
 
+- `torch.linspace(시작, 끝, step)`
+    - 시작과 끝을 포함하고 step의 갯수만큼 원소를 가진 등차 수열을 만듭니다.
+    - 예를 들어 `torch.linspace(0, 10, 5)` 라고 하면 
+    - `tensor([0.0, 2.5, 5.0, 7.5, 10.0])`의 값을 가집니다.
+- torch에서 바로 이런 값들을 만들면 torch 내부적으로도 사용할 수 있지만 numpy와 호환되는 라이브러리에도 사용 가능합니다.
+    - 왜냐하면 torch를 numpy로 바꿀 수 있기 때문입니다.
+
+```python
+x = torch.linspace(0, 10, 5)
+y = torch.exp(x)
+
+plt.plot(x.numpy(), y.numpy())
+```  
+
+<br>
+
 ## **텐서의 인덱스 조작**
 
 <br>
@@ -267,18 +298,6 @@ m + m
 
 <br>
 
-## **수학 함수 사용**
-
-<br>
-
-- 텐서에는 다양한 수학 함수가 사용되고 사용 방법은 numpy의 ndarray와 유사합니다.
-    - 자주 사용되는 수학 함수 : abs, sin, cos, exp, log, sqrt
-    - 집계 함수 : sum, max, min, mean, std
-        - ndarray와 마찬가지로 dimension을 지정해주면 어떤 기준으로 집계를 할 지 정할 수 있습니다.
-        - `torch.sum(X, dim=0)`
-
-<br>
-
 ## **텐서의 차원 조작**
 
 <br>
@@ -352,50 +371,6 @@ chw_img_data.size()
 ```
 
 <br>
-
-## **선형 대수 연산**
-
-<br>
-
-- `dot` : 벡터 내적
-- `mv` : 행렬과 벡터의 곱
-- `mm` : 행렬과 행렬의 곱
-- `matmul` : 인수의 종류에 따라서 자동으로 dot, mv, mm을 선택
-
-```python
-a = torch.tensor([1,2,3,4,5,6]).view(3,2)
-b = torch.tensor([9,8,7,6,5,4]).view(2,3)
-ab = torch.matmul(a,b)
-ab = a@b # @ 연산자를 이용하여 간단하게 행렬곱을 표현할 수 있음
-```
-
-<br>
-
-- `torch.linspace(시작, 끝, step)`
-    - 시작과 끝을 포함하고 step의 갯수만큼 원소를 가진 등차 수열을 만듭니다.
-    - 예를 들어 `torch.linspace(0, 10, 5)` 라고 하면 
-    - `tensor([0.0, 2.5, 5.0, 7.5, 10.0])`의 값을 가집니다.
-- torch에서 바로 이런 값들을 만들면 torch 내부적으로도 사용할 수 있지만 numpy와 호환되는 라이브러리에도 사용 가능합니다.
-    - 왜냐하면 torch를 numpy로 바꿀 수 있기 때문입니다.
-
-```python
-x = torch.linspace(0, 10, 5)
-y = torch.exp(x)
-
-plt.plot(x.numpy(), y.numpy())
-```  
-
-<br>
-
-- tensor의 연산은 chain 연산이 가능합니다. 즉, 연산 끝에 `.`을 붙여서 연달아 연산이 가능하여 코드를 효율적으로 만들 수 있습니다.
-    - `torch.arange(18).view(2, 3, 3)`
-    
-    
---- 
-- 출처 : https://github.com/GunhoChoi/PyTorch-FastCampus
-- 이번 글에서는 Pytorch의 Tensor를 사용하는 간단한 방법에 대하여 알아보겠습니다.
-
-<br> 
 
 ## **Tensor 생성**
 
@@ -651,7 +626,7 @@ torch.masked_select(x,mask)
 
 <br>
 
-## **Join 기능 사용 방법**
+## **Join(cat, stack) 기능 사용 방법**
 
 <br>
 
@@ -842,6 +817,20 @@ x3 = init.constant(torch.FloatTensor(3,4),3.1415)
 
 <br>
 
+- `dot` : 벡터 내적
+- `mv` : 행렬과 벡터의 곱
+- `mm` : 행렬과 행렬의 곱
+- `matmul` : 인수의 종류에 따라서 자동으로 dot, mv, mm을 선택
+
+```python
+a = torch.tensor([1,2,3,4,5,6]).view(3,2)
+b = torch.tensor([9,8,7,6,5,4]).view(2,3)
+ab = torch.matmul(a,b)
+ab = a@b # @ 연산자를 이용하여 간단하게 행렬곱을 표현할 수 있음
+```
+
+<br>
+
 - Tensor의 산술 연산 방법에 대하여 알아보겠습니다.
 - `+`연산자 또는 `torch.add()`
 
@@ -950,10 +939,6 @@ x1 = torch.FloatTensor([ [1,2,3], [4,5,6] ])
 tensor([[0.0000, 0.6931, 1.0986],
         [1.3863, 1.6094, 1.7918]])
 ```
-
-<br>
-
-## **Matrix Multiplication**
 
 <br>
 
