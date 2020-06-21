@@ -38,6 +38,7 @@ tags: [pytorch, snippets] # add tag
 - ### **--- 자주 사용하는 코드 모음 ---**
 - ### weight 초기화 방법
 - ### load와 save 방법
+- ### Dataloader 사용 방법
 
 <br>
 
@@ -542,5 +543,9 @@ print(v2)
 - 위 처럼  `with torch.no_grad():` 로 감싸준 경우 명확하기 학습이 필요 없음을 명시하므로 가독성에 좋습니다. 즉, `inference` 용도로만 사용한다는 뜻입니다.
 - 이전에는 이를 `volatile` 옵션을 사용하기도 하였습니다. 예를 들어 `volatile = True`의 경우 inference 용도로만 사용한 경우로 위의 no_grad()와 동일한 목적의 Variable로 해석할 수 있습니다. 가끔씩 보이는 legacy 코드에서 volatile 파라미터가 있다면 True 인 경우 inference 용도인 것으로 해석하시면 됩니다.
 
+<br>
 
+## **Dataloader 사용 방법**
+
+<br>
 
