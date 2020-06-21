@@ -39,6 +39,7 @@ tags: [pytorch, snippets] # add tag
 - ### weight 초기화 방법
 - ### load와 save 방법
 - ### Dataloader 사용 방법
+- ### pre-trained model 사용 방법
 
 <br>
 
@@ -552,3 +553,65 @@ print(v2)
 - pytorch 에서는 `DataLoader`를 이용하여 model에 데이터를 넣습니다.
 - 아래 예제는 대표적인 DataLoader를 사용하는 방법이며 `torchvision`을 통하여 import 한 `datasets`에는 사용할 수 있는 대부분의 데이터 셋이 있기 때문에 매우 유용합니다. 
 - 아래 예제에서는 간단하게 MNIST를 추가해 보겠습니다. 사용하는 mean과 std도 모두 예제로 사용한 것이므로 상황에 맞추어 사용하시기 바랍니다.
+
+<br>
+
+```python
+import torch
+from torchvision import datasets, transforms
+
+batch_size = 32
+test_batch_size = 32
+
+# train 데이터를 사용하기 위한 train_loader 생성
+train_loader = torch.utils.data.DataLoader(
+    datasets.MNIST(
+        root = "datasets/", # 현재 경로에 datasets/MNIST/ 를 생성 후 데이터를 저장한다.
+        train = True, # train 용도의 data 셋을 저장한다.
+        download = True,
+        transform = transforms.Compose([
+            transforms.ToTensor(), # tensor 타입으로 데이터 변경
+            transforms.Normalize(mean = (0.5,), std = (0.5,)) # data를 normalize 하기 위한 mean과 std 입력
+        ])
+    ),
+    batch_size=batch_size, 
+    shuffle=True
+)
+
+# test 데이터를 사용하기 위한 test_loader 생성
+test_loader = torch.utils.data.DataLoader(
+    datasets.MNIST(
+        root = "datasets/", # 현재 경로에 datasets/MNIST/ 를 생성 후 데이터를 저장한다.
+        train = False, # test 용도의 data 셋을 저장한다.
+        download = True,
+        transform = transforms.Compose([
+            transforms.ToTensor(), # tensor 타입으로 데이터 변경
+            transforms.Normalize(mean = (0.5,), std = (0.5,)) # train과 동일한 조건으로 normalize 한다.            
+        ])
+    ),
+    batch_size = test_batch_size,
+    shuffle = True
+)
+```
+
+<br>
+
+- train_loader와 test_loader는 generator와 같이 동작하므로 `next` 를 통하여 샘플을 생성할 수 있습니다.
+
+<br>
+
+```python
+image, label = next(iter(train_loader))
+
+print(image.shape)
+# torch.Size([32, 1, 28, 28])
+
+print(label.shape)
+# torch.Size([32])
+```
+
+<br>
+
+## **pre-trained model 사용 방법**
+
+<br>
