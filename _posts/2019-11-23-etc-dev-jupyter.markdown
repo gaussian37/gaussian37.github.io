@@ -74,4 +74,8 @@ tags: [jupyter, notebook, lab] # add tag
 - 설치한 후에 `ipynb`에서 오른쪽을 클릭하면 `open variable inspector`라는 항목이 생깁니다. 이것을 클릭하면 새로운 탭에 variable 들을 모아서 보여줍니다.
 
 <br>
+<center><img src="../assets/img/etc/dev/jupyter/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
 

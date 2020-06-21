@@ -61,9 +61,7 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 
 ```python
 nums = torch.arange(9)
-nums
-
-: tensor([0, 1, 2, 3, 4, 5, 6, 7, 8])
+# : tensor([0, 1, 2, 3, 4, 5, 6, 7, 8])
 ```
 
 <br>
@@ -74,16 +72,14 @@ nums
 
 ```python
 nums.shape
-
-: torch.Size([9])
+# torch.Size([9])
 ```
 
 <br>
 
 ```python
 type(nums)
-
-: torch.Tensor
+# torch.Tensor
 ```
 
 <br>
@@ -93,15 +89,24 @@ type(nums)
 <br>
 
 ```python
+# tensor를 numpy로 타입 변환
 nums.numpy()
+# array([0, 1, 2, 3, 4, 5, 6, 7, 8], dtype = int64)
 
-: array([0, 1, 2, 3, 4, 5, 6, 7, 8], dtype = int64)
+nums.reshape(3, 3)
+# tensor([ [0, 1, 2],
+#           [3, 4, 5],
+#           [6, 7, 8] ]])
 
-nums.reshape(3, 4)
-
-: tensor([ [0, 1, 2],
-           [3, 4, 5],
-           [6, 7, 8] ]])
+nums = torch.arange(9).reshape(3, 3)
+nums
+# tensor([[0, 1, 2],
+#         [3, 4, 5],
+#         [6, 7, 8]])
+nums + nums
+# tensor([[ 0,  2,  4],
+#         [ 6,  8, 10],
+#         [12, 14, 16]])
 ```
 
 <br>
@@ -390,7 +395,10 @@ plt.plot(x.numpy(), y.numpy())
 
 <br>
 
-- 랜덤 넘버 생성
+- Tensor를 생성할 때 대표적으로 사용하는 함수가 `rand`, `zeros`, `ones` 입니다. 이 때, 첫 인자는 dimension 입니다.
+- 각 dimension은 tuple 형태로 묶어서 지정해 주어도 되고 콤마 형태로 풀어서 지정해 주어도 됩니다.
+- 예를 들어 `torch.rand((2, 3))`와 `torch.rand(2, 3)` 모두 같은 shape인 (2, 3)을 가집니다.
+- 먼저 랜덤 넘버 생성에 대하여 다루어 보겠습니다.
 
 ```python
 import torch
@@ -404,7 +412,9 @@ print(x)
 
 <br>
 
-- 순열 생성
+- 다음과 같이 순열을 생성할 수도 있습니다.
+
+<br>
 
 ```python
 torch.torch.randperm(5)
@@ -419,7 +429,9 @@ torch.torch.randperm(5)
 
 <br>
 
-- zeros Tensor 생성
+- 다음은 모든 값이 0인 zeros tensor를 생성해 보도록 하겠습니다.
+
+<br>
 
 ```python
 zeros = torch.zeros(2,3)
@@ -432,7 +444,9 @@ torch.zeros_like(zeros)
 
 <br>
 
-- ones Tensor 생성
+- 다음은 모든 값이 1인 ones Tensor 생성해 보도록 하겠습니다.
+
+<br>
 
 ```python
 torch.ones(2,3)
