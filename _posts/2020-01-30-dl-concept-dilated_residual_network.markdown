@@ -83,6 +83,17 @@ tags: [dilated residual network, DRN] # add tag
 
 <br>
 
+- **pooling을 통하여 input을 downsampling 하는 방법이 시도되었던 이유**는 딥러닝을 이용한 컴퓨터 비전 문제 접근이 classification 또는 detection 부터 시작되었기 때문입니다. 
+- classification과 detection 모두 **object의 존재 여부**가 가장 큰 관심사입니다. classification과 detection은 여러 단계의 convolution과 pooling 연산을 거쳐서 이미지 내에 존재하는 **object들의 핵심이 되는 feature를 추출**해 내야 합니다. 따라서 위치를 파악하기 위해 핵심이 되는 feature 들을 max pooling을 통해 뽑아내게 되고(덜 중요한 feature는 max pool을 통해 제거됨) 그 결과 feature map의 크기가 줄어들게 됩니다.
+- 이 방법을 이용하면 object의 위치를 찾는 데 좋은 효과를 얻을 수 있습니다. 즉 픽셀 단위의 detail 함보다는 **object의 위치를 찾는 global 함을 택한 것**입니다.
+- 이와 같이 classification과 detection는 segmentation과 문제를 접근하는 관점의 차이가 있기 때문에 classification과 detection에 사용되는 `conv + pool` 전략을 그대로 사용하면 segmentation에서는 detail에 취약한 단점이 발생할 수 있습니다.
+
+<br>
+
+- 이와 같은 이유들을 종합하였을때, `dilated convolution`을 이용하여 segmentation을 하는 것에 상당한 효과가 있습니다.
+
+<br>
+
 - 그러면 dilated convolution의 개념을 Sementic Segmentation에 적용해 보도록 하겠습니다.
 - Semantic Segmentation에서 **output의 성능을 높이려면 큰 output feature map이 필요**합니다. 반대로 말하면 Semantic Segmentation의 output에서 output feature map의 크기가 작으면 accuracy가 감소합니다.
 - [FCN](https://gaussian37.github.io/vision-segmentation-fcn/)에서 `32x upsampling`만 하게 되면 성능이 좋지 못한 segmentation 결과를 얻을 수도 있는데, 이런 이유로 `16x upsampling` 또는 `8x upsampling` 등을 적용하여 좀 더 큰 (resolution이 높은) output feature map을 얻게 됩니다.
