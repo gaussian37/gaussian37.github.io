@@ -185,5 +185,4 @@ y = x**2 + z**3
 y.backward()
 print(x.grad, z.grad)
 ## tensor(2.) tensor(12.)
-
 ```
