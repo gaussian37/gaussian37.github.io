@@ -10,6 +10,7 @@ tags: [dilated residual network, DRN] # add tag
 <br>
 
 - 참조 : https://towardsdatascience.com/review-drn-dilated-residual-networks-image-classification-semantic-segmentation-d527e1a8fb5
+- 참조 : https://blog.naver.com/laonple/220991967450
 - 이번 글에서는 `Dilated Residual Network`에 대하여 다루어 보려고 합니다. 
 - 기존에 `Residual Network`에 `Dilated Convolution`을 접목한 형태의 딥러닝 네트워크입니다. 
 
@@ -33,14 +34,25 @@ tags: [dilated residual network, DRN] # add tag
 
 - 위 이미지를 보면 왼쪽이 일반적인 convolution 연산이고 오른쪽이 dilated convolution 연산입니다.
 - 위 이미지의 파란색이 입력이고 초록색이 출력인데 오른쪽의 dilated convolution을 보면 왼쪽의 일반적인 convolution과 비교하였을 때, 필터간의 간격이 있는 것을 확인할 수 있습니다.
-- dilation에 적용된 상수를 통해서 표현하면 왼쪽의 일반적인 convolution은 1이고 오른쪽의 dilated convolution은 2가 됩니다. 필터에서의 간격에 해당합니다.
+- **dilation 상수**를 통해서 표현하면 왼쪽의 일반적인 convolution은 dilation이 1이고 오른쪽의 dilated convolution은 dilation이 2가 됩니다. 즉, 필터에서 픽셀 간의 간격이 `dilation`에 해당합니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/dilated_residual_network/0.png" alt="Drawing" style="width: 400px;"/></center>
+
+- dilated convolution의 개념은 wavelet decomposition 알고리즘에서 `atrous algorithm`이라는 이름으로도 사용되었습니다. 따라서 dilated convolution, atrous convolution 이라고 불립니다. 이 글에서는 dilated convolution 이라고 칭하겠습니다.
+- 참고로 dilated convolution이라고 시작하게된 계기는 FCN을 발전시킨 Fisher Yu의 [Multi-Scale Context Aggregation by Dilated Convolutions](https://arxiv.org/abs/1511.07122)에서 시작되었고 atrous convolution은 [deeplab](https://arxiv.org/abs/1606.00915) 논문에서 사용되었습니다.
+    - atrous는 프랑스어로 구멍이라는 뜻입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/dilated_residual_network/0.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - dilated convolution을 적용하면 소위 말하는 `receptive field`가 넓어지게 됩니다.
-- `receptive field`는 convolution filter가 커버하는 영역이라고 생각하면 됩니다. 말 그대로 필터가 받아들이는 영역입니다.
+- `receptive field`는 convolution filter가 커버하는 영역이라고 생각하면 됩니다. 따라서 `receptive field`가 넓어진다는 것은 필터가 받아들이는 영역이 넓어진다는 것이고 필터가 넓은 범위를 본다고 생각하시면 됩니다.
+- 위 그림에서 빨간색 점이 있는 위치에서만 필터의 파라미터가 존재한다고 생각하시면 됩니다.
+- 앞에서 설명한 바와 같이 가장 왼쪽의 그림은 `dilation이 1`인 convolution filter 입니다. **(input : 3 x 3 영역 → output : 3 x 3 영역)**
+- 가운데 그림은 `dilation이 2`가 적용되었습니다. 여기서도 빨간색 점이 연산에 사용되는 필터의 파라미터 입니다. 따라서 가운데 그림의 경우 output으로 3 x 3 을 만들었을 때 input의 receptive field는 7 x 7이 됩니다. **(input : 7 x 7 영역 → output : 3 x 3 영역)**
+- 가장 오른쪽 그림의 경우 `dilation이 4`가 적용되었습니다. 가운데 그림과 동일한 원리로 receptive field가 15 x 15로 아주 넓습니다. **(input : 15 x 15 영역 → output : 3 x 3 영역)**
+
 
 <br>
 
@@ -48,12 +60,34 @@ tags: [dilated residual network, DRN] # add tag
 
 <br>
 
-- 기존의 Residual Network에 Dilated Convolution을 적용한 이유는 무엇일까요?
-- Semantic Segmentation에서 output의 성능을 높이려면 큰 output feature map이 필요합니다. 반대로 말하면 Semantic Segmentation의 output에서 output feature map의 크기가 작으면 accuracy가 감소합니다.
+- 일단 Dilated Convolution을 적용한 이유는 앞에서 설명한 바와 같이 **receptive field를 효율적으로 넓게 보기 위함** 입니다
+- Dilated convolution을 사용하면 **receptive field는 커지지만 파라미터 갯수는 늘어나지 않기 때문에** `연산량 관점에서 효과`를 볼 수 있습니다.
+- 만약 receptive field가 7 x 7인 영역을 단순히 dilation이 1인 일반적인 convolution filter를 사용한다면 7 x 7 convolution filter를 사용하여야 하며 파라미터의 갯수는 49(7 x 7)개가 필요하게 됩니다. 하지만 dilation을 적용하면 9(3 x 3)개만 필요할 뿐입니다.
+
+<br>
+
+- receptive field를 효율적으로 넓게 보려는 목적은 **다양한 scale의 receptive field를 보기 위함**입니다.
+- 다양한 dilation을 적용하면 다양한 receptive field를 사용할 수 있고 이를 통하여 다양한 scale의 정보가 대응이 가능해집니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/dilated_residual_network/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- dilated convolution 없이 넓은 receptive field를 보는 방법은 2가지가 있습니다.
+    - 1) 크기가 큰 convolution filter를 사용하는 방법 : 이는 연산량 증가로 비효율적임을 확인하였습니다.
+    - 2) pooling을 통하여 input을 downsampling 하는 방법
+- 만약 pooling을 통하여 input을 downsampling 하는 방법을 사용한다면 어떤 단점이 발생할까요? 위 그림을 한번 살펴보겠습니다.
+- 그림의 윗쪽 path는 pooling과 stride를 이용하여 downsampling을 통해 input의 크기를 먼저 줄입니다. 그 다음 convolution 연산을 한 다음에 upsampling을 통해 원본 영상 크기로 다시 확장시킵니다.
+- 반면 그림의 아랫쪽 path는 dilated(atrous) convolution을 적용시켜서 down/up sampling 없이 원본 크기를 유지합니다.
+- 두 방법의 결과를 weight의 heatmap을 통하여 살펴보았을 때, **dilated convolution을 사용한 쪽의 결과가 더 좋은 것을 확인**하실 수 있습니다. pooling을 사용한 방법에서는 detail이 상대적으로 떨어집니다. 이렇게 되면 최종 segmentation 결과가 뭉쳐서 나올 수 있습니다.
+
+<br>
+
+- 그러면 dilated convolution의 개념을 Sementic Segmentation에 적용해 보도록 하겠습니다.
+- Semantic Segmentation에서 **output의 성능을 높이려면 큰 output feature map이 필요**합니다. 반대로 말하면 Semantic Segmentation의 output에서 output feature map의 크기가 작으면 accuracy가 감소합니다.
 - [FCN](https://gaussian37.github.io/vision-segmentation-fcn/)에서 `32x upsampling`만 하게 되면 성능이 좋지 못한 segmentation 결과를 얻을 수도 있는데, 이런 이유로 `16x upsampling` 또는 `8x upsampling` 등을 적용하여 좀 더 큰 (resolution이 높은) output feature map을 얻게 됩니다.
-- 좀 더 큰 output feature map을 얻기 위해서 Segmentation을 위한 Encoder에서 단순히 subsampling을 제거하는 방법도 사용할 수 있지만, 이렇게 하면 receptive field가 감소하게 되고 그 결과 네트워크의 이미지 context를 이해 능력이 떨어질 수 있습니다. 즉 성능이 떨어지게 됩니다.
+- 좀 더 큰 output feature map을 얻기 위해서 Segmentation을 위한 Encoder에서 단순히 subsampling을 제거하는 방법도 사용할 수 있지만, 이렇게 하면 receptive field가 감소하게 되고 그 결과 네트워크의 이미지 context를 이해 능력이 떨어져 최종 성능이 떨어지게 됩니다.
 - 이러한 이유로 `dilated convolution`을 적용하여 receptive field를 늘릴 수 있습니다.
-- 또한 Segmentation 성능을 높이기 위하여 사용된 `dilated convolution`이 image classification을 할 때에도 더 좋은 성능을 내었다고 알려져 있습니다.
 
 <br>
 

@@ -24,6 +24,7 @@ tags: [vision, deep learning, segmentation] # add tag
 - [Fully Convolutional Networks for Semantic Segmentation](https://gaussian37.github.io/vision-segmentation-fcn/)
 - [SPPNet]()
 - [U-Net](https://gaussian37.github.io/vision-segmentation-unet/)
+- [Multi-Scale Context Aggregation by Dilated Convolutions](https://blog.naver.com/laonple/220991967450)
 - [ASPP(Atrous Spatial Pyramid Pooling)](https://gaussian37.github.io/vision-segmentation-aspp/)
 
 <br>
