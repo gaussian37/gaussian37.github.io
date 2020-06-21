@@ -17,10 +17,23 @@ tags: [jupyter, notebook, lab] # add tag
 
 <br>
 
+- ### jupyter lab 단축키
 - ### jupyter 기본 경로 변경
 - ### jupyter lab font 변경
+- ### (extension) variable inspector 
 
 <br>
+
+## **jupyter lab 단축키**
+
+<br>
+
+- jupyter lab 내부에서 Tab 전환하는 방법
+    - `next 탭 전환` : ctrl + shift + [
+    - `prev 탭 전환` : ctrl + shift + ]
+
+<br>
+
 
 ## **jupyter 기본 경로 변경**
 
@@ -44,3 +57,21 @@ tags: [jupyter, notebook, lab] # add tag
 - jupyter lab을 실행한 다음 상단의 `Settings` 탭 → `Advanced settings editors`로 들어갑니다.
 - 그 다음 `Notebook`과 `Texteditor` 탭을 각각 클릭해 보면 왼쪽에는 `System defaults`가 있고 오른쪽에는 `User preferences`가 있습니다.
 - `System defaults`의 내용을 복사해서 `User preferences` 에 붙여쓰고 내가 고치고 싶은 부분만 고치면 즉시 반영됩니다. (재실행 필요 없음)
+
+<br>
+
+## **(extension) variable inspector**
+
+<br>
+
+- jupyter lab의 좋은 extension 중 하나인 variable inspector를 소개합니다.
+- jupyter lab을 실행 후 왼쪽 탭의 extension manager를 클릭 후 `variable inspector`로 검색합니다.
+- 그러면 `@lckr/jupyterlab_variableinspector` 라는 항목이 나옵니다. 이 extension 입니다.
+    - 링크 : https://github.com/lckr/jupyterlab-variableInspector
+- 이 extension은 `node.js`를 기반으로 돌아가게 되므로 다음 링크에서 먼저 node.js를 설치를 해주어야 합니다.
+    - node.js 링크 : https://nodejs.org/en/
+- node.js를 설치한 후에 extension manager 탭에서 `variable inspector`를 설치합니다.
+- 설치한 후에 `ipynb`에서 오른쪽을 클릭하면 `open variable inspector`라는 항목이 생깁니다. 이것을 클릭하면 새로운 탭에 variable 들을 모아서 보여줍니다.
+
+<br>
+

@@ -9,6 +9,16 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 
 <br>
 
+## **목차**
+
+<br>
+
+- ### Pytorch 란?
+- ### PyTorch 패키지의 구성 요소
+- ### PyTorch 기초 사용법
+- ### 텐서의 생성과 변환
+
+
 ## **Pytorch 란?**
 
 <br>
@@ -96,7 +106,7 @@ nums.reshape(3, 4)
 
 <br>
 
-## **Tensor란 무엇인가?**
+- 그 다음으로는 `Tensor`를 직접 생성하고 조작하는 방법들에 대하여 다루어 보도록 하겠습니다.
 
 <br>
 
@@ -376,7 +386,7 @@ plt.plot(x.numpy(), y.numpy())
 
 <br> 
 
-## **Tensor 생성
+## **Tensor 생성**
 
 <br>
 
