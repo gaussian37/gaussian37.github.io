@@ -35,10 +35,18 @@ tags: [vision, deep learning, segmentation] # add tag
 - [DeepLab v2]()
 - [DeepLab v3]()
 - [DeepLab v3+](https://gaussian37.github.io/vision-segmentation-deeplabv3plus/)
+- [DFN(Discriminative Feature Network)]()
+- [DenseASPP]()
+- [SegNet]()
+- [PSPNet]()
 
 <br>
 
 ## **Realtime 성능 위주의 Sementic Segmentation 모델**
 
 <br>
+
+- [ENet]()
+- [BiSeNet]()
+- [ESPNet]()
 
