@@ -13,6 +13,30 @@ tags: [pytorch, gradient] # add tag
 
 <br>
 
+## **목차**
+
+<br>
+
+- ### Autograd 사용 방법
+- ### derivative 기본 예제
+- ### partial derivative 기본 예제
+
+<br>
+
+## **Autograd 사용 방법**
+
+<br>
+
+- 어떤 tensor가 학습에 필요한 tensor라면 backpropagation을 통하여 gradient를 구해야 합니다. (즉, 미분을 해야 합니다.)
+- tensor의 gradient를 구할 때에는 다음 조건들이 만족되어야 gradient를 구할 수 있습니다.
+    - 1) tensor의 옵션이 `requires_grad = True` 로 설정되어 있어야 합니다. (tensor의 기본 값은 `requires_grad = False` 입니다.)
+    - 2) backparopagation을 시작할 지점의 output은 `scalar` 형태이어야 합니다.
+- tensor의 gradient를 구하는 방법은 backpropagation을 시작할 지점의 tensor에서 `.backward()` 함수를 호출하면 됩니다.
+- gradient 값을 확인 하려면 `requires_grad = True`로 생성한 Tensor에서 `.grad`를 통해 값을 확인할 수 있습니다.
+- 말로 하면 조금 어려우니, 다음 예제를 통해 간단하게 확인해 보겠습니다.
+
+<br>
+
 ## **derivative 기본 예제**
 
 <br>
@@ -40,37 +64,126 @@ $$ \frac{df(x)}{dx} = \frac{d(9x^{4} + 2x^{3} + 3x^{2} + 6x + 1)}{dx} = 36x^{3} 
 x = torch.tensor(2.0, requires_grad=True)
 y = 9*x**4 + 2*x**3 + 3*x**2 + 6*x + 1
 y.backward()
->> print(x.grad)
-
-tensor(330.)
+print(x.grad)
+# tensor(330.)
 ```
+
+<br>
+
+- 위 예제에서 유심히 볼 점은 output인 `y`가 scalar 라는 점입니다. 앞에서 언급한 바와 같이 output이 scalar이어야 `backward` 연산이 됩니다.
+
+<br>
+
+- 그러면 이번에는 위 예제를 응용하여 input인 x가 scalar가 아니라 (2, 2) shape matrix 형태로 사용해 보겠습니다. 이번 예제에서 사용할 식은 다음과 같습니다.
+
+<br>
+
+$$ f(X) = \overline{3(X_{ij} + 2)^{2}} = \frac{1}{4}\sum_{i = 0}^{1}\sum_{j=0}^{1} 3(X_{ij} + 2)^{2} $$
+
+$$ \frac{df(X)}{dX} = \frac{1}{4} \sum_{i=0}^{1}\sum_{j=0}^{1} (6X_{ij} + 12) =  \sum_{i=0}^{1}\sum_{j=0}^{1} (1.5X_{ij} + 3) = 1.5(X_{00} + X_{01} + X_{10} + X_{11} ) + 3 $$
+
+<br>
+
+- matrix에서 각 원소의 값에 대하여 미분을 하면 다른 원소는 영향을 주지 않습니다. 예를 들어 $$ X_{00} $$에 대하여 미분하면 그 결과는 $$ 1.5(X_{00}) + 3 $$이 됩니다. 따라서 2 x 2 matrix $$ X $$의 미분 결과는 다음과 같습니다.
+
+<br>
+
+$$ \frac{df(X)}{dX} = \begin{bmatrix} 1.5(X_{00}) + 3 & 1.5(X_{01}) + 3 \\ 1.5(X_{10}) + 3 & 1.5(X_{11}) + 3 \end{bmatrix} $$
+
+<br>
+
+- 그러면 matrix X가 $$ X = [1.0, 2.0; 3.0, 4.0] $$ 일 때, 다음과 같이 gradient 값을 구할 수 있습니다.
+
+<br>
+
+$$ \frac{df(X)}{dX} = \begin{bmatrix} 1.5(X_{00}) + 3 & 1.5(X_{01}) + 3 \\ 1.5(X_{10}) + 3 & 1.5(X_{11}) + 3 \end{bmatrix} = \begin{bmatrix} 4.5 & 6.0 \\ 7.5 & 9.0 \end{bmatrix} $$
+
+<br>
+
+- 그러면 코드를 통해 한번 살펴보도록 하겠습니다.
+
+<br>
+
+```python
+x = torch.tensor([[1.0, 2.0],[3.0, 4.0]], requires_grad = True)
+# tensor([[1., 2.],
+#         [3., 4.]], requires_grad=True)
+
+y = x + 2
+# tensor([[3., 4.],
+#         [5., 6.]], grad_fn=<AddBackward0>)
+
+z = y * y * 3
+# tensor([[ 27.,  48.],
+#         [ 75., 108.]], grad_fn=<MulBackward0>)
+
+out = z.mean()
+# tensor(64.5000, grad_fn=<MeanBackward0>)
+
+out.backward()
+print(x.grad)
+# tensor([[4.5000, 6.0000],
+#         [7.5000, 9.0000]])
+```
+
+<br>
+
+- 수식으로 푼 것과 pytorch를 이용해서 푼 것이 일치하는 것을 확인할 수 있습니다.
+- 만약 tensor에서 `requires_grad = True`를 입력하지 않으면 오류가 발생합니다. 이것도 한번 확인해 보시길 바랍니다.
 
 <br>
 
 ## **partial derivative 기본 예제**
 
+<br>
+
 - 이번에는 편미분 예제를 간단하게 다루어 보겠습니다.
 - 식 $$ y = x^{2} + z^{3} $$이 있다고 가정해보겠습니다.
 - 먼저 변수 $$ x $$에 대하여 편미분 하겠습니다.
-    - 　$$ \frac{\partial}{\partial x}(x^{2} + z^{3}) = 2x $$
+
+<br>
+
+$$ \frac{\partial}{\partial x}(x^{2} + z^{3}) = 2x $$
+
+<br>
+
 - 다음으로 변수 $$ z $$에 대하여 편미분 하면
-    - 　$$ \frac{\partial}{\partial z}(x^{2} + z^{3}) = 3z^{2} $$
-- 이 때, $$f'(x, z) = f'(1, 2) $$ 연산을 하면
-    - 먼저 $$ x $$에 관하여 연산을 하면
-        - 　$$ \frac{\partial(f(x) = x^{2})}{\partial x} \ \ where \ x=1 $$
-        - 　$$ y'(1) = 2 $$
-    - 다음으로 $$ z $$에 관하여 연산을 하면
-        - 　$$ \frac{\partial(f(z) = z^{3})}{\partial z} \ \ where \ z=2 $$
-        - 　$$ y'(2) = 12 $$
-- 이 내용을 코드로 살펴보겠습니다.
+
+<br>
+
+$$ \frac{\partial}{\partial z}(x^{2} + z^{3}) = 3z^{2} $$
+
+<br>
+
+- 이 때, $$ f'(x, z) = f'(1, 2) $$ 연산을 해보겠습니다.
+- 먼저 $$ x $$에 관하여 연산을 하면 다음과 같습니다.
+
+<br>
+
+$$ \frac{\partial(f(x) = x^{2})}{\partial x} \quad \text{where  }  x=1 $$
+
+$$ y'(1) = 2 $$
+
+<br>
+        
+- 다음으로 $$ z $$에 관하여 연산을 하면 다음과 같습니다.
+
+<br>
+
+$$ \frac{\partial(f(z) = z^{3})}{\partial z} \ \ where \ z=2 $$
+
+$$ y'(2) = 12 $$
+
+<br>
+
+- 그러면 이 내용을 코드로 살펴보겠습니다.
 
 ```python
 x = torch.tensor(1.0, requires_grad=True)
 z = torch.tensor(2.0, requires_grad=True)
 y = x**2 + z**3
 y.backward()
->> print(x.grad, z.grad)
-
-tensor(2.) tensor(12.)
+print(x.grad, z.grad)
+## tensor(2.) tensor(12.)
 
 ```
