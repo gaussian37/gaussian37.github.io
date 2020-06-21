@@ -20,7 +20,10 @@ tags: [jupyter, notebook, lab] # add tag
 - ### jupyter lab 단축키
 - ### jupyter 기본 경로 변경
 - ### jupyter lab font 변경
-- ### (extension) variable inspector 
+- ### (필수) ipywidgets 설치
+- ### (extension) variable inspector
+- ### (extension) spreadsheet
+- ### (extension) debugger 
 
 <br>
 
@@ -57,6 +60,21 @@ tags: [jupyter, notebook, lab] # add tag
 - jupyter lab을 실행한 다음 상단의 `Settings` 탭 → `Advanced settings editors`로 들어갑니다.
 - 그 다음 `Notebook`과 `Texteditor` 탭을 각각 클릭해 보면 왼쪽에는 `System defaults`가 있고 오른쪽에는 `User preferences`가 있습니다.
 - `System defaults`의 내용을 복사해서 `User preferences` 에 붙여쓰고 내가 고치고 싶은 부분만 고치면 즉시 반영됩니다. (재실행 필요 없음)
+
+<br>
+
+## **(필수) ipywidgets 설치**
+
+<br>
+
+- `ipywidgets`은 jupyter lab에서 widget들이 구동되기 위한 기본적인 셋팅으로 jupyter lab을 온전하게 사용하려면 반드시 설치하셔야 합니다. 설치 방법은 다음 링크를 참조하시기 바랍니다.
+    - 링크 : https://ipywidgets.readthedocs.io/en/stable/user_install.html
+- 만약 저와 같이 `virtualenv` 환경에서 사용하신 다면 다음 순서를 통해 설치하시면 됩니다.
+- 1) 가상 환경 실행
+- 2) cmd 창에서 실행 : `pip install ipywidgets`
+- 3) cmd 창에서 실행 : `jupyter nbextension enable --py widgetsnbextension --sys-prefix`
+- 4) node.js 설치 : https://nodejs.org/en/
+- 5) cmd 창에서 실행 : `jupyter labextension install @jupyter-widgets/jupyterlab-manager`
 
 <br>
 

@@ -549,3 +549,6 @@ print(v2)
 
 <br>
 
+- pytorch 에서는 `DataLoader`를 이용하여 model에 데이터를 넣습니다.
+- 아래 예제는 대표적인 DataLoader를 사용하는 방법이며 `torchvision`을 통하여 import 한 `datasets`에는 사용할 수 있는 대부분의 데이터 셋이 있기 때문에 매우 유용합니다. 
+- 아래 예제에서는 간단하게 MNIST를 추가해 보겠습니다. 사용하는 mean과 std도 모두 예제로 사용한 것이므로 상황에 맞추어 사용하시기 바랍니다.
