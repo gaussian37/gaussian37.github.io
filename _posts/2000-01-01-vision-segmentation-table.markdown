@@ -28,16 +28,16 @@ tags: [vision, deep learning, segmentation] # add tag
 
 <br>
 
-## **mIoU 성능 위주의 모델**
+## **mIoU 성능 위주의 Sementic Segmentation 모델**
 
 - [DeepLab]()
 - [DeepLab v2]()
 - [DeepLab v3]()
-- [DeepLab v3+](https://gaussian37.github.io/vision-segmentatin-deeplabv3plus/)
+- [DeepLab v3+](https://gaussian37.github.io/vision-segmentation-deeplabv3plus/)
 
 <br>
 
-## **Realtime 성능 위주의 모델**
+## **Realtime 성능 위주의 Sementic Segmentation 모델**
 
 <br>
 
