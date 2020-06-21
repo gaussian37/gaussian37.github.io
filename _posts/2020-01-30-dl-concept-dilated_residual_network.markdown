@@ -95,7 +95,8 @@ tags: [dilated residual network, DRN] # add tag
 <br>
 
 - 그러면 dilated convolution의 개념을 Sementic Segmentation에 적용해 보도록 하겠습니다.
-- Semantic Segmentation에서 **output의 성능을 높이려면 큰 output feature map이 필요**합니다. 반대로 말하면 Semantic Segmentation의 output에서 output feature map의 크기가 작으면 accuracy가 감소합니다.
+- 기본적으로 dilated convolution을 [FCN](https://gaussian37.github.io/vision-segmentation-fcn/)에 접목할 때에는 기존에 사용하던 pooling layer 일부를 제거하고 그 자리에 dilated convolution을 접목할 수 있습니다.
+- Semantic Segmentation에서 **output의 성능을 높이려면 큰 output feature map이 필요**합니다. 앞에서 다룬 detail과 관련된 내용입니다.
 - [FCN](https://gaussian37.github.io/vision-segmentation-fcn/)에서 `32x upsampling`만 하게 되면 성능이 좋지 못한 segmentation 결과를 얻을 수도 있는데, 이런 이유로 `16x upsampling` 또는 `8x upsampling` 등을 적용하여 좀 더 큰 (resolution이 높은) output feature map을 얻게 됩니다.
 - 좀 더 큰 output feature map을 얻기 위해서 Segmentation을 위한 Encoder에서 단순히 subsampling을 제거하는 방법도 사용할 수 있지만, 이렇게 하면 receptive field가 감소하게 되고 그 결과 네트워크의 이미지 context를 이해 능력이 떨어져 최종 성능이 떨어지게 됩니다.
 - 이러한 이유로 `dilated convolution`을 적용하여 receptive field를 늘릴 수 있습니다.
