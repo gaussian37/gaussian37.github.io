@@ -53,8 +53,8 @@ tags: [비주얼 스튜디오 코드 기능, visual studio code] # add tag
 
 <br>
 
-- `ctrl + page_up` : 다음 탭으로 전환
-- `ctrl + page_down` : 이전 탭으로 전환
+- `ctrl + page_up` : 이전 탭으로 전환
+- `ctrl + page_down` : 다음 탭으로 전환
 
 <br>
 
