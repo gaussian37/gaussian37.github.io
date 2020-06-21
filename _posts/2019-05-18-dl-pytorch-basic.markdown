@@ -18,7 +18,6 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 - ### PyTorch 기초 사용법
 - ### 텐서의 생성과 변환
 
-
 ## **Pytorch 란?**
 
 <br>
@@ -133,47 +132,39 @@ import numpy as np
 
 # 2차원 형태릐 list를 이용하여 텐서를 생성할 수 있습니다.
 torch.tensor([[1,2],[3,4.]])
-
-: tensor([[1., 2.],
-        [3., 4.]])
+# : tensor([[1., 2.],
+#         [3., 4.]])
         
 # device를 지정하면 GPU에 텐서를 만들 수 있습니다.
 torch.tensor([[1,2],[3,4.]], device="cuda:0")
-
-: tensor([[1., 2.],
-        [3., 4.]], device='cuda:0')
+# : tensor([[1., 2.],
+#         [3., 4.]], device='cuda:0')
         
 # dtype을 이용하여 텐서의 데이터 형태를 지정할 수도 있습니다.
 torch.tensor([[1,2],[3,4.]], dtype=torch.float64)
-
-: tensor([[1., 2.],
-        [3., 4.]], dtype=torch.float64)
+# : tensor([[1., 2.],
+#         [3., 4.]], dtype=torch.float64)
         
 # arange를 이용한 1차원 텐서
 torch.arange(0, 10)
-
-: tensor([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+# : tensor([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 
 # 모든 값이 0인 3 x 5의 텐서를 작성하여 to 메소드로 GPU에 전송
 torch.zeros(3, 5).to("cuda:0")
-
-:tensor([[0., 0., 0., 0., 0.],
-        [0., 0., 0., 0., 0.],
-        [0., 0., 0., 0., 0.]], device='cuda:0')
-        
+# :tensor([[0., 0., 0., 0., 0.],
+#         [0., 0., 0., 0., 0.],
+#         [0., 0., 0., 0., 0.]], device='cuda:0')
         
 # normal distribution으로 3 x 5 텐서를 작성
 torch.randn(3, 5)
-
-: tensor([[-0.4615, -0.4247,  0.1998, -0.5937, -0.4767],
-        [ 0.7864,  0.3831, -0.7198, -0.0181, -1.1796],
-        [-0.4504, -1.3181,  0.2657,  0.6829, -1.1690]])
+# : tensor([[-0.4615, -0.4247,  0.1998, -0.5937, -0.4767],
+#         [ 0.7864,  0.3831, -0.7198, -0.0181, -1.1796],
+#         [-0.4504, -1.3181,  0.2657,  0.6829, -1.1690]])
         
 # 텐서의 shape은 size 메서드로 확인
 t = torch.randn(3, 5)
 t.size()
-
-: torch.Size([3, 5])
+# : torch.Size([3, 5])
 ```
 
 <br>
@@ -293,8 +284,8 @@ m + m
 <br>
 
 - 텐서의 차원을 변경하는 `view`나 텐서를 결합하는 `stack`, `cat`, 차원을 교환하는 `t`, `transpose`도 사용됩니다.
-- `view`는 numpy의 reshape와 유사합니다. 물론 pytorch에도 `reshape` 기능이 있으므로 `view`를 사용하던지 `reshape`을 사용하던지 사용방법은 같으므로 선택해서 사용하면 됩니다.
--  `cat`은 다른 길이의 텐서를 하나로 묶을 때 사용합니다. 
+- `view`는 numpy의 reshape와 유사합니다. 물론 pytorch에도 `reshape` 기능이 있으므로 `view`를 사용하던지 `reshape`을 사용하던지 사용방법은 같으므로 선택해서 사용하면 됩니다. (**reshape를 사용하길 권장합니다.**)
+- `cat`은 다른 길이의 텐서를 하나로 묶을 때 사용합니다. 
 - `transpose`는 행렬의 전치 외에도 차원의 순서를 변경할 때에도 사용됩니다.
 
 ```python
@@ -308,33 +299,48 @@ x2 = torch.tensor([
 
 # 2 x 2 행렬을 4 x 1로 변형합니다.
 x1.view(4,1)
-:tensor([[1.],
-        [2.],
-        [3.],
-        [4.]])
+# tensor([[1.],
+#         [2.],
+#         [3.],
+#         [4.]])
+
+x1.reshape(4,1)
+# tensor([[1.],
+#         [2.],
+#         [3.],
+#         [4.]])
 
 # 2 x 2 행렬을 1차원 벡터로 변형합니다.
 x1.view(-1)
-: tensor([1,2,3,4])
+# tensor([1,2,3,4])
+
+x1.reshape(-1)
+# tensor([1,2,3,4])
         
 # -1을 사용하면 shape에서 자동 계산 가능한 부분에 한해서 자동으로 입력 됩니다.
 # 계산이 불가능 하면 오류가 발생합니다.
 x1.view(1, -1)
-: tensor([[1.],
-        [2.],
-        [3.],
-        [4.]])
+# tensor([[1.],
+#         [2.],
+#         [3.],
+#         [4.]])
+
+x1.reshape(1, -1)
+# tensor([[1.],
+#         [2.],
+#         [3.],
+#         [4.]])
 
 # 2 x 3 행렬을 전치해서 3 x 2 행렬을 만듭니다.
 x2.t()
-: tensor([[10., 40.],
-        [20., 50.],
-        [30., 60.]])
+# tensor([[10., 40.],
+#         [20., 50.],
+#         [30., 60.]])
         
 # dim = 1 로 결합하면 2 x 5의 행렬로 묶을 수 있습니다.
 torch.cat([x1, x2], dim=1)
-: tensor([[ 1.,  2., 10., 20., 30.],
-        [ 3.,  4., 40., 50., 60.]])
+# tensor([[ 1.,  2., 10., 20., 30.],
+#         [ 3.,  4., 40., 50., 60.]])
         
 # transpose(dim0, dim1)을 사용하면 dim0의 차원과 dim1의 차원을 교환합니다.
 # transpose(0, 3) 이라고 하면 0차원과 3차원을 교환하게 됩니다.
@@ -342,7 +348,7 @@ torch.cat([x1, x2], dim=1)
 hwc_img_data = torch.rand(100, 64, 32, 3)
 chw_img_data = hwc_img_data.transpose(1,2).transpose(1,3)
 chw_img_data.size()
-:torch.Size([100, 3, 64, 32])
+# torch.Size([100, 3, 64, 32])
 ```
 
 <br>
@@ -511,23 +517,28 @@ x.type_as(torch.cuda.IntTensor())
 
 <br>
 
-- Numpy를 생성한 후 Tensor로 변환한 후 다시 Numpy로 변환하기
+- Numpy를 생성한 후 Tensor로 변환한 후 다시 Numpy로 변환해 보고 추가적으로 변환하는 방법도 알아보겠습니다.
 
 <br>
 
 ```python
 import numpy as np
 x1 = np.ndarray(shape=(2,3), dtype=int,buffer=np.array([1,2,3,4,5,6]))
-torch.from_numpy(x1)
+# array([[1, 2, 3],
+#        [4, 5, 6]])
 
-: tensor([[1, 2, 3],
-        [4, 5, 6]])
+torch.from_numpy(x1)
+# tensor([[1, 2, 3],
+#         [4, 5, 6]], dtype=torch.int32)
         
 x2 = torch.from_numpy(x1)
 x2.numpy()
+# array([[1, 2, 3],
+#        [4, 5, 6]])
 
-: array([[1, 2, 3],
-       [4, 5, 6]])
+x2.float()
+# tensor([[1., 2., 3.],
+#         [4., 5., 6.]])
 ```
 
 <br>
@@ -539,21 +550,20 @@ x2.numpy()
 - 딥러닝 프레임워크에서는 CPU와 GPU 두 타입에 대한 Tensor 생성이 가능합니다.
 - PyTorch에서는 어떻게 사용할 수 있는지 알아보겠습니다.
 
+<br>
+
 ```python
 x = torch.FloatTensor([[1,2,3],[4,5,6]])
 x_gpu = x.cuda()
-x_gpu
-
-: 1  2  3
- 4  5  6
-[torch.cuda.FloatTensor of size 2x3 (GPU 0)]
+# 1  2  3
+# 4  5  6
+# [torch.cuda.FloatTensor of size 2x3 (GPU 0)]
 
 x_cpu = x_gpu.cpu()
 x_cpu
- 
-: 1  2  3
- 4  5  6
-[torch.FloatTensor of size 2x3]
+# 1  2  3
+# 4  5  6
+# [torch.FloatTensor of size 2x3]
 ```
 
 <br>
@@ -567,62 +577,56 @@ x_cpu
 ```python
 x = torch.cuda.FloatTensor(10, 12, 3, 3)
 x.size()
-
-: torch.Size([10, 12, 3, 3])
+# torch.Size([10, 12, 3, 3])
 ```
 
 <br>
 
-## **Index 기능 사용방법**
+## **Index (slicing) 기능 사용방법**
 
 <br>
 
-- Index는 Tensor에서 특정 값만 조회하는 것을 말합니다. 
+- Index 또는 slicing 기법은 Tensor에서 **특정 값만 조회**하는 것을 말합니다. 
 - 배열, 행렬에서도 인덱스 기능을 통하여 특정 값들을 조회하는 것 처럼 Tensor에서도 조회할 수 있습니다.
-- 먼저 `torch.index_select`함수를 이용해 보겠습니다. 파라미터는 input, dim, index가 차례로 입력됩니다.
+- 먼저 `torch.index_select`함수를 이용해 보겠습니다. 파라미터는 input, dim, index가 차례로 입력됩니다. 이 함수는 torch에서 제공하는 인덱싱 방법입니다.
 
 ```python
 # torch.index_select(input, dim, index)
 x = torch.rand(4,3)
-print(x)
-
-: tensor([[0.4898, 0.2505, 0.6500],
-        [0.0976, 0.4117, 0.9705],
-        [0.7069, 0.0546, 0.7824],
-        [0.4921, 0.9863, 0.3936]])
+# tensor([[0.4898, 0.2505, 0.6500],
+#         [0.0976, 0.4117, 0.9705],
+#         [0.7069, 0.0546, 0.7824],
+#         [0.4921, 0.9863, 0.3936]])
     
 # 3번째 인자에는 torch.LongTensor를 이용하여 인덱스를 입력해 줍니다.
 torch.index_select(x,0,torch.LongTensor([0,2]))
-
-: tensor([[0.4898, 0.2505, 0.6500],
-        [0.7069, 0.0546, 0.7824]])
+# tensor([[0.4898, 0.2505, 0.6500],
+#         [0.7069, 0.0546, 0.7824]])
 ```  
 
 <br>
 
-- 이번에는 좀더 파이썬스럽게 인덱싱을 해보겠습니다.
-- 아래 방법이 좀더 파이썬 유저에게 친숙한 방법입니다.
+- 하지만 위 처럼 인덱식 하는 방법은 뭔가 python이나 numpy와는 조금 이질적인 감이 있습니다.
+- 이번에는 좀더 파이썬스럽게 인덱싱을 해보겠습니다. 아래 방법이 좀더 파이썬 유저에게 친숙한 방법입니다.
+
+<br>
 
 ```python
 print(x)
+# tensor([[0.4898, 0.2505, 0.6500],
+#         [0.0976, 0.4117, 0.9705],
+#         [0.7069, 0.0546, 0.7824],
+#         [0.4921, 0.9863, 0.3936]])
 
-: tensor([[0.4898, 0.2505, 0.6500],
-        [0.0976, 0.4117, 0.9705],
-        [0.7069, 0.0546, 0.7824],
-        [0.4921, 0.9863, 0.3936]])
+x[:, 0]
+# tensor([0.4898, 0.0976, 0.7069, 0.4921])
 
-print(x[:, 0])
+x[0, :]
+# tensor([0.4898, 0.2505, 0.6500])
 
-: tensor([0.4898, 0.0976, 0.7069, 0.4921])
-
-print(x[0, :])
-
-: tensor([0.4898, 0.2505, 0.6500])
-
-print(x[0:2, 0:2])
-
-: tensor([[0.4898, 0.2505],
-        [0.0976, 0.4117]])
+x[0:2, 0:2]
+# tensor([[0.4898, 0.2505],
+#         [0.0976, 0.4117]])
 ```
 
 <br>
@@ -631,19 +635,18 @@ print(x[0:2, 0:2])
 - `torch.masked_select(input, mask)` 함수를 이용하여 선택할 영역에는 `1`을 미선택할 영역은 `0`을 입력 합니다.
 - 인풋 영역과 마스크할 영역의 크기는 같아야 오류 없이 핸들링 할 수 있습니다.
 
+<br>
+
 ```python
 x = torch.randn(2,3)
-print(x)
-
-: tensor([[ 0.6122, -0.7963, -0.3964],
-        [ 0.6030,  0.1522, -1.0622]])
+# tensor([[ 0.6122, -0.7963, -0.3964],
+#         [ 0.6030,  0.1522, -1.0622]])
 
 # mask는 0,1 값을 가지고 ByteTensor를 이용하여 생성합니다.
+# (0,3)과 (1,1) 데이터 인덱싱
 mask = torch.ByteTensor([[0,0,1],[0,1,0]])
 torch.masked_select(x,mask)
-
-# (0,3)과 (1,1) 데이터 인덱싱
-tensor([-0.3964,  0.1522])
+# tensor([-0.3964,  0.1522])
 ```
 
 <br>
@@ -655,47 +658,44 @@ tensor([-0.3964,  0.1522])
 - PyTorch에서 `torch.cat(seq, dim)`을 이용하여 concaternate 연산을 할 수 있습니다.
 - `dim`은 concaternate할 방향을 정합니다.
 
+<br>
+
 ```python
 x = torch.cuda.FloatTensor([[1, 2, 3], [4, 5, 6]])
 y = torch.cuda.FloatTensor([[-1, -2, -3], [-4, -5, -6]])
 z1 = torch.cat([x, y], dim=0)
-print(z1)
-
-tensor([[ 1.,  2.,  3.],
-        [ 4.,  5.,  6.],
-        [-1., -2., -3.],
-        [-4., -5., -6.]], device='cuda:0')
+# tensor([[ 1.,  2.,  3.],
+#         [ 4.,  5.,  6.],
+#         [-1., -2., -3.],
+#         [-4., -5., -6.]], device='cuda:0')
 
 z2 = torch.cat([x, y], dim=1)
-print(z2)
-
-tensor([[ 1.,  2.,  3., -1., -2., -3.],
-        [ 4.,  5.,  6., -4., -5., -6.]], device='cuda:0')
+# tensor([[ 1.,  2.,  3., -1., -2., -3.],
+#         [ 4.,  5.,  6., -4., -5., -6.]], device='cuda:0')
 ```
 
 <br>
 
 - `torch.stack` 을 이용하여도 concaternate를 할 수 있습니다.
 
+<br>
+
 ```python
 # torch.stack(sequence,dim=0) -> stack along new dim
 
 x = torch.FloatTensor([[1,2,3],[4,5,6]])
 x_stack = torch.stack([x,x,x,x],dim=0)
+# tensor([[[1., 2., 3.],
+#          [4., 5., 6.]],
 
-x_stack
+#         [[1., 2., 3.],
+#          [4., 5., 6.]],
 
-: tensor([[[1., 2., 3.],
-         [4., 5., 6.]],
+#         [[1., 2., 3.],
+#          [4., 5., 6.]],
 
-        [[1., 2., 3.],
-         [4., 5., 6.]],
-
-        [[1., 2., 3.],
-         [4., 5., 6.]],
-
-        [[1., 2., 3.],
-         [4., 5., 6.]]])
+#         [[1., 2., 3.],
+#          [4., 5., 6.]]])
 ```
 
 <br>
@@ -705,7 +705,9 @@ x_stack
 <br>
 
 - slicing 기능은 Tensor를 몇개의 부분으로 나뉘는 기능입니다.
-- `torch.chunk(tensor, chunks, dim=0)` 또는 `torch.split(tensor,split_size,dim=0)`함수를 이용하여 Tensor를 나뉠 수 잇습니다
+- `torch.chunk(tensor, chunks, dim=0)` 또는 `torch.split(tensor,split_size,dim=0)`함수를 이용하여 Tensor를 나뉠 수 있습니다.
+
+<br>
 
 ```python
 # torch.chunk(tensor, chunks, dim=0) -> tensor into num chunks
@@ -714,42 +716,42 @@ x_1, x_2 = torch.chunk(z1,2,dim=0)
 y_1, y_2, y_3 = torch.chunk(z1,3,dim=1)
 
 print(z1)
-:  1  2  3
-  4  5  6
- -1 -2 -3
- -4 -5 -6
- [torch.FloatTensor of size 4x3]
+#   1  2  3
+#   4  5  6
+#  -1 -2 -3
+#  -4 -5 -6
+#  [torch.FloatTensor of size 4x3]
  
  print(x1)
- :  1  2  3
-  4  5  6
- [torch.FloatTensor of size 2x3], 
+#   1  2  3
+#   4  5  6
+#  [torch.FloatTensor of size 2x3], 
  
  print(x2)
- : -1 -2 -3
- -4 -5 -6
- [torch.FloatTensor of size 2x3]
+#  -1 -2 -3
+#  -4 -5 -6
+#  [torch.FloatTensor of size 2x3]
  
  print(y1)
- :  1
-  4
- -1
- -4
- [torch.FloatTensor of size 4x1], 
+#   1
+#   4
+#  -1
+#  -4
+#  [torch.FloatTensor of size 4x1], 
  
  print(y2)
- : 2
-  5
- -2
- -5
- [torch.FloatTensor of size 4x1]
+#   2
+#   5
+#  -2
+#  -5
+#  [torch.FloatTensor of size 4x1]
  
  print(y3)
-:  3
-  6
- -3
- -6
- [torch.FloatTensor of size 4x1]
+#   3
+#   6
+#  -3
+#  -6
+#  [torch.FloatTensor of size 4x1]
 ```
 
 <br>
@@ -765,16 +767,16 @@ print(z1)
 ```python
 >>> x = torch.zeros(2, 1, 2, 1, 2)
 >>> x.size()
-torch.Size([2, 1, 2, 1, 2])
+# torch.Size([2, 1, 2, 1, 2])
 >>> y = torch.squeeze(x)
 >>> y.size()
-torch.Size([2, 2, 2])
+# torch.Size([2, 2, 2])
 >>> y = torch.squeeze(x, 0)
 >>> y.size()
-torch.Size([2, 1, 2, 1, 2])
+# torch.Size([2, 1, 2, 1, 2])
 >>> y = torch.squeeze(x, 1)
 >>> y.size()
-torch.Size([2, 2, 1, 2])
+# torch.Size([2, 2, 1, 2])
 ```
 
 <br>
@@ -1036,3 +1038,6 @@ x1 = torch.FloatTensor(4,4)
    7.0711e-01  7.0711e-01  7.3000e-07  3.2207e-10
   [torch.FloatTensor of size 4x4]))
 ```
+
+<br>
+
