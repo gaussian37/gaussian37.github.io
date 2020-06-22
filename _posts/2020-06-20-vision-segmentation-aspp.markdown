@@ -15,6 +15,7 @@ tags: [vision, deep learning, segmentation, aspp, atrous, spatial, pyramid, pool
 
 - 참조 : https://towardsdatascience.com/review-deeplabv1-deeplabv2-atrous-convolution-semantic-segmentation-b51c5fbde92d
 - 참조 : https://m.blog.naver.com/laonple/221000648527
+- 참조 : https://towardsdatascience.com/review-deeplabv3-atrous-convolution-semantic-segmentation-6d818bfd1d74
 - 이번 글에서는 segmentation에서 자주 사용되는 `ASPP(Atrous Spatial Pyramid Pooling)`에 대하여 다루어 보도록 하겠습니다.
 - `ASPP`는 [DeepLab_v2](https://arxiv.org/abs/1606.00915)에서 소개되었고 그 이후에 많은 Segmentation 모델에서 차용해서 사용하고 있습니다.
 
@@ -100,6 +101,8 @@ $$ r > 1 \text{ : atrous convolution}, \quad r = 1 \text{ : standard convolution
 <br>
 
 ```python
+
+```
 
 
 
