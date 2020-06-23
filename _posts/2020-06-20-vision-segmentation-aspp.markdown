@@ -24,7 +24,8 @@ tags: [vision, deep learning, segmentation, aspp, atrous, spatial, pyramid, pool
 ## **목차**
 
 - ### Atrous convolution
-- ### ASPP(Atrous Spatial Pyramid Pooling)
+- ### ASPP(Atrous Spatial Pyramid Pooling) (DeepLab v2)
+- ### ASPP(Atrous Spatial Pyramid Pooling) (DeepLab v3)
 - ### Pytorch 코드
 
 <br>
@@ -52,36 +53,40 @@ $$ r > 1 \text{ : atrous convolution}, \quad r = 1 \text{ : standard convolution
 - 위 수식에서 $$ x $$가 input이고 $$ w $$가 filter입니다. 즉, $$ r $$의 값에 따라 input을 얼마나 띄엄 띄엄 filter와 곱 연산을 할 지가 결정됩니다.
 
 <br>
-<center><img src="../assets/img/vision/segmentation/aspp/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/segmentation/aspp/4.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
-
-- 이를 이미지 convolution filter에 적용하면 위 그림과 같습니다. 그림의 위쪽 그림이 standard convolution인 반면 아래쪽 그림이 atrous convolution을 적용한 형태입니다.
-- 같은 크기의 kernel을 사용하였음에도 불구하고 atrous convolution을 적용하였을 때, 더 넓은 범위의 input feature를 cover 할 수 있습니다.
-- 즉, **atrous convolution은 input feature의 FOV(Field Of View)를 더 넓게 확장 할 수 있는** 장점을 가집니다.
-
-
-<br>
-
-## **ASPP(Atrous Spatial Pyramid Pooling)**
-
-<br>
-
-- ASPP에 대하여 제 블로그의 다음 링크도 참조하시기 바랍니다.
-- 링크 : https://gaussian37.github.io/vision-segmentation-deeplabv3plus/
 
 <br>
 <center><img src="../assets/img/vision/segmentation/aspp/1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- `ASPP`가 소개된 Deeplab v2에서는 multi-scale에 더 잘 대응할 수 있도록 atrous convolution에 대한 `확장 계수`를 (6, 12, 18, 24)를 적용하여 위 그림과 같이 합쳐서 사용하였습니다.
-- Spatial Pyramid Pooling 구조는 [SPPNet](https://gaussian37.github.io/vision-segmentation-sppnet/)을 통하여 얻을 수 있었고 이 구조에 atrous convolution을 적용하여 ASPP를 만들었습니다.
-- 처음 제시되었던 ASPP는 `확장 계수`를 6 ~ 24 까지 다양하게 변화하면서 다양한 receptive field를 볼 수 있도록 적용하였습니다.
+- 이를 이미지 convolution filter에 적용하면 위 그림과 같습니다. 위쪽 그림 (a)가 standard convolution이고 아래쪽 그림 (b)가 atrous convolution을 적용한 형태입니다.
+- 먼저 그림 (a)는 일반적인 convolution 연산입니다. 그리고 기본적으로 사용하는 **stride = 1, pad = 1**을 사용하여 **feature의 크기를 유지**하였습니다.
+- 반면 그림 (b)는 이 글에서 설명하는 atrous convolution을 적용한 형태로 필터 간의 거리가 2 인것을 알 수 있습니다. 이 거리의 크기는 `r` 이라는 상수를 통해 조절됩니다. atrous convolution을 적용할 때, 그림 (a)와 같이 **feature의 크기를 유지**하려면 **stride = 1, pad = r 로 사용**하면 됩니다.
+- 같은 크기의 kernel을 사용하였음에도 불구하고 atrous convolution을 적용하였을 때, 더 넓은 범위의 input feature를 cover 할 수 있습니다. 즉, **atrous convolution은 input feature의 FOV(Field Of View)를 더 넓게 확장 할 수 있는** 장점을 가집니다. 뿐만 아니라 작은 범위의 FOV도 가지기 때문에 다양한 FOV를 다룰 수 있다는 장점을 가집니다.
+- 즉, **small FOV**를 통한 `localization` 정확성과 **large FOV**를 통한 `context` 이해를 동시에 다룰 수 있게 됩니다.
+
+
+<br>
+
+## **ASPP(Atrous Spatial Pyramid Pooling) (DeepLab v2)**
+
+<br>
+
+- 지금부터 DeepLab v2에서 소개된 `ASPP(Atrous Spatial Pyramid Pooling)`부터 시작하여 DeepLab v3에서 소개된 `ASPP` 까지 다루어 보려고 합니다.
+- 먼저 DeepLab v2에서 소개된 ASPP의 구조를 알아보도록 하겠습니다. (pytorch 코드는 성능이 개선된 DeepLab v3의 ASPP를 통해 알아보겠습니다.)
 
 <br>
 <center><img src="../assets/img/vision/segmentation/aspp/2.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 왼쪽 그림은 Deeplab v1의 모델의 형태이고 오른쪽 그림은 Deeplab v2의 모델 형태입니다.
+- `ASPP`가 소개된 Deeplab v2에서는 multi-scale에 더 잘 대응할 수 있도록 atrous convolution에 대한 `확장 계수`를 (6, 12, 18, 24)를 적용하여 위 그림과 같이 합쳐서 사용하였습니다.
+- Spatial Pyramid Pooling 구조는 [SPPNet](https://gaussian37.github.io/vision-segmentation-sppnet/)을 통하여 얻을 수 있었고 이 구조에 atrous convolution을 적용하여 ASPP를 만들었습니다.
+- 처음 제시되었던 ASPP는 `확장 계수`를 6 ~ 24 까지 다양하게 변화하면서 다양한 receptive field를 볼 수 있도록 적용하였습니다. 이는 그림 (b)에서 확인할 수 있습니다.
+
+<br>
+
+- 왼쪽 그림은 Deeplab v1의 모델의 일부 layer 형태이고 오른쪽 그림은 Deeplab v2의 layer 형태(ASPP) 입니다.
 - 양쪽 모두 FC6 layer 까지는 동일한 아키텍쳐를 이용하고 있습니다. 하지만 FC6에서 부터 두 모델이 달라집니다.
 - 오른쪽 그림의 Deeplab v2의 경우 ASPP 구조에 확장 계수 6, 12, 18, 24가 적용되어 다양한 스케일을 볼 수 있도록 설계되어 있습니다.
 - 반면 왼쪽 그림의 Deeplab v1의 경우 ASPP 구조와 비교해서 보면 단순히 확장 계수가 12로 고정되어 있다고 생각하면 됩니다.
@@ -91,8 +96,30 @@ $$ r > 1 \text{ : atrous convolution}, \quad r = 1 \text{ : standard convolution
 <br>
 
 - 위 성능 지표를 통해 고정된 확장 계수의 ASPP인 `Large FOV`와 `ASPP-S` (확장 계수 값이 작은 값들로 구성됨 r = 2, 4, 8, 12) 그리고 `ASPP-L` (r = 6, 12, 18, 24)를 이용하였을 때의 성능을 비교할 수 있습니다.
-- 그 결과 **넓은 multi scale의 receptive field > 졻은 multi scale의 receptive field > 고정된 scale의 receptive field**인 것을 확인할 수 있습니다.
+- 그 결과 **넓은 multi scale의 receptive field > 좁은 multi scale의 receptive field > 고정된 scale의 receptive field**인 것을 확인할 수 있습니다.
 - 따라서 `ASPP`를 적용할 때 확장 계수는 `넓은 multi scale의 receptive field`를 사용할 수 있도록 하는 것이 성능을 높일 수 있습니다.
+
+<br>
+
+- 여기 까지 내용을 잘 이해하셨다면 `DeepLab v3`에서 사용한 ASPP로 넘어가 보도록 하겠습니다. pytorch를 통한 코드 구현은 조금 뒤에 다루어 보려고 합니다. 지금 까지 이해한 내용에서 아주 조금 개념이 추가되면서 성능 개선을 하였기에 성능 열세인 초기의 ASPP 보다는 DeepLab v3 버전의 pytorch 코드를 보는 것이 더 낫다고 판단됩니다.
+
+<br>
+
+## **ASPP(Atrous Spatial Pyramid Pooling) (DeepLab v3)**
+
+<br>
+
+
+
+<br>
+<center><img src="../assets/img/vision/segmentation/aspp/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/segmentation/aspp/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
 
 <br>
 
