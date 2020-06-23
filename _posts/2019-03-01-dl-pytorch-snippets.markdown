@@ -40,6 +40,7 @@ tags: [pytorch, snippets] # add tag
 - ### load와 save 방법
 - ### Dataloader 사용 방법
 - ### pre-trained model 사용 방법
+- ### pre-trained model 수정 방법
 
 <br>
 
@@ -615,3 +616,8 @@ print(label.shape)
 ## **pre-trained model 사용 방법**
 
 <br>
+
+## **pre-trained model 수정 방법**
+
+<br>
+
