@@ -621,3 +621,61 @@ print(label.shape)
 
 <br>
 
+- 상황에 따라서 딥러닝 모델을 그대로를 사용하기 보다는 **일부 layer를 수정**해야 하는 경우가 종종 있습니다.
+- 이 때, 기존의 딥러닝 모델을 통해 학습을 완료한 pre-trained weight가 있다면 일부 layer 수정에 따라서 pre-trained weight도 수정을 해야합니다.
+- 이 경우 pre-trained weight를 불러와서 필요없는 layer를 제거하는 방법에 대하여 간략하게 정리하도록 하겠습니다.
+- 먼저 `*.pth` 형태의 pre-trained weight를 불러오겠습니다. `weight_path`는 pre-trained weight `파일`이 저장된 경로입니다.
+
+<br>
+
+```python
+# pre-trained weight를 불러옵니다.
+pretrained_weight= torch.load(weight_path)
+```
+
+<br>
+
+- 위 코드를 실행하면 `pretrained_weight`에 `collections.OrderedDict` 타입으로 정보들이 저장됩니다.
+- `pretrained_weight`의 `key`는 layer의 이름이고 `value`는 layer의 weight 값입니다.
+- 먼저 다음과 같이 `key` 값을 탐색하여 필요 없는 layer를 찾습니다.
+
+<br>
+
+```python
+for i, key in enumerate(pretrained_weight.keys()):
+    print("%d th, layer : %s" %(i, key))
+```
+
+<br>
+
+- **1) 필요 없는 layer를 직접 제거하는 방법**
+- 위의 출력문을 통하여 필요 없는 layer의 목록을 직접 리스트에 저장한 후 `pretrained_weight`에서 **key값(layer)을 제거**합니다.
+
+<br>
+
+```python
+delete_layers = []
+delete_layers.append("key value (layer name)")
+
+for delete_layer in delete_layers:
+    del pretrained_weight[delete_layer]
+```
+
+<br>
+
+- **2) 필요 없는 layer의 시작 번호(0번 부터 시작)를 입력하면 그 이후의 모든 layer를 제거하는 방법**입니다.
+- 이 방법이 유용한 이유는 일반적으로 어떤 layer를 삭제해야 한다면 그 layer 이후의 layer 또한 삭제가 필요한 경우가 많기 때문입니다. 즉, 삭제할 layer가 듬성 등성 존재하는 경우는 거의 없으며 어떤 layer 부터 출력단 끝까지 덜어내야 하는 경우가 대다수입니다.
+- 그러면 앞의 출력문을 통하여 제거해야 할 시작점의 인덱스를 이용하여 아래와 같이 삭제해 보겠습니다.
+
+<br>
+
+```python
+# [0, delete_start_number) 범위의 layer만 남기고 나머지는 삭제합니다.
+delete_start_number = 100
+delete_layers = [key for i, key in enumerate(pretrained_weight.keys()) if i >= delete_start_number]
+for delete_layer in delete_layers:
+    del pretrained_weight[delete_layer]
+```
+
+<br>
+
