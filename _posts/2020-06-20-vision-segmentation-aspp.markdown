@@ -15,6 +15,7 @@ tags: [vision, deep learning, segmentation, aspp, atrous, spatial, pyramid, pool
 
 - 참조 : https://towardsdatascience.com/review-deeplabv1-deeplabv2-atrous-convolution-semantic-segmentation-b51c5fbde92d
 - 참조 : https://m.blog.naver.com/laonple/221000648527
+- 참조 : https://arxiv.org/abs/1706.05587
 - 참조 : https://towardsdatascience.com/review-deeplabv3-atrous-convolution-semantic-segmentation-6d818bfd1d74
 - 이번 글에서는 segmentation에서 자주 사용되는 `ASPP(Atrous Spatial Pyramid Pooling)`에 대하여 다루어 보도록 하겠습니다.
 - `ASPP`는 [DeepLab_v2](https://arxiv.org/abs/1606.00915)에서 소개되었고 그 이후에 많은 Segmentation 모델에서 차용해서 사용하고 있습니다.
@@ -109,17 +110,26 @@ $$ r > 1 \text{ : atrous convolution}, \quad r = 1 \text{ : standard convolution
 
 <br>
 
-
+- 그럼 지금부터 DeepLab v3에서 개선한 ASPP 내용에 대하여 다루어 보도록 하겠습니다.
+- 먼저 아래 그림을 통해 `Multi-Grid` Atrous Convolution을 이용하여 더 깊게 layer를 쌓을 수 있는 방법에 대하여 다루어 보도록 하겠습니다.
 
 <br>
 <center><img src="../assets/img/vision/segmentation/aspp/5.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 위 그림은 DeepLab_v3에서 소개한 그림입니다. 이 그림을 이해하려면 DeepLab_v3에서 사용한 `output_stride` 라는 용어를 이해해야 합니다.
+- `output_stride`란 입력 이미지의 spatial resolution 대비 최종 출력의 resolution 비율을 뜻합니다.
+- (a) 와 같은 standard convolution에서는 convolution과 pooling 연산을 거치면서 **output_stride가 점점 커지게** 됩니다. 예를 들어 output feature map의 크기가 점점 더 작아지는 것을 확인할 수 있습니다. 이러한 standard convolution 방법은 semantic segmentation에서 다소 불리할 수 있는데 그 이유는 깊은 layer에서는 위치와 공간 정보를 잃을 수 있기 때문입니다.
+- 반면 (b)와 같이 Atrous Convolution이 적용한 형태에서는 **output_stride를 유지할 수** 있습니다. 이와 동시에 파라미터의 수나 계산량을 늘리지 않고 더 큰 FOV를 가질 수 있습니다. 그 결과 (a)에 비해 더 큰 output feature map을 만들어 낼 수 있습니다. segmentation에 좀 더 유리합니다.
+- ...
+
 <br>
 <center><img src="../assets/img/vision/segmentation/aspp/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-
+- ASPP는 DeepLab_v2에서 소개되었고 그 버전은 앞에서 설명한 형태와 같습니다. v3에서 추가되 내용을 정리해 보면 다음과 같습니다.
+- 먼저 `batch normalization`이 각 convolution 연산에 추가되었습니다.
+- ...
 
 <br>
 

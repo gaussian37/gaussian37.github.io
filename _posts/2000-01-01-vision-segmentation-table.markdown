@@ -31,10 +31,10 @@ tags: [vision, deep learning, segmentation] # add tag
 
 ## **mIoU 성능 위주의 Sementic Segmentation 모델**
 
-- [DeepLab]()
-- [DeepLab v2]()
-- [DeepLab v3]()
-- [DeepLab v3+](https://gaussian37.github.io/vision-segmentation-deeplabv3plus/)
+- [DeepLab_v1 (Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs)]()
+- [DeepLab_v2 (DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs)]()
+- [DeepLab_v3 (Rethinking Atrous Convolution for Semantic Image Segmentation)]()
+- [DeepLab_v3+ (Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation)](https://gaussian37.github.io/vision-segmentation-deeplabv3plus/)
 - [DFN(Discriminative Feature Network)]()
 - [DenseASPP]()
 - [SegNet]()
