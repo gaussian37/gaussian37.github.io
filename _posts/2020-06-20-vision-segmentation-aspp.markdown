@@ -118,18 +118,39 @@ $$ r > 1 \text{ : atrous convolution}, \quad r = 1 \text{ : standard convolution
 <br>
 
 - 위 그림은 DeepLab_v3에서 소개한 그림입니다. 이 그림을 이해하려면 DeepLab_v3에서 사용한 `output_stride` 라는 용어를 이해해야 합니다.
-- `output_stride`란 입력 이미지의 spatial resolution 대비 최종 출력의 resolution 비율을 뜻합니다.
-- (a) 와 같은 standard convolution에서는 convolution과 pooling 연산을 거치면서 **output_stride가 점점 커지게** 됩니다. 예를 들어 output feature map의 크기가 점점 더 작아지는 것을 확인할 수 있습니다. 이러한 standard convolution 방법은 semantic segmentation에서 다소 불리할 수 있는데 그 이유는 깊은 layer에서는 위치와 공간 정보를 잃을 수 있기 때문입니다.
-- 반면 (b)와 같이 Atrous Convolution이 적용한 형태에서는 **output_stride를 유지할 수** 있습니다. 이와 동시에 파라미터의 수나 계산량을 늘리지 않고 더 큰 FOV를 가질 수 있습니다. 그 결과 (a)에 비해 더 큰 output feature map을 만들어 낼 수 있습니다. segmentation에 좀 더 유리합니다.
-- ...
+- `output_stride`란 입력 이미지의 spatial resolution 대비 최종 출력의 resolution 비율을 뜻합니다. 간단히 말하면 입력 이미지의 height, width의 크기가 어떤 layer의 feature의 heigt, width에 비해 몇 배 큰 지를 나타냅니다. 
+- 예를 들어 cityscape 데이터는 (height, width) = (1024, 2048) 입니다. 만약 어떤 layer의 featuer가 (64, 128) 이라면 (1024/64, 2048/128) = (16, 16)으로 output_stride = 16이 됩니다.
+- (a) 와 같은 standard convolution에서는 convolution과 pooling 연산을 거치면서 **output_stride가 점점 커지게** 됩니다. 반대로 말하면 output feature map의 크기가 점점 더 작아집니다. 이러한 standard convolution 방법은 semantic segmentation에서 다소 불리할 수 있습니다. 왜냐하면 깊은 layer에서는 위치와 공간 정보를 잃을 수 있기 때문입니다.
+- 반면 (b)와 같이 Atrous Convolution이 적용한 형태에서는 **output_stride를 유지할 수** 있습니다. 이와 동시에 파라미터의 수나 계산량을 늘리지 않고 더 큰 FOV를 가질 수 있습니다. 그 결과 (a)에 비해 더 큰 output feature map을 만들어 낼 수 있습니다. 따라서 segmentation에 좀 더 유리합니다.
 
 <br>
 <center><img src="../assets/img/vision/segmentation/aspp/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - ASPP는 DeepLab_v2에서 소개되었고 그 버전은 앞에서 설명한 형태와 같습니다. v3에서 추가되 내용을 정리해 보면 다음과 같습니다.
-- 먼저 `batch normalization`이 각 convolution 연산에 추가되었습니다.
-- ...
+- `batch normalization`이 각 convolution 연산에 추가되었습니다. 그리고 deeplab_v3의 구조에서는 output filter의 갯수가 256입니다.
+- 1개의 1x1 convolution과 3개의 3x3 convolution이 각각 6, 12, 18의 rate가 적용되어 사용되었습니다. output_stride가 16인 경우에는 6, 12, 18의 rate가 적용된 반면 output_stride가 8인 경우에는 2배인 12, 24, 36의 rate가 적용되었습니다.
+- ASPP에 다양한 rate를 적용합니다.이 때 rate가 점점 더 커질 수록 receptive field가 커지는 장점은 있지만 유효한 weight 수가 줄어드는 단점이 있습니다. 여기서 유효한 weight 수 란, zero padding이 된 영역이 아닌 유효한 feature 영역과 연산된 weight를 뜻합니다.
+- 각각의 convolution 연산을 거친 branch 들을 모두 concaternation을 하여 합친 다음, 마지막으로 1x1 convolution과 batch normalization을 거쳐서 마무리합니다.
+- 각 branch의 내용과 어떻게 concatenation을 하는 지 정리하면 다음과 같습니다.
+- ① = **1x1 convolution** → BatchNorm → ReLu
+- ② = **3x3 convolution w/ rate=6 (or 12)** → BatchNorm → ReLu
+- ③ = **3x3 convolution w/ rate=12 (or 24)** → BatchNorm → ReLu
+- ④ = **3x3 convolution w/ rate=18 (or 36)** → BatchNorm → ReLu
+- ⑤ = **AdaptiveAvgPool2d** → 1x1 convolution → BatchNorm → ReLu
+- ⑥ = concatenate(① + ② + ③ + ④ + ⑤)
+- ⑦ = **1x1 convolution** → BatchNorm → ReLu
+
+<br>
+
+- `ASPP`의 네트워크를 그래프를 통해 시각화 하면 다음과 같습니다.
+- 먼저 input의 크기는 (3, 1024, 2048) 크기의 cityscape 데이터를 이용한다고 가정하겠습니다. deeplab_v3의 output_stride가 16인 상태를 가정하면 input 이미지의 크기에 비해 16배 축소된 형태의 feature가 입력으로 들어옵니다. 그리고 feature의 채널 수는 deeplab_v3에서 사용한 그대로 512라고 하겠습니다. 즉, (512, 1024/16, 2048/16) = (512, 64, 128)의 크기의 feature가 입력으로 들어옵니다.
+- 출력은 class의 갯수가 19개라고 가정하였습니다. 따라서 마지막의 출력되는 feature으 크기는 (19, 64, 128)이 됩니다.
+- 자세히 보려면 다음 [링크](https://raw.githubusercontent.com/gaussian37/pytorch_deep_learning_models/92de20ecc20126da720017f5c3bcaa7bf75dcc05/aspp/aspp.svg)를 클릭하시기 바랍니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/aspp/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 <br>
 
