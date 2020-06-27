@@ -51,7 +51,7 @@ $$ r > 1 \text{ : atrous convolution}, \quad r = 1 \text{ : standard convolution
 
 <br>
 
-- 위 수식에서 $$ x $$가 input이고 $$ w $$가 filter입니다. 즉, $$ r $$의 값에 따라 input을 얼마나 띄엄 띄엄 filter와 곱 연산을 할 지가 결정됩니다.
+- 위 수식에서 $$ x $$가 input이고 $$ w $$가 filter입니다. 즉, input과 filter를 곱할 때, $$ r $$의 값에 따라 얼마나 input을 띄엄 띄엄 선택하여 filter와 곱할 지 결정됩니다.
 
 <br>
 <center><img src="../assets/img/vision/segmentation/aspp/4.png" alt="Drawing" style="width: 800px;"/></center>
@@ -61,7 +61,7 @@ $$ r > 1 \text{ : atrous convolution}, \quad r = 1 \text{ : standard convolution
 <center><img src="../assets/img/vision/segmentation/aspp/1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 이를 이미지 convolution filter에 적용하면 위 그림과 같습니다. 위쪽 그림 (a)가 standard convolution이고 아래쪽 그림 (b)가 atrous convolution을 적용한 형태입니다.
+- 이를 convolution filter에 적용하면 위 그림과 같습니다. 위쪽 그림 (a)가 standard convolution이고 아래쪽 그림 (b)가 atrous convolution을 적용한 형태입니다.
 - 먼저 그림 (a)는 일반적인 convolution 연산입니다. 그리고 기본적으로 사용하는 **stride = 1, pad = 1**을 사용하여 **feature의 크기를 유지**하였습니다.
 - 반면 그림 (b)는 이 글에서 설명하는 atrous convolution을 적용한 형태로 필터 간의 거리가 2 인것을 알 수 있습니다. 이 거리의 크기는 `r` 이라는 상수를 통해 조절됩니다. atrous convolution을 적용할 때, 그림 (a)와 같이 **feature의 크기를 유지**하려면 **stride = 1, pad = r 로 사용**하면 됩니다.
 - 같은 크기의 kernel을 사용하였음에도 불구하고 atrous convolution을 적용하였을 때, 더 넓은 범위의 input feature를 cover 할 수 있습니다. 즉, **atrous convolution은 input feature의 FOV(Field Of View)를 더 넓게 확장 할 수 있는** 장점을 가집니다. 뿐만 아니라 작은 범위의 FOV도 가지기 때문에 다양한 FOV를 다룰 수 있다는 장점을 가집니다.
@@ -83,12 +83,13 @@ $$ r > 1 \text{ : atrous convolution}, \quad r = 1 \text{ : standard convolution
 
 - `ASPP`가 소개된 Deeplab v2에서는 multi-scale에 더 잘 대응할 수 있도록 atrous convolution에 대한 `확장 계수`를 (6, 12, 18, 24)를 적용하여 위 그림과 같이 합쳐서 사용하였습니다.
 - Spatial Pyramid Pooling 구조는 [SPPNet](https://gaussian37.github.io/vision-segmentation-sppnet/)을 통하여 얻을 수 있었고 이 구조에 atrous convolution을 적용하여 ASPP를 만들었습니다.
-- 처음 제시되었던 ASPP는 `확장 계수`를 6 ~ 24 까지 다양하게 변화하면서 다양한 receptive field를 볼 수 있도록 적용하였습니다. 이는 그림 (b)에서 확인할 수 있습니다.
+- 처음 제시되었던 ASPP는 `확장 계수` rate를 6 ~ 24 까지 다양하게 변화하면서 **다양한 receptive field를 볼 수 있도록 적용**하였습니다. 이는 그림 (b)에서 확인할 수 있습니다.
+- 물론 rate가 점점 더 커질 수록 receptive field가 커지는 장점은 있지만 유효한 weight 수가 줄어드는 단점이 있습니다. 여기서 유효한 weight 수 란, zero padding이 된 영역이 아닌 유효한 feature 영역과 연산된 weight를 뜻합니다.
 
 <br>
 
 - 왼쪽 그림은 Deeplab v1의 모델의 일부 layer 형태이고 오른쪽 그림은 Deeplab v2의 layer 형태(ASPP) 입니다.
-- 양쪽 모두 FC6 layer 까지는 동일한 아키텍쳐를 이용하고 있습니다. 하지만 FC6에서 부터 두 모델이 달라집니다.
+- 양쪽 모두 FC6 layer 이전 까지는 동일한 아키텍쳐를 이용하고 있습니다. 하지만 FC6에서 부터 두 모델이 달라집니다.
 - 오른쪽 그림의 Deeplab v2의 경우 ASPP 구조에 확장 계수 6, 12, 18, 24가 적용되어 다양한 스케일을 볼 수 있도록 설계되어 있습니다.
 - 반면 왼쪽 그림의 Deeplab v1의 경우 ASPP 구조와 비교해서 보면 단순히 확장 계수가 12로 고정되어 있다고 생각하면 됩니다.
 
@@ -118,10 +119,10 @@ $$ r > 1 \text{ : atrous convolution}, \quad r = 1 \text{ : standard convolution
 <br>
 
 - 위 그림은 DeepLab_v3에서 소개한 그림입니다. 이 그림을 이해하려면 DeepLab_v3에서 사용한 `output_stride` 라는 용어를 이해해야 합니다.
-- `output_stride`란 입력 이미지의 spatial resolution 대비 최종 출력의 resolution 비율을 뜻합니다. 간단히 말하면 입력 이미지의 height, width의 크기가 어떤 layer의 feature의 heigt, width에 비해 몇 배 큰 지를 나타냅니다. 
-- 예를 들어 cityscape 데이터는 (height, width) = (1024, 2048) 입니다. 만약 어떤 layer의 featuer가 (64, 128) 이라면 (1024/64, 2048/128) = (16, 16)으로 output_stride = 16이 됩니다.
-- (a) 와 같은 standard convolution에서는 convolution과 pooling 연산을 거치면서 **output_stride가 점점 커지게** 됩니다. 반대로 말하면 output feature map의 크기가 점점 더 작아집니다. 이러한 standard convolution 방법은 semantic segmentation에서 다소 불리할 수 있습니다. 왜냐하면 깊은 layer에서는 위치와 공간 정보를 잃을 수 있기 때문입니다.
-- 반면 (b)와 같이 Atrous Convolution이 적용한 형태에서는 **output_stride를 유지할 수** 있습니다. 이와 동시에 파라미터의 수나 계산량을 늘리지 않고 더 큰 FOV를 가질 수 있습니다. 그 결과 (a)에 비해 더 큰 output feature map을 만들어 낼 수 있습니다. 따라서 segmentation에 좀 더 유리합니다.
+- `output_stride`란 입력 이미지의 spatial resolution 대비 최종 출력의 resolution 비율을 뜻합니다. 간단히 말하면 **입력 이미지의 height, width의 크기가** 어떤 layer의 feature의 heigt, width에 비해 **몇 배 큰 지**를 나타냅니다. 
+- 예를 들어 cityscape 데이터는 (height, width) = (1024, 2048) 입니다. 만약 어떤 layer의 feature가 (64, 128) 이라면 (1024/64, 2048/128) = (16, 16)으로 output_stride = 16이 됩니다.
+- (a) 와 같은 standard convolution에서는 convolution과 pooling 연산을 거치면서 **output_stride가 점점 커지게** 됩니다. 반대로 말하면 output feature map의 크기가 점점 더 작아집니다. 이러한 standard convolution 방법은 semantic segmentation에서 다소 불리할 수 있습니다. 왜냐하면 깊은 layer에서는 위치와 공간 정보를 잃을 수 있기 때문입니다. 이 경우 `output_stride` 수치가 큽니다. 즉, 이 수치가 커진다는 것은 input 대비 feature가 너무 작아졌다는 것을 뜻합니다. 따라서 픽셀 단위의 세세한 정보를 원하는 segmentation에서는 불리하다는 것을 뜻합니다.
+- 반면 (b)와 같이 Atrous Convolution을 적용한 형태에서는 **output_stride를 유지할 수** 있습니다. 이와 동시에 파라미터의 수나 계산량을 늘리지 않고 더 큰 FOV를 가질 수 있습니다. 그 결과 (a)에 비해 더 큰 output feature map을 만들어 낼 수 있습니다. 따라서 segmentation에 좀 더 유리합니다.
 
 <br>
 <center><img src="../assets/img/vision/segmentation/aspp/6.png" alt="Drawing" style="width: 800px;"/></center>
@@ -129,10 +130,9 @@ $$ r > 1 \text{ : atrous convolution}, \quad r = 1 \text{ : standard convolution
 
 - ASPP는 DeepLab_v2에서 소개되었고 그 버전은 앞에서 설명한 형태와 같습니다. v3에서 추가되 내용을 정리해 보면 다음과 같습니다.
 - `batch normalization`이 각 convolution 연산에 추가되었습니다. 그리고 deeplab_v3의 구조에서는 output filter의 갯수가 256입니다.
-- 1개의 1x1 convolution과 3개의 3x3 convolution이 각각 6, 12, 18의 rate가 적용되어 사용되었습니다. output_stride가 16인 경우에는 6, 12, 18의 rate가 적용된 반면 output_stride가 8인 경우에는 2배인 12, 24, 36의 rate가 적용되었습니다.
-- ASPP에 다양한 rate를 적용합니다.이 때 rate가 점점 더 커질 수록 receptive field가 커지는 장점은 있지만 유효한 weight 수가 줄어드는 단점이 있습니다. 여기서 유효한 weight 수 란, zero padding이 된 영역이 아닌 유효한 feature 영역과 연산된 weight를 뜻합니다.
+- 1개의 1x1 convolution과 3개의 3x3 convolution이 각각 6, 12, 18의 rate가 적용되어 사용되었습니다. output_stride가 16인 경우에는 6, 12, 18의 rate가 적용된 반면 output_stride가 8인 경우에는 2배인 12, 24, 36의 rate가 적용되었습니다. **deeplab_v2와 비교한다면,** deeplabv2에서는 단순히 large FOV를 위해 rate 6, 12, 18, 24를 적용한 구조에 비해 **deeplab_v3에서는 1x1 convolution의 추가와 output_stride에 따른 rate의 변화**라는 차이점이 있습니다.
 - 각각의 convolution 연산을 거친 branch 들을 모두 concaternation을 하여 합친 다음, 마지막으로 1x1 convolution과 batch normalization을 거쳐서 마무리합니다.
-- 각 branch의 내용과 어떻게 concatenation을 하는 지 정리하면 다음과 같습니다.
+- 각 branch들의 연산 방법과 branch들을 어떻게 concatenation을 하는 지 정리하면 다음과 같습니다.
 - ① = **1x1 convolution** → BatchNorm → ReLu
 - ② = **3x3 convolution w/ rate=6 (or 12)** → BatchNorm → ReLu
 - ③ = **3x3 convolution w/ rate=12 (or 24)** → BatchNorm → ReLu
@@ -159,12 +159,61 @@ $$ r > 1 \text{ : atrous convolution}, \quad r = 1 \text{ : standard convolution
 <br>
 
 ```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class ASPP(nn.Module):
+    def __init__(self, num_classes):
+        super(ASPP, self).__init__()
+
+        self.conv_1x1_1 = nn.Conv2d(512, 256, kernel_size=1)
+        self.bn_conv_1x1_1 = nn.BatchNorm2d(256)
+
+        self.conv_3x3_1 = nn.Conv2d(512, 256, kernel_size=3, stride=1, padding=6, dilation=6)
+        self.bn_conv_3x3_1 = nn.BatchNorm2d(256)
+
+        self.conv_3x3_2 = nn.Conv2d(512, 256, kernel_size=3, stride=1, padding=12, dilation=12)
+        self.bn_conv_3x3_2 = nn.BatchNorm2d(256)
+
+        self.conv_3x3_3 = nn.Conv2d(512, 256, kernel_size=3, stride=1, padding=18, dilation=18)
+        self.bn_conv_3x3_3 = nn.BatchNorm2d(256)
+
+        self.avg_pool = nn.AdaptiveAvgPool2d(1)
+
+        self.conv_1x1_2 = nn.Conv2d(512, 256, kernel_size=1)
+        self.bn_conv_1x1_2 = nn.BatchNorm2d(256)
+
+        self.conv_1x1_3 = nn.Conv2d(1280, 256, kernel_size=1) # (1280 = 5*256)
+        self.bn_conv_1x1_3 = nn.BatchNorm2d(256)
+
+        self.conv_1x1_4 = nn.Conv2d(256, num_classes, kernel_size=1)
+
+    def forward(self, feature_map):
+        # (feature_map has shape (batch_size, 512, h/16, w/16)) (assuming self.resnet is ResNet18_OS16 or ResNet34_OS16. If self.resnet instead is ResNet18_OS8 or ResNet34_OS8, it will be (batch_size, 512, h/8, w/8))
+
+        feature_map_h = feature_map.size()[2] # (== h/16)
+        feature_map_w = feature_map.size()[3] # (== w/16)
+
+        out_1x1 = F.relu(self.bn_conv_1x1_1(self.conv_1x1_1(feature_map))) # (shape: (batch_size, 256, h/16, w/16))
+        out_3x3_1 = F.relu(self.bn_conv_3x3_1(self.conv_3x3_1(feature_map))) # (shape: (batch_size, 256, h/16, w/16))
+        out_3x3_2 = F.relu(self.bn_conv_3x3_2(self.conv_3x3_2(feature_map))) # (shape: (batch_size, 256, h/16, w/16))
+        out_3x3_3 = F.relu(self.bn_conv_3x3_3(self.conv_3x3_3(feature_map))) # (shape: (batch_size, 256, h/16, w/16))
+
+        out_img = self.avg_pool(feature_map) # (shape: (batch_size, 512, 1, 1))
+        out_img = F.relu(self.bn_conv_1x1_2(self.conv_1x1_2(out_img))) # (shape: (batch_size, 256, 1, 1))
+        out_img = F.upsample(out_img, size=(feature_map_h, feature_map_w), mode="bilinear") # (shape: (batch_size, 256, h/16, w/16))
+
+        out = torch.cat([out_1x1, out_3x3_1, out_3x3_2, out_3x3_3, out_img], 1) # (shape: (batch_size, 1280, h/16, w/16))
+        out = F.relu(self.bn_conv_1x1_3(self.conv_1x1_3(out))) # (shape: (batch_size, 256, h/16, w/16))
+        out = self.conv_1x1_4(out) # (shape: (batch_size, num_classes, h/16, w/16))
+
+        return out
+
 
 ```
 
-
-
-
+<br>
 
 
 <br>
