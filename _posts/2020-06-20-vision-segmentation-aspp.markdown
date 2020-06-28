@@ -27,6 +27,7 @@ tags: [vision, deep learning, segmentation, aspp, atrous, spatial, pyramid, pool
 - ### Atrous convolution
 - ### ASPP(Atrous Spatial Pyramid Pooling) (DeepLab v2)
 - ### ASPP(Atrous Spatial Pyramid Pooling) (DeepLab v3)
+- ### ASPP (DeepLab v3) 시각화
 - ### Pytorch 코드
 
 <br>
@@ -143,14 +144,73 @@ $$ r > 1 \text{ : atrous convolution}, \quad r = 1 \text{ : standard convolution
 
 <br>
 
-- `ASPP`의 네트워크를 그래프를 통해 시각화 하면 다음과 같습니다.
-- 먼저 input의 크기는 (3, 1024, 2048) 크기의 cityscape 데이터를 이용한다고 가정하겠습니다. deeplab_v3의 output_stride가 16인 상태를 가정하면 input 이미지의 크기에 비해 16배 축소된 형태의 feature가 입력으로 들어옵니다. 그리고 feature의 채널 수는 deeplab_v3에서 사용한 그대로 512라고 하겠습니다. 즉, (512, 1024/16, 2048/16) = (512, 64, 128)의 크기의 feature가 입력으로 들어옵니다.
-- 출력은 class의 갯수가 19개라고 가정하였습니다. 따라서 마지막의 출력되는 feature으 크기는 (19, 64, 128)이 됩니다.
-- 자세히 보려면 다음 [링크](https://raw.githubusercontent.com/gaussian37/pytorch_deep_learning_models/92de20ecc20126da720017f5c3bcaa7bf75dcc05/aspp/aspp.svg)를 클릭하시기 바랍니다.
+## **ASPP (DeepLab v3) 시각화**
 
 <br>
 <center><img src="../assets/img/vision/segmentation/aspp/7.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
+
+- `ASPP`의 네트워크를 그래프를 통해 시각화 하면 위 그림과 같습니다.
+- 먼저 input의 크기는 (3, 1024, 2048) 크기의 cityscape 데이터를 이용한다고 가정하겠습니다. deeplab_v3의 output_stride가 16인 상태를 가정하면 input 이미지의 크기에 비해 16배 축소된 형태의 feature가 입력으로 들어옵니다. 그리고 feature의 채널 수는 deeplab_v3에서 사용한 그대로 512라고 하겠습니다. 즉, (512, 1024/16, 2048/16) = (512, 64, 128)의 크기의 feature가 입력으로 들어옵니다.
+- 출력은 class의 갯수가 19개라고 가정하였습니다. 따라서 마지막의 출력되는 feature으 크기는 (19, 64, 128)이 됩니다.
+- 위 그림을 자세히 보려면 다음 [링크](https://raw.githubusercontent.com/gaussian37/pytorch_deep_learning_models/92de20ecc20126da720017f5c3bcaa7bf75dcc05/aspp/aspp.svg)를 클릭하시기 바랍니다.
+
+<br>
+
+- depplab_v3 구조에 따라서 각 branch의 input channel 수는 512, output channel 수는 256, 최종 class 숫자는 19라고 가정하고 summary를 해보면 다음과 같습니다.
+
+<br>
+
+```python
+# cityscape 이미지 크기
+image_height = 1024
+image_width = 2048
+
+# deeplab_v3의 output stride
+output_stride = 16
+
+# deeplab_v3의 ASPP 모듈에서 사용된 input 채널 수, output 채널 수
+in_channels = 512
+out_channels = 256
+
+# 최종 class 수
+num_classes = 19
+
+aspp_module = ASPP(in_channels, out_channels, num_classes)
+summary(aspp_module, (512, (image_height // output_stride), (image_width // output_stride)))
+# ----------------------------------------------------------------
+#         Layer (type)               Output Shape         Param #
+# ================================================================
+#             Conv2d-1         [-1, 256, 64, 128]         131,328
+#        BatchNorm2d-2         [-1, 256, 64, 128]             512
+#             Conv2d-3         [-1, 256, 64, 128]       1,179,904
+#        BatchNorm2d-4         [-1, 256, 64, 128]             512
+#             Conv2d-5         [-1, 256, 64, 128]       1,179,904
+#        BatchNorm2d-6         [-1, 256, 64, 128]             512
+#             Conv2d-7         [-1, 256, 64, 128]       1,179,904
+#        BatchNorm2d-8         [-1, 256, 64, 128]             512
+#  AdaptiveAvgPool2d-9            [-1, 512, 1, 1]               0
+#            Conv2d-10            [-1, 256, 1, 1]         131,328
+#       BatchNorm2d-11            [-1, 256, 1, 1]             512
+#            Conv2d-12         [-1, 256, 64, 128]         327,936
+#       BatchNorm2d-13         [-1, 256, 64, 128]             512
+#            Conv2d-14          [-1, 19, 64, 128]           4,883
+# ================================================================
+# Total params: 4,138,259
+# Trainable params: 4,138,259
+# Non-trainable params: 0
+# ----------------------------------------------------------------
+# Input size (MB): 16.00
+# Forward/backward pass size (MB): 161.20
+# Params size (MB): 15.79
+# Estimated Total Size (MB): 192.98
+# ----------------------------------------------------------------
+```
+
+<br>
+
+- 결과를 보면 ASPP 모듈의 입력은 (512, 64, 128) 크기의 feature 이고 출력은 (num_class, 64, 128)의 크기로 **feature의 입력과 크기는 유지된 것**을 확인할 수 있습니다. 즉, output_stride의 크기가 유지되었습니다. deeplab_v2에서는 계속 증가한 output_stride 하였던 단점을 개선하였습니다.
+- 마지막 output feature를 `interpolation` 하여 원래 intput 이미지 크기로 맞추면 segmentation이 완료됩니다.
 
 <br>
 
@@ -163,54 +223,72 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+# ASPP(Atrous Spatial Pyramid Pooling) Module
 class ASPP(nn.Module):
-    def __init__(self, num_classes):
+    def __init__(self, in_channels, out_channels, num_classes):
         super(ASPP, self).__init__()
+        
+        # 1번 branch = 1x1 convolution → BatchNorm → ReLu
+        self.conv_1x1_1 = nn.Conv2d(in_channels, out_channels, kernel_size=1)
+        self.bn_conv_1x1_1 = nn.BatchNorm2d(out_channels)
 
-        self.conv_1x1_1 = nn.Conv2d(512, 256, kernel_size=1)
-        self.bn_conv_1x1_1 = nn.BatchNorm2d(256)
+        # 2번 branch = 3x3 convolution w/ rate=6 (or 12) → BatchNorm → ReLu
+        self.conv_3x3_1 = nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=1, padding=6, dilation=6)
+        self.bn_conv_3x3_1 = nn.BatchNorm2d(out_channels)
 
-        self.conv_3x3_1 = nn.Conv2d(512, 256, kernel_size=3, stride=1, padding=6, dilation=6)
-        self.bn_conv_3x3_1 = nn.BatchNorm2d(256)
+        # 3번 branch = 3x3 convolution w/ rate=12 (or 24) → BatchNorm → ReLu
+        self.conv_3x3_2 = nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=1, padding=12, dilation=12)
+        self.bn_conv_3x3_2 = nn.BatchNorm2d(out_channels)
+    
+        # 4번 branch = 3x3 convolution w/ rate=18 (or 36) → BatchNorm → ReLu
+        self.conv_3x3_3 = nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=1, padding=18, dilation=18)
+        self.bn_conv_3x3_3 = nn.BatchNorm2d(out_channels)
 
-        self.conv_3x3_2 = nn.Conv2d(512, 256, kernel_size=3, stride=1, padding=12, dilation=12)
-        self.bn_conv_3x3_2 = nn.BatchNorm2d(256)
-
-        self.conv_3x3_3 = nn.Conv2d(512, 256, kernel_size=3, stride=1, padding=18, dilation=18)
-        self.bn_conv_3x3_3 = nn.BatchNorm2d(256)
-
+        # 5번 branch = AdaptiveAvgPool2d → 1x1 convolution → BatchNorm → ReLu
         self.avg_pool = nn.AdaptiveAvgPool2d(1)
+        self.conv_1x1_2 = nn.Conv2d(in_channels, out_channels, kernel_size=1)
+        self.bn_conv_1x1_2 = nn.BatchNorm2d(out_channels)
+        
+        self.conv_1x1_3 = nn.Conv2d(out_channels * 5, out_channels, kernel_size=1) # (1280 = 5*256)
+        self.bn_conv_1x1_3 = nn.BatchNorm2d(out_channels)
 
-        self.conv_1x1_2 = nn.Conv2d(512, 256, kernel_size=1)
-        self.bn_conv_1x1_2 = nn.BatchNorm2d(256)
-
-        self.conv_1x1_3 = nn.Conv2d(1280, 256, kernel_size=1) # (1280 = 5*256)
-        self.bn_conv_1x1_3 = nn.BatchNorm2d(256)
-
-        self.conv_1x1_4 = nn.Conv2d(256, num_classes, kernel_size=1)
+        self.conv_1x1_4 = nn.Conv2d(out_channels, num_classes, kernel_size=1)
 
     def forward(self, feature_map):
-        # (feature_map has shape (batch_size, 512, h/16, w/16)) (assuming self.resnet is ResNet18_OS16 or ResNet34_OS16. If self.resnet instead is ResNet18_OS8 or ResNet34_OS8, it will be (batch_size, 512, h/8, w/8))
+        # feature map의 shape은 (batch_size, in_channels, height/output_stride, width/output_stride)
 
         feature_map_h = feature_map.size()[2] # (== h/16)
         feature_map_w = feature_map.size()[3] # (== w/16)
 
-        out_1x1 = F.relu(self.bn_conv_1x1_1(self.conv_1x1_1(feature_map))) # (shape: (batch_size, 256, h/16, w/16))
-        out_3x3_1 = F.relu(self.bn_conv_3x3_1(self.conv_3x3_1(feature_map))) # (shape: (batch_size, 256, h/16, w/16))
-        out_3x3_2 = F.relu(self.bn_conv_3x3_2(self.conv_3x3_2(feature_map))) # (shape: (batch_size, 256, h/16, w/16))
-        out_3x3_3 = F.relu(self.bn_conv_3x3_3(self.conv_3x3_3(feature_map))) # (shape: (batch_size, 256, h/16, w/16))
+        # 1번 branch = 1x1 convolution → BatchNorm → ReLu
+        # shape: (batch_size, out_channels, height/output_stride, width/output_stride)
+        out_1x1 = F.relu(self.bn_conv_1x1_1(self.conv_1x1_1(feature_map)))
+        # 2번 branch = 3x3 convolution w/ rate=6 (or 12) → BatchNorm → ReLu
+        # shape: (batch_size, out_channels, height/output_stride, width/output_stride)
+        out_3x3_1 = F.relu(self.bn_conv_3x3_1(self.conv_3x3_1(feature_map)))
+        # 3번 branch = 3x3 convolution w/ rate=12 (or 24) → BatchNorm → ReLu
+        # shape: (batch_size, out_channels, height/output_stride, width/output_stride)
+        out_3x3_2 = F.relu(self.bn_conv_3x3_2(self.conv_3x3_2(feature_map)))
+        # 4번 branch = 3x3 convolution w/ rate=18 (or 36) → BatchNorm → ReLu
+        # shape: (batch_size, out_channels, height/output_stride, width/output_stride)
+        out_3x3_3 = F.relu(self.bn_conv_3x3_3(self.conv_3x3_3(feature_map)))
 
-        out_img = self.avg_pool(feature_map) # (shape: (batch_size, 512, 1, 1))
-        out_img = F.relu(self.bn_conv_1x1_2(self.conv_1x1_2(out_img))) # (shape: (batch_size, 256, 1, 1))
-        out_img = F.upsample(out_img, size=(feature_map_h, feature_map_w), mode="bilinear") # (shape: (batch_size, 256, h/16, w/16))
+        # 5번 branch = AdaptiveAvgPool2d → 1x1 convolution → BatchNorm → ReLu
+        # shape: (batch_size, in_channels, 1, 1)
+        out_img = self.avg_pool(feature_map) 
+        # shape: (batch_size, out_channels, 1, 1)
+        out_img = F.relu(self.bn_conv_1x1_2(self.conv_1x1_2(out_img)))
+        # shape: (batch_size, out_channels, height/output_stride, width/output_stride)
+        out_img = F.upsample(out_img, size=(feature_map_h, feature_map_w), mode="bilinear")
 
-        out = torch.cat([out_1x1, out_3x3_1, out_3x3_2, out_3x3_3, out_img], 1) # (shape: (batch_size, 1280, h/16, w/16))
-        out = F.relu(self.bn_conv_1x1_3(self.conv_1x1_3(out))) # (shape: (batch_size, 256, h/16, w/16))
-        out = self.conv_1x1_4(out) # (shape: (batch_size, num_classes, h/16, w/16))
+        # shape: (batch_size, out_channels * 5, height/output_stride, width/output_stride)
+        out = torch.cat([out_1x1, out_3x3_1, out_3x3_2, out_3x3_3, out_img], 1) 
+        # shape: (batch_size, out_channels, height/output_stride, width/output_stride)
+        out = F.relu(self.bn_conv_1x1_3(self.conv_1x1_3(out))) 
+        # shape: (batch_size, num_classes, height/output_stride, width/output_stride)
+        out = self.conv_1x1_4(out) 
 
         return out
-
-
 ```
 
 <br>
