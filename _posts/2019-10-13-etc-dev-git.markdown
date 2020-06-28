@@ -17,11 +17,23 @@ tags: [git, git 셋팅] # add tag
 
 <br>
 
+- ### 자주 사용하는 명령어
 - ### 버전 컨트롤
 - ### .git
 - ### git status
-- ### 변한 것을 어떻게 알 수 있을까요?
-- ### diff 안에는 무슨 내용이 있을까요?
+- ### git diff
+
+<br>
+
+## **자주 사용하는 명령어**
+
+<br>
+
+- 원하는 branch로 이동하는 방법 : `git checkout feature이름`
+- 원하는 branch에 push 하는 방법 : 
+    - 1) 변경할 파일 등록 : `git add 파일명1 파일명2`
+    - 2) 변경 내용 commit : `git commit 파일명1 파일명2 -m "변경내용"`
+    - 3) 변경 내용 push : `git push origin feature이름`
 
 <br>
 
@@ -54,7 +66,7 @@ tags: [git, git 셋팅] # add tag
 
 <br>
 
-## **repository의 상태를 확인하려면 어떻게 해야 할까?**
+## **git status**
 
 <br>
 
@@ -65,7 +77,6 @@ tags: [git, git 셋팅] # add tag
 <center><img src="../assets/img/etc/dev/git/1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-## **git status**
 
 <br>
 
@@ -108,3 +119,19 @@ index e713b17..4c0742a 100644
 - 2번줄: Git의 내부 변경 데이터베이스에 키를 표시하는 인덱스 라인입니다.
 - 3,4번줄: `--- a/report.txt` and `+++ b/report.txt`에서 `-`로 시작하는 것은 제거된 항목이고 `+`로 시작하는 것은 추가된 항목입니다.
 - 5번줄: @@로 시작하는 행은 변경되는 위치를 알려줍니다. 숫자 쌍은 시작선과 줄 수입니다.
+
+<br>
+
+## **gitlab 관련 기능**
+
+<br>
+
+- gitlab 사이트를 통하여 사용할 수 있는 기능들을 정리해 보도록 하겠습니다.
+- 먼저 다음 2가지는 가입 후 초기 셋팅으로 반드시 해주시길 바랍니다.
+- 1) 비밀번호 셋팅(변경) : 비밀번호를 설정하는 것을 통해 계정 활성화가 됩니다. 정상적으로 사용하려면 비밀번호를 한번 설정해 주어야 합니다.
+- 2) SSH 셋팅 : 기존에 사용하는 SSH를 입력하거나 또는 새로 생성해야 합니다. 방법은 다음 링크를 참조하시기 바랍니다.
+    - 링크 : https://gitlab.com/help/ssh/README#rsa-ssh-keys
+
+
+<br>
+
