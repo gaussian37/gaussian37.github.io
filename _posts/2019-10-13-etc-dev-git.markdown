@@ -17,11 +17,32 @@ tags: [git, git 셋팅] # add tag
 
 <br>
 
+- ### git 관련 셋팅
 - ### 자주 사용하는 명령어
 - ### 버전 컨트롤
 - ### .git
 - ### git status
 - ### git diff
+
+<br>
+
+## **git 관련 셋팅**
+
+<br>
+
+- 링크 : https://medium.com/@thucnc/how-to-show-current-git-branch-with-colors-in-bash-prompt-380d05a24745
+- 우분투 터미널에서 git을 사용할 때, 어떤 branch에 접속한 상태인 지 확인이 필요하거나 color로 터미널에서 git의 상태가 구분되었으면 좋을 때, 아래 코드를 `.bashrc`에 입력해 놓으면 좋습니다.
+- 단, 우분투 터미널의 기본적인 글자 색도 바뀌니 그 점은 유의하시기 바랍니다.
+- `.bashrc` 파일 열기 : `gedit ~/.bashrc`
+
+<br>
+
+```
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+export PS1="\u@\h \[\e[32m\]\w \[\e[91m\]\$(parse_git_branch)\[\e[00m\]$ "
+```
 
 <br>
 
