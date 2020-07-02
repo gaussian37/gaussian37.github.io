@@ -31,8 +31,9 @@ tags: [git, git 셋팅] # add tag
 <br>
 
 - 링크 : https://medium.com/@thucnc/how-to-show-current-git-branch-with-colors-in-bash-prompt-380d05a24745
-- 우분투 터미널에서 git을 사용할 때, 어떤 branch에 접속한 상태인 지 확인이 필요하거나 color로 터미널에서 git의 상태가 구분되었으면 좋을 때, 아래 코드를 `.bashrc`에 입력해 놓으면 좋습니다.
-- 단, 우분투 터미널의 기본적인 글자 색도 바뀌니 그 점은 유의하시기 바랍니다.
+- 링크 : https://wjs890204.tistory.com/886
+- 우분투 터미널에서 git을 사용할 때, 어떤 branch에 접속한 상태인 지 확인이 필요하거나 color로 터미널에서 git의 상태가 구분되었으면 좋을 때 다음 2가지 방법을 사용할 수 있습니다.
+- 1) 아래 코드를 `.bashrc`에 입력해 놓는 방법입니다. 단, 우분투 터미널의 기본적인 글자 색도 바뀌니 그 점은 유의하시기 바랍니다.
 - `.bashrc` 파일 열기 : `gedit ~/.bashrc`
 
 <br>
@@ -43,6 +44,14 @@ parse_git_branch() {
 }
 export PS1="\u@\h \[\e[32m\]\w \[\e[91m\]\$(parse_git_branch)\[\e[00m\]$ "
 ```
+
+<br>
+
+- 2) `oh-my-zsh` 을 이용하는 방법입니다. 아래 3줄의 설치 과정을 따라하시면 됩니다.
+- `sudo apt-get install zsh`
+- `sudo apt-get install git wget curl`
+- `curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh`
+- 설치가 완료되면 터미널에서 `zsh` 명령어를 통하여 `oh-my-zsh`를 사용할 수 있습니다. `oh-my-zsh` 환경에서 git이 연관된 폴더에 들어가면 command line에 branch 이름이 나타납니다.
 
 <br>
 
