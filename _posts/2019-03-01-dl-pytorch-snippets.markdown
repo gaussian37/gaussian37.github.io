@@ -32,6 +32,7 @@ tags: [pytorch, snippets] # add tag
 - ### torch.unsqueeze(input, dim)
 - ### torch.squeeze(input, dim)
 - ### Variable(data)
+- ### F.interpolate()
 
 <br>
 
@@ -679,3 +680,39 @@ for delete_layer in delete_layers:
 
 <br>
 
+## **F.interpolate()**
+
+<br>
+
+- 딥러닝에서 interpolation은 작은 feature의 크기를 강제로 변경시킬 때 사용됩니다.
+- pytorch에서 제공하는 `torch.nn.functional`의 `interpolate`가 어떻게 사용되는 지 알아보도록 하겠습니다.
+
+<br>
+
+```python
+torch.nn.functional.interpolate(
+    input, # input tensor
+    size=None, # output spatial size로 int나 int 형 tuple이 입력으로 들어옵니다.
+    scale_factor=None, # spatial size에 곱해지는 scale 값
+    mode='nearest', # 어떤 방법으로 upsampling할 것인지 정하게 됩니다. 'nearest', 'linear', 'bilinear', 'bicubic', 'trilinear', 'area'
+    align_corners=False, # interpolate 할 때, 가장자리를 어떻게 처리할 지 방법으로 아래 그림 참조.
+    recompute_scale_factor=None
+)
+```
+
+<br>
+
+- `functional.interpolate` 함수에서 필수적으로 사용하는 것은 `input`, `size`, `mode`이고 추가적으로 `align_corners`를 사용합니다. scale_fator와 recompute_scale_cator는 잘 사용하지 않으니 넘어가도록 하겠습니다.
+- `input`은 입력 Tensor입니다.
+- `size`는 interpolate 할 목표 사이즈 입니다.
+- `mode`는 upsampling 하는 방법으로 `nearest` 또는 `bilinear`를 대표적으로 사용할 수 있습니다. 
+    - `nearest` 같은 경우 주변 값을 실제 사용하는 것으로 현재 존재하는 실제 픽셀 값을 사용해야 하는 경우 `nearest`를 사용할 수 있습니다. 예를 들어 input의 feature 값이 정수 인데 interpolate 한 output의 값들도 정수가 되어야 한다면 nearest를 사용하여 소수값이 생기지 않도록 할 수 있습니다.
+    - `bilinear`는 [bilinear interpolation](https://en.wikipedia.org/wiki/Bilinear_interpolation) 방법을 이용한 것으로 이미지와 같은 height, width의 속성을 가지는 데이터에 적합한 interpolation 방법입니다. height, width로 구성된 2차원 평면이므로 interpolation 할 때 사용되는 변수도 2개입니다. 이 방법은 단 방향의, 1개의 변수를 이용하여 interpolation 하는 linear 보다 좀 더 나은 방법입니다.
+- `align_corners`는 다음 그림을 참조해 보겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/6.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- `align_corners`에서 왼쪽 그림이 align_corners = True인 상태이고 오른쪽 그림이 False인 상태입니다. 말 그대로 True로 설정되면 Input점 의 edge(corner)가 Output의 edge(corner)와 정렬을 맞춘 상태에서 interpolation을 합니다. 반면 False 인 상태이면 algin을 맞추지 않은 상태로 inpterpolation을 하게됩니다.
+- **segmentation을 할 때, align_corners = True로 두면** 좀 더 성능이 좋다고 알려져 있습니다. 따라서 이 값은 True로 두는 것을 권장합니다. 다만 `ONNX`로 변환해야 하는 경우 버전에 따라서 반드시 align_corners = False로 두어야 하는 경우가 있으므로 이 점은 유의하여 사용하시길 바랍니다.
