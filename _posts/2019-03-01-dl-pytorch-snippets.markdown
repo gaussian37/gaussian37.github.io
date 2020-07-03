@@ -711,7 +711,7 @@ torch.nn.functional.interpolate(
 - `align_corners`는 다음 그림을 참조해 보겠습니다.
 
 <br>
-<center><img src="../assets/img/dl/pytorch/snippets/6.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/pytorch/snippets/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - `align_corners`에서 왼쪽 그림이 align_corners = True인 상태이고 오른쪽 그림이 False인 상태입니다. 말 그대로 True로 설정되면 Input점 의 edge(corner)가 Output의 edge(corner)와 정렬을 맞춘 상태에서 interpolation을 합니다. 반면 False 인 상태이면 algin을 맞추지 않은 상태로 inpterpolation을 하게됩니다.
