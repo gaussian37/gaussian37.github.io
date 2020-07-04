@@ -715,4 +715,4 @@ torch.nn.functional.interpolate(
 <br>
 
 - `align_corners`에서 왼쪽 그림이 align_corners = True인 상태이고 오른쪽 그림이 False인 상태입니다. 말 그대로 True로 설정되면 Input점 의 edge(corner)가 Output의 edge(corner)와 정렬을 맞춘 상태에서 interpolation을 합니다. 반면 False 인 상태이면 algin을 맞추지 않은 상태로 inpterpolation을 하게됩니다.
-- **segmentation을 할 때, align_corners = True로 두면** 좀 더 성능이 좋다고 알려져 있습니다. 따라서 이 값은 True로 두는 것을 권장합니다. 다만 `ONNX`로 변환해야 하는 경우 버전에 따라서 반드시 align_corners = False로 두어야 하는 경우가 있으므로 이 점은 유의하여 사용하시길 바랍니다.
+- **segmentation을 할 때, align_corners = True로 두면** 좀 더 성능이 좋다고 알려져 있습니다. 따라서 이 값은 True로 두는 것을 권장합니다. 다만 `ONNX`로 변환해야 하는 경우 버전에 따라서 반드시 align_corners = False로 두어야 하는 경우가 있으므로 이 점은 유의하여 사용하시길 바랍니다. 
