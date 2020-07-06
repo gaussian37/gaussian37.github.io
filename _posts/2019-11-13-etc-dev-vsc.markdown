@@ -14,6 +14,7 @@ tags: [비주얼 스튜디오 코드 기능, visual studio code] # add tag
 - ### Visual Studio Code 단축키
 - ### Visual Studio Code에서 Python interpretor 설정
 - ### Visual Studio Code에서 C/C++ 실행하기
+- ### Visual Studio Code Terminal 에러 수정
 
 <br>
 
@@ -110,3 +111,15 @@ sudo apt install build-essential
 <br>
 
 - 리눅스에는 기본적으로 C/C++ 컴파일러가 설치되어 있기 떄문에 위 작업만 하면 C 코드 실행이 가능합니다.
+
+<br>
+
+## **Visual Studio Code Terminal 에러 수정**
+
+<br>
+
+- VSC에서 하단 창의 Terminal을 이용할 때, 실행 시키자 마자 에러가 나서 실행이 안되는 경우가 발생합니다.
+- 이와 같은 경우에는 현재 사용중인 OS에서 여러가지 Terminal(기본 Command, PowerShell, Git Bash 등등)이 있을 수 있는데, 그 중 Visual Studio Code에서 사용이 안되는 Terminal이 연결되었을 수 있습니다. 
+- 이 경우 다음 방법을 통하여 개선할 수 있습니다.
+- 1) `ctrl + shift + p`를 누르면 생기는 상단 검색 창에 `Terminal: Select Default Shell`을 입력합니다.
+- 2) 이 때, 여러가지 선택 사항이 나타납니다. 이 선택 사항은 현재 OS에서 사용 가능한 command 창의 종류들 입니다. 여기서 기본 창을 선택해 봅니다. 예를 들어 윈도우의 경우 `Command Prompt` 입니다.
