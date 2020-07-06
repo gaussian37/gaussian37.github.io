@@ -26,6 +26,9 @@ tags: [vision, deep learning, segmentation] # add tag
 - [U-Net](https://gaussian37.github.io/vision-segmentation-unet/)
 - [Multi-Scale Context Aggregation by Dilated Convolutions](https://blog.naver.com/laonple/220991967450)
 - [ASPP(Atrous Spatial Pyramid Pooling)](https://gaussian37.github.io/vision-segmentation-aspp/)
+- [Learning Deconvolution Network for Semantic Segmentation]()
+- [RTSeg: Real-time Semantic Segmentation Comparative Study]()
+- [Multi-scale context aggregation by dilated convolutions]()
 
 <br>
 
@@ -49,4 +52,8 @@ tags: [vision, deep learning, segmentation] # add tag
 - [ENet]()
 - [BiSeNet]()
 - [ESPNet]()
+- [ERFNet]()
+- [RPNet]()
+- [DSNet]()
+- [C3 : Concentrated-Comprehensive Convolution and its application to semantic segmentation]()
 
