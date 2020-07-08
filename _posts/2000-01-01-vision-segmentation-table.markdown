@@ -56,4 +56,5 @@ tags: [vision, deep learning, segmentation] # add tag
 - [RPNet]()
 - [DSNet]()
 - [C3 : Concentrated-Comprehensive Convolution and its application to semantic segmentation]()
+- [Light-weight refinenet for realtime semantic segmentation]()
 
