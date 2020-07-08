@@ -728,7 +728,24 @@ torch.nn.functional.interpolate(
 
 - 그 다음으로 `nn.Upsample()` 을 다루는 방법에 대하여 다루어 보도록 하겠습니다. 이 방법 또한 앞에서 다룬 F.interpolate()와 거의 같습니다.
 - 단, `F.interpolate`는 입력의 크기를 크게 할 수도 있고, 작게 만들 수도 있습니다. 하지만 `nn.Upsample`의 경우는 보통 크게 만들 때에 사용합니다. 따라서 `F.interpolate`가 좀 더 일반적으로 사용할 수 있어서 보통 `F.interpolate`를 사용합니다.
+- 먼저 `Upsample`의 형태에 대하여 알아보도록 하겠습니다.
+
+<br>
+
+```python
+torch.nn.Upsample(
+    size: Optional[Union[T, Tuple[T, ...]]] = None, 
+    scale_factor: Optional[Union[T, Tuple[T, ...]]] = None, 
+    mode: str = 'nearest', 
+    align_corners: Optional[bool] = None
+)
+```
+
+<br>
+
 - Upsample 함수는 1D, 2D, 3D 데이터를 모두 입력으로 받을 수 있습니다. 여기서 Dimension은 Batch 사이즈를 제외한 크기입니다. 따라서 입력은 `batch_size x channels x height x width`의 크기를 가집니다. 예를 들어 이미지 데이터의 경우 입력이 4차원이 되는데 그 이유는 앞의 예시와 같습니다. 예를 들어 32 batch의 (224, 224) 크기의 컬러 이미지이면 (32, 3, 224, 224)가 됩니다.
+- 중요한 것은 `Upsample`에 어떤 방식으로 Output의 크기를 명시할 것인가 입니다. 이것에 해당하는 것이 위 코드에서 `size` 또는 `scale_factor`에 해당합니다. `size`는 특정 size로 Upsampling 하는 방법입니다. 즉, 정확한 사이즈를 정해주는 방법입니다. 반면 `scale_factor`는 현재 input 대비 몇 배를 해줄 지 정해주는 scale 값에 해당합니다.
+- `size`와 `scale_factor` 중 어떤 것을 사용해도 상관없지만 중요한 것은 모호성을 줄이기 위해 둘 중 하나만을 사용하는 것입니다. 따라서 모델에 따라서 필요한 것을 사용하시길 바랍니다.
 - 앞의 interpolate와 동일하게 feature를 크게 만들기 위한 방법으로 `nearest`, `linear`, `bilinear`, `bicubic`, `trilinear`가 있고 기본값은 `nearest` 입니다.
 - 이미지를 다룰 때에는 주로 사용하는 방법이 `nearest`와 `bileanear` 방법인데 앞에서 설명한 바와 같이 필요에 따라 옵션을 사용하시면 됩니다.
-- 
+- `Upsample`을 이용한 예제를 다음과 같이 사용해 보도록 하겠습니다.
