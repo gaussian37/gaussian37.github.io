@@ -32,7 +32,7 @@ tags: [pytorch, snippets] # add tag
 - ### torch.unsqueeze(input, dim)
 - ### torch.squeeze(input, dim)
 - ### Variable(data)
-- ### F.interpolate()
+- ### F.interpolate()와 nn.Upsample()
 
 <br>
 
@@ -680,12 +680,13 @@ for delete_layer in delete_layers:
 
 <br>
 
-## **F.interpolate()**
+## **F.interpolate()와 nn.Upsample()**
 
 <br>
 
-- 딥러닝에서 interpolation은 작은 feature의 크기를 강제로 변경시킬 때 사용됩니다.
-- pytorch에서 제공하는 `torch.nn.functional`의 `interpolate`가 어떻게 사용되는 지 알아보도록 하겠습니다.
+- 딥러닝에서 interpolation은 작은 feature의 크기를 크게 변경시킬 대 사용됩니다.
+- 사용할 수 있는 대표적인 방법으로는 `F.interpolate()`와 `nn.Upsample()` 방법이 있습니다.
+- 먼저, pytorch에서 제공하는 `torch.nn.functional`의 `interpolate`가 어떻게 사용되는 지 알아보도록 하겠습니다.
 
 <br>
 
@@ -716,3 +717,10 @@ torch.nn.functional.interpolate(
 
 - `align_corners`에서 왼쪽 그림이 align_corners = True인 상태이고 오른쪽 그림이 False인 상태입니다. 말 그대로 True로 설정되면 Input점 의 edge(corner)가 Output의 edge(corner)와 정렬을 맞춘 상태에서 interpolation을 합니다. 반면 False 인 상태이면 algin을 맞추지 않은 상태로 inpterpolation을 하게됩니다.
 - **segmentation을 할 때, align_corners = True로 두면** 좀 더 성능이 좋다고 알려져 있습니다. 따라서 이 값은 True로 두는 것을 권장합니다. 다만 `ONNX`로 변환해야 하는 경우 버전에 따라서 반드시 align_corners = False로 두어야 하는 경우가 있으므로 이 점은 유의하여 사용하시길 바랍니다. 
+
+<br>
+
+- 그 다음으로 `nn.Upsample()` 을 다루는 방법에 대하여 다루어 보도록 하겠습니다. 이 방법 또한 앞에서 다룬 F.interpolate()와 거의 같습니다.
+- Upsample 함수는 1D, 2D, 3D 데이터를 모두 입력으로 받을 수 있습니다. 여기서 Dimension은 Batch 사이즈를 제외한 크기입니다. 따라서 입력은 `batch_size x channels x height x width`의 크기를 가집니다. 예를 들어 이미지 데이터의 경우 입력이 4차원이 되는데 그 이유는 앞의 예시와 같습니다. 예를 들어 32 batch의 (224, 224) 크기의 컬러 이미지이면 (32, 3, 224, 224)가 됩니다.
+- 앞의 interpolate와 동일하게 feature를 크게 만들기 위한 방법으로 `nearest`, `linear`, `bilinear`, `bicubic`, `trilinear`가 있고 기본값은 `nearest` 입니다.
+- 이미지를 다룰 때에는 주로 사용하는 방법이 `nearest`와 `bileanear` 방법인데 앞에서 설명한 바와 같이 필요에 따라 옵션을 사용하시면 됩니다.
