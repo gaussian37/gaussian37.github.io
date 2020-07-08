@@ -702,7 +702,6 @@ torch.nn.functional.interpolate(
     scale_factor=None, # spatial size에 곱해지는 scale 값
     mode='nearest', # 어떤 방법으로 upsampling할 것인지 정하게 됩니다. 'nearest', 'linear', 'bilinear', 'bicubic', 'trilinear', 'area'
     align_corners=False, # interpolate 할 때, 가장자리를 어떻게 처리할 지 방법으로 아래 그림 참조.
-    recompute_scale_factor=None
 )
 ```
 
@@ -710,8 +709,8 @@ torch.nn.functional.interpolate(
 
 - `functional.interpolate` 함수에서 필수적으로 사용하는 것은 `input`, `size`, `mode`이고 추가적으로 `align_corners`를 사용합니다.
 - `input`은 입력 Tensor입니다.
-- `size`는 interpolate 할 목표 사이즈 입니다.
-- `scale_factor` 또한 intperpolate 할 목표 사이즈가 됩니다.
+- `size`는 interpolate 할 목표 사이즈 입니다. 이 때, 입력해야 할 사이즈는 batch와 channel을 뺀 사이즈이어야 합니다. 예를 들어 이미지의 경우 height와 width만 있기 때문에 (new_height, new_width) 형태이어야 합니다. (**size 와 scale_factor 중 하나만 입력 해야 합니다.**)
+- `scale_factor` 또한 intperpolate 할 목표 사이즈가 됩니다. (**size 와 scale_factor 중 하나만 입력 해야 합니다.**)
 - `mode`는 upsampling 하는 방법으로 `nearest` 또는 `bilinear`를 대표적으로 사용할 수 있습니다. 
     - `nearest` 같은 경우 주변 값을 실제 사용하는 것으로 현재 존재하는 실제 픽셀 값을 사용해야 하는 경우 `nearest`를 사용할 수 있습니다. 예를 들어 input의 feature 값이 정수 인데 interpolate 한 output의 값들도 정수가 되어야 한다면 nearest를 사용하여 소수값이 생기지 않도록 할 수 있습니다.
     - `bilinear`는 [bilinear interpolation](https://en.wikipedia.org/wiki/Bilinear_interpolation) 방법을 이용한 것으로 이미지와 같은 height, width의 속성을 가지는 데이터에 적합한 interpolation 방법입니다. height, width로 구성된 2차원 평면이므로 interpolation 할 때 사용되는 변수도 2개입니다. 이 방법은 단 방향의, 1개의 변수를 이용하여 interpolation 하는 linear 보다 좀 더 나은 방법입니다.
@@ -721,13 +720,72 @@ torch.nn.functional.interpolate(
 <center><img src="../assets/img/dl/pytorch/snippets/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- `align_corners`에서 왼쪽 그림이 align_corners = True인 상태이고 오른쪽 그림이 False인 상태입니다. 말 그대로 True로 설정되면 Input점 의 edge(corner)가 Output의 edge(corner)와 정렬을 맞춘 상태에서 interpolation을 합니다. 반면 False 인 상태이면 algin을 맞추지 않은 상태로 inpterpolation을 하게됩니다.
-- **segmentation을 할 때, align_corners = True로 두면** 좀 더 성능이 좋다고 알려져 있습니다. 따라서 이 값은 True로 두는 것을 권장합니다. 다만 `ONNX`로 변환해야 하는 경우 버전에 따라서 반드시 align_corners = False로 두어야 하는 경우가 있으므로 이 점은 유의하여 사용하시길 바랍니다. 
+- `align_corners`에서 왼쪽 그림이 align_corners = True인 상태이고 오른쪽 그림이 False인 상태입니다. 말 그대로 True로 설정되면 Input점 의 edge(corner)가 Output의 edge(corner)와 정렬을 맞춘 상태에서 interpolation을 합니다. 반면 False 인 상태이면 algin을 맞추지 않은 상태로 inpterpolation을 하게됩니다. **간단하게 말하면 align_corners = True인 상태에 값들이 더 넓게 펼쳐져 있습니다.**
+- **segmentation을 할 때, align_corners = True로 두면** 좀 더 성능이 좋다고 알려져 있습니다. 따라서 이 값은 True로 두는 것을 권장합니다. 다만 `ONNX`로 변환해야 하는 경우 버전에 따라서 반드시 align_corners = False로 두어야 하는 경우가 있으므로 이 점은 유의하여 사용하시길 바랍니다.
+- 그러면 예제를 살펴보도록 하겠습니다.
+
+<br>
+
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+input = torch.arange(0, 16, dtype=torch.float32).reshape(1, 1, 4, 4)
+# size : torch.Size([1, 1, 4, 4])
+# value : tensor([[[[ 0.,  1.,  2.,  3.],
+#                   [ 4.,  5.,  6.,  7.],
+#                   [ 8.,  9., 10., 11.],
+#                   [12., 13., 14., 15.]]]])
+
+F.interpolate(input, scale_factor=2, mode='nearest')
+# tensor([[[[ 0.,  0.,  1.,  1.,  2.,  2.,  3.,  3.],
+#           [ 0.,  0.,  1.,  1.,  2.,  2.,  3.,  3.],
+#           [ 4.,  4.,  5.,  5.,  6.,  6.,  7.,  7.],
+#           [ 4.,  4.,  5.,  5.,  6.,  6.,  7.,  7.],
+#           [ 8.,  8.,  9.,  9., 10., 10., 11., 11.],
+#           [ 8.,  8.,  9.,  9., 10., 10., 11., 11.],
+#           [12., 12., 13., 13., 14., 14., 15., 15.],
+#           [12., 12., 13., 13., 14., 14., 15., 15.]]]])
+
+F.interpolate(input, scale_factor=0.8, mode='nearest')
+# tensor([[[[ 0.,  1.,  2.],
+#           [ 4.,  5.,  6.],
+#           [ 8.,  9., 10.]]]])
+
+# align_corners가 True일 때와 False일 때의 값 차이 확인
+F.interpolate(input, scale_factor=2, mode='bilinear', align_corners=False)
+# tensor([[[[ 0.0000,  0.2500,  0.7500,  1.2500,  1.7500,  2.2500,  2.7500,  3.0000],
+#           [ 1.0000,  1.2500,  1.7500,  2.2500,  2.7500,  3.2500,  3.7500,  4.0000],
+#           [ 3.0000,  3.2500,  3.7500,  4.2500,  4.7500,  5.2500,  5.7500,  6.0000],
+#           [ 5.0000,  5.2500,  5.7500,  6.2500,  6.7500,  7.2500,  7.7500,  8.0000],
+#           [ 7.0000,  7.2500,  7.7500,  8.2500,  8.7500,  9.2500,  9.7500, 10.0000],
+#           [ 9.0000,  9.2500,  9.7500, 10.2500, 10.7500, 11.2500, 11.7500, 12.0000],
+#           [11.0000, 11.2500, 11.7500, 12.2500, 12.7500, 13.2500, 13.7500, 14.0000],
+#           [12.0000, 12.2500, 12.7500, 13.2500, 13.7500, 14.2500, 14.7500, 15.0000]]]])
+
+F.interpolate(input, scale_factor=2, mode='bilinear', align_corners=True)
+# tensor([[[[ 0.0000,  0.4286,  0.8571,  1.2857,  1.7143,  2.1429,  2.5714,  3.0000],
+#           [ 1.7143,  2.1429,  2.5714,  3.0000,  3.4286,  3.8571,  4.2857,  4.7143],
+#           [ 3.4286,  3.8571,  4.2857,  4.7143,  5.1429,  5.5714,  6.0000,  6.4286],
+#           [ 5.1429,  5.5714,  6.0000,  6.4286,  6.8571,  7.2857,  7.7143,  8.1429],
+#           [ 6.8571,  7.2857,  7.7143,  8.1429,  8.5714,  9.0000,  9.4286,  9.8571],
+#           [ 8.5714,  9.0000,  9.4286,  9.8571, 10.2857, 10.7143, 11.1429,  11.5714],
+#           [10.2857, 10.7143, 11.1429, 11.5714, 12.0000, 12.4286, 12.8571,  13.2857],
+#           [12.0000, 12.4286, 12.8571, 13.2857, 13.7143, 14.1429, 14.5714,  15.0000]]]])
+
+F.interpolate(input, size=(5, 3), mode='bilinear', align_corners=False)
+# tensor([[[[ 0.1667,  1.5000,  2.8333],
+#           [ 2.9667,  4.3000,  5.6333],
+#           [ 6.1667,  7.5000,  8.8333],
+#           [ 9.3667, 10.7000, 12.0333],
+#           [12.1667, 13.5000, 14.8333]]]])
+```
 
 <br>
 
 - 그 다음으로 `nn.Upsample()` 을 다루는 방법에 대하여 다루어 보도록 하겠습니다. 이 방법 또한 앞에서 다룬 F.interpolate()와 거의 같습니다.
-- 단, `F.interpolate`는 입력의 크기를 크게 할 수도 있고, 작게 만들 수도 있습니다. 하지만 `nn.Upsample`의 경우는 보통 크게 만들 때에 사용합니다. 따라서 `F.interpolate`가 좀 더 일반적으로 사용할 수 있어서 보통 `F.interpolate`를 사용합니다.
+- `F.interpolate()`가 upsampling / downsampling을 모두 할 수 있듯이 `nn.Upsample()` 또한 upsampling / downsampling을 할 수 있지만 의미론 상 Upsample의 목적으로만 사용하는 것이 좋습니다.
 - 먼저 `Upsample`의 형태에 대하여 알아보도록 하겠습니다.
 
 <br>
@@ -748,4 +806,32 @@ torch.nn.Upsample(
 - `size`와 `scale_factor` 중 어떤 것을 사용해도 상관없지만 중요한 것은 모호성을 줄이기 위해 둘 중 하나만을 사용하는 것입니다. 따라서 모델에 따라서 필요한 것을 사용하시길 바랍니다.
 - 앞의 interpolate와 동일하게 feature를 크게 만들기 위한 방법으로 `nearest`, `linear`, `bilinear`, `bicubic`, `trilinear`가 있고 기본값은 `nearest` 입니다.
 - 이미지를 다룰 때에는 주로 사용하는 방법이 `nearest`와 `bileanear` 방법인데 앞에서 설명한 바와 같이 필요에 따라 옵션을 사용하시면 됩니다.
-- `Upsample`을 이용한 예제를 다음과 같이 사용해 보도록 하겠습니다.
+- `Upsample`을 이용한 예제를 다음과 같이 사용해 보도록 하겠습니다. 사용 결과는 `F.interpolate()`와 같으므로 결과 값은 빼겠습니다.
+
+<br>
+
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+input = torch.arange(0, 16, dtype=torch.float32).reshape(1, 1, 4, 4)
+
+# F.interpolate(input, scale_factor=2, mode='nearest')
+m = nn.Upsample(scale_factor=2, mode = 'nearest')
+m(input)
+
+# F.interpolate(input, scale_factor=0.8, mode='nearest')
+m = nn.Upsample(scale_factor=0.8, mode='nearest')
+m(input)
+
+# F.interpolate(input, scale_factor=2, mode='bilinear', align_corners=False)
+m = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)
+m(input)
+
+F.interpolate(input, size=(5, 3), mode='bilinear', align_corners=False)
+m = nn.Upsample(size=(5, 3), mode='bilinear', align_corners=False)
+m(input)
+```
+
+<br>
