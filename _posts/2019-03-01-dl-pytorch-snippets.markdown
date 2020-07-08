@@ -1,6 +1,6 @@
 ---
 layout: post
-title: pytorch 코드 snippets
+title: pytorch 코드, 팁 snippets
 date: 2019-03-01 00:00:00
 img: dl/pytorch/pytorch.jpg
 categories: [dl-pytorch] 
@@ -9,7 +9,7 @@ tags: [pytorch, snippets] # add tag
 
 <br>
 
-- 이 글은 pytorch 사용 시 참조할 수 있는 코드들을 모아놓았습니다.
+- 이 글은 pytorch 사용 시 참조할 수 있는 코드 또는 팁들을 모아 놓았습니다.
 - 완전히 기본 문법은 [이 글](https://gaussian37.github.io/dl-pytorch-pytorch-tensor-basic/)에서 참조하시기 바랍니다.
 - 이 글에서는 `셋팅 관련` 내용, `자주 사용하는 함수` 그리고 `자주 사용하는 코드` 순으로 정리하였습니다.
 
