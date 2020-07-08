@@ -684,6 +684,11 @@ for delete_layer in delete_layers:
 
 <br>
 
+- 참조 : https://pytorch.org/docs/stable/nn.functional.html
+- 참조 : https://pytorch.org/docs/master/generated/torch.nn.Upsample.html
+
+<br>
+
 - 딥러닝에서 interpolation은 작은 feature의 크기를 크게 변경시킬 대 사용됩니다.
 - 사용할 수 있는 대표적인 방법으로는 `F.interpolate()`와 `nn.Upsample()` 방법이 있습니다.
 - 먼저, pytorch에서 제공하는 `torch.nn.functional`의 `interpolate`가 어떻게 사용되는 지 알아보도록 하겠습니다.
@@ -703,9 +708,10 @@ torch.nn.functional.interpolate(
 
 <br>
 
-- `functional.interpolate` 함수에서 필수적으로 사용하는 것은 `input`, `size`, `mode`이고 추가적으로 `align_corners`를 사용합니다. scale_fator와 recompute_scale_cator는 잘 사용하지 않으니 넘어가도록 하겠습니다.
+- `functional.interpolate` 함수에서 필수적으로 사용하는 것은 `input`, `size`, `mode`이고 추가적으로 `align_corners`를 사용합니다.
 - `input`은 입력 Tensor입니다.
 - `size`는 interpolate 할 목표 사이즈 입니다.
+- `scale_factor` 또한 intperpolate 할 목표 사이즈가 됩니다.
 - `mode`는 upsampling 하는 방법으로 `nearest` 또는 `bilinear`를 대표적으로 사용할 수 있습니다. 
     - `nearest` 같은 경우 주변 값을 실제 사용하는 것으로 현재 존재하는 실제 픽셀 값을 사용해야 하는 경우 `nearest`를 사용할 수 있습니다. 예를 들어 input의 feature 값이 정수 인데 interpolate 한 output의 값들도 정수가 되어야 한다면 nearest를 사용하여 소수값이 생기지 않도록 할 수 있습니다.
     - `bilinear`는 [bilinear interpolation](https://en.wikipedia.org/wiki/Bilinear_interpolation) 방법을 이용한 것으로 이미지와 같은 height, width의 속성을 가지는 데이터에 적합한 interpolation 방법입니다. height, width로 구성된 2차원 평면이므로 interpolation 할 때 사용되는 변수도 2개입니다. 이 방법은 단 방향의, 1개의 변수를 이용하여 interpolation 하는 linear 보다 좀 더 나은 방법입니다.
@@ -721,6 +727,8 @@ torch.nn.functional.interpolate(
 <br>
 
 - 그 다음으로 `nn.Upsample()` 을 다루는 방법에 대하여 다루어 보도록 하겠습니다. 이 방법 또한 앞에서 다룬 F.interpolate()와 거의 같습니다.
+- 단, `F.interpolate`는 입력의 크기를 크게 할 수도 있고, 작게 만들 수도 있습니다. 하지만 `nn.Upsample`의 경우는 보통 크게 만들 때에 사용합니다. 따라서 `F.interpolate`가 좀 더 일반적으로 사용할 수 있어서 보통 `F.interpolate`를 사용합니다.
 - Upsample 함수는 1D, 2D, 3D 데이터를 모두 입력으로 받을 수 있습니다. 여기서 Dimension은 Batch 사이즈를 제외한 크기입니다. 따라서 입력은 `batch_size x channels x height x width`의 크기를 가집니다. 예를 들어 이미지 데이터의 경우 입력이 4차원이 되는데 그 이유는 앞의 예시와 같습니다. 예를 들어 32 batch의 (224, 224) 크기의 컬러 이미지이면 (32, 3, 224, 224)가 됩니다.
 - 앞의 interpolate와 동일하게 feature를 크게 만들기 위한 방법으로 `nearest`, `linear`, `bilinear`, `bicubic`, `trilinear`가 있고 기본값은 `nearest` 입니다.
 - 이미지를 다룰 때에는 주로 사용하는 방법이 `nearest`와 `bileanear` 방법인데 앞에서 설명한 바와 같이 필요에 따라 옵션을 사용하시면 됩니다.
+- 
