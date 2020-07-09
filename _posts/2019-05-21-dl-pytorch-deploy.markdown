@@ -1,6 +1,6 @@
 ---
 layout: post
-title: pytorch 모델 저장과 ONNX 사용
+title: pytorch 모델 저장과 ONNX, TensorRT 사용
 date: 2019-05-18 00:00:00
 img: dl/pytorch/pytorch.jpg
 categories: [dl-pytorch] 
@@ -17,6 +17,7 @@ tags: [pytorch, deploy] # add tag
 
 - ### 모델 저장과 불러오기
 - ### ONNX를 사용한 다른 프레임워크와의 연계
+- ### ONNX를 TensorRT에서 사용
 
 <br>
 
@@ -237,3 +238,8 @@ with open('predict_net.pb', "wb") as fopen:
 ```
 
 <br>
+
+## **ONNX를 TensorRT에서 사용**
+
+<br>
+
