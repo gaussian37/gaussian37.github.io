@@ -29,6 +29,7 @@ tags: [vision, deep learning, segmentation] # add tag
 - [Learning Deconvolution Network for Semantic Segmentation]()
 - [RTSeg: Real-time Semantic Segmentation Comparative Study]()
 - [Multi-scale context aggregation by dilated convolutions]()
+- [Parsenet: Looking wider to see better]()
 
 <br>
 

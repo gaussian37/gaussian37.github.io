@@ -16,6 +16,10 @@ tags: [vision, deep learning, segmentation, liteseg] # add tag
 - 출처 : https://arxiv.org/abs/1912.06683
 - 이번 글에서는 Cityscapes benchmark에 등록되어 있는 모델 중 하나인 `LiteSeg`에 대하여 다루어 보도록 하겠습니다.
 - 이 모델은 Realtime 성능 위주의 Sementic Segmentation 모델 중 하나입니다.
+- 논문 전체의 내용이 DeepLabv3와 관련이 있으므로 아래 링크를 먼저 보시는 것을 추천 드립니다.
+    - deeplabv3 : https://gaussian37.github.io/vision-segmentation-deeplabv3/
+    - deeplabv3+ : https://gaussian37.github.io/vision-segmentation-deeplabv3plus/
+    - aspp(atrous spatial pyramid pooling) : https://gaussian37.github.io/vision-segmentation-aspp/
 
 <br>
 
@@ -28,6 +32,7 @@ tags: [vision, deep learning, segmentation, liteseg] # add tag
 - ### Methods
 - ### Experimental Results and validation
 - ### Conclusion
+- ### Pytorch Code
 
 <br>
 
@@ -121,7 +126,37 @@ tags: [vision, deep learning, segmentation, liteseg] # add tag
 
 <br>
 
+- 논문에서 제안한 Encoder 구조는 크게 다음과 같이 3가지 특성을 가집니다.
+    - 1) backbone 구조를 가지며 backbone의 accuracy 성능과 computation cost의 trade-off 관계가 LiteSeg의 성능에도 영향을 끼칩니다.
+    - 2) output stride 지표(input image의 크기와 backbone이 출력하는 feature 간의 비율)는 accuracy 성능과 computation cost의 trade-off 관계를 가진다.
+    - 3) ASPP를 조금 개량하여 
 
+<br>
+
+- 먼저 Encoder의 backbone 구조입니다.
+- Encoder의 구조는 feature extraction을 위한 classification 모델을 포함하고 있습니다. 논문에서 사용한 모델은 `DenseNet19`, `MobileNetV2`, `ShuffleNet` 입니다. DenseNet19의 accuracy 성능이 가장 높지만 속도가 느리고 ShuffleNet의 속도가 가장 빠르지만 성능은 나쁩니다. 
+- 앞에서 설명하였듯이 LiteSeg에서 backbone의 **accuracy, computation cose의 trade-off가 어떻게 작용**하는 지 확인하기 위하여 3가지 backbone을 이용하여 실험하였습니다.
+
+<br>
+
+- 그 다음은 Ecnoder의 output stride 입니다.
+- backbone 뿐 아니라 `deeplabv3`에서 소개된 output stride가 성능에 어떻게 영향을 주는 지    확인하였습니다. output stride는 **input image size 대비 feature map의 size**입니다. 예를 들어 input image의 사이즈가 height = H, width = W 이고 (output stride에서는 depth는 고려하지 않습니다.) feature map의 사이즈가 h, w이면 `output stride = (H * W) / (h * w)`가 됩니다.
+- (H * W)의 크기는 고정이므로 (h * w)의 크기에 따라 output stride가 달라질 수 있습니다. output stride가 크다는 것은 (h * w)가 작다는 뜻이고 feature map의 크기 또한 작다는 뜻입니다. 반면 output stride가 작다는 것은 (h * w)가 크다는 것이고 feature map의 크기 또한 크다는 뜻입니다.
+- **output stride가 작을수록 feature map이 크다는 것이고 feature map이 클 수록 공간 정보를 유지하는 데 유리하기 때문에 성능이 좋습니다.** 반면 feature map이 큰 상태를 유지하면 feature map이 작을 때에 비하여 계산 비용이 늘어납니다. 
+- 따라서 **output stride**의 크기를 이용하여 성능과 속도의 trade-off를 고려해야 합니다. 정리하면 **output stride가 작을수록 성능이 좋으나 계산 비용이 커집니다.**
+- DeepLabv3+에서는 backbone의 output feature의 output stride를 조정하기 위하여 maxpooling layer를 제거하고 마지막 convolution layer를 수정하였습니다. 참고로 DeepLabV3+에서는 output stride를 16으로 잡는 것이 가장 적합한 trade-off 였다고 설명합니다. 물론 네트워크 구조와 데이터의 특성에 따라 이 값이 무의미할 수 있습니다.
+- 이 논문에서는 3가지 backbone인 DenseNet19, MobileNetv2, ShuffleNet을 사용하였고 각 backbone의 output stride는 16, 32, 32입니다. DenseNet19를 이용하였을 때, 성능이 가장 좋은 반면 수행 속도가 느린것을 보면 output stride가 LiteSeg의 성능 경향을 파악하는 데 도움이 된다고 말할 수 있습니다.
+
+<br>
+
+- 마지막으로 Encoder의 `DASPP` 구조 입니다.
+- DeepLabV3에서는 ASPP(Atrous Spatial Pyramid Pooling)을 사용하였습니다. 이 모듈은 서로 다른 dilation 비율을 이용하여 multi-scale 정보를 얻는 pooling 방법입니다. (자세한 내용은 이 글의 처음 ASPP 링크를 참조하시기 바랍니다.) 이 논문에서는  
+
+<br>
+
+- ### Experimental Results and validation
+- ### Conclusion
+- ### Pytorch Code
 
 <br>
 
