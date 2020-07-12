@@ -4,14 +4,15 @@ title: pytorch 코드, 팁 snippets
 date: 2019-03-01 00:00:00
 img: dl/pytorch/pytorch.jpg
 categories: [dl-pytorch] 
-tags: [pytorch, snippets] # add tag
+tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze, unsqueeze, interpolate, upsample, module, Sequential, ModuleList, weight initialize, load, save, dataloader, pretraiend] # add tag
 ---
 
 <br>
 
 - 이 글은 pytorch 사용 시 참조할 수 있는 코드 또는 팁들을 모아 놓았습니다.
 - 완전히 기본 문법은 [이 글](https://gaussian37.github.io/dl-pytorch-pytorch-tensor-basic/)에서 참조하시기 바랍니다.
-- 이 글에서는 `셋팅 관련` 내용, `자주 사용하는 함수` 그리고 `자주 사용하는 코드` 순으로 정리하였습니다.
+- 이 글에서는 `셋팅 관련` 내용, `자주 사용하는 함수` 그리고 `자주 사용하는 코드` 분류로 정리하였습니다.
+- **글의 순서는 아래 목차와 일치하지 않으므로 목차를 검색하여 필요한 내용을 살펴보면 됩니다.**
 
 <br>
 
@@ -33,7 +34,7 @@ tags: [pytorch, snippets] # add tag
 - ### torch.squeeze(input, dim)
 - ### Variable(data)
 - ### F.interpolate()와 nn.Upsample()
-- ### 
+- ### block을 쌓기 위한 Module, Sequential, ModuleList, ModuleDict
 
 <br>
 
@@ -836,3 +837,321 @@ m(input)
 ```
 
 <br>
+
+## **block을 쌓기 위한 Module, Sequential, ModuleList, ModuleDict**
+
+<br>
+
+- 출처 :https://towardsdatascience.com/pytorch-how-and-when-to-use-module-sequential-modulelist-and-moduledict-7a54597b5f17
+- `torch.nn`에 있는 `Module`, `Sequential`, `ModuleList`, `ModuleDict`는 모두 Network block을 쌓기 위하여 사용되는 클래스입니다. 즉, 다음과 같이 사용할 수 있습니다.
+
+<br>
+
+```python
+import torch.nn as nn
+
+# nn.Module
+# nn.Sequential
+# nn.ModuleList
+# nn.ModuleDict
+```
+
+<br>
+
+- 먼저 각 기능들을 **언제 사용할 지 정리**해 본 후 차례대로 설명하겠습니다.
+
+<br>
+
+- `Module` : 여러 개의 작은 블록으로 구성된 큰 블록이 있을 때
+- `Sequential` : 레이어에서 작은 블록을 만들고 싶을 때
+- `ModuleList` : 일부 레이어 또는 빌딩 블록을 반복하면서 어떤 작업을 해야 할 때
+- `ModuleDict` : 모델의 일부 블록을 매개 변수화 해야하는 경우 (예 : activation 기능)
+
+<br>
+
+#### **Module : The main building block**
+
+- 먼저 `Module`에 대하여 알아보도록 하겠습니다. `Module`은 가장 기본이 되는 block 단위입니다.
+- 따라서 모든 pytorch의 기본 block들은 Module에서 부터 상속 받아서 사용되므로 Netowkr를 만들 때 반드시 사용됩니다.
+- 그러면 Sequential 또는 ModuleList 없이 단순히 Module만 사용한 아래 예제를 살펴보도록 하겠습니다.
+
+<br>
+
+```python
+
+import torch.nn.functional as F
+
+class CNNClassifier(nn.Module):
+    def __init__(self, in_c, n_classes):
+        super().__init__()
+        self.conv1 = nn.Conv2d(in_c, 32, kernel_size=3, stride=1, padding=1)
+        self.bn1 = nn.BatchNorm2d(32)
+        
+        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1)
+        self.bn2 = nn.BatchNorm2d(32)
+
+        self.fc1 = nn.Linear(32 * 28 * 28, 1024)
+        self.fc2 = nn.Linear(1024, n_classes)
+        
+    def forward(self, x):
+        x = self.conv1(x)
+        x = self.bn1(x)
+        x = F.relu(x)
+        
+        x = self.conv2(x)
+        x = self.bn2(x)
+        x = F.relu(x)
+
+        x = x.view(x.size(0), -1) # flat
+        
+        x = self.fc1(x)
+        x = F.sigmoid(x)
+        x = self.fc2(x)
+        
+        return x
+```
+
+<br>
+
+- 상당히 단순한 모델입니다. forward를 보면 Convolution → BatchNorm → ReLu로 이어지는 블록을 차례대로 이은 구조입니다.
+- `__init__`에서 선언된 각 객체들이 `Module` block 입니다. (nn.Conv2d, nn.BatchNor2d 등)
+- 위 코드를 보면 Convolution → BatchNorm → ReLu 블록이 이어져서 사용됨에도 불구하고 함수 처럼 사용하지 못하는 것은 다소 비효율적으로 보입니다. 이것을 개선하기 위하여 `Sequential`과 `ModuleList`를 사용할 수 있습니다.
+
+<br>
+
+#### **Sequential: stack and merge layers**
+
+<br>
+
+- 그 다음으로는 `Sequential` 입니다. Sequential은 마치 컨태이너 처럼 Module을 담는 역할을 합니다. **Sequential에 쌓은 순서대로 Module은 실행되고 같은 Sequential에 쌓인 Module 들은 한 단위처럼 실행됩니다.**
+- 따라서 Module 중에서 동시에 쓰이는 것을 Sequential로 묶어서 사용하면 코드가 간단해집니다.
+- 예를 들어 위 예제에서 `Convolution → BatchNorm → ReLu`는 3개의 Module이 연달아 사용되기 때문에 마치 하나의 단위처럼 생각할 수 있습니다. 따라서 이 3개의 Module을 Sequential로 만들어 보겠습니다.
+
+<br>
+
+```python
+class CNNClassifier(nn.Module):
+    def __init__(self, in_c, n_classes):
+        super().__init__()
+        self.conv_block1 = nn.Sequential(
+            nn.Conv2d(in_c, 32, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(32),
+            nn.ReLU()
+        )
+        
+        self.conv_block2 = nn.Sequential(
+            nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(64),
+            nn.ReLU()
+        )
+        
+        self.decoder = nn.Sequential(
+            nn.Linear(32 * 28 * 28, 1024),
+            nn.Sigmoid(),
+            nn.Linear(1024, n_classes)
+        )
+
+        
+    def forward(self, x):
+        x = self.conv_block1(x)
+        x = self.conv_block2(x)
+
+        x = x.view(x.size(0), -1) # flat
+        
+        x = self.decoder(x)
+        
+        return x
+```
+
+<br>
+
+- 위 코드를 보면 `__init__`에서도 단위 별로 묶어서 표현할 수 있고 `forward`에서는 코드가 훨씬 간결해 진것을 확인할 수 있습니다.
+- 위 코드에서 `conv_block1`과 `conv_block2` 또한 코드가 중복되었습니다. 중복되는 코드를 함수로 빼면 더 간결하게 쓸 수 있습니다.
+
+<br>
+
+```python
+
+def conv_block(in_f, out_f, *args, **kwargs):
+    return nn.Sequential(
+        nn.Conv2d(in_f, out_f, *args, **kwargs),
+        nn.BatchNorm2d(out_f),
+        nn.ReLU()
+    )
+
+class CNNClassifier(nn.Module):
+    def __init__(self, in_c, n_classes):
+        super().__init__()
+        self.conv_block1 = conv_block(in_c, 32, kernel_size=3, padding=1)
+        
+        self.conv_block2 = conv_block(32, 64, kernel_size=3, padding=1)
+
+        
+        self.decoder = nn.Sequential(
+            nn.Linear(32 * 28 * 28, 1024),
+            nn.Sigmoid(),
+            nn.Linear(1024, n_classes)
+        )
+
+        
+    def forward(self, x):
+        x = self.conv_block1(x)
+        x = self.conv_block2(x)
+
+        x = x.view(x.size(0), -1) # flat
+        
+        x = self.decoder(x)
+        
+        return x
+```
+
+<br>
+
+- 위 코드도 충분히 깔끔하지만 더 큰 네트워크를 쌓기 위해서 위 코드를 더 깔끔하게 만들어 보겠습니다. 다음부터 쓰이는 기법들은 큰 네트워크를 쌓을 때 상당히 도움이 됩니다.
+
+<br>
+
+```python
+
+def conv_block(in_f, out_f, *args, **kwargs):
+    return nn.Sequential(
+        nn.Conv2d(in_f, out_f, *args, **kwargs),
+        nn.BatchNorm2d(out_f),
+        nn.ReLU()
+    )
+
+class CNNClassifier(nn.Module):
+    def __init__(self, in_c, n_classes):
+        super().__init__()
+        self.encoder = nn.Sequential(
+            conv_block(in_c, 32, kernel_size=3, padding=1),
+            conv_block(32, 64, kernel_size=3, padding=1)
+        )
+
+        self.decoder = nn.Sequential(
+            nn.Linear(32 * 28 * 28, 1024),
+            nn.Sigmoid(),
+            nn.Linear(1024, n_classes)
+        )
+
+        
+    def forward(self, x):
+        x = self.encoder(x)
+        x = x.view(x.size(0), -1) # flat
+        x = self.decoder(x)
+        return x
+
+```
+
+<br>
+
+- 만약 위 코드에서 사용된 `self.encoder` 부분이 계속 늘어난다면 단순히 코드를 나열하는 것은 좋은 방법이 아닙니다. 예를 들어 다음 예는 별로 좋지 않습니다.
+
+<br>
+
+```python
+self.encoder = nn.Sequential(
+            conv_block(in_c, 32, kernel_size=3, padding=1),
+            conv_block(32, 64, kernel_size=3, padding=1),
+            conv_block(64, 128, kernel_size=3, padding=1),
+            conv_block(128, 256, kernel_size=3, padding=1),
+
+        )
+```
+
+<br>
+
+- 이런 경우 당연히 반복문을 이용하여 코드를 간결하게 작성할 수 있습니다. 이 때 반복문을 진행하면서 변경해주어야 할 것은 input과 output의 channel 수 입니다.
+- input과 output의 channel 수는 list를 이용하여 정의해 두는 방법을 많이 사용합니다. 간단하기 때문입니다. 핵심은 반복문을 사용하되 channel의 크기는 미리 저장해 두고 사용하면 된다는 것입니다.
+
+<br>
+
+```python
+class CNNClassifier(nn.Module):
+    def __init__(self, in_c, n_classes):
+        super().__init__()
+        self.enc_sizes = [in_c, 32, 64]
+        conv_blocks = [conv_block(in_f, out_f, kernel_size=3, padding=1) 
+                       for in_f, out_f in zip(self.enc_sizes, self.enc_sizes[1:])]
+        self.encoder = nn.Sequential(*conv_blocks)
+        
+        self.decoder = nn.Sequential(
+            nn.Linear(32 * 28 * 28, 1024),
+            nn.Sigmoid(),
+            nn.Linear(1024, n_classes)
+        )
+        
+    def forward(self, x):
+        x = self.encoder(x)
+        x = x.view(x.size(0), -1) # flat
+        x = self.decoder(x)
+        
+        return x
+
+```
+
+<br>
+
+- 위 코드를 보면 `conv_blocks`에서 블록을 convolution 블록을 생성합니다. 이 때 `self.enc_sizes` 리스트를 이용하여 input channel과 output의 channel을 정의해 줍니다. 당연히 n번째 block의 output channel 수가 n+1 번째 block의 input channel 수가 되므로 이를 이용하여 리스트를 교차해서 접근하면 됩니다. (위 코드에서도 이 방법을 사용하였습니다.)
+- `*` 연산자를 리스트와 같이 사용하면 아래와 같이 편하게 사용할 수 있습니다. 상세내용은 다음 링크를 참조하시기 바랍니다.
+    -링크 : https://gaussian37.github.io/python-basic-asterisk/
+
+<br>
+
+```python
+a = [1, 2, 3, 4, 5]
+b = [10, *a]
+print(b)
+# [10, 1, 2, 3, 4, 5]
+```
+
+<br>
+
+- 최종적으로 Encoder와 Decoder를 분리하고 `*`를 이용하여 코드를 간결하게 하면 다음과 같이 정리할 수 있습니다.
+
+<br>
+
+```python
+
+def conv_block(in_f, out_f, *args, **kwargs):
+    return nn.Sequential(
+        nn.Conv2d(in_f, out_f, *args, **kwargs),
+        nn.BatchNorm2d(out_f),
+        nn.ReLU()
+    )
+
+def dec_block(in_f, out_f):
+    return nn.Sequential(
+        nn.Linear(in_f, out_f),
+        nn.Sigmoid()
+    )
+
+class CNNClassifier(nn.Module):
+    def __init__(self, in_c, enc_sizes, dec_sizes,  n_classes):
+        super().__init__()
+        self.enc_sizes = [in_c, *enc_sizes]
+        self.dec_sizes = [32 * 28 * 28, *dec_sizes]
+
+        conv_blokcs = [conv_block(in_f, out_f, kernel_size=3, padding=1) 
+                       for in_f, out_f in zip(self.enc_sizes, self.enc_sizes[1:])]
+        self.encoder = nn.Sequential(*conv_blokcs)
+        
+        dec_blocks = [dec_block(in_f, out_f) 
+                       for in_f, out_f in zip(self.dec_sizes, self.dec_sizes[1:])]
+        self.decoder = nn.Sequential(*dec_blocks)
+        
+        self.last = nn.Linear(self.dec_sizes[-1], n_classes)
+        
+    def forward(self, x):
+        x = self.encoder(x)
+        x = x.view(x.size(0), -1) # flat
+        x = self.decoder(x)
+        return x
+```
+
+<br>
+
+#### **ModuleList : when we need to iterate**
+
+<br>
+
