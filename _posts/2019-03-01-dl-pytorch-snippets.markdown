@@ -33,6 +33,7 @@ tags: [pytorch, snippets] # add tag
 - ### torch.squeeze(input, dim)
 - ### Variable(data)
 - ### F.interpolate()와 nn.Upsample()
+- ### 
 
 <br>
 
