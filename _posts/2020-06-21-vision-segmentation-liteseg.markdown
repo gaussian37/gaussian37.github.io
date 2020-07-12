@@ -109,7 +109,7 @@ tags: [vision, deep learning, segmentation, liteseg] # add tag
 
 - 위 그림의 구조를 보면 backbone의 low level과 high level에서 각 feature를 뽑아서 DASPP 이후에 concatenation 하는 구조를 보여줍니다.
 - 이 connection의 목적은 ResNet, DenseNet에서 사용된 것과 같은 의도로 학습이 잘되기 위함에 있습니다.
-- 특히 두 종류의 connection인 (SRC)short residual connection과 (LRC)long residual connection 각각은 memory unit과 같은 역할을 하여 bottom layer에서 top layer 까지 정보를 유지하도록 도와줍니다.
+- 특히 두 종류의 connection인 (SRC)short residual connection과 (LRC)long residual connection 각각은 memory unit과 같은 역할을 하여 bottom layer에서 top layer 까지 정보를 유지하도록 도와줍니다. (backbone의 끝 부분에 있는 residual이 SRC이며 backbone의 시작 부분에 있는 residual이 LRC 입니다. concatenation되는 지점과의 거리를 기준으로 short/long을 붙였습니다.)
 - residual을 합치는 방법은 대표적으로 addition(ResNet)과 concatenation(DenseNet)이 있습니다. LiteSeg에서는 `concatenation` 하는 방법을 사용하였습니다. DensNet의 논문에 따르면 concatenation 방법이 메모리를 더 사용하는 단점이 있지만 성능이 더 좋다고 실험을 통하여 증명하였기 때문입니다.
 - concatenation을 하기 위해서는 concat을 할 feature들의 height, width, depth의 dimension이 맞아야 합니다. dimension을 맞추기 위하여 upsampling과 1x1 convolution을 이용하여 feature들의 크기를 맞추어줍니다. 여기서 1x1 convolution은 계산량을 줄이기 위하여 depth를 줄이는 용도로 사용됩니다.
 
@@ -150,13 +150,45 @@ tags: [vision, deep learning, segmentation, liteseg] # add tag
 <br>
 
 - 마지막으로 Encoder의 `DASPP` 구조 입니다.
-- DeepLabV3에서는 ASPP(Atrous Spatial Pyramid Pooling)을 사용하였습니다. 이 모듈은 서로 다른 dilation 비율을 이용하여 multi-scale 정보를 얻는 pooling 방법입니다. (자세한 내용은 이 글의 처음 ASPP 링크를 참조하시기 바랍니다.) 이 논문에서는  
+- DeepLabV3에서는 ASPP(Atrous Spatial Pyramid Pooling)을 사용하였습니다. 이 모듈은 서로 다른 dilation 비율을 이용하여 multi-scale 정보를 얻는 pooling 방법입니다. (자세한 내용은 이 글의 처음 ASPP 링크를 참조하시기 바랍니다.) 
+- 이 논문에서는 기존의 ASPP 구조를 사용하되 조금 변경하여 사용하였습니다. 아래 그림을 참조하시면 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/liteseg/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림을 보면 1x1 convolution 대신 3x3을 적용하였다는 것과 rate의 비율을 deeplabv3에 비하여 줄였다는 것입니다.
+- ASPP의 경우 convolution filter의 수가 255개인 반면 DASPP에서는 96개로 줄여서 computational cost를 줄일 수 있었습니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/liteseg/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- DASPP의 모듈 뒤에는 앞에서 정의한 SRC와 concatenation이 됩니다. 위 그림을 참조하시기 바랍니다.
 
 <br>
 
-- ### Experimental Results and validation
-- ### Conclusion
-- ### Pytorch Code
+#### **Deeplabv3+ as a Decoder**
+
+<br>
+
+- LiteSeg에서 사용된 Decoder 모듈은 DeepLabV3 → DeepLabV3+에서 추가된 Decoder 구조를 사용하였습니다.
+- 추가적으로 ASPP → DASPP의 구조 변경으로 인한 점과 SRC, LRC를 Concatenation한 결과를 반영하여 DeepLabv3+의 Decoder 구조를 변경하여 사용하였습니다.
+- 특히 Encoder의 최종 출력은 LRC와 concatenation을 한 결과입니다. 이 때 사용한 LRC의 channel의 수가 작지 않기 때문에, 1x1 convolution을 이용하여 channel의 수를 줄이는 방법을 사용하였습니다. 이를 통하여 computational cost를 줄입니다. 이는 어떤 backbone을 사용하는 지에 따라 적용할 필요가 있을 수 있고 없을 수 있습니다. 상대적으로 가벼운 backbone인 MobileNetv2의 경우 LRC의 경우 24 channel이므로 추가적인 1x1 convolution은 필요없을 수 있습니다.
+
+<br>
+
+## **Experimental Results and validation**
+
+<br>
+
+## **Conclusion**
+
+<br>
+
+## **Pytorch Code**
+
+<br>
 
 <br>
 
