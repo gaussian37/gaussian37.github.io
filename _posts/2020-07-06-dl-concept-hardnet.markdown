@@ -14,6 +14,8 @@ tags: [딥러닝, HarDNet, harmonious densenet, densenet, densely connected conv
 <br>
 
 - 논문 : https://arxiv.org/abs/1909.00948
+- 이 네트워크는 DenseNet을 기반으로 만들어 졌기 때문에 아래 링크의 DenseNet을 반드시 읽은 후 보시길 추천드립니다.
+- DenseNet : https://gaussian37.github.io/dl-concept-densenet/
 
 <br>
 
@@ -21,11 +23,14 @@ tags: [딥러닝, HarDNet, harmonious densenet, densenet, densely connected conv
 
 <br>
 
-
-
-
-
-
+- ### Abstract
+- ### Introduction
+- ### Related works
+- ### Proposed Harmonic DenseNet
+- ### Experiments
+- ### Discussion
+- ### Concolusion
+- ### Pytorch Code
 
 <br>
 

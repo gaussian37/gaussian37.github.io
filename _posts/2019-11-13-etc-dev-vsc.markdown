@@ -59,6 +59,12 @@ tags: [비주얼 스튜디오 코드 기능, visual studio code] # add tag
 
 <br>
 
+- `pip install autopep8`으로 먼저 autopep8을 설치.
+- `alt + shift + f` : (윈도우) 파이썬 indent 자동 맞춤
+- `alt + shift + i` : (리눅스) 파이썬 indent 자동 맞춤
+
+<br>
+
 ## **Visual Studio Code에서 Python interpretor 설정**
 
 <br>
