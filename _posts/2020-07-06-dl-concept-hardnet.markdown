@@ -2,7 +2,7 @@
 layout: post
 title: HarDNet(A Low Memory Traffic Network)
 date: 2020-07-06 00:00:00
-img: dl/concept/densenet/0.png
+img: dl/concept/hardnet/0.png
 categories: [dl-concept] 
 tags: [딥러닝, HarDNet, harmonious densenet, densenet, densely connected convolution networks] # add tag
 ---
