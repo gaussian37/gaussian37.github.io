@@ -1219,4 +1219,32 @@ print(conv_block(1, 32,'relu', kernel_size=3, padding=1))
 
 <br>
 
-- pytorch에서는 이미지 데이터를 `(channel, height, width)` 순으로 다룹니다. 이 순서는 opencv와 같은 다른 이미지 처리 라이브러리와 순서가 다릅니다.
+- pytorch에서는 이미지 데이터를 `(channel, height, width)` 순으로 다룹니다. 이 순서는 opencv와 같은 다른 이미지 처리 라이브러리와 순서가 다릅니다. opencv를 이용하여 이미지를 읽으면 (height, width, channel)의 순서로 데이터가 변수에 저장됩니다.
+- 다음은 numpy를 이용하여 채널의 순서를 바꾸는 방법과 torch를 이용하여 채널의 순서를 바꾸는 방법에 대하여 정리해 보겠습니다.
+
+<br>
+
+```python
+import cv2
+import torch
+
+A = np.ones((100, 120, 3))
+# numpy를 이용하여 image의 채널 순서를 변경합니다.
+A_transposed = np.transpose(A, (2, 0, 1))
+print(A_transposed.shape)
+# (3, 100, 120)
+
+B = torch.Tensor(A)
+B_transposed = torch.transpose(B, 1, 2)
+print(B_transposed.shape)
+# torch.Size([100, 3, 120])
+
+B_transposed2 = torch.transpose(B_transposed, 0, 1)
+print(B_transposed2.shape)
+# torch.Size([3, 100, 120])
+
+```
+
+<br>
+
+- 위 코드를 참조하면 numpy는 `np.transpose`의 인자를 튜플 또는 리스트로 받아서 한번에 채널의 순서를 바꿀 수 있어서 간편한 반면 `torch.transpose`는 두 채널을 교환하는 것이 가능하므로 다소 불편합니다. 가능하면 numpy 단계에서 한번에 변경하는 것을 추천드립니다.
