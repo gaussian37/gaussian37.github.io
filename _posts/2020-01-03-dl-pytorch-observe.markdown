@@ -4,7 +4,7 @@ title: Pytorch의 시각화 및 학습 현황 확인
 date: 2020-01-03 00:00:00
 img: dl/pytorch/pytorch.jpg
 categories: [dl-pytorch]
-tags: [pytorch, summary, ] # add tag
+tags: [pytorch, summary, torchsummary, visdom, graphviz, netron, tensorboard] # add tag
 ---
 
 <br>
@@ -25,6 +25,7 @@ tags: [pytorch, summary, ] # add tag
 - ### visdom을 통한 학습 상태 모니터링
 - ### graphviz를 통한 모델 시각화
 - ### netron을 통한 모델 시각화
+- ### tensorboard를 통한 학습 현황 확인
 
 <br>
 
@@ -377,3 +378,17 @@ torch.onnx.export(model, dummy_data, "output.onnx")
 
 - 위 그림을 보면 modelpropeties 부터 각 layer의 상세한 정보까지 볼 수 있습니다.
 - 이 결과를 저장할 때에는 메뉴의 File → Export 를 한 후 `SVG` 형태로 저장하길 추천드립니다. 웹 브라우저에서 열리며 확대해도 해상도가 깨지지 않습니다. png로 저장하면 나중에 확대해서 보는 데 불편함이 있습니다.
+
+<br>
+
+## **tensorboard를 통한 학습 현황 확인**
+
+<br>
+
+```python
+import torchvision
+from torch.utils.tensorboard import SummaryWriter
+```
+
+<br>
+

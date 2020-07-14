@@ -35,6 +35,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### Variable(data)
 - ### F.interpolate()와 nn.Upsample()
 - ### block을 쌓기 위한 Module, Sequential, ModuleList, ModuleDict
+- ### shape 변경을 위한 transpose
 
 <br>
 
@@ -1213,3 +1214,9 @@ print(conv_block(1, 32,'relu', kernel_size=3, padding=1))
 ```
 
 <br>
+
+## **shape 변경을 위한 transpose**
+
+<br>
+
+- pytorch에서는 이미지 데이터를 `(channel, height, width)` 순으로 다룹니다. 이 순서는 opencv와 같은 다른 이미지 처리 라이브러리와 순서가 다릅니다.
