@@ -1155,3 +1155,34 @@ class CNNClassifier(nn.Module):
 
 <br>
 
+- `ModuleList`는 `Module`을 리스트 형태로 담을 때 사용합니다. 앞에서 사용한 Sequential과 동일하게 저장한 Module을 차례대로 접근하면서 실행할 때 사용할 수 있습니다.
+- `ModuleList`와 Sequential의 차이점은 내부적으로 `forward` 연산의 발생 유무 차이입니다. 
+- Sequential의 경우 Sequential로 묶은 단위에서는 자동적으로 forward 연산이 발생하기 때문에 완전한 한 단위로 움직입니다. 즉, Sequential 내부의 각 Module을 접근하여 어떤 작업을 하는 것에는 어려움이 있습니다. 앞의 Sequential 예시들을 보면 Sequential 단위로 함수를 만든 다음에 Sequential 단위 만큼 한번에 사용하였지 Sequential 내부 Module을 접근하여 사용하지는 않았습니다.
+- 반면 `ModuleList`는 리스트 형태로 각 `Module`을 접근하여 사용할 수 있습니다. 따라서 `forward` 함수에서 for 문을 통하여 iterate 하면서 `Module`들을 실행합니다. 다음 코드를 살펴보겠습니다.
+
+<br>
+
+```python
+import torch
+
+class MyModule(nn.Module):
+    def __init__(self, sizes):
+        super().__init__()
+        self.layers = nn.ModuleList([nn.Linear(in_f, out_f) for in_f, out_f in zip(sizes, sizes[1:])])
+        self.trace = []
+        
+    def forward(self,x):
+        # ModuleList 에서는 각 Module을 하나 하나 접근할 수 있습니다.
+        for layer in self.layers:
+            x = layer(x)
+            self.trace.append(x)
+        return x
+
+model = MyModule([1, 16, 32])
+model(torch.rand((4,1)))
+[print(trace.shape) for trace in model.trace]
+# torch.Size([4, 16]) torch.Size([4, 32]) [None, None]
+```
+
+<br>
+
