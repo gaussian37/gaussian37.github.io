@@ -385,6 +385,10 @@ torch.onnx.export(model, dummy_data, "output.onnx")
 
 <br>
 
+- 참조 : https://pytorch.org/docs/stable/tensorboard.html
+
+<br>
+
 ```python
 import torchvision
 from torch.utils.tensorboard import SummaryWriter
