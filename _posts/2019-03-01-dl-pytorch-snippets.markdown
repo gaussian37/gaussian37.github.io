@@ -1186,3 +1186,30 @@ model(torch.rand((4,1)))
 
 <br>
 
+#### **ModuleDict: when we need to choose**
+
+<br>
+
+- `ModuleDict`을 이용하면 Module을 Dictionary 형태로 사용할 수 있습니다. 아주 간단하므로 아래 예제를 통하여 살펴보도록 하겠습니다.
+
+<br>
+
+```python
+def conv_block(in_f, out_f, activation='relu', *args, **kwargs):
+    
+    activations = nn.ModuleDict([
+                ['lrelu', nn.LeakyReLU()],
+                ['relu', nn.ReLU()]
+    ])
+    
+    return nn.Sequential(
+        nn.Conv2d(in_f, out_f, *args, **kwargs),
+        nn.BatchNorm2d(out_f),
+        activations[activation]
+    )
+
+print(conv_block(1, 32,'lrelu', kernel_size=3, padding=1))
+print(conv_block(1, 32,'relu', kernel_size=3, padding=1))
+```
+
+<br>
