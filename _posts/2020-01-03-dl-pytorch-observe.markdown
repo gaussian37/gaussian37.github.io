@@ -17,7 +17,7 @@ tags: [pytorch, summary, torchsummary, visdom, graphviz, netron, tensorboard] # 
 
 <br>
 
-- **목차**
+## **목차**
 
 <br>
 
