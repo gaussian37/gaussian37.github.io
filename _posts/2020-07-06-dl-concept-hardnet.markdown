@@ -37,3 +37,11 @@ tags: [딥러닝, HarDNet, harmonious densenet, densenet, densely connected conv
 [deep learning 관련 글 목차](https://gaussian37.github.io/dl-concept-table/)
 
 <br>
+
+## **Proposed Harmonic DenseNet**
+
+<br>
+
+- `HarDNet`에서는 DenseNet에 기반한 새로운 architecture를 제안합니다. 
+- 먼저 `LogDenseNet`에서 제안한 방법은 layer $$ k $$를 $$ k - 2^{n} (\text{where  } n \ge 0, k - 2^{n} \ge 0) $$ 번째 layer와 연결합니다. 
+- `HarDNet`에서는 `LogDenseNet`의 방법을 조금 더 sparse하게 만듭니다. layer $$ k $$를 $$ k - 2^{n} (\text{where  } 2^{n} divides k , n \ge 0, k - 2^{n} \ge 0) $$ 조건에 맞는 layer에 연결합니다. 즉, $$ k $$ 가 $$ 2^{n} $$에 나뉘어 지는 경우의 layer에만 연결합니다.
