@@ -449,7 +449,7 @@ writer.close()
 ```
 
 <br>
-<center><img src="../assets/img/dl/pytorch/observe/10.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/pytorch/observe/10.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 그림을 보면 x축이 0 ~ 99 까지 증가할 때, y 축은 2배씩 증가하는 $$ y =  2x $$ 그래프가 그려지는 것을 확인할 수 있습니다.
