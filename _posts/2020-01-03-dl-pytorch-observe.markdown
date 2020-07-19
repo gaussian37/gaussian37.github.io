@@ -385,13 +385,118 @@ torch.onnx.export(model, dummy_data, "output.onnx")
 
 <br>
 
-- 참조 : https://pytorch.org/docs/stable/tensorboard.html
+- 참조 : https://pytorch.org/docs/stable/tensorboard
+- 이 글에서는 pytorch에서 `tensorboard`를 사용하는 방법에 대하여 다루어 보도록 하겠습니다. tensorflow에서 사용하는 tensorboard와 완전히 동일한 그 tensorboard 입니다.
+- 먼저 tensorboard를 설치하기 위하여 다음 명령어를 사용합니다.
+  - 명령어 : `pip install tensorboard`
+- 그 다음 tensorboard를 사용하기 위해서는 아래과 같이 `SummaryWriter`를 import하고 객체를 할당합니다.
 
 <br>
 
 ```python
-import torchvision
 from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter()
+```
+
+<br>
+
+- 위 코드에서는 SummaryWriter 객체를 선언할 때, 어떤 옵션도 사용하지 않은 기본적인 형태입니다. 상세한 옵션은 위 참조 링크인 pytorch 문서를 확인하시기 바랍니다.
+- 위와 같이 사용하여도 충분히 잘 사용할 수 있으니 이 글에서는 기본값을 사용하도록 하겠습니다. 기본적으로 `run` 폴더에 날짜와 시간 별로 log를 생성합니다.
+- 다음 코드를 참조하여 어떻게 Tensorboard를 사용하는 지 살펴보겠습니다.
+
+<br>
+
+```python
+from torch.utils.tensorboard import SummaryWriter
+import numpy as np
+
+writer = SummaryWriter()
+
+for n_iter in range(100):
+    writer.add_scalar('Loss/train', np.random.random(), n_iter)
+    writer.add_scalar('Loss/test', np.random.random(), n_iter)
+    writer.add_scalar('Accuracy/train', np.random.random(), n_iter)
+    writer.add_scalar('Accuracy/test', np.random.random(), n_iter)
+```
+
+<br>
+
+- 위 코드는 random 값을 이용하여 tensorboard의 scalr 기능을 사용해 볼 수 있는 코드입니다.
+- 일반적으로 가장 많이 사용하는 기능이 다음 그림과 같은 그래프를 실시간으로 보기 위한 기능입니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/observe/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 코드와 같이 `writer.add_scalar('title', y_value, x_value)` 순서로 입력하면 위 그래프를 생성할 수 있습니다.
+- `.add_scalar`에서 첫번째 인자는 그래프의 제목입니다. 두번째 인자는 세로축인 y값이고 세번째 인자는 가로축인 x값입니다.
+- 즉, 위 그래프는 iteration이 증가할수록 loss 및 accuracy가 어떻게 변화하는 지 확인하기 위한 그래프입니다. 
+- 정리하면 같은 `title`을 기준으로 x, y 값을 계속 저장하면 차례대로 누적되어서 원하는 그래프를 그릴 수 있습니다.
+
+<br>
+
+- 
+
+<br>
+
+```python
+from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter()
+x = range(100)
+for i in x:
+    writer.add_scalar('y=2x', i * 2, i)
+writer.close()
+```
+
+<br>
+<center><img src="../assets/img/dl/pytorch/observe/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림을 보면 x축이 0 ~ 99 까지 증가할 때, y 축은 2배씩 증가하는 $$ y =  2x $$ 그래프가 그려지는 것을 확인할 수 있습니다.
+
+<br>
+
+- 만약 한 개의 좌표평면에 여러 개의 그래프를 그리고 싶으면 어떻게 그릴 수 있을까요?
+- 중괄호 (`{ }`)를 이용하여 여러개의 식을 묶으면 됩니다. 물론 x축의 값은 하나가 입력됩니다. 보통 epoch에 따른 train, validation의 성능을 한번에 비교할 때 많이 사용됩니다.
+- 다음 예제를 참조 하시기 바랍니다.
+
+<br>
+
+```python
+from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter()
+r = 5
+for i in range(100):
+    writer.add_scalars('run_14h', {'xsinx':i*np.sin(i/r),
+                                    'xcosx':i*np.cos(i/r),
+                                    'tanx': np.tan(i/r)}, i)
+writer.close()
+# This call adds three values to the same scalar plot with the tag
+# 'run_14h' in TensorBoard's scalar section.
+```
+
+<br>
+
+
+- 만약 **저장 위치를 변경 및 코멘트 추가**를 하고 싶다면 다음 코드를 응용하여 사용할 수 있습니다.
+- 기본 저장 위치는 runs 폴더가 생성되고 그 아래에 날짜와 현재 컴퓨터의 이름을 기반으로 만들어 집니다.
+
+<br>
+
+```python
+from torch.utils.tensorboard import SummaryWriter
+
+# create a summary writer with automatically generated folder name.
+writer = SummaryWriter()
+# folder location: runs/May04_22-14-54_s-MacBook-Pro.local/
+
+# create a summary writer using the specified folder name.
+writer = SummaryWriter("my_experiment")
+# folder location: my_experiment
+
+# create a summary writer with comment appended.
+writer = SummaryWriter(comment="LR_0.1_BATCH_16")
+# folder location: runs/May04_22-14-54_s-MacBook-Pro.localLR_0.1_BATCH_16/
 ```
 
 <br>
