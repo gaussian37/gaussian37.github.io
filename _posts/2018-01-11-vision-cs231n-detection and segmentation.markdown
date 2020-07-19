@@ -2,7 +2,7 @@
 layout: post
 title: 11. Detection and Segmentation
 date: 2018-01-11 11:00:00
-img: vision/cs231n/11/thumbnail.png
+img: vision/cs231n/11/0.png
 categories: [vision-cs231n] 
 tags: [cs231n, detection, segmentation] # add tag
 ---
@@ -313,16 +313,15 @@ tags: [cs231n, detection, segmentation] # add tag
 <br>
 
 - 다음으로 다룰 문제는 object detection 입니다. object detection은 computer vision에서 중요한 문제 중 하나입니다.
-- object detection은 연구된 역사가 길어서 내용은 많지만 이번 강의에서는 deep learning과 연관된 object detection의 내용만 살펴볼 예정입니다.
-- object detection의 task는 입력 이미지가 주어지면 이미지에 나타나는 객체들의 bounding box와 해당하는 카테고리를 예측합니다.
-    - 즉, 앞에서 다룬 classification + localization과는 조금 다릅니다.
+- object detection은 연구된 역사가 길어서 다룰 수 있는 내용은 상당히 많지만 이번 강의에서는 deep learning과 연관된 object detection의 내용만 살펴볼 예정입니다.
+- object detection의 task는 입력 이미지가 주어지면 이미지에 나타나는 객체들의 bounding box와 해당하는 카테고리를 예측합니다. 즉, 앞에서 다룬 classification + localization과는 조금 다릅니다.
 - 이렇게 하는 이유는 예측하야 하는 Bbox의 수가 입력 이미지에 따라 달라지기 때문입니다. 각 이미지에 객체가 몇 개나 있을 지는 미지수입니다. 
 
 <br>            
 <center><img src="../assets/img/vision/cs231n/11/24.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 슬라이드는 PASCAL VOC Dataset에서의 성능의 진보과정을 보여줍니다. PASCAL VOC는 Detection에서 아주 오래전부터 사용되었습니다.
+- 위 슬라이드는 PASCAL VOC Dataset을 이용한 모델들의 성능이 발전하는 과정을 보여줍니다. PASCAL VOC는 Detection에서 아주 오래전부터 사용되었습니다.
 - 데이터를 보면 Deep learning이 도입된 이후 부터 성능이 아주 좋아진 것을 볼 수 있습니다.  
 - 그리고 2015년 이후의 데이터는 없는데요, 그 이유는 이미 성능이 너무 좋아져서 State of the art에 대한 논의가 무의미해 졌기 때문입니다.
 
@@ -354,11 +353,11 @@ tags: [cs231n, detection, segmentation] # add tag
 
 <br>
 
-- 먼저 어떻게 영역을 추출할 지가 문제가 될 수 있습니다. 
-    - 이미지 안에서 어떤 크기의 object가 어디에 위치가 될 지 모르니 window의 사이즈 자체를 설정하는 것에 문제가 있습니다.
-    - 따라서 이런 brute force 방식의 sliding window를 하려면 너무나 많은 경우의 수가 존재합니다. 
-- 또한 계산량의 문제가 있습니다.
-    - 작은 영역 하나 하나마다 거대한 CNN을 통과시키려면 이 때의 계산량은 다를 수 없는 양입니다. 
+- 먼저 **어떻게 영역을 추출할 지**가 문제가 될 수 있습니다. 
+- 이미지 안에서 어떤 크기의 object가 어디에 위치가 될 지 모르니 window의 사이즈 자체를 설정하는 것에 문제가 있습니다.
+- 따라서 이런 brute force 방식의 sliding window를 하려면 너무나 많은 경우의 수가 존재합니다. 
+- 또한 **계산량의 문제**가 있습니다.
+- 작은 영역 하나 하나마다 거대한 CNN을 통과시키려면 이 때의 계산량은 다를 수 없는 양입니다. 
 - 따라서 Object detection문제를 풀기 위하여 brute force sliding window를 하는 일은 절대 없습니다.
 
 <br>
@@ -366,13 +365,11 @@ tags: [cs231n, detection, segmentation] # add tag
 <br>
 
 - 대신에 Regional Proposals 라는 방법이 있습니다. 이 방법은 Deep learning을 사용하는 방법은 아닙니다.
-- Regional Proposal Network는 전통적인 신호처리의 기법을 사용합니다. 
-    - Regional Proposal Network는 Object가 있을 법한 Bbox를 제공해 줍니다. 예를 들어 1000 ~  2000 개 정도의 region을 제공해 준다고 가정해 봅시다.
-- 이미지 내에서 객체가 있을 법한 후보 region proposal을 찾아내는 다양한 방법이 있겠지만 Regional Proposal Network는 이미지 내의 뭉텅이가 진 곳(blobby)한 곳을 찾아냅니다.
+- Regional Proposal Network는 전통적인 신호처리의 기법을 사용합니다. Regional Proposal Network는 Object가 있을 법한 Bbox를 제공해 줍니다. 예를 들어 1000 ~  2000 개 정도의 region을 제공해 준다고 가정해 봅시다.
+- 이미지 내에서 객체가 있을 법한 후보 region proposal을 찾아내는 다양한 방법이 있습니다. 예를 들어 Regional Proposal Network는 이미지 내의 뭉텅이가 진 곳(blobby)한 곳을 찾아냅니다.
 - 이 지역들은 객체가 있을지도 모르는 후보 영역들입니다. 이런 알고리즘은 비교적 빨리 작동합니다.
-- Region Proposal을 만들어 낼 수 있는 방법에는 Selective Search가 있습니다.
-    - 이 방법은 노이즈가 아주 심하여 대부분은 실제 객체가 아니지만 Recall은 아주 높습니다.
-    - 따라서 이미지내에 객체가 존재한다면 Selective Search의 Region Proposal 안에 속할 가능성이 높습니다.
+- Region Proposal의 방법 중 유명한 알고리즘에는 `Selective Search`가 있습니다.
+- 이 방법은 노이즈가 심하여 대부분은 실제 객체가 아니지만 **Recall은 아주 높습니다**. 따라서 이미지내에 객체가 존재한다면 Selective Search의 Region Proposal 안에 속할 가능성이 높습니다.
 - 따라서 Sliding window와 같이 굉장히 비효율적인 방법보다 Selective Search를 이용하여 가능성 있는 부분을 선택한 다음에 CNN의 입력으로 이용하면 좀 더 효율적입니다.
 
 ### **R-CNN**
@@ -381,37 +378,52 @@ tags: [cs231n, detection, segmentation] # add tag
 <center><img src="../assets/img/vision/cs231n/11/29.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위에서 소개한 Selective Search의 개념이 R-CNN에서 소개됩니다.
+- 위에서 소개한 Selective Search의 개념이 R-CNN에서 소개됩니다. 위 그림의 과정이 `R-CNN`의 전체 과정입니다.
+
+<br>
+<center><img src="../assets/img/vision/cs231n/11/29_1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
 - 먼저 이미지가 주어지면 Region Proposals을 얻기 위해 Region Proposal Network를 수행합니다.
-- Region Proposal은 Region of Interest(ROI)라고도 합니다. Selective Search를 통하여 2000여개의 ROI를 얻어냅니다.
+- Region Proposal은 Region of Interest(ROI)라고도 합니다. [Selective Search](https://gaussian37.github.io/vision-concept-selective_search/)를 통하여 2000여개의 ROI를 얻어냅니다. 위 그림의 회색 영역을 Selective Search를 통하여 
 - 하지만 여기에서는 각 ROI의 사이즈가 각양각색이라는 문제가 생길 수 있습니다. 
+
+<br>
+<center><img src="../assets/img/vision/cs231n/11/29_2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
 - 추출된 ROI로 CNN classification을 수행하려면 FC layer 등으로 같은 입력사이즈로 맞추어 줘야 하기 때문에 ROI의 크기가 같아야 합니다. 
-    - 따라서 Region Proposal을 추출하면 CNN의 입력으로 사용하기 위하여 동일한 고정된 크기로 변형해야 합니다.
-    - 즉, Regional Propose를 추출하면 고정된 사이즈로 크기를 바꿉니다.
-- 추출된 ROI의 크기를 고정된 사이즈로 바꾸면 CNN에 통과시킵니다.
-- 그리고 R-CNN의 경우에는 ROI들의 최종 classification에는 SVM을 사용하였습니다.
-- 여기 슬라이드에는 빠져있지만 R-CNN은 Region Proposal을 보정하기 위한 regression 과정도 거칩니다.  
-    - Selective Search의 Region Proposal이 대게는 정확하지만 그렇지 못한 경우도 있기 때문입니다.
+- 따라서 Region Proposal을 추출하면 **CNN의 입력으로 사용하기 위하여 동일한 고정된 크기로 변형**해야 합니다. 즉, Regional Propose를 추출하면 고정된 사이즈로 크기를 바꿉니다. 위 그림의 **warped image region**이 이 부분에 해당합니다.
+
+<br>
+<center><img src="../assets/img/vision/cs231n/11/29_3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 추출된 ROI의 크기를 고정된 사이즈로 바꾼 뒤 그 영역을 CNN에 통과시킵니다.
+
+<br>
+<center><img src="../assets/img/vision/cs231n/11/29.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 마지막으로 R-CNN의 경우에는 ROI들의 최종 classification에는 `SVM`을 사용하였습니다.
+- 여기 슬라이드에는 빠져있지만 R-CNN은 Region Proposal을 보정하기 위한 regression 과정도 거칩니다. Selective Search의 Region Proposal이 대게는 정확하지만 그렇지 못한 경우도 있기 때문입니다.
 - RCNN은 BBox의 카테고리도 예측하지만 BBox를 보정해 줄 수 있는 offset값 4개도 예측합니다. 이를 Multi-task loss로 두고 한번에 학습합니다.
-    - 예를 들어 Region Proposal이 사람을 잡았는데 머리를 빼먹었다고 가정하면, 네트워크는 이 object가 사람인 것을 알고 사람은 머리가 있어야 함을 예측하여 offset은 Bbox를 조금 더 위로 올립니다.
-- RCNN은 정리하자면 RCNN의 Region Proposal은 전통적인 방식을 사용합니다.
-    - 즉, RCNN에서 Region Proposal을 학습시키지 않고 고정된 알고리즘인 Selective Search를 사용합니다.
-- RCNN을 사용하려면 어떻게 학습 데이터를 마련해야 할까요?
-    - RCNN은 Fully Supervised 입니다. 따라서 학습 데이터에 대하여 이미지 내의 모든 객체에 대한 BBox가 있어야 합니다. 
+- 예를 들어 Region Proposal이 사람을 잡았는데 머리를 빼먹었다고 가정하면, 네트워크는 이 object가 사람인 것을 알고 사람은 머리가 있어야 함을 예측하여 offset은 Bbox를 조금 더 위로 올립니다.
+- RCNN은 정리하자면 **Region Proposal(Selective Search)라는 전통적인 방식을 사용**합니다. 즉, RCNN에서는 **Region Proposal을 하기 위하여 학습을 하지 않습니다.**
+- RCNN을 사용하려면 어떻게 학습 데이터를 마련해야 할까요? RCNN은 Fully Supervised 입니다. 따라서 학습 데이터에 대하여 이미지 내의 모든 객체에 대한 BBox가 있어야 합니다. 즉, 이미지에 대하여 BBox와 그 BBox의 class가 주어져야 합니다.
 - 자세한 내용은 R-CNN 논문을 참조하시기 바랍니다.
 
 <br>
 <center><img src="../assets/img/vision/cs231n/11/30.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- RCNN에 대하여 살펴보면 알 수 있겠지만 RCNN에는 문제점 들이 있습니다.
-- RCNN은 여전히 계산 비용이 높습니다. 
-    - RCNN은 2000개의 Region Proposal이 있고 각각이 독립적으로 CNN의 입력으로 들어갑니다. 너무 많은 양입니다.
-    - RCNN의 구현을 살펴보면 CNN에서 나온 Feature를 디스크에 덤핑 합니다. 용량이 어마어마 합니다.
-    - 그리고 RCNN은 학습과정 자체가 상당히 오래 걸립니다. 이미지당 2000개의 ROI를 Forward/Backward pass를 수행해야 합니다. 
-        - 논문에는 81시간 정도 학습이 되어있다고 합니다.
-    - Test time도 아주 느립니다. 이미지 한 장당 대략 30초가 걸립니다. 
-        - 각 Region proposal 마다 CNN을 수행해야 하므로 수천 번의 forward pass가 요구됩니다. 아주 느린 과정입니다.
+- RCNN에 대하여 살펴보면 알 수 있겠지만 RCNN에는 문제점 들이 있습니다. RCNN은 여전히 **계산 비용이 큽니다.**
+- RCNN은 2000개의 Region Proposal이 있고 각각이 독립적으로 CNN의 입력으로 들어갑니다. 너무 많은 양입니다.
+- RCNN의 구현을 살펴보면 CNN에서 나온 Feature를 디스크에 덤핑 하는데 이 용량 또한 어마어마 합니다.
+- 그리고 RCNN은 학습과정 자체가 상당히 오래 걸립니다. 이미지당 2000개의 ROI를 Forward/Backward pass를 수행해야 합니다. 논문에는 81시간 정도 학습이 되어있다고 합니다.
+- Test time도 아주 느립니다. 이미지 한 장당 대략 30초가 걸립니다. 각 Region proposal 마다 CNN을 수행해야 하므로 수천 번의 forward pass가 요구됩니다. 아주 느린 과정입니다.
+- `R-CNN`은 결론적으로 **모든 과정이 비효율적**입니다. 학습, 추론 과정이 느리고 학습에 필요한 메모리량도 많이 필요하여 비효율적인 문제가 있습니다.
+
 <br>
 
 ### **Fast R-CNN**
