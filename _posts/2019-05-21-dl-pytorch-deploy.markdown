@@ -143,6 +143,32 @@ torch.onnx.export(net, dummy_data, "output.onnx")
 - 위와 같이 코드를 입력하면 export가 완료됩니다. ONNX의 제약 중 하나는 pytorch 등의 동적 계산 프레임워크로부터 export할 경우에 1회 계산을 해야하므로 네트워크 내에서 if문 등으로 분기가 이루어지지 않는 경우에는 제대로 export가 되지 않을 수 있습니다. 
  
  <br>
+ 
+ ### **onnx 파일 확인**
+ 
+ <br>
+ 
+- 변환된 onnx를 확인하기 위해서는 `onnx` 패키지가 필요합니다. 다음 명령어를 통하여 onnx 패키지를 설치할 수 있습니다.
+    - 명령어 : `pip install onnx`
+- 그 다음 `onnx.load()` 함수를 통하여 onnx를 불러올 수 있습니다.
+
+<br>
+
+```python
+onnx_path = "./path/to/the/onnx/something.onnx"
+onnx_model = onnx.load(onnx_path)
+
+graph = onnx_model.graph
+initializers = dict()
+for init in graph.initializer:
+    initializers[init.name] = numpy_helper.to_array(init)
+```
+
+<br>
+
+- 위 코드를 이용하여 `onnx`를 불러오고 `numpy_helper`를 이용하여 각 layer의 값을 `numpy`의 자료형으로 변환시키면 **각 layer 별로 어떤 값을 가지는 지 알 수 있습니다.**
+
+<br>
 
 ### **Caffe2에서 ONNX 모델 사용**
 
