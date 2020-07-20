@@ -45,6 +45,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### Dataloader 사용 방법
 - ### pre-trained model 사용 방법
 - ### pre-trained model 수정 방법
+- ### Learning Rate Scheduler 사용 방법
 
 <br>
 
@@ -1248,3 +1249,40 @@ print(B_transposed2.shape)
 <br>
 
 - 위 코드를 참조하면 numpy는 `np.transpose`의 인자를 튜플 또는 리스트로 받아서 한번에 채널의 순서를 바꿀 수 있어서 간편한 반면 `torch.transpose`는 두 채널을 교환하는 것이 가능하므로 다소 불편합니다. 가능하면 numpy 단계에서 한번에 변경하는 것을 추천드립니다.
+
+<br>
+
+## **Learning Rate Scheduler 사용 방법**
+
+<br>
+
+- 참조 : https://pytorch.org/docs/stable/optim.html#torch.optim.lr_scheduler.ReduceLROnPlateau
+- 아래 예제는 대표적인 learning rate scheduler 중 하나인 ReduceLROnPlateau를 사용한 예제이며 위 링크의 다른 스케줄러를 상황에 맞추어 사용해도 됩니다.
+- 대부분의 scheduler는 아래 프로세스를 따르므로 아래 코드를 참조하여 사용하시길 바랍니다.
+
+<br>
+
+```python
+# model → optimizer → scheduler
+model = Net().to(device)
+
+learning_rate = 0.01
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+
+from torch.optim.lr_scheduler import ReduceLROnPlateau
+scheduler = ReduceLROnPlateau(optimizer, mode = 'max', factor = 0.1, paience = 5, verbose = True)
+
+for epoch in range(10):
+    train(...)
+    val_loss = validate(...)
+    # Note that step should be called after validate()
+    scheduler.step(val_loss)
+```
+
+<br>
+
+- 위 코드를 보면 ① 먼저 model을 선언한 다음 ② 그 모델을 optimizer에 할당합니다. 그 다음 ③ 스케쥴러에 optimizer를 할당합니다.
+- 위 순서에 따라 model, optimizer, scheduler가 모두 엮이게 됩니다.
+- 스케쥴러 업데이트는 보통 **validation 과정을 거친 후** 사용합니다. 위 코드와 같이 validation loss를 `scheduler.step()`의 입력으로 주면 그 loss값과 scheduler 선언 시 사용한 옵션들을 이용하여 learning_rate를 dynamic하게 조절할 수 있습니다.
+
+<br>
