@@ -64,3 +64,14 @@ tags: [딥러닝, HarDNet, harmonious densenet, densenet, densely connected conv
 
 - 위 그림의 아래쪽을 보면 HarDNet Block의 구조를 볼 수 있습니다. DenseNet, LogDenseNet에 비해 connection 수가 줄어든 것을 볼 수 있습니다.
 - 위와 같은 방법을 통하여 concatenation 에 필요한 메모리, 계산 비용등을 줄일 수 있는 것이 HarDNet의 핵심 내용입니다.
+
+
+<br>
+
+- 이 논문에서 `harmonic` 이라는 용어를 사용한 이유는 논문에서 제시하는 block에서 layer 간 concatenation 하는 양상이 harmonic 한 형태로 이루어지기 떄문입니다.
+- 하모닉(Harmonic)이란 우리말로는 '고조파'라고 부릅니다. 참고로 고주파는 주파수가 높은 전자기파를 말하며, 고조파는 바로 harmonic을 말하는 것입니다.
+- Harmonic의 정의는 원천주파수(Fundamental Frequency)의 배수 주파수 성분을 말합니다. 예를 들어 1.2GHz의 Harmonic 주파수는 2.4GHz, 3.6GHz, 4.8GHz... 등이 됩니다. 아래 그림을 참조하시기 바랍니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/hardnet/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
