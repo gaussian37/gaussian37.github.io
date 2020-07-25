@@ -92,6 +92,7 @@ tags: [딥러닝, regularization] # add tag
 - 중요한 것은 일반적으로 사용하는 Loss의 공통점은 Backpropagation이 가능한 미분 가능한 형태이며 `convex` 하다는 것입니다.
 - Loss와 동일하게 Regularization 또한 `convex` 합니다. L1의 경우 V형태를 띄고 L2의 경우 U 형태를 띄기 때문입니다. 즉, **Loss와 Regulaization 모두 convex** 하다는 공통점이 있습니다. 최적화 이론에서 **convex + convex = convex가 성립**하기 때문에 **Loss(convex) + Regularization(convex) = Loss(convex)**가 성립하게 됩니다.
 - 앞에서 설명하였듯이 Regularization은 Loss라는 convex 함수가 최소값에 다가가지 못하도록 하는 역할을 합니다. 최적화의 목적이 convex의 최소점에 다가가도록 하는 것인데 그 궁극적인 목적을 방해하는 것입니다. 왜냐하면 최적화가 학습 데이터를 이용하여 이루어지는데 **너무 학습 데이터에 편중되어서 학습되는 것을 막게 하기 위해서** 입니다. 즉 과적합을 막기 위해 강제로 최적화가 되지 않도록 막는 것입니다.
+- 정리하면 Loss + Regularization은 제약 조건이 있는 상태의 최적화 문제라고 말할 수 있습니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/regularization/10.png" alt="Drawing" style="width: 800px;"/></center>
