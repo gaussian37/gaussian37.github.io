@@ -79,7 +79,7 @@ tags: [딥러닝, regularization] # add tag
 - L2 Regularization을 좌표평면에 나타내면 오른쪽 원의 형태와 같고 H0와 한점에서 만나는 지점은 원에 접하는 모든 부분이 됩니다. 
 
 <br>
-<center><img src="../assets/img/dl/concept/regularization/8.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/regularization/8.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 다시 정리하면 L1 Regularization을 이용하면 weight가 sparse해지고 L2 Regularization을 이용하면 균등하게 작은 값들로 weight로 업데이트가 됩니다. 그 이유는 L1의 경우 해가 모서리 부분에서 발생할 수 있어 일부 값들이 0이 되기 때문이고 L2의 경우 L1 분포에 내접하는 원의 형태로 weight가 분포하므로 L1보다 작은 값들로 구성되게 됩니다.
@@ -95,7 +95,7 @@ tags: [딥러닝, regularization] # add tag
 - 정리하면 Loss + Regularization은 제약 조건이 있는 상태의 최적화 문제라고 말할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/regularization/10.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/regularization/10.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 이것을 시각화 해서 보면 등고선 형태의 Loss가 있을 때, 최적화가 될 수록 등고선의 Loss가 줄어야 합니다. 
