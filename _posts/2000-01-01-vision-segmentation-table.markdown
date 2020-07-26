@@ -40,8 +40,8 @@ tags: [vision, deep learning, segmentation] # add tag
 - [DeepLab_v3 (Rethinking Atrous Convolution for Semantic Image Segmentation)]()
 - [DeepLab_v3+ (Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation)](https://gaussian37.github.io/vision-segmentation-deeplabv3plus/)
 - [DFN(Discriminative Feature Network)]()
+- [The One Hundred Layers Tiramisu: Fully Convolutional DenseNets for Semantic Segmentation]()
 - [DenseASPP]()
-- [SegNet]()
 - [PSPNet]()
 
 <br>
@@ -58,4 +58,7 @@ tags: [vision, deep learning, segmentation] # add tag
 - [DSNet]()
 - [C3 : Concentrated-Comprehensive Convolution and its application to semantic segmentation]()
 - [Light-weight refinenet for realtime semantic segmentation]()
+- [SegNet]()
+- [CGNet](https://gaussian37.github.io/vision-segmentation-cgnet/)
+- [FCHarDNet]()
 
