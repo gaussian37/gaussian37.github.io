@@ -36,6 +36,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### F.interpolate()와 nn.Upsample()
 - ### block을 쌓기 위한 Module, Sequential, ModuleList, ModuleDict
 - ### shape 변경을 위한 transpose
+- ### nn.Dropout vs. F.dropout
 
 <br>
 
@@ -1286,3 +1287,84 @@ for epoch in range(10):
 - 스케쥴러 업데이트는 보통 **validation 과정을 거친 후** 사용합니다. 위 코드와 같이 validation loss를 `scheduler.step()`의 입력으로 주면 그 loss값과 scheduler 선언 시 사용한 옵션들을 이용하여 learning_rate를 dynamic하게 조절할 수 있습니다.
 
 <br>
+
+## **nn.Dropout vs. F.dropout**
+
+<br>
+
+- 참조 : https://stackoverflow.com/questions/53419474/using-dropout-in-pytorch-nn-dropout-vs-f-dropout
+- 파이토치를 사용하다 보면 `nn` 모듈에 있는 기능과 `F` 즉, nn.functional 모듈에 있는 기능이 있습니다. 이름도 중복되어 있어서 무슨 차이점이 있을 지 궁금한 경우가 있습니다.
+- 간단히 말하면 `nn` 모듈의 기능들은 `nn.functional` 모듈에 있는 함수들을 사용하여 더 편하게 만든 **high level API**입니다.
+- 이 글에서 다루는 `Dropout`의 경우 `nn.Dropout()`과 `nn.functional.dropout()` 2가지가 있습니다. `nn.Dropout()`이 high level API 이므로 사용하기는 더 쉽습니다.
+- 가장 편리한 점 2가지는 ① model이 `training` 모드일 때 Dropout이 사용되도록 하고 `eval` 모드일 때에는 자동적으로 사용되지 않도록 하는 것 입니다. ② Dropout에 사용된 내역에 전체 모델 이력에 저장되어 추적이 가능합니다.
+- 다음 코드를 살펴보도록 하겠습니다.
+
+<br>
+
+```python
+import torch
+import torch.nn as nn
+
+class Model1(nn.Module):
+    # Model 1 using functional dropout
+    def __init__(self, p=0.0):
+        super().__init__()
+        self.p = p
+
+    def forward(self, inputs):
+        return nn.functional.dropout(inputs, p=self.p, training=True)
+
+class Model2(nn.Module):
+    # Model 2 using dropout module
+    def __init__(self, p=0.0):
+        super().__init__()
+        self.drop_layer = nn.Dropout(p=p)
+
+    def forward(self, inputs):
+        return self.drop_layer(inputs)
+model1 = Model1(p=0.5) # functional dropout 
+model2 = Model2(p=0.5) # dropout module
+
+# creating inputs
+inputs = torch.rand(10)
+# forwarding inputs in train mode
+print('Normal (train) model:')
+print('Model 1', model1(inputs))
+# Model 1 tensor([ 1.5040,  0.0000,  0.0000,  0.8563,  0.0000,  0.0000,  1.5951,
+#          0.0000,  0.0000,  0.0946])
+print('Model 2', model2(inputs))
+# Model 2 tensor([ 0.0000,  0.3713,  1.9303,  0.0000,  0.0000,  0.3574,  0.0000,
+#          1.1273,  1.5818,  0.0946])
+print()
+
+# switching to eval mode
+model1.eval()
+model2.eval()
+
+# forwarding inputs in evaluation mode
+print('Evaluation mode:')
+print('Model 1', model1(inputs))
+# Model 1 tensor([ 0.0000,  0.3713,  0.0000,  0.0000,  0.0000,  0.0000,  0.0000,
+#          0.0000,  0.0000,  0.0000])
+print('Model 2', model2(inputs))
+# Model 2 tensor([ 0.7520,  0.1857,  0.9651,  0.4281,  0.7883,  0.1787,  0.7975,
+#          0.5636,  0.7909,  0.0473])
+
+# show model summary
+print(model1)
+# Model1()
+print(model2)
+# Model2(
+#   (drop_layer): Dropout(p=0.5)
+# )
+```
+
+<br>
+
+- 위 코드를 보면 model1의 경우 간단하게 `nn.Dropout()`에 drop rate 파라미터값 하나만 사용하였습니다. 또한 model을 print 하였을 때 그 이력까지 남아있어서 편리함이 있습니다.
+- 정리하면 둘 다 드롭 아웃 적용 측면에서 완전히 동일하며 사용법의 차이가 크지 않더라도 `nn.Dropout`을 `nn.functional.dropout`보다 선호하는 몇 가지 이유가 있습니다.
+- 드롭 아웃은 훈련 중에만 적용되도록 설계되었으므로 모델의 예측 또는 평가를 수행 할 때 드롭 아웃을 해제해야 합니다.
+- 드롭 아웃 모듈 `nn.Dropout`은 이 기능을 편리하게 처리하고 모델이 평가 모드로 들어가자마자 드롭 아웃을 종료하는 반면 `nn.functional.dropout`은 평가 / 예측 모드를 신경 쓰지 않습니다.
+- `nn.functional.dropout`을 **training = False**로 설정하여 끌 수는 있지만 nn.Dropout과 같은 편리한 방법은 아닙니다.
+- 또한 드롭률는 모듈에 저장되므로 추가 변수에 저장할 필요가 없습니다. 더 큰 네트워크에서는 다른 드롭률로 다른 드롭 아웃 레이어를 만들려고 할 수 있습니다. 여기서 `nn.Dropout`은 가독성을 높이고 레이어를 여러 번 사용할 때 편리하게 사용할 수 있도록 합니다.
+- 마지막으로, 모델에 할당 된 모든 모듈이 모델에 등록됩니다. 따라서 클래스를 추적하여 모델을 추적하므로 `eval()`을 호출하여 드롭 아웃 모듈을 끌 수 있습니다. `nn.functional.dropout`을 사용할 때에는 모델이 인식하지 못하므로 summary에 표시되지 않습니다.

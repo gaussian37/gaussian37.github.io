@@ -12,6 +12,8 @@ tags: [segmentation, cgnet] # add tag
 - 논문 : https://arxiv.org/abs/1811.08201
 - 코드 : https://github.com/wutianyiRosun/CGNet
 - Cityscape Benchmarks 성능 : ① IoU class : 64.8 %, ② Runtime : 20 ms
+    - 링크 : https://www.cityscapes-dataset.com/method-details/?submissionID=2095
+
 
 <br>
 
@@ -25,17 +27,19 @@ tags: [segmentation, cgnet] # add tag
 <br>
 
 - ### Abstract
-- ### 1. Introduction
-- ### 2. Related Work
-- ### 3. Proposed Approach
-    - #### 3.1. Context Guided Block
-    - #### 3.2. Context Guided Network
-    - #### 3.3. Comparison with Similar Works
-- ### 4. Experiments
-    - #### 4.1. Experiments Settings
-    - #### 4.2. Ablation Studies
-    - #### 4.3. Comparison with state-of-the-arts
-- ### 5. Conclusion
+- ### Introduction
+- ### Related Work
+- ### Proposed Approach
+- ### Experiments
+- ### Conclusion
+
+<br>
+
+## **Abstract**
+
+<br>
+
+- 
 
 <br>
 <center><img src="../assets/img/vision/segmentation/cgnet/1.png" alt="Drawing" style="width: 800px;"/></center>
