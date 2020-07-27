@@ -1,11 +1,15 @@
 ---
 layout: post
-title: transposed convolution과 dilated convolution  
+title: transposed convolution을 이용한 Upsampling
 date: 2018-08-01 00:00:00
 img: dl/concept/transposed-dilated-convolution/thumbnail.PNG
 categories: [dl-concept] 
-tags: [deep learning, convolution, transposed, dilated] # add tag
+tags: [deep learning, convolution, transposed] # add tag
 ---
+
+<br>
+
+- 참조 : https://medium.com/activating-robotic-minds/up-sampling-with-transposed-convolution-9ae4f2df52d0
 
 + Transposed convolution은 `upsampling`을 목적으로 input image의 중간 중간을 0으로 채워서 output을 키우는 역할을 합니다.
 + <img src="../assets/img/dl/concept/transposed-dilated-convolution/transposed.gif" alt="Drawing" style="width: 600px;"/>
