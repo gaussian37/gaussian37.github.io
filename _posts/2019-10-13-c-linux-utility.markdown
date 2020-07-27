@@ -23,6 +23,7 @@ tags: [리눅스 유틸리티] # add tag
 - ### 나눔고딕코딩 폰트 설치
 - ### uim (한글 키보드 사용)
 - ### gparted: GUI 환경 파티션 및 포맷
+- ### putty를 이용한 시리얼 원격 접속
 - ### (Window) : minGW
 - ### xclip을 이용한 clipboard 복사
 - ### octave 설치 및 octave 패키지 설치 방법
