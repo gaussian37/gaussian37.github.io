@@ -100,6 +100,10 @@ tags: [segmentation, cgnet] # add tag
 - 마지막으로 (c) 그림을 보면 전체 이미지를 포함하는 보라색의 사각형이 있습니다. 전체 영역을 이용하여 노란색 영역의 클래스가 무엇인 지 판단한다면 더 높은 정확도로 판단할 수 있습니다. 보라색 사각형을 `global context` 라고 하겠습니다.
 - CG Block의 형태는 (d)와 같습니다. Block의 구성 요소 중 $$ f_{loc}() $$ 이 그림의 노란색 영역에 해당하는 **local feature**입니다. $$ f_{sur}() $$은 빨간색 영역에 해당하는 **surrounding context extractor** 입니다. $$ f_{joi} $$는 $$ f_{loc} $$와 $$ f_{sur} $$을 합친 feature 입니다. 마지막으로 $$ f_{glo} $$는 **global context extractor** 입니다. 그림의 마지막에 있는 ⊙ 기호는 **element-wise multiplication**을 뜻합니다.
 
+<br>
+
+- 
+
 #### **Context Guided Network**
 
 <br>
