@@ -11,6 +11,8 @@ tags: [deep learning, convolution, transposed] # add tag
 
 - 참조 : https://medium.com/activating-robotic-minds/up-sampling-with-transposed-convolution-9ae4f2df52d0
 
+<br>
+
 + Transposed convolution은 `upsampling`을 목적으로 input image의 중간 중간을 0으로 채워서 output을 키우는 역할을 합니다.
 + <img src="../assets/img/dl/concept/transposed-dilated-convolution/transposed.gif" alt="Drawing" style="width: 600px;"/>
     + 파란색이 인풋, 초록색이 아웃풋 입니다.
