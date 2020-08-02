@@ -114,7 +114,8 @@ $$ g(x) = a + bx + cx^{2} + dx^{3} + \cdots $$
 <center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/5.gif" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 두 그림을 보면 0차에서 
+- 위 두 그림을 보면 0차 즉, x축에 평행한 직선 부터 3차 곡선 까지 지수함수와 다항함수의 각 x점에 접하는 곡선으로 근사화 하였습니다.
+- 근사화 하는 함수의 **차수가 증가할수록 더 정교하게 근사화** 할 수 있음을 확인할 수 있습니다. 물론 차수가 늘어날수록 계산량도 늘어납니다.
 
 <br>
 
