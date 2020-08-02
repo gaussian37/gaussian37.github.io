@@ -1,6 +1,6 @@
 ---
 layout: post
-title: multivariate chain rule과 applications
+title: Taylor series 와 linearisation
 date: 2019-09-30 00:00:00
 img: math/mfml/mfml.jpg
 categories: [math-mfml] 
@@ -76,7 +76,14 @@ $$ \text{t(m)} 7.33m^{5} - 72.3m^{4} + 253m^{3} - 368m^{2} + 250m + 0.02 $$
 <br>
 
 - 1.5kg의 무게에 해당하는 시간은 그래프에 표시된 점의 y값에 해당합니다.
-- 
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그래프에서는 원래 그래프 $$ t(m) $$을 1.5kg 지점에서 1차 미분하여 접선을 구하였습니다.
+- 이 접선은 미분을 한 1.5kg 근방에서는 꽤나 근사가 잘 되었지만 1.5kg에서 멀어질수록 그 오차가 커지는 것을 알 수 있습니다.
+- 하지만 예제에서 다루는 입력은 닭의 질량이므로 1.5kg에서 크게 벗어나지 않기 때문에 의미가 있습니다.
 
 
 
