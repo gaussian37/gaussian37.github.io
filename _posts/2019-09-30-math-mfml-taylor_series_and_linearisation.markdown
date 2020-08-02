@@ -21,6 +21,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
 ## **목차**
 - ### Taylor series for approximations
     - #### Building approximate functions
+    - #### Power series
 - ### Multivariable Taylor Series    
 
 <br>
@@ -78,14 +79,42 @@ $$ \text{t(m)} 7.33m^{5} - 72.3m^{4} + 253m^{3} - 368m^{2} + 250m + 0.02 $$
 - 1.5kg의 무게에 해당하는 시간은 그래프에 표시된 점의 y값에 해당합니다.
 
 <br>
-<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 그래프에서는 원래 그래프 $$ t(m) $$을 1.5kg 지점에서 1차 미분하여 접선을 구하였습니다.
+- 위 그래프에서는 원래 그래프 $$ t(m) $$을 1.5kg 지점에서 1차 미분하여 접선 $$ t'(m) $$을 구하였습니다.
 - 이 접선은 미분을 한 1.5kg 근방에서는 꽤나 근사가 잘 되었지만 1.5kg에서 멀어질수록 그 오차가 커지는 것을 알 수 있습니다.
 - 하지만 예제에서 다루는 입력은 닭의 질량이므로 1.5kg에서 크게 벗어나지 않기 때문에 의미가 있습니다.
 
+<br>
 
+#### **Power series**
+
+<br>
+
+- 테일러 급수에 대하여 본격적으로 알아보기 이전에 간단한 컨셉에 대하여 먼저 다루어 보겠습니다.
+- 먼저 테일러 급수는 멱급수(`Power series`)의 형태입니다. 테일러 급수의 형태를 보면 $$ x^{n} $$ 이고 $$ n $$은 점점 증가합니다. 그리고 $$ x^{n} $$ 앞의 계수가 붙어있습니다. 예를 들어 다음과 같습니다.
+
+<br>
+
+$$ g(x) = a + bx + cx^{2} + dx^{3} + \cdots $$
+
+<br>
+
+- 앞으로 살펴 볼 테일러 급수는 위 식과 같은 멱급수의 형태를 가지며 복잡한 식을 근사화 하는 목적으로 사용됩니다.
+- 급수에 사용되는 $$ n $$이 단순히 1차식을 사용할 수도 있는 반면 큰 차수도 사용할 수 있습니다. 큰 차수를 사용할수록 더 정교하게 근사화 가능합니다.
+- 물론 많은 application 들은 매우 큰 차수 보다는 앞의 몇 차수 (1차, 2차, 3차 ... 등)만을 사용하는 데, 낮은 차수 들의 합을 이용해서도 꽤나 근사화가 잘되기 때문입니다.
+- 아래 예제에서는 ① 지수함수와 ② 6차 다항 함수에 대하여 0, 1, 2, 3 차로 각각 근사화 하는 예제를 보여줍니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/4.gif" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/5.gif" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 두 그림을 보면 0차에서 
 
 <br>
 
