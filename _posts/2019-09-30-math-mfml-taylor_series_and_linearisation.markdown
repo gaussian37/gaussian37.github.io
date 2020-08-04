@@ -119,6 +119,25 @@ $$ g(x) = a + bx + cx^{2} + dx^{3} + \cdots $$
 
 <br>
 
+- 정리해 보겠습니다. 앞에서 다룬 바와 같이 Taylor 계열 근사법은 power series로 볼 수도 있습니다. 이 근사법은 특히 수치적 방법을 사용할 때 종종 더 간단하고 평가하기 쉬운 함수를 만드는 데 사용됩니다. 다음 예제들을 보면 점점 증가하는 power serires를 통해 함수에 대한 추가 정보를 어떻게 얻어 나아갈 수 있는 지 이해할 수 있습니다.
+- 아래 그림에서 0차, 2차, 4차 3개의 근사식은 $$ x = 0 $$ 일 때 어떤 함수를 근사한 식이라고 하겠습니다. 이 경우 원래 함수는 $$ \cos{(x)} $$ 일 수 있습니다. (물론 가능한 다른 함수도 많습니다.)
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림을 보면 $$ f(x) = \cos{(x)} $$는 근사식의 일부를 모두 포함합니다. 즉 접하는 것을 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 반면 위 그림에서 1차 함수가 지수 함수를 근사한 것이라고 하였을 때, 이 근사는 잘못되었다고 판단할 수 있습니다. 왜냐하면 지수 함수와 접하지 않기 때문입니다.
+
+
+
+<br>
+
 [mathematics for machine learning 글 목록](https://gaussian37.github.io/math-mfml-table/)
 
 <br>
