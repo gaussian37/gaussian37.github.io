@@ -146,7 +146,7 @@ $$ x_{l} = H_{l}([x_{0}, x_{1}, \cdots, x_{l-1}]) $$
 
 - DenseNet의 전체적인 구조를 살펴보면 위 그림과 같습니다. 위 그림을 보면 **Pooling(MaxPooling)**을 기준으로 `dense block`이 구분되어 있음을 확인할 수 있습니다.
 - 앞에서 설명한 concatenation은 모든 layer가 아닌 각각의 `dense block` 내에서 일어납니다. 
-- `dense block`의 개념이 핵심이여 위 아키텍쳐에서 가장 처음에 사용되는 convolution 연산은 input 이미지의 사이즈를 dense block에 맞게 조절하기 위함임으로 이미지의 사이즈에 따라서 사용해도 되고 사용하지 않아도 됩니다.
+- `dense block`의 개념이 DenseNet 전체에서 핵심입니다. 위 아키텍쳐에서 가장 처음에 사용되는 convolution 연산은 input 이미지의 사이즈를 dense block에 맞게 조절하기 위한 용도로 사용되었습니다. 따라서 이미지의 사이즈에 따라서 사용해도 되고 사용하지 않아도 됩니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/densenet/14.png" alt="Drawing" style="width: 800px;"/></center>
