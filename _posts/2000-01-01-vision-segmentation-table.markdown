@@ -60,5 +60,6 @@ tags: [vision, deep learning, segmentation] # add tag
 - [Light-weight refinenet for realtime semantic segmentation]()
 - [SegNet]()
 - [CGNet](https://gaussian37.github.io/vision-segmentation-cgnet/)
+- [LiteSeg, A Novel Lightweight ConvNet for Semantic Segmentation](https://gaussian37.github.io/vision-segmentation-liteseg/)
 - [FCHarDNet]()
 
