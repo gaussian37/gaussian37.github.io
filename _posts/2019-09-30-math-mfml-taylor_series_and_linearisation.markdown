@@ -24,7 +24,11 @@ tags: [calculus, multivariate chain rule, application] # add tag
     - #### Power series
     - #### Power series derivation : Maclaurin series
     - #### Power series derivation : Taylor series
-- ### Multivariable Taylor Series    
+    - #### Example of Taylor series
+- ### Multivariable Taylor Series
+    - #### Linearisation
+    - #### Multivariate Taylor
+    - #### 
 
 <br>
 
@@ -302,11 +306,92 @@ $$ g(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(p)}{n!}(x - p)^{n} $$
 
 - `테일러 급수`에 대하여 다시 정리해 보겠습니다. 테일러 급수는 미분 가능한 임의의 연속함수를 다항식을 이용하여 근사화 시킵니다. 테일러 급수는 임의의 점 $$ x = p $$에서 멱급수 형태로 함수를 근사화 시키며 근사화된 식은 $$ x = p $$ 뿐 아니라 다른 $$ x $$ 값에서도 사용 가능합니다.
 - 특히, $$ x = 0 $$에서 어떤 함수를 다항식으로 근사한 경우에 한하여 `맥클로린 급수`라고 합니다.
+- 일반적으로 $$ x = 0 $$ 일 때, 연산이 간단해 지기 때문에 `맥클로린 급수`를 많이 사용합니다. 경우에 따라서 $$ x = 0 $$ 인 경우에 근사화 하지 못하는 경우가 있는데, 이 때 `테일러 급수`를 사용하면 됩니다.
 
+<br>
 
+#### **Example of Taylor series**
 
+<br>
 
+- 그러면 `테일러 급수`에 대한 2가지 예제를 살펴보도록 하겠습니다. 각 예제의 식은 $$ \cos{(x)} $$와 $$ 1/x $$ 입니다. 앞에서 설명한 바와 같이 특이한 경우가 아니면 `맥클로린 급수`를 사용하도록 하겠습니다.
+- 그러면 먼저 $$ f(x) = \cos{(x)} $$애 대하여 알아보도록 하겠습니다.
 
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/14.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그래프는 $$ f(x)  = \cos{(x)} $$의 그래프 입니다. 맥클로린 급수 식에 필요한 각 성분에 대하여 먼저 구해보면 다음과 같습니다.
+
+<br>
+
+$$ f(x) = \cos{(x)}, \quad \therefore f(0) = \cos{(0)} = 1 $$
+
+$$ f'(x) = -\sin{(x)}, \quad \therefore f'(0) = -\sin{(0)} = 0 $$
+
+$$ f''(x) = -\cos{(x)}, \quad \therefore f''(0) = -\cos{(0)} = -1 $$
+
+$$ f^{(3)}(x) = \sin{(x)}, \quad \therefore f^{(3)}(0) = \sin{(0)} = 0 $$
+
+$$ f^{(4)}(x) = \cos{(x)}, \quad \therefore f^{(4)}(0) = \cos{(0)} = 1 $$
+
+<br>
+
+- 그리고 맥클로린 함수인 $$ g(x) = \sum_{n=0}^{\infty} \frac{f^{(n)(0)}}{n!}x^{n} $$에 대응하면 다음과 같습니다.
+
+<br>
+
+$$ cos(x) = 1 - \frac{x^{2}}{2} + \frac{x^{4}}{24} - \frac{x^{6}}{720} + \cdots = \sum_{n=0}^{\infty} \frac{(-1)^{n}}{(2n)!}x^{2n} $$
+
+<br>
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/15.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 참고로 16차 함수 정도로 근사하면 코사인 함수와 꽤나 유사하게 근사화 되는 것을 확인하실 수 있습니다.
+
+<br>
+
+- 그 다음으로 다루어 볼 함수는 $$ f(x)  = 1/x $$ 함수입니다. 함수 형태는 아래와 같습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/16.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 이 함수의 경우 `맥클로린 급수`를 사용하여 근사화 할 수 없습니다. 왜냐하면 $$ x = 0 $$ 지점에서 연속적이지 않기 때문입니다. 따라서 `테일러 급수`를 사용하며 근사화 할 점은 계산량을 줄일 수 있는 $$ x = 1 $$로 잡겠습니다.  테일러 급수 전개에 필요한 각 성분을 구하면 다음과 같습니다.
+
+<br>
+
+$$ f(x) = 1/x, \quad \therefore f(1) = 1/1 = 1 $$
+
+$$ f'(x) = -1/x^{2}, \quad \therefore f'(1) = -1/1^{2} = -1 $$
+
+$$ f''(x) = 2/x^{3}, \quad \therefore f''(1) = 2/1^{3} = 2 $$
+
+$$ f^{(3)}(x) = -6/x^{4}, \quad \therefore f^{(3)}(1) = -6/1^{4} = -6 $$
+
+$$ f^{(4)}(x) = 24/x^{5}, \quad \therefore f^{(4)}(1) = 24/1^{5} = 24 $$
+
+<br>
+
+- 이 값들을 `테일러 급수` 인 $$ g(x) = \sum_{n=0}^{\infty}\frac{f^{(n)}(p)}{n!}(x - p)^{n} $$에 대응하면 
+
+<br>
+
+$$ 1/x = 1 - (x-1) + (x-1)^{2} - (x-1)^{3} + \cdots $$
+
+$$ 1/x = \sum_{n=0}^{\infty}(-1)^{n}(x-1)^{n} $$
+
+<br>
+
+- 위 식과 같은 불연속 함수를 근사화 하면 다음과 같은 문제가 발생하게 됩니다.
+- ① `테일러 급수`를 통해 도출한 근사식을 실제 그려보면 $$ x \gt 0 $$ 영역에서만 $$ y $$ 값을 가지게 됩니다. 이는 불연속 함수 $$ f(x) $$를 근사화 했기 때문이고 그 중 $$ x = 1 $$을 포함하는 연속 구간의 식만 근사화 된것입니다.
+- ② 연속 함수 근사화와 달리 상당히 불안정하게 근사화 하게 됩니다. 앞에서 살펴보았던 $$ \cos{(x)} $$는 꽤나 근사화가 잘된 반면 $$ 1/x $$는 원래 함수 모양에 수렴하지 않습니다.
+
+<br>
+
+## 
 
 <br>
 
