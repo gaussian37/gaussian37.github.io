@@ -272,7 +272,7 @@ $$ g_{n}(x) = \sum_{n=0}^{\infty} \frac{1}{n!}f^{(n)}(0)x^{n} $$
 - 지금 부터는 임의의 점 $$ p $$에서 근사화한 1차식을 통해 $$ x =0 $$이 아닌 임의의 점 $$ x = p $$에서 근사화 하는 지 다루어 보도록 하겠습니다. $$ n $$차의 원리는 동일하므로 1차식만 유도해도 전체를 이해하실 수 있습니다.
 
 <br>
-<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/12.png" alt="Drawing" style="width: 00px;"/></center>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/12.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 $$ y = mx + c $$
