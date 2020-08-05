@@ -254,6 +254,31 @@ $$ g_{n}(x) = \sum_{n=0}^{\infty} \frac{1}{n!}f^{(n)}(0)x^{n} $$
 
 <br>
 
+- 지금부터 앞에서 배운 맥클로린 급수를 이용하여 테일러 급수로 확장해 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 맥클로린 급수는 미분 가능한 연속 함수 $$ f(x) $$를 $$ x = 0 $$ 위치에서 $$ n $$ 차 다항식으로 근사화 하면 모든 점에서 근사화 할 수 있다는 방법을 보여주었습니다. 
+- 테일러 급수는 맥클로린 급수의 조건인 $$ x = 0 $$을 $$ x = p $$로 일반화 합니다. 즉, **어떤 점에서 $$ n $$ 차 다항식으로 근사화 할 수 있으면 모든 점에서 근사화 할 수 있는 것**으로 범위를 확장합니다.
+
+<br>
+
+- 지금 부터는 임의의 점 $$ p $$에서 근사화한 1차식을 통해 $$ x =0 $$이 아닌 임의의 점 $$ x = p $$에서 근사화 하는 지 다루어 보도록 하겠습니다. $$ n $$차의 원리는 동일하므로 1차식만 유도해도 전체를 이해하실 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/12.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+$$ y = mx + c $$
+
+$$ y = f'(p)x + c $$
+
+$$ f(p) = f'(p)p + c, \quad c = f(p) - f''(p)p $$
+
+$$  $$
+
 
 
 <br>
