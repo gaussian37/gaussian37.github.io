@@ -22,7 +22,8 @@ tags: [calculus, multivariate chain rule, application] # add tag
 - ### Taylor series for approximations
     - #### Building approximate functions
     - #### Power series
-    - #### Power series derivation
+    - #### Power series derivation : Maclaurin series
+    - #### Power series derivation : Taylor series
 - ### Multivariable Taylor Series    
 
 <br>
@@ -137,7 +138,7 @@ $$ g(x) = a + bx + cx^{2} + dx^{3} + \cdots $$
 
 <br>
 
-#### **Power series derivation**
+#### **Power series derivation : Maclaurin series**
 
 <br>
 
@@ -244,7 +245,16 @@ $$ g_{n}(x) = \sum_{n=0}^{\infty} \frac{1}{n!}f^{(n)}(0)x^{n} $$
 <center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/10.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 식과 같이 $$ x = 0 $$ 일 때 기준으로 식을 근사화 한 것을 `Maclaurin Series` (맥클로린 급수) 라고 합니다.
+- 위 식과 같이 $$ x = 0 $$ 일 때 기준으로 식을 근사화 한 것을 `Maclaurin Series` (맥클로린 급수) 라고 합니다. 
+- 맥클로린 급수는 테일러 급수에서 $$ x =  0 $$ 일 때에 한하여 적용한 특별한 경우입니다. 정확히는 맥클로린 급수를 모든 $$ x $$에 대하여 확장한 것이 테일러 급수입니다. 그러면 테일러 급수에 대하여 본격적으로 알아보겠습니다.
+
+<br>
+
+#### **Power series derivation : Taylor series**
+
+<br>
+
+
 
 <br>
 
