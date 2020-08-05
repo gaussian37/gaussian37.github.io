@@ -34,6 +34,7 @@ tags: [코세라, coursera, mathemacis for machine learning] # add tag
 - [calculus 기초](https://gaussian37.github.io/math-mfml-basic_calculus)
 - [multivariate calculus와 jacobian](https://gaussian37.github.io/math-mfml-multivariate_calculus_and_jacobian/)
 - [multivariate chain rule과 applications](https://gaussian37.github.io/math-mfml-multivariate_chain_rule_and_applications/)
+- [Taylor series 와 linearisation](https://gaussian37.github.io/math-mfml-taylor_series_and_linearisation/)
 
 
 <br>
