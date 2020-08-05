@@ -67,20 +67,20 @@ $$ \text{t(m)} 7.33m^{5} - 72.3m^{4} + 253m^{3} - 368m^{2} + 250m + 0.02 $$
 - 위 식은 닭의 질량이 입력되었을 때, 오븐에 구울 최적의 시간을 산출하는 함수입니다.
 
 <br>
-<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 앞의 식을 좌표 평면에 그리와 위 그래프와 같이 그릴 수 있습니다.
 - 만약 슈퍼마켓에 파는 일반적인 닭의 무게가 1.5kg이라고 가정해 보겠습니다.
 
 <br>
-<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 1.5kg의 무게에 해당하는 시간은 그래프에 표시된 점의 y값에 해당합니다.
 
 <br>
-<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/3.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/3.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그래프에서는 원래 그래프 $$ t(m) $$을 1.5kg 지점에서 1차 미분하여 접선 $$ t'(m) $$을 구하였습니다.
@@ -108,11 +108,11 @@ $$ g(x) = a + bx + cx^{2} + dx^{3} + \cdots $$
 - 아래 예제에서는 ① 지수함수와 ② 6차 다항 함수에 대하여 0, 1, 2, 3 차로 각각 근사화 하는 예제를 보여줍니다.
 
 <br>
-<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/4.gif" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/4.gif" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/5.gif" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/5.gif" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 두 그림을 보면 0차 즉, x축에 평행한 직선 부터 3차 곡선 까지 지수함수와 다항함수의 각 x점에 접하는 곡선으로 근사화 하였습니다.
@@ -153,7 +153,7 @@ $$ e^{x} = 1 + x + \frac{x^{2}}{2} + \frac{x^{3}}{6} + \frac{x^{4}}{24} + \cdots
 - 그러면 어떤 함수 $$ f(x) $$가 있을 때, 그 함수를 $$ x = 0 $$ 인 지점에서 근사화 시키는 방법을 살펴보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/8.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/8.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그림에서 하얀색 곡선의 함수가 근사화 할 함수인 $$ f(x) $$입니다.
@@ -211,7 +211,7 @@ $$ f^{(3)}(x) = 6a $$
 $$ f^{(3)}(0) = 6a, \quad a = f^{(3)}(0) / 6 $$
 
 <br>
-<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/9.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/9.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그래프를 보면 조금 더 근사화가 잘 된 것을 알 수 있습니다. $$ n $$차 다항식으로 근사학 식들을 살펴보면 공통점들이 있습니다. 이것들을 이용해 일반화 시키면 다음과 같습니다.
