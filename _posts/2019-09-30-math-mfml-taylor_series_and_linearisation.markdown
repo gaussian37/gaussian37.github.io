@@ -22,6 +22,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
 - ### Taylor series for approximations
     - #### Building approximate functions
     - #### Power series
+    - #### Power series derivation
 - ### Multivariable Taylor Series    
 
 <br>
@@ -133,6 +134,12 @@ $$ g(x) = a + bx + cx^{2} + dx^{3} + \cdots $$
 <br>
 
 - 반면 위 그림에서 1차 함수가 지수 함수를 근사한 것이라고 하였을 때, 이 근사는 잘못되었다고 판단할 수 있습니다. 왜냐하면 지수 함수와 접하지 않기 때문입니다.
+
+<br>
+
+#### **Power series derivation**
+
+<br>
 
 
 

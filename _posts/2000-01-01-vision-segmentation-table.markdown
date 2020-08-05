@@ -15,7 +15,7 @@ tags: [vision, deep learning, segmentation] # add tag
 
 <br>
 
-## **Segmentation**의 기초
+## **Segmentation** 관련 내용
 
 <br>
 
@@ -30,6 +30,8 @@ tags: [vision, deep learning, segmentation] # add tag
 - [RTSeg: Real-time Semantic Segmentation Comparative Study]()
 - [Multi-scale context aggregation by dilated convolutions]()
 - [Parsenet: Looking wider to see better]()
+- [Fast, Exact and Multi-Scale Inference for Semantic Image Segmentation with Deep Gaussian CRFs]()
+- [Hierarchical Multi-Scale Attention for Semantic Segmentation]()
 
 <br>
 
