@@ -25,8 +25,8 @@ tags: [calculus, multivariate chain rule, application] # add tag
     - #### Power series derivation : Maclaurin series
     - #### Power series derivation : Taylor series
     - #### Example of Taylor series
-- ### Multivariable Taylor Series
     - #### Linearisation
+- ### Multivariable Taylor Series
     - #### Multivariate Taylor
 
 <br>
@@ -390,15 +390,6 @@ $$ 1/x = \sum_{n=0}^{\infty}(-1)^{n}(x-1)^{n} $$
 
 <br>
 
-## Multivariable Taylor Series
-
-<br>
-
-- 지금 부터는 앞에서 배운 테일러 급수 개념을 다변수에 어떻게 적용할 수 있는 지 다루어 보도록 하겠습니다.
-- 그 전에 `Linearisation`이란 개념에 대하여 먼저 다루어 보겠습니다.
-
-<br>
-
 #### **Linearisation**
 
 <br>
@@ -451,6 +442,16 @@ $$ f(x + \Delta x) = \sum_{n = 0}^{\infty} \frac{f^{(n)(x)}}{n!} \Delta x^{n} = 
 <br>
 
 - `테일러 급수`를 위 식과 같이 나타내었을 때, 주목할 점은 $$ \Delta x $$입니다. 만약 $$ Delta x $$ 값이 1보다 작은 값이라면 이 값의 제곱, 세제곱, n 제곱값은 계속 작아지므로 0에 수렴하게 됩니다.
+- 위 식을 단순화 시켜 영향이 작은 $$ \Delta x^{2} $$ 부터 0에 수렴한다고 가정하면 아래와 같이 식을 단순화 시킬 수 있습니다.
+
+<br>
+
+$$ f(x + \Delta x) = f(x) + f'(x)(\Delta x) + (0 + 0 + \cdots) = f(x) + f'(x)(\Delta x)
+
+<br>
+
+- 위 식과 같이 어떤 함수 $$ f(x) $$를 0에 가까운 작은 값 $$ \Detla x $$를 이용하여 근사화 할 때, 더해지는 값이 0에 가깝다고 판단되는 제곱, 세제곱, ... , n제곱 항을 무시하여 간단하게 표시한 위 식을 `선형화(linearisation)` 라고 합니다.
+- 이 컨셉으로 **복잡한 함수를 단순한 선형 함수로 근사화 하여 값을 예측**할 수 있습니다.
 
 <br>
 
