@@ -28,7 +28,6 @@ tags: [calculus, multivariate chain rule, application] # add tag
 - ### Multivariable Taylor Series
     - #### Linearisation
     - #### Multivariate Taylor
-    - #### 
 
 <br>
 
@@ -391,7 +390,8 @@ $$ 1/x = \sum_{n=0}^{\infty}(-1)^{n}(x-1)^{n} $$
 
 <br>
 
-## 
+#### **Linearisation**
+
 
 <br>
 

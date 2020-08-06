@@ -21,3 +21,5 @@ tags: [비주얼 스튜디오 코드 기능, visual studio code, extionsion] # a
 - `Jupyter (Don Jayamanne)` : 파이썬 코드에서 `#%%` 만 입력하면 주피터 노트북 셀 환경을 그대로 사용할 수 있도록 지원해 줍니다.
 - `markdownlint (David Anson)` : 마크다운 작업 환경을 쉽게 사용할 수 있도록 도와줍니다.
 - `WakaTime (WakaTime)` : 어떤 종류의 파일에서(C, C++, Python, Markdown 등등)로 얼마나 작업을 하였는지 시간 체크를 해줍니다. 
+- `Material Theme (Mattia Astorino)` : VSC 전체 테마 및 색상을 꾸며줍니다. 설치 후 extension에서 Material Theme을 선택 한 다음 **Set Color Theme**에서 테마를 선택하면 됩니다.
+- `Material Icon Theme (Philipp Kief)` : 확장자 별로 다른 아이콘 형태로 보여줍니다. 설치 후 extension에서 Mateiral Icon Theme을 선택한 다음 **Set File Icon Theme**을 선택하면 됩니다.
