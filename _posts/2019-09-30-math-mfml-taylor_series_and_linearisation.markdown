@@ -454,6 +454,17 @@ $$ f(x + \Delta x) = f(x) + f'(x)(\Delta x) + (0 + 0 + \cdots) = f(x) + f'(x)(\D
 - 이 컨셉으로 **복잡한 함수를 단순한 선형 함수로 근사화 하여 값을 예측**할 수 있습니다.
 
 <br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/20.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `linearisation`을 앞에서 배운 `rise over run`과 비교하여 살펴보도록 하겠습니다.
+- 위 그래프에서 지수 함수 $$ f(x) $$를 $$ \Delta x $$를 이용하여 1차식으로 근사화 한 것이 초록색 선입니다. 반면 주황색 선은 rise over run에 따라 $$ (x, f(x)), ((x + \Delta x), f(x + \Delta x)) $$ 를 연결한 직선입니다.
+- 주황색 선은 실제 함수 $$ f(x) $$를 이용하여 $$ \Delta x $$ 증가에 따른 변화율은 구한 것이므로 근사화 한 것이 아닌 정확한 값입니다.
+- 반면 초록색 선은 테일러 급수의 원리에 따라서 근사화 한 값이기 때문에 같은 $$ \Delta x $$를 이용하였다고 하더라도 주황색 선과 차이를 보입니다. 이 차이를 `error` 라고 하겠습니다.
+- 그러면 `error`가 얼만큼인지 확인하기 위해 식을 변형해 보겠습니다.
+
+
+<br>
 
 [mathematics for machine learning 글 목록](https://gaussian37.github.io/math-mfml-table/)
 
