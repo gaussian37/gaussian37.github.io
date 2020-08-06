@@ -390,8 +390,67 @@ $$ 1/x = \sum_{n=0}^{\infty}(-1)^{n}(x-1)^{n} $$
 
 <br>
 
+## Multivariable Taylor Series
+
+<br>
+
+- 지금 부터는 앞에서 배운 테일러 급수 개념을 다변수에 어떻게 적용할 수 있는 지 다루어 보도록 하겠습니다.
+- 그 전에 `Linearisation`이란 개념에 대하여 먼저 다루어 보겠습니다.
+
+<br>
+
 #### **Linearisation**
 
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/17.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 앞에서 배운 바와 같이 어떤 함수 $$ f(x) $$가 있을 때, 테일러 급수를 통하여 $$ x = p $$에서 다항식의 멱급수로 근사화 할 수 있었습니다.
+- 이 때, 근사한 일반식을 $$ g(x) $$라 하면 1차식으로 근사한 식을 $$ g_{1}(x) $$ 형태로 사용하였습니다.
+- 위 그림에서는 $$ f(x) $$를 0, 1, 2, 3차 형태로 근사한 것을 점선으로 나타내었으며 그 중 초록색 선이 1차식으로 근사한 것입니다.
+- 앞의 글 [Basic Calculus](https://gaussian37.github.io/math-mfml-basic_calculus/)에서 배운 바와 같이 변화량은 `Rise Over Run` 형태로 나타낼 수 있었습니다.
+
+<br>
+
+$$ \text{Gradient} = \text{Rise} / \text{Run} $$
+
+$$ f'(p) = \text{Rise} / (x - p) $$
+
+<br>
+
+- 위 값의 분모를 각각 이항해 보면 다음과 같이 변형할 수 있습니다.
+
+<br>
+
+$$  \text{Run} \times \text{Gradient} = \text{Rise} $$
+
+$$ (x - p) \times f'(p) = \text{Rise} $$
+
+<br>
+
+- 위 식에서 `Run`에 해당하는 것은 $$ x $$ 축에서의 증가량이고 ** p ** 만큼 증가하였으므로 $$ \Delta p $$로 나타낼 수 있습니다.
+- 즉, $$ x - p  = \Delta p $$가 되고 $$ x = p + \Delta p $$ 로 표현할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/18.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 따라서 위 그래프와 $$ g_{1}(p + \Delta p) $$ 처럼 정리 가능합니다.
+- 그러면 앞에서 사용한 $$ p $$를 $$ x $$로 바꿔서 좀더 일반화 시켜보도록 하겠습니다. 식 자체의 변화는 전혀 없습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/19.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그래프와 식처럼 `테일러 급수`를 새로운 형태로 나타낼 수 있습니다.
+
+<br>
+
+$$ f(x + \Delta x) = \sum_{n = 0}^{\infty} \frac{f^{(n)(x)}}{n!} \Delta x^{n} = f(x) + f^{(1)}(x) \Delta x + \frac{f^{(2)}(x)}{2} \Delta x^{2} + \frac{f^{(3)}(x)}{6} \Delta x^{3} + \cdots $$
+
+<br>
+
+- `테일러 급수`를 위 식과 같이 나타내었을 때, 주목할 점은 $$ \Delta x $$입니다. 만약 $$ Delta x $$ 값이 1보다 작은 값이라면 이 값의 제곱, 세제곱, n 제곱값은 계속 작아지므로 0에 수렴하게 됩니다.
 
 <br>
 
