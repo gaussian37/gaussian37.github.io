@@ -570,7 +570,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-- $$ \frac{1}{2}(\partial_{xx}f(x, y) \Delta x^{2} + 2\partial_{xy}f(x, y)\Delta x \Delta y + \partial_{yy}f(x, y) \Delta y^{2}) \color{purple} \to \frac{1}{2} \begin{bmatrix} \Delta x, & \Delta y \end{bmatrix} \begin{bmatrix} \partial_{xx}f(x, y) & \partial_{xy}f(x, y) \\ \partial_{yx}f(x, y) & \partial_{yy}f(x, y) \end{bmatrix} \begin{bmatrix} \Delta x \\ \Delta y \end{bmatrix}  \color{orange} \to \frac{1}{2} \Delta x^{t} H_{f} \Delta x $$
+- $$ \frac{1}{2}(\partial_{xx}f(x, y) \Delta x^{2} + 2\partial_{xy}f(x, y)\Delta x \Delta y + \partial_{yy}f(x, y) \Delta y^{2}) \color{purple}{\to \frac{1}{2} \begin{bmatrix} \Delta x, & \Delta y \end{bmatrix} \begin{bmatrix} \partial_{xx}f(x, y) & \partial_{xy}f(x, y) \\ \partial_{yx}f(x, y) & \partial_{yy}f(x, y) \end{bmatrix} \begin{bmatrix} \Delta x \\ \Delta y \end{bmatrix}} \color{orange}{\to \frac{1}{2} \Delta x^{t} H_{f} \Delta x} $$
 
 <br>
 
@@ -581,9 +581,13 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 - $$ f(x + \Delta x, y + \Delta y) = f(x,y) + (\partial_{x}f(x, y) \Delta x + \partial_{y}f(x, y) \Delta y) + \frac{1}{2}(\partial_{xx}f(x, y) \Delta x^{2} + 2\partial_{xy}f(x, y)\Delta x \Delta y + \partial_{yy}f(x, y) \Delta y^{2}) $$
 
-- $$ f(x + \Delta x, y + \Delta y) = f(x,y) + \color{purple} \begin{bmatrix} \partial_{x}f(x, y), & \partial_{y}f(x, y) \end{bmatrix} \begin{bmatrix} \Delta x \\ \Delta y \end{bmatrix} + \frac{1}{2} \begin{bmatrix} \Delta x, & \Delta y \end{bmatrix} \begin{bmatrix} \partial_{xx}f(x, y) & \partial_{xy}f(x, y) \\ \partial_{yx}f(x, y) & \partial_{yy}f(x, y) \end{bmatrix} \begin{bmatrix} \Delta x \\ \Delta y \end{bmatrix} + \cdots $$
+<br>
 
-- $$  f(x + \Delta x, y + \Delta y) = f(x,y) + \color{orange} J_{f} \Delta x + \frac{1}{2} \Delta x^{t} H_{f} \Delta x + \cdots $$
+- $$ f(x + \Delta x, y + \Delta y) = f(x,y) + \color{purple}{\begin{bmatrix} \partial_{x}f(x, y), & \partial_{y}f(x, y) \end{bmatrix} \begin{bmatrix} \Delta x \\ \Delta y \end{bmatrix} + \frac{1}{2} \begin{bmatrix} \Delta x, & \Delta y \end{bmatrix} \begin{bmatrix} \partial_{xx}f(x, y) & \partial_{xy}f(x, y) \\ \partial_{yx}f(x, y) & \partial_{yy}f(x, y) \end{bmatrix} \begin{bmatrix} \Delta x \\ \Delta y \end{bmatrix} + \cdots} $$
+
+<br>
+
+- $$  f(x + \Delta x, y + \Delta y) = f(x,y) + \color{orange}{J_{f} \Delta x + \frac{1}{2} \Delta x^{t} H_{f} \Delta x + \cdots} $$
 
 <br>
 
