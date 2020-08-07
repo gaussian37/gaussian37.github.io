@@ -547,7 +547,6 @@ tags: [calculus, multivariate chain rule, application] # add tag
 - 이번에는 `이변량 테일러 급수`의 식을 어떻게 전개하는 지 알아보도록 하겠습니다.
 - `단일 변량`의 경우 $$ f(x + \Delta x) $$ 형태로 나타낸 반면 `이변량`의 경우 $$ f(x + \Delta x, y + \Delta y) $$로 나타낼 수 있습니다.
 - 각 변수에 대하여 변화량을 계산하여 근사화 해야하므로 편미분을 사용합니다. 따라서 아래 식과 같이 0차, 1차, 2차에 대하여 편미분을 통해 테일러 급수를 전개할 수 있습니다.
-- 아래 식에서 사용되는 자코비안과 헤시안 행렬의 개념은 [다음 링크](https://gaussian37.github.io/math-mfml-multivariate_calculus_and_jacobian/)에서 확인하실 수 있습니다.
 
 <br>
 
@@ -556,6 +555,43 @@ tags: [calculus, multivariate chain rule, application] # add tag
 - $$ (\partial_{x}f(x, y) \Delta x + \partial_{y}f(x, y) \Delta y)  \quad \text{ : 1st derivative} $$
 
 - $$ \frac{1}{2}(\partial_{xx}f(x, y) \Delta x^{2} + 2\partial_{xy}f(x, y)\Delta x \Delta y + \partial_{yy}f(x, y) \Delta y^{2}) \quad \text{ : 2nd derivative} $$
+
+<br>
+
+- 위 식에서 1차 미분을 한 항은 자코비안 행렬로 좀 더 간단하게 표현할 수 있습니다. 다음과 같습니다.
+
+<br>
+
+- $$ (\partial_{x}f(x, y) \Delta x + \partial_{y}f(x, y) \Delta y) \color{purple} \to \begin{bmatrix} \partial_{x}f(x, y), & \partial_{y}f(x, y) \end{bmatrix} \begin{bmatrix} \Delta x \\ \Delta y \end{bmatrix} \color{orange} \to J_{f} \Delta x $$
+
+<br>
+
+- 반면 2차 미분을 한 항은 헤시안 행렬로 좀 더 간단하게 표현할 수 있습니다. 다음과 같습니다.
+
+<br>
+
+- $$ \frac{1}{2}(\partial_{xx}f(x, y) \Delta x^{2} + 2\partial_{xy}f(x, y)\Delta x \Delta y + \partial_{yy}f(x, y) \Delta y^{2}) \color{purple} \to \frac{1}{2} \begin{bmatrix} \Delta x, & \Delta y \end{bmatrix} \begin{bmatrix} \partial_{xx}f(x, y) & \partial_{xy}f(x, y) \\ \partial_{yx}f(x, y) & \partial_{yy}f(x, y) \end{bmatrix} \begin{bmatrix} \Delta x \\ \Delta y \end{bmatrix}  \color{orange} \to \frac{1}{2} \Delta x^{t} H_{f} \Delta x $$
+
+<br>
+
+- 참고로 자코비안과 헤시안 행렬의 개념은 [다음 링크](https://gaussian37.github.io/math-mfml-multivariate_calculus_and_jacobian/)에서 확인하실 수 있습니다.
+- 위 성분들을 합하여 표현하면 다음과 같습니다.
+
+<br>
+
+- $$ f(x + \Delta x, y + \Delta y) = f(x,y) + (\partial_{x}f(x, y) \Delta x + \partial_{y}f(x, y) \Delta y) + \frac{1}{2}(\partial_{xx}f(x, y) \Delta x^{2} + 2\partial_{xy}f(x, y)\Delta x \Delta y + \partial_{yy}f(x, y) \Delta y^{2}) $$
+
+- $$ f(x + \Delta x, y + \Delta y) = f(x,y) + \color{purple} \begin{bmatrix} \partial_{x}f(x, y), & \partial_{y}f(x, y) \end{bmatrix} \begin{bmatrix} \Delta x \\ \Delta y \end{bmatrix} + \frac{1}{2} \begin{bmatrix} \Delta x, & \Delta y \end{bmatrix} \begin{bmatrix} \partial_{xx}f(x, y) & \partial_{xy}f(x, y) \\ \partial_{yx}f(x, y) & \partial_{yy}f(x, y) \end{bmatrix} \begin{bmatrix} \Delta x \\ \Delta y \end{bmatrix} + \cdots $$
+
+- $$  f(x + \Delta x, y + \Delta y) = f(x,y) + \color{orange} J_{f} \Delta x + \frac{1}{2} \Delta x^{t} H_{f} \Delta x + \cdots $$
+
+<br>
+
+
+
+
+
+
 
 
 <br>
