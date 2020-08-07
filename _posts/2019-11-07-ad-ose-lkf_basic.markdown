@@ -164,7 +164,7 @@ $$
 
 <br>
 
-$$ 
+- $$ 
 
 \begin{split} 
 \color{deeppink}{p_k} &= \color{royalblue}{p_{k-1}} + \Delta t &\color{royalblue}{v_{k-1}} \\ 
@@ -179,7 +179,7 @@ $$
 
 <br>
 
-$$
+- $$
 
 \begin{align} 
 \color{deeppink}{\mathbf{\hat{x}}_k} &= \begin{bmatrix} 
