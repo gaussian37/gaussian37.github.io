@@ -562,7 +562,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-- $$ (\partial_{x}f(x, y) \Delta x + \partial_{y}f(x, y) \Delta y) \color{purple} \to \begin{bmatrix} \partial_{x}f(x, y), & \partial_{y}f(x, y) \end{bmatrix} \begin{bmatrix} \Delta x \\ \Delta y \end{bmatrix} \color{orange} \to J_{f} \Delta x $$
+- $$ (\partial_{x}f(x, y) \Delta x + \partial_{y}f(x, y) \Delta y) \color{purple}{\to} \color{purple}{\begin{bmatrix} \partial_{x}f(x, y) & \partial_{y}f(x, y) \end{bmatrix} \begin{bmatrix} \Delta x \\ \Delta y \end{bmatrix}} \color{orange}{\to J_{f} \Delta x} $$
 
 <br>
 
