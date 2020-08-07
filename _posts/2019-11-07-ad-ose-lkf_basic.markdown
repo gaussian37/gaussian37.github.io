@@ -179,17 +179,7 @@ $$
 
 <br>
 
-- $$
-
-\begin{align} 
-\color{deeppink}{\mathbf{\hat{x}}_k} &= \begin{bmatrix} 
-1 & \Delta t \\ 
-0 & 1 
-\end{bmatrix} \color{royalblue}{\mathbf{\hat{x}}_{k-1}} \\ 
-&= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}} \label{statevars} 
-\end{align}
-
-$$
+- $$ \begin{align} \color{deeppink}{\mathbf{\hat{x}}_k} &= \begin{bmatrix} 1 & \Delta t \\ 0 & 1 \end{bmatrix} \color{royalblue}{\mathbf{\hat{x}}_{k-1}} \\ &= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}} \label{statevars} \end{align} $$
 
 <br>
 
