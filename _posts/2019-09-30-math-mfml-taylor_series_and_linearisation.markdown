@@ -27,6 +27,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
     - #### Example of Taylor series
     - #### Linearisation
 - ### Multivariable Taylor Series
+    - #### Multivariate Taylor
 - ### 테일러 급수의 사용 이유와 활용
 
 <br>
@@ -497,43 +498,6 @@ $$ - \frac{f''(x)}{2} \Delta x - \frac{f^{(3)}(x)}{6} \Delta x^{2} - \cdots $$
 <br>
 
 - 여기서 다룬 기법은 컴퓨터가 문제를 해결할 때, 사람처럼 분석적인 방법으로 문제를 해결하는 것이 아닌 수치적으로 해결할 때 유용하게 사용됩니다. 그 내용은 다음 글에서 다루어 볼 예정입니다.
-
-<br>
-
-## **Multivariable Taylor Series**
-
-<br>
-
-- 지금까지 배운 내용은 단일 변수일 때 적용한 테일러 급수이었습니다. 이번에는 차원을 늘려서 다변수에서 테일러 급수를 사용해 보도록 하겠습니다. 먼저 바로 앞에서 배운 내용을 다시 정리하면 다음과 같습니다.
-
-<br>
-<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/22.png" alt="Drawing" style="width: 600px;"/></center>
-<br>
-
-$$ f(x + \Delta x) = \sum_{n=0}^{\infty} \frac{f^{(n)(x)}}{n!} \Delta x^{n} $$
-
-- 위 식의 변수는 $$ x $$ 입니다. 
-- 만약 변수를 늘려 $$ f(x + \Delta x, y + \Delta y) $$ 로 확장하면 어떻게 될까요?
-
-<br>
-<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/23.png" alt="Drawing" style="width: 400px;"/></center>
-<br>
-
-- 위 그림과 같이 가우시안 분포 형태의 그래프를 대상으로 이변량 테일러 급수에 대하여 알아보도록 하겠습니다.
-- 앞에서 살펴 보았듯이 단일 변수에서는 0차로 근사화 하면 변수 축에 평행한 형태로 근사화 되었고 근사화 한 점의 함수값과 교차하는 형태를 가졌습니다.
-
-<br>
-<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/24.png" alt="Drawing" style="width: 400px;"/></center>
-<br>
-
-- 이변량의 경우에도 0차로 근사화 한 경우 단일변량의 경우와 유사한 형태로 나타납니다. 위 그림을 참조하시기 바랍니다. 단순히 직선이 면으로 확장되었다고 보면 됩니다.
-- 단인변량 함수에서 0차로 근사한 선과와 1차로 근사한 선의 차이점은 무엇일까요? 바로 기울기 입니다. 그러면 이변량의 경우에는 면에 기울기가 발생한다고 생각할 수 있습니다.
-
-<br>
-<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/25.png" alt="Drawing" style="width: 400px;"/></center>
-<br>
-
-- 위 그림을 보면 1차로 근사한 경우 기울기가 있는 면의 형태가 되는 것을 알 수 있습니다.
 
 <br>
 
