@@ -536,19 +536,6 @@ $$ f(x + \Delta x) = \sum_{n=0}^{\infty} \frac{f^{(n)(x)}}{n!} \Delta x^{n} $$
 - 위 그림을 보면 1차로 근사한 경우 기울기가 있는 면의 형태가 되는 것을 알 수 있습니다.
 
 <br>
-<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/26.png" alt="Drawing" style="width: 800px;"/></center>
-<br>
-
-- 위 그림은 2차식으로 근사한 경우입니다. 왼쪽 그림은 테일러 급수에서 근사하기 위해 사용한 지점이 꼭대기 점인 반면에 오른쪽 그림에서 근사하기 위해 사용한 지점은 지면에 있는 값에 해당합니다.
-- 즉, 위 그림을 통해 어느 지점을 기준으로 근사화를 하느냐에 따라서 근사화 성능이 달라질 수 있음을 알 수 있습니다.
-
-<br>
-
-- 이번에는 `이변량 테일러 급수`의 식을 어떻게 전개하는 지 알아보도록 하겠습니다.
-- `단일 변량`의 경우 $$ f(x + \Delta x) $$ 형태로 나타낸 반면 `이변량`의 경우 $$ f(x + \Delta x, y + \Delta y) $$로 나타낼 수 있습니다.
-- 
-
-<br>
 
 [mathematics for machine learning 글 목록](https://gaussian37.github.io/math-mfml-table/)
 
