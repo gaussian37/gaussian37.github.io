@@ -64,7 +64,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-- $$ \text{t(m)} 7.33m^{5} - 72.3m^{4} + 253m^{3} - 368m^{2} + 250m + 0.02 $$
+- $$ \text{t(m)} = 7.33m^{5} - 72.3m^{4} + 253m^{3} - 368m^{2} + 250m + 0.02 $$
 
 <br>
 
@@ -150,7 +150,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-$$ e^{x} = 1 + x + \frac{x^{2}}{2} + \frac{x^{3}}{6} + \frac{x^{4}}{24} + \cdots $$
+- $$ e^{x} = 1 + x + \frac{x^{2}}{2} + \frac{x^{3}}{6} + \frac{x^{4}}{24} + \cdots $$
 
 <br>
 
@@ -172,11 +172,11 @@ $$ e^{x} = 1 + x + \frac{x^{2}}{2} + \frac{x^{3}}{6} + \frac{x^{4}}{24} + \cdots
 
 <br>
 
-$$ f(x) = ax^{2} + bx + c $$
+    $$ f(x) = ax^{2} + bx + c $$
 
-$$ f'(x) = 2ax + b $$
+    $$ f'(x) = 2ax + b $$
 
-$$ f''(x) = 2a $$
+    $$ f''(x) = 2a $$
 
 <br>
 
