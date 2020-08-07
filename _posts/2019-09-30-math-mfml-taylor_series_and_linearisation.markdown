@@ -13,8 +13,8 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-- 이번 글에서 다룰 `테일러 급수`는 함수를 `다항식 급수`로 다시 표현하는 방법입니다. 
-- 테일러 급수는 간단한 선형 근사법을 복잡한 함수에 사용합니다. 이 글에서는 먼저 단일변수 테일러 급수의 공식 표현을 도출하고 기계 학습과 관련된 이 결과의 몇 가지 중요한 결과에 대해 논의해 보겠습니다. 더 나아가 다변수 사례로 확장한 후 `Jacobian`과 `Hessian`이 어떻게 적용되는 지 살펴보겠습니다. 마지막에 다루는 다변수 테일러 급수에서는 앞에서 다룬 모든 내용을 총 집합 해서 설명해 보도록 하겠습니다.
+- 이번 글에서 다룰 `테일러 급수`는 임의의 함수를 `다항식 급수`로 재 표현하는 방법입니다. 
+- 테일러 급수는 간단한 선형 근사법을 복잡한 함수에 사용합니다. 이 글에서는 먼저 단일변수를 이용한 테일러 급수의 공식을 유도하고 기계 학습과 관련된 이 결과의 몇 가지 중요한 결과에 대해 논의해 보겠습니다. 더 나아가 다변수 사례로 확장한 후 `Jacobian`과 `Hessian`이 어떻게 적용되는 지 살펴보겠습니다. 마지막에 다루는 다변수 테일러 급수에서는 앞에서 다룬 모든 내용을 총 집합 해서 설명해 보도록 하겠습니다.
 
 <br>
 
@@ -27,7 +27,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
     - #### Example of Taylor series
     - #### Linearisation
 - ### Multivariable Taylor Series
-    - #### Multivariate Taylor
+- ### 테일러 급수의 사용 이유와 활용
 
 <br>
 
@@ -52,7 +52,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-- $$ \text{t(m, OvenFactor, ChickenShapeFactor)} = 7.33m^{5} - 72.3m^{4} + 253m^{3} - 368m^{2} + 250m + 0.02 + \text{OvenFactor} + \text{ChickenShapeFactor} $$
+$$ \text{t(m, OvenFactor, ChickenShapeFactor)} = 7.33m^{5} - 72.3m^{4} + 253m^{3} - 368m^{2} + 250m + 0.02 + \text{OvenFactor} + \text{ChickenShapeFactor} $$
 
 <br>
 
@@ -385,8 +385,15 @@ $$ 1/x = \sum_{n=0}^{\infty}(-1)^{n}(x-1)^{n} $$
 <br>
 
 - 위 식과 같은 불연속 함수를 근사화 하면 다음과 같은 문제가 발생하게 됩니다.
-- ① `테일러 급수`를 통해 도출한 근사식을 실제 그려보면 $$ x \gt 0 $$ 영역에서만 $$ y $$ 값을 가지게 됩니다. 이는 불연속 함수 $$ f(x) $$를 근사화 했기 때문이고 그 중 $$ x = 1 $$을 포함하는 연속 구간의 식만 근사화 된것입니다.
-- ② 연속 함수 근사화와 달리 상당히 불안정하게 근사화 하게 됩니다. 앞에서 살펴보았던 $$ \cos{(x)} $$는 꽤나 근사화가 잘된 반면 $$ 1/x $$는 원래 함수 모양에 수렴하지 않습니다.
+- ① `테일러 급수`를 통해 도출한 근사식을 실제 그려보면 $$ x \gt 0 $$ 영역에서만 $$ y $$ 값을 가지게 됩니다. 이는 불연속 함수 $$ f(x) $$를 근사화 했기 때문이고 그 중 $$ x = 1 $$을 포함하는 **연속 구간의 식만 근사화** 된것입니다.
+- ② 연속 함수 근사화와 달리 상당히 불안정하게 근사화 하게 됩니다. 앞에서 살펴보았던 $$ \cos{(x)} $$는 꽤나 근사화가 잘된 반면 $$ 1/x $$는 원래 함수 모양에 수렴하지 않습니다. 특히 **점근선을 무시하는 근사화**가 되곤합니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/21.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 예제를 한개 더 살펴보겠습니다. 위 그래프의 식은 $$ f(x) = 2 / (x^{2} - x) $$ 입니다. 이 식 또한 불연속적이기 때문에 테일러 급수로 근사화 하였을 때, 모든 영역을 근사화 할 수 없습니다.
+- 예를 들어 $$ x = 0.5 $$에서 근사하면 $$ 0 \lt x \lt 1 $$ 영역에서의 함수값만 근사하게 됩니다. 반면 $$ x = -3 $$ 에서 근사하면 $$ x \lt 0 $$ 영역의 함수값만 근사하게 됩니다. 같은 이유로 $$ x = 2 $$ 에서 근사하면 $$ x \gt 1 $$ 영역의 함수값만 근사하게 됩니다.
 
 <br>
 
@@ -450,7 +457,7 @@ $$ f(x + \Delta x) = f(x) + f'(x)(\Delta x) + (0 + 0 + \cdots) = f(x) + f'(x)(\D
 
 <br>
 
-- 위 식과 같이 어떤 함수 $$ f(x) $$를 0에 가까운 작은 값 $$ \Detla x $$를 이용하여 근사화 할 때, 더해지는 값이 0에 가깝다고 판단되는 제곱, 세제곱, ... , n제곱 항을 무시하여 간단하게 표시한 위 식을 `선형화(linearisation)` 라고 합니다.
+- 위 식과 같이 어떤 함수 $$ f(x) $$를 0에 가까운 작은 값 $$ \Delta x $$를 이용하여 근사화 할 때, 더해지는 값이 0에 가깝다고 판단되는 제곱, 세제곱, ... , n제곱 항을 무시하여 간단하게 표시한 위 식을 `선형화(linearisation)` 라고 합니다.
 - 이 컨셉으로 **복잡한 함수를 단순한 선형 함수로 근사화 하여 값을 예측**할 수 있습니다.
 
 <br>
@@ -462,6 +469,93 @@ $$ f(x + \Delta x) = f(x) + f'(x)(\Delta x) + (0 + 0 + \cdots) = f(x) + f'(x)(\D
 - 주황색 선은 실제 함수 $$ f(x) $$를 이용하여 $$ \Delta x $$ 증가에 따른 변화율은 구한 것이므로 근사화 한 것이 아닌 정확한 값입니다.
 - 반면 초록색 선은 테일러 급수의 원리에 따라서 근사화 한 값이기 때문에 같은 $$ \Delta x $$를 이용하였다고 하더라도 주황색 선과 차이를 보입니다. 이 차이를 `error` 라고 하겠습니다.
 - 그러면 `error`가 얼만큼인지 확인하기 위해 식을 변형해 보겠습니다.
+
+<br>
+
+$$ f(x + \Delta x) =  f(x) + f'(x)\Delta x  + \frac{f''(x)}{2} \Delta x^{2} + \frac{f^{(3)}(x)}{6} \Delta x^{3} + \cdots $$
+
+$$ f'(x) = \frac{f(x + \Delta x) - f(x)}{\Delta x} - \frac{f''(x)}{2} \Delta x - \frac{f^{(3)}(x)}{6} \Delta x^{2} - \cdots $$
+
+<br>
+
+- 위의 첫번째 식을 $$ f'(x) $$에 대하여 정리하면 두번째 식과 같이 정리할 수 있습니다.
+- 두번째 식에서 우번의 첫번째 항이 바로 `rise over run` 입니다.
+- 앞에서 `linearisation`을 위하여 두번째 식의 2번째 항 부터는 0에 수렴한다고 가정하여 아래 식과 같이 사용하였습니다.
+
+<br>
+
+$$ f'(x) = \frac{f(x + \Delta x) - f(x)}{\Delta x} + 0 $$
+
+<br>
+
+- 그러면 `linearisation`을 하였을 때의 `error`는 0에 수렴한다고 가정한 부분임을 알 수 있습니다. 즉 다음 식 부분이 실제 error에 해당합니다.
+
+<br>
+
+$$ - \frac{f''(x)}{2} \Delta x - \frac{f^{(3)}(x)}{6} \Delta x^{2} - \cdots $$
+
+<br>
+
+- 여기서 다룬 기법은 컴퓨터가 문제를 해결할 때, 사람처럼 분석적인 방법으로 문제를 해결하는 것이 아닌 수치적으로 해결할 때 유용하게 사용됩니다. 그 내용은 다음 글에서 다루어 볼 예정입니다.
+
+<br>
+
+## **Multivariable Taylor Series**
+
+<br>
+
+- 지금까지 배운 내용은 단일 변수일 때 적용한 테일러 급수이었습니다. 이번에는 차원을 늘려서 다변수에서 테일러 급수를 사용해 보도록 하겠습니다. 먼저 바로 앞에서 배운 내용을 다시 정리하면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/22.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+$$ f(x + \Delta x) = \sum_{n=0}^{\infty} \frac{f^{(n)(x)}}{n!} \Delta x^{n} $$
+
+- 위 식의 변수는 $$ x $$ 입니다. 
+- 만약 변수를 늘려 $$ f(x + \Delta x, y + \Delta y) $$ 로 확장하면 어떻게 될까요?
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/23.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 가우시안 분포 형태의 그래프를 대상으로 이변량 테일러 급수에 대하여 알아보도록 하겠습니다.
+- 앞에서 살펴 보았듯이 단일 변수에서는 0차로 근사화 하면 변수 축에 평행한 형태로 근사화 되었고 근사화 한 점의 함수값과 교차하는 형태를 가졌습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/24.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 이변량의 경우에도 0차로 근사화 한 경우 단일변량의 경우와 유사한 형태로 나타납니다. 위 그림을 참조하시기 바랍니다. 단순히 직선이 면으로 확장되었다고 보면 됩니다.
+- 단인변량 함수에서 0차로 근사한 선과와 1차로 근사한 선의 차이점은 무엇일까요? 바로 기울기 입니다. 그러면 이변량의 경우에는 면에 기울기가 발생한다고 생각할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/25.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림을 보면 1차로 근사한 경우 기울기가 있는 면의 형태가 되는 것을 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/26.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림은 2차식으로 근사한 경우입니다. 왼쪽 그림은 테일러 급수에서 근사하기 위해 사용한 지점이 꼭대기 점인 반면에 오른쪽 그림에서 근사하기 위해 사용한 지점은 지면에 있는 값에 해당합니다.
+- 즉, 위 그림을 통해 어느 지점을 기준으로 근사화를 하느냐에 따라서 근사화 성능이 달라질 수 있음을 알 수 있습니다.
+
+<br>
+
+- 이번에는 `이변량 테일러 급수`의 식을 어떻게 전개하는 지 알아보도록 하겠습니다.
+- `단일 변량`의 경우 $$ f(x + \Delta x) $$ 형태로 나타낸 반면 `이변량`의 경우 $$ f(x + \Delta x, y + \Delta y) $$로 나타낼 수 있습니다.
+- 각 변수에 대하여 변화량을 계산하여 근사화 해야하므로 편미분을 사용합니다. 따라서 아래 식과 같이 0차, 1차, 2차에 대하여 편미분을 통해 테일러 급수를 전개할 수 있습니다.
+- 아래 식에서 사용되는 자코비안과 헤시안 행렬의 개념은 [다음 링크](https://gaussian37.github.io/math-mfml-multivariate_calculus_and_jacobian/)에서 확인하실 수 있습니다.
+
+<br>
+
+$$ f(x, y) \quad \text{0th derivative} $$
+
+$$ (\partial_{x}f(x, y) \Delta x + \partial_{y}f(x, y) \Delta y)  \quad \text{1st derivative} $$
+
+$$ \frac{1}{2}(\partial_{xx}f(x, y) \Delta x^{2} + 2\partial_{xy}f(x, y)\Delta x \Delta y + \partial_{yy}f(x, y) \Delta y^{2}) \quad \text{2nd derivative} $$
 
 
 <br>
