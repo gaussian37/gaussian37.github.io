@@ -238,7 +238,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-- - $$ g_{n}(x) = \sum_{n=0}^{\infty} \frac{1}{n!}f^{(n)}(0)x^{n} $$
+- $$ g_{n}(x) = \sum_{n=0}^{\infty} \frac{1}{n!}f^{(n)}(0)x^{n} $$
 
 <br>
 
@@ -378,9 +378,9 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-- - $$ 1/x = 1 - (x-1) + (x-1)^{2} - (x-1)^{3} + \cdots $$
+- $$ 1/x = 1 - (x-1) + (x-1)^{2} - (x-1)^{3} + \cdots $$
 
-- - $$ 1/x = \sum_{n=0}^{\infty}(-1)^{n}(x-1)^{n} $$
+- $$ 1/x = \sum_{n=0}^{\infty}(-1)^{n}(x-1)^{n} $$
 
 <br>
 
@@ -453,7 +453,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-- $$ f(x + \Delta x) = f(x) + f'(x)(\Delta x) + (0 + 0 + \cdots) = f(x) + f'(x)(\Delta x)
+- $$ f(x + \Delta x) = f(x) + f'(x)(\Delta x) + (0 + 0 + \cdots) = f(x) + f'(x)(\Delta x) $$
 
 <br>
 
@@ -551,11 +551,11 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-- $$ f(x, y) \quad \text{0th derivative} $$
+- $$ f(x, y) \quad \text{ : 0th derivative} $$
 
-- $$ (\partial_{x}f(x, y) \Delta x + \partial_{y}f(x, y) \Delta y)  \quad \text{1st derivative} $$
+- $$ (\partial_{x}f(x, y) \Delta x + \partial_{y}f(x, y) \Delta y)  \quad \text{ : 1st derivative} $$
 
-- $$ \frac{1}{2}(\partial_{xx}f(x, y) \Delta x^{2} + 2\partial_{xy}f(x, y)\Delta x \Delta y + \partial_{yy}f(x, y) \Delta y^{2}) \quad \text{2nd derivative} $$
+- $$ \frac{1}{2}(\partial_{xx}f(x, y) \Delta x^{2} + 2\partial_{xy}f(x, y)\Delta x \Delta y + \partial_{yy}f(x, y) \Delta y^{2}) \quad \text{ : 2nd derivative} $$
 
 
 <br>

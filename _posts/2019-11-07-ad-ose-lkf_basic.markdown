@@ -67,7 +67,7 @@ tags: [칼만 필터, kalman filter, 선형 칼만 필터] # add tag
 
 <br>
 
-$$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
+- $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
 
 <br>
 
@@ -125,7 +125,7 @@ $$ \vec{x} = \begin{bmatrix} p\\ v \end{bmatrix} $$
 
 <br>
 
-$$
+- $$
 \begin{equation} \label{eq:statevars} 
 \begin{aligned} 
 \mathbf{\hat{x}}_k &= \begin{bmatrix} 
