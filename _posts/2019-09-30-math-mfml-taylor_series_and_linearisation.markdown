@@ -52,7 +52,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-$$ \text{t(m, OvenFactor, ChickenShapeFactor)} = 7.33m^{5} - 72.3m^{4} + 253m^{3} - 368m^{2} + 250m + 0.02 + \text{OvenFactor} + \text{ChickenShapeFactor} $$
+- $$ \text{t(m, OvenFactor, ChickenShapeFactor)} = 7.33m^{5} - 72.3m^{4} + 253m^{3} - 368m^{2} + 250m + 0.02 + \text{OvenFactor} + \text{ChickenShapeFactor} $$
 
 <br>
 
