@@ -546,16 +546,7 @@ $$ f(x + \Delta x) = \sum_{n=0}^{\infty} \frac{f^{(n)(x)}}{n!} \Delta x^{n} $$
 
 - 이번에는 `이변량 테일러 급수`의 식을 어떻게 전개하는 지 알아보도록 하겠습니다.
 - `단일 변량`의 경우 $$ f(x + \Delta x) $$ 형태로 나타낸 반면 `이변량`의 경우 $$ f(x + \Delta x, y + \Delta y) $$로 나타낼 수 있습니다.
-- 각 변수에 대하여 변화량을 계산하여 근사화 해야하므로 편미분을 사용합니다.
-
-<br>
-
-$$ f(x, y) \quad \text{0th derivative} $$
-
-$$ (\partial_{x}f(x, y) \Delta x + \partial_{y}f(x, y) \Delta y)  \quad \text{0th derivative} $$
-
-$$ f(x, y) \quad \text{0th derivative} $$
-
+- 
 
 <br>
 
