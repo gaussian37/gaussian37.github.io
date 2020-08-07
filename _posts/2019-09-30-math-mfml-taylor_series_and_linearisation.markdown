@@ -172,11 +172,11 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-    $$ f(x) = ax^{2} + bx + c $$
+- $$ f(x) = ax^{2} + bx + c $$
 
-    $$ f'(x) = 2ax + b $$
+- $$ f'(x) = 2ax + b $$
 
-    $$ f''(x) = 2a $$
+- $$ f''(x) = 2a $$
 
 <br>
 
@@ -184,11 +184,11 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-$$ f(0) = c $$
+- $$ f(0) = c $$
 
-$$ f'(0) = b $$
+- $$ f'(0) = b $$
 
-$$ f''(0) =  2a $$ 
+- $$ f''(0) =  2a $$ 
 
 <br>
 
@@ -196,7 +196,7 @@ $$ f''(0) =  2a $$
 
 <br>
 
-$$ g_{2}(x) = c + bx + ax^{2} = f(0) + f'(0)x + \frac{f''(0)}{2}x^{2} $$
+- $$ g_{2}(x) = c + bx + ax^{2} = f(0) + f'(0)x + \frac{f''(0)}{2}x^{2} $$
 
 <br>
 
@@ -204,15 +204,15 @@ $$ g_{2}(x) = c + bx + ax^{2} = f(0) + f'(0)x + \frac{f''(0)}{2}x^{2} $$
 
 <br>
 
-$$ f(x) = ax^{3} + bx^{2} + cx + d $$
+- $$ f(x) = ax^{3} + bx^{2} + cx + d $$
 
-$$ f^{(1)}(x) =  3ax^{2} + 2bx + c $$
+- $$ f^{(1)}(x) =  3ax^{2} + 2bx + c $$
 
-$$ f^{(2)}(x) = 6ax + 2b $$
+- $$ f^{(2)}(x) = 6ax + 2b $$
 
-$$ f^{(3)}(x) = 6a $$
+- $$ f^{(3)}(x) = 6a $$
 
-$$ f^{(3)}(0) = 6a, \quad a = f^{(3)}(0) / 6 $$
+- $$ f^{(3)}(0) = 6a, \quad a = f^{(3)}(0) / 6 $$
 
 <br>
 <center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/9.png" alt="Drawing" style="width: 600px;"/></center>
@@ -222,15 +222,15 @@ $$ f^{(3)}(0) = 6a, \quad a = f^{(3)}(0) / 6 $$
 
 <br>
 
-$$ g_{0}(x) = f(0) $$
+- $$ g_{0}(x) = f(0) $$
 
-$$ g_{1}(x) = f(0) + f^{(1)}(0)x $$
+- $$ g_{1}(x) = f(0) + f^{(1)}(0)x $$
 
-$$ g_{2}(x) = f(0) + f^{(1)}(0)x + \frac{1}{2!}f^{(2)}(0)x^{2} $$
+- $$ g_{2}(x) = f(0) + f^{(1)}(0)x + \frac{1}{2!}f^{(2)}(0)x^{2} $$
 
-$$ g_{3}(x) = f(0) + f^{(1)}(0)x + \frac{1}{2!}f^{(2)}(0)x^{2} + \frac{1}{3!}f^{(3)}(0)x^{3} $$
+- $$ g_{3}(x) = f(0) + f^{(1)}(0)x + \frac{1}{2!}f^{(2)}(0)x^{2} + \frac{1}{3!}f^{(3)}(0)x^{3} $$
 
-$$ g_{4}(x) = f(0) + f^{(1)}(0)x + \frac{1}{2!}f^{(2)}(0)x^{2} + \frac{1}{3!}f^{(3)}(0)x^{3} + \frac{1}{4!}f^{(4)}(0)x^{4} $$
+- $$ g_{4}(x) = f(0) + f^{(1)}(0)x + \frac{1}{2!}f^{(2)}(0)x^{2} + \frac{1}{3!}f^{(3)}(0)x^{3} + \frac{1}{4!}f^{(4)}(0)x^{4} $$
 
 <br>
 
@@ -238,7 +238,7 @@ $$ g_{4}(x) = f(0) + f^{(1)}(0)x + \frac{1}{2!}f^{(2)}(0)x^{2} + \frac{1}{3!}f^{
 
 <br>
 
-$$ g_{n}(x) = \sum_{n=0}^{\infty} \frac{1}{n!}f^{(n)}(0)x^{n} $$
+- - $$ g_{n}(x) = \sum_{n=0}^{\infty} \frac{1}{n!}f^{(n)}(0)x^{n} $$
 
 <br>
 
@@ -274,15 +274,15 @@ $$ g_{n}(x) = \sum_{n=0}^{\infty} \frac{1}{n!}f^{(n)}(0)x^{n} $$
 <center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/12.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-$$ y = mx + c $$
+- $$ y = mx + c $$
 
-$$ y = f'(p)x + c $$
+- $$ y = f'(p)x + c $$
 
-$$ f(p) = f'(p)p + c, \quad c = f(p) - f'(p)p $$
+- $$ f(p) = f'(p)p + c, \quad c = f(p) - f'(p)p $$
 
-$$ \therefore y = mx + c = f'(x)x + f(p) - f'(p)p $$
+- $$ \therefore y = mx + c = f'(x)x + f(p) - f'(p)p $$
 
-$$ y = f'(p)(x - p) + f(p) $$
+- $$ y = f'(p)(x - p) + f(p) $$
 
 <br>
 
@@ -291,13 +291,13 @@ $$ y = f'(p)(x - p) + f(p) $$
 
 <br>
 
-$$ g_{0}(x) = f(p) $$
+- $$ g_{0}(x) = f(p) $$
 
-$$ g_{1}(x) = f(p) + f'(p)(x-p) $$
+- $$ g_{1}(x) = f(p) + f'(p)(x-p) $$
 
-$$ g_{2}(x) = f(p) + f'(p)(x-p) + \frac{1}{2}f''(p)(x - p)^{2} $$
+- $$ g_{2}(x) = f(p) + f'(p)(x-p) + \frac{1}{2}f''(p)(x - p)^{2} $$
 
-$$ g(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(p)}{n!}(x - p)^{n} $$
+- $$ g(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(p)}{n!}(x - p)^{n} $$
 
 <br>
 <center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/13.png" alt="Drawing" style="width: 800px;"/></center>
@@ -324,15 +324,15 @@ $$ g(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(p)}{n!}(x - p)^{n} $$
 
 <br>
 
-$$ f(x) = \cos{(x)}, \quad \therefore f(0) = \cos{(0)} = 1 $$
+- $$ f(x) = \cos{(x)}, \quad \therefore f(0) = \cos{(0)} = 1 $$
 
-$$ f'(x) = -\sin{(x)}, \quad \therefore f'(0) = -\sin{(0)} = 0 $$
+- $$ f'(x) = -\sin{(x)}, \quad \therefore f'(0) = -\sin{(0)} = 0 $$
 
-$$ f''(x) = -\cos{(x)}, \quad \therefore f''(0) = -\cos{(0)} = -1 $$
+- $$ f''(x) = -\cos{(x)}, \quad \therefore f''(0) = -\cos{(0)} = -1 $$
 
-$$ f^{(3)}(x) = \sin{(x)}, \quad \therefore f^{(3)}(0) = \sin{(0)} = 0 $$
+- $$ f^{(3)}(x) = \sin{(x)}, \quad \therefore f^{(3)}(0) = \sin{(0)} = 0 $$
 
-$$ f^{(4)}(x) = \cos{(x)}, \quad \therefore f^{(4)}(0) = \cos{(0)} = 1 $$
+- $$ f^{(4)}(x) = \cos{(x)}, \quad \therefore f^{(4)}(0) = \cos{(0)} = 1 $$
 
 <br>
 
@@ -340,7 +340,7 @@ $$ f^{(4)}(x) = \cos{(x)}, \quad \therefore f^{(4)}(0) = \cos{(0)} = 1 $$
 
 <br>
 
-$$ cos(x) = 1 - \frac{x^{2}}{2} + \frac{x^{4}}{24} - \frac{x^{6}}{720} + \cdots = \sum_{n=0}^{\infty} \frac{(-1)^{n}}{(2n)!}x^{2n} $$
+- $$ cos(x) = 1 - \frac{x^{2}}{2} + \frac{x^{4}}{24} - \frac{x^{6}}{720} + \cdots = \sum_{n=0}^{\infty} \frac{(-1)^{n}}{(2n)!}x^{2n} $$
 
 <br>
 
@@ -362,15 +362,15 @@ $$ cos(x) = 1 - \frac{x^{2}}{2} + \frac{x^{4}}{24} - \frac{x^{6}}{720} + \cdots 
 
 <br>
 
-$$ f(x) = 1/x, \quad \therefore f(1) = 1/1 = 1 $$
+- $$ f(x) = 1/x, \quad \therefore f(1) = 1/1 = 1 $$
 
-$$ f'(x) = -1/x^{2}, \quad \therefore f'(1) = -1/1^{2} = -1 $$
+- $$ f'(x) = -1/x^{2}, \quad \therefore f'(1) = -1/1^{2} = -1 $$
 
-$$ f''(x) = 2/x^{3}, \quad \therefore f''(1) = 2/1^{3} = 2 $$
+- $$ f''(x) = 2/x^{3}, \quad \therefore f''(1) = 2/1^{3} = 2 $$
 
-$$ f^{(3)}(x) = -6/x^{4}, \quad \therefore f^{(3)}(1) = -6/1^{4} = -6 $$
+- $$ f^{(3)}(x) = -6/x^{4}, \quad \therefore f^{(3)}(1) = -6/1^{4} = -6 $$
 
-$$ f^{(4)}(x) = 24/x^{5}, \quad \therefore f^{(4)}(1) = 24/1^{5} = 24 $$
+- $$ f^{(4)}(x) = 24/x^{5}, \quad \therefore f^{(4)}(1) = 24/1^{5} = 24 $$
 
 <br>
 
@@ -378,9 +378,9 @@ $$ f^{(4)}(x) = 24/x^{5}, \quad \therefore f^{(4)}(1) = 24/1^{5} = 24 $$
 
 <br>
 
-$$ 1/x = 1 - (x-1) + (x-1)^{2} - (x-1)^{3} + \cdots $$
+- - $$ 1/x = 1 - (x-1) + (x-1)^{2} - (x-1)^{3} + \cdots $$
 
-$$ 1/x = \sum_{n=0}^{\infty}(-1)^{n}(x-1)^{n} $$
+- - $$ 1/x = \sum_{n=0}^{\infty}(-1)^{n}(x-1)^{n} $$
 
 <br>
 
@@ -410,9 +410,9 @@ $$ 1/x = \sum_{n=0}^{\infty}(-1)^{n}(x-1)^{n} $$
 
 <br>
 
-$$ \text{Gradient} = \text{Rise} / \text{Run} $$
+- $$ \text{Gradient} = \text{Rise} / \text{Run} $$
 
-$$ f'(p) = \text{Rise} / (x - p) $$
+- $$ f'(p) = \text{Rise} / (x - p) $$
 
 <br>
 
@@ -420,9 +420,9 @@ $$ f'(p) = \text{Rise} / (x - p) $$
 
 <br>
 
-$$  \text{Run} \times \text{Gradient} = \text{Rise} $$
+- $$  \text{Run} \times \text{Gradient} = \text{Rise} $$
 
-$$ (x - p) \times f'(p) = \text{Rise} $$
+- $$ (x - p) \times f'(p) = \text{Rise} $$
 
 <br>
 
@@ -444,7 +444,7 @@ $$ (x - p) \times f'(p) = \text{Rise} $$
 
 <br>
 
-$$ f(x + \Delta x) = \sum_{n = 0}^{\infty} \frac{f^{(n)(x)}}{n!} \Delta x^{n} = f(x) + f^{(1)}(x) \Delta x + \frac{f^{(2)}(x)}{2} \Delta x^{2} + \frac{f^{(3)}(x)}{6} \Delta x^{3} + \cdots $$
+- $$ f(x + \Delta x) = \sum_{n = 0}^{\infty} \frac{f^{(n)(x)}}{n!} \Delta x^{n} = f(x) + f^{(1)}(x) \Delta x + \frac{f^{(2)}(x)}{2} \Delta x^{2} + \frac{f^{(3)}(x)}{6} \Delta x^{3} + \cdots $$
 
 <br>
 
@@ -453,7 +453,7 @@ $$ f(x + \Delta x) = \sum_{n = 0}^{\infty} \frac{f^{(n)(x)}}{n!} \Delta x^{n} = 
 
 <br>
 
-$$ f(x + \Delta x) = f(x) + f'(x)(\Delta x) + (0 + 0 + \cdots) = f(x) + f'(x)(\Delta x)
+- $$ f(x + \Delta x) = f(x) + f'(x)(\Delta x) + (0 + 0 + \cdots) = f(x) + f'(x)(\Delta x)
 
 <br>
 
@@ -472,9 +472,9 @@ $$ f(x + \Delta x) = f(x) + f'(x)(\Delta x) + (0 + 0 + \cdots) = f(x) + f'(x)(\D
 
 <br>
 
-$$ f(x + \Delta x) =  f(x) + f'(x)\Delta x  + \frac{f''(x)}{2} \Delta x^{2} + \frac{f^{(3)}(x)}{6} \Delta x^{3} + \cdots $$
+- $$ f(x + \Delta x) =  f(x) + f'(x)\Delta x  + \frac{f''(x)}{2} \Delta x^{2} + \frac{f^{(3)}(x)}{6} \Delta x^{3} + \cdots $$
 
-$$ f'(x) = \frac{f(x + \Delta x) - f(x)}{\Delta x} - \frac{f''(x)}{2} \Delta x - \frac{f^{(3)}(x)}{6} \Delta x^{2} - \cdots $$
+- $$ f'(x) = \frac{f(x + \Delta x) - f(x)}{\Delta x} - \frac{f''(x)}{2} \Delta x - \frac{f^{(3)}(x)}{6} \Delta x^{2} - \cdots $$
 
 <br>
 
@@ -484,7 +484,7 @@ $$ f'(x) = \frac{f(x + \Delta x) - f(x)}{\Delta x} - \frac{f''(x)}{2} \Delta x -
 
 <br>
 
-$$ f'(x) = \frac{f(x + \Delta x) - f(x)}{\Delta x} + 0 $$
+- $$ f'(x) = \frac{f(x + \Delta x) - f(x)}{\Delta x} + 0 $$
 
 <br>
 
@@ -492,7 +492,7 @@ $$ f'(x) = \frac{f(x + \Delta x) - f(x)}{\Delta x} + 0 $$
 
 <br>
 
-$$ - \frac{f''(x)}{2} \Delta x - \frac{f^{(3)}(x)}{6} \Delta x^{2} - \cdots $$
+- $$ - \frac{f''(x)}{2} \Delta x - \frac{f^{(3)}(x)}{6} \Delta x^{2} - \cdots $$
 
 <br>
 
@@ -510,7 +510,7 @@ $$ - \frac{f''(x)}{2} \Delta x - \frac{f^{(3)}(x)}{6} \Delta x^{2} - \cdots $$
 <center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/22.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-$$ f(x + \Delta x) = \sum_{n=0}^{\infty} \frac{f^{(n)(x)}}{n!} \Delta x^{n} $$
+- $$ f(x + \Delta x) = \sum_{n=0}^{\infty} \frac{f^{(n)(x)}}{n!} \Delta x^{n} $$
 
 - 위 식의 변수는 $$ x $$ 입니다. 
 - 만약 변수를 늘려 $$ f(x + \Delta x, y + \Delta y) $$ 로 확장하면 어떻게 될까요?
@@ -551,11 +551,11 @@ $$ f(x + \Delta x) = \sum_{n=0}^{\infty} \frac{f^{(n)(x)}}{n!} \Delta x^{n} $$
 
 <br>
 
-$$ f(x, y) \quad \text{0th derivative} $$
+- $$ f(x, y) \quad \text{0th derivative} $$
 
-$$ (\partial_{x}f(x, y) \Delta x + \partial_{y}f(x, y) \Delta y)  \quad \text{1st derivative} $$
+- $$ (\partial_{x}f(x, y) \Delta x + \partial_{y}f(x, y) \Delta y)  \quad \text{1st derivative} $$
 
-$$ \frac{1}{2}(\partial_{xx}f(x, y) \Delta x^{2} + 2\partial_{xy}f(x, y)\Delta x \Delta y + \partial_{yy}f(x, y) \Delta y^{2}) \quad \text{2nd derivative} $$
+- $$ \frac{1}{2}(\partial_{xx}f(x, y) \Delta x^{2} + 2\partial_{xy}f(x, y)\Delta x \Delta y + \partial_{yy}f(x, y) \Delta y^{2}) \quad \text{2nd derivative} $$
 
 
 <br>
