@@ -164,14 +164,7 @@ $$
 
 <br>
 
-- $$ 
-
-\begin{split} 
-\color{deeppink}{p_k} &= \color{royalblue}{p_{k-1}} + \Delta t &\color{royalblue}{v_{k-1}} \\ 
-\color{deeppink}{v_k} &= &\color{royalblue}{v_{k-1}} 
-\end{split}
-
-$$
+- $$ \begin{split} \color{deeppink}{p_k} &= \color{royalblue}{p_{k-1}} + \Delta t &\color{royalblue}{v_{k-1}} \\ \color{deeppink}{v_k} &= &\color{royalblue}{v_{k-1}} \end{split} $$
 
 <br>
 
@@ -198,14 +191,7 @@ $$
 
 <br>
 
-$$
-\begin{equation} 
-\begin{split} 
-Cov(x) &= \Sigma\\ 
-Cov(\color{firebrick}{\mathbf{A}}x) &= \color{firebrick}{\mathbf{A}} \Sigma \color{firebrick}{\mathbf{A}}^T 
-\end{split} \label{covident} 
-\end{equation}
-$$
+- $$ \begin{equation} \begin{split} Cov(x) &= \Sigma\\ Cov(\color{firebrick}{\mathbf{A}}x) &= \color{firebrick}{\mathbf{A}} \Sigma \color{firebrick}{\mathbf{A}}^T \end{split} \label{covident} \end{equation} $$
 
 <br>
 
@@ -216,16 +202,7 @@ $$
 
 <br>
 
-$$
-
-\begin{align}{\rm COV}[A x] & = \mathbb{E}[(Ax - \mathbb{E}[Ax])(Ax - \mathbb{E}[Ax])^T] \\
-& = \mathbb{E}[(Ax - A\mathbb{E}[x])(Ax - A\mathbb{E}[x])^T ]\\
-& = \mathbb{E}[A(x - \mathbb{E}[x])(x - \mathbb{E}[x])^T A^T ] \\
-& = A \mathbb{E}[(x - \mathbb{E}[x])(x - \mathbb{E}[x])^T  ]A^T \\
-& = A {\rm COV}[x] A^T \\
-\end{align}
-
-$$
+- $$ \begin{align}{\rm COV}[A x] & = \mathbb{E}[(Ax - \mathbb{E}[Ax])(Ax - \mathbb{E}[Ax])^T] \\ & = \mathbb{E}[(Ax - A\mathbb{E}[x])(Ax - A\mathbb{E}[x])^T ]\\ & = \mathbb{E}[A(x - \mathbb{E}[x])(x - \mathbb{E}[x])^T A^T ] \\ & = A \mathbb{E}[(x - \mathbb{E}[x])(x - \mathbb{E}[x])^T  ]A^T \\ & = A {\rm COV}[x] A^T \\ \end{align} $$
 
 <br>
 
@@ -233,14 +210,8 @@ $$
 
 <br>
 
-$$
-\begin{equation} 
-\begin{split} 
-\color{deeppink}{\mathbf{\hat{x}}_k} &= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}} \\ 
-\color{deeppink}{\mathbf{P}_k} &= \mathbf{F_k} \color{royalblue}{\mathbf{P}_{k-1}} \mathbf{F}_k^T 
-\end{split} 
-\end{equation}
-$$
+- $$ \begin{equation} \begin{split} \color{deeppink}{\mathbf{\hat{x}}_k} &= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}} \\ 
+\color{deeppink}{\mathbf{P}_k} &= \mathbf{F_k} \color{royalblue}{\mathbf{P}_{k-1}} \mathbf{F}_k^T \end{split} \end{equation} $$
 
 <br>
 
@@ -255,32 +226,14 @@ $$
 
 <br>
 
-$$
-
-\begin{split} 
-\color{deeppink}{p_k} &= \color{royalblue}{p_{k-1}} + {\Delta t} &\color{royalblue}{v_{k-1}} + &\frac{1}{2} \color{darkorange}{a} {\Delta t}^2 \\ 
-\color{deeppink}{v_k} &= &\color{royalblue}{v_{k-1}} + & \color{darkorange}{a} {\Delta t} 
-\end{split}
-
-$$
+- $$ \begin{split} \color{deeppink}{p_k} &= \color{royalblue}{p_{k-1}} + {\Delta t} &\color{royalblue}{v_{k-1}} + &\frac{1}{2} \color{darkorange}{a} {\Delta t}^2 \\ \color{deeppink}{v_k} &= &\color{royalblue}{v_{k-1}} + & \color{darkorange}{a} {\Delta t} 
+\end{split} $$
 
 <br>
 
 - 이것을 행렬 형태로 한번 나타내 보겠습니다.
 
-$$
-
-\begin{equation} 
-\begin{split} 
-\color{deeppink}{\mathbf{\hat{x}}_k} &= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}} + \begin{bmatrix} 
-\frac{\Delta t^2}{2} \\ 
-\Delta t 
-\end{bmatrix} \color{darkorange}{a} \\ 
-&= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}} + \mathbf{B}_k \color{darkorange}{\vec{\mathbf{u}_k}} 
-\end{split} 
-\end{equation}
-
-$$
+- $$ \begin{equation} \begin{split} \color{deeppink}{\mathbf{\hat{x}}_k} &= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}} + \begin{bmatrix} \frac{\Delta t^2}{2} \\ \Delta t \end{bmatrix} \color{darkorange}{a} \\ &= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}} + \mathbf{B}_k \color{darkorange}{\vec{\mathbf{u}_k}} \end{split} \end{equation} $$
 
 <br>
 
