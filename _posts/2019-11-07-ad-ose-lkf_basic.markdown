@@ -273,15 +273,7 @@ $$
 
 <br>
 
-$$
-\begin{equation} 
-\begin{split} 
-\color{deeppink}{\mathbf{\hat{x}}_k} &= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}} + \mathbf{B}_k \color{darkorange}{\vec{\mathbf{u}_k}} \\ 
-\color{deeppink}{\mathbf{P}_k} &= \mathbf{F_k} \color{royalblue}{\mathbf{P}_{k-1}} \mathbf{F}_k^T + \color{mediumaquamarine}{\mathbf{Q}_k} 
-\end{split} 
-\label{kalpredictfull} 
-\end{equation}
-$$
+- $$ \begin{equation} \begin{split} \color{deeppink}{\mathbf{\hat{x}}_k} &= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}} + \mathbf{B}_k \color{darkorange}{\vec{\mathbf{u}_k}} \\ \color{deeppink}{\mathbf{P}_k} &= \mathbf{F_k} \color{royalblue}{\mathbf{P}_{k-1}} \mathbf{F}_k^T + \color{mediumaquamarine}{\mathbf{Q}_k} \end{split} \label{kalpredictfull} \end{equation} $$
 
 <br>
 
@@ -319,16 +311,7 @@ $$
 
 <br>
 
-$$ 
-
-\begin{equation} 
-\begin{aligned} 
-\vec{\mu}_{\text{expected}} &= \mathbf{H}_k \color{deeppink}{\mathbf{\hat{x}}_k} \\ 
-\mathbf{\Sigma}_{\text{expected}} &= \mathbf{H}_k \color{deeppink}{\mathbf{P}_k} \mathbf{H}_k^T 
-\end{aligned} 
-\end{equation}
-
-$$ 
+- $$ \begin{equation} \begin{aligned} \vec{\mu}_{\text{expected}} &= \mathbf{H}_k \color{deeppink}{\mathbf{\hat{x}}_k} \\ \mathbf{\Sigma}_{\text{expected}} &= \mathbf{H}_k \color{deeppink}{\mathbf{P}_k} \mathbf{H}_k^T \end{aligned} \end{equation} $$ 
 
 <br>
 <center><img src="../assets/img/autodrive/ose/lkf_basic/11.jpg" alt="Drawing" style="width: 600px;"/></center>
@@ -374,13 +357,7 @@ $$
 
 <br>
 
-$$
-
-\begin{equation} \label{gaussformula} 
-\mathcal{N}(x, \mu,\sigma) = \frac{1}{ \sigma \sqrt{ 2\pi } } e^{ -\frac{ (x – \mu)^2 }{ 2\sigma^2 } } 
-\end{equation}
-
-$$
+- $$ \begin{equation} \label{gaussformula} \mathcal{N}(x, \mu,\sigma) = \frac{1}{ \sigma \sqrt{ 2\pi } } e^{ -\frac{ (x – \mu)^2 }{ 2\sigma^2 } } \end{equation} $$
 
 <br>
 
@@ -394,13 +371,7 @@ $$
 
 <br>
 
-$$
-
-\begin{equation} \label{gaussequiv} 
-\mathcal{N}(x, \color{fuchsia}{\mu_0}, \color{deeppink}{\sigma_0}) \cdot \mathcal{N}(x, \color{yellowgreen}{\mu_1}, \color{mediumaquamarine}{\sigma_1}) \stackrel{?}{=} \mathcal{N}(x, \color{royalblue}{\mu’}, \color{mediumblue}{\sigma’}) 
-\end{equation}
-
-$$
+- $$ \begin{equation} \label{gaussequiv} \mathcal{N}(x, \color{fuchsia}{\mu_0}, \color{deeppink}{\sigma_0}) \cdot \mathcal{N}(x, \color{yellowgreen}{\mu_1}, \color{mediumaquamarine}{\sigma_1}) \stackrel{?}{=} \mathcal{N}(x, \color{royalblue}{\mu’}, \color{mediumblue}{\sigma’}) \end{equation} $$
 
 <br>
 
@@ -408,13 +379,8 @@ $$
 
 <br>
 
-$$
-
-\begin{equation}
-\mathcal{N}(x, \mu,\sigma) = \frac{1}{ \sigma \sqrt{ 2\pi } } e^{ -\frac{ (x – \mu)^2 }{ 2\sigma^2 } } 
-\end{equation}
-
-$$
+- $$ \begin{equation} \mathcal{N}(x, \mu,\sigma) = \frac{1}{ \sigma \sqrt{ 2\pi } } e^{ -\frac{ (x – \mu)^2 }{ 2\sigma^2 } } 
+\end{equation} $$
 
 <br>
 
@@ -424,16 +390,8 @@ $$
 
 <br>
 
-$$
-
-\begin{equation} \label{fusionformula} 
-\begin{aligned} 
-\color{royalblue}{\mu’} &= \mu_0 + \frac{\sigma_0^2 (\mu_1 – \mu_0)} {\sigma_0^2 + \sigma_1^2}\\ 
-\color{mediumblue}{\sigma’}^2 &= \sigma_0^2 – \frac{\sigma_0^4} {\sigma_0^2 + \sigma_1^2} 
-\end{aligned} 
-\end{equation}
-
-$$
+- $$ \begin{equation} \label{fusionformula} \begin{aligned} \color{royalblue}{\mu’} &= \mu_0 + \frac{\sigma_0^2 (\mu_1 – \mu_0)} {\sigma_0^2 + \sigma_1^2}\\ \color{mediumblue}{\sigma’}^2 &= \sigma_0^2 – \frac{\sigma_0^4} {\sigma_0^2 + \sigma_1^2} 
+\end{aligned} \end{equation} $$
 
 <br>
 
@@ -441,13 +399,7 @@ $$
 
 <br>
 
-$$
-
-\begin{equation} \label{gainformula} 
-\color{purple}{\mathbf{k}} = \frac{\sigma_0^2}{\sigma_0^2 + \sigma_1^2} 
-\end{equation}
-
-$$
+- $$ \begin{equation} \label{gainformula} \color{purple}{\mathbf{k}} = \frac{\sigma_0^2}{\sigma_0^2 + \sigma_1^2} \end{equation} $$
 
 <br>
 
@@ -455,16 +407,7 @@ $$
 
 <br>
 
-$$
-
-\begin{equation} 
-\begin{split} 
-\color{royalblue}{\mu’} &= \mu_0 + &\color{purple}{\mathbf{k}} (\mu_1 – \mu_0)\\ 
-\color{mediumblue}{\sigma’}^2 &= \sigma_0^2 – &\color{purple}{\mathbf{k}} \sigma_0^2 
-\end{split} \label{update} 
-\end{equation}
-
-$$
+- $$ \begin{equation} \begin{split} \color{royalblue}{\mu’} &= \mu_0 + &\color{purple}{\mathbf{k}} (\mu_1 – \mu_0)\\ \color{mediumblue}{\sigma’}^2 &= \sigma_0^2 – &\color{purple}{\mathbf{k}} \sigma_0^2 \end{split} \label{update} \end{equation} $$
 
 <br>
 
@@ -476,26 +419,11 @@ $$
 
 <br>
 
-$$ 
-
-\begin{equation} \label{matrixgain} 
-\color{purple}{\mathbf{K}} = \Sigma_0 (\Sigma_0 + \Sigma_1)^{-1} 
-\end{equation}
-
-$$
+- $$ \begin{equation} \label{matrixgain} \color{purple}{\mathbf{K}} = \Sigma_0 (\Sigma_0 + \Sigma_1)^{-1} \end{equation} $$
 
 <br>
 
-$$ 
-
-\begin{equation} 
-\begin{split} 
-\color{royalblue}{\vec{\mu}’} &= \vec{\mu_0} + &\color{purple}{\mathbf{K}} (\vec{\mu_1} – \vec{\mu_0})\\ 
-\color{mediumblue}{\Sigma’} &= \Sigma_0 – &\color{purple}{\mathbf{K}} \Sigma_0 
-\end{split} \label{matrixupdate} 
-\end{equation}
-
-$$
+- $$ \begin{equation} \begin{split} \color{royalblue}{\vec{\mu}’} &= \vec{\mu_0} + &\color{purple}{\mathbf{K}} (\vec{\mu_1} – \vec{\mu_0})\\ \color{mediumblue}{\Sigma’} &= \Sigma_0 – &\color{purple}{\mathbf{K}} \Sigma_0 \end{split} \label{matrixupdate} \end{equation} $$
 
 <br>
 
@@ -512,11 +440,7 @@ $$
 
 <br>
 
-$$
-
-(\color{fuchsia}{\mu_0}, \color{deeppink}{\Sigma_0}) = (\color{fuchsia}{\mathbf{H}_k \mathbf{\hat{x}}_k}, \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T})
-
-$$
+- $$ (\color{fuchsia}{\mu_0}, \color{deeppink}{\Sigma_0}) = (\color{fuchsia}{\mathbf{H}_k \mathbf{\hat{x}}_k}, \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T}) $$
 
 <br>
 
@@ -524,11 +448,7 @@ $$
 
 <br>
 
-$$
-
-(\color{yellowgreen}{\mu_1}, \color{mediumaquamarine}{\Sigma_1}) = (\color{yellowgreen}{\vec{\mathbf{z}_k}}, \color{mediumaquamarine}{\mathbf{R}_k})
-
-$$ 
+- $$ (\color{yellowgreen}{\mu_1}, \color{mediumaquamarine}{\Sigma_1}) = (\color{yellowgreen}{\vec{\mathbf{z}_k}}, \color{mediumaquamarine}{\mathbf{R}_k}) $$ 
 
 <br>
 
@@ -536,19 +456,11 @@ $$
 
 <br>
 
-$$
-
-\color{royalblue}{\vec{\mu}’} = \vec{\mu_0} + \color{purple}{\mathbf{K}} (\vec{\mu_1} – \vec{\mu_0}) 
-
-$$
+- $$ \color{royalblue}{\vec{\mu}’} = \vec{\mu_0} + \color{purple}{\mathbf{K}} (\vec{\mu_1} – \vec{\mu_0}) $$
 
 <br>
 
-$$
-
-\color{mediumblue}{\Sigma’} = \Sigma_0 – \color{purple}{\mathbf{K}} \Sigma_0 
-
-$$
+- $$ \color{mediumblue}{\Sigma’} = \Sigma_0 – \color{purple}{\mathbf{K}} \Sigma_0 $$
 
 <br>
 
@@ -556,16 +468,8 @@ $$
 
 <br>
 
-$$
-
-\begin{equation} 
-\begin{aligned} 
-\mathbf{H}_k \color{royalblue}{\mathbf{\hat{x}}_k’} &= \color{fuchsia}{\mathbf{H}_k \mathbf{\hat{x}}_k} & + & \color{purple}{\mathbf{K}} ( \color{yellowgreen}{\vec{\mathbf{z}_k}} – \color{fuchsia}{\mathbf{H}_k \mathbf{\hat{x}}_k} ) \\ 
-\mathbf{H}_k \color{royalblue}{\mathbf{P}_k’} \mathbf{H}_k^T &= \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} & – & \color{purple}{\mathbf{K}} \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} 
-\end{aligned} \label {kalunsimplified} 
-\end{equation}
-
-$$
+- $$ \begin{equation} \begin{aligned} \mathbf{H}_k \color{royalblue}{\mathbf{\hat{x}}_k’} &= \color{fuchsia}{\mathbf{H}_k \mathbf{\hat{x}}_k} & + & \color{purple}{\mathbf{K}} ( \color{yellowgreen}{\vec{\mathbf{z}_k}} – \color{fuchsia}{\mathbf{H}_k \mathbf{\hat{x}}_k} ) \\ 
+\mathbf{H}_k \color{royalblue}{\mathbf{P}_k’} \mathbf{H}_k^T &= \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} & – & \color{purple}{\mathbf{K}} \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} \end{aligned} \label {kalunsimplified} \end{equation} $$
 
 <br>
 
@@ -573,11 +477,7 @@ $$
 
 <br>
 
-$$
-
-\color{purple}{\mathbf{K}} = \Sigma_0 (\Sigma_0 + \Sigma_1)^{-1} 
-
-$$
+- $$ \color{purple}{\mathbf{K}} = \Sigma_0 (\Sigma_0 + \Sigma_1)^{-1} $$
 
 <br>
 
@@ -585,39 +485,19 @@ $$
 
 <br>
 
-$$
+- $$ \begin{equation} \label{eq:kalgainunsimplified} \color{purple}{\mathbf{K}} = \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} ( \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} + \color{mediumaquamarine}{\mathbf{R}_k})^{-1} \end{equation} $$
 
-\begin{equation} \label{eq:kalgainunsimplified} 
-\color{purple}{\mathbf{K}} = \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} ( \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} + \color{mediumaquamarine}{\mathbf{R}_k})^{-1} 
-\end{equation}
-
-$$
+<br>
 
 - 여기서 도출한 식들($$ \mathbf{H}_k \color{royalblue}{\mathbf{\hat{x}}_k’}, \mathbf{H}_k \color{royalblue}{\mathbf{P}_k’} \mathbf{H}_k^T, \color{purple}{\mathbf{K}} $$)을 보면 모두 양변에 $$  \mathbf{H}_k $$가 앞쪽에 있습니다. 양변에서 소거해 보겠습니다.
 - 그리고 소거하고 난 $$ \color{royalblue}{\mathbf{P}_k’} \mathbf{H}_k^T $$식에서 양변을 보면 뒤쪽에 모두 $$ \mathbf{H}_k^T $$가 있으니 양변에서 소거해 보겠습니다.
 
 <br>
 
-$$
+- $$ \begin{equation} \begin{split} \color{royalblue}{\mathbf{\hat{x}}_k’} &= \color{fuchsia}{\mathbf{\hat{x}}_k} & + & \color{purple}{\mathbf{K}’} ( \color{yellowgreen}{\vec{\mathbf{z}_k}} – \color{fuchsia}{\mathbf{H}_k \mathbf{\hat{x}}_k} ) \\ \color{royalblue}{\mathbf{P}_k’} &= \color{deeppink}{\mathbf{P}_k} & – & \color{purple}{\mathbf{K}’} \color{deeppink}{\mathbf{H}_k \mathbf{P}_k} \end{split} 
+\label{kalupdatefull} \end{equation} $$
 
-\begin{equation} 
-\begin{split} 
-\color{royalblue}{\mathbf{\hat{x}}_k’} &= \color{fuchsia}{\mathbf{\hat{x}}_k} & + & \color{purple}{\mathbf{K}’} ( \color{yellowgreen}{\vec{\mathbf{z}_k}} – \color{fuchsia}{\mathbf{H}_k \mathbf{\hat{x}}_k} ) \\ 
-\color{royalblue}{\mathbf{P}_k’} &= \color{deeppink}{\mathbf{P}_k} & – & \color{purple}{\mathbf{K}’} \color{deeppink}{\mathbf{H}_k \mathbf{P}_k} 
-\end{split} 
-\label{kalupdatefull} 
-\end{equation}
-
-$$
-
-$$
-
-\begin{equation} 
-\color{purple}{\mathbf{K}’} = \color{deeppink}{\mathbf{P}_k \mathbf{H}_k^T} ( \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} + \color{mediumaquamarine}{\mathbf{R}_k})^{-1} 
-\label{kalgainfull} 
-\end{equation}
-
-$$
+- $$ \begin{equation} \color{purple}{\mathbf{K}’} = \color{deeppink}{\mathbf{P}_k \mathbf{H}_k^T} ( \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} + \color{mediumaquamarine}{\mathbf{R}_k})^{-1} \label{kalgainfull} \end{equation} $$
 
 <br>
 
