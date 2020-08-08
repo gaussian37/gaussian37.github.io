@@ -25,7 +25,10 @@ analytics: Google Analytics
 markdown: kramdown
 kramdown:
   math_engine: nil
-plugins:
+maruku:
+  use_tex: false
+
+  plugins:
   - jekyll-sitemap
   - jekyll-paginate
   - jemoji
