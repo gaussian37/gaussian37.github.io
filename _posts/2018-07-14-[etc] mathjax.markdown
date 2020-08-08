@@ -26,6 +26,10 @@ Finally, You can apply math on jekyll with mathjax
 
 $$\int f(x)~dx$$
 
+a $$\int f(x)~dx$$
+
+
+\$$\int f(x)~dx$$
     
     
   
