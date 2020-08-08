@@ -24,15 +24,8 @@ If you want to apply SVG Version, just need to change option at the last.
 
 Finally, You can apply math on jekyll with mathjax
 
-$$\int f(x)~dx$$
-
 $$
 \int f(x)~dx
 $$
-  
-$$\int f(x)~dx$$
 
-b$$\int f(x)~dx$$
-    
-    
-  
+\[lkjlkj\]
