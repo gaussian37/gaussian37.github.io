@@ -24,6 +24,8 @@ If you want to apply SVG Version, just need to change option at the last.
 
 Finally, You can apply math on jekyll with mathjax
 
+lala
+
 $$\int f(x)~dx$$
 
 $$
