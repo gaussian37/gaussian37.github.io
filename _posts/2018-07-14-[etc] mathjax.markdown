@@ -7,8 +7,8 @@ img: #etc/mathjax.jpg # Add image post (optional)
 tags: [MathJax] # add tag
 ---
 
-- Mathjax public hompage : [www.mathjax.org](www.mathjax.org) 
-- Figure out the mathjax code by mouse drawing : [detexify.kirelabs.org/classify.html ](detexify.kirelabs.org/classify.html )
+- Mathjax public hompage : [www.mathjax.org](https://www.mathjax.org) 
+- Figure out the mathjax code by mouse drawing : [detexify.kirelabs.org/classify.html ](https://detexify.kirelabs.org/classify.html )
 - Mathjax syntax : [Math Jax Documentation ](Math Jax Documentation )
 - Copy and paste below 1-line code in the `main.html` in `_layouts` directory
 
@@ -24,16 +24,9 @@ If you want to apply SVG Version, just need to change option at the last.
 
 Finally, You can apply math on jekyll with mathjax
 
-lala
-
 $$\int f(x)~dx$$
 
-$$
-\int f(x)~dx
-$$
-
- $$\int f(x)~dx$$
-
+[Main] 
 
 
     
