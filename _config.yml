@@ -28,7 +28,8 @@ kramdown:
 maruku:
   use_tex: false
 
-  plugins:
+
+plugins:
   - jekyll-sitemap
   - jekyll-paginate
   - jemoji
