@@ -23,8 +23,6 @@ analytics: Google Analytics
 
 # Build Settings
 markdown: kramdown
-kramdown:
-  math_engine: mathjax
 plugins:
   - jekyll-sitemap
   - jekyll-paginate
