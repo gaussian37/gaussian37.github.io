@@ -9,6 +9,10 @@ tags: [Optimal State Estimation, 최정 상태 이론, Localization, Tracking] #
 
 <br>
 
+[Optimal State Estimation 글 목록](https://gaussian37.github.io/autodrive-ose-table/)
+
+<br>
+
 - 이번 글에서는 간단하게 자율주행에서의 Localization과 Tracking의 차이에 대하여 알아보도록 하겠습니다.
 - 먼저 `Localization` 문제는 자차의 키네마틱 정보를 인식하는데 이 때, `센서값`과 `컨트롤 입력값`을 사용하는 케이스를 뜻합니다.
 - 이 때 사용하는 센서값과 컨트롤 입력에 노이즈가 발생할 수 있다는 것을 전제로 하며 이 센서값과 컨트롤 입력값을 이용하여 더 정확하게 자차의 키네마틱 정보를 예측하는 것이 목표이고 이를 재귀적으로 구현합니다.
@@ -74,4 +78,6 @@ tags: [Optimal State Estimation, 최정 상태 이론, Localization, Tracking] #
 
 <br>
 
-[Optimal State Estimation 목차](https://gaussian37.github.io/autodrive-ose-table/)
+[Optimal State Estimation 글 목록](https://gaussian37.github.io/autodrive-ose-table/)
+
+<br>
