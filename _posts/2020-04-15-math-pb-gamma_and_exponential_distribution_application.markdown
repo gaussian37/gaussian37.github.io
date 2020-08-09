@@ -43,7 +43,7 @@ tags: [gamma distribution, exponential distribution, 감마분포, 지수분포 
 
 $$ \text{Probability Density Function : } f(x; 10) = \frac{1}{10}e^{-\frac{1}{10}x} \ \ \ \ (x > 0) $$
 
-$$ \text{No failure during 20 years : } P(X \ge 20) = \int_{20}^{\infty} f(x) dx =  \int_{20}^{\infty} \frac{1}{10}e^{-\frac{1}{10}x} dx = [ -e^{-\frac{1}{10}x} ]_{20}^{\infty} = e^{-2} \approx 0.1353 $$
+- $$ \text{No failure during 20 years : } P(X \ge 20) = \int_{20}^{\infty} f(x) dx =  \int_{20}^{\infty} \frac{1}{10}e^{-\frac{1}{10}x} dx = [ -e^{-\frac{1}{10}x} ]_{20}^{\infty} = e^{-2} \approx 0.1353 $$
 
 $$ \text{failure under 5 years : } P(X \ge 5) = \int_{0}^{5} f(x) dx =  \int_{0}^{5} \frac{1}{10}e^{-\frac{1}{10}x} dx = [ -e^{-\frac{1}{10}x}]_{0}^{5} = 1 - e^{-\frac{1}{2}} \approx 0.3935 $$
 
