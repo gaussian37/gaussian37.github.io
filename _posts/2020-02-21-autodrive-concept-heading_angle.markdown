@@ -72,7 +72,7 @@ tags: [헤딩 각, heading angle] # add tag
 
 <br>
 
-$$ \theta = \text{sin}^{-1} \frac{ \vert v_{1} \times v_{2} \vert }{\vert v_{1} \vert \vert v_{2} \vert} $$
+- $$ \theta = \text{sin}^{-1} \frac{ \vert v_{1} \times v_{2} \vert }{\vert v_{1} \vert \vert v_{2} \vert} $$
 
 <br>
 
@@ -82,7 +82,7 @@ $$ \theta = \text{sin}^{-1} \frac{ \vert v_{1} \times v_{2} \vert }{\vert v_{1} 
 
 <br>
 
-$$ \theta = \text{sin}^{-1} \Bigl( \frac{ x_{1}y_{2} - y_{1}x_{2} }{ \sqrt{x_{1}^{2} + y_{1}^{2}} \sqrt{x_{2}^{2} + y_{2}^{2}} }  \Bigr) $$
+- $$ \theta = \text{sin}^{-1} \Bigl( \frac{ x_{1}y_{2} - y_{1}x_{2} }{ \sqrt{x_{1}^{2} + y_{1}^{2}} \sqrt{x_{2}^{2} + y_{2}^{2}} }  \Bigr) $$
 
 <br>
 
@@ -137,7 +137,7 @@ $$ \theta = \text{sin}^{-1} \Bigl( \frac{ x_{1}y_{2} - y_{1}x_{2} }{ \sqrt{x_{1}
 
 <br>
 
-$$ \begin{pmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{pmatrix} $$
+- $$ \begin{pmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{pmatrix} $$
 
 <br>
 
@@ -145,7 +145,7 @@ $$ \begin{pmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \t
 
 <br>
 
-$$ \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} $$
+- $$ \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} $$
 
 <br>
 
@@ -153,7 +153,7 @@ $$ \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} $$
 
 <br>
 
-$$ \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} $$
+- $$ \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} $$
 
 <br>
 
