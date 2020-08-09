@@ -52,7 +52,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-$$ \text{t(m, OvenFactor, ChickenShapeFactor)} = 7.33m^{5} - 72.3m^{4} + 253m^{3} - 368m^{2} + 250m + 0.02 + \text{OvenFactor} + \text{ChickenShapeFactor} $$
+- $$ \text{t(m, OvenFactor, ChickenShapeFactor)} = 7.33m^{5} - 72.3m^{4} + 253m^{3} - 368m^{2} + 250m + 0.02 + \text{OvenFactor} + \text{ChickenShapeFactor} $$
 
 <br>
 
@@ -591,6 +591,34 @@ $$ \text{t(m, OvenFactor, ChickenShapeFactor)} = 7.33m^{5} - 72.3m^{4} + 253m^{3
 
 <br>
 
+- 예를 들어 다음 2가지 예제를 한번 풀어보겠습니다. 
+- ① $$ f(x, y) = xy^{2}e^{-x^{4}-y^{2}/2} $$ 식을 $$ (x, y) = (-1, 2) $$에서 1차 테일러 급수로 근사화 해보겠습니다. $$ f(x, y) $$를 먼저 편미분 합니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/27.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 그러면 $$ f_{1}(-1 + \Delta x, 2 + \Delta y) = f(-1, 2) + \begin{bmatrix} \partial_{x}f(-1, 2) & \partial_{y}f(-1, 2) \end{bmatrix} \begin{bmatrix} \Delta x \\ \Delta y \end{bmatrix} $$와 편미분한 결과를 이용하여 식을 풀면 아래와 같습니다.
+
+<br>
+
+- $$ f_{1}(-1 + \Delta x, 2 + \Delta y) = -4e^{-3} -12e^{-3}\Delta x + 4e^{-3}\Delta y $$
+
+<br>
+
+- ② $$ f(x, y) = \sin{(\pi x - x^{2}y)} $$ 식을 $$ (x, y) = (1, \pi) $$에서 2차 테일러 급수로 근사화 하려고 할 때, 헤시안 행렬을 구해보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/taylor_series_and_linearisation/28.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위에서 구한 헤시안 행렬의 각 성분을 이용하고 $$ (x, y) = (1, \pi) $$를 직접 대입하여 $$ \begin{bmatrix} \partial_{xx}f(x, y) & \partial_{xy}f(x, y) \\ \partial_{yx}f(x,y) & \partial_{yy}f(x, y) \end{bmatrix} $$를 구하면 아래와 같습니다.
+
+<br>
+
+- $$ H_{f} = \begin{bmatrix} -2\pi & -2 \\ -2 & 0 \end{bmatrix} $$
+
+<br>
 
 
 
