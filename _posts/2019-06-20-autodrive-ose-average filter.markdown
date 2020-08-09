@@ -7,13 +7,19 @@ categories: [autodrive-ose]
 tags: [평균 필터, average filter] # add tag
 ---
 
+<br>
+
+[Optimal State Estimation 글 목록](https://gaussian37.github.io/autodrive-ose-table/)
+
+<br>
+
 - 출처 : 칼만필터는 어렵지 않아
 - 평균은 데이터의 총합을 데이터 갯수로 나눈 값을 말합니다. 
 - 수식으로 정의하면 다음과 같습니다.
 
 <br>
 
-$$ \bar{x_{k}} = \frac{x_{1} + x_{2} + ... + x_{k}}{k} $$
+- $$ \bar{x_{k}} = \frac{x_{1} + x_{2} + ... + x_{k}}{k} $$
 
 <br>
 
@@ -27,7 +33,7 @@ $$ \bar{x_{k}} = \frac{x_{1} + x_{2} + ... + x_{k}}{k} $$
 
 <br>
 
-$$ \bar{x}_{k} = \frac{x_{1} + x_{2} + ... + x_{k}}{k} $$
+- $$ \bar{x}_{k} = \frac{x_{1} + x_{2} + ... + x_{k}}{k} $$
 
 <br>
 
@@ -35,7 +41,7 @@ $$ \bar{x}_{k} = \frac{x_{1} + x_{2} + ... + x_{k}}{k} $$
 
 <br>
 
-$$ k \ \bar{x}_{k} = x_{1} + x_{2} + ... + x_{k} $$
+- $$ k \ \bar{x}_{k} = x_{1} + x_{2} + ... + x_{k} $$
 
 <br>
 
@@ -43,11 +49,11 @@ $$ k \ \bar{x}_{k} = x_{1} + x_{2} + ... + x_{k} $$
 
 <br>
 
-$$ \frac{k}{k-1} \bar{x}_{k} = \frac{x_{1} + x_{2} + ... + x_{k}}{k-1} = \frac{x_{1} + x_{2} + ... + x_{k-1}}{k-1} + \frac{x_{k}}{k-1}$$
+- $$ \frac{k}{k-1} \bar{x}_{k} = \frac{x_{1} + x_{2} + ... + x_{k}}{k-1} = \frac{x_{1} + x_{2} + ... + x_{k-1}}{k-1} + \frac{x_{k}}{k-1}$$
 
 <br>
 
-$$ \frac{k}{k-1} \bar{x}_{k} = \bar{x}_{k-1} + \frac{x_{k}}{k-1}$$
+- $$ \frac{k}{k-1} \bar{x}_{k} = \bar{x}_{k-1} + \frac{x_{k}}{k-1}$$
 
 <br>
 
@@ -56,7 +62,7 @@ $$ \frac{k}{k-1} \bar{x}_{k} = \bar{x}_{k-1} + \frac{x_{k}}{k-1}$$
 
 <br>
 
-$$ \bar{x}_{k} = \frac{k-1}{k} \bar{x}_{k-1} + \frac{1}{k} x_{k} $$
+- $$ \bar{x}_{k} = \frac{k-1}{k} \bar{x}_{k-1} + \frac{1}{k} x_{k} $$
 
 <br>
 
@@ -68,15 +74,15 @@ $$ \bar{x}_{k} = \frac{k-1}{k} \bar{x}_{k-1} + \frac{1}{k} x_{k} $$
 
 <br>
 
-$$ \alpha = \frac{k-1}{k} $$
+- $$ \alpha = \frac{k-1}{k} $$
 
 <br>
 
-$$ \alpha = \frac{k-1}{k} = 1 - \frac{1}{k} $$ 
+- $$ \alpha = \frac{k-1}{k} = 1 - \frac{1}{k} $$ 
 
 <br>
 
-$$ \frac{1}{k} = 1 - \alpha $$
+- $$ \frac{1}{k} = 1 - \alpha $$
 
 <br>
 
@@ -124,3 +130,9 @@ double AvgFilter(double x){
 - 특히 데이터가 순차적으로 입력되는 경우 평균 필터를 사용하면 **데이터를 저장할 필요가 없고 계산 효율도 높습니다.**
 - 만약 데이터를 실시간으로 처리해야 한다면 재귀식 형태의 필터가 필수 입니다.
 - 그리고 평균을 취함으로써 노이즈가 제거되는 효과 또한 있습니다.
+
+<br>
+
+[Optimal State Estimation 글 목록](https://gaussian37.github.io/autodrive-ose-table/)
+
+<br>
