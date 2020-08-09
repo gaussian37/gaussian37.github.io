@@ -27,7 +27,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, Localization, Tracking] #
 
 <br>
 
-$$ p(x_{t} \vert x_{0:t-1}, z_{1:t-1}, u_{1:t}) = p(x_{t} \vert x_{t-1}, u_{t}) $$
+- $$ p(x_{t} \vert x_{0:t-1}, z_{1:t-1}, u_{1:t}) = p(x_{t} \vert x_{t-1}, u_{t}) $$
 
 <br>
 
@@ -39,7 +39,7 @@ $$ p(x_{t} \vert x_{0:t-1}, z_{1:t-1}, u_{1:t}) = p(x_{t} \vert x_{t-1}, u_{t}) 
 
 <br>
 
-$$ p(z_{t} \vert x_{0:t}, z_{1:t-1}, u_{1:t}) = p(z_{t} \vert x_{t}) $$
+- $$ p(z_{t} \vert x_{0:t}, z_{1:t-1}, u_{1:t}) = p(z_{t} \vert x_{t}) $$
 
 <br>
 
@@ -48,7 +48,7 @@ $$ p(z_{t} \vert x_{0:t}, z_{1:t-1}, u_{1:t}) = p(z_{t} \vert x_{t}) $$
 
 <br>
 
-$$ bel(x_{t}) = p(x_{t} \vert z_{1:t}, u_{1:t}) $$
+- $$ bel(x_{t}) = p(x_{t} \vert z_{1:t}, u_{1:t}) $$
 
 <br>
 
@@ -56,15 +56,15 @@ $$ bel(x_{t}) = p(x_{t} \vert z_{1:t}, u_{1:t}) $$
 
 <br>
 
-$$ p(x_{t} \vert x_{0:t-1}, z_{1:t-1}) = p(x_{t} \vert x_{t-1}) $$
+- $$ p(x_{t} \vert x_{0:t-1}, z_{1:t-1}) = p(x_{t} \vert x_{t-1}) $$
 
 <br>
 
-$$ p(z_{t} \vert x_{0:t}, z_{1:t-1}) = p(z_{t} \vert x_{t}) $$
+- $$ p(z_{t} \vert x_{0:t}, z_{1:t-1}) = p(z_{t} \vert x_{t}) $$
 
 <br>
 
-$$ bel(x_{t}) = p(x_{t} \vert z_{1:t}) $$
+- $$ bel(x_{t}) = p(x_{t} \vert z_{1:t}) $$
 
 <br>
 
