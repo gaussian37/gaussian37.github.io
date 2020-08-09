@@ -28,7 +28,7 @@ tags: [가우시안, 분별 함수, 패턴 인식, 선형 분별 분석, 2차 �
 
 <br>
 
-$$ p(x \vert w_{i}) = N(\mu_{i}, \Sigma_{i}) = \frac{1}{(2\pi)^{d/2} \vert \Sigma_{i} \vert ^{1/2}} \text{exp} (-\frac{1}{2}(x - \mu_{i})^{T} \Sigma_{i}^{-1}(x - \mu_{i})) $$
+- $$ p(x \vert w_{i}) = N(\mu_{i}, \Sigma_{i}) = \frac{1}{(2\pi)^{d/2} \vert \Sigma_{i} \vert ^{1/2}} \text{exp} (-\frac{1}{2}(x - \mu_{i})^{T} \Sigma_{i}^{-1}(x - \mu_{i})) $$
 
 <br>
 
@@ -37,9 +37,9 @@ $$ p(x \vert w_{i}) = N(\mu_{i}, \Sigma_{i}) = \frac{1}{(2\pi)^{d/2} \vert \Sigm
 
 <br>
 
-$$ g_{i}(x) = \text{ln}(f(x)) = \text{ln}(p(x \vert w_{i})P(w_{i})) = \text{ln}(N(\mu_{i}, \Sigma_{i})) + \text{ln}(P(w_{i})) $$
+- $$ g_{i}(x) = \text{ln}(f(x)) = \text{ln}(p(x \vert w_{i})P(w_{i})) = \text{ln}(N(\mu_{i}, \Sigma_{i})) + \text{ln}(P(w_{i})) $$
 
-$$ = -\frac{1}{2}(x - \mu_{i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma_{i} \vert) + \text{ln}(P(w_{i})) $$
+- $$ = -\frac{1}{2}(x - \mu_{i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma_{i} \vert) + \text{ln}(P(w_{i})) $$
 
 <br>
 
@@ -47,7 +47,7 @@ $$ = -\frac{1}{2}(x - \mu_{i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) - \frac{d}{2}\tex
 
 <br>
 
-$$ g_{i}(x) = -\frac{1}{2}(x - \mu_{i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) $$
+- $$ g_{i}(x) = -\frac{1}{2}(x - \mu_{i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) $$
 
 <br>
 
@@ -85,7 +85,7 @@ $$ g_{i}(x) = -\frac{1}{2}(x - \mu_{i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) $$
 
 <br>
 
-$$ \Sigma = \begin{pmatrix} 8/3 & 0 \\ 0 2/3 \end{pmatrix} $$
+- $$ \Sigma = \begin{pmatrix} 8/3 & 0 \\ 0 2/3 \end{pmatrix} $$
 
 <br>
 
@@ -93,7 +93,7 @@ $$ \Sigma = \begin{pmatrix} 8/3 & 0 \\ 0 2/3 \end{pmatrix} $$
 
 <br>
 
-$$ \Biggl( \begin{pmatrix} 8 - 3 & 2 - 2 \end{pmatrix} \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 8 - 3 \\ 2 - 2 \end{pmatrix} \Biggr)^{1/2} = 3.062 $$ 
+- $$ \Biggl( \begin{pmatrix} 8 - 3 & 2 - 2 \end{pmatrix} \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 8 - 3 \\ 2 - 2 \end{pmatrix} \Biggr)^{1/2} = 3.062 $$ 
 
 <br>
 
@@ -101,7 +101,7 @@ $$ \Biggl( \begin{pmatrix} 8 - 3 & 2 - 2 \end{pmatrix} \begin{pmatrix} 3/8 & 0 \
 
 <br>
 
-$$ \Biggl( \begin{pmatrix} 8 - 8 & 2 - 6 \end{pmatrix} \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 8 - 8 \\ 2 - 6 \end{pmatrix} \Biggr)^{1/2} = 4.899 $$ 
+- $$ \Biggl( \begin{pmatrix} 8 - 8 & 2 - 6 \end{pmatrix} \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 8 - 8 \\ 2 - 6 \end{pmatrix} \Biggr)^{1/2} = 4.899 $$ 
 
 <br>
 
