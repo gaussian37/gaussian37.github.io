@@ -80,7 +80,7 @@ tags: [calculus, multivariate calculus, jacobian, total derivative, hessian] # a
 
 <br>
 
-$$ m = 2\pi r^{2} t \rho + 2\pi r h t \rho $$  
+- $$m = 2\pi r^{2} t \rho + 2\pi r h t \rho $$  
 
 <br>
 
@@ -92,15 +92,15 @@ $$ m = 2\pi r^{2} t \rho + 2\pi r h t \rho $$
 
 <br>
 
-$$ m = 2\pi r^{2} t \rho + 2\pi r h t \rho $$  
+- $$m = 2\pi r^{2} t \rho + 2\pi r h t \rho $$  
 
-$$ \frac{\partial m}{\partial h} = 2\pi r t \rho $$
+- $$\frac{\partial m}{\partial h} = 2\pi r t \rho $$
 
-$$ \frac{\partial m}{\partial r} = 4\pi r t \rho + 2\pi t \rho $$
+- $$\frac{\partial m}{\partial r} = 4\pi r t \rho + 2\pi t \rho $$
 
-$$ \frac{\partial m}{\partial t} = 2\pi r^{2} \rho + 2\pi r h \rho $$
+- $$\frac{\partial m}{\partial t} = 2\pi r^{2} \rho + 2\pi r h \rho $$
 
-$$ \frac{\partial m}{\partial \rho} = 2\pi r^{2} t + 2\pi r h t $$
+- $$\frac{\partial m}{\partial \rho} = 2\pi r^{2} t + 2\pi r h t $$
 
 <br>
 
@@ -118,7 +118,7 @@ $$ \frac{\partial m}{\partial \rho} = 2\pi r^{2} t + 2\pi r h t $$
 
 <br>
 
-$$ f(x, y, z) = \sin{(x)} e^{yz^{2}} $$
+- $$f(x, y, z) = \sin{(x)} e^{yz^{2}} $$
 
 <br>
 
@@ -126,11 +126,11 @@ $$ f(x, y, z) = \sin{(x)} e^{yz^{2}} $$
 
 <br>
 
-$$ \frac{\partial f}{\partial x} = \cos{(x)} e^{yz^{2}} $$
+- $$\frac{\partial f}{\partial x} = \cos{(x)} e^{yz^{2}} $$
 
-$$ \frac{\partial f}{\partial y} = \sin{(x)} e^{yz^{2}} z^{2} $$
+- $$\frac{\partial f}{\partial y} = \sin{(x)} e^{yz^{2}} z^{2} $$
 
-$$ \frac{\partial f}{\partial z} = \sin{(x)} e^{yz^{2}} 2yz $$
+- $$\frac{\partial f}{\partial z} = \sin{(x)} e^{yz^{2}} 2yz $$
 
 <br>
 
@@ -139,11 +139,11 @@ $$ \frac{\partial f}{\partial z} = \sin{(x)} e^{yz^{2}} 2yz $$
 
 <br>
 
-$$ x = t - 1 $$
+- $$x = t - 1 $$
 
-$$ y = t^{2} $$
+- $$y = t^{2} $$
 
-$$ z = \frac{1}{t} $$
+- $$z = \frac{1}{t} $$
 
 <br>
 
@@ -151,9 +151,9 @@ $$ z = \frac{1}{t} $$
 
 <br>
 
-$$ f(t) = \sin{(t - 1)}e^{t^{2}(\frac{1}{t})^{2}} = \sin{(t - 1)}e $$
+- $$f(t) = \sin{(t - 1)}e^{t^{2}(\frac{1}{t})^{2}} = \sin{(t - 1)}e $$
 
-$$ \frac{\text{d}f(t)}{\text{d}t} = \cos{(t-1)}e $$
+- $$\frac{\text{d}f(t)}{\text{d}t} = \cos{(t-1)}e $$
 
 <br>
 
@@ -170,32 +170,32 @@ $$ \frac{\text{d}f(t)}{\text{d}t} = \cos{(t-1)}e $$
 
 <br>
 
-$$ \frac{\text{d}f(x, y, z)}{\text{d}t} = \frac{\partial f}{\partial x}\frac{\text{d}x}{\text{d}t} + \frac{\partial f}{\partial y}\frac{\text{d}y}{\text{d}t} + \frac{\partial f}{\partial z}\frac{\text{d}z}{\text{d}t} $$
+- $$\frac{\text{d}f(x, y, z)}{\text{d}t} = \frac{\partial f}{\partial x}\frac{\text{d}x}{\text{d}t} + \frac{\partial f}{\partial y}\frac{\text{d}y}{\text{d}t} + \frac{\partial f}{\partial z}\frac{\text{d}z}{\text{d}t} $$
 
-$$ x = t - 1 \quad y = t^{2} \quad z = \frac{1}{t} $$
+- $$x = t - 1 \quad y = t^{2} \quad z = \frac{1}{t} $$
 
-$$ \frac{\partial f}{\partial x} = \cos{(x)}e^{yz^{2}} \quad \frac{\text{d}x}{\text{d}t} = 1 $$
+- $$\frac{\partial f}{\partial x} = \cos{(x)}e^{yz^{2}} \quad \frac{\text{d}x}{\text{d}t} = 1 $$
 
-$$ \frac{\partial f}{\partial y} = z^{2}\sin{(x)}e^{yz^{2}} \quad \frac{\text{d}y}{\text{d}t} = 2t $$
+- $$\frac{\partial f}{\partial y} = z^{2}\sin{(x)}e^{yz^{2}} \quad \frac{\text{d}y}{\text{d}t} = 2t $$
 
-$$ \frac{\partial f}{\partial z} = 2yz \sin{(x)}e^{yz^{2}} \quad \frac{\text{d}z}{\text{d}t} = -t^{-2} $$
+- $$\frac{\partial f}{\partial z} = 2yz \sin{(x)}e^{yz^{2}} \quad \frac{\text{d}z}{\text{d}t} = -t^{-2} $$
 
-$$ \frac{\text{d}f(x, y, z)}{\text{d}t} = \frac{\partial f}{\partial x}\frac{\text{d}x}{\text{d}t} + \frac{\partial f}{\partial y}\frac{\text{d}y}{\text{d}t} + \frac{\partial f}{\partial z}\frac{\text{d}z}{\text{d}t} = \cos{(x)}e^{yz^{2}} \times 1 + z^{2}\sin{(x)}e^{yz^{2}} \times 2t + 2yz \sin{(x)}e^{yz^{2}} \times -t^{-2} $$
+- $$\frac{\text{d}f(x, y, z)}{\text{d}t} = \frac{\partial f}{\partial x}\frac{\text{d}x}{\text{d}t} + \frac{\partial f}{\partial y}\frac{\text{d}y}{\text{d}t} + \frac{\partial f}{\partial z}\frac{\text{d}z}{\text{d}t} = \cos{(x)}e^{yz^{2}} \times 1 + z^{2}\sin{(x)}e^{yz^{2}} \times 2t + 2yz \sin{(x)}e^{yz^{2}} \times -t^{-2} $$
 
 - 여기 까지 정리한 것이 `total derivative` 입니다.
 - 그러면 여기서 치환 값인 $$ x, y, z $$에 $$ t $$를 이용한 식들을 대입해 보겠습니다.
 
 <br>
 
-$$ x = t - 1 $$
+- $$x = t - 1 $$
 
-$$ y = t^{2} $$
+- $$y = t^{2} $$
 
-$$ z = \frac{1}{t} $$
+- $$z = \frac{1}{t} $$
 
 <br>
 
-$$ \frac{\text{d}f(x, y, z)}{\text{d}t} = \cos{(t-1)}e + t^{-2}\sin{(t-1)}e \times 2t + 2t\sin{(t-1)}e \times (-t^{-2}) = \cos{(t-1)}e $$
+- $$\frac{\text{d}f(x, y, z)}{\text{d}t} = \cos{(t-1)}e + t^{-2}\sin{(t-1)}e \times 2t + 2t\sin{(t-1)}e \times (-t^{-2}) = \cos{(t-1)}e $$
 
 <br>
 
@@ -227,9 +227,9 @@ $$ \frac{\text{d}f(x, y, z)}{\text{d}t} = \cos{(t-1)}e + t^{-2}\sin{(t-1)}e \tim
 
 <br>
 
-$$ f(x_{1}, x_{2}, ...) $$
+- $$f(x_{1}, x_{2}, ...) $$
 
-$$ J = \begin{bmatrix} \frac{\partial f}{\partial x_{1}} & \frac{\partial f}{\partial x_{2}} & \frac{\partial f}{\partial x_{3}} & ...\end{bmatrix} $$
+- $$J = \begin{bmatrix} \frac{\partial f}{\partial x_{1}} & \frac{\partial f}{\partial x_{2}} & \frac{\partial f}{\partial x_{3}} & ...\end{bmatrix} $$
 
 <br>
 
@@ -237,15 +237,15 @@ $$ J = \begin{bmatrix} \frac{\partial f}{\partial x_{1}} & \frac{\partial f}{\pa
 
 <br>
 
-$$ f(x, y, z) = x^{2}y + z $$
+- $$f(x, y, z) = x^{2}y + z $$
 
-$$ \frac{\partial f}{\partial x} = 2xy $$
+- $$\frac{\partial f}{\partial x} = 2xy $$
 
-$$ \frac{\partial f}{\partial y} = x^{2} $$
+- $$\frac{\partial f}{\partial y} = x^{2} $$
 
-$$ \frac{\partial f}{\partial z} = 3 $$
+- $$\frac{\partial f}{\partial z} = 3 $$
 
-$$ \therefore \quad J = (2xy, x^{2}, 3) $$
+- $$\therefore \quad J = (2xy, x^{2}, 3) $$
 
 <br>
 
@@ -282,9 +282,9 @@ $$ \therefore \quad J = (2xy, x^{2}, 3) $$
 
 <br>
 
-$$ f(x, y) = e^{-(x^{2} + y^{2})} $$
+- $$f(x, y) = e^{-(x^{2} + y^{2})} $$
 
-$$ J = \begin{bmatrix} -2xe^{-(x^{2} + y^{2})}, & -2ye^{-(x^{2} + y^{2})} \end{bmatrix} $$
+- $$J = \begin{bmatrix} -2xe^{-(x^{2} + y^{2})}, & -2ye^{-(x^{2} + y^{2})} \end{bmatrix} $$
 
 <br>
 
@@ -292,11 +292,11 @@ $$ J = \begin{bmatrix} -2xe^{-(x^{2} + y^{2})}, & -2ye^{-(x^{2} + y^{2})} \end{b
 
 <br>
 
-$$ J(-1, 1) = \begin{bmatrix} -2xe^{-2}, & -2ye^{-2} \end{bmatrix} = \begin{bmatrix} 0.27, & -0.27 \end{bmatrix} $$
+- $$J(-1, 1) = \begin{bmatrix} -2xe^{-2}, & -2ye^{-2} \end{bmatrix} = \begin{bmatrix} 0.27, & -0.27 \end{bmatrix} $$
 
-$$ J(2, 2) = \begin{bmatrix} -0.001, & -0.001 \end{bmatrix} $$
+- $$J(2, 2) = \begin{bmatrix} -0.001, & -0.001 \end{bmatrix} $$
 
-$$ J(0, 0) = \begin{bmatrix} 0, & 0 \end{bmatrix} $$
+- $$J(0, 0) = \begin{bmatrix} 0, & 0 \end{bmatrix} $$
 
 <br>
 <center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/10.png" alt="Drawing" style="width: 600px;"/></center>
@@ -313,9 +313,9 @@ $$ J(0, 0) = \begin{bmatrix} 0, & 0 \end{bmatrix} $$
 
 <br>
 
-$$ u(x, y) = x - 2y $$
+- $$u(x, y) = x - 2y $$
 
-$$ v(x, y) = 3y - 2x $$
+- $$v(x, y) = 3y - 2x $$
 
 <br>
 <center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/11.gif" alt="Drawing" style="width: 600px;"/></center>
@@ -326,15 +326,15 @@ $$ v(x, y) = 3y - 2x $$
 
 <br>
 
-$$ u(x, y) = x - 2y $$
+- $$u(x, y) = x - 2y $$
 
-$$ v(x, y) = 3y - 2x $$
+- $$v(x, y) = 3y - 2x $$
 
-$$ J_{u} = \begin{bmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} \end{bmatrix} $$
+- $$J_{u} = \begin{bmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} \end{bmatrix} $$
 
-$$ J_{v} = \begin{bmatrix} \frac{\partial v}{\partial x} & \frac{\partial v}{\partial y} \end{bmatrix} $$
+- $$J_{v} = \begin{bmatrix} \frac{\partial v}{\partial x} & \frac{\partial v}{\partial y} \end{bmatrix} $$
 
-$$ J = \begin{bmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} \\ \frac{\partial v}{\partial x} & \frac{\partial v}{\partial y} \end{bmatrix} = \begin{bmatrix} 1 & -2 \\ -2 & 3 \end{bmatrix} $$
+- $$J = \begin{bmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} \\ \frac{\partial v}{\partial x} & \frac{\partial v}{\partial y} \end{bmatrix} = \begin{bmatrix} 1 & -2 \\ -2 & 3 \end{bmatrix} $$
 
 <br>
 
@@ -361,7 +361,7 @@ $$ J = \begin{bmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partia
 
 <br>
 
-$$ \Delta x \cdot \Delta y = r \cdot \Delta r \Delta \theta $$
+- $$\Delta x \cdot \Delta y = r \cdot \Delta r \Delta \theta $$
 
 <br>
 <center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/18.gif" alt="Drawing" style="width: 400px;"/></center>
@@ -391,9 +391,9 @@ $$ \Delta x \cdot \Delta y = r \cdot \Delta r \Delta \theta $$
 
 <br>
 
-$$ f(x, y) = e^{-(x^{2} + y^{2})} $$
+- $$f(x, y) = e^{-(x^{2} + y^{2})} $$
 
-$$ J = \begin{bmatrix} -2xe^{-(x^{2} + y^{2})}, & -2ye^{-(x^{2} + y^{2})} \end{bmatrix} = 0 $$
+- $$J = \begin{bmatrix} -2xe^{-(x^{2} + y^{2})}, & -2ye^{-(x^{2} + y^{2})} \end{bmatrix} = 0 $$
 
 <br>
 
@@ -442,7 +442,7 @@ $$ J = \begin{bmatrix} -2xe^{-(x^{2} + y^{2})}, & -2ye^{-(x^{2} + y^{2})} \end{b
 
 <br>
 
-$$ H = \begin{bmatrix} \partial^{2} f / \partial x_{1}^{2} & \partial^{2} f / \partial x_{1}x_{2} & \cdots & \partial^{2} f / \partial x_{1}x_{n} \\ \partial^{2} f / \partial x_{2}x_{1} & \partial^{2} f / \partial x_{2}^{2} & \cdots & \partial^{2} f / \partial x_{2}x_{n} \\ \vdots & \vdots & \ddots & \vdots \\ \partial^{2} f / \partial x_{n}x_{1} & \partial^{2} f / \partial x_{n}x_{2} & \cdots & \partial^{2} f / \partial x_{n}^{2} \end{bmatrix} $$
+- $$H = \begin{bmatrix} \partial^{2} f / \partial x_{1}^{2} & \partial^{2} f / \partial x_{1}x_{2} & \cdots & \partial^{2} f / \partial x_{1}x_{n} \\ \partial^{2} f / \partial x_{2}x_{1} & \partial^{2} f / \partial x_{2}^{2} & \cdots & \partial^{2} f / \partial x_{2}x_{n} \\ \vdots & \vdots & \ddots & \vdots \\ \partial^{2} f / \partial x_{n}x_{1} & \partial^{2} f / \partial x_{n}x_{2} & \cdots & \partial^{2} f / \partial x_{n}^{2} \end{bmatrix} $$
 
 <br>
 
@@ -452,11 +452,11 @@ $$ H = \begin{bmatrix} \partial^{2} f / \partial x_{1}^{2} & \partial^{2} f / \p
 
 <br>
 
-$$ f(x, y, z) = x^{2} y z $$
+- $$f(x, y, z) = x^{2} y z $$
 
-$$ J = \begin{bmatrix} 2xyz & x^{2}z & x^{2}y \end{bmatrix} $$
+- $$J = \begin{bmatrix} 2xyz & x^{2}z & x^{2}y \end{bmatrix} $$
 
-$$ H = \begin{bmatrix} 2yz & 2xz & 2xy \\ 2xz & 0 & x^{2} \\ 2xy & x^{2} & 0 \end{bmatrix} $$
+- $$H = \begin{bmatrix} 2yz & 2xz & 2xy \\ 2xz & 0 & x^{2} \\ 2xy & x^{2} & 0 \end{bmatrix} $$
 
 <br>
 
@@ -464,13 +464,13 @@ $$ H = \begin{bmatrix} 2yz & 2xz & 2xy \\ 2xz & 0 & x^{2} \\ 2xy & x^{2} & 0 \en
 
 <br>
 
-$$ f(x,y) = x^{2} + y^{2} $$
+- $$f(x,y) = x^{2} + y^{2} $$
 
-$$ J = \begin{bmatrix} 2x & 2y \end{bmatrix} $$
+- $$J = \begin{bmatrix} 2x & 2y \end{bmatrix} $$
 
-$$ H = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix} $$
+- $$H = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix} $$
 
-$$ \vert H \vert = 4 $$
+- $$\vert H \vert = 4 $$
 
 <br>
 <center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/16.gif" alt="Drawing" style="width: 400px;"/></center>
@@ -486,13 +486,13 @@ $$ \vert H \vert = 4 $$
 
 <br>
 
-$$ f(x, y) = x^{2} - y^{2} $$
+- $$f(x, y) = x^{2} - y^{2} $$
 
-$$ J = \begin{bmatrix} 2x & -2y \end{bmatrix} $$
+- $$J = \begin{bmatrix} 2x & -2y \end{bmatrix} $$
 
-$$ H = \begin{bmatrix} 2 & 0 \\ 0 & -2 \end{bmatrix} $$
+- $$H = \begin{bmatrix} 2 & 0 \\ 0 & -2 \end{bmatrix} $$
 
-$$ \vert H \vert = -4 $$
+- $$\vert H \vert = -4 $$
 
 <br>
 <center><img src="../assets/img/math/mfml/multivariate_calculus_and_jacobian/17.gif" alt="Drawing" style="width: 400px;"/></center>
