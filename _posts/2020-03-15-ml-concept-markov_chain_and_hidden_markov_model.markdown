@@ -71,7 +71,7 @@ tags: [마코프 체인, Markov chain] # add tag
 
 <br>
 
-$$ \text{trasition matrix} = \begin{pmatrix} 0.8 & 0.2 \\ 0.72 & 0.28 \end{pmatrix} $$
+- $$ \text{trasition matrix} = \begin{pmatrix} 0.8 & 0.2 \\ 0.72 & 0.28 \end{pmatrix} $$
 
 <br>
 
