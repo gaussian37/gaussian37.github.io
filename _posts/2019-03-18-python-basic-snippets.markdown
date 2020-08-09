@@ -16,8 +16,9 @@ tags: [python, python 기본] # add tag
 
 <br>
 
-- ### **--- 셋팅 관련 ---**
+- ### **--- 문법 및 셋팅 관련 ---**
 - ### if __name__ == "__main__" 사용 이유
+- ### 함수의 파라미터로 빈 리스트 대신 None을 사용할 것
 
 <br>
 
@@ -74,6 +75,76 @@ tags: [python, python 기본] # add tag
 - 이 때 `if __name__ == "__main__"`을 이용하여 main 함수를 컨트롤 하지 않으면 전역 변수 영역에 선언된 모든 함수들이 실행되게 됩니다.
 - 예를 들어 `print` 함수들이 전역 변수 영역에 정의되어 있다면 `import` 할 때, 실행되어 원하지 않는 결과가 출력될 수 있습니다.
 - 즉, 다른 파이썬에서 import 하였을 때, `def`로 정의된 함수들만 `import`되도록 하기 위해서는 main 함수를 통해 컨트롤 해야 합니다. 
+
+<br>
+
+## **함수의 파라미터로 빈 리스트 대신 None을 사용할 것**
+
+<br>
+
+- 함수를 정의할 때, 어떤 파라미터를 비어 있는 리스트로 정의하고 싶으면 `[ ]` 와 같은 형태가 아니라 `None`을 사용하여 비어있음을 나타내어야 합니다. 그 이유에 대해서 차근 차근 설명해 보겠습니다.
+
+<br>
+
+```python
+# define a function invovling the default value for a list
+def append_score(score, scores=[]):
+    scores.append(score)
+    print(scores)
+
+append_score(98)
+# [98]
+append_score(92, [100, 95])
+# [100, 95, 92]
+append_score(94)
+# [98, 94]
+```
+
+<br>
+
+- 마지막에 실행 된 함수를 보면 입력하지도 않은 `98`이란 숫자가 출력되는 것을 볼 수 있습니다. 이 문제로 인해 `[]` 대신 None을 사용하여 빈 리스트 임을 표시해야 합니다.
+- 이런 문제가 발생하는 이유는 **파이썬에서는 함수 또한 객체로 인식되기 때문**입니다. 즉, 위 함수가 하나의 객체이기 때문에 `scores`에 리스트가 전달되지 않은 경우 **객체 내부적으로 가지고 있는 리스트를 사용**하게 됩니다. 물론 위의 2번째 함수 호출 처럼 `[100, 95]`라는 리스트를 입력하면 이 리스트를 사용하지만 1, 3번째 함수 호출 처럼 리스트를 전달하지 않으면 객체 내부의 리스트를 사용한다고 이해하시면 됩니다. 확인하면 다음과 같습니다.
+
+<br>
+
+```python
+# updated function to show the id for the scores
+def append_score(score, scores=[]):
+    scores.append(score)
+    print(f'scores: {scores} & id: {id(scores)}')
+
+append_score.__defaults__
+# ([],)
+id(append_score.__defaults__[0])
+# 4650019968
+append_score(95)
+# scores: [95] & id: 4650019968
+append_score(98)
+# scores: [95, 98] & id: 4650019968
+```
+
+<br>
+
+- 앞에서 설명한 바와 같이 함수가 하나의 객체이고 같은 객체 안의 멤버 변수인 리스트의 `id`를 출력해 봤을 때, 같은 `id`인 것을 확인할 수 있습니다. 즉, 리스트가 재사용된것입니다.
+- 따라서 위와 같은 목적으로 사용된 함수의 올바른 사용법은 다음과 같습니다.
+
+<br>
+
+```python
+# use None as the default value
+def append_score(score, scores=None):
+    if not scores:
+        scores = []
+    scores.append(score)
+    print(scores)
+
+append_score(98)
+# [98]
+append_score(92, [100, 95])
+# [100, 95, 92]
+append_score(94)
+# [94]
+```
 
 <br>
 
@@ -1322,3 +1393,5 @@ print("Most Frequent:", word_counter.most_common(2))
 <br>
 
 - 위 예제를 보면 `Counter` 객체를 이용하여 문자열을 카운팅 하고 `mose_common()` 함수를 통해 가장 빈도수가 높은 문자열 순으로 확인할 수 있습니다.
+
+<br>
