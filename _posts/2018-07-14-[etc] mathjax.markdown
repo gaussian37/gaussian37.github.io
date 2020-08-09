@@ -27,3 +27,9 @@ Finally, You can apply math on jekyll with mathjax
 $$
 \int f(x)~dx
 $$
+
+{% highlight TeX %}
+$$ x = \frac{-b \pm \sqrt{b^2-4ac}}{2a} $$
+{% endhighlight %}
+
+$$x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}$$
