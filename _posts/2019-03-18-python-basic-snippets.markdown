@@ -22,7 +22,8 @@ tags: [python, python 기본] # add tag
 <br>
 
 - ### **--- 자주사용하는 함수 ---**
-- ### Comparator를 이용한 클래스 정렬
+- ### 다양한 sort 방법
+- ### comparator를 이용한 클래스 정렬
 - ### all과 any
 - ### lambda
 - ### map
@@ -45,6 +46,7 @@ tags: [python, python 기본] # add tag
 - ### type과 isinstance를 통한 데이터 타입 확인
 - ### dir을 통한 module 확인
 - ### enumerate 함수의 응용
+- ### counting 방법
 
 <br>
 
@@ -75,7 +77,71 @@ tags: [python, python 기본] # add tag
 
 <br>
 
-## **Comparator를 이용한 클래스 정렬**
+## **다양한 sort 방법**
+
+<br>
+
+- 기본적으로 sort는 **파이썬에서 제공하는 기준**의 오름차순으로 정렬하며 `reverse=True` 옵션을 통해 내림차순으로 정렬할 수 있습니다. 
+
+<br>
+
+```python
+# A list of numbers and strings
+numbers = [1, 3, 7, 2, 5, 4]
+words = ['yay', 'bill', 'zen', 'del']
+# Sort them
+print(sorted(numbers))
+# [1, 2, 3, 4, 5, 7]
+print(sorted(words))
+# ['bill', 'del', 'yay', 'zen']
+
+# Sort them in descending order
+print(sorted(numbers, reverse=True))
+# [7, 5, 4, 3, 2, 1]
+print(sorted(words, reverse=True))
+# ['zen', 'yay', 'del', 'bill']
+```
+
+<br>
+
+- 만약 파이썬에서 제공하는 기준이 아닌 임의의 기준을 통하여 정렬하고 싶으면 `sorted`의 `key` 값에 lambda로 간단하게 기준을 줄 수 있습니다.
+
+<br>
+
+```python
+#  Create a list of tuples
+grades = [('John', 95), ('Aaron', 99), ('Zack', 97), ('Don', 92), ('Jennifer', 100), ('Abby', 94), ('Zoe', 99), ('Dee', 93)]
+# Sort by the grades, descending
+sorted(grades, key=lambda x: x[1], reverse=True)
+# [('Jennifer', 100), ('Aaron', 99), ('Zoe', 99), ('Zack', 97), ('John', 95), ('Abby', 94), ('Dee', 93), ('Don', 92)]
+
+# Sort by the name's initial letter, ascending
+sorted(grades, key=lambda x: x[0][0])
+# [('Aaron', 99), ('Abby', 94), ('Don', 92), ('Dee', 93), ('John', 95), ('Jennifer', 100), ('Zack', 97), ('Zoe', 99)]
+```
+
+<br>
+
+- 위 처럼 `labmda`를 이용하면 쉽게 인라인으로 기준을 줄 수 있습니다. 이를 응용하여 좀 더 기준을 다양하게 줘보도록 하겠습니다.
+
+<br>
+
+```python
+
+# Requirement: sort by name initial ascending, and by grades, descending
+# Both won't work
+sorted(grades, key=lambda x: (x[0][0], x[1]), reverse=True)
+#  [('Zoe', 99), ('Zack', 97), ('Jennifer', 100), ('John', 95), ('Dee', 93), ('Don', 92), ('Aaron', 99), ('Abby', 94)]
+sorted(grades, key=lambda x: (x[0][0], x[1]), reverse=False)
+# [('Abby', 94), ('Aaron', 99), ('Don', 92), ('Dee', 93), ('John', 95), ('Jennifer', 100), ('Zack', 97), ('Zoe', 99)]
+# This will do the trick
+sorted(grades, key=lambda x: (x[0][0], -x[1]))
+# [('Aaron', 99), ('Abby', 94), ('Dee', 93), ('Don', 92), ('Jennifer', 100), ('John', 95), ('Zoe', 99), ('Zack', 97)]
+```
+
+<br>
+
+## **comparator를 이용한 클래스 정렬**
 
 <br>
 
@@ -148,42 +214,56 @@ filepath = "C://"
 filename = "test.txt"
 
 # 텍스트 파일을 입력 받기 위한 stream을 open 합니다.
-file_read=open(filepath + '/' + filename, 'r')
-while (1):
-    # 텍스트에서 1줄을 읽습니다.
-    line = file_read.readline()
-    # 개행 문자를 찾고 그 인덱스를 저장합니다.
-    # 개행 문자가 가장 처음에 있으면 0이 저장됩니다.
-    try:
-        valid = line.index('\n')
-    # 개행 문자가 없으면 입력받은 텍스트의 길이를 저장합니다.
-    except:
-        valid = len(line)
-    # 만약 line이 없으면 valid == 0 또는 line은 있으나 개행문자만 있으면 valid == 0
-    # 만약 line은 있으나 개행문자가 없으면 valid > 0
-    # 만약 line이 있고 개행문자도 있으면 valid > 0
-    # 따라서 valid > 0 경우만 parsing 실행
-    if valid:
-        # parsing 구분자로 parsing 처리
-        line_to_list = line.split(' ')       
+with open(filepath + '/' + filename, 'r') as file_read:
+    while (1):
+        # 텍스트에서 1줄을 읽습니다.
+        line = file_read.readline()
+        # 개행 문자를 찾고 그 인덱스를 저장합니다.
+        # 개행 문자가 가장 처음에 있으면 0이 저장됩니다.
+        try:
+            valid = line.index('\n')
+        # 개행 문자가 없으면 입력받은 텍스트의 길이를 저장합니다.
+        except:
+            valid = len(line)
+        # 만약 line이 없으면 valid == 0 또는 line은 있으나 개행문자만 있으면 valid == 0
+        # 만약 line은 있으나 개행문자가 없으면 valid > 0
+        # 만약 line이 있고 개행문자도 있으면 valid > 0
+        # 따라서 valid > 0 경우만 parsing 실행
+        if valid:
+            # parsing 구분자로 parsing 처리
+            line_to_list = line.split(' ')       
 
-        # 아래 parsing 처리한 리스트를 처리하는 코드 필요
-        ############## 코드 ##############
-        ############## 코드 ##############
-    else:
-        break
-file_read.close()
+            # 아래 parsing 처리한 리스트를 처리하는 코드 필요
+            ############## 코드 ##############
+            ############## 코드 ##############
+        else:
+            break
 ```
 
 <br>
 
+- 위 코드를 보면 `file_read`를 `with`문을 통해서 여는 방식을 통하여 파일 읽기를 사용하였습니다.
+- 보통 파일을 읽는 경우 한번에 전부 읽는 경우가 대다수이기 때문에 `with` 구문을 이용하여 한번에 파일을 모두 읽고 파일 스트림을 닫는 방식이 좋습니다.
+
+<br>
+
 ```python
+# 텍스트 파일을 출력 하기 위한 stream을 with를 통하여 open 합니다.
+with open(filepath + '/' + filename, 'r') as file_write:
+    s = 'contents...'
+    file_write.write(s)
+
 # 텍스트 파일을 출력 하기 위한 stream을 open 합니다.
 file_write = open(filepath + '/' + filename, 'w')
 s = 'contents...'
 file_write.write(s)
 file_write.close()
 ```
+
+<br>
+
+- 반면 파일을 쓸 때에는 한번에 모두 쓰는 경우도 있는 반면에 상황에 따라서 한번에 쓰지 못하는 경우도 생깁니다.
+- 파일 스트림 접근은 최소하 하는 것이 좋습니다. 따라서 한번에 파일 스트림을 쓸 경우 `with`문을 이용한 파일 쓰기를 사용하고 그렇지 않은 경우에만 따로 파일 스트림 변수를 받아서 사용하시길 바랍니다.
 
 <br>
 
@@ -271,6 +351,25 @@ all([[1, 2, 3], [4, 5, 6], []])
 
 - `any`를 이용하면 객체의 값 중에 True 또는 0이 아닌 값이 하나라도 있으면 True로 반환합니다.
 - 반면 모든 값이 False 또는 0이어야 False를 반환합니다.
+
+<br>
+
+- `all`과 `any`를 사용하면 여러 조건이 있는 조건문을 좀 더 간단하게 사용할 수 있습니다. 다음을 참조하시기 바랍니다.
+
+<br>
+
+```python
+# The typical ways
+if a < 10 and b > 5 and c == 4:
+    # do something
+if a < 10 or b > 5 or c == 4:
+    # do something
+# Do these instead
+if all([a < 10, b > 5, c == 4]):
+    # do something
+if any([a < 10, b > 5, c == 4]):
+    # do something
+```
 
 <br>
 
@@ -1178,3 +1277,48 @@ seperator.join(list(map(str, A))
 ```
 
 <br>
+
+## **counting 방법**
+
+<br>
+
+- 문자열을 counting을 할 수 있는 대표적인 방법은 문자열 내장 함수를 사용하거나 또는 `Counter`를 사용하는 방법이 있습니다.
+- 먼저 문자열 내장 함수를 사용해서 카운팅 해보겠습니다. 카운팅 하기 전에 `set`을 이용하여 중복 문자열을 제거하여 카운팅 할 문제열 리스트를 만듭니다.
+
+<br>
+
+```python
+words = ['an', 'boy', 'girl', 'an', 'boy', 'dog', 'cat', 'Dog', 'CAT',
+ 'an','GIRL', 'AN', 'dog', 'cat', 'cat', 'bag', 'BAG', 'BOY', 'boy', 'an']
+unique_words = {x.lower() for x in set(words)}
+for word in unique_words:
+    print(f"* Count of {word}: {words.count(word)}")
+# * Count of cat: 3
+# * Count of bag: 1
+# * Count of boy: 3
+# * Count of dog: 2
+# * Count of an: 5
+# * Count of girl: 1
+```
+
+<br>
+
+- 이번에는 `Counter`를 이용해서 카운팅 해보겠습니다.
+
+<br>
+
+```python
+from collections import Counter
+
+word_counter = Counter(x.lower() for x in words)
+print("Word Counts:", word_counter)
+# Word Counts: Counter({'an': 5, 'boy': 4, 'cat': 4, 'dog': 3, 'girl': 2, 'bag': 2})
+print("Most Frequent:", word_counter.most_common(1))
+# Most Frequent: [('an', 5)]
+print("Most Frequent:", word_counter.most_common(2))
+# Most Frequent: [('an', 5), ('boy', 4)]
+```
+
+<br>
+
+- 위 예제를 보면 `Counter` 객체를 이용하여 문자열을 카운팅 하고 `mose_common()` 함수를 통해 가장 빈도수가 높은 문자열 순으로 확인할 수 있습니다.
