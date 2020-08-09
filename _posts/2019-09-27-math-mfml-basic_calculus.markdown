@@ -154,7 +154,7 @@ tags: [calculus] # add tag
 
 <br>
 
-$$ f'(x) = \lim_{\Delta x \to 0}\Bigl( \frac{ f(x + \Delta x) - f(x) }{\Delta x} \Bigr) $$
+- $$ f'(x) = \lim_{\Delta x \to 0}\Bigl( \frac{ f(x + \Delta x) - f(x) }{\Delta x} \Bigr) $$
 
 <br>
 
@@ -162,7 +162,7 @@ $$ f'(x) = \lim_{\Delta x \to 0}\Bigl( \frac{ f(x + \Delta x) - f(x) }{\Delta x}
 
 <br>
 
-$$ f'(x) = \lim_{\Delta x \to 0} = \Bigl( \frac{ 3(x + \Delta x) + 2 - (3x + 2) }{\Delta x} \Bigr) = 3 $$
+- $$ f'(x) = \lim_{\Delta x \to 0} = \Bigl( \frac{ 3(x + \Delta x) + 2 - (3x + 2) }{\Delta x} \Bigr) = 3 $$
 
 <br>
 
@@ -170,7 +170,7 @@ $$ f'(x) = \lim_{\Delta x \to 0} = \Bigl( \frac{ 3(x + \Delta x) + 2 - (3x + 2) 
 
 <br>
 
-$$ f'(x) = \lim_{\Delta x \to 0}\Bigl( \frac{ 5(x + \Delta x)^{2} - 5x^{2} }{\Delta x} \Bigr) = \lim_{\Delta x \to 0}\Bigl( \frac{5x^{2} + 10x\Delta x + 5(\Delta x)^{2} - 5x^{2} }{\Delta x} \Bigr) = \lim_{\Delta x \to 0}(10x + 5\Delta x) = 10x $$
+- $$f'(x) = \lim_{\Delta x \to 0}\Bigl( \frac{ 5(x + \Delta x)^{2} - 5x^{2} }{\Delta x} \Bigr) = \lim_{\Delta x \to 0}\Bigl( \frac{5x^{2} + 10x\Delta x + 5(\Delta x)^{2} - 5x^{2} }{\Delta x} \Bigr) = \lim_{\Delta x \to 0}(10x + 5\Delta x) = 10x $$
 
 <br>
 
@@ -178,7 +178,7 @@ $$ f'(x) = \lim_{\Delta x \to 0}\Bigl( \frac{ 5(x + \Delta x)^{2} - 5x^{2} }{\De
 
 <br>
 
-$$ \frac{d}{dx} (f(x) + g(x)) =  \frac{df(x)}{dx} + \frac{dg(x)}{dx} \ \cdots \text{Sum Rule} $$
+- $$\frac{d}{dx} (f(x) + g(x)) =  \frac{df(x)}{dx} + \frac{dg(x)}{dx} \ \cdots \text{Sum Rule} $$
 
 <br>
 
@@ -186,7 +186,7 @@ $$ \frac{d}{dx} (f(x) + g(x)) =  \frac{df(x)}{dx} + \frac{dg(x)}{dx} \ \cdots \t
 
 <br>
 
-$$ f(x) = ax^{b}, f'(x) = abx^{b-1} \ \cdots \text{Power Rule} $$
+- $$f(x) = ax^{b}, f'(x) = abx^{b-1} \ \cdots \text{Power Rule} $$
 
 <br>
 
@@ -196,7 +196,7 @@ $$ f(x) = ax^{b}, f'(x) = abx^{b-1} \ \cdots \text{Power Rule} $$
 
 <br>
 
-$$ f'(x) = \lim_{x \to 0} \Biggl( \frac{ \frac{1}{x + \Delta x} - \frac{1}{x} }{\Delta x}  \Biggr) =  \lim_{x \to 0} \Bigl( -\frac{1}{x^{2}+x\Delta x} \Bigr) = -\frac{1}{x^{2}} $$
+- $$f'(x) = \lim_{x \to 0} \Biggl( \frac{ \frac{1}{x + \Delta x} - \frac{1}{x} }{\Delta x}  \Biggr) =  \lim_{x \to 0} \Bigl( -\frac{1}{x^{2}+x\Delta x} \Bigr) = -\frac{1}{x^{2}} $$
 
 <br>
 
@@ -225,13 +225,13 @@ $$ f'(x) = \lim_{x \to 0} \Biggl( \frac{ \frac{1}{x + \Delta x} - \frac{1}{x} }{
 
 <br>
 
-$$ \text{Euler formula : } e^{ix} = \cos{x} + i*\sin{x} $$
+- $$\text{Euler formula : } e^{ix} = \cos{x} + i*\sin{x} $$
 
 <br>
 
-$$ \sin{x} = \frac{ e^{ix} - e^{ix} }{2i} $$
+- $$\sin{x} = \frac{ e^{ix} - e^{ix} }{2i} $$
 
-$$ \cos{x} = \frac{ e^{ix} + e^{ix} }{2i} $$
+- $$\cos{x} = \frac{ e^{ix} + e^{ix} }{2i} $$
 
 <br>
 
@@ -245,7 +245,7 @@ $$ \cos{x} = \frac{ e^{ix} + e^{ix} }{2i} $$
 
 <br>
 
-$$ f'(x) = \lim_{x \to 0} \Bigl( \frac{f(x + \Delta x) - f(x) }{\Delta x} \Bigr) $$
+- $$f'(x) = \lim_{x \to 0} \Bigl( \frac{f(x + \Delta x) - f(x) }{\Delta x} \Bigr) $$
 
 <br> 
 
@@ -276,11 +276,11 @@ $$ f'(x) = \lim_{x \to 0} \Bigl( \frac{f(x + \Delta x) - f(x) }{\Delta x} \Bigr)
 
 <br>
 
-$$ \begin{split} \lim_{\Delta x \to 0} \Bigl( \frac{ \Delta A(x) }{ \Delta x } \Bigr) &= \lim_{\Delta x \to 0} \Bigl( \frac{ f(x)( g(x + \Delta x) - g(x) ) + g(x)( f(x + \Delta x) - f(x) )  }{ \Delta x } \Bigr) \\ &= \lim_{\Delta x \to 0} \Bigl( \frac{ f(x)( g(x + \Delta x) - g(x) ) + g(x) }{ \Delta x } + \frac{ g(x)( f(x + \Delta x) - f(x) )  }{ \Delta x } \Bigr) \\ &= \lim_{\Delta x \to 0} \Bigl( f(x) \frac{ ( g(x + \Delta x) - g(x) ) + g(x) }{ \Delta x } + g(x) \frac{ ( f(x + \Delta x) - f(x) )  }{ \Delta x } \Bigr) \\ &= \lim_{\Delta x \to 0} ( f(x)g'(x) + g(x)f'(x)) \end{split} $$
+- $$\begin{split} \lim_{\Delta x \to 0} \Bigl( \frac{ \Delta A(x) }{ \Delta x } \Bigr) &= \lim_{\Delta x \to 0} \Bigl( \frac{ f(x)( g(x + \Delta x) - g(x) ) + g(x)( f(x + \Delta x) - f(x) )  }{ \Delta x } \Bigr) \\ &= \lim_{\Delta x \to 0} \Bigl( \frac{ f(x)( g(x + \Delta x) - g(x) ) + g(x) }{ \Delta x } + \frac{ g(x)( f(x + \Delta x) - f(x) )  }{ \Delta x } \Bigr) \\ &= \lim_{\Delta x \to 0} \Bigl( f(x) \frac{ ( g(x + \Delta x) - g(x) ) + g(x) }{ \Delta x } + g(x) \frac{ ( f(x + \Delta x) - f(x) )  }{ \Delta x } \Bigr) \\ &= \lim_{\Delta x \to 0} ( f(x)g'(x) + g(x)f'(x)) \end{split} $$
 
 <br>
 
-$$ A'(x) = f(x)g'(x) + f'(x)g(x) $$
+- $$A'(x) = f(x)g'(x) + f'(x)g(x) $$
 
 <br>
 
@@ -288,7 +288,7 @@ $$ A'(x) = f(x)g'(x) + f'(x)g(x) $$
 
 <br>
 
-$$ \text{if} \ \  A(x) = f(x)g(x), \ \ \text{then} \ \ A'(x) = f(x)g'(x) + f'(x)g(x) $$
+- $$\text{if} \ \  A(x) = f(x)g(x), \ \ \text{then} \ \ A'(x) = f(x)g'(x) + f'(x)g(x) $$
 
 <br>
 
@@ -296,7 +296,7 @@ $$ \text{if} \ \  A(x) = f(x)g(x), \ \ \text{then} \ \ A'(x) = f(x)g'(x) + f'(x)
 
 <br>
 
-$$ u'(x) = f'(x)g(x)h(x) + f(x)g'(x)h(x) + f(x)g(x)h'(x) $$
+- $$u'(x) = f'(x)g(x)h(x) + f(x)g'(x)h(x) + f(x)g(x)h'(x) $$
 
 <br>
 
@@ -321,7 +321,7 @@ $$ u'(x) = f'(x)g(x)h(x) + f(x)g'(x)h(x) + f(x)g(x)h'(x) $$
 
 <br>
 
-$$ h(p(m)) = - \frac{1}{3}(e^{m} -1)^{2} + (e^{m} -1) + \frac{1}{5} $$
+- $$h(p(m)) = - \frac{1}{3}(e^{m} -1)^{2} + (e^{m} -1) + \frac{1}{5} $$
 
 <br>
 
@@ -329,7 +329,7 @@ $$ h(p(m)) = - \frac{1}{3}(e^{m} -1)^{2} + (e^{m} -1) + \frac{1}{5} $$
 
 <br>
 
-$$ \frac{dh}{dm} = \frac{1}{3} e^{m} (5 - 2e^{m}) $$
+- $$\frac{dh}{dm} = \frac{1}{3} e^{m} (5 - 2e^{m}) $$
 
 <br>
 
@@ -337,7 +337,7 @@ $$ \frac{dh}{dm} = \frac{1}{3} e^{m} (5 - 2e^{m}) $$
 
 <br>
 
-$$ \frac{\text{d}h}{\text{d}p}\frac{\text{d}p}{\text{d}m} = \frac{\text{d}h}{\text{d}m} $$
+- $$\frac{\text{d}h}{\text{d}p}\frac{\text{d}p}{\text{d}m} = \frac{\text{d}h}{\text{d}m} $$
 
 <br>
 
@@ -346,7 +346,7 @@ $$ \frac{\text{d}h}{\text{d}p}\frac{\text{d}p}{\text{d}m} = \frac{\text{d}h}{\te
 
 <br>
 
-$$ \text{if} \ \ h = h(p) \ \ \text{and} \ \ p = p(m) \\ \text{then}, \frac{\text{d}h}{dm} = \frac{\text{d}h}{\text{d}p} \times \frac{\text{d}p}{\text{d}m} $$
+- $$\text{if} \ \ h = h(p) \ \ \text{and} \ \ p = p(m) \\ \text{then}, \frac{\text{d}h}{dm} = \frac{\text{d}h}{\text{d}p} \times \frac{\text{d}p}{\text{d}m} $$
 
 <br> 
 
@@ -354,19 +354,19 @@ $$ \text{if} \ \ h = h(p) \ \ \text{and} \ \ p = p(m) \\ \text{then}, \frac{\tex
 
 <br>
 
-$$ h(p) = -\frac{1}{3}p^{2} + p + \frac{1}{5}, \ \ p(m) = e^{m} -1 $$
+- $$h(p) = -\frac{1}{3}p^{2} + p + \frac{1}{5}, \ \ p(m) = e^{m} -1 $$
 
 <br>
 
-$$ \frac{\text{d}h}{\text{d}p} = 1 - \frac{2}{3}p, \ \ \frac{\text{d}p}{\text{d}m} = e^{m} $$
+- $$\frac{\text{d}h}{\text{d}p} = 1 - \frac{2}{3}p, \ \ \frac{\text{d}p}{\text{d}m} = e^{m} $$
 
 <br>
 
-$$ \frac{\text{d}h}{dp}\frac{dp}{dm} = (1 - \frac{2}{3}p)e^{m} = (1 - \frac{2}{3}(e^{m} -1))e^{m} $$
+- $$\frac{\text{d}h}{dp}\frac{dp}{dm} = (1 - \frac{2}{3}p)e^{m} = (1 - \frac{2}{3}(e^{m} -1))e^{m} $$
 
 <br>
 
-$$ \frac{\text{d}h}{\text{d}m} = \frac{1}{3}e^{m}(5 - 2e^{m}) $$
+- $$\frac{\text{d}h}{\text{d}m} = \frac{1}{3}e^{m}(5 - 2e^{m}) $$
 
 <br>
 
@@ -380,43 +380,43 @@ $$ \frac{\text{d}h}{\text{d}m} = \frac{1}{3}e^{m}(5 - 2e^{m}) $$
 
 <br>
 
-$$ f(x) = \frac{ \sin{2x^{5} + 3x} }{ e^{7x} } = \sin{2x^{5} + 3x}e^{-7x} $$
+- $$f(x) = \frac{ \sin{2x^{5} + 3x} }{ e^{7x} } = \sin{2x^{5} + 3x}e^{-7x} $$
 
 <br>
 
-$$ g(x) = \sin{2x^{5} + 3x} $$
+- $$g(x) = \sin{2x^{5} + 3x} $$
 
 <br>
 
-$$ g(u) = \sin{u}, \ \to \ g'(u) = \cos{u} $$
+- $$g(u) = \sin{u}, \ \to \ g'(u) = \cos{u} $$
 
 <br>
 
-$$ u(x) = 2x^{5} + 3x \ \to \ u'(x) = 10x^{4} + 3 $$
+- $$u(x) = 2x^{5} + 3x \ \to \ u'(x) = 10x^{4} + 3 $$
 
 <br>
 
-$$ \frac{\text{d}g}{\text{d}x} = \frac{\text{d}g}{\text{d}u} \frac{\text{d}u}{\text{d}x} = \cos{u}(10x^{4} + 3) = \cos{2x^{5} + 3x}(10x^{4} + 3) $$
+- $$\frac{\text{d}g}{\text{d}x} = \frac{\text{d}g}{\text{d}u} \frac{\text{d}u}{\text{d}x} = \cos{u}(10x^{4} + 3) = \cos{2x^{5} + 3x}(10x^{4} + 3) $$
 
 <br>
 
-$$ h(v) = e^{v} \ \to \ h'(v) = e^{v} $$
+- $$h(v) = e^{v} \ \to \ h'(v) = e^{v} $$
 
 <br>
 
-$$ v(x) = -7x \ \to \ v'(x) = -7 $$
+- $$v(x) = -7x \ \to \ v'(x) = -7 $$
 
 <br>
 
-$$ \frac{\text{d}h}{\text{d}x} = \frac{\text{d}h}{\text{d}v} \frac{\text{d}v}{\text{d}x} = -7e^{-7x} $$
+- $$\frac{\text{d}h}{\text{d}x} = \frac{\text{d}h}{\text{d}v} \frac{\text{d}v}{\text{d}x} = -7e^{-7x} $$
 
 <br>
 
-$$ g'(x) = cos(2x^{5} + 3x)(10x^{4} + 3) , \ \ h'(x) = -7e^{-7x} $$
+- $$g'(x) = cos(2x^{5} + 3x)(10x^{4} + 3) , \ \ h'(x) = -7e^{-7x} $$
 
 <br>
 
-$$ \frac{\text{d}f}{x} = \frac{\text{d}g}{\text{d}x}h + g\frac{\text{d}h}{\text{d}x} = e^{-7x}( \cos{2x^{5} + 3x}(10x^{4} + 3) -7\sin{2x^{5} + 3x} ) $$
+- $$\frac{\text{d}f}{x} = \frac{\text{d}g}{\text{d}x}h + g\frac{\text{d}h}{\text{d}x} = e^{-7x}( \cos{2x^{5} + 3x}(10x^{4} + 3) -7\sin{2x^{5} + 3x} ) $$
 
 <br>
 
