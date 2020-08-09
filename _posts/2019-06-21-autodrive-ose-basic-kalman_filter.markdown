@@ -7,6 +7,12 @@ categories: [autodrive-ose]
 tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 ---
 
+<br>
+
+[Optimal State Estimation 글 목록](https://gaussian37.github.io/autodrive-ose-table/)
+
+<br>
+
 - 출처 : 칼만필터는 어렵지 않아
 - 이번 글에서는 칼만필터의 전체적인 구조 및 이론에 대하여 알아보도록 하겠습니다.
 - 이 글에서는 칼만 필터의 이론적인 배경이나 증명 보다는 사용적인 측면에서의 이론을 다룹니다.
@@ -26,3 +32,9 @@ tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 - 내부 계산은 총 4단계를 거치게 됩니다. 알고리즘을 분석할 때 아래첨자 `k`는 `k`번째 측정값에 대한 계산이라는 뜻이고 알고리즘이 반복해서 수행된다는 것을 뜻합니다.
 - 칼만 필터의 전체 구조가 이전 스텝 (`k-1`)의 값을 이용하여 현재 스텝 (`k`)의 값을 업데이트 한다는 것이기 때문에 `k` 라는 인덱스를 추가한 것이므로 헷갈린다면 잠시 무시하셔도 됩니다. 다만 **이전 스텝과 현재 스텝** 이것은 기억하셔야 합니다.
 - 반면 위 첨자(`-`)는 매우 중요한 기호이오니 구분하시고 보셔야 합니다.
+
+<br>
+
+[Optimal State Estimation 글 목록](https://gaussian37.github.io/autodrive-ose-table/)
+
+<br>
