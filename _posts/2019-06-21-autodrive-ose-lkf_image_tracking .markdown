@@ -9,6 +9,11 @@ tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 
 <br>
 
+[Optimal State Estimation 글 목록](https://gaussian37.github.io/autodrive-ose-table/)
+
+<br>
+
+
 - 출처 : 칼만필터는 어렵지 않아
 - 이번 글에서는 2차원 평면 위에서 움직이는 물체를 추적하는 방법에 대하여 알아보겠습니다.
 - 물론 움직이는 물체를 찾는 역할은 칼만 필터가 아니라 컴퓨터 비전의 알고리즘을 이용하여 알아내야 하고 칼만 필터는 영상 처리 기법으로 알아낸 물체의 위치를 받아서 정확한 위치를 추정하는 역할을 합니다.
@@ -20,14 +25,7 @@ tags: [컴퓨터 비전, 칼만 필터, kalman filter] # add tag
 
 <br>
 
-$$ x = 
-    \begin{Bmatrix}
-    p_{x} \\
-    v_{x} \\
-    p_{y} \\
-    v_{y} \\
-    \end{Bmatrix}
-$$
+- $$ x = \begin{Bmatrix} p_{x} \\ v_{x} \\ p_{y} \\ v_{y} \\ \end{Bmatrix} $$
 
 <br>
 
@@ -37,31 +35,16 @@ $$
 
 <br>
 
-$$ A = 
-    \begin{bmatrix}
-    1 & \Delta t & 0 & 0 \\
-    0 & 1 & 0 & 0 \\
-    0 & 0 & 1 & \Delta t \\
-    0 & 0 & 0 & 1 \\
-    \end{bmatrix}, \ \     
-    
-$$
-
-$$
-    H = 
-    \begin{bmatrix}
-    1 & 0 & 0 & 0 \\
-    0 & 0 & 1 & 0 \\
-    \end{bmatrix},
-$$
+- $$ A = \begin{bmatrix} 1 & \Delta t & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & \Delta t \\ 0 & 0 & 0 & 1 \\ \end{bmatrix} $$
+- $$ H = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ \end{bmatrix} $$
 
 <br>
 
-$$ x_{k+1} = Ax_{k} + w_{k} $$
+- $$ x_{k+1} = Ax_{k} + w_{k} $$
 
 <br>
 
-$$ z_{k} = Hx_{k}  + v_{k} $$
+- $$ z_{k} = Hx_{k}  + v_{k} $$
 
 <br>
 
@@ -69,17 +52,7 @@ $$ z_{k} = Hx_{k}  + v_{k} $$
 
 <br>
 
-$$ 
-    \begin{bmatrix}
-    p_{k+1} \\
-    v_{k+1} \\
-    \end{bmatrix}
-    = 
-    \begin{bmatrix}
-    p_{k} + v_{k} \cdot \Delta t  \\
-    v_{k} \\
-    \end{bmatrix} + w_{k}
-$$
+- $$  \begin{bmatrix} p_{k+1} \\ v_{k+1} \\ \end{bmatrix} = \begin{bmatrix} p_{k} + v_{k} \cdot \Delta t  \\ v_{k} \\ \end{bmatrix} + w_{k} $$
 
 <br>
 
@@ -153,3 +126,9 @@ KalmanTracking(1, 1)
 - 결과만 살펴보면 **Q가 커지면 측정값에 가까워지고 작아지면 노이즈가 줄어들어 추정값에 가까워집니다.**
 - 반대로 **R은 작아지면 측정값에 가까워지고 커지면 추정값에 가까워집니다.**
 - 파라미터 Q와 R의 역할은 반대입니다. Q와 R의 값을 적당히 변경해가면서 실험하면 전체적으로 검출한 좌표의 `노이즈를 제거 하고 속도를 추정`할 수 있습니다.
+
+<br>
+
+[Optimal State Estimation 글 목록](https://gaussian37.github.io/autodrive-ose-table/)
+
+<br>
