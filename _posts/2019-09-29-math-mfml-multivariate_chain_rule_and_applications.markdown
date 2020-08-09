@@ -38,13 +38,13 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-$$ f(x, y, z) = \sin{(x)} \cdot exp(yz^{2}) $$
+- $$f(x, y, z) = \sin{(x)} \cdot exp(yz^{2}) $$
 
-$$ x = t - 1, \quad y = t^{2}, \quad z = \frac{1}{t} $$
+- $$x = t - 1, \quad y = t^{2}, \quad z = \frac{1}{t} $$
 
-$$ \frac{\text{d}f}{\text{d}t} = \frac{\text{d}f}{\text{d}x}\frac{\text{d}x}{\text{d}t} + \frac{\text{d}f}{\text{d}y}\frac{\text{d}y}{\text{d}t} + \frac{\text{d}f}{\text{d}z}\frac{\text{d}z}{\text{d}t} $$
+- $$\frac{\text{d}f}{\text{d}t} = \frac{\text{d}f}{\text{d}x}\frac{\text{d}x}{\text{d}t} + \frac{\text{d}f}{\text{d}y}\frac{\text{d}y}{\text{d}t} + \frac{\text{d}f}{\text{d}z}\frac{\text{d}z}{\text{d}t} $$
 
-$$ \frac{\text{d}f}{\text{d}t} = \cos{(t-1)}e $$
+- $$\frac{\text{d}f}{\text{d}t} = \cos{(t-1)}e $$
 
 <br>
 
@@ -56,15 +56,15 @@ $$ \frac{\text{d}f}{\text{d}t} = \cos{(t-1)}e $$
 
 <br>
 
-$$ f(x) = f(x_{1}, x_{2}, \cdots , x_{n}) $$
+- $$f(x) = f(x_{1}, x_{2}, \cdots , x_{n}) $$
 
 <br>
 
-$$ \frac{\partial f}{\partial x} = \begin{bmatrix} \partial f / \partial x_{1} \\ \partial f / \partial x_{2} \\ \partial f / \partial x_{3} \\ \vdots \\ \partial f / \partial x_{n} \end{bmatrix} \quad  \frac{\text{d} x}{\text{d} t} = \begin{bmatrix} \text{d} x_{1} / \text{d} t \\ \text{d} x_{2} / \text{d} t \\ \text{d} x_{3} / \text{d} t \\ \vdots \\ \text{d} x_{n} / \text{d} t \end{bmatrix} $$
+- $$\frac{\partial f}{\partial x} = \begin{bmatrix} \partial f / \partial x_{1} \\ \partial f / \partial x_{2} \\ \partial f / \partial x_{3} \\ \vdots \\ \partial f / \partial x_{n} \end{bmatrix} \quad  \frac{\text{d} x}{\text{d} t} = \begin{bmatrix} \text{d} x_{1} / \text{d} t \\ \text{d} x_{2} / \text{d} t \\ \text{d} x_{3} / \text{d} t \\ \vdots \\ \text{d} x_{n} / \text{d} t \end{bmatrix} $$
 
 <br>
 
-$$ \frac{\text{d}f}{\text{d}t} = \frac{\partial f}{\partial x} \cdot \frac{\text{d}x}{\text{d}t} $$
+- $$\frac{\text{d}f}{\text{d}t} = \frac{\partial f}{\partial x} \cdot \frac{\text{d}x}{\text{d}t} $$
 
 <br>
 
@@ -78,7 +78,7 @@ $$ \frac{\text{d}f}{\text{d}t} = \frac{\partial f}{\partial x} \cdot \frac{\text
 
 <br>
 
-$$ \frac{\text{d}f}{\text{d}t} = \frac{\partial f}{\partial x} \cdot \frac{\text{d}x}{\text{d}t} $$
+- $$\frac{\text{d}f}{\text{d}t} = \frac{\partial f}{\partial x} \cdot \frac{\text{d}x}{\text{d}t} $$
 
 <br>
 
@@ -87,7 +87,7 @@ $$ \frac{\text{d}f}{\text{d}t} = \frac{\partial f}{\partial x} \cdot \frac{\text
 
 <br>
 
-$$ \frac{\partial f}{\partial x} = \begin{bmatrix} \partial f / \partial x_{1} \\ \partial f / \partial x_{2} \\ \partial f / \partial x_{3} \\ \vdots \\ \partial f / \partial x_{n} \end{bmatrix} = (J_{f})^{T} $$
+- $$\frac{\partial f}{\partial x} = \begin{bmatrix} \partial f / \partial x_{1} \\ \partial f / \partial x_{2} \\ \partial f / \partial x_{3} \\ \vdots \\ \partial f / \partial x_{n} \end{bmatrix} = (J_{f})^{T} $$
 
 <br>
 
@@ -95,7 +95,7 @@ $$ \frac{\partial f}{\partial x} = \begin{bmatrix} \partial f / \partial x_{1} \
 
 <br>
 
-$$ \frac{\text{d}f}{\text{d}t} = J_{f} \frac{\text{d}x}{\text{d}t} $$
+- $$\frac{\text{d}f}{\text{d}t} = J_{f} \frac{\text{d}x}{\text{d}t} $$
 
 <br>
 
@@ -103,13 +103,13 @@ $$ \frac{\text{d}f}{\text{d}t} = J_{f} \frac{\text{d}x}{\text{d}t} $$
 
 <br>
 
-$$ f(x) = 5x \\ x(u) = 1 - u \\ u(t) = t^{2} $$
+- $$f(x) = 5x \\ x(u) = 1 - u \\ u(t) = t^{2} $$
 
-$$ \color{red}{f(t) = 5(1-t^{2}) = 5 - 5t^{2}} $$
+- $$\color{red}{f(t) = 5(1-t^{2}) = 5 - 5t^{2}} $$
 
-$$ \color{red}{\frac{\text{d}f}{\text{d}t} = -10t} $$
+- $$\color{red}{\frac{\text{d}f}{\text{d}t} = -10t} $$
 
-$$ \begin{split} \color{blue}{\frac{\text{d}f}{\text{d}t}} &= \color{blue}{\frac{\text{d}f}{\text{d}x}\frac{\text{d}x}{\text{d}u}\frac{\text{d}u}{\text{d}t}} \\ &= \color{blue}{(5)(-1)(2t) = -10t}  \end{split}$$
+- $$\begin{split} \color{blue}{\frac{\text{d}f}{\text{d}t}} &= \color{blue}{\frac{\text{d}f}{\text{d}x}\frac{\text{d}x}{\text{d}u}\frac{\text{d}u}{\text{d}t}} \\ &= \color{blue}{(5)(-1)(2t) = -10t}  \end{split}$$
 
 <br>
 
@@ -118,13 +118,13 @@ $$ \begin{split} \color{blue}{\frac{\text{d}f}{\text{d}t}} &= \color{blue}{\frac
 
 <br>
 
-$$ f(x(u(t)))$$
+- $$f(x(u(t)))$$
 
-$$ \color{orange}{f(x) = f(x_{1}, x_{2})} $$
+- $$\color{orange}{f(x) = f(x_{1}, x_{2})} $$
 
-$$ \color{green}{x(u) = \begin{bmatrix} x_{1}(u_{1}, u_{2}) \\ x_{2}(u_{1}, u_{2}) \end{bmatrix}} $$ 
+- $$\color{green}{x(u) = \begin{bmatrix} x_{1}(u_{1}, u_{2}) \\ x_{2}(u_{1}, u_{2}) \end{bmatrix}} $$
 
-$$ \color{purple}{u(t) = \begin{bmatrix} u_{1}(t) \\ u_{2}(t) \end{bmatrix}} $$
+- $$\color{purple}{u(t) = \begin{bmatrix} u_{1}(t) \\ u_{2}(t) \end{bmatrix}} $$
 
 <br>
 
@@ -133,7 +133,7 @@ $$ \color{purple}{u(t) = \begin{bmatrix} u_{1}(t) \\ u_{2}(t) \end{bmatrix}} $$
 
 <br>
 
-$$ \frac{\text{d}f}{\text{d}t} = \color{orange}{\frac{\partial f}{\partial x}} \color{green}{\frac{\partial x}{\partial u}}\color{purple}{\frac{\text{d}u}{\text{d}t}} $$
+- $$\frac{\text{d}f}{\text{d}t} = \color{orange}{\frac{\partial f}{\partial x}} \color{green}{\frac{\partial x}{\partial u}}\color{purple}{\frac{\text{d}u}{\text{d}t}} $$
 
 <br>
 
@@ -141,7 +141,7 @@ $$ \frac{\text{d}f}{\text{d}t} = \color{orange}{\frac{\partial f}{\partial x}} \
 
 <br>
 
-$$ \frac{\text{d}f}{\text{d}t} = \color{orange}{\frac{\partial f}{\partial x}} \color{green}{\frac{\partial x}{\partial u}}\color{purple}{\frac{\text{d}u}{\text{d}t}} = \color{orange}{\begin{bmatrix} \frac{\partial f}{\partial x_{1}} & \frac{\partial f}{\partial x_{2}} \end{bmatrix}} \color{green}{\begin{bmatrix} \frac{\partial x_{1}}{\partial u_{1}} & \frac{\partial x_{1}}{\partial u_{2}} \\ \frac{\partial x_{2}}{\partial u_{1}} & \frac{\partial x_{2}}{\partial u_{2}} \end{bmatrix}} \color{purple}{\begin{bmatrix} \frac{\text{d}u_{1}}{\text{d}t} \\ \frac{\text{d}u_{2}}{\text{d}t} \end{bmatrix}} $$
+- $$\frac{\text{d}f}{\text{d}t} = \color{orange}{\frac{\partial f}{\partial x}} \color{green}{\frac{\partial x}{\partial u}}\color{purple}{\frac{\text{d}u}{\text{d}t}} = \color{orange}{\begin{bmatrix} \frac{\partial f}{\partial x_{1}} & \frac{\partial f}{\partial x_{2}} \end{bmatrix}} \color{green}{\begin{bmatrix} \frac{\partial x_{1}}{\partial u_{1}} & \frac{\partial x_{1}}{\partial u_{2}} \\ \frac{\partial x_{2}}{\partial u_{1}} & \frac{\partial x_{2}}{\partial u_{2}} \end{bmatrix}} \color{purple}{\begin{bmatrix} \frac{\text{d}u_{1}}{\text{d}t} \\ \frac{\text{d}u_{2}}{\text{d}t} \end{bmatrix}} $$
 
 <br>
 
@@ -178,15 +178,15 @@ $$ \frac{\text{d}f}{\text{d}t} = \color{orange}{\frac{\partial f}{\partial x}} \
 
 <br>
 
-$$ a^{(1)} = \sigma(wa^{(0)} + b) $$
+- $$a^{(1)} = \sigma(wa^{(0)} + b) $$
 
-$$ a \Rightarrow \text{"activity"} $$
+- $$a \Rightarrow \text{"activity"} $$
 
-$$ w \Rightarrow \text{"weight"} $$
+- $$w \Rightarrow \text{"weight"} $$
 
-$$ b \Rightarrow \text{"bias"} $$
+- $$b \Rightarrow \text{"bias"} $$
 
-$$ \sigma \Rightarrow \text{"activation function"} $$
+- $$\sigma \Rightarrow \text{"activation function"} $$
 
 <br>
 
@@ -212,13 +212,13 @@ $$ \sigma \Rightarrow \text{"activation function"} $$
 
 <br>
 
-$$ a^{(1)} = \sigma(w_{0}a_{0}^{(0)} + w_{1}a_{1}^{(0)} + b) $$
+- $$a^{(1)} = \sigma(w_{0}a_{0}^{(0)} + w_{1}a_{1}^{(0)} + b) $$
 
 <br>
 <center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/5.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-$$ a^{(1)} = \sigma(w_{0}a_{0}^{(0)} + w_{1}a_{1}^{(0)} + w_{2}a_{2}^{(0)} + b) $$
+- $$a^{(1)} = \sigma(w_{0}a_{0}^{(0)} + w_{1}a_{1}^{(0)} + w_{2}a_{2}^{(0)} + b) $$
 
 <br>
 
@@ -226,7 +226,7 @@ $$ a^{(1)} = \sigma(w_{0}a_{0}^{(0)} + w_{1}a_{1}^{(0)} + w_{2}a_{2}^{(0)} + b) 
 
 <br>
 
-$$ \sigma \Biggl(\biggl(\sum_{j=0}^n w_{j}a_{j}^{(i)} \biggr) + b \Biggr) = \sigma(w \cdot a(i) + b) $$
+- $$\sigma \Biggl(\biggl(\sum_{j=0}^n w_{j}a_{j}^{(i)} \biggr) + b \Biggr) = \sigma(w \cdot a(i) + b) $$
 
 <br>
 
@@ -236,11 +236,11 @@ $$ \sigma \Biggl(\biggl(\sum_{j=0}^n w_{j}a_{j}^{(i)} \biggr) + b \Biggr) = \sig
 <center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/6.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-$$ \color{lime}{a_{0}^{(1)}} = \sigma(\color{lime}{w_{0}} \cdot a^{0} + \color{lime}{b_{0}}) $$
+- $$\color{lime}{a_{0}^{(1)}} = \sigma(\color{lime}{w_{0}} \cdot a^{0} + \color{lime}{b_{0}}) $$
 
-$$ \color{fuchsia}{a_{1}^{(1)}} = \sigma(\color{fuchsia}{w_{1}} \cdot a^{0} + \color{fuchsia}{b_{1}}) $$
+- $$\color{fuchsia}{a_{1}^{(1)}} = \sigma(\color{fuchsia}{w_{1}} \cdot a^{0} + \color{fuchsia}{b_{1}}) $$
 
-$$ a^{(1)} = \sigma(W^{(1)} \cdot a^{(0)} + b^{(1)}) $$
+- $$a^{(1)} = \sigma(W^{(1)} \cdot a^{(0)} + b^{(1)}) $$
 
 <br>
 
@@ -258,7 +258,7 @@ $$ a^{(1)} = \sigma(W^{(1)} \cdot a^{(0)} + b^{(1)}) $$
 
 <br>
 
-$$ a_{0}^{1} = \sigma(w_{0,0}^{(1)}a_{0}^{0} + w_{0,1}^{(1)}a_{1}^{0} + \cdots + w_{0,n-1}^{(1)}a_{n-1}^{0} + b_{0}^{(1)}) $$
+- $$a_{0}^{1} = \sigma(w_{0,0}^{(1)}a_{0}^{0} + w_{0,1}^{(1)}a_{1}^{0} + \cdots + w_{0,n-1}^{(1)}a_{n-1}^{0} + b_{0}^{(1)}) $$
 
 <br>
 <center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/9.png" alt="Drawing" style="width: 400px;"/></center>
@@ -274,9 +274,9 @@ $$ a_{0}^{1} = \sigma(w_{0,0}^{(1)}a_{0}^{0} + w_{0,1}^{(1)}a_{1}^{0} + \cdots +
 <center><img src="../assets/img/math/mfml/multivariate_chain_rule_and_applications/8.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-$$ \color{fuchsia}{a^{(1)}} = \sigma(W^{(1)} \cdot a^{(0)} + b^{(1)} ) $$
+- $$\color{fuchsia}{a^{(1)}} = \sigma(W^{(1)} \cdot a^{(0)} + b^{(1)} ) $$
 
-$$ a^{(2)} = \sigma(W^{(2)} \cdot \color{fuchsia}{a^{(1)}} + b^{(2)} ) $$
+- $$a^{(2)} = \sigma(W^{(2)} \cdot \color{fuchsia}{a^{(1)}} + b^{(2)} ) $$
 
 <br>
 
@@ -284,7 +284,7 @@ $$ a^{(2)} = \sigma(W^{(2)} \cdot \color{fuchsia}{a^{(1)}} + b^{(2)} ) $$
 
 <br>
 
-$$ a^{(L)} = \sigma(W^{(L)} \cdot a^{(L-1)} + b^{(L)}) $$
+- $$a^{(L)} = \sigma(W^{(L)} \cdot a^{(L-1)} + b^{(L)}) $$
 
 <br>
 
@@ -356,13 +356,13 @@ $$ a^{(L)} = \sigma(W^{(L)} \cdot a^{(L-1)} + b^{(L)}) $$
 
 <br>
 
-$$ a^{(z)} = \sigma(z^{(n)}) $$
+- $$a^{(z)} = \sigma(z^{(n)}) $$
 
-$$ z^{(n)} = W^{(n)}a^{(n-1)} + b^{(n)} $$
+- $$z^{(n)} = W^{(n)}a^{(n-1)} + b^{(n)} $$
 
-$$ \sigma^{(z)} = \frac{1}{exp(-z)} $$
+- $$\sigma^{(z)} = \frac{1}{exp(-z)} $$
 
-$$ \frac{d\sigma^{(z)}}{dz} = \frac{exp(-z)}{(exp(-z) + 1)^{2}} $$
+- $$\frac{d\sigma^{(z)}}{dz} = \frac{exp(-z)}{(exp(-z) + 1)^{2}} $$
 
 <br>
 
@@ -404,11 +404,11 @@ def cost(x, y) :
 
 <br>
 
-$$ J_{w^{(3)}} = \frac{\partial C}{\partial W^{(3)}} $$
+- $$J_{w^{(3)}} = \frac{\partial C}{\partial W^{(3)}} $$
 
-$$ J_{b^{(3)}} = \frac{\partial C}{\partial b^{(3)}} $$
+- $$J_{b^{(3)}} = \frac{\partial C}{\partial b^{(3)}} $$
 
-$$ C = \frac{1}{N} \sum_{k}C_{k} $$
+- $$C = \frac{1}{N} \sum_{k}C_{k} $$
 
 <br>
 
@@ -416,7 +416,7 @@ $$ C = \frac{1}{N} \sum_{k}C_{k} $$
 
 <br>
 
-$$ \frac{\partial C}{\partial W^{(3)}} = \frac{\partial C}{\partial a^{(3)}}\frac{\partial a^{(3)}}{\partial z^{(3)}}\frac{\partial z^{(3)}}{\partial W^{(3)}} $$
+- $$\frac{\partial C}{\partial W^{(3)}} = \frac{\partial C}{\partial a^{(3)}}\frac{\partial a^{(3)}}{\partial z^{(3)}}\frac{\partial z^{(3)}}{\partial W^{(3)}} $$
 
 <br>
 
@@ -424,7 +424,7 @@ $$ \frac{\partial C}{\partial W^{(3)}} = \frac{\partial C}{\partial a^{(3)}}\fra
 
 <br>
 
-$$ \frac{\partial C}{\partial b^{(3)}} = \frac{\partial C}{\partial a^{(3)}}\frac{\partial a^{(3)}}{\partial z^{(3)}}\frac{\partial z^{(3)}}{\partial b^{(3)}} $$
+- $$\frac{\partial C}{\partial b^{(3)}} = \frac{\partial C}{\partial a^{(3)}}\frac{\partial a^{(3)}}{\partial z^{(3)}}\frac{\partial z^{(3)}}{\partial b^{(3)}} $$
 
 <br>
 
@@ -432,13 +432,13 @@ $$ \frac{\partial C}{\partial b^{(3)}} = \frac{\partial C}{\partial a^{(3)}}\fra
 
 <br>
 
-$$ \frac{C}{\partial a^{(3)}} = 2(a^{(3)} -  y) $$
+- $$\frac{C}{\partial a^{(3)}} = 2(a^{(3)} -  y) $$
 
-$$ \frac{\partial a^{(3)}}{\partial z^{(3)}} = \sigma'(z^{(3)}) $$
+- $$\frac{\partial a^{(3)}}{\partial z^{(3)}} = \sigma'(z^{(3)}) $$
 
-$$ \frac{\partial z^{(3)}}{\partial W^{(3)}} = a^{(2)} $$
+- $$\frac{\partial z^{(3)}}{\partial W^{(3)}} = a^{(2)} $$
 
-$$ \frac{\partial z^{(3)}}{\partial b^{(3)}} = 1 $$
+- $$\frac{\partial z^{(3)}}{\partial b^{(3)}} = 1 $$
 
 <br>
 
@@ -478,9 +478,9 @@ def J_b3 (x, y) :
 
 <br>
 
-$$ \frac{\partial C}{\partial W^{(2)}} = \frac{\partial C}{\partial a^{(3)}} \Biggl( \frac{\partial a^{(3)}}{\partial a^{(2)}} \Biggr) \frac{\partial a^{(2)}}{\partial z^{(2)}} \frac{\partial z^{(2)}}{\partial W^{(2)}} $$
+- $$\frac{\partial C}{\partial W^{(2)}} = \frac{\partial C}{\partial a^{(3)}} \Biggl( \frac{\partial a^{(3)}}{\partial a^{(2)}} \Biggr) \frac{\partial a^{(2)}}{\partial z^{(2)}} \frac{\partial z^{(2)}}{\partial W^{(2)}} $$
 
-$$ \frac{\partial C}{\partial b^{(2)}} = \frac{\partial C}{\partial a^{(3)}} \Biggl( \frac{\partial a^{(3)}}{\partial a^{(2)}} \Biggr) \frac{\partial a^{(2)}}{\partial z^{(2)}} \frac{\partial z^{(2)}}{\partial b^{(2)}} $$
+- $$\frac{\partial C}{\partial b^{(2)}} = \frac{\partial C}{\partial a^{(3)}} \Biggl( \frac{\partial a^{(3)}}{\partial a^{(2)}} \Biggr) \frac{\partial a^{(2)}}{\partial z^{(2)}} \frac{\partial z^{(2)}}{\partial b^{(2)}} $$
 
 <br>
 
@@ -495,7 +495,7 @@ $$ \frac{\partial C}{\partial b^{(2)}} = \frac{\partial C}{\partial a^{(3)}} \Bi
 
 <br>
 
-$$ \frac{\partial a^{(3)}}{\partial a^{(2)}} = \frac{\partial a^{(3)}}{\partial z^{(3)}} \frac{\partial z^{(3)}}{\partial a^{(2)}} = \sigma'(z^{(3)}) W^{(3)} $$
+- $$\frac{\partial a^{(3)}}{\partial a^{(2)}} = \frac{\partial a^{(3)}}{\partial z^{(3)}} \frac{\partial z^{(3)}}{\partial a^{(2)}} = \sigma'(z^{(3)}) W^{(3)} $$
 
 <br>
 
@@ -503,11 +503,11 @@ $$ \frac{\partial a^{(3)}}{\partial a^{(2)}} = \frac{\partial a^{(3)}}{\partial 
 
 <br>
 
-$$ \frac{\partial a^{(3)}}{\partial z^{(3)}} = \sigma'(z^{(3)}) $$
+- $$\frac{\partial a^{(3)}}{\partial z^{(3)}} = \sigma'(z^{(3)}) $$
 
-$$ \frac{\partial z^{(3)}}{\partial a^{(2)}} = W^{(3)} $$
+- $$\frac{\partial z^{(3)}}{\partial a^{(2)}} = W^{(3)} $$
 
-$$ \frac{\partial a^{(3)}}{\partial z^{(3)}}\frac{\partial z^{(3)}}{\partial a^{(2)}} = \sigma'(z^{(3)})W^{(3)}  = \frac{a^{(3)}}{a^{(2)}}$$
+- $$\frac{\partial a^{(3)}}{\partial z^{(3)}}\frac{\partial z^{(3)}}{\partial a^{(2)}} = \sigma'(z^{(3)})W^{(3)}  = \frac{a^{(3)}}{a^{(2)}}$$
 
 <br>
 
@@ -540,29 +540,9 @@ def J_b2 (x, y) :
 
 <br>
 
-$$ \frac{\partial C}{\partial W^{(1)}} =
-   \frac{\partial C}{\partial a^{(3)}}
-   \left(
-   \frac{\partial a^{(3)}}{\partial a^{(2)}}
-   \frac{\partial a^{(2)}}{\partial a^{(1)}}
-   \right)
-   \frac{\partial a^{(1)}}{\partial z^{(1)}}
-   \frac{\partial z^{(1)}}{\partial W^{(1)}}
+- $$\frac{\partial C}{\partial W^{(1)}} = \frac{\partial C}{\partial a^{(3)}} \left( \frac{\partial a^{(3)}}{\partial a^{(2)}} \frac{\partial a^{(2)}}{\partial a^{(1)}} \right) \frac{\partial a^{(1)}}{\partial z^{(1)}} \frac{\partial z^{(1)}}{\partial W^{(1)}} $$
 
-$$
-
-$$
-
-\frac{\partial C}{\partial b^{(1)}} =
-   \frac{\partial C}{\partial a^{(3)}}
-   \left(
-   \frac{\partial a^{(3)}}{\partial a^{(2)}}
-   \frac{\partial a^{(2)}}{\partial a^{(1)}}
-   \right)
-   \frac{\partial a^{(1)}}{\partial z^{(1)}}
-   \frac{\partial z^{(1)}}{\partial b^{(1)}}
-
-$$
+- $$ \frac{\partial C}{\partial b^{(1)}} = \frac{\partial C}{\partial a^{(3)}} \left( \frac{\partial a^{(3)}}{\partial a^{(2)}} \frac {\partial a^{(2)}}{\partial a^{(1)}} \right) \frac{\partial a^{(1)}}{\partial z^{(1)}} \frac{\partial z^{(1)}}{\partial b^{(1)}} $$
 
 <br>
 
