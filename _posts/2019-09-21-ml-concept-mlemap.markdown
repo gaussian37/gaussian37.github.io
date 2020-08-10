@@ -136,7 +136,7 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
 
 <br>
 
-$$ L(\theta; x_{1}, x_{2}, ... , x_{n}) = L(\theta; X) = f(X \vert \theta) = f(x_{1}, x_{2}, ..., x_{n} \vert \theta) $$
+- $$ L(\theta; x_{1}, x_{2}, ... , x_{n}) = L(\theta; X) = f(X \vert \theta) = f(x_{1}, x_{2}, ..., x_{n} \vert \theta) $$
 
 <br>
 
@@ -145,7 +145,7 @@ $$ L(\theta; x_{1}, x_{2}, ... , x_{n}) = L(\theta; X) = f(X \vert \theta) = f(x
 
 <br>
 
-$$ \hat{\theta} = argmax_{\theta} L(\theta; X) = argmax_{\theta} f(X \vert \theta) $$
+- $$ \hat{\theta} = argmax_{\theta} L(\theta; X) = argmax_{\theta} f(X \vert \theta) $$
 
 <br>
        
@@ -222,7 +222,7 @@ $$ \hat{\theta} = argmax_{\theta} L(\theta; X) = argmax_{\theta} f(X \vert \thet
 
 <br>
 
-$$ p(Y \vert X) = \frac{ p(X \vert Y) p(Y)}{p(X)} $$
+- $$ p(Y \vert X) = \frac{ p(X \vert Y) p(Y)}{p(X)} $$
 
 <br>
 
@@ -233,7 +233,7 @@ $$ p(Y \vert X) = \frac{ p(X \vert Y) p(Y)}{p(X)} $$
 
 <br>
 
-$$ \hat{\theta} = argmax_{\theta} f(\theta \vert X) = argmax_{\theta} \frac{f(X \vert \theta) f(\theta) }{ f(X) } = argmax_{\theta} \frac{ L(\theta; X) f(\theta) }{f(X)} = argmax_{\theta} L(\theta; X) f(\theta) $$
+- $$ \hat{\theta} = argmax_{\theta} f(\theta \vert X) = argmax_{\theta} \frac{f(X \vert \theta) f(\theta) }{ f(X) } = argmax_{\theta} \frac{ L(\theta; X) f(\theta) }{f(X)} = argmax_{\theta} L(\theta; X) f(\theta) $$
 
 <br>
 
@@ -249,6 +249,7 @@ $$ \hat{\theta} = argmax_{\theta} f(\theta \vert X) = argmax_{\theta} \frac{f(X 
 <br>
 <center><img src="../assets/img/ml/concept/mle_and_map/4.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
+
 - 출처: 패턴인식(오일석)       
 
 <br>
