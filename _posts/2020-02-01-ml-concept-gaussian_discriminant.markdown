@@ -53,7 +53,7 @@ tags: [가우시안, 분별 함수, 패턴 인식, 선형 분별 분석, 2차 �
 <center><img src="../assets/img/ml/concept/gaussian_discriminant/0.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-$$ N(\mu, \sigma^{2}) = \frac{1}{(2\pi)^{1/2}\sigma} exp(-\frac{(x - \mu)^{2}}{2\sigma^{2}}) $$
+- $$ N(\mu, \sigma^{2}) = \frac{1}{(2\pi)^{1/2}\sigma} exp(-\frac{(x - \mu)^{2}}{2\sigma^{2}}) $$
 
 <br>
 
@@ -62,7 +62,7 @@ $$ N(\mu, \sigma^{2}) = \frac{1}{(2\pi)^{1/2}\sigma} exp(-\frac{(x - \mu)^{2}}{2
 
 <br>
 
-$$ N(\mu, \Sigma) = \frac{1}{(2\pi)^{d/2}\vert \Sigma \vert^{1/2}} \text{exp}(-\frac{1}{2}(x - \mu)^{T}\Sigma^{-1}(x - \mu) )  $$
+- $$ N(\mu, \Sigma) = \frac{1}{(2\pi)^{d/2}\vert \Sigma \vert^{1/2}} \text{exp}(-\frac{1}{2}(x - \mu)^{T}\Sigma^{-1}(x - \mu) )  $$
 
 <br>
 <center><img src="../assets/img/ml/concept/gaussian_discriminant/1.png" alt="Drawing" style="width: 400px;"/></center>
@@ -73,7 +73,7 @@ $$ N(\mu, \Sigma) = \frac{1}{(2\pi)^{d/2}\vert \Sigma \vert^{1/2}} \text{exp}(-\
 
 <br>
 
-$$ p(x \vert w_{i}) = N(\mu_{i}, \Sigma_{i}) = \frac{1}{(2\pi)^{d/2} \vert \Sigma_{i} \vert ^{1/2}} \text{exp} (-\frac{1}{2}(x - \mu_{i})^{T} \Sigma_{i}^{-1}(x - \mu_{i})) $$
+- $$ p(x \vert w_{i}) = N(\mu_{i}, \Sigma_{i}) = \frac{1}{(2\pi)^{d/2} \vert \Sigma_{i} \vert ^{1/2}} \text{exp} (-\frac{1}{2}(x - \mu_{i})^{T} \Sigma_{i}^{-1}(x - \mu_{i})) $$
 
 <br>
 
@@ -81,13 +81,13 @@ $$ p(x \vert w_{i}) = N(\mu_{i}, \Sigma_{i}) = \frac{1}{(2\pi)^{d/2} \vert \Sigm
 
 <br>
 
-$$ g_{i}(x) = \text{ln}(f(x)) = \text{ln}(p(x \vert w_{i})P(w_{i})) $$
+- $$ g_{i}(x) = \text{ln}(f(x)) = \text{ln}(p(x \vert w_{i})P(w_{i})) $$
 
-$$ = \text{ln}(N(\mu_{i}, \Sigma_{i})) + \text{ln}(P(w_{i})) $$
+- $$ = \text{ln}(N(\mu_{i}, \Sigma_{i})) + \text{ln}(P(w_{i})) $$
 
-$$ = -\frac{1}{2}(x - \mu_{i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma_{i} \vert) + \text{ln}(P(w_{i})) $$
+- $$ = -\frac{1}{2}(x - \mu_{i})^{T}\Sigma_{i}^{-1}(x - \mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma_{i} \vert) + \text{ln}(P(w_{i})) $$
 
-$$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x -x^{T}\Sigma_{i}^{-1}\mu_{i} - \mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma_{i} \vert) + \text{ln}(P(w_{i})) $$
+- $$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x -x^{T}\Sigma_{i}^{-1}\mu_{i} - \mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma_{i} \vert) + \text{ln}(P(w_{i})) $$
 
 <br>
 
@@ -96,7 +96,7 @@ $$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x -x^{T}\Sigma_{i}^{-1}\mu_{i} - \mu_{i}^{
 
 <br>
 
-$$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x - 2\mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma_{i} \vert) + \text{ln}(P(w_{i})) $$
+- $$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x - 2\mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma_{i} \vert) + \text{ln}(P(w_{i})) $$
 
 <br>
 
@@ -111,9 +111,9 @@ $$ = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x - 2\mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}
 
 <br>
 
-$$ \mu_{i} = (3, 1)^{T} $$
+- $$ \mu_{i} = (3, 1)^{T} $$
 
-$$ \Sigma_{i}  = \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} $$
+- $$ \Sigma_{i}  = \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} $$
 
 <br>
 
@@ -121,15 +121,15 @@ $$ \Sigma_{i}  = \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} $$
 
 <br>
 
-$$ g_{i}(x) = -\frac{1}{2} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} - \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr)^{T} \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix}^{-1} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -  \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr) - \frac{2}{2} \text{ln}(2\pi) -\frac{1}{2} \text{ln}( \vert \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} \vert) + \text{ln}(P(w_{i})) $$
+- $$ g_{i}(x) = -\frac{1}{2} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} - \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr)^{T} \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix}^{-1} \Biggl( \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -  \begin{pmatrix} 3 \\ 1 \end{pmatrix} \Biggr) - \frac{2}{2} \text{ln}(2\pi) -\frac{1}{2} \text{ln}( \vert \begin{pmatrix} 2 & 0 \\ 0 & 2 \\ \end{pmatrix} \vert) + \text{ln}(P(w_{i})) $$
 
 <br>
 
-$$ = -\frac{1}{2} \begin{pmatrix} x_{1} -3 & x_{2} - 1 \end{pmatrix} \begin{pmatrix} 1/2 & 0 \\ 0 & 1/2 \\ \end{pmatrix}^{-1} \begin{pmatrix} x_{1} - 3 \\ x_{2} -1 \end{pmatrix} \text{ln}(2\pi) -\frac{1}{2} \text{ln}(4) + \text{ln}(P(w_{i})) $$
+- $$ = -\frac{1}{2} \begin{pmatrix} x_{1} -3 & x_{2} - 1 \end{pmatrix} \begin{pmatrix} 1/2 & 0 \\ 0 & 1/2 \\ \end{pmatrix}^{-1} \begin{pmatrix} x_{1} - 3 \\ x_{2} -1 \end{pmatrix} \text{ln}(2\pi) -\frac{1}{2} \text{ln}(4) + \text{ln}(P(w_{i})) $$
 
 <br>
 
-$$ = -\frac{1}{4}(x_{1}^{2} + x_{1}^{2}) + \frac{1}{2}(3x_{1} + x_{2}) -\frac{1}{2}(5 + 2\text{ln}(2\pi) + \text{ln}(4) - 2\text{ln}(P(w_{i}))) $$
+- $$ = -\frac{1}{4}(x_{1}^{2} + x_{1}^{2}) + \frac{1}{2}(3x_{1} + x_{2}) -\frac{1}{2}(5 + 2\text{ln}(2\pi) + \text{ln}(4) - 2\text{ln}(P(w_{i}))) $$
 
 <br>
 
@@ -141,7 +141,7 @@ $$ = -\frac{1}{4}(x_{1}^{2} + x_{1}^{2}) + \frac{1}{2}(3x_{1} + x_{2}) -\frac{1}
 
 <br>
 
-$$ g_{ij} = g_{i}(x) - g_{j}(x) $$
+- $$ g_{ij} = g_{i}(x) - g_{j}(x) $$
 
 <br>
 
@@ -164,7 +164,7 @@ $$ g_{ij} = g_{i}(x) - g_{j}(x) $$
 
 <br>
 
-$$ = -\frac{1}{2}(x^{T}\Sigma^{-1}x - 2\mu_{i}^{T}\Sigma^{-1}x + \mu_{i}^{T}\Sigma^{-1}\mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma \vert) + \text{ln}(P(w_{i})) $$
+- $$ = -\frac{1}{2}(x^{T}\Sigma^{-1}x - 2\mu_{i}^{T}\Sigma^{-1}x + \mu_{i}^{T}\Sigma^{-1}\mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma \vert) + \text{ln}(P(w_{i})) $$
 
 <br>
 
@@ -172,7 +172,7 @@ $$ = -\frac{1}{2}(x^{T}\Sigma^{-1}x - 2\mu_{i}^{T}\Sigma^{-1}x + \mu_{i}^{T}\Sig
 
 <br>
 
-$$ \frac{1}{2}(-2\mu_{i}^{T}\Sigma^{-1}x -\mu_{i}^{T}\Sigma^{-1}\mu_{i} + 2\text{ln}(P(w_{i}))) -\frac{1}{2}(x^{T}\Sigma^{-1}x + d\text{ln}(2\pi)) + \text{ln}\vert \Sigma \vert) $$
+- $$ \frac{1}{2}(-2\mu_{i}^{T}\Sigma^{-1}x -\mu_{i}^{T}\Sigma^{-1}\mu_{i} + 2\text{ln}(P(w_{i}))) -\frac{1}{2}(x^{T}\Sigma^{-1}x + d\text{ln}(2\pi)) + \text{ln}\vert \Sigma \vert) $$
 
 <br>
 
@@ -185,7 +185,7 @@ $$ \frac{1}{2}(-2\mu_{i}^{T}\Sigma^{-1}x -\mu_{i}^{T}\Sigma^{-1}\mu_{i} + 2\text
 
 <br>
 
-$$ g_{i}(x) = (\Sigma^{-1} \mu_{i})^{T}x + (\text{ln}(P(w_{i})) -\frac{1}{2}\mu_{i}^{T}\Sigma^{-1}\mu_{i}) = w_{i}^{T}x + b_{i} $$
+- $$ g_{i}(x) = (\Sigma^{-1} \mu_{i})^{T}x + (\text{ln}(P(w_{i})) -\frac{1}{2}\mu_{i}^{T}\Sigma^{-1}\mu_{i}) = w_{i}^{T}x + b_{i} $$
 
 <br>
 
@@ -193,11 +193,11 @@ $$ g_{i}(x) = (\Sigma^{-1} \mu_{i})^{T}x + (\text{ln}(P(w_{i})) -\frac{1}{2}\mu_
 
 <br>
 
-$$ g_{ij}(x) = g_{i}(x) - g_{j}(x) = (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T}x + (\text{ln}(P(w_{i})) -\text{ln}(P(w_{j})) -\frac{1}{2} \mu_{i}^{T}\Sigma^{-1}\mu_{i} + \frac{1}{2}\mu_{j}^{T}\Sigma^{-1}\mu_{j} ) $$
+- $$ g_{ij}(x) = g_{i}(x) - g_{j}(x) = (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T}x + (\text{ln}(P(w_{i})) -\text{ln}(P(w_{j})) -\frac{1}{2} \mu_{i}^{T}\Sigma^{-1}\mu_{i} + \frac{1}{2}\mu_{j}^{T}\Sigma^{-1}\mu_{j} ) $$
 
 <br>
 
-$$ = (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T}\Biggl(x - \Biggl( \frac{1}{2}(\mu_{i} + \mu_{j}) - \frac{\mu_{i} - \mu_{j}}{(\mu_{i} - \mu_{j})^{T}\Sigma^{-1}(\mu_{i} - \mu_{j})} \text{ln}\frac{P(w_{i})}{P(w_{j})} \Biggr)\Biggr) = w^{T}(x - x_{0}) $$
+- $$ = (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T}\Biggl(x - \Biggl( \frac{1}{2}(\mu_{i} + \mu_{j}) - \frac{\mu_{i} - \mu_{j}}{(\mu_{i} - \mu_{j})^{T}\Sigma^{-1}(\mu_{i} - \mu_{j})} \text{ln}\frac{P(w_{i})}{P(w_{j})} \Biggr)\Biggr) = w^{T}(x - x_{0}) $$
 
 - 여기에서 $$ (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T} $$ 를 $$ w $$라고 하고 $$ \Biggl( \frac{1}{2}(\mu_{i} + \mu_{j}) - \frac{\mu_{i} - \mu_{j}}{(\mu_{i} - \mu_{j})^{T}\Sigma^{-1}(\mu_{i} - \mu_{j})} \text{ln}\frac{P(w_{i})}{P(w_{j})} \Biggr) $$를 $$ x_{0} $$ 라고 정의하면 위와 같이 정리할 수 있습니다.
 
@@ -239,9 +239,9 @@ $$ = (\Sigma^{-1}(\mu_{i} - \mu_{j}))^{T}\Biggl(x - \Biggl( \frac{1}{2}(\mu_{i} 
 
 <br>
 
-$$ w_{1} = \{ (1, 2)^{T}, (3, 1)^{T}, (5, 2)^{T}, (3, 3)^{T} \} $$
+- $$ w_{1} = \{ (1, 2)^{T}, (3, 1)^{T}, (5, 2)^{T}, (3, 3)^{T} \} $$
 
-$$ w_{2} = \{ (6, 6)^{T}, (8, 5)^{T}, (10, 6)^{T}, (8, 7)^{T} \} $$
+- $$ w_{2} = \{ (6, 6)^{T}, (8, 5)^{T}, (10, 6)^{T}, (8, 7)^{T} \} $$
 
 <br>
 
@@ -250,17 +250,9 @@ $$ w_{2} = \{ (6, 6)^{T}, (8, 5)^{T}, (10, 6)^{T}, (8, 7)^{T} \} $$
 
 <br>
 
-$$ 
+- $$ \mu_{1} = \frac{1}{4} \Biggl( \begin{pmatrix} 1 \\ 2 \end{pmatrix} + \begin{pmatrix} 3 \\ 1 \end{pmatrix} + \begin{pmatrix} 5 \\ 2 \end{pmatrix} + \begin{pmatrix} 3 \\ 3 \end{pmatrix} \Biggr) = \begin{pmatrix} 3 \\ 2 \end{pmatrix} $$
 
-\mu_{1} = \frac{1}{4} \Biggl( \begin{pmatrix} 1 \\ 2 \end{pmatrix} + \begin{pmatrix} 3 \\ 1 \end{pmatrix} + \begin{pmatrix} 5 \\ 2 \end{pmatrix} + \begin{pmatrix} 3 \\ 3 \end{pmatrix} \Biggr) = \begin{pmatrix} 3 \\ 2 \end{pmatrix}
-
-$$
-
-$$ 
-
-\mu_{2} = \frac{1}{4} \Biggl( \begin{pmatrix} 6 \\ 6 \end{pmatrix} + \begin{pmatrix} 8 \\ 5 \end{pmatrix} + \begin{pmatrix} 10 \\ 6 \end{pmatrix} + \begin{pmatrix} 8 \\ 7 \end{pmatrix} \Biggr) = \begin{pmatrix} 8 \\ 6 \end{pmatrix}
-
-$$
+- $$ \mu_{2} = \frac{1}{4} \Biggl( \begin{pmatrix} 6 \\ 6 \end{pmatrix} + \begin{pmatrix} 8 \\ 5 \end{pmatrix} + \begin{pmatrix} 10 \\ 6 \end{pmatrix} + \begin{pmatrix} 8 \\ 7 \end{pmatrix} \Biggr) = \begin{pmatrix} 8 \\ 6 \end{pmatrix} $$
 
 <br>
 
@@ -269,13 +261,13 @@ $$
 
 <br>
 
-$$ \sigma(x, x) = \frac{ \sum_{i=1}^{n}(x_{i} - \mu_{x})^{2} }{n-1} = E[ (X - E(X))(X - E(X)) ] $$
+- $$ \sigma(x, x) = \frac{ \sum_{i=1}^{n}(x_{i} - \mu_{x})^{2} }{n-1} = E[ (X - E(X))(X - E(X)) ] $$
 
-$$ \sigma(x, y) = \frac{ \sum_{i=1}^{n}(x_{i} - \mu_{x})(y_{i} - \mu_{y}) }{n-1} = E[ (X - E(X))(Y - E(Y)) ]$$
+- $$ \sigma(x, y) = \frac{ \sum_{i=1}^{n}(x_{i} - \mu_{x})(y_{i} - \mu_{y}) }{n-1} = E[ (X - E(X))(Y - E(Y)) ]$$
 
-$$ \sigma(y, x) = \frac{ \sum_{i=1}^{n}(y_{i} - \mu_{y})(x_{i} - \mu_{x}) }{n-1} = E[ (Y - E(Y))(X - E(X)) ] $$
+- $$ \sigma(y, x) = \frac{ \sum_{i=1}^{n}(y_{i} - \mu_{y})(x_{i} - \mu_{x}) }{n-1} = E[ (Y - E(Y))(X - E(X)) ] $$
 
-$$ \sigma(y, y) = \frac{ \sum_{i=1}^{n}(y_{i} - \mu_{y})^{2} }{n-1} = E[ (Y - E(Y))(Y - E(Y)) ] $$
+- $$ \sigma(y, y) = \frac{ \sum_{i=1}^{n}(y_{i} - \mu_{y})^{2} }{n-1} = E[ (Y - E(Y))(Y - E(Y)) ] $$
 
 <br>
 
@@ -283,17 +275,9 @@ $$ \sigma(y, y) = \frac{ \sum_{i=1}^{n}(y_{i} - \mu_{y})^{2} }{n-1} = E[ (Y - E(
 
 <br>
 
-$$ 
+- $$ \Sigma_{1} = \begin{pmatrix} ((1 - 3)^{2} + (3 - 3)^{2} + (5 - 3)^{2} + (3 - 3)^{2})/(4-1) & ((1 - 3)(2 - 2) + (3 - 3)(1 - 2) + (5 - 3)(2 - 2) + (3 - 3)(3 - 2))/(4-1) \\ ((2 - 2)(1 - 3) + (1 - 2)(3 - 3) + (2 - 2)(5 - 3) + (3 - 2)(3 - 3))/(4-1) & ((2 -2)^{2} + (1 - 2)^{2} + (2 - 2)^{2} + (3 - 2)^{2})/(4-1) \end{pmatrix} $$
 
-\Sigma_{1} = \begin{pmatrix} ((1 - 3)^{2} + (3 - 3)^{2} + (5 - 3)^{2} + (3 - 3)^{2})/(4-1) & ((1 - 3)(2 - 2) + (3 - 3)(1 - 2) + (5 - 3)(2 - 2) + (3 - 3)(3 - 2))/(4-1) \\ ((2 - 2)(1 - 3) + (1 - 2)(3 - 3) + (2 - 2)(5 - 3) + (3 - 2)(3 - 3))/(4-1) & ((2 -2)^{2} + (1 - 2)^{2} + (2 - 2)^{2} + (3 - 2)^{2})/(4-1) \end{pmatrix}
-
-$$
-
-$$ 
-
-\Sigma_{2} = \begin{pmatrix} ((6 - 8)^{2} + (8 - 8)^{2} + (10 - 8)^{2} + (8 - 8)^{2}) / (4-1) & ((6 - 8)(6 - 6) + (8 - 8)(5 - 6) + (10 - 8)(6 - 6) + (8 - 8)(7 - 6))/(4-1) \\ ((6 - 6)(6 - 8) + (5 - 6)(8 - 8) + (6 - 6)(10 - 8) + (7 - 6)(8 - 8))/(4-1) & ( (6 -6)^{2} + (5 - 6)^{2} + (6 - 6)^{2} + (7 - 6)^{2})/(4-1) \end{pmatrix}
-
-$$
+- $$ \Sigma_{2} = \begin{pmatrix} ((6 - 8)^{2} + (8 - 8)^{2} + (10 - 8)^{2} + (8 - 8)^{2}) / (4-1) & ((6 - 8)(6 - 6) + (8 - 8)(5 - 6) + (10 - 8)(6 - 6) + (8 - 8)(7 - 6))/(4-1) \\ ((6 - 6)(6 - 8) + (5 - 6)(8 - 8) + (6 - 6)(10 - 8) + (7 - 6)(8 - 8))/(4-1) & ( (6 -6)^{2} + (5 - 6)^{2} + (6 - 6)^{2} + (7 - 6)^{2})/(4-1) \end{pmatrix} $$
 
 <br>
 
@@ -301,7 +285,7 @@ $$
 
 <br>
 
-$$ \Sigma = \begin{pmatrix} 8/3 & 0 \\ 0 & 2/3 \end{pmatrix} $$
+- $$ \Sigma = \begin{pmatrix} 8/3 & 0 \\ 0 & 2/3 \end{pmatrix} $$
 
 <br>
 
@@ -310,11 +294,11 @@ $$ \Sigma = \begin{pmatrix} 8/3 & 0 \\ 0 & 2/3 \end{pmatrix} $$
 
 <br>
 
-$$ g_{12}(x) = \Biggl(\begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 3 - 8 \\ 2 - 6 \end{pmatrix} \Biggr)^{T} x + \Biggl(\text{ln}(P(w_{1})) - \text{ln}(P(w_{2})) - \frac{1}{2}\begin{pmatrix} 3 & 2 \end{pmatrix} \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 3 \\ 2 \end{pmatrix} + \frac{1}{2} \begin{pmatrix} 8 \ 6 \end{pmatrix} \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 8 \\ 6 \end{pmatrix} \Biggr) $$
+- $$ g_{12}(x) = \Biggl(\begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 3 - 8 \\ 2 - 6 \end{pmatrix} \Biggr)^{T} x + \Biggl(\text{ln}(P(w_{1})) - \text{ln}(P(w_{2})) - \frac{1}{2}\begin{pmatrix} 3 & 2 \end{pmatrix} \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 3 \\ 2 \end{pmatrix} + \frac{1}{2} \begin{pmatrix} 8 \ 6 \end{pmatrix} \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 8 \\ 6 \end{pmatrix} \Biggr) $$
 
-$$ = \begin{pmatrix} -15/8 & -6 \end{pmatrix} \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} + (\text{ln}P(w_{1}) - \text{ln}P(w_{2}) + 34.3125) $$
+- $$ = \begin{pmatrix} -15/8 & -6 \end{pmatrix} \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} + (\text{ln}P(w_{1}) - \text{ln}P(w_{2}) + 34.3125) $$
 
-$$ = \frac{-15}{8}x_{1} -6x_{2} + (\text{ln}(P(w_{1})) - \text{ln}(P(w_{2})) + 34.3125) $$ 
+- $$ = \frac{-15}{8}x_{1} -6x_{2} + (\text{ln}(P(w_{1})) - \text{ln}(P(w_{2})) + 34.3125) $$ 
 
 <br>
 
@@ -342,7 +326,7 @@ $$ = \frac{-15}{8}x_{1} -6x_{2} + (\text{ln}(P(w_{1})) - \text{ln}(P(w_{2})) + 3
 
 <br>
 
-$$ g_{i}(x) = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x - 2\mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma_{i} \vert) + \text{ln}(P(w_{i})) $$
+- $$ g_{i}(x) = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x - 2\mu_{i}^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i}) - \frac{d}{2}\text{ln}(2\pi) - \frac{1}{2}\text{ln}(\vert \Sigma_{i} \vert) + \text{ln}(P(w_{i})) $$
 
 <br>
 
@@ -352,7 +336,7 @@ $$ g_{i}(x) = -\frac{1}{2}(x^{T}\Sigma_{i}^{-1}x - 2\mu_{i}^{T}\Sigma_{i}^{-1}x 
 
 <br>
 
-$$ g_{i}(x) = -\frac{1}{2}x^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}x + \Biggl( -\frac{1}{2}\mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i} -\frac{1}{2}\text{ln}\vert \Sigma_{i} \vert + \text{ln}(P(w_{i})) \Biggr) $$
+- $$ g_{i}(x) = -\frac{1}{2}x^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}x + \Biggl( -\frac{1}{2}\mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i} -\frac{1}{2}\text{ln}\vert \Sigma_{i} \vert + \text{ln}(P(w_{i})) \Biggr) $$
 
 <br>
 
@@ -374,9 +358,9 @@ $$ g_{i}(x) = -\frac{1}{2}x^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}x + 
 
 <br>
 
-$$ w_{1} = (1, 2)^{T}, (3, 1)^{T}, (5, 2)^{T}, (3, 3)^{T} $$
+- $$ w_{1} = (1, 2)^{T}, (3, 1)^{T}, (5, 2)^{T}, (3, 3)^{T} $$
 
-$$ w_{2} = (7, 6)^{T}, (8, 4)^{T}, (9, 6)^{T}, (8, 8)^{T} $$
+- $$ w_{2} = (7, 6)^{T}, (8, 4)^{T}, (9, 6)^{T}, (8, 8)^{T} $$
 
 <br>
 
@@ -384,9 +368,9 @@ $$ w_{2} = (7, 6)^{T}, (8, 4)^{T}, (9, 6)^{T}, (8, 8)^{T} $$
 
 <br>
 
-$$ \mu_{1} = \begin{pmatrix} 3 \\ 2 \end{pmatrix}, \Sigma_{1} = \begin{pmatrix} 8/3 & 0 \\ 0 & 2/3 \end{pmatrix} $$
+- $$ \mu_{1} = \begin{pmatrix} 3 \\ 2 \end{pmatrix}, \Sigma_{1} = \begin{pmatrix} 8/3 & 0 \\ 0 & 2/3 \end{pmatrix} $$
 
-$$ \mu_{2} = \begin{pmatrix} 8 \\ 6 \end{pmatrix}, \Sigma_{2} = \begin{pmatrix} 2/3 & 0 \\ 0 & 8/3 \end{pmatrix} $$
+- $$ \mu_{2} = \begin{pmatrix} 8 \\ 6 \end{pmatrix}, \Sigma_{2} = \begin{pmatrix} 2/3 & 0 \\ 0 & 8/3 \end{pmatrix} $$
 
 <br>
 
@@ -394,19 +378,19 @@ $$ \mu_{2} = \begin{pmatrix} 8 \\ 6 \end{pmatrix}, \Sigma_{2} = \begin{pmatrix} 
 
 <br>
 
-$$ g_{1}(x) = -\frac{1}{2} \begin{pmatrix} x_{1} & x_{2} \end{pmatrix}  \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} + \begin{pmatrix} 3 & 2 \end{pmatrix}  \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -\frac{1}{2} \begin{pmatrix}3 & 2 \end{pmatrix}  \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 3 \\ 2 \end{pmatrix} -\frac{1}{2}\text{ln} \begin{vmatrix} \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \end{vmatrix} + \text{ln}P(w_{1})$$
+- $$ g_{1}(x) = -\frac{1}{2} \begin{pmatrix} x_{1} & x_{2} \end{pmatrix}  \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} + \begin{pmatrix} 3 & 2 \end{pmatrix}  \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -\frac{1}{2} \begin{pmatrix}3 & 2 \end{pmatrix}  \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \begin{pmatrix} 3 \\ 2 \end{pmatrix} -\frac{1}{2}\text{ln} \begin{vmatrix} \begin{pmatrix} 3/8 & 0 \\ 0 & 3/2 \end{pmatrix} \end{vmatrix} + \text{ln}P(w_{1})$$
 
-$$ = -\frac{3}{16}x_{1}^{2} -\frac{3}{4}x_{2}^{2} + \frac{9}{8}x_{1} + 3x_{2} - \frac{75}{16} -\frac{1}{2}\text{ln}\frac{16}{9} + \text{ln}P(w_{1}) $$
-
-<br>
-
-$$ g_{2}(x) = -\frac{1}{2} \begin{pmatrix} x_{1} & x_{2} \end{pmatrix}  \begin{pmatrix} 3/2 & 0 \\ 0 & 3/8 \end{pmatrix} \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} + \begin{pmatrix} 8 & 6 \end{pmatrix}  \begin{pmatrix} 3/2 & 0 \\ 0 & 3/8 \end{pmatrix} \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -\frac{1}{2} \begin{pmatrix}8 & 6 \end{pmatrix}  \begin{pmatrix} 3/2 & 0 \\ 0 & 3/8 \end{pmatrix} \begin{pmatrix} 8 \\ 6 \end{pmatrix} -\frac{1}{2}\text{ln} \begin{vmatrix} \begin{pmatrix} 3/2 & 0 \\ 0 & 3/8 \end{pmatrix} \end{vmatrix} + \text{ln}P(w_{2})$$
-
-$$ = -\frac{3}{4}x_{1}^{2} -\frac{3}{16}x_{2}^{2} + 12x_{1} + \frac{18}{8}x_{2} - \frac{219}{4} -\frac{1}{2}\text{ln}\frac{16}{9} + \text{ln}P(w_{2}) $$
+- $$ = -\frac{3}{16}x_{1}^{2} -\frac{3}{4}x_{2}^{2} + \frac{9}{8}x_{1} + 3x_{2} - \frac{75}{16} -\frac{1}{2}\text{ln}\frac{16}{9} + \text{ln}P(w_{1}) $$
 
 <br>
 
-$$ g_{12}(x) = g_{1}(x) - g_{2}(x) = \frac{9}{16}x_{1}^{2} - \frac{9}{16}x_{2}^{2} -\frac{87}{8}x_{1} + \frac{3}{4}x_{2} + \frac{801}{16} + \text{ln}P(w_{1}) - \text{ln}P(w_{2}) $$
+- $$ g_{2}(x) = -\frac{1}{2} \begin{pmatrix} x_{1} & x_{2} \end{pmatrix}  \begin{pmatrix} 3/2 & 0 \\ 0 & 3/8 \end{pmatrix} \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} + \begin{pmatrix} 8 & 6 \end{pmatrix}  \begin{pmatrix} 3/2 & 0 \\ 0 & 3/8 \end{pmatrix} \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} -\frac{1}{2} \begin{pmatrix}8 & 6 \end{pmatrix}  \begin{pmatrix} 3/2 & 0 \\ 0 & 3/8 \end{pmatrix} \begin{pmatrix} 8 \\ 6 \end{pmatrix} -\frac{1}{2}\text{ln} \begin{vmatrix} \begin{pmatrix} 3/2 & 0 \\ 0 & 3/8 \end{pmatrix} \end{vmatrix} + \text{ln}P(w_{2})$$
+
+- $$ = -\frac{3}{4}x_{1}^{2} -\frac{3}{16}x_{2}^{2} + 12x_{1} + \frac{18}{8}x_{2} - \frac{219}{4} -\frac{1}{2}\text{ln}\frac{16}{9} + \text{ln}P(w_{2}) $$
+
+<br>
+
+- $$ g_{12}(x) = g_{1}(x) - g_{2}(x) = \frac{9}{16}x_{1}^{2} - \frac{9}{16}x_{2}^{2} -\frac{87}{8}x_{1} + \frac{3}{4}x_{2} + \frac{801}{16} + \text{ln}P(w_{1}) - \text{ln}P(w_{2}) $$
 
 <br>
 
@@ -439,7 +423,7 @@ $$ g_{12}(x) = g_{1}(x) - g_{2}(x) = \frac{9}{16}x_{1}^{2} - \frac{9}{16}x_{2}^{
 
 <br>
 
-$$ g_{i}(x) = (\Sigma^{-1} \mu_{i})^{T}x + (\text{ln}(P(w_{i})) -\frac{1}{2}\mu_{i}^{T}\Sigma^{-1}\mu_{i}) $$
+- $$ g_{i}(x) = (\Sigma^{-1} \mu_{i})^{T}x + (\text{ln}(P(w_{i})) -\frac{1}{2}\mu_{i}^{T}\Sigma^{-1}\mu_{i}) $$
 
 <br> 
 
@@ -447,7 +431,7 @@ $$ g_{i}(x) = (\Sigma^{-1} \mu_{i})^{T}x + (\text{ln}(P(w_{i})) -\frac{1}{2}\mu_
 
 <br>
 
-$$ g_{i}(x) = -\frac{1}{2}x^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}x + \Biggl( -\frac{1}{2}\mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i} -\frac{1}{2}\text{ln}\vert \Sigma_{i} \vert + \text{ln}(P(w_{i})) \Biggr) $$
+- $$ g_{i}(x) = -\frac{1}{2}x^{T}\Sigma_{i}^{-1}x + \mu_{i}^{T}\Sigma_{i}^{-1}x + \Biggl( -\frac{1}{2}\mu_{i}^{T}\Sigma_{i}^{-1}\mu_{i} -\frac{1}{2}\text{ln}\vert \Sigma_{i} \vert + \text{ln}(P(w_{i})) \Biggr) $$
 
 <br>
 
