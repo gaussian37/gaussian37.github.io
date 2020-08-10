@@ -19,7 +19,7 @@ tags: [python, machine learning, ml] # add tag
 - [Anomaly Detection with Gaussian Distribution (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-anomalydetection/)
 - [Recommender System (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-recommender/)
 - [Clustering with K-Means Algorithm (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-kmeans/)
-- [PCA(Principal Component Analysis) (Andrew Ng)](https://gaussian37.github.io/machine-learning-concept-pca/)
+- [PCA(Principal Component Analysis) (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-pca/)
 - [t-SNE](https://gaussian37.github.io/ml-concept-t-SNE/)
 - [Decision tree]()
 - [Voting classifier]()
