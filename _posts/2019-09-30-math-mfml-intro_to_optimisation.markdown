@@ -194,6 +194,63 @@ optimize.newton(f, x0)
 
 <br>
 
+- 지금 까지 `newton-raphson method`에 대하여 살펴보았습니다. 이 방법을 이용하여 방정식의 해를 찾을 떄 가장 중요한 것은 초깃값을 어디서 설정하는 지 입니다. 아래 방법은 초깃값 설정에 대한 팁입니다.
+- ① 변곡점 주변과 같이 graident가 너무 작은 곳 근처에서는 설정하지 않는 것이 좋습니다. 변곡점 주변에서 진동하거나 원하는 방향과 다른 방향으로 떨어질 수 있습니다.
+- ② $$ - \frac{f(x_{i})}{f'(x_{i})} $$ 에 따라 -, 함수 값, 기울기의 연산 결과가 양수인지 음수 인지 판단하여 가까운 해의 방향으로 근접하는 지 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/intro_to_optimisation/7.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위와 같은 경우 주황색 점이 초깃값이고 분홍색 점이 최적화 할 점일 때, ① 변곡점 근처에 있지 않고 ② 업데이트 항의 연산 결과 부호는 -이므로(-, +(함수값), +(기울기)) 주황색 → 분홍색점으로 이동할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/intro_to_optimisation/8.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그래프의 경우 주황색 점이 변곡점 근처에 있으므로 확실하게 최적화 될 지 잘 모릅니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/intro_to_optimisation/9.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위와 같은 경우 ① 변곡점 근처에 있지 않지만 ② 업데이트 항의 연산 결과는 부호는 +이므로(-, +(함수값),  -(기울기)) 주황색 점은 오른쪽으로 이동하게 되어 최적화 할 수 없습니다.
+
+<br>
+
+## **gradient descent**
+
+<br>
+
+- 앞에서 다룬 `newton-raphson method`는 gradient를 반복적으로 사용하여 $$ x $$에 관한 단일 변수 함수의 해를 구하였습니다.
+- 이 개념을 이용하여 다변수 함수에 적용해 보고 다변수 함수의 `maxima` 또는 `minima`를 찾는 데 응용해 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/intro_to_optimisation/5.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그래프의 함수는 $$ f(x, y) = x^{2}y $$를 따릅니다. 즉, 단일 변수의 함수가 아닙니다. 
+- 앞에서 `newton-raphson method`에서는 $$ f(x) = 0 $$을 만족하는 $$ x $$를 찾는 것이 목적이었습니다.
+- 여기서 풀 문제는 임의의 점 $$ (x, y) $$에서 시작하여 그래프의 가장 낮은 지점으로 빠르게 가는 방법을 찾는 것입니다. 위 그래프를 보면 $$ (x, y) $$값에 대응하는 값이 있고 이 값들이 등고선 형태로 그려집니다. 이를 언덕 형태로 보았을 때, 가장 아랫쪽인 지면에 가능 방법을 구하는 문제라고 생각하면 됩니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/intro_to_optimisation/6.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- `newton-raphson method`에서도 gradient를 구하여 $$ x_{i} $$를 업데이틑 하는 방법을 사용하였습니다.
+- 이번에도 같습니다. 좀더 직관적으로 받아들일 수 있는 것은 최적화 할 목적이 그래프의 가장 아래로 빠르게 내려가는 것이고 이는 가장 경사가 깊은 방향으로 내려가면 된다는 것입니다. 
+- 따라서 각 지점에서의 경사가 얼만큼인 지 확인하기 위해 $$ x, y $$ 각각에 대하여 편미분을 해야 합니다.
+
+<br>
+
+$$ f(x, y) = x^{2}y $$
+
+$$ \frac{df}{dx} = 2xy $$
+
+$$ \frac{df}{dy} = x^{2} $$
+
+$$ \nabla f = \begin{bmatrix} \frac{df}{dx} \\ \frac{df}{dy} $$
+
 <br>
 
 [mathematics for machine learning 글 목록](https://gaussian37.github.io/math-mfml-table/)
