@@ -3,7 +3,7 @@ layout: post
 title: C++ 객체 지향 기초  
 date: 2019-08-07 00:00:00
 img: cpp/cpp.png
-categories: [cpp-concept] 
+categories: [c-cpp] 
 tags: [cpp, c++, 객체 지향, oop, object oriented] # add tag
 ---
 

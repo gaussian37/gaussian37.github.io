@@ -3,7 +3,7 @@ layout: post
 title: C++ 변수, STL, 클래스 멤버 변수(public) 등의 초기화
 date: 2019-08-07 00:00:00
 img: cpp/cpp.png
-categories: [cpp-etc] 
+categories: [c-cpp] 
 tags: [cpp, c++, 객체 지향, oop, object oriented] # add tag
 ---
 
