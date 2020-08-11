@@ -243,13 +243,17 @@ optimize.newton(f, x0)
 
 <br>
 
-$$ f(x, y) = x^{2}y $$
+- $$ f(x, y) = x^{2}y $$
 
-$$ \frac{df}{dx} = 2xy $$
+- $$ \frac{df}{dx} = 2xy $$
 
-$$ \frac{df}{dy} = x^{2} $$
+- $$ \frac{df}{dy} = x^{2} $$
 
-$$ \nabla f = \begin{bmatrix} \frac{df}{dx} \\ \frac{df}{dy} $$
+- $$ \nabla f = \begin{bmatrix} \frac{df}{dx} \\ \frac{df}{dy} $$
+
+<br>
+
+- 
 
 <br>
 

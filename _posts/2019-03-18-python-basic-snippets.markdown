@@ -19,6 +19,8 @@ tags: [python, python 기본] # add tag
 - ### **--- 문법 및 셋팅 관련 ---**
 - ### if __name__ == "__main__" 사용 이유
 - ### 함수의 파라미터로 빈 리스트 대신 None을 사용할 것
+- ### A,B = B,A 로 swap
+- ### 특정 함수에서만 사용하는 패키지는 함수 내부에서 import 할 것
 
 <br>
 
@@ -144,6 +146,33 @@ append_score(92, [100, 95])
 # [100, 95, 92]
 append_score(94)
 # [94]
+```
+
+<br>
+
+## **A,B = B,A 로 swap**
+
+<br>
+
+- 파이썬에서는 `swap`을 할 때, 함수를 사용하거나 temp 변수를 할 필요 없이 `A, B = B, A`와 같이 사용하면 됩니다. 코드도 간단하고 명확해 집니다.
+
+<br>
+
+## 특정 함수에서만 사용하는 패키지는 함수 내부에서 import 할 것
+
+<br>
+
+- 일부 함수에서만 사용하는 패키지는 전역으로 선언하지 말고 로컬로 선언하는 것이 메모리, 속도면에서 유리합니다. 다음 코드를 참조하시기 바랍니다.
+
+<br>
+
+```python
+def f(x):
+  import warnings, xyz, numpy 
+  #do something 
+ 
+def g(x):
+  import pandas, numpy 
 ```
 
 <br>
