@@ -359,12 +359,40 @@ optimize.newton(f, x0)
 - 최솟값을 찾아야 할 함수 $$ f(X) $$ 와 제약 함수 $$ g(X) $$는 다음과 같습니다.
 
 <br>
+<center><img src="../assets/img/math/mfml/intro_to_optimisation/14.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
 - $$ f(X) = exp(-\frac{2x^{2} + y^{2} - xy}{2}) $$
 
 - $$ g(X) = x^{2} + 3(y + 1)^{2} -1 = 0 $$
 
+<br>
 
+- 만약 제약 조건에 부합하는 최적점을 바로 찾으려면 상당히 복잡합니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/intro_to_optimisation/15.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같은 곡면에서 제약 조건을 적용한 최적 점을 바로 찾기는 상당히 어렵습니다.
+- 여기서 `lagrange multiplier`를 도입해 보겠습니다.
+- 함수의 gradient와 제약 조건의 gradient 모두 등고선에 수직이므로 아래와 같이 식을 사용할 수 있습니다.
+
+<br>
+
+- $$ \nabla f(X) = \lambda \nabla g(X) $$
+
+- $$ \begin{bmatrix} \partial f / \partial x \\ \partial f / \partial y \end{bmatrix}  = \lambda \begin{bmatrix} \partial g / \partial x \\ \partial g / \partial y \end{bmatrix} $$
+
+<br>
+
+- 또한 $$ g(X) = x^{2} + 3(y + 1)^{2} -1 = 0 $$ 식에 따라 하나의 벡터로 다음과 같이 정리해 보겠습니다.
+
+<br>
+
+- $$ \nabla \mathcal L (x, y, \lambda) = \begin{bmatrix} \frac{\partial f}{\partial x} - \lambda \frac{\partial g}{\partial x} \\ \frac{\partial f}{\partial y} - \lambda \frac{\partial g}{\partial y} \\ -g(X) \end{bmatrix} = 0
+
+<br>
 
 
 
