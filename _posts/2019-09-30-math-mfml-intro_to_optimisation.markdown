@@ -23,7 +23,7 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 - ### newton-raphson method
 - ### gradient descent
-- ### constrained optimisation methodof lagrange multipliers
+- ### constrained optimisation method of lagrange multipliers
 
 <br>
 
@@ -276,7 +276,53 @@ optimize.newton(f, x0)
 
 <br>
 
-- 
+## **constrained optimisation method of lagrange multipliers**
+
+<br>
+
+- 지금까지 `grad`를 이용하여 단일 변수, 다 변수 함수의 minima, maxima를 찾는 `gradient descent`에 대하여 다루어 보았습니다.
+- 이번에는 **constrained optimisaion method of Lagrange Multiplier**에 대하여 알아보도록 하겠습니다.
+- 이 내용은 앞에서 다룬 minima, maxmima를 찾을 때, **제약 조건을 적용하여 원하는 방향으로 최적화** 하는 데 도움을 줍니다. 이 방법을 간단하게 `lagrange multiplier` 라고 하겠습니다.
+- 먼저 앞에서 다룬 다 변수 함수의 `gradient`를 다시 한번 살펴보겠습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/intro_to_optimisation/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림의 오른쪽 등고선을 보면 gradient 벡터가 화살표 형태로 나와있는 것을 볼 수 있습니다. 화살표의 방향은 낮은값 → 높은값입니다.
+- 그리고 각 gradient 벡터는 등고선과 수직 방향을 가집니다. 왜냐하면 gradient는 경사를 나타내고 등고선은 같은 값들을 선으로 이은 것이기 때문입니다. 따라서 gradient는 등고선과 수직형태를 이룹니다.
+- 또한 그 지점의 변화량이 클수록 화살표의 길이는 길어집니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/intro_to_optimisation/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 예제도 동일합니다. 앞의 예제와 동일한 규칙으로 등고선과 gradient 벡터가 그려져 있습니다.
+- 위 그림에서는 등고선 또는 3D 그래프를 보면 maxima, minima를 구할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/intro_to_optimisation/12.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 하지만 만약 위 그림처럼 빨간색 원의 지점에서 minima, maxima로 최적화 하려고 한다면 어떻게 해야 할까요? 이 문제가 지금 다룰 **constrained optimisation** 입니다.
+
+<br>
+
+- optimize : $$ f(x, y) = x^{2}y $$
+- constrain : $$ g(x, y) = x^{2} + y^{2} = a^{2} $$
+
+<br>
+
+- 위 그래프의 등고선은 `optimize`에 해당하는 식이고 원은 `constrain`에 해당하는 식입니다.
+
+<br>
+<center><img src="../assets/img/math/mfml/intro_to_optimisation/13.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 이 때, 위 그림과 같이 $$ f(x, y) $$의 gradient와 $$ g(x, y) $$의 gradient가 같은 지점의 최댓값과 최솟값을 찾으면 그 점이 바로 `constrained optimisation` 입니다.
+
+
+
 
 <br>
 
