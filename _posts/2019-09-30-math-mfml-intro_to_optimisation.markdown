@@ -320,6 +320,50 @@ optimize.newton(f, x0)
 <br>
 
 - 이 때, 위 그림과 같이 $$ f(x, y) $$의 gradient와 $$ g(x, y) $$의 gradient가 같은 지점의 최댓값과 최솟값을 찾으면 그 점이 바로 `constrained optimisation` 입니다.
+- 즉, $$ f(x, y) $$의 gradient를 $$ \nabla f $$라 하고 $$ g(x, y) $$의 gradient를 $$ \nabla g $$ 라고 한다면  $$ \nabla f = \lambda \nabla g $$를 만족하는 지점에서 최적화가 됩니다.
+- 이 때 $$ \lambda $$를 `Lagrange Multiplier` 라고 합니다. 그러면 $$ x, y $$ 각각에 대하여 편미분을 한 후 식을 전개해 보도록 하겠습니다.
+
+<br>
+
+- $$ \nabla f = \nabla(x^{2}y) = \begin{bmatrix} 2xy \\ x^{2} \end{bmatrix} = \lambda \nabla g = \lambda \begin{bmatrix} 2x \\ 2y \end{bmatrix} $$
+
+<br>
+
+- $$ \text{about dx : } \quad 2xy = \lambda 2x \quad \to \quad y = \lambda $$
+- $$ \text{about dy : } \quad x^{2} = \lambda 2y = 2y^{2} \quad \to \quad x = \pm \sqrt{2}y $$
+- $$ x^{2} + y^{2} = a^{2} = 3y^{2} \quad \to \quad y = \pm a / sqrt{3} $$
+
+<br>
+
+- 따라서 $$ x, y $$ 조합에 따라서 4가지 경우가 발생합니다.
+
+<br>
+
+- $$ \frac{a}{\sqrt{3}} \begin{bmatrix} \sqrt{2} \\ 1 \end{bmatrix}, \quad  \frac{a}{\sqrt{3}} \begin{bmatrix} \sqrt{2} \\ -1 \end{bmatrix}, \quad \frac{a}{\sqrt{3}} \begin{bmatrix} -\sqrt{2} \\ 1 \end{bmatrix}, \quad \frac{a}{\sqrt{3}} \begin{bmatrix} -\sqrt{2} \\ -1 \end{bmatrix} $$
+
+<br>
+
+- 위 값을 $$ f(x, y) $$에 대입하면 다음과 같이 값을 얻을 수 있습니다.
+
+<br>
+
+- $$  \frac{2a^{3}}{3\sqrt{3}} , \quad -\frac{2a^{3}}{3\sqrt{3}}, \quad \frac{2a^{3}}{3\sqrt{3}}, \quad -\frac{2a^{3}}{3\sqrt{3}} $$
+
+<br>
+
+- 따라서 maxima는 $$ \frac{2a^{3}}{3\sqrt{3}} $$ 이고 minima는 $$ -\frac{2a^{3}}{3\sqrt{3}} $$로 구할 수 있습니다. 또한 `lagrange multiplier`는 $$ \lambda = \pm a/\sqrt{3} $$ 으로 $$ \nabla f $$와 $$ \nabla g $$의 관계 또한 구할 수 있습니다.
+
+<br>
+
+- 이번에는 다른 예제와 코드를 이용하여 `lagrange multiplier`를 구해보도록 하겠습니다.
+- 최솟값을 찾아야 할 함수 $$ f(X) $$ 와 제약 함수 $$ g(X) $$는 다음과 같습니다.
+
+<br>
+
+- $$ f(X) = exp(-\frac{2x^{2} + y^{2} - xy}{2}) $$
+
+- $$ g(X) = x^{2} + 3(y + 1)^{2} -1 = 0 $$
+
 
 
 

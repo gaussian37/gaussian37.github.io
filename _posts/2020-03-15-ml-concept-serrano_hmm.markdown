@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 순차 데이터 인식을 위한 Markov chain 과 Hidden markov model
+title: Luis Serrano의 HMM(Hidden Markov Model) 강의
 date: 2020-03-15 00:00:00
 img: ml/concept/markov_chain/markov_chain.png
 categories: [ml-concept] 

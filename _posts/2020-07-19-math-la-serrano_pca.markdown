@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 주성분 분석(PCA)
+title: Luis Serrano의 PCA(Principal Component Analysis) 강의
 date: 2020-07-19 00:00:00
 img: math/la/pca/0.png
 categories: [ml-concept] 
