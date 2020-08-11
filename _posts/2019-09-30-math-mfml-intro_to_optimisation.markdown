@@ -249,7 +249,7 @@ optimize.newton(f, x0)
 
 - $$ \frac{df}{dy} = x^{2} $$
 
-- $$ \nabla f = \begin{bmatrix} \frac{df}{dx} \\ \frac{df}{dy} $$
+- $$ \nabla f = \begin{bmatrix} \frac{df}{dx} \\ \frac{df}{dy} \end{bmatrix} $$
 
 <br>
 
