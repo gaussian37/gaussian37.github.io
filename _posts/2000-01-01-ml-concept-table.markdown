@@ -16,10 +16,6 @@ tags: [python, machine learning, ml] # add tag
 - [가우시안 분포와 분별 함수 (선형 분별 분석(LDA), 2차 분별 분석(QDA))](https://gaussian37.github.io/ml-concept-gaussian_discriminant/)
 - [마할라노비스 거리(mahalanobis distance)](https://gaussian37.github.io/ml-concept-mahalanobis_distance/)
 - [머신러닝의 평가 지표](https://gaussian37.github.io/ml-concept-ml-evaluation/)    
-- [Anomaly Detection with Gaussian Distribution (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-anomalydetection/)
-- [Recommender System (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-recommender/)
-- [Clustering with K-Means Algorithm (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-kmeans/)
-- [PCA(Principal Component Analysis) (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-pca/)
 - [t-SNE](https://gaussian37.github.io/ml-concept-t-SNE/)
 - [Decision tree]()
 - [Voting classifier]()
@@ -30,6 +26,24 @@ tags: [python, machine learning, ml] # add tag
 - [XGBoost]()
 - [LightGBM]()
 - [Stacking]()
+
+<br>
+
+## **Stanford Andrew Ng 머신 러닝 강의**
+
+<br>
+
+- Andrew Ng 교수님의 머신 러닝 강의입니다. 머신 러닝 전반적인 내용에 대하여 잘 학습 할 수 있는 좋은 강의입니다.
+- 강의가 상당히 길어서 끈기를 가지고 봐야 합니다. 한번 도전해 보시기 바랍니다.
+
+<br>
+<center><img src="../assets/img/certification/stanford_ml.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- [Anomaly Detection with Gaussian Distribution (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-anomalydetection/)
+- [Recommender System (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-recommender/)
+- [Clustering with K-Means Algorithm (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-kmeans/)
+- [PCA(Principal Component Analysis) (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-pca/)
 
 <br>
 
