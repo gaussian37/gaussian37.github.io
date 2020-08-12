@@ -34,7 +34,7 @@ tags: [python, machine learning, ml] # add tag
 <br>
 
 - Andrew Ng 교수님의 머신 러닝 강의입니다. 머신 러닝 전반적인 내용에 대하여 잘 학습 할 수 있는 좋은 강의입니다.
-- 강의가 상당히 길어서 끈기를 가지고 봐야 합니다. 한번 도전해 보시기 바랍니다.
+- 매트랩을 사용하는 실습 때문에 다소 아쉽기는 하지만 그럼에도 불구하고 강의 내용이 좋아서 상당히 만족스럽습니다.
 
 <br>
 <center><img src="../assets/img/certification/stanford_ml.png" alt="Drawing" style="width: 800px;"/></center>
