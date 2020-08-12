@@ -9,6 +9,13 @@ tags: [coursera, deep learning, andrew ng] # add tag
 
 <br>
 
+- coursera의 deeplearning.ai specialization을 듣고 강의 내용을 다시 정리해 보고 있습니다.
+- 강의 내용이 상당히 좋았습니다. 들어 보시길 추천드립니다.
+
+<br>
+<center><img src="../assets/img/certification/deeplearning.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
 ### **Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization**
 
 <br>
