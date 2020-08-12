@@ -9,6 +9,14 @@ tags: [코세라, coursera, mathemacis for machine learning] # add tag
 
 <br>
 
+- Imperial College London에서 제공하는 머신 러닝을 위한 수학 강의 입니다.
+- 전체적으로 선형대수학과 미분적분에 대하여 다루고 있으며 마지막에 PCA를 다룹니다. 강의 내용은 상당히 좋다고 느꼈습니다.
+- Specialization이므로 강의 내용과 과제가 조금 많습니다. 그것만 이겨낸다면 상당히 얻는게 많을 것이라 생각됩니다.
+
+<br>
+<center><img src="../assets/img/certification/imperial_college_mfml.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
 ## **Linear algebra**
 
 <br>
