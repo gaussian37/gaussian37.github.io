@@ -78,8 +78,8 @@ tags: [segmentation, cgnet] # add tag
 
 - 앞에서 다룬 CGNet의 성과에 대하여 정리하면 다음과 같습니다.
 - ① local feature와 local feature의 주변 context feature를 합친 joint feautre를 학습하고 global context로 joint feature를 더욱 향상시키는 CG 블록을 제안하여 세그멘테이션 성능을 높였습니다.
-- CG 블록을 적용하여 모든 단계에서 context 정보를 효과적이고 효율적으로 캡처하는 CGNet을 설계하였습니다. 특히, CCNet의 backbone은 세그멘테이션 정확도를 높이기 위해 맞춤 제작되었습니다.
-- 파라미터 수와 메모리 사용량을 줄이기 위해 CCNet의 아키텍처를 정교하게 설계하였습니다. 동일한 수의 매개 변수에서 제안된 CGNet은 기존 세그멘테이션 네트워크(예: ENet 및 ESPNet)의 성능을 크게 능가합니다.
+- ② CG 블록을 적용하여 모든 단계에서 context 정보를 효과적이고 효율적으로 캡처하는 CGNet을 설계하였습니다. 특히, CCNet의 backbone은 세그멘테이션 정확도를 높이기 위해 맞춤 제작되었습니다.
+- ③ 파라미터 수와 메모리 사용량을 줄이기 위해 CCNet의 아키텍처를 정교하게 설계하였습니다. 동일한 수의 매개 변수에서 제안된 CGNet은 기존 세그멘테이션 네트워크(예: ENet 및 ESPNet)의 성능을 크게 능가합니다.
 
 <br>
 
@@ -87,7 +87,7 @@ tags: [segmentation, cgnet] # add tag
 
 <br>
 
-- Related Work에서는 CGNet과 관련된 small semantic segmentation model, contextual information model 그리고 attention model에 대하여 간략하게 다루어 보겠습니다.
+- Related Work에서는 CGNet과 관련된 작은 세그멘테이션 모델(small semantic segmentation model), 상황별 정보(contextual information) 모델 그리고 어텐션 모델에 대하여 간략하게 다루어 보겠습니다.
 
 <br>
 
@@ -95,9 +95,23 @@ tags: [segmentation, cgnet] # add tag
 
 <br>
 
+- 작은 세그멘테이션 모델을 사용하려면 정확성과 모델 매개변수 또는 메모리 공간 간에 적절한 trade-off가 필요합니다.
+- `ENet`은 FCN과 같은 기존 세그멘테이션 모델의 마지막 단계를 제거하는 방법을 제안하고 임베디드 장치에서 세그멘테이션이 가능하다는 것을 보여주었습니다.
+- 반면 그러나 `ICNet`은 compressed-PSPNet 기반 이미지 캐스케이드 네트워크를 제안하여 의미 분할 속도를 높였습니다.
+- 최근의 `ESPNet`에서는 리소스 제약 하에서 고해상도 이미지를 세그멘테이션할 수 있는 빠르고 효율적인 콘볼루션 네트워크를 도입했습니다.
+- 하지만 `ENet`, `ICNet`, `ESPNet`과 같은 모델 대부분은 영상 분류의 설계 원리를 따르기 때문에 픽셀 별 세그멘테이션 정확도가 떨어집니다.
+
 <br>
 
 #### **Contextual information models**
+
+<br>
+
+- 최근 연구에서는 상황별 정보가 고품질 세그멘테이션 결과를 예측하는 데 도움이 된다는 것을 보여 주었습니다.
+- 한 가지 방법은 필터의 receptive field를 확대하거나 또는 상황에 맞는 정보를 캡처하도록 특정 모듈을 구성하는 것입니다.
+- 예를 들어 `dilation 8`은 Class likelihood map 이후에 multiple dilated convolutional layers을 사용하여 exercise multi-scale context를 합칩니다. (aggregation)
+- 또는 `SAC`(scale-adaptive convolution)는 가변적인 크기의 receptive field를 적용합니다.
+- `DeepLab v3`는 **ASPP, Atrous Spatial Pyramid Pooling**을 도입합니다. ASPP를 이용하여 상황별 정보를 다양한 크기(스케일)로 얻을 수 있습니다.
 
 <br>
 
@@ -119,11 +133,11 @@ tags: [segmentation, cgnet] # add tag
 <center><img src="../assets/img/vision/segmentation/cgnet/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 먼저 위 그림을 먼저 설명하고 Context Guided Block에 대하여 다루어 보도록 하겠습니다.
+- 먼저 위 그림을 설명하고 Context Guided Block에 대하여 다루어 보도록 하겠습니다.
 - 먼저 (a)를 보면 그림의 조그마한 노란색 영역만 보았을 때, 그 영역에 해당하는 클래스가 무엇인지 판단하기가 어렵습니다.
 - 반면 (b)와 같이 노란색 영역 주위에 빨간색 영역을 포함하여 같이 본다면 인식하기 좋아집니다. 여기서 빨간색 영역을 `surrounding context` 라고 합니다.
 - 마지막으로 (c) 그림을 보면 전체 이미지를 포함하는 보라색의 사각형이 있습니다. 전체 영역을 이용하여 노란색 영역의 클래스가 무엇인 지 판단한다면 더 높은 정확도로 판단할 수 있습니다. 보라색 사각형을 `global context` 라고 하겠습니다.
-- CG Block의 형태는 (d)와 같습니다. Block의 구성 요소 중 $$ f_{loc}() $$ 이 그림의 노란색 영역에 해당하는 **local feature**입니다. $$ f_{sur}() $$은 빨간색 영역에 해당하는 **surrounding context extractor** 입니다. $$ f_{joi} $$는 $$ f_{loc} $$와 $$ f_{sur} $$을 합친 feature 입니다. 마지막으로 $$ f_{glo} $$는 **global context extractor** 입니다. 그림의 마지막에 있는 ⊙ 기호는 **element-wise multiplication**을 뜻합니다.
+- CG 블록의 형태는 (d)와 같습니다. 블록의 구성 요소 중 $$ f_{loc}(*) $$ 이 그림의 노란색 영역에 해당하는 **local feature**입니다. 그리고 $$ f_{sur}(*) $$은 빨간색 영역에 해당하는 **surrounding context extractor** 입니다. $$ f_{joi}(*) $$는 $$ f_{loc}(*) $$와 $$ f_{sur}(*) $$을 합친 joint feature 입니다. 마지막으로 $$ f_{glo}(*) $$는 **global context extractor** 입니다. 그림의 마지막에 있는 ⊙ 기호는 **element-wise multiplication**을 뜻합니다.
 
 <br>
 
