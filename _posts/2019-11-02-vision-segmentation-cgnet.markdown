@@ -40,13 +40,13 @@ tags: [segmentation, cgnet] # add tag
 
 <br>
 
-- semantic segmentation을 모바일 디바이스 환경에 적용하려는 시도가 많이 증가하고 있습니다.
-- 성능이 좋은 semantic segmentation 모델들은 많은 파라미터와 연산량으로 인해 모바일 디바이스에는 적합하지 않기 때문에 모바일 디바이스에는 경량화 모델이 필요합니다.
-- 경량화 segmentation model에 대한 연구들의 일부 문제점은 classification에서 사용된 방법들을 사용하고 semantic segmentation에서 고려해야 할 특성들을 무시한 상태로 구조가 만들어 졌다는 것에 있습니다.
-- 이 논문에서는 이러한 문제점들을 개선하기 위하여 `Context Guided Network (CGNet)`을 소개합니다. 이 모델 또한 가볍고 계산에 효율적인 segmentation 모델입니다.
-- CGNet에서 사용된 `CG block`은 local feature와 local feature를 둘러싼 surrounding context를 학습합니다. 그리고 더 나아가 global context와 관련된 feature 또한 이용하여 성능을 향상시킵니다. CGNet은 CG block을 기반으로 네트워크의 모든 단계에서 상황에 맞는 정보를 이해하고 segmentation 정확도를 높이기 위해 설계됩니다.
-- CGNet은 또한 파라미터 수를 줄이고 메모리 공간을 절약하도록 정교하게 설계되었습니다. 동등한 수의 매개 변수 하에서 제안 된 CGNet은 기존 세그먼테이션 네트워크보다 훨씬 뛰어납니다.
-- Cityscape 및 CamVid 데이터 세트에 대한 광범위한 실험은 제안 된 접근 방식의 효과를 검증합니다.
+- 세그멘테이션(semantic segmentation)을 모바일 디바이스 환경에 적용하려는 시도가 많이 증가하고 있습니다.
+- 성능이 좋은 세그멘테이션 모델들은 많은 파라미터와 연산량으로 인해 모바일 디바이스에는 적합하지 않기 때문에 모바일 디바이스에는 경량화 모델이 필요합니다.
+- 경량화 세그멘테이션 모델에 대한 연구들의 일부 문제점은 classification에서 사용된 방법들을 사용하고  세그멘테이션에서 고려해야 할 특성들을 무시한 상태로 구조가 만들어 졌다는 것에 있습니다.
+- 이 논문에서는 이러한 문제점들을 개선하기 위하여 `Context Guided Network (CGNet)`을 소개합니다. 이 모델 또한 가볍고 계산에 효율적인 세그멘테이션 모델입니다.
+- CGNet에서 사용된 `CG block`은 **local feature**와 local feature를 둘러싼 **surrounding context**를 학습합니다. 그리고 더 나아가 **global context**와 관련된 feature 또한 이용하여 성능을 향상시킵니다. CGNet은 `CG block`을 기반으로 네트워크의 모든 단계에서 상황에 맞는 정보를 이해하고 세그멘테이션 정확도를 높이기 위해 설계됩니다. (local feature는 convolutional filter가 연산되는 영역입니다.)
+- CGNet은 또한 **파라미터 수를 줄이고 메모리 공간을 절약**하도록 정교하게 설계되었습니다. 동등한 수의 매개 변수 하에서 제안된 CGNet은 기존 세그먼테이션 네트워크보다 훨씬 뛰어납니다.
+- Cityscape 및 CamVid 데이터 세트에 대한 광범위한 실험은 제안된 접근 방식의 효과를 검증합니다.
 - 특히 post-processing 및 multi-scale testing 없이 제안 된 CGNet은 0.5M 미만의 매개 변수로 64.8 %의 Cityscape에서 평균 IoU를 달성합니다.
 
 <br>
@@ -54,8 +54,21 @@ tags: [segmentation, cgnet] # add tag
 ## **Introduction**
 
 <br>
+<center><img src="../assets/img/vision/segmentation/cgnet/1.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
+- 최근 자율주행 및 로봇 시스템에 대한 관심이 높아지면서 모바일 장치에 세그멘테이션 모델을 배치해야 한다는 요구가 거세지고 있습니다. 하지만 작은 메모리을 사용하면서 높은 정확도를 모두 갖춘 모델을 설계하는 것은 중요하고 어려운 일입니다.
+- 위 그림은 Cityscape 데이터 셋에서 여러 가지 모델의 정확도와 매개변수 수를 보여줍니다. 그래프의  파란색 점은 정확도가 높은 모델을 나타내고 빨간색 점은 메모리 사용량이 작은 모델을 나타냅니다. `CGNet`은 메모리 설치 공간이 작은 방법에 비해 파라미터 수가 적으면서도 정확도가 높아 왼쪽 상단에 위치합니다.
+- 위 그래프의 파란색 점에 해당하는 모델들은 모바일 디바이스에서 사용하기 적합하지 않습니다.
+- 반면 빨간색 점들은 이미지 분류의 설계 원리를 따를 뿐 세그멘테이션의 고유한 속성은 무시하기 때문에 세그멘테이션 정확도가 낮습니다.
+- 따라서 CGNet은 정확성을 높이기 위해 **세그멘테이션의 내재적 특성을 활용**하는 방법으로 설계됩니다.
 
+<br>
+
+- 세그멘테이션은 픽셀 수준 분류와 개체 위치 지정을 모두 포함합니다. 따라서 공간 의존성(spatial dependency)과 상황별 정보(contextual information)는 정확성을 향상시키는 중요한 역할을 합니다.
+- ① `CG 블록`은 local feature와 주변 context가 결합된 joint feature를 학습합니다. 따라서 CG블록은 local feature와 local feature 주변의 context가 공간 상 공유하는 특징들을 잘 학습하게 됩니다.
+- ② `CG 블록`은 global context를 사용하여 ①에서 만든 joint feature를 개선합니다. global context는 유용한 구성요소를 강조하고 쓸모 없는 구성요소를 억제하기 위해 채널별로 joint feature의 가중치를 재조정하는 데 적용됩니다. global context에 대한 상세 내용은 뒤에서 알아보겠습니다.
+- ③ `CG 블록`은 CGNet의 모든 단계에서 활용됩니다. 따라서, CCNet은 (깊은 레이어) 의미적 수준과 (얕은 레이어) 공간적 수준 모두에서 상황적 정보를 캡처합니다. 이는 기존 이미지 분류 방법에 비해 세그멘테이션에 더 적합합니다.
 
 <br>
 
