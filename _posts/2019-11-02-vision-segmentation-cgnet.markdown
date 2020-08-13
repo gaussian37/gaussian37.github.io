@@ -118,6 +118,11 @@ tags: [segmentation, cgnet] # add tag
 
 <br>
 
+- 최근, Attention 메커니즘은 모델의 능력 향상을 위해 널리 사용되고 있습니다. RNNsearch는 machine translation에서 target word를 예측할 때 input words에 가중치를 주는 방법을 제안합니다. 
+- 세그멘테이션 모델에도 Attenstion 메커니즘 기법들이 사용되고 있습니다. `CG 블록`은 global context 정보를 사용하여 weight vector를 계산합니다. 이 정보는 local feature와 surrounding context feature의 joint feature를 개선하기 위해 사용됩니다.
+
+<br>
+
 ## **Proposed Approach**
 
 <br>
