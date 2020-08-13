@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Recommender System
+title: Recommender System (Andrew Ng)
 date: 2019-03-12 00:00:00
 img: ml/concept/machineLearning.jpg
 categories: [ml-concept] 
