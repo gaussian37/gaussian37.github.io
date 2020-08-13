@@ -75,3 +75,4 @@ tags: [python, deep learning, dl] # add tag
 - [Batch Normalization](https://gaussian37.github.io/dl-concept-batchnorm)
 - [Batch Normalization, Dropout, Pooling 적용 순서](https://gaussian37.github.io/dl-concept-order_of_regularization_term/)
 - [L1,L2 Regularization](https://gaussian37.github.io/dl-concept-regularization)
+- [GAP(Global Average Pooling)이란](https://gaussian37.github.io/dl-concept-global_average_pooling/)
