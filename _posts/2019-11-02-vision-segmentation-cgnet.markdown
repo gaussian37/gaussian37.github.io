@@ -163,8 +163,6 @@ tags: [segmentation, cgnet] # add tag
 - CG 블록의 마지막으로, 추출된 global context와 함께 joint feature의 가중치를 재조정하기 위해 scale 레이어를 사용합니다. 
 
 <br>
-
-<br>
 <center><img src="../assets/img/vision/segmentation/cgnet/4.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
@@ -179,23 +177,71 @@ tags: [segmentation, cgnet] # add tag
 <br>
 
 - 제안된 CG 블록을 기반으로, 파라미터 수를 줄이기 위해 CGNet의 구조를 정교하게 설계하였습니다. CGNet은 메모리 공간을 최대한 절약하기 위해 "깊고 얇게"라는 주요 원칙을 따릅니다. 
-- CGNet은 51개의 컨벌루션 레이어를 가지는데 이는 다른 모델에 비해서 상당히 얕은 레이어 수준입니다.
-- 또한 공간 정보를 보다 잘 보존하기 위해 다운 샘플링 단계가 3단계에 불과하고 1/8 feature map 해상도를 사용합니다. 이는 다른 많은 세그멘테이션 모델에서 사용하는 다운샘플링 5단계, feature map 해상도가 1/32인 것과 차이가 있습니다.
+- 특히 원작자가 제안한 CGNet 구조를 보면 51개의 컨벌루션 레이어만을 가지는데 이는 다른 모델에 비해서 상당히 얕은 레이어 수준입니다.
+- 또한 공간 정보를 보다 잘 보존하기 위해 다운 샘플링 단계가 3단계에 불과하고 1/8 feature map resolution를 사용합니다. 이는 다른 많은 세그멘테이션 모델에서 사용하는 다운샘플링 5단계, feature map resolution가 1/32인 것과 차이가 있습니다.
 
 <br>
 <center><img src="../assets/img/vision/segmentation/cgnet/5.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 위 테이블에서는 CGNet의 상세 구조가 표현되어 있습니다. 아래 내용은 실제 코드에 구현된 컨셉들을 설명합니다. 글만 읽으면 다소 추상적일 수 있으니 가장 아래에 있는 pytorch 코드와 비교하면서 읽어보시길 바랍니다.
+- 위 테이블에서는 CGNet의 상세 구조가 표현되어 있습니다. 아래 내용은 실제 코드에 구현된 컨셉들을 설명합니다. 글만 읽으면 다소 추상적일 수 있으니pytorch 코드와 비교하면서 읽어보시길 바랍니다.
 
 <br>
 <center><img src="../assets/img/vision/segmentation/cgnet/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 1 단계에서는 standard convolution layer를 3개를 쌓아서 1/2 해상도의 feature map을 얻고, 2 단계와 3 단계에서는 각각 M개, N개의 CG 블록을 쌓아서 입력 이미지의 1/4, 1/8로 다운 샘플링한 feature map을 얻습니다.
+- **1 단계**에서는 standard convolution layer를 3개를 쌓아서 1/2 resolution의 feature map을 얻고, 2 단계와 3 단계에서는 각각 M개, N개의 CG 블록을 쌓아서 입력 이미지의 1/4, 1/8로 다운 샘플링한 feature map을 얻습니다. 코드는 다음과 같습니다. 코드의 클래스를 이용하여 `stride = 2`를 적용하면 resolution을 반으로 줄일 수 있습니다.
+
+<br>
+
+```python
+class ConvBNPReLU(nn.Module):
+    def __init__(self, nIn, nOut, kSize, stride=1):
+        """
+        args:
+            nIn: number of input channels
+            nOut: number of output channels
+            kSize: kernel size
+            stride: stride rate for down-sampling. Default is 1
+        """
+        super().__init__()
+        padding = int((kSize - 1)/2)
+        self.conv = nn.Conv2d(nIn, nOut, (kSize, kSize), stride=stride, padding=(padding, padding), bias=False)
+        self.bn = nn.BatchNorm2d(nOut, eps=1e-03)
+        self.act = nn.PReLU(nOut)
+
+    def forward(self, input):
+        """
+        args:
+           input: input feature map
+           return: transformed feature map
+        """
+        output = self.conv(input)
+        output = self.bn(output)
+        output = self.act(output)
+        return output
+
+```
+
+<br>
+
 - 위 그림의 단계 별 화살표와 같이 2 단계와 3 단계에서는 이전 단계의 첫 번째 블록과 마지막 블록을 결합하여 첫 번째 계층의 입력을 얻음으로써 feature의 재사용과 더불어 residual learning을 할 수 있도록 합니다.
-- CCNet의 정보 흐름을 개선하기 위해, 2단계와 3단계 각각 1/4 및 1/8의 다운 샘플링된 입력 영상을 추가로 전달하는 input injection 메커니즘을 취합니다. 
-- 마지막으로 세그멘테이션을 위해 1 × 1 convolutional layer를 사용합니다.
+- CCNet의 정보 흐름을 개선하기 위해, 2단계와 3단계 각각 1/4 및 1/8의 다운 샘플링된 입력 영상을 추가로 전달하는 input injection 메커니즘을 취합니다. input injection 구조는 다음과 같습니다. Average Pooling을 이용하여 resolution을 downsamplingRatio = 1 이면 1/2로 줄이고 downsamplingRatio = 2이면 1/4로 줄이는 구조입니다.
+
+<br>
+
+```python
+class InputInjection(nn.Module):
+    def __init__(self, downsamplingRatio):
+        super().__init__()
+        self.pool = nn.ModuleList()
+        for i in range(0, downsamplingRatio):
+            self.pool.append(nn.AvgPool2d(3, stride=2, padding=1))
+    def forward(self, input):
+        for pool in self.pool:
+            input = pool(input)
+        return input
+```
 
 <br>
 
