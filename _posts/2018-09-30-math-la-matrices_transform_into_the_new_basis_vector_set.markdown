@@ -7,6 +7,8 @@ categories: [math-mfml]
 tags: [선형대수학, linear algebra, basis, 기저, 기저 변환] # add tag
 ---
 
+<br>
+
 - 이번 글에서는 어떤 좌표계에서 basis였던 벡터들을 다른 좌표계로 변환시키는 방법에 대하여 배워보려고 합니다.
 - 자 그러면 2차원의 2개의 basis 벡터를 어떻게 새로운 좌표계로 변환시키는 지 알아보겠습니다. 
 
@@ -28,22 +30,11 @@ tags: [선형대수학, linear algebra, basis, 기저, 기저 변환] # add tag
 - 이 벡터가 frame1에서는 어떻게 나타날 수 있을까요? 이 때, 필요한 개념이 transformation 입니다.
 - 연산하는 방법은 다음과 같습니다.
 
-$$
-    \begin{bmatrix}
-    3 & 1 \\
-    1 & 1 \\
-    \end{bmatrix}
-    \begin{bmatrix}
-    \frac{3}{2} \\
-    \frac{1}{2} \\
-    \end{bmatrix}
-=
-    \begin{bmatrix} 
-    5 \\
-    2 \\
-    \end{bmatrix}
-    
-$$
+<br>
+
+$$ \begin{bmatrix} 3 & 1 \\ 1 & 1 \\ \end{bmatrix} \begin{bmatrix} \frac{3}{2} \\ \frac{1}{2} \\ \end{bmatrix} = \begin{bmatrix}  5 \\ 2 \\ \end{bmatrix} $$
+
+<br>
    
 - 이 때, 첫번째 행렬인 $$ \begin{bmatrix} 3 & 1 \\ 1 & 1 \\ \end{bmatrix} $$ 은 frame1 상에서의 fram2의 basis 벡터에 해당합니다.
     - 이 행렬을 **transformation matirx**라고 합니다.
