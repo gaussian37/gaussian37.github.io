@@ -31,7 +31,6 @@ tags: [segmentation, cgnet] # add tag
 - ### Related Work
 - ### Proposed Approach
 - ### Experiments
-- ### Conclusion
 - ### Pytorch code
 
 <br>
@@ -199,13 +198,37 @@ tags: [segmentation, cgnet] # add tag
 - 따라서, CGNet은 깊은 계층의 `semantic level`과 얕은 계층의 `spatial level` 모두에서 아래로부터 위까지 상황별 정보를 수집할 수 있는 기능을 가지고 있습니다.
 - 이는 인코딩 단계 이후 context module 을 수행하여 context 정보를 무시하거나 깊은 계층의 semantic level 에서 context 정보만 포착하는 기존의 세그멘테이션 모델과 비교하면 좀 더 세그멘테이션에 적합한 모델이라 할 수 있습니다.
 - 또한, 매개변수의 수를 더욱 줄이기 위해 $$ f_{loc}(*) $$ 및 $$ f_{sur}(*) $$ 는 channel-wise convolution 을 채택하여 채널 간 계산 비용을 제거하고 메모리 공간을 많이 절약합니다.
-- 
+
+<br>
+
+## **Experiments**
+
+<br>
+
+- 논문에서 제공하는 다양한 실험 결과들이 있습니다. 전체 실험 내용들은 논문을 참조하시기 바랍니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/cgnet/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 내용은 $$ f_{sur}(*), f_{glo}(*) $$, Input Injection, PReLU가 효과가 있음을 실험을 통해 확인합니다.
 
 
+<br>
+<center><img src="../assets/img/vision/segmentation/cgnet/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
+- 위 내용은 $$ M, N $$ 크기를 증가함에 따른 성능의 변화와, LRL, GRL의 효과 그리고 1x1 convolution의 효과에 대하여 실험을 통해 확인합니다.
 
+<br>
+<center><img src="../assets/img/vision/segmentation/cgnet/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
-#### **Comparision with Similar Works**
+- 파라미터 $$ M = 3, N = 21 $$을 기준으로 다른 네트워크와 비교하였을 때, 실시간 세그멘테이션이 가능한 ENet, ESPNet에 비해 모든 면에서 우수하며 ERFNet에 비해서는 파라미터 갯수 대비 우수함을 보입니다. 
 
+<br>
 
+## **Pytorch code**
+
+<br>
 
