@@ -26,7 +26,7 @@ tags: [선형대수학, linear algebra, orthogonal matrix, gram schmidt] # add t
 - 두번째로 $$ u_{2} = v_{2} - (v_{2} \cdot e_{1})e_{1} = \Biggl( \begin{bmatrix} 2 \\ 0 \\ 1 \\ \end{bmatrix} - \begin{bmatrix} 2 \\ 0 \\ 1 \\ \end{bmatrix} \cdot \frac{1}{\sqrt{3}} \begin{bmatrix} 1 \\ 1 \\ 1 \\ \end{bmatrix} \Biggr) \frac{1}{\sqrt{3}} \begin{bmatrix} 1 \\ 1 \\ 1 \\ \end{bmatrix} = \begin{bmatrix} 1 \\ -1 \\ 0 \\ \end{bmatrix} $$
     - 정리하면, $$ e_{2} = \frac{u_{2}}{\vert u_{2} \vert} = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ -1 \\ 0 \\ \end{bmatrix} $$ 이 됩니다.
 - 마지막으로 $$ u_{3} = v_{3}  - (v_{3} \cdot e_{1})e_{1} - (v_{3} \cdot e_{2})e_{2} = \begin{bmatrix} 3 \\ 1 \\ -1 \\ \end{bmatrix} - \Biggl( \begin{bmatrix} 3 \\ 1 \\ -1 \\ \end{bmatrix} \cdot \frac{1}{\sqrt{3}} \begin{bmatrix} 1 \\ 1 \\ 1 \\ \end{bmatrix} \Biggr) \frac{1}{\sqrt{3}} \begin{bmatrix} 1 \\ 1 \\ 1 \\ \end{bmatrix} - \Biggl( \begin{bmatrix} 3 \\ 1 \\ -1 \\ \end{bmatrix} \cdot \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ -1 \\ 0 \\ \end{bmatrix} \Biggr) \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ -1 \\ 0 \\ \end{bmatrix} = \begin{bmatrix} 1 \\ 1 \\ -2 \\ \end{bmatrix} $$가 됩니다.
-    - 정리하면, $$ e_{3} = \frac{u_{3}}{\vert u_{3} \vert} = \frac{1}{sqrt{6}} \begin{bmatrix} 1 \\ 1 \\ -2 \\ \end{bmatrix} $$ 가 됩니다.
+    - 정리하면, $$ e_{3} = \frac{u_{3}}{\vert u_{3} \vert} = \frac{1}{\sqrt{6}} \begin{bmatrix} 1 \\ 1 \\ -2 \\ \end{bmatrix} $$ 가 됩니다.
 
 <br>
 
