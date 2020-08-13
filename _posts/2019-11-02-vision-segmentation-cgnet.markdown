@@ -159,8 +159,75 @@ tags: [segmentation, cgnet] # add tag
 - `local feature`인 $$ f_{loc}(*) $$는 3 x 3의 기본형의 convolution layer이며 상하좌우 8개의 방향에서 feature를 학습합니다. 위 그림의 (a)를 참조하시면 됩니다.
 - 반면 `surrounding context`인 $$ f_{sur}(*) $$는 3 x 3 dilated(atrous) convolution layer입니다. [dilated convolution](https://gaussian37.github.io/dl-concept-dilated_residual_network/)은 같은 필터의 갯수를 가지면서도 더 넓은 receptive field를 가지기 때문에 주변 상황을 캡쳐하여 학습할 수 있습니다. 위 그림의 (b)를 참조하시면 됩니다.
 - `joint feature`는 앞에서 설명한 바와 같이 $$ f_{loc}(*) $$ 와 $$ f_{sur}(*) $$ 을 concatenation 하여 생성합니다. concat 이후에는 batchnorm을 적용하였습니다. (d) 그림의 중간 부분을 참조하시기 바랍니다.
-- `global context`는 weighted vector로 취급되며 유용한 구성요소를 강조하고 쓸모없는 구성요소를 억제하기 위한 용도로 사용되며 이 결과는 joint feature에 적용됩니다. 구현 시 $$ f_{glo}(*) $$를 **GAP(Global Average Pooling) + FC Layer**를 이용하여 보라색 영역에 해당하는 global context를 얻습니다. 위 그림의 (c)를 참조하시면 됩니다.
-- CG 블록의 마지막으로, 추출된 global context와 함께 joint feature의 가중치를 재조정하기 위해 scale 레이어를 사용합니다. 
+- `global context`는 weighted vector로 취급되며 유용한 구성요소를 강조하고 쓸모없는 구성요소를 억제하기 위한 용도로 사용되며 이 결과는 joint feature에 적용됩니다. 구현 시 $$ f_{glo}(*) $$를 **GAP(Global Average Pooling) + FC Layer**를 이용하여 보라색 영역에 해당하는 global context를 얻습니다. 위 그림의 (c)를 참조하시면 됩니다. CG 블록의 마지막으로, 추출된 global context와 함께 joint feature의 가중치를 재조정하기 위해 scale 레이어를 사용합니다. 코드는 아래와 같습니다.
+
+<br>
+
+```python
+class FGlo(nn.Module):
+    """
+    the FGlo class is employed to refine the joint feature of both local feature and surrounding context.
+    """
+    def __init__(self, channel, reduction=16):
+        super(FGlo, self).__init__()
+        self.avg_pool = nn.AdaptiveAvgPool2d(1)
+        self.fc = nn.Sequential(
+                nn.Linear(channel, channel // reduction),
+                nn.ReLU(inplace=True),
+                nn.Linear(channel // reduction, channel),
+                nn.Sigmoid()
+        )
+
+    def forward(self, x):
+        b, c, _, _ = x.size()
+        y = self.avg_pool(x).view(b, c)
+        y = self.fc(y).view(b, c, 1, 1)
+        return x * y
+```
+
+<br>
+
+- 위 코드를 보면 `nn.Linear`를 통해 GAP한 결과 전체 즉, 전체 이미지의 feature를 대상으로 학습을 하고 마지막에 `sigmoid`를 이용하여 구성 요소 중 강조할 요소와 억제할 요소를 선택하도록 합니다. 이 때 생성된 벡터 $$ y $$와 `joint feature` $$ x $$가 element-wise 방식으로 곱해져서 `joint feature`가 정제됩니다.
+
+<br>
+
+- 위 내용을 모두 적용한 `CG 블록`의 코드는 다음과 같습니다.
+
+<br>
+
+```python
+class ContextGuidedBlock(nn.Module):
+    def __init__(self, nIn, nOut, dilation_rate=2, reduction=16, add=True):
+        """
+        args:
+           nIn: number of input channels
+           nOut: number of output channels, 
+           add: if true, residual learning
+        """
+        super().__init__()
+        n= int(nOut/2)
+        self.conv1x1 = ConvBNPReLU(nIn, n, 1, 1)  #1x1 Conv is employed to reduce the computation
+        self.F_loc = ChannelWiseConv(n, n, 3, 1) # local feature
+        self.F_sur = ChannelWiseDilatedConv(n, n, 3, 1, dilation_rate) # surrounding context
+        self.bn_prelu = BNPReLU(nOut)
+        self.add = add
+        self.F_glo= FGlo(nOut, reduction)
+
+    def forward(self, input):
+        output = self.conv1x1(input)
+        loc = self.F_loc(output)
+        sur = self.F_sur(output)
+        
+        joi_feat = torch.cat([loc, sur], 1) 
+
+        joi_feat = self.bn_prelu(joi_feat)
+
+        output = self.F_glo(joi_feat)  #F_glo is employed to refine the joint feature
+        # if residual version
+        if self.add:
+            output  = input + output
+        return output
+```
 
 <br>
 <center><img src="../assets/img/vision/segmentation/cgnet/4.png" alt="Drawing" style="width: 800px;"/></center>
@@ -283,3 +350,368 @@ class InputInjection(nn.Module):
 
 <br>
 
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+__all__ = ["Context_Guided_Network"]  
+#Filter out variables, functions, and classes that other programs don't need or don't want when running cmd "from CGNet import *"
+
+class ConvBNPReLU(nn.Module):
+    def __init__(self, nIn, nOut, kSize, stride=1):
+        """
+        args:
+            nIn: number of input channels
+            nOut: number of output channels
+            kSize: kernel size
+            stride: stride rate for down-sampling. Default is 1
+        """
+        super().__init__()
+        padding = int((kSize - 1)/2)
+        self.conv = nn.Conv2d(nIn, nOut, (kSize, kSize), stride=stride, padding=(padding, padding), bias=False)
+        self.bn = nn.BatchNorm2d(nOut, eps=1e-03)
+        self.act = nn.PReLU(nOut)
+
+    def forward(self, input):
+        """
+        args:
+           input: input feature map
+           return: transformed feature map
+        """
+        output = self.conv(input)
+        output = self.bn(output)
+        output = self.act(output)
+        return output
+
+
+class BNPReLU(nn.Module):
+    def __init__(self, nOut):
+        """
+        args:
+           nOut: channels of output feature maps
+        """
+        super().__init__()
+        self.bn = nn.BatchNorm2d(nOut, eps=1e-03)
+        self.act = nn.PReLU(nOut)
+
+    def forward(self, input):
+        """
+        args:
+           input: input feature map
+           return: normalized and thresholded feature map
+        """
+        output = self.bn(input)
+        output = self.act(output)
+        return output
+
+class ConvBN(nn.Module):
+    def __init__(self, nIn, nOut, kSize, stride=1):
+        """
+        args:
+           nIn: number of input channels
+           nOut: number of output channels
+           kSize: kernel size
+           stride: optinal stide for down-sampling
+        """
+        super().__init__()
+        padding = int((kSize - 1)/2)
+        self.conv = nn.Conv2d(nIn, nOut, (kSize, kSize), stride=stride, padding=(padding, padding), bias=False)
+        self.bn = nn.BatchNorm2d(nOut, eps=1e-03)
+
+    def forward(self, input):
+        """
+        args:
+           input: input feature map
+           return: transformed feature map
+        """
+        output = self.conv(input)
+        output = self.bn(output)
+        return output
+
+class Conv(nn.Module):
+    def __init__(self, nIn, nOut, kSize, stride=1):
+        """
+        args:
+            nIn: number of input channels
+            nOut: number of output channels
+            kSize: kernel size
+            stride: optional stride rate for down-sampling
+        """
+        super().__init__()
+        padding = int((kSize - 1)/2)
+        self.conv = nn.Conv2d(nIn, nOut, (kSize, kSize), stride=stride, padding=(padding, padding), bias=False)
+
+    def forward(self, input):
+        """
+        args:
+           input: input feature map
+           return: transformed feature map
+        """
+        output = self.conv(input)
+        return output
+
+class ChannelWiseConv(nn.Module):
+    def __init__(self, nIn, nOut, kSize, stride=1):
+        """
+        Args:
+            nIn: number of input channels
+            nOut: number of output channels, default (nIn == nOut)
+            kSize: kernel size
+            stride: optional stride rate for down-sampling
+        """
+        super().__init__()
+        padding = int((kSize - 1)/2)
+        self.conv = nn.Conv2d(nIn, nOut, (kSize, kSize), stride=stride, padding=(padding, padding), groups=nIn, bias=False)
+
+    def forward(self, input):
+        """
+        args:
+           input: input feature map
+           return: transformed feature map
+        """
+        output = self.conv(input)
+        return output
+        
+class DilatedConv(nn.Module):
+    def __init__(self, nIn, nOut, kSize, stride=1, d=1):
+        """
+        args:
+           nIn: number of input channels
+           nOut: number of output channels
+           kSize: kernel size
+           stride: optional stride rate for down-sampling
+           d: dilation rate
+        """
+        super().__init__()
+        padding = int((kSize - 1)/2) * d
+        self.conv = nn.Conv2d(nIn, nOut, (kSize, kSize), stride=stride, padding=(padding, padding), bias=False, dilation=d)
+
+    def forward(self, input):
+        """
+        args:
+           input: input feature map
+           return: transformed feature map
+        """
+        output = self.conv(input)
+        return output
+
+class ChannelWiseDilatedConv(nn.Module):
+    def __init__(self, nIn, nOut, kSize, stride=1, d=1):
+        """
+        args:
+           nIn: number of input channels
+           nOut: number of output channels, default (nIn == nOut)
+           kSize: kernel size
+           stride: optional stride rate for down-sampling
+           d: dilation rate
+        """
+        super().__init__()
+        padding = int((kSize - 1)/2) * d
+        self.conv = nn.Conv2d(nIn, nOut, (kSize, kSize), stride=stride, padding=(padding, padding), groups= nIn, bias=False, dilation=d)
+
+    def forward(self, input):
+        """
+        args:
+           input: input feature map
+           return: transformed feature map
+        """
+        output = self.conv(input)
+        return output
+
+class FGlo(nn.Module):
+    """
+    the FGlo class is employed to refine the joint feature of both local feature and surrounding context.
+    """
+    def __init__(self, channel, reduction=16):
+        super(FGlo, self).__init__()
+        self.avg_pool = nn.AdaptiveAvgPool2d(1)
+        self.fc = nn.Sequential(
+                nn.Linear(channel, channel // reduction),
+                nn.ReLU(inplace=True),
+                nn.Linear(channel // reduction, channel),
+                nn.Sigmoid()
+        )
+
+    def forward(self, x):
+        b, c, _, _ = x.size()
+        y = self.avg_pool(x).view(b, c)
+        y = self.fc(y).view(b, c, 1, 1)
+        return x * y
+
+class ContextGuidedBlock_Down(nn.Module):
+    """
+    the size of feature map divided 2, (H,W,C)---->(H/2, W/2, 2C)
+    """
+    def __init__(self, nIn, nOut, dilation_rate=2, reduction=16):
+        """
+        args:
+           nIn: the channel of input feature map
+           nOut: the channel of output feature map, and nOut=2*nIn
+        """
+        super().__init__()
+        self.conv1x1 = ConvBNPReLU(nIn, nOut, 3, 2)  #  size/2, channel: nIn--->nOut
+        
+        self.F_loc = ChannelWiseConv(nOut, nOut, 3, 1)
+        self.F_sur = ChannelWiseDilatedConv(nOut, nOut, 3, 1, dilation_rate)
+        
+        self.bn = nn.BatchNorm2d(2*nOut, eps=1e-3)
+        self.act = nn.PReLU(2*nOut)
+        self.reduce = Conv(2*nOut, nOut,1,1)  #reduce dimension: 2*nOut--->nOut
+        
+        self.F_glo = FGlo(nOut, reduction)    
+
+    def forward(self, input):
+        output = self.conv1x1(input)
+        loc = self.F_loc(output)
+        sur = self.F_sur(output)
+
+        joi_feat = torch.cat([loc, sur],1)  #  the joint feature
+        joi_feat = self.bn(joi_feat)
+        joi_feat = self.act(joi_feat)
+        joi_feat = self.reduce(joi_feat)     #channel= nOut
+        
+        output = self.F_glo(joi_feat)  # F_glo is employed to refine the joint feature
+
+        return output
+
+
+class ContextGuidedBlock(nn.Module):
+    def __init__(self, nIn, nOut, dilation_rate=2, reduction=16, add=True):
+        """
+        args:
+           nIn: number of input channels
+           nOut: number of output channels, 
+           add: if true, residual learning
+        """
+        super().__init__()
+        n= int(nOut/2)
+        self.conv1x1 = ConvBNPReLU(nIn, n, 1, 1)  #1x1 Conv is employed to reduce the computation
+        self.F_loc = ChannelWiseConv(n, n, 3, 1) # local feature
+        self.F_sur = ChannelWiseDilatedConv(n, n, 3, 1, dilation_rate) # surrounding context
+        self.bn_prelu = BNPReLU(nOut)
+        self.add = add
+        self.F_glo= FGlo(nOut, reduction)
+
+    def forward(self, input):
+        output = self.conv1x1(input)
+        loc = self.F_loc(output)
+        sur = self.F_sur(output)
+        
+        joi_feat = torch.cat([loc, sur], 1) 
+
+        joi_feat = self.bn_prelu(joi_feat)
+
+        output = self.F_glo(joi_feat)  #F_glo is employed to refine the joint feature
+        # if residual version
+        if self.add:
+            output  = input + output
+        return output
+
+class InputInjection(nn.Module):
+    def __init__(self, downsamplingRatio):
+        super().__init__()
+        self.pool = nn.ModuleList()
+        for i in range(0, downsamplingRatio):
+            self.pool.append(nn.AvgPool2d(3, stride=2, padding=1))
+    def forward(self, input):
+        for pool in self.pool:
+            input = pool(input)
+        return input
+
+
+class Context_Guided_Network(nn.Module):
+    """
+    This class defines the proposed Context Guided Network (CGNet) in this work.
+    """
+    def __init__(self, classes=19, M= 3, N= 21, dropout_flag = False):
+        """
+        args:
+          classes: number of classes in the dataset. Default is 19 for the cityscapes
+          M: the number of blocks in stage 2
+          N: the number of blocks in stage 3
+        """
+        super().__init__()
+        self.level1_0 = ConvBNPReLU(3, 32, 3, 2)      # feature map size divided 2, 1/2
+        self.level1_1 = ConvBNPReLU(32, 32, 3, 1)                          
+        self.level1_2 = ConvBNPReLU(32, 32, 3, 1)      
+
+        self.sample1 = InputInjection(1)  #down-sample for Input Injection, factor=2
+        self.sample2 = InputInjection(2)  #down-sample for Input Injiection, factor=4
+
+        self.b1 = BNPReLU(32 + 3)
+        
+        #stage 2
+        self.level2_0 = ContextGuidedBlock_Down(32 +3, 64, dilation_rate=2,reduction=8)  
+        self.level2 = nn.ModuleList()
+        for i in range(0, M-1):
+            self.level2.append(ContextGuidedBlock(64 , 64, dilation_rate=2, reduction=8))  #CG block
+        self.bn_prelu_2 = BNPReLU(128 + 3)
+        
+        #stage 3
+        self.level3_0 = ContextGuidedBlock_Down(128 + 3, 128, dilation_rate=4, reduction=16) 
+        self.level3 = nn.ModuleList()
+        for i in range(0, N-1):
+            self.level3.append(ContextGuidedBlock(128 , 128, dilation_rate=4, reduction=16)) # CG block
+        self.bn_prelu_3 = BNPReLU(256)
+
+        if dropout_flag:
+            print("have droput layer")
+            self.classifier = nn.Sequential(nn.Dropout2d(0.1, False),Conv(256, classes, 1, 1))
+        else:
+            self.classifier = nn.Sequential(Conv(256, classes, 1, 1))
+
+        #init weights
+        for m in self.modules():
+            classname = m.__class__.__name__
+            if classname.find('Conv2d')!= -1:
+                nn.init.kaiming_normal_(m.weight)
+                if m.bias is not None:
+                    m.bias.data.zero_()
+                elif classname.find('ConvTranspose2d')!= -1:
+                    nn.init.kaiming_normal_(m.weight)
+                    if m.bias is not None:
+                        m.bias.data.zero_()
+
+    def forward(self, input):
+        """
+        args:
+            input: Receives the input RGB image
+            return: segmentation map
+        """
+        # stage 1
+        output0 = self.level1_0(input)
+        output0 = self.level1_1(output0)
+        output0 = self.level1_2(output0)
+        inp1 = self.sample1(input)
+        inp2 = self.sample2(input)
+
+        # stage 2
+        output0_cat = self.b1(torch.cat([output0, inp1], 1))
+        output1_0 = self.level2_0(output0_cat) # down-sampled
+        
+        for i, layer in enumerate(self.level2):
+            if i==0:
+                output1 = layer(output1_0)
+            else:
+                output1 = layer(output1)
+
+        output1_cat = self.bn_prelu_2(torch.cat([output1,  output1_0, inp2], 1))
+
+        # stage 3
+        output2_0 = self.level3_0(output1_cat) # down-sampled
+        for i, layer in enumerate(self.level3):
+            if i==0:
+                output2 = layer(output2_0)
+            else:
+                output2 = layer(output2)
+
+        output2_cat = self.bn_prelu_3(torch.cat([output2_0, output2], 1))
+       
+        # classifier
+        classifier = self.classifier(output2_cat)
+
+        # upsample segmenation map ---> the input image size
+        out = F.upsample(classifier, input.size()[2:], mode='bilinear',align_corners = False)   #Upsample score map, factor=8
+        return out
+```
