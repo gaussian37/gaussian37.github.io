@@ -155,10 +155,55 @@ tags: [segmentation, cgnet] # add tag
 - `local feature`인 $$ f_{loc}(*) $$는 3 x 3의 기본형의 convolution layer이며 상하좌우 8개의 방향에서 feature를 학습합니다. 위 그림의 (a)를 참조하시면 됩니다.
 - 반면 `surrounding context`인 $$ f_{sur}(*) $$는 3 x 3 dilated(atrous) convolution layer입니다. [dilated convolution](https://gaussian37.github.io/dl-concept-dilated_residual_network/)은 같은 필터의 갯수를 가지면서도 더 넓은 receptive field를 가지기 때문에 주변 상황을 캡쳐하여 학습할 수 있습니다. 위 그림의 (b)를 참조하시면 됩니다.
 - `joint feature`는 앞에서 설명한 바와 같이 $$ f_{loc}(*) $$ 와 $$ f_{sur}(*) $$ 을 concatenation 하여 생성합니다. concat 이후에는 batchnorm을 적용하였습니다. (d) 그림의 중간 부분을 참조하시기 바랍니다.
+- `global context`는 weighted vector로 취급되며 유용한 구성요소를 강조하고 쓸모없는 구성요소를 억제하기 위한 용도로 사용되며 이 결과는 joint feature에 적용됩니다. 구현 시 $$ f_{glo}(*) $$를 **GAP(Global Average Pooling) + FC Layer**를 이용하여 보라색 영역에 해당하는 global context를 얻습니다. 위 그림의 (c)를 참조하시면 됩니다.
+- CG 블록의 마지막으로, 추출된 global context와 함께 joint feature의 가중치를 재조정하기 위해 scale 레이어를 사용합니다. 
+
+<br>
+
+<br>
+<center><img src="../assets/img/vision/segmentation/cgnet/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 또한 CG 블록은 학습 시 성능 개선을 위하여 backpropagation 시 residual learning을 사용합니다. 제안된 CG 블록에는 두 가지 유형의 residual connection이 있습니다. 직관적으로 보았을 때, GRL이 LRL보다 네트워크에서 정보의 흐름에 더 큰 역할을 하는 것으로 생각 됩니다.
+- `LRL(Local Residual Learning)` : input + joint feature
+- `GRL(Global Residual Learning)` : input + global feature
+
+<br>
 
 #### **Context Guided Network**
 
 <br>
+
+- 제안된 CG 블록을 기반으로, 파라미터 수를 줄이기 위해 CGNet의 구조를 정교하게 설계하였습니다. CGNet은 메모리 공간을 최대한 절약하기 위해 "깊고 얇게"라는 주요 원칙을 따릅니다. 
+- CGNet은 51개의 컨벌루션 레이어를 가지는데 이는 다른 모델에 비해서 상당히 얕은 레이어 수준입니다.
+- 또한 공간 정보를 보다 잘 보존하기 위해 다운 샘플링 단계가 3단계에 불과하고 1/8 feature map 해상도를 사용합니다. 이는 다른 많은 세그멘테이션 모델에서 사용하는 다운샘플링 5단계, feature map 해상도가 1/32인 것과 차이가 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/cgnet/5.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 테이블에서는 CGNet의 상세 구조가 표현되어 있습니다. 아래 내용은 실제 코드에 구현된 컨셉들을 설명합니다. 글만 읽으면 다소 추상적일 수 있으니 가장 아래에 있는 pytorch 코드와 비교하면서 읽어보시길 바랍니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/cgnet/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 1 단계에서는 standard convolution layer를 3개를 쌓아서 1/2 해상도의 feature map을 얻고, 2 단계와 3 단계에서는 각각 M개, N개의 CG 블록을 쌓아서 입력 이미지의 1/4, 1/8로 다운 샘플링한 feature map을 얻습니다.
+- 위 그림의 단계 별 화살표와 같이 2 단계와 3 단계에서는 이전 단계의 첫 번째 블록과 마지막 블록을 결합하여 첫 번째 계층의 입력을 얻음으로써 feature의 재사용과 더불어 residual learning을 할 수 있도록 합니다.
+- CCNet의 정보 흐름을 개선하기 위해, 2단계와 3단계 각각 1/4 및 1/8의 다운 샘플링된 입력 영상을 추가로 전달하는 input injection 메커니즘을 취합니다. 
+- 마지막으로 세그멘테이션을 위해 1 × 1 convolutional layer를 사용합니다.
+
+<br>
+
+- 2단계와 3단계의 모든 단위에 CG 블록이 사용된다는 것은 CGNet의 거의 모든 단계에서 CG 블록이 활용된다는 것을 의미합니다.
+- 따라서, CGNet은 깊은 계층의 `semantic level`과 얕은 계층의 `spatial level` 모두에서 아래로부터 위까지 상황별 정보를 수집할 수 있는 기능을 가지고 있습니다.
+- 이는 인코딩 단계 이후 context module 을 수행하여 context 정보를 무시하거나 깊은 계층의 semantic level 에서 context 정보만 포착하는 기존의 세그멘테이션 모델과 비교하면 좀 더 세그멘테이션에 적합한 모델이라 할 수 있습니다.
+- 또한, 매개변수의 수를 더욱 줄이기 위해 $$ f_{loc}(*) $$ 및 $$ f_{sur}(*) $$ 는 channel-wise convolution 을 채택하여 채널 간 계산 비용을 제거하고 메모리 공간을 많이 절약합니다.
+- 
+
+
+
+
 
 #### **Comparision with Similar Works**
 

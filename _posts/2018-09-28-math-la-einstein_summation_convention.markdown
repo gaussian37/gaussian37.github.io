@@ -13,23 +13,7 @@ tags: [Linear algebra, eienstein summation convetion] # add tag
 
 <br>
 
-$$ 
-
-\begin{pmatrix}
-a_{11} & a_{11} & \cdots \ a_{1n} \\
-a_{21} & a_{22} & \cdots \ a_{21} \\
-\cdots & \cdots & \cdots \ \cdots \\
-a_{n1} & a_{n2} & \cdots \ a_{nn} \\
-\end{pmatrix}
-
-\begin{pmatrix}
-b_{11} & b_{11} & \cdots \ b_{1n} \\
-b_{21} & b_{22} & \cdots \ b_{21} \\
-\cdots & \cdots & \cdots \ \cdots \\
-b_{n1} & b_{n2} & \cdots \ b_{nn} \\
-\end{pmatrix}
-
-$$
+- $$ \begin{pmatrix} a_{11} & a_{11} & \cdots \ a_{1n} \\ a_{21} & a_{22} & \cdots \ a_{21} \\ \cdots & \cdots & \cdots \ \cdots \\ a_{n1} & a_{n2} & \cdots \ a_{nn} \\ \end{pmatrix} \begin{pmatrix} b_{11} & b_{11} & \cdots \ b_{1n} \\ b_{21} & b_{22} & \cdots \ b_{21} \\ \cdots & \cdots & \cdots \ \cdots \\ b_{n1} & b_{n2} & \cdots \ b_{nn} \\ \end{pmatrix} $$
 
 <br>
 
