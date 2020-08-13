@@ -58,7 +58,7 @@ tags: [확률, 통계, joint probability, marginal probability] # add tag
 
 <br>    
     
-$$ P(X = A) = P(A) = \frac{7}{10} $$
+- $$ P(X = A) = P(A) = \frac{7}{10} $$
 
 <br>
 
@@ -66,7 +66,7 @@ $$ P(X = A) = P(A) = \frac{7}{10} $$
 
 <br>
     
-$$ P(Y = 하얀 \vert X = A) = P(하얀 \vert A) = \frac{2}{10} $$
+- $$ P(Y = 하얀 \vert X = A) = P(하얀 \vert A) = \frac{2}{10} $$
 
 <br>
 
@@ -76,7 +76,7 @@ $$ P(Y = 하얀 \vert X = A) = P(하얀 \vert A) = \frac{2}{10} $$
 
 <br>
 
-$$ P(A, 하얀) = P(하얀 \vert A) P(A) = (\frac{2}{10})(\frac{7}{10}) = \frac{7}{50} $$
+- $$ P(A, 하얀) = P(하얀 \vert A) P(A) = (\frac{2}{10})(\frac{7}{10}) = \frac{7}{50} $$
     
 <br>    
     
@@ -87,7 +87,7 @@ $$ P(A, 하얀) = P(하얀 \vert A) P(A) = (\frac{2}{10})(\frac{7}{10}) = \frac{
 
 <br>
 
-$$ P(하얀) = P(하얀 \| A)P(A) + P(하얀 \| B)P(B) = (\frac{2}{10})(\frac{7}{10}) + (\frac{9}{15})(\frac{3}{10}) = \frac{8}{25} $$
+- $$ P(하얀) = P(하얀 \| A)P(A) + P(하얀 \| B)P(B) = (\frac{2}{10})(\frac{7}{10}) + (\frac{9}{15})(\frac{3}{10}) = \frac{8}{25} $$
 
 <br>
 
