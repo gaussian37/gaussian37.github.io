@@ -37,6 +37,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### block을 쌓기 위한 Module, Sequential, ModuleList, ModuleDict
 - ### shape 변경을 위한 transpose
 - ### nn.Dropout vs. F.dropout
+- ### nn.AvgPool2d vs. nn.AdaptiveAvgPool2d
 
 <br>
 
@@ -1368,3 +1369,99 @@ print(model2)
 - `nn.functional.dropout`을 **training = False**로 설정하여 끌 수는 있지만 nn.Dropout과 같은 편리한 방법은 아닙니다.
 - 또한 드롭률는 모듈에 저장되므로 추가 변수에 저장할 필요가 없습니다. 더 큰 네트워크에서는 다른 드롭률로 다른 드롭 아웃 레이어를 만들려고 할 수 있습니다. 여기서 `nn.Dropout`은 가독성을 높이고 레이어를 여러 번 사용할 때 편리하게 사용할 수 있도록 합니다.
 - 마지막으로, 모델에 할당 된 모든 모듈이 모델에 등록됩니다. 따라서 클래스를 추적하여 모델을 추적하므로 `eval()`을 호출하여 드롭 아웃 모듈을 끌 수 있습니다. `nn.functional.dropout`을 사용할 때에는 모델이 인식하지 못하므로 summary에 표시되지 않습니다.
+
+<br>
+
+## **nn.AvgPool2d vs. nn.AdaptiveAvgPool2d**
+
+<br>
+
+- `nn.AvgPool2d`와 `nn.AdaptiveAvgPool2d` 모두 pooling을 하기 위해 사용됩니다. 차이점은 어떻게 사용하는 지 방식이 조금 다릅니다.
+- 차이점에 대하여 간략하게 설명하면 `AvgPool2d`에서는 pooling 작업에 대한 kernel 및 stride 크기를 정의해야 동작합니다. 예를 들어 kernel=3, stride=2, padding=0을 사용하는 avg_pool2d는 5x5 텐서를 3x3 텐서로, 7x7 텐서는 4x4 텐서로 줄입니다.
+- 반면 `AdaptiveAvgPool2d`에서는 pooling 작업이 끝날 때 필요한 출력 크기를 정의하며, 이를 위해 사용할 풀링 매개 변수를 입력합니다. 예를 들어 출력 크기=(3,3)를 사용하는 AdaptiveAvgPool2d는 5x5 및 7x7 텐서 모두를 3x3 텐서로 줄입니다. 이 기능은 입력 크기에 변동이 있고 CNN 상단에서 FC Layer를 사용하는 경우에 특히 유용합니다.
+
+<br>
+
+- 그러면 `AvgPool2d` 부터 방법을 설명드리겠습니다.
+- `AvgPool2d`의 [공식 문서](https://pytorch.org/docs/stable/generated/torch.nn.AvgPool2d.html)를 읽어보면 상당히 내용이 길지만 일반적으로 사용하는 파라미터 기준으로 설명하면 처음 2개의 파라미터인 `kernel_size`와 `stride`를 입력하여 Average Pooling을 하여 $$ (N, C, H_{in}, W_{in})$$ 크기의 입력을 $$ (N, C, H_{out}, W_{out})$$ 크기로 변경하는 역할을 합니다.
+
+<br>
+
+- $$ H_{out} = \Bigl\lfloor \frac{H_{in} + 2 \times \text{padding[0]} - \text{kernel_size[0]}}{\text{stride[0]}} + 1 \Bigr\rfloor $$
+
+- $$ W_{out} = \Bigl\lfloor \frac{W_{in} + 2 \times \text{padding[1]} - \text{kernel_size[1]}}{\text{stride[1]}} + 1 \Bigr\rfloor $$
+
+<br>
+
+- 여기서 핵심이 되는 `kernel_size`와 `stride` 크기는 직접 입력해 주어야 합니다. `padding`은 기본값이 0이기 때문에 입력하지 않으면 0이 됩니다.
+- 코드는 다음과 같이 사용할 수 있습니다.
+
+<br>
+
+```python
+# pool of square window of size=3, stride=2
+m = nn.AvgPool2d(3, stride=2)
+# pool of non-square window
+m = nn.AvgPool2d((3, 2), stride=(2, 1))
+input = torch.randn(20, 16, 50, 32)
+output = m(input)
+```
+
+<br>
+
+- 반면 `nn.AdaptiveAvgPool2d`는 kernel_size, stride, padding을 입력하는 대신에 `output`의 사이즈를 입력해 줍니다.
+- 그러면 위의 식에 따라서 자동으로 kernel_size, stride, padding이 결정되어 pooling을 할 수 있습니다. 즉, Average Pooling을 할 때, 출력 크기 조절하기가 상당히 쉬워집니다. 사용 방법은 다음과 같습니다.
+
+<br>
+
+```python
+# target output size of 5x7
+m = nn.AdaptiveAvgPool2d((5,7))
+input = torch.randn(1, 64, 8, 9)
+output = m(input)
+# torch.Size([1, 64, 5, 7])
+
+# target output size of 7x7 (square)
+m = nn.AdaptiveAvgPool2d(7)
+input = torch.randn(1, 64, 10, 9)
+output = m(input)
+# torch.Size([1, 64, 7, 7])
+
+# target output size of 10x7
+m = nn.AdaptiveMaxPool2d((None, 7))
+input = torch.randn(1, 64, 10, 9)
+output = m(input)
+# torch.Size([1, 64, 10, 7])
+```
+
+<br>
+
+- `AdaptiveAvgPool2d`가 동작되는 원리를 잠시 살펴보면 다음과 같습니다. 다음과 같은 입력 텐서와 AdaptiveAvgPool2d가 있다고 가정해 보겠습니다.
+
+<br>
+
+```python
+input = torch.tensor([[[[1,2.,3], [4,5,6], [7,8,9]]]], dtype = torch.float)
+
+# torch.Size([1, 1, 3, 3])
+# tensor([[[[1., 2., 3.],
+#           [4., 5., 6.],
+#           [7., 8., 9.]]]])
+
+output = nn.AdaptiveAvgPool2d((2,2))(input)
+# tensor([[[[3., 4.],
+#           [6., 7.]]]])
+```
+
+<br>
+
+- 이 경우 출력의 사이즈가 (3, 3) → (2, 2)로 고정되므로 kernel의 크기는 (2, 2)로 자동적으로 정해집니다. 따라서 다음과 같이 계산 됩니다.
+
+<br>
+
+```python
+tensor([[[[(1+2+4+5)/4., (2+3+5+6)/4.],     = tensor([[[[3., 4.],
+          [(4+5+7+8)/4., (5+6+8+9)/4.]]]])              [6., 7.]]]])
+```
+
+<br>

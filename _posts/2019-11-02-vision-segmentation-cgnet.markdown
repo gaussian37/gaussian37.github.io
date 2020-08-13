@@ -152,6 +152,9 @@ tags: [segmentation, cgnet] # add tag
     - ③ $$ f_{joi}(*) $$ : (①, ②)
     - ④ $$ f_{glo}(*) $$ : global context (extractor)
 - 먼저 $$ f_{loc}(*) $$, $$ f_{sur}(*) $$ 각각 학습하게 됩니다. 
+- `local feature`인 $$ f_{loc}(*) $$는 3 x 3의 기본형의 convolution layer이며 상하좌우 8개의 방향에서 feature를 학습합니다. 위 그림의 (a)를 참조하시면 됩니다.
+- 반면 `surrounding context`인 $$ f_{sur}(*) $$는 3 x 3 dilated(atrous) convolution layer입니다. [dilated convolution](https://gaussian37.github.io/dl-concept-dilated_residual_network/)은 같은 필터의 갯수를 가지면서도 더 넓은 receptive field를 가지기 때문에 주변 상황을 캡쳐하여 학습할 수 있습니다. 위 그림의 (b)를 참조하시면 됩니다.
+- `joint feature`는 앞에서 설명한 바와 같이 $$ f_{loc}(*) $$ 와 $$ f_{sur}(*) $$ 을 concatenation 하여 생성합니다. concat 이후에는 batchnorm을 적용하였습니다. (d) 그림의 중간 부분을 참조하시기 바랍니다.
 
 #### **Context Guided Network**
 
