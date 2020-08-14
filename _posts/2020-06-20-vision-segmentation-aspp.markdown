@@ -46,9 +46,9 @@ tags: [vision, deep learning, segmentation, aspp, atrous, spatial, pyramid, pool
 
 <br>
 
-$$ y[i] = \sum_{k=1}^{K} x[i + r \cdot k]w[k] $$
+- $$ y[i] = \sum_{k=1}^{K} x[i + r \cdot k]w[k] $$
 
-$$ r > 1 \text{ : atrous convolution}, \quad r = 1 \text{ : standard convolution} $$
+- $$ r > 1 \text{ : atrous convolution}, \quad r = 1 \text{ : standard convolution} $$
 
 <br>
 
