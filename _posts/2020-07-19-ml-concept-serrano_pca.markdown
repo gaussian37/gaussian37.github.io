@@ -32,6 +32,7 @@ tags: [machine learning, PCA, Principal Component Analysis, 주성분 분석, Di
 
 - ### Dimensionality Reduction
 - ### Covariance
+- ### Linear Transformation
 
 
 <br>
@@ -168,4 +169,13 @@ tags: [machine learning, PCA, Principal Component Analysis, 주성분 분석, Di
 <br>
 
 - 특히 $$ (X, X), (Y, Y) $$ 같이 같은 차원의 공분산을 구하는 경우 분산을 구하는 것과 같습니다. 왜냐하면 같은 feature의 좌표를 두번 곱하기 때문에 제곱한 것과 같기 때문입니다. 즉, 실제 분산과 같기 때문에 위 식과 같이 정리됩니다.
-- 위 데이터의 공분산이 $$ (9, 4; 4, 3) $$이라고 가정하고 설명을 계속 진행해 보겠습니다.
+- 따라서 공분산 행렬의 $$ (i, j) $$ 성분은 $$ i $$ 번째 feature와 $$ j $$ 번째 feature의 상관관계를 나타내고 대각 성분은 같은 feature의 상관관계를 나타내기 때문에 양의 상관관계를 가집니다. 
+- 또한 공분산 행렬을 대칭 행렬입니다. $$ (i, j) $$ 관계와 $$ (j, i) $$ 관계가 서로 같기 때문입니다.
+- 정리하면 공분산 행렬은 $$ i, j $$ 두 feature에 대한 데이터 상관관계를 수치적으로 나타내는 대칭 행렬 이며 각 항의 값이 0에 가까울수록 상관관계가 없으며 양의 값을 가지면 비례 관계, 음의 값을 가지면 반비례 관계를 가집니다.
+- 그러면 위 데이터의 공분산이 $$ (9, 4; 4, 3) $$이라고 가정하고 설명을 계속 진행해 보겠습니다.
+
+<br>
+
+## **Linear Transformation**
+
+<br>
