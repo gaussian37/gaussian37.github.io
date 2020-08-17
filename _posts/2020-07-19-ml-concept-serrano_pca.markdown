@@ -10,7 +10,7 @@ tags: [machine learning, PCA, Principal Component Analysis, 주성분 분석, Di
 <br>
 
 - 참조 : https://youtu.be/g-Hb26agBFg?list=WL
-- 이번 글에서는 주성분 분석 (Principal Component Analysis)에 대하여 다루어 보도록 하겠습니다.
+- 이번 글에서는 주성분 분석 (Principal Component Analysis)에 대하여 다루어 보도록 하겠습니다. Luis Serrano 강의를 주 내용으로 하며 중간 중간에 설명이 필요한 부분은 제 블로그를 참조하여 보충하였습니다.
 - 제 블로그에 `PCA`와 관련된 글들이 더 있으니 아래 링크를 참조하셔도 됩니다.
     - Andrew Ng PCA lecture : https://gaussian37.github.io/ml-concept-andrewng-pca/
     - Mathematics for Machine Learning : https://gaussian37.github.io/math-mfml-table/
@@ -179,3 +179,6 @@ tags: [machine learning, PCA, Principal Component Analysis, 주성분 분석, Di
 ## **Linear Transformation**
 
 <br>
+
+- 먼저 앞에서 공분산 개념을 도입한 이유는 공분산 행렬의 `고유 벡터`가 **데이터 분포의 분산 방향**이 되고 `고유 값`이 그 **분산의 크기**가 되기 때문입니다. 즉, 공분산의 고유벡터, 고유값을 이용하면 **데이터가 어떤 방향으로 얼만큼 퍼져있는 지 알 수 있습니다.**
+- 먼저 행렬의 선형 변환 (Linear Transformation)의 주축을 `고유 벡터` 라고 합니다. `고유 벡터`는 선형 변환을 하였을 때, 크기만 바뀌고 방향은 바뀌지 않는 벡터를 뜻합니다. 반면 행렬의 `고유값`은 고유벡터의 방향으로 얼마 만큼 늘어뜨려줄 것인가를 의미합니다. 

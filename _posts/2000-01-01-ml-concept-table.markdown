@@ -9,12 +9,6 @@ tags: [python, machine learning, ml] # add tag
 
 <br>
 
-- [확률과 통계 기초](https://gaussian37.github.io/ml-concept-basic_probability_statistics/)
-- 베이시언 결정 이론
-- [ML(Maximum Likelihood)와 MAP(maximum a posterior)](https://gaussian37.github.io/ml-concept-mle-and-map/)
-- [MLE(Maximum Likelihood Estimation)와 MAP(Maxim A Posterior)에 관하여](https://gaussian37.github.io/ml-concept-mlemap)
-- [가우시안 분포와 분별 함수 (선형 분별 분석(LDA), 2차 분별 분석(QDA))](https://gaussian37.github.io/ml-concept-gaussian_discriminant/)
-- [마할라노비스 거리(mahalanobis distance)](https://gaussian37.github.io/ml-concept-mahalanobis_distance/)
 - [머신러닝의 평가 지표](https://gaussian37.github.io/ml-concept-ml-evaluation/)    
 - [t-SNE](https://gaussian37.github.io/ml-concept-t-SNE/)
 - [Decision tree]()
@@ -26,6 +20,21 @@ tags: [python, machine learning, ml] # add tag
 - [XGBoost]()
 - [LightGBM]()
 - [Stacking]()
+
+<br>
+
+## **머신 러닝 기본**
+
+<br>
+
+- [확률과 통계 기초](https://gaussian37.github.io/ml-concept-basic_probability_statistics/)
+- 베이시언 결정 이론
+- [ML(Maximum Likelihood)와 MAP(maximum a posterior)](https://gaussian37.github.io/ml-concept-mle-and-map/)
+- [MLE(Maximum Likelihood Estimation)와 MAP(Maxim A Posterior)에 관하여](https://gaussian37.github.io/ml-concept-mlemap)
+- [가우시안 분포와 분별 함수 (선형 분별 분석(LDA), 2차 분별 분석(QDA))](https://gaussian37.github.io/ml-concept-gaussian_discriminant/)
+- [마할라노비스 거리(mahalanobis distance)](https://gaussian37.github.io/ml-concept-mahalanobis_distance/)
+
+
 
 <br>
 
