@@ -16,12 +16,22 @@ tags: [machine learning, PCA, Principal Component Analysis, 주성분 분석, Di
     - Mathematics for Machine Learning : https://gaussian37.github.io/math-mfml-table/
 
 <br>
+<center><img src="../assets/img/ml/concept/serrano_pca/0.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- PCA의 전체 프로세스는 위 그림과 같습니다.
+- ① 기존의 데이터에 사용된 feature들을 이용하여 공분산 행렬을 만듭니다.
+- ② 공분산 행렬을 이용하여 고유값과 고유벡터를 구한다.
+- ③ 고유값이 큰 고유벡터 $$ N $$개를 선택하여 $$ N $$ 개의 feature로 전체 feature의 갯수를 줄인다.
+
+<br>
 
 ## **목차**
 
 <br>
 
 - ### Dimensionality Reduction
+- ### Covariance
 
 
 <br>
@@ -30,8 +40,8 @@ tags: [machine learning, PCA, Principal Component Analysis, 주성분 분석, Di
 
 <br>
 
-- PCA의 목적인 Dimensionality Reduction이란 feature의 갯수를 줄여서 나타내는 방법입니다. 
-- feature의 갯수가 많으면 시각화 해서 보기 어려운 문제가 있으므로 임시로 2, 3 개의 feature만 선택하여 시각화 하는 방법을 사용하거나 feature가 너무 많아서 성능이 나오지 않는 경우 일부로 feature의 갯수를 줄일 수 있습니다.
+- PCA의 목적인 Dimensionality Reduction이란 현재 데이터를 feature의 갯수를 줄여서 나타내는 방법입니다. 
+- feature의 갯수가 많으면 시각화 해서 보기 어려운 문제가 있으므로 임시로 2, 3 개의 feature만 선택하여 시각화 하는 방법을 사용하거나 feature가 너무 많아서 차원의 저주에 빠진 경우 일부로 feature의 갯수를 줄일 수 있습니다.
 - 그러면 PCA의 목적인 Dimensionality Reduction에 대하여 알아보도록 하겠습니다.
 
 <br>
@@ -41,7 +51,7 @@ tags: [machine learning, PCA, Principal Component Analysis, 주성분 분석, Di
 - 위 그림의 가운데에 있는 점들을 빨간색, 파란색 체크한 두 선에 정사영(projection) 하려고 합니다.
 - 그러면 각 선에 정사영 된 점들이 위 그림 처럼 배치됩니다. 어떤 선에 정사영 한 것이 더 좋을까요?
 - 느낌적으로 생각하였을 때, 파란색 체크한 선에 정사영 한 것이 더 나아 보입니다. 왜냐하면 점들이 기존 데이터 성향에 맞게 잘 분포되어 있기 떄문입니다.
-- 두 선분에 따라 정사영한 결과에 차이가 발생하는 이유는 각 선이 실제 데이터를 얼마나 잘 나타내는 지가 다르기 때문입니다.
+- 두 선분에 따라 정사영한 결과에 차이가 발생하는 이유는 각 선이 실제 데이터를 얼마나 잘 나타내는 정도가 다르기 때문입니다.
 - 위 예시에서는 파란색 선이 실제 데이터를 더 잘 표현하기 때문에 원본 데이터에서 나타난 분포의 차이가 파란색 선에 정사영하였을 때에도 잘 나타나 집니다.
 - 먼저 예제를 살펴보도록 하겠습니다.
 
@@ -69,10 +79,93 @@ tags: [machine learning, PCA, Principal Component Analysis, 주성분 분석, Di
 
 - 앞에서는 사이즈와 방의 갯수 즉, 2가지 feature를 이용하여 데이터를 표현하였습니다.
 - 사실 집의 사이즈나 방의 갯수는 상관 관계가 있습니다. 넓은 집이 많은 방을 가질 수 있기 때문입니다.
-- 위 그림에서도 2개의 차원을 1개의 차원으로 줄이고 이 때 사용된 1개의 차원을 ize feature 라고 하겠습니다.
+- 위 그림에서도 2개의 차원을 1개의 차원으로 줄이고 이 때 사용된 1개의 차원을 `size feature` 라고 하겠습니다.
 
 <br>
 <center><img src="../assets/img/ml/concept/serrano_pca/6.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 기존의 데이터를 어떤 feature에 정사영 시키면 차원을 줄일 수 있고 이 때 사용된 feature가 원래 데이터를 잘 나타내는 좋은 feature라면 정사영 하였을 떄에도 데이터가 기존의 데이터를 잘 나타낼 수 있습니다. 이 예시를 위 그림의 size feature를 통해 확인 하실 수 있습니다.
+- 위와 같이 기존의 데이터를 어떤 feature에 정사영 시키면 차원을 줄일 수 있고 이 때 사용된 feature가 원래 데이터를 잘 나타내는 좋은 feature라면 정사영 하였을 때에도 데이터가 기존의 데이터를 잘 나타낼 수 있습니다. 이 예시를 위 그림의 `size feature`를 통해 확인 하실 수 있습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/7.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 특히 , 위 예와 같이 feature 중에서 유사 성격의 feature가 있으면 줄일 수 있습니다. 위 예제에서는 5개의 feature 중 3개는 size와 관련이 있고 2개는 위치와 관련되어 있습니다. 따라서 size, localization으로 feature를 2개로 줄일 수 있고 이 때, PCA와 같은 차원 축소 기법을 사용할 수 있습니다.
+
+<br>
+
+## **Covariance**
+
+<br>
+
+- 차원 축소를 하기 위한 첫번째 단계는 각 feature들의 데이터들을 이용하여 공분산을 만드는 것입니다.
+- 공분산의 개념을 알면 이 부분은 넘어가도 상관없습니다.
+- 공분산의 개념에 대하여 알기 위하여 간단한 1차원 데이터의 분산에 대해서 먼저 다루겠습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림에서는 1차원 데이터의 평균, 분산을 나타냅니다. 분산은 평균에서 부터 얼만큼 떨어져 있는지를 나타내는 개념입니다. 위 그림을 통해 확인하시기 바랍니다.
+- 그러면 `2차원 데이터`의 분산에 대하여 알아보겠습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/9.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 2차원 데이터의 경우 $$ X, Y $$ 두 축을 기준으로 2가지의 분산을 구할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 하지만 1차원 데이터에서 구한 방식으로 2차원 데이터에 그대로 적용하면 문제가 발생할 수 있습니다.
+- 위 그림을 보면 두 분포가 다름에도 불구하고 X축과 Y축의 분산이 같습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이번에는 방법을 바꿔서 두 좌표를 곱해보도록 하겠습니다. 그러면 빨간색으로 표시한 부분은 곱의 결과가 양수이고 초록색으로 표시한 부분은 곱의 결과가 음수인 것을 확인할 수 있습니다. 즉, 두 분포의 결과가 구분이 됩니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 설명한 방법과 같이 두 좌표의 곱을 통하여 분산을 구하면 위 그림과 같이 구할 수 있습니다.
+- 공분산은 위 계산법과 같이 **각 축 (feature)에 해당하는 두 값 (위에서는 X 좌표값, Y 좌표값)들을 곱한 뒤, 곱한 값들을 모두 더한 후 데이터의 갯수만큼 나누는 방법**을 취합니다.
+- 특히 각 축 (feature)에 대한 평균을 구한 다음에 모든 데이터에 평균값을 빼주면 위 그림 처럼 **평균이 0인 상태**로 만들 수 있습니다.
+- 따라서 모든 데이터를 위 그림 처럼 평균은 원점이고 두 축에 의해 좌표 평면으로 나타낼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/13.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같은 분포를 앞에서 다룬 방식으로 분산을 구해보면 위 그림의 식과 같이 구할 수 있습니다.
+- 앞에서 설명한 것과 같이 분산은 데이터들이 평균으로 부터 얼만큼 떨어져 있는지를 나타냅니다. 하지만 공분산의 의미는 조금 다릅니다. 공분산에서 계산한 값은 **두 축의 상관관계**를 나타냅니다. 위 그림을 보면 데이터 전체의 평균이 0인 데이터 셋이 공분산 또한 0으로 계산되어 있습니다. 공분산이 0이면 두 축의 상관관계가 없다는 뜻입니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/14.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 어떤 두 feature를 이용하여 데이터를 표현하였을 때, 음의 기울기를 가지는 형태의 분포를 가지면 두 feature의 공분산은 음수값을 가집니다. 반면 양의 기울기를 가지는 형태의 분포를 가지면 두 feature의 공분산은 양수값을 가집니다.
+- 앞선 예제 처럼 공분산이 0이라면 어떤 상관관계를 가지지 않는 극단적인 상태입니다.
+- 따라서 두 feature의 공분산의 절대값이 0에 가까울수록 두 feature는 상관관계가 없다는 뜻이고 0에서 멀어질수록 양의 방향 또는 음의 방향으로 상관관계를 가진다는 뜻입니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/15.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 따라서 어떤 데이터가 있을 때, 그 데이터를 2개의 feature를 이용하여 표현하면 (현재 다루는 차원이 2차원 데이터 입니다.)위 그림과 같이 좌표 평면에 표시할 수 있습니다.
+- 그러면 각 feature의 평균을 구해서 모든 데이터에 평균을 빼면 데이터 들을 원점 주변으로 모을 수 있습니다.
+- 두 feature의 이름을 $$ X, Y $$ 라고 하면 총 4가지 경우의 feature 쌍을 만들 수 있습니다. $$ (X, X), (X, Y), (Y, X), (Y, Y) $$ 4가지 쌍에 대하여 앞에서 설명한 방법으로 공분산을 구하면 다음과 같이 행렬 형태로 나타낼 수 있습니다.
+
+<br>
+
+- $$ \Sigma = \begin{pmatrix} \text{Cov}(X, X) & \text{Cov}(X, Y) \\ \text{Cov}(Y, X) & \text{Cov}(Y, Y) \end{pmatrix}  =  \begin{pmatrix} \text{Var}(X) & \text{Cov}(X, Y) \\ \text{Cov}(Y, X) & \text{Var}(Y) \end{pmatrix} $$ 
+
+<br>
+
+- 특히 $$ (X, X), (Y, Y) $$ 같이 같은 차원의 공분산을 구하는 경우 분산을 구하는 것과 같습니다. 왜냐하면 같은 feature의 좌표를 두번 곱하기 때문에 제곱한 것과 같기 때문입니다. 즉, 실제 분산과 같기 때문에 위 식과 같이 정리됩니다.
+- 위 데이터의 공분산이 $$ (9, 4; 4, 3) $$이라고 가정하고 설명을 계속 진행해 보겠습니다.
