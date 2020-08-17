@@ -23,4 +23,4 @@ tags: [자율주행, 자율주행 자동차, autodrive, self-driving] # add tag
 <br>
 
 - [자율주행에서의 waymo와 tesla](https://gaussian37.github.io/autodrive-concept-waymo_vs_tesla/)
-
+- [AI for Full-Self Driving at Tesla](https://gaussian37.github.io/autodrive-concept-ai_for_full_self_driving_at_tesla/)
