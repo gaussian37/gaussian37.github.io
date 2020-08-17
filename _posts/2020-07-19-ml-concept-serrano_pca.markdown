@@ -10,6 +10,7 @@ tags: [machine learning, PCA, Principal Component Analysis, 주성분 분석, Di
 <br>
 
 - 참조 : https://youtu.be/g-Hb26agBFg?list=WL
+- 참조 : http://www.stat.cmu.edu/~cshalizi/350/lectures/10/lecture-10.pdf
 - 이번 글에서는 주성분 분석 (Principal Component Analysis)에 대하여 다루어 보도록 하겠습니다. Luis Serrano 강의를 주 내용으로 하며 중간 중간에 설명이 필요한 부분은 제 블로그를 참조하여 보충하였습니다.
 - 제 블로그에 `PCA`와 관련된 글들이 더 있으니 아래 링크를 참조하셔도 됩니다.
     - Andrew Ng PCA lecture : https://gaussian37.github.io/ml-concept-andrewng-pca/

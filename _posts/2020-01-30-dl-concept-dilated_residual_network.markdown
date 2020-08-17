@@ -53,6 +53,11 @@ tags: [dilated residual network, DRN] # add tag
 - 가운데 그림은 `dilation이 2`가 적용되었습니다. 여기서도 빨간색 점이 연산에 사용되는 필터의 파라미터 입니다. 따라서 가운데 그림의 경우 output으로 3 x 3 을 만들었을 때 input의 receptive field는 7 x 7이 됩니다. **(input : 7 x 7 영역 → output : 3 x 3 영역)**
 - 가장 오른쪽 그림의 경우 `dilation이 4`가 적용되었습니다. 가운데 그림과 동일한 원리로 receptive field가 15 x 15로 아주 넓습니다. **(input : 15 x 15 영역 → output : 3 x 3 영역)**
 
+<br>
+<center><img src="../assets/img/dl/concept/dilated_residual_network/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 따라서 위 그림과 같이 dilation rate가 서로 다른 3 x 3 convolution을 한 지점에서 여러 개 사용함으로써 receptive field를 늘릴 수 있습니다.
 
 <br>
 
