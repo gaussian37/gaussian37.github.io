@@ -48,6 +48,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### pre-trained model 사용 방법
 - ### pre-trained model 수정 방법
 - ### Learning Rate Scheduler 사용 방법
+- ### model의 parameter 확인 방법
 
 <br>
 
@@ -1462,6 +1463,24 @@ output = nn.AdaptiveAvgPool2d((2,2))(input)
 ```python
 tensor([[[[(1+2+4+5)/4., (2+3+5+6)/4.],     = tensor([[[[3., 4.],
           [(4+5+7+8)/4., (5+6+8+9)/4.]]]])              [6., 7.]]]])
+```
+
+<br>
+
+## **model의 parameter 확인 방법**
+
+<br>
+
+- 모델의 파라미터를 확인 하는 방법은 `model.parameters()`를 통해 가능합니다. 단, `model.parameters()`는 generator 타입이므로 for문과 같이 순회하면서 또는 next를 이용하여 값을 접근할 수 있습니다. 다음 코드를 참조하시기 바랍니다.
+
+<br>
+
+```python
+next(model.parameters())
+# 바로 다음 값 1개 확인
+
+for param in model.parameters():
+    print(param)
 ```
 
 <br>
