@@ -49,6 +49,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### pre-trained model 수정 방법
 - ### Learning Rate Scheduler 사용 방법
 - ### model의 parameter 확인 방법
+- ### Tensor 깊은 복사
 
 <br>
 
@@ -1484,3 +1485,19 @@ for param in model.parameters():
 ```
 
 <br>
+
+## **Tensor 깊은 복사**
+
+<br>
+
+- Tensor를 깊은 복사하려면 `.clone()`을 이용하여 복제한 다음, `.detach()`를 통하여 연결성을 끊어야 합니다.
+
+<br>
+
+```python
+A = torch.randn(10)
+B = A.clone().detach()
+```
+
+<br>
+```
