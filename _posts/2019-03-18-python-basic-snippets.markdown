@@ -51,6 +51,7 @@ tags: [python, python 기본] # add tag
 - ### dir을 통한 module 확인
 - ### enumerate 함수의 응용
 - ### counting 방법
+- ### 디렉토리 상위 레벨 패키지 import
 
 <br>
 
@@ -1452,5 +1453,40 @@ print("Most Frequent:", word_counter.most_common(2))
 <br>
 
 - 위 예제를 보면 `Counter` 객체를 이용하여 문자열을 카운팅 하고 `mose_common()` 함수를 통해 가장 빈도수가 높은 문자열 순으로 확인할 수 있습니다.
+
+<br>
+
+## **디렉토리 상위 레벨 패키지 import**
+
+<br>
+
+- 파이썬에서는 현재 위치의 하위 경로의 패키지를 import 하는 것이 원칙입니다.
+- 하지만 경우에 따라서는 실행 되는 파이썬 파일의 상위 경로의 패키지를 접근해야 하는 경우가 있습니다.
+
+<br>
+
+```
+├─A
+│  └─AA
+│          aa.py
+│          
+└─B
+        b.py
+```
+
+<br>
+
+- 현재 working directory가 `AA`라고 하겠습니다.
+- `aa.py`를 import하려면 `from AA import aa`라고 하면 됩니다. 반면 `bb.py`를 import 하려면 어떻게 해야 할까요?
+- 일반적인 접근 방법으로는 접근이 안됩니다. `from`에서 상위 디렉토리로 접근이 안되기 때문입니다.
+- 이런 경우 `sys.path.append()`를 이용하여 import 하는 위치를 바꿔줄 수 있습니다. 아래 코드를 참조하여 `b.py`를 import 할 수 있습니다.
+
+<br>
+
+```python
+import sys
+sys.path.append("..") # 상위 디렉토리 접근
+from B import bb # 이동된 디렉토리에서는 B가 하위디렉토리 이기 때문에 접근 가능하다.
+```
 
 <br>
