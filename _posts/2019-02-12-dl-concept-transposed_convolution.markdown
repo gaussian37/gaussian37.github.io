@@ -23,6 +23,7 @@ tags: [deep learning, convolution, transposed] # add tag
 - ### Going Backward
 - ### Convolution Matrix
 - ### Transposed Convolution Matrix
+- ### Transposed Convolution의 문제점
 
 <br>
 
@@ -111,7 +112,7 @@ tags: [deep learning, convolution, transposed] # add tag
 - 위 행렬의 각 행은 convolution 연산을 나타내며 실제 convolution 연산이 되지 않는 위치는 0으로 채웁니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/transposed_convolution/7.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/transposed_convolution/7.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 그리고 위 그림과 같이 convolution 연산을 할 입력값을 벡터로 만들어 줍니다.
@@ -154,3 +155,11 @@ tags: [deep learning, convolution, transposed] # add tag
 
 - 위 예제의 convolution matrix와 transposed convolution matrix의 값은 각각 학습을 통해 만들어 지는 값들이므로 임의로 정할 필요가 없습니다.
 - 따라서 위와 같은 방법으로 transposed convolution은 convolution 연산과 유사하게 학습할 수 있는 파라미터를 통하여 연산을 합니다. 그리고 그 연산의 목적이 Upsampling으로 Upsampling이 잘 되는 방향으로 파라미터는 학습을 하게 됩니다.
+
+<br>
+
+## **Transposed Convolution의 문제점**
+
+<br>
+
+- 분석적으로(Analytically) 접근하는 interpolation 방법 대신 학습할 수 있는 (learnable) 방법으로 접근하는 transposed convolution에도 발생하는 문제가 있습니다.
