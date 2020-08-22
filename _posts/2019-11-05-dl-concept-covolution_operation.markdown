@@ -91,9 +91,9 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 
 <br>
 
-$$  G(x, y) = w * F(x, y) = \sum_{\delta x = -k_{i}}^{k_{i}} \sum_{\delta y = -k_{j}}^{k_{j}} w(\delta x, \delta y) \cdot F(x + \delta x, y + \delta y) $$
+- $$  G(x, y) = w * F(x, y) = \sum_{\delta x = -k_{i}}^{k_{i}} \sum_{\delta y = -k_{j}}^{k_{j}} w(\delta x, \delta y) \cdot F(x + \delta x, y + \delta y) $$
 
-$$ w \text{ is kernel and } -k_{i} \ge \delta x \ge k_{i}, \ \ -k_{j} \ge \delta y \ge k_{j} $$
+- $$ w \text{ is kernel and } -k_{i} \ge \delta x \ge k_{i}, \ \ -k_{j} \ge \delta y \ge k_{j} $$
 
 <br>
 
@@ -116,9 +116,9 @@ $$ w \text{ is kernel and } -k_{i} \ge \delta x \ge k_{i}, \ \ -k_{j} \ge \delta
 
 <br>
 
-$$ w * F(x, y) = \Biggl( \sum_{\delta x = -k_{i}}^{k_{i}} \sum_{\delta y = -k_{j}}^{k_{j}} w(\delta x, \delta y) \cdot F(x + \delta x, y + \delta y) \Biggr) + w_{bias}$$
+- $$ w * F(x, y) = \Biggl( \sum_{\delta x = -k_{i}}^{k_{i}} \sum_{\delta y = -k_{j}}^{k_{j}} w(\delta x, \delta y) \cdot F(x + \delta x, y + \delta y) \Biggr) + w_{bias}$$
 
-$$ \text{where } w_{bias} \in \mathbb R \text{ is the bias of the kernel } w $$
+- $$ \text{where } w_{bias} \in \mathbb R \text{ is the bias of the kernel } w $$
 
 <br>
 
@@ -154,7 +154,7 @@ $$ \text{where } w_{bias} \in \mathbb R \text{ is the bias of the kernel } w $$
 
 <br>
 
-$$ G_{out}(x, y) = w_{out} * F(x, y) = \Biggl( \sum_{\delta x = -k_{i}}^{k_{i}} \sum_{\delta y = -k_{j}}^{k_{j}} w_{out}(\delta x, \delta y) \cdot F(x + \delta x, y + \delta y) \Biggr) + {w_{out}}_{bias}$$
+- $$ G_{out}(x, y) = w_{out} * F(x, y) = \Biggl( \sum_{\delta x = -k_{i}}^{k_{i}} \sum_{\delta y = -k_{j}}^{k_{j}} w_{out}(\delta x, \delta y) \cdot F(x + \delta x, y + \delta y) \Biggr) + {w_{out}}_{bias}$$
 
 <br>
 
@@ -375,9 +375,9 @@ $$ G_{out}(x, y) = \sum_{in=0}^{N_{in}} w_{out, in} * F_{in}(x, y) = \sum_{in=0}
 
 <br>
 
-$$ H_{out} = \Bigl\lfloor \frac{H_{in} + 2P_{H} - D_{H}(K_{H}-1) - 1}{S_{H}} + 1  \Bigr\rfloor $$
+- $$ H_{out} = \Bigl\lfloor \frac{H_{in} + 2P_{H} - D_{H}(K_{H}-1) - 1}{S_{H}} + 1  \Bigr\rfloor $$
 
-$$ W_{out} = \Bigl\lfloor \frac{W_{in} + 2P_{W} - D_{W}(K_{W}-1) - 1}{S_{W}} + 1  \Bigr\rfloor $$
+- $$ W_{out} = \Bigl\lfloor \frac{W_{in} + 2P_{W} - D_{W}(K_{W}-1) - 1}{S_{W}} + 1  \Bigr\rfloor $$
 
 <br>
 

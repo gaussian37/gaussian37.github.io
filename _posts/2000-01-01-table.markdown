@@ -68,7 +68,7 @@ tags: [table] # add tag
 
 <br>
 
-- [Machine Learning](https://gaussian37.github.io/ml-concept-table/)
+- [Machine Learning Concept](https://gaussian37.github.io/ml-concept-table/)
 - [Pattern Recognition and Machine Learning](https://gaussian37.github.io/ml-prml-table/)
 
 <br>
@@ -77,7 +77,7 @@ tags: [table] # add tag
 
 <br>
 
-- [Deep Learning](https://gaussian37.github.io/dl-concept-table/)
+- [Deep Learning Concept](https://gaussian37.github.io/dl-concept-table/)
 - [Pytorch](https://gaussian37.github.io/dl-pytorch-table/)
 - [Deeplearning.ai](https://gaussian37.github.io/dl-dlai-table/)
 

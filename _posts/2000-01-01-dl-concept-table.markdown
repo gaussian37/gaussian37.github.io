@@ -9,6 +9,24 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
+## **딥 러닝 개념**
+
+<br>
+
+- [Convolution arithmetic](https://gaussian37.github.io/dl-concept-covolution_operation/)
+- [Activation function 요약](https://gaussian37.github.io/dl-concept-activation_functions/)
+- [PReLU (Parametric ReLU)](https://gaussian37.github.io/dl-concept-prelu/)
+- [ReLU6와 ReLU6를 사용하는 이유](https://gaussian37.github.io/dl-concept-relu6/)
+- [Gram Matrix Used In Style Transer](https://gaussian37.github.io/dl-concept-grammatrix/)
+- [Batch Normalization](https://gaussian37.github.io/dl-concept-batchnorm)
+- [Batch Normalization, Dropout, Pooling 적용 순서](https://gaussian37.github.io/dl-concept-order_of_regularization_term/)
+- [L1,L2 Regularization](https://gaussian37.github.io/dl-concept-regularization)
+- [GAP(Global Average Pooling)이란](https://gaussian37.github.io/dl-concept-global_average_pooling/)
+- [Depthwise separable convolution 연산](https://gaussian37.github.io/dl-concept-dwsconv/)
+- 
+
+<br>
+
 ## **Backbone Network**
 
 <br>
@@ -17,8 +35,6 @@ tags: [python, deep learning, dl] # add tag
 - [Xecption](https://gaussian37.github.io/dl-concept-xception/)
 - [ResNet](https://gaussian37.github.io/dl-concept-resnet/)
 - [Dilated ResNet](https://gaussian37.github.io/dl-concept-dilated_residual_network/)
-- [Convolution arithmetic](https://gaussian37.github.io/dl-concept-covolution_operation/)
-- [Depthwise separable convolution 연산](https://gaussian37.github.io/dl-concept-dwsconv/)
 - [SqueezeNet](https://gaussian37.github.io/dl-concept-squeezenet/)
 - [SqueezeNext](https://gaussian37.github.io/dl-concept-squeezenext/)
 - [MobileNet](https://gaussian37.github.io/dl-concept-mobilenet/)
@@ -45,7 +61,6 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
-- MLE(Maximum Likelehood Estimation)와 MAP(Maxim A Posterior)에 관하여
 - Probability Model
 - (Probabilistic) Discriminative Model
 - Basic Bayesian Theory
@@ -58,21 +73,8 @@ tags: [python, deep learning, dl] # add tag
 
 - [AutoEncoder의 모든것 (1) : Revisit Deep Neural Network](https://gaussian37.github.io/dl-concept-autoencoder1/)
 - [AutoEncoder의 모든것 (2) : Manifold Learning](https://gaussian37.github.io/dl-concept-autoencoder2/)
-- AutoEncoder의 모든것 (3) : 
+- AutoEncoder의 모든것 (3)
 - AutoEncoder의 모든것 (4)
 - AutoEncoder의 모든것 (5)
 
 <br>
-
-## **기타 딥 러닝 관련**
-
-<br>
-
-- [Activation function 요약](https://gaussian37.github.io/dl-concept-activation_functions/)
-- [PReLU (Parametric ReLU)](https://gaussian37.github.io/dl-concept-prelu/)
-- [ReLU6와 ReLU6를 사용하는 이유](https://gaussian37.github.io/dl-concept-relu6/)
-- [gram matrix used in style transer](https://gaussian37.github.io/dl-concept-grammatrix/)
-- [Batch Normalization](https://gaussian37.github.io/dl-concept-batchnorm)
-- [Batch Normalization, Dropout, Pooling 적용 순서](https://gaussian37.github.io/dl-concept-order_of_regularization_term/)
-- [L1,L2 Regularization](https://gaussian37.github.io/dl-concept-regularization)
-- [GAP(Global Average Pooling)이란](https://gaussian37.github.io/dl-concept-global_average_pooling/)
