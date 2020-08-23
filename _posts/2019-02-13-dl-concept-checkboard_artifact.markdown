@@ -76,12 +76,8 @@ tags: [deep learning, convolution, transposed, checkboard artifact] # add tag
 
 <br>
 
-- 지금 까지 내용을 정리하면 **Transposed Convolution을 이용하여 Upsampling을 할 때, $$ \text{kernel_size} % \text{stride} \ne 0 $$ 인 경우에 어떤 영역의 중복 연산이 배로 발생하게 되고 그 영역은 계속 누적되어 큰 값을 가지게 됩니다.** 데이터의 차원이 늘어날수록 겹치는 구간의 겹치는 횟수가 배로 늘어나게 됩니다.
+- 지금 까지 내용을 정리하면 **Transposed Convolution을 이용하여 Upsampling을 할 때,** $$ \text{kernel_size} % \text{stride} \ne 0 $$ **인 경우에 어떤 영역의 중복 연산이 배로 발생하게 되고 그 영역은 계속 누적되어 큰 값을 가지게 됩니다.** 데이터의 차원이 늘어날수록 겹치는 구간의 겹치는 횟수가 배로 늘어나게 됩니다.
 - 이렇게 **연산이 누적되는 횟수의 차이가 발생하게 되어 checkboard artifact가 발생**하게 됩니다.
-
-<br>
-
-
 
 <br>
 
