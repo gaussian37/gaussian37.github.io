@@ -57,7 +57,7 @@ tags: [deep learning, convolution, transposed, checkboard artifact] # add tag
 <br>
 
 - 위 그림의 4 종류를 살펴 보면  `stride = 2`로 고정하고 `kernel_size`를 변경하였을 때, overlap 영역의 변화를 살펴볼 수 있습니다.
-- 각 그림은 **입력 → Transposed Convolution → 출력**으로 변환되는 과정이며 **overlap 영역은 더해집니다.**
+- 각 그림은 **입력 → Transposed Convolution → 출력**으로 변환되는 과정이며 **overlap 영역**은 진한 보라색 영역으로 나타납니다. overlap이 되는 영역은 출력이 중복되어 나타나며 이 값들은 모두 더해집니다. 즉, overlap 되는 영역의 출력 크기가 커질 가능성이 높습니다.
 - 위 그림에서 `stride`는 입력에서 선택된 사각형의 간격이고 `kernel_size`는 입력에서 출력으로 매칭되는 영역의 너비입니다.
 - kernel_size가 stride로 나뉘어지지 않을 때, 중복되어 겹쳐지는 부분이 더 발생하는 것을 확인 할 수 있습니다.예를 들어 size가 3, 5일 때 추가적으로 겹치는 부분이 발생합니다. 특히 많이 사용되는 `stride = 2, kernel_size = 3`의 경우를 살펴보면 가장 많이 겹친 곳은 2번 겹친 것을 확인할 수 있습니다.
 
