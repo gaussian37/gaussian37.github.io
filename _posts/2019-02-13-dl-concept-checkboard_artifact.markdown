@@ -76,7 +76,7 @@ tags: [deep learning, convolution, transposed, checkboard artifact] # add tag
 
 <br>
 
-- 지금 까지 내용을 정리하면 **Transposed Convolution을 이용하여 Upsampling을 할 때,** $$ \text{kernel_size} % \text{stride} \ne 0 $$ **인 경우에 어떤 영역의 중복 연산이 배로 발생하게 되고 그 영역은 계속 누적되어 큰 값을 가지게 됩니다.** 데이터의 차원이 늘어날수록 겹치는 구간의 겹치는 횟수가 배로 늘어나게 됩니다.
+- 지금 까지 내용을 정리하면 **Transposed Convolution을 이용하여 Upsampling을 할 때,** $$ \text{kernel_size  } MOD \text{  stride} \ne 0 $$ **인 경우에 어떤 영역의 중복 연산이 배로 발생하게 되고 그 영역은 계속 누적되어 큰 값을 가지게 됩니다.** 데이터의 차원이 늘어날수록 겹치는 구간의 겹치는 횟수가 배로 늘어나게 됩니다.
 - 이렇게 **연산이 누적되는 횟수의 차이가 발생하게 되어 checkboard artifact가 발생**하게 됩니다.
 
 <br>
@@ -85,7 +85,7 @@ tags: [deep learning, convolution, transposed, checkboard artifact] # add tag
 
 <br>
 
-- Transposed Convolution을 사용하면서 checkboard artifact 문제를 개선하는 방법들이 연구되었고 대표적으로  $$ \text{kernel_size} % \text{stride} = 0 $$을 만족하도록 설계하여 checkboard가 생기는 중복 연산 구간을 줄이는 방법이 있습니다. 그럼에도 불구하고 발생하는 overlap 구간 및 Transposed Convolution의 한계로 인하여 구조를 변경하는 방법이 있습니다.
+- Transposed Convolution을 사용하면서 checkboard artifact 문제를 개선하는 방법들이 연구되었고 대표적으로  $$ \text{kernel_size  } MOD \text{  stride} = 0 $$을 만족하도록 설계하여 checkboard가 생기는 중복 연산 구간을 줄이는 방법이 있습니다. 그럼에도 불구하고 발생하는 overlap 구간 및 Transposed Convolution의 한계로 인하여 구조를 변경하는 방법이 있습니다.
 - 대표적으로 `interpolation + convolution` 연산입니다. Transposed Convolution은 interpolation과 convolution 연산을 한번에 하는 역할을 하지만 `interpolation + convolution`에서는 `bilinear, bicubic, nearest-neight` 등의 방법을 이용하여 먼저 interpolation을 하고 그 뒤에 convolution 연산을 추가하는 방식입니다. 즉, **interpolation 역할과 convolution 역할을 분리**하는 것입니다.
     - nearest-neighbor interpolation : [https://en.wikipedia.org/wiki/Nearest-neighbor_interpolation](https://en.wikipedia.org/wiki/Nearest-neighbor_interpolation)
     - bilinear interpolation : [https://en.wikipedia.org/wiki/Bilinear_interpolation](https://en.wikipedia.org/wiki/Bilinear_interpolation)
