@@ -9,10 +9,6 @@ tags: [deep learning, convolution, transposed] # add tag
 
 <br>
 
-[deep learning 관련 글 목차](https://gaussian37.github.io/dl-concept-table/)
-
-<br>
-
 - 참조 : https://medium.com/activating-robotic-minds/up-sampling-with-transposed-convolution-9ae4f2df52d0
 
 <br>
@@ -167,18 +163,4 @@ tags: [deep learning, convolution, transposed] # add tag
 <br>
 
 - 분석적으로(Analytically) 접근하는 interpolation 방법 대신 학습할 수 있는 (learnable) 방법으로 접근하는 transposed convolution에도 발생하는 문제가 있습니다.
-- 소위 말하는 [checkboard artifact](https://gaussian37.github.io/dl-concept-checkboard_artifact/)가 그 문제입니다. 
-
-<br>
-<center><img src="../assets/img/dl/concept/transposed_convolution/11.png" alt="Drawing" style="width: 800px;"/></center>
-<br>
-
-- 위 그림을 보면 출력의 형태가 체크보드와 같은 인공물 처럼 나오는 것을 확인할 수 있습니다.
-- 위 checkboard artifact 링크를 참조하면 **interpolation을 이용한 Upsampling + Convolution** 조합으로 문제를 개선할 수 있음을 알 수 있습니다. 자세한 내용은 링크를 참조하시기 바랍니다.
-- 따라서 Upsampling을 많이 사용하는 Generative 모델이나 세그멘테이션 모델에서 Transposed Convolution 대신에 `interpolation + convolution` 조합을 대신 사용하여 해상도 증가는 interpolation으로 하면서 동시에 학습할 수 있는 구조를 만들어 냅니다.
-
-<br>
-
-[deep learning 관련 글 목차](https://gaussian37.github.io/dl-concept-table/)
-
-<br>
+- 소위 말하는 `checkboard artifact`가 그 문제입니다. 
