@@ -23,7 +23,8 @@ tags: [python, deep learning, dl] # add tag
 - [L1,L2 Regularization](https://gaussian37.github.io/dl-concept-regularization)
 - [GAP(Global Average Pooling)이란](https://gaussian37.github.io/dl-concept-global_average_pooling/)
 - [Depthwise separable convolution 연산](https://gaussian37.github.io/dl-concept-dwsconv/)
-- 
+- [Transposed Convolution을 이용한 Upsampling](https://gaussian37.github.io/dl-concept-transposed_convolution/)
+- [Transposed Convolution과 Checkboard artifact](https://gaussian37.github.io/dl-concept-checkboard_artifact/)
 
 <br>
 

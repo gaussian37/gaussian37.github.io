@@ -1,6 +1,6 @@
 ---
 layout: post
-title: transposed convolution을 이용한 Upsampling
+title: Transposed Convolution을 이용한 Upsampling
 date: 2019-02-12 00:00:00
 img: dl/concept/transposed_convolution/0.png
 categories: [dl-concept] 
