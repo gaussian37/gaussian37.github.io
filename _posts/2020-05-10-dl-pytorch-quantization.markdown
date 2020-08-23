@@ -8,3 +8,9 @@ tags: [딥러닝, deep learning, quantization, pytorch] # add tag
 ---
 
 <br>
+
+- 참조 : https://pytorch.org/docs/stable/quantization.html#torch.nn.intrinsic.ConvBnReLU2d
+
+<br>
+
+

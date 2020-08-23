@@ -49,7 +49,7 @@ tags: [deep learning, convolution, transposed, checkboard artifact] # add tag
 
 - 뉴럴 네트워크가 이미지를 생성하였을 때, 이 이미지는 종종 해상도는 낮으면서 높은 수준의 description을 가지는 경우가 있습니다.
 - 이 경우 네트워크는 낮은 해상도에서 대략적인 이미지를 설명(describe)하고 그리고 높은 해상도로 이미지를 키워 나가면서 상세 정보들을 채워나아갑니다.
-- 이를 위해서는 저해상도 이미지에서 고해상도 이미지로 변환하는 방법이 필요합니다. 이러한 방법 중 `Transposed Convolution` 이 있습니다. Transposed Convolution을 사용하면 작은 이미지의 모든 점을 사용하여 큰 이미지를 만들어 낼 수 있습니다.
+- 이를 위해서는 저해상도 이미지에서 고해상도 이미지로 변환하는 방법이 필요합니다. 이러한 방법 중 [Transposed Convolution](https://gaussian37.github.io/dl-concept-transposed_convolution/) 이 있습니다. Transposed Convolution을 사용하면 작은 이미지의 모든 점을 사용하여 큰 이미지를 만들어 낼 수 있습니다.
 - Transposed Convolution 또한 Convolution 연산이므로 커널이 슬라이딩 윈도우 방식으로 이동하면서 연산이 진행됩니다. 특히, **kernel의 크기와 stride의 크기에 따라서 transposed convolution 연산의 overlap 영역이 발생할 수 있습니다.** 이 때 Transposed Convolution을 어떻게 사용하느냐에 따라서 overlap이 없을 수도 있고 또는 많이 생길 수도 있습니다.
 
 <br>
