@@ -1,7 +1,7 @@
 ---
 layout: post
 title: transposed convolution을 이용한 Upsampling
-date: 2018-08-01 00:00:00
+date: 2019-02-12 00:00:00
 img: dl/concept/transposed_convolution/0.png
 categories: [dl-concept] 
 tags: [deep learning, convolution, transposed] # add tag
