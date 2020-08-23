@@ -26,9 +26,6 @@ tags: [deep learning, convolution, transposed, checkboard artifact] # add tag
 - ### Checkboard pattern 이란
 - ### Transposed Convolution과 Overlap
 - ### 더 좋은 Upsampling 방법
-- ### Image Generation 결과
-- ### Gradient의 Artifact
-- ### 결론
 
 <br>
 
