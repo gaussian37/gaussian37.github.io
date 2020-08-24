@@ -38,6 +38,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### shape 변경을 위한 transpose
 - ### nn.Dropout vs. F.dropout
 - ### nn.AvgPool2d vs. nn.AdaptiveAvgPool2d
+- ### Adam을 이용한 optimizer.state_dict() 저장 결과
 
 <br>
 
@@ -1500,4 +1501,68 @@ B = A.clone().detach()
 ```
 
 <br>
+
+## **Adam을 이용한 optimizer.state_dict() 저장 결과**
+
+<br>
+
+- 이번 글에서는 pytorch에서 학습 과정을 저장할 때, model과 함께 더불어 저장하는 optimizer에 대하여 다루어 보겠습니다.
+- checkpoint에 optimizer 를 저장할 때, `optimizer.state_dict()`를 이용하여 저장합니다. 이 때, 사용되는 `optimizer.state_dict()`를 이해하면 저장된 checkpoint의 optimizer를 이해할 수 있습니다.
+- 앞에서 설명한 바와 같이 optimizer.state_dict()를 이용하면 현재 사용하고 있는 optimizer의 상태 및 하이퍼파라미터를 저장할 수 있습니다.
+- optimizer.state_dict()의 출력 결과는 dictionary 형태의 `state`와 list 형태의 `param_groups`가 있습니다.
+- 예를 들어 현재 optimizer 상태를 저장하기 위해 `optimizer_checkpoint = optimizer.state_dict()`로 할당 받은 상태라고 가정하겠습니다.
+- 아래 예제 코드는 현재 가장 많이 사용하는 optimizer인 `Adam`을 이용한 것입니다
+
+<br>
+
+```python
+# optimizer = torch.optim.Adam(model.parameters(), lr=0.001, betas=(0.9, 0.999), eps=1e-08, weight_decay=0, amsgrad=False)
+# 위와 같이 선언된 optimizer를 checkpoint['optimizer']에 저장하였다고 가정한다. (관습적으로 이 형식으로 저장한다.)
+
+optimizer_checkpoint = checkpoint['optimizer'] 
+print(optimizer_checkpoint.keys())
+# dict_keys(['state', 'param_groups'])
+
+optimizer_checkpoint_states = optimizer_checkpoint['state']
+print(optimizer_checkpoint_state.keys())
+# dict_keys([140610494128064, 140610158587976, 140610158588048, ... , ])
+
+a_key = list(optimizer_checkpoint_states.keys())[0]
+optimizer_checkpoint_state = optimizer_checkpoint_states[a_key]
+print(optimizer_checkpoint_state.keys())
+# dict_keys(['step', 'exp_avg', 'exp_avg_sq'])
+
+optimizer_checkpoint_param_groups = optimizer_checkpoint['param_groups'] # list
+# optimizer_checkpoint_param_groups는 사용된 optimizer의 갯수 만큼 저장 됩니다.
+# 만약 1개의 optimizer를 사용하였다면 list의 원소 갯수는 1개 입니다.
+optimizer_checkpoint_param_group = optimizer_checkpoint_param_groups[0] 
+print(optimizer_checkpoint_param_group .keys())
+#  dict_keys(['lr', 'betas', 'eps', 'weight_decay', 'amsgrad', 'initial_lr', 'params'])
 ```
+
+<br>
+
+- `Adam`을 이용한 optimizer.state_dict()의 계층 구조를 정리하면 다음과 같습니다.
+- optimizer
+    - state (dictionary) : 현재 optimization state를 저장하고 있습니다.
+        - step (int)
+        - exp_avg (torch.Tensor) : exponential moving average of gradient values로 Adam 에서 사용됩니다 
+        - exp_avg_sq (torch.Tensor) : exponential moving average of squared gradient values로 Adam 에서 사용됩니다.
+    - param_groups (list) : 모든 parameter_group을 저장하고 있으며 각 parameter_group은 최적화해야 하는 텐서를 지정합니다. 각 parameter_group의 내용은 Adam과 관련되어 있습니다.
+        - parameters0 (dictionary)
+            - lr (float)
+            - betas (tuple)
+            - eps (float)
+            - weight_decay (float)
+            - amsgrad (bool)
+            - initial_lr (float)
+            - params (list) : 모델에서 사용된 layer의 id를 나타냅니다.
+                - id1 (int)
+                - id2 (int)
+                - ...
+        - parameters1 (dictionary)
+        - ...
+
+<br>
+
+- 사전에 pre-traiend된 weight를 이용하여 학습을 재개할 때, model의 파라미터와 더불어 optimizer에 사용된 하이퍼 파라미터와 각 optimizer 알고리즘에서 사용하는 값들을 불러와서 학습이 중단된 위치에서 그대로 학습이 가능해 지도록 합니다.
