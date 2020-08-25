@@ -33,6 +33,7 @@ tags: [python, python 기본] # add tag
 - ### map
 - ### filter
 - ### reduce
+- ### slice
 - ### for loop 스타일 (zip, range, enumerate, sorted, filter)
 - ### deque은 사이즈 관리를 자동으로 한다.
 - ### 파이썬 프로그램 정상 종료 시키기
@@ -610,6 +611,36 @@ from functools import reduce
 reduce(lambda x,y: x+y, [1,2,3,4,5])
 : 15
 ```
+
+<br>
+
+## **slice**
+
+<br>
+
+- 파이썬의 `slice(start, stop, step)` 함수에 대하여 알아보도록 하겠습니다.
+- 파이썬의 slice 함수를 이용하여 iterable한 자료 구조를 구간 별로 접근할 수 있습니다.
+- 이 방법은 파이썬의 인덱싱 방법과 동일합니다. 다만 함수 형태로 사용 가능하다는 차이점이 있습니다.
+- 예제를 살펴보면 다음과 같습니다.
+
+<br>
+
+```python
+py_list = ['P', 'y', 't', 'h', 'o', 'n']
+py_tuple = ('P', 'y', 't', 'h', 'o', 'n')
+
+# contains indices 0, 1 and 2
+slice_object = slice(3)
+print(py_list[slice_object]) # ['P', 'y', 't']
+
+# contains indices 1 and 3
+slice_object = slice(1, 5, 2)
+print(py_tuple[slice_object]) # ('y', 'h')    
+```
+
+<br>
+
+- 만약 slice에 인자 하나만 입력하면 두번째 인자인 `stop`으로 인식 되며 처음부터 stop 지점전 까지 인덱싱 됩니다.
 
 <br>
 
