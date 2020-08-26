@@ -28,7 +28,7 @@ tags: [선형대수학, 회전 변환, rotation, rotation matrix] # add tag
 
 <br>
 
-$$ R(\theta) = \begin{bmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{bmatrix} $$
+- $$ R(\theta) = \begin{bmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{bmatrix} $$
 
 <br>
 
@@ -37,7 +37,7 @@ $$ R(\theta) = \begin{bmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin
 
 <br>
 
-$$ \begin{bmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix}  = \begin{bmatrix} x \text{cos}\theta - y \text{sin}\theta \\ x \text{sin}\theta + y \text{cos}\theta \end{bmatrix} = \begin{bmatrix} x' \\ y' \end{bmatrix} $$
+- $$ \begin{bmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix}  = \begin{bmatrix} x \text{cos}\theta - y \text{sin}\theta \\ x \text{sin}\theta + y \text{cos}\theta \end{bmatrix} = \begin{bmatrix} x' \\ y' \end{bmatrix} $$
 
 <br>
 
@@ -51,11 +51,11 @@ $$ \begin{bmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \t
 
 <br>
 
-$$ R(\frac{\pi}{2}) = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} $$
+- $$ R(\frac{\pi}{2}) = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} $$
 
-$$ R(\frac{\pi}{2}) = \begin{bmatrix} -1 & 0 \\ 0 & -1 \end{bmatrix} $$
+- $$ R(\frac{\pi}{2}) = \begin{bmatrix} -1 & 0 \\ 0 & -1 \end{bmatrix} $$
 
-$$ R(\frac{3\pi}{2}) = \begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix} $$
+- $$ R(\frac{3\pi}{2}) = \begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix} $$
 
 <br>
 
@@ -74,13 +74,13 @@ $$ R(\frac{3\pi}{2}) = \begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix} $$
 
 <br>
 
-$$ P = (x, y) $$
+- $$ P = (x, y) $$
 
-$$ \overline{OP} = l = \sqrt{(x - 0)^{2} + (y - 0)^{2})} = \sqrt{x^{2} + y^{2}} $$
+- $$ \overline{OP} = l = \sqrt{(x - 0)^{2} + (y - 0)^{2})} = \sqrt{x^{2} + y^{2}} $$
 
-$$ \text{cos}(\alpha) = \frac{x}{\overline{OP}} = \frac{x}{\sqrt{x^{2} + y^{2}}} $$
+- $$ \text{cos}(\alpha) = \frac{x}{\overline{OP}} = \frac{x}{\sqrt{x^{2} + y^{2}}} $$
 
-$$ \text{sin}(\alpha) = \frac{y}{\overline{OP}} = \frac{y}{\sqrt{x^{2} + y^{2}}} $$
+- $$ \text{sin}(\alpha) = \frac{y}{\overline{OP}} = \frac{y}{\sqrt{x^{2} + y^{2}}} $$
 
 <br>
 
@@ -88,9 +88,9 @@ $$ \text{sin}(\alpha) = \frac{y}{\overline{OP}} = \frac{y}{\sqrt{x^{2} + y^{2}}}
 
 <br>
 
-$$ x' = \sqrt{x^{2} + y^{2}} \text{cos}(\alpha + \theta) $$
+- $$ x' = \sqrt{x^{2} + y^{2}} \text{cos}(\alpha + \theta) $$
 
-$$ y' = \sqrt{x^{2} + y^{2}} \text{sin}(\alpha + \theta) $$
+- $$ y' = \sqrt{x^{2} + y^{2}} \text{sin}(\alpha + \theta) $$
 
 <br>
 <center><img src="../assets/img/math/la/rotation_matrix/4.png" alt="Drawing" style="width: 400px;"/></center>
@@ -100,11 +100,11 @@ $$ y' = \sqrt{x^{2} + y^{2}} \text{sin}(\alpha + \theta) $$
 
 <br>
 
-$$ x' = \sqrt{x^{2} + y^{2}}(\text{cos}(\alpha)\text{cos}(\theta) -\text{sin}(\alpha)\text{sin}(\theta)) = \Biggl(\sqrt{x^{2} + y^{2}}\frac{x}{\sqrt{x^{2} + y^{2}}}\text{cos}(\theta) -  \sqrt{x^{2} + y^{2}}\frac{y}{\sqrt{x^{2} + y^{2}}}\text{sin}(\theta) \Biggr) = x\text{cos}(\theta) - y\text{sin}(\theta) $$
+- $$ x' = \sqrt{x^{2} + y^{2}}(\text{cos}(\alpha)\text{cos}(\theta) -\text{sin}(\alpha)\text{sin}(\theta)) = \Biggl(\sqrt{x^{2} + y^{2}}\frac{x}{\sqrt{x^{2} + y^{2}}}\text{cos}(\theta) -  \sqrt{x^{2} + y^{2}}\frac{y}{\sqrt{x^{2} + y^{2}}}\text{sin}(\theta) \Biggr) = x\text{cos}(\theta) - y\text{sin}(\theta) $$
 
 <br>
 
-$$ y' = \sqrt{x^{2} + y^{2}}\text{sin}(\alpha + \theta) = \sqrt{x^{2} + y^{2}}(\text{sin}(\alpha)\text{cos}(\theta) + \text{cos}(\alpha)\text{sin}(\theta)) = \Biggl(\sqrt{x^{2} + y^{2}}\frac{y}{\sqrt{x^{2} + y^{2}}}\text{cos}(\theta) + \sqrt{x^{2} + y^{2}}\frac{x}{\sqrt{x^{2} + y^{2}}}\text{sin}(\theta) \Biggr) = y\text{cos}(\theta) + x\text{sin}(\theta) $$
+- $$ y' = \sqrt{x^{2} + y^{2}}\text{sin}(\alpha + \theta) = \sqrt{x^{2} + y^{2}}(\text{sin}(\alpha)\text{cos}(\theta) + \text{cos}(\alpha)\text{sin}(\theta)) = \Biggl(\sqrt{x^{2} + y^{2}}\frac{y}{\sqrt{x^{2} + y^{2}}}\text{cos}(\theta) + \sqrt{x^{2} + y^{2}}\frac{x}{\sqrt{x^{2} + y^{2}}}\text{sin}(\theta) \Biggr) = y\text{cos}(\theta) + x\text{sin}(\theta) $$
 
 <br>
 
@@ -112,7 +112,7 @@ $$ y' = \sqrt{x^{2} + y^{2}}\text{sin}(\alpha + \theta) = \sqrt{x^{2} + y^{2}}(\
 
 <br>
 
-$$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} $$
+- $$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} $$
 
 <br>
 
@@ -149,7 +149,7 @@ $$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \text{cos}\theta & -
 
 <br>
 
-$$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{pmatrix} \begin{pmatrix} x - x_{base} \\ y - y_{base} \end{pmatrix} $$
+- $$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{pmatrix} \begin{pmatrix} x - x_{base} \\ y - y_{base} \end{pmatrix} $$
 
 <br>
 
@@ -159,7 +159,7 @@ $$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \text{cos}\theta & -
 
 <br>
 
-$$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{pmatrix} \begin{pmatrix} x - x_{base} \\ y - y_{base} \end{pmatrix} + \begin{pmatrix} x_{base} \\ y_{base} \end{pmatrix}$$
+- $$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \text{cos}\theta & -\text{sin}\theta \\ \text{sin}\theta & \text{cos}\theta \end{pmatrix} \begin{pmatrix} x - x_{base} \\ y - y_{base} \end{pmatrix} + \begin{pmatrix} x_{base} \\ y_{base} \end{pmatrix}$$
 
 <br>
 
@@ -180,11 +180,11 @@ $$ \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \text{cos}\theta & -
 
 <br>
 
-$$ R_{x}(\theta) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & \text{cos}\theta & -\text{sin}\theta \\ 0 & \text{sin}\theta & \text{cos}\theta \end{bmatrix} $$ 
+- $$ R_{x}(\theta) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & \text{cos}\theta & -\text{sin}\theta \\ 0 & \text{sin}\theta & \text{cos}\theta \end{bmatrix} $$ 
 
-$$ R_{y}(\theta) = \begin{bmatrix} \text{cos}\theta & 0 & \text{sin}\theta \\ 0 & 1 & 0 \\  -\text{sin}\theta & 0 & \text{cos}\theta \end{bmatrix} $$ 
+- $$ R_{y}(\theta) = \begin{bmatrix} \text{cos}\theta & 0 & \text{sin}\theta \\ 0 & 1 & 0 \\  -\text{sin}\theta & 0 & \text{cos}\theta \end{bmatrix} $$ 
 
-$$ R_{z}(\theta) = \begin{bmatrix} \text{cos}\theta & -\text{sin}\theta & 0 \\ \text{sin}\theta & \text{cos}\theta & 0 \\ 0 & 0 & 1 \end{bmatrix} $$ 
+- $$ R_{z}(\theta) = \begin{bmatrix} \text{cos}\theta & -\text{sin}\theta & 0 \\ \text{sin}\theta & \text{cos}\theta & 0 \\ 0 & 0 & 1 \end{bmatrix} $$ 
 
 <br>
 
@@ -201,7 +201,7 @@ $$ R_{z}(\theta) = \begin{bmatrix} \text{cos}\theta & -\text{sin}\theta & 0 \\ \
 
 <br>
 
-$$ R = R_{z}(\alpha)R_{y}(\beta)R_{x}(\gamma) = \begin{bmatrix} \text{cos}\alpha & -\text{sin}\alpha & 0 \\ \text{sin}\alpha & \text{cos}\alpha & 0 \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} \text{cos}\beta & 0 & \text{sin}\beta \\ 0 & 1 & 0 \\  -\text{sin}\beta & 0 & \text{cos}\beta \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\ 0 & \text{cos}\gamma & -\text{sin}\gamma \\ 0 & \text{sin}\gamma & \text{cos}\gamma \end{bmatrix} $$
+- $$ R = R_{z}(\alpha)R_{y}(\beta)R_{x}(\gamma) = \begin{bmatrix} \text{cos}\alpha & -\text{sin}\alpha & 0 \\ \text{sin}\alpha & \text{cos}\alpha & 0 \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} \text{cos}\beta & 0 & \text{sin}\beta \\ 0 & 1 & 0 \\  -\text{sin}\beta & 0 & \text{cos}\beta \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\ 0 & \text{cos}\gamma & -\text{sin}\gamma \\ 0 & \text{sin}\gamma & \text{cos}\gamma \end{bmatrix} $$
 
 <br>
 
@@ -210,7 +210,7 @@ $$ R = R_{z}(\alpha)R_{y}(\beta)R_{x}(\gamma) = \begin{bmatrix} \text{cos}\alpha
 
 <br>
 
-$$ R = \begin{bmatrix} \text{cos}\alpha \ \text{cos}\beta & \text{cos}\alpha \ \text{sin}\beta \ \text{sin}\gamma - \text{sin}\alpha \ \text{cos}\gamma & \text{cos}\alpha \ \text{sin}\beta \ \text{cos}\gamma + \text{sin}\alpha \ \text{sin}\gamma \\ \text{sin}\alpha \ \text{cos}\beta & \text{sin}\alpha \ \text{sin}\beta \ \text{sin}\gamma + \text{cos}\alpha \ \text{cos}\gamma & \text{sin}\alpha \ \text{sin}\beta \ \text{cos}\gamma - \text{cos}\alpha \ \text{sin}\gamma \\ -\text{sin}\beta & \text{cos}\beta \ \text{sin} \gamma & \text{cos}\beta \ \text{cos} \gamma \\ \end{bmatrix} $$
+- $$ R = \begin{bmatrix} \text{cos}\alpha \ \text{cos}\beta & \text{cos}\alpha \ \text{sin}\beta \ \text{sin}\gamma - \text{sin}\alpha \ \text{cos}\gamma & \text{cos}\alpha \ \text{sin}\beta \ \text{cos}\gamma + \text{sin}\alpha \ \text{sin}\gamma \\ \text{sin}\alpha \ \text{cos}\beta & \text{sin}\alpha \ \text{sin}\beta \ \text{sin}\gamma + \text{cos}\alpha \ \text{cos}\gamma & \text{sin}\alpha \ \text{sin}\beta \ \text{cos}\gamma - \text{cos}\alpha \ \text{sin}\gamma \\ -\text{sin}\beta & \text{cos}\beta \ \text{sin} \gamma & \text{cos}\beta \ \text{cos} \gamma \\ \end{bmatrix} $$
 
 <br>
 
