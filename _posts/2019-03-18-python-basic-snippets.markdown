@@ -69,6 +69,7 @@ tags: [python, python 기본] # add tag
 - ### local 영역에서 global로 import
 - ### 주어진 index 목록에 해당하는 값 불러오기
 - ### 숫자 형태의 list를 특정 문자로 구분하여 문자열로 변환
+- ### List를 group 단위로 나누기
 
 <br>
 
@@ -1521,3 +1522,28 @@ from B import bb # 이동된 디렉토리에서는 B가 하위디렉토리 이�
 ```
 
 <br>
+
+<br>
+
+## **List를 group 단위로 나누기**
+
+<br>
+
+- 다음과 같이 리스트에서 인접한 값들을 단위로 묶어야 할 때가 있습니다.
+- 예를 들어 [1,2,3,4,5,6] 에서 3개씩 묶는다면 (1, 2, 3)과 (4, 5, 6)으로 묶을 수 있습니다.
+- 위 예와 같이 앞에서 부터 차례대로 n개씩 묶을 때 사용할 수 있는 방법을 소개하겠습니다.
+
+<br>
+
+```python
+a = [1, 2, 3, 4, 5, 6]  
+group_adjacent = lambda a, k: zip(*([iter(a)] * k)) 
+group_a = [e for e in group_adjacent(a, 3)]
+print(group_a)
+# [(1, 2, 3), (4, 5, 6)]
+```
+
+<br>
+
+- 위 코드에서 사용된 `lambda` 함수인 `lambda a, k: zip(*([iter(a)] * k))`를 이용하여 함수를 간단하게 만들 수 있습니다.
+- `group_adjacent(list_name, group_number)`에서 group_number의 갯수 만큼 그룹을 나눌 수 있습니다.
