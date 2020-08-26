@@ -20,6 +20,7 @@ tags: [opencv, python, snippets] # add tag
 - ### window 창 크기 조절하는 방법
 - ### contrast와 brightness 변경 방법
 - ### 이미지 붙이기(hconcat, vconcat)
+- ### OpenCV 한글 쓰기
 
 <br>
 
@@ -97,6 +98,36 @@ new_image = cv.convertScaleAbs(image, alpha=alpha, beta=beta)
 ```python
 image = cv2.hconcat([image1, image2, image3])
 image = cv2.vconcat([image1, image2, image3])
+```
+
+<br>
+
+## **OpenCV 한글 쓰기**
+
+<br>
+
+- OpenCV를 이용하여 이미지에 글자를 쓸 때, 한글은 안써집니다.
+- 따라서 OpenCV 함수를 직접 이용하지 않고 PIL(Python Image Library)를 이용하여 우회해서 사용하면 사용 가능합니다.
+- 아래 함수는 numpy와 pil을 이용하여 numpy 배열에 한글을 입력하는 함수 `PutText`를 작성한 것입니다.
+- PutText 함수의 `fontpath` 의 font를 수정하면 원하는 font도 사용가능합니다.
+
+```python
+import numpy as np
+from PIL import ImageFont, ImageDraw, Image
+def PutText(src, text, font_size, xy, bgr):
+    fontpath = "fonts/gulim.ttc"
+    font = ImageFont.truetype(fontpath, font_size)
+    src_pil = Image.fromarray(src)
+    draw = ImageDraw.Draw(src_pil)
+    draw.text(xy, text, font=font, fill=bgr)
+    target = np.array(src_pil)
+    return target
+
+img = np.zeros((300,500,3),np.uint8)
+img= PutText(img, "테스트입니다.", font_size = 30, xy = (100, 200), bgr = (255, 0, 0))
+cv2.imshow("img", img)
+cv2.waitKey()
+cv2.destroyAllWindows()
 ```
 
 <br>
