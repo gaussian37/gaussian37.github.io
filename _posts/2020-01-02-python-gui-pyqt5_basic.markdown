@@ -15,14 +15,24 @@ tags: [python, pyinstaller] # add tag
 <br>
 
 - 간단한 예제를 통하여 아래 내용을 살펴보도록 하겠습니다.
+
+<br>
+
+## **목차**
+
+<br>
+
 - ### Window 생성
 - ### Label Widget
 - ### Buttons
-- ### LineEdit Widget
-    - #### ID, 비밀번호 입력
+- ### LineEdit Widget (ID, 비밀번호 입력)
 - ### CheckBox
 - ### 폴더 디렉토리 설정
 - ### 메시지 박스
+
+<br>
+
+## **LineEdit Widget (ID, 비밀번호 입력)**
 
 <br>
 <center><img src="../assets/img/python/gui/pyqt5_basic/0.png" alt="Drawing" style="width: 300px;"/></center>
