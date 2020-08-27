@@ -64,7 +64,7 @@ tags: [Linear algebra, vector, projection, 선형 대수학, 벡터, 정사영] 
 <center><img src="../assets/img/math/la/projection/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- $$ \text{vector projection} = \text{scalar projection} \times \text{unit vector} = \frac{r \cdot s}{\vert r \vert} \cdit \frac{r}{\vert r \vert} = \frac{r \cdot s}{r \cdot r} \cdot r $$ 
+- $$ \text{vector projection} = \text{scalar projection} \times \text{unit vector} = \frac{r \cdot s}{\vert r \vert} \cdot \frac{r}{\vert r \vert} = \frac{r \cdot s}{r \cdot r} \cdot r $$ 
 
 <br>
 
@@ -102,7 +102,7 @@ tags: [Linear algebra, vector, projection, 선형 대수학, 벡터, 정사영] 
 
 - $$ p = \frac{\vec{b}^{T}\vec{a}}{\vec{a}^{T}\vec{a}} $$
 
-- $$ \vec{x} = p \vec{a} = \frac{\vec{b}^{T}\vec{a}}{\vec{a}^{T}\vec{a}} \vec{a}
+- $$ \vec{x} = p \vec{a} = \frac{\vec{b}^{T}\vec{a}}{\vec{a}^{T}\vec{a}} \vec{a} $$
 
 <br>
 
