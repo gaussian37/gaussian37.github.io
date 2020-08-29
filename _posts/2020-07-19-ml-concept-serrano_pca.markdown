@@ -225,3 +225,35 @@ tags: [machine learning, PCA, Principal Component Analysis, 주성분 분석, Di
 <br>
 
 - 고유 벡터를 구할 때, 일반적으로 사용하는 방식은 `특성 방정식` 입니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/20.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 특성 방정식은 앞에서 다룬 고유 벡터와 고유값의 정의인 $$ Av = \lambda v $$의 식을 풀어서 나타낸 것이고 위 예제처럼 풀 수 있습니다.
+- 먼저 위 그림의 식을 보면 특성 방정식을 통하여 고유값을 구할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/21.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 특성 방정식을 통해 구한 2개의 고유값을 이용하여 2개의 고유벡터를 구할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/22.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 기존의 데이터에 고유 값을 반영한 고유벡터를 표시하면 위 그림의 빨간색, 초록색 벡터처럼 나타낼 수 있습니다.
+- 빨간색 벡터의 고유값이 11배 정도 큽니다. 앞에서 설명한 바와 같이 고유값이 큰 고유벡터를 이용하여 새로운 차원을 만들면 넓은 분산의 축에 데이터를 표현하는 효과가 있어 데이터를 잘 나타낼 수 있음을 배웠습니다.
+- 위 그림의 빨간색 벡터의 고유값이 더 크기 때문에 기존 데이터를 좀 더 잘 나타낼 수 있습니다. 따라서 고유값이 큰 빨간색 벡터를 새로운 축으로 정하게 됩니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/23.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 따라서 위 그림과 같이 빨간색 벡터가 고유벡터로 선정됩니다.
+- 기존 데이터를 고유벡터인 빨간색 벡터로 정사영(projection) 한다면 위 그림과 같이 기존의 2 축 (x, y)를 한 개의 축으로 차원을 축소해서 나타낼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/24.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
