@@ -9,7 +9,7 @@ tags: [테슬라, tesla, 자율주행, 자율주행 자동차, autodrive, self-d
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/hx7BXih7zx8" frameborder="0" allowfullscreen="true" width="800px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/hx7BXih7zx8" frameborder="0" allowfullscreen="true" height="400px" width="600px"> </iframe>
 </div>
 <br>
 
@@ -75,3 +75,31 @@ tags: [테슬라, tesla, 자율주행, 자율주행 자동차, autodrive, self-d
 <br>
 <center><img src="../assets/img/autodrive/concept/ai_for_full_self_driving_at_tesla/5.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
+
+- 웨이모의 차에서는 차 윗쪽에 lidar가 달려 있고 lidar 즉, laser를 송/수신 하여 주위를 인식합니다.
+- 라이다를 이용하면 lidar point cloud 라는 것을 만들게 됩니다. lidar point cloud는 라이다가 인식한 물체의 좌표들을 점의 형태로 나타낸 것입니다. lidar point cloud를 통하여 주변의 지도를 그릴 수 있기 때문에 주위 상황을 잘 파악할 수 있고 자차의 현재 위치를 찾는 Localize 문제를 보다 잘 해결할 수 있습니다.
+- 또한 테슬라는 웨이모에서 적용한 HD(High Definition) Map 또한 사용하지 않고 실시간 컴퓨터 비전 기반으로 주변 상황을 인지하는 방법을 취합니다.
+- ※ [테슬라와 웨이모의 차이점](https://gaussian37.github.io/autodrive-concept-waymo_vs_tesla/)은 저의 다른 글에서 좀 더 자세하게 다루었습니다.
+
+<br>
+
+## **양산을 위한 뉴럴 네트워크**
+
+<br>
+
+<br>
+<center><img src="../assets/img/autodrive/concept/ai_for_full_self_driving_at_tesla/6.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 테슬라에서는 현재 위 그림과 같은 대상 군들을 카메라를 이용하여 인식하고 있습니다.
+- 이미지의 각 대상들의 클래스를 살펴 보면 교통 신호, 표지판, 차선, 연석 등과 같은 교통과 관련된 물체들을 인식하며 움직이는 물체와 정적인 물체들도 분리하여 구분하는 것을 알 수 있습니다. (물론 위 클래스는 발표 예시이므로 내부적으로 더 세세하게 분류하여 사용할 수 있을 것 같습니다.)
+- 위와 같이 클래스들을 분류하여 인식하는 목적은 **① 자율주행을 위함** 과 **② 디스플레이에 표시**하여 사용자에게 보여주기 위함입니다.
+- 인식 하는 예시는 다음 동영상 부터 참조하시면 됩니다.
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/hx7BXih7zx8?t=474" frameborder="0" allowfullscreen="true" height="400px" width="600px"> </iframe>
+</div>
+<br>
+
+
