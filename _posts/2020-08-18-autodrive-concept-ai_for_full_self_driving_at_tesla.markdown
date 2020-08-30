@@ -9,7 +9,7 @@ tags: [테슬라, tesla, 자율주행, 자율주행 자동차, autodrive, self-d
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/hx7BXih7zx8" frameborder="0" allowfullscreen="true" width="800px" height="800px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/hx7BXih7zx8" frameborder="0" allowfullscreen="true" width="800px"> </iframe>
 </div>
 <br>
 
