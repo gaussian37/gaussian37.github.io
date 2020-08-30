@@ -9,6 +9,10 @@ tags: [machine learning, PCA, Principal Component Analysis, 주성분 분석, Di
 
 <br>
 
+[머신러닝 글 목록](https://gaussian37.github.io/ml-concept-table/)
+
+<br>
+
 - 참조 : https://youtu.be/g-Hb26agBFg?list=WL
 - 참조 : http://www.stat.cmu.edu/~cshalizi/350/lectures/10/lecture-10.pdf
 - 이번 글에서는 주성분 분석 (Principal Component Analysis)에 대하여 다루어 보도록 하겠습니다. Luis Serrano 강의를 주 내용으로 하며 중간 중간에 설명이 필요한 부분은 제 블로그를 참조하여 보충하였습니다.
@@ -34,6 +38,7 @@ tags: [machine learning, PCA, Principal Component Analysis, 주성분 분석, Di
 - ### Dimensionality Reduction
 - ### Covariance
 - ### Linear Transformation
+- ### PCA process
 
 
 <br>
@@ -251,9 +256,30 @@ tags: [machine learning, PCA, Principal Component Analysis, 주성분 분석, Di
 <center><img src="../assets/img/ml/concept/serrano_pca/23.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/24.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
 - 따라서 위 그림과 같이 빨간색 벡터가 고유벡터로 선정됩니다.
 - 기존 데이터를 고유벡터인 빨간색 벡터로 정사영(projection) 한다면 위 그림과 같이 기존의 2 축 (x, y)를 한 개의 축으로 차원을 축소해서 나타낼 수 있습니다.
 
 <br>
-<center><img src="../assets/img/ml/concept/serrano_pca/24.png" alt="Drawing" style="width: 800px;"/></center>
+
+## **PCA process**
+
+<br>
+<center><img src="../assets/img/ml/concept/serrano_pca/0.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 그러면 앞에서 다룬 모든 절차를 정리하여 PCA의 과정을 다시 한번 설명해 보겠습니다.
+- ① 위 그림의 `Large Table`과 같이 준비된 데이터가 있다고 가정해 보겠습니다. 위 데이터는 차원이 5개 ($$ x_{1}, x_{2}, x_{3}, x_{4}, x_{5}$$)이며 데이터의 갯수는 12개인 데이터셋 세입니다.
+- ② $$ n $$ 개의 차원을 가진 데이터는 $$ n \tiems n $$ 크기의 공분산을 가집니다. 따라서 위 데이터는 5 x 5 크기의 공분산을 가집니다.
+- ③ $$ n $$ 차원의 데이터는 최대 $$ n $$ 개의 고유값과 고유벡터를 가집니다. 모든 고유값과 고유벡터를 구한 다음에 **고유값이 큰 순서로 정렬합니다.**
+- ④ $$ n $$ 차원의 데이터를 더 작은 차원인 $$ k $$ 차원으로 줄이기 위하여 $$ k $$를 선정합니다. 만약 시각화를 위한 목적이라면 2차원이나 3차원으로 줄여서 사람이 보고 이해할 수 있는 차원으로 줄여야 합니다. 위 예제에서는 2차원으로 줄였습니다. 그러면 **기존의 데이터를 선택된 2차원인 고유값과 고유벡터로 정사영** 시킵니다.
+- ⑤ 선택된 고유값, 고유벡터가 새로운 축이 되며 새로운 축을 기준으로 데이터를 정렬할 수 있습니다.
+
+<br>
+
+[머신러닝 글 목록](https://gaussian37.github.io/ml-concept-table/)
+
 <br>
