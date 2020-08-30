@@ -34,3 +34,44 @@ tags: [테슬라, tesla, 자율주행, 자율주행 자동차, autodrive, self-d
 
 <br>
 
+## **테슬라의 오토파일럿이란?**
+
+<br>
+<center><img src="../assets/img/autodrive/concept/ai_for_full_self_driving_at_tesla/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 테슬라의 오토파일럿 기능에 대하여 설명합니다. 현재 사용 중인 오토파일럿의 이름은 `NoA(Navigation on Autopilot)`으로 내비게이션 기반의 오토파일럿입니다.
+- 테슬라에서 모은 고객 데이터를 보면 전체 NoA를 사용한 이력이 10억 마일이 넘으며 20만건 이상의 자동 차선 변경이 있었으며 50개 이상의 나라에서 NoA를 사용중입니다.
+- 위 기능은 테슬라 이외의 다른 제조업에서도 운영중에 있으며 비슷한 수준의 자율주행을 구현하고 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/ai_for_full_self_driving_at_tesla/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `Smart Summon`은 주차되어 있는 자동차를 나의 위치까지 호출하는 기능입니다. 다른 **제조사에 없는 이 기능을 테슬라는 제공**하고 있으며 테슬라의 다른 자료를 통해 살펴보면 SLAM 기술을 통하여 실시간 지도를 그려서 이 기능을 대응하는 것으로 보입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/ai_for_full_self_driving_at_tesla/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 다룬 자율주행을 위한 편의 기능 이외에도 안전 기능들도 지원하고 있으며 안전 기능의 경우 다른 제조사들도 많이 제공 하는 기능들인 긴급 제동, 충돌 방지, 회피 등의 기능을 제공하고 있습니다. 위 기능군들을 보면 다른 제조사 와의 차이점도 없어 보입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/ai_for_full_self_driving_at_tesla/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 물론 이런 안전 기능은 법규 뿐 아니라 EURO NCAP과 같은 인증 기관으로 부터 좋은 점수를 받기 위한 것이 있습니다. 테슬라에서도 EURO NCAP에서 5점 받은 것을 자랑하였습니다.
+- 이 외에도 보행자를 감지하여 긴급 정지하거나 테슬라가 주장하는 Full Self-Driving에 관한 영상을 통해 테슬라의 기술력을 자랑합니다. (3:25 ~ 5:30)
+
+<br>
+
+## **(라이다 방식이 아닌) 컴퓨터 비전 기반의 테슬라 방식**
+
+<br>
+
+- 앞에서 보여준 Full-Self Driving 데모와 같은 사례는 웨이모에서 훨씬 이전에 보여주었습니다.
+- 웨이모에 비해 시기적으로 뒤쳐짐에도 불구하고 테슬라에서 구현한 기술을 자랑할 수 있는 이유는 라이다 없이 컴퓨터 비전 기반으로 구현한 점에 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/ai_for_full_self_driving_at_tesla/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
