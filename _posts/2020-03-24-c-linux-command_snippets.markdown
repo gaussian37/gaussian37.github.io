@@ -19,6 +19,7 @@ tags: [linux, 리눅스, 명령어, command] # add tag
 
 - ### Could not get lock /var/lib/dpkg/lock - open 오류 수정
 - ### 텍스트파일 내의 행의 갯수를 알고 싶은 경우
+- ### 리눅스 특정 폴더 이하 파일 개수 세기
 
 <br>
 
@@ -44,3 +45,29 @@ sudo rm /var/lib/dpkg/lock
 <br>
 
 - `ls | wc -l` 명령어를 이용하면 new line의 갯수를 카운트 할 수 있습니다.
+
+<br>
+
+## **리눅스 특정 폴더 이하 파일 개수 세기**
+
+<br.
+
+- 어떤 특정 경로 이하에 존재하는 파일의 갯수를 셀 때, `find` 명령어와 `wc -l`을 이용하여 확인할 수 있습니다.
+
+<br>
+
+```python
+find /폴더/경로 -type f | wc -l
+```
+
+<br>
+
+- 만약 현재 경로 이하의 모든 파일의 갯수를 확인하고 싶으면 경로에 `.`을 입력하면 됩니다.
+
+<br>
+
+```python
+find . -type f | wc -l
+```
+
+<br>
