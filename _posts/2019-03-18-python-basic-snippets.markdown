@@ -70,6 +70,7 @@ tags: [python, python 기본] # add tag
 - ### 주어진 index 목록에 해당하는 값 불러오기
 - ### 숫자 형태의 list를 특정 문자로 구분하여 문자열로 변환
 - ### List를 group 단위로 나누기
+- ### 현재 실행 중인 파이썬 파일의 경로 확인 (__file__)
 
 <br>
 
@@ -1547,3 +1548,37 @@ print(group_a)
 
 - 위 코드에서 사용된 `lambda` 함수인 `lambda a, k: zip(*([iter(a)] * k))`를 이용하여 함수를 간단하게 만들 수 있습니다.
 - `group_adjacent(list_name, group_number)`에서 group_number의 갯수 만큼 그룹을 나눌 수 있습니다.
+
+<br>
+
+## **현재 실행 중인 파이썬 파일의 경로 확인 (__file__)**
+
+<br>
+
+- 현재 실행 중인 파이썬 파일의 경로를 알기 위해서는 다음 명령어를 통해 확인 가능합니다.
+
+<br>
+
+```python
+import os
+current_file_path = os.path.abspath(__file__)
+```
+
+<br>
+
+- 여기서 사용된 `__file__`은 어떤 `.py` 파일이 실행될 때, 그 파일을 나타냅니다.
+- 따라서 파이썬 파일이 실행되는 도중에는 그 파일의 경로를 쉽게 확인할 수 있습니다.
+
+<br>
+
+- 조금 더 응용하여 만약 이 파일의 디렉토리 경로만 알고 싶으면 다음과 같이 알 수 있습니다.
+
+<br>
+
+```python
+import os
+current_file_path = os.path.abspath(__file__)
+current_dir = os.path.dirname(current_file_path)
+```
+
+<br>
