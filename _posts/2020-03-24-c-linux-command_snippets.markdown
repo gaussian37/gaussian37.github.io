@@ -18,6 +18,7 @@ tags: [linux, 리눅스, 명령어, command] # add tag
 <br>
 
 - ### Could not get lock /var/lib/dpkg/lock - open 오류 수정
+- ### 텍스트파일 내의 행의 갯수를 알고 싶은 경우
 
 <br>
 
@@ -37,3 +38,9 @@ sudo rm /var/lib/dpkg/lock
 ```
 
 <br>
+
+## **텍스트파일 내의 행의 갯수를 알고 싶은 경우**
+
+<br>
+
+- `ls | wc -l` 명령어를 이용하면 new line의 갯수를 카운트 할 수 있습니다.
