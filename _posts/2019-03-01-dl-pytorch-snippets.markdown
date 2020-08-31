@@ -29,7 +29,8 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 
 - ### **--- 자주사용하는 함수 ---**
 - ### torch.argmx(input, dim, keepdim)
-- ### torch.from_numpy(numpy.ndarray)
+- ### Numpy → Tensor : torch.from_numpy(numpy.ndarray)
+- ### Tensor → Numpy
 - ### torch.unsqueeze(input, dim)
 - ### torch.squeeze(input, dim)
 - ### Variable(data)
@@ -306,7 +307,7 @@ tensor([[0],
 <center><img src="../assets/img/dl/pytorch/snippets/4.png" alt="Drawing" style="height: 400px;"/></center>
 <br>
 
-## **torch.from_numpy(numpy.ndarray)**
+## **Numpy → Tensor : torch.from_numpy(numpy.ndarray)**
 
 <br>
 
@@ -318,6 +319,18 @@ tensor([[0],
 A = np.random.rand(3, 100, 100)
 torch.from_numpy(A)
 ```
+
+<br>
+
+## **Tensor → Numpy**
+
+<br>
+
+- 이번에는 위 내용과 반대로 `Tensor`를 `Numpy`로 변경하는 방법에 대하여 알아보도록 하겠습니다. 정확히는 깊은 복사 후 Numpy로 형 변환하는 작업입니다.
+- ① Tensor가 backprop 시 연산이 되지 않도록 `.detach()`를 하여 그래프에서 분리시킵니다.
+- ② 일반적으로 numpy는 CPU 기반의 연산을 사용합니다. 즉, GPU 연산을 사용하지 않으므로 `.cpu()`를 통해 CPU 모드로 변환합니다.
+- ③ 마지막으로 numpy()로 변환해 줍니다.
+- 이 과정을 통해 어떤 Tensor A가 있다면 `A_np = A.detach().cpu().numpy()`를 통해 numpy로 변환이 가능합니다. 이 때, 기본적으로 `float32` 타입으로 변환됩니다.
 
 <br>
 
