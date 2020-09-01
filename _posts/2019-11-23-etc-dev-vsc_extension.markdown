@@ -23,3 +23,4 @@ tags: [비주얼 스튜디오 코드 기능, visual studio code, extionsion] # a
 - `WakaTime (WakaTime)` : 어떤 종류의 파일에서(C, C++, Python, Markdown 등등)로 얼마나 작업을 하였는지 시간 체크를 해줍니다. 
 - `Material Theme (Mattia Astorino)` : VSC 전체 테마 및 색상을 꾸며줍니다. 설치 후 extension에서 Material Theme을 선택 한 다음 **Set Color Theme**에서 테마를 선택하면 됩니다.
 - `Material Icon Theme (Philipp Kief)` : 확장자 별로 다른 아이콘 형태로 보여줍니다. 설치 후 extension에서 Mateiral Icon Theme을 선택한 다음 **Set File Icon Theme**을 선택하면 됩니다.
+- `Kite Autocomplete for Python and JavaScript` : 머신 러닝 기반의 Autocomplete를 지원합니다. 이 기능을 사용하기 위한 engine 설치가 필요하며 extension의 Kite Autocomplete for Python and JavaScript 에서 운영 체제 별 설치 파일을 받을 수 있습니다. 엔진을 설치 후 extension을 설치하면 사용가능합니다.

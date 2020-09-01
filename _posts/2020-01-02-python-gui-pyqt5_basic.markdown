@@ -22,6 +22,8 @@ tags: [python, pyinstaller] # add tag
 
 <br>
 
+- ### PyQt5 기본 예제
+- ### Signals, Slots, Events
 - ### Window 생성
 - ### Label Widget
 - ### Buttons
@@ -31,6 +33,72 @@ tags: [python, pyinstaller] # add tag
 - ### 메시지 박스
 
 <br>
+
+## PyQt5를 이용한 Hello World
+
+<br>
+
+- PyQT5를 이용하여 Hello World를 실행해 보도록 하겠습니다. 먼저 코드를 보고 자세히 설명하겠습니다.
+
+<br>
+
+```python
+import sys
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
+from PyQt5.QtCore import Qt
+
+# QMainWindow 하위 클래스를 사용하여 응용 프로그램의 기본 창을 사용자 지정합니다.
+class MainWindow(QMainWindow):
+
+    def __init__(self, *args, **kwargs):
+        super(MainWindow, self).__init__(*args, **kwargs)
+
+        self.setWindowTitle("Title")
+
+        label = QLabel("Hello World")
+
+        # `Qt` 네임 스페이스에는 사용자 정의 할 수있는 많은 속성이 있습니다.
+        # widgets의 기능은 다음 링크를 참조하시기 바랍니다.http://doc.qt.io/qt-5/qt.html
+        label.setAlignment(Qt.AlignCenter)
+
+        # Window의 중앙 위젯을 설정합니다. 
+        # 위젯은 기본적으로 Window의 모든 공간을 차지하도록 확장됩니다.
+        self.setCentralWidget(label)
+
+
+app = QApplication(sys.argv)
+
+window = MainWindow()
+window.show()
+
+app.exec_()
+```
+
+<br>
+
+- 위 코드를 실행하면 화면 가운데에 QLabel이 표시되며 마우스를 이용하여 크기를 조절할 수 있습니다.
+- 위 코드에서 `QApplication`에 대하여 먼저 알아보도록 하겠습니다.
+- `QApplication`은 Qt의 Event Loop를 관리하며 Qt를 이용한 프로그램에는 최소 하나의 QApplication이 필요합니다.
+- 동작할 작업들은 계속 대기하고 있다가 `QApplication.exec_()`을 만나면 동작을 시작합니다. 위 코드에서 `app.exec_()` 시점부터 모든 동작이 시작됩니다.
+- `QApplication.exec_()`를 통해 관리되는 Event Loop는 어떤 Event가 들어왔을 때, Event를 Event Handler에 전달하여 Event가 처리되도록 합니다.
+
+<br>
+
+- 그 다음으로 선언된 클래스가 상속 받은 `QMainWindow`의 기능에 대하여 살펴보도록 하겠습니다.
+- `QMainWindow`는 어플리케이션이 보여질 창이 되며 최소한 1개의 `QMainWindow`가 존재해야 합니다. 구현 방식에 따라 여러 개의 QMainWindow가 있을 수도 있습니다.
+- 마지막 QMainWindow가 닫혔을 때 어플리케이션이 종료가 됩니다.
+- 위 코드에서 `window = MainWindow()`를 이용하여 `QMainWindow`를 상속받은 객체를 선언하고 `window.show()`를 통해 Window를 화면에 표시합니다.
+- [QMainWindow](https://doc.qt.io/qt-5/qmainwindow.html)에 관련된 자세한 내용은 링크를 참조하시기 바랍니다.
+
+<br>
+
+## **Signals, Slots, Events**
+
+<br>
+<center><img src="../assets/img/python/gui/pyqt5_basic/2.png" alt="Drawing" style="width: 400px;"/></center>
+<br> 
+
+- 위 그림과 같이 어떤 이벤트가 위젯 (사용자 인터페이스를 구성하는 요소)으로 입력되면
 
 ## **LineEdit Widget (ID, 비밀번호 입력)**
 
