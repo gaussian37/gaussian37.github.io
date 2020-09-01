@@ -98,7 +98,120 @@ app.exec_()
 <center><img src="../assets/img/python/gui/pyqt5_basic/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br> 
 
-- 위 그림과 같이 어떤 이벤트가 위젯 (사용자 인터페이스를 구성하는 요소)으로 입력되면
+- 위 그림과 같이 어떤 이벤트가 위젯 (사용자 인터페이스를 구성하는 요소)으로 입력되면 이벤트 핸들러로 이벤트를 전달합니다.
+- 대표적인 위젯으로는 버튼이 있습니다. 다음과 같이 위젯 버튼을 간단하게 구성할 수 있습니다.
+
+<br>
+
+```python
+import sys
+from PyQt5.QtWidgets import *
+
+def ClickedSlot():
+    print("Clicked")
+
+app = QApplication(sys.argv)
+button = QPushButton("Push")
+button.clicked.connect(ClickedSlot)
+button.show()
+
+app.exec_()
+```
+
+<br>
+
+<br>
+<center><img src="../assets/img/python/gui/pyqt5_basic/3.png" alt="Drawing" style="width: 400px;"/></center>
+<br> 
+
+- **어떤 위젯에 이벤트가 발생**하면 해당 위젯은 `Signal`을 만듭니다. 위 코드에서 위젯인 button에 붙은 함수인 `clicked.connect()`를 `Signal` 이라고 하며 바로 위 그림에서 화살표에 해당합니다.
+- 그러면 시그널이 발생하였을 때, 수행해야 할 동작이 필요합니다. 이 동작을 함수 형태로 정의해 주어야 합니다. 이 때 정의된, 함수를 `Slot` 이라고 합니다. (callback 함수와 Slot은 같은 의미이며 PyQt에서는 Slot으로 지칭합니다.)
+
+<br>
+
+- 앞에서 다룬 Hello World 예제를 응용해서 보면 아래 코드와 같이 Signal을 생성할 수 있습니다.
+
+<br>
+
+```python
+import sys
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
+from PyQt5.QtCore import Qt
+
+# QMainWindow 하위 클래스를 사용하여 응용 프로그램의 기본 창을 사용자 지정합니다.
+class MainWindow(QMainWindow):
+
+    def __init__(self, *args, **kwargs):
+        super(MainWindow, self).__init__(*args, **kwargs)
+
+        title = "Title"
+        self.windowTitleChanged.connect(lambda : self.onWindowTitleChange(title))
+        # self.windowTitleChanged.connect(self.onWindowTitleChange)
+        
+        self.setWindowTitle(title)
+        label = QLabel("Hello World")
+
+        # `Qt` 네임 스페이스에는 사용자 정의 할 수있는 많은 속성이 있습니다.
+        # widgets의 기능은 다음 링크를 참조하시기 바랍니다.http://doc.qt.io/qt-5/qt.html
+        label.setAlignment(Qt.AlignCenter)
+
+        # Window의 중앙 위젯을 설정합니다. 
+        # 위젯은 기본적으로 Window의 모든 공간을 차지하도록 확장됩니다.
+        self.setCentralWidget(label)
+
+    def onWindowTitleChange(self, s):
+        print(s)
+
+app = QApplication(sys.argv)
+
+window = MainWindow()
+window.show()
+
+app.exec_()
+```
+
+<br>
+
+- 위 클래스에서 `windowTitleChanged.connect()`를 시그널로 생성하였고 `onWindowTitleChange` 라는 멤버 함수를 Slot으로 실행하였습니다. 
+- 특히 `lambda` 함수와 같이 응용하면 (lambda : self.onWindowTitleChange(title)) 매개변수를 직접적으로 전달할 수 있습니다.
+- 다음 코드와 같이 응용할 수 있습니다. 다음 코드는 0 ~ 9 까지 버튼 위젯을 만든 후 버튼을 눌렀을 때, 그 버튼의 숫자가 출력되도록 합니다.
+
+<br>
+
+```python
+import sys
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+
+# QMainWindow 하위 클래스를 사용하여 응용 프로그램의 기본 창을 사용자 지정합니다.
+class MainWindow(QMainWindow):
+
+    def __init__(self, *args, **kwargs):
+        super(MainWindow, self).__init__(*args, **kwargs)
+        layout = QHBoxLayout()
+
+        for num in range(10):
+            button = QPushButton(str(num))
+            button.pressed.connect(lambda n=num: self.PrintButton(n))
+            layout.addWidget(button)
+
+        widget = QWidget()
+        widget.setLayout(layout)
+
+        self.setWindowTitle("Title")
+        self.setCentralWidget(widget)
+
+    def PrintButton(self, n):
+        print(n)
+    
+app = QApplication(sys.argv)
+
+window = MainWindow()
+window.show()
+
+app.exec_()
+```
 
 ## **LineEdit Widget (ID, 비밀번호 입력)**
 
