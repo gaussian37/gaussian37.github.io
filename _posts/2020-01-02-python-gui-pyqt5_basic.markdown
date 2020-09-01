@@ -213,6 +213,8 @@ window.show()
 app.exec_()
 ```
 
+<br>
+
 ## **LineEdit Widget (ID, 비밀번호 입력)**
 
 <br>
