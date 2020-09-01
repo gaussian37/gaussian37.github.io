@@ -1,6 +1,6 @@
 ---
 layout: post
-title: PyQT5 기본 문법들
+title: PyQt5 개념 및 코드 snippets
 date: 2019-12-09 00:00:00
 img: python/gui/gui.png
 categories: [python-gui] 
@@ -22,6 +22,7 @@ tags: [python, pyinstaller] # add tag
 
 <br>
 
+- ## **PyQt5 개념 관련 글**
 - ### PyQt5 기본 예제
 - ### Signals, Slots, Events
 - ### Window 생성
@@ -31,6 +32,18 @@ tags: [python, pyinstaller] # add tag
 - ### CheckBox
 - ### 폴더 디렉토리 설정
 - ### 메시지 박스
+
+<br>
+
+- ## **PyQt5 코드 관련 글**
+- ### Window 타이틀 설정
+- ### Window 크기 설정
+- ### QLabel 필수 정보 변경
+
+<br>
+
+- ## **기타**
+- ### Tkinter를 이용한 화면 해상도 확인
 
 <br>
 
@@ -383,3 +396,89 @@ path_name = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
 from PyQt5.QtWidgets import QMessageBox
 QMessageBox.about(self, "Title", "Message")
  ```
+
+ <br>
+
+ ## **Window 타이틀 설정**
+
+ <br>
+
+ - `QMainWindow`을 통해 생성한 Window 창의 타이틀을 설정할 때 아래 코드를 사용합니다.
+
+ <br>
+
+ ```python
+class MainWindow(QMainWindow):
+
+    def __init__(self, *args, **kwargs):
+        # ...
+        title = "title
+        self.setWindowTitle(title)
+        # ...
+ ```
+
+ <br>
+
+## **Window 크기 설정**
+
+<br>
+
+ - `QMainWindow`을 통해 생성한 Window 창의 **크기**를 설정할 때 다음 코드 (`self.setGeometry(x, y, width, height)`)를 사용합니다.
+
+ <br>
+
+ ```python
+class MainWindow(QMainWindow):
+
+    def __init__(self, *args, **kwargs):
+        # ...
+        x = 100
+        y = 200
+        width = 300 
+        height = 400
+        # Window의 좌측 상단 끝 좌표가 (x, y)이고 가로 길이 : width, 세로 길이 : height
+        self.setGeometry(x, y, width, height)
+        #
+```
+
+<br>
+
+## **Tkinter를 이용한 화면 해상도 확인**
+
+<br>
+
+- 현재 화면의 해상도를 확인 할 수 있는 방법은 많이 있습니다. 그 방법 중 추가적인 패키지를 설치하지 않고 기본 패키지 만으로 확인하고 싶을 때, 기본 패키지 중 하나인 `Tkinter`를 이용하면 됩니다. 코드는 다음과 같습니다.
+
+<br>
+
+```python
+import tkinter as tk
+
+root = tk.Tk()
+
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+```
+
+<br>
+
+## **QLabel 필수 정보 변경**
+
+<br>
+
+- `QLabel`을 통해 생성한 Label에 지정해야 할 가장 기본 속성은 Label의 Font 및 Font 크기, Label 크기, Window에서 라벨의 위치 입니다.
+- 아래 코드를 이용하여 기본적인 라벨의 속성을 지정할 수 있습니다.
+
+<br>
+
+```python
+def SetLabel(self, label_text, nth):
+    label = QLabel(label_text, self)
+    label.setFont(QFont('맑은 고딕', 18))
+    label.resize(self.width_length, self.heigh_length)
+    label.move(self.label_x , self.label_y)
+
+    return label
+```
+
+<br>
