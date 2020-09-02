@@ -39,6 +39,8 @@ tags: [python, pyinstaller] # add tag
 - ### Window 타이틀 설정
 - ### Window 크기 설정
 - ### QLabel 필수 정보 변경
+- ### 디렉토리 설정 이벤트 함수
+- ### Line Edit 설정 이벤트 함수
 
 <br>
 
@@ -479,6 +481,41 @@ def SetLabel(self, label_text, nth):
     label.move(self.label_x , self.label_y)
 
     return label
+```
+
+<br>
+
+## **디렉토리 설정 이벤트 함수**
+
+<br>
+
+- 어떤 버튼을 눌렀을 때, 디렉토리를 찾는 이벤트를 발생시키려면 다음 함수를 사용할 수 있습니다.
+
+<br>
+
+```python
+def GetDirPath(self):
+    dialog = QtWidgets.QFileDialog()
+    path = dialog.getExistingDirectory(None, "Select Folder")
+    print(str(path))
+```
+
+<br>
+
+## **Line Edit 설정 이벤트 함수**
+
+<br>
+
+```python
+def SetLineEdit(self):
+    line_edit = QtWidgets.QLineEdit(self)
+    line_edit.resize(self.width, self.height)
+    line_edit.move(self.x, self.y)
+    line_edit.setPlaceholderText("This is the default display value of the shade color.")
+    line_edit.setAlignment(QtCore.Qt.AlignCenter)
+    line_edit.setText("This is default value.")
+
+    return lineedit
 ```
 
 <br>
