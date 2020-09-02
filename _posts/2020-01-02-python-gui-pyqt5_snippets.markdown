@@ -30,8 +30,6 @@ tags: [python, pyinstaller] # add tag
 - ### Buttons
 - ### LineEdit Widget (ID, 비밀번호 입력)
 - ### CheckBox
-- ### 폴더 디렉토리 설정
-- ### 메시지 박스
 
 <br>
 
@@ -41,6 +39,7 @@ tags: [python, pyinstaller] # add tag
 - ### QLabel 필수 정보 변경
 - ### 디렉토리 설정 이벤트 함수
 - ### Line Edit 설정 이벤트 함수
+- ### 메시지 박스 생성 이벤트 함수
 
 <br>
 
@@ -516,6 +515,26 @@ def SetLineEdit(self):
     line_edit.setText("This is default value.")
 
     return lineedit
+```
+
+<br>
+
+## **메시지 박스 생성 이벤트 함수**
+
+<br>
+
+- 메시지 박스를 생성할 때, 다음 함수를 이용하여 이벤트를 생성할 수 있습니다.
+
+<br>
+
+```python
+from PyQt5 import QtWidgets
+def MakeMessageBox(self, title, text):
+    message = QtWidgets.QMessageBox()
+    message.setWindowTitle(title)
+    message.setFont(QtGui.QFont('맑은 고딕', 10))
+    message.setText(text)
+    message.exec_()
 ```
 
 <br>
