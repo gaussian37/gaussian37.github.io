@@ -11,6 +11,7 @@ tags: [python, pyinstaller] # add tag
 
 - 설치 : `pip install pyqt5`
 - 물론 설치는 가상 환경을 새로 만들어서 설치하는 것을 권장드립니다.
+- 참조 : https://wikidocs.net/book/2165
 
 <br>
 
