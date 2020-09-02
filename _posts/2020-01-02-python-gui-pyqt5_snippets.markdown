@@ -516,7 +516,7 @@ def SetLineEdit(self):
     line_edit.setAlignment(QtCore.Qt.AlignCenter)
     line_edit.setText("This is default value.")
 
-    return lineedit
+    return line_edit
 ```
 
 <br>
