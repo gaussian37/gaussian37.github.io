@@ -40,6 +40,7 @@ tags: [python, pyinstaller] # add tag
 - ### 디렉토리 설정 이벤트 함수
 - ### Line Edit 설정 이벤트 함수
 - ### 메시지 박스 생성 이벤트 함수
+- ### MainWindow 종료
 
 <br>
 
@@ -536,5 +537,22 @@ def MakeMessageBox(self, title, text):
     message.setText(text)
     message.exec_()
 ```
+
+<br>
+
+- 더 많은 메시지 박스 관련 내용은 다음 링크를 통해 확인할 수 있습니다.
+- 링크 : https://techwithtim.net/tutorials/pyqt5-tutorial/messageboxes/
+
+<br>
+
+## **MainWindow 종료**
+
+<br>
+
+- MainWindow를 종료하는 가장 쉬운 방법은 생성된 창의 오른쪽 상단의 X 표시를 클릭하여 종료시키는 방법입니다.
+- `MainWindow` 클래스에서 종료하는 코드를 넣으려면 대표적으로 `self.close()`를 사용하는 방법이 있습니다.
+- 예를 들어 종료하려는 시점에서 `self.close()`를 넣으면 MainWindow를 상속 받은 클래스가 `close()`를 실행하여 종료하게 됩니다.
+- 만약 어떤 버튼을 눌러서 종료하고 싶다면 `self.close` slot으로 바로 사용할 수 있습니다. Signal을 생성하고 Signal에 대응하는 Slot에 `self.close`를 사용합니다.
+- 예를 들어 `button.clicked.connect(self.close)`와 같은 형태를 작성하면 어떤 버튼을 눌렀을 때, Window는 종료됩니다.
 
 <br>
