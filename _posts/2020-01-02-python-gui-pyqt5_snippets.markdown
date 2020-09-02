@@ -476,8 +476,8 @@ screen_height = root.winfo_screenheight()
 
 ```python
 def SetLabel(self, label_text, nth):
-    label = QLabel(label_text, self)
-    label.setFont(QFont('맑은 고딕', 18))
+    label = QtWidgets.QLabel(label_text, self)
+    label.setFont(QtGuiQFont('맑은 고딕', 18))
     label.resize(self.width_length, self.heigh_length)
     label.move(self.label_x , self.label_y)
 
