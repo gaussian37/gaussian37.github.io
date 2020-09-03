@@ -40,7 +40,7 @@ tags: [gamma distribution, exponential distribution, 감마분포, 지수분포 
 
 <br>
 
-$$ \Gamma(\alpha) = \int_{0}^{\infty}x^{\alpha - 1}e^{-x} dx $$
+- $$ \Gamma(\alpha) = \int_{0}^{\infty}x^{\alpha - 1}e^{-x} dx $$
 
 <br>
 
@@ -60,7 +60,7 @@ $$ \Gamma(\alpha) = \int_{0}^{\infty}x^{\alpha - 1}e^{-x} dx $$
 
 <br>
 
-$$ \int f'(x)g(x) = f(x)g(x) - \int f(x)g'(x) $$
+- $$ \int f'(x)g(x) = f(x)g(x) - \int f(x)g'(x) $$
 
 <br>
 
@@ -68,9 +68,9 @@ $$ \int f'(x)g(x) = f(x)g(x) - \int f(x)g'(x) $$
 
 <br>
 
-$$ \Gamma(\alpha) = -x^{\alpha - 1}e^{-x}\vert^{\infty}_{0} + \int^{\infty}_{0} (\alpha - 1)x^{\alpha - 2}e^{-x} dx $$
+- $$ \Gamma(\alpha) = -x^{\alpha - 1}e^{-x}\vert^{\infty}_{0} + \int^{\infty}_{0} (\alpha - 1)x^{\alpha - 2}e^{-x} dx $$
 
-$$ = (\alpha - 1)\Gamma(\alpha -1) $$
+- $$ = (\alpha - 1)\Gamma(\alpha -1) $$
 
 <br>
 
@@ -78,11 +78,11 @@ $$ = (\alpha - 1)\Gamma(\alpha -1) $$
 
 <br>
 
-$$ \Gamma(1) = \int_{0}^{\infty}e^{-x} dx = -e^{-x} \vert_{0}^{\infty} = 1 $$
+- $$ \Gamma(1) = \int_{0}^{\infty}e^{-x} dx = -e^{-x} \vert_{0}^{\infty} = 1 $$
 
 <br>
 
-$$ \Gamma(n) = (n - 1)\Gamma(n-1) = (n - 1)(n - 2)\Gamma(n-3) = (n - 1)(n - 2) ... (1)\Gamma(1) = (n - 1)! $$
+- $$ \Gamma(n) = (n - 1)\Gamma(n-1) = (n - 1)(n - 2)\Gamma(n-3) = (n - 1)(n - 2) ... (1)\Gamma(1) = (n - 1)! $$
 
 <br>
 
@@ -90,9 +90,9 @@ $$ \Gamma(n) = (n - 1)\Gamma(n-1) = (n - 1)(n - 2)\Gamma(n-3) = (n - 1)(n - 2) .
 
 <br>
 
-$$ \Gamma(\alpha) = \int_{0}^{\infty} t^{\alpha - 1} e^{-t} dt $$
+- $$ \Gamma(\alpha) = \int_{0}^{\infty} t^{\alpha - 1} e^{-t} dt $$
 
-$$ \Gamma(\frac{1}{2}) = \int_{0}^{\infty} t^{-\frac{1}{2}} e^{-t}dt $$
+- $$ \Gamma(\frac{1}{2}) = \int_{0}^{\infty} t^{-\frac{1}{2}} e^{-t}dt $$
 
 <br>
 
@@ -100,15 +100,15 @@ $$ \Gamma(\frac{1}{2}) = \int_{0}^{\infty} t^{-\frac{1}{2}} e^{-t}dt $$
 
 <br>
 
-$$ \Gamma(\frac{1}{2}) = 2 \int_{0}^{\infty} e^{-x^{2}} dx $$
+- $$ \Gamma(\frac{1}{2}) = 2 \int_{0}^{\infty} e^{-x^{2}} dx $$
 
-$$ \Gamma(\frac{1}{2})^{2} = 4 \int_{0}^{\infty} e^{-x^{2}} dx \int_{0}^{\infty} e^{-y^{2}} dy $$
+- $$ \Gamma(\frac{1}{2})^{2} = 4 \int_{0}^{\infty} e^{-x^{2}} dx \int_{0}^{\infty} e^{-y^{2}} dy $$
 
-$$ = 4\int_{0}^{\infty} \Bigl(\int_{0}^{\infty} e^{-x^{2}} \Bigr)dx \ e^{-y^{2}} dy $$
+- $$ = 4\int_{0}^{\infty} \Bigl(\int_{0}^{\infty} e^{-x^{2}} \Bigr)dx \ e^{-y^{2}} dy $$
 
-$$ = 4\int_{0}^{\infty}\int_{0}^{\infty} e^{-x^{2}}e^{-y^{2}}dx \ dy $$
+- $$ = 4\int_{0}^{\infty}\int_{0}^{\infty} e^{-x^{2}}e^{-y^{2}}dx \ dy $$
 
-$$ = 4\int_{0}^{\infty}\int_{0}^{\infty} e^{-(x^{2} + y^{2})} dx \ dy $$
+- $$ = 4\int_{0}^{\infty}\int_{0}^{\infty} e^{-(x^{2} + y^{2})} dx \ dy $$
 
 <br>
 
@@ -122,7 +122,7 @@ $$ = 4\int_{0}^{\infty}\int_{0}^{\infty} e^{-(x^{2} + y^{2})} dx \ dy $$
 
 <br>
 
-$$ \int\int\ f(x, y)\ dx\ dy = \int\int\ f(r\cos(\theta), r\sin(\theta))\ r\ dr \ d\theta $$
+- $$ \int\int\ f(x, y)\ dx\ dy = \int\int\ f(r\cos(\theta), r\sin(\theta))\ r\ dr \ d\theta $$
 
 <br>
 
@@ -130,9 +130,9 @@ $$ \int\int\ f(x, y)\ dx\ dy = \int\int\ f(r\cos(\theta), r\sin(\theta))\ r\ dr 
 
 <br>
 
-$$ x = r\cos\theta $$
+- $$ x = r\cos\theta $$
 
-$$ y = r\sin\theta $$
+- $$ y = r\sin\theta $$
 
 <br>
 
@@ -140,18 +140,18 @@ $$ y = r\sin\theta $$
 
 <br>
 
-$$ \begin{vmatrix} \frac{\partial(x, y)}{\partial(r, \theta)} \end{vmatrix} $$
+- $$ \begin{vmatrix} \frac{\partial(x, y)}{\partial(r, \theta)} \end{vmatrix} $$
 
-$$ = \begin{vmatrix} \cos\theta & -r\sin\theta \\ \sin\theta & r\cos\theta \end{vmatrix} $$
+- $$ = \begin{vmatrix} \cos\theta & -r\sin\theta \\ \sin\theta & r\cos\theta \end{vmatrix} $$
 
-$$ = r\cos^{2}\theta + r\sin^{2}\theta = r $$
+- $$ = r\cos^{2}\theta + r\sin^{2}\theta = r $$
 
 
 - 따라서 나머지 식을 전개하면 다음과 같이 정리됩니다.
 
 <br>
 
-$$ \Gamma(\frac{1}{2})^{2} = 4 \int_{0}^{\frac{\pi}{2}} \int_{0}^{\infty} e^{-r^{2}}r \ dr \ d\theta $$
+- $$ \Gamma(\frac{1}{2})^{2} = 4 \int_{0}^{\frac{\pi}{2}} \int_{0}^{\infty} e^{-r^{2}}r \ dr \ d\theta $$
 
 <br>
 
@@ -159,9 +159,9 @@ $$ \Gamma(\frac{1}{2})^{2} = 4 \int_{0}^{\frac{\pi}{2}} \int_{0}^{\infty} e^{-r^
 
 <br>
 
-$$ = 4 \int_{0}^{\infty} \Biggl( \int_{0}^{\frac{\pi}{2}}1 \ d\theta \Biggr) e^{-r^{2}}r \ dr  $$
+- $$ = 4 \int_{0}^{\infty} \Biggl( \int_{0}^{\frac{\pi}{2}}1 \ d\theta \Biggr) e^{-r^{2}}r \ dr  $$
 
-$$ = 4 \cdot \frac{\pi}{2} \int_{0}^{\infty} re^{-r^{2}}\ dr\ d\theta $$
+- $$ = 4 \cdot \frac{\pi}{2} \int_{0}^{\infty} re^{-r^{2}}\ dr\ d\theta $$
 
 <br>
 
@@ -169,13 +169,13 @@ $$ = 4 \cdot \frac{\pi}{2} \int_{0}^{\infty} re^{-r^{2}}\ dr\ d\theta $$
 
 <br>
 
-$$ = 4 \cdot \frac{\pi}{2} \int_{0}^{\infty} re^{-u}\ \frac{-1}{2r}du $$
+- $$ = 4 \cdot \frac{\pi}{2} \int_{0}^{\infty} re^{-u}\ \frac{-1}{2r}du $$
 
-$$ = 4 \cdot \frac{\pi}{2} \cdot (-\frac{1}{2}) \int_{0}^{\infty} e^{-u} du $$
+- $$ = 4 \cdot \frac{\pi}{2} \cdot (-\frac{1}{2}) \int_{0}^{\infty} e^{-u} du $$
 
-$$ = 4 \cdot \frac{\pi}{2} \cdot (-\frac{1}{2}) [ e^{-u} ]_{0}^{\infty} $$
+- $$ = 4 \cdot \frac{\pi}{2} \cdot (-\frac{1}{2}) [ e^{-u} ]_{0}^{\infty} $$
 
-$$ = \pi $$
+- $$ = \pi $$
 
 <br>
 
@@ -183,7 +183,7 @@ $$ = \pi $$
 
 <br>
 
-$$ \Gamma(\frac{1}{2}) = \sqrt{\pi} $$
+- $$ \Gamma(\frac{1}{2}) = \sqrt{\pi} $$
 
 <br>
 
@@ -200,9 +200,9 @@ $$ \Gamma(\frac{1}{2}) = \sqrt{\pi} $$
 
 <br>
 
-$$ f(x; \alpha, \beta) = \begin{cases} \frac{1}{\beta^{\alpha}\Gamma(\alpha)}x^{\alpha - 1}e^{-\frac{x}{\beta}}, & x > 0 \\ 0, & \text{else} \ x \end{cases} $$
+- $$ f(x; \alpha, \beta) = \begin{cases} \frac{1}{\beta^{\alpha}\Gamma(\alpha)}x^{\alpha - 1}e^{-\frac{x}{\beta}}, & x > 0 \\ 0, & \text{else} \ x \end{cases} $$
 
-$$ (\alpha > 0, \beta > 0) $$
+- $$ (\alpha > 0, \beta > 0) $$
 
 <br>
 
@@ -222,9 +222,9 @@ $$ (\alpha > 0, \beta > 0) $$
 
 <br>
 
-$$ f(x; \beta) = \begin{cases} \frac{1}{\beta}e^{-\frac{x}{\beta}}, & x > 0 \\ 0 & \text{else} \ x \end{cases} $$
+- $$ f(x; \beta) = \begin{cases} \frac{1}{\beta}e^{-\frac{x}{\beta}}, & x > 0 \\ 0 & \text{else} \ x \end{cases} $$
 
-$$ (\beta > 0) $$
+- $$ (\beta > 0) $$
 
 <br>
 
@@ -236,7 +236,7 @@ $$ (\beta > 0) $$
 
 <br>
 
-$$ \Gamma(\alpha) = \int_{0}^{\infty} t^{\alpha -1}e^{-t} dt $$ 
+- $$ \Gamma(\alpha) = \int_{0}^{\infty} t^{\alpha -1}e^{-t} dt $$ 
 
 <br>
 
@@ -244,7 +244,7 @@ $$ \Gamma(\alpha) = \int_{0}^{\infty} t^{\alpha -1}e^{-t} dt $$
 
 <br>
 
-$$ 1 = \int_{0}^{\infty} \frac{1}{\Gamma(\alpha)}t^{\alpha-1}e^{-t}dt $$
+- $$ 1 = \int_{0}^{\infty} \frac{1}{\Gamma(\alpha)}t^{\alpha-1}e^{-t}dt $$
 
 <br>
 
@@ -253,9 +253,9 @@ $$ 1 = \int_{0}^{\infty} \frac{1}{\Gamma(\alpha)}t^{\alpha-1}e^{-t}dt $$
 
 <br>
 
-$$ 1 = \int_{0}^{infty} \frac{1}{\Gamma(\alpha)}t^{\alpha-1}e^{-t}\ dt = \int_{0}^{\infty}\frac{1}{\Gamma(\alpha)} (\frac{x}{\beta})^{\alpha-1}e^{-\frac{x}{\beta}}\frac{1}{\beta} \ dx $$
+- $$ 1 = \int_{0}^{infty} \frac{1}{\Gamma(\alpha)}t^{\alpha-1}e^{-t}\ dt = \int_{0}^{\infty}\frac{1}{\Gamma(\alpha)} (\frac{x}{\beta})^{\alpha-1}e^{-\frac{x}{\beta}}\frac{1}{\beta} \ dx $$
 
-$$ = \int_{0}^{\infty} \frac{1}{\beta^{\alpha}\Gamma(\alpha)}x^{\alpha-1}e^{-\frac{x}{\beta}} \ dx  = \int_{0}^{\infty} f(x; \alpha, \beta) \ dx $$
+- $$ = \int_{0}^{\infty} \frac{1}{\beta^{\alpha}\Gamma(\alpha)}x^{\alpha-1}e^{-\frac{x}{\beta}} \ dx  = \int_{0}^{\infty} f(x; \alpha, \beta) \ dx $$
 
 <br>
 
@@ -267,9 +267,9 @@ $$ = \int_{0}^{\infty} \frac{1}{\beta^{\alpha}\Gamma(\alpha)}x^{\alpha-1}e^{-\fr
 
 <br>
 
-$$ \mu = \alpha\beta $$
+- $$ \mu = \alpha\beta $$
 
-$$ \sigma^{2} = \alpha\beta^{2} $$
+- $$ \sigma^{2} = \alpha\beta^{2} $$
 
 <br>
 
@@ -278,13 +278,13 @@ $$ \sigma^{2} = \alpha\beta^{2} $$
 
 <br>
 
-$$ \mu = E(X) = x\cdot f(x; \alpha, \beta) = \frac{1}{\beta^{\alpha}\Gamma(\alpha)} \int_{0}^{\infty} x^{\alpha}e^{-\frac{x}{\beta}} \ dx $$
+- $$ \mu = E(X) = x\cdot f(x; \alpha, \beta) = \frac{1}{\beta^{\alpha}\Gamma(\alpha)} \int_{0}^{\infty} x^{\alpha}e^{-\frac{x}{\beta}} \ dx $$
 
-$$ y = \frac{x}{\beta} \ \ \ \ \text{substitution : } \ \ x = \beta y, dx = \beta dy $$
+- $$ y = \frac{x}{\beta} \ \ \ \ \text{substitution : } \ \ x = \beta y, dx = \beta dy $$
 
-$$ \mu = \frac{\beta}{\Gamma(\alpha)} \int_{0}^{\infty} e^{-y} \ dy = \frac{\beta}{\Gamma(\alpha)}\Gamma(\alpha + 1) = \alpha\beta $$
+- $$ \mu = \frac{\beta}{\Gamma(\alpha)} \int_{0}^{\infty} e^{-y} \ dy = \frac{\beta}{\Gamma(\alpha)}\Gamma(\alpha + 1) = \alpha\beta $$
 
-$$ \because \ \Gamma(\alpha) = \int_{0}^{\infty}t^{\alpha-1}e^{-t} \ dt, \Gamma(\alpha) = (\alpha-1)\Gamma(\alpha-1) $$
+- $$ \because \ \Gamma(\alpha) = \int_{0}^{\infty}t^{\alpha-1}e^{-t} \ dt, \Gamma(\alpha) = (\alpha-1)\Gamma(\alpha-1) $$
 
 <br>
 
@@ -292,11 +292,11 @@ $$ \because \ \Gamma(\alpha) = \int_{0}^{\infty}t^{\alpha-1}e^{-t} \ dt, \Gamma(
 
 <br>
 
-$$ E(X^{2}) = \frac{1}{\beta^{\alpha}\Gamma(\alpha)} \int_{0}^{\infty} x^{\alpha+1}e^{-\frac{x}{\beta}} \ dx = \frac{\beta^{2}}{\Gamma(\alpha)} \int_{0}^{\infty} y^{\alpha+1}e^{-y} \ dy $$
+- $$ E(X^{2}) = \frac{1}{\beta^{\alpha}\Gamma(\alpha)} \int_{0}^{\infty} x^{\alpha+1}e^{-\frac{x}{\beta}} \ dx = \frac{\beta^{2}}{\Gamma(\alpha)} \int_{0}^{\infty} y^{\alpha+1}e^{-y} \ dy $$
 
-$$ \frac{\beta^{2}}{\Gamma(\alpha)}\Gamma(\alpha+2) = \frac{\beta^{2}}{\Gamma(\alpha)}\alpha(\alpha+1)\Gamma(\alpha) = \alpha(\alpha+1)\beta^{2} $$
+- $$ \frac{\beta^{2}}{\Gamma(\alpha)}\Gamma(\alpha+2) = \frac{\beta^{2}}{\Gamma(\alpha)}\alpha(\alpha+1)\Gamma(\alpha) = \alpha(\alpha+1)\beta^{2} $$
 
-$$ \sigma^{2} = E(X^{2}) - \mu^{2} = \alpha^{2}\beta^{2} + \alpha\beta^{2} - \alpha^{2}\beta^{2} = \alpha\beta^{2} $$
+- $$ \sigma^{2} = E(X^{2}) - \mu^{2} = \alpha^{2}\beta^{2} + \alpha\beta^{2} - \alpha^{2}\beta^{2} = \alpha\beta^{2} $$
 
 <br>
 
@@ -308,9 +308,9 @@ $$ \sigma^{2} = E(X^{2}) - \mu^{2} = \alpha^{2}\beta^{2} + \alpha\beta^{2} - \al
 
 <br>
 
-$$ \mu = \beta $$
+- $$ \mu = \beta $$
 
-$$ \sigma^{2} = \beta^{2} $$
+- $$ \sigma^{2} = \beta^{2} $$
 
 <br>
 
@@ -323,7 +323,7 @@ $$ \sigma^{2} = \beta^{2} $$
 
 <br>
 
-$$ p(x, \lambda t) = \frac{e^{\lambda t}(\lambda t)^{x}}{x!} \ \ \ \ (x = 0, 1, 2, ...) $$
+- $$ p(x, \lambda t) = \frac{e^{\lambda t}(\lambda t)^{x}}{x!} \ \ \ \ (x = 0, 1, 2, ...) $$
 
 <br>
 
@@ -331,7 +331,7 @@ $$ p(x, \lambda t) = \frac{e^{\lambda t}(\lambda t)^{x}}{x!} \ \ \ \ (x = 0, 1, 
 
 <br>
 
-$$ p(0; \lambda t) = \frac{e^{\lambda t}(\lambda t)^{0}}{0!} = e^{-\lambda t} $$
+- $$ p(0; \lambda t) = \frac{e^{\lambda t}(\lambda t)^{0}}{0!} = e^{-\lambda t} $$
 
 <br>
 
@@ -340,7 +340,7 @@ $$ p(0; \lambda t) = \frac{e^{\lambda t}(\lambda t)^{0}}{0!} = e^{-\lambda t} $$
 
 <br>
 
-$$ P(X > x) = e^{\lambda x} $$
+- $$ P(X > x) = e^{\lambda x} $$
 
 <br>
 
@@ -348,7 +348,7 @@ $$ P(X > x) = e^{\lambda x} $$
 
 <br>
 
-$$ P(0 \le X \le x) = 1 - e^{\lambda x} = \int_{0}^{x} f(t) \ dt $$
+- $$ P(0 \le X \le x) = 1 - e^{\lambda x} = \int_{0}^{x} f(t) \ dt $$
 
 <br>
 
