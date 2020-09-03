@@ -381,6 +381,43 @@ with open(filepath + '/' + filename, 'r') as file_read:
 
 <br>
 
+- 위 코드를 함수 형태로 다시 정의하면 다음과 같습니다. 각 행 별로 parsing한 결과를 리스트 형태로 저장합니다.
+
+<br>
+
+```python
+def FileToList(filepath, filename, sep=','):
+    # 텍스트 파일을 입력 받기 위한 stream을 open 합니다.
+    with open(filepath + '/' + filename, 'r') as file_read:
+        file_to_list = []
+        while (1):
+            # 텍스트에서 1줄을 읽습니다.
+            line = file_read.readline()
+            # 개행 문자를 찾고 그 인덱스를 저장합니다.
+            # 개행 문자가 가장 처음에 있으면 0이 저장됩니다.
+            try:
+                valid = line.index('\n')
+            # 개행 문자가 없으면 입력받은 텍스트의 길이를 저장합니다.
+            except:
+                valid = len(line)
+            # 만약 line이 없으면 valid == 0 또는 line은 있으나 개행문자만 있으면 valid == 0
+            # 만약 line은 있으나 개행문자가 없으면 valid > 0
+            # 만약 line이 있고 개행문자도 있으면 valid > 0
+            # 따라서 valid > 0 경우만 parsing 실행
+            if valid:
+                # parsing 구분자로 parsing 처리
+                line_to_list = line.split(sep)                
+                # 아래 parsing 처리한 리스트를 처리하는 코드 필요
+                ############## 코드 ##############
+                ############## 코드 ##############
+                file_to_list.append(line_to_list)
+            else:
+                break
+    return file_to_list
+```
+
+<br>
+
 ```python
 # 텍스트 파일을 출력 하기 위한 stream을 with를 통하여 open 합니다.
 with open(filepath + '/' + filename, 'r') as file_write:
