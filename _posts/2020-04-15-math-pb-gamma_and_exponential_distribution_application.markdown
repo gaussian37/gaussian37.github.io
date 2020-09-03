@@ -41,11 +41,11 @@ tags: [gamma distribution, exponential distribution, 감마분포, 지수분포 
 
 <br>
 
-$$ \text{Probability Density Function : } f(x; 10) = \frac{1}{10}e^{-\frac{1}{10}x} \ \ \ \ (x > 0) $$
+- $$ \text{Probability Density Function : } f(x; 10) = \frac{1}{10}e^{-\frac{1}{10}x} \ \ \ \ (x > 0) $$
 
 - $$ \text{No failure during 20 years : } P(X \ge 20) = \int_{20}^{\infty} f(x) dx =  \int_{20}^{\infty} \frac{1}{10}e^{-\frac{1}{10}x} dx = [ -e^{-\frac{1}{10}x} ]_{20}^{\infty} = e^{-2} \approx 0.1353 $$
 
-$$ \text{failure under 5 years : } P(X \ge 5) = \int_{0}^{5} f(x) dx =  \int_{0}^{5} \frac{1}{10}e^{-\frac{1}{10}x} dx = [ -e^{-\frac{1}{10}x}]_{0}^{5} = 1 - e^{-\frac{1}{2}} \approx 0.3935 $$
+- $$ \text{failure under 5 years : } P(X \ge 5) = \int_{0}^{5} f(x) dx =  \int_{0}^{5} \frac{1}{10}e^{-\frac{1}{10}x} dx = [ -e^{-\frac{1}{10}x}]_{0}^{5} = 1 - e^{-\frac{1}{2}} \approx 0.3935 $$
 
 <br>
 
@@ -57,13 +57,13 @@ $$ \text{failure under 5 years : } P(X \ge 5) = \int_{0}^{5} f(x) dx =  \int_{0}
 
 <br>
 
-$$ \text{PDF : } f(x) = \frac{1}{30}e^{-\frac{1}{30}x} $$
+- $$ \text{PDF : } f(x) = \frac{1}{30}e^{-\frac{1}{30}x} $$
 
-$$ P(X > 40) = \int_{40}^{\infty} \frac{1}{30}e^{-\frac{1}{30}x} dx = e^{-\frac{4}{3}} = 0.2636  $$
+- $$ P(X > 40) = \int_{40}^{\infty} \frac{1}{30}e^{-\frac{1}{30}x} dx = e^{-\frac{4}{3}} = 0.2636  $$
 
-$$ \mu = E[X] = \beta = 30 $$
+- $$ \mu = E[X] = \beta = 30 $$
 
-$$ \sigma^{2} = \beta^{2} = 900 $$
+- $$ \sigma^{2} = \beta^{2} = 900 $$
 
 <br>
 
@@ -75,7 +75,7 @@ $$ \sigma^{2} = \beta^{2} = 900 $$
 
 <br>
 
-$$ P(T > 8) = \int_{8}^{\infty} \frac{1}{5}e^{-\frac{1}{5}t} dt = e^{-\frac{8}{5}} \approx 0.2 $$
+- $$ P(T > 8) = \int_{8}^{\infty} \frac{1}{5}e^{-\frac{1}{5}t} dt = e^{-\frac{8}{5}} \approx 0.2 $$
 
 <br>
 
@@ -83,7 +83,7 @@ $$ P(T > 8) = \int_{8}^{\infty} \frac{1}{5}e^{-\frac{1}{5}t} dt = e^{-\frac{8}{5
 
 <br>
 
-$$ P(X \ge 2) = \sum_{x = 2}^{5} b(x; 5, 0.2) = 1 - \sum_{0}^{1}b(x; 5, 0.2) \approx 1 - 0.7373 = 0.2627 $$
+- $$ P(X \ge 2) = \sum_{x = 2}^{5} b(x; 5, 0.2) = 1 - \sum_{0}^{1}b(x; 5, 0.2) \approx 1 - 0.7373 = 0.2627 $$
 
 <br>
 
@@ -107,7 +107,7 @@ $$ P(X \ge 2) = \sum_{x = 2}^{5} b(x; 5, 0.2) = 1 - \sum_{0}^{1}b(x; 5, 0.2) \ap
 
 <br>
 
-$$ P(X \le 1) = \int_{0}^{1} \frac{1}{\beta^{2}\Gamma(2)}x e^{-\frac{x}{\beta}} dx = 25 \int_{0}^{1}x e^{-5x} = 1 - e^{-5}(1 + 5) = 0.96 $$
+- $$ P(X \le 1) = \int_{0}^{1} \frac{1}{\beta^{2}\Gamma(2)}x e^{-\frac{x}{\beta}} dx = 25 \int_{0}^{1}x e^{-5x} = 1 - e^{-5}(1 + 5) = 0.96 $$
 
 <br>
 
@@ -119,7 +119,7 @@ $$ P(X \le 1) = \int_{0}^{1} \frac{1}{\beta^{2}\Gamma(2)}x e^{-\frac{x}{\beta}} 
 
 <br>
 
-$$ P(X \le 60) = \frac{1}{\beta^{5}} \int_{0}^{60} \frac{x^{\alpha-1}e^{-\frac{x}{\beta}}}{\Gamma(\alpha)}\ dx $$
+- $$ P(X \le 60) = \frac{1}{\beta^{5}} \int_{0}^{60} \frac{x^{\alpha-1}e^{-\frac{x}{\beta}}}{\Gamma(\alpha)}\ dx $$
 
 <br>
 
@@ -127,7 +127,7 @@ $$ P(X \le 60) = \frac{1}{\beta^{5}} \int_{0}^{60} \frac{x^{\alpha-1}e^{-\frac{x
 
 <br>
 
-$$ y = \frac{x}{\beta} \ \to \ x = \beta y \ \therefore \ dx = \beta dy $$
+- $$ y = \frac{x}{\beta} \ \to \ x = \beta y \ \therefore \ dx = \beta dy $$
 
 <br>
 
