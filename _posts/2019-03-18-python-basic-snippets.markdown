@@ -53,6 +53,8 @@ tags: [python, python 기본] # add tag
 - ### enumerate 함수의 응용
 - ### counting 방법
 - ### 디렉토리 상위 레벨 패키지 import
+- ### 리스트를 딕셔너리로 변환
+- ### 유니크한 리스트 생성 방법
 
 <br>
 
@@ -1644,6 +1646,67 @@ current_file_path = os.path.abspath(__file__)
 import os
 current_file_path = os.path.abspath(__file__)
 current_dir = os.path.dirname(current_file_path)
+```
+
+<br>
+
+## **리스트를 딕셔너리로 변환**
+
+<br>
+
+- 리스트를 딕셔너리로 변환할 때, 단순히 반복문을 이용하여 저장하는 것 외에도 파이썬 문법을 응용하여 편하게 변환할 수 있습니다.
+- 먼저 리스트의 각 값을 key, 입력된 순서를 value로 딕셔너리를 구성해 보겠습니다.
+
+<br>
+
+```python
+A = ["a", "b", "c", "d"]
+A_dict = {A[i] : i for i in range(len(A))}
+# {'a': 0, 'b': 1, 'c': 2, 'd': 3}
+```
+
+<br>
+
+- 만약 Key, Value 쌍이 있는 리스트가 있다면 다음과 같이 간단하게 만들 수 있습니다.
+
+<br>
+
+```python
+A = ["a", "b", "c", "d"]
+B = [1,2,3,4]
+AB_dict = dict(zip(A, B))
+# {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+```
+
+<br>
+
+- 아래 코드의 list_of_tuple 또는 list_of_list와 같은 형태의 데이터가 있으면 바로 딕셔너리로 변환 가능합니다.
+
+<br>
+
+```python
+list_of_tuple = [("A", 1), ("B", 2), ("C", 3), ("D", 4)]
+list_of_list = [["A", 1], ["B", 2], ["C", 3], ["D", 4]]
+dict_tuple = dict(list_of_tuple)
+# {'A': 1, 'B': 2, 'C': 3, 'D': 4}
+dict_list = dict(list_of_list)
+# {'A': 1, 'B': 2, 'C': 3, 'D': 4}
+```
+
+<br>
+
+## **유니크한 리스트 생성 방법**
+
+<br>
+
+- 파이썬 기본 패키지에는 유니크 함수가 없습니다. 따라서 리스트에서 중복값을 제거 하려면 `set`을 사용해서 중복값을 제외하면 간단하게 구현할 수 있습니다.
+
+<br>
+
+```python
+a = [1,1,2,2,3,3,4,4,5,5]
+a_unique = list(set(a))
+# a = [1,2,3,4,5]
 ```
 
 <br>
