@@ -53,7 +53,7 @@ cv2.resizeWindow("image", win_width, win_height)
 
 <br>
 
-$$ g(i,j) = \alpha \cdot f(i,j) + \beta $$
+- $$ g(i,j) = \alpha \cdot f(i,j) + \beta $$
 
 <br>
 
