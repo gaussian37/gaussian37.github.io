@@ -19,7 +19,8 @@ tags: [vision, deep learning, segmentation] # add tag
 
 <br>
 
-- [고전적인 Segmentation 방법들]()
+- [Segmentation에 대한 소개]()
+- [mIoU(Mean Intersection over Union)](https://gaussian37.github.io/vision-segmentation-miou/)
 - [Convolutional and Deconvolutional Network]()
 - [Fully Convolutional Networks for Semantic Segmentation](https://gaussian37.github.io/vision-segmentation-fcn/)
 - [SPPNet]()
