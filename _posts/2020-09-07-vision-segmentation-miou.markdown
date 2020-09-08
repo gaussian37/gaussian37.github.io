@@ -144,6 +144,7 @@ tags: [vision, deep learning, segmentation, miou, mean intersection over union] 
 <br>
 
 - 클래스 별 IoU 계산 결과를 평균을 내면 `mIoU`를 구할 수 있습니다.
+- 위 예제를 기준으로 `mIoU`는 $$ (0.8333 + 0.5 + 1 + 1 + 0.6667 + 1) / 6 = 0.8333 $$이 됩니다.
 - 계산을 할 때, 한번도 발생하지 않은 케이스는 Union이 0이기 때문에 무한대로 발산할 수 있습니다. 이 값을 `Nan`값으로 처리를 하고 `Nan` 값은 평균 계산 시 제외하도록 해야 합니다. 이 방법을 통해 안전하게 mIoU를 구할 수 있습니다.
 
 <br>
