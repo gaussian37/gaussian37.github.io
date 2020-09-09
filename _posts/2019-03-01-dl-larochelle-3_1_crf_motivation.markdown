@@ -2,14 +2,14 @@
 layout: post
 title:  3.1. Conditional random fields - motivation
 date: 2000-01-01 00:00:00
-img: dl/larochelle/table/0.png
+img: dl/larochelle/3.1/0.png
 categories: [dl-larochelle] 
 tags: [hugo larochelle, deep learning] # add tag
 ---
 
 <br>
 
-[Hugo Larochelle의 딥러닝 강의 목록]()
+[Hugo Larochelle의 딥러닝 강의 목록](https://gaussian37.github.io/dl-larochelle-table/)
 
 <br>
 
@@ -58,3 +58,9 @@ tags: [hugo larochelle, deep learning] # add tag
 
 - 앞에서 다룬 슬라이드를 최종 정리하면서 간단하게 표현하였습니다.
 - 지금까지 다룬 내용이 앞으로 다룰 conditional random field의 기본 컨셉이며 다음 글에서는 Linear Chain CRF에 대하여 다루어 보도록 하겠습니다.
+
+<br>
+
+[Hugo Larochelle의 딥러닝 강의 목록](https://gaussian37.github.io/dl-larochelle-table/)
+
+<br>
