@@ -80,6 +80,7 @@ tags: [table] # add tag
 - [Deep Learning Concept](https://gaussian37.github.io/dl-concept-table/)
 - [Pytorch](https://gaussian37.github.io/dl-pytorch-table/)
 - [Deeplearning.ai](https://gaussian37.github.io/dl-dlai-table/)
+- [Hugo Larochelle의 딥러닝 강의](https://gaussian37.github.io/dl-larochelle-table/)
 
 <br>
 
