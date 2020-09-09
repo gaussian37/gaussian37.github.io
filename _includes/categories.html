@@ -43,7 +43,7 @@
             </li>
 
             <li class="nav-item dropdown
-            {% if page.url == '/ml/la/' or page.url == '/ml/prml/' or page.url == '/ml/sklearn/' or page.url == '/ml/concept/' or page.url == '/ml/question/ or page.url == '/ml/etc/'%} active {% endif %}">
+            {% if page.url == '/ml/la/' or page.url == '/ml/prml/' or page.url == '/ml/sklearn/' or page.url == '/ml/concept/' or  page.url == '/ml/pgm/ or page.url == '/ml/question/ or page.url == '/ml/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('ml-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -54,6 +54,7 @@
                     <a class="dropdown-item" href="{{ "/ml/sklearn" | prepend: site.baseurl }}">Scikit Learn</a>
                     <a class="dropdown-item" href="{{ "/ml/prml" | prepend: site.baseurl }}">P.R.M.L</a>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ "/ml/pgm" | prepend: site.baseurl }}">Probabilistic Graphical Models</a>
                     <a class="dropdown-item" href="{{ "/ml/question" | prepend: site.baseurl }}">Question</a>
                     <a class="dropdown-item" href="{{ "/ml/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
