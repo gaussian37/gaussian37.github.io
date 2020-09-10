@@ -26,6 +26,7 @@ tags: [python, python 기본] # add tag
 <br>
 
 - ### **--- 자주사용하는 함수 ---**
+- ### 기본 자료 구조의 사용법
 - ### 다양한 sort 방법
 - ### comparator를 이용한 클래스 정렬
 - ### all과 any
@@ -211,6 +212,54 @@ a = [1,2,3]
 1 in set(a)
 # True
 ```
+
+<br>
+
+## **기본 자료 구조의 사용법**
+
+<br>
+
+- 먼저 **list**에서 사용되는 주요 기능을 살펴보면 다음과 같습니다.
+- `.append(obj)` : obj를 끝에 추가합니다.
+- `.extend([obj1, ..., obj2])` : 리스트를 입력 받으며 입력 받은 리스트 원소들을 끝에 붙입니다.
+- `.index(obj)` : obj의 인덱스를 찾습니다. 앞에서 부터 차례대로 찾으므로 중복된 obj 값이 있으면 가장 앞쪽의 obj 인덱스를 찾습니다. 
+- `.sort()` : 리스트를 정렬합니다.
+
+<br>
+
+- **tuple**은 list와 유사하며 차이점은 list는 원소를 변경할 수 있는 반면 tuple은 변경이 불가능 하다는 점입니다.
+- tuple 사용 시 주의할 만한 점은 원소가 1개인 튜플을 생성할 때에는 컴마를 붙여줘야 한다는 점입니다.
+- 예를 들어 `(3)`은 int형인 반면 `(3,)`은 tuple 형입니다.
+
+<br>
+
+- **문자열**에서 사용되는 주요 기능을 살펴보면 다음과 같습니다.
+- `.find(str)` : str이 발견되는 인덱스를 반환합니다.
+- `.replace(str1, str2)` : str1을 str2로 대체합니다.
+- `.count(str)` : str이 발견되는 횟수를 반환합니다.
+- `.split(str)` : str을 기준으로 문자열을 자르고 잘린 부분들을 리스트로 만듭니다.
+- `.strip()`, `.strip(str)` : 양 쪽 끝의 공백 문자를 제거합니다. 만약 어떤 문자열 str이 입력되면 그 문자열을 양쪽 끝에서 제거합니다.
+    - 이와 유사하게 `.lstrip()`, `.rstrip()`도 사용가능합니다.
+- `"str".join([str1, str2, ...])` : str1 + str + str2 + ... 형태로 이어줍니다.
+- `+` : 문자열들을 이어 붙입니다. (concatenation)
+- `* `: 문자열을 반복해서 이어 붙입니다.
+- `format` 문법 : 
+
+<br>
+
+```python
+'{0} is an {1}'.format('dog', 'animal')
+'{name} is an {type}'.format(name='dog', type='animal')
+```
+
+<br>
+
+- **set**에서 사용하는 주요 기능은 다음과 같습니다.
+- `.intersection(set1)` : set1과 현재 기준 set의 교집합을 반환합니다.
+- `.difference(set1)` : set에서 set1을 뺀 차집합을 반환합니다.
+- `.union(set1)` : set과 set1의 합집합을 반환합니다.
+- `.issubset(set1)` : set1이 set의 부분 집합인 지 반환합니다.
+- `.update(set1)` : set1을 set에 업데이트 시킵니다.
 
 <br>
 
