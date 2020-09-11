@@ -20,7 +20,7 @@ tags: [python, 세팅, 설치] # add tag
 
 - ### 가상 환경 세팅
 - ### reqirement 파일 생성
-- ### 내가 사용하는 라이브러리들
+- ### python2, python3 구분하여 설치
 
 <br>
 
@@ -113,17 +113,18 @@ argparse==1.2.1
 
 <br>
 
-## **내가 사용하는 라이브러리들**
+## python2, python3 구분하여 설치
 
 <br>
 
-- **영상 처리 용도의 가상 환경 라이브러리**
-- 설치 파일 간의 dependency가 있기 때문에 아래 순서로 설치하길 추천 드립니다.
+- 리눅스 환경에서는 기본적으로 파이썬2와 파이썬3가 동시에 설치되어 있기 때문에 `pip`를 통한 패키지 설치 시 구분하여 설치해야 하는 경우가 있습니다.
+- 그런 경우 아래와 같이 구분하여 설치할 수 있습니다. 아래 예제는 `ipython`을 설치하는 예시입니다.
 
-```
-cmake
-opencv-python
-dlib
-pyqt5
+<br>
+
+```python
+python2 -m pip install ipython
+python3 -m pip install ipython
 ```
 
+<br>
