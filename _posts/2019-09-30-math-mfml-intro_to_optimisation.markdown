@@ -390,7 +390,7 @@ optimize.newton(f, x0)
 
 <br>
 
-- $$ \nabla \mathcal L (x, y, \lambda) = \begin{bmatrix} \frac{\partial f}{\partial x} - \lambda \frac{\partial g}{\partial x} \\ \frac{\partial f}{\partial y} - \lambda \frac{\partial g}{\partial y} \\ -g(X) \end{bmatrix} = 0
+- $$ \nabla \mathcal L (x, y, \lambda) = \begin{bmatrix} \frac{\partial f}{\partial x} - \lambda \frac{\partial g}{\partial x} \\ \frac{\partial f}{\partial y} - \lambda \frac{\partial g}{\partial y} \\ -g(X) \end{bmatrix} = 0 $$
 
 <br>
 
