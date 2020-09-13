@@ -159,7 +159,7 @@ img_rotate_180 = cv2.rotate(img, cv2.ROTATE_180)
 
 <br>
 
-## **## gif 만들기 with imageio**
+## **gif 만들기 with imageio**
 
 <br>
 
