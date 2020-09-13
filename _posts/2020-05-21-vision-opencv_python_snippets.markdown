@@ -22,7 +22,7 @@ tags: [opencv, python, snippets] # add tag
 - ### 이미지 붙이기(hconcat, vconcat)
 - ### OpenCV 한글 쓰기
 - ### 90도 이미지 회전
-- ### gif 만들기
+- ### gif 만들기 with imageio
 
 <br>
 
@@ -159,11 +159,25 @@ img_rotate_180 = cv2.rotate(img, cv2.ROTATE_180)
 
 <br>
 
-## **gif 만들기**
+## **## gif 만들기 with imageio**
 
 <br>
 
-- 이미지를 이용하여 GIF를 만드는 
+- 이미지를 이용하여 GIF를 만들 때에는 `imageio`라는 패키지를 이용하면 쉽게 만들 수 있습니다.
+- 설치 : `pip install imageio`
+- `imageio.mimsave()` 함수를 통하여 gif 형태로 저장할 수 있습니다. 기본적으로 파일 경로와 gif로 만들 이미지 리스트를 파라미터로 받습니다.
+- 프레임 간 간격은 `duration`이란 옵션을 추가적으로 적용하여 간격 조정을 할 수 있습니다.
+
+<br>
+
+```python
+import imageio
+images = []
+for filename in filenames:
+    images.append(imageio.imread(filename))
+imageio.mimsave('/path/to/movie.gif', images)
+# imageio.mimsave('/path/to/movie.gif', images, duration=0.1)
+```
 
 <br>
 
