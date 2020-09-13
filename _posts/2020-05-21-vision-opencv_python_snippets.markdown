@@ -21,6 +21,8 @@ tags: [opencv, python, snippets] # add tag
 - ### contrast와 brightness 변경 방법
 - ### 이미지 붙이기(hconcat, vconcat)
 - ### OpenCV 한글 쓰기
+- ### 90도 이미지 회전
+- ### gif 만들기
 
 <br>
 
@@ -129,6 +131,39 @@ cv2.imshow("img", img)
 cv2.waitKey()
 cv2.destroyAllWindows()
 ```
+
+<br>
+
+## **90도 이미지 회전**
+
+<br>
+
+- 파이썬에서 이미지를 90도 회전하는 방법은 opencv를 이용하는 방법과 numpy를 이용하는 방법이 있습니다.
+- 이 글에서는 opencv를 이용하는 방법에 대하여 간략하게 설명하겠습니다.
+- 사용하는 함수는 `cv2.rotate()` 함수이며 사용 방법은 `target_image = cv2.rotate(src_image, 옵션)`로 사용합니다.
+- 사용 가능한 옵션은 다음과 같습니다.
+    - `cv2.ROTATE_90_CLOCKWISE` : 90도 시계 방향 회전
+    - `cv2.ROTATE_90_COUNTERCLOCKWISE` : 90도 반시계 방향 회전
+    - `cv2.ROTATE_180` : 180도 회전
+<br>
+
+```python
+import cv2
+
+img = cv2.imread('data/src/lena.jpg')
+
+img_rotate_90_clockwise = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
+img_rotate_90_counterclockwise = cv2.rotate(img, cv2.ROTATE_90_COUNTERCLOCKWISE)
+img_rotate_180 = cv2.rotate(img, cv2.ROTATE_180)
+```
+
+<br>
+
+## **gif 만들기**
+
+<br>
+
+- 이미지를 이용하여 GIF를 만드는 
 
 <br>
 
