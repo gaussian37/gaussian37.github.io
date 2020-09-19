@@ -18,6 +18,20 @@ tags: [통계학, 산술 평균, 기하 평균, 조화 평균] # add tag
 
 <br>
 
+## **목차**
+
+<br>
+
+- ### 산술 평균 (arithmetic mean)
+- ### 기하 평균 (geometric mean)
+- ### 조화 평균 (harmonic mean)
+
+<br>
+
+## **산술 평균 (arithmetic mean)**
+
+<br>
+
 - 먼저 가장 간단한 `산술 평균 (arithmetic mean)`은 단순히 모든 수를 더한 다음에 더한 수의 갯수 만큼 나누는 과정입니다. 
 - 산술 평균이 잘 작용하려면 평균을 구하려는 데이터 셋의 분포가 선형적이어야 합니다.
 
@@ -35,6 +49,10 @@ tags: [통계학, 산술 평균, 기하 평균, 조화 평균] # add tag
 
 - 위 데이터셋은 선형적이기 떄문에 산술 평균인 10이 평균을 잘 표현합니다.
 - 따라서 산술 평균은 **선형적 또는 등차 관계에 가까운 데이터 셋**에서 잘 작동합니다.
+
+<br>
+
+## **기하 평균 (geometric mean)**
 
 <br>
 <center><img src="../assets/img/math/pb/averages/2.png" alt="Drawing" style="width: 400px;"/></center>
@@ -66,7 +84,11 @@ tags: [통계학, 산술 평균, 기하 평균, 조화 평균] # add tag
 
 <br>
 
+## **조화 평균 (harmonic mean)**
 
+<br>
+
+- 
 
 <br>
 
