@@ -75,6 +75,7 @@ tags: [python, python 기본] # add tag
 - ### 숫자 형태의 list를 특정 문자로 구분하여 문자열로 변환
 - ### List를 group 단위로 나누기
 - ### 현재 실행 중인 파이썬 파일의 경로 확인 (__file__)
+- ### 폴더의 하위 전체 구조 및 파일 모두 복사
 
 <br>
 
@@ -1756,6 +1757,29 @@ dict_list = dict(list_of_list)
 a = [1,1,2,2,3,3,4,4,5,5]
 a_unique = list(set(a))
 # a = [1,2,3,4,5]
+```
+
+<br>
+
+## **폴더의 하위 전체 구조 및 파일 모두 복사**
+
+<br>
+
+- 폴더의 하위 전체 구조를 복사하기 위해서는 `shutil.copytree(src, dst)`를 사용하면 됩니다. 만약 기존에 경로가 존재한다면 복사가 안되므로 경로 체크를 한 뒤 기존에 경로가 있으면 삭제 하고 복사하는 방법을 추천드립니다. 방법은 다음과 같습니다.
+
+<br>
+
+```python
+import os
+import shutil
+
+src = "path/to/the/src"
+dst = "path/to/the/dst"
+
+if os.path.isdir(dst):
+    shutil.rmtree(dst)
+
+shutil.copytree(src, dst)
 ```
 
 <br>
