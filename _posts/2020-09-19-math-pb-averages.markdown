@@ -22,7 +22,7 @@ tags: [통계학, 산술 평균, 기하 평균, 조화 평균] # add tag
 
 <br>
 
-[산술 평균 (arithmetic mean)](#산술-평균-arithmetic-mean-1)
+- ### [산술 평균 (arithmetic mean)](#산술-평균-arithmetic-mean-1)
 - ### [기하 평균 (geometric mean)](#기하-평균-geometric-mean-1)
 - ### [조화 평균 (harmonic mean)](#조화-평균-harmonic-mean-1)
 
