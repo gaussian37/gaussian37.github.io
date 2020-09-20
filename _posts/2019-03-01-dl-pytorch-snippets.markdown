@@ -24,6 +24,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### pytorch import 모음
 - ### pytorch 셋팅 관련 코드
 - ### GPU 셋팅 관련 코드
+- ### dataloader의 pin_memory
 
 <br>
 
@@ -39,7 +40,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### shape 변경을 위한 transpose
 - ### nn.Dropout vs. F.dropout
 - ### nn.AvgPool2d vs. nn.AdaptiveAvgPool2d
-- ### Adam을 이용한 optimizer.state_dict() 저장 결과
+- ### optimizer.state_dict() 저장 결과
 
 <br>
 
@@ -91,7 +92,7 @@ torch.cuda.manual_seed(seed)
 
 <br>
 
-## **GPU/CPU Device 세팅 코드**
+## **GPU 셋팅 관련 코드**
 
 <br>
 
@@ -121,6 +122,27 @@ cudnn.benchmark = True
 <br>
 
 - 위 코드와 같이 device의 유형을 선택하면 GPU가 존재하면 `cuda:0`에 할당되고 GPU가 없으면 `cpu`에 할당 되도록 할 수 있습니다.
+
+<br>
+
+## **dataloader의 pin_memory**
+
+<br>
+
+- `torch.utils.data.DataLoader()`를 사용할 때, 옵션으로 `pin_memory = True` 라는 것이 있습니다. 이 옵션의 의미에 대하여 알아보도록 하겠습니다.
+- `pin_memory = True`로 설정하면 학습 중에 CPU가 데이터를 GPU로 전달하는 속도를 향상시킵니다. 따라서 **이 옵션은 GPU를 사용하여 학습할 때에는 항상 사용**한다고 보셔도 됩니다.
+- `pin_memory` 관련 내용은 NVIDIA의 `CUDA`와 연관되어 있습니다. 전체 내용은 아래 링크를 통해 확인하면 되고 링크의 내용에서도 `pinned memory` 방식으로 사용하면 GPU 학습 시 더 큰 bandwidth를 사용할 수 있다고 설명합니다.
+- 링크 : https://developer.nvidia.com/blog/how-optimize-data-transfers-cuda-cc/
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/7.png" alt="Drawing" style="height: 400px;"/></center>
+<br>
+
+- 위 그림에서 `Host`는 CPU이고 `Device`는 GPU입니다. 즉, 데이터 torch.utils.data.DataLoader를 통하여 Host에서 Device로 데이터를 불러옵니다. 일반적인 방식은 CPU에서 [페이징](https://ko.wikipedia.org/wiki/%ED%8E%98%EC%9D%B4%EC%A7%95)기법을 통해 pageable memory를 관리하는데 이는 가상 메모리를 관리하는 블록입니다. 이 가상 메모리는 실제 메모리 블록에 대응이 되도록 되어 있습니다.
+- 따라서 CPU → GPU로 데이터를 전달하기 위해서는 ① pageable memory에서 전달할 데이터들의 위치를 읽고, ② 전달할 데이터를 pinned memory에 모아서 복사한 다음에 ③ pinned moemry 영역에 있는 데이터를 GPU로 전달합니다.
+- `pin_memory = True` 옵션은 ① → ②의 과정을 줄여서 GPU 학습 시 효율적으로 CPU → GPU로 데이터를 전달합니다. 즉, pageable memory에서 전달할 데이터들을 확인한 다음 pinned memory 영역에 옮기지 않고 CPU 메모리 영역에 GPU로 옮길 데이터들을 바로 저장하는 방식입니다. 따라서 DataLoader는 추가 연산 없이 이 영역에 있는 데이터들을 GPU로 바로 옮길 수 있습니다.
+- 이 연산 과정을 이해한다면 CPU만을 이용하여 학습을 하는 경우 이 옵션을 사용할 필요가 없다는 것을 아실 수 있습니다.
+- 다시 정리하면 `GPU`를 이용할 때에는 `torch.utils.data.DataLodaer(pin_memory = True)`를 사용하면 됩니다.
 
 <br>
 
@@ -1515,7 +1537,7 @@ B = A.clone().detach()
 
 <br>
 
-## **Adam을 이용한 optimizer.state_dict() 저장 결과**
+## **optimizer.state_dict() 저장 결과**
 
 <br>
 
