@@ -63,8 +63,7 @@ tags: [python, machine learning, ml] # add tag
 
 <br>
 
+- [Luis Serrano의 HMM(Hidden Markov Model) 강의]()
 - [Luis Serrano의 PCA(Principal Component Analysis) 강의]()
 - [Luis Serrano의 SVM(Support Vector Machine) 강의]()
-- [Luis Serrano의 ROC Curve 강의]()
-- [Luis Serrano의 HMM(Hidden Markov Model) 강의]()
 - [Luis Serrano의 HMM(Hidden Markov Model) 강의]()
