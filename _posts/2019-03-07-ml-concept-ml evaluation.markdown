@@ -18,14 +18,16 @@ tags: [ml, machine learning, 평가 지표, evaluation] # add tag
 
 <br>
 
-- ### Confusion Matrix (혼합 행렬)
-- ### Accuracy
-- ### Precision
-- ### Recall
-- ### Precision-Recall 그래프
-- ### Average Precision (AP)
-- ### F1 Score
-- ### ROC와 AUC
+- ### [Confusion Matrix (혼합 행렬)](#confusion-matrix-혼합-행렬-1)
+- ### [Accuracy](#accuracy-1)
+- ### [Precision](#precision-1)
+- ### [Recall](#recall-1)
+- ### [Precision-Recall 그래프](#precision-recall-그래프-1)
+- ### [Average Precision (AP)](#average-precision-ap-1)
+- ### [F1 Score](#f1-score-1)
+- ### [ROC와 AUC](#roc와-auc-1)
+
+<br>
 
 이번 글에서는 머신러닝에서 사용되는 대표적인 평가 지표에 대하여 알아보도록 하겠습니다.
 
