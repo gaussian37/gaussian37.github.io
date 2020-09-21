@@ -21,15 +21,15 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 <br>
 
 - ### **--- 셋팅 관련 ---**
-- ### pytorch import 모음
-- ### pytorch 셋팅 관련 코드
-- ### GPU 셋팅 관련 코드
-- ### dataloader의 pin_memory
+- ### [pytorch import 모음](#pytorch-import-모음-1)
+- ### [pytorch 셋팅 관련 코드](#pytorch-셋팅-관련-코드-1)
+- ### [GPU 셋팅 관련 코드](#gpu-셋팅-관련-코드-1)
+- ### [dataloader의 pin_memory](#dataloader의-pin_memory-1)
 
 <br>
 
 - ### **--- 자주사용하는 함수 ---**
-- ### torch.argmx(input, dim, keepdim)
+- ### [torch.argmx(input, dim, keepdim)](#torchargmxinput-dim-keepdim-1)
 - ### Numpy → Tensor : torch.from_numpy(numpy.ndarray)
 - ### Tensor → Numpy
 - ### torch.unsqueeze(input, dim)
@@ -320,13 +320,13 @@ tensor([[0],
 - 위의 1번 예제에 해당하는 그림입니다. 매트릭스에서 0번째 축은 세로(height)축입니다. 따라서 각 열에서 세로 방향으로 최대값이 선택됩니다.
 
 <br>
-<center><img src="../assets/img/dl/pytorch/snippets/3.png" alt="Drawing" style="height: 400px;"/></center>
+<center><img src="../assets/img/dl/pytorch/snippets/3.png" alt="Drawing" style="height: 300px;"/></center>
 <br>
 
 - 다음으로 2번 예제에 해당하는 그림입니다. 매트릭스에서 1번째 축은 가로(width)축입니다. 따라서 각 행에서 가로 방향으로 최댁밧이 선택됩니다.
 
 <br>
-<center><img src="../assets/img/dl/pytorch/snippets/4.png" alt="Drawing" style="height: 400px;"/></center>
+<center><img src="../assets/img/dl/pytorch/snippets/4.png" alt="Drawing" style="height: 200px;"/></center>
 <br>
 
 ## **Numpy → Tensor : torch.from_numpy(numpy.ndarray)**
