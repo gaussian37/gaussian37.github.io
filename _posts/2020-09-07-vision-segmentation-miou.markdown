@@ -22,12 +22,12 @@ tags: [vision, deep learning, segmentation, miou, mean intersection over union] 
 <br>
 
 - ### 세그멘테이션 데이터
-- ### 1. 각 클래스 별 빈도수 카운트
-- ### 2. 행렬을 벡터로 변환
-- ### 3. 카테고리 행렬 생성
-- ### 4. confusion matrix 생성
-- ### 5. 클래스 별 IoU 계산
-- ### 6. mIoU 계산
+- ### [1. 각 클래스 별 빈도수 카운트](#1-각-클래스-별-빈도수-카운트-1)
+- ### [2. 행렬을 벡터로 변환](#2-행렬을-벡터로-변환-1)
+- ### [3. 카테고리 행렬 생성](#3-카테고리-행렬-생성-1)
+- ### [4. confusion matrix 생성](#4-confusion-matrix-생성-1)
+- ### [5. 클래스 별 IoU 계산](#5-클래스-별-iou-계산-1)
+- ### [6. mIoU 계산](#6-miou-계산-1)
 
 <br>
 
