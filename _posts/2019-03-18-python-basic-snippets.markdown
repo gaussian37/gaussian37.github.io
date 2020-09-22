@@ -1807,3 +1807,18 @@ sys.path.append(path)
 
 <br>
 
+- 일반적으로 코드의 시작부에 필요한 패키지들을 입력해 놓지만 경우에 따라서는 입력 받은 문자열을 이용하여 유동적으로 패키지를 import 해야할 경우가 있습니다.
+- 예를 들어 numpy를 import할 때 단순히 `import numpy as np`와 같이 입력하지만 `numpy`라는 문자열을 입력받아서 패키지를 import 하고 `np`라는 변수로 받고 싶을 때 다음과 같이 사용할 수 있습니다.
+
+<br>
+
+```python
+import importlib
+np = importlib.import_module('numpy')
+```
+
+<br>
+
+- 위 코드와 같이 `np`를 리턴 받으면 일반적으로 사용하는 `np.함수()`와 같은 형태로 사용 가능합니다.
+
+<br>
