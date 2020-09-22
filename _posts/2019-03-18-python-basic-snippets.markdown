@@ -56,6 +56,7 @@ tags: [python, python 기본] # add tag
 - ### 디렉토리 상위 레벨 패키지 import
 - ### 리스트를 딕셔너리로 변환
 - ### 유니크한 리스트 생성 방법
+- ### 파이썬 실행 경로 추가
 
 <br>
 
@@ -1780,6 +1781,23 @@ if os.path.isdir(dst):
     shutil.rmtree(dst)
 
 shutil.copytree(src, dst)
+```
+
+<br>
+
+## **파이썬 실행 경로 추가**
+
+<br>
+
+- 파이썬에서 어떤 임의의 특정 경로를 코드 상에서 사용할 수 있도록 하고 싶으면 `sys.path.append()`를 통하여 경로를 추가할 수 있습니다.
+- 추가된 경로의 어떤 파일이나 파이썬 패키지등을 바로 접근할 수 있으므로 상당히 편한 방법입니다. 사용법은 다음과 같습니다.
+
+<br>
+
+```python
+import sys
+path = "path/to/the/file"
+sys.path.append(path)
 ```
 
 <br>
