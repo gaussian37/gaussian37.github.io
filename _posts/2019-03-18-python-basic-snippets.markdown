@@ -78,6 +78,7 @@ tags: [python, python 기본] # add tag
 - ### List를 group 단위로 나누기
 - ### 현재 실행 중인 파이썬 파일의 경로 확인 (__file__)
 - ### 폴더의 하위 전체 구조 및 파일 모두 복사
+- ### 파일 경로를 경로와 파일명으로 나누기
 
 <br>
 
@@ -1782,6 +1783,25 @@ if os.path.isdir(dst):
     shutil.rmtree(dst)
 
 shutil.copytree(src, dst)
+```
+
+<br>
+
+## **파일 경로를 경로와 파일명으로 나누기**
+
+<br>
+
+- 어떤 파일의 경로 "path/to/the/file.txt"과 같이 있을 때, 파일의 경로는 "path/to/the" 이고 파일명은 "file.txt"이라고 하겠습니다. 파일의 경로를 경로와 파일명으로 다음 방법을 통하여 쉽게 분리할 수 있습니다.
+
+<br>
+
+```python
+import os
+file_path = "path/to/the/file.txt"
+os.path.dirname(file_path)
+# path/to/the
+os.path.basename(file_path)
+# file.txt
 ```
 
 <br>
