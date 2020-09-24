@@ -25,6 +25,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [pytorch 셋팅 관련 코드](#pytorch-셋팅-관련-코드-1)
 - ### [GPU 셋팅 관련 코드](#gpu-셋팅-관련-코드-1)
 - ### [dataloader의 pin_memory](#dataloader의-pin_memory-1)
+- ### [dataloader의 num_workers 지정](#dataloader의-num_workers-지정-1)
 
 <br>
 
@@ -143,6 +144,20 @@ cudnn.benchmark = True
 - `pin_memory = True` 옵션은 ① → ②의 과정을 줄여서 GPU 학습 시 효율적으로 CPU → GPU로 데이터를 전달합니다. 즉, pageable memory에서 전달할 데이터들을 확인한 다음 pinned memory 영역에 옮기지 않고 CPU 메모리 영역에 GPU로 옮길 데이터들을 바로 저장하는 방식입니다. 따라서 DataLoader는 추가 연산 없이 이 영역에 있는 데이터들을 GPU로 바로 옮길 수 있습니다.
 - 이 연산 과정을 이해한다면 CPU만을 이용하여 학습을 하는 경우 이 옵션을 사용할 필요가 없다는 것을 아실 수 있습니다.
 - 다시 정리하면 `GPU`를 이용할 때에는 `torch.utils.data.DataLodaer(pin_memory = True)`를 사용하면 됩니다.
+
+<br>
+
+## **dataloader의 num_workers 지정**
+
+<br>
+
+- 참조 : https://discuss.pytorch.org/t/guidelines-for-assigning-num-workers-to-dataloader/813
+- pytorch를 이용하여 학습을 할 때, 데이터를 불러오는 방법으로 DataLoder(`from torch.utils.data import DataLoader`)를 사용합니다. 
+- Dataloader의 `num_workers`는 CPU → GPU로 데이터를 로드할 때 사용하는 CPU의 코어 갯수를 말합니다. (정확히는 쓰레드의 갯수를 말하는게 아닐까 생각합니다.)
+- 컴퓨터에서 병목 현상이 발생하는 대표적인 구간이 바로 I/O(Input/Output) 연산입니다. 따라서 I/O 연산에 최대 사용할 수 있는 코어를 적당하게 나누어 주어서 병목 현상을 제거하는 것이 전체 학습 시간을 줄일 수 있는 데 도움이 됩니다.
+- 여기서 `적당하게`라는 것이 상당히 휴리스틱하여 파이토치 디스커션에도 많은 의견이 있었습니다. (위 링크를 참조하시기 바랍니다.)
+- 참조 링크 중 실험적으로 접근해 본 한 사람의 의견으로는 `num_workers = 4 x num_GPU`가 사용하기 좋았다라는 의견이 있었습니다. 예를 들어 GPU 2개를 사용하면 num_workers = 8을 사용하는 것입니다.
+- 이 관계식을 참조하여 저 또한 실험을 해보았고 위 관계식 처럼 사용해 보니 나쁘지 않았습니다. 휴리스틱하게 접근한 방법이므로 최적은 아니지만 저는 위 관계식 대로 사용하여 `num_workers = torch.cuda.device_count() * 4`로 적용하여 사용합니다.
 
 <br>
 
