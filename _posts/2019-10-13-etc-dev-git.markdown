@@ -59,6 +59,19 @@ export PS1="\u@\h \[\e[32m\]\w \[\e[91m\]\$(parse_git_branch)\[\e[00m\]$ "
 
 <br>
 
+- 먼저 git을 사용할 때, 아래 명령어 리스트를 이용하여 깃 서버에 업데이트 가능합니다. 
+
+<br>
+
+```
+git checkout feature
+git add .
+git commit -m "message"
+git push origin feature
+```
+
+<br>
+
 - 원하는 branch로 이동하는 방법 : `git checkout feature이름`
 - 원하는 branch에 push 하는 방법 : 
     - 1) 변경할 파일 등록 : `git add 파일명1 파일명2`
