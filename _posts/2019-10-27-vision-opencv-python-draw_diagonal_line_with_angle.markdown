@@ -34,9 +34,9 @@ tags: [vision, opencv] # add tag
 
 <br>
     
-$$ y = y + sin( \frac{\pi}{180} \times \ angle) \times length $$
+- $$ y = y + sin( \frac{\pi}{180} \times \ angle) \times length $$
 
-$$ x = x + cos( \frac{\pi}{180} \times \ angle) \times length $$
+- $$ x = x + cos( \frac{\pi}{180} \times \ angle) \times length $$
 
 <br>
 
