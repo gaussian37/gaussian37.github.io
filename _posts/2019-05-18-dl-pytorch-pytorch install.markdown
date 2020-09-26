@@ -1,7 +1,7 @@
 ---
 layout: post
 title: PyTorch 설치 및 colab 사용 방법
-date: 2019-05-18 00:00:00
+date: 2019-05-01 00:00:00
 img: dl/pytorch/pytorch.jpg
 categories: [dl-pytorch] 
 tags: [pytorch, pytorch 설치, colab] # add tag
