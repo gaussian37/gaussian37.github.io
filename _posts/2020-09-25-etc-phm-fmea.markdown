@@ -42,7 +42,7 @@ tags: [phm, prognostics, health management, FMEA, FMECA] # add tag
 스펙 이상으로 스트레스가 가해져서 고장난 경우를 뜻하며 열화 고장은 제품의 성능이 시간에 따라 점진적으로 저하되어 발생하는 고장을 말합니다.
 
 <br>
-<center><img src="../assets/img/etc/phm/fmea/2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/etc/phm/fmea/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 파국 고장, 열화 고장 모두에 가해지는 스트레스의 대표적인 종류는 위 도표와 같습니다. 위 스트레스가 서서히 시간이 가해져서 고장이 발생하면 열화 고장이고 순간적으로 강한 스트레스가 가해져서 고장이 나면 파국 고장이라고 이해하시면 됩니다.
@@ -64,7 +64,7 @@ tags: [phm, prognostics, health management, FMEA, FMECA] # add tag
 - 고장 메커니즘은 크게 우발 고장(overstress failure)과 마모 고장(wearout failure)으로 나뉩니다. 아래 도표를 참조하시기 바랍니다.
 
 <br>
-<center><img src="../assets/img/etc/phm/fmea/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/etc/phm/fmea/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 분류를 이용하여 고장 분석을 하면 카테고리화 하여 분석을 할 수 있습니다.
