@@ -31,17 +31,17 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 
 - ### **--- 자주사용하는 함수 ---**
 - ### [torch.argmx(input, dim, keepdim)](#torchargmxinput-dim-keepdim-1)
-- ### Numpy → Tensor : torch.from_numpy(numpy.ndarray)
-- ### Tensor → Numpy
-- ### torch.unsqueeze(input, dim)
-- ### torch.squeeze(input, dim)
-- ### Variable(data)
-- ### F.interpolate()와 nn.Upsample()
-- ### block을 쌓기 위한 Module, Sequential, ModuleList, ModuleDict
-- ### shape 변경을 위한 transpose
-- ### nn.Dropout vs. F.dropout
-- ### nn.AvgPool2d vs. nn.AdaptiveAvgPool2d
-- ### optimizer.state_dict() 저장 결과
+- ### [Numpy → Tensor : torch.from_numpy(numpy.ndarray)](#numpy--tensor--torchfrom_numpynumpyndarray-1)
+- ### [Tensor → Numpy](#tensor--numpy-1)
+- ### [torch.unsqueeze(input, dim)](#torchunsqueezeinput-dim-1)
+- ### [torch.squeeze(input, dim)](#torchsqueezeinput-dim-1)
+- ### [Variable(data)](#variabledata-1)
+- ### [F.interpolate()와 nn.Upsample()](#finterpolate와-nnupsample-1)
+- ### [block을 쌓기 위한 Module, Sequential, ModuleList, ModuleDict](#block을-쌓기-위한-module-sequential-modulelist-moduledict-1)
+- ### [shape 변경을 위한 transpose](#shape-변경을-위한-transpose-1)
+- ### [nn.Dropout vs. F.dropout](#nndropout-vs-fdropout-1)
+- ### [nn.AvgPool2d vs. nn.AdaptiveAvgPool2d](#nnavgpool2d-vs-nnadaptiveavgpool2d-1)
+- ### [optimizer.state_dict() 저장 결과](#optimizerstate_dict-저장-결과-1)
 
 <br>
 
@@ -371,140 +371,36 @@ torch.from_numpy(A)
 
 <br>
 
-## **weight 초기화 방법**
+## **torch.unsqueeze(input, dim)**
 
 <br>
 
-- 이번 글에서는 딥러닝 네트워크 모델에서 각 layer 및 연산에 접근하여 weight를 초기화 하는 방법에 대하여 다루어 보도록 하겠습니다.
-- 아래 코드에서 예제로 사용하는 [He initialization](https://pytorch.org/docs/stable/nn.init.html#torch.nn.init.kaiming_uniform_)은 링크를 참조하시기 바랍니다.
-
-<br>
-
-```python
-# 모든 neural network module, nn.Linear, nn.Conv2d, BatchNorm, Loss function 등.
-import torch.nn as nn 
-# 파라미터가 없는 함수들 모음
-import torch.nn.functional as F 
-
-class CNN(nn.Module):
-    def __init__(self, in_channels, num_classes):
-        super(CNN, self).__init__()
-        self.conv1 = nn.Conv2d(
-                in_channels=in_channels,
-                out_channels=6,
-                kernel_size=(3,3),
-                stride=(1,1),
-                padding=(1,1)
-        )
-        self.pool = nn.MaxPool2d(kernel_size=(2,2), stride = (2,2))
-        self.conv2 = nn.Conv2d(
-                in_channels=6,
-                out_channels=16,
-                kernel_size=(3,3),
-                stride=(1,1),
-                padding=(1,1)
-        )
-        self.fc1 = nn.Linear(16*7*7, num_classes)
-        # 예제의 핵심인 initialize_weights()로 __init__()이 호출될 때 실행됩니다.
-        self.initialize_weights()
-
-    def forward(self, x):
-        x = F.relu(self.conv1(x))
-        x = self.pool(x)
-        x = F.relu(self.conv2(x))
-        x = self.pool(x)
-        x = x.reshape(x.shape[0], -1)
-        x = self.fc1(x)
-        
-        return x
-    
-    # 각 지정된 연산(Conv2d, BatchNorm2d, Linear)에 따라 각기 다른 초기화를 줄 수 있습니다.
-    def initialize_weights(self):
-        for m in self.modules():
-            # convolution kernel의 weight를 He initialization을 적용한다.
-            if isinstance(m, nn.Conv2d):
-                nn.init.kaiming_uniform_(m.weight)
-                
-                # bias는 상수 0으로 초기화 한다.
-                if m.bias is not None:
-                    nn.init.constant_(m.bias, 0)
-            
-            elif isinstance(m, nn.BatchNorm2d):
-                nn.init.constant_(m.weight, 1)
-                nn.init.constant_(m.bias, 0)
-        
-            elif isinstance(m, nn.Linear):
-                nn.init.kaiming_uniform_(m.weight)
-                nn.init.constant_(m.bias, 0)
-
-        
-if __name__ == '__main__':
-    model = CNN(in_channels=3,num_classes=10)
-    
-    # He initialization과 Constant로 초기화 한것을 확인할 수 있습니다.
-    for param in model.parameters():
-        print(param)
-```
-
-<br>
-
-## **load와 save 방법**
-
-<br>
-
-- pytorch에서 학습한 결과를 저장하고 불러오는 방법에 대하여 간략하게 다루어 보겠습니다.
-- 아래 코드에서 핵심 함수인 `save_checkpoint`와 `load_checkpoint`를 자세히 살펴보면 어떻게 저장하고 불러오는 지 알 수 있습니다.
-- 이 부분의 구조를 알기 위해서는 `state_dict`에 대하여 이해해야 합니다. 먼저 `state_dict`는 dictionary 입니다. 따라서 이 형태에 맞게 데이터를 쉽게 저장하거나 불러올 수 있습니다.
-- `state_dict`에는 각 계층을 매개변수 Tensor로 매핑합니다.(dictionary 이므로 mapping에 용이합니다.) 이 때, 학습 가능한 매개변수를 갖는 계층(convolution layer, linear layer 등)등이 모델의 `state_dict` 에 항목을 가지게 됩니다.
-- 옵티마이저 객체(torch.optim) 또한 옵티마이저의 상태 뿐만 아니라 사용된 Hyperparameter 정보가 포함된 state_dict를 갖습니다. 
-- `inference`를 위해 모델을 저장할 때는 학습된 모델의 학습된 **매개변수만 저장**하며 방법은 `torch.save()` 함수를 이용합니다.
-- PyTorch에서는 모델을 저장할 때 `.pt` 또는 `.pth` 확장자를 사용하는 것이 일반적인 규칙이며 아래 코드와 같이 `tar`를 통한 압축 형태로 `*.pth.tar`와 같이 많이 사용합니다.
-- 이 이후에 `inference` 용도로 사용하려면 반드시 `model.eval()`을 실행하여 dropout 및 batch normalization이 evaluation 모드로 설정되도록 해야 합니다.
+- 이번에는 바로 앞의 `squeeze` 예제를 이어 Tensor의 dimension을 늘려보도록 하겠습니다.
+- `torch.unsqueeze(input, dim)`은 squeeze와는 반대로 **diemnsion을 늘려주고 그 값은 1**로 만듭니다.
+-  이 때 선택할 수 있는 dimension은 0 부터 마지막 dimension 까지 입니다. 예를 들어 원래 input의 dimension이 2이면 0 (맨 앞), 1 (가운데), 2 (맨 끝)에 dimension을 늘려줄 수 있습니다.
 
 <br>
 
 ```python
-# Imports
 import torch
-import torchvision
-# neural network modules
-import torch.nn as nn 
-# Optimization algorithms, SGD, Adam, etc.
-import torch.optim as optim 
-# parameter가 필요 없는 함수들
-import torch.nn.functional as F
-# dataset 관리와 mini batch 생성 관련
-from torch.utils.data import DataLoader
-# standard dataset 접근
-import torchvision.datasets as datasets
-# dataset transformation을 통한 augmentation
-import torchvision.transforms as transforms 
 
-def save_checkpoint(state, filename="my_checkpoint.pth.tar"):
-    print("=> Saving checkpoint")
-    torch.save(state, filename)
-    
+tensor = torch.rand(5, 5)
+print(tensor.shape)
+# torch.Size([5, 5])
 
-def load_checkpoint(checkpoint, model, optimizer):
-    print("=> Loading checkpoint")
-    model.load_state_dict(checkpoint['state_dict'])
-    optimizer.load_state_dict(checkpoint['optimizer'])
+tensor = torch.unsqueeze(tensor, 0)
+print(tensor.shape)
+# torch.Size([1, 5, 5])
 
-def main():
-    # Initialize network
-    model = torchvision.models.vgg16(pretrained=False)
-    optimizer = optim.Adam(model.parameters())
-    
-    checkpoint = {'state_dict' : model.state_dict(), 'optimizer': optimizer.state_dict()}
-    # Try save checkpoint
-    save_checkpoint(checkpoint)
-    
-    # Try load checkpoint
-    load_checkpoint(torch.load("my_checkpoint.pth.tar"), model, optimizer)
-    # model.eval()
+tensor = torch.rand(5, 5)
+tensor = torch.unsqueeze(tensor, 1)
+print(tensor.shape)
+# torch.Size([5, 1, 5])
 
-if __name__ == '__main__':
-    main()
+tensor = torch.rand(5, 5)
+tensor = torch.unsqueeze(tensor, 2)
+print(tensor.shape)
+# torch.Size([5, 5, 1])
 ```
 
 <br>
@@ -542,40 +438,6 @@ print(tensor.shape)
 
 <br>
 
-## **torch.unsqueeze(input, dim)**
-
-<br>
-
-- 이번에는 바로 앞의 `squeeze` 예제를 이어 Tensor의 dimension을 늘려보도록 하겠습니다.
-- `torch.unsqueeze(input, dim)`은 squeeze와는 반대로 **diemnsion을 늘려주고 그 값은 1**로 만듭니다.
--  이 때 선택할 수 있는 dimension은 0 부터 마지막 dimension 까지 입니다. 예를 들어 원래 input의 dimension이 2이면 0 (맨 앞), 1 (가운데), 2 (맨 끝)에 dimension을 늘려줄 수 있습니다.
-
-<br>
-
-```python
-import torch
-
-tensor = torch.rand(5, 5)
-print(tensor.shape)
-# torch.Size([5, 5])
-
-tensor = torch.unsqueeze(tensor, 0)
-print(tensor.shape)
-# torch.Size([1, 5, 5])
-
-tensor = torch.rand(5, 5)
-tensor = torch.unsqueeze(tensor, 1)
-print(tensor.shape)
-# torch.Size([5, 1, 5])
-
-tensor = torch.rand(5, 5)
-tensor = torch.unsqueeze(tensor, 2)
-print(tensor.shape)
-# torch.Size([5, 5, 1])
-```
-
-<br>
-
 ## **Variable(data)**
 
 <br>
@@ -604,138 +466,6 @@ print(v2)
 
 - 위 처럼  `with torch.no_grad():` 로 감싸준 경우 명확하기 학습이 필요 없음을 명시하므로 가독성에 좋습니다. 즉, `inference` 용도로만 사용한다는 뜻입니다.
 - 이전에는 이를 `volatile` 옵션을 사용하기도 하였습니다. 예를 들어 `volatile = True`의 경우 inference 용도로만 사용한 경우로 위의 no_grad()와 동일한 목적의 Variable로 해석할 수 있습니다. 가끔씩 보이는 legacy 코드에서 volatile 파라미터가 있다면 True 인 경우 inference 용도인 것으로 해석하시면 됩니다.
-
-<br>
-
-## **Dataloader 사용 방법**
-
-<br>
-
-- pytorch 에서는 `DataLoader`를 이용하여 model에 데이터를 넣습니다.
-- 아래 예제는 대표적인 DataLoader를 사용하는 방법이며 `torchvision`을 통하여 import 한 `datasets`에는 사용할 수 있는 대부분의 데이터 셋이 있기 때문에 매우 유용합니다. 
-- 아래 예제에서는 간단하게 MNIST를 추가해 보겠습니다. 사용하는 mean과 std도 모두 예제로 사용한 것이므로 상황에 맞추어 사용하시기 바랍니다.
-
-<br>
-
-```python
-import torch
-from torchvision import datasets, transforms
-
-batch_size = 32
-test_batch_size = 32
-
-# train 데이터를 사용하기 위한 train_loader 생성
-train_loader = torch.utils.data.DataLoader(
-    datasets.MNIST(
-        root = "datasets/", # 현재 경로에 datasets/MNIST/ 를 생성 후 데이터를 저장한다.
-        train = True, # train 용도의 data 셋을 저장한다.
-        download = True,
-        transform = transforms.Compose([
-            transforms.ToTensor(), # tensor 타입으로 데이터 변경
-            transforms.Normalize(mean = (0.5,), std = (0.5,)) # data를 normalize 하기 위한 mean과 std 입력
-        ])
-    ),
-    batch_size=batch_size, 
-    shuffle=True
-)
-
-# test 데이터를 사용하기 위한 test_loader 생성
-test_loader = torch.utils.data.DataLoader(
-    datasets.MNIST(
-        root = "datasets/", # 현재 경로에 datasets/MNIST/ 를 생성 후 데이터를 저장한다.
-        train = False, # test 용도의 data 셋을 저장한다.
-        download = True,
-        transform = transforms.Compose([
-            transforms.ToTensor(), # tensor 타입으로 데이터 변경
-            transforms.Normalize(mean = (0.5,), std = (0.5,)) # train과 동일한 조건으로 normalize 한다.            
-        ])
-    ),
-    batch_size = test_batch_size,
-    shuffle = True
-)
-```
-
-<br>
-
-- train_loader와 test_loader는 generator와 같이 동작하므로 `next` 를 통하여 샘플을 생성할 수 있습니다.
-
-<br>
-
-```python
-image, label = next(iter(train_loader))
-
-print(image.shape)
-# torch.Size([32, 1, 28, 28])
-
-print(label.shape)
-# torch.Size([32])
-```
-
-<br>
-
-## **pre-trained model 사용 방법**
-
-<br>
-
-## **pre-trained model 수정 방법**
-
-<br>
-
-- 상황에 따라서 딥러닝 모델을 그대로를 사용하기 보다는 **일부 layer를 수정**해야 하는 경우가 종종 있습니다.
-- 이 때, 기존의 딥러닝 모델을 통해 학습을 완료한 pre-trained weight가 있다면 일부 layer 수정에 따라서 pre-trained weight도 수정을 해야합니다.
-- 이 경우 pre-trained weight를 불러와서 필요없는 layer를 제거하는 방법에 대하여 간략하게 정리하도록 하겠습니다.
-- 먼저 `*.pth` 형태의 pre-trained weight를 불러오겠습니다. `weight_path`는 pre-trained weight `파일`이 저장된 경로입니다.
-
-<br>
-
-```python
-# pre-trained weight를 불러옵니다.
-pretrained_weight= torch.load(weight_path)
-```
-
-<br>
-
-- 위 코드를 실행하면 `pretrained_weight`에 `collections.OrderedDict` 타입으로 정보들이 저장됩니다.
-- `pretrained_weight`의 `key`는 layer의 이름이고 `value`는 layer의 weight 값입니다.
-- 먼저 다음과 같이 `key` 값을 탐색하여 필요 없는 layer를 찾습니다.
-
-<br>
-
-```python
-for i, key in enumerate(pretrained_weight.keys()):
-    print("%d th, layer : %s" %(i, key))
-```
-
-<br>
-
-- **1) 필요 없는 layer를 직접 제거하는 방법**
-- 위의 출력문을 통하여 필요 없는 layer의 목록을 직접 리스트에 저장한 후 `pretrained_weight`에서 **key값(layer)을 제거**합니다.
-
-<br>
-
-```python
-delete_layers = []
-delete_layers.append("key value (layer name)")
-
-for delete_layer in delete_layers:
-    del pretrained_weight[delete_layer]
-```
-
-<br>
-
-- **2) 필요 없는 layer의 시작 번호(0번 부터 시작)를 입력하면 그 이후의 모든 layer를 제거하는 방법**입니다.
-- 이 방법이 유용한 이유는 일반적으로 어떤 layer를 삭제해야 한다면 그 layer 이후의 layer 또한 삭제가 필요한 경우가 많기 때문입니다. 즉, 삭제할 layer가 듬성 등성 존재하는 경우는 거의 없으며 어떤 layer 부터 출력단 끝까지 덜어내야 하는 경우가 대다수입니다.
-- 그러면 앞의 출력문을 통하여 제거해야 할 시작점의 인덱스를 이용하여 아래와 같이 삭제해 보겠습니다.
-
-<br>
-
-```python
-# [0, delete_start_number) 범위의 layer만 남기고 나머지는 삭제합니다.
-delete_start_number = 100
-delete_layers = [key for i, key in enumerate(pretrained_weight.keys()) if i >= delete_start_number]
-for delete_layer in delete_layers:
-    del pretrained_weight[delete_layer]
-```
 
 <br>
 
@@ -1307,41 +1037,6 @@ print(B_transposed2.shape)
 
 <br>
 
-## **Learning Rate Scheduler 사용 방법**
-
-<br>
-
-- 참조 : https://pytorch.org/docs/stable/optim.html#torch.optim.lr_scheduler.ReduceLROnPlateau
-- 아래 예제는 대표적인 learning rate scheduler 중 하나인 ReduceLROnPlateau를 사용한 예제이며 위 링크의 다른 스케줄러를 상황에 맞추어 사용해도 됩니다.
-- 대부분의 scheduler는 아래 프로세스를 따르므로 아래 코드를 참조하여 사용하시길 바랍니다.
-
-<br>
-
-```python
-# model → optimizer → scheduler
-model = Net().to(device)
-
-learning_rate = 0.01
-optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
-
-from torch.optim.lr_scheduler import ReduceLROnPlateau
-scheduler = ReduceLROnPlateau(optimizer, mode = 'max', factor = 0.1, paience = 5, verbose = True)
-
-for epoch in range(10):
-    train(...)
-    val_loss = validate(...)
-    # Note that step should be called after validate()
-    scheduler.step(val_loss)
-```
-
-<br>
-
-- 위 코드를 보면 ① 먼저 model을 선언한 다음 ② 그 모델을 optimizer에 할당합니다. 그 다음 ③ 스케쥴러에 optimizer를 할당합니다.
-- 위 순서에 따라 model, optimizer, scheduler가 모두 엮이게 됩니다.
-- 스케쥴러 업데이트는 보통 **validation 과정을 거친 후** 사용합니다. 위 코드와 같이 validation loss를 `scheduler.step()`의 입력으로 주면 그 loss값과 scheduler 선언 시 사용한 옵션들을 이용하여 learning_rate를 dynamic하게 조절할 수 있습니다.
-
-<br>
-
 ## **nn.Dropout vs. F.dropout**
 
 <br>
@@ -1519,39 +1214,6 @@ tensor([[[[(1+2+4+5)/4., (2+3+5+6)/4.],     = tensor([[[[3., 4.],
 
 <br>
 
-## **model의 parameter 확인 방법**
-
-<br>
-
-- 모델의 파라미터를 확인 하는 방법은 `model.parameters()`를 통해 가능합니다. 단, `model.parameters()`는 generator 타입이므로 for문과 같이 순회하면서 또는 next를 이용하여 값을 접근할 수 있습니다. 다음 코드를 참조하시기 바랍니다.
-
-<br>
-
-```python
-next(model.parameters())
-# 바로 다음 값 1개 확인
-
-for param in model.parameters():
-    print(param)
-```
-
-<br>
-
-## **Tensor 깊은 복사**
-
-<br>
-
-- Tensor를 깊은 복사하려면 `.clone()`을 이용하여 복제한 다음, `.detach()`를 통하여 연결성을 끊어야 합니다.
-
-<br>
-
-```python
-A = torch.randn(10)
-B = A.clone().detach()
-```
-
-<br>
-
 ## **optimizer.state_dict() 저장 결과**
 
 <br>
@@ -1616,3 +1278,346 @@ print(optimizer_checkpoint_param_group .keys())
 <br>
 
 - 사전에 pre-traiend된 weight를 이용하여 학습을 재개할 때, model의 파라미터와 더불어 optimizer에 사용된 하이퍼 파라미터와 각 optimizer 알고리즘에서 사용하는 값들을 불러와서 학습이 중단된 위치에서 그대로 학습이 가능해 지도록 합니다.
+
+## **weight 초기화 방법**
+
+<br>
+
+- 이번 글에서는 딥러닝 네트워크 모델에서 각 layer 및 연산에 접근하여 weight를 초기화 하는 방법에 대하여 다루어 보도록 하겠습니다.
+- 아래 코드에서 예제로 사용하는 [He initialization](https://pytorch.org/docs/stable/nn.init.html#torch.nn.init.kaiming_uniform_)은 링크를 참조하시기 바랍니다.
+
+<br>
+
+```python
+# 모든 neural network module, nn.Linear, nn.Conv2d, BatchNorm, Loss function 등.
+import torch.nn as nn 
+# 파라미터가 없는 함수들 모음
+import torch.nn.functional as F 
+
+class CNN(nn.Module):
+    def __init__(self, in_channels, num_classes):
+        super(CNN, self).__init__()
+        self.conv1 = nn.Conv2d(
+                in_channels=in_channels,
+                out_channels=6,
+                kernel_size=(3,3),
+                stride=(1,1),
+                padding=(1,1)
+        )
+        self.pool = nn.MaxPool2d(kernel_size=(2,2), stride = (2,2))
+        self.conv2 = nn.Conv2d(
+                in_channels=6,
+                out_channels=16,
+                kernel_size=(3,3),
+                stride=(1,1),
+                padding=(1,1)
+        )
+        self.fc1 = nn.Linear(16*7*7, num_classes)
+        # 예제의 핵심인 initialize_weights()로 __init__()이 호출될 때 실행됩니다.
+        self.initialize_weights()
+
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        x = self.pool(x)
+        x = F.relu(self.conv2(x))
+        x = self.pool(x)
+        x = x.reshape(x.shape[0], -1)
+        x = self.fc1(x)
+        
+        return x
+    
+    # 각 지정된 연산(Conv2d, BatchNorm2d, Linear)에 따라 각기 다른 초기화를 줄 수 있습니다.
+    def initialize_weights(self):
+        for m in self.modules():
+            # convolution kernel의 weight를 He initialization을 적용한다.
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_uniform_(m.weight)
+                
+                # bias는 상수 0으로 초기화 한다.
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0)
+            
+            elif isinstance(m, nn.BatchNorm2d):
+                nn.init.constant_(m.weight, 1)
+                nn.init.constant_(m.bias, 0)
+        
+            elif isinstance(m, nn.Linear):
+                nn.init.kaiming_uniform_(m.weight)
+                nn.init.constant_(m.bias, 0)
+
+        
+if __name__ == '__main__':
+    model = CNN(in_channels=3,num_classes=10)
+    
+    # He initialization과 Constant로 초기화 한것을 확인할 수 있습니다.
+    for param in model.parameters():
+        print(param)
+```
+
+<br>
+
+## **load와 save 방법**
+
+<br>
+
+- pytorch에서 학습한 결과를 저장하고 불러오는 방법에 대하여 간략하게 다루어 보겠습니다.
+- 아래 코드에서 핵심 함수인 `save_checkpoint`와 `load_checkpoint`를 자세히 살펴보면 어떻게 저장하고 불러오는 지 알 수 있습니다.
+- 이 부분의 구조를 알기 위해서는 `state_dict`에 대하여 이해해야 합니다. 먼저 `state_dict`는 dictionary 입니다. 따라서 이 형태에 맞게 데이터를 쉽게 저장하거나 불러올 수 있습니다.
+- `state_dict`에는 각 계층을 매개변수 Tensor로 매핑합니다.(dictionary 이므로 mapping에 용이합니다.) 이 때, 학습 가능한 매개변수를 갖는 계층(convolution layer, linear layer 등)등이 모델의 `state_dict` 에 항목을 가지게 됩니다.
+- 옵티마이저 객체(torch.optim) 또한 옵티마이저의 상태 뿐만 아니라 사용된 Hyperparameter 정보가 포함된 state_dict를 갖습니다. 
+- `inference`를 위해 모델을 저장할 때는 학습된 모델의 학습된 **매개변수만 저장**하며 방법은 `torch.save()` 함수를 이용합니다.
+- PyTorch에서는 모델을 저장할 때 `.pt` 또는 `.pth` 확장자를 사용하는 것이 일반적인 규칙이며 아래 코드와 같이 `tar`를 통한 압축 형태로 `*.pth.tar`와 같이 많이 사용합니다.
+- 이 이후에 `inference` 용도로 사용하려면 반드시 `model.eval()`을 실행하여 dropout 및 batch normalization이 evaluation 모드로 설정되도록 해야 합니다.
+
+<br>
+
+```python
+# Imports
+import torch
+import torchvision
+# neural network modules
+import torch.nn as nn 
+# Optimization algorithms, SGD, Adam, etc.
+import torch.optim as optim 
+# parameter가 필요 없는 함수들
+import torch.nn.functional as F
+# dataset 관리와 mini batch 생성 관련
+from torch.utils.data import DataLoader
+# standard dataset 접근
+import torchvision.datasets as datasets
+# dataset transformation을 통한 augmentation
+import torchvision.transforms as transforms 
+
+def save_checkpoint(state, filename="my_checkpoint.pth.tar"):
+    print("=> Saving checkpoint")
+    torch.save(state, filename)
+    
+
+def load_checkpoint(checkpoint, model, optimizer):
+    print("=> Loading checkpoint")
+    model.load_state_dict(checkpoint['state_dict'])
+    optimizer.load_state_dict(checkpoint['optimizer'])
+
+def main():
+    # Initialize network
+    model = torchvision.models.vgg16(pretrained=False)
+    optimizer = optim.Adam(model.parameters())
+    
+    checkpoint = {'state_dict' : model.state_dict(), 'optimizer': optimizer.state_dict()}
+    # Try save checkpoint
+    save_checkpoint(checkpoint)
+    
+    # Try load checkpoint
+    load_checkpoint(torch.load("my_checkpoint.pth.tar"), model, optimizer)
+    # model.eval()
+
+if __name__ == '__main__':
+    main()
+```
+
+<br>
+
+## **Dataloader 사용 방법**
+
+<br>
+
+- pytorch 에서는 `DataLoader`를 이용하여 model에 데이터를 넣습니다.
+- 아래 예제는 대표적인 DataLoader를 사용하는 방법이며 `torchvision`을 통하여 import 한 `datasets`에는 사용할 수 있는 대부분의 데이터 셋이 있기 때문에 매우 유용합니다. 
+- 아래 예제에서는 간단하게 MNIST를 추가해 보겠습니다. 사용하는 mean과 std도 모두 예제로 사용한 것이므로 상황에 맞추어 사용하시기 바랍니다.
+
+<br>
+
+```python
+import torch
+from torchvision import datasets, transforms
+
+batch_size = 32
+test_batch_size = 32
+
+# train 데이터를 사용하기 위한 train_loader 생성
+train_loader = torch.utils.data.DataLoader(
+    datasets.MNIST(
+        root = "datasets/", # 현재 경로에 datasets/MNIST/ 를 생성 후 데이터를 저장한다.
+        train = True, # train 용도의 data 셋을 저장한다.
+        download = True,
+        transform = transforms.Compose([
+            transforms.ToTensor(), # tensor 타입으로 데이터 변경
+            transforms.Normalize(mean = (0.5,), std = (0.5,)) # data를 normalize 하기 위한 mean과 std 입력
+        ])
+    ),
+    batch_size=batch_size, 
+    shuffle=True
+)
+
+# test 데이터를 사용하기 위한 test_loader 생성
+test_loader = torch.utils.data.DataLoader(
+    datasets.MNIST(
+        root = "datasets/", # 현재 경로에 datasets/MNIST/ 를 생성 후 데이터를 저장한다.
+        train = False, # test 용도의 data 셋을 저장한다.
+        download = True,
+        transform = transforms.Compose([
+            transforms.ToTensor(), # tensor 타입으로 데이터 변경
+            transforms.Normalize(mean = (0.5,), std = (0.5,)) # train과 동일한 조건으로 normalize 한다.            
+        ])
+    ),
+    batch_size = test_batch_size,
+    shuffle = True
+)
+```
+
+<br>
+
+- train_loader와 test_loader는 generator와 같이 동작하므로 `next` 를 통하여 샘플을 생성할 수 있습니다.
+
+<br>
+
+```python
+image, label = next(iter(train_loader))
+
+print(image.shape)
+# torch.Size([32, 1, 28, 28])
+
+print(label.shape)
+# torch.Size([32])
+```
+
+<br>
+
+## **pre-trained model 사용 방법**
+
+<br>
+
+## **pre-trained model 수정 방법**
+
+<br>
+
+- 상황에 따라서 딥러닝 모델을 그대로를 사용하기 보다는 **일부 layer를 수정**해야 하는 경우가 종종 있습니다.
+- 이 때, 기존의 딥러닝 모델을 통해 학습을 완료한 pre-trained weight가 있다면 일부 layer 수정에 따라서 pre-trained weight도 수정을 해야합니다.
+- 이 경우 pre-trained weight를 불러와서 필요없는 layer를 제거하는 방법에 대하여 간략하게 정리하도록 하겠습니다.
+- 먼저 `*.pth` 형태의 pre-trained weight를 불러오겠습니다. `weight_path`는 pre-trained weight `파일`이 저장된 경로입니다.
+
+<br>
+
+```python
+# pre-trained weight를 불러옵니다.
+pretrained_weight= torch.load(weight_path)
+```
+
+<br>
+
+- 위 코드를 실행하면 `pretrained_weight`에 `collections.OrderedDict` 타입으로 정보들이 저장됩니다.
+- `pretrained_weight`의 `key`는 layer의 이름이고 `value`는 layer의 weight 값입니다.
+- 먼저 다음과 같이 `key` 값을 탐색하여 필요 없는 layer를 찾습니다.
+
+<br>
+
+```python
+for i, key in enumerate(pretrained_weight.keys()):
+    print("%d th, layer : %s" %(i, key))
+```
+
+<br>
+
+- **1) 필요 없는 layer를 직접 제거하는 방법**
+- 위의 출력문을 통하여 필요 없는 layer의 목록을 직접 리스트에 저장한 후 `pretrained_weight`에서 **key값(layer)을 제거**합니다.
+
+<br>
+
+```python
+delete_layers = []
+delete_layers.append("key value (layer name)")
+
+for delete_layer in delete_layers:
+    del pretrained_weight[delete_layer]
+```
+
+<br>
+
+- **2) 필요 없는 layer의 시작 번호(0번 부터 시작)를 입력하면 그 이후의 모든 layer를 제거하는 방법**입니다.
+- 이 방법이 유용한 이유는 일반적으로 어떤 layer를 삭제해야 한다면 그 layer 이후의 layer 또한 삭제가 필요한 경우가 많기 때문입니다. 즉, 삭제할 layer가 듬성 등성 존재하는 경우는 거의 없으며 어떤 layer 부터 출력단 끝까지 덜어내야 하는 경우가 대다수입니다.
+- 그러면 앞의 출력문을 통하여 제거해야 할 시작점의 인덱스를 이용하여 아래와 같이 삭제해 보겠습니다.
+
+<br>
+
+```python
+# [0, delete_start_number) 범위의 layer만 남기고 나머지는 삭제합니다.
+delete_start_number = 100
+delete_layers = [key for i, key in enumerate(pretrained_weight.keys()) if i >= delete_start_number]
+for delete_layer in delete_layers:
+    del pretrained_weight[delete_layer]
+```
+
+<br>
+
+
+## **Learning Rate Scheduler 사용 방법**
+
+<br>
+
+- 참조 : https://pytorch.org/docs/stable/optim.html#torch.optim.lr_scheduler.ReduceLROnPlateau
+- 아래 예제는 대표적인 learning rate scheduler 중 하나인 ReduceLROnPlateau를 사용한 예제이며 위 링크의 다른 스케줄러를 상황에 맞추어 사용해도 됩니다.
+- 대부분의 scheduler는 아래 프로세스를 따르므로 아래 코드를 참조하여 사용하시길 바랍니다.
+
+<br>
+
+```python
+# model → optimizer → scheduler
+model = Net().to(device)
+
+learning_rate = 0.01
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+
+from torch.optim.lr_scheduler import ReduceLROnPlateau
+scheduler = ReduceLROnPlateau(optimizer, mode = 'max', factor = 0.1, paience = 5, verbose = True)
+
+for epoch in range(10):
+    train(...)
+    val_loss = validate(...)
+    # Note that step should be called after validate()
+    scheduler.step(val_loss)
+```
+
+<br>
+
+- 위 코드를 보면 ① 먼저 model을 선언한 다음 ② 그 모델을 optimizer에 할당합니다. 그 다음 ③ 스케쥴러에 optimizer를 할당합니다.
+- 위 순서에 따라 model, optimizer, scheduler가 모두 엮이게 됩니다.
+- 스케쥴러 업데이트는 보통 **validation 과정을 거친 후** 사용합니다. 위 코드와 같이 validation loss를 `scheduler.step()`의 입력으로 주면 그 loss값과 scheduler 선언 시 사용한 옵션들을 이용하여 learning_rate를 dynamic하게 조절할 수 있습니다.
+
+<br>
+
+
+
+## **model의 parameter 확인 방법**
+
+<br>
+
+- 모델의 파라미터를 확인 하는 방법은 `model.parameters()`를 통해 가능합니다. 단, `model.parameters()`는 generator 타입이므로 for문과 같이 순회하면서 또는 next를 이용하여 값을 접근할 수 있습니다. 다음 코드를 참조하시기 바랍니다.
+
+<br>
+
+```python
+next(model.parameters())
+# 바로 다음 값 1개 확인
+
+for param in model.parameters():
+    print(param)
+```
+
+<br>
+
+## **Tensor 깊은 복사**
+
+<br>
+
+- Tensor를 깊은 복사하려면 `.clone()`을 이용하여 복제한 다음, `.detach()`를 통하여 연결성을 끊어야 합니다.
+
+<br>
+
+```python
+A = torch.randn(10)
+B = A.clone().detach()
+```
+
+<br>
+
+
