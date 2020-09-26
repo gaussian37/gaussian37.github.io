@@ -11,8 +11,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 
 - 이 글은 pytorch 사용 시 참조할 수 있는 코드 또는 팁들을 모아 놓았습니다.
 - 완전히 기본 문법은 [이 글](https://gaussian37.github.io/dl-pytorch-pytorch-tensor-basic/)에서 참조하시기 바랍니다.
-- 이 글에서는 `셋팅 관련` 내용, `자주 사용하는 함수` 그리고 `자주 사용하는 코드` 분류로 정리하였습니다.
-- **글의 순서는 아래 목차와 일치하지 않으므로 목차를 검색하여 필요한 내용을 살펴보면 됩니다.**
+- 이 글에서는 `셋팅 및 문접 관련` 내용, `자주 사용하는 함수` 그리고 `자주 사용하는 코드` 분류로 정리하였습니다.
 
 <br>
 
@@ -20,12 +19,13 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 
 <br>
 
-- ### **--- 셋팅 관련 ---**
+- ### **--- 셋팅 및 문법 관련 ---**
 - ### [pytorch import 모음](#pytorch-import-모음-1)
 - ### [pytorch 셋팅 관련 코드](#pytorch-셋팅-관련-코드-1)
 - ### [GPU 셋팅 관련 코드](#gpu-셋팅-관련-코드-1)
 - ### [dataloader의 pin_memory](#dataloader의-pin_memory-1)
 - ### [dataloader의 num_workers 지정](#dataloader의-num_workers-지정-1)
+- ### [gradient를 직접 zero로 셋팅하는 이유](#gradient를-직접-zero로-셋팅하는-이유-1)
 
 <br>
 
@@ -158,6 +158,23 @@ cudnn.benchmark = True
 - 여기서 `적당하게`라는 것이 상당히 휴리스틱하여 파이토치 디스커션에도 많은 의견이 있었습니다. (위 링크를 참조하시기 바랍니다.)
 - 참조 링크 중 실험적으로 접근해 본 한 사람의 의견으로는 `num_workers = 4 x num_GPU`가 사용하기 좋았다라는 의견이 있었습니다. 예를 들어 GPU 2개를 사용하면 num_workers = 8을 사용하는 것입니다.
 - 이 관계식을 참조하여 저 또한 실험을 해보았고 위 관계식 처럼 사용해 보니 나쁘지 않았습니다. 휴리스틱하게 접근한 방법이므로 최적은 아니지만 저는 위 관계식 대로 사용하여 `num_workers = torch.cuda.device_count() * 4`로 적용하여 사용합니다.
+
+<br>
+
+## **gradient를 직접 zero로 셋팅하는 이유**
+
+<br>
+
+- pytorch에서는 학습 시, weight에 계산된 gradient를 0으로 셋팅하는 함수가 있습니다. 이 함수를 사용하는 이유는 기본적으로 어떤 **weight의 gradient를 계산하였을 때, 그 값이 기존 gradient를 계산한 값에 누적**되기 때문입니다.
+- 보통 학습을 할 때에는 GPU 메모리의 한계로 인하여 한번에 GPU를 통해 연산되는 데이터 양이 제한적입니다. 예를 들어 데이터가 총 100개가 있으면 20개씩 데이터를 분할하여 5번 나눠서 학습을 하곤 합니다. 이 때, 20개라는 데이터의 크기를 `batch size`라고 5번 이라는 나눠서 학습하는 횟수를 `iteration`이라고 합니다. 따라서 batch size * iteration을 하면 현재 가지고 있는 데이터 전체를 대상으로 학습을 하게 됩니다. 전체 데이터를 학습한 단위를 `epoch`이라고 합니다. 10 epoch을 학습하였다는 뜻은 100개의 데이터를 10번 반복학습 하였다는 뜻입니다.
+- 위 예제를 기준으로 한 epoch에서 각 iteration 마다 20개의 batch를 학습하면 총 5번의 gradient가 계산되어야 합니다. 이 때, **pytorch에서는 기본적으로 이 gradient를 누적 하여 합하게 됩니다.** 따라서 5번의 iteration을 통해 누적된 gradient를 이용하여 실제 weight를 업데이트 해줍니다. 이 방법이 가장 정석적으로 사용하는 방법입니다.
+- 그러면 위 방법에서는 매 epoch이 시작할 때 마다 이전 epoch에서 사용한 **gradient 값을 0으로 초기화** 해주어야 합니다. 왜냐하면 epoch이 시작하기 전에 gradient를 이용하여 weight 업데이트 하였기 때문에 기존에 남아있는 이전 epoch의 gradient가 업데이트된 현재 epoch의 weight와 무관하기 때문입니다.
+- 따라서 새로운 **epoch이 시작될 때 마다 gradient를 0으로 초기화 하고 epoch에서의 각 iteration에서도 gradient를 계산하여 값들을 누적시킨 다음에 한번에 학습**을 합니다.
+- gradient를 초기화 하는 방법은 대표적으로 ① `optimizer.zero_grad()`를 이용하여 optimizer에 연결된 weight들의 gradient를 모두 0으로 만드는 방법이 있고 ② 각 weight 별 접근하여 `weight.grad.data.zero_()`와 같이 weight 별 gradient를 0으로 초기화하는 방법이 있습니다.
+
+
+<br>
+
 
 <br>
 
