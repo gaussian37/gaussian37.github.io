@@ -144,7 +144,7 @@ print(x.grad)
 
 <br>
 
-$$ \frac{\partial}{\partial x}(x^{2} + z^{3}) = 2x $$
+- $$ \frac{\partial}{\partial x}(x^{2} + z^{3}) = 2x $$
 
 <br>
 
@@ -152,7 +152,7 @@ $$ \frac{\partial}{\partial x}(x^{2} + z^{3}) = 2x $$
 
 <br>
 
-$$ \frac{\partial}{\partial z}(x^{2} + z^{3}) = 3z^{2} $$
+- $$ \frac{\partial}{\partial z}(x^{2} + z^{3}) = 3z^{2} $$
 
 <br>
 
@@ -161,9 +161,9 @@ $$ \frac{\partial}{\partial z}(x^{2} + z^{3}) = 3z^{2} $$
 
 <br>
 
-$$ \frac{\partial(f(x) = x^{2})}{\partial x} \quad \text{where  }  x=1 $$
+- $$ \frac{\partial(f(x) = x^{2})}{\partial x} \quad \text{where  }  x=1 $$
 
-$$ y'(1) = 2 $$
+- $$ y'(1) = 2 $$
 
 <br>
         
@@ -171,9 +171,9 @@ $$ y'(1) = 2 $$
 
 <br>
 
-$$ \frac{\partial(f(z) = z^{3})}{\partial z} \ \ where \ z=2 $$
+- $$ \frac{\partial(f(z) = z^{3})}{\partial z} \ \ where \ z=2 $$
 
-$$ y'(2) = 12 $$
+- $$ y'(2) = 12 $$
 
 <br>
 
