@@ -166,6 +166,42 @@ cudnn.benchmark = True
 
 <br>
 
+- pytorch에서 학습 시, weight를 업데이트 하는 시점은 `optimizer.step()`이 실행되는 시점입니다. ([참조](https://pytorch.org/docs/stable/optim.html#torch.optim.Optimizer.step))
+- `optimizer.step()`을 사용하는 순서를 확인해 보면 뉴럴네트워크의 출력값과 라벨 값을 loss 함수를 이용하여 계산을 하고 그 loss 함수의 `.backward()` 연산을 한 뒤에 `optimizer.step()`을 통해 weight를 업데이트 합니다.
+- 보통 loss function은 다음과 같이 선언합니다.
+
+<br>
+
+```python
+criterion = nn.CrossEntropyLoss()
+out = model(input)
+loss = criterion(out, target)
+loss.backward()
+```
+
+<br>
+    
+- `optimizer`의 선언 및 사용은 다음과 같습니다.
+
+<br>
+
+```python 
+optimizer = optim.Adam(model.parameters(), lr=lr)
+optimizer.step()
+```
+
+<br>
+
+- 프레임워크의 순서 상 ① loss 계산, ② loss.backward()로 gradient 계산, ③ optimizer.step()으로 weight 업데이트 순서가 되어야 합니다.
+- 이 떄, `loss`와 `optimizer`는 어떤 관계로 연결되어서 loss를 통해 계산한 gradient를 optimizer로 weight 업데이트 할 수 있을까요?
+- 위 예제에서 loss와 optimizer의 연결 포인트는 딥러닝 네트워크가 선언된 객체인 `model`의 각각이 가지고 있는 **weight의 gradient 값**입니다.
+- 예를 들어 model의 convolution 레이어 중 하나의 이름이 **conv1** 이라면 **model.conv1.weight.grad**에 loss에 따라 계산된 gradient가 저장되어 있습니다.
+- `.layer.weight.grad`에 gradient가 저장되는 시점은 `loss.backward()`가 실행되는 시점이고 이 때, gradient가 계산되어  `.layer.weight.grad`에 저장됩니다. 따라서 `.backward()` 이후에 grad 값을 출력하면 그 layer의 gradient 값을 볼 수 있습니다.
+- `optimizer` 객체는 `model.parameters()`를 통해 생성되었기 때문에 `loss.backward()`를 통해 `.layer.weight.grad`에 저장된 각 layer의 gradient는 `optimizer`에서 바로 접근하여 사용가능해집니다.
+- 따라서 앞에서 설명한 바와 같이 `optimizer`와 `loss.backward()`는 같은 model 객체를 사용하고 `loss.backward()`의 출력값이 각 model 객체 layer들의 grad 멤버 변수에 저장되고 이 값을 `optimizer`의 입력값으로 다시 사용함으로써 두 연산이 연결되어집니다.
+
+<br>
+
 ## **gradient를 직접 zero로 셋팅하는 이유와 활용 방법**
 
 <br>
