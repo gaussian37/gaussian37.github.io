@@ -25,8 +25,8 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [GPU 셋팅 관련 코드](#gpu-셋팅-관련-코드-1)
 - ### [dataloader의 pin_memory](#dataloader의-pin_memory-1)
 - ### [dataloader의 num_workers 지정](#dataloader의-num_workers-지정-1)
-- ### [optimizer.step()을 통한 파라미터 업데이트와 loss.backward()와의 관계]
-- ### [gradient를 직접 zero로 셋팅하는 이유](#gradient를-직접-zero로-셋팅하는-이유-1)
+- ### [optimizer.step()을 통한 파라미터 업데이트와 loss.backward()와의 관계](#optimizerstep을-통한-파라미터-업데이트와-lossbackward와의-관계-1)
+- ### [gradient를 직접 zero로 셋팅하는 이유와 활용 방법](#gradient를-직접-zero로-셋팅하는-이유와-활용-방법-1)
 
 <br>
 
@@ -166,17 +166,74 @@ cudnn.benchmark = True
 
 <br>
 
-## **gradient를 직접 zero로 셋팅하는 이유**
+## **gradient를 직접 zero로 셋팅하는 이유와 활용 방법**
 
 <br>
 
 - pytorch에서는 학습 시, weight에 계산된 gradient를 0으로 셋팅하는 함수가 있습니다. 이 함수를 사용하는 이유는 기본적으로 어떤 **weight의 gradient를 계산하였을 때, 그 값이 기존 gradient를 계산한 값에 누적**되기 때문입니다.
-- 보통 학습을 할 때에는 GPU 메모리의 한계로 인하여 한번에 GPU를 통해 연산되는 데이터 양이 제한적입니다. 예를 들어 데이터가 총 100개가 있으면 20개씩 데이터를 분할하여 5번 나눠서 학습을 하곤 합니다. 이 때, 20개라는 데이터의 크기를 `batch size`라고 5번 이라는 나눠서 학습하는 횟수를 `iteration`이라고 합니다. 따라서 `batch size * iteration`을 하면 현재 가지고 있는 데이터 전체를 대상으로 학습을 하게 됩니다. 전체 데이터를 학습한 단위를 `epoch`이라고 합니다. 10 epoch을 학습하였다는 뜻은 100개의 데이터를 10번 반복학습 하였다는 뜻입니다.
-- 이제 용어가 정리 되었으니 중요한 질문인 **gradient를 직접 zero로 셋팅하는 이유**에 대하여 알아보겠습니다.
+- 먼저 다음 코드를 통하여 gradient가 누적되는 것을 살펴보겠습니다. 다음 코드는 `sin`을 미분하였을 때, `cos`이 되고 `cos(0)`은 1임을 이용하여 x의 grad값이 어떻게 변화하는 지 살펴보는 코드입니다.
 
 <br>
 
 ```python
+import torch
+from torch.autograd import Variable
+
+x = Variable(torch.Tensor([[0]]), requires_grad=True)
+
+for t in range(5):
+    y = x.sin() 
+    y.backward()
+    print(x.grad)
+```
+
+<br>
+
+- 위 코드를 실행하면 `x.grad`값은 1, 2, 3, 4, 5로 계속 1씩 누적되어 증가하는 것을 확인할 수 있습니다.
+- 반면 다음 코드를 살펴보도록 하겠습니다.
+
+<br>
+
+```python
+x = Variable(torch.Tensor([[0]]), requires_grad=True) 
+
+for t in range(5):
+    if x.grad is not None:
+        x.grad.data.zero_()
+    y = x.sin() 
+    y.backward()
+    print(x.grad) # shows 1
+```
+
+<br>
+
+- 위 코드의 경우 `x.grad`를 0으로 초기화 하기 때문에 계산된 gradient가 누적되지 않습니다.
+
+<br>
+
+- gradient를 초기화 하는 방법은 대표적으로 ① `optimizer.zero_grad()`를 이용하여 optimizer에 연결된 weight들의 gradient를 모두 0으로 만드는 방법이 있고 ② 위 코드와 같이 각 weight 별 접근하여 `weight.grad.data.zero_()`와 같이 weight 별 gradient를 0으로 초기화하는 방법이 있습니다.
+- 일반적으로 `① 방법`을 사용하여 **한번에 모든 weight의 계산된 gradient를 초기화** 합니다. 딥러닝에서는 weight의 수가 너무 많기 떄문에 ②와 같은 방법을 통해서 초기화 하기에는 불편하기 때문입니다. ②와 같은 방법은 보통 몇몇 케이스를 테스트 할 때 종종 사용하곤 합니다.
+- 그러면 `optimizer.zero_grad()`를 이용하여 **gradient를 언제 초기화** 하는 지 살펴보겠습니다.
+
+<br>
+
+- 보통 학습을 할 때에는 GPU 메모리의 한계로 인하여 한번에 GPU를 통해 연산되는 데이터 양이 제한적입니다. 예를 들어 데이터가 총 100개가 있으면 20개씩 데이터를 분할하여 5번 나눠서 학습을 하곤 합니다. 이 때, 20개라는 데이터의 크기를 `batch size`라고 합니다. 그리고 5번 이라는 나눠서 학습하는 횟수를 `iteration`이라고 합니다. 따라서 `batch size * iteration`을 하면 현재 가지고 있는 데이터 전체를 대상으로 학습을 하게 됩니다. 전체 데이터를 학습한 단위를 `epoch`이라고 합니다. 10 epoch을 학습하였다는 뜻은 100개의 데이터를 10번 반복학습 하였다는 뜻입니다.
+- `batch size`, `iteration`, `epoch`의 정의를 이해하시고 계속 글을 읽으시기 바랍니다.
+
+<br>
+
+- 계산된 gradient가 실제 weight에 update되는 순간은 `optimizer.step()`입니다. 이 내용은 앞의 글 [optimizer.step()을 통한 파라미터 업데이트와 loss.backward()와의 관계](#optimizerstep을-통한-파라미터-업데이트와-lossbackward와의-관계-1)을 참조하시기 바랍니다.
+- 위 예제를 기준으로 한 epoch에서 각 iteration 마다 20개의 batch를 학습하면 총 5번의 gradient가 계산되어야 합니다. 이 때, **pytorch에서는 기본적으로 이 gradient를 누적 하여 합하게 됩니다.** 따라서 다음과 같은 2가지 전략을 세울 수 있습니다.
+
+<br>
+
+- ① iteration 마다 weight를 update 하는 방법 : gradient가 누적되지 않게 **iteration 시작 시** 이전 iteration에서 계산된 gradient를 0으로 초기화합니다. 아래 코드를 살펴보겠습니다.
+
+<br>
+
+```python
+########### iteration 마다 weight를 update 하는 방법 ##############
+
 # epochs 만큼 반복 학습한다. 위 예시에서 10번 반복학습에 해당함.
 for epoch in range(epochs):
     # 위 예시에서 batches는 총 5개의 batch를 가지고 있으며,
@@ -189,29 +246,42 @@ for epoch in range(epochs):
         loss = loss_function(out, target_data)
         loss.backward()
         loss_sum += loss.item()
-        # 계산된 gradient를 weight에 반영
+        # iteration 마다 계산된 gradient를 weight에 반영
         optimizer.step()
     loss_list.append(loss_sum / (num_train + 1))
 ```
 
 <br>
 
-- 계산된 gradient가 실제 weight에 update되는 순간은 `optimizer.step()`입니다. 
-
-
-
-- 위 예제를 기준으로 한 epoch에서 각 iteration 마다 20개의 batch를 학습하면 총 5번의 gradient가 계산되어야 합니다. 이 때, **pytorch에서는 기본적으로 이 gradient를 누적 하여 합하게 됩니다.** 따라서 5번의 iteration을 통해 누적된 gradient를 이용하여 실제 weight를 업데이트 해줍니다. 이 방법이 가장 정석적으로 사용하는 방법입니다.
-
-
-
-- 그러면 위 방법에서는 매 epoch이 시작할 때 마다 이전 epoch에서 사용한 **gradient 값을 0으로 초기화** 해주어야 합니다. 왜냐하면 epoch이 시작하기 전에 gradient를 이용하여 weight 업데이트 하였기 때문에 기존에 남아있는 이전 epoch의 gradient가 업데이트된 현재 epoch의 weight와 무관하기 때문입니다.
-- 따라서 새로운 **epoch이 시작될 때 마다 gradient를 0으로 초기화 하고 epoch에서의 각 iteration에서도 gradient를 계산하여 값들을 누적시킨 다음에 한번에 학습**을 합니다.
-- gradient를 초기화 하는 방법은 대표적으로 ① `optimizer.zero_grad()`를 이용하여 optimizer에 연결된 weight들의 gradient를 모두 0으로 만드는 방법이 있고 ② 각 weight 별 접근하여 `weight.grad.data.zero_()`와 같이 weight 별 gradient를 0으로 초기화하는 방법이 있습니다.
-- 
-
+- ② epoch 마다 weight를 update 하는 방법 : 모든 iteration에서 계산된 gradient를 누적하여 한번에 weight update를 합니다. 따라서 **epoch이 시작 시** 계산된 gradient를 0으로 초기화 합니다. 아래 코드를 살펴보겠습니다.
 
 <br>
 
+```python
+########### epoch 마다 weight를 update 하는 방법 ##############
+
+# epochs 만큼 반복 학습한다. 위 예시에서 10번 반복학습에 해당함.
+for epoch in range(epochs):
+    # ★★★ gradient를 0으로 셋팅함 ★★★
+    optimizer.zero_grad()
+    # ★★★★★★★★★★★★★★★★★★
+
+    # 위 예시에서 batches는 총 5개의 batch를 가지고 있으며,
+    # 각 train_data는 20개의 데이터를 가지고 있음
+    for num_train, (trarin_data, target_data) in enumerate(batches):
+        out = nn_model(trarin_data)
+        loss = loss_function(out, target_data)
+        loss.backward()
+        loss_sum += loss.item()
+    # epoch 마다 계산된 gradient를 weight에 반영
+    optimizer.step()
+    loss_list.append(loss_sum / (num_train + 1))
+```
+
+<br>
+
+- 위 두 가지 경우의 코드와 같은 방법으로 weight를 update를 할 수 있으며 방법에 따라 `optimizer.zero_grad()`를 실행하는 시점이 달라집니다.
+- 일반적으로 ① 방법인 `iteration 마다 weight를 업데이트 하는 방법`을 많이 사용하고 저 또한 이 방법을 사용하여 학습합니다.
 
 <br>
 
