@@ -25,7 +25,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [GPU 셋팅 관련 코드](#gpu-셋팅-관련-코드-1)
 - ### [dataloader의 pin_memory](#dataloader의-pin_memory-1)
 - ### [dataloader의 num_workers 지정](#dataloader의-num_workers-지정-1)
-- ### [optimizer.zero_grad(), loss.backward(), optimizer.step()]()
+- ### [optimizer.zero_grad(), loss.backward(), optimizer.step()](#optimizerzero_grad-lossbackward-optimizerstep-1)
 - ### [optimizer.step()을 통한 파라미터 업데이트와 loss.backward()와의 관계](#optimizerstep을-통한-파라미터-업데이트와-lossbackward와의-관계-1)
 - ### [gradient를 직접 zero로 셋팅하는 이유와 활용 방법](#gradient를-직접-zero로-셋팅하는-이유와-활용-방법-1)
 
@@ -167,7 +167,9 @@ cudnn.benchmark = True
 
 <br>
 
-
+- `optimizer.zero_grad()` : 이전 step에서 각 layer 별로 계산된 gradient 값을 모두 0으로 초기화 시키는 작업입니다. 0으로 초기화 하지 않으면 이전 step의 결과에 현재 step의 gradient가 누적으로 합해져서 계산되어 집니다.
+- `loss.backward()` : 각 layer의 파라미터에 대하여 back-propagation을 통해 gradient를 계산합니다.
+- `optimizer.step()` : 각 layer의 파라미터와 같이 저장된 gradient 값을 이용하여 파라미터를 업데이트 합니다. 이 명령어를 통해 파라미터가 업데이트되어 모델의 성능이 개선됩니다.
 
 <br>
 
