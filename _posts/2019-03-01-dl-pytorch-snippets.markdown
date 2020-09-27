@@ -25,6 +25,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [GPU 셋팅 관련 코드](#gpu-셋팅-관련-코드-1)
 - ### [dataloader의 pin_memory](#dataloader의-pin_memory-1)
 - ### [dataloader의 num_workers 지정](#dataloader의-num_workers-지정-1)
+- ### [optimizer.zero_grad(), loss.backward(), optimizer.step()]()
 - ### [optimizer.step()을 통한 파라미터 업데이트와 loss.backward()와의 관계](#optimizerstep을-통한-파라미터-업데이트와-lossbackward와의-관계-1)
 - ### [gradient를 직접 zero로 셋팅하는 이유와 활용 방법](#gradient를-직접-zero로-셋팅하는-이유와-활용-방법-1)
 
@@ -159,6 +160,14 @@ cudnn.benchmark = True
 - 여기서 `적당하게`라는 것이 상당히 휴리스틱하여 파이토치 디스커션에도 많은 의견이 있었습니다. (위 링크를 참조하시기 바랍니다.)
 - 참조 링크 중 실험적으로 접근해 본 한 사람의 의견으로는 `num_workers = 4 x num_GPU`가 사용하기 좋았다라는 의견이 있었습니다. 예를 들어 GPU 2개를 사용하면 num_workers = 8을 사용하는 것입니다.
 - 이 관계식을 참조하여 저 또한 실험을 해보았고 위 관계식 처럼 사용해 보니 나쁘지 않았습니다. 휴리스틱하게 접근한 방법이므로 최적은 아니지만 저는 위 관계식 대로 사용하여 `num_workers = torch.cuda.device_count() * 4`로 적용하여 사용합니다.
+
+<br>
+
+## **optimizer.zero_grad(), loss.backward(), optimizer.step()**
+
+<br>
+
+
 
 <br>
 
