@@ -59,6 +59,7 @@ tags: [python, python 기본] # add tag
 - ### 유니크한 리스트 생성 방법
 - ### 파이썬 실행 경로 추가
 - ### 문자열을 이용하여 패키지 import
+- ### Dictionary와 JSON
 
 <br>
 
@@ -1868,3 +1869,126 @@ np = importlib.import_module('numpy')
 - 위 코드와 같이 `np`를 리턴 받으면 일반적으로 사용하는 `np.함수()`와 같은 형태로 사용 가능합니다.
 
 <br>
+
+## **Dictionary와 JSON**
+
+<br>
+
+- `JSON`은 **JavaScript Object Notation**의 줄임말로 현재 많이 사용하고 있는 데이터 포맷 중 하나입니다. 단순히 JSON은 JSON에서 정한 규칙을 이용하여 문자열로 데이터를 나타냅니다. 이 규칙이 Dictionary와 비슷하여 파이썬에서는 Dictionary를 JSON으로 변환하거나 JSON을 Dictionary로 변환하는 기능을 제공합니다.
+- 그러면 코드를 통해서 어떻게 Dictionary를 JSON으로 변환하고 반대로 JSON을 Dictionary로 변환하는 지 살펴보겠습니다.
+- 먼저 살펴볼 기능은 `json.dumps(Object)` 입니다. 여기서 `dumps = dump + string`입니다. 즉, JSON 형태로 변환하되 문자열로 변환하는 기능을 뜻합니다. Object에는 Dictionary 뿐 아니라 list, tuple 등 어떤 object도 들어올 수 있으나 JSON의 목적에 맞게 Dictionary를 사용해 보도록 하겠습니다.
+
+<br>
+
+```python
+import json
+Person = {
+    'Name' : "Jinsol",
+    'Man': True,
+    "age" : 30,
+    'friend': ["jisu", "suji"],
+    "Pet" : None
+}
+
+print(Person)
+# {'Name': 'Jinsol', 'Man': True, 'age': 30, 'friend': ['jisu', 'suji'], 'Pet': None}
+
+print(type(Person))
+# dict
+
+json_string = json.dumps(Person)
+print(json_string)
+# {"Name": "Jinsol", "Man": true, "age": 30, "friend": ["jisu", "suji"], "Pet": null}
+print(type(json_string))
+# str
+```
+
+<br>
+
+- `json.dupmps()`에서 사용할 수 있는 대표적인 인자는 `indent`와 `sort_keys` 입니다. `indent`는 JSON을 출력할 때 정렬 포맷의 indent 크기를 뜻하고 `sort_keys=True`로 두면 Key 기준으로 정렬하게 됩니다.
+
+<br>
+
+```python
+json_string = json.dumps(Person, indent=4, sort_keys=True)
+print(json_string)
+
+# {
+#     "Man": true,
+#     "Name": "Jinsol",
+#     "Pet": null,
+#     "age": 30,
+#     "friend": [
+#         "jisu",
+#         "suji"
+#     ]
+# }
+
+```
+
+<br>
+
+- 그 다음으로 알아볼 기능은 `json.dump()`입니다. `dumps()`는 문자열을 출력한 반면 `dump()`는 파일 형태로 출력합니다. 
+- 사용 방법은 `json.dump(Object, I/O, options)`과 같습니다.
+
+<br>
+
+```python
+import json
+Person = {
+    'Name' : "Jinsol",
+    'Man': True,
+    "age" : 30,
+    'friend': ["jisu", "suji"],
+    "Pet" : None
+}
+
+with open("file.json", "w") as fp:
+    json.dump(Person, fp, indent=4)
+```
+
+<br>
+
+- 위 코드는 Person이라는 Object를 file.json 파일에 저장합니다. 
+
+<br>
+
+- 이번에는 JSON 파일을 불러오는 방법에 대하여 알아보겠습니다. 불러오는 데이터는 크게 이미 저장된 JSON 파일 또는 문자열이 있습니다. 
+- JSON을 생성할 때, `json.dump()`, `json.dumps()`를 사용하여 각각 파일 또는 문자열로 JSON을 생성하였습니다.
+- 이와 유사하게 `json.load()`, `json.loads()`를 사용하여 각각 파일 또는 문자열을 불러와서 `Dictionary` 형태로 만듭니다.
+
+<br>
+
+```python
+# json.load를 이용하여 json 파일을 읽는 예시
+with open("file.json","r") as fp:
+    data = json.load(fp)
+
+# json.loads를 이용하여 json 문자열을 읽는 예시
+print(json_string)
+# {
+#     "Man": true,
+#     "Name": "Jinsol",
+#     "Pet": null,
+#     "age": 30,
+#     "friend": [
+#         "jisu",
+#         "suji"
+#     ]
+# }
+
+json_dict = json.loads(json_string)
+print(type(json_dict))
+# dict
+```
+
+<br>
+
+
+
+
+
+
+
+
+
