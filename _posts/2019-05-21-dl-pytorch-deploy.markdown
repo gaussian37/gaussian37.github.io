@@ -1,6 +1,6 @@
 ---
 layout: post
-title: pytorch 모델 저장과 ONNX, TensorRT 사용
+title: pytorch 모델 저장과 ONNX, TensorRT, OpenVINO 사용
 date: 2019-05-18 00:00:00
 img: dl/pytorch/pytorch.jpg
 categories: [dl-pytorch] 
@@ -9,15 +9,18 @@ tags: [pytorch, deploy] # add tag
 
 <br>
 
+- 참조 : https://www.learnopencv.com/how-to-run-inference-using-tensorrt-c-api/?ck_subscriber_id=272174900
+- 참조 : https://opencv.org/how-to-speed-up-deep-learning-inference-using-openvino-toolkit-2/
 - 이 글에서는 pytorch를 이용하여 학습한 결과를 저장하거나 다른 프레임워크에서 사용하는 방법에 대하여 다루어 보겠습니다.
 
 <br>
 
 ## **목차**
 
-- ### 모델 저장과 불러오기
-- ### ONNX를 사용한 다른 프레임워크와의 연계
-- ### ONNX를 TensorRT에서 사용
+- ### [모델 저장과 불러오기](#모델-저장과-불러오기-1)
+- ### [ONNX를 사용한 다른 프레임워크와의 연계](#onnx를-사용한-다른-프레임워크와의-연계-1)
+- ### [ONNX를 TensorRT에서 사용](#onnx를-tensorrt에서-사용-1)
+- ### [ONNX를 OpenVINO에서 사용](#onnx를-openvino에서-사용-1)
 
 <br>
 
@@ -266,6 +269,13 @@ with open('predict_net.pb', "wb") as fopen:
 <br>
 
 ## **ONNX를 TensorRT에서 사용**
+
+<br>
+
+
+<br>
+
+## **ONNX를 OpenVINO에서 사용**
 
 <br>
 
