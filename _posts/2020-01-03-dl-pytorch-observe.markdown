@@ -21,11 +21,11 @@ tags: [pytorch, summary, torchsummary, visdom, graphviz, netron, tensorboard] # 
 
 <br>
 
-- ### torchsummary를 통한 모델 정보 요약
-- ### visdom을 통한 학습 상태 모니터링
-- ### graphviz를 통한 모델 시각화
-- ### netron을 통한 모델 시각화
-- ### tensorboard를 통한 학습 현황 확인
+- ### [torchsummary를 통한 모델 정보 요약](#torchsummary를-통한-모델-정보-요약-1)
+- ### [visdom을 통한 학습 상태 모니터링](#visdom을-통한-학습-상태-모니터링-1)
+- ### [graphviz를 통한 모델 시각화](#graphviz를-통한-모델-시각화-1)
+- ### [netron을 통한 모델 시각화](#netron을-통한-모델-시각화-1)
+- ### [tensorboard를 통한 학습 현황 확인](#tensorboard를-통한-학습-현황-확인-1)
 
 <br>
 
