@@ -9,7 +9,7 @@ tags: [computer network, network, table] # add tag
 
 <br>
 
-[Computer Network 관련 글 목차]()
+[Computer Network 관련 글 목차](https://gaussian37.github.io/etc-network-table/)
 
 <br>
 
@@ -21,6 +21,6 @@ tags: [computer network, network, table] # add tag
 
 <br>
 
-[Computer Network 관련 글 목차]()
+[Computer Network 관련 글 목차](https://gaussian37.github.io/etc-network-table)
 
 <br>
