@@ -3,7 +3,8 @@ layout: post
 title: PHM(Prognostics and Health Management) 관련 글 목차
 date: 2000-01-01 00:00:00
 img: etc/phm/0.png
-categories: [etc-humanity] 
+categories: [etc-phm
+] 
 tags: [phm, prognostics, health management] # add tag
 ---
 
