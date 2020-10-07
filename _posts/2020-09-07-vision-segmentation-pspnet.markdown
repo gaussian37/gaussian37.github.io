@@ -72,13 +72,19 @@ tags: [vision, deep learning, segmentation, PSPNet, Pyramid, Scene, Parsing, Net
 
 <br>
 
-
+- 앞에서 PSPNet은 global information을 잘 사용하여 3가지 문제를 개선할 수 있었다고 언급하였습니다. 여기서 말하는 global information에 대하여 정확히 이해하기 위하여 `Local Context Information`과 `Global Context Information`에 대하여 알아보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/segmentation/pspnet/4.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/segmentation/pspnet/4.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 왜냐하면 FCN의 경우 가장 기본적인 Convolution / Transposed Convolution을 사용하므로 `Local context information`만 고려하여 세그멘테이션 하기 때문입니다. Local context information에 해당하는 대표적인 정보로는 **모양, 형상, 재질의 특성**등이 있습니다.
+- 먼저 local context information을 이해하기 위해 위 그림을 살펴보도록 하겠습니다.
+- 위 그림의 육각형과 같이 어떤 영역의 형상을 인식 하기 위해서는 그 형상에 대응하는 feature들을 추출해야 합니다.
+- 위 그림에서는 **feature map**에 육각형을 인식할 수 있는 feature들이 있습니다. 예를 들어 feature map을 한개씩 살펴보면 feature map1에서는 왼쪽 대각선을, feature map2에서는 오른쪽 대각선을, 그리고 feature map3에서는 수평선을 인식하는 **필터 역할**을 합니다.
+- 왜냐하면 입력된 이미지와 feature map에서의 feature 간 연산으로 **변화량이 큰 지점을 찾게 되기**때문입니다. 따라서 feature map과 입력 이미지의 연산에 따라 위 예제에서 대각선과 수평선의 변화량이 커서 육각형을 인식할 수 있게 됩니다.
+- 위 과정을 살펴보면 각각의 feature map들은 **feature map들이 가지는 값에 따라 다양한 필터 역할**을 가질 수 있으며 feature map의 핵심이 되는 영역과 이에 대응되는 입력 이미지의 특정 영역에서 물체를 인지할 수 있습니다. 즉, 앞에서 언급한 global한 영역을 보지는 않습니다.
+- 이와 같은 Local context information에 해당하는 대표적인 정보로는 **모양, 형상, 재질의 특성**등이 있습니다. 즉, 특정 영역의 고유 정보(모양, 형상, 재질등)에 해당합니다.
+- FCN의 경우 가장 기본적인 Convolution / Transposed Convolution을 사용하므로 `Local context information`만 고려하게 됩니다. 따라서 PSPNet에 비해 성능이 낮습니다.
 
 <br>
 <center><img src="../assets/img/vision/segmentation/pspnet/5.png" alt="Drawing" style="width: 800px;"/></center>
