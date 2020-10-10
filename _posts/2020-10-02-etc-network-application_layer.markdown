@@ -21,11 +21,11 @@ tags: [computer network, network, table] # add tag
 
 <br>
 
-- ### [Principles of network applications](#Principles-of-network-applications-1)
-- ### [Web and HTTP](#Web-and-HTTP-1)
-- ### [electronic mail (SMTP, POP3, IMAP)](#electronic-mail-(SMTP-POP3-IMAP)-1)
-- ### [DNS](#DNS-1)
-- ### [P2P application](#P2P-application-1)
+- ### [Principles of network applications](#principles-of-network-applications-1)
+- ### [Web and HTTP](#web-and-http-1)
+- ### [electronic mail (SMTP, POP3, IMAP)](#electronic-mail-smtp-pop3-imap-1)
+- ### [DNS](#dns-1)
+- ### [P2P application](#p2p-application-1)
 - ### [video streaming and content distribution networks](#video-streaming-and-content-distribution-networks-1)
 - ### [socket](#socket-1)
 
