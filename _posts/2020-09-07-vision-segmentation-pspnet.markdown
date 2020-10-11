@@ -128,16 +128,38 @@ tags: [vision, deep learning, segmentation, PSPNet, Pyramid, Scene, Parsing, Net
 - 그 다음, 빨간색, 주황색, 하늘색, 초록색 feature map 모두 1 x 1 convolution을 적용하여 channel을 1로 만듭니다. 이를 통하여 각 feature map의 정보를 압축합니다.
 - 마지막으로 각 feature map의 사이즈를 bilinear interpolation을 이용하여 입력되었을 때의 feature map 크기로 만들어 줍니다.
 - 그러면 Pooling → 1 x 1 convolution → bilinear interpolation을 거친 각 feature의 크기는 입력 feature map과 같아지므로 concatenation이 가능해집니다.
+- 마지막으로 기존의 feature map과 bilinear interpolation을 한 빨간색, 주황색, 하늘색, 초록색의 feature map을 모두 concatenation을 하여 합칩니다.
 
+<br>
 
-다시 Fig. 2(c)로 돌아와서,  Pooling을 통해 얻은 N 채널의 global contextual information을 convolution을 이용해서 1/N으로 줄인다. 이는 마지막에 각 Feature map들을 Upsampling 하고 concatenation(이어 붙이는 것)을 할 때 local contextual information과 global contextual information의 비율을 5:5로 맞추기 위해서이다. 그리고 마침내 마지막 convolutional layer을 통과시키면 우리가 원하는 Piexl-per-Prediction을 얻을 수 있다. 
+- sub-region을 사용하는 average pooling 방법은 [SPPNet](https://gaussian37.github.io/vision-segmentation-sppnet/)과 유사합니다.
 
 <br>
 
 ## **실험 결과**
 
 <br>
+<center><img src="../assets/img/vision/segmentation/pspnet/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
+- PSPnet 논문에서 사용한 backbone은 `ResNet50` 기반의 FCN입니다. ResNet50을 기준으로 위 그림과 같이 다양한 실험을 하였습니다.
+- `ResNet50-Baseline`: ResNet50-based FCN with dilated network.
+- `B1` 과 `B1236` : Pooling된 feature map의 height, width 사이즈를 뜻합니다. B1은 {1×1} 이고 B1236은 {1×1, 2×2, 3×3, 6×6}을 뜻합니다. 위에서 설명한 Pyramid Pooling Module은 B1236에 해당합니다.
+- `MAX` 와 `AVE` : MAX는 Max pooling을 뜻하고 AVE는 Average Pooling을 뜻합니다. 앞에서 언급하였듯이 Average Pooling을 사용하였을 때, 더 좋은 성능을 가졌습니다.
+- `DR` : Dimension Reduction을 뜻합니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/pspnet/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 모델을 더 깊게 쌓을 수록 성능이 높아지고, Multi-Scale(MS) 형태로 이미지를 입력하였을 때, 성능이 더 좋아지는 것을 확인하였습니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/pspnet/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 대표적으로 Cityscapes 데이터셋에서의 성능을 다른 모델과 비교해 보면 논문을 냈을 당시의 SOTA 모델들 보다 더 좋은 성능을 내고 있음을 확인할 수 있습니다.
+- 물론 시간이 지난 만큼 현재의 SOTA에 비해서는 성능이 낮지만, **global context information을 이용하는 아이디어는 차용할 만한 가치가 있는** 좋은 논문입니다.
 
 <br>
 
