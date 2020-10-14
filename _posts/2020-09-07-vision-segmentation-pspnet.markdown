@@ -167,6 +167,54 @@ tags: [vision, deep learning, segmentation, PSPNet, Pyramid, Scene, Parsing, Net
 
 <br>
 
+- 아래는 PSPNet의 핵심이 되는 `Pyramid Pooling Module` 입니다. 다른 세그멘테이션 모델에서 이 모듈만 붙여서 사용하면 되기 때문에 이 핵심 코드 부분만 분석해 보도록 하겠습니다.
+
+<br>
+
+```python
+class PSPModule(nn.Module):
+    """Ref: Pyramid Scene Parsing Network,CVPR2017, http://arxiv.org/abs/1612.01105 """
+
+    def __init__(self, inChannel, midReduction=4, outChannel=512, sizes=(1, 2, 3, 6)):
+        super(PSPModule, self).__init__()
+        self.midChannel= int(inChannel/midReduction)  #1x1Conv channel num, defalut=512
+        self.stages = []
+        # 각 sub-region을 ModuleList로 모음
+        self.stages = nn.ModuleList([self._make_stage(inChannel, self.midChannel, size) for size in sizes])  #pooling->conv1x1
+        # concatenation한 feature들에 convolution 적용
+        self.bottleneck = nn.Conv2d( (inChannel+ self.midChannel*4), outChannel, kernel_size=3)  #channel: 4096->512 1x1
+        self.bn = nn.BatchNorm2d(outChannel)
+        self.prelu = nn.PReLU()
+
+    # 각 sub-regsion의 Average Pooling과 Convolution 연산을 하는 함수
+    def _make_stage(self, inChannel, midChannel,  size):
+        # Average Pooling으로 (size, size) 크기의 sub-region을 생성합니다.
+        # 참조 : https://gaussian37.github.io/dl-pytorch-snippets/#nnavgpool2d-vs-nnadaptiveavgpool2d-1
+        pooling = nn.AdaptiveAvgPool2d(output_size=(size, size))
+        # sub-region을 1x1 convolution으로 채널 수를 midChannel 만큼 증감 시킵니다.
+        Conv = nn.Conv2d(inChannel, midChannel, kernel_size=1, bias=False)
+        return nn.Sequential(pooling, Conv)
+
+    def forward(self, feats):
+        # 입력으로 들어온 feature의 height, width 사이즈를 구합니다.
+        h, w = feats.size(2), feats.size(3)
+        # 각 sub-region을 input feature 크기로 interpolation을 합니다.
+        # stage(feats)는 input feature를 각 sub-region 형태로 구한 feature를 뜻합니다.
+        mulBranches = [F.upsample(input=stage(feats), size=(h, w), mode='bilinear') for stage in self.stages] + [feats]
+        # interpolation 한 각 sub-region을 concatenation 하여 하나의 feature로 만듭니다.
+        out = self.bottleneck( torch.cat( (mulBranches[0], mulBranches[1], mulBranches[2], mulBranches[3],feats) ,1))
+        # batch-normalation 적용
+        out = self.bn(out)
+        # prelu 적용
+        out = self.prelu(out)
+        return out
+```
+
+<br>
+
+- 다른 코드에서 위 모듈을 사용하려면 위 모듈을 선언한 다음 feature를 입력으로 넣어주면 됩니다.
+- 위 코드의 주석과 앞의 설명을 잘 읽으시면 이해하는 데 어려움은 없을 것으로 생각됩니다.
+
 <br>
 
 [Segmentaion 관련 글 목록](https://gaussian37.github.io/vision-segmentation-table/)
