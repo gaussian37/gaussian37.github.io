@@ -15,14 +15,50 @@ tags: [pandas, python, python 기본] # add tag
 
 <br>
 
-- ### read_csv(excel) 함수를 통하여 파일 읽을 때
-- ### to_csv(excel) 함수를 통하여 파일 쓸 때
+- ### DataFrame에 column 추가
+- ### DataFrame에 행 단위로 데이터 추가하기
+- ### pd.read_csv(excel) 함수를 통하여 파일 읽을 때
+- ### df.to_csv(excel) 함수를 통하여 파일 쓸 때
 - ### column 명 확인
 
 
 <br>
 
-## **read_csv(excel) 함수를 통하여 파일 읽을 때**
+## **DataFrame에 column 추가**
+
+<br>
+
+- DataFrame을 생성할 때, column을 추가하려면 다음과 같이 DataFrame 생성 시 옵션을 넣을 수 있습니다.
+
+<br>
+
+```python
+columns = ['name', 'age', 'address', 'phone']
+data_frame = pd.DataFrame(columns = columns)
+```
+
+<br>
+
+## **DataFrame에 행 단위로 데이터 추가하기**
+
+<br>
+
+- DataFrame에 한 행씩 데이터를 차곡 차곡 쌓아가고 싶으면 아래 코드와 같이 `.loc[i]`를 이용하여 한 행씩 접근하고 column의 갯수 만큼의 값을 가지는 리스트를 `df.loc[i]`에 입력해 주면 됩니다.
+
+<br>
+
+```python
+import pandas as pd
+from numpy.random import randint
+
+df = pd.DataFrame(columns=['lib', 'qty1', 'qty2'])
+for i in range(5):
+    df.loc[i] = ['name' + str(i)] + list(randint(10, size=2))
+```
+
+<br>
+
+## **pd.read_csv(excel) 함수를 통하여 파일 읽을 때**
 
 <br>
 
@@ -35,7 +71,7 @@ tags: [pandas, python, python 기본] # add tag
 
 <br>
 
-## **to_csv(excel) 함수를 통하여 파일 쓸 때**
+## **df.to_csv(excel) 함수를 통하여 파일 쓸 때**
 
 <br>
 
