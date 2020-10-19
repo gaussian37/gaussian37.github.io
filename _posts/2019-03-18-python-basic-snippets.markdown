@@ -22,7 +22,7 @@ tags: [python, python 기본] # add tag
 - ### [A,B = B,A 로 swap](#ab--ba-로-swap-1)
 - ### [특정 함수에서만 사용하는 패키지는 함수 내부에서 import 할 것](#특정-함수에서만-사용하는-패키지는-함수-내부에서-import-할-것-1)
 - ### [set으로 변환하여 리스트의 원소 유무 확인](#set으로-변환하여-리스트의-원소-유무-확인-1)
-- ### [underscore(_)의 활용](#underscore(_)의-활용-1)
+- ### [underscore(_)의 활용](#underscore_의-활용)
 
 <br>
 
