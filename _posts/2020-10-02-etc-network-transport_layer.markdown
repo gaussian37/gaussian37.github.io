@@ -31,6 +31,62 @@ tags: [computer network, network, transport layer] # add tag
 
 <br>
 
+## **transport-layer services**
+
+<br>
+
+
+<br>
+
+
+## **multiplexing and demultiplexing**
+
+<br>
+
+
+<br>
+
+
+## **connectionless transport : UDP**
+
+<br>
+
+
+<br>
+
+
+## **principles of reliable data transfer**
+
+<br>
+
+
+<br>
+
+
+## **connection-oriented transport : TCP**
+
+<br>
+
+
+<br>
+
+
+## **principles of congestion control**
+
+<br>
+
+
+<br>
+
+
+## **TCP congestion control**
+
+<br>
+
+
+<br>
+
+
 
 
 <br>
