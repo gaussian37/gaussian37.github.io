@@ -21,11 +21,11 @@ tags: [computer network, network, transport layer] # add tag
 
 <br>
 
-- ### [transport-layer services](#transport-layer services-1)
+- ### [transport-layer services](#transport-layer-services-1)
 - ### [multiplexing and demultiplexing](#multiplexing-and-demultiplexing-1)
-- ### [connectionless transport : UDP](#connectionless-transport-udp-1)
+- ### [connectionless transport : UDP](#connectionless-transport--udp-1)
 - ### [principles of reliable data transfer](#principles-of-reliable-data-transfer-1)
-- ### [connection-oriented transport : TCP](#connection-oriented-transport-tcp-1)
+- ### [connection-oriented transport : TCP](#connection-oriented-transport--tcp-1)
 - ### [principles of congestion control](#principles-of-congestion-control-1)
 - ### [TCP congestion control](#tcp-congestion-control-1)
 
