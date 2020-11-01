@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Application Layer
+title: Computer Network and Internet
 date: 2020-10-01 00:00:00
 img: etc/network/0.png
 categories: [etc-network] 

@@ -4,7 +4,7 @@ title: Application Layer
 date: 2020-10-02 00:00:00
 img: etc/network/0.png
 categories: [etc-network] 
-tags: [computer network, network, table] # add tag
+tags: [computer network, network, application layer] # add tag
 ---
 
 <br>
