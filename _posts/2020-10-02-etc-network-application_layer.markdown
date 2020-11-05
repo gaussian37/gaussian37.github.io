@@ -191,6 +191,17 @@ tags: [computer network, network, application layer] # add tag
 
 <br>
 
+
+<br>
+<center><img src="../assets/img/etc/network/application_layer/77.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- DASH라는 서비스는 multimedia streaming 서비스를 할 때, 네트워크 상태가 나쁘면 저화질로 streaming을 하다가 네트워크 상태가 좋아지면 고화질로 streaming을 하기 위하여 개발되었습니다. 이는 현재 네트워크 상태에서 가능한한 고화질로 streaming을 하기 위함입니다.
+- DASH를 위하여 server 측면에서는 비디오 파일을 여러개의 chunk로 나눕니다. 그리고 각각의 chunk를 저장할 때, 다른 rate로 인코딩을 하여 저장을 합니다. 즉, 같은 chunk라도 다른 rate로 인코딩이된 비디오를 가집니다.
+- 이 때, 서로 다른 chunk와 인코딩 rate가 다른 같은 chunk에 대하여 URL을 제공하는 manifest file이라는 것을 가지게 됩니다.
+- 이 파일은 streaming 서비스를 받는 소프트웨어 (client) 에서 사용하게 됩니다.
+- client에서는 주기적으로 server와 client 간의 bandwidth를 측정하고 bandwidth가 허용하는 최대한의 rate로 chunk를 받습니다. 예를 들어 bandwidth의 상태가 안좋을 때에는 저화질로 인코딩 된 chunk를 받고 상태가 좋을 때에는 고화질로 인코딩 된 chunk를 받습니다. 이 때 manifest file을 보고 그 상황에 맞는 chunk의 URL을 사용하게 됩니다.
+
 <br>
 
 ## **socket**

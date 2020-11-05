@@ -23,6 +23,8 @@ tags: [python, python 기본] # add tag
 - ### [특정 함수에서만 사용하는 패키지는 함수 내부에서 import 할 것](#특정-함수에서만-사용하는-패키지는-함수-내부에서-import-할-것-1)
 - ### [set으로 변환하여 리스트의 원소 유무 확인](#set으로-변환하여-리스트의-원소-유무-확인-1)
 - ### [underscore(_)의 활용](#underscore_의-활용-1)
+- ### Function annotation(#function-annotation-1)
+- ### typing 모듈로 타입 표시하기(#typing-모듈로-타입-표시하기-1)
 
 <br>
 
@@ -243,6 +245,85 @@ for _ in range(5):
 beer = ('light', 'bitter', 70, 153)
  color, _, _, calories = beer
  ```
+
+<br>
+
+## **Function annotation**
+
+<br>
+
+- Function annotation은 python3 이상에서 사용 가능하며 function의 설명을 추가하기 위해 사용됩니다.
+- annotation 이기 때문에 **annotation에 추가된 타입들을 맞추지 않아도 문법적으로 전혀 지장이 없습니다.** 사용 방법은 다음과 같습니다.
+
+<br>
+
+```python
+def func(arg1: str, arg2: int, arg3: 'This is your name.') -> bool:
+    print(arg1)
+    print(arg2)
+    print(arg3)
+    return True
+```
+
+<br>
+
+- 위와 같이 예제를 사용하였을 때, argument가 어떤 타입인 지, 또는 설명을 명시적으로 적을 수 있고 return 타입이 무엇인지 명시화 할 수 있습니다.
+- arg1은 문자열이 입력되어야 하고, arg2는 정수, arg3는 설명을 통해서 어떤 입력이 들어와야 하는 지 적었습니다. 그리고 return 형은 bool로 설명하였습니다.
+- 물론 annotation 타입으로 입력하지 않아도 전혀 상관없습니다. 강제하지 않기 때문입니다. 
+- 하지만 이와 같이 설명을 적어주는 코드가 현재 많아지는 추세이니 사용하는 것을 추천드립니다.
+- 또한 위와 같이 명시해 놓으면 IDE에서 annotation을 읽어서 보여주는 IDE가 많습니다. 따라서 실제 코드 작성할 때 도움이 많이 됩니다.
+
+<br>
+
+## **typing 모듈로 타입 표시하기**
+
+<br>
+
+- 타입 힌트(type hint)를 언어 차원에서 지원하기 위해서 파이썬 버전 3.5에서 typing 모듈이 추가되었습니다.
+- typing 모듈 또한 일종의 annotation 이기 때문에 annotation 타입대로 사용하지 않아도 에러가 발생하지는 않습니다.
+
+<br>
+
+```python
+from typing import List
+nums: List[int] = [1, 2, 3]
+
+from typing import Dict
+countries: Dict[str, str] = {"KR": "South Korea", "US": "United States", "CN": "China"}
+
+from typing import Tuple
+user: Tuple[int, str, bool] = (3, "Dale", True)
+
+from typing import Set
+chars: Set[str] = {"A", "B", "C"}
+
+# 여러 개의 annotation을 추가하고 싶을 때 사용
+from typing import Union
+def toString(num: Union[int, float]) -> str:
+    return str(num)
+
+
+# Optional은 Union에서 None을 추가한 것과 같은 의미를 가집니다.
+from typing import Optional
+def repeat(message: str, times: Optional[int] = None) -> list:
+    if times:
+        return [message] * times
+    else:
+        return [message]
+
+
+# Call 가능한 인자를 표현할 때 사용합니다.
+from typing import Callable
+def repeat(greet: Callable[[str], str], name: str, times: int = 2) -> None:
+    for _ in range(times):
+        print(greet(name))
+
+
+from typing import Iterable, List
+def toStrings(nums: Iterable[int]) -> List[str]:
+    return [str(x) for x in nums]
+
+```
 
 <br>
 
