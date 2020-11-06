@@ -244,10 +244,10 @@ For example, in the binary classification problem, you have ever used it as loss
 
 - $$ \mathcal L = -\frac{1}{n}\sum_{x}[ylna + (1-y)ln(1-a)] $$
 
-- $$ \frac{\partial\mathcal L}{\partial w_{j}} = -\frac{1}{n}\sum_{x}(\frac{y}{\sigma(z)} - \frac{(1-y)}{1-\sigma(z)})\frac{\partial\sigma}{\partial w_{j}} 
-- = \frac{\partial\mathcal L}{\partial w_{j}} = -\frac{1}{n}\sum_{x}(\frac{y}{\sigma(z)} - \frac{(1-y)}{1-\sigma(z)})\sigma^{'}(z)x_{j} 
-- = \frac{1}{n}\sum_{x}\frac{\sigma^{'}(z)x_{j}}{\sigma(z)(1-\sigma(z))}(\sigma(z)-y)
-- = \frac{1}{n}\sum_{x}x_{j}(\sigma(z) - y) $$ 
+- $$ \frac{\partial\mathcal L}{\partial w_{j}} = -\frac{1}{n}\sum_{x}(\frac{y}{\sigma(z)} - \frac{(1-y)}{1-\sigma(z)})\frac{\partial\sigma}{\partial w_{j}} $$
+- $$ = \frac{\partial\mathcal L}{\partial w_{j}} = -\frac{1}{n}\sum_{x}(\frac{y}{\sigma(z)} - \frac{(1-y)}{1-\sigma(z)})\sigma^{'}(z)x_{j} $$
+- $$ = \frac{1}{n}\sum_{x}\frac{\sigma^{'}(z)x_{j}}{\sigma(z)(1-\sigma(z))}(\sigma(z)-y) $$
+- $$ = \frac{1}{n}\sum_{x}x_{j}(\sigma(z) - y) $$ 
 
 That's it! we have look through `Entropy`, `KL divergence` and `Cross Entropy`.
 
