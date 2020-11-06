@@ -9,8 +9,8 @@ tags: [Information Theory, Entropy, KL divergence, Cross Entropy] # add tag
 
 Let's think about two cases. Which case does have **more information**?
 
-1. It's clear today. In the news, it will be clear tomorrow too.
-2. It's clear today. But in the news, it will be heavy rainy tomorrow.
+- 1. It's clear today. In the news, it will be clear tomorrow too.
+- 2. It's clear today. But in the news, it will be heavy rainy tomorrow.
 
 In the first case, probability of clear in tomorrow is high because today is clear.
 Intuitively, we get less information. On the contrary, probability of second case is low.
@@ -26,11 +26,11 @@ What we can measure is `probability`.
 
 we can formulate above example like this. 
 
-$$ P(tomorrow = heavy rainy | today = clear) , P(tomorrow = clear | today  = clear) $$
+- $$ P(tomorrow = heavy rainy | today = clear) , P(tomorrow = clear | today  = clear) $$
 
 Okay! we can define `how to measure information quantity` when knowing the probability of an event.
 
-$$ h(x) = -log_{2}P(x) \tag{1} $$
+- $$ h(x) = -log_{2}P(x) \tag{1} $$
 
 equation (1) shows the answer. x is random variable. 
 In above example, x is random variable showing weather of clear or rainy.
@@ -45,23 +45,29 @@ we can change base 2 to e(natural constant) then, unit is changed from `bit` to 
 
 <br> 
 
-### What is the entropy ?
+## **What is the entropy ?**
+
+<br>
 
 `Entropy` is the average of information quantities that random variable x can have.
 
-$$ H(x) = -\sum_{x}P(x)log_{2}P(x) \tag{2} $$
+- $$ H(x) = -\sum_{x}P(x)log_{2}P(x) \tag{2} $$
 
-$$ H(x) = -\int_{\infty}^{\infty} P(x)log_{2}P(x) dx \tag{3} $$
+- $$ H(x) = -\int_{\infty}^{\infty} P(x)log_{2}P(x) dx \tag{3} $$
 
 Equation (2) is the entropy of dicrete case and (3) is of continuous case.
 
+<br>
+
 ![dices](../assets/img/ml/concept/Information-Theory/dices.jpg)
+
+<br>
 
 Let me explain `entropy` with dice. let random variable `x` as spot on a die. 
 `x` can have value from 1 to 6(1,2,3,4,5,6) and each has same probability as $$ \frac{1}{6}$$.
 Accordingly, `entopy` is 2.585 bits.
 
-$$ H(x) = -\sum\frac{1}{6}log_{2}\frac{1}{6} = 2.585 bits $$
+- $$ H(x) = -\sum\frac{1}{6}log_{2}\frac{1}{6} = 2.585 bits $$
 
 Thinking about the characteristic of `entropy`, entropy is maximized when all events which have same probability of occurrence.
 In other words, the extent of chaos become maximized or `uncertainty` become maximized. 
@@ -75,12 +81,20 @@ Is `uncertainty` increasing or decreasing comparing to normal die?
 
 Before check it, suppose that there are two cases. each case has two probability distribution with random variable `x`.
  
+<br>
+
 ![similar](../assets/img/ml/concept/Information-Theory/similar.PNG)
+
+<br>
 
 As above example, two probability distributions are largely overlapped. 
 In other words, there are nothing special difference between two. 
 
+<br>
+
 ![different](../assets/img/ml/concept/Information-Theory/different.PNG)
+
+<br>
 
 In this case, two probability distributions are little overlapped.
 Accordingly, They are different.
@@ -90,7 +104,7 @@ In order to quantify the difference, we do it with `KL divergence`(Kullback-Leib
 
 <br> 
 
-### What is the KL divergence?
+## **What is the KL divergence?**
 
 Let's look into `KL divergence` with the above example. we can define `KL divergence` formula like this.
 
@@ -105,17 +119,21 @@ Additionally, we call it as **relative entropy**.
 
 Okay! then, let's see another example.
 
+<br>
+
 ![distribution](../assets/img/ml/concept/Information-Theory/distribution.PNG)
 
+<br>
+
 Let random variable `x` have different probability distribution. 
-$$ P_{1}(x) $$ and $$ P_{2}(X) $$ have similar distribution and
-$$ P_{1}(x) $$ and $$ P_{3}(X) $$ don't.
+- $$ P_{1}(x) $$ and $$ P_{2}(X) $$ have similar distribution and
+- $$ P_{1}(x) $$ and $$ P_{3}(X) $$ don't.
 
 Then, calculate KL divergence.
 
-$$ KL(P_{1}(x), P_{2}(x)) = 0.1log_{2}\frac{0.1}{0.1} + 0.4log_{2}\frac{0.4}{0.5} + 0.4log_{2}\frac{0.4}{0.3} + 0.1log_{2}\frac{0.1}{0.1} = 0.037 $$
+- $$ KL(P_{1}(x), P_{2}(x)) = 0.1log_{2}\frac{0.1}{0.1} + 0.4log_{2}\frac{0.4}{0.5} + 0.4log_{2}\frac{0.4}{0.3} + 0.1log_{2}\frac{0.1}{0.1} = 0.037 $$
 
-$$ KL(P_{1}(x), P_{3}(x)) = 0.1log_{2}\frac{0.1}{0.4} + 0.4log_{2}\frac{0.4}{0.1} + 0.4log_{2}\frac{0.4}{0.1} + 0.1log_{2}\frac{0.1}{0.4} = 1.200 $$
+- $$ KL(P_{1}(x), P_{3}(x)) = 0.1log_{2}\frac{0.1}{0.4} + 0.4log_{2}\frac{0.4}{0.1} + 0.4log_{2}\frac{0.4}{0.1} + 0.1log_{2}\frac{0.1}{0.4} = 1.200 $$
 
 
 As a result of `KL divergence`, $$ P_{1}(x) $$ and $$ P_{1}(x) $$ is close (0.037)
@@ -123,7 +141,9 @@ and $$ P_{1}(x) $$ and $$ P_{3}(x) $$ are farther (1.200) than former.
 
 <br>
 
-### Mutual information with KL divergence
+## **Mutual information with KL divergence**
+
+<br>
 
 With `KL divergence`, we can see the mutual information between two random variable `x` and `y`.
 Mutual information indicates how much two variables are dependent.
@@ -132,9 +152,9 @@ if x and y are **independent**, p(x, y) = p(x)p(y). Accordingly, they don't have
 On the other hand, if difference between joint distribution p(x, y) and p(x)p(y) is larger and larger,
 they become more dependent. Thus, `KL divergence` of `p(x,y)` and `p(x)p(y)` measures dependency of `x` and `y`.
 
-$$ I(x,y) = KL(P(x,y) P(x)P(y)) = \sum_{x}\sum_{y}P(x,y)log_{2}\frac{P(x,y)}{P(x)P(y)} \tag{6} $$
+- $$ I(x,y) = KL(P(x,y) P(x)P(y)) = \sum_{x}\sum_{y}P(x,y)log_{2}\frac{P(x,y)}{P(x)P(y)} \tag{6} $$
 
-$$ I(x,y) = KL(P(x,y), P(x)P(y)) = \int^{\infty}_{\infty}\int^{\infty}_{\infty} P(x,y)log_{2}\frac{P(x,y)}{P(x)P(y)} \tag{7} $$
+- $$ I(x,y) = KL(P(x,y), P(x)P(y)) = \int^{\infty}_{\infty}\int^{\infty}_{\infty} P(x,y)log_{2}\frac{P(x,y)}{P(x)P(y)} \tag{7} $$
 
 In the classification problems, Which state is better that `KL divergence` is large or small?
 Answer is **Large**. If `KL divergence` is large then, their distribution is far apart and it is easy to classify.
@@ -144,27 +164,35 @@ If the value is too small, they are dependent and maybe not useful.
 
 <br>
 
-### Is order important in KL divergence ?
+## **Is order important in KL divergence ?**
+
+<br>
 
 In `KL divergence` of $$ KL(P_{1}(x), P_{2}(x)) $$, many use $$ P_{1}(x) $$ as **Label or True**, $$ P_{2}(x) $$ as **Prediction**.
 
-$$ KL(P_{1}(x), P_{2}(x)) = \sum_{x}P_{1}(x)log_{2}\frac{P_{1}(x)}{P_{2}(x)} $$
+- $$ KL(P_{1}(x), P_{2}(x)) = \sum_{x}P_{1}(x)log_{2}\frac{P_{1}(x)}{P_{2}(x)} $$
 
 In a point of $$ P_{1}(x) = 0 $$, regardless of $$ P_{2}(x) $$, values is zero.
 That is, don't care the prediction(estimation) in a point where true value doesn't exist.
 
+<br>
+
 ![kldivergence_order](../assets/img/ml/concept/Information-Theory/kldivergence_order.PNG)
+
+<br>
 
 If P(x) = Label, Q(x) = Prediction then, greater than about 3 value points will be zero in `KL divergence`.
 Because In terms of $$ \sum_{x}P(x)log_{2}\frac{P(x)}{Q(x)} $$, P(x) is zero.
 
 On the other hand, In `Reverse KL divergence`, don't care the point where prediction value doesn't exist.
 
-$$ KL(P_{2}(x), P_{1}(x)) = \sum_{x}P_{2}(x)log_{2}\frac{P_{2}(x)}{P_{1}(x)} , where P_{1}(x) = Label, P_{2}(x) = Prediction $$
+- $$ KL(P_{2}(x), P_{1}(x)) = \sum_{x}P_{2}(x)log_{2}\frac{P_{2}(x)}{P_{1}(x)} , where P_{1}(x) = Label, P_{2}(x) = Prediction $$
   
 <br>
 
-### What is the Cross Entropy?
+## **What is the Cross Entropy?**
+
+<br.>
 
 If you study `Neural Network` then, you maybe know the `cross entropy`.
 we usually use it as **loss function**.
@@ -174,24 +202,24 @@ Let's look into `CE` (Cross Entropy)
 
 + Entropy
 
-$$ H(x) = -\sum_{x}P(x)log_{2}P(x) \tag{2} $$
+- $$ H(x) = -\sum_{x}P(x)log_{2}P(x) \tag{2} $$
 
 + KL divergence
 
-$$ KL(P_{1}(x), P_{2}(x)) = \sum_{x}P_{1}(x)log_{2}\frac{P_{1}(x)}{P_{2}(x)} \tag{4} $$
+- $$ KL(P_{1}(x), P_{2}(x)) = \sum_{x}P_{1}(x)log_{2}\frac{P_{1}(x)}{P_{2}(x)} \tag{4} $$
 
 + Cross Entropy
 
-$$ H(P_{1}(x), P_{2}(x)) = \sum_{x}P_{1}(x)log_{2}\frac{1}{P_{2}(x)} = -\sum_{x}P_{1}(x)log_{2}P_{2}(x) $$
+- $$ H(P_{1}(x), P_{2}(x)) = \sum_{x}P_{1}(x)log_{2}\frac{1}{P_{2}(x)} = -\sum_{x}P_{1}(x)log_{2}P_{2}(x) $$
 
 
 Yes it is! `CE` is the negative part of `KL divergence`.
 
-`KL divergence` = `Entropy` + `Cross Entropy`
+- `KL divergence` = `Entropy` + `Cross Entropy`
 
 What is the $$ P_{1}(x) $$ and $$ P_{2}(x) $$ in usual?
 
-$$ P_{1}(x) $$ is `label`(True value) and $$ P_{2}(x) $$ is `Prediction`.
+- $$ P_{1}(x) $$ is `label`(True value) and $$ P_{2}(x) $$ is `Prediction`.
 
 Oh, Do you get feel for the reason why we use `CE` as loss function?
 Actually `KL divergence` and `CE` has same meaning in loss function(don't need `entropy`).
@@ -201,11 +229,11 @@ For example, in the binary classification problem, you have ever used it as loss
 (In above, we used $$ log_{2} $$ but in neural network, usually use $$ ln = log_{e} $$)
 
 
-$$ a = \sigma(z), z = wx + b $$
+- $$ a = \sigma(z), z = wx + b $$
 
-$$ \mathcal L = -\frac{1}{n}\sum_{x}[ylna + (1-y)ln(1-a)] $$
+- $$ \mathcal L = -\frac{1}{n}\sum_{x}[ylna + (1-y)ln(1-a)] $$
 
-$$ \frac{\partial\mathcal L}{\partial w_{j}} = -\frac{1}{n}\sum_{x}(\frac{y}{\sigma(z)} - \frac{(1-y)}{1-\sigma(z)})\frac{\partial\sigma}{\partial w_{j}} 
+- $$ \frac{\partial\mathcal L}{\partial w_{j}} = -\frac{1}{n}\sum_{x}(\frac{y}{\sigma(z)} - \frac{(1-y)}{1-\sigma(z)})\frac{\partial\sigma}{\partial w_{j}} 
  = \frac{\partial\mathcal L}{\partial w_{j}} = -\frac{1}{n}\sum_{x}(\frac{y}{\sigma(z)} - \frac{(1-y)}{1-\sigma(z)})\sigma^{'}(z)x_{j} 
  = \frac{1}{n}\sum_{x}\frac{\sigma^{'}(z)x_{j}}{\sigma(z)(1-\sigma(z))}(\sigma(z)-y)
  = \frac{1}{n}\sum_{x}x_{j}(\sigma(z) - y) $$ 
