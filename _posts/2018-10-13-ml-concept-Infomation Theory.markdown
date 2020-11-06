@@ -106,11 +106,13 @@ In order to quantify the difference, we do it with `KL divergence`(Kullback-Leib
 
 ## **What is the KL divergence?**
 
+<br>
+
 Let's look into `KL divergence` with the above example. we can define `KL divergence` formula like this.
 
-$$ KL(P_{1}(x), P_{2}(x)) = \sum_{x}P_{1}(x)log_{2}\frac{P_{1}(x)}{P_{2}(x)} \tag{4} $$
+- $$ KL(P_{1}(x), P_{2}(x)) = \sum_{x}P_{1}(x)log_{2}\frac{P_{1}(x)}{P_{2}(x)} \tag{4} $$
 
-$$ KL(P_{1}(x), P_{2}(x)) = \int_{R_{d}}P_{1}(x)log_{2}\frac{P_{1}(x)}{P_{2}(x)}dx \tag{5} $$
+- $$ KL(P_{1}(x), P_{2}(x)) = \int_{R_{d}}P_{1}(x)log_{2}\frac{P_{1}(x)}{P_{2}(x)}dx \tag{5} $$
 
 Above formulas have range of $$ KL(P_{1}(x), P_{2}(x)) \ge 0 $$ and  $$ KL(P_{1}(x), P_{2}(x)) = 0 $$ if $$P_{1}(x) = P_{2}(x) $$.  
 It's easy right? we can think that it is similar to distance between two distribution.
@@ -192,51 +194,60 @@ On the other hand, In `Reverse KL divergence`, don't care the point where predic
 
 ## **What is the Cross Entropy?**
 
-<br.>
+<br>
 
 If you study `Neural Network` then, you maybe know the `cross entropy`.
 we usually use it as **loss function**.
 As you may know, we used `cross entropy` in the `KL divergence`.
 
-Let's look into `CE` (Cross Entropy)
+- Let's look into `CE` (Cross Entropy)
+- #### **Entropy :** 
 
-+ Entropy
+<br>
 
 - $$ H(x) = -\sum_{x}P(x)log_{2}P(x) \tag{2} $$
 
-+ KL divergence
+<br>
+
+- #### **KL divergence :**
+
+<br>
 
 - $$ KL(P_{1}(x), P_{2}(x)) = \sum_{x}P_{1}(x)log_{2}\frac{P_{1}(x)}{P_{2}(x)} \tag{4} $$
 
-+ Cross Entropy
+<br>
+
+- #### **Cross Entropy :**
+
+<br>
 
 - $$ H(P_{1}(x), P_{2}(x)) = \sum_{x}P_{1}(x)log_{2}\frac{1}{P_{2}(x)} = -\sum_{x}P_{1}(x)log_{2}P_{2}(x) $$
 
+<br>
 
-Yes it is! `CE` is the negative part of `KL divergence`.
 
+- Yes it is! `CE` is the negative part of `KL divergence`.
 - `KL divergence` = `Entropy` + `Cross Entropy`
-
-What is the $$ P_{1}(x) $$ and $$ P_{2}(x) $$ in usual?
-
+- What is the $$ P_{1}(x) $$ and $$ P_{2}(x) $$ in usual?
 - $$ P_{1}(x) $$ is `label`(True value) and $$ P_{2}(x) $$ is `Prediction`.
+- Oh, Do you get feel for the reason why we use `CE` as loss function?
+- Actually `KL divergence` and `CE` has same meaning in loss function(don't need `entropy`). Therefore we use `CE`.
 
-Oh, Do you get feel for the reason why we use `CE` as loss function?
-Actually `KL divergence` and `CE` has same meaning in loss function(don't need `entropy`).
-Therefore we use `CE`.
+<br>
 
 For example, in the binary classification problem, you have ever used it as loss function.
 (In above, we used $$ log_{2} $$ but in neural network, usually use $$ ln = log_{e} $$)
 
+<br>
 
 - $$ a = \sigma(z), z = wx + b $$
 
 - $$ \mathcal L = -\frac{1}{n}\sum_{x}[ylna + (1-y)ln(1-a)] $$
 
 - $$ \frac{\partial\mathcal L}{\partial w_{j}} = -\frac{1}{n}\sum_{x}(\frac{y}{\sigma(z)} - \frac{(1-y)}{1-\sigma(z)})\frac{\partial\sigma}{\partial w_{j}} 
- = \frac{\partial\mathcal L}{\partial w_{j}} = -\frac{1}{n}\sum_{x}(\frac{y}{\sigma(z)} - \frac{(1-y)}{1-\sigma(z)})\sigma^{'}(z)x_{j} 
- = \frac{1}{n}\sum_{x}\frac{\sigma^{'}(z)x_{j}}{\sigma(z)(1-\sigma(z))}(\sigma(z)-y)
- = \frac{1}{n}\sum_{x}x_{j}(\sigma(z) - y) $$ 
+- = \frac{\partial\mathcal L}{\partial w_{j}} = -\frac{1}{n}\sum_{x}(\frac{y}{\sigma(z)} - \frac{(1-y)}{1-\sigma(z)})\sigma^{'}(z)x_{j} 
+- = \frac{1}{n}\sum_{x}\frac{\sigma^{'}(z)x_{j}}{\sigma(z)(1-\sigma(z))}(\sigma(z)-y)
+- = \frac{1}{n}\sum_{x}x_{j}(\sigma(z) - y) $$ 
 
 That's it! we have look through `Entropy`, `KL divergence` and `Cross Entropy`.
 
