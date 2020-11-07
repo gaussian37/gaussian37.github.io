@@ -131,6 +131,7 @@ del test
 <br>
 
 - 참조 : https://shoark7.github.io/programming/python/difference-between-__repr__-vs-__str__
+- 참조 : https://medium.com/swlh/understanding-repr-and-str-in-python-65dd41538943
 - 파이썬에는 내장된 많은 자료형들에, 해당하는 자료형에 대한 연산을 정의하는 메소드들이 있습니다. 그 메소드들은 메소드의 이름 앞뒤에 `‘__‘`(double underscore)를 지니고 있습니다.
 - 예를 들어 파이썬에서는 모든 변수들이 클래스이고 인스턴스입니다. 따라서 정수 ‘3’에 대하여 이 값이 내장 int 클래스의 인스턴스임을 알 수 있습니다.
 
@@ -167,4 +168,70 @@ isinstance(3, int)
 
 <br>
 
-- 그러면 Magic method에 대하여 알아보았으니 `__str__`과 `__repr__`에 대하여 알아보고 그 차이점에 대하여 비교하도록 하겠습니다.
+- 그러면 Magic method에 대하여 알아보았으니 `__repr__`과 `__str__`에 대하여 알아보고 그 차이점에 대하여 비교하도록 하겠습니다.
+- `__repr__`과 `__str__`은 클래스의 정보를 사람이 읽을 수 있게 제공하기 위한 기능입니다.
+- 먼저 다음 예제를 살펴보도록 하겠습니다.
+
+<br>
+
+```python
+class Animal:
+    def __init__(self, animal, breed):
+        self.animal = animal
+        self.breed = breed
+
+a = Animal("Dog", "Pomeranian")
+print(a)
+# <__main__.Animal object at 0x000002081F368408>
+```
+
+<br>
+
+- 위와 같이 객체 `a`를 출력하였을 떄, 사람은 전혀 알 수 없는 정보가 출력이 됩니다.
+- 이 문제를 개선하기 위하여 `__repr__`과 `__str__`이 제공됩니다. 다음 코드를 통하여 어떻게 사용되는 지 살펴보도록 하겠습니다.
+
+<br>
+
+```python
+class Animal:
+    def __init__(self, animal, breed):
+        self.animal = animal
+        self.breed = breed
+        
+    def __str__(self):
+        return "__str__, animal is {}, breed is {}".format(self.animal, self.breed)
+    def __repr__(self):
+        return "__repr__, animal is {}, breed is {}".format(self.animal, self.breed)
+
+a = Animal("Dog", "Pomeranian")
+print(a)
+# __str__, animal is Dog, breed is Pomeranian
+str(a)
+# __str__, animal is Dog, breed is Pomeranian
+a
+# __repr__, animal is Dog, breed is Pomeranian
+```
+
+<br>
+
+- 위 사용 용도를 살펴보면 `print` 또는 `str` 을 통하여 객체의 정보를 확인할 떄에는 `__str__`이 사용되고 단순히 객체를 확인할 경우 `__repr__`이 사용됩니다.
+- 아래 예제를 통하여 다시 한번 사용 용도를 확인해 보겠습니다.
+
+<br>
+
+```python
+import datetime
+today = datetime.date.today()
+
+print(today)
+# 2020-11-07
+str(today)
+# 2020-11-07
+
+today
+# datetime.date(2020, 11, 7)
+repr(today)
+# 'datetime.date(2020, 11, 7)'
+```
+
+<br>
