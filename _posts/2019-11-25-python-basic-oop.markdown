@@ -23,6 +23,7 @@ tags: [python, oop, object oriented, 객체 지향] # add tag
 - ### 객체의 생성과 초기화(#객체의-생성과-초기화)
 - ### __str__과 __repr__의 차이점(#__str__과-__repr__의-차이점-1)
 - ### __getattr__ 와 __getattribute__(#__getattr__-와-__getattribute__-1)
+- ### __bytes__(#__bytes__)
 
 <br>
 
@@ -300,3 +301,28 @@ print(a.__dict__)
 - 정리하면 다음과 같습니다.
 - `__getattribute__`는 해당 attribute의 유무에 상관없이 가장 **선순위**로 호출됩니다.
 - 반면 `__getattr__`는 해당 attribute를 찾을 수 없을경우 가장 **후순위**로 호출됩니다.
+
+<br>
+
+## **__bytes__**
+
+<br>
+
+- bytes에 의해 호출되어 객체의 바이트열 표현을 계산할 때 사용됩니다. 따라서 반환 값은 반드시 bytes 객체이어야 합니다.
+
+<br>
+
+```python
+class Test:
+     def __bytes__(self):
+        return str.encode(self.string)
+
+a =  Test()
+
+a.string = "abc"
+
+bytes(a)
+# b'abc'
+```
+
+<br>
