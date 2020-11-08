@@ -22,6 +22,7 @@ tags: [python, oop, object oriented, 객체 지향] # add tag
 - ### 상속과 다형성(#상속과-다형성)
 - ### 객체의 생성과 초기화(#객체의-생성과-초기화)
 - ### __str__과 __repr__의 차이점(#__str__과-__repr__의-차이점-1)
+- ### __getattr__ 와 __getattribute__(#__getattr__-와-__getattribute__-1)
 
 <br>
 
@@ -235,3 +236,67 @@ repr(today)
 ```
 
 <br>
+
+## **__getattr__ 와 __getattribute__**
+
+<br>
+
+- 참조 : https://medium.com/@starriet87/%ED%8C%8C%EC%9D%B4%EC%8D%AC-getattr-%EC%99%80-getattribute-%EC%9D%98-%EC%B0%A8%EC%9D%B4-46ef0174e8e0
+- `__getattr__` : 객체에 해당 attribute가 없을경우 호출됩니다. 즉, 객체의 멤버값들을 모두 찾아봐도 필요한 값이 없으면 `__getattr__`를 호출하게 되며 입력값의 인자는 attribute가 됩니다. 따라서 `__getattr__`의 호출은 객체 내 다른 멤버값을 모두 찾아보고 없으면 사용하는 것으로 우선 순위가 가장 낮습니다.
+- `__getattribute__` : 객체의 해당 attribute 존재 유무와 상관없이 호출되며 입력값의 인자는 attribute가 됩니다.
+
+<br>
+
+```python
+class Test:
+    def __getattr__(self, name):
+        return ('__getattr__ test : ' + name)
+
+a = Test()
+a.ace = 'ace value'
+print(a.ace)
+# ace value
+
+print(a.ace2)
+# __getattr__ test : ace2
+
+print(a.__dict__)
+# {'ace': 'ace value'}
+```
+
+<br>
+
+- 위 예제를 보면 `a.ace`는 클래스 내부에 멤버 변수로 할당되었기 때문에 값을 그대로 출력합니다.
+- 반면 `a.ace2`는 멤버 변수 값이 없기 때문에 `__getattr__`에 정의된 값을 이용하여 출력합니다. 마치 예외처리 하듯이 사용할 수 있습니다.
+- 마지막으로 `__dict__`를 이용하면 멤버 변수의 변수명과 그 값을 살펴볼 수 있습니다.
+
+<br>
+
+```python
+class Test:
+    def __getattr__(self, name):
+        return ('__getattr__ : ' + name)
+    def __getattribute__(self,name):
+        return ('__getattribute__ : ' + name)
+
+a = Test()
+a.ace = 'ace value'
+print(a.ace)
+# __getattribute__ : ace
+
+print(a.ace2)
+# __getattribute__ : ace2
+
+print(a.__dict__)
+# __getattribute__ : __dict__
+```
+
+<br>
+
+- 반면 `__getattribute__`의 경우 멤버 변수 값이 있음에도 불구하고 `__getattribute__`가 실행되었습니다. 심지어 `__dict__`의 경우에도 실행된 것을 확인할 수 있습니다. `__getattribute__`의 경우 가장 높은 우선순위로 실행되는 것을 알 수 있습니다.
+
+<br>
+
+- 정리하면 다음과 같습니다.
+- `__getattribute__`는 해당 attribute의 유무에 상관없이 가장 **선순위**로 호출됩니다.
+- 반면 `__getattr__`는 해당 attribute를 찾을 수 없을경우 가장 **후순위**로 호출됩니다.
