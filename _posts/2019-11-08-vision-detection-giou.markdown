@@ -1,7 +1,7 @@
 ---
 layout: post
 title: GIoU(Generalized Intersection over Union)
-date: 20220-11-08 00:00:00
+date: 2020-11-08 00:00:00
 img: vision/detection/giou/0.png
 categories: [vision-detection] 
 tags: [object detection, giou, generalized intersection over Union] # add tag
