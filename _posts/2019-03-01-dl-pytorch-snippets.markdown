@@ -28,7 +28,8 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [optimizer.zero_grad(), loss.backward(), optimizer.step()](#optimizerzero_grad-lossbackward-optimizerstep-1)
 - ### [optimizer.step()을 통한 파라미터 업데이트와 loss.backward()와의 관계](#optimizerstep을-통한-파라미터-업데이트와-lossbackward와의-관계-1)
 - ### [gradient를 직접 zero로 셋팅하는 이유와 활용 방법](#gradient를-직접-zero로-셋팅하는-이유와-활용-방법-1)
-- ### [model.eval()와 with torch.no_grad() 비교]()
+- ### [model.eval()와 torch.no_grad() 비교]()
+- ### [Dropout 적용 시 Tensor 값 변경 메커니즘]()
 
 
 <br>
@@ -334,13 +335,103 @@ for epoch in range(epochs):
 
 <br>
 
-## **model.eval()와 with torch.no_grad() 비교**
+## **model.eval()와 torch.no_grad() 비교**
 
 <br>
 
+- `model.eval()` : `.eval()`모드를 사용하면 모델 내부의 모든 layer가 evaluation 모드가 됩니다. evaluation 모드에서는 batchnorm, dropout과 같은 기능들이 사용되지 않습니다.
+- `torch.no_grad()` : 어떤 Tensor가 `.no_grad()`로 지정이 되면 autograd 엔진에게 이 정보를 알려주고 학습에서 제외됩니다. 학습에서 제외되기 때문에 Backprop에 필요한 메모리 등을 절약할 수 있으므로 이 Tensor를 사용하여 계산 시 연산 속도가 빨라집니다. 하지만 Backprop을 할 수 없으므로 학습은 불가능 합니다.
 
+<br>
 
+- 처음에 사용할 때에는 헷갈릴 수 있지만 기능이 구현된 목적에 맞게 사용하면 헷갈림 없이 사용할 수 있습니다.
+- `model.eval()`은 실제 inference를 하기 전에 model의 모든 layer를 evaluation 모드로 변경하기 위해 사용하면 됩니다. 특히 dropout과 batchnorm이 model에 포함되어 있다면 반드시 사용해야 합니다.
+- 반면 `torch.no_grad()`는 특정 레이어에서 backprop을 적용시키지 않기 위하여 사용됩니다. 따라서 학습에서 제외할 layer가 있다면 그 layer를 위해 사용하면 됩니다.
 
+<br>
+
+```python
+import torch
+
+drop = torch.nn.Dropout(p=0.3)
+x = torch.ones(1, 10)
+
+# Train mode (default after construction)
+drop.train()
+print(drop(x))
+# tensor([[1.4286, 1.4286, 0.0000, 1.4286, 0.0000, 1.4286, 1.4286, 0.0000, 1.4286, 1.4286]])
+
+# Eval mode
+drop.eval()
+print(drop(x))
+# tensor([[1., 1., 1., 1., 1., 1., 1., 1., 1., 1.]])
+```
+<br>
+
+- 위 예제를 살펴보면 `.train()`, `.eval()` 모드에 따라서 dropout을 적용한 결과가 달라집니다.
+- eval 모드에서는 dropout이 비활성화가 되고 input을 그대로 pass해주는 역할만 합니다.
+- 반면 train 모드에서는 `torch.nn.Dropout(p)`에 사용되는 확률값 p를 받아서 사용됩니다.
+
+<br>
+
+- 추가적으로 `torch.no_grad()`의 사용 케이스에 대하여 간략하게 소개하면서 마무리 하겠습니다.
+
+<br>
+
+```python
+x = torch.tensor([1], requires_grad=True)
+
+# with 구문을 이용하여 Tensor의 성분을 no_grad로 변경
+with torch.no_grad():
+  y = x * 2
+y.requires_grad
+# False
+
+# decorator를 이용하여 Tensor의 성분을 no_grad로 변경
+@torch.no_grad()
+def doubler(x):
+    return x * 2
+z = doubler(x)
+z.requires_grad
+# False
+```
+
+<br>
+
+## **Dropout 적용 시 Tensor 값 변경 메커니즘**
+
+<br>
+
+- Tensor의 Train 모드에서는 dropout이 적용된 Tensor는 값 일부가 0으로 바뀌게 됩니다.
+- 이 떄, Dropout이 적용된 Tensor가 어떻게 바뀌는 지 간단하게 살펴보도록 하겠습니다.
+
+<br>
+
+```python
+import torch
+
+drop = torch.nn.Dropout(p=0.3)
+x = torch.ones(1, 10)
+
+# Train mode (default after construction)
+drop.train()
+print(drop(x))
+# tensor([[1.4286, 1.4286, 0.0000, 1.4286, 0.0000, 1.4286, 1.4286, 0.0000, 1.4286, 1.4286]])
+
+# Eval mode
+drop.eval()
+print(drop(x))
+# tensor([[1., 1., 1., 1., 1., 1., 1., 1., 1., 1.]])
+```
+
+<br>
+
+- 위 예제를 보면 Dropout을 적용하기 이전의 값은 모두 1을 가지고 있습니다.
+- 반면 dropout이 적용되면 일부 값은 0을 가지고 0이 되지 않은 값은 기존의 값 1보다 더 커진것을 알 수 있습니다.
+- 이와 같이 값이 변경 되는 것은 처음에 Dropout을 선언할 때, 입력한 파라미터 `p`와 (torch.nn.Dropout(`p`)) 연관되어 있습니다.
+- 위 예제에서 p = 0.3이라는 뜻은 전체 값 중 0.3의 확률로 0이 된다는 것을 뜻합니다.
+- 이 때 0이 되지 않은 0.7에 해당하는 값은 (1/0.7) 만큼 scale이 됩니다. 따라서 (1/0.7 = 1.4286...)이 됩니다.
+- 정리하면 **Dropout에 적용된 p 만큼의 비율로 Tensor의 값이 0이되고 0이되지 않은 값들은 기존값에 (1/(1-p)) 만큼 곱해져서 값이 커집니다.**
 
 <br>
 
