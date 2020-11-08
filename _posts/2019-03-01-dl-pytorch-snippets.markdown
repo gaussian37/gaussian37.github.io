@@ -28,8 +28,8 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [optimizer.zero_grad(), loss.backward(), optimizer.step()](#optimizerzero_grad-lossbackward-optimizerstep-1)
 - ### [optimizer.step()을 통한 파라미터 업데이트와 loss.backward()와의 관계](#optimizerstep을-통한-파라미터-업데이트와-lossbackward와의-관계-1)
 - ### [gradient를 직접 zero로 셋팅하는 이유와 활용 방법](#gradient를-직접-zero로-셋팅하는-이유와-활용-방법-1)
-- ### [model.eval()와 torch.no_grad() 비교]()
-- ### [Dropout 적용 시 Tensor 값 변경 메커니즘]()
+- ### [model.eval()와 torch.no_grad() 비교](#modeleval와-torchno_grad-비교-1)
+- ### [Dropout 적용 시 Tensor 값 변경 메커니즘](#dropout-적용-시-tensor-값-변경-메커니즘-1)
 
 
 <br>
@@ -51,14 +51,14 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 <br>
 
 - ### **--- 자주 사용하는 코드 모음 ---**
-- ### weight 초기화 방법(#weight-초기화-방법-1)
-- ### load와 save 방법(#load와-save-방법-1)
-- ### Dataloader 사용 방법(#dataloader-사용-방법-1)
-- ### pre-trained model 사용 방법(#pre-trained-model-사용-방법-1)
-- ### pre-trained model 수정 방법(#pre-trained-model-수정-방법-1)
-- ### Learning Rate Scheduler 사용 방법(#learning-rate-scheduler-사용-방법-1)
-- ### model의 parameter 확인 방법(#model의-parameter-확인-방법-1)
-- ### Tensor 깊은 복사(#tensor-깊은-복사-1)
+- ### weight 초기화 방법(#weight-초기화-방법)
+- ### load와 save 방법(#load와-save-방법)
+- ### Dataloader 사용 방법(#dataloader-사용-방법)
+- ### pre-trained model 사용 방법(#pre-trained-model-사용-방법)
+- ### pre-trained model 수정 방법(#pre-trained-model-수정-방법)
+- ### Learning Rate Scheduler 사용 방법(#learning-rate-scheduler-사용-방법)
+- ### model의 parameter 확인 방법(#model의-parameter-확인-방법)
+- ### Tensor 깊은 복사(#tensor-깊은-복사)
 
 <br>
 
