@@ -106,6 +106,11 @@ tags: [object detection, giou, generalized intersection over Union] # add tag
 
 <br>
 
+- 이 논문에서는 GIoU를 이용하여 기존 Loss를 대체하고 IoU가 0인 경우에 대해서도 얼만큼 두 박스가 더 멀리 있는 지 정량화 하는 방법에 대하여 소개하였습니다.
+- 만약 두 박스가 얼만큼 떨어져 있는 지 정량화가 필요하면 GIoU를 사용해도 될 것으로 판된됩니다.
+
+<br>
+
 [Detection 관련 글 목록](https://gaussian37.github.io/vision-detection-table/)
 
 <br>
