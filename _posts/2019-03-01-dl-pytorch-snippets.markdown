@@ -28,6 +28,8 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [optimizer.zero_grad(), loss.backward(), optimizer.step()](#optimizerzero_grad-lossbackward-optimizerstep-1)
 - ### [optimizer.step()을 통한 파라미터 업데이트와 loss.backward()와의 관계](#optimizerstep을-통한-파라미터-업데이트와-lossbackward와의-관계-1)
 - ### [gradient를 직접 zero로 셋팅하는 이유와 활용 방법](#gradient를-직접-zero로-셋팅하는-이유와-활용-방법-1)
+- ### [model.eval()와 with torch.no_grad() 비교]()
+
 
 <br>
 
@@ -48,14 +50,14 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 <br>
 
 - ### **--- 자주 사용하는 코드 모음 ---**
-- ### weight 초기화 방법
-- ### load와 save 방법
-- ### Dataloader 사용 방법
-- ### pre-trained model 사용 방법
-- ### pre-trained model 수정 방법
-- ### Learning Rate Scheduler 사용 방법
-- ### model의 parameter 확인 방법
-- ### Tensor 깊은 복사
+- ### weight 초기화 방법(#weight-초기화-방법-1)
+- ### load와 save 방법(#load와-save-방법-1)
+- ### Dataloader 사용 방법(#dataloader-사용-방법-1)
+- ### pre-trained model 사용 방법(#pre-trained-model-사용-방법-1)
+- ### pre-trained model 수정 방법(#pre-trained-model-수정-방법-1)
+- ### Learning Rate Scheduler 사용 방법(#learning-rate-scheduler-사용-방법-1)
+- ### model의 parameter 확인 방법(#model의-parameter-확인-방법-1)
+- ### Tensor 깊은 복사(#tensor-깊은-복사-1)
 
 <br>
 
@@ -329,6 +331,16 @@ for epoch in range(epochs):
 
 - 위 두 가지 경우의 코드와 같은 방법으로 weight를 update를 할 수 있으며 방법에 따라 `optimizer.zero_grad()`를 실행하는 시점이 달라집니다.
 - 일반적으로 ① 방법인 `iteration 마다 weight를 업데이트 하는 방법`을 많이 사용하고 저 또한 이 방법을 사용하여 학습합니다.
+
+<br>
+
+## **model.eval()와 with torch.no_grad() 비교**
+
+<br>
+
+
+
+
 
 <br>
 
