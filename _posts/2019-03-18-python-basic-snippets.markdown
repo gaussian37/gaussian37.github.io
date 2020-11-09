@@ -23,8 +23,8 @@ tags: [python, python 기본] # add tag
 - ### [특정 함수에서만 사용하는 패키지는 함수 내부에서 import 할 것](#특정-함수에서만-사용하는-패키지는-함수-내부에서-import-할-것-1)
 - ### [set으로 변환하여 리스트의 원소 유무 확인](#set으로-변환하여-리스트의-원소-유무-확인-1)
 - ### [underscore(_)의 활용](#underscore_의-활용-1)
-- ### Function annotation(#function-annotation)
-- ### typing 모듈로 타입 표시하기(#typing-모듈로-타입-표시하기)
+- ### [Function annotation](#function-annotation)
+- ### [typing 모듈로 타입 표시하기](#typing-모듈로-타입-표시하기)
 
 <br>
 
@@ -83,7 +83,7 @@ tags: [python, python 기본] # add tag
 - ### 현재 실행 중인 파이썬 파일의 경로 확인 (__file__)
 - ### 폴더의 하위 전체 구조 및 파일 모두 복사
 - ### 파일 경로를 경로와 파일명으로 나누기
-- ### 특정 경로의 특정 확장자 파일명 가져오기
+- ### [특정 경로의 특정 확장자 파일명 가져오기](#특정-경로의-특정-확장자-파일명-가져오기-1)
 
 <br>
 
