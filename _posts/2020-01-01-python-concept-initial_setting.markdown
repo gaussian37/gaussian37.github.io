@@ -87,6 +87,14 @@ virtualenv myenv
 
 <br>
 
+- 리눅스 터미널에서 가상환경이 바로 실행되게 하려면 `.bashrc`에 가상환경 실행 명령어를 입력하면 됩니다. 예를 들어 `vim ~/.bashrc`를 통해 `.bashrc`를 실행하고 가장 마지막 라인에 `가상환경이름\Scripts\activate` 형태로 경로에 맞게 가상환경 실행 명령어를 입력하면 됩니다.
+- 반면 윈도우에서 커맨드창을 켰을 때 가상환경이 바로 실행되게 하려면 `레지스트리 편집기`에서 `HKEY_LOCAL_MACHINE\Software\Microsoft\Command Processor`에 접근합니다. 그리고 마우스 오른쪽 버튼을 눌러 새로 만들기 → 문자열 값을 선택 한 후 다음과 같이 입력 합니다. (아래 데이터는 예시이므로 경로는 상황에 맞게 수정하셔야 합니다.)
+    - 예시 이름 : AutoRun
+    - 예시 데이터 : C:\bashrc.cmd
+- 예시 데이터의 경로에 맞게 `bashrc.cmd` (이름 또한 변경 가능합니다) 파일을 위치시키고 이 파일안에 `C:\Users\사용자이름\가상환경이름\Scripts\activate`를 입력해 놓으면 커맨드창을 실행할 때 마다 bashrc.cmd를 먼저 실행하게 되어 가상환경을 상시 실행하게 됩니다.
+
+<br>
+
 ## **reqirement 파일 생성**
 
 <br>
