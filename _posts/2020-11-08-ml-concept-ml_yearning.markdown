@@ -287,15 +287,15 @@ tags: [딥러닝, 머신러닝, Andrew Ng, Machine Learning Yearning] # add tag
 <br>
 
 <br>
-<center><img src="../assets/img/ml/concept/ml_yearning/4.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/ml/concept/ml_yearning/4.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/ml/concept/ml_yearning/5.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/ml/concept/ml_yearning/5.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/ml/concept/ml_yearning/6.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/ml/concept/ml_yearning/6.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 
@@ -306,7 +306,7 @@ tags: [딥러닝, 머신러닝, Andrew Ng, Machine Learning Yearning] # add tag
 <br>
 
 <br>
-<center><img src="../assets/img/ml/concept/ml_yearning/7.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/ml/concept/ml_yearning/7.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 
@@ -329,7 +329,7 @@ tags: [딥러닝, 머신러닝, Andrew Ng, Machine Learning Yearning] # add tag
 - 일반적으로 첫번째 몇가지 아이디어는 잘 동작하지 않습니다. 이 실험으로 부터 단서를 발견하게되고 추가적인 아이디어를 더 만들어보는 과정을 반복하게 됩니다.
 
 <br>
-<center><img src="../assets/img/ml/concept/ml_yearning/8.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/ml/concept/ml_yearning/8.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 즉, 위의 프로세스는 반복하게 됩니다. 이 반복의 고리를 빠르게 돌수록, 더 빠른 결과를 얻을 수 있습니다. 여기서 개발/테스트 데이터셋, 그리고 평가지표가 왜 중요한지를 알 수 있습니다.

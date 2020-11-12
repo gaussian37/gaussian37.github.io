@@ -13,6 +13,9 @@ tags: [Linear algebra, vector, projection, sparse matrix, 희소 행렬] # add t
 
 <br>
 
+- 참조 : https://en.wikipedia.org/wiki/Sparse_matrix#:~:text=The%20compressed%20sparse%20row%20(CSR,row%20indices%2C%20hence%20the%20name.
+- 이번 글에서는 sparse matrix의 개념에 대하여 알아보도록 하겠습니다.
+
 
 
 
