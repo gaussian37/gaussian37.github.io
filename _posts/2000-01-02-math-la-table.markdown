@@ -140,3 +140,4 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [2x2 행렬의 고유값과 고유벡터 공식](https://gaussian37.github.io/math-la-2_by_2_eigen/)
 - [회전 변환 행렬 (2D, 3D)](https://gaussian37.github.io/math-la-rotation_matrix/)
 - [벡터의 정사영(projection)](https://gaussian37.github.io/math-la-projection/)
+- [sparse matrix(희소 행렬)](https://gaussian37.github.io/math-la-sparse_matrix/)
