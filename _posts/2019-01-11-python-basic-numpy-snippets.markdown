@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Numpy에서 종종 사용하는 기능 모음
+title: Python Numpy 관련 Snippets
 date: 2019-01-11 00:00:00
 img: python/pandas/numpy.png
 categories: [python-basic] 
@@ -17,21 +17,17 @@ tags: [Numpy, 넘파이] # add tag
 
 <br>
 
-### **--- 자주 사용하는 함수 ---**
-### np.c_[]
-### np.meshgrid()
-### ravel(), flatten()
-### np.polyfit으로 fitting
-### np.swapaxes
-### 복원/비복원 랜덤 넘버 추출
+- ### np.c_[]
+- ### np.meshgrid()
+- ### ravel(), flatten()
+- ### np.polyfit으로 fitting
+- ### np.swapaxes
+- ### 복원/비복원 랜덤 넘버 추출
+- ### 차원 순서 변경 방법
+- ### 차원 확장 방법
+
 
 <br>
-
-### **--- 자주 사용하는 코드 ---**
-
-<br>
-
-<br><br>
 
 ## **np.c_[]**
 
@@ -180,3 +176,23 @@ from numpy.random import default_rng
 rng = default_rng()
 numbers = rng.choice(20, size=10, replace=False)
 ```
+
+<br>
+
+## **차원 순서 변경 방법**
+
+<br>
+
+- 어떤 numpy array의 크기를 변경하지 않고 차원의 순서만 변경해야 하는 경우가 있습니다. 예를 들어 opencv에서 이미지를 읽었을 때, (height, width, channel) 순서로 읽어오는데 반면 Pytorch와 같은 경우는 (channel, height, width) 순서이기 때문입니다.
+- 이와 같이 array의 크기는 변경하지 않고 순서만 바꾸는 방법에 대하여 알아보겠습니다.
+
+<br>
+
+- `.transpose()`
+- `np.moveaxes()`
+
+## **차원 확장 방법**
+
+<br>
+
+- `y = np.expand_dims(x, axis=1)`
