@@ -21,6 +21,7 @@ tags: [pandas, python, python 기본] # add tag
 - ### df.to_csv(excel) 함수를 통하여 파일 쓸 때
 - ### column 명 확인
 - ### category 데이터 → Ordinal 데이터로 변경
+- ### Pandas에서 결측값 제거하기
 
 
 <br>
@@ -163,32 +164,33 @@ print(df)
 # 4      3
 ```
 
-
-Structured data에서 결측값(Missing Value)를 제거하는 방법에 대하여 알아보겠습니다.
-
 <br>
 
-- 먼저 라이브러리를 입력합니다.
+- 하지만 위와 같은 방법에서는 mapping 값을 직접 입력해주어야 하는 불편함이 있습니다. 따라서 category 별로 자동적으로 값이 부여되도록 하는 방법을 알아보겠습니다.
+- 아래 코드와 같이 `pd.factorize`를 이용하면 자동으로 카테고리 별로 번호가 부여됩니다.
 
 <br>
 
 ```python
-# Load libraries
-import numpy as np
-import pandas as pd
+df['Score'] = pd.factorize(df['Score'])[0]
+print(df)
+#   Score
+# 0     0
+# 1     0
+# 2     1
+# 3     1
+# 4     2
 ```
 
 <br>
 
-
-
-<br>
-
-## Pandas에서 결측값 제거하기
+## **Pandas에서 결측값 제거하기**
 
 <br>
 
-+ 행렬을 만들어 줍니다.
+- 먼저 아래와 같이 행렬을 만들어 줍니다.
+
+<br>
 
 ```python
 X = np.array([[1, 2], 
@@ -198,8 +200,10 @@ X = np.array([[1, 2],
               [np.nan, 4]])
 ```
 
-+ Numpy로 만든 행렬을 Pandas 타입으로 바꿔 줍니다.
-+ `df.dropna()`를 통하여 결측값을 제거합니다.
+<br>
+
+- Numpy로 만든 행렬을 Pandas 타입으로 바꿔 줍니다.
+- `df.dropna()`를 통하여 결측값을 제거합니다.
 
 ```python
 df = pd.DataFrame(X, columns=['feature_1', 'feature_2'])
@@ -210,11 +214,7 @@ df.dropna()
 
 <br>
 
-## Pandas에서 결측값 인덱스 받기
-
-<br>
-
-- 임의의 DataFrame을 `NaN` 값을 포함하여 만든 후 NaN의 값이 있는 좌표만 따로 반환 받습니다.
+- 임의의 DataFrame을 `NaN` 값을 포함하여 만든 후 NaN의 값이 있는 좌표만 따로 반환 받을 수 있습니다.
 
 <br>
 
@@ -227,9 +227,25 @@ X = np.array([[1, 2],
               
 df = pd.DataFrame(X)
 
-print( np.asarray(df.isnull()).nonzero() )
+print(np.asarray(df.isnull()).nonzero() )
+# (array([4], dtype=int64), array([0], dtype=int64))
+```
 
->> (array([4], dtype=int64), array([0], dtype=int64))
+<br>
+
+- 이 성질을 이용하여 결측값에 특정값, 예를 들어 0을 입력할 수 있습니다.
+
+<br>
+
+```python
+X = np.array([[1, 2], 
+              [6, 3], 
+              [8, 4], 
+              [9, 5], 
+              [np.nan, 4]])
+              
+df = pd.DataFrame(X)
+df[df.isnull()] = 0
 ```
 
 <br>
