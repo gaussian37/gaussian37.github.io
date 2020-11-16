@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Python Numpy 관련 Snippets
+title: Numpy 관련 Snippets
 date: 2019-01-11 00:00:00
 img: python/pandas/numpy.png
 categories: [python-basic] 
@@ -25,6 +25,7 @@ tags: [Numpy, 넘파이] # add tag
 - ### 복원/비복원 랜덤 넘버 추출
 - ### 차원 순서 변경 방법
 - ### 차원 확장 방법
+- ### 결측값 제거하기
 
 
 <br>
@@ -188,11 +189,113 @@ numbers = rng.choice(20, size=10, replace=False)
 
 <br>
 
-- `.transpose()`
-- `np.moveaxes()`
+- 먼저 `.transpose()` 방법을 이용하여 차원의 순서를 변경하는 방법입니다. 이 방법이 가장 직관적인데, 기존 채널의 순서를 바꿀 채널의 순서대로 입력하면 됩니다.
+
+<br>
+
+```python
+import numpy as np
+A = np.ones((5, 6, 7))
+print(A.shape)
+# (5, 6, 7)
+
+B = A.transpose(2, 1, 0)
+print(B.shape)
+# (7, 6, 5)
+```
+
+<br>
+
+- 위 예제에서 `.transpose()` 함수의 인자로 2, 1, 0을 차례대로 입력하였습니다. 즉, 2번째 차원 → 0번째 차원으로 변경하라는 뜻입니다.
+- 이와 같은 방법으로 앞에서 예를 든 (height, width, channel)을 (channel, height, width) 순으로 변경할 수 있습니다.
+
+<br>
+
+- `np.moveaxis()` 또한 방법은 유사합니다. 아래 코드를 살펴보겠습니다.
+
+<br>
+
+```python
+A = np.ones((5, 6, 7))
+print(A.shape)
+# (5, 6, 7)
+
+B = np.moveaxis(A, 2, 0)
+print(B.shape)
+# (7, 5, 6)
+```
+
+<br>
+
+- `np.moveaxis(array, 대상 채널, 이동할 위치)`순서로 받게 됩니다. 위 예제에서는 2번째 채널을 0번째 채널로 이동하게됩니다.
+
+<br>
 
 ## **차원 확장 방법**
 
 <br>
 
-- `y = np.expand_dims(x, axis=1)`
+- 배열의 크기는 변경하지 않으나 차원을 늘릴 필요가 있을 때가 있습니다. 예를 들어 이미지를 학습할 때, (batch, channel, height, width)와 같은 형태로 입력이 들어가는데 기존에 (channel, height, width)이면 맨 앞에 차원을 추가해야 합니다.
+- 예를 들어 (3, 100, 100) → (1, 3, 100, 100)으로 변경해야 할 경우입니다. 이와 같이 사이즈는 변경하지 않되 차원만 확장하려면 다음 함수를 사용합니다.
+
+<br>
+
+```python
+x = np.ones((2, 3))
+y1 = np.expand_dims(x, axis=0)
+print(y1.shape)
+# (1, 2, 3)
+y2 = np.expand_dims(y1, axis=0)
+print(y2.shape)
+# (1, 1, 2, 3)
+```
+
+<br>
+
+## **결측값 제거하기**
+
+<br>
+
+- numpy로 임의의 행렬을 만들어 보겠습니다.
+- 이 때, `np.nan`이 결측값 입니다. 엑셀 시트에서 값이 아무것도 없는 셀에 속합니다.
+
+<br>
+
+```python
+X = np.array([[1.1, 11.1], 
+              [2.2, 22.2], 
+              [3.3, 33.3], 
+              [4.4, 44.4], 
+              [np.nan, 55]])
+```
+
+- 결측값을 처리하는 방법에는 다양한 방법이 있습니다.
+- 먼저 결측값이 있는 행을 제거해 주는 방법이 있습니다. 일반적으로 행을 기준으로 새로운 데이터가 추가 되므로 행을 제거합니다.
+
+<br>
+
+```python
+X[~np.isnan(X).any(axis=1)]
+# array([[  1.1,  11.1],
+#        [  2.2,  22.2],
+#        [  3.3,  33.3],
+#        [  4.4,  44.4]])
+```
+
+<br>
+
+- 반면 결측값에 특정값을 넣는 방법이 있습니다. 예를 들어 0을 입력해 보겠습니다.
+
+<br>
+
+```python
+X[np.isnan(X)] = 0
+
+# array([[ 1.1, 11.1],
+#        [ 2.2, 22.2],
+#        [ 3.3, 33.3],
+#        [ 4.4, 44.4],
+#        [ 0. , 55. ]])
+```
+
+<br>
