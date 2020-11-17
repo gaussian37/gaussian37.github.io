@@ -29,6 +29,7 @@ tags: [python, python 기본] # add tag
 <br>
 
 - ### **--- 자주사용하는 함수 ---**
+- ### print 함수 관련  
 - ### 기본 자료 구조의 사용법
 - ### 다양한 sort 방법
 - ### comparator를 이용한 클래스 정렬
@@ -325,6 +326,18 @@ def toStrings(nums: Iterable[int]) -> List[str]:
     return [str(x) for x in nums]
 
 ```
+
+<br>
+
+## **print 함수 관련**
+
+<br>
+
+- print 함수 사용 시 활용되는 팁들을 정리하겠습니다.
+- `sep` : 데이터들을 연달아 출력할 때, 구분자로 사용하는 문자열을 지정할 수 있습니다. 기본적으로 공백 문자(` `)입니다.
+    - `print('a', 'b', 'c', sep=', ')` : a, b, c
+- `end` : print문 마지막에 특정 문자열을 출력합니다.
+    - `print('a', 'b', 'end='!!!')` : a b!!!
 
 <br>
 
