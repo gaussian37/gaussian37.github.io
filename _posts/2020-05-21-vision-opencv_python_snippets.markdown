@@ -23,6 +23,7 @@ tags: [opencv, python, snippets] # add tag
 - ### OpenCV 한글 쓰기
 - ### 90도 이미지 회전
 - ### gif 만들기 with imageio
+- ### 두 이미지를 오버레이 하기
 
 <br>
 
@@ -178,6 +179,29 @@ for filename in filenames:
 imageio.mimsave('/path/to/movie.gif', images)
 # imageio.mimsave('/path/to/movie.gif', images, duration=0.1)
 ```
+
+<br>
+
+## **두 이미지를 오버레이 하기**
+
+<br>
+
+- 두 이미지를 투명한 형태로 오버레이 하여 하나의 이미지에서 겹쳐서 보는 방법을 blending 이라고 합니다.
+- 두 이미지를 blending 하기 위해서는 다음과 같은 간단한 연산을 통해 구현 가능합니다.
+
+<br>
+
+- $$ dst = \alpha * src1 + \beta * src2 + \gamma $$
+
+- $$ \alpha + \beta = 1, \ \ 0 \le \alpha, \beta \le 1 $$
+
+<br>
+
+- 위 식을 살펴보면 각 영상에 $$ \alpha, \beta $$와 같은 가중치가 있습니다. 이 가중치가 1에 가까울수록 해당 영상을 좀 더 진하게 반영하고 0에 가까울수록 투명하게 반영됩니다.
+- 위 식의 $$ \gamma $$는 bias에 해당합니다.
+- blending을 하기 위해서 `cv2.addWeighted`를 사용하며 사용 방법은 다음과 같습니다.
+- `dst = cv2.addWeighted(src1, alpha, src2, beta, gamma)`
+- 위 함수는 src1과 src2 영상을 각각 $$ \alpha, \beta $$의 가중치를 사용하여 blending 합니다. 
 
 <br>
 
