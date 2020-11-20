@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Pytorch Learning Rate Scheduler 정리
+title: Pytorch Learning Rate Scheduler (러닝 레이트 스케쥴러) 정리
 date: 2020-11-15 00:00:00
 img: dl/pytorch/pytorch.jpg
 categories: [dl-pytorch] 
