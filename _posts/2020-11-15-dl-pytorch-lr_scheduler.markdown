@@ -27,15 +27,14 @@ tags: [pytorch, learning rate, learning rate scheduler] # add tag
 
 <br>
 
-- ### LambdaLR
-- ### StepLR
-- ### MultiStepLR
-- ### ExponentialLR
-- ### CosineAnnealingLR
-- ### ReduceLROnPlateau
-- ### CyclicLR
-- ### CosineAnnealingWarmRestarts
-- ### Custom CosineAnnealingWarmRestarts
+- ### [LambdaLR](#lambdalr-1)
+- ### [StepLR](#steplr-1)
+- ### [MultiStepLR](#multisteplr-1)
+- ### [ExponentialLR](#exponentiallr-1)
+- ### [CosineAnnealingLR](#cosineannealinglr-1)
+- ### [CyclicLR](#cycliclr-1)
+- ### [CosineAnnealingWarmRestarts](#cosineannealingwarmrestarts-1)
+- ### [Custom CosineAnnealingWarmRestarts](#custom-cosineannealingwarmrestarts-1)
 
 <br>
 
