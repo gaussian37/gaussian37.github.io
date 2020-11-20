@@ -377,12 +377,14 @@ class CosineAnnealingWarmUpRestarts(_LRScheduler):
 
 <br>
 
+- 먼저 warm up을 위하여 optimizer에 입력되는 learning rate = 0 또는 0에 가까운 아주 작은 값을 입력합니다.
 - 위 코드의 스케쥴러에서는 `T_0`, `T_mult`, `eta_max` 외에 `T_up`, `gamma` 값을 가집니다.
 - `T_0`, `T_mult`의 사용법은 pytorch 공식 CosineAnnealingWarmUpRestarts와 동일합니다. `eta_max`는 learning rate의 최댓값을 뜻합니다. `T_up`은 Warm up 시 필요한 epoch 수를 지정하며 일반적으로 짧은 epoch 수를 지정합니다. `gamma`는 주기가 반복될수록 `eta_max` 곱해지는 스케일값 입니다.
 
 <br>
 
 ```python
+optimizer = optim.Adam(model.parameters(), lr = 0)
 scheduler = CosineAnnealingWarmUpRestarts(optimizer, T_0=150, T_mult=1, eta_max=0.1,  T_up=10, gamma=0.5)
 ```
 
@@ -391,6 +393,7 @@ scheduler = CosineAnnealingWarmUpRestarts(optimizer, T_0=150, T_mult=1, eta_max=
 <br>
 
 - 먼저 위 그래프의 연두색 선은 50 epoch을 나타냅니다. 따라서 `T_0=150 epoch`의 초기 주기값 후에 다시 0으로 줄어들게 됩니다. 이 때, `T_up=10 epoch` 만에 learning rate는 0 → `eta_max` 까지 증가하게 되고 다음 주기에는 `gamma=0.5`만큼 곱해진 `eta_max * gamma` 만큼 warm up start 하여 learning rate가 증가하게 됩니다.
+- 앞에서도 언급하였지만 주의할 점은 optimizer에서 시작할 learning rate를 일반적으로 사용하는 learning rate가 아닌 0에 가까운 아주 작은 값을 입력해야 합니다.
 
 <br>
 
