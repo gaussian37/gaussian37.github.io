@@ -21,5 +21,3 @@ tags: [딥러닝, bag og tricks] # add tag
 
 <br>
 
-
-
