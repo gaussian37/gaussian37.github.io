@@ -59,6 +59,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### Learning Rate Scheduler 사용 방법(#learning-rate-scheduler-사용-방법)
 - ### model의 parameter 확인 방법(#model의-parameter-확인-방법)
 - ### Tensor 깊은 복사(#tensor-깊은-복사)
+- ### 일부 weight만 업데이트 하는 방법
 
 <br>
 
@@ -1891,6 +1892,10 @@ for param in model.parameters():
 A = torch.randn(10)
 B = A.clone().detach()
 ```
+
+<br>
+
+## **일부 weight만 업데이트 하는 방법**
 
 <br>
 
