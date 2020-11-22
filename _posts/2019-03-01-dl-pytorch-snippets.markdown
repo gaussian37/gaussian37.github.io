@@ -51,15 +51,15 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 <br>
 
 - ### **--- 자주 사용하는 코드 모음 ---**
-- ### weight 초기화 방법(#weight-초기화-방법)
-- ### load와 save 방법(#load와-save-방법)
-- ### Dataloader 사용 방법(#dataloader-사용-방법)
-- ### pre-trained model 사용 방법(#pre-trained-model-사용-방법)
-- ### pre-trained model 수정 방법(#pre-trained-model-수정-방법)
-- ### Learning Rate Scheduler 사용 방법(#learning-rate-scheduler-사용-방법)
-- ### model의 parameter 확인 방법(#model의-parameter-확인-방법)
-- ### Tensor 깊은 복사(#tensor-깊은-복사)
-- ### 일부 weight만 업데이트 하는 방법
+- ### [weight 초기화 방법](#weight-초기화-방법)
+- ### [load와 save 방법](#load와-save-방법)
+- ### [Dataloader 사용 방법](#dataloader-사용-방법)
+- ### [pre-trained model 사용 방법](#pre-trained-model-사용-방법)
+- ### [pre-trained model 수정 방법](#pre-trained-model-수정-방법)
+- ### [Learning Rate Scheduler 사용 방법](#learning-rate-scheduler-사용-방법)
+- ### [model의 parameter 확인 방법](#model의-parameter-확인-방법)
+- ### [Tensor 깊은 복사](#tensor-깊은-복사)
+- ### [일부 weight만 업데이트 하는 방법](#일부-weight만-업데이트-하는-방법-1)
 
 <br>
 
@@ -1899,4 +1899,36 @@ B = A.clone().detach()
 
 <br>
 
+- 일반적으로 학습할 때를 제외하고는 모델의 weight를 pre-trained weight로 사용합니다.
+- 모델에 pre-trained weight를 적용하기 위해서는 다음 과정을 거칩니다.
+    - ① 모델 클래스를 이용하여 `model` 객체를 생성합니다. 객체명을 `model`이라고 하겠습니다.
+    - ② pre-trained weight인 pickle 파일(p, pt, pth 확장자)을 불러옵니다. 불러온 데이터는 layer의 이름을 key값으로 하고 layer의 weight를 value값으로 하는 dictionary 형태이며 일반적으로 `OrderedDict` 타입입니다. (`from collections import OrderedDict`) 이 데이터를 `pretrained_dict` 라고 하겠습니다.
+    - ③ pretrained_dict를 model의 각 layer에 적용하려면 `model.load_state_dict(pretrained_dict)`을 사용하면 됩니다. 그러면 각 layer에 pretrained_dict에 저장된 값이 덮어써지게 됩니다.
 
+<br>
+
+- 만약 모든 weight가 아닌 weight 일부를 변경하고 싶으면 어떻게 해야 할까요? 위 방법을 조금 응용하면 됩니다.
+- 위 과정 중 ② 를 통하여 모든 layer 별 이름이 key 값으로 정해지고 그 layer의 weight값이 value 값이 되는 것을 확인할 수 있었습니다.
+- 그리고 ③의 `model.load_state_dict(pretrained_dict)`를 실행하려면 model의 모든 layer와 pre-train 데이터의 모든 key에 해당하는 layer가 1대1 대응이 되어야 성공적으로 수행됩니다.
+- 따라서 적용해야 할 model의 전체 layer의 key(이름), value(weight)를 저장한 dictionary와 업데이트 할 layer에 해당하는 key, value만 저장한 dictionary를 2개 준비합니다.
+    - 전체 layer : `model_dict = model.state_dict()`을 통해 확인 가능합니다.
+    - 업데이트 할 layer : 업데이트 할 layer만 key, value 값을 준비해야 하며 key는 실제 model에서 사용하는 layer의 key(이름)과 같아야합니다. 이 값을 `update_dict` 라고 하겠습니다.
+- `model_dict.update(update_dict)`를 통하여 전체 dictionary 중 weight를 업데이트 할 update_dict의 값만 model_dict에 덮어쓰기가 됩니다.
+- 이 방법을 통하여 부분적으로 weight 업데이트를 할 수 있습니다. 아래는 ResNet-50을 이용하여 weight를 부분적으로 업데이트 한 예제입니다.
+
+<br>
+
+```python
+import torch
+model = torch.hub.load('pytorch/vision:v0.6.0', 'resnet50', pretrained=True)
+model_dict = model.state_dict()
+
+update_dict # update_dict is subset of model_dict
+
+# 1. filter out unnecessary keys
+filtered_update_dict = {k: v for k, v in update_dict.items() if k in model_dict}
+# 2. overwrite entries in the existing state dict
+model_dict.update(filtered_update_dict) 
+# 3. load the new state dict
+model.load_state_dict(model_dict)
+```
