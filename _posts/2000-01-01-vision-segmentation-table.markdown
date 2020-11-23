@@ -44,8 +44,8 @@ tags: [vision, deep learning, segmentation] # add tag
 - [DeepLab_v3+ (Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation)](https://gaussian37.github.io/vision-segmentation-deeplabv3plus/)
 - [DFN(Discriminative Feature Network)]()
 - [The One Hundred Layers Tiramisu: Fully Convolutional DenseNets for Semantic Segmentation]()
-- [DenseASPP]()
-- [PSPNet]()
+- [DenseASPP for Semantic Segmentation in Street Scenes]()
+- [PSPNet(Pyramid Scene Parsing Network)](https://gaussian37.github.io/vision-segmentation-pspnet/)
 
 <br>
 
