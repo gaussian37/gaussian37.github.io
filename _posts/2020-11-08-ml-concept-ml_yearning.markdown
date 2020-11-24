@@ -15,7 +15,7 @@ tags: [딥러닝, 머신러닝, Andrew Ng, Machine Learning Yearning] # add tag
 
 - 원문 링크 : https://gallery.mailchimp.com/dc3a7ef4d750c0abfc19202a3/files/5dd91615-3b3f-4f5d-bbfb-4ebd8608d330/Ng_MLY01_13.pdf
 - 참조 : https://github.com/hoya012/Machine-Learning-Yearning-Korean-Translation
-- 참조 : AI 프로젝트 실패의 5가지 원인 (https://riiidtechblog.medium.com/ai-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A5%BC-%EC%8B%A4%ED%8C%A8%ED%95%98%EA%B2%8C-%EB%A7%8C%EB%93%9C%EB%8A%94-5%EA%B0%80%EC%A7%80-%EC%9D%B4%EC%9C%A0-8e7813cf0a95)
+- 참조 : [AI 프로젝트 실패의 5가지 원인](https://riiidtechblog.medium.com/ai-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A5%BC-%EC%8B%A4%ED%8C%A8%ED%95%98%EA%B2%8C-%EB%A7%8C%EB%93%9C%EB%8A%94-5%EA%B0%80%EC%A7%80-%EC%9D%B4%EC%9C%A0-8e7813cf0a95), 송호연
 - 이 글은 Andrew Ng의 Machine Learning Yearing을 제가 필요한 내용에 맞게 재해석하여 요약한 글과 AI 사업 관련 좋은 글들을 모아서 작성하였습니다
 
 
