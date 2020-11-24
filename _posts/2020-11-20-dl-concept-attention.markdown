@@ -55,14 +55,8 @@ tags: [attention, seq2seq] # add tag
 <br>
 
 <video width="400" controls="controls">
-  <source type="video/mp4" class="center" src="../assets/img/dl/concept/attention/1.mp4"></source>
+<center><source type="video/mp4" src="../assets/img/dl/concept/attention/1.mp4"></source></center>
 </video>
-
-<br>
-
-<br>
-<video class="center" src="../assets/img/dl/concept/attention/1.mp4" width="600">⁪</video>
-<br>
 
 <br>
 
