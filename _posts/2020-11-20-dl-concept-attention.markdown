@@ -54,9 +54,9 @@ tags: [attention, seq2seq] # add tag
 
 <br>
 
-<video width="400" controls="controls">
-<center><source type="video/mp4" src="../assets/img/dl/concept/attention/1.mp4"></source></center>
-</video>
+<center><video width="400" controls="controls">
+<source type="video/mp4" src="../assets/img/dl/concept/attention/1.mp4"></source>
+</video></center>
 
 <br>
 
