@@ -52,7 +52,7 @@ tags: [attention, seq2seq] # add tag
 
 <br>
 
-<video width="400" controls="controls">
+<video width="400" class="center" controls="controls">
   <source type="video/mp4" src="../assets/img/dl/concept/attention/1.mp4"></source>
 </video>
 
