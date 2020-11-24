@@ -60,6 +60,12 @@ tags: [attention, seq2seq] # add tag
 
 <br>
 
+<br>
+<video class="center" src="../assets/img/dl/concept/attention/1.mp4" width="600">⁪</video>
+<br>
+
+<br>
+
 - 하지만 Decoder에서 단순히 Encoder의 최종 출력인 context만 사용하는 것은 문제가 될 수 있습니다.
 
 <br>
