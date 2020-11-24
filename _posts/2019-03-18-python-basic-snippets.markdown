@@ -39,6 +39,9 @@ tags: [python, python 기본] # add tag
 - ### filter
 - ### reduce
 - ### slice
+- ### Counter
+- ### defaultdict를 이용한 multimap 사용
+- ### bisect를 사용한 이진 탐색
 - ### for loop 스타일 (zip, range, enumerate, sorted, filter)
 - ### deque은 사이즈 관리를 자동으로 한다.
 - ### 파이썬 프로그램 정상 종료 시키기
@@ -885,6 +888,21 @@ print(py_tuple[slice_object]) # ('y', 'h')
 <br>
 
 - 만약 slice에 인자 하나만 입력하면 두번째 인자인 `stop`으로 인식 되며 처음부터 stop 지점전 까지 인덱싱 됩니다.
+
+<br>
+
+## **Counter**
+
+<br>
+
+
+<br>
+
+## **defaultdict를 이용한 multimap 사용**
+
+<br>
+
+## **bisect를 사용한 이진 탐색**
 
 <br>
 

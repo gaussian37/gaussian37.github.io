@@ -25,6 +25,7 @@ tags: [python, deep learning, dl] # add tag
 - [Depthwise separable convolution 연산](https://gaussian37.github.io/dl-concept-dwsconv/)
 - [Transposed Convolution을 이용한 Upsampling](https://gaussian37.github.io/dl-concept-transposed_convolution/)
 - [Transposed Convolution과 Checkboard artifact](https://gaussian37.github.io/dl-concept-checkboard_artifact/)
+- [Attention 모델과 Seq2seq with Attention](https://gaussian37.github.io/dl-concept-attention/)
 
 <br>
 

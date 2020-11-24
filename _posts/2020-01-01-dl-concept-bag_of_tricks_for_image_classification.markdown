@@ -4,7 +4,7 @@ title: Bag of Tricks for Image Classification with Convolutional Neural Networks
 date: 2020-01-01 00:00:00
 img: dl/concept/bag_of_tricks/0.png
 categories: [dl-concept] 
-tags: [딥러닝, bag og tricks] # add tag
+tags: [딥러닝, bag of tricks] # add tag
 ---
 
 <br>
@@ -20,4 +20,6 @@ tags: [딥러닝, bag og tricks] # add tag
 - 한번 쯤 들어본 내용들을 정리해서 다루었기 때문에 내용이 크게 어렵지 않을 것이라 생각 됩니다.
 
 <br>
+
+
 
