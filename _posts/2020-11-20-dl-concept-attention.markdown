@@ -30,6 +30,8 @@ tags: [attention, seq2seq] # add tag
 
 - ### seq2seq 모델의 이해
 - ### Attention 메커니즘
+- ### seq2seq pytorch 코드
+- ### seq2seq with attention pytorch 코드
 
 <br>
 
@@ -52,8 +54,8 @@ tags: [attention, seq2seq] # add tag
 
 <br>
 
-<video width="400" class="center" controls="controls">
-  <source type="video/mp4" src="../assets/img/dl/concept/attention/1.mp4"></source>
+<video width="400" controls="controls">
+  <source type="video/mp4" class="center" src="../assets/img/dl/concept/attention/1.mp4"></source>
 </video>
 
 <br>
