@@ -52,7 +52,10 @@ tags: [attention, seq2seq] # add tag
 
 <br>
 
-![video](../assets/img/dl/concept/attention/1.mp4)
+<video controls="controls">
+  <source type="video/mp4" src="../assets/img/dl/concept/attention/1.mp4"></source>
+  <p>Your browser does not support the video element.</p>
+</video>
 
 <br>
 
