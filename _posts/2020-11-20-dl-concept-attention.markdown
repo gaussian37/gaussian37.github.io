@@ -28,10 +28,9 @@ tags: [attention, seq2seq] # add tag
 
 <br>
 
-- ### seq2seq 모델의 이해
-- ### Attention 메커니즘
-- ### seq2seq pytorch 코드
-- ### seq2seq with attention pytorch 코드
+- ### [seq2seq 모델의 이해](#seq2seq-모델의-이해-1)
+- ### [Attention 메커니즘](#attention-메커니즘-1)
+- ### [seq2seq with attention pytorch 코드](#seq2seq-with-attention-pytorch-코드-1)
 
 <br>
 
@@ -53,30 +52,30 @@ tags: [attention, seq2seq] # add tag
 - Jay Alammar의 비디오를 참조하면 다음과 같습니다.
 
 <br>
-
 <center><video width="800" controls="controls">
     <source type="video/mp4" src="../assets/img/dl/concept/attention/1.mp4"></source>
 </video></center>
-
 <br>
 
-- 하지만 Decoder에서 단순히 Encoder의 최종 출력인 context만 사용하는 것은 문제가 될 수 있습니다.
+- 하지만 Decoder에서 단순히 Encoder의 최종 출력인 context vector만 사용하는 것은 문제가 될 수 있습니다.
+- 먼저 Gradient Vanishing 문제가 있을 수 있습니다. 왜냐하면 context vector를 기준으로 Encoder, Decoder가 완전히 분리되어 있으므로 입출력의 연관 관계가 너무 떨어져 있어서 backpropagation 시 gradient vanishing 문제로 학습이 잘 되지 않습니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/attention/7.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 왜냐하면 각 단어에 해당하는 의미를 RNN을 거쳐서 하나의 벡터인 context vector안에 함축시키는 데 이 방법을 통하여 **정보 손실이 발생**할 수 있기 때문입니다. 위 그림과 같이 1개의 context vector 안에 99개의 단어 embedding vector의 정보를 모두 함축하는 것은 무리일 수 있습니다.
+- 또한 각 단어에 해당하는 의미를 RNN을 거쳐서 하나의 벡터인 context vector안에 함축시키는 데 이 방법을 통하여 **정보 손실이 발생**할 수 있기 때문입니다. 위 그림과 같이 1개의 context vector 안에 99개의 단어 embedding vector의 정보를 모두 함축하는 것은 무리일 수 있습니다.
 - 정보 손실을 막기 위하여 Encoder의 hidden state를 Decoder에서도 사용하는 방법을 생각할 수 있습니다. 
 
 <br>
 <center><img src="../assets/img/dl/concept/attention/2.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 이와 같이 모델을 수정하면 크게 3가지 장점을 취할 수 있습니다.
+- 이와 같이 모델을 수정하면 크게 4가지 장점을 취할 수 있습니다.
 - ① 여러 개의 단어 embedding을 1개의 context vector에 억지로 함축시킬 필요가 없어집니다.
 - ② Decoder 입장에서 좀 더 다이나믹하게 Encoder의 hidden state를 활용할 수 있습니다. 예를 들어 Decoder에서 좀 더 집중하고 싶은 state에 좀 더 집중할 수 있도록 메커니즘을 설계할 수 있습니다.
 - ③ RNN에서 입력된 지 오래된 데이터일수록 잊혀지는 문제가 있습니다. LSTM과 같은 모델에서 이 문제를 좀 더 개선하였지만 그럼에도 상대적으로 이전에 입력된 데이터에 대하여 출력에 영향이 낮아집니다. 하지만 위 그림과 같이 Encoder의 모든 hidden state를 사용하면 이 문제를 개선할 수 있습니다.
+- ④ gradient highway가 생기기 때문에 gradient vanishing 문제에 좀 더 강건합니다.
 
 <br>
 
@@ -89,6 +88,10 @@ tags: [attention, seq2seq] # add tag
 ## **Attention 메커니즘**
 
 <br>
+<center><img src="../assets/img/dl/concept/attention/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 먼저 Attention의 사전적 의미는 `집중`입니다. 이 의미는 **Decoder에서 출력 할 때, 어떤 Encoder 정보에 집중해야 하는 지 알 수 있도록 하여 출력하는 데 도움을 주겠다는 뜻**입니다. 이것이 Attention 메카니즘의 기본 아이디어 입니다.
 
 - Attention 메커니즘을 이해하기 위해서는 다음 용어에 대한 이해가 필요합니다.
 - `Query` : 질의. 찾고자 하는 대상
@@ -127,7 +130,43 @@ tags: [attention, seq2seq] # add tag
 <center><img src="../assets/img/dl/concept/attention/5.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 즉, 유사도에 해당하는 빨간색 원의 값과 value에 해당하는 파란색 원의 값을 곱한 후 모두 더한 것이 Attention value가 됩니다. 마치 유사도가 가중치 처럼 곱해지게 됩니다.
+- 즉, 유사도에 해당하는 빨간색 원의 값과 value에 해당하는 파란색 원의 값을 곱한 후 모두 더한 것이 Attention value가 됩니다. 마치 유사도가 가중치 처럼 곱해지게 됩니다. 이 때, 연산은 벡터의 내적과 벡터의 합을 통한 연산이 됩니다.
+- 그렇다면 Query는 무엇이 될까요? **Query는 Decoder의 hidden state**가 됩니다. Decoder의 RNN에 입력되는 하나 앞선 time-step의 hidden state 입니다.
+- 그렇다면 Attention에서 사용하는 Key와 Value는 무엇일까요? Attention에서는 **Encoder의 hidden state를 Key와 Value로 사용**합니다. 즉, Key와 Value는 같고 단어의 갯수 만큼 Key 값을 가집니다. 참고로 대부분의 attention network에서는 key와 value를 같은 값을 가지도록 합니다.
+
+<br>
+
+- 그러면 Attention 모델을 seq2seq에 적용해 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/attention/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 설명하였듯이 Encoder의 hidden state는 (Key, Value)로 사용됩니다. 따라서 위 그림에서 $$ h_{i} $$는 Key와 Value로 사용됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/attention/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Decoder의 hidden state는 Query로 사용됩니다. 따라서 위 그림에서 $$ s_{i} $$는 Query로 사용됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/attention/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Attention 관련 연산은 위 메커니즘을 따릅니다. Decoder에서 $$ s_{i} $$라는 Query가 입력되고 그 Query와 모든 key 값인 $$ h_{i} $$ (위 그림에서는 $$ h_{0}, h_{1}, h_{2} $$)와 `Comparison` 이라는 연산을 통하여 `유사도`를 구합니다. 이 유사도 값은 softmax를 거치기 때문에 확률 값처럼 총 합이 1이 됩니다.
+- 그러면 Value에 해당하는 $$ h_{i} $$와 유사도를 곱하고 (element-wise multiplication) 그 결과들을 합하여 최종적으로 $$ a_{i} $$ 라는 `Attenen value`를 출력합니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/attention/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
+<br>
+
+## **seq2seq with attention pytorch 코드**
+
+<br>
 
 
 <br>
