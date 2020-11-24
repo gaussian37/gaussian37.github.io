@@ -19,6 +19,17 @@ tags: [attention, seq2seq] # add tag
 - 참조 : Pytorch Seq2Seq Tutorial for Machine Translation (https://www.youtube.com/watch?v=EoGUlvhRYpk&feature=youtu.be)
 - 참조 : Pytorch Seq2Seq with Attention for Machine Translation (https://youtu.be/sQUqQddQtB4)
 
+<br>
+
+- 이번 글에서는 `seq2seq`(Sequence 2 Sequence)에 어떻게 `Attention` 모델이 사용되는 지를 통하여 Attention의 메커니즘에 대하여 다루어 보겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/attention/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 번역 문제를 다룰 때, 기본적으로 사용할 수 있는 seq2seq 모델은 위 그림과 같습니다. 먼저 입력으로 word2vec과 같은 Word Embedding방법을 통하여 얻은 embedding을 Encoder에서 입력으로 받습니다. 각 단어에 해당하는 embedding은 벡터 형태로 dense representation을 가집니다.
+- Encoder에서 각 단어의 embedding과 RNN의 hidden state를 거쳐서 정보가 압축이 되고 Encoder의 마지막 부분의 출력이 **context**가 됩니다.
+- Decoder에서는 context를 이용하여 
 
 
 
