@@ -53,7 +53,7 @@ tags: [attention, seq2seq] # add tag
 <br>
 
 <video controls="controls">
-  <source type="video/mp4" src="../assets/img/dl/concept/attention/1.mp4", stype="width : 800ps;"></source>
+  <source type="video/mp4" src="../assets/img/dl/concept/attention/1.mp4", style="width : 800ps;"></source>
 </video>
 
 <br>
@@ -77,7 +77,7 @@ tags: [attention, seq2seq] # add tag
 
 <br>
 
-- 이 경우에도 문제가 발생합니다. 먼저 Encoder의 입력에 따라서 Decoder에 얼마나 많은 입력이 들어가야 할 지 변화할 수 있습니다. 즉, 다양한 문장에 대하여 모델을 고정할 수 없습니다. 빨간색에 해당하는 크기가 문장의 길이에 따라서 변하게 되기 때문입니다.
+- 하지만 이 경우에도 문제가 발생합니다. 먼저 Encoder의 입력에 따라서 Decoder에 얼마나 많은 입력이 들어가야 결정됩니다. 즉, 다양한 길이의 문장에 대하여 모델을 고정할 수 없습니다. 빨간색에 해당하는 크기가 문장의 길이에 따라서 변하게 되기 때문입니다.
 - 또 다른 문제는 단순히 hidden state를 모두 넘겨주게 되면 입력의 차원이 굉장히 커지게 될 수 있습니다. 즉, sparsity 문제가 발생할 수 있습니다. 예를 들어 context만 Decoder의 입력으로 사용하는 경우 1개의 벡터만 Decoder의 입력이 되는 반면에 Encoder의 hidden state를 사용하는 경우 단어의 갯수 + context에 해당하는 벡터를 모두 입력으로 받게 되어 차원이 굉장히 커지게 됩니다. 데이터의 차원이 커지는 것은 성능에 악영향을 끼칠 수 있습니다.
 - 이와 같은 문제를 해결하기 위하여 Attention 모델이 고안되었습니다.
 
@@ -111,7 +111,7 @@ tags: [attention, seq2seq] # add tag
 <br>
 
 - 그러면 Querying 이라는 용어는 무엇인지 살펴보겠습니다.
-- 위 그림과 같이 qeury(질의)에 해당하는 "2018"이 입력되었을 때, query에 해당하는 key 값을 찾아서 그 key 값에 해당하는 value를 출력하는 작업을 querying 이라고 합니다. 이 때, query와 똑같은 key값을 선택할 지 또는 가장 유사한 key값을 선택할 지는 문제에 따라 달라지게 됩니다.
+- 위 그림과 같이 query(질의)에 해당하는 "2018"이 입력되었을 때, query에 해당하는 key 값을 찾아서 그 key 값에 해당하는 value를 출력하는 작업을 querying 이라고 합니다. 이 때, query와 똑같은 key값을 선택할 지 또는 가장 유사한 key값을 선택할 지는 문제에 따라 달라지게 됩니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/attention/0.png" alt="Drawing" style="width: 400px;"/></center>
