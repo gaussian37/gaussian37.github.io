@@ -53,7 +53,7 @@ tags: [attention, seq2seq] # add tag
 <br>
 
 <video controls="controls">
-  <source type="video/mp4" src="../assets/img/dl/concept/attention/1.mp4" style="width : 400px;"></source>
+  <source type="video/mp4" src="../assets/img/dl/concept/attention/1.mp4" width="400px"></source>
 </video>
 
 <br>
@@ -71,9 +71,10 @@ tags: [attention, seq2seq] # add tag
 <center><img src="../assets/img/dl/concept/attention/2.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 이와 같이 모델을 수정하면 크게 2가지 장점을 취할 수 있습니다.
+- 이와 같이 모델을 수정하면 크게 3가지 장점을 취할 수 있습니다.
 - ① 여러 개의 단어 embedding을 1개의 context vector에 억지로 함축시킬 필요가 없어집니다.
 - ② Decoder 입장에서 좀 더 다이나믹하게 Encoder의 hidden state를 활용할 수 있습니다. 예를 들어 Decoder에서 좀 더 집중하고 싶은 state에 좀 더 집중할 수 있도록 메커니즘을 설계할 수 있습니다.
+- ③ RNN에서 입력된 지 오래된 데이터일수록 잊혀지는 문제가 있습니다. LSTM과 같은 모델에서 이 문제를 좀 더 개선하였지만 그럼에도 상대적으로 이전에 입력된 데이터에 대하여 출력에 영향이 낮아집니다. 하지만 위 그림과 같이 Encoder의 모든 hidden state를 사용하면 이 문제를 개선할 수 있습니다.
 
 <br>
 
