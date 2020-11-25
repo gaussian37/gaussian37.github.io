@@ -165,6 +165,14 @@ tags: [attention, seq2seq] # add tag
 
 - Attention 관련 연산은 위 메커니즘을 따릅니다. Decoder에서 $$ s_{i} $$라는 Query가 입력되고 그 Query와 모든 key 값인 $$ h_{i} $$ (위 그림에서는 $$ h_{0}, h_{1}, h_{2} $$)와 `Comparison` 이라는 연산을 통하여 `유사도`를 구합니다. 이 유사도 값은 softmax를 거치기 때문에 확률 값처럼 총 합이 1이 됩니다.
 - 그러면 Value에 해당하는 $$ h_{i} $$와 유사도를 곱하고 (element-wise multiplication) 그 결과들을 합하여 최종적으로 $$ a_{i} $$ 라는 `Attenen value`를 출력합니다.
+- 위 그림에서 사용된 연산을 수식으로 표현하면 다음과 같습니다.
+
+<br>
+
+- $$ c_{i} = \text{softmax}(s_{i}^{T}h_{j}) $$
+- $$ a_{i} = \sum_{j}c_{i}h_{j} $$
+
+<br>
 
 <br>
 <center><img src="../assets/img/dl/concept/attention/11.png" alt="Drawing" style="width: 800px;"/></center>
