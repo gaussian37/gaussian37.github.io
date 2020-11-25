@@ -66,6 +66,7 @@ tags: [python, python 기본] # add tag
 - ### 파이썬 실행 경로 추가
 - ### 문자열을 이용하여 패키지 import
 - ### Dictionary와 JSON
+- ### Dicionary의 최대, 최소 value 찾기
 
 <br>
 
@@ -2093,6 +2094,24 @@ print(json_string)
 json_dict = json.loads(json_string)
 print(type(json_dict))
 # dict
+```
+
+<br>
+
+## **Dicionary의 최대, 최소 value 찾기**
+
+<br>
+
+- Dictionary의 모든 Key:Value 쌍에서 최대 또는 최소 Value에 해당하는 쌍을 찾기 위해서는 파이썬의 기본 max, min 내장 함수에 lambda 식으로 조건을 주어서 해결할 수 있습니다.
+
+<br>
+
+```python
+a = {"a" : 1, "b" : 2, "c" : 3, "d":4}
+print(max(a, key=lambda k : a[k]))
+# d
+print(min(a, key=lambda k : a[k]))
+# a
 ```
 
 <br>
