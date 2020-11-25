@@ -179,7 +179,7 @@ tags: [attention, seq2seq] # add tag
 <br>
 
 - 먼저 Decoder의 hidden state는 RNN(LSTM)에서 받아서 연산하여 $$ s_{i} $$ → $$ s_{i+1} $$로 만듭니다.
-- 그 후 Attenen value인 $$ a_{i} $$와 $$ s_{i+1} $$을 concat 하여 $$ v_{i+1} $$을 만듭니다. 이 값을 FC layer와 Softmax를 거쳐서 최종 출력인 $$ y_{i} $$를 출력합니다.
+- 그 후 Attenen value인 $$ a_{i} $$와 $$ s_{i+1} $$을 concat ($$ v_{i} = \[s_{i}; a_{i-1}\] $$) 하여 $$ v_{i+1} $$을 만듭니다. 이 값을 FC layer와 Softmax를 거쳐서 최종 출력인 $$ y_{i} $$를 출력합니다.
 
 <br>
 
