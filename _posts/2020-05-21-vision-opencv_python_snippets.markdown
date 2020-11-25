@@ -24,6 +24,7 @@ tags: [opencv, python, snippets] # add tag
 - ### 90도 이미지 회전
 - ### gif 만들기 with imageio
 - ### 두 이미지를 오버레이 하기
+- ### 픽셀의 하한, 상한 값 정하기
 
 <br>
 
@@ -202,6 +203,23 @@ imageio.mimsave('/path/to/movie.gif', images)
 - blending을 하기 위해서 `cv2.addWeighted`를 사용하며 사용 방법은 다음과 같습니다.
 - `dst = cv2.addWeighted(src1, alpha, src2, beta, gamma)`
 - 위 함수는 src1과 src2 영상을 각각 $$ \alpha, \beta $$의 가중치를 사용하여 blending 합니다. 
+
+<br>
+
+## **픽셀의 하한, 상한 값 정하기**
+
+<br>
+
+- 이미지 데이터에 어떤 연산을 가했을 때, uint8 데이터 타입의 값 범위인 [0, 255]를 벗어날 수 있습니다.
+- 범위에 벗어난 값을 하한값, 상한값으로 saturation 시킬 때, `np.clip(array, lower_bound, upper_bound)`을 이용할 수 있습니다.
+
+<br>
+
+```python
+lower_bound = 0
+upper_bound = 255
+img = np.clip(img, lower_bound, upper_bound).astype(np.uint8)
+```
 
 <br>
 
