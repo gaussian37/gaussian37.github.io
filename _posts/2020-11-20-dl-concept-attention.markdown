@@ -136,6 +136,15 @@ tags: [attention, seq2seq] # add tag
 
 <br>
 
+- 여기서 `Comparison`과 `Aggregate`는 구현 방식에 따라 다를 수 있으나 오리지널 아이디어의 경우 `Compare`는 Fully Connected 방식의 연산을 이용하였고 `Aggregate`의 경우 모든 key-value에 대하여 벡터의 element-wise multiplication 연산을 한 후 element-wise sum을 하여 `Attention Value`를 생성합니다. 수식은 아래와 같습니다.
+
+<br>
+
+- $$ \text{Compare}(q, k_{j}) = q \cdot k_{j} = q^{T}k_{j} $$
+- $$ \text{Aggregate}(c, V) = \sum_{j} c_{j}v_{j} $$
+
+<br>
+
 - 그러면 Attention 모델을 seq2seq에 적용해 보도록 하겠습니다.
 
 <br>
