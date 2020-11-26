@@ -970,6 +970,34 @@ print(c | d)
 
 <br>
 
+- C++의 multiset 기능은 `Counter`를 이용하여 사용할 수 있습니다. 그러면 multimap 기능은 어떻게 사용할 수 있을까요?
+- multimap에 정확하게 대응되는 자료구조는 없으나 `defaultdict`를 사용하면 유사하게 구현할 수 있습니다.
+
+<br>
+
+```python
+from collections import defaultdict
+md = defaultdict(list)
+md[1].append('a')
+md[1].append('b')
+md[2].append('c')
+md[1]
+# ['a', 'b']
+md[2]
+# ['c']
+
+md = defaultdict(set)
+md[1].add('a')
+md[1].add('b')
+md[2].add('c')
+md[1]
+# {'a', 'b'}
+md[2]
+# {'c'}
+```
+
+<br>
+
 ## **bisect를 사용한 이진 탐색**
 
 <br>
