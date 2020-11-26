@@ -896,6 +896,73 @@ print(py_tuple[slice_object]) # ('y', 'h')
 
 <br>
 
+- `Counter`는 `from collections import Counter`를 통해 사용 가능한 container 종류 중 하나입니다.
+- Counter는 말 그대로 데이터의 갯수를 세는 자료 구조로 C++에서 `multiset`과 유사합니다. 사용방법은 다음과 같습니다.
+
+<br>
+
+```python
+from collections import Counter
+cnt = Counter()
+for word in ['red', 'blue', 'red', 'green', 'blue', 'blue']:
+    cnt[word] += 1
+
+print(cnt)
+# Counter({'blue': 3, 'red': 2, 'green': 1})
+```
+
+<br>
+
+- Counter의 대표적인 기능은 `.most_common(갯수)` 입니다. 위 예제에서 `cnt.most_common(2)`라고 하면 `[('blue', 3), ('red', 2)]`와 같은 결과가 나옵니다. 가장 빈도가 큰 순서대로 출력됩니다.
+- Counter를 생성할 때, 대표적으로 다음과 같이 생성할 수 있습니다.
+
+<br>
+
+```python
+c = Counter()                           # a new, empty counter
+c = Counter('gallahad')                 # a new counter from an iterable (each chracter)
+c = Counter({'red': 4, 'blue': 2})      # a new counter from a mapping
+c = Counter(cats=4, dogs=8)             # a new counter from keyword args
+```
+
+<br>
+
+- Counter끼리 연산을 할 때, 다음과 같은 연산이 가능합니다. 두 Counter의 차를 구할 때, `subtract` 또는 `-` 연산자를 사용할 수 있습니다. 그 차이는 아래와 같습니다.
+- 반대로 두 Counter의 합을 구할 때, `update` 또는 `+`를 사용할 수 있습니다.
+- 교집합은 `&` 연산자를, 합집합은 `|` 연산자를 사용합니다.
+
+<br>
+
+```python
+c = Counter(a=4, b=2, c=0, d=-2)
+d = Counter(a=1, b=2, c=3, d=4)
+c.subtract(d)
+print(c)
+# Counter({'a': 3, 'b': 0, 'c': -3, 'd': -6})
+
+c = Counter(a=4, b=2, c=0, d=-2)
+d = Counter(a=1, b=2, c=3, d=4)
+print(c - d)
+# Counter({'a': 3})
+
+c = Counter(a=4, b=2, c=0, d=-2)
+d = Counter(a=1, b=2, c=3, d=4)
+c.update(d)
+print(c)
+# Counter({'a': 5, 'b': 4, 'c': 3, 'd': 2})
+
+c = Counter(a=4, b=2, c=0, d=-2)
+d = Counter(a=1, b=2, c=3, d=4)
+print(c + d)
+# Counter({'a': 5, 'b': 4, 'c': 3, 'd': 2})
+
+c = Counter(a=4, b=2, c=0, d=-2)
+d = Counter(a=1, b=2, c=3, d=4)
+print(c & d)
+# Counter({'a': 1, 'b': 2})
+print(c | d)
+# Counter({'a': 5, 'b': 4, 'c': 3, 'd': 2})
+```
 
 <br>
 
