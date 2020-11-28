@@ -41,6 +41,7 @@ tags: [python, python 기본] # add tag
 - ### slice
 - ### Counter
 - ### defaultdict를 이용한 multimap 사용
+- ### OrederedDict
 - ### bisect를 사용한 이진 탐색
 - ### for loop 스타일 (zip, range, enumerate, sorted, filter)
 - ### deque은 사이즈 관리를 자동으로 한다.
@@ -1008,6 +1009,42 @@ md[2]
 <br>
 
 ## **bisect를 사용한 이진 탐색**
+
+<br>
+
+- C++의 lower_bound와 같은 기능을 이용하면 정렬된 배열(리스트)에서 이진 탐색으로 어떤 값을 찾을 수 있습니다.
+- 정확한 기능을 설명하면 C++의 lower_bound 기능은 정렬된 배열에서 찾고자 하는 값의 인덱스를 반환합니다. 만약 찾고자 하는 값이 정확히 존재하면 그 값의 인덱스를 반환하고 만약 그 값이 배열에 없으면 그 값보다 큰 값 중 가장 작은 값의 인덱스를 반환합니다.
+- 다음 예제를 통하여 살펴보겠습니다. 사용 할 함수는 `bisect.bisect_left(배열, 찾을 값, 시작 인덱스, 끝 인덱스)`와 `bisect.insort_left(배열, 삽입할 값, 시작 인덱스, 끝 인덱스)` 입니다. 인덱스의 범위는 `[시작 인덱스, 끝 인덱스)`입니다.
+
+<br>
+
+```python
+import bisect 
+a = [1,3,5,7,9]
+
+# 찾고자 하는 값 2는 없으므로 2보다 크면서 가장 작은 값인 3의 인덱스인 1을 반환한다.
+bisect.bisect_left(a, 2, 0, len(a))
+# 1
+
+# 찾고자 하는 값이 배열의 모든 값보다 크므로 배열의 마지막 인덱스 + 1 인 위치를 가리킨다.
+bisect.bisect_left(a, 10, 0, len(a))
+# 5
+
+# 찾고자 하는 값이 배열의 가장 작은 값 보다 작으므로 배열의 첫번째 인덱스인 0의 위치를 가리킨다.
+bisect.bisect_left(a, -1, 0, len(a))
+# 0
+
+# 정확히 찾고자 하는 값이 있는 경우 그 값의 인덱스를 반환한다.
+bisect.bisect_left(a, 5, 0, len(a))
+# 2
+
+# 정렬된 배열에서 배열의 정렬 상태를 유지하면서 값을 삽입한다.
+# 삽입 위치를 찾는 데에는 O(log(n))의 시간이 걸리지만 실제 삽입할 때, O(n)의 시간이 걸린다.
+bisect.insort_left(a, 6, 0, len(a))
+
+print(a)
+# [1, 3, 5, 6, 7, 9]
+```
 
 <br>
 
