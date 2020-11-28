@@ -972,11 +972,14 @@ print(c | d)
 
 - C++의 multiset 기능은 `Counter`를 이용하여 사용할 수 있습니다. 그러면 multimap 기능은 어떻게 사용할 수 있을까요?
 - multimap에 정확하게 대응되는 자료구조는 없으나 `defaultdict`를 사용하면 유사하게 구현할 수 있습니다.
+- 따라서 dictionary를 응용하여 구현하는 방법이 가장 간편합니다. 
+- `defaultdict`은 dictionary 형태로 사용이 가능한 자료구조 입니다. 다만 일반 dictionary는 Key : Value 쌍에서 **Value의 타입을 고정해서 사용**할 수 있습니다. 먼저 defaultdict의 사용법을 알아보겠습니다.
 
 <br>
 
 ```python
 from collections import defaultdict
+# 첫번째 케이스
 md = defaultdict(list)
 md[1].append('a')
 md[1].append('b')
@@ -986,6 +989,7 @@ md[1]
 md[2]
 # ['c']
 
+# 두번째 케이스
 md = defaultdict(set)
 md[1].add('a')
 md[1].add('b')
@@ -995,6 +999,11 @@ md[1]
 md[2]
 # {'c'}
 ```
+
+<br>
+
+- 위 예제와 같이 `default(데이터 타입)`와 같은 방법으로 객체를 생성할 수 있습니다. 첫번째 케이스에서는 Value 값으로 list를 사용하였고 두번째 케이스에서는 Value 값으로 set을 사용하였습니다.
+- 물론 이 방식이 C++의 multimap과 완전히 동일하지 않고 단순히 dictionary 로도 구현할 수 있지만 Key, Value 쌍의 타입을 정해놓을 수 있기 때문에 좀 더 편하게 사용할 수 있어서 추천드립니다.
 
 <br>
 
