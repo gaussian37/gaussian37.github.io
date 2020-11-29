@@ -74,6 +74,7 @@ tags: [python, python 기본] # add tag
 - ### **---함수의 응용---**
 - ### file read/write 방법
 - ### 개행(new line) 구분 텍스트 텍스트 리스트 변환
+- ### 파일의 첫 행 또는 끝 행 출력
 - ### 현재 시각 문자열로 출력하는 방법
 - ### 파이썬에서 폴더 및 파일 있는지 확인 후 생성
 - ### 리스트 내부의 경우의 수 조합하기
@@ -646,6 +647,40 @@ text_to_list = open(file_path).read().split("\n")
 # ["aaa", "bbb", "ccc"]
 ```
 
+<br>
+
+## **파일의 첫 행 또는 끝 행 출력**
+
+<br>
+
+- 파이썬에서 어떤 파일을 읽었을 때, 그 파일의 첫 행 또는 끝 행을 읽는 방법은 크게 2가지 방법이 있습니다.
+- ① 실제 파일을 읽어서 각 라인 별로 읽을 때, 첫 행을 읽거나 마지막 행까지 읽어서 마지막 행을 확인하는 방법
+
+<br>
+
+```python
+file_name = "sample.txt"
+with open(file_name, "r") as file:
+    first_line = file.readline()
+    for last_line in file:
+        pass
+print(first_line)
+print(last_line)
+```
+
+<br>
+
+- ② 시스템 함수를 이용하여 첫 행 또는 끝 행을 읽는 방법 (ex. 리눅스의 head, tail)
+
+ <br>
+ 
+ ```python
+ import os
+ file_name = "sample.txt"
+ first_line = os.popen("head -1" + file_name).read()
+ last_line = os.popen("tail -1" + file_name).read()
+ ```
+ 
 <br>
 
 ## **현재 시각 문자열로 출력하는 방법**
