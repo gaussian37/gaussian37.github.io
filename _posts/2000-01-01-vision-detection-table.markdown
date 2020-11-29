@@ -9,3 +9,4 @@ tags: [vision, deep learning, detection] # add tag
 
 - [IoU(Intersection over Union)](https://gaussian37.github.io/math-algorithm-iou/)
 - [GIoU(Generalized Intersection over Union)](https://gaussian37.github.io/vision-detection-giou/)
+- [CenterNet](https://gaussian37.github.io/vision-detection-centernet/)

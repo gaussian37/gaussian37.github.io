@@ -17,80 +17,80 @@ tags: [python, python 기본] # add tag
 <br>
 
 - ### **--- 문법 및 셋팅 관련 ---**
-- ### [if __name__ == "__main__" 사용 이유](#if-__name__--__main__-사용-이유)
-- ### [함수의 파라미터로 빈 리스트 대신 None을 사용할 것](#함수의-파라미터로-빈-리스트-대신-none을-사용할-것-1)
-- ### [A,B = B,A 로 swap](#ab--ba-로-swap-1)
-- ### [특정 함수에서만 사용하는 패키지는 함수 내부에서 import 할 것](#특정-함수에서만-사용하는-패키지는-함수-내부에서-import-할-것-1)
-- ### [set으로 변환하여 리스트의 원소 유무 확인](#set으로-변환하여-리스트의-원소-유무-확인-1)
-- ### [underscore(_)의 활용](#underscore_의-활용-1)
-- ### [Function annotation](#function-annotation)
-- ### [typing 모듈로 타입 표시하기](#typing-모듈로-타입-표시하기)
+- #### [if __name__ == "__main__" 사용 이유](#if-__name__--__main__-사용-이유)
+- #### [함수의 파라미터로 빈 리스트 대신 None을 사용할 것](#함수의-파라미터로-빈-리스트-대신-none을-사용할-것-1)
+- #### [A,B = B,A 로 swap](#ab--ba-로-swap-1)
+- #### [특정 함수에서만 사용하는 패키지는 함수 내부에서 import 할 것](#특정-함수에서만-사용하는-패키지는-함수-내부에서-import-할-것-1)
+- #### [set으로 변환하여 리스트의 원소 유무 확인](#set으로-변환하여-리스트의-원소-유무-확인-1)
+- #### [underscore(_)의 활용](#underscore_의-활용-1)
+- #### [Function annotation](#function-annotation)
+- #### [typing 모듈로 타입 표시하기](#typing-모듈로-타입-표시하기)
 
 <br>
 
 - ### **--- 자주사용하는 함수 ---**
-- ### print 함수 관련  
-- ### 기본 자료 구조의 사용법
-- ### 다양한 sort 방법
-- ### comparator를 이용한 클래스 정렬
-- ### all과 any
-- ### lambda
-- ### map
-- ### filter
-- ### reduce
-- ### slice
-- ### Counter
-- ### defaultdict를 이용한 multimap 사용
-- ### OrederedDict
-- ### bisect를 사용한 이진 탐색
-- ### for loop 스타일 (zip, range, enumerate, sorted, filter)
-- ### deque은 사이즈 관리를 자동으로 한다.
-- ### 파이썬 프로그램 정상 종료 시키기
-- ### 모듈이 설치 되었는 지 확인
-- ### argparse 사용법
-- ### 문자열 검색 : startswith, endswith, in, find, re
-- ### 디렉토리(+ 파일) 복사하기
-- ### 디렉토리(- 파일) 복사하기
-- ### 특정 문자를 기준으로 split
-- ### 숫자에 0을 채워서 출력
-- ### 문자열 양 끝의 공백 문자 없애기
-- ### os 관련 함수 모음
-- ### pickle 사용 방법
-- ### exec을 이용한 문자열로 코드 실행
-- ### type과 isinstance를 통한 데이터 타입 확인
-- ### dir을 통한 module 확인
-- ### enumerate 함수의 응용
-- ### counting 방법
-- ### 디렉토리 상위 레벨 패키지 import
-- ### 리스트를 딕셔너리로 변환
-- ### 유니크한 리스트 생성 방법
-- ### 파이썬 실행 경로 추가
-- ### 문자열을 이용하여 패키지 import
-- ### Dictionary와 JSON
-- ### Dicionary의 최대, 최소 value 찾기
+- #### print 함수 관련  
+- #### 기본 자료 구조의 사용법
+- #### 다양한 sort 방법
+- #### comparator를 이용한 클래스 정렬
+- #### all과 any
+- #### lambda
+- #### map
+- #### filter
+- #### reduce
+- #### slice
+- #### Counter
+- #### defaultdict를 이용한 multimap 사용
+- #### OrederedDict
+- #### bisect를 사용한 이진 탐색
+- #### for loop 스타일 (zip, range, enumerate, sorted, filter)
+- #### deque은 사이즈 관리를 자동으로 한다.
+- #### 파이썬 프로그램 정상 종료 시키기
+- #### 모듈이 설치 되었는 지 확인
+- #### argparse 사용법
+- #### 문자열 검색 : startswith, endswith, in, find, re
+- #### 디렉토리(+ 파일) 복사하기
+- #### 디렉토리(- 파일) 복사하기
+- #### 특정 문자를 기준으로 split
+- #### 숫자에 0을 채워서 출력
+- #### 문자열 양 끝의 공백 문자 없애기
+- #### os 관련 함수 모음
+- #### pickle 사용 방법
+- #### exec을 이용한 문자열로 코드 실행
+- #### type과 isinstance를 통한 데이터 타입 확인
+- #### dir을 통한 module 확인
+- #### enumerate 함수의 응용
+- #### counting 방법
+- #### 디렉토리 상위 레벨 패키지 import
+- #### 리스트를 딕셔너리로 변환
+- #### 유니크한 리스트 생성 방법
+- #### 파이썬 실행 경로 추가
+- #### 문자열을 이용하여 패키지 import
+- #### Dictionary와 JSON
+- #### Dicionary의 최대, 최소 value 찾기
 
 <br>
 
 - ### **---함수의 응용---**
-- ### file read/write 방법
-- ### 개행(new line) 구분 텍스트 텍스트 리스트 변환
-- ### 파일의 첫 행 또는 끝 행 출력
-- ### 현재 시각 문자열로 출력하는 방법
-- ### 파이썬에서 폴더 및 파일 있는지 확인 후 생성
-- ### 리스트 내부의 경우의 수 조합하기
-- ### pip가 설치가 안되어 있으면 설치
-- ### 모듈이 설치가 안되어 있으면 설치
-- ### 입력한 디렉토리의 부모 디렉토리 출력
-- ### 특정 경로의 특정 확장자 파일명만 prefix 추가
-- ### 특정 경로의 특정 확장자 파일명만 suffix 추가
-- ### local 영역에서 global로 import
-- ### 주어진 index 목록에 해당하는 값 불러오기
-- ### 숫자 형태의 list를 특정 문자로 구분하여 문자열로 변환
-- ### List를 group 단위로 나누기
-- ### 현재 실행 중인 파이썬 파일의 경로 확인 (__file__)
-- ### 폴더의 하위 전체 구조 및 파일 모두 복사
-- ### 파일 경로를 경로와 파일명으로 나누기
-- ### [특정 경로의 특정 확장자 파일명 가져오기](#특정-경로의-특정-확장자-파일명-가져오기-1)
+- #### file read/write 방법
+- #### 개행(new line) 구분 텍스트 텍스트 리스트 변환
+- #### 파일의 첫 행 또는 끝 행 출력
+- #### 현재 시각 문자열로 출력하는 방법
+- #### 파이썬에서 폴더 및 파일 있는지 확인 후 생성
+- #### 리스트 내부의 경우의 수 조합하기
+- #### pip가 설치가 안되어 있으면 설치
+- #### 모듈이 설치가 안되어 있으면 설치
+- #### 입력한 디렉토리의 부모 디렉토리 출력
+- #### 특정 경로의 특정 확장자 파일명만 prefix 추가
+- #### 특정 경로의 특정 확장자 파일명만 suffix 추가
+- #### local 영역에서 global로 import
+- #### 주어진 index 목록에 해당하는 값 불러오기
+- #### 숫자 형태의 list를 특정 문자로 구분하여 문자열로 변환
+- #### List를 group 단위로 나누기
+- #### 현재 실행 중인 파이썬 파일의 경로 확인 (__file__)
+- #### 폴더의 하위 전체 구조 및 파일 모두 복사
+- #### 파일 경로를 경로와 파일명으로 나누기
+- #### [특정 경로의 특정 확장자 파일명 가져오기](#특정-경로의-특정-확장자-파일명-가져오기-1)
 
 <br>
 
@@ -1040,6 +1040,100 @@ md[2]
 
 - 위 예제와 같이 `default(데이터 타입)`와 같은 방법으로 객체를 생성할 수 있습니다. 첫번째 케이스에서는 Value 값으로 list를 사용하였고 두번째 케이스에서는 Value 값으로 set을 사용하였습니다.
 - 물론 이 방식이 C++의 multimap과 완전히 동일하지 않고 단순히 dictionary 로도 구현할 수 있지만 Key, Value 쌍의 타입을 정해놓을 수 있기 때문에 좀 더 편하게 사용할 수 있어서 추천드립니다.
+
+<br>
+
+## **OrederedDict**
+
+<br>
+
+- 참조 : https://excelsior-cjh.tistory.com/98
+- 파이썬에서는 배열처럼 사용할 수 있는 Dictionary가 있습니다. 바로 `collection` 패키지에 있는 `OrderedDict`입니다.
+- OrderedDict는 dictionary와 거의 비슷하지만, 입력된 아이템들(items)의 순서를 기억하는 Dictionary 클래습입니다. 
+- OrderedDict는 아이템들(items)의 입력 순서를 기억하기 때문에 sorted()함수를 사용하여 정렬된 딕셔너리(sorted dictionary)를 만들때 사용할 수 있습니다.
+
+<br>
+
+```python
+from collections import OrderedDict
+ 
+# 기본 딕셔너리 
+d = {'banana': 3, 'apple': 4, 'pear': 1, 'orange':2}
+ 
+# 키(key)를 기준으로 정렬한 OrderedDict
+ordered_d1 = OrderedDict(sorted(d.items(), key=lambda t:t[0]))
+print(ordered_d1)
+# OrderedDict([('apple', 4), ('banana', 3), ('orange', 2), ('pear', 1)])
+ 
+# 값(value)를 기준으로 정렬한 OrderedDict
+ordered_d2 = OrderedDict(sorted(d.items(), key=lambda t:t[1]))
+print(ordered_d2)
+#OrderedDict([('pear', 1), ('orange', 2), ('banana', 3), ('apple', 4)])
+```
+
+<br>
+
+- dictionary의 성질을 가지면서 아이템의 순서를 기억하기 때문에 입력되는 순서가 중요합니다. 위 예제와 같이 key 또는 value를 기준으로 정렬한 상태로 OrderedDict을 만들면 OrderedDict의 목적에 맞게 잘 사용할 수 있습니다.
+
+<br>
+
+- OrderedDict에 값을 추가할 때에는 Dictionary의 방법과 똑같습니다. 아래 코드르 참조하시겠습니다.
+
+```python
+ordered_d1.update({'grape': 5}) # ordered_d1['grape'] = 5
+print(ordered_d1)
+# OrderedDict([('apple', 4), ('banana', 3), ('orange', 2), ('pear', 1), ('grape', 5)])
+```
+
+<br>
+
+- `.update()` 또는 인덱스에 직접 입력 하는 방식 (`ordered_d1['grape'] = 5`)을 통하여 새로운 값을 입력할 수 있습니다. 물론 List와 마찬가지로 정렬 이후에 값을 추가하였기 때문에 정렬 순서는 깨지게 되며 가장 마지막 인덱스에 값이 추가됩니다.
+
+<br>
+
+- 반면 OrderedDict에 값을 삭제할 때에는 Stack 방식(LIFO) 처럼 사용할 수 있고 또는 Queue 방식 (FIFO) 처럼 사용할 수 있습니다.
+
+<br>
+
+```python
+import operator
+from collections import OrderedDict
+ 
+# 기본 딕셔너리 
+d = {'banana': 3, 'apple': 4, 'pear': 1, 'orange':2}
+ 
+# 키(key)를 기준으로 정렬한 OrderedDict
+ordered_d = OrderedDict(sorted(d.items(), key=operator.itemgetter(0), reverse=False))
+print(ordered_d)
+ 
+# popitem(last=True) 일경우 : LIFO(Last In Last Out)방식으로 pop, default는 True임
+for i in range(len(ordered_d)):
+    print(ordered_d.popitem(last=True))
+    
+print('='*50)
+    
+# 키(key)를 기준으로 정렬한 OrderedDict
+ordered_d = OrderedDict(sorted(d.items(), key=operator.itemgetter(0), reverse=False))
+print(ordered_d)
+ 
+# popitem(last=False) 일경우 : FIFO(First In First Out)방식으로 pop
+for i in range(len(ordered_d)):
+    print(ordered_d.popitem(last=False))
+    
+'''
+결과
+OrderedDict([('apple', 4), ('banana', 3), ('orange', 2), ('pear', 1)])
+('pear', 1)
+('orange', 2)
+('banana', 3)
+('apple', 4)
+==================================================
+OrderedDict([('apple', 4), ('banana', 3), ('orange', 2), ('pear', 1)])
+('apple', 4)
+('banana', 3)
+('orange', 2)
+('pear', 1)
+```
 
 <br>
 
