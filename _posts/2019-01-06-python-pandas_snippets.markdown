@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Pandas 기본 문법 및 코드 snippets
-date: 2019-03-18 00:00:00
+date: 2019-01-06 00:00:00
 img: python/basic/pandas.png
 categories: [python-basic] 
 tags: [pandas, python, python 기본] # add tag

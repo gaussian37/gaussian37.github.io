@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Python 초기 세팅 및 설치
-date: 2019-12-09 00:00:00
+date: 2019-01-04 00:00:00
 img: python/basic/python.jpg
 categories: [python-basic] 
 tags: [python, 세팅, 설치] # add tag

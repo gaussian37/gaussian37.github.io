@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Python 기본 문법 및 코드 snippets
-date: 2019-03-18 00:00:00
+date: 2019-01-05 00:00:00
 img: python/basic/python.jpg
 categories: [python-basic] 
 tags: [python, python 기본] # add tag

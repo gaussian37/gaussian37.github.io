@@ -13,7 +13,10 @@ tags: [object detection, centernet, object as points] # add tag
 
 <br>
 
-
+- 참조 : 
+- 참조 : https://medium.com/visionwizard/centernet-objects-as-points-a-comprehensive-guide-2ed9993c48bc
+- 참조 : https://nuggy875.tistory.com/34
+- 참조 : https://seongkyun.github.io/papers/2019/10/28/centernet/
 
 
 <br>

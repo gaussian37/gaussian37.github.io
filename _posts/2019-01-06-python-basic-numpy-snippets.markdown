@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Numpy 관련 Snippets
-date: 2019-01-11 00:00:00
+date: 2019-01-06 00:00:00
 img: python/pandas/numpy.png
 categories: [python-basic] 
 tags: [Numpy, 넘파이] # add tag
