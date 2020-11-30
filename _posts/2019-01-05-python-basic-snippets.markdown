@@ -25,7 +25,7 @@ tags: [python, python 기본] # add tag
 - #### [underscore(_)의 활용](#underscore_의-활용-1)
 - #### [Function annotation](#function-annotation-1)
 - #### [typing 모듈로 타입 표시하기](#typing-모듈로-타입-표시하기-1)
-- #### [is와 == 연산의 차이점](#)
+- #### [is와 == 연산의 차이점](#is와--연산의-차이점-1)
 
 <br>
 
