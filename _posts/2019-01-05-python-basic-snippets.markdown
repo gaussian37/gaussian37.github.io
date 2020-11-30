@@ -25,6 +25,7 @@ tags: [python, python 기본] # add tag
 - #### [underscore(_)의 활용](#underscore_의-활용-1)
 - #### [Function annotation](#function-annotation-1)
 - #### [typing 모듈로 타입 표시하기](#typing-모듈로-타입-표시하기-1)
+- #### [is와 == 연산의 차이점](#)
 
 <br>
 
@@ -334,6 +335,12 @@ def toStrings(nums: Iterable[int]) -> List[str]:
 ```
 
 <br>
+
+## **is와 == 연산의 차이점**
+
+<br>
+
+- 흔히 `같다`와 같은 비교 연산을 할 때, `is` 또는 `==` 연산자를 사용합니다. 비슷하지만 엄연히 다르므로 그 차이를 반드시 숙지하는 것이 좋습니다.
 
 ## **print 함수 관련**
 
