@@ -24,7 +24,6 @@ tags: [pandas, python, python 기본] # add tag
 - ### [category 데이터 → one hot 데이터로 변경](#category-데이터--one-hot-데이터로-변경-1)
 - ### [Pandas에서 결측값 제거하기](#pandas에서-결측값-제거하기-1)
 
-
 <br>
 
 ## **DataFrame에 column 추가**
