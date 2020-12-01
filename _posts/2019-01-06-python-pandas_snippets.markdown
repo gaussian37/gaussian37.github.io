@@ -15,13 +15,14 @@ tags: [pandas, python, python 기본] # add tag
 
 <br>
 
-- ### DataFrame에 column 추가
-- ### DataFrame에 행 단위로 데이터 추가하기
-- ### pd.read_csv(excel) 함수를 통하여 파일 읽을 때
-- ### df.to_csv(excel) 함수를 통하여 파일 쓸 때
-- ### column 명 확인
-- ### category 데이터 → Ordinal 데이터로 변경
-- ### Pandas에서 결측값 제거하기
+- ### [DataFrame에 column 추가](#dataframe에-column-추가)
+- ### [DataFrame에 행 단위로 데이터 추가하기](#dataframe에-행-단위로-데이터-추가하기-1)
+- ### [pd.read_csv(excel) 함수를 통하여 파일 읽을 때](#pdread_csvexcel-함수를-통하여-파일-읽을-때-1)
+- ### [df.to_csv(excel) 함수를 통하여 파일 쓸 때](#dfto_csvexcel-함수를-통하여-파일-쓸-때-1)
+- ### [column 명 확인](#column-명-확인-1)
+- ### [category 데이터 → Ordinal 데이터로 변경](#category-데이터--ordinal-데이터로-변경-1)
+- ### [category 데이터 → one hot 데이터로 변경](#category-데이터--one-hot-데이터로-변경-1)
+- ### [Pandas에서 결측값 제거하기](#pandas에서-결측값-제거하기-1)
 
 
 <br>
@@ -97,6 +98,7 @@ for i in range(5):
 ```python
 df = pd.read_csv("file.csv")
 column_list = list(df.columns)
+column_list = df.columns.to_list()
 column_list = df.columns.values.tolist()
 ```
 
@@ -180,6 +182,73 @@ print(df)
 # 2     1
 # 3     1
 # 4     2
+```
+
+<br>
+
+## **category 데이터 → one hot 데이터로 변경**
+
+<br>
+
+- 데이터 중 category 형태의 데이터는 (ex. 국가, 성별) 대소 관계가 있지 않으므로 데이터 전처리 할 때 0, 1, 2, ...형태로 숫자로 매핑하지 않고 one-hot 형태로 매핑해야 합니다.
+- 특정 column을 one-hot 형태로 만들어 줄 때, `pd.get_dummies()` 함수를 사용합니다. 사용 방법은 `pd.get_dummies(df, columns=[컬럼명1, 컬럼명2, ...])` 형태로 사용하면 됩니다.
+
+<br>
+
+```python
+import pandas as pd
+df = pd.DataFrame(columns=['name', 'nation', 'age', 'sex'])
+df.loc[0] = ["A", "Korea", 10, "male"]
+df.loc[1] = ["B", "Japan", 20, "female"]
+df.loc[2] = ["C", "China", 10, "male"]
+print(df)
+#   name nation age     sex
+# 0    A  Korea  10    male
+# 1    B  Japan  20  female
+# 2    C  China  10    male
+
+df_one_hot = pd.get_dummies(df, columns=['nation', 'sex'])
+print(df_one_hot)
+#   name age  nation_China  nation_Japan  nation_Korea  sex_female  sex_male
+# 0    A  10             0             0             1           0         1
+# 1    B  20             0             1             0           1         0
+# 2    C  10             1             0             0           0         1
+```
+
+<br>
+
+- 위 코드를 보면 one-hot으로 변경된 column은 기존의 column 이름을 접두사로 가지고 각 값을 접미사로 가지는 형태의 열을 가지게 됩니다.
+- 따라서 데이터 전처리를 직접하면서 필요한 column만 입력하여 위 예제와 같이 one-hot 형태로 만들 수 있습니다.
+- 일반적으로 어떤 값이 str 타입이면 category 데이터일 가능성이 매우 높습니다. 따라서 1행의 값을 조사하여 1행의 각 열의 값이 str 타입이면 그 열만 one-hot으로 바꾸는 방법을 사용하면 자동화 할 수 있습니다. 코드는 다음과 같습니다.
+
+<br>
+
+```python
+# get candidate of one-hot columns to be applied. except_columns will be excluded from candidates.
+ of one-hot columns to be applied. except_columns will be excluded from candidates.
+def GetOneHotColumns(df, except_columns=[]):
+    column_names = df.columns.to_list()
+    str_columns = []
+    
+    for value, column_name in zip(df.loc[0], column_names):
+        if isinstance(value, str):
+            str_columns.append(column_name)
+    
+    set_str_columns = set(str_columns)
+    set_except_columns = set(except_columns)
+    
+    one_hot_columns = list(set_str_columns.difference(set_except_columns))
+    return one_hot_columns
+
+ont_hot_columns = GetOneHotColumns(df, except_columns=['name'])
+print(ont_hot_column)
+# ['sex', 'nation']
+df_one_hot = pd.get_dummies(df, columns=ont_hot_columns)
+print(df_one_hot)
+#   name age  sex_female  sex_male  nation_China  nation_Japan  nation_Korea
+# 0    A  10           0         1             0             0             1
+# 1    B  20           1         0             0             1             0
+# 2    C  10           0         1             1             0             0
 ```
 
 <br>
