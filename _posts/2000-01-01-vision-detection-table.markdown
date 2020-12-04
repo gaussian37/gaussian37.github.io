@@ -40,7 +40,7 @@ tags: [vision, deep learning, detection] # add tag
 
 <br>
 
-### One-Stage Detector와 Two-Stage Detector란?
+#### **One-Stage Detector와 Two-Stage Detector란?**
 
 <br>
 
