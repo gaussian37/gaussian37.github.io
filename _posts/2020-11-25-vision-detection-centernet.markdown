@@ -59,6 +59,24 @@ tags: [object detection, centernet, object as points] # add tag
 
 <br>
 
+<br>
+<center><img src="../assets/img/vision/detection/centernet/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- CenterNet의 아키텍쳐를 단순화 시켜서 보면 위 그림과 같습니다. 출력 부분을 보면 3개의 모듈로 나뉘어 지는 것을 확인할 수 있습니다. 
+- 각 모듈은 `Heatmap Head`, `Dimension(w-h) Head`, `Offset Head`가 있습니다. 각 모듈에 대하여 알아보겠습니다.
+
+<br>
+
+#### **Heatmap Head**
+
+<br>
+
+
+
+
+<br>
+
 ## **CenterNet Performance**
 
 <br>
