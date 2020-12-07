@@ -1724,6 +1724,9 @@ np = importlib.import_module('numpy')
 - `JSON`은 **JavaScript Object Notation**의 줄임말로 현재 많이 사용하고 있는 데이터 포맷 중 하나입니다. 단순히 JSON은 JSON에서 정한 규칙을 이용하여 문자열로 데이터를 나타냅니다. 이 규칙이 Dictionary와 비슷하여 파이썬에서는 Dictionary를 JSON으로 변환하거나 JSON을 Dictionary로 변환하는 기능을 제공합니다.
 - 그러면 코드를 통해서 어떻게 Dictionary를 JSON으로 변환하고 반대로 JSON을 Dictionary로 변환하는 지 살펴보겠습니다.
 - 먼저 살펴볼 기능은 `json.dumps(Object)` 입니다. 여기서 `dumps = dump + string`입니다. 즉, JSON 형태로 변환하되 문자열로 변환하는 기능을 뜻합니다. Object에는 Dictionary 뿐 아니라 list, tuple 등 어떤 object도 들어올 수 있으나 JSON의 목적에 맞게 Dictionary를 사용해 보도록 하겠습니다.
+- 이 때, 영어 이외의 글자 (한글)를 입력하기 위해서는 `open()` 함수에서 `encoding=utf-8` 을 입력해야 영어 이외의 문자가 정상적으로 입/출력이 됩니다. 특히 쓰기를 할 때에는 `json.dump()`에서 `ensure_ascii=False` 옵션을 주어야 ASCII 이외의 문자로 저장이 되니 이 점을 주의하시면 됩니다.
+    - json 파일 쓰기 : `open(filename, "w", encoding='utf-8')`,  `json.dump(..., ensure_ascii=False)`
+    - json 파일 읽기 : `open(filename, "r", encoding='utf-8')`
 
 <br>
 
@@ -1790,8 +1793,8 @@ Person = {
     "Pet" : None
 }
 
-with open("file.json", "w") as fp:
-    json.dump(Person, fp, indent=4)
+with open("file.json", "w", encoding='utf-8') as fp:
+    json.dump(Person, fp, indent=4, ensure_ascii=False)
 ```
 
 <br>
@@ -1808,7 +1811,7 @@ with open("file.json", "w") as fp:
 
 ```python
 # json.load를 이용하여 json 파일을 읽는 예시
-with open("file.json","r") as fp:
+with open("file.json","r", encoding='utf-8') as fp:
     data = json.load(fp)
 
 # json.loads를 이용하여 json 문자열을 읽는 예시
