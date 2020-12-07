@@ -92,6 +92,7 @@ tags: [python, python 기본] # add tag
 - #### [폴더의 하위 전체 구조 및 파일 모두 복사](#폴더의-하위-전체-구조-및-파일-모두-복사-1)
 - #### [파일 경로를 경로와 파일명으로 나누기](#파일-경로를-경로와-파일명으로-나누기-1)
 - #### [특정 경로의 특정 확장자 파일명 가져오기](#특정-경로의-특정-확장자-파일명-가져오기-1)
+- #### [HTML 랜덤 컬러 만들기](html-랜덤-컬러-만들기-1)
 
 <br>
 
@@ -2454,3 +2455,20 @@ def GetFileList(path:str, extensions:List, abs_path:bool=False) -> List:
 ```
 
 <br>
+
+## **HTML 랜덤 컬러 만들기**
+
+<br>
+
+- HTML에서 CSS에 사용되는 컬러는 `#AD22F5`과 같은 6개의 16진법 순자로 이루어진 코드로 정의 됩니다.
+- 임의의 HTML 랜덤 컬러를 만들려면 아래 함수를 사용하여 만들 수 있습니다.
+
+<br>
+
+```python
+def RandomColor():
+    import random
+    r = lambda: random.randint(0,255)
+    random_color_code = '#%02X%02X%02X' % (r(),r(),r())
+    return random_color_code    
+```
