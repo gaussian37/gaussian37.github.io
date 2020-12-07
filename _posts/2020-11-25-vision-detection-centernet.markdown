@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 센터넷, CenterNet (Objects as Points)
+title: CenterNet (Objects as Points)
 date: 2020-11-25 00:00:00
 img: vision/detection/centernet/0.png
 categories: [vision-detection] 
