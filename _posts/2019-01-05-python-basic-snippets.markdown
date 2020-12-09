@@ -1325,6 +1325,11 @@ os.mkdir(folder_name) # 현재 경로에 folder 생성
 # 지정된 path에 folder 생성하며 path에 포함된 branch 까지 생성
 # 예를 들어 path가 ./A/B/C 이고 B/C가 없다면 마지막 C를 생성할 때까지 중간에 필요한 폴더 계층을 모두 생성합니다.
 os.makedirs(path) 
+
+# 현재 디렉토리의 절대 경로를 출력함
+os.path.abspath(os.getcwd())
+# 경로 변경
+os.chdir(path)
 ```
 
 <br>
