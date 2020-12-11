@@ -17,12 +17,12 @@ tags: [Information Theory, Entropy, KL divergence, Cross Entropy] # add tag
 
 <br>
 
-- ### [What is information?](#what-is-information)
-- ### [What is the entropy?](#what-is-the-entropy)
-- ### [What is the KL divergence?](#what-is-the-kl-divergence)
-- ### [Mutual information with KL divergence](#mutual-information-with-kl-divergence)
-- ### [Is order important in KL divergence?](#is-order-important-in-kl-divergence)
-- ### [What is the Cross Entropy?](#what-is-the-cross-entropy)
+- ### [What is information?](#what-is-information-1)
+- ### [What is the entropy?](#what-is-the-entropy-1)
+- ### [What is the KL divergence?](#what-is-the-kl-divergence-1)
+- ### [Mutual information with KL divergence](#mutual-information-with-kl-divergence-1)
+- ### [Is order important in KL divergence?](#is-order-important-in-kl-divergence-1)
+- ### [What is the Cross Entropy?](#what-is-the-cross-entropy-1)
 
 <br>
 
@@ -82,25 +82,29 @@ tags: [Information Theory, Entropy, KL divergence, Cross Entropy] # add tag
 
 <br>
 
-`Entropy` is the average of information quantities that random variable x can have.
+- `Entropy` is the average of information quantities that random variable $$ x $$ can have.
+
+<br>
 
 - $$ H(x) = -\sum_{x}P(x)log_{2}P(x) \tag{2} $$
-
 - $$ H(x) = -\int_{\infty}^{\infty} P(x)log_{2}P(x) dx \tag{3} $$
 
-Equation (2) is the entropy of dicrete case and (3) is of continuous case.
-
 <br>
 
-![dices](../assets/img/ml/concept/Information-Theory/dices.jpg)
+Equation (2) is the entropy of **discrete** case and (3) is of **continuous** case.
 
 <br>
+<center><img src="../assets/img/ml/concept/Information-Theory/dices.jpg" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
-Let me explain `entropy` with dice. let random variable `x` as spot on a die. 
-`x` can have value from 1 to 6(1,2,3,4,5,6) and each has same probability as $$ \frac{1}{6}$$.
-Accordingly, `entopy` is 2.585 bits.
+- Let me explain `entropy` with dice. let random variable `x` as spot on a die.
+- `x` can have value from 1 to 6(1,2,3,4,5,6) and each has same probability as $$ \frac{1}{6} $$. Accordingly, `entopy` is 2.585 bits.
+
+<br>
 
 - $$ H(x) = -\sum\frac{1}{6}log_{2}\frac{1}{6} = 2.585 bits $$
+
+<br>
 
 Thinking about the characteristic of `entropy`, entropy is maximized when all events which have same probability of occurrence.
 In other words, the extent of chaos become maximized or `uncertainty` become maximized. 
