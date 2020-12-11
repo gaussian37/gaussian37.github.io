@@ -13,6 +13,23 @@ tags: [Information Theory, Entropy, KL divergence, Cross Entropy] # add tag
 
 <br>
 
+## **table of contents**
+
+<br>
+
+- ### [What is information?](#what-is-information)
+- ### [What is the entropy?](#what-is-the-entropy)
+- ### [What is the KL divergence?](#what-is-the-kl-divergence)
+- ### [Mutual information with KL divergence](#mutual-information-with-kl-divergence)
+- ### [Is order important in KL divergence?](#is-order-important-in-kl-divergence)
+- ### [What is the Cross Entropy?](#what-is-the-cross-entropy)
+
+<br>
+
+## **What is information?**
+
+<br>
+
 - Let's think about two cases. Which case does have **more information**?
 
 <br>
@@ -35,28 +52,33 @@ tags: [Information Theory, Entropy, KL divergence, Cross Entropy] # add tag
 
 <br>
 
-- $$ P(\text{tomorrow} = \text{heavy rainy} \vert \text{today} = \text{clear}) , P(\text{tomorrow} = \text{clear} \vert \text{today}  = \text{clear}) $$
+- $$ P(\text{tomorrow} = \text{heavy rainy} \  \vert \ \text{today} = \text{clear}) $$
+- $$ P(\text{tomorrow} = \text{clear} \  \vert \  \text{today}  = \text{clear}) $$
 
 <br>
 
 - Okay! we can define `how to measure information quantity` when knowing the probability of an event.
 
-- $$ h(x) = -log_{2}P(x) \tag{1} $$
+<br>
 
-equation (1) shows the answer. x is random variable. 
-In above example, x is random variable showing weather of clear or rainy.
-Let me suppose that x has a specific value. P(x) is x's probability and h(x) is the information quantity or, **self-information**.
+- $$ h(x) = -\log_{2}{P(x)} \tag{1} $$
 
-For example, x has an event `e` and its probability is P(e) = 1/1024 (only a time happens during 1024 times),
-information quantity is $$ -log_{2} (1/1024) = 10 bit $$ . Extreme case is P(e) = 1. In this extreme case, we can only get the information that `e` always happens.
-So, we don't get any alarming information if we additionally get to know that `e` happens. If we assign the P(e) = 1 into equation (1), 
-information quantity $$ h(x) = 0 $$.
+<br>
 
-we can change base 2 to e(natural constant) then, unit is changed from `bit` to `natural`.
+- equation (1) shows the answer. $$ x $$ is random variable. 
+- In above example, $$ x $$ is random variable showing clear or rainy. Let me suppose that $$ x $$ has a specific value. $$ P(x) $$ is x's probability and h(x) is the information quantity or, **self-information**.
+
+<br>
+
+- For example, $$ x $$ has an event `e` and its probability is $$ P(e) = 1/1024 $$ (only a time happens during 1024 times),
+- information quantity is $$ -\log_{2}{(1/1024)} = 10 \text{bit} $$.
+- Extreme case is $$ P(e) = 1 $$. In this extreme case, we can only get the information that `e` always happens.
+- So, we don't get any alarming information if we additionally get to know that `e` happens. If we assign the $$ P(e) = 1 $$ into equation (1), information quantity $$ h(x) = 0 $$.
+- we can change base `2` to `e(natural constant)` then, unit is changed from `bit` to `natural`.
 
 <br> 
 
-## **What is the entropy ?**
+## **What is the entropy?**
 
 <br>
 
@@ -177,7 +199,7 @@ If the value is too small, they are dependent and maybe not useful.
 
 <br>
 
-## **Is order important in KL divergence ?**
+## **Is order important in KL divergence?**
 
 <br>
 
