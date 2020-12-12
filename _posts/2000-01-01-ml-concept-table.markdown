@@ -33,6 +33,7 @@ tags: [python, machine learning, ml] # add tag
 - [MLE(Maximum Likelihood Estimation)와 MAP(Maxim A Posterior)에 관하여](https://gaussian37.github.io/ml-concept-mlemap)
 - [가우시안 분포와 분별 함수 (선형 분별 분석(LDA), 2차 분별 분석(QDA))](https://gaussian37.github.io/ml-concept-gaussian_discriminant/)
 - [마할라노비스 거리(mahalanobis distance)](https://gaussian37.github.io/ml-concept-mahalanobis_distance/)
+- [정보 이론 (Entropy, Cross Entropy, KL Divergence)](https://gaussian37.github.io/ml-concept-infomation_theory/)
 
 
 
