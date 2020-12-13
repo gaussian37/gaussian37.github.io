@@ -520,6 +520,11 @@ tags: [딥러닝, 머신러닝, Andrew Ng, Machine Learning Yearning] # add tag
 
 
 <br>
+<center><img src="../assets/img/ml/concept/ml_yearning/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
+<br>
 
 ### **17. 큰 사이즈의 개발 데이터셋이 있는 경우, 두개의 부분집합으로 이를 나누고, 그 중 하나만 관찰하는 것**
 
@@ -567,6 +572,10 @@ tags: [딥러닝, 머신러닝, Andrew Ng, Machine Learning Yearning] # add tag
 <br>
 
 ### **26. 학습 데이터셋에 대한 에러 분석**
+
+<br>
+<center><img src="../assets/img/ml/concept/ml_yearning/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 
 <br>
