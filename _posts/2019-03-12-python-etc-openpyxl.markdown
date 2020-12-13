@@ -48,6 +48,11 @@ pip install openpyxl
 
 <br>
 
+- 현재 활성 중인 워크시트를 선택하는 방법은 다음과 같습니다.
+- `ws = wb.active`
+
+<br>
+
 - `get_sheet_names()`를 이용하여 시트의 **목록을 볼 수 있습니다.**
 - `excelFile.get_sheet_names()`
 
@@ -156,4 +161,23 @@ sheet["A1"].fill = yellowFill
 
 <br>
 
+- 참조 : https://openpyxl.readthedocs.io/en/stable/protection.html
+- 엑셀 파일을 보호하고 수정을 방지하기 위하여 `protection` 기능을 사용할 수 있습니다. 엑셀 파일 중 보호하는 대상은 `workbook`과 `worksheet` 입니다.
+- `workbook`에 protection 기능을 적용하면 엑셀 시트 이외의 전체 구조에 대한 protection을 적용할 수 있습니다.
+- 반면 `worksheet`에 protection 기능을 적용하면 워크시트에 입력된 값 및 서식들에 대하여 protection 기능을 적용할 수 있습니다.
+- 아래 코드에서 `...` 라고 되어 있는 패스워드 란을 실제 사용할 패스워드로 바꿔서 사용하면 됩니다.
 
+<br>
+
+```python
+# workbook
+wb.security.workbookPassword = '...'
+wb.security.lockStructure = True
+
+
+ws = wb.active
+ws.protection.sheet = True
+ws.protection.enable()
+ws.protection.password = '...'
+# ws.protection.disable()
+```
