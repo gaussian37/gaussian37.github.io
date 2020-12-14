@@ -36,7 +36,7 @@ tags: [python, 세팅, 설치] # add tag
 
 <br>
 
-### 가상 환경 설치
+## **가상 환경 설치**
 
 <br>
 
@@ -77,7 +77,7 @@ virtualenv myenv
 
 <br>
 
-### 가상 환경 실행
+## **가상 환경 실행**
 
 <br>
 
@@ -117,11 +117,12 @@ argparse==1.2.1
 - 위와 같이 `requirements.txt`에 필요한 라이브러리 입력하면 됩니다. 필요한 특정 버전이 있으면 위 처럼 `==` 를 이용하여 지정하면 되고 지정하지 않으면 최신 버전이 설치됩니다.
 - 또는 `pip freeze > requirements.txt` 명령어를 이용하여 패키지 목록을 자동으로 저장할 수 있습니다.
     - 참고로 `pip freeze` 명령어를 이용하면 가상 환경에 설치된 패키지 리스트를 뽑을 수 있습니다.
+- 먼저 패키지를 가장 최신으로 받을 수 있도록 `python -m pip install --upgrade pip`을 먼저 실행한다.
 - 그리고 나서 `pip install -r requirements.txt `를 입력하면 차례대로 설치됩니다.
 
 <br>
 
-## python2, python3 구분하여 설치
+## **python2, python3 구분하여 설치**
 
 <br>
 
