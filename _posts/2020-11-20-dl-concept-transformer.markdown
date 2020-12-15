@@ -31,7 +31,10 @@ tags: [attention, transformer, attention is all you need] # add tag
 - ### Positional Encoding
 - ### Scaled Dot-Product Attention
 - ### Multi-Head Attention
-
+- ### Position-wise Feed-Forward
+- ### Add & Norm
+- ### Output Softmax
+- ### 결론
 - ### Pytorch 코드
 - ### Tensorflow 코드
 
@@ -184,13 +187,55 @@ tags: [attention, transformer, attention is all you need] # add tag
 - 이와 같은 메커니즘을 통해 병렬 계산에 유리한 구조를 만들 수 있습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/transformer/11.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/transformer/11.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - Transformer 전체 구조에서 Multi-Head Attention이 어떻게 사용되는 지 살펴보겠습니다.
 - 파란색으로 표시된 부분은 `Self-Attention` 구조로 들어가 있습니다. Self-Attention에서는 Key, Value, Query가 모두 같음을 의미합니다. Encoder의 파란색 부분은 Mask 없이 Key, Value, Query가 들어가게 됩니다. 반면 Decoder의 파란색 부분은 Mask가 적용됩니다. 왜냐하면 Key와 Value가 Query 하고자 하는것 보다 더 앞서서 등장할 수 없기 때문입니다. 이와 같이 `Self-Attention`을 통해서 **Attention이 강조되어 있는 feature**를 추출할 수 있습니다.
-- 빨간색으로 표시된 Multi-Head Attention은 Encoder로 부터 
+- 빨간색으로 표시된 Multi-Head Attention은 Encoder로 부터 Key와 Value를 받고 Decoder로 부터 Query를 받습니다. 이를 통해 Seq2seq의 Attention과 동일한 구조를 가지게 됩니다.
 
+<br>
+
+## **Position-wise Feed-Forward**
+
+<br>
+<center><img src="../assets/img/dl/concept/transformer/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Position wise Feed Forward는 단어의 Position 별로 Feed Forward 한다는 뜻입니다. 각 단어에 해당하는 열 벡터가 입력으로 들어갔을 때, `FC-layer - Relu - Fc-layer` 연산을 거치게 됩니다.
+
+<br>
+
+## **Add & Norm**
+
+<br>
+<center><img src="../assets/img/dl/concept/transformer/14.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Transformer 구조를 보면 Skip Connection을 통해서 합해지는 부분이 있고 더해지는 부분에서 `Layer Normalization`을 사용하였습니다.
+- Layer Normalization에 대한 설명은 다음 링크를 참조하시기 바랍니다.
+    - 링크 : 
+
+<br>
+
+## **Output Softmax**
+
+<br>
+<center><img src="../assets/img/dl/concept/transformer/15.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 마지막 Feed Forward를 통해 출력이 되면 Linear 연산을 통하여 출력 단어 종류 갯수로 출력 사이즈를 맞춰 줍니다.
+- 최종적으로 Softmax를 이용해 어떤 단어인지 Classification 문제를 해결할 수 있습니다.
+
+<br>
+
+## **Pytorch 코드**
+
+<br>
+
+## **Tensorflow 코드**
+
+<br>
 
 
 
