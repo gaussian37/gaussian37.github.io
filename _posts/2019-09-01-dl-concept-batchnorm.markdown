@@ -23,14 +23,12 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 
 <br>
 
-- ### Batch
-- ### Internal Covariant Shift
-- ### Batch Normalization
-- ### FC Layer와 Convolutional Layer에서의 Batch Normalization
-- ### Internal Covariant Shift 더 알아보기
-- ### Batch Normalization의 효과
-- ### Batch Normalization의 변형 기법들
-- ### Pytorch에서의 사용 방법
+- ### [Batch](#batch-1)
+- ### [Internal Covariant Shift](#internal-covariant-shift-1)
+- ### [Batch Normalization](#batch-normalization-1)
+- ### [Internal Covariant Shift 더 알아보기](#internal-covariant-shift-더-알아보기-1)
+- ### [Batch Normalization의 효과](#batch-normalization의-효과-1)
+- ### [Pytorch에서의 사용 방법](#pytorch에서의-사용-방법)
 
 <br>
 
@@ -51,7 +49,7 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 
 - 그래서 사용하는 것이 stochastic gradient descent 방법입니다.
 - SGD에서는 gradient를 한번 업데이트 하기 위하여 `일부의 데이터`만을 사용합니다. 즉, `batch` size 만큼만 사용하는 것이지요.
-- 위 gradient descent의 식을 보면 $$ \Sum $$에 $$ j = Bi $$가 있는데 $$ B $$가 `batch`의 크기가 됩니다. 
+- 위 gradient descent의 식을 보면 $$ \sum $$에 $$ j = Bi $$가 있는데 $$ B $$가 `batch`의 크기가 됩니다. 
 - 한 번 업데이트 하는 데 $$ B $$개의 데이터를 사용하였기 때문에 평균을 낼 때에도 $$ B $$로 나누어 주고 있습니다.
 
 <br>
@@ -95,7 +93,7 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 
 <br>
 
-$$ BN(X) = \gamma \Bigl(  \frac{X - \mu_{batch} }{\sigma_{batch} } \Bigr) + \beta $$
+- $$ BN(X) = \gamma \Bigl(  \frac{X - \mu_{batch} }{\sigma_{batch} } \Bigr) + \beta $$
 
 <br>
 
@@ -103,11 +101,11 @@ $$ BN(X) = \gamma \Bigl(  \frac{X - \mu_{batch} }{\sigma_{batch} } \Bigr) + \bet
 
 <br>
 
-$$ \mu_{batch} = \frac{1}{B} \sum_{i} x_{i} $$
+- $$ \mu_{batch} = \frac{1}{B} \sum_{i} x_{i} $$
 
 <br>
 
-$$ \sigma^{2}_{batch} = \frac{1}{B} \sum_{i} (x_{i} - \mu_{batch})^{2} $$
+- $$ \sigma^{2}_{batch} = \frac{1}{B} \sum_{i} (x_{i} - \mu_{batch})^{2} $$
 
 <br>
 
@@ -135,16 +133,16 @@ $$ \sigma^{2}_{batch} = \frac{1}{B} \sum_{i} (x_{i} - \mu_{batch})^{2} $$
 
 <br>
 
-$$ BN(X) = \gamma \Bigl(  \frac{X - \mu_{BN} }{\sigma_{BN} } \Bigr) + \beta $$
+- $$ BN(X) = \gamma \Bigl(  \frac{X - \mu_{BN} }{\sigma_{BN} } \Bigr) + \beta $$
 
 <br>
 
 
-$$ \mu_{BN} = \frac{1}{N} \sum_{i} \mu_{batch}^{i} $$
+- $$ \mu_{BN} = \frac{1}{N} \sum_{i} \mu_{batch}^{i} $$
 
 <br>
 
-$$ \sigma^{2}_{BN} = \frac{1}{N} \sum_{i} \sigma_{batch}^{i} $$
+- $$ \sigma^{2}_{BN} = \frac{1}{N} \sum_{i} \sigma_{batch}^{i} $$
 
 <br>
 
@@ -341,3 +339,9 @@ $$ \sigma^{2}_{BN} = \frac{1}{N} \sum_{i} \sigma_{batch}^{i} $$
 - 정리하면 Batch Normalization은 **Internal Covariate Shift 문제를 개선하기 위하여 고안**되었고 이것은 **Activation에 들어가게 되는 Input의 Range를 제한**시키는 방법으로 문제를 개선하였습니다.
 - 그 결과 학습을 좀 더 안정적으로 할 수 있게 되었고 Internal Covariate Shift 문제를 해결하기 위한 과거의 개선책인 **weight initialization과 small learning rate에서 좀 더 자유로워**졌습니다.
 - 또한 **Regularization effect** 까지 있어서 **overfitting 문제에 좀 더 강건**해 질 수 있습니다.
+
+<br>
+
+## **Pytorch에서의 사용 방법**
+
+<br>

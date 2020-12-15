@@ -27,6 +27,11 @@ tags: [attention, transformer, attention is all you need] # add tag
 - ### Transformer의 특징
 - ### Transformer와 Seq2seq의 차이점
 - ### Transformer의 입력과 출력
+- ### Transformer의 Word Embedding
+- ### Positional Encoding
+- ### Scaled Dot-Product Attention
+- ### Multi-Head Attention
+
 - ### Pytorch 코드
 - ### Tensorflow 코드
 
@@ -94,6 +99,97 @@ tags: [attention, transformer, attention is all you need] # add tag
 - Seq2seq에서도 그림에서 위쪽에 있는 Output은 Transformer 모델을 통해 출력되는 실제 출력이고 아래쪽에 있는 Output은 Transformer에서 만들어낸 Output을 다시 입력으로 사용되는 것을 나타냅니다.
 - 다시 입력되는 Output의 첫 열벡터는 `SOS (Start Of Sequence)`가 되고 X 표시가 되어있는 마지막 열벡터는 `EOS (End Of Sequence)`이므로 큰 의미는 없는 벡터입니다.
 - 따라서 `shifted right`라고 적힌 부분은 Output 에서 하나씩 오른쪽으로 밀려서 다시 입력으로 들어가는 구조로 이해하시면 됩니다.
+
+<br>
+
+## **Transformer의 Word Embedding**
+
+<br>
+<center><img src="../assets/img/dl/concept/transformer/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 먼저 입력에 사용된 one-hot encoding 타입의 벡터를 실수 형태로 변경하면서 차원의 수를 줄일 수 있습니다.
+- 위 그림과 같이 one-hot encoding 벡터를 실수 형태로 변경하면서 차원의 수를 줄일 수 있습니다.
+- Embedding의 경우 0을 기준으로 분포된 형태를 따르게 됩니다.
+
+<br>
+
+## **Positional Encoding**
+
+<br>
+<center><img src="../assets/img/dl/concept/transformer/5.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- Word Embedding을 마치면 `Positional Encoding`을 통해 얻은 값과 Embedding이 더해지게 됩니다.
+- 기존의 Seq2seq와는 다르게 Transformer에서는 입력 순서 대로 차례 차례 입력되지 않기 때문에 Positional Encoding을 통하여 시간적 위치 정보를 추가해 줍니다. 즉, 시간적 위치별로 **고유의 Code를 생성하여 더하는 방식**을 사용합니다.
+- 따라서 전체 Sequence의 길이 중 상대적 위치에 따라 고유의 벡터를 생성하여 Embedding된 벡터에 더해줍니다.
+- Encoding은 `sin`, `cos` 함수를 통하여 생성된 값으로 이 주기 함수에 대한 규칙을 모델이 학습을 통하여 배움으로써 입력 값의 상대적 위치를 알 수 있게 됩니다.
+
+<br>
+
+## **Scaled Dot-Product Attention**
+
+<br>
+
+- 이 글의 처음 도입부에서 설명하였듯이 Transformer의 핵심이 되는 것이 `Scaled Dot-Product Attention`이라고 하였습니다.
+- 먼저 Attention 내용이 정확히 기억이 나지 않으시면 아래 링크를 참조하시기 바랍니다.
+    - 링크 : https://gaussian37.github.io/dl-concept-attention/
+
+<br>
+<center><img src="../assets/img/dl/concept/transformer/6.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- Attention에서 사용되는 입력은 `Q(Query)`, `K(Key)`, `V(Value)` 입니다. 따라서 Scaled Dot-Product Attention 에서도 Query, Key, Value 구조를 띕니다.
+- Q와 K의 비교 함수는 `Dot-Product`와 `Scale`로 이루어 집니다. Dot-Product는 위 그림에서 `MatMul`에 해당하고 간단히 inner product (내적)과 같습니다.
+- 그리고 Mask를 이용해 illegal connection의 attention을 금지합니다. illegal connection은 self-attention 개념과 연관되어 있습니다. illegal connection에 대하여 간략하게 알아보겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/transformer/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Seq2seq에서 사용된 Attention 메커니즘을 살펴보면 Encoder에서 사용된 모든 Step 별 layer와 Decoder의 특정 layer를 이용하여 Attention 연산을 하였습니다. 따라서 위 그림과 같이 Encoder에서 사용된 전체 layer와 Decoder에서는 첫번째, 두번째, ... 차례대로 Attention 연산을 하여 Decoder의 어떤 layer가 Encoder의 어떤 layer에 매칭되는 지 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/transformer/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- self-attention에서는 Decoder가 똑같은 Decoder 자신과 Attention 연산을 할 수 있습니다. 위 그림과 같이 오른쪽의 2번째 layer의 Attention 연산을 하기 위해서는 Decoder의 전체 layer를 사용할 수 없습니다. 왜냐하면 Decoder에서 순차적으로 출력이 나온다고 생각하였을 때, 아직 3번째 layer 부터는 출력이 나오지 않았기 때문입니다. 따라서 1, 2번째 layer만 Attention 연산이 가능합니다.
+- 따라서 self-attention을 하기 위해서는 어느 특정 layer 보다 앞선 layer 들만 가지고 Attention을 할 수 있습니다.
+- 그러면 illegal connection은 2번째 layer를 대상으로 self-Attention 연산 시 3번째, 4번째 layer들도 같이 Attention에 참여되는 상황입니다. 즉, 미래에 출력되는 output을 가져다 쓴것인데 이런 문제를 방지해야 합니다.
+- 이 내용을 현재 Transformer에 접목해 보겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/transformer/10.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림에서 오른쪽 `Q`와 `가능한 V의 범위`를 살펴보면 선택된 `Q`에 대하여 `가능한 V의 범위`는 위치상 `Q`의 바로 앞까지임을 알 수 있습니다.
+- 따라서 `mask`를 이용하여 이러한 illegal connection의 attention을 금지해줍니다.
+- 정리하면 Self-Attention에서는 자기 **자신을 포함한 미래의 값과는 Attention을 구하지 않기 때문에** Masking을 사용합니다.
+- `mask`에 해당되는 값은 음의 무한대로 값을 변경해 버리면 그 다음 스텝의 `SoftMax`에서 0이 되기 때문에 무시해 버릴 수 있습니다.
+- 최종적으로 SoftMax의 출력인 유사도와 `V`를 결합하여 Attention Value를 계산합니다.
+
+<br>
+
+## **Multi-Head Attention**
+
+<br>
+<center><img src="../assets/img/dl/concept/transformer/9.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- Multi-Head Attention은 `Scaled Dot-Product Attention`을 h개 모아서 **Attention Layer를 병렬적으로 사용**하는 것을 말합니다.
+- Linear 연산 (Matrix Multiplication)을 이용해 Q, K, V의 차원을 감소하고 Q와 K의 차원이 다를 경우 이를 이용해 동일한 차원으로 맞춰서 Scaled Dot-Product Attention을 위한 입력으로 만들어 줍니다.
+- Linear 연산을 통해 Q, K, V의 차원을 감소하는 것은 모델이 어느 특정한 차원들만 선택해서 보겠다는 것을 의미합니다. h개의 방법으로 차원을 축소해서 보되 병렬적으로 전체를 검토하게 되므로 병렬 연산으로 연산 속도는 증가 시키면서 다방면으로 모델이 학습할 수 있도록 합니다.
+- 위 그림과 같이 h개의 Scaled Dot-Product Attention은 병렬적이지만 독립되어 있습니다. h개 모듈을 병렬적으로 계산한 다음 concat 후 출력을 내주게 됩니다.
+- concat을 하게 되면 채널이 커질 수 있기 때문에 출력 직전 Linear 연산을 이용해 Attention Value의 차원을 필요에 따라 변경할 수 있습니다.
+- 이와 같은 메커니즘을 통해 병렬 계산에 유리한 구조를 만들 수 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/transformer/11.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- Transformer 전체 구조에서 Multi-Head Attention이 어떻게 사용되는 지 살펴보겠습니다.
+- 파란색으로 표시된 부분은 `Self-Attention` 구조로 들어가 있습니다. Self-Attention에서는 Key, Value, Query가 모두 같음을 의미합니다. Encoder의 파란색 부분은 Mask 없이 Key, Value, Query가 들어가게 됩니다. 반면 Decoder의 파란색 부분은 Mask가 적용됩니다. 왜냐하면 Key와 Value가 Query 하고자 하는것 보다 더 앞서서 등장할 수 없기 때문입니다. 이와 같이 `Self-Attention`을 통해서 **Attention이 강조되어 있는 feature**를 추출할 수 있습니다.
+- 빨간색으로 표시된 Multi-Head Attention은 Encoder로 부터 
 
 
 
