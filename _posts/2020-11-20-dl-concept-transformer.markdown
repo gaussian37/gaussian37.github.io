@@ -17,6 +17,7 @@ tags: [attention, transformer, attention is all you need] # add tag
 - 참조 : KoreaUniv DSBA, 08-2: Transformer (Kor) (https://youtu.be/Yk1tV_cXMMU)
 - 참조 : https://medium.com/@deepganteam/what-are-transformers-b687f2bcdf49
 - 참조 : https://youtu.be/AA621UofTUA?list=RDCMUChflhu32f5EUHlY7_SetNWw
+- 참조 : https://sanghyu.tistory.com/107
 
 <br>
 
@@ -219,8 +220,10 @@ tags: [attention, transformer, attention is all you need] # add tag
 <center><img src="../assets/img/dl/concept/transformer/9.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- Multi-Head Attention은 `Scaled Dot-Product Attention`을 h개 모아서 **Attention Layer를 병렬적으로 사용**하는 것을 말합니다.
-- Linear 연산 (Matrix Multiplication)을 이용해 Q, K, V의 차원을 감소하고 Q와 K의 차원이 다를 경우 이를 이용해 동일한 차원으로 맞춰서 Scaled Dot-Product Attention을 위한 입력으로 만들어 줍니다. 차원이 어떻게 변화하는 지 아래 수식으로 살펴보겠습니다.
+- Multi-Head Attention은 `Scaled Dot-Product Attention`을 `h`개 모아서 **Attention Layer를 병렬적으로 사용**하는 것을 말합니다.
+- 즉, 한번에 전체 Scaled Dot-Product Attention을 연산하기 보다 여러 개의 작은 Scaled Dot-Product Attention으로 분할하고 병렬적으로 연산한 다음에 다시 concat하여 합치는 divide & conquer 전략이라고 생각할 수 있습니다.
+- 따라서 Scaled Dot-Product Attention에서 몇개(h개)로 분할하여 연산할 지에 따라서 각각의 Scaled Dot-Product Attention의 입력 크기가 달라지게 됩니다.
+- 정리하면 Linear 연산 (Matrix Multiplication)을 이용해 Q, K, V의 차원을 감소하고 Q와 K의 차원이 다를 경우 이를 이용해 동일한 차원으로 맞춰서 Scaled Dot-Product Attention을 위한 입력으로 만들어 줍니다. 차원이 어떻게 변화하는 지 아래 수식으로 살펴보겠습니다.
 
 <br>
 
@@ -229,6 +232,10 @@ tags: [attention, transformer, attention is all you need] # add tag
 - $$ \text{Linear}_{i}(K) = K W_{K, i} \ \ \ \ W_{K, i} \in \mathbb{R}^{d_{K} \times d_{\text{model}}} $$
 
 - $$ \text{Linear}_{i}(Q) = Q W_{Q, i} \ \ \ \ W_{Q, i} \in \mathbb{R}^{d_{Q} \times d_{\text{model}}} $$
+
+<br>
+
+- 위 수식에서 $$ W $$는 차원을 변경하기 위한 행렬 입니다. $$ d_{v}, d_{k}, d_{q} $$ 각각은 Value, Key, Query의 dimension을 뜻하고 $$ d_{\text{model}} $$은 Multi-head Attention에서 Scaled Dot-Product Attention에 사용되는 dimension을 뜻합니다.
 
 <br>
 
