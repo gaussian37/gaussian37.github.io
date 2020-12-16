@@ -49,7 +49,12 @@ pip install openpyxl
 <br>
 
 - 현재 활성 중인 워크시트를 선택하는 방법은 다음과 같습니다.
-- `ws = wb.active`
+- `sheet = wb.active`
+
+<br>
+
+- 또는 sheet의 이름을 직접 입력하여 sheet를 선택할 수 있습니다.
+- `sheet = wb["SheetName"]`
 
 <br>
 
@@ -72,6 +77,11 @@ pip install openpyxl
 - 워크시트['열행']으로 **특정 셀을 불러올 수 있습니다.**
 - 참고로 엑셀에서는 열/행 순서의 좌표를 가지고 있습니다.(A1은 A열 1행)
 - ex) `B1 = sheet[B1]`
+
+<br>
+
+- 어떤 sheet의 이름을 변경하고 싶으면 다음과 같이 바꿀 수 있습니다.
+- `sheet.title = new title`
 
 <br>
 
@@ -154,6 +164,12 @@ yellowFill = PatternFill(start_color='FFFFFF00',
 # 지정된 음영 색으로 음역 색칠하기
 sheet["A1"].fill = yellowFill		   
 ```
+
+<br>
+
+- 새로운 sheet를 추가하려면 workbook 객체에서 `.create_sheet(title=None, index=None)` 함수를 사용하면 됩니다.
+- `wb.create_sheet(title=None, index=None)`와 같은 형태이며 예를 들어 `wb.create_sheet(index = 1 , title = sheetname)`와 같이 사용할 수 있습니다.
+- 두 인자 모두 선택적으로 사용가능하며 모두 입력하지 않으면 기본값으로 입력됩니다.
 
 <br>
 
