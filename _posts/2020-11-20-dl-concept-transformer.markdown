@@ -130,6 +130,16 @@ tags: [attention, transformer, attention is all you need] # add tag
 
 <br>
 
+- $$ \text{PE}_{(\text{pos}, 2i)} = \sin{(\text{pos}/10000^{2i / \text{d}_{\text{model}}})} $$
+
+- $$ \text{PE}_{(\text{pos}, 2i+ 1)} = \cos{(\text{pos}/10000^{2i / \text{d}_{\text{model}}})} $$
+
+<br>
+
+- `pos`는 상대적 위치를 뜻하고 `i`는 벡터의 인덱스를 뜻합니다. 
+
+<br>
+
 ## **Scaled Dot-Product Attention**
 
 <br>
@@ -170,6 +180,36 @@ tags: [attention, transformer, attention is all you need] # add tag
 - 정리하면 Self-Attention에서는 자기 **자신을 포함한 미래의 값과는 Attention을 구하지 않기 때문에** Masking을 사용합니다.
 - `mask`에 해당되는 값은 음의 무한대로 값을 변경해 버리면 그 다음 스텝의 `SoftMax`에서 0이 되기 때문에 무시해 버릴 수 있습니다.
 - 최종적으로 SoftMax의 출력인 유사도와 `V`를 결합하여 Attention Value를 계산합니다.
+
+<br>
+
+- 이 때, `Q`, `K`, `V` 각각은 다음과 같이 행렬 형태로 변환 후 연산됩니다.
+
+<br>
+
+- $$ Q = [q_{0}, q_{1}, \cdots , q_{n}] $$
+
+- $$ K = [k_{0}, k_{1}, \cdots , k_{n}] $$
+
+- $$ V = [v_{0}, v_{1}, \cdots , v_{n}] $$
+
+<br>
+
+- 이와 같이 행렬 형태로 변환하는 이유는 병렬 연산을 하기 위함입니다.
+
+<br>
+
+- $$ C = \text{softmax} \Biggl(\frac{K^{T}Q}{\sqrt{d_{k}}}\Biggr) $$
+
+<br>
+
+- 위 식의 $$ C $$는 Scaled Dot-Product Attention의 softmax 까지의 결과 입니다.
+- 먼저 $$ K^{T}Q $$를 통하여 Key와 Query를 Dot-Product 형태로 연산을 하고 $$ sqrt{d_{k}} $$를 통하여 Scale을 해줍니다. 이 `Scale` 값을 통해 $$ K^{T}Q $$ 값이 너무 커지거나 작아져서 **softmax의 결과가 0에 가깝게 saturation이 되는 것을 방지**합니다.
+
+<br>
+
+- 그 다음 $$ C $$ 값과 $$ V $$값을 $$ C^{T} V  = \text{softmax} \Biggl(\frac{K^{T}Q}{\sqrt{d_{k}}}\Biggr)V = a$$ 와 같이 연산을 하여 `Attention Value` $$ a $$를 구할 수 있습니다.
+- 위 식들을 살펴보면 행렬의 곱과 softmax의 형태로만 이루어져 있습니다. 행렬의 곱은 GPU를 이용하여 병렬 연산 처리가 가능하기 때문에 연산 속도가 빨라집니다. 이 점이 Transformer의 가장 큰 장점 중 하나라고 말할 수 있습니다.
 
 <br>
 
