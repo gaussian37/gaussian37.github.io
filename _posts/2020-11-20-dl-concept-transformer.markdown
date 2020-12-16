@@ -220,7 +220,18 @@ tags: [attention, transformer, attention is all you need] # add tag
 <br>
 
 - Multi-Head Attention은 `Scaled Dot-Product Attention`을 h개 모아서 **Attention Layer를 병렬적으로 사용**하는 것을 말합니다.
-- Linear 연산 (Matrix Multiplication)을 이용해 Q, K, V의 차원을 감소하고 Q와 K의 차원이 다를 경우 이를 이용해 동일한 차원으로 맞춰서 Scaled Dot-Product Attention을 위한 입력으로 만들어 줍니다.
+- Linear 연산 (Matrix Multiplication)을 이용해 Q, K, V의 차원을 감소하고 Q와 K의 차원이 다를 경우 이를 이용해 동일한 차원으로 맞춰서 Scaled Dot-Product Attention을 위한 입력으로 만들어 줍니다. 차원이 어떻게 변화하는 지 아래 수식으로 살펴보겠습니다.
+
+<br>
+
+- $$ \text{Linear}_{i}(V) = V W_{V, i} \ \ \ \ W_{V, i} \in \mathbb{R}^{d_{V} \times d_{\text{model}}} $$
+
+- $$ \text{Linear}_{i}(K) = K W_{K, i} \ \ \ \ W_{K, i} \in \mathbb{R}^{d_{K} \times d_{\text{model}}} $$
+
+- $$ \text{Linear}_{i}(Q) = Q W_{Q, i} \ \ \ \ W_{Q, i} \in \mathbb{R}^{d_{Q} \times d_{\text{model}}} $$
+
+<br>
+
 - Linear 연산을 통해 Q, K, V의 차원을 감소하는 것은 모델이 어느 특정한 차원들만 선택해서 보겠다는 것을 의미합니다. h개의 방법으로 차원을 축소해서 보되 병렬적으로 전체를 검토하게 되므로 병렬 연산으로 연산 속도는 증가 시키면서 다방면으로 모델이 학습할 수 있도록 합니다.
 - 위 그림과 같이 h개의 Scaled Dot-Product Attention은 병렬적이지만 독립되어 있습니다. h개 모듈을 병렬적으로 계산한 다음 concat 후 출력을 내주게 됩니다.
 - concat을 하게 되면 채널이 커질 수 있기 때문에 출력 직전 Linear 연산을 이용해 Attention Value의 차원을 필요에 따라 변경할 수 있습니다.
