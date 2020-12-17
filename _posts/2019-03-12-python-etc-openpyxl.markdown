@@ -228,6 +228,8 @@ def AutoFitColumnSize(worksheet, columns=None, margin=2):
         if is_ok:
             length = max(len(str(cell.value)) for cell in column_cells)
             worksheet.column_dimensions[column_cells[0].column_letter].width = length + margin
+
+    return worksheet
 ```
 
 <br>
