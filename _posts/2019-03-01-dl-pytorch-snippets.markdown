@@ -1829,6 +1829,8 @@ for delete_layer in delete_layers:
 
 <br>
 
+- Pytorch에서 Learning rate와 관련된 자세한 설명을 확인하고 싶으면 아래 링크를 참조하시기 바랍니다.
+    - 참조 : https://gaussian37.github.io/dl-pytorch-lr_scheduler/
 - 참조 : https://pytorch.org/docs/stable/optim.html#torch.optim.lr_scheduler.ReduceLROnPlateau
 - 아래 예제는 대표적인 learning rate scheduler 중 하나인 ReduceLROnPlateau를 사용한 예제이며 위 링크의 다른 스케줄러를 상황에 맞추어 사용해도 됩니다.
 - 대부분의 scheduler는 아래 프로세스를 따르므로 아래 코드를 참조하여 사용하시길 바랍니다.

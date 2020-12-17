@@ -392,7 +392,7 @@ scheduler = CosineAnnealingWarmUpRestarts(optimizer, T_0=150, T_mult=1, eta_max=
 <br>
 
 - 먼저 위 그래프의 연두색 선은 50 epoch을 나타냅니다. 따라서 `T_0=150 epoch`의 초기 주기값 후에 다시 0으로 줄어들게 됩니다. 이 때, `T_up=10 epoch` 만에 learning rate는 0 → `eta_max` 까지 증가하게 되고 다음 주기에는 `gamma=0.5`만큼 곱해진 `eta_max * gamma` 만큼 warm up start 하여 learning rate가 증가하게 됩니다.
-- 앞에서도 언급하였지만 주의할 점은 optimizer에서 시작할 learning rate를 일반적으로 사용하는 learning rate가 아닌 0에 가까운 아주 작은 값을 입력해야 합니다.
+- 앞에서도 언급하였지만 주의할 점은 **optimizer에서 시작할 learning rate를** 일반적으로 사용하는 learning rate가 아닌 **0에 가까운 아주 작은 값을 입력**해야 합니다.
 
 <br>
 
