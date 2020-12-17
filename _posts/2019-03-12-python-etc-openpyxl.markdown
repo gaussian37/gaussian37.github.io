@@ -16,6 +16,7 @@ tags: [python, openpyxl, excel] # add tag
 - ### [openpyxl 설치 방법](#openpyxl-설치-방법-1)
 - ### [openpyxl 기본 사용법](#openpyxl-기본-사용법-1)
 - ### [비밀번호로 시트 보호](#비밀번호로-시트-보호-1)
+- ### [열 너비 자동 맞춤](#열-너비-자동-맞춤-1)
 
 <br>
 
@@ -197,3 +198,36 @@ ws.protection.enable()
 ws.protection.password = '...'
 # ws.protection.disable()
 ```
+
+<br>
+
+## **열 너비 자동 맞춤**
+
+<br>
+
+- 엑셀에서 열 너비 자동 맞춤 기능은 일괄적으로 시트를 보기 좋게 만들기 위하여 종종 사용합니다.
+- 아래 `AutoFitColumnSize` 함수를 사용하면 원하는 열 또는 모든 열에 대하여 열 너비를 자동 맞춤하는 기능을 적용할 수 있습니다.
+- 이 때, 적용되는 열의 너비는 열의 각 셀 중 가장 긴 문자를 포함하는 셀의 너비에 margin을 더한 값입니다. 1 이상의 margin을 가져야 빽빽하지 않게 자동 맞춤이 됩니다.
+- 아래 함수에서 `columns`는 리스트를 받고 따로 `None` 또는 입력을 하지 않으면 전체 열을 대상으로 자동 맞춤을 적용하여 `[1, 2, 3]`과 같이 적용하면 1열, 2열, 3열만 자동 맞춤을 적용하게 됩니다.
+
+<br>
+
+```python
+# culumns is passed by list and element of columns means column index in worksheet.
+# if culumns = [1, 3, 4] then, 1st, 3th, 4th columns are applied autofit culumn.
+# margin is additional space of autofit column. 
+
+def AutoFitColumnSize(worksheet, columns=None, margin=2):
+    for i, column_cells in enumerate(worksheet.columns):
+        is_ok = False
+        if columns == None:
+            is_ok = True
+        elif isinstance(columns, list) and i in columns:
+            is_ok = True
+            
+        if is_ok:
+            length = max(len(str(cell.value)) for cell in column_cells)
+            worksheet.column_dimensions[column_cells[0].column_letter].width = length + margin
+```
+
+<br>
