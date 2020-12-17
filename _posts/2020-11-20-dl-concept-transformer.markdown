@@ -15,9 +15,11 @@ tags: [attention, transformer, attention is all you need] # add tag
 
 - 참조 : fastcampus 딥러닝/인공지능 올인원 패키지 Online.
 - 참조 : KoreaUniv DSBA, 08-2: Transformer (Kor) (https://youtu.be/Yk1tV_cXMMU)
+- 참조 : https://youtu.be/xhY7m8QVKjo
 - 참조 : https://medium.com/@deepganteam/what-are-transformers-b687f2bcdf49
 - 참조 : https://youtu.be/AA621UofTUA?list=RDCMUChflhu32f5EUHlY7_SetNWw
 - 참조 : https://sanghyu.tistory.com/107
+- 참조 : https://youtu.be/U0s0f995w14
 
 <br>
 
