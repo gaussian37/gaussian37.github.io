@@ -7,10 +7,20 @@ categories: [math-game]
 tags: [game, game theory, 게임, 게임 이론] # add tag
 ---
 
-+ [게임이론 개론](https://gaussian37.github.io/math-game-game-theory-basic/)
+<br>
 
-+ 게임 이론이란?
-+ 게임의 표현
-+ 게임의 균형
-+ [전통적 경제학 vs 게임 이론](https://gaussian37.github.io/math-game-classical-economy-vs-game-theory/)
+## **게임 이론 개념**
 
+<br>
+
+- [그림을 통한 게임 이론]()
+- [게임이론 소개](https://gaussian37.github.io/math-game-game-theory-basic/)
+- 게임의 표현
+- 게임의 균형
+- [전통적 경제학 vs 게임 이론](https://gaussian37.github.io/math-game-classical-economy-vs-game-theory/)
+
+<br>
+
+## **게임 이론과 진화 다이내믹스**
+
+<br>

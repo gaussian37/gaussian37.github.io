@@ -37,7 +37,6 @@ tags: [attention, transformer, attention is all you need] # add tag
 - ### Position-wise Feed-Forward
 - ### Add & Norm
 - ### Output Softmax
-- ### 결론
 - ### Pytorch 코드
 - ### Tensorflow 코드
 
@@ -157,7 +156,15 @@ tags: [attention, transformer, attention is all you need] # add tag
 
 - Attention에서 사용되는 입력은 `Q(Query)`, `K(Key)`, `V(Value)` 입니다. 따라서 Scaled Dot-Product Attention 에서도 Query, Key, Value 구조를 띕니다.
 - Q와 K의 비교 함수는 `Dot-Product`와 `Scale`로 이루어 집니다. Dot-Product는 위 그림에서 `MatMul`에 해당하고 간단히 inner product (내적)과 같습니다.
-- 그리고 Mask를 이용해 illegal connection의 attention을 금지합니다. illegal connection은 self-attention 개념과 연관되어 있습니다. illegal connection에 대하여 간략하게 알아보겠습니다.
+- 그리고 Mask를 이용해 illegal connection의 attention을 금지합니다. illegal connection은 `self-attention` 개념과 연관되어 있습니다.
+- self-attention은 **각각의 입력이 서로 다른 입력에게 어떤 연관성을 가지고 있는 지**를 구하기 위해 사용됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/transformer/16.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 예를 들어 self-attention은 입력 문장에 대하여 문맥에 대한 정보를 잘 학습하도록 만들 수 있습니다. 즉, "I am a teacher"에서 각 단어가 서로 어떤 연관성을 가지고 있는 지 학습할 수 있습니다.
+- 그러면 self-attention 개념과 연관된 illegal connection에 대하여 간략하게 알아보겠습니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/transformer/7.png" alt="Drawing" style="width: 800px;"/></center>
@@ -175,7 +182,7 @@ tags: [attention, transformer, attention is all you need] # add tag
 - 이 내용을 현재 Transformer에 접목해 보겠습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/transformer/10.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/transformer/10.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 그림에서 오른쪽 `Q`와 `가능한 V의 범위`를 살펴보면 선택된 `Q`에 대하여 `가능한 V의 범위`는 위치상 `Q`의 바로 앞까지임을 알 수 있습니다.
@@ -293,9 +300,17 @@ tags: [attention, transformer, attention is all you need] # add tag
 
 <br>
 
+- 코드 : 
+- 이번에는 Pytorch를 이용하여 Transformer를 구현해 보도록 하겠습니다.
+
+<br>
+
 ## **Tensorflow 코드**
 
 <br>
+
+- 코드 : 
+- 이번에는 Tensorflow 코드를 이용하여 Transformer를 구현해 보도록 하겠습니다.
 
 
 
