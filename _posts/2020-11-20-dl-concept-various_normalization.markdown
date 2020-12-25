@@ -13,6 +13,11 @@ tags: [normalization, 정규화] # add tag
 
 <br>
 
+- 참조 : fastcampus
+- 참조 : https://mlexplained.com/2018/11/30/an-overview-of-normalization-methods-in-deep-learning/
+
+<br>
+
 
 ## **Normalization과 Regularization**
 

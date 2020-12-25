@@ -101,6 +101,56 @@ tags: [딥러닝, regularization] # add tag
 - 이것을 시각화 해서 보면 등고선 형태의 Loss가 있을 때, 최적화가 될 수록 등고선의 Loss가 줄어야 합니다. 
 - 하지만 L1 또는 L2 Regularization이 더해지므로 위 그림에서 L1 또는 L2의 범위 내에서 최소값이 수렴하게 됩니다. 이런 방법을 통하여 완전한 global minimum에 수렴하지 못하도록 하여 overfitting 문제를 개선해 줍니다. (위 그림에서 L1과 L2의 범위가 일치하는 것처럼 보이지만 실제로는 다양한 크기의 형태를 가질 수 있습니다.)
 
+<br><br>
+
+- L1, L2 Regulaization을 설명하는 다른 좋은 자료를 찾아서 추가적으로 설명을 붙이도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/regularization/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Train / Validation 셋을 이용하여 학습을 진행하다 보면 Train 데이터에 과적합 (Overfitting)되는 현상이 발생합니다.
+
+<br>
+
+$$ \text{Cost} = \text{Loss}(\color{red}{\text{Data}} \vert \text{Model}) + \lambda \text{Complexity}(\color{red}{\text{Model}}) $$
+
+<br>
+
+- 위 식을 보면 `Loss` 이외에 추가적인 `Complexity` 항이 추가 됩니다. 이 항이 Regularization에 해당합니다.
+- `Loss` 하나를 가지고 학습을 한다면 Loss는 Cost와 동일합니다. 반면 Regularization을 추가한다면 `Cost`는 `Loss` + `Regularization`이 됩니다.
+- `Cost`를 구할 때, `Loss`에 집중을 하게 되면, **Train 데이터**에 대한 신뢰도가 높아지게 됩니다. 따라서 Train 데이터에 속하지 않는 입력에 대해서는 취약해 집니다.
+- `Complexity`는 모델의 복잡도를 나타냅니다. 모델의 복잡도가 지나치게 높아지게 되면 Train 데이터에 비하여 Validation 데이터와 Test 데이터의 성능이 너무 낮아지게 됩니다. 이를 개선 하기 위하여 모델이 너무 복잡해지지 않게 일반적인 feature만 학습을 하도록 Train 데이터 학습보다 모델의 일반화에 집중함으로써 Complexity를 낮출 수 있습니다.
+- 이 때, $$ \lambda $$를 통하여 얼만큼 Complexity를 낮출 지를 결정할 수 있습니다. 예를 들어 $$ \lambda = 0 $$으로 두면 `Loss`에만 온전히 집중을 하겠다는 뜻이고 $$ \lambda $$의 값에 큰 값을 넣으면 Complexity를 낮추겠다는 의미를 가집니다.
+
+
+
+
+
+
+<br>
+
+
+## **Normalization과 Regularization**
+
+<br>
+
+- 앞에서 설명한 Regularization은 정규화 라고 불립니다. 반면 Normalization의 경우에도 정규화라고 불립니다. 따라서 같은 정규화 라는 단어로 사용되기 때문에 종종 헷갈릴 수 있습니다. 따라서 차이점을 정확하게 확인하고 넘어가시길 바랍니다.
+
+<br>
+
+- `Normalization` : **데이터**에 scale을 조정하는 작업
+- `Regularization` : **predict function**에 복잡도를 조정하는 작업
+
+<br>
+
+- 예를 들어 데이터가 매우 다른 scale(특히 낮은 범위에서 높은 범위)에있는 경우 데이터를 `Normalization` 할 수 있습니다. 표준 편차 및 표준 편차와 같은 동일한 (또는 호환 가능한) 기본 통계를 갖도록 데이터를 변경합니다. 평균. 이는 학습된 모델이 정확도를 손상시키지 않고 처리 할 수있는 scale로 피팅 매개 변수를 유지하는 데 유용합니다.
+
+<br>
+
+- 모델 학습의 한 가지 목표는 중요한 feature를 식별하고 noise(모델의 최종 목적과 실제로 관련이 없는 random variation)를 무시하는 것입니다. 주어진 데이터에 대한 오류를 최소화하기 위해 모델을 자유롭게 조정하는 경우 과적합이 될 수 있습니다. 모델은 이러한 임의의 변형을 포함하여 데이터 세트를 정확하게 예측해야합니다.
+- `Regularization`은 복잡한 함수보다 더 간단한 피팅 함수에 보상(reward)을 합니다. 예를 들어, RMS 에러가 x 인 단순 로그 함수가 오류가 x / 2 인 15 차 다항식보다 낫다고 말할 수 있습니다. 이러한 모델 단순화의 정도와 에러에 대한 트레이드 오프 조정은 모델 개발자에게 달려 있습니다.
+
 <br>
 
 [deep learning 관련 글 목차](https://gaussian37.github.io/dl-concept-table/)
