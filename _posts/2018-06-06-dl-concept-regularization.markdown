@@ -113,7 +113,7 @@ tags: [딥러닝, regularization] # add tag
 
 <br>
 
-$$ \text{Cost} = \text{Loss}(\color{red}{Data} \vert \text{Model}) + \lambda \text{Complexity}(\color{red}{Model}) $$
+- $$ \text{Cost} = \text{Loss}(\color{red}{\text{Data}} \vert \text{Model}) + \lambda \text{Complexity}(\color{red}{\text{Model}}) $$
 
 <br>
 
@@ -125,7 +125,7 @@ $$ \text{Cost} = \text{Loss}(\color{red}{Data} \vert \text{Model}) + \lambda \te
 
 <br>
 
-- Complexity를 주기 위한 방법으로 `L2 Regularization`을 많이 사용하곤 합니다. L2 regularization은 weight의 L2 Norm을 구해서 아래와 같이 Loss에 페널티를 부과하여 Cost를 구성합니다.
+- Complexity를 주기 위한 방법으로 `L2 Regularization (Ridge)`을 많이 사용하곤 합니다. L2 regularization은 weight의 L2 Norm을 구해서 아래와 같이 Loss에 페널티를 부과하여 Cost를 구성합니다.
 
 <br>
 
@@ -136,7 +136,39 @@ $$ \text{Cost} = \text{Loss}(\color{red}{Data} \vert \text{Model}) + \lambda \te
 <br>
 
 - L2에서 사용되는 제곱함수 큰 값에 대하여 크기가 급격하게 커지게 됩니다. 따라서  weight의 값이 커지게 되면 점점 더 페널티가 커지게 되어 complexity를 낮출 수 있습니다. 그 결과 모델을 좀 더 단순화 하도록 할 수 있습니다.
-- 뿐만 아니라 L2 Regularization을 사용하면 **베이지안 사전 확률 분포 (정규 분포)**를 사용하는 것과 동일하며 **가중치가 정규 분포의 형태**를 이루도록 합니다.
+- 뿐만 아니라 L2 Regularization을 사용하면 **베이지안 사전 확률 분포 (정규 분포)**를 사용하는 것과 동일하며 **가중치가 정규 분포의 형태**를 이루도록 합니다. (이 글 주제와는 좀 다른 내용이라 따로 식을 유도하지는 않겠습니다.)
+
+<br>
+<center><img src="../assets/img/dl/concept/regularization/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 따라서 Cost의 분포는 $$ \lambda $$ 값의 크기에 따라 위 그림과 같이 다르게 나타납니다. $$ \lambda $$의 값이 클수록 `정규 분포`에 가깝게 Cost가 분포하는 것을 확인할 수 있습니다.
+- 반면 $$ \lambda $$ 값이 0에 가까울수록 weight의 분포 정규화가 일어나지 않으며 weight의 분포는 아주 작은 음수 부터 아주 큰 양수 까지 넓게 분포하게 됩니다.
+
+<br>
+
+- 이번에는 `L1 Regularization (Lasso)`에 대하여 알아보도록 하겠습니다. L1 Regularization은 가중치의 절대값에 페널티를 주는 방법을 뜻합니다.
+- L1 Regularization은 weight 값이 양수 또는 음수로 존재하기만 하면 weight를 줄이고자 합니다. 왜냐하면 0이 아닌 모든 weight는 Cost에 더해지기 때문에 gradient descent를 할 때, gradient에 비례하여 weight가 감소되기 때문입니다. L1 Regularization은 절대값을 가지기 때문에 항상 기울기(gradient)가 1 또는 -1입니다. 이 값이 weight 감소에 사용됩니다.
+- 따라서 **0이 아닌 weight 값이 존재하면 0으로 만들려고 하기 때문에** weight 값이 `Sparse`해 지는 특징이 있습니다.
+
+
+- $$ \text{Cost} = \text{Loss}(\text{Data} \vert \text{Model}) + \lambda \text{Complexity}(\text{Model}) $$
+
+- $$ \text{Complexity}(\text{Model}) = \frac{1}{N} \sum_{i} \frac{1}{2} w_{i}^{2} = \color{red}{\Vert w \Vert_{1}} $$
+
+- L1 Regularization 또한 **베이지안 사전 확률 분포 (라플라스 분포)**를 따르게 됩니다.
+- 라플라스 분포의 특징 답게 **0에 많은 값이 분포**할 뿐 아니라 **양 극단에 많은 값이 분포**하게 됩니다. 이러한 성질을 Sparse 하다고 말할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/regularization/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 정리해 보겠습니다. 이 글에서 L1, L2 Regularization을 사용하였을 때, Weight가 어떤 분포를 이루게 될 지에 대하여 정확하게 수식으로 유도하지는 않았지만 그 결과를 살펴보았을 때, 위 그림과 같은 분포가 나타남을 알 수 있습니다.
+- 앞에서 설명하였듯이, L1 Regularization을 적용하였을 때, weight는 라플라스 분포를 가지게 되고 이는 파란색 그래프와 같은 형태를 가집니다.
+- 반면 L2 Regularization을 적용하였을 때, weight는 정규 분포를 가지게 되고 이는 빨간색 그래프와 같은 형태를 가지게 됩니다.
+- 따라서 L1 Regularization은 L2에 비하여 0인 경우에 많이 분포하고 뿐만 아니라 절대값이 큰 양 극단에도 상대적으로 많이 분포하게 되어 Sparse한 형태를 가집니다.
+- L2 Regularization은 상대적으로 0 근처에 대부분 분포하게 되면서 고르게 분포하도록 만들어 줍니다.
+- 이 점이 L1, L2 Regularization의 특징 및 차이점이라 말할 수 있습니다.
 
 
 ## **Normalization과 Regularization**
