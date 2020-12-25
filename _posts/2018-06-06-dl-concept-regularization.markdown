@@ -113,7 +113,7 @@ tags: [딥러닝, regularization] # add tag
 
 <br>
 
-$$ \text{Cost} = \text{Loss}(\color{red}\text{Data} \vert \text{Model}) + \lambda \text{Complexity}(\color{red}\text{Model}) $$
+$$ \text{Cost} = \text{Loss}(\color{red}{\text{Data}} \vert \text{Model}) + \lambda \text{Complexity}(\color{red}{\text{Model}}) $$
 
 <br>
 
@@ -125,18 +125,18 @@ $$ \text{Cost} = \text{Loss}(\color{red}\text{Data} \vert \text{Model}) + \lambd
 
 <br>
 
-- Complexity를 주기 위한 방법으로 `L2 Regularization`을 많이 사용하곤 합니다.
+- Complexity를 주기 위한 방법으로 `L2 Regularization`을 많이 사용하곤 합니다. L2 regularization은 weight의 L2 Norm을 구해서 아래와 같이 Loss에 페널티를 부과하여 Cost를 구성합니다.
 
 <br>
 
 - $$ \text{Cost} = \text{Loss}(\text{Data} \vert \text{Model}) + \lambda \text{Complexity}(\text{Model}) $$
 
-- $$ \text{Complexity}(\text{Model}) = \frac{1}{N} \sum_{i} \frac{1}{2} w_{i}^{2} = \color{red}frac{1}{2} \Vert w \Vert^{2} $$
-
-
-
+- $$ \text{Complexity}(\text{Model}) = \frac{1}{N} \sum_{i} \frac{1}{2} w_{i}^{2} = \color{red}{\frac{1}{2}} \Vert w \Vert^{2} $$
 
 <br>
+
+- L2에서 사용되는 제곱함수 큰 값에 대하여 크기가 급격하게 커지게 됩니다. 따라서  weight의 값이 커지게 되면 점점 더 페널티가 커지게 되어 complexity를 낮출 수 있습니다. 그 결과 모델을 좀 더 단순화 하도록 할 수 있습니다.
+- 뿐만 아니라 L2 Regularization을 사용하면 **베이지안 사전 확률 분포 (정규 분포)**를 사용하는 것과 동일하며 **가중치가 정규 분포의 형태**를 이루도록 합니다.
 
 
 ## **Normalization과 Regularization**
