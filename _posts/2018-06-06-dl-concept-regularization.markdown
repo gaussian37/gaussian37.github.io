@@ -113,7 +113,7 @@ tags: [딥러닝, regularization] # add tag
 
 <br>
 
-$$ \text{Cost} = \text{Loss}(\color{red}{\text{Data}} \vert \text{Model}) + \lambda \text{Complexity}(\color{red}{\text{Model}}) $$
+$$ \text{Cost} = \text{Loss}(\color{red}{Data} \vert \text{Model}) + \lambda \text{Complexity}(\color{red}{Model}) $$
 
 <br>
 
@@ -131,7 +131,7 @@ $$ \text{Cost} = \text{Loss}(\color{red}{\text{Data}} \vert \text{Model}) + \lam
 
 - $$ \text{Cost} = \text{Loss}(\text{Data} \vert \text{Model}) + \lambda \text{Complexity}(\text{Model}) $$
 
-- $$ \text{Complexity}(\text{Model}) = \frac{1}{N} \sum_{i} \frac{1}{2} w_{i}^{2} = \color{red}{\frac{1}{2}} \Vert w \Vert^{2} $$
+- $$ \text{Complexity}(\text{Model}) = \frac{1}{N} \sum_{i} \frac{1}{2} w_{i}^{2} = \color{red}{\frac{1}{2} \Vert w \Vert^{2}} $$
 
 <br>
 
