@@ -113,7 +113,7 @@ tags: [딥러닝, regularization] # add tag
 
 <br>
 
-$$ \text{Cost} = \text{Loss}(\color{red}{\text{Data}} \vert \text{Model}) + \lambda \text{Complexity}(\color{red}{\text{Model}}) $$
+$$ \text{Cost} = \text{Loss}(\color{red}\text{Data} \vert \text{Model}) + \lambda \text{Complexity}(\color{red}\text{Model}) $$
 
 <br>
 
@@ -123,7 +123,15 @@ $$ \text{Cost} = \text{Loss}(\color{red}{\text{Data}} \vert \text{Model}) + \lam
 - `Complexity`는 모델의 복잡도를 나타냅니다. 모델의 복잡도가 지나치게 높아지게 되면 Train 데이터에 비하여 Validation 데이터와 Test 데이터의 성능이 너무 낮아지게 됩니다. 이를 개선 하기 위하여 모델이 너무 복잡해지지 않게 일반적인 feature만 학습을 하도록 Train 데이터 학습보다 모델의 일반화에 집중함으로써 Complexity를 낮출 수 있습니다.
 - 이 때, $$ \lambda $$를 통하여 얼만큼 Complexity를 낮출 지를 결정할 수 있습니다. 예를 들어 $$ \lambda = 0 $$으로 두면 `Loss`에만 온전히 집중을 하겠다는 뜻이고 $$ \lambda $$의 값에 큰 값을 넣으면 Complexity를 낮추겠다는 의미를 가집니다.
 
+<br>
 
+- Complexity를 주기 위한 방법으로 `L2 Regularization`을 많이 사용하곤 합니다.
+
+<br>
+
+- $$ \text{Cost} = \text{Loss}(\text{Data} \vert \text{Model}) + \lambda \text{Complexity}(\text{Model}) $$
+
+- $$ \text{Complexity}(\text{Model}) = \frac{1}{N} \sum_{i} \frac{1}{2} w_{i}^{2} = \color{red}frac{1}{2} \Vert w \Vert^{2} $$
 
 
 
