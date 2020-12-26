@@ -17,6 +17,28 @@ tags: [딥러닝, regularization] # add tag
 
 <br>
 
+## **Normalization과 Regularization**
+
+<br>
+
+- 이 글에서 설명할 Regularization은 정규화 라고 불립니다. 반면 Normalization의 경우에도 정규화라고 불립니다. 따라서 같은 정규화 라는 단어로 사용되기 때문에 종종 헷갈릴 수 있습니다. 따라서 차이점을 정확하게 확인하고 넘어가시길 바랍니다.
+
+<br>
+
+- `Normalization` : **데이터**에 scale을 조정하는 작업
+- `Regularization` : **predict function**에 복잡도를 조정하는 작업
+
+<br>
+
+- 예를 들어 데이터가 매우 다른 scale(특히 낮은 범위에서 높은 범위)에있는 경우 데이터를 `Normalization` 할 수 있습니다. 표준 편차 및 표준 편차와 같은 동일한 (또는 호환 가능한) 기본 통계를 갖도록 데이터를 변경합니다. 평균. 이는 학습된 모델이 정확도를 손상시키지 않고 처리 할 수있는 scale로 피팅 매개 변수를 유지하는 데 유용합니다.
+
+<br>
+
+- 모델 학습의 한 가지 목표는 중요한 feature를 식별하고 noise(모델의 최종 목적과 실제로 관련이 없는 random variation)를 무시하는 것입니다. 주어진 데이터에 대한 오류를 최소화하기 위해 모델을 자유롭게 조정하는 경우 과적합이 될 수 있습니다. 모델은 이러한 임의의 변형을 포함하여 데이터 세트를 정확하게 예측해야합니다.
+- `Regularization`은 복잡한 함수보다 더 간단한 피팅 함수에 보상(reward)을 합니다. 예를 들어, RMS 에러가 x 인 단순 로그 함수가 오류가 x / 2 인 15 차 다항식보다 낫다고 말할 수 있습니다. 이러한 모델 단순화의 정도와 에러에 대한 트레이드 오프 조정은 모델 개발자에게 달려 있습니다.
+
+<br>
+
 - 이번 글에서는 딥러닝에서 많이 사용되는 L1, L2 Regularization에 대하여 간략하게 알아보도록 하겠습니다.
 
 <br>
@@ -170,26 +192,46 @@ tags: [딥러닝, regularization] # add tag
 - L2 Regularization은 상대적으로 0 근처에 대부분 분포하게 되면서 고르게 분포하도록 만들어 줍니다.
 - 이 점이 L1, L2 Regularization의 특징 및 차이점이라 말할 수 있습니다.
 
+<br>
 
-## **Normalization과 Regularization**
+- 추가적으로 Loss function으로써의 L1, L2 norm이 어떻게 사용되는 지 알아보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/regularization/14.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 다루었던 L1 (Lasso)와 L2 (Ridge)에 대하여 도표로 정리하면 위 그림과 같습니다.
+- `Lasso`의 경우 절대값의 형태를 가지므로 값이 선형적으로 증가합니다. 따라서 미분을 하였을 때, 값의 크기와 무관하게 양수인 경우 1, 음수인 경우 -1의 값을 가집니다. 따라서 weight의 값이 0이 아닌 경우는 일정한 크기로 계속 0을 만들기 위해 업데이트 하게 됩니다. 따라서 **가중치의 값을 정확하게 0으로 만들도록** 업데이트 합니다. 이 메커니즘은 **중요한 feature를 선택 하도록 하는 효과 (feature selection)**가 있습니다. 중요하지 않은 값은 0으로 만들어 버리기 때문에 모델의 Sparsity를 만들어 줍니다.
+- `Ridge`의 경우 이차 함수로 값이 점점 더 크게 증가하는 형태를 가집니다. 미분을 하였을 때, 미분값이 선형적으로 증가합니다. 0 보다 더 커지면 커질수록 미분값이 더 크게 나타나기 때문에 weight의 값이 큰 경우 더 큰 폭으로 감소 시키고 상대적으로 weight 값이 작은 경우 작은 폭으로 감소하게 됩니다. 따라서 큰 weight의 값을 작게 만드는 효과와 더불어 모델 전반적인 복잡도를 감소시키는 효과가 있습니다. 하지만 가중치의 값이 0이 되게 하지는 못합니다. 왜냐하면 weight가 0에 가까울수록 미분값도 0에 아주 가까워지기 때문에 weight 업데이트가 잘 되지 않기 때문입니다.
 
 <br>
 
-- 앞에서 설명한 Regularization은 정규화 라고 불립니다. 반면 Normalization의 경우에도 정규화라고 불립니다. 따라서 같은 정규화 라는 단어로 사용되기 때문에 종종 헷갈릴 수 있습니다. 따라서 차이점을 정확하게 확인하고 넘어가시길 바랍니다.
+- 지금부터 설명하는 바는 `Regularization`과 상관없으나 L1, L2를 이용하여 `Loss`를 적용해 보려고 합니다. 즉 아래 빨간색 부분입니다. 이를 linear regression을 통해서 살펴보겠습니다.
 
 <br>
 
-- `Normalization` : **데이터**에 scale을 조정하는 작업
-- `Regularization` : **predict function**에 복잡도를 조정하는 작업
+- $$ \text{Cost} = \color{red}{\text{Loss}(\text{Data} \vert \text{Model})} + \lambda \text{Complexity}(\text{Model}) $$
+
+- $$ y = wx $$
 
 <br>
-
-- 예를 들어 데이터가 매우 다른 scale(특히 낮은 범위에서 높은 범위)에있는 경우 데이터를 `Normalization` 할 수 있습니다. 표준 편차 및 표준 편차와 같은 동일한 (또는 호환 가능한) 기본 통계를 갖도록 데이터를 변경합니다. 평균. 이는 학습된 모델이 정확도를 손상시키지 않고 처리 할 수있는 scale로 피팅 매개 변수를 유지하는 데 유용합니다.
-
+<center><img src="../assets/img/dl/concept/regularization/15.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 모델 학습의 한 가지 목표는 중요한 feature를 식별하고 noise(모델의 최종 목적과 실제로 관련이 없는 random variation)를 무시하는 것입니다. 주어진 데이터에 대한 오류를 최소화하기 위해 모델을 자유롭게 조정하는 경우 과적합이 될 수 있습니다. 모델은 이러한 임의의 변형을 포함하여 데이터 세트를 정확하게 예측해야합니다.
-- `Regularization`은 복잡한 함수보다 더 간단한 피팅 함수에 보상(reward)을 합니다. 예를 들어, RMS 에러가 x 인 단순 로그 함수가 오류가 x / 2 인 15 차 다항식보다 낫다고 말할 수 있습니다. 이러한 모델 단순화의 정도와 에러에 대한 트레이드 오프 조정은 모델 개발자에게 달려 있습니다.
+- `MSE (Mean Squared Error) Loss`는 L2 (Ridge)와 관련되어 있습니다.
+- 이 경우 에러가 클수록 더 큰 페널티를 가집니다.
+- 그리고 데이터의 `평균`을 내는 효과를 가집니다. 평균값이기 때문에 MSE의 추세선을 살펴보면 실제 존재하지 않는 값을 나타냅니다.
+- 또한 **데이터를 smoothing 하는 효과**를 가집니다.
+- 하지만 outlier가 있을 때, outlier의 loss를 줄이기 위하여 MSE의 추세선이 다르게 변형될 수 있으므로 전체 Loss를 잘못 구할 수 있습니다. 따라서 **outlier에 취약한 단점이 있습니다.** 이는 MSE가 `평균`을 나타내는 특성으로 인하여 평균의 취약점인 outlier에 의한 평균의 왜곡 문제와 일맥상통합니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/regularization/16.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 반면 `MAE (Mean Absolue Error) Loss`는 중앙값 (median)을 나타냅니다. 이는 outlier에 의한 평균의 오차를 개선하기 위하여 중앙값을 종종 쓰는데 이 때, 사용하는 중앙값과 뜻이 같습니다.
+- MAE에서는 에러가 커져도 동일한 페널티를 가집니다. 즉 outlier의 loss를 줄이는 것과 outlier가 아닌 것의 loss를 줄이는게 동일한 효과를 가지기 때문에 MSE처럼 outlier에 크게 반응하지 않습니다.
+- 또한 데이터의 중앙값을 가지기 때문에 MAE에서는 추세선이 존재하는 정확한 값을 가집니다.
+- 정리하면 `MAE`는 **중앙값을 가지므로 Outlier에 강건한 특성이 있습니다.**
 
 <br>
 
