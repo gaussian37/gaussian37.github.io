@@ -118,10 +118,10 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 - 왜냐하면 Feature의 Scale이 다르면 gradient descent를 하였을 때, gradient가 다르게 되고 같은 learning rate에 대하여 weight마다 반응하는 정도가 달라지게 됩니다.
     - gradient의 편차가 크면 gradient가 큰 weight에서는 gradient exploding이, 작으면 vanishing 문제가 발생하곤 합니다.
 - 하지만 정규화를 해주면 gradient descent에 따른 weight의 반응이 같아지기 때문에 학습에 유리해집니다. 
-- 여기서 사용된 값 중 $$ \gamma, \bete $$의 역할을 확인하는 것이 필요합니다.
+- 여기서 사용된 값 중 $$ \gamma, \beta $$의 역할을 확인하는 것이 필요합니다.
 - 먼저 batch normalization은 activation function 앞에 적용됩니다.
 - batch normalization을 적용하면 weight의 값이 평균이 0, 분산이 1인 상태로 분포가 되어지는데, 이 상태에서 ReLU가 activation으로 적용되면 전체 분포에서 음수에 해당하는 (1/2 비율) 부분이 0이 되어버립니다. 기껏 정규화를 했는데 의미가 없어져 버리게 됩니다.
-- 따라서 $$ \gamma, \bete $$가 정규화 값에 곱해지고 더해져서 ReLU가 적용되더라도 기존의 음수 부분이 모두 0으로 되지 않도록 방지해 주고 있습니다. 물론 이 값은 학습을 통해서 효율적인 결과를 내기 위한 값으로 찾아갑니다. 
+- 따라서 $$ \gamma, \beta $$가 정규화 값에 곱해지고 더해져서 ReLU가 적용되더라도 기존의 음수 부분이 모두 0으로 되지 않도록 방지해 주고 있습니다. 물론 이 값은 학습을 통해서 효율적인 결과를 내기 위한 값으로 찾아갑니다. 
 
 <br>
 
