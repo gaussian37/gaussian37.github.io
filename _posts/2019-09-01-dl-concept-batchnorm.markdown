@@ -67,11 +67,11 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 <br>   
 
 - `Batch` 단위로 학습을 하게 되면 발생하는 문제점이 있는데 이것이 논문에서 다룬 **Internal Covariant Shift** 입니다.
-- 먼저 Internal Covariant Shift 의미를 알아보면 위 그림과 같이 학습 과정에서 계층 별로 입력의 데이터 분포가 달라지는 현상을 말합니다.
+- 먼저 Internal Covariant Shift 의미를 알아보면 위 그림과 같이 **학습 과정에서 계층 별로 입력의 데이터 분포가 달라지는 현상**을 말합니다.
 - 각 계층에서 입력으로 feature를 받게 되고 그 feature는 convolution이나 위와 같이 fully connected 연산을 거친 뒤 activation function을 적용하게 됩니다.
-- 그러면 연산 전/후에 데이터 간 분포가 달라질 수가 있습니다. 
-- 이와 유사하게 Batch 단위로 학습을 하게 되면 Batch 단위간에 데이터 분포의 차이가 발생할 수 있습니다.
-- 즉, Batch 간의 데이터가 상이하다고 말할 수 있는데 위에서 말한 Internal Covariant Shift 문제입니다.
+- 그러면 **연산 전/후에 데이터 간 분포가 달라질 수**가 있습니다. 
+- 이와 유사하게 Batch 단위로 학습을 하게 되면 **Batch 단위간에 데이터 분포의 차이**가 발생할 수 있습니다.
+- 즉, **Batch 간의 데이터가 상이**하다고 말할 수 있는데 위에서 말한 `Internal Covariant Shift` 문제입니다.
 - 이 문제를 개선하기 위한 개념이 **Batch Normalization** 개념이 적용됩니다.
 
 <br>
