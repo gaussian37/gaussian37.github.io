@@ -29,6 +29,8 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 - ### [Internal Covariant Shift 더 알아보기](#internal-covariant-shift-더-알아보기-1)
 - ### [Batch Normalization의 효과](#batch-normalization의-효과-1)
 - ### [학습 단계와 추론 단계의 Batch Normalization](#학습-단계와-추론-단계의-batch-normalization-1)
+- ### [Fully Connected Layer와 Batch Normalization(#fully-connected-layer와-batch-normalization-1)
+- ### [Convolution Layer와 Batch Normalization(#convolution-layer와-batch-normalization-1)
 - ### [Pytorch에서의 사용 방법](#pytorch에서의-사용-방법)
 
 <br>
@@ -350,6 +352,74 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 <br>
 
 - Batch Normalization은 Internal Covariate Shift를 없애기 위해서 feature들이 layer를 지나갈수록 서로 다른 분포가 생기는 거나 batch 별로 서로 다른 분포가 생기는 것을 방지하기 위해서 각 layer 및 batch 별로 batch normalization layer가 추가가 되어서 Normalization을 해주는 기능임을 확인하였습니다.
+- 이 Batch Normalization이 `학습 단계`와 `추론 단계` 각각 어떻게 적용되는 지 살펴보도록 하겠습니다.
+
+<br>
+
+- 먼저 `학습 단계`에서 어떻게 Batch Normalization이 적용되는 지 살펴보도록 하겠습니다.
+
+<br>
+
+- $$ \text{BN} = \gamma \Biggl(\color{red}{\frac{X - \mu_{\text{batch}}}}{\sigma_{\text{batch}}}\Biggr) + \bets $$
+
+<br>
+
+- 빨간색 식 부분이 Normalization을 하는 영역 입니다.
+- Normalization을 거치고 난 뒤, ReLU와 같은 Activation function에 대해서 적합한 scaling 및 bias를 적용하기 위하여 $$ \gamma $$와 $$ \beta $$를 사용하였습니다. 위 식에서 $$ \gamma $$는 추가 스케일링을 뜻하고, $$ \beta $$는 편향을 뜻합니다. 두 파라미터는 backpropagation을 통하여 학습됩니다.
+
+<br>
+
+- $$ \mu_{\text{batch}} = \frac{1}{B}\sum_{i} x_{i} $$
+
+- $$ \sigma^{2}_{\text{batch}} = \frac{1}{B} \sum_{i} (x_{i} - \mu_{\text{batch}})^{2} $$
+
+<br>
+
+- Batch Normalization에 사용된 $$ \mu_{\text{batch}}, \sigma^{2}_{\text{batch}} $$는 위 식을 따릅니다. 이는 배치별로 계산됩니다.
+- 배치 별 평균과 표준 편차는 **이동 평균** 또는 **지수 평균**을 사용하여 누적하여 사용하였습니다.
+
+<br>
+
+- 이와 같은 Normalization 과정을 통하여, 모든 계층의 Feature가 **동일한 Scale이 되어 learning rate 결정에 유리**한 효과를 가지게 되고 추가적인 Scale, Bias를 학습하여 **Activation에 적합한 분포로 변환**할 수 있습니다.
+
+<br>
+
+- 그 다음 `추론 단계`에서 Batch Normalization이 어떻게 적용되는 지 살펴보도록 하겠습니다.
+
+<br>
+
+- $$ \text{BN} = \gamma \Biggl(\color{red}{\frac{X - \mu_{\text{BN}}}}{\sigma_{\text{BN}}}\Biggr) + \bets $$
+
+- $$ \mu_{\text{BN}} = \frac{1}{B}\sum_{i} x_{i} $$
+
+- $$ \sigma^{2}_{\text{BN}} = \frac{1}{B} \sum_{i} (x_{i} - \mu_{\text{BN}})^{2} $$
+
+<br>
+
+- 추론 단계의 식과 학습 단계의 식의 차이점을 살펴보면 학습 단계에서는 batch라고 사용된 부분이 추론 단계에서는 `BN`으로 사용되었습니다. 왜냐하면 학습 단계에서는 batch 단위 별로 Batch Normalization이 계속 변경되고 업데이트 되는데 추론 단계에서는 학습 단계에서 결정된 값을 고정하여 사용하기 때문입니다. 즉, 학습 과정 속에서 평균과 분산을 **이동 평균 또는 지수 평균에 의하여 고정**하고 이것을 추론 과정에서 사용합니다. 따라서 `BN`으로 고정하였습니다. 
+- 이와 같이 $$ \mu_{\text{BN}}, \sigma_{\text{BN}} $$이 고정되고, $$ \gamma, \beta $$ 값도 고정되기 때문에 이 모든 값을 사전에 계산하여 놓으면 더하기나 곱하기 연산량을 줄일 수 있습니다.
+- `Hidden Layer` → `Batch Normalization` → `Activation Function` 순서로 적용되는 것이 기본적인 방법입니다. 그러면 추론 단계에서 Fully Connected Layer와 Convolution Layer에 Batch Normalization이 어떻게 적용되는 지 알아보도록 하겠습니다.
+
+<br>
+
+## **Fully Connected Layer와 Batch Normalization**
+
+<br>
+
+- 
+
+
+<br>
+
+## **Convolution Layer와 Batch Normalization**
+
+
+
+<br>
+
+
+
+
 
 <br>
 
