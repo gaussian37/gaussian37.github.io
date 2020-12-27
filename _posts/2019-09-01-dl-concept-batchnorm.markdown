@@ -31,6 +31,7 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 - ### [학습 단계와 추론 단계의 Batch Normalization](#학습-단계와-추론-단계의-batch-normalization-1)
 - ### [Fully Connected Layer와 Batch Normalization(#fully-connected-layer와-batch-normalization-1)
 - ### [Convolution Layer와 Batch Normalization(#convolution-layer와-batch-normalization-1)
+- ### [Batch Normalization의 한계](#batch-normalization의-한계-1)
 - ### [Pytorch에서의 사용 방법](#pytorch에서의-사용-방법)
 
 <br>
@@ -406,18 +407,49 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 
 <br>
 
-- 
+- Fully Connected Layer와 Batch Normalization에 대하여 설명하기 위해 필요한 수식을 먼저 나열해 보도록 하겠습니다.
 
+<br>
+
+- $$ \text{FC}(X) = WX + b $$
+
+- $$ \text{BN}(X) = \gamma \Biggl(\frac{X - \mu_{\text{BN}}}{\sigma_{\text{BN}}} \Biggr) + \beta $$
+
+<br>
+
+- 위 2가지 식을 이용하여 $$ \text{BN}(\text{FC}(X)) $$를 전개해 보겠습니다.
+
+<br>
+
+- $$ \text{BN}(\text{FC}(X)) = \gamma \Biggl(\frac{WX + b - \mu_{\text{BN}}}{\sigma_{\text{BN}}}  \Biggr) + \beta  $$
+
+- $$ \frac{\gamma}{\sigma_{\text{BN}}}WX + \frac{\gamma \color{red}{b} -\gamma\mu_{\text{BN}} + \sigma_{\text{BN}}\color{red}{\beta}}{\sigma_{\text{BN}}} $$ 
+
+<br>
+
+- 마지막 식의 빨간색인 $$ b $$와 $$ \beta $$ 모두 **bias** 역할을 하므로 역할이 중복되어 있습니다. 따라서 Fully Connected Layer에서는 bias를 사용하지 않는 방향으로 구현됩니다.
+- 위 식과 같이 사용하면 실제로 Fully Connected Layer를 거친 후 Batch Normalization을 계산하는 것이 아니라 두 layer를 하나로 fusion 하여 사용할 수 있습니다.
 
 <br>
 
 ## **Convolution Layer와 Batch Normalization**
 
+<br>
 
+- 이번에는 Convolution Layer에 어떻게 Batch Normalization이 적용되는 지 알아보도록 하겠습니다. 적용되는 방법은 앞에서 다룬 것과 유사합니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/30.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 왼쪽이 Fully Connected layer에 적용된 Batch Normalization 이고 오른쪽은 Convolution layer에 적용된 Batch Normalization 입니다.
+- Fully Connected layer에서는 Normalization 되는 대상이 뉴런 별 (vector) 로 Normalization이 됩니다. 반면 Convolution layer에서는 **채널 별로 Normalization**이 됩니다. 즉, **Batch, Height, Width에 대해** `평균`과 `분산`을 구합니다.
 
 <br>
 
+## **Batch Normalization의 한계**
 
+<br>
 
 
 
