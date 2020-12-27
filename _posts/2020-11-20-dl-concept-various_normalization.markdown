@@ -17,6 +17,13 @@ tags: [normalization, 정규화] # add tag
 
 <br>
 
+## **목차**
+
+<br>
+
+- ### Normalization과 Regularization
+- ### Batch Normalization 
+
 
 ## **Normalization과 Regularization**
 

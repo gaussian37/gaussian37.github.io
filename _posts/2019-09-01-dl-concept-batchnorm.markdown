@@ -28,6 +28,7 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 - ### [Batch Normalization](#batch-normalization-1)
 - ### [Internal Covariant Shift 더 알아보기](#internal-covariant-shift-더-알아보기-1)
 - ### [Batch Normalization의 효과](#batch-normalization의-효과-1)
+- ### [학습 단계와 추론 단계의 Batch Normalization](#학습-단계와-추론-단계의-batch-normalization-1)
 - ### [Pytorch에서의 사용 방법](#pytorch에서의-사용-방법)
 
 <br>
@@ -246,7 +247,7 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 <center><img src="../assets/img/dl/concept/batchnorm/17.png" alt="Drawing" style="width: 800px;"/></center>
 <br> 
 
-- weight와 Input의 연살 결과를 Batch Normalization함으로 scale을 줄게 됩니다. 따라서 변화가 줄어들게 되는 것이지요.
+- weight와 Input의 연산 결과를 Batch 단위로 Normalization함으로 scale을 줄게 됩니다. 따라서 변화가 줄어들게 됩니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/batchnorm/18.png" alt="Drawing" style="width: 800px;"/></center>
@@ -339,6 +340,16 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 - 정리하면 Batch Normalization은 **Internal Covariate Shift 문제를 개선하기 위하여 고안**되었고 이것은 **Activation에 들어가게 되는 Input의 Range를 제한**시키는 방법으로 문제를 개선하였습니다.
 - 그 결과 학습을 좀 더 안정적으로 할 수 있게 되었고 Internal Covariate Shift 문제를 해결하기 위한 과거의 개선책인 **weight initialization과 small learning rate에서 좀 더 자유로워**졌습니다.
 - 또한 **Regularization effect** 까지 있어서 **overfitting 문제에 좀 더 강건**해 질 수 있습니다.
+
+<br>
+
+## **학습 단계와 추론 단계의 Batch Normalization**
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/29.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Batch Normalization은 Internal Covariate Shift를 없애기 위해서 feature들이 layer를 지나갈수록 서로 다른 분포가 생기는 거나 batch 별로 서로 다른 분포가 생기는 것을 방지하기 위해서 각 layer 및 batch 별로 batch normalization layer가 추가가 되어서 Normalization을 해주는 기능임을 확인하였습니다.
 
 <br>
 
