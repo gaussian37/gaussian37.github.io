@@ -459,10 +459,42 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 - 반대로 **Batch의 크기**가 **너무 커지는 경우에도 잘 동작하지 않습니다.** 왜냐하면 적절한 크기의 샘플은 중심 극한 이론을 통하여 적절한 정규 분포를 따르게 되나 굉장히 큰 샘플을 한 경우 multi modal 형태의 gaussian mixture 모델 형태가 나타날 수 있기 때문입니다. (정규 분포의 봉우리가 여러개 나타나는 형태) 이와 같은 경우 단순히 평균과 표준 편차를 사용하는 것은 정확한 모델링이라고 말할 수 없습니다.
 - 뿐만 아니라 Batch 크기가 너무 크면 병렬 연산 하는 데에도 비효율적일 수 있습니다.
 - 또한 gradient를 계산하는 시점이 Batch 단위인데, gradient를 계산을 너무 한번에 하게 되어 학습에도 악영향이 있을 수 있습니다.
-
+- 이러한 Batch Normalization의 한계를 개선하기 위하여 Weight Normalization이나, Layer Normalization 등이 사용되기도 합니다. 이 내용은 아래 링크를 참조하시기 바랍니다.
+- 링크 : https://gaussian37.github.io/dl-concept-various_normalization/
 
 <br>
 
 ## **Pytorch에서의 사용 방법**
 
 <br>
+
+- Pytorch에서 BatchNormalization을 사용하는 대표적인 방법은 `torch.nn.BatchNorm1d`와 `torch.nn.BatchNorm2d`를 사용하는 것입니다. 이 두가지 방법 모두 아래 식을 따릅니다. 특히 $$ \gammma $$와 $$ \beta $$는 학습되는 파라미터 이며 기본값은  $$ \gammma = 1, \beta = 0 $$을 초기값으로 학습을 시작합니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/batchnorm/32.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 이 때, 차이점은 `BatchNorm1d`의 경우 Input과 Output이 (N, C) 또는 (N, C, L)의 형태를 가지고 `BatchNorm2d`의 경우 Input과 Output이 (N, C, H, W)의 형태를 가집니다. 여기서 `N`은 Batch의 크기를 말하고 `C`는 Channel을 말합니다. `BatchNorm1d`에서의 `L`은 Length을 뜻하고 `BatchNorm2d`에서의 `H`와 `W` 각각은 height와 width를 뜻합니다.
+- BatchNorm에서 반드시 입력으로 들어가야 하는 인자는 `C` 즉, Channel 수입니다. 아래 예제를 살펴보겠습니다.
+
+<br>
+
+```python
+# With Learnable Parameters
+m = nn.BatchNorm1d(100)
+input = torch.randn(20, 100)
+output = m(input)
+
+# With Learnable Parameters
+m = nn.BatchNorm2d(100)
+input = torch.randn(20, 100, 35, 45)
+output = m(input)
+```
+
+<br>
+
+- 위 예제와 같이 Channel 수만 맞춰주면 Batch Normalization을 연산할 수 있는데 그 이유는 Channel을 기준으로 Batch Normalization이 계산되기 때문입니다.
+- 예를 들어 BatchNorm1d는  (N,) 또는 (N, L) 단위 기준으로 Batch Normalization을 하고 BatchNorm2d에서는 (N, H, W) 단위 기준으로 Batch Normalization을 적용합니다.
+- 그 이외에 `eps`, `momentum`, `affine`, `track_running_stats` 등의 인자가 사용되나 기본값을 사용해도 무방합니다. 상세 내용은 아래 링크를 참조하시기 바랍니다.
+- `BatchNorm1d` : https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html
+- `BatchNorm2d` : https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html
