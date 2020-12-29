@@ -159,6 +159,7 @@ cudnn.benchmark = True
 
 <br>
 
+- 참조 : https://developer.nvidia.com/blog/how-overlap-data-transfers-cuda-cc/
 - GPU를 이용하여 학습할 때, 바로 앞의 `dataloader`의 `pin_memory` 사용과 더불어 `data`의 `.cuda(non_blocking=True)`는 일반적으로 반드시 사용하는 옵션입니다. 사용 방법은 아래와 같습니다.
 
 <br>
