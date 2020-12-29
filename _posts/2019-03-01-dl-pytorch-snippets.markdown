@@ -24,6 +24,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [pytorch 셋팅 관련 코드](#pytorch-셋팅-관련-코드-1)
 - ### [GPU 셋팅 관련 코드](#gpu-셋팅-관련-코드-1)
 - ### [dataloader의 pin_memory](#dataloader의-pin_memory-1)
+- ### [GPU 사용 시 data.cuda(non_blocking=True) 사용](#)
 - ### [dataloader의 num_workers 지정](#dataloader의-num_workers-지정-1)
 - ### [optimizer.zero_grad(), loss.backward(), optimizer.step()](#optimizerzero_grad-lossbackward-optimizerstep-1)
 - ### [optimizer.step()을 통한 파라미터 업데이트와 loss.backward()와의 관계](#optimizerstep을-통한-파라미터-업데이트와-lossbackward와의-관계-1)
@@ -136,7 +137,7 @@ cudnn.benchmark = True
 
 <br>
 
-- `torch.utils.data.DataLoader()`를 사용할 때, 옵션으로 `pin_memory = True` 라는 것이 있습니다. 이 옵션의 의미에 대하여 알아보도록 하겠습니다.
+- `torch.utils.data.DataLoader()`를 사용할 때, 옵션으로 `pin_memory = True` 라는 것이 있습니다. 이 옵션의 의미에 대하여 알아보도록 하겠습니다. (pin memory : 고정된 메모리)
 - `pin_memory = True`로 설정하면 학습 중에 CPU가 데이터를 GPU로 전달하는 속도를 향상시킵니다. 따라서 **이 옵션은 GPU를 사용하여 학습할 때에는 항상 사용**한다고 보셔도 됩니다.
 - `pin_memory` 관련 내용은 NVIDIA의 `CUDA`와 연관되어 있습니다. 전체 내용은 아래 링크를 통해 확인하면 되고 링크의 내용에서도 `pinned memory` 방식으로 사용하면 GPU 학습 시 더 큰 bandwidth를 사용할 수 있다고 설명합니다.
 - 링크 : https://developer.nvidia.com/blog/how-optimize-data-transfers-cuda-cc/
@@ -148,8 +149,41 @@ cudnn.benchmark = True
 - 위 그림에서 `Host`는 CPU이고 `Device`는 GPU입니다. 즉, 데이터 torch.utils.data.DataLoader를 통하여 Host에서 Device로 데이터를 불러옵니다. 일반적인 방식은 CPU에서 [페이징](https://ko.wikipedia.org/wiki/%ED%8E%98%EC%9D%B4%EC%A7%95)기법을 통해 pageable memory를 관리하는데 이는 가상 메모리를 관리하는 블록입니다. 이 가상 메모리는 실제 메모리 블록에 대응이 되도록 되어 있습니다.
 - 따라서 CPU → GPU로 데이터를 전달하기 위해서는 ① pageable memory에서 전달할 데이터들의 위치를 읽고, ② 전달할 데이터를 pinned memory에 모아서 복사한 다음에 ③ pinned moemry 영역에 있는 데이터를 GPU로 전달합니다.
 - `pin_memory = True` 옵션은 ① → ②의 과정을 줄여서 GPU 학습 시 효율적으로 CPU → GPU로 데이터를 전달합니다. 즉, pageable memory에서 전달할 데이터들을 확인한 다음 pinned memory 영역에 옮기지 않고 CPU 메모리 영역에 GPU로 옮길 데이터들을 바로 저장하는 방식입니다. 따라서 DataLoader는 추가 연산 없이 이 영역에 있는 데이터들을 GPU로 바로 옮길 수 있습니다.
+- 이런 연산 과정 때문에 `pin_memory`를 사용하는 것을 `page-locked memory` 라고도 합니다.
 - 이 연산 과정을 이해한다면 CPU만을 이용하여 학습을 하는 경우 이 옵션을 사용할 필요가 없다는 것을 아실 수 있습니다.
 - 다시 정리하면 `GPU`를 이용할 때에는 `torch.utils.data.DataLodaer(pin_memory = True)`를 사용하면 됩니다.
+
+<br>
+
+## **GPU 사용 시 data.cuda(non_blocking=True) 사용**
+
+<br>
+
+- GPU를 이용하여 학습할 때, 바로 앞의 `dataloader`의 `pin_memory` 사용과 더불어 `data`의 `.cuda(non_blocking=True)`는 일반적으로 반드시 사용하는 옵션입니다. 사용 방법은 아래와 같습니다.
+
+<br>
+
+```python
+for i, (images, target) in enumerate(train_loader):
+    # measure data loading time
+    data_time.update(time.time() - end)
+
+    if args.gpu is not None:
+        images = images.cuda(args.gpu, non_blocking=True)
+    if torch.cuda.is_available():
+        target = target.cuda(args.gpu, non_blocking=True)
+
+    # compute output
+    output = model(images)
+    loss = criterion(output, target)
+```
+
+<br>
+
+- 위 코드를 보면 `images = images.cuda(args.gpu, non_blocking=True)`와 같이 데이터를 `.cuda()`로 변환하면서 GPU 연산을 지원하도록 하는데 이 때, `non_blocking=True`를 옵션으로 지정해 줍니다.
+- 이 옵션은 CPU → GPU로 데이터를 전달하는 메커니즘과 연관된 옵션입니다. `.cuda(non_blocking=True)`를 앞의 `pin_memory`와 연관하여 설명해보겠습니다. 
+- Host(CPU) → GPU 복사는 pin(page-lock)memory에서 생성 될 때 훨씬 빠릅니다. 따라서 CPU 텐서 및 스토리지는 pinned region에 데이터를 넣은 상태로 객체의 복사본을 전달하는 pin_memory 메서드를 사용합니다.
+- 또한 텐서 및 스토리지를 고정하면 비동기(asynchronous) GPU 복사본을 사용할 수 있습니다. 비동기식으로 GPU에 데이터 전달 기능을 추가하려면 `non_blocking = True 인수`를 to() 또는 cuda() 호출 시 argument로 전달하면 됩니다. 이와 같은 방법을 통하여 `데이터 전송`과 `계산`을 겹쳐서 (비동기식)으로 할 수 있으므로 연산 속도 향상에 도움을 줍니다.
 
 <br>
 
