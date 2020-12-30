@@ -39,7 +39,6 @@ tags: [attention, transformer, attention is all you need] # add tag
 - ### Add & Norm
 - ### Output Softmax
 - ### Pytorch 코드
-- ### Tensorflow 코드
 
 <br>
 
@@ -305,13 +304,6 @@ tags: [attention, transformer, attention is all you need] # add tag
 - 이번에는 Pytorch를 이용하여 Transformer를 구현해 보도록 하겠습니다.
 
 <br>
-
-## **Tensorflow 코드**
-
-<br>
-
-- 코드 : 
-- 이번에는 Tensorflow 코드를 이용하여 Transformer를 구현해 보도록 하겠습니다.
 
 
 

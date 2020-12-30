@@ -24,7 +24,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [pytorch 셋팅 관련 코드](#pytorch-셋팅-관련-코드-1)
 - ### [GPU 셋팅 관련 코드](#gpu-셋팅-관련-코드-1)
 - ### [dataloader의 pin_memory](#dataloader의-pin_memory-1)
-- ### [GPU 사용 시 data.cuda(non_blocking=True) 사용](#)
+- ### [GPU 사용 시 data.cuda(non_blocking=True) 사용](#gpu-사용-시-datacudanon_blockingtrue-사용-1)
 - ### [dataloader의 num_workers 지정](#dataloader의-num_workers-지정-1)
 - ### [optimizer.zero_grad(), loss.backward(), optimizer.step()](#optimizerzero_grad-lossbackward-optimizerstep-1)
 - ### [optimizer.step()을 통한 파라미터 업데이트와 loss.backward()와의 관계](#optimizerstep을-통한-파라미터-업데이트와-lossbackward와의-관계-1)
@@ -184,7 +184,14 @@ for i, (images, target) in enumerate(train_loader):
 - 위 코드를 보면 `images = images.cuda(args.gpu, non_blocking=True)`와 같이 데이터를 `.cuda()`로 변환하면서 GPU 연산을 지원하도록 하는데 이 때, `non_blocking=True`를 옵션으로 지정해 줍니다.
 - 이 옵션은 CPU → GPU로 데이터를 전달하는 메커니즘과 연관된 옵션입니다. `.cuda(non_blocking=True)`를 앞의 `pin_memory`와 연관하여 설명해보겠습니다. 
 - Host(CPU) → GPU 복사는 pin(page-lock)memory에서 생성 될 때 훨씬 빠릅니다. 따라서 CPU 텐서 및 스토리지는 pinned region에 데이터를 넣은 상태로 객체의 복사본을 전달하는 pin_memory 메서드를 사용합니다.
-- 또한 텐서 및 스토리지를 고정하면 비동기(asynchronous) GPU 복사본을 사용할 수 있습니다. 비동기식으로 GPU에 데이터 전달 기능을 추가하려면 `non_blocking = True 인수`를 to() 또는 cuda() 호출 시 argument로 전달하면 됩니다. 이와 같은 방법을 통하여 `데이터 전송`과 `계산`을 겹쳐서 (비동기식)으로 할 수 있으므로 연산 속도 향상에 도움을 줍니다.
+- 또한 텐서 및 스토리지를 고정하면 비동기(asynchronous) GPU 복사본을 사용할 수 있습니다. 비동기식으로 GPU에 데이터 전달 기능을 추가하려면 `non_blocking = True 인수`를 to() 또는 cuda() 호출 시 argument로 전달하면 됩니다. 
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림의 첫번째가 동기식(synchronous) 방식이고 두번째, 세번째가 비동기식(asynchronous)방식입니다. 동기식 방식의 경우 CPU → GPU로 데이터 전달이 끝이나야 그 다음 연산이 진행되는 반면에 비동기식 방식에서는 데이터 전송과 GPU 연산이 동시에 발생할 수 있습니다.
+- 이와 같은 방법을 통하여 `데이터 전송`과 `계산`을 겹쳐서 (비동기식)으로 할 수 있으므로 연산 속도 향상에 도움을 줍니다.
 
 <br>
 
