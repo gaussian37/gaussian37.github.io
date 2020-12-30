@@ -13,7 +13,6 @@ tags: [attention, transformer, attention is all you need] # add tag
 
 <br>
 
-- 참조 : fastcampus 딥러닝/인공지능 올인원 패키지 Online.
 - 참조 : KoreaUniv DSBA, 08-2: Transformer (Kor) (https://youtu.be/Yk1tV_cXMMU)
 - 참조 : https://youtu.be/xhY7m8QVKjo
 - 참조 : https://medium.com/@deepganteam/what-are-transformers-b687f2bcdf49
@@ -28,17 +27,17 @@ tags: [attention, transformer, attention is all you need] # add tag
 
 <br>
 
-- ### Transformer의 특징
-- ### Transformer와 Seq2seq의 차이점
-- ### Transformer의 입력과 출력
-- ### Transformer의 Word Embedding
-- ### Positional Encoding
-- ### Scaled Dot-Product Attention
-- ### Multi-Head Attention
-- ### Position-wise Feed-Forward
-- ### Add & Norm
-- ### Output Softmax
-- ### Pytorch 코드
+- ### [Transformer의 특징](#transformer의-특징-1)
+- ### [Transformer와 Seq2seq의 차이점](#transformer와-seq2seq의-차이점-1)
+- ### [Transformer의 입력과 출력](#transformer의-입력과-출력-1)
+- ### [Transformer의 Word Embedding](#transformer의-word-embedding-1)
+- ### [Positional Encoding](#positional-encoding-1)
+- ### [Scaled Dot-Product Attention](#scaled-dot-product-attention-1)
+- ### [Multi-Head Attention](#multi-head-attention-1)
+- ### [Position-wise Feed-Forward](#position-wise-feed-forward-1)
+- ### [Add & Norm](#add--norm-1)
+- ### [Output Softmax](#output-softmax-1)
+- ### [Pytorch 코드](#output-softmax-1)
 
 <br>
 
@@ -214,7 +213,7 @@ tags: [attention, transformer, attention is all you need] # add tag
 <br>
 
 - 위 식의 $$ C $$는 Scaled Dot-Product Attention의 softmax 까지의 결과 입니다.
-- 먼저 $$ K^{T}Q $$를 통하여 Key와 Query를 Dot-Product 형태로 연산을 하고 $$ sqrt{d_{k}} $$를 통하여 Scale을 해줍니다. 이 `Scale` 값을 통해 $$ K^{T}Q $$ 값이 너무 커지거나 작아져서 **softmax의 결과가 0에 가깝게 saturation이 되는 것을 방지**합니다.
+- 먼저 $$ K^{T}Q $$를 통하여 Key와 Query를 Dot-Product 형태로 연산을 하고 $$ \sqrt{d_{k}} $$를 통하여 Scale을 해줍니다. 이 `Scale` 값을 통해 $$ K^{T}Q $$ 값이 너무 커지거나 작아져서 **softmax의 결과가 0에 가깝게 saturation이 되는 것을 방지**합니다.
 
 <br>
 
@@ -254,7 +253,7 @@ tags: [attention, transformer, attention is all you need] # add tag
 - 이와 같은 메커니즘을 통해 병렬 계산에 유리한 구조를 만들 수 있습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/transformer/11.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/dl/concept/transformer/11.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - Transformer 전체 구조에서 Multi-Head Attention이 어떻게 사용되는 지 살펴보겠습니다.
@@ -301,7 +300,8 @@ tags: [attention, transformer, attention is all you need] # add tag
 <br>
 
 - 코드 : 
-- 이번에는 Pytorch를 이용하여 Transformer를 구현해 보도록 하겠습니다.
+- 이번에는 Pytorch를 이용하여 Transformer를 구현해 보도록 하겠습니다. 
+- 앞에서 사용된 코드를 이용하였으며 Transformer 모델 전체를 나타냅니다.
 
 <br>
 
