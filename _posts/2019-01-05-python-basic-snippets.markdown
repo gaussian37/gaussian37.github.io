@@ -1330,6 +1330,10 @@ os.makedirs(path)
 os.path.abspath(os.getcwd())
 # 경로 변경
 os.chdir(path)
+
+# cmd 명령어 입력
+command = "ls -al"
+os.system(command)
 ```
 
 <br>
@@ -1342,6 +1346,11 @@ os.chdir(path)
 
 - file 및 directory가 존재하는 지 유무를 확인하려면 다음 명령어를 이용합니다.
 - `os.path.isfile('filename')` 와 `os.path.isdir('dirname')`
+
+<br>
+
+- 파이썬에서 시스템 커맨드를 입력하려면 `os.system(command)`를 이용하면 됩니다.
+- 시스템 상에서 사용할 수 있는 유용한 명령어들을 파이썬 함수 내에서 사용할 수 있기 때문에 굉장히 유용하게 사용할 수 있습니다.
 
 <br>
 
