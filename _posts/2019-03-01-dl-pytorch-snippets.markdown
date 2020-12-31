@@ -1604,6 +1604,7 @@ print(optimizer_checkpoint_param_group .keys())
 <br>
 
 - einsum에 관한 자세한 내용은 아래 링크를 참조해 보시기 바랍니다. 아래 링크의 글은 numpy를 기준으로 einsum이 어떻게 동작하는 지 정리하였습니다.
+    - einsum 작동 방법 : https://gaussian37.github.io/python-basic-numpy-snippets/#npeinsum-1
 - 이 글에서는 torch에서 어떻게 einsum을 사용할 수 있는 지 살펴보겠습니다. 다행스럽게도 numpy와 torch 모두 같은 einsum 문법을 가지므로 링크의 글을 이해시면 바로 아래 예제들이 이해되실 것이라 확신합니다.
 
 <br>
