@@ -48,7 +48,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [nn.Dropout vs. F.dropout](#nndropout-vs-fdropout-1)
 - ### [nn.AvgPool2d vs. nn.AdaptiveAvgPool2d](#nnavgpool2d-vs-nnadaptiveavgpool2d-1)
 - ### [optimizer.state_dict() 저장 결과](#optimizerstate_dict-저장-결과-1)
-- ### [torch.einsum 함수 사용 예제](#)
+- ### [torch.einsum 함수 사용 예제](#torcheinsum-함수-사용-예제-1)
 
 <br>
 
