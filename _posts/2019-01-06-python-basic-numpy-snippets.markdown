@@ -17,16 +17,16 @@ tags: [Numpy, 넘파이] # add tag
 
 <br>
 
-- ### np.c_[]
-- ### np.meshgrid()
-- ### ravel(), flatten()
-- ### np.polyfit으로 fitting
-- ### np.swapaxes
-- ### 복원/비복원 랜덤 넘버 추출
-- ### 차원 순서 변경 방법
-- ### 차원 확장 방법
-- ### 결측값 제거하기
-- ### np.einsum
+- ### [np.c_[]](#npc_-1)
+- ### [np.meshgrid()](#npmeshgrid-1)
+- ### [ravel(), flatten()](#ravel-flatten-1)
+- ### [np.polyfit으로 fitting](#nppolyfit으로-fitting-1)
+- ### [np.swapaxes](#npswapaxes-1)
+- ### [복원/비복원 랜덤 넘버 추출](#복원비복원-랜덤-넘버-추출-1)
+- ### [차원 순서 변경 방법](#차원-순서-변경-방법-1)
+- ### [차원 확장 방법](#차원-확장-방법-1)
+- ### [결측값 제거하기](#결측값-제거하기-1)
+- ### [np.einsum](#npeinsum-1)
 
 
 <br>
@@ -428,7 +428,82 @@ for i in range(5):
 <br>
 
 ```python
+import numpy as np
 
+x = np.random.random((2, 3))
+# array([[0.11689396, 0.51696615, 0.66606396],
+#        [0.74145923, 0.4904741 , 0.18798271]])
 
+# permutation of tensor
+np.einsum("ij->ji", x)
+# array([[0.11689396, 0.74145923],
+#        [0.51696615, 0.4904741 ],
+#        [0.66606396, 0.18798271]])
+
+# summation
+np.einsum("ij->", x)
+# 2.7198400974055774
+
+# column sum
+np.einsum("ij->j", x)
+# array([0.85835318, 1.00744025, 0.85404666])
+
+# row sum
+np.einsum("ij->i", x)
+# array([1.29992407, 1.41991603])
+
+x = np.random.random((2, 3)) # matrix
+v = np.random.random((1, 3)) # row vector
+np.einsum("ij,kj->ik",x, v)
+# array([[0.91583178],
+#        [0.89804757]])
+
+# matrix multiplication
+np.einsum("ij,kj -> ik", x, x) # (2, 3) x (3, 2) = (2, 2)
+# array([[0.70325902, 0.46933496],
+#        [0.46933496, 0.88504483]])
+
+# Dot product first row with first row of matrix
+np.einsum("i,i->", x[0], x[0])
+# 0.703259019471991
+
+# Dot product with matrix
+np.einsum("ij, ij ->", x, x)
+# 1.5883038495134512
+
+# Elementi-wise multiplication
+np.einsum("ij,ij->ij", x, x)
+# array([[1.73036585e-02, 2.22586769e-01, 4.63368592e-01],
+#        [1.51640646e-02, 8.69504488e-01, 3.76277064e-04]])
+
+# Outer product
+a = np.random.random((3))
+b = np.random.random((5))
+np.einsum("i,j->ij", a, b)
+# array([[0.19387425, 0.18228663, 0.35972633, 0.06095902, 0.30084629],
+#        [0.08433169, 0.07929129, 0.15647426, 0.02651604, 0.13086253],
+#        [0.45217691, 0.42515087, 0.83899715, 0.14217597, 0.70167001]])
+
+# Batch matrix multiplication
+a = np.random.random((3, 2, 5))
+b = np.random.random((3, 5, 3))
+np.einsum("ijk, ikl -> ijl", a, b) # (3, 2, 3)
+# array([[[1.12661976, 2.24143829, 1.73480083],
+#         [0.93774707, 2.06820069, 1.93695202]],
+
+#        [[1.73253468, 0.62380984, 1.34472972],
+#         [1.58940717, 0.65081129, 0.91891999]],
+
+#        [[0.7734934 , 0.79936733, 0.55098931],
+#         [1.35982801, 1.58176646, 0.76229892]]])
+
+# Matrix diagonal
+x = np.random.random((3, 3))
+np.einsum("ii->i", x)
+# array([0.98143151, 0.4845303 , 0.61908454])
+
+# Matrix trace
+np.einsum("ii->", x)
+# 2.0850463488460376
 ```
 
