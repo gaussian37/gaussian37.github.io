@@ -51,7 +51,7 @@ tags: [attention, transformer, attention is all you need] # add tag
 - 먼저 모델의 아키텍쳐에 대하여 간단히 살펴보겠습니다.
 - ① `Seq2seq`와 유사한 Encoder - Decoder 형식을 사용합니다.
 - ② Transformer에서 제안하는 `Scaled Dot-Product Attention`과 이를 병렬로 나열한 `Multi-Head Attention` 블록이 알고리즘의 핵심입니다.
-- ③ RNN의 구조에서는 아래 그림과 같은 `BPTT` (Back Propagation Through Time) 구조로 인하여 시간 step을 기준을 펼쳐놓고 봐야 하기 때문에 순차적인 연산이 필요합니다. 따라서 연산 효율이 떨어지는 문제가 발생합니다. Transformer 구조에서는 BPTT와 같은 구조가 없고 병렬 계산이 가능하기 때문에 RNN 구조에 비하여 굉장히 효율적으로 연산할 수 있습니다. 
+- ③ RNN의 구조에서는 아래 그림과 같은 `BPTT` (Back Propagation Through Time) 구조로 인하여 시간이 흐르는 기준으로 펼쳐놓고 봐야 하기 때문에 순차적인 연산이 필요합니다. 따라서 연산 효율이 떨어지는 문제가 발생합니다. Transformer 구조에서는 BPTT와 같은 구조가 없고 병렬 계산이 가능하기 때문에 RNN 구조에 비하여 굉장히 효율적으로 연산할 수 있습니다. 
 
 <br>
 <center><img src="../assets/img/dl/concept/transformer/1.png" alt="Drawing" style="width: 800px;"/></center>
@@ -138,6 +138,7 @@ tags: [attention, transformer, attention is all you need] # add tag
 <br>
 
 - `pos`는 상대적 위치를 뜻하고 `i`는 벡터의 인덱스를 뜻합니다. 
+- 최근에는 기존의 Transformer에서 제시하는 `sin`, `cos` 방식 보다는 `nn.Embedding(max_length, embed_size)`와 같은 embedding 방식을 이용하여 학습하는 방식을 많이 사용하고 있습니다. 이 방식이 더 좋은 성능을 내서 Transformer를 활용하는 BERT, GPT 등에도 `Embedding`을 이용한 학습 기법을 사용합니다.
 
 <br>
 
