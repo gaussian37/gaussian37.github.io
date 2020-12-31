@@ -1608,8 +1608,87 @@ print(optimizer_checkpoint_param_group .keys())
 
 <br>
 
+```python
+import torch
 
+x = torch.rand((2, 3))
+# tensor([[0.4532, 0.9428, 0.2407],
+#         [0.8347, 0.9062, 0.6289]])
 
+# permutation of tensor
+torch.einsum("ij->ji", x)
+# tensor([[0.4532, 0.8347],
+#         [0.9428, 0.9062],
+#         [0.2407, 0.6289]])
+
+# summation
+torch.einsum("ij->", x)
+# tensor(4.0065)
+
+# column sum
+torch.einsum("ij->j", x)
+# tensor([1.2879, 1.8490, 0.8696])
+
+# row sum
+torch.einsum("ij->i", x)
+# tensor([1.6367, 2.3698])
+
+# matrix vector maultiplication
+x = torch.rand((2, 3)) # matrix
+v = torch.rand((1, 3)) # row vector
+torch.einsum("ij,kj->ik",x, v)
+# tensor([[0.4350],
+#         [0.4490]])
+
+# matrix multiplication
+torch.einsum("ij,kj -> ik", x, x) # (2, 3) x (3, 2) = (2, 2)
+# tensor([[1.4515, 1.3514],
+#         [1.3514, 1.6305]])
+
+# Dot product first row with first row of matrix
+torch.einsum("i,i->", x[0], x[0])
+# tensor(1.4515)
+
+# Dot product with matrix
+torch.einsum("ij, ij ->", x, x)
+# tensor(3.0820)
+
+# Elementi-wise multiplication
+torch.einsum("ij,ij->ij", x, x)
+# tensor([[0.3168, 0.2191, 0.9157],
+#         [0.4442, 0.8674, 0.3189]])
+
+# Outer product
+a = torch.rand((3))
+b = torch.rand((5))
+torch.einsum("i,j->ij", a, b)
+# tensor([[0.0063, 0.0565, 0.0257, 0.0289, 0.0305],
+#         [0.0395, 0.3536, 0.1606, 0.1805, 0.1908],
+#         [0.0187, 0.1673, 0.0760, 0.0854, 0.0903]])
+
+# Batch matrix multiplication
+a = torch.rand((3, 2, 5))
+b = torch.rand((3, 5, 3))
+torch.einsum("ijk, ikl -> ijl", a, b) # (3, 2, 3)
+
+# tensor([[[1.2546, 0.5082, 0.6137],
+#          [0.5740, 0.3331, 0.3978]],
+
+#         [[0.4245, 1.2722, 0.6595],
+#          [0.8763, 2.3071, 1.2626]],
+
+#         [[1.1468, 1.2578, 1.0330],
+#          [1.2937, 1.2770, 1.2563]]])
+
+# Matrix diagonal
+x = torch.rand((3, 3))
+torch.einsum("ii->i", x)
+# tensor([0.6335, 0.0308, 0.3003])
+
+# Matrix trace
+torch.einsum("ii->", x)
+# tensor(0.9646)
+```
 
 <br>
 
