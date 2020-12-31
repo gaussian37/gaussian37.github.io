@@ -26,6 +26,7 @@ tags: [Numpy, 넘파이] # add tag
 - ### 차원 순서 변경 방법
 - ### 차원 확장 방법
 - ### 결측값 제거하기
+- ### np.einsum
 
 
 <br>
@@ -299,3 +300,135 @@ X[np.isnan(X)] = 0
 ```
 
 <br>
+
+## **np.einsum**
+
+<br>
+
+- 넘파이에서 행렬 연산을 할 때, `.einsum` 함수를 사용하면 유연하게 연산을 할 수 있습니다.
+- `einsum`은 [einstein notation](https://en.wikipedia.org/wiki/Einstein_notation)을 이용하여 행렬 연산을 할 수 있도록 지원하는 함수 입니다.
+- 따라서 einsum 방식을 이용하면 matrix multiplication, batch matrix multiplication, element-wise multiplication, permutation, dot product, outer product, specific summation등과 같이 기본적으로 많이 사용하는 행렬 연산을 `einsum` 함수 하나로 적용할 수 있습니다.
+- 특히 여기서 사용하는 문법은 numpy 뿐만 아니라 pytorch와 tensorflow에서도 사용하기 때문에 한번 익혀 두면 상당히 유용하게 사용할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/python/basic/numpy/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 행렬 연산을 기준으로 `einsum`의 사용 방법에 대하여 알아보겠습니다. einsum을 사용하려면 먼저 수식으로 나타낼 수 있어야 합니다.
+
+<br>
+
+- $$ M_{ij} = \sum_{k}A_{ik}B_{kj} \to A_{ik}B_{kj} $$
+
+<br>
+
+- 이 식에서 $$ \sum $$을 빼고 $$ A_{ik}B_{kj} $$으로만 나타낸 형태가 바로 einstein notation 방식 입니다.
+- 위 식을 기본적인 코드, matmul 함수 그리고 einsum을 이용하여 나타내 보겠습니다.
+
+<br>
+
+```python
+A = np.random.rand(3, 5)
+B = np.random.rand(5, 2)
+
+# 기본적인 matrix multiplication 방식
+M1 = np.empty((3, 2))
+for i in range(3):
+    for j in range(2):
+        total = 0
+        # k index is used in sum loop 
+        for k in range(5):
+            total += A[i, k] * B[k, j]
+        M1[i, j] = total
+        
+print(M1)
+# [[0.90647435 2.04230236]
+#  [0.60864101 1.74284471]
+#  [0.52098582 1.18645873]]
+
+
+# matmul 함수를 통한 matrix multiplication
+M2 = np.matmul(A, B)
+print(M2)
+# [[0.90647435 2.04230236]
+#  [0.60864101 1.74284471]
+#  [0.52098582 1.18645873]]
+
+
+# einsum을 이용한 matrix multiplication
+M3 = np.einsum('ik,kj->ij', A, B)
+print(M3)
+# [[0.90647435 2.04230236]
+#  [0.60864101 1.74284471]
+#  [0.52098582 1.18645873]]
+```
+
+<br>
+
+- 위 코드를 보면 모두 같은 연산 결과가 나타나는 것을 볼 수 있습니다.
+- einsum 부분을 먼저 살펴 보면 `np.einsum('ik,kj->ij', A, B)`에서 첫 인자로 문자열을 받습니다. 문자열은 `->`를 기준으로 좌변과 우변으로 나뉘게 됩니다, 좌변은 `,`를 구분자로 행렬이 입력되게 되고 이는 두번째, 세번째 인자에 대응됩니다. 우변은 출력 결과의 포맷을 나타냅니다.
+- 첫번째 인자의 식을 보면 반복되는 `k` 부분에서 곱셈 연산이 발생하는 것을 유추해 볼 수 있습니다. 즉 좌변에서 나타난 인덱스 중 우변에 나타나지 않으면 이 인덱스를 기준으로 연산이 되었다는 것을 알 수 있습니다.
+- 또한 위 예제에서는 `i`, `k`, `j`라는 인덱스를 사용하였지만 인덱스를 사용하는 것에는 제한이 없습니다. 자유롭게 어느 인덱스 알파벳이든지 사용하시면 됩니다.
+- 따라서 `np.einsum('ik,kj->ij', A, B)`에서 `i`, `j`는 free index라고 지칭하고 `k`는 summation index라고 지칭하겠습니다. 이는 위 코드의 파이썬 기본 버전과 대응 됩니다.
+
+<br>
+
+```python
+for i in range(3):
+    for j in range(2):
+        total = 0
+        for k in range(5):
+            total += A[i, k] * B[k, j]
+        M1[i, j] = total
+```
+
+<br>
+
+- 위 코드를 보면 알 수 있듯이 행렬 A와 B의 k 인덱스에 해당하는 길이는 같아야 행렬 연산이 가능해집니다. 이를 유의하여 사용하시면 도움이 됩니다.
+- 다른 예제를 한번 살펴 보겠습니다.
+
+<br>
+
+```python
+a = np.random.rand(5) # (5, )
+b = np.random.rand(3) # (3, )
+outer = np.einsum('i, j -> ij', a, b) # (5, 3)
+```
+
+<br>
+
+- 이 경우 free index로 i, j가 사용되었고 summation index는 사용되지 않았습니다. 즉, 좌변에 있는 모든 인덱스가 우변에서도 사용되었습니다.
+- 위 einsum을 파이썬 기본 코드로 옮기면 다음과 같습니다.
+
+<br>
+
+```python
+for i in range(5):
+    for j in range(3):
+        total = 0
+        # no sum loop index
+        total += a[i] * b[j]
+        outer[i, j] = total
+```
+
+<br>
+
+- 따라서 einsum 사용 방법을 정리하면 다음과 같습니다.
+- ① 서로 다른 입력 값에서 반복적으로 사용되는 index를 기준으로 곱셈을 통한 합이 발생하게 됩니다.
+    - `M = np.einsum('ik,kj -> ij', A, B)`
+- ② 생략되는 인덱스는 그 축을 기준으로 합이 발생하게 됩니다. 아래와 같은 경우 벡터의 합을 구하게 됩니다.
+    - `x = np.ones(3); sum_x = np.einsum('i -> ', x)`
+- ③ 우변에서 결과를 생성할 때, 축의 순서를 원하는 순서로 만들 수 있습니다. 아래와 같은 경우 0, 1, 2 축을 2, 1, 0 순서로 바꿉니다.
+    - `x = np.ones((5, 4, 3)); np.einsum('ijk -> kji', x)`
+
+<br>
+
+- 아래 예제에서는 numpy에서 주로 사용할 수 있는 einsum 예제를 나열해 보겠습니다.
+
+<br>
+
+```python
+
+
+```
+
