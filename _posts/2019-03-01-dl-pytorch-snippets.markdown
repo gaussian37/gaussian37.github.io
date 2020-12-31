@@ -48,6 +48,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [nn.Dropout vs. F.dropout](#nndropout-vs-fdropout-1)
 - ### [nn.AvgPool2d vs. nn.AdaptiveAvgPool2d](#nnavgpool2d-vs-nnadaptiveavgpool2d-1)
 - ### [optimizer.state_dict() 저장 결과](#optimizerstate_dict-저장-결과-1)
+- ### [torch.einsum 함수 사용 예제](#)
 
 <br>
 
@@ -1595,6 +1596,22 @@ print(optimizer_checkpoint_param_group .keys())
 <br>
 
 - 사전에 pre-traiend된 weight를 이용하여 학습을 재개할 때, model의 파라미터와 더불어 optimizer에 사용된 하이퍼 파라미터와 각 optimizer 알고리즘에서 사용하는 값들을 불러와서 학습이 중단된 위치에서 그대로 학습이 가능해 지도록 합니다.
+
+<br>
+
+## **torch.einsum 함수 사용 예제**
+
+<br>
+
+- einsum에 관한 자세한 내용은 아래 링크를 참조해 보시기 바랍니다. 아래 링크의 글은 numpy를 기준으로 einsum이 어떻게 동작하는 지 정리하였습니다.
+- 이 글에서는 torch에서 어떻게 einsum을 사용할 수 있는 지 살펴보겠습니다. 다행스럽게도 numpy와 torch 모두 같은 einsum 문법을 가지므로 링크의 글을 이해시면 바로 아래 예제들이 이해되실 것이라 확신합니다.
+
+<br>
+
+
+
+
+<br>
 
 ## **weight 초기화 방법**
 
