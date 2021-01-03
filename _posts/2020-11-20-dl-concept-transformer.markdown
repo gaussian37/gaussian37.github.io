@@ -13,8 +13,10 @@ tags: [attention, transformer, attention is all you need] # add tag
 
 <br>
 
-- 참조 : KoreaUniv DSBA, 08-2: Transformer (Kor) (https://youtu.be/Yk1tV_cXMMU)
+- 참조 : https://youtu.be/Yk1tV_cXMMU
 - 참조 : https://youtu.be/xhY7m8QVKjo
+- 참조 : https://charon.me/posts/pytorch/pytorch_seq2seq_6/
+- 참조 : https://youtu.be/AA621UofTUA?list=RDCMUChflhu32f5EUHlY7_SetNWw
 - 참조 : https://medium.com/@deepganteam/what-are-transformers-b687f2bcdf49
 - 참조 : https://mlexplained.com/2017/12/29/attention-is-all-you-need-explained/
 - 참조 : https://youtu.be/AA621UofTUA?list=RDCMUChflhu32f5EUHlY7_SetNWw
@@ -296,18 +298,23 @@ tags: [attention, transformer, attention is all you need] # add tag
 
 <br>
 
+
+- 이번에는 Pytorch를 이용하여 Transformer를 구현해 보도록 하겠습니다.
+- 아래 코드는 Transformer 논문의 내용을 최대한 따랐으며 Transformer의 기본적인 아키텍쳐를 따릅니다.
+- 아래 코드를 실행하기 위하여 다음 패키지들을 설치하시기 바랍니다.
+    - `pip install torchtext spacy`
+    - `python -m spacy download en`
+    - `python -m spacy download de`
+
 ## **Pytorch 코드**
 
 <br>
 
-- 코드 : 
-- 이번에는 Pytorch를 이용하여 Transformer를 구현해 보도록 하겠습니다.
-- 아래 코드는 Transformer 논문의 내용을 최대한 따랐으며 Transformer의 기본적인 아키텍쳐를 따릅니다.
-- 아래 코드는 독일어 → 영어로 번역하기 위한 모델을 학습하기 위한 코드입니다.
-- 아래 코드를 실행하기 위하여 다음 패키지들을 설치하시기 바랍니다.
-    - pip install torchtext spacy 
-    - python -m spacy download en
-    - python -m spacy download de
+- 참조 : https://charon.me/posts/pytorch/pytorch_seq2seq_6/
+- 참조 : https://youtu.be/AA621UofTUA?list=RDCMUChflhu32f5EUHlY7_SetNWw
+- Transformer 모델을 포함하여 독일어 → 영어로 번역하기 위한 모델을 학습하기 위한 코드 전체는 아래 링크를 참조하시기 바랍니다.
+    - 코드 : 
+- 아래 코드는 이 글에서 다루는 core한 Transformer 모델에 해당하는 코드입니다.
 
 <br>
 
