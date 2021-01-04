@@ -38,6 +38,7 @@ tags: [attention, transformer, attention is all you need] # add tag
 - ### [Multi-Head Attention](#multi-head-attention-1)
 - ### [Position-wise Feed-Forward](#position-wise-feed-forward-1)
 - ### [Add & Norm](#add--norm-1)
+- ### [Encoder Decoder 구조](#encoder-decoder-구조-1)
 - ### [Output Softmax](#output-softmax-1)
 - ### [Pytorch 코드](#output-softmax-1)
 
@@ -284,6 +285,18 @@ tags: [attention, transformer, attention is all you need] # add tag
 - Transformer 구조를 보면 Skip Connection을 통해서 합해지는 부분이 있고 더해지는 부분에서 `Layer Normalization`을 사용하였습니다.
 - Layer Normalization에 대한 설명은 다음 링크를 참조하시기 바랍니다.
     - 링크 : 
+
+<br>
+
+## **Encoder Decoder 구조**
+
+<br>
+<center><img src="../assets/img/dl/concept/transformer/17.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 설명한 Encoder와 Decoder의 구조를 간략이 나타내면 위 그림과 같습니다.
+- Encoder의 Input과 Output의 크기는 같습니다. 따라서 Encoder의 구조를 여러번 반복해서 사용하기 용이합니다.
+- 위 그림과 같이 Encoder 부분을 여러번 반복하여 사용할 수 있습니다. Decoder 또한 여러번 반복하여 사용할 수 있습니다.
 
 <br>
 

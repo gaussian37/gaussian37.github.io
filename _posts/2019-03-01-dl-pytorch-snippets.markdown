@@ -50,6 +50,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [optimizer.state_dict() 저장 결과](#optimizerstate_dict-저장-결과-1)
 - ### [torch.einsum 함수 사용 예제](#torcheinsum-함수-사용-예제-1)
 - ### [torch.softmax 함수 사용 예제](#torchsoftmax-함수-사용-예제-1)
+- ### [torch.repeat 함수 사용 예제](#torchrepeat-함수-사용-예제-1)
 
 <br>
 
@@ -1748,7 +1749,58 @@ print(torch.softmax(torch.ones((1, 2, 3, 4)), dim=-1)) # same with dim=3
 #           [0.2500, 0.2500, 0.2500, 0.2500]]]])
 ```
 
+<br>
 
+## **torch.repeat 함수 사용 예제**
+
+<br>
+
+- torch.repeat 함수는 Tensor의 값을 반복하여 생성하여 만드는 함수입니다. 아래 예제를 살펴 보겠습니다.
+
+<br>
+
+```python
+torch.ones(1)
+# tensor([1.])
+
+torch.ones(1).repeat(2, 3)
+# torch.Size([2, 3])
+# tensor([[1., 1., 1.],
+#         [1., 1., 1.]])
+
+torch.ones(2, 3)
+# tensor([[1., 1., 1.],
+#         [1., 1., 1.]])
+
+torch.ones(2, 3).repeat(3, 4).shape
+# torch.Size([6, 12])
+
+torch.ones(2, 3).repeat(3, 4, 5).shape
+# torch.Size([3, 8, 15])
+```
+
+<br>
+
+- 위 코드를 살펴보면 `torch.ones(1)`와 같이 1개의 스칼라 값을 가지는 경우 (2, 3)으로 repeat 하였을 때, shape은 (2, 3)이 되는 것을 확인할 수 있습니다.
+- 2차원 Tensor를 repeat 할 때에는 repeat을 최소 2차원 크기를 주어야 합니다. 기존 Tensor의 차원보다 더 작은 차원을 repeat하면 에러가 발생하게 됩니다. 어떤 크기로 repeat해야 할 지 모르는 차원이 생기기 때문입니다.
+- 위 예제에서 (2, 3)을 (3, 4) 크기로 repeat하게 되면 (2 X 3, 3 X 4) = (6, 12)의 크기로 변경되는 것을 볼 수 있습니다.
+- 반면 (2, 3)을 (3, 4, 5) 크기로 repeat하게 되면 (3, 2 X 4, 3 X 5) = (3, 8, 15)의 크기로 변경되는 것을 볼 수 있습니다. 어떻게 반복되면서 Tensor가 늘어나는 지 이해하시면 됩니다.
+
+<br>
+
+```python
+torch.arange(0, 4)
+# tensor([0, 1, 2, 3])
+
+torch.arange(0, 4).repeat(3, 4)
+# tensor([[0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3],
+#         [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3],
+#         [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3]])
+```
+
+<br>
+
+- 위 예제를 보면 실제 어떻게 기존 Tensor가 반복되어 repeat함수를 통해 값이 채워지는 지 알 수 있습니다. 이 패턴을 이용하여 반복된 형태의 데이터를 쉽게 생성할 수 있습니다.
 
 <br>
 
