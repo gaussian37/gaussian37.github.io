@@ -7,6 +7,12 @@ categories: [math-pb]
 tags: [통계학, 수리통계학, 베이지안] # add tag
 ---
 
+<br>
+
+<br>
+<center><img src="../assets/img/math/pb/dist.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
 ## **가우시안 관련**
 
 <br>
