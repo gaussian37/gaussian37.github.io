@@ -122,6 +122,9 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2"
 # 현재 PC의 사용가능한 GPU 사용 갯수 확인
 torch.cuda.device_count()
 
+# 사용 가능한 device 갯수에 맞춰서 0번 부터 GPU 할당
+os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(list(map(str, list(range(torch.cuda.device_count())))))
+
 # cudnn을 사용하도록 설정. GPU를 사용하고 있으면 기본값은 True 입니다.
 import torch.backends.cudnn as cudnn
 cudnn.enabled = True
