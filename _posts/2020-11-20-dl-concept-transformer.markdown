@@ -266,6 +266,101 @@ tags: [attention, transformer, attention is all you need] # add tag
 
 <br>
 
+```python
+class MultiHeadAttentionLayer(nn.Module):
+    # hidden_dim : embedding dimension of word
+    # n_head : number of heads
+    def __init__(self, hidden_dim, n_heads, dropout_ratio, device):
+        super().__init__()
+        
+        assert(hidden_dim % n_heads == 0), "hidden_dim size needs to be div by n_heads"
+        
+        # embedding dimension
+        self.hidden_dim = hidden_dim 
+        # the number of heads : Number of different attention concepts
+        self.n_heads = n_heads
+        # Embedding dimension at each head
+        self.head_dim = hidden_dim // n_heads
+
+        # Basically, dimension is converted from hidden_dim to the key dimension.
+        # Since the dimension of the key is hidden_dim, it is converted from hidden_dim to hidden_dim.
+        ## FC layer to be applied to query
+        self.fc_q = nn.Linear(hidden_dim, hidden_dim) 
+        ## FC layer to be applied to key
+        self.fc_k = nn.Linear(hidden_dim, hidden_dim)
+        ## FC layer to be applied to value
+        self.fc_v = nn.Linear(hidden_dim, hidden_dim)
+        
+        self.fc_o = nn.Linear(hidden_dim, hidden_dim)
+        
+        self.dropout = nn.Dropout(dropout_ratio)
+        self.scale = torch.sqrt(torch.FloatTensor([self.head_dim])).to(device)
+
+    def forward(self, query, key, value, mask=None):
+        
+        batch_size = query.shape[0]
+        
+        # query : [batch_size, query_len, hidden_dim] → Q : [batch_size, query_len, hidden_dim]
+        Q = self.fc_q(query)
+        # key : [batch_size, key_len, hidden_dim] → K : [batch_size, key_len, hidden_dim]
+        K = self.fc_k(key)
+        # value : [batch_size, value_len, hidden_dim] → V : [batch_size, value_len, hidden_dim]
+        V = self.fc_v(value)
+        
+        # Seperate hidde_dim to n_heads*head_dim
+        # Learn n_heads kinds of different attention concepts.
+        
+        # Q : [batch_size, query_len, hidden_dim]
+        ## → Q : [batch_size, query_len, n_heads, head_dim]
+        ### → Q : [batch_size, n_heads, query_len, head_dim]
+        Q = Q.reshape(bath_size, -1, self.n_heads, self.head_dim).permute(0, 2, 1, 3)
+        
+        # K : [batch_size, key_len, hidden_dim]
+        ## → K : [batch_size, key_len, n_heads, head_dim]
+        ### → K : [batch_size, n_heads, key_len, head_dim]
+        K = K.reshape(bath_size, -1, self.n_heads, self.head_dim).permute(0, 2, 1, 3)
+        
+        # V : [batch_size, value_len, hidden_dim]
+        ## → V : [batch_size, value_len, n_heads, head_dim]
+        ### → V : [batch_size, n_heads, value_len, head_dim]
+        V = V.reshape(bath_size, -1, self.n_heads, self.head_dim).permute(0, 2, 1, 3)
+        
+        # Calculate attention energe
+        # Q : [batch_size, n_heads, query_len, head_dim]
+        # K.permute : [batch_size, n_heads, head_dim, key_len]
+        
+        # energy : [batch_size, n_heads, query_len, key_len]
+        energy = torch.matmul(Q, K.permute(0, 1, 3, 2)) / self.scale
+        
+        if mask != None:
+            # Fill in the part where the mask value is 0 with a very small value.
+            energy = energy.masked_fill(mask==0, -1e10)
+        
+        # calculate attention score : probability about each data(ex.word)
+        # We get attention score based on key_len.
+        # attention : [batch_size, n_heads, query_len, key_len]
+        attention = torch.softmax(energy, dim=-1)
+        
+        # attention : [batch_size, n_heads, query_len, key_len]
+        # V : [batch_size, n_heads, value_len, head_dim]
+        # x : [batch_size, n_heads, query_len, head_dim] (∵ key_len = value_len in this self-attention)
+        x = torch.matmul(self.dropout(attention), V)
+        
+        # x : [batch_size, n_heads, query_len, head_dim]
+        # → x : [batch_size, query_len, n_heads, head_dim]
+        x = x.permute(0, 2, 1, 3).contiguous()
+        
+        # x : [batch_size, query_len, hidden_dim]
+        x = x.reshape(batch_size, -1, self.hidden_dim)
+        
+        # x : [batch_size, query_len, hidden_dim]
+        x = self.fc_o(x)
+        
+        return x, attention
+```
+
+<br>
+
 ## **Position-wise Feed-Forward**
 
 <br>
@@ -273,6 +368,33 @@ tags: [attention, transformer, attention is all you need] # add tag
 <br>
 
 - Position wise Feed Forward는 단어의 Position 별로 Feed Forward 한다는 뜻입니다. 각 단어에 해당하는 열 벡터가 입력으로 들어갔을 때, `FC-layer - Relu - Fc-layer` 연산을 거치게 됩니다.
+
+<br>
+
+```python
+
+class PositionwiseFeedForwardLayer(nn.Module):
+    # hidden_dim : embedding dimension of a word
+    # pf_dim : inner embedding dimension in feed forward layer
+    # dropout_ratio
+    def __init__(self, hidden_dim, pf_dim, dropout_ratio):
+        super().__init__()
+        
+        self.fc_1 = nn.Linear(hidden_dim, pf_dim)
+        self.fc_2 = nn.Linear(pf_dim, hidden_dim)
+        
+        self.dropout = nn.Dropout(dropout_ratio)
+        
+    def forward(self, x):
+        # x : [batch_size, seq_len, hidden_dim]
+        # → x : [batch_size, seq_len, pf_dim]
+        x = self.dropout(torch.relu(self.fc_1(x)))
+        # → x : [batch_size, seq_len, hidden_dim]
+        x = self.fc_2(x)
+        
+        return x
+
+```
 
 <br>
 
@@ -300,6 +422,234 @@ tags: [attention, transformer, attention is all you need] # add tag
 
 <br>
 
+- 먼저 `Encoder` 구조는 다음과 같습니다.
+
+<br>
+
+```python
+class EncoderLayer(nn.Module):
+    # Dimension of input and output are same.
+    # Encoder of transformer uses multiple times encoder layer by using characteristics above.
+    # set mask value 0 to <pad> token
+    
+    # hidden_dim : embedding dimension of a word
+    # n_heads : the number of heads = the number of scaled-dot product attention
+    # pf_dim : inner embedding dimension in feed-forward layer
+    # dropout_ratio : dropout ratio
+    def __init__(self, hidden_dim, n_heads, pf_dim, dropout_ratio, device):
+        super().__init__()
+        
+        self.self_attention_layer_norm = nn.LayerNorm(hidden_dim)
+        self.feedforward_layer_norm = nn.LayerNorm(hidden_dim)
+        self.self_attention = MultiHeadAttentionLayer(hidden_dim, n_heads, dropout_ratio, device)
+        self.potisionwise_feedforward = PositionwiseFeedForwardLayer(hidden_dim, pf_dim, dropout_ratio)
+        self.dropout = nn.Dropout(dropout_ratio) 
+        
+    def forward(self, src, src_mask):
+        # src : [batch_size, src_len, hidden_dim]
+        # src_mask : [batch_size, src_len]
+        
+        # self attention
+        # you can regulate words to apply attention with mask matrix.
+        # _src : [batch_size, src_len, hidden_dim]
+        _src, _ = self.self_attention(src, src, src, src_mask)
+        
+        # dropout, residual connection, layer normalization
+        # src : [batch_size, src_len, hidden_dim]
+        # _src : [batch_size, src_len, hidden_dim]
+        # → src : [batch_size, src_len, hidden_dim]
+        src = self.self_attention_layer_norm(src + self.dropout(_src))
+        
+        # position-wise feedforward 
+        # src : [batch_size, src_len, hidden_dim]
+        # _src : [batch_size, src_len, hidden_dim]
+        _src = self.potisionwise_feedforward(src)
+        
+        # dropout, residual connection, layer normalization
+        # src : [batch_size, src_len, hidden_dim]
+        # _src : [batch_size, src_len, hidden_dim]
+        # → src : [batch_size, src_len, hidden_dim]
+        src = self.feedforward_layer_norm(src + self.dropout(_src))
+        
+        return src
+
+
+class Encoder(nn.Module):
+    
+    # set mask value 0 to <pad> token. (<pad> token filled up after <eos>)
+    # implemented positional encoding with nn.Embedding not sin, cos function. 
+
+    # input_dim : one hot encoding dimension of a word
+    # hidden_dim : embedding dimension of input_dim
+    # n_layers : the number of encoder layer
+    # n_heads : the number of heads = the number of scaled-dot product attention
+    # pf_dim : inner embedding dimension in feed-forward layer
+    # dropout_ratio : dropout ratio
+    # max_length : maximum number of words in sentence
+    
+    def __init__(self, input_dim, hidden_dim, n_layers, n_heads, pf_dim, dropout_ratio, device, max_length=100):
+        super().__init__()
+        
+        self.device = device
+        # input dimenstion → embedding dimension
+        self.tok_embedding = nn.Embedding(input_dim, hidden_dim)
+        # positional encoding
+        self.pos_embedding = nn.Embedding(max_length, hidden_dim)
+        
+        self.layers = nn.ModuleList([EncoderLayer(hidden_dim, n_heads, pf_dim, dropout_ratio, device) for _ in range(n_layers)])
+        
+        self.dropout = nn.Dropout(dropout_ratio)
+        
+        self.scale = torch.sqrt(torch.FloatTensor([hidden_dim])).to(device)
+        
+    def forward(self, src, src_mask):
+        
+        # src : [batch_size, src_len]
+        # src_mask : [batch_size, src_len]
+        
+        # batch_size : the number of sentence
+        batch_size = src.shape[0]
+        # src_len : The number of words in the sentence with the maximum number of words among all sentences
+        src_len = src.shape[1]
+        
+        # pos : [batch_size, src_len]
+        pos = torch.arange(0, src_len).repeat(batch_size, 1).to(self.device)
+        
+        # use addition tensor of src embedding and pos embedding
+        # src : [batch_size, src_len]
+        # → src : [batch_size, src_len, hidden_dim]
+        src = self.dropout((self.tok_embedding(src) * self.scale) + self.pos_embedding(pos))
+        
+        # Feed Forward through all encoder layer sequentially
+        # src : [batch_size, src_len, hidden_dim]
+        for layer in self.layers:
+            src = layer(src, src_mask)
+        
+        return src
+```
+
+<br>
+
+- 다음으로 `Decoder` 구조는 다음과 같습니다.
+
+<br>
+
+```python
+class DecoderLayer(nn.Module):
+    # Dimension of input and output are same.
+    # Decoder of transformer uses multiple times encoder layer by using characteristics above.
+    # Decoder layer use two multi-head attention layer
+    # set mask value 0 to <pad> token
+    # Each word in the target sentence uses a mask to make it impossible to know what the next word is (see only the previous word).
+    
+    # hidden_dim : embedding dimension of input_dim
+    # n_heads : the number of heads = the number of scaled-dot product attention
+    # pf_dim : inner embedding dimension in feed-forward layer
+    # dropout_ratio : dropout ratio
+    
+    def __init__(self, hidden_dim, n_heads, pf_dim, dropout_ratio, device):
+        super().__init__()
+        
+        self.self_attention_layer_norm = nn.LayerNorm(hidden_dim)
+        self.encoder_attention_layer_norm = nn.LayerNorm(hidden_dim)
+        self.feedforward_layer_norm = nn.LayerNorm(hidden_dim)
+        self.self_attention = MultiHeadAttentionLayer(hidden_dim, n_heads, dropout_ratio, device)
+        self.encoder_attention = MultiHeadAttentionLayer(hidden_dim, n_heads, dropout_ratio, device)
+        self.potisionwise_feedforward = PositionwiseFeedForwardLayer(hidden_dim, pf_dim, dropout_ratio)
+        self.dropout = nn.Dropout(dropout_ratio) 
+        
+    # applied attention to encoder output (encoder_src)
+    def forward(self, trg, encoder_src, trg_mask, src_mask):
+        
+        # trg : [batch_size, trg_len, hidden_dim]
+        # encoder_src : [batch_size, src_len, hidden_dim]
+        # trg_mask : [batch_size, trg_len]
+        # src_mask : [batch_size, src_len]
+        
+        # self-attention
+        # _trg : [batch_size, trg_len, hidden_dim]
+        _trg, _ = self.self_attention(trg, trg, trg, trg_mask)
+        
+        # dropout, residual connection and layer normalization
+        # trg : [batch_size, trg_len, hidden_dim]
+        trg = self.self_attention_layer_norm(trg + self.dropout(_trg))
+        
+        # encoder attention
+        # applied encoder attention by using decoder query
+        _trg, attention = self.encoder_attention(trg, encoder_src, encoder_src, src_mask)
+        
+        # dropout, residual connection and layer normalization
+        trg = self.encoder_attention_layer_norm(trg + self.dropout(_trg))
+        
+        # positionwise feedforward
+        _trg = self.potisionwise_feedforward(trg)
+        
+        # dropout, residual and layer normalization
+        trg = self.feedforward_layer_norm(trg + self.dropout(_trg))
+        
+        # trg : [batch_size, trg_len, hidden_dim]
+        # attention : [batch_size, n_heads, trg_len, src_len]
+        
+        return trg, attention
+
+class Decoder(nn.Module):
+    
+    # set mask value 0 to <pad> token. (<pad> token filled up after <eos>)
+    # implemented positional encoding with nn.Embedding not sin, cos function. 
+    
+    # output_dim : one-hot encoding dimension of a word
+    # hidden_dim : embedding dimension of a word
+    # n_layers : the number of encoding layers
+    # n_heads : the number of heads = the number of scaled-dot product attention
+    # pf_dim : inner embedding dimension in feed-forward layer
+    # dropout_ratio : dropout ratio
+    # max_length : maximum number of words in sentence
+    
+    # set mask value 0 to <pad> token
+    # Each word in the target sentence uses a mask to make it impossible to know what the next word is (see only the previous word).
+    
+    def __init__(self, output_dim, hidden_dim, n_layers, n_heads, pf_dim, dropout_ratio, device, max_length):
+        super().__init__()
+        
+        self.device = device
+        
+        self.tok_embedding = nn.Embedding(output_dim, hidden_dim)
+        self.pos_embedding = nn.Embedding(max_length, hidden_dim)
+        
+        self.layers = nn.ModuleList([DecoderLayer(hidden_dim, n_heads, pf_dim, dropout_ratio, device) for _ in range(n_layers)])
+        
+        self.fc_out = nn.Linear(hidden_dim, output_dim)
+        
+        self.dropout = nn.Dropout(dropout_ratio)
+        
+        self.scale = torch.sqrt(torch.FloatTensor([hidden_dim])).to(device)
+        
+    def forward(self, trg, encoder_src, trg_mask, src_mask):
+        
+        # trg : [batch_size, trg_len]
+        # encoder_src : [batch_size, src_len, hidden_dim]
+        # trg_mask : [batch_size, trg_len]
+        # src_mask : [batch_size, src_len]
+        
+        batch_size = trg.shape[0]
+        trg_len = trg.shape[1]
+        
+        # pos : [batch_size, trg_len]
+        pos = torch.arange(0, trg_len).repeat(batch_size, 1).to(self.device)
+        
+        # trg : [batch_size, trg_len, hidden_dim]
+        # attention : [batch_size, n_heads, trg_len, src_len]
+        for layer in self.layers:
+            trg, attention = layer(trg, encoder_src, trg_mask, src_mask)
+            
+        # output : [batch_size, trg_len, output_dim]
+        output = self.fc_out(trg)
+        
+        return output, attention
+```
+
+<br>
+
 ## **Output Softmax**
 
 <br>
@@ -311,13 +661,84 @@ tags: [attention, transformer, attention is all you need] # add tag
 
 <br>
 
+```python
+class Transformer(nn.Module):
+    def __init__(self, encoder, decoder, src_pad_idx, trg_pad_idx, device):
+        super.__init__()
+        
+        self.encoder = encoder
+        self.decoder = decoder
+        self.src_pad_idx = src_pad_idx
+        self.trg_pad_idx = trg_pad_idx
+        self.device = device
+        
+    # set mask value as zero to <pad> token of src
+    def make_src_mask(self, src):
+        
+        # src : [batch_size, src_len]
+        src_mask = (src != self.src_pad_idx).unsqueeze(1).unsqueeze(2)
+        
+        # src_mask : [batch_size, 1, 1, src_len]
+        return src_mask
+    
+    # Each word in the target word uses a mask to make it impossible to know what the next word is (see only the previous word).
+    def make_trg_mask(self, trg):
+        
+        # trg : [batch_size, trg_len]
+        
+        '''
+        mask example
+        1 0 0 0 0
+        1 1 0 0 0
+        1 1 1 0 0 
+        1 1 1 0 0
+        1 1 1 0 0
+        '''
+        
+        # trg_pad_mask : [batch_size, 1, 1, trg_len]
+        trg_pad_mask = (trg != self.trg_pad_idx).unsqueeze(1).unsqueeze(2)
+        
+        trg_len = trg.shape[1]
+        
+        '''
+        mask example
+        1 0 0 0 0
+        1 1 0 0 0
+        1 1 1 0 0
+        1 1 1 1 0
+        1 1 1 1 1
+        '''
+        
+        # trg_sub_mask : [trg_len, trg_len]
+        trg_sub_mask = torch.tril(torch.ones((trg_len, trg_len), device = self.device)).bool()
+        
+        # trg_mask : [batch_size, 1, trg_len, trg_len] (broadcast)
+        trg_mask = trg_pad_mask & trg_sub_mask
+        
+        return trg_mask
+    
+    def forward(self, src, trg):
+        # src : [batch_size, src_len]
+        # trg : [batch_size, trg_len]
+        
+        
+        # src_mask : [batch_size, 1, 1, src_len]
+        src_mask = self.make_src_mask(src)
+        # trg_mask : [batch_size, 1, trg_len, trg_len]
+        trg_mask = self.make_trg_mask(trg)
+        
+        # encoder_src : [batch_size, src_len, hidden_dim]
+        encoder_src = self.encoder(src, src_mask)
 
-- 이번에는 Pytorch를 이용하여 Transformer를 구현해 보도록 하겠습니다.
-- 아래 코드는 Transformer 논문의 내용을 최대한 따랐으며 Transformer의 기본적인 아키텍쳐를 따릅니다.
-- 아래 코드를 실행하기 위하여 다음 패키지들을 설치하시기 바랍니다.
-    - `pip install torchtext spacy`
-    - `python -m spacy download en`
-    - `python -m spacy download de`
+        # output : [batch_size, trg_len, output_dim]
+        # attention : [batch_size, n_heads, trg_len, src_len]
+        
+        output, attention = self.decoder(trg, encoder_src, trg_mask, src_mask)
+        
+        return output, attention
+```
+
+<br>
 
 ## **Pytorch 코드**
 
@@ -325,9 +746,14 @@ tags: [attention, transformer, attention is all you need] # add tag
 
 - 참조 : https://charon.me/posts/pytorch/pytorch_seq2seq_6/
 - 참조 : https://youtu.be/AA621UofTUA?list=RDCMUChflhu32f5EUHlY7_SetNWw
+- 앞에서 사용한 모델 일부분의 코드를 모두 합하여 Transformer를 구현하면 아래와 같습니다.
+- 아래 코드는 Transformer 논문의 내용을 최대한 따랐으며 Transformer의 기본적인 아키텍쳐를 따릅니다.
 - Transformer 모델을 포함하여 독일어 → 영어로 번역하기 위한 모델을 학습하기 위한 코드 전체는 아래 링크를 참조하시기 바랍니다.
     - 코드 : 
-- 아래 코드는 이 글에서 다루는 core한 Transformer 모델에 해당하는 코드입니다.
+    - 링크의 코드를 실행하기 위하여 다음 패키지들을 설치하시기 바랍니다.
+    - `pip install torchtext spacy`
+    - `python -m spacy download en`
+    - `python -m spacy download de`
 
 <br>
 
