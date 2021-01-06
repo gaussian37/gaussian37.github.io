@@ -145,6 +145,14 @@ tags: [attention, transformer, attention is all you need] # add tag
 
 <br>
 
+```python
+self.tok_embedding = nn.Embedding(input_dim, hidden_dim)
+# positional encoding
+self.pos_embedding = nn.Embedding(max_length, hidden_dim)
+```
+
+<br>
+
 ## **Scaled Dot-Product Attention**
 
 <br>
