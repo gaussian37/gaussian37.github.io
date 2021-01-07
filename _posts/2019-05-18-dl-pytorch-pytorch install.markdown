@@ -13,7 +13,7 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 
 <br>
 
-### GPU 세팅하는 방법
+## **GPU 세팅하는 방법**
 
 <br>
 
@@ -29,7 +29,7 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 
 <br>
 
-### **윈도우에서 PyTorch 설치하는 방법**
+## **윈도우에서 PyTorch 설치하는 방법**
 
 <br>
 
@@ -72,7 +72,7 @@ tensor([[-5.5635e-24,  0.0000e+00,  4.4842e-44,  0.0000e+00],
 
 <br>
 
-### **colab에서 PyTorch 사용하는 방법**
+## **colab에서 PyTorch 사용하는 방법**
 
 <br>
 
@@ -89,7 +89,7 @@ tensor([[-5.5635e-24,  0.0000e+00,  4.4842e-44,  0.0000e+00],
 
 <br>
 
-### **PyTorch에서 model summary 보는 방법**
+## **PyTorch에서 model summary 보는 방법**
 
 <br>
 
