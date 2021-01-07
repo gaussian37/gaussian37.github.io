@@ -25,7 +25,7 @@ tags: [cs231n, Image Classification] # add tag
 
 <br>
 
-#### 이미지 분류 (Image classification)
+#### **이미지 분류 (Image classification)**
 
 <br>
 
@@ -34,7 +34,7 @@ tags: [cs231n, Image Classification] # add tag
 
 <br>
 
-#### 자료 기반 접근법 (Data-driven approach)
+#### **자료 기반 접근법 (Data-driven approach)**
 
 <br>
 
@@ -42,7 +42,7 @@ tags: [cs231n, Image Classification] # add tag
 
 <br>
 
-#### 최근접 이웃 분류기 (Nearest Neighbor classifier)
+#### **최근접 이웃 분류기 (Nearest Neighbor classifier)**
 
 <br>
 
@@ -88,7 +88,7 @@ tags: [cs231n, Image Classification] # add tag
 
 <br>
 
-#### 선형 분류 (Linear Classification)
+#### **선형 분류 (Linear Classification)**
 
 <br>
 
@@ -108,7 +108,7 @@ tags: [cs231n, Image Classification] # add tag
 <center><img src="../assets/img/vision/cs231n/2/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-#### 퀴즈
+#### **퀴즈**
 
 <br>
 
