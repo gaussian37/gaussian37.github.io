@@ -88,7 +88,7 @@ tags: [table] # add tag
 
 <br>
 
-- [Vision](https://gaussian37.github.io/vision-concept-table/)
+- [Vision Concept](https://gaussian37.github.io/vision-concept-table/)
 - [Segmentation](https://gaussian37.github.io/vision-segmentation-table/)
 - [Detection](https://gaussian37.github.io/vision-detection-table/)
 - [Opencv](https://gaussian37.github.io/vision-opencv-table/)
@@ -99,13 +99,13 @@ tags: [table] # add tag
 
 <br>
 
-- [Basic & Pandas & Numpy]()
-- [Django]()
-- [Django-RestFramework]()
-- [Crawling]()
-- [Embedded]()
-- [GUI]()
-- [ETC]()
+- [Basic & Pandas & Numpy](https://gaussian37.github.io/python/basic/)
+- [Django](https://gaussian37.github.io/python/django/)
+- [Django-RestFramework](https://gaussian37.github.io/python/rest/)
+- [Crawling](https://gaussian37.github.io/python/crawling/)
+- [Embedded](https://gaussian37.github.io/python/embedded/)
+- [GUI](https://gaussian37.github.io/python/gui/)
+- [ETC](https://gaussian37.github.io/python/etc/)
 
 
 ## **C**
