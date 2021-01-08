@@ -47,7 +47,12 @@ tags: [deep learning, active learning] # add tag
 <br>
 
 - 위 그래프와 같이 uncertainty가 낮을 때, classification 문제에서는 그 inference 결과를 바로 라벨링으로 사용할 수도 있습니다. 왜냐하면 라벨링 결과가 그 이미지의 클래스만 정해주면 되기 때문입니다. 하지만 box 위치를 regression하는 object detection 같은 문제에서는 바로 접목하기는 어렵습니다. (이 문제는 뒤에서 더 다루어 보겠습니다.)
-- uncertainty를 계산하기 위해 몇 가지 집근 방식을 취할 수 있는데 가장 먼저 다양한 네트워크를 활용하는 방법이 있습니다. **같은 데이터**에 대해서 **서로 다른 네트워크의 예측이 동일 하다면 해당 데이터는 불확실성이 낮은 것**이고. 그 반대의 경우는 불확실성이 높은 것으로 볼 수 있다.
+
+<br>
+<center><img src="../assets/img/dl/concept/active_learning/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- uncertainty를 계산하기 위해 몇 가지 집근 방식을 취할 수 있는데 가장 먼저 다양한 네트워크를 활용하는 방법이 있습니다. 예를 들어 위 그림과 같이 **같은 데이터**에 대해서 **서로 다른 네트워크의 예측이 동일 하다면 해당 데이터는 불확실성이 낮은 것**이고. 그 반대의 경우는 불확실성이 높은 것으로 볼 수 있다.
 
 <br>
 
