@@ -27,6 +27,7 @@ tags: [python, deep learning, dl] # add tag
 - [Transposed Convolution과 Checkboard artifact](https://gaussian37.github.io/dl-concept-checkboard_artifact/)
 - [Attention 모델과 Seq2seq with Attention](https://gaussian37.github.io/dl-concept-attention/)
 - [Transformer 모델 (Attention is all you need)](https://gaussian37.github.io/dl-concept-transformer/)
+- [Active Learning](https://gaussian37.github.io/dl-concept-active_learning/)
 
 <br>
 
