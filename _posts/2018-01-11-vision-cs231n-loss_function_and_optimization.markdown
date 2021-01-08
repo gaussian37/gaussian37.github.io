@@ -43,7 +43,7 @@ tags: [cs231n, Loss Functions and Optimization] # add tag
 
 <br>
 
-- $$ L_{i} = \sum_{j \neq y_{i}} \text{max}(0, s_{j} - s_{y_{i}} + 1), \ \ \text{where, } s = f(x_{i}, W) $$
+- $$ L_{i} = \sum_{j} \neq y_{i}} \text{max}(0, s_{j} - s_{y_{i}} + 1), \ \ \text{where, } s = f(x_{i}, W) $$
 
 <br>
 
@@ -100,7 +100,7 @@ def L_i_vectorized(x, y, W):
 
 <br>
 
-- ① $$ P(Y=k \vert X = x_{i}) = \frac{e^{s_{k}}}{\sum_{{j}e^{s_{j}}}} $$ 여기서 scroe $$ s = f(s_{i}; W) $$입니다.
+- ① $$ P(Y=k \vert X = x_{i}) = \frac{e^{s_{k}}}{\sum_{j} e^{s_{j} } } $$ 여기서 scroe $$ s = f(s_{i}; W) $$입니다.
 - ② 소프트맥스에 대한 손실 함수(Loss function)는 다음과 같습니다.
 
 <br>
