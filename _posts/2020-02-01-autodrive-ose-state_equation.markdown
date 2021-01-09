@@ -15,6 +15,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 상태 방정식] # add t
 
 - 최적 상태를 추적하기 위하여 칼만 필터와 같은 estimator를 사용할 때, 모델링을 하기 위하여 상태 방정식 (state equation)을 작성할 필요가 있습니다.
 - 이번 글에서는 나름 쉬운(?) 상태 방정식 하나를 예를 들어 상태 방정식을 어떻게 작성하는 지 살펴보겠습니다.
+- 먼저 2가지 용어에 대하여 간략하게 정의하고 진행 하겠습니다. 첫번째로 `상태 방정식 (state equation)`이란 **이전의 상태(ex. 위치)와 현재 상태 사이 간의 관계**를 나타냅니다. 두번째로 `측정 방정식(measurement equation)`이란 **현재 상태와 센서 데이터 사이의 관계**를 뜻합니다.
 - 이 글에서 다루는 상태는 **1차원에서 직선으로 움직이는 어떤 물체의 움직임**입니다.
 
 <br>
@@ -84,6 +85,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 상태 방정식] # add t
 <br>
 
 - 위 식에서 $$ z(k) $$는 위치를 가리키는 센서 데이터를 나타냅니다.
+- 따라서 위 관계 식은 앞에서 언급한 **측정 방정식 (measurement equation)**에 해당합니다.
 
 <br>
 <center><img src="../assets/img/autodrive/ose/state_equation/6.png" alt="Drawing" style="width: 800px;"/></center>
