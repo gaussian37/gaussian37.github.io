@@ -28,4 +28,21 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 <br>
 
-- 먼저
+- 먼저 이 글에서 다룰 `Bayes Filter`는 `Bayes Theorem`을 `Recursive`하게 따릅니다. 
+- 즉, **확률 기반의 Recursive한 Filter** 중 하나라고 보시면 됩니다. Bayes Filter의 식은 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이러한 Bayes Filter의 목적을 단 한줄로 표현하면 다음과 같습니다.
+
+<br>
+
+- $$ bel(x_{t}) = p(x_{t} \vert z_{1:t}, u_{1:t}) $$
+
+<br>
+
+- 앞의 사전 지식을 잘 이해하고 오셨으면 위 식의 뜻은 충분히 이해가 가실 것으로 생각됩니다.
+- 위 식을 다시 한번 해석하면 $$ x{t} $$는 t시점의 상태 값을 $$ z{t} $$는 센서 입력 값을 뜻하고 $$ u_{t} $$는 제어 입력값을 뜻합니다.
+- 따라서 **알고리즘의 시작부터 현재 시점 $$ t $$ 까지의 센서 입력값과 제어 입력값을 이용하여 현재 상태를 확률적으로 추정하는 것**으로 해석할 수 있습니다.
