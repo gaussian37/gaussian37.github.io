@@ -33,7 +33,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 - ### [Bayes Filter 수식의 이해](#bayes-filter-수식의-이해-1)
 - ### [예제를 통한 Bayes Filter 수식의 이해](#예제를-통한-bayes-filter-수식의-이해-1)
 - ### [자동차 이동 예제를 이용한 Bayes Filter의 구체적인 이해](#자동차-이동-예제를-이용한-bayes-filter의-구체적인-이해-1)
-- ### [Bayes Filter의 한계와 개선 방법](#bayes-filterd의-한계와-개선-방법-1)
+- ### [Bayes Filter의 한계와 개선 방법](#bayes-filter의-한계와-개선-방법-1)
 
 <br>
 
