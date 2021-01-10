@@ -9,6 +9,10 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 <br>
 
+[Optimal State Estimation 글 목록](https://gaussian37.github.io/autodrive-ose-table/)
+
+<br>
+
 - 선수 지식 1 : [상태 방정식 (state equation)](https://gaussian37.github.io/autodrive-ose-state_equation/)
 - 선수 지식 2 : [자율주행에서의 Localization과 Tracking](https://gaussian37.github.io/autodrive-ose-localization_and_tracking/)
 - 선수 지식 3 : [베이지안 통계](https://gaussian37.github.io/math-pb-easy_bayes/)
@@ -185,5 +189,42 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 <br>
 
 ## **Bayes Filter의 한계와 개선 방법**
+
+<br>
+
+- 이 글의 도입부에서 소개드린 바와 같이 Bayes Filter는 Kalman Filter와 Particle Filter 개념의 기초가 된다고 말씀드렸습니다.
+- 반대로 말하면 Kalman Filter와 Particle Filter는 Bayes Filter가 가지는 한계점으로 인하여 탄생한 것이라고 말할 수 있습니다.
+- 지금까지 이 글을 살펴보면서 확인한 바로는 Bayes Filter의 큰 단점이 없는 것 처럼 보입니다. 하지만 굉장히 큰 단점이 있는 그것은 바로 `prediction` 할 때 사용되는 `적분`연산 입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 Bayes Filter 식을 살펴보면 Prediction 부분에 적분 연산이 있습니다. 적분 연산은 경우에 따라서 굉장히 연산이 복잡하거나 연산량이 많을 수 있고 심지어 적분이 불가능한 경우 까지 발생합니다.
+- 다행히도 Discrete Case인 경우 단순히 $$ \sum $$으로 합 연산을 하면 되지만 Continuous Case인 경우 반드시 적분 연산을 해야 하기 때문에 계산하는 데 문제가 발생할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 예를 들어 위 그림과 같은 multimodal 형태의 곡선을 적분하는 것은 생각보다 쉽지 않을 수 있습니다. 계산 과정도 복잡하여 어플리케이션에서 사용하기 어려울 수도 있습니다.
+- 이와 같은 문제를 해결하기 위하여 크게 2가지 방법이 있습니다.
+- 첫번째가 적분이 되지 않는 식을 적분하는 대신 `Monte Carlo Integration`이란 방법의 **랜덤 샘플링 방식을 통하여 근사화** 하는 방법이 있습니다. 이 방법을 이용한 Bayes Filter가 `Particle Filter`가 됩니다.
+- 두번째 방법은 더 간단합니다. **적분이 되는 식만 사용**하는 컨셉입니다. 적분을 쉽게 할 수 있으면서 적분이 안되는 식을 근사화 하여 사용할 수 있는 확률 분포가 있을까요?  네 있습니다. 바로 `가우시안 (정규) 분포`입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 가우시안 분포는 위 그림과 같이 이미 적분이 다 되어 있어서 어느 영역이든지 적분이 가능합니다. 
+- 심지어 적분 테이블 까지 마련되어 있을 정도입니다. 뿐만 아니라 파라미터도 `평균`과 `표준편차`만 있어서 다루기가 쉽습니다.
+- Bayes Filter의 제어값과 센서값의 노이즈가 정규 분포를 따른다고 가정하고 특히, 노이즈의 평균은 0, 표준편차는 $$ \sigma $$를 따른다고 가정하면 이 문제는 굉장히 쉬워집니다.
+- 이와 같이 Bayes Filter에서 상태 방정식의 분포 및 노이즈가 `가우시안 분포`를 따르는 Filter를 `Kalman Filter` 라고 합니다.
+- Bayes Filter가 다 이해가 되셨다면 다음 링크의 Linear Kalman Filter를 학습해 보시길 추천드립니다/
+    - [선형 칼만 필터의 원리 이해](https://gaussian37.github.io/ad-ose-lkf_basic/)
+
+<br>
+
+[Optimal State Estimation 글 목록](https://gaussian37.github.io/autodrive-ose-table/)
 
 <br>
