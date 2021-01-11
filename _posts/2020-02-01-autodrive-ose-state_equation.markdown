@@ -86,7 +86,13 @@ tags: [Optimal State Estimation, 최정 상태 이론, 상태 방정식] # add t
 
 - 위 식에서 $$ z(k) $$는 위치를 가리키는 센서 데이터를 나타냅니다.
 - 따라서 위 관계 식은 앞에서 언급한 **측정 방정식 (measurement equation)**에 해당합니다.
-- 측정 방정식에서도 상태 방정식과 같이 노이즈 $$ v(k) $$가 존재 합니다. 이 노이즈는 센서 자체의 노이즈와 같습니다. 이 노이즈 때문에 항상 $$ z(k) = x(k) $$일 수 없고 오차가 발생하게 됩니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/state_equation/8.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 측정 방정식에서도 상태 방정식과 같이 노이즈 $$ v(k) $$가 존재 합니다. 이 노이즈는 센서 자체의 노이즈(분산)과 같습니다. 위 그림과 같이 센서의 노이즈가 작으면 왼쪽과 같이 물체를 인식한 분포가 좁은 영역에 겹쳐져 있고 이는 노이즈(분산)이 작다고 말할 수 있습니다. 반면 오른쪽 그림에서는 노이즈(분산)이 커서 센서가 물체를 인식한 영역이 굉장히 넓게 나타납니다. 즉, 물체의 위치를 정확히 파악하기 어려워집니다.
+이 노이즈 때문에 항상 $$ z(k) = x(k) $$일 수 없고 오차가 발생하게 됩니다.
 
 <br>
 <center><img src="../assets/img/autodrive/ose/state_equation/6.png" alt="Drawing" style="width: 800px;"/></center>
