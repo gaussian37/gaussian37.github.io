@@ -171,6 +171,14 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 - for 문의 두번째 줄은 `measurement update` 또는 `correction`이라고 불립니다. 앞의 예제에서 `센서값`을 통한 현재 상태 보정에 해당하는 알고리즘 입니다. `measurement update` 라고 불리는 이유는 센서를 통해 `측정`한 값을 사용하여 업데이트 하였기 때문이고 `correction`이라고 하는 이유는 prediction한 결과를 센서값을 통하여 보정하기 때문입니다.
 
 <br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
 
 ## **Bayes Filter 수식의 이해**
 
