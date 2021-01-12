@@ -124,6 +124,7 @@ Estimated Total Size (MB): 746.96
 
 <br>
 
+- 설치 : `pip install torchinfo`
 - 안타깝게도 앞에서 설명한 torchsummary의 업데이트가 되지 않는 반면 새로운 모델 정보 요약 라이브러리인 `torchinfo`가 많이 사용되고 있습니다.
 -`torchinfo`는 기존의 torchsummary와 사용 방법은 거의 같습니다. 더구나 기존의 torchsummary에서 LSTM과 같은 RNN 계열의 Summary 시 일부 오류가 났던 문제와 layer 분류를 좀 더 계층적으로 상세히 해준다는 점 등의 개선이 있어서 torchsummary 대신 `torchinfo`를 사용하는 것을 추천 드립니다.
 - 사용 방법의 일부 차이점은 `torchinfo`에서는 (`batch`, channel, height, width)와 같은 형태로 데이터를 입력 받습니다. 이는 torchsummary 에서 batch를 사용하지 않고 (channel, height, width)를 사용하는 것과 차이점입니다. 실제 사용하는 입장에서는 batch를 고려하여 모델을 설계하는 것이 더 현실적이기 때문에 `torchinfo`를 사용하는 것이 더 좋다고 생각이 듭니다.
