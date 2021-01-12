@@ -173,10 +173,12 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/11.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
-
-<br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/12.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
+
+- 위 식을 통해 앞에서 설명한 모든 내용을 이해하실 수 있습니다.
+- ①과 ②를 이용하여 ③ control update (prediction)을 계산하고 ③과 ④를 이용하여 ⑤ measurement update (correction)를 합니다.
+- 최종적으로 얻은 ⑤ measurement update를 다음 step의 입력으로 사용하여 recursive하게 filter를 구성할 수 있습니다.
 
 <br>
 
