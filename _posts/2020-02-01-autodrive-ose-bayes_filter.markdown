@@ -186,6 +186,41 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 <br>
 
+- 앞에서 다룬 Bayes Filter의 수식을 좀 더 자세하게 분석해 보도록 하겠습니다.
+- 먼저 Bayes Filter에서 사용 되는 데이터는 관측값 $$ z $$ 와 제어값 $$ u $$가 사용됩니다. 따라서 각 time의 $$ t $$ 마다 $$ z $$와 $$ u $$가 연속적으로 입력되는 형태를 가집니다.
+
+<br>
+
+- $$ d_{t} = {u_{1}, z_{1}, ... , u_{t}, z_{t}} $$
+
+<br>
+
+- 위 데이터를 이용하여 각각의 모델을 표현하면 다음과 같이 표현할 수 있었습니다.
+- 센서 모델 : $$ p(z_{t} \vert x_{t})
+- 상태 모델 : $$ p(x_{t} \vert x_{t-1}, u_{t}) $$
+- 시스템 상태의 사전 확률 분포 : $$ p(x) $$
+- 이 때, 구해야 하는 값은 상태의 Posterior로 $$ Bel(x_{t}) = p(x_{t} \vert u_{1}, z_{1}, \cdots , u_{t}, z_{t}) $$로 나타낼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이상적으로는 사후 확률 $$ Bel(x_{t}) = p(x_{t} \vert u_{1}, z_{1}, \cdots , u_{t}, z_{t}) $$ 식과 같이 알고리즘이 시작한 시점부터 현재 시점 까지의 $$ u_{1:t}, z_{1:t} $$를 모두 사용하는 것이 맞습니다.
+- 하지만 여기서 `Markov Assumption`을 도입하여 문제를 좀 더 간단히 만들 수 있습니다. 이 가정은 모든 $$ u $$와 $$ z $$가 **독립**임을 가정하고 **업데이트된 $$ bel(x_{t}) $$들은 그 이전의 정보를 함축하고 있다고 가정**하는 것입니다.
+- 따라서 Bayes Filter는 $$ z_{1:t}, u_{1:t} $$ 대신 현재 입력된 센서 및 제어값인 $$ z_{t}, u_{t} $$과 바로 직전 상태의 상태값인 $$ bel(x_{t-1}) $$을 사용합니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 다시 위 식에 대하여 살펴보겠습니다.
+- 3행은 $$ \overline{bel}(x_{t}) = p(x_{t} \vert z_{1:t-1}, u_{1:t}) $$를 만족합니다. 왜냐하면 이는 현재 센서값 없이 추정한 현재 상태이기 때문입니다.
+- 반면 4행은 $$ bel(x_{t}) = p(x_{t} \vert z_{1:t}, u_{1:t})$$ 를 만족합니다. 즉, 3행에서 센서값까지 고려한 것으로 나타납니다.
+- 그러면 이 식들이 어떻게 위 이미지의 알고리즘과 같이 전개될 수 있는 지 살펴보겠습니다.
+- 먼저 3행의 식을 전개해 보겠습니다.
+
+
+
 <br>
 
 ## **예제를 통한 Bayes Filter 수식의 이해**

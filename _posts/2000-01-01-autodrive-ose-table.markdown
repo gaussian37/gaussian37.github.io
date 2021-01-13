@@ -38,3 +38,8 @@ tags: [칼만 필터, kalman filter. bayes filter, particle filter, optimal stat
 - 참조 : https://www.amazon.com/Optimal-State-Estimation-Nonlinear-Approaches/dp/0471708585
 
 <br>
+
+## **Probabilistic Robotics**
+
+<br>
+
