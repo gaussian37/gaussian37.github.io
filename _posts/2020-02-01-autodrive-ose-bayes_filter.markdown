@@ -217,8 +217,17 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 - 3행은 $$ \overline{bel}(x_{t}) = p(x_{t} \vert z_{1:t-1}, u_{1:t}) $$를 만족합니다. 왜냐하면 이는 현재 센서값 없이 추정한 현재 상태이기 때문입니다.
 - 반면 4행은 $$ bel(x_{t}) = p(x_{t} \vert z_{1:t}, u_{1:t})$$ 를 만족합니다. 즉, 3행에서 센서값까지 고려한 것으로 나타납니다.
 - 그러면 이 식들이 어떻게 위 이미지의 알고리즘과 같이 전개될 수 있는 지 살펴보겠습니다.
-- 먼저 3행의 식을 전개해 보겠습니다.
+- 먼저 3행의 식을 전개해 보겠습니다. 
 
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/14.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 식을 전개 하기 위해서는 위 식과 같이 베이지안 확률의 `total probability 법칙`을 이용하겠습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/15.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
 
 <br>
