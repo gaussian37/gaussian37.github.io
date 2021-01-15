@@ -196,7 +196,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 <br>
 
 - 위 데이터를 이용하여 각각의 모델을 표현하면 다음과 같이 표현할 수 있었습니다.
-- 센서 모델 : $$ p(z_{t} \vert x_{t})
+- 센서 모델 : $$ p(z_{t} \vert x_{t}) $$
 - 상태 모델 : $$ p(x_{t} \vert x_{t-1}, u_{t}) $$
 - 시스템 상태의 사전 확률 분포 : $$ p(x) $$
 - 이 때, 구해야 하는 값은 상태의 Posterior로 $$ Bel(x_{t}) = p(x_{t} \vert u_{1}, z_{1}, \cdots , u_{t}, z_{t}) $$로 나타낼 수 있습니다.
@@ -217,7 +217,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 - 3행은 $$ \overline{bel}(x_{t}) = p(x_{t} \vert z_{1:t-1}, u_{1:t}) $$를 만족합니다. 왜냐하면 이는 현재 센서값 없이 추정한 현재 상태이기 때문입니다.
 - 반면 4행은 $$ bel(x_{t}) = p(x_{t} \vert z_{1:t}, u_{1:t})$$ 를 만족합니다. 즉, 3행에서 센서값까지 고려한 것으로 나타납니다.
 - 그러면 이 식들이 어떻게 위 이미지의 알고리즘과 같이 전개될 수 있는 지 살펴보겠습니다.
-- 먼저 3행의 식을 전개해 보겠습니다. 
+- 먼저 $$ p(x_{t} \vert z_{1:t-1}, u_{1:t}) $$을 전개하여 3행의 식 $$ \overline{bel}(x_{t}) $$을 유도해 보겠습니다.
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/14.png" alt="Drawing" style="width: 400px;"/></center>
@@ -226,9 +226,65 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 - 식을 전개 하기 위해서는 위 식과 같이 베이지안 확률의 `total probability 법칙`을 이용하겠습니다.
 
 <br>
-<center><img src="../assets/img/autodrive/ose/bayes_filter/15.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/15.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 위 식과 같이 $$ x_{t-1} $$을 이용하여 total probability를 적용하여 전개할 수 있습니다.
+- 위 식에서 $$ p(x_{t} \vert x_{t-1}, z_{1:t-1}, u_{1:t}) $$와 $$ p(x_{t-1} \vert z_{1:t-1}, u_{1:t}) $$ 각각은 다음과 같이 전개될 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/16.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 이와 같이 전개될 수 있는 이유는 `Markov Assumption`을 가정하기 때문에 $$ x_{t-1} $$이 $$ z_{1:t-1}, u_{1:t-1} $$을 포함하기 때문입니다. 따라서 조건부에는 $$ x_{t-1}, u_{t} $$만 남게 됩니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/17.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 식에서는 대상이 $$ x_{t-1} $$이기 때문에 미래에 발생할 $$ u_{t} $$를 사용하여 확률을 나타낼 수 없습니다. 따라서 $$ u_{t} $$는 생략할 수 있어서 $$ p(x_{t-1} \vert z_{1:t-1}, u_{1:t-1}) $$로 표현할 수 있습니다.
+- 정리된 식은 최종적으로 bel 함수의 정의에 따라 $$ bel(x_{t-1}) $$로 나타낼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/18.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이와 같은 방식으로 Bayes Filter의 control update (prediction) 부분의 식 전개를 할 수 있습니다.
+
+<br>
+
+- 이번에는 $$ p(x_{t} \vert z_{1:t}, u_{1:t}) $$을 전개하여 4행의 식 $$ bel(x_{t}) $$를 유도해 보겠습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/19.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 먼저 위 식의 성질을 이용하여 식을 전개하겠습니다. 아래 식의 첫번째 줄의 식에서 사용되었습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/20.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 먼저 첫번째 줄에서 분모는 $$ \eta $$로 치환되었습니다. 분모값은 확률을 1로 만들어 주기 위한 상수값으로 큰 의미가 없기 때문입니다.
+- 두번째에서 세번째줄로 식이 유도될 때, $$ p(z_{t} \vert x_{t}, z_{1:t-1}, u_{1:t}) = p(z_{t} \vert x_{t}) $$로 간소화 될 수 있는 이유는 `Markov Assumption`에 따라서 $$ 조건부의 $$ x_{t} $$가 $$ z_{1:t-1}, u_{1:t} $$을 포함하기 때문입니다.
+- 이와 같이 식을 유도하였을 때, $$ p(x_{t} \vert z_{1:t-1}, u_{1:t}) = \overline{bel}(x_{t}) $$ 이고 $$ p(x_{t} \vert z_{1:t}, u_{1:t}) = bel(x_{t}) $$ 이므로 다음과 같이 식을 정리할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/21.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 이 식을 Bayes Filter에 적용하면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/22.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이와 같은 방법으로 Bayes Filter의 measurement update (correction) 과정을 마칠 수 있습니다.
+
+<br>
+
+- 지금까지 살펴본 control update (prediction)과 measurement update(correction)을 통하여 $$ t $$ 시간에서의 Bayes Filter를 적용할 수 있습니다.
+- 이 때 계산된 결과를 $$ t + 1 $$ 시간에서의 Bayes Filter로 넘겨줌으로써 Recursive하게 Filter를 적용할 수 있습니다.
 
 <br>
 
