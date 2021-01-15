@@ -139,6 +139,36 @@ cudnn.benchmark = True
 
 <br>
 
+- GPU device의 사용 가능한 메모리를 코드 상에서 확인하려면 아래 함수를 사용합니다.
+
+<br>
+
+```python
+# unit : byte
+torch.cuda.get_device_properties("cuda:0").total_memory
+
+# unit : mega byte
+torch.cuda.get_device_properties("cuda:0").total_memory // 1e6
+
+# unit : giga byte
+torch.cuda.get_device_properties("cuda:0").total_memory // 1e9
+```
+
+<br>
+
+- 멀티 GPU 사용 시 사용 시 아래 코드를 사용하여 전체 사용 가능한 GPU 메모리를 확인할 수 있습니다.
+
+<br>
+
+```python
+gpu_ids = list(map(str, list(range(torch.cuda.device_count()))))
+total_gpu_memory = 0
+for gpu_id in gpu_ids:
+    total_gpu_memory += torch.cuda.get_device_properties("cuda:" + gpu_id).total_memory
+```
+
+<br>
+
 ## **dataloader의 pin_memory**
 
 <br>
