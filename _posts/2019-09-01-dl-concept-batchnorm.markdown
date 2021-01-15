@@ -361,7 +361,7 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 
 <br>
 
-- $$ \text{BN} = \gamma \Biggl(\color{red}{\frac{X - \mu_{\text{batch}}}}{\sigma_{\text{batch}}}\Biggr) + \bets $$
+- $$ \text{BN} = \gamma \Biggl(\color{red}{\frac{X - \mu_{\text{batch}}}{\sigma_{\text{batch}}}} \Biggr) + \beta $$
 
 <br>
 
@@ -389,7 +389,7 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 
 <br>
 
-- $$ \text{BN} = \gamma \Biggl(\color{red}{\frac{X - \mu_{\text{BN}}}}{\sigma_{\text{BN}}}\Biggr) + \bets $$
+- $$ \text{BN} = \gamma \Biggl(\color{red}{\frac{X - \mu_{\text{BN}}}{\sigma_{\text{BN}}}} \Biggr) + \beta $$
 
 - $$ \mu_{\text{BN}} = \frac{1}{B}\sum_{i} x_{i} $$
 
@@ -468,7 +468,7 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 
 <br>
 
-- Pytorch에서 BatchNormalization을 사용하는 대표적인 방법은 `torch.nn.BatchNorm1d`와 `torch.nn.BatchNorm2d`를 사용하는 것입니다. 이 두가지 방법 모두 아래 식을 따릅니다. 특히 $$ \gammma $$와 $$ \beta $$는 학습되는 파라미터 이며 기본값은  $$ \gammma = 1, \beta = 0 $$을 초기값으로 학습을 시작합니다.
+- Pytorch에서 BatchNormalization을 사용하는 대표적인 방법은 `torch.nn.BatchNorm1d`와 `torch.nn.BatchNorm2d`를 사용하는 것입니다. 이 두가지 방법 모두 아래 식을 따릅니다. 특히 $$ \gamma $$와 $$ \beta $$는 학습되는 파라미터 이며 기본값은  $$ \gamma = 1, \beta = 0 $$을 초기값으로 학습을 시작합니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/batchnorm/32.png" alt="Drawing" style="width: 400px;"/></center>
