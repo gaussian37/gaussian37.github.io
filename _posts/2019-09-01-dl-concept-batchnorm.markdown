@@ -29,8 +29,8 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 - ### [Internal Covariant Shift 더 알아보기](#internal-covariant-shift-더-알아보기-1)
 - ### [Batch Normalization의 효과](#batch-normalization의-효과-1)
 - ### [학습 단계와 추론 단계의 Batch Normalization](#학습-단계와-추론-단계의-batch-normalization-1)
-- ### [Fully Connected Layer와 Batch Normalization(#fully-connected-layer와-batch-normalization-1)
-- ### [Convolution Layer와 Batch Normalization(#convolution-layer와-batch-normalization-1)
+- ### [Fully Connected Layer와 Batch Normalization](#fully-connected-layer와-batch-normalization-1)
+- ### [Convolution Layer와 Batch Normalization](#convolution-layer와-batch-normalization-1)
 - ### [Batch Normalization의 한계](#batch-normalization의-한계-1)
 - ### [Pytorch에서의 사용 방법](#pytorch에서의-사용-방법)
 
@@ -421,7 +421,7 @@ tags: [배치 정규화, 배치 노멀라이제이션, batch normalization] # ad
 
 <br>
 
-- $$ \text{BN}(\text{FC}(X)) = \gamma \Biggl(\frac{WX + b - \mu_{\text{BN}}}{\sigma_{\text{BN}}}  \Biggr) + \beta  $$
+- $$ \text{BN}(\text{FC}(X)) = \gamma \Biggl(\frac{WX + b - \mu_{\text{BN}}}{\sigma_{\text{BN}}}  \Biggr) + \beta $$
 
 - $$ \frac{\gamma}{\sigma_{\text{BN}}}WX + \frac{\gamma \color{red}{b} -\gamma\mu_{\text{BN}} + \sigma_{\text{BN}}\color{red}{\beta}}{\sigma_{\text{BN}}} $$ 
 
