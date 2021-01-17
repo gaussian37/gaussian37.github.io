@@ -294,6 +294,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - 앞에서 배운 수식을 간단한 로봇 이동 예제를 이용하여 적용해 보도록 하겠습니다.
 - 첫번째 예제는 제어값이 없는 상태에서의 Bayes Filter 이고 두번째 예제는 제어값이 있는 상태에서의 Bayes Filter 예제입니다.
+- 첫번째 예제에서는 앞에서 다룬 Bayes Filter 보다 조금 더 간단한 수식을 사용하고 이를 확장한 두번째 예제에서는 제어값, 센서값 모두를 사용하여 앞에서 다룬 Bayes Filter와 동일한 수식을 사용합니다.
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/23.png" alt="Drawing" style="width: 400px;"/></center>
@@ -328,6 +329,17 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - 다시 한번 설명 하면 `Markov Assumption`을 이용하여 그 다음 식인 $$ t=2 $$일 때의 `posterior`를 추정할 수 있습니다.
 
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/27.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `Markov Assumption`은 위 식에서 $$ z_{n} $$이 $$ z_{1}, z_{2}, \cdots , z_{n-1} $$과 모두 독립이라는 가정을 두는 것입니다. 따라서 다음과 같이 식을 전개할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/28.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- $$ \therefore bel(X_{t}) = p(X \vert Z_{1}, Z_{3}, \cdots , Z_{n}) = \eta p(Z_{n} \vert X)bel(X_{t-1}) $$
 
 
 
