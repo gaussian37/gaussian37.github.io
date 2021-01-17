@@ -266,7 +266,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 <br>
 
 - 먼저 첫번째 줄에서 분모는 $$ \eta $$로 치환되었습니다. 분모값은 확률을 1로 만들어 주기 위한 상수값으로 큰 의미가 없기 때문입니다.
-- 두번째에서 세번째줄로 식이 유도될 때, $$ p(z_{t} \vert x_{t}, z_{1:t-1}, u_{1:t}) = p(z_{t} \vert x_{t}) $$로 간소화 될 수 있는 이유는 `Markov Assumption`에 따라서 $$ 조건부의 $$ x_{t} $$가 $$ z_{1:t-1}, u_{1:t} $$을 포함하기 때문입니다.
+- 두번째에서 세번째줄로 식이 유도될 때, $$ p(z_{t} \vert x_{t}, z_{1:t-1}, u_{1:t}) = p(z_{t} \vert x_{t}) $$로 간소화 될 수 있는 이유는 `Markov Assumption`에 따라서 조건부의 $$ x_{t} $$가 $$ z_{1:t-1}, u_{1:t} $$을 포함하기 때문입니다.
 - 이와 같이 식을 유도하였을 때, $$ p(x_{t} \vert z_{1:t-1}, u_{1:t}) = \overline{bel}(x_{t}) $$ 이고 $$ p(x_{t} \vert z_{1:t}, u_{1:t}) = bel(x_{t}) $$ 이므로 다음과 같이 식을 정리할 수 있습니다.
 
 <br>
@@ -291,6 +291,60 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 ## **예제를 통한 Bayes Filter 수식의 이해**
 
 <br>
+
+- 앞에서 배운 수식을 간단한 로봇 이동 예제를 이용하여 적용해 보도록 하겠습니다.
+- 첫번째 예제는 제어값이 없는 상태에서의 Bayes Filter 이고 두번째 예제는 제어값이 있는 상태에서의 Bayes Filter 예제입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/23.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 첫번째 예제에서 상태는 **문이 열려 있음 / 닫혀 있음**에 해당하고 센서값은 로봇이 문 앞으로 갔을 때, 센서 값으로 인지한 문의 상태 입니다.
+- `state(x)` : open / close
+- `measurement(z)` : open / close
+
+<br>
+
+- Bayes Filter는 Bayes Theory를 이용합니다. Bayes Theory를 적용할 때, 반드시 필요한 `prior`, `posterior`, `likelihood`에 대한 정의는 아래와 같습니다.
+- `prior` : $$ p(\text{open}) $$ : 문이 열린 상태일 확률
+- `likelihood` : $$ p(z \vert \text{open}) $$ : 문이 열려 있있을 때, 센서 값의 상태가 $$ z $$ (**open**)일 확률로 실제 관측 가능한 값
+- `posterior` : $$ p(\text{open} \vert z) $$ : 센서 값의 상태가 $$ z $$(**open**)일 때, 문이 열린 상태일 확률 (실제 관측하여 데이터 구축하는 것이 likelihood 보다 어렵기 때문에 likelihood를 이용하여 posterior를 구합니다.)
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/24.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 이 때, prior, likelihood는 다음을 따른다고 가정하겠습니다
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/25.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 먼저 초기 상태 ($$ t = 0 $$)에서 문이 열렸거나 닫혀 있을 상태는 0.5로 동등한 상태라고 가정하겠습니다. (`prior`)
+- 문이 열려 있는 상태에서 로봇이 문이 열렸다고 센서로 감지할 확률은 0.6, 문이 닫혔을 때, 센서로 문이 열렸다고 감지할 확률은 0.3 이라고 가정하겠습니다. (`likelihood`) 실제 likelihood는 관측값들을 통하여 생성할 수 있습니다.
+- 구하고자 하는 `posterior`는 센서가 문이 열렸다고 감지하였을 때, 실제 문이 열렸을 확률 입니다. 위 식과 같이 total probability를 이용하여 $$ t=1 $$의 `posterior`를 구할 수 있습니다. 
+
+<br>
+
+- 다시 한번 설명 하면 `Markov Assumption`을 이용하여 그 다음 식인 $$ t=2 $$일 때의 `posterior`를 추정할 수 있습니다.
+
+
+
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/26.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이번에는 $$ t=2 $$에서의 `posterior`에 대하여 구해보도록 하겠습니다. 이 때, 사용하는 `prior`는 $$ t=1 $$에서 구한 `posterior`가 됩니다. (빨간색 값을 참조하시기 바랍니다.)
+- likelihood에서 실제 문이 열렸을 때, 센서 또한 문이 열렸다고 감지할 확률이 0.5 보다 큰 0.6 이기 떄문에 재귀적으로 이 작업이 반복된다면 위 식의 파란색 값과 같이 점점 더 확률이 커지게 되는 것을 알 수 있습니다.
+
+<br>
+
+
+
+
+
+
 
 <br>
 
