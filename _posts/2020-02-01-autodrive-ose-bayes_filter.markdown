@@ -330,32 +330,40 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 - 다시 한번 설명 하면 `Markov Assumption`을 이용하여 그 다음 식인 $$ t=2 $$일 때의 `posterior`를 추정할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/autodrive/ose/bayes_filter/27.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/27.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - `Markov Assumption`은 위 식에서 $$ z_{n} $$이 $$ z_{1}, z_{2}, \cdots , z_{n-1} $$과 모두 독립이라는 가정을 두는 것입니다. 따라서 다음과 같이 식을 전개할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/autodrive/ose/bayes_filter/28.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/28.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- $$ \therefore bel(X_{t}) = p(X \vert Z_{1}, Z_{3}, \cdots , Z_{n}) = \eta p(Z_{n} \vert X)bel(X_{t-1}) $$
+- $$ \therefore \ \ bel(X_{t}) = p(X \vert Z_{1}, Z_{3}, \cdots , Z_{n}) = \eta \cdot p(Z_{n} \vert X)bel(X_{t-1}) $$
 
+<br>
 
+- 앞에서 구한 $$ color{red}{p(\text{open} \vert z) = 0.67} $$은 $$ t=2 $$에서 `prior`로 사용됩니다.
+- 따라서 $$ bel(x_{2}) $$ 구할 때, $$ bel(x_{1}) = 0.67 $$이 됩니다. 아래 식을 참조해 보겠습니다.
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/26.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 이번에는 $$ t=2 $$에서의 `posterior`에 대하여 구해보도록 하겠습니다. 이 때, 사용하는 `prior`는 $$ t=1 $$에서 구한 `posterior`가 됩니다. (빨간색 값을 참조하시기 바랍니다.)
+- 위 식에서는 $$ t=2 $$에서의 `posterior`에 대하여 구해봅니다. 이 때, 사용하는 `prior`는 $$ t=1 $$에서 구한 `posterior`가 됩니다. (빨간색 값을 참조)
 - likelihood에서 실제 문이 열렸을 때, 센서 또한 문이 열렸다고 감지할 확률이 0.5 보다 큰 0.6 이기 떄문에 재귀적으로 이 작업이 반복된다면 위 식의 파란색 값과 같이 점점 더 확률이 커지게 되는 것을 알 수 있습니다.
 
 <br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/29.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
+- 　$$ X $$ : 문이 열린 상태 / 닫힌 상태
+- 　$$ Z $$ : 로봇 센서가 문이 열린 상태 / 닫힌 상태로 감지하는 상태
+- 　$$ U $$ : 로봇에 문을 미는 상태 / 밀지 않는 상태
 
-
-
-
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/30.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 
 <br>
