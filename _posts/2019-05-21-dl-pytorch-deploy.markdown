@@ -143,8 +143,19 @@ torch.onnx.export(net, dummy_data, "output.onnx")
 
 <br>
 
-- 위와 같이 코드를 입력하면 export가 완료됩니다. ONNX의 제약 중 하나는 pytorch 등의 동적 계산 프레임워크로부터 export할 경우에 1회 계산을 해야하므로 네트워크 내에서 if문 등으로 분기가 이루어지지 않는 경우에는 제대로 export가 되지 않을 수 있습니다. 
- 
+- 위와 같이 코드를 입력하면 export가 완료됩니다. ONNX의 제약 중 하나는 pytorch 등의 동적 계산 프레임워크로부터 export할 경우에 1회 계산을 해야하므로 네트워크 내에서 if문 등으로 분기가 이루어지지 않는 경우에는 제대로 export가 되지 않을 수 있습니다.
+- ONNX로 변환시 입력부와 출력부의 이름은 임의의 이름으로 지정되어 있습니다. ONNX를 사용하는 입장에서 입력부와 출력부의 이름을 특정 이름으로 지정하고 싶으면 export 할 때 옵션을 다음과 같이 지정할 수 있습니다.
+
+<br>
+
+```python
+# 입출력이 각각 1개인 경우
+torch.onnx.export(net, dummy_data,  input_names = ['input'], output_names = ['output'], "output.onnx")
+
+# 입력이 1개 출력이 2개인 경우
+torch.onnx.export(net, dummy_data,  input_names = ['input'], output_names = ['cls_score','bbox_pred'], "output.onnx")
+```
+
  <br>
  
  ### **onnx 파일 확인**
