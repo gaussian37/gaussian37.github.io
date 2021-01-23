@@ -201,7 +201,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 - 센서 모델 : $$ p(z_{t} \vert x_{t}) $$
 - 상태 모델 : $$ p(x_{t} \vert x_{t-1}, u_{t}) $$
 - 시스템 상태의 사전 확률 분포 : $$ p(x) $$
-- 이 때, 구해야 하는 값은 상태의 Posterior로 $$ Bel(x_{t}) = p(x_{t} \vert u_{1}, z_{1}, \cdots , u_{t}, z_{t}) $$로 나타낼 수 있습니다.
+- 이 때, 구해야 하는 값은 상태의 `Posterior`로 $$ Bel(x_{t}) = p(x_{t} \vert u_{1}, z_{1}, \cdots , u_{t}, z_{t}) $$로 나타낼 수 있습니다.
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/13.png" alt="Drawing" style="width: 800px;"/></center>
@@ -218,7 +218,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 - 다시 위 식에 대하여 살펴보겠습니다.
 - 3행은 $$ \overline{bel}(x_{t}) = p(x_{t} \vert z_{1:t-1}, u_{1:t}) $$를 만족합니다. 왜냐하면 이는 현재 센서값 없이 추정한 현재 상태이기 때문입니다.
 - 반면 4행은 $$ bel(x_{t}) = p(x_{t} \vert z_{1:t}, u_{1:t})$$ 를 만족합니다. 즉, 3행에서 센서값까지 고려한 것으로 나타납니다.
-- 그러면 이 식들이 어떻게 위 이미지의 알고리즘과 같이 전개될 수 있는 지 살펴보겠습니다.
+- 그러면 이 식들이 어떻게 위 식의 알고리즘과 같이 전개될 수 있는 지 살펴보겠습니다.
 - 먼저 $$ p(x_{t} \vert z_{1:t-1}, u_{1:t}) $$을 전개하여 3행의 식 $$ \overline{bel}(x_{t}) $$을 유도해 보겠습니다.
 
 <br>
