@@ -15,6 +15,8 @@ tags: [자율주행, 자율주행 자동차, autodrive, self-driving] # add tag
 
 - [헤딩 각(heading angle) 계산](https://gaussian37.github.io/autodrive-concept-heading_angle/)
 - [ISO Vehicle Axis System](https://gaussian37.github.io/autodrive-concept-iso_vehicle_axis_system/)
+- [레이더(radar) 센서](https://gaussian37.github.io/autodrive-concept-radar/)
+- [라이다(lidar) 센서](https://gaussian37.github.io/autodrive-concept-lidar/)
 
 <br>
 
