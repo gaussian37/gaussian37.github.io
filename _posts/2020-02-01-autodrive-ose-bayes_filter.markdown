@@ -267,7 +267,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 <center><img src="../assets/img/autodrive/ose/bayes_filter/20.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 먼저 첫번째 줄에서 분모는 $$ \eta $$로 치환되었습니다. 분모값은 확률을 1로 만들어 주기 위한 상수값으로 큰 의미가 없기 때문입니다.
+- 먼저 첫번째 줄에서 분모는 $$ \eta $$로 치환되었습니다. 분모값은 확률을 1로 만들어 주기 위한 normalization 역할을 합니다.
 - 두번째에서 세번째줄로 식이 유도될 때, $$ p(z_{t} \vert x_{t}, z_{1:t-1}, u_{1:t}) = p(z_{t} \vert x_{t}) $$로 간소화 될 수 있는 이유는 `Markov Assumption`에 따라서 조건부의 $$ x_{t} $$가 $$ z_{1:t-1}, u_{1:t} $$을 포함하기 때문입니다.
 - 이와 같이 식을 유도하였을 때, $$ p(x_{t} \vert z_{1:t-1}, u_{1:t}) = \overline{bel}(x_{t}) $$ 이고 $$ p(x_{t} \vert z_{1:t}, u_{1:t}) = bel(x_{t}) $$ 이므로 다음과 같이 식을 정리할 수 있습니다.
 
@@ -311,13 +311,13 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 - Bayes Filter는 Bayes Theory를 이용합니다. Bayes Theory를 적용할 때, 반드시 필요한 `prior`, `posterior`, `likelihood`에 대한 정의는 아래와 같습니다.
 - `prior` : $$ p(\text{open}) $$ : 문이 열린 상태일 확률
 - `likelihood` : $$ p(z \vert \text{open}) $$ : 문이 열려 있있을 때, 센서 값의 상태가 $$ z $$ (**open**)일 확률로 실제 관측 가능한 값
-- `posterior` : $$ p(\text{open} \vert z) $$ : 센서 값의 상태가 $$ z $$(**open**)일 때, 문이 열린 상태일 확률 (실제 관측하여 데이터 구축하는 것이 likelihood 보다 어렵기 때문에 likelihood를 이용하여 posterior를 구합니다.)
+- `posterior` : $$ p(\text{open} \vert z) $$ : 센서 값의 상태가 $$ z $$(**open**)일 때, 문이 열린 상태일 확률 (posterior는 실제 관측하여 데이터 구축하는 것이 likelihood 경우 보다 어렵기 때문에 likelihood를 이용하여 posterior를 구합니다.)
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/24.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 이 때, prior, likelihood는 다음을 따른다고 가정하겠습니다
+- 이 때, prior, likelihood는 다음을 따른다고 가정하겠습니다. 실제 문제에 적용할 때에도 likelihood는 구축된 사례나 데이터등을 이용하여 정의되어야 합니다.
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/25.png" alt="Drawing" style="width: 800px;"/></center>
@@ -345,7 +345,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 <br>
 
-- 앞에서 구한 $$ color{red}{p(\text{open} \vert z) = 0.67} $$은 $$ t=2 $$에서 `prior`로 사용됩니다.
+- 앞에서 구한 $$ \color{red}{p(\text{open} \vert z) = 0.67} $$은 $$ t=2 $$에서 `prior`로 사용됩니다.
 - 따라서 $$ bel(x_{2}) $$ 구할 때, $$ bel(x_{1}) = 0.67 $$이 됩니다. 아래 식을 참조해 보겠습니다.
 
 <br>
