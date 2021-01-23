@@ -356,12 +356,20 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 - likelihood에서 실제 문이 열렸을 때, 센서 또한 문이 열렸다고 감지할 확률이 0.5 보다 큰 0.6 이기 떄문에 재귀적으로 이 작업이 반복된다면 위 식의 파란색 값과 같이 점점 더 확률이 커지게 되는 것을 알 수 있습니다.
 
 <br>
+
+- 이번에는 제어값과 센서값이 모두 사용되는 상황의 예제에 대하여 살펴보도록 하겠습니다.
+
+<br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/29.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 　$$ X $$ : 문이 열린 상태 / 닫힌 상태
 - 　$$ Z $$ : 로봇 센서가 문이 열린 상태 / 닫힌 상태로 감지하는 상태
 - 　$$ U $$ : 로봇에 문을 미는 상태 / 밀지 않는 상태
+
+<br>
+
+- 각 상태 $$ X, Z, U $$가 위와 같이 정의되었을 때, 각 확률은 다음과 같습니다.
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/30.png" alt="Drawing" style="width: 800px;"/></center>
