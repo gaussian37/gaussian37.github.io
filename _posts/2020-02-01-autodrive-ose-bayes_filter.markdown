@@ -372,9 +372,90 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 - 각 상태 $$ X, Z, U $$가 위와 같이 정의되었을 때, 각 확률은 다음과 같습니다.
 
 <br>
-<center><img src="../assets/img/autodrive/ose/bayes_filter/30.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/30.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
+- 먼저 문이 열리거나 닫힌 초기값 상태는 각각 0.5로 가정하겠습니다.
+
+<br>
+
+- 먼저 `센서값`에 대한 확률 분포를 정의해 보도록 하겠습니다.
+- 변수는 센서값의 상태와 문이 열리고 닫힌 상태 2가지이므로 아래와 같이 총 4가지의 확률이 계산됩니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/31.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 센서값의 확률은 문이 열려 있을 때, 센서도 문이 열렸다고 감지할 확률이 0.6이라고 가정합니다.
+- 따라서 문이 열려 있을 때, 센서는 문이 닫현다고 감지할 확률은 0.4로 판단합니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/32.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 문이 닫혀 있을 때, 센서도 문이 닫혔다고 감지할 확률은 0.8이라고 가정합니다.
+- 따라서 문이 닫혀 있을 때, 센서가 문이 열렸다고 감지할 확률은 0.2로 판단합니다.
+
+<br>
+
+- 그 다음으로 `제어값`에 대한 확률 분포를 가정해 보도록 하겠습니다.
+- 변수는 센서값의 상태, 문이 열리고 닫힌 상태 그리고 로봇이 문을 밀거나 밀지 안흔 상태 총 3가지이므로 아래와 같이 총 8가지의 확률이 계산됩니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/33.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 먼저 위 식은 로봇이 문을 미는 경우의 조건부 확률을 위 식과 같이 정의 하였습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/34.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 식은 로봇이 문을 밀지 않은 경우의 조건부 확률을 위 식과 같이 정의하였습니다.
+
+<br>
+
+- 먼저 `센서값`은 **open**이고 `제어값`은 **아무 것도 하지 않음** 상태일 때를 기준으로 전개해 보겠습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/35.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 먼저 위 식은 문의 상태에 따른 `제어값`의 확률 분포를 반영한 식입니다. 제어값이 아무 것도 하지 않음으로 입력 되기 때문에 위 식과 같이 `control update` (`prediction`)을 할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/36.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/37.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/38.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/39.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/40.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/41.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/42.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/43.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 그 다음 동작 상태는 `제어값`은 문을 미는 것이고 `센서값`은 문이 열렸다고 판단한 상태입니다.
 
 <br>
 
