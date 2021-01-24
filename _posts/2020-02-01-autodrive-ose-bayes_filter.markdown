@@ -422,14 +422,20 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 <br>
 
 - 먼저 위 식은 문의 상태에 따른 `제어값`의 확률 분포를 반영한 식입니다. 제어값이 아무 것도 하지 않음으로 입력 되기 때문에 위 식과 같이 `control update` (`prediction`)을 할 수 있습니다.
+- 위 식에서 실제 문이 열렸을 상태와 문이 닫혔을 상태를 분리하여 확률 값을 아래와 같이 계산해 보도록 하겠습니다.
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/36.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 앞에서 가정한 확률 값에 따라 $$ \overline{bel}(X_{1} = \text{is_open}) = 0.5 $$ 를 구할 수 있습니다.
+
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/37.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
+
+- 또한 $$ \overline{bel}(X_{1} = \text{is_closed}) = 0.5 $$ 를 구할 수 있습니다.
+- 따라서 문이 열렸을 때와 닫혔을 때의 `control update` (`prediction`)을 구할 수 있습니다.
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/38.png" alt="Drawing" style="width: 400px;"/></center>
