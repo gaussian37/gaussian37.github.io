@@ -8,6 +8,7 @@ tags: [vision] # add tag
 ---
 
 - [히스토그램 영상 처리](https://gaussian37.github.io/vision-concept-histogram/)
+- [2D Transformation](https://gaussian37.github.io/vision-concept-2d_transformation/)
 - 이진 영상 처리
 - 영상 처리 기본 연산 (점, 영역, 기하)
 - 다해상도
