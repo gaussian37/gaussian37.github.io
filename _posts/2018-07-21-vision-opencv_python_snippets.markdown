@@ -17,16 +17,53 @@ tags: [opencv, python, snippets] # add tag
 
 <br>
 
-- ### window 창 크기 조절하는 방법
-- ### contrast와 brightness 변경 방법
-- ### 이미지 붙이기(hconcat, vconcat)
-- ### OpenCV 한글 쓰기
-- ### 90도 이미지 회전
-- ### gif 만들기 with imageio
-- ### 두 이미지를 오버레이 하기
-- ### 픽셀의 하한, 상한 값 정하기
+- ### [warpAffine을 이용한 기하학적 변환](#warpAffine을-이용한-기하학적-변환-1)
+- ### [window 창 크기 조절하는 방법](#window-창-크기-조절하는-방법-1)
+- ### [contrast와 brightness 변경 방법](#contrast와-brightness-변경-방법-1)
+- ### [이미지 붙이기(hconcat, vconcat)](#이미지-붙이기hconcat-vconcat-1)
+- ### [OpenCV 한글 쓰기](#opencv-한글-쓰기-1)
+- ### [90도 이미지 회전](#90도-이미지-회전-1)
+- ### [gif 만들기 with imageio](#gif-만들기-with-imageio-1)
+- ### [두 이미지를 오버레이 하기](#두-이미지를-오버레이-하기-1)
+- ### [픽셀의 하한, 상한 값 정하기](#픽셀의-하한-상한-값-정하기-1)
 
 <br>
+
+## **warpAffine을 이용한 기하학적 변환**
+
+<br>
+
+- Affine 변환에 대한 이론적 개념은 아래 링크를 참조하시기 바랍니다.
+    - 링크 : [https://gaussian37.github.io/vision-concept-geometric_transformation/](https://gaussian37.github.io/vision-concept-geometric_transformation/)
+- Affine 변환을 이용하여 `이동 변환`을 구현해 보도록 하겠습니다. 사용 방법은 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `src`는 입력 영상을 뜻하고 `M`은 이동 변환을 위한 affine 변환 행렬 입니다. 위의 이론과 관련된 링크를 참조하면 Affine 변환에서 사용되는 2 X 3 크기의 affine 변환 행렬의 의미를 확인하실 수 있습니다. affine 변환 행렬은 `np.float32`로 선언되어야 합니다.
+- `dsize`는 출력 영상의 크기이며 `dst`는 출력 영상이 저장되는 array 입니다. 이 때, `dsize`가 `src`의 사이즈와 다르면 resize를 해야 하는데 그 때 사용되는 `interpolation` 방법이 `flags`입니다. 기본적으로 bilinear interpolation이 사용됩니다.
+- 이동 변환을 하게 되는 경우 dst 사이즈 영역에서 값이 존재하는 영역이 있는 반면 값이 없는 영역도 발생하게 됩니다. 이 영역을 어떤 값으로 채울 지가 `borderValue`에 해당하며 기본값은 검정색인 0이 됩니다.
+
+<br>
+
+```python
+src = cv2.imread('test.png')
+
+# affine matrix : x' ← x + 200, y' ← y + 100
+# [1, 0, 200
+#  0, 1, 100]
+aff = np.array([[1, 0, 200], [0, 1, 100]], dtype=np.float32)
+dst = cv2.warpAffine(src, aff, (0, 0))
+```
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 결과와 같이 $$ x $$ 방향으로 200, $$ y $$ 방향으로 100만큼 이동 변환하였고, 픽셀값이 없는 영역은 검은색 (0)으로 입력된 것을 확인할 수 있습니다.
+
+
 
 ## **window 창 크기 조절하는 방법**
 
