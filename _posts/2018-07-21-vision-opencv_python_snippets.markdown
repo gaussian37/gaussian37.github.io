@@ -17,7 +17,7 @@ tags: [opencv, python, snippets] # add tag
 
 <br>
 
-- ### [warpAffine을 이용한 기하학적 변환](#warpAffine을-이용한-기하학적-변환-1)
+- ### [warpAffine을 이용한 기하학적 변환](#warpaffine을-이용한-기하학적-변환-1)
 - ### [window 창 크기 조절하는 방법](#window-창-크기-조절하는-방법-1)
 - ### [contrast와 brightness 변경 방법](#contrast와-brightness-변경-방법-1)
 - ### [이미지 붙이기(hconcat, vconcat)](#이미지-붙이기hconcat-vconcat-1)

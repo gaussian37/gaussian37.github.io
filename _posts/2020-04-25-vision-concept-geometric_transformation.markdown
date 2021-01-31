@@ -77,3 +77,7 @@ tags: [vision, 2d transformation, ] # add tag
 
 - 여기서 $$ \begin{bmatrix} 1 & 0 & a \\ 0 & 1 & b\end{bmatrix} $$을 **이동 변환**을 나타내기 위한 `affine` 변환 행렬 이라고 합니다.
 
+<br>
+
+- Affine 변환 행렬을 이용하여 
+
