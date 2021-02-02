@@ -24,7 +24,9 @@ tags: [vision, 2d transformation, ] # add tag
 <br>
 
 - ### Geometric Transformation (기하학적 변환)의 정의
-- ### Translation transformation (이동 변환)
+- ### Translation Transformation (이동 변환)
+- ### Shear Transformation (전단 변환)
+- ### Scale Transformation (크기 변환)
 
 <br>
 
@@ -79,5 +81,37 @@ tags: [vision, 2d transformation, ] # add tag
 
 <br>
 
-- Affine 변환 행렬을 이용하여 
+- OpenCV에서 Affine 변환 행렬을 이용하여 영상의 이동 변환을 하는 방법은 아래 링크를 참조하시기 바랍니다.
+    - 링크 : [warpAffine을 이용한 기하학적 변환](https://gaussian37.github.io/vision-opencv_python_snippets/#warpaffine%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EA%B8%B0%ED%95%98%ED%95%99%EC%A0%81-%EB%B3%80%ED%99%98-1)
 
+<br>
+
+## **Shear Transformation (전단 변환)**
+
+<br>
+
+- 영상의 전단 변환은 $$ x, y $$ 축 방향으로 영상이 밀리는 것 처럼 보이는 변환을 뜻합니다. (아래 그림 참조) 따라서 축에 따라서 픽셀의 이동 비율이 달라집니다.
+- 따라서 전단 변환의 결과로 한쪽으로 기울어진 영상을 만들어 낼 수 있습니다. 따라서 각 방향으로 기울어진 변환을 적용하기 위하여 $$ x $$축과 $$ y $$축 각각에 대하여 변환을 적용하면 됩니다. 아래와 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/geometric_transformation/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 전단 변환 또한 affine 행렬을 통하여 변환 상태를 나타낼 수 있습니다. affine 행렬로 나타내는 방식은 이동 변환과 똑같은 방식입니다.
+
+<br>
+
+- $$ \begin{cases} x' = x + my \\ y' = y\end{cases} $$
+
+<br>
+
+- 위 수식을 보면 $$ x $$ 좌표에 $$ y $$ 좌표 값에 스케일링 값 $$ m $$을 곱한 값을 더하여 $$ x $$값을 변환하였습니다.
+- 이 방식을 통하여 $$ x $$ 값은 변환하고 $$ y $$ 값은 고정 시킬 수 있습니다.
+
+<br>
+
+- $$ \begin{cases} x' = x \\ y' = mx + y \end{cases} $$
+
+<br>
+
+- 위 식은 앞의 식과 기준 축을 바꾼 경우이고 원리는 같습니다.

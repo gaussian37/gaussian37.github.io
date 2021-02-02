@@ -35,6 +35,13 @@ tags: [opencv, python, snippets] # add tag
 
 - Affine 변환에 대한 이론적 개념은 아래 링크를 참조하시기 바랍니다.
     - 링크 : [https://gaussian37.github.io/vision-concept-geometric_transformation/](https://gaussian37.github.io/vision-concept-geometric_transformation/)
+
+<br>
+
+#### **Translation Transformation (이동 변환)**
+
+<br>
+
 - Affine 변환을 이용하여 `이동 변환`을 구현해 보도록 하겠습니다. 사용 방법은 다음과 같습니다.
 
 <br>
@@ -50,9 +57,13 @@ tags: [opencv, python, snippets] # add tag
 ```python
 src = cv2.imread('test.png')
 
-# affine matrix : x' ← x + 200, y' ← y + 100
-# [1, 0, 200
-#  0, 1, 100]
+'''
+x' ← x + 200
+y' ← y + 100
+
+[1, 0, 200
+ 0, 1, 100]
+'''
 aff = np.array([[1, 0, 200], [0, 1, 100]], dtype=np.float32)
 dst = cv2.warpAffine(src, aff, (0, 0))
 ```
@@ -63,7 +74,42 @@ dst = cv2.warpAffine(src, aff, (0, 0))
 
 - 위 결과와 같이 $$ x $$ 방향으로 200, $$ y $$ 방향으로 100만큼 이동 변환하였고, 픽셀값이 없는 영역은 검은색 (0)으로 입력된 것을 확인할 수 있습니다.
 
+<br>
 
+#### **Shear Transformation (전단 변환)**
+
+<br>
+
+- 먼저 [전단 변환](https://gaussian37.github.io/vision-concept-geometric_transformation/)과 관련된 이론적인 내용은 링크를 참조하시기 바랍니다. 위 링크를 통하여 전단 변환 적용 시 어떻게 Affine 행렬을 작성해야 할 지 알 수 있습니다.
+- 아래 예제는 x축을 y축 대비 0.5의 비율로 기울인 효과를 나타냅니다.
+
+<br>
+
+```python
+src = cv2.imread('test.png') 
+
+'''
+x' ← x + 0.5 * y
+y' ← y 
+
+[1, 0.5, 0
+ 0, 1, 0]
+'''
+aff = np.array([[1, 0.5, 0], [0, 1, 0]], dtype=np.float32)
+h, w = src.shape[:2] 
+
+# dst의 크기는 affine 행렬에서 x축 방향으로 늘어난 만큼 더 더해주어야 합니다.
+# affine 행렬에서 x축의 사이즈가 늘어난 크기는 y축 사이즈의 반 만큼 늘어나게 되므로 (h*0.5)를 w에 더해줍니다.
+dst = cv2.warpAffine(src, aff, (w + int(h * 0.5), h))
+```
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 따라서 위 코드의 Affine 변환을 적용하였을 때, 위 그림과 같이 Shear Transformation이 적용됩니다.
+
+<br>
 
 ## **window 창 크기 조절하는 방법**
 
