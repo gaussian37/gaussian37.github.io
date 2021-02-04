@@ -18,6 +18,7 @@ tags: [opencv, python, snippets] # add tag
 <br>
 
 - ### [warpAffine을 이용한 기하학적 변환](#warpaffine을-이용한-기하학적-변환-1)
+- ### [resize를 이용한 크기 변환](#resize를-이용한-크기-변환-1)
 - ### [window 창 크기 조절하는 방법](#window-창-크기-조절하는-방법-1)
 - ### [contrast와 brightness 변경 방법](#contrast와-brightness-변경-방법-1)
 - ### [이미지 붙이기(hconcat, vconcat)](#이미지-붙이기hconcat-vconcat-1)
@@ -108,6 +109,48 @@ dst = cv2.warpAffine(src, aff, (w + int(h * 0.5), h))
 <br>
 
 - 따라서 위 코드의 Affine 변환을 적용하였을 때, 위 그림과 같이 Shear Transformation이 적용됩니다.
+
+<br>
+
+## **resize를 이용한 크기 변환**
+
+<br>
+
+- 앞에서 다룬 Affine 변환 중 크기 변환은 기하학적 변환 중 가장 많이 사용되는 변환 중 하나입니다.
+- 따라서 OpenCV에서는 크기 변환을 위한 별도 함수인 `resize`를 제공합니다.
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 주의하실 점은 2번째 인자인 `dsize` 입니다. 먼저 출력 영상의 size를 `(w, h)` 형태로 명시적으로 입력할 수 있습니다. 하지만 만약 dsize = (0, 0)이 입력된다면 이후에 입력되는 `(fx, fy)`를 통하여 출력 영상의 확대/축소 비율을 정할 수 있습니다. 이 값은 $$ x $$와 $$ y $$ 방향의 scale factor 입니다. 따라서 실제 출력되는 크기인 dsize = (w, h)가 입력되거나 dsize = (0, 0) && 확대/축소 비율 (fx, fy)이 반드시 입력되어야 합니다.
+- resize의 마지막 인자는 `interpolation` 입니다. 앞에서 다룬 affine 변환에서는 `flags` 인자에서 interpolation을 다룹니다. interpolation은 이미지의 기하학적 변환이 발생할 때 (특히, 영상의 크기가 커질 때), 중간 중간에 채워지지 않는 값들을 어떻게 채워 나아갈 지에 대한 방법입니다.
+- `affine 변환`과 affine 변환 중 하나인 `resize` 모두 기본 interpolation 방법은 `bilinear interpolation(양선형 보간법)`입니다. bilinear interpolation은 interpolation 성능이 가장 좋은 방법은 아니지만 매우 효율적인 방법이면서 어느 정도 성능을 보장하기 때문에 많이 사용하는 방법입니다.
+- OpenCV에서 제공하는 5가지 interpolation 방법은 위 테이블을 참조하시면 됩니다. 아래에 있는 방법일수록 효율성은 떨어지지만 interpolation 성능은 높아집니다. 마지막의 INTER_AREA는 영상 축소 시 효과적입니다.
+
+<br>
+
+```python
+src = cv2.imread('rose.bmp') # 480x320 
+dst1 = cv2.resize(src, (0, 0), fx=4, fy=4, interpolation=cv2.INTER_NEAREST) 
+dst2 = cv2.resize(src, (1920, 1280)) # cv2.INTER_LINEAR 
+dst3 = cv2.resize(src, (1920, 1280), interpolation=cv2.INTER_CUBIC) 
+dst4 = cv2.resize(src, (1920, 1280), interpolation=cv2.INTER_LANCZOS4)
+```
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 각 interpolation 방식에 따른 resize 결과를 살펴보면 INTER_NEAREST은 artifact가 관찰되는 문제가 있는 반면 나머지 방식은 큰 품질 차이가 보이진 않습니다.
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 설명한 바와 같이 이미지를 축소할 때에는 INTER_AREA 방식의 interpolation을 사용하는 것이 좋습니다. 이 방법의 특성상 위 그림과 같이 어떤 형상이 1 ~ 2 픽셀로 이루어진 경우 영상 축소 시 디테일이 사라지는 문제를 개선할 수 있기 때문입니다.
+- 
+
 
 <br>
 

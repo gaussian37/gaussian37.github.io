@@ -115,3 +115,31 @@ tags: [vision, 2d transformation, ] # add tag
 <br>
 
 - 위 식은 앞의 식과 기준 축을 바꾼 경우이고 원리는 같습니다.
+
+<br>
+
+## **Scale Transformation (크기 변환)**
+
+<br>
+
+- 영상을 확대하거나 축소할 수 있는 크기 변환에 대하여 알아보도록 하겠습니다.
+- 크기 변환을 하기 위해서는 $$ x $$ 방향 또는 $$ y $$ 방향으로 얼마나 크게 또는 작게 만들기 위한 `scale factor`가 필요로 합니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/geometric_transformation/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 확대 및 축소를 위한 비율은 입력 영상과 출력 영상의 비율을 이용하여 `scale factor`를 구할 수 있습니다.
+- 이 factor를 위 수식과 같이 $$ S_{x}, S_{y} $$로 구할 수 있고 이 값을 이용하여 affine 행렬을 만들 수 있습니다.
+
+<br>
+
+- $$ \begin{bmatrix} x' \\ y' \end{bmatrix} = \begin{bmatrix} S_{x} & 0 & 0 \\ 0 & S_{y} & 0 \end{bmatrix} \begin{bmatrix} x \\ y \\ 1\end{bmatrix} $$
+
+<br>
+
+- 따라서 위 식과 같은 affine 행렬을 이용하면 이미지의 크기 변환을 적용할 수 있습니다.
+
+<br>
+
+- 영상의 크기 변환은 기하학적 변환 중에서도 굉장히 많이 사용되는 변환입니다. 따라서 affine 변환이 아닌 변도의 `resize` 함수를 이용하여 사용하곤 합니다.
