@@ -73,6 +73,7 @@ tags: [리눅스, 리눅스 명령어] # add tag
 - ### 텍스트 파일 행 단위 정렬
 - ### 하부 디렉토리 구조 복사하기
 - ### 하부 디렉토리 구조 출력
+- ### zip, unzip을 이용한 분할 압축 및 해제
 
 <br>
 
@@ -391,3 +392,37 @@ find . -type f | wc -l
 - `find /path/ -type d -print`
 
 <br>
+
+## **zip, unzip을 이용한 분할 압축 및 해제**
+
+<br>
+
+- 먼저 리눅스에서 `zip`, `unzip`은 추가 설치가 필요하므로 다음과 같이 설치합니다.
+- `apt-get install zip unzip`
+
+<br>
+
+- 먼저 **zip을 이용한 분할 압축 방법**은 다음과 같은 형태로 사용 합니다.
+- `zip -s 분할압축사이즈 압축결과파일명 압축할파일명` (ex. zip -s 100k -o zipped_file.zip file_to_be_zipped.txt)
+- 위 명령어에서 `-s`는 사이즈와 관련된 옵션입니다. k (kilobytes), m (megabytes), g (gigabytes) 지정할 수 있습니다. 예) 100k, 200m, 300g
+- 압축 하였을 때, 결과에서 `deflated` 비율이 퍼센트로 출력됩니다. 얼만큼 압축되었는 지에 대한 비율이고 100에 가까울수록 압축이 잘 된 것으로 볼 수 있습니다.
+- 분할 압축 결과는 예를 들어 다음과 같이 나열 됩니다.
+
+<br>
+
+```
+zipped_file.z01
+zipped_file.z02
+zipped_file.z03
+zipped_file.z04
+zipped_file.z05
+zipped_file.zip
+```
+
+<br>
+
+- 다음으로 **분할 압축 해제 방법**은 다음과 같이 사용할 수 있습니다.
+- 먼저 분할된 파일을 하나의 파일로 합칩니다.
+- `zip -s 0 분할압축된_대표파일 --out 합쳐진압축파일` (ex. zip -s 0 zipped_file.zip --out joined_zip_file.zip)
+- 하나로 합쳐진 압축 파일을 해제합니다.
+- `unzip 합쳐진압축파일` (ex. unzip joined_zip_file.zip)
