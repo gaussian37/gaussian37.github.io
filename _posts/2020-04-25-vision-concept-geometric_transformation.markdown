@@ -143,4 +143,3 @@ tags: [vision, 2d transformation, ] # add tag
 <br>
 
 - 영상의 크기 변환은 기하학적 변환 중에서도 굉장히 많이 사용되는 변환입니다. 따라서 affine 변환이 아닌 변도의 `resize` 함수를 이용하여 사용하곤 합니다.
-
