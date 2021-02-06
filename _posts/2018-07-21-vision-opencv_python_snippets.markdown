@@ -19,6 +19,7 @@ tags: [opencv, python, snippets] # add tag
 
 - ### [warpAffine을 이용한 기하학적 변환](#warpaffine을-이용한-기하학적-변환-1)
 - ### [resize를 이용한 크기 변환](#resize를-이용한-크기-변환-1)
+- ### [flip을 이용한 대칭 변환](#flip을-이용한-대칭-변환-1)
 - ### [window 창 크기 조절하는 방법](#window-창-크기-조절하는-방법-1)
 - ### [contrast와 brightness 변경 방법](#contrast와-brightness-변경-방법-1)
 - ### [이미지 붙이기(hconcat, vconcat)](#이미지-붙이기hconcat-vconcat-1)
@@ -148,8 +149,20 @@ dst4 = cv2.resize(src, (1920, 1280), interpolation=cv2.INTER_LANCZOS4)
 <center><img src="../assets/img/vision/opencv/snippets/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 앞에서 설명한 바와 같이 이미지를 축소할 때에는 INTER_AREA 방식의 interpolation을 사용하는 것이 좋습니다. 이 방법의 특성상 위 그림과 같이 어떤 형상이 1 ~ 2 픽셀로 이루어진 경우 영상 축소 시 디테일이 사라지는 문제를 개선할 수 있기 때문입니다.
-- 
+- 앞에서 설명한 바와 같이 이미지를 축소할 때에는 `INTER_AREA` 방식의 interpolation을 사용하는 것이 좋습니다. 이 방법의 특성상 위 그림과 같이 어떤 형상이 1 ~ 2 픽셀로 이루어진 경우 영상 축소 시 디테일이 사라지는 문제를 개선할 수 있기 때문입니다.
+
+<br>
+
+## **flip을 이용한 대칭 변환**
+
+<br>
+
+- 영상의 대칭 변환을 사용하려면 `flip` 함수를 이용하면 쉽게 구현할 수 있습니다.
+- `flip`은 기본적으로 `좌우 대칭`, `상하 대칭`, `좌우 + 상하 대칭`이 있습니다. 사용 방법은 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 
 <br>

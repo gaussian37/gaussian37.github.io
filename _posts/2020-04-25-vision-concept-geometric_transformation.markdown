@@ -27,6 +27,7 @@ tags: [vision, 2d transformation, ] # add tag
 - ### Translation Transformation (이동 변환)
 - ### Shear Transformation (전단 변환)
 - ### Scale Transformation (크기 변환)
+- ### 
 
 <br>
 
@@ -143,3 +144,9 @@ tags: [vision, 2d transformation, ] # add tag
 <br>
 
 - 영상의 크기 변환은 기하학적 변환 중에서도 굉장히 많이 사용되는 변환입니다. 따라서 affine 변환이 아닌 변도의 `resize` 함수를 이용하여 사용하곤 합니다.
+
+<br>
+
+- 영상의 크기 변환은 Affine 변환을 이용하여 할 수도 있지만 좀 더 편하게 사용하기 위하여 `resize` 함수라는 별도 함수를 이용하여 크기 변환을 할 수 있습니다. 다음 링크에서 기능을 확인하시기 바랍니다.
+- 링크 : [https://gaussian37.github.io/vision-opencv_python_snippets/#resize를-이용한-크기-변환-1](https://gaussian37.github.io/vision-opencv_python_snippets/#resize를-이용한-크기-변환-1)
+
