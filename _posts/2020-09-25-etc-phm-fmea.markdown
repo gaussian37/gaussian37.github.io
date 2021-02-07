@@ -3,7 +3,7 @@ layout: post
 title: FMEA(Failure Mode Effeact Analysis)에 대한 이해
 date: 2020-09-25 00:00:00
 img: etc/phm/0.png
-categories: [etc-phm] 
+categories: [etc-etc] 
 tags: [phm, prognostics, health management, FMEA, FMECA] # add tag
 ---
 

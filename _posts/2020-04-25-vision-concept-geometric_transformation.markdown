@@ -27,7 +27,7 @@ tags: [vision, 2d transformation, ] # add tag
 - ### Translation Transformation (이동 변환)
 - ### Shear Transformation (전단 변환)
 - ### Scale Transformation (크기 변환)
-- ### 
+- ### Reflection Transformation (대칭 변환)
 
 <br>
 
@@ -150,3 +150,19 @@ tags: [vision, 2d transformation, ] # add tag
 - 영상의 크기 변환은 Affine 변환을 이용하여 할 수도 있지만 좀 더 편하게 사용하기 위하여 `resize` 함수라는 별도 함수를 이용하여 크기 변환을 할 수 있습니다. 다음 링크에서 기능을 확인하시기 바랍니다.
 - 링크 : [https://gaussian37.github.io/vision-opencv_python_snippets/#resize를-이용한-크기-변환-1](https://gaussian37.github.io/vision-opencv_python_snippets/#resize를-이용한-크기-변환-1)
 
+<br>
+
+## **Reflection Transformation (대칭 변환)**
+
+<br>
+
+- 이미지의 대칭 변환은 **크기 변환 + 이동 변환**을 조합한 결과를 통해 만들어 낼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/geometric_transformation/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 예를 들어 좌우 대칭된 변환은 크기를 -1배하여 변환할 수 있고 (위 그림의 왼쪽) 그 결과를 이동 변환을 통하여 (위 그림의 오른쪽) 기존 이미지를 대칭한 것 처럼 변환할 수 있습니다.
+- 이 방법은 좌우 대칭, 상하 대칭, 좌우 상하 대칭에 모두 적용할 수 있습니다.
+- 실제 구현할 때에는 간단하게 opencv의 flip 함수를 사용하면 됩니다. 아래 링크를 참조하시기 바랍니다.
+    - 링크 : [https://gaussian37.github.io/vision-opencv_python_snippets/#flip을-이용한-대칭-변환-1](https://gaussian37.github.io/vision-opencv_python_snippets/#flip을-이용한-대칭-변환-1)

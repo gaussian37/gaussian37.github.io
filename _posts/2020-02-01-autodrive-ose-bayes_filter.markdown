@@ -357,7 +357,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 <br>
 
-- 이번에는 제어값과 센서값이 모두 사용되는 상황의 예제에 대하여 살펴보도록 하겠습니다.
+- 이번에는 **제어값과 센서값이 모두 사용되는 상황의 예제**에 대하여 살펴보도록 하겠습니다.
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/29.png" alt="Drawing" style="width: 400px;"/></center>
@@ -365,7 +365,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - 　$$ X $$ : 문이 열린 상태 / 닫힌 상태
 - 　$$ Z $$ : 로봇 센서가 문이 열린 상태 / 닫힌 상태로 감지하는 상태
-- 　$$ U $$ : 로봇에 문을 미는 상태 / 밀지 않는 상태
+- 　$$ U $$ : 로봇이 문을 미는 상태 / 밀지 않는 상태
 
 <br>
 
