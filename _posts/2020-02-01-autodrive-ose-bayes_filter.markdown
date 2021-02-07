@@ -477,9 +477,19 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 <center><img src="../assets/img/autodrive/ose/bayes_filter/42.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- $$ \overline{bel}(X_{2} = \text{is_open}) = p(X_{2} = \text{is_open} \vert U_{2} = \text{push}, X_{1} = \text{is_open})bel(X_{1} = \text{is_open}) + p(X_{2} = \text{is_open} \vert U_{2} = \text{push}, X_{1} = \text{is_closed})bel(X_{1} = \text{is_closed}) = 1 * 0.75 + 0.8 * 0.25 = 0.95 $$
+- $$ \overline{bel}(X_{2} = \text{is_open}) = $$ 
 
-- $$ \overline{bel}(X_{2} = \text{is_closed}) = p(X_{2} = \text{is_closed} \vert U_{2} = \text{push}, X_{1} = \text{is_open})bel(X_{1} = \text{is_open}) + p(X_{2} = \text{is_closed} \vert U_{2} = \text{push}, X_{1} = \text{is_closed})bel(X_{1} = \text{is_closed}) = 0 * 0.75 + 0.2 * 0.25 = 0.05 $$
+- $$ p(X_{2} = \text{is_open} \vert U_{2} = \text{push}, X_{1} = \text{is_open})bel(X_{1} = \text{is_open}) + p(X_{2} = \text{is_open} \vert U_{2} = \text{push}, X_{1} = \text{is_closed})bel(X_{1} = \text{is_closed}) $$
+
+- $$ = 1 * 0.75 + 0.8 * 0.25 = 0.95 $$
+
+<br>
+
+- $$ \overline{bel}(X_{2} = \text{is_closed}) = $$
+
+- $$ p(X_{2} = \text{is_closed} \vert U_{2} = \text{push}, X_{1} = \text{is_open})bel(X_{1} = \text{is_open}) + p(X_{2} = \text{is_closed} \vert U_{2} = \text{push}, X_{1} = \text{is_closed})bel(X_{1} = \text{is_closed}) $$ 
+
+- $$ = 0 * 0.75 + 0.2 * 0.25 = 0.05 $$
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/43.png" alt="Drawing" style="width: 600px;"/></center>
