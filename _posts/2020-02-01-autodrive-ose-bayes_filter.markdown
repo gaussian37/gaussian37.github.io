@@ -477,8 +477,6 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 <center><img src="../assets/img/autodrive/ose/bayes_filter/42.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-\begin{align} \color{deeppink}{\mathbf{\hat{x}}_k} &= \begin{bmatrix} 1 & \Delta t \\ 0 & 1 \end{bmatrix} \color{royalblue}{\mathbf{\hat{x}}_{k-1}} \\ &= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}} \label{statevars} \end{align}
-
 - $$ \begin{align} \overline{bel}(X_{2} = \text{is_open}) &= p(X_{2} = \text{is_open} \vert U_{2} = \text{push}, X_{1} = \text{is_open})bel(X_{1} = \text{is_open}) + p(X_{2} = \text{is_open} \vert U_{2} = \text{push}, X_{1} = \text{is_closed})bel(X_{1} = \text{is_closed}) $= 1 * 0.75 + 0.8 * 0.25 = 0.95 \end{align} $$
 
 <br>
