@@ -415,7 +415,9 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 <br>
 
-- 먼저 `센서값`은 **open**이고 `제어값`은 **아무 것도 하지 않음** 상태일 때를 기준으로 식을 전개해 보겠습니다.
+- 지금부터 위에서 정의한 식을 이용하여 베이즈 필터를 전개해 보도록 하곘습니다.
+- 각 시간 $$ t $$에 대하여 상태 $$ X_{t} $$는 $$ t $$ 시간의 `제어값`과 `센서값`에 의하여 결정됩니다.
+- 먼저 $$ X_{1} $$에서는 `제어값`은 **아무 것도 하지 않음**이고 `센서값`은 **open**인 상태를 기준으로 식을 전개해 보겠습니다.
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/35.png" alt="Drawing" style="width: 800px;"/></center>
@@ -438,7 +440,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 - 따라서 문이 열렸을 때와 닫혔을 때의 `control update` (`prediction`)을 구할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/autodrive/ose/bayes_filter/38.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/38.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 센서값은 open이라고 관측되었다고 가정하였으므로 다음과 같이 식을 전개할 수 있습니다.
@@ -457,9 +459,9 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - $$ \eta = (0.3 + 0.1)^{-1} = 2.5 $$
 
-- $$ bel(X_{1} = \text{is_open}) = \eta 0.3 = 2.5 * 0.3 = 0.75 $$
+- $$ bel(X_{1} = \text{is_open}) = \eta * 0.3 = 2.5 * 0.3 = 0.75 $$
 
-- $$ bel(X_{1} = \text{is_closed}) = \eta 0.1 = 2.5 * 0.1 = 0.25 $$
+- $$ bel(X_{1} = \text{is_closed}) = \eta * 0.1 = 2.5 * 0.1 = 0.25 $$
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/41.png" alt="Drawing" style="width: 400px;"/></center>
@@ -469,21 +471,37 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 <br>
 
-- 이번에는 같은 계산 과정을 `센서값`은 **open**이고 `제어값`은 **문을 미는**상태일 때, 확률 값을 계산해 보도록 하겠습니다.
+- 이번에는 앞의 계산 결과를 이용하여 $$ X_{2} $$의 식을 전개해 보겠습니다. `센서값`은 **open**이고 `제어값`은 **문을 미는**상태일 때, 확률 값을 계산해 보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/autodrive/ose/bayes_filter/42.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/42.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- $$ \overline{bel}(X_{2} = \text{is_open}) = p(X_{2} = \text{is_open} \vert U_{2} = \text{push}, X_{1} = \text{is_open})bel(X_{1} = \text{is_open}) + p(X_{2} = \text{is_open} \vert U_{2} = \text{push}, X_{1} = \text{is_closed})bel(X_{1} = \text{is_closed}) = 1 * 0.75 + 0.8 * 0.25 = 0.95 $$
+
+- $$ \overline{bel}(X_{2} = \text{is_closed}) = p(X_{2} = \text{is_closed} \vert U_{2} = \text{push}, X_{1} = \text{is_open})bel(X_{1} = \text{is_open}) + p(X_{2} = \text{is_closed} \vert U_{2} = \text{push}, X_{1} = \text{is_closed})bel(X_{1} = \text{is_closed}) = 0 * 0.75 + 0.2 * 0.25 = 0.05 $$
+
 <br>
-<center><img src="../assets/img/autodrive/ose/bayes_filter/43.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/43.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- $$ bel(X_{2} = \text{is_open}) = \eta \cdot p(Z_{2} = \text{sense_open} \vert X_{2} = \text{is_open}) \overline{bel}(X_{2} = \text{is_open}) = \eta \cdot 0.6 \cdot 0.95 = \eta \cdot 0.57 $$
 
+- $$ bel(X_{2} = \text{is_closed}) = \eta \cdot p(Z_{2} = \text{sense_open} \vert X_{2} = \text{is_closed}) \overline{bel}(X_{2} = \text{is_closed}) = \eta \cdot 0.2 \cdot 0.05 = \eta \cdot 0.01 $$
 
+<br>
 
+- $$ (0.57 + 0.01)^{-1} \approx 1.724 $$
 
+- $$ bel(X_{2} = \text{is_open}) = \eta \cdot 0.57 \approx 1.724 \cdot 0.57 = 0.983 $$
 
+- $$ bel(X_{2} = \text{is_closed}) = \eta \cdot 0.01 \approx 1.724 \cdot 0.01 = 0.017 $$
+
+<br>
+
+- 따라서 위와 같이 $$ X_{2} $$에서의 위치 상태를 제어값과 센서값을 이용하여 추정할 수 있습니다.
+- 위 프로세스들을 관찰해 보면 **이전 상태와 제어값을 이용하여 현재 상태를 추정하고 센서값을 이용하여 보정하는 작업**을 매 시간 별 진행합니다.
+- 따라서 연산에 사용되는 제어값과 센서값에 의하여 상태는 계속 변하게 됩니다. 간혹 제어값 또는 센서값이 부정확하게 들어온다고 하더라도 이전 상태를 이용하여 연산되기 때문에 필터의 기능이 작용 되어 급격하게 값이 변화하지는 않습니다. 이러한 원리로 Bayes Filter가 적용됩니다.
 
 <br>
 
