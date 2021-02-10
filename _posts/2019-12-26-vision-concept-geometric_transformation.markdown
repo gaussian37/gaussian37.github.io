@@ -23,11 +23,12 @@ tags: [vision, 2d transformation, ] # add tag
 
 <br>
 
-- ### Geometric Transformation (기하학적 변환)의 정의
-- ### Translation Transformation (이동 변환)
-- ### Shear Transformation (전단 변환)
-- ### Scale Transformation (크기 변환)
-- ### Reflection Transformation (대칭 변환)
+- ### [Geometric Transformation (기하학적 변환)의 정의](#geometric-transformation-기하학적-변환의-정의-1)
+- ### [Translation Transformation (이동 변환)](#translation-transformation-이동-변환-1)
+- ### [Shear Transformation (전단 변환)](#shear-transformation-전단-변환-1)
+- ### [Scale Transformation (크기 변환)](#scale-transformation-크기-변환-1)
+- ### [Reflection Transformation (대칭 변환)](#reflection-transformation-대칭-변환-1)
+- ### [Rotation Transformation (회전 변환)](#rotation-transformation-회전-변환-1)
 
 <br>
 
@@ -166,3 +167,25 @@ tags: [vision, 2d transformation, ] # add tag
 - 이 방법은 좌우 대칭, 상하 대칭, 좌우 상하 대칭에 모두 적용할 수 있습니다.
 - 실제 구현할 때에는 간단하게 opencv의 flip 함수를 사용하면 됩니다. 아래 링크를 참조하시기 바랍니다.
     - 링크 : [https://gaussian37.github.io/vision-opencv_python_snippets/#flip을-이용한-대칭-변환-1](https://gaussian37.github.io/vision-opencv_python_snippets/#flip을-이용한-대칭-변환-1)
+
+<br>
+
+## **Rotation Transformation (회전 변환)**
+
+<br>
+
+- 이번에는 영상을 회전하는 회전 변환에 대하여 알아보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/geometric_transformation/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 영상을 회전 하기 위한 변환은 위 식과 같이 $$ \sin{\theta}, \cos{\theta} $$의 식을 이용하여 표현할 수 있습니다.
+- 위 식을 통하여 변환되는 $$ x, y $$ 좌표를 통하여 원하는 각도 만큼 이미지를 회전할 수 있습니다.
+- 앞의 다른 변환과 마찬가지로 affine 행렬을 이용하여 변환하려면 2 X 3 크기의 행렬을 사용할 수 있습니다.
+
+<br>
+
+- $$ \begin{bmatrix} \cos{\theta} & \sin{\theta} & 0 \\ -\sin{\theta} & \cos{\theta} & 0 \end{bmatrix} $$
+
+<br>

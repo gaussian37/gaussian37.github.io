@@ -113,6 +113,14 @@ dst = cv2.warpAffine(src, aff, (w + int(h * 0.5), h))
 
 <br>
 
+#### **Rotation Transformation (회전 변환)**
+
+<br>
+
+
+
+<br>
+
 ## **resize를 이용한 크기 변환**
 
 <br>
