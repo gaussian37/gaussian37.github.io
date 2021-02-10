@@ -117,6 +117,26 @@ dst = cv2.warpAffine(src, aff, (w + int(h * 0.5), h))
 
 <br>
 
+- 먼저 회전 변환에 관한 이론적인 배경은 아래 링크를 참조하시기 바랍니다.
+    - 링크 : [https://gaussian37.github.io/vision-concept-geometric_transformation/#rotation-transformation-회전-변환-1](https://gaussian37.github.io/vision-concept-geometric_transformation/#rotation-transformation-%ED%9A%8C%EC%A0%84-%EB%B3%80%ED%99%98-1)
+- 앞에서 설명한 `warpAffine`을 이용하면 affine 행렬만 회전 변환 행렬에 맞게 사용 하면 됩니다.
+- 아래 코드와 같이 회전할 각도를 radian으로 정한 뒤 affine 행렬을 만들어서 `warpAffine`에 적용하면 회전 변환을 적용할 수 있습니다.
+
+<br>
+
+```python
+rad = 20 * math.pi / 180 
+aff = np.array([[math.cos(rad), math.sin(rad), 0], 
+                [-math.sin(rad), math.cos(rad), 0]], dtype=np.float32)
+dst = cv2.warpAffine(src, aff, (0, 0))
+```
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 회전 결과는 직교 좌표계에서 (0, 0)을 기준 축으로 두고 회전을 하게 됩니다. 이와 같은 경우 회전되는 방향으로 많은 양의 이미지가 잘리게 됩니다.
+- 이상적으로 이미지의 중앙 좌표를 기준으로 회전을 하는 것이 합리적으로 보입니다. 이 경우 다음과 같이 회전할 수 있습니다.
 
 
 <br>
