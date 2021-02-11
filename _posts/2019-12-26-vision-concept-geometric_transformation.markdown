@@ -181,6 +181,8 @@ tags: [vision, 2d transformation, ] # add tag
 <br>
 
 - 영상을 회전 하기 위한 변환은 위 식과 같이 $$ \sin{\theta}, \cos{\theta} $$의 식을 이용하여 표현할 수 있습니다.
+- 위 식의 유도 과정은 다음 링크를 참조하시기 바랍니다. `원점 기준의 회전`과 `특정 좌표 기준의 회전` 모두 설명되어 있습니다.
+    - 링크 : [https://gaussian37.github.io/math-la-rotation_matrix/](https://gaussian37.github.io/math-la-rotation_matrix/)
 - 위 식을 통하여 변환되는 $$ x, y $$ 좌표를 통하여 원하는 각도 만큼 이미지를 회전할 수 있습니다.
 - 앞의 다른 변환과 마찬가지로 affine 행렬을 이용하여 변환하려면 2 X 3 크기의 행렬을 사용할 수 있습니다.
 
@@ -189,3 +191,39 @@ tags: [vision, 2d transformation, ] # add tag
 - $$ \begin{bmatrix} \cos{\theta} & \sin{\theta} & 0 \\ -\sin{\theta} & \cos{\theta} & 0 \end{bmatrix} $$
 
 <br>
+
+- 위 affine 행렬을 이용하면 원점 (0, 0)을 기준으로 이미지가 회전을 하게 됩니다. 이 때, 문제점이 발생하는데 한정된 공간에서 왼쪽 상단의 (0, 0)을 기준으로 회전을 하게 되면 영상의 많은 영역이 잘리게 됩니다. 
+
+<br>
+<center><img src="../assets/img/vision/concept/geometric_transformation/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 따라서 영상의 원점이 아닌 중앙점을 이용하여 회전하는 것이 일반적입니다. 이 때, 사용하는 affine 행렬은 다음과 같습니다.
+
+<br>
+
+- $$ \begin{bmatrix} \alpha & \beta & (1-\alpha) \cdot x - \beta \cdot y \\ -\beta & \alpha & \beta \cdot x + (1-\alpha) \cdot y \end{bmatrix} \ \ \text{ where, } \begin{cases} \alpha = \cos{\theta} \\ \beta = \sin{\theta} \end{cases} , \ \ (x, y) = \text{Rotation point} $$
+
+<br>
+
+- 위 affine 행렬을 보면 3열에서 (0, 0)이 아니라 연산되는 항이 추가로 정의 되어 있습니다. 이 원리는 위 링크를 보면 확인 할 수 있고 간단하게 설명하면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/geometric_transformation/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 변환 순서를 보면 한번에 어떤 점 (ex. 중앙점)을 기준으로 회전하는 것이 아니라, ① 회전 기준점을 원점으로 이동 변환 ② 회전 변환 ③ 이동 변환을 거쳐서 임의의 점을 기준으로 회전을 하는 작업입니다.
+
+<br>
+
+- 추가적으로 위 affine 행렬에서 크기 변환 까지 한번에 적용할 수 있습니다.
+
+<br>
+
+- $$ \begin{bmatrix} \alpha & \beta & (1-\alpha) \cdot x - \beta \cdot y \\ -\beta & \alpha & \beta \cdot x + (1-\alpha) \cdot y \end{bmatrix} \ \ \text{ where, } \begin{cases} \alpha = \color{red}{scale} \cdot \cos{\theta} \\ \beta = \color{blue}{scale} \cdot \sin{\theta} \end{cases} , \ \ (x, y) = \text{Rotation point} $$
+
+<br>
+
+- 위 식과 같이 $$ \alpha, \beta $$에 `scale` 값을 주게 되면 회전 변환과 동시에 크기 변환도 적용 할 수 있습니다.
+- 이와 같은 회전 변환을 쉽게 구현하기 위해서 OpenCV에서는 `warpAffine`과 `getRotationMatrix2d` 함수의 조합을 사용할 수 있습니다.
+- 링크 : [https://gaussian37.github.io/vision-opencv_python_snippets/](https://gaussian37.github.io/vision-opencv_python_snippets/#warpaffine%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EA%B8%B0%ED%95%98%ED%95%99%EC%A0%81-%EB%B3%80%ED%99%98-1)
