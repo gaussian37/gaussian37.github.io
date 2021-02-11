@@ -136,11 +136,37 @@ dst = cv2.warpAffine(src, aff, (0, 0))
 <br>
 
 - 위 회전 결과는 직교 좌표계에서 (0, 0)을 기준 축으로 두고 회전을 하게 됩니다. 이와 같은 경우 회전되는 방향으로 많은 양의 이미지가 잘리게 됩니다.
-- 이상적으로 이미지를 회전 하려면 **이미지의 중앙 좌표를 기준으로 회전**을 하는 것이 합리적으로 보입니다. 이 경우 다음과 같이 회전할 수 있습니다.
+- 이상적으로 이미지를 회전 하려면 **이미지의 중앙 좌표를 기준으로 회전**을 하는 것이 합리적으로 보입니다. 이미지의 임의의 점 (ex. 중앙 좌표)를 기준으로 회전 하려면 다음과 같은 과정 (① 이동 변환 ② 회전 변환 ③ 이동 변환)을 거쳐서 회전을 하게 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이와 같은 변환을 하기 위해서 직접 affine 행렬을 만들어도 상관 없고 `getRotationMatrix2d` 함수를 사용해도 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 affine 행렬에서 `(x, y)`는 이미지에서 **회전 축**을 의미합니다. 
+- `angle`은 degree 단위의 각도로 **반시계 방향**으로 30도 회전이 필요하면 30을 입력합니다. 시계 방향은 음수 각도로 입력하면 됩니다.
+- `scale`은 회전하면서 영상을 확대할 지, 축소할 지에 대한 scale 값입니다. 보통 영상을 회전하면 잘리는 영역이 발생하기 때문에 축소하여 회전된 영상을 확인하곤 합니다.
 
 <br>
 
+- 그러면 `getRotationMatrix2d`와 `warpAffine` 함수를 어떻게 섞어서 사용하는 지 살펴보겠습니다.
 
+<br>
+
+```python
+center_point = (src.shape[1] / 2, src.shape[0] / 2) 
+affine_matrix = cv2.getRotationMatrix2D(cp, 20, 1) 
+dst = cv2.warpAffine(src, affine_matrix, (0, 0))
+```
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 
 <br>
