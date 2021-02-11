@@ -159,7 +159,8 @@ dst = cv2.warpAffine(src, aff, (0, 0))
 <br>
 
 ```python
-center_point = (src.shape[1] / 2, src.shape[0] / 2) 
+center_point = (src.shape[1] / 2, src.shape[0] / 2)
+# 20도 반시계 방향 회전 + scale 변환 없음
 affine_matrix = cv2.getRotationMatrix2D(cp, 20, 1) 
 dst = cv2.warpAffine(src, affine_matrix, (0, 0))
 ```
