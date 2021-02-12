@@ -245,9 +245,17 @@ tags: [vision, 2d transformation, ] # add tag
 <br>
 
 - 먼저 Affine Transformation은 앞에서 다룬 것과 같이 6개의 파라미터를 가집니다. 여기서 파라미터를 `DOF(Degree Of Freedom)`이라고 하며 DOF를 통하여 자유롭게 변형이 이미지의 기하학적 변환이 가능하기 때문에 이와 같은 이름으로 불립니다.
-- Affine Transformation에서는 위 변환 행렬에서 파란색 음영의 `6개` DOF가 정해지면 그 값에 맞춰서 이동, 전단, 크기, 대칭, 회전 등의 변환을 하게 됩니다.
-- 반면 Perspective Transformation에서는 3 X 3 행렬에서 파란색 음영의 `8개` DOF가 정해지면 그 값에 맞춰서 변환을 하게 됩니다.
+- Affine Transformation에서는 위 변환 행렬에서 `2 X 3 행렬` 크기의 파란색 음영의 `6개` DOF가 정해지면 그 값에 맞춰서 이동, 전단, 크기, 대칭, 회전 등의 변환을 하게 됩니다.
+- 반면 Perspective Transformation에서는 `3 X 3 행렬`에서 파란색 음영의 `8개` DOF가 정해지면 그 값에 맞춰서 변환을 하게 됩니다.
 - 변환된 이미지의 모양을 보면 평행사변형(Parallelograms) 형태의 Affine Transformation 보다 Perspective Transform이 더 자유로운 모양을 띄게 됩니다. 그 이유는 DOF가 2개 더 많기 때문에 자유로움이 더 높이 때문입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/geometric_transformation/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Affine Transformation에서 6개의 파라미터를 알기 위해서는 6개의 연립 방정식이 필요합니다. 1개의 (x, y)에 대한 homogeneous 행렬에서 DOF에 관한 2개의 식을 구할 수 있기 때문에 3개 점의 6개 식을 이용하면 6개의 DOF를 구할 수 있습니다. 이는 위 그림과 같이 Affine Transformation이 평행사변형 형태를 유지하는 변환이기 때문에 3개의 점을 지정하면 자동적으로 하나의 점이 고정이 되어 3개의 점을 통해 변환 행렬을 구할 수 있는 것과 의미가 같습니다. 따라서 **3개의 점의 변환 전 좌표와 변환 후 좌표를 알아야 Affine 변환 행렬을 구할 수 있습니다.**
+- 이와 동일한 관점에서 Perspective Transformation은 8개의 DOF를 구하기 위하여 4개의 점을 사용하여 구할 수 있습니다. 이는 위 그림과 같이 Perspective Transformation에서는 4개의 꼭지점이 자유롭게 변환된 상태로 이미지를 변환할 수 있어야 하기 때문에 **4개의 점의 변환 전 좌표와 변환 후 좌표를 알아야 Perspective 변환 행렬을 구할 수** 있습니다.
+
 
 
 
