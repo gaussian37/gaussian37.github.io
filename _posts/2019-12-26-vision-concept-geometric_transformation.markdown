@@ -29,6 +29,7 @@ tags: [vision, 2d transformation, ] # add tag
 - ### [Scale Transformation (크기 변환)](#scale-transformation-크기-변환-1)
 - ### [Reflection Transformation (대칭 변환)](#reflection-transformation-대칭-변환-1)
 - ### [Rotation Transformation (회전 변환)](#rotation-transformation-회전-변환-1)
+- ### [Affine Transformation과 Perspective Transformation](#affine-transformation과-perspective-transformation-1)
 
 <br>
 
@@ -71,7 +72,7 @@ tags: [vision, 2d transformation, ] # add tag
 
 <br>
 
-- 간단하게 수식을 위 행렬처럼 변환할 수 있습니다. 영상 처리에서는 위 수식을 다음과 같이 **곱셈 하나의 형태**로 표시하기도 합니다.
+- 간단하게 수식을 위 행렬처럼 변환할 수 있습니다. 영상 처리에서는 위 수식을 다음과 같이 **곱셈 하나의 형태** (`homogeneous`)로 표시합니다.
 
 <br>
 
@@ -99,7 +100,7 @@ tags: [vision, 2d transformation, ] # add tag
 <center><img src="../assets/img/vision/concept/geometric_transformation/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 전단 변환 또한 affine 행렬을 통하여 변환 상태를 나타낼 수 있습니다. affine 행렬로 나타내는 방식은 이동 변환과 똑같은 방식입니다.
+- 전단 변환 또한 affine 변환 행렬을 통하여 변환 상태를 나타낼 수 있습니다. affine 변환 행렬로 나타내는 방식은 이동 변환과 똑같은 방식입니다.
 
 <br>
 
@@ -132,7 +133,7 @@ tags: [vision, 2d transformation, ] # add tag
 <br>
 
 - 확대 및 축소를 위한 비율은 입력 영상과 출력 영상의 비율을 이용하여 `scale factor`를 구할 수 있습니다.
-- 이 factor를 위 수식과 같이 $$ S_{x}, S_{y} $$로 구할 수 있고 이 값을 이용하여 affine 행렬을 만들 수 있습니다.
+- 이 factor를 위 수식과 같이 $$ S_{x}, S_{y} $$로 구할 수 있고 이 값을 이용하여 affine 변환 행렬을 만들 수 있습니다.
 
 <br>
 
@@ -140,7 +141,7 @@ tags: [vision, 2d transformation, ] # add tag
 
 <br>
 
-- 따라서 위 식과 같은 affine 행렬을 이용하면 이미지의 크기 변환을 적용할 수 있습니다.
+- 따라서 위 식과 같은 affine 변환 행렬을 이용하면 이미지의 크기 변환을 적용할 수 있습니다.
 
 <br>
 
@@ -184,7 +185,7 @@ tags: [vision, 2d transformation, ] # add tag
 - 위 식의 유도 과정은 다음 링크를 참조하시기 바랍니다. `원점 기준의 회전`과 `특정 좌표 기준의 회전` 모두 설명되어 있습니다.
     - 링크 : [https://gaussian37.github.io/math-la-rotation_matrix/](https://gaussian37.github.io/math-la-rotation_matrix/)
 - 위 식을 통하여 변환되는 $$ x, y $$ 좌표를 통하여 원하는 각도 만큼 이미지를 회전할 수 있습니다.
-- 앞의 다른 변환과 마찬가지로 affine 행렬을 이용하여 변환하려면 2 X 3 크기의 행렬을 사용할 수 있습니다.
+- 앞의 다른 변환과 마찬가지로 affine 변환 행렬을 이용하여 변환하려면 2 X 3 크기의 행렬을 사용할 수 있습니다.
 
 <br>
 
@@ -192,13 +193,13 @@ tags: [vision, 2d transformation, ] # add tag
 
 <br>
 
-- 위 affine 행렬을 이용하면 원점 (0, 0)을 기준으로 이미지가 회전을 하게 됩니다. 이 때, 문제점이 발생하는데 한정된 공간에서 왼쪽 상단의 (0, 0)을 기준으로 회전을 하게 되면 영상의 많은 영역이 잘리게 됩니다. 
+- 위 affine 변환 행렬을 이용하면 원점 (0, 0)을 기준으로 이미지가 회전을 하게 됩니다. 이 때, 문제점이 발생하는데 한정된 공간에서 왼쪽 상단의 (0, 0)을 기준으로 회전을 하게 되면 영상의 많은 영역이 잘리게 됩니다. 
 
 <br>
 <center><img src="../assets/img/vision/concept/geometric_transformation/7.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 따라서 영상의 원점이 아닌 중앙점을 이용하여 회전하는 것이 일반적입니다. 이 때, 사용하는 affine 행렬은 다음과 같습니다.
+- 따라서 영상의 원점이 아닌 중앙점을 이용하여 회전하는 것이 일반적입니다. 이 때, 사용하는 affine 변환 행렬은 다음과 같습니다.
 
 <br>
 
@@ -206,7 +207,7 @@ tags: [vision, 2d transformation, ] # add tag
 
 <br>
 
-- 위 affine 행렬을 보면 3열에서 (0, 0)이 아니라 연산되는 항이 추가로 정의 되어 있습니다. 이 원리는 위 링크를 보면 확인 할 수 있고 간단하게 설명하면 다음과 같습니다.
+- 위 affine 변환 행렬을 보면 3열에서 (0, 0)이 아니라 연산되는 항이 추가로 정의 되어 있습니다. 이 원리는 위 링크를 보면 확인 할 수 있고 간단하게 설명하면 다음과 같습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/geometric_transformation/8.png" alt="Drawing" style="width: 800px;"/></center>
@@ -216,7 +217,7 @@ tags: [vision, 2d transformation, ] # add tag
 
 <br>
 
-- 추가적으로 위 affine 행렬에서 크기 변환 까지 한번에 적용할 수 있습니다.
+- 추가적으로 위 affine 변환 행렬에서 크기 변환 까지 한번에 적용할 수 있습니다.
 
 <br>
 
@@ -227,3 +228,26 @@ tags: [vision, 2d transformation, ] # add tag
 - 위 식과 같이 $$ \alpha, \beta $$에 `scale` 값을 주게 되면 회전 변환과 동시에 크기 변환도 적용 할 수 있습니다.
 - 이와 같은 회전 변환을 쉽게 구현하기 위해서 OpenCV에서는 `warpAffine`과 `getRotationMatrix2d` 함수의 조합을 사용할 수 있습니다.
 - 링크 : [https://gaussian37.github.io/vision-opencv_python_snippets/](https://gaussian37.github.io/vision-opencv_python_snippets/#warpaffine%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EA%B8%B0%ED%95%98%ED%95%99%EC%A0%81-%EB%B3%80%ED%99%98-1)
+
+<br>
+
+## **Affine Transformation과 Perspective Transformation**
+
+<br>
+
+- 앞에서 살펴본 변환들은 모두 `Affine Transformation` 입니다. 따라서 기본적으로 `affine 변환 행렬`을 통하여 변환할 수 있었습니다.
+- `Affine Transformation`의 공통점은 변환 결과가 모두 `평행사변형(Parallelograms)`이라는 점 입니다. 즉, 앞에서 다룬 이동 변환, 전단 변환, 크기 변환, 대칭 변환, 회전 변환의 결과는 모두 평행 사변형 꼴의 변환입니다.
+- 이 때, 2 X 3 크기의 Affine 변환 행렬을 통하여 Affine Transformation을 적용하였습니다.
+- `Affine Transformation`을 `Perspective Transformation(또는 Homography, Projective Transformation 라고도 함)`과 비교하기 위하여 2 X 3 크기의 행렬을 3 X 3 크기의 행렬로 확장하여 아래와 같이 비교해 보겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/geometric_transformation/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 먼저 Affine Transformation은 앞에서 다룬 것과 같이 6개의 파라미터를 가집니다. 여기서 파라미터를 `DOF(Degree Of Freedom)`이라고 하며 DOF를 통하여 자유롭게 변형이 이미지의 기하학적 변환이 가능하기 때문에 이와 같은 이름으로 불립니다.
+- Affine Transformation에서는 위 변환 행렬에서 파란색 음영의 `6개` DOF가 정해지면 그 값에 맞춰서 이동, 전단, 크기, 대칭, 회전 등의 변환을 하게 됩니다.
+- 반면 Perspective Transformation에서는 3 X 3 행렬에서 파란색 음영의 `8개` DOF가 정해지면 그 값에 맞춰서 변환을 하게 됩니다.
+- 변환된 이미지의 모양을 보면 평행사변형(Parallelograms) 형태의 Affine Transformation 보다 Perspective Transform이 더 자유로운 모양을 띄게 됩니다. 그 이유는 DOF가 2개 더 많기 때문에 자유로움이 더 높이 때문입니다.
+
+
+

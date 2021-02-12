@@ -100,8 +100,8 @@ y' ← y
 aff = np.array([[1, 0.5, 0], [0, 1, 0]], dtype=np.float32)
 h, w = src.shape[:2] 
 
-# dst의 크기는 affine 행렬에서 x축 방향으로 늘어난 만큼 더 더해주어야 합니다.
-# affine 행렬에서 x축의 사이즈가 늘어난 크기는 y축 사이즈의 반 만큼 늘어나게 되므로 (h*0.5)를 w에 더해줍니다.
+# dst의 크기는 affine 변환 행렬에서 x축 방향으로 늘어난 만큼 더 더해주어야 합니다.
+# affine 변환 행렬에서 x축의 사이즈가 늘어난 크기는 y축 사이즈의 반 만큼 늘어나게 되므로 (h*0.5)를 w에 더해줍니다.
 dst = cv2.warpAffine(src, aff, (w + int(h * 0.5), h))
 ```
 
@@ -119,8 +119,8 @@ dst = cv2.warpAffine(src, aff, (w + int(h * 0.5), h))
 
 - 먼저 회전 변환에 관한 이론적인 배경은 아래 링크를 참조하시기 바랍니다.
     - 링크 : [https://gaussian37.github.io/vision-concept-geometric_transformation/#rotation-transformation-회전-변환-1](https://gaussian37.github.io/vision-concept-geometric_transformation/#rotation-transformation-%ED%9A%8C%EC%A0%84-%EB%B3%80%ED%99%98-1)
-- 앞에서 설명한 `warpAffine`을 이용하면 affine 행렬만 회전 변환 행렬에 맞게 사용 하면 됩니다.
-- 아래 코드와 같이 회전할 각도를 radian으로 정한 뒤 affine 행렬을 만들어서 `warpAffine`에 적용하면 회전 변환을 적용할 수 있습니다.
+- 앞에서 설명한 `warpAffine`을 이용하면 affine 변환 행렬만 회전 변환 행렬에 맞게 사용 하면 됩니다.
+- 아래 코드와 같이 회전할 각도를 radian으로 정한 뒤 affine 변환 행렬을 만들어서 `warpAffine`에 적용하면 회전 변환을 적용할 수 있습니다.
 
 <br>
 
@@ -142,13 +142,13 @@ dst = cv2.warpAffine(src, aff, (0, 0))
 <center><img src="../assets/img/vision/opencv/snippets/9.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 이와 같은 변환을 하기 위해서 직접 affine 행렬을 만들어도 상관 없고 `getRotationMatrix2d` 함수를 사용해도 됩니다.
+- 이와 같은 변환을 하기 위해서 직접 affine 변환 행렬을 만들어도 상관 없고 `getRotationMatrix2d` 함수를 사용해도 됩니다.
 
 <br>
 <center><img src="../assets/img/vision/opencv/snippets/10.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 affine 행렬에서 `(x, y)`는 이미지에서 **회전 축**을 의미합니다. 
+- 위 affine 변환 행렬에서 `(x, y)`는 이미지에서 **회전 축**을 의미합니다. 
 - `angle`은 degree 단위의 각도로 **반시계 방향**으로 30도 회전이 필요하면 30을 입력합니다. 시계 방향은 음수 각도로 입력하면 됩니다.
 - `scale`은 회전하면서 영상을 확대할 지, 축소할 지에 대한 scale 값입니다. 보통 영상을 회전하면 잘리는 영역이 발생하기 때문에 축소하여 회전된 영상을 확인하곤 합니다.
 
