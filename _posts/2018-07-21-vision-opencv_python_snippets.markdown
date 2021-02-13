@@ -174,8 +174,52 @@ dst = cv2.warpAffine(src, affine_matrix, (0, 0))
 
 <br>
 
+- 먼저 Affine Transformation과 Perspective Transformation에 관한 개념적인 내용은 아래 링크를 통해 확인할 수 있습니다.
+    - 링크 : [Affine Transformation과 Perspective Transformation](https://gaussian37.github.io/vision-concept-geometric_transformation/#affine-transformation%EA%B3%BC-perspective-transformation-1)
+- 먼저 Affine Transformation을 하기 위하여 사용하는 2가지 함수는 `getAffineTransform` 함수와 `warpAffine` 함수입니다.
 
+<br>
 
+- `getAffineTransform` 함수는 원 영상의 3개의 좌표 $$ (x_{1}, y_{1}), (x_{2}, y_{2}), (x_{3}, y_{3}) $$와 변환된 영상에서 3개의 좌표에 대응되는 좌표 $$ (x_{1}', y_{1}'), (x_{2}', y_{2}'), (x_{3}', y_{3}') $$를 입력으로 주면 2 X 3 형태의 Affine 변환 행렬을 반환합니다.
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `getAffineTransform`을 통해 얻은 Affine 변환 행렬을`warpAffine`의 2번째 인자 `M`에 넣으면 Affine Transformation을 할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Perspective Transformation을 할 때에도 방식은 유사합니다. `getPerspectiveTransform` 함수를 통하여 perspective 변환 행렬을 얻고 `warpPerspective`함수를 이용하여 변환을 합니다.
+- `getPerspectiveTransform` 함수는 원 영상의 4개의 좌표 $$ (x_{1}, y_{1}), (x_{2}, y_{2}), (x_{3}, y_{3}), (x_{4}, y_{4}) $$와 변환된 영상에서 4개의 좌표에 대응되는 좌표 $$ (x_{1}', y_{1}'), (x_{2}', y_{2}'), (x_{3}', y_{3}'), (x_{4}', y_{4}') $$를 입력으로 주면 3 X 3 형태의 Perspective 변환 행렬을 반환합니다.
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/14.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `getAffineTgetPerspectiveTransformransform`을 통해 얻은 Affine 변환 행렬을`warpPerspective`의 2번째 인자 `M`에 넣으면 Perspective Transformation을 할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/15.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Perspective Transformation을 OpenCV 코드로 어떻게 사용하는 지 예제를 살펴보겠습니다.
+
+<br>
+
+```python
+src = cv2.imread('namecard.jpg')
+w, h = 720, 400 
+
+# 원 영상에서 4개의 점
+srcQuad = np.array([[325, 307], [760, 369], [718, 611], [231, 515]], np.float32)
+# perspective 변환 시 대응 되어야 할 점 (이미지의 각 모서리에 맞추는 예제)
+dstQuad = np.array([[0, 0], [w-1, 0], [w-1, h-1], [0, h-1]], np.float32) 
+pers = cv2.getPerspectiveTransform(srcQuad, dstQuad) 
+dst = cv2.warpPerspective(src, pers, (w, h))
+```
 
 <br>
 

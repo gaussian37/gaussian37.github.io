@@ -13,10 +13,8 @@ tags: [game, game theory, 게임, 게임 이론] # add tag
 
 <br>
 
-- [그림을 통한 게임 이론]()
-- [게임이론 소개](https://gaussian37.github.io/math-game-game-theory-basic/)
-- 게임의 표현
-- 게임의 균형
+- [그림을 통한 게임 이론 살펴보기]()
+- [게임이론의 기본 개념](https://gaussian37.github.io/math-game-game-theory-basic/)
 - [전통적 경제학 vs 게임 이론](https://gaussian37.github.io/math-game-classical-economy-vs-game-theory/)
 
 <br>
