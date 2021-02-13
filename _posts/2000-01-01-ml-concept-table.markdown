@@ -9,8 +9,26 @@ tags: [python, machine learning, ml] # add tag
 
 <br>
 
+## **머신 러닝 관련 글 목록**
+
 - [머신러닝의 평가 지표](https://gaussian37.github.io/ml-concept-ml-evaluation/)    
 - [t-SNE](https://gaussian37.github.io/ml-concept-t-SNE/)
+- [확률과 통계 기초](https://gaussian37.github.io/ml-concept-basic_probability_statistics/)
+- 베이시언 결정 이론
+- [ML(Maximum Likelihood)와 MAP(maximum a posterior)](https://gaussian37.github.io/ml-concept-mle-and-map/)
+- [MLE(Maximum Likelihood Estimation)와 MAP(Maxim A Posterior)에 관하여](https://gaussian37.github.io/ml-concept-mlemap)
+- [가우시안 분포와 분별 함수 (선형 분별 분석(LDA), 2차 분별 분석(QDA))](https://gaussian37.github.io/ml-concept-gaussian_discriminant/)
+- [마할라노비스 거리(mahalanobis distance)](https://gaussian37.github.io/ml-concept-mahalanobis_distance/)
+- [정보 이론 (Entropy, Cross Entropy, KL Divergence)](https://gaussian37.github.io/ml-concept-infomation_theory/)
+- [Anomaly Detection with Gaussian Distribution](https://gaussian37.github.io/ml-concept-andrewng-anomalydetection/)
+- [Recommender System](https://gaussian37.github.io/ml-concept-andrewng-recommender/)
+- [Clustering with K-Means Algorithm](https://gaussian37.github.io/ml-concept-andrewng-kmeans/)
+- [PCA(Principal Component Analysis)](https://gaussian37.github.io/ml-concept-andrewng-pca/)
+- [SVM(Support Vector Machine)](https://gaussian37.github.io/ml-concept-andrewng-svm/)
+- [Luis Serrano의 HMM(Hidden Markov Model) 강의](https://gaussian37.github.io/ml-concept-serrano_hmm/)
+- [Luis Serrano의 PCA(Principal Component Analysis) 강의](https://gaussian37.github.io/ml-concept-serrano_pca/)
+- [Luis Serrano의 SVM(Support Vector Machine) 강의]()
+- [Luis Serrano의 SVD(Singular Vector Decomposition) 강의]()
 - [Decision tree]()
 - [Voting classifier]()
 - [Bagging]()
@@ -23,23 +41,7 @@ tags: [python, machine learning, ml] # add tag
 
 <br>
 
-## **머신 러닝 기본**
-
-<br>
-
-- [확률과 통계 기초](https://gaussian37.github.io/ml-concept-basic_probability_statistics/)
-- 베이시언 결정 이론
-- [ML(Maximum Likelihood)와 MAP(maximum a posterior)](https://gaussian37.github.io/ml-concept-mle-and-map/)
-- [MLE(Maximum Likelihood Estimation)와 MAP(Maxim A Posterior)에 관하여](https://gaussian37.github.io/ml-concept-mlemap)
-- [가우시안 분포와 분별 함수 (선형 분별 분석(LDA), 2차 분별 분석(QDA))](https://gaussian37.github.io/ml-concept-gaussian_discriminant/)
-- [마할라노비스 거리(mahalanobis distance)](https://gaussian37.github.io/ml-concept-mahalanobis_distance/)
-- [정보 이론 (Entropy, Cross Entropy, KL Divergence)](https://gaussian37.github.io/ml-concept-infomation_theory/)
-
-
-
-<br>
-
-## **Stanford Andrew Ng 머신 러닝 강의**
+## **Stanford Andrew Ng 머신 러닝 강의 수료**
 
 <br>
 
@@ -49,22 +51,3 @@ tags: [python, machine learning, ml] # add tag
 <br>
 <center><img src="../assets/img/certification/stanford_ml.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
-
-- [Anomaly Detection with Gaussian Distribution (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-anomalydetection/)
-- [Recommender System (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-recommender/)
-- [Clustering with K-Means Algorithm (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-kmeans/)
-- [PCA(Principal Component Analysis) (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-pca/)
-- [Recommender System (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-recommender/)
-- [SVM(Support Vector Machine) (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-svm/)
-- [Anomaly Detection with Gaussian Distribution (Andrew Ng)](https://gaussian37.github.io/ml-concept-andrewng-anomalydetection/)
-
-<br>
-
-## **Luis Serrano의 머신 러닝 강의**
-
-<br>
-
-- [Luis Serrano의 HMM(Hidden Markov Model) 강의](https://gaussian37.github.io/ml-concept-serrano_hmm/)
-- [Luis Serrano의 PCA(Principal Component Analysis) 강의](https://gaussian37.github.io/ml-concept-serrano_pca/)
-- [Luis Serrano의 SVM(Support Vector Machine) 강의]()
-- [Luis Serrano의 SVD(Singular Vector Decomposition) 강의]()
