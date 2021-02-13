@@ -11,14 +11,22 @@ tags: [machine learning, bias, variance] # add tag
 
 + 이번 글에서는 `Bias`와 `Variance` 문제의 정의에 대하여 다루어 보도록 하겠습니다.
 
-### Bias Vs. Variance
+<br>
 
-<img src="../assets/img/ml/concept/bias-variance/1.PNG" alt="Drawing" style="width: 600px;"/>
+## **Bias Vs. Variance**
+
+<br>
+
+<br>
+<center><img src="../assets/img/ml/concept/bias-variance/1.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + Bias와 Variance 문제의 정의를 살펴보면 bias 문제는 데이터의 분포에 비하여 모델이 너무 간단한 경우 underfit이 발생한 경우에 발생합니다.
 + Variance 문제는 모델의 복잡도가 데이터 분포보다 커서 데이터를 overfitting 시키는 문제를 말합니다.
- 
-<img src="../assets/img/ml/concept/bias-variance/2.PNG" alt="Drawing" style="width: 600px;"/>
+
+<br> 
+<center><img src="../assets/img/ml/concept/bias-variance/2.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + 모델의 degree를 높이면 식의 표현력이 더 증가해서 성능이 증가하지만 데이터 분포에 비하여 너무 표현력이 증가하면 overfitting이 발생할 수 있음을 확인하였습니다.
 + 위 슬라이드의 그래프는 degree의 증가에 따라서 error가 어떻게 바뀌는 지 보여줍니다.
@@ -30,7 +38,9 @@ tags: [machine learning, bias, variance] # add tag
 + degree를 계속 증가시키다 보면 training error는 감소하지만 validation error는 다시 증가하는 현상이 발생하는데 이 때가 overfitting이 발생한 구간 입니다.
     + 이 문제가 `variation problem`입니다. 
 
-<img src="../assets/img/ml/concept/bias-variance/3.PNG" alt="Drawing" style="width: 600px;"/>
+<br>
+<center><img src="../assets/img/ml/concept/bias-variance/3.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + 앞에서 설명한 내용을 다시 정리하면 위와 같습니다.
 + 다시 한번 확인해볼 점은 Bias와 Variance 문제가 언제 발생하고 이 때의 train error와 validation error의 관계를 파악하는 것입니다.
@@ -41,7 +51,9 @@ tags: [machine learning, bias, variance] # add tag
 
 + 이번에는 앞에서 알아본 `bias`와 `variance`를 `regularization`과 연관하여 알아보도록 하겠습니다.
 
-<img src="../assets/img/ml/concept/bias-variance/4.PNG" alt="Drawing" style="width: 600px;"/>
+<br>
+<center><img src="../assets/img/ml/concept/bias-variance/4.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + 만약 위 슬라이드와 같이 `polynomial` 모델이 있고 `regularization`을 적용했다고 가정해 보겠습니다.
 + 이 때, $$ \lambda $$ 값에 따라서 bias/variance 문제는 어떻게 되는지 살펴보겠습니다.
@@ -51,14 +63,18 @@ tags: [machine learning, bias, variance] # add tag
 + 반대로 High variance의 상황을 보면 $$ \lambda = 0 $$ 으로 극단적으로 생각할 수 있습니다.
     + 이 상황은 regularization을 사용하지 않은 것으로 overfitting의 문제가 나타날 수 있습니다.
 + 따라서 우리의 목적은 적당한 bias와 variance를 가지도록 $$ \lambda $$ 값을 설정할 필요가 있습니다.
-   
-<img src="../assets/img/ml/concept/bias-variance/5.PNG" alt="Drawing" style="width: 600px;"/>
+
+<br>   
+<center><img src="../assets/img/ml/concept/bias-variance/5.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + 따라서 위 슬라이드와 같이 $$ \lambda $$를 정할 때, 0부터 시작해서 점점 더 크기를 올리면서 적용하는 것이 좋습니다.
 + 위 슬라이드에서 보면 각각의 $$ \lambda $$ 후보값들을 이용하여 validation error를 구하고 그 error가 최소인 것을 선택하는 방법을 사용하였습니다.
     + 예를 들면 위 슬라이드에서는  $$ \lambda =0.08 $$에서 validation error가 최소가 되므로 선택되었습니다.
-     
-<img src="../assets/img/ml/concept/bias-variance/6.PNG" alt="Drawing" style="width: 600px;"/>
+
+<br>     
+<center><img src="../assets/img/ml/concept/bias-variance/6.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + regularization parameter의 변화에 따라서 train error와 validation error에 대하여 확인해 보면 위 슬라이드의 그래프와 같습니다.
 + train error의 경우 regularization의 크기가 커질수록 error의 크기가 더 커지게 됩니다.
@@ -75,7 +91,9 @@ tags: [machine learning, bias, variance] # add tag
 
 + 이번에는 `training set`의 크기에 따른 bias와 variance의 변화를 살펴보도록 하겠습니다.
 
-<img src="../assets/img/ml/concept/bias-variance/7.PNG" alt="Drawing" style="width: 600px;"/>
+<br>
+<center><img src="../assets/img/ml/concept/bias-variance/7.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + 먼저 위 슬라이드를 보면 `training set`의 크기에 따라서 모델의 `generalization` 성능이 상승되는 것을 알 수 있습니다.
 + 슬라이드의 오른쪽을 보면 데이터가 1개 있을 때부터 점점 증가하여 데이터가 6개 있을 때 까지 그래프의 모양이 변형되는 것을 볼 수 있습니다.
@@ -90,13 +108,17 @@ tags: [machine learning, bias, variance] # add tag
 
 + 그러면 이러한 training set의 크기와 bias/variance 의 관계에 대해서 알아보도록 하겠습니다.
 
-<img src="../assets/img/ml/concept/bias-variance/8.PNG" alt="Drawing" style="width: 600px;"/>
+<br>
+<center><img src="../assets/img/ml/concept/bias-variance/8.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + 먼저 `bias`문제에 대하여 살펴보겠습니다. `bias`문제는 기본적으로 모델의 복잡도가 낮아서 표현력이 안좋기 때문에 발생합니다.
 + 위 슬라이드처럼 모델이 단순 선형이라고 가정하면 데이터 분포를 적합하게 표현할 수가 없습니다.
 + 이런 경우에 training data 크기를 늘리더라도 bias 문제를 해결하기는 어렵습니다.
 
-<img src="../assets/img/ml/concept/bias-variance/9.PNG" alt="Drawing" style="width: 600px;"/>
+<br>
+<center><img src="../assets/img/ml/concept/bias-variance/9.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + 반면, `variance`문제는 기본적으로 학습 데이터에 비하여 너무 모델의 복잡도가 높아서 모델이 너무 과하게 학습한 문제로 인해 발생합니다.
 + 즉, 학습 데이터의 크기를 늘려서 validation/test error를 줄인다는 것은 `variance`문제에 상당히 적합합니다.
@@ -109,7 +131,9 @@ tags: [machine learning, bias, variance] # add tag
 
 + 앞에서 배운 `bias`와 `variance`관련 내용을 정리해 보겠습니다.
 
-<img src="../assets/img/ml/concept/bias-variance/10.PNG" alt="Drawing" style="width: 600px;"/>
+<br>
+<center><img src="../assets/img/ml/concept/bias-variance/10.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + 위 슬라이드 내용을 정리하면
     + `high variance` 문제를 해결하기 위해서
@@ -121,7 +145,9 @@ tags: [machine learning, bias, variance] # add tag
         + polynomial feature를 추가해 본다. 좀 더 복잡한 모델을 사용해 본다.
         + regularization parameter $$ \lambda $$의 크기를 줄여본다.
 
-<img src="../assets/img/ml/concept/bias-variance/11.PNG" alt="Drawing" style="width: 600px;"/>
+<br>
+<center><img src="../assets/img/ml/concept/bias-variance/11.PNG" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 + Neural Network에서 layer의 갯수와 parameter의 갯수는 비례합니다. 
 + layer의 갯수가 작으면 계산 비용은 작지만 `high bias 문제`에 빠질 가능성이 있습니다.

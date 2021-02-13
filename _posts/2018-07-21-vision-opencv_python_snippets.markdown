@@ -18,6 +18,7 @@ tags: [opencv, python, snippets] # add tag
 <br>
 
 - ### [warpAffine을 이용한 기하학적 변환](#warpaffine을-이용한-기하학적-변환-1)
+- ### [warpAffine과 warpPerspective를 이용한 기하학적 변환](#warpaffine과-warpperspective를-이용한-기하학적-변환-1)
 - ### [resize를 이용한 크기 변환](#resize를-이용한-크기-변환-1)
 - ### [flip을 이용한 대칭 변환](#flip을-이용한-대칭-변환-1)
 - ### [window 창 크기 조절하는 방법](#window-창-크기-조절하는-방법-1)
@@ -168,6 +169,12 @@ dst = cv2.warpAffine(src, affine_matrix, (0, 0))
 <br>
 <center><img src="../assets/img/vision/opencv/snippets/11.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
+
+## **warpAffine과 warpPerspective를 이용한 기하학적 변환**
+
+<br>
+
+
 
 
 <br>
