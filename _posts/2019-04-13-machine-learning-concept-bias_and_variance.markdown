@@ -209,7 +209,9 @@ tags: [machine learning, bias, variance] # add tag
 
 <br><br>
 
-### Learning Curves
+## **Learning Curves**
+
+<br>
 
 - 이번에는 `training set`의 크기에 따른 bias와 variance의 변화를 살펴보도록 하겠습니다.
 
@@ -249,7 +251,11 @@ tags: [machine learning, bias, variance] # add tag
     
 <br><br>
 
-## bias/variance 문제 정리
+<br>
+
+## **bias/variance 문제 정리**
+
+<br>
 
 - 앞에서 배운 `bias`와 `variance`관련 내용을 정리해 보겠습니다.
 
