@@ -138,7 +138,7 @@ tags: [machine learning, bias, variance] # add tag
 <br>
 
 <br>
-<center><img src="../assets/img/ml/concept/bias_and_variance/1.PNG" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/ml/concept/bias_and_variance/1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - Bias와 Variance 문제의 정의를 살펴보면 bias 문제는 데이터의 분포에 비하여 모델이 너무 간단한 경우 underfit이 발생한 경우에 발생합니다.
