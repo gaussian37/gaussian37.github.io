@@ -24,8 +24,8 @@ tags: [direct linear transformation, DLT] # add tag
 - 이 때, 동일 평면 (coplanar) 상의 점들을 3차원 변환을 하기 위하여 `Homography(또는 Perspective Transformation, Projective Transformation)` 방법을 사용합니다.
 - 이번 글에서는 `Homography`에 대한 자세한 개념 보다는 두 이미지에서 대응되는 4개의 점을 이용하여 3 X 3 Homography를 구하는 방법에 대하여 다루어 보겠습니다.
 - `Homography`에 대한 개념은 아래 링크에서 확인하시기 바랍니다.
-    - 링크 : https://gaussian37.github.io/vision-concept-geometric_transformation/
-    - 링크 : https://gaussian37.github.io/vision-concept-camera_and_geometry/
+    - 링크 : [https://gaussian37.github.io/vision-concept-geometric_transformation/](https://gaussian37.github.io/vision-concept-geometric_transformation/)
+    - 링크 : [https://gaussian37.github.io/vision-concept-camera_and_geometry/](https://gaussian37.github.io/vision-concept-camera_and_geometry/)
 
 <br>
 
