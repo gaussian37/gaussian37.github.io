@@ -22,6 +22,19 @@ tags: [direct linear transformation, DLT] # add tag
 
 - 이미지 변환을 할 때, 위 그림과 같이 왼쪽의 이미지를 오른쪽 이미지와 같이 기하학적 변환을 적용하곤 합니다.
 - 이 때, 동일 평면 (coplanar) 상의 점들을 3차원 변환을 하기 위하여 `Homography(또는 Perspective Transformation, Projective Transformation)` 방법을 사용합니다.
+- 이번 글에서는 `Homography`에 대한 자세한 개념 보다는 두 이미지에서 대응되는 4개의 점을 이용하여 3 X 3 Homography를 구하는 방법에 대하여 다루어 보겠습니다.
+- Homography에 대한 개념은 아래 링크에서 확인하시기 바랍니다.
+    - 링크 : https://gaussian37.github.io/vision-concept-geometric_transformation/
+    - 링크 : 
 
 <br>
 
+- $$ \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \alpha H \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} $$
+
+<br>
+
+- $$ H = \begin{bmatrix} h_{1} & h_{2} & h_{3} \\ h_{4} & h_{5} & h_{6} \\ h_{7} & h_{8} & h_{9} \end{bmatrix} $$
+
+<br>
+
+- 
