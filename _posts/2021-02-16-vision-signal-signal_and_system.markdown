@@ -21,13 +21,13 @@ tags: [신호와 시스템, signal, system] # add tag
 
 <br>
 
-- ### 신호와 시스템의 정의
-- ### 연속 시간 신호와 이산 시간 신호
-- ### 독립 변수의 변환
-- ### 지수 신호와 정현파 신호
-- ### 단위 임펄스 및 단위 계단 함수
-- ### 연속 시간 및 이산 시간 시스템
-- ### 기본적인 시스템 특성
+- ### [신호와 시스템의 정의](신호와-시스템의-정의-1)
+- ### [연속 시간 신호와 이산 시간 신호](연속-시간-신호와-이산-시간-신호-1)
+- ### [독립 변수의 변환](독립-변수의-변환-1)
+- ### [지수 신호와 정현파 신호](지수-신호와-정현파-신호-1)
+- ### [단위 임펄스 및 단위 계단 함수](단위-임펄스-및-단위-계단-함수-1)
+- ### [연속 시간 및 이산 시간 시스템](연속-시간-및-이산-시간-시스템-1)
+- ### [기본적인 시스템 특성](기본적인-시스템-특성-1)
 
 <br>
 
@@ -80,11 +80,7 @@ tags: [신호와 시스템, signal, system] # add tag
 
 <br>
 
-- $$ P = v * i = R*i^{2} = \frac{v^{2}}{R} $$ (전력에 관한 전압, 전류, 저항의 관계)
-
-<br>
-
-- $$ v = R * i $$
+- $$ P = v * i = R*i^{2} = \frac{v^{2}}{R} $$ (전력에 관한 전압, 전류, 저항의 관계), $$ v = R * i $$
 
 <br>
 
@@ -122,7 +118,7 @@ tags: [신호와 시스템, signal, system] # add tag
 
  <br>
 
- - ④ $$ -\infty \le t \le \infty $$ 에서의 평균 전력 P_{\infty} : $$ P_{\infty} = \lim_{T \to \infty}{\frac{1}{2T} \int_{t_{1}}^{t_{2}} \vert x(t) \vert^{2} dt}  $$
+ - ④ $$ -\infty \le t \le \infty $$ 에서의 평균 전력 $$ P_{\infty} $$ : $$ P_{\infty} = \lim_{T \to \infty}{\frac{1}{2T} \int_{t_{1}}^{t_{2}} \vert x(t) \vert^{2} dt}  $$
 
 <br>
 
@@ -142,7 +138,7 @@ tags: [신호와 시스템, signal, system] # add tag
 
 - $$ x \cdot \hat{x} = a^{2} + b^{2} \ \ \because j = \sqrt{-1}, \ \ j^{2} = -1 $$
 
-- $$ \vert x \vert = \sqrt{a^{2} + b^{2}} $$ (복소수의 절대값 정의)
+- $$ \vert x \vert = \sqrt{a^{2} + b^{2}} \ \ \ \ \cdots \text{absolute value of complex number} $$ 
 
 - $$ \color{red}{\vert x \vert^{2}} = (\sqrt{a^{2} + b^{2}})^{2} = \color{red}{x \cdot \hat{x}} $$
 
@@ -173,7 +169,7 @@ tags: [신호와 시스템, signal, system] # add tag
 
  <br>
 
- - ④ $$ -\infty \le n \le \infty $$ 에서의 평균 전력 P_{\infty} : $$ P_{\infty} = \lim_{N \to \infty}{\frac{1}{2N+1} \sum_{n=-N}}^{N} \vert x[n] \vert^{2}}  $$
+ - ④ $$ -\infty \le n \le \infty $$ 에서의 평균 전력 $$ P_{\infty} $$ : $$ P_{\infty} = \lim_{N \to \infty}{\frac{1}{2N+1} \sum_{n=-N}}^{N} \vert x[n] \vert^{2}}  $$
 
 <br>
 
