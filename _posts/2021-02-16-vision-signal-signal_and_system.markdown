@@ -134,13 +134,13 @@ tags: [신호와 시스템, signal, system] # add tag
 
 - $$ x = a + jb $$
 
-- $$ \hat{x} = a - jb $$
+- $$ \bar{x} = a - jb $$
 
-- $$ x \cdot \hat{x} = a^{2} + b^{2} \ \ \because j = \sqrt{-1}, \ \ j^{2} = -1 $$
+- $$ x \cdot \bar{x} = a^{2} + b^{2} \ \ \because j = \sqrt{-1}, \ \ j^{2} = -1 $$
 
 - $$ \vert x \vert = \sqrt{a^{2} + b^{2}} \ \ \ \ \cdots \text{absolute value of complex number} $$ 
 
-- $$ \color{red}{\vert x \vert^{2}} = (\sqrt{a^{2} + b^{2}})^{2} = \color{red}{x \cdot \hat{x}} $$
+- $$ \color{red}{\vert x \vert^{2}} = (\sqrt{a^{2} + b^{2}})^{2} = \color{red}{x \cdot \bar{x}} $$
 
 <br>
 
@@ -184,7 +184,7 @@ tags: [신호와 시스템, signal, system] # add tag
 <br>
 
 - 앞에서 다룬 신호에서의 `독립 변수`는 시간 $$ t $$ 입니다. 이번에는 시간 $$ t $$의 변환을 주었을 때, 신호가 어떻게 달라지는 지 살펴보도록 하겠습니다.
-- 대표적으로 `시간 변위(time shift)`, `시간 반전(time reversal)`, `시간 배율(time scaling)`이 있습니다.
+- 대표적으로 `시간 변위(time shift)`, `시간 반전(time reversal)`, `시간 배율(time scaling)`, `주기 신호(periodic signal)`이 있습니다.
 
 <br>
 
@@ -193,18 +193,111 @@ tags: [신호와 시스템, signal, system] # add tag
 <br>
 
 - `시간 변위(time shift)` : $$ x(t) \to x(t - t_{0}), x[n] \to x[ n-n_{0}] $$ 에 대하여
-    - 만약 $$ t_{0} > 0 $$ 이면, $$ x(t - t_{0}) $$은 $$ x(t) $$의 **지연 신호** 입니다.
-    - 만약 $$ t_{0} < 0 $$ 이면, $$ x(t - t_{0}) $$은 $$ x(t) $$의 **앞선 신호** 입니다.
+    - 만약 $$ t_{0} > 0 $$ 이면, $$ x(t - t_{0}) $$은 $$ x(t) $$의 **지연 신호 (또는 과거 신호)** 입니다.
+    - 만약 $$ t_{0} < 0 $$ 이면, $$ x(t - t_{0}) $$은 $$ x(t) $$의 **앞선 신호 (또는 미래 신호)** 입니다.
 
 <br>
 <center><img src="../assets/img/vision/signal/signal_and_system/3.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 위 그래프를 보면 $$ n_{0} $$만큼 시간 변위가 발생한 것을 확인할 수 있습니다. 
+- 위 그래프를 보면 $$ n_{0} $$만큼 시간 변위가 발생한 것을 확인할 수 있습니다. 이 때, $$ n_{0} $$을 `지연 시간` 이라고 합니다. 왜냐하면 기존에 시간 0에서 나타났던 신호가 $$ n_{0} $$ 만큼 **지연되어서 신호가 나타났기 때문**입니다. 이미 나타난 신호가 지연되어서 나타났기 때문에 `과거 신호`라고도 부릅니다.
+- `앞선 신호` 또는 `미래 신호`라고 불리는 시간 변위는 지연 신호와 반대로 생각하면 됩니다.
+
+<br>
+
+- `시간 반전(time reversal)` : $$ x(t) \to x(-t), x[n] \to x[-n] $$
+    - 　$$ x(-t) $$는 $$ x(t) $$의 $$ t = 0 $$ (y축) 대칭
+    - 　$$ x[-n] $$는 $$ x[n] $$의 $$ n = 0 $$ (y축) 대칭
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/4.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `시간 배율(time scaling)` : $$ x(t) \to x(a * t) $$
+    - 　$$ 0 < a < 1 $$ 일 때, $$ x(a*t) $$의 $$ t $$ 축의 폭이 증가
+    - 　$$ a > 1 $$ 일 때, $$ x(a*t) $$의 $$ t $$ 축의 폭이 감소
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/5.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위의 3가지 독립 변수 $$ t $$의 변환을 이용하여 아래 예제를 한번 살펴보겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/6.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 먼저 위 신호와 같은 $$ x(t) $$가 있을 때, $$ t $$의 변화에 따라 어떻게 신호가 바뀌는 지 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/7.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 예제는 $$ x(t + 1) $$ 입니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/8.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 예제는 $$ x(-t +1) = x(-(t - 1)) $$ 입니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/9.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 예제는 $$ x(\frac{3}{2}t) $$ 입니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/10.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 예제는 $$ x(\frac{3}{2}t + 1) $$ 입니다.
+
+<br>
+
+- `주기 신호(periodic signal)` : $$ x(t) = x(t + T) $$ (주기 $$ T $$), $$ x[n] = x[n + N] $$ (주기 $$ N $$)
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/11.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/12.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 마지막으로 시간 축 $$ t $$에 대하여 `우함수(even function) 신호`와 `기함수(odd function) 신호`에 대하여 알아보도록 하겠습니다.
+- `우함수(even function) 신호` : $$ x(t) = x(-t) $$, $$ x[n] = x[-n] $$, **세로축(y축) 대칭인 함수**
+- `기함수(odd function) 신호` : $$ x(t) = -x(-t) $$, $$ x[n] = -x[-n] $$, **원점 대칭인 함수**
+
+<br>
+
+- 임의의 신호 $$ x(t) $$에 대하여 다음과 같이 계산을 적용하였을 때, 우함수와 기함수를 만들 수 있습니다.
+- `우함수` : $$ x_{e}(t) = [x(t) + x(-t)] / 2 $$, 즉 원래 함수와 y축 대칭인 우함수를 더한 후 2로 나누면 우함수가 생성됩니다.
+- `기함수` : $$ x_{o}(t) = [x(t) - x(-t)] / 2 $$, 즉 원래 함수와 원점 대칭인 기함수를 더한 후 2로 나누면 기함수가 생성됩니다.
+
+<br>
+
+- $$ x(t) = x_{e}(t) + x_{o}(t) $$
+
+- $$ x(-t) = x_{e}(t) - x_{o}(t) $$
+
+<br>
+
+- 위 식을 통하여 알 수 있는 점은 **임의의 함수는 우함수와 기함수의 합으로 표현할 수 있다**라는 점입니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/13.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 첫번째 신호가 원 함수의 신호이고 두번째 신호는 `우함수` ($$ x(t) = x_{e}(t) + x_{o}(t) $$) 형태로 나타낸 것입니다. 세번째신호는 `기함수` ($$ x(-t) = x_{e}(t) - x_{o}(t) $$)의 형태로 나타내었습니다.
+- 위 예제에서 우함수와 기함수 형태의 이산 시간 신호를 각 시간 단위 별로 더하면 기존의 $$ x(t) $$로 나타내집니다. 즉, 임의의 함수를 우함수와 기함수의 합으로 표현한 것 입니다.
 
 <br>
 
 ## **지수 신호와 정현파 신호**
+
+<br>
+
 
 <br>
 
