@@ -188,7 +188,19 @@ tags: [신호와 시스템, signal, system] # add tag
 
 <br>
 
-- 먼저 시간 변위는 다음 관계식을 따릅니다. 
+- 먼저 시간 변위에 대하여 살펴보도록 하겠습니다.
+
+<br>
+
+- `시간 변위(time shift)` : $$ x(t) \to x(t - t_{0}), x[n] \to x[ n-n_{0}] $$ 에 대하여
+    - 만약 $$ t_{0} > 0 $$ 이면, $$ x(t - t_{0}) $$은 $$ x(t) $$의 **지연 신호** 입니다.
+    - 만약 $$ t_{0} < 0 $$ 이면, $$ x(t - t_{0}) $$은 $$ x(t) $$의 **앞선 신호** 입니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/3.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그래프를 보면 $$ n_{0} $$만큼 시간 변위가 발생한 것을 확인할 수 있습니다. 
 
 <br>
 
