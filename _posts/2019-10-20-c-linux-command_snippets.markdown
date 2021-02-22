@@ -402,6 +402,11 @@ find . -type f | wc -l
 
 <br>
 
+- 먼저 zip을 이용하여 파일을 압축하는 가장 기본적인 방법은 다음과 같습니다.
+    - `zip {압축 파일명}.zip {압축할 파일 혹은 디렉토리1} {압축할 파일 혹은 디렉토리2}...`
+
+<br>
+
 - 먼저 **zip을 이용한 분할 압축 방법**은 다음과 같은 형태로 사용 합니다.
 - `zip -s 분할압축사이즈 압축결과파일명 압축할파일명` (ex. zip -s 100k -o zipped_file.zip file_to_be_zipped.txt)
 - 위 명령어에서 `-s`는 사이즈와 관련된 옵션입니다. k (kilobytes), m (megabytes), g (gigabytes) 지정할 수 있습니다. 예) 100k, 200m, 300g

@@ -68,6 +68,7 @@ tags: [python, python 기본] # add tag
 - #### [문자열을 이용하여 패키지 import](#문자열을-이용하여-패키지-import-1)
 - #### [Dictionary와 JSON](#dictionary와-json-1)
 - #### [Dicionary의 최대, 최소 value 찾기](#dicionary의-최대-최소-value-찾기-1)
+- #### [copy를 이용한 deepcopy](#copy를-이용한-deepcopy-1)
 
 <br>
 
@@ -1863,6 +1864,21 @@ print(max(a, key=lambda k : a[k]))
 # d
 print(min(a, key=lambda k : a[k]))
 # a
+```
+
+<br>
+
+## **copy를 이용한 deepcopy**
+
+<br>
+
+- 어떤 객체를 deepcopy 하기 위한 범용적인 방법으로 다음과 같습니다.
+
+<br>
+
+```python
+from copy import deepcopy
+object2 = deepcopy(object1)
 ```
 
 <br>
