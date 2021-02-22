@@ -299,6 +299,30 @@ tags: [신호와 시스템, signal, system] # add tag
 
 <br>
 
+- 앞에서 신호의 정의에 대하여 살펴 보았습니다. 이번에는 신호의 기본이 되는 `sin`, `cos` 정현파 신호와 이를 지수 형태로 나타내는 지수 신호에 대하여 다루어 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/15.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 식의 `Re`는 실수값을 의미하고 `Im`는 허수값을 의미합니다. 즉, 지수 형식으로 표현된 값을 실수값을 취하면 `cos`가 되고 허수값을 취하면 `sin`이 됨을 뜻합니다. 왜냐하면 지수함수가 `sin`, `cos`으로 분해가 되는 `오일러 공식`을 따르기 때문입니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/16.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 오일러 공식에 따라 지수 함수 $$ e^{\pm j\theta} = \cos{\theta} \pm j\sin{\theta} $$ 와 같이 전개되므로 이 원리를 이용하여 $$ A\cos{w_{0}t + \phi} = A \ Re\{e^{j(w_{0}t + \phi)} \} $$와 $$ A\sin{w_{0}t + \phi} = A \ Im\{e^{j(w_{0}t + \phi)} \} $$를 유도할 수 있습니다.
+
+<br>
+
+- 다음으로 정현파 신호에 대한 성질을 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/14.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
+
 
 <br>
 
@@ -313,7 +337,6 @@ tags: [신호와 시스템, signal, system] # add tag
 <br>
 
 ## **기본적인 시스템 특성**
-
 
 <br>
 
