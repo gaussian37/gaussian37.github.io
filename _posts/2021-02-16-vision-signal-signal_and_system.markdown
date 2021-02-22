@@ -141,7 +141,7 @@ tags: [신호와 시스템, signal, system] # add tag
 
 - $$ \vert x \vert = \sqrt{a^{2} + b^{2}} \ \ \ \ \cdots \text{absolute value of complex number} $$ 
 
-- $$ \color{red}{\vert x \vert^{2}} = (\sqrt{a^{2} + b^{2}})^{2} = \color{red}{x \cdot \bar{x}} $$
+- $$ \color{blue}{\vert x \vert^{2}} = (\sqrt{a^{2} + b^{2}})^{2} = \color{blue}{x \cdot \bar{x}} $$
 
 <br>
 
