@@ -358,6 +358,47 @@ tags: [신호와 시스템, signal, system] # add tag
 
 ## **단위 임펄스 및 단위 계단 함수**
 
+<br>
+
+- 먼저 단위 임펄스 (단위 샘플) 함수에 대하여 알아보도록 하겠습니다. 아래 그림과 같이 이산 시간 신호로 표현됩니다.
+
+<br>
+
+- $$ \delta[n] = \begin{cases} 0, \ n \neq 0 \\ 1, \ n = 0 \end{cases} $$
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/19.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 단위 임펄스 함수의 기본형은 위 식을 따르고 앞에서 다룬 독립 변수 시간의 변화에 따라서 다양하게 변형할 수 있습니다.
+- 예를 들어 $$ 2 \delta[n], 2\delta[n-4], 2\delta[n+2] $$ 등과 같이 시간 변위 및 배율을 줄 수 있습니다.
+
+<br>
+
+- 다음은 단위 계단 함수에 대하여 알아보도록 하겠습니다.
+
+<br>
+
+- $$ u[n] = \begin{cases} 0, \ \ n \lt 0 \\ 1, \ \ n \ge 0 $$
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/20.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 함수는 단위 임펄스 함수의 확장이라고 볼 수 있습니다. 따라서 두 함수는 다음 식과 같은 관계를 가집니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/21.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 먼저 위 식은 단위 계단 함수를 이용하여 단위 임펄스 함수를 표현한 예시 입니다. $$ u[n] $$과 $$ u[n-1] $$을 이용하면 단위 임펄스 함수를 만들 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/22.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 두번째 식은 단위 임펄스 함수의 성질을 이용한 것입니다. 즉, 하나의 값 이외에는 모두 0으로 만들어 버리는 성질을 이용한 것입니다.
+- 임의의 함수 $$ x[n] $$에 대하여 $$ x[n_{0}] $$ 이외의 값은 단위 임펄스 함수와 곱해지면 모두 0이 되어 버리기 때문에 단위 임펄스 함수의 형태로 나타나 집니다. 예를 들어 $$ x[n]\delta[n - (-4)] = x[4]\delta[n - (-4)] $$가 됩니다.
 
 <br>
 

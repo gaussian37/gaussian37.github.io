@@ -74,9 +74,26 @@ git push origin feature
 
 - 원하는 branch로 이동하는 방법 : `git checkout feature이름`
 - 원하는 branch에 push 하는 방법 : 
-    - 1) 변경할 파일 등록 : `git add 파일명1 파일명2`
+    - 1) 변경할 파일 등록 : `git add . ` 또는 `git add 파일명1 파일명2` 
     - 2) 변경 내용 commit : `git commit 파일명1 파일명2 -m "변경내용"`
     - 3) 변경 내용 push : `git push origin feature이름`
+
+<br>
+
+- 위 4가지 명령어는 레퍼지토리를 업데이트 하기 위한 가장 기본적인 명령어 입니다. 그 이외의 필수 기능들에 대하여 알아보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/etc/dev/git/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 출처 : https://web.facebook.com/bigdatastudy/photos/a.110625387093056/272139340941659/
+
+<br>
+
+
+- 설명 추가 예정
+
+
 
 <br>
 
