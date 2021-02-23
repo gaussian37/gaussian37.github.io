@@ -314,6 +314,27 @@ tags: [신호와 시스템, signal, system] # add tag
 - 위 오일러 공식에 따라 지수 함수 $$ e^{\pm j\theta} = \cos{\theta} \pm j\sin{\theta} $$ 와 같이 전개되므로 이 원리를 이용하여 $$ A\cos{w_{0}t + \phi} = A \ Re\{e^{j(w_{0}t + \phi)} \} $$와 $$ A\sin{w_{0}t + \phi} = A \ Im\{e^{j(w_{0}t + \phi)} \} $$를 유도할 수 있습니다.
 
 <br>
+<center><img src="../assets/img/vision/signal/signal_and_system/18.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 오일러 공식에 의한 주기 함수와 cos, sin 함수의 관계와 더불어 `복소 평면` 상에서의 cos, sin 함수의 관계를 살펴 보겠습니다.
+- 위 그래프에서 가로축은 실수부이고 세로축은 허수부입니다. 이 때 $$ z $$를 직각 좌표계와 극 좌표계로 나타낼 수 있습니다.
+- 　$$ z = a + jb = \vert z \vert e^{j\theta} $$ (가운데 식이 직각 좌표계이고 지수 함수 형태의 식이 극 좌표계입니다.)
+- 그리고 $$ z $$의 크기인 절대값은 삼각형의 대각선인 $$ \vert z \vert $$가 되는 것을 알 수 있습니다. 이 값을 이용하여 cos, sin 함수를 나타내 보겠습니다.
+
+<br>
+
+- $$ a = \cos{\theta} \vert z \vert $$
+
+- $$ b = \sin{\theta} \vert z \vert $$
+
+- $$ z = a + jb = \cos{\theta} \vert z \vert + j(\sin{\theta} \vert z \vert) = \vert z \vert (\cos{\theta} + j \sin{\theta}) =  \vert z \vert e^{j\theta} \ \ \because \text{euler formula} $$
+
+<br>
+
+- 이와 같은 방법으로 $$ z $$를 직각 좌표계와 극 좌표계 방식으로 나타낼 수 있습니다.
+
+<br>
 
 - 다음으로 정현파 신호에 대한 성질을 살펴보도록 하겠습니다.
 
@@ -321,8 +342,17 @@ tags: [신호와 시스템, signal, system] # add tag
 <center><img src="../assets/img/vision/signal/signal_and_system/14.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- `주기(period)`, 1 사이클 시간 (단위 : sec) : $$ T_{0} = \frac{2 \pi}{w_{0}} $$
+- `주파수(frequency)`, 1 초 내 싸이클 수 (단위 : Hz) : $$ f_{0} = \frac{1}{T_{0}} $$
+- `각 주파수(radian frequency)` : $$ w_{0} = 2 \pi f_{0} $$
+- `진폭(amplitude)`, 또는 peak : $$ A $$
+- `위상(phase)` (단위 : radian) : $$ \phi $$
 
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/17.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
+- 위 그래프를 살펴보면 $$ T_{1} \lt T_{2} \le T_{3} $$이므로 주기는 점점 늘어나고 $$ w_{1} \gt w_{2} \gt w_{3} $$ 이므로 주파수는 점점 감소하는 것을 확인할 수 있습니다.
 
 <br>
 
