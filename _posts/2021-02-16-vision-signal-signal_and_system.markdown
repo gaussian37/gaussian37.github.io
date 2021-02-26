@@ -360,7 +360,7 @@ tags: [신호와 시스템, signal, system] # add tag
 
 <br>
 
-- 이번에는 `단위 임펄스 함수`와 `단위 계단 함수`에 대하여 알아보도록 하겠습니다. 이 함수도 `연속 시간`과 `이산 시간` 각각의 표현 방법이 다르므로 이를 분리하여 배워보겠습니다.
+- 이번에는 가장 기본적인 신호인 `단위 임펄스 함수`와 `단위 계단 함수`에 대하여 알아보도록 하겠습니다. 이 함수도 `연속 시간`과 `이산 시간` 각각의 표현 방법이 다르므로 이를 분리하여 배워보겠습니다.
 
 <br>
 
@@ -380,7 +380,7 @@ tags: [신호와 시스템, signal, system] # add tag
 
 <br>
 
-- 다음은 이산 시간에서의 `단위 계단 함수`에 대하여 알아보도록 하겠습니다.
+- 다음은 이산 시간에서의 `단위 계단(Unit Step) 함수`에 대하여 알아보도록 하겠습니다.
 
 <br>
 
@@ -438,24 +438,93 @@ tags: [신호와 시스템, signal, system] # add tag
 <br>
 
 - 위 관계식 또한 임펄스 함수가 특정 시간 이외에는 모든 값이 0이 되는 점을 이용하여 정의되었습니다.
-- 연속 시간 신호의 
+- 연속 시간 신호의 함수를 다른 관점에서 다시 한번 살펴보도록 하겠습니다.
 
 <br>
 <center><img src="../assets/img/vision/signal/signal_and_system/27.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 
-
+- 왼쪽 그림은 앞에서 살펴본 계단 함수에서 선형적으로 값을 증가하는 부분을 추가한 형태입니다.
+- 이와 같은 계단 함수를 임펄스 함수에 대응하면 오른쪽 그림과 같이 나타나게 됩니다. 이 이유를 살펴보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/28.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/signal/signal_and_system/28.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
+- 앞의 그림의 계단 함수를 구간 별 수식으로 나타내면 위 수식과 같습니다. 계단 함수 → 임펄스 함수로 변환하려면 미분을 이용하여 나타내었습니다. 이번에도 같은 방법으로 계단 함수를 임펄스 함수로 변환해 보도록 하겠습니다. 먼저 $$ t < 0 $$ 때와 $$ t > \Delta $$인 경우 상수값이므로 미분을 하면 0이 되고 $$ 0 < t < \Delta $$ 범위의 값 $$ \frac{1}{\Delta}t $$를 미분하면 $$ \frac{1}{\Delta} $$가 됩니다. 이를 이용하면 임펄스 함수는 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/29.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/30.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/31.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 앞의 설명에 따라 임펄스 함수 $$ \delta_{\Delta}(t) $$는 위 식과 같이 정의할 수 있습니다.
+
+<br>
+
+- 이번에는 반대로 임펄스 함수 → 계단 함수로 변환해 보도록 하겠습니다. 이산 시간 케이스에서 다룬 바와 같이 이번에는 적분을 통하여 변환하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/32.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 이번에 살펴 본 $$ \Delta $$를 추가한 계단 및 임펄스 함수에서 $$ \Delta $$를 0으로 수렴시키면 어떻게 될까요?
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/34.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/33.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림과 수식같이 $$ \Delta = 0$$이 되면서 처음 다룬 연속 시간 신호의 임펄스 함수와 계단 함수와 같은 형태로 변경됩니다.
 
 <br>
 
 ## **연속 시간 및 이산 시간 시스템**
 
+<br>
+
+- 앞에서 `시스템`이란 신호를 처리하는 소프트웨어나 하드웨어를 뜻한다고 설명하였습니다. 
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/35.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 시스템의 가장 큰 범주로는 연속 시간 시스템 (Continuous Time System)과 이산 시간 시스템 (Discrete Time System)이 존재합니다.
+- 그리고 각각의 시스템들을 연결하는 다양한 종류의 연결이 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/36.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 연결은 직렬 연결이라고 하며 시스템이 연속적으로 연달아 연결되어 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/37.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 연결은 병렬 연결 입니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/38.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 연결은 직렬과 병렬이 혼합되어 있는 방식입니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/39.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 연결 방식은 피드백 방식으로 출력이 다시 입력으로 연결되는 방식입니다.
 
 <br>
 
@@ -463,8 +532,26 @@ tags: [신호와 시스템, signal, system] # add tag
 
 <br>
 
+- 각 시스템은 연속 및 이산 시간 특성 뿐 아니라 다른 특성들에 의해서 구분되어 지기도 합니다.
+- 먼저 `메모리 없는 (memoryless)시스템`은 어떤 시간의 출력이 동일한 그 시간의 입력에 의해서만 결정되는 시스템을 뜻합니다. 이를 `항등 시스템` 이라고도 합니다.
 
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/40.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
+- 반면 `메모리가 있는 시스템`은 어떤 시간의 출력이 그 시간이나 과거 시간의 입력과 시스템 상태에 의해서 결정되는 시스템을 뜻합니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/41.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 예를 들어 위 식과 같은 `지연기`가 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/42.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 또는 위 식과 같은 `누산기`가 있습니다.
 
 <br>
 
