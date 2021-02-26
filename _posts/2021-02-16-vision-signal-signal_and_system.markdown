@@ -384,7 +384,7 @@ tags: [신호와 시스템, signal, system] # add tag
 
 <br>
 
-- $$ u[n] = \begin{cases} 0, \ \ n \lt 0 \\ 1, \ \ n \ge 0 $$
+- $$ u[n] = \begin{cases} 0, \ \ n \lt 0 \\ 1, \ \ n \ge 0 \end{cases} $$
 
 <br>
 <center><img src="../assets/img/vision/signal/signal_and_system/20.png" alt="Drawing" style="width: 400px;"/></center>
@@ -393,7 +393,7 @@ tags: [신호와 시스템, signal, system] # add tag
 - 위 함수는 단위 임펄스 함수의 확장이라고 볼 수 있습니다. 따라서 두 함수는 다음 식과 같은 관계를 가집니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/21.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/signal/signal_and_system/21.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 먼저 위 식은 단위 계단 함수를 이용하여 단위 임펄스 함수를 표현한 예시 입니다. $$ u[n] $$과 $$ u[n-1] $$을 이용하면 단위 임펄스 함수를 만들 수 있습니다.
@@ -428,9 +428,28 @@ tags: [신호와 시스템, signal, system] # add tag
 - 이산 시간의 임펄스 함수와 계단 함수는 차분 방정식을 이용하여 두 신호의 관계를 나타내었습니다. 연속 시간에서의 두 함수는 미분 방정식을 이용하여 두 신호의 관계를 나타낼 수 있습니다.
 
 <br>
+<center><img src="../assets/img/vision/signal/signal_and_system/25.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 이 관계는 이산 시간 신호의 경우와 비교하면서 살펴보면 이해하기 수월합니다. 임펄스 함수는 계단 함수를 $$ dt $$로 미분한 관계를 가지고 반대로 계단 함수는 임펄스 함수를 적분한 관계를 가집니다.
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/26.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 관계식 또한 임펄스 함수가 특정 시간 이외에는 모든 값이 0이 되는 점을 이용하여 정의되었습니다.
+- 연속 시간 신호의 
+
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/27.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 
 
 
-
+<br>
+<center><img src="../assets/img/vision/signal/signal_and_system/28.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
 
 <br>
