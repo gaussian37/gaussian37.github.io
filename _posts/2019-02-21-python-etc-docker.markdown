@@ -1,19 +1,15 @@
 ---
 layout: post
-title: Docker 와 Azure Containers for Web App 사용하기 with Django
+title: docker 관련 내용 정리
 date: 2019-02-21 13:46:00
-img: python/etc/docker/docker.png
-categories: [python-etc] 
+img: etc/dev/docker/0.png
+categories: [etc-dev] 
 tags: [python, docker, 도커] # add tag
 ---
 
 <br>
 
-- 출처: askcompany.kr
-
-<br>
-
-## **Table**
+## **목차**
 
 - ### Immutable infrastructure 패러다임
 - ### 간략히 Docker 살펴보기 
