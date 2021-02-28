@@ -190,17 +190,75 @@ tags: [fourier transform, 퓨리에 변환] # add tag
 
 - 위 식에서 `cos` 함수는 1Hz를 가지고 `sin` 함수는 3Hz를 가진다고 가정을 하여 식을 정하면 위 그래프와 같이 나타낼 수 있습니다.
 - 왼쪽의 큰 그래프는 함수 $$ x(t) $$를 뜻하며 수식에 해당하는 그래프를 그리면 위 그래프와 같습니다.
-- 이 $$ x(t) $$ 함수와 $$ \cos{2 * \pi * 1 * t}, \sin{2 * \pi * 1 * t} $$를 각각 내적 후 적분을 취하면 각각 0.5, 0이 됨을 계산할 수 있습니다.
+- 이 $$ x(t) $$ 함수와 $$ \cos{2 * \pi * 1 * t}, \sin{2 * \pi * 1 * t} $$를 각각 `내적` 후 `적분`을 취하면 각각 0.5, 0이 됨을 계산할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/fourier_transform/8.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/fourier_transform/8.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+- 상세 계산 과정 : [링크](https://drive.google.com/file/d/1Tln1XM0vjqQiyXfx1KdoM4vCrvDqUo_G/view?usp=sharing)
 
 <br>
 <center><img src="../assets/img/vision/concept/fourier_transform/9.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 상세 계산 과정은 다음 [링크](https://drive.google.com/file/d/1X0mojHAIXZrAKAgzEX6rh2Zawbjmh04B/view?usp=sharing)를 참조해 주시기 바랍니다.
+- 상세 계산 과정 : [링크](https://drive.google.com/file/d/1jId3wh6cVkkbs5hmM3fmE_bD2tE6M8VW/view?usp=sharing)
+
+<br>
+
+- 앞에서 설명하였듯이 `내적`은 **두 벡터 또는 함수가 얼마나 닮았는 지** 나타냅니다. 위 식에 이 개념을 대입하면 **$$ x(t) $$의 삼각함수 성분 중 kernel의 성분을 얼만큼 내포**하고 있는 지 뜻하게 됩니다. 여기서 kernel은 $$ x(t) $$에 곱해지는 $$ \cos{2 \pi t}, \sin{2 \pi t} $$에 해당합니다.
+
+<br>
+
+- 위 계산은 $$ a_{1} $$의 경우에 해당합니다. 계산해야 하는 전체 영역은 음의 무한대에서 양의 무한대이기 때문에 전 과정을 계산을 해야 푸리에 급수를 나타낼 수 있습니다. 따라서 몇 가지 $$ a_{k} $$를 좀 더 다루어 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/fourier_transform/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그래프는 $$ a_{2} $$를 나타냅니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/fourier_transform/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그래프는 $$ a_{0} $$을 나타냅니다. cos, sin 함수가 상수로 수렴되기 때문에 계산이 쉽게 가능합니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/fourier_transform/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이번에는 음의 방향으로 계산을 해보겠습니다. 위 그래프는 $$ a_{-1} $$을 나타냅니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/fourier_transform/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이와 같은 계산을 -3 ~ 3까지 적용하였을 때, 위 테이블과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/fourier_transform/14.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 테이블의 $$ a_{k} $$의 크기를 확인하기 위하여 절대값을 취한 뒤 그래프로 나타나면 위 그래프와 같습니다.
+- 여기서 주파수를 구해보겠습니다. 일반적으로 $$ \cos{2 \pi \color{red}{f} t} $$에서 $$ \color{red}{f} $$가 주파수를 뜻합니다.
+
+<br>
+
+- $$ \text{exp}(-j \frac{2\pi k}{T} t) = \cos{\frac{2\pi \color{red}{k}}{\color{red}{T}} t } -j\sin{\frac{2\pi \color{red}{k}}{\color{red}{T}}t } $$
+
+<br>
+
+- 위 식과 같이 `cos`, `sin` 함수를 정의 할 수 있기 때문에 주파수는 $$ k / T $$가 되고 $$ T = 1$$로 가정을 하였기 때문에 주파수는 $$ k / T = k $$가 되어 가로축이 `주파수 Hz`가 됨을 알 수 있습니다. 따라서 그래프를 조금 수정하면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/fourier_transform/15.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 따라서 위 그래프와 같이 $$ a_{k} $$를 이용하여 가로축이 주파수인 `주파수 분석`을 할 수 있음을 의미합니다.
+- 위 그래프를 해석하면 1, -1 Hz 성분은 0.5씩 존재하고 3, -3 Hz 성분은 0.4씩 존재한다는 것을 확인할 수 있습니다. 여기서 **음의 주파수의 의미는 이 글에 뒷부분에서 다루겠습니다.**
+- 이 값을 처음에 다룬 $$ x(t) = \cos{2 \pi \color{red}{t}} + 0.8 \sin{2 \pi \color{blue}{3t}} $$와 연계해서 보면 `cos`의 `1Hz` 성분 $$ \color{red}{t} $$를 음의 주파수, 양의 주파수 반반씩 0.5로 나타내어 지고 (0.5 * 2 =  1), `sin`의 `3Hz` 성분 $$ \color{blue}{t} $$를 음의 주파수, 양의 주파수 반반씩 0.4로 나타내어 집니다. (0.4 * 2 = 0.8)
+- 여기서 나타나는 $$ 
 
 <br>
 
