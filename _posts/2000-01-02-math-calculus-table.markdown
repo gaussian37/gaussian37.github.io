@@ -9,20 +9,5 @@ tags: [미분적분, calculus] # add tag
 
 <br>
 
-## **Mathematics for Machine Learning : Multivariate Calculus**
-
-<br>
-
-- [Calculus 기초](https://gaussian37.github.io/math-calculus-basic_calculus/)
-- [Multivariate Calculus 기초](https://gaussian37.github.io/math-calculus-basic_multivariate_calculus/)
-- [Jacobian]()
-- [Hessian]()
-- [Multivariate Chain Rule]()
-- [Backpropagation in Neural Network]()
-- [Taylor series and linearization]()
-- [Optimization]()
-- [Regression]()
-
-<br>
-
-
+- [Jacobian(자코비안) 이란?](https://gaussian37.github.io/math-calculus-jacobian/)
+- [오일러 공식 (Euler formula)](https://gaussian37.github.io/math-calculus-euler_formula/)

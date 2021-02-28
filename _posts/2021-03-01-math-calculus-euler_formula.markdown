@@ -4,13 +4,17 @@ title: 오일러 공식 (Euler formula)
 date: 2021-03-01 00:00:00
 img: math/calculus/euler_formula/0.png
 categories: [math-calculus] 
-tags: [오일러 공식, euler formula] # add tag
+tags: [오일러 공식, euler formula, 미분 방정식] # add tag
 ---
 
 <br>
 
+[Calculus 관련 글 목차](https://gaussian37.github.io/math-calculus-table/)
+
+<br>
+
 - 이번 글에서는 오일러 공식을 유도하는 방법에 대하여 다루어 보도록 하겠습니다.
-- 오일러 공식은 대표적으로 미분 방정식을 이용하여 증명하는 방법과 극한을 이용하여 증명하는 방법이 있습니다. 이 방법에 대하여 차례대로 설명해 보겠습니다.
+- 오일러 공식을 유도하는 다양한 방법 중 대표적으로 `미분 방정식`을 이용하여 유도하는 방법에 대하여 이 글에서 다루어 보도록 하겠습니다.
 
 <br>
 
@@ -34,13 +38,27 @@ tags: [오일러 공식, euler formula] # add tag
 - 극 좌표계를 이용하여 위 그림과 같이 $$ r = 1 $$인 단위 원을 그리면 위 그래프와 같이 나타낼 수 있습니다. 이 경우 $$ z = \cos{\theta} + i \sin{\theta} $$로 극 좌표 $$ z $$를 나타낼 수 있습니다. 이 식과 미분 방정식을 이용하여 오일러 공식을 유도해 보겠습니다.
 
 <br>
-<center><img src="../assets/img/math/calculus/euler_formula/3.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/math/calculus/euler_formula/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 따라서 위 식에서 유도한 바와 같이 $$ e^{i\theta} = \cos{\theta} + i\sin{\theta} $$ 관계를 가지게 됩니다.
 
 <br>
+<center><img src="../assets/img/math/calculus/euler_formula/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
-## **극한을 이용한 오일러 공식 유도**
+- 특히, $$ \theta = \pi $$를 대입하면 $$ e^{\pi i} + 1 = 0 $$으로 정리할 수 있습니다. 이와 같이 대표적으로 나타내는 오일러 공식의 포맷을 정리할 수 있습니다.
+
+<br>
+
+- $$ e^{i \theta} = \cos{\theta} + i\sin{\theta} $$
+
+- $$ e^{i \pi} +1 = 0 $$
+
+<br>
+
+<br>
+
+[Calculus 관련 글 목차](https://gaussian37.github.io/math-calculus-table/)
 
 <br>
