@@ -134,6 +134,7 @@ tags: [fourier transform, 퓨리에 변환] # add tag
 
 - 이산 시간 푸리에 급수에서 위 지수부에 해당하는 식이 orthogonal set이 됩니다.
 - 이 값은 오일러 공식 $$ \text{exp}(j\theta) = \cos{\theta} + j\sin{\theta} $$을 이용하면 다음과 같이 변환되어 사용되어 집니다.
+    - 오일러 공식 참조 : [https://gaussian37.github.io/math-calculus-euler_formula/](https://gaussian37.github.io/math-calculus-euler_formula/)
 
 <br>
 
