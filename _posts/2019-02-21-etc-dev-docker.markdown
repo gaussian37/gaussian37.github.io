@@ -15,6 +15,7 @@ tags: [python, docker, 도커] # add tag
 
 - ### **도커란 무엇인가?**
 - ### **쿠버네티스란 무엇인가?**
+- ### **도커 설치 방법**
 - ### **도커 기본 사용법**
 
 <br>
@@ -98,6 +99,72 @@ tags: [python, docker, 도커] # add tag
     - 여러 개의 서버를 하나의 서버처럼 사용
     - 작게는 몇 개 안 되는 서버부터 많게는 수천 대의 서버를 하나의 클러스터로 사용
     - 여기저기 흩어져 있는 컨테이너도 가상 네트워크를 이용하여 마치 같은 서버에 있 는 것처럼 쉽게 통신
+
+<br>
+
+## **도커 설치 방법**
+
+<br>
+
+- 도커는 기본적으로 리눅스에서 동작하는 프로그램입니다. 설치를 할 때에는 리눅스의 유형 (Ubuntu, CentOS 등)에 따라서 자동으로 최선 버전의 도커가 설치됩니다.
+- 먼저 리눅스에서 도커를 설치하기 위해서 다음 명령어를 이용하여 간단하게 설치할 수 있습니다.
+
+<br>
+
+- `sudo apt-get install curl`
+- `curl -s https://get.docker.com/ | sudo sh`
+
+<br>
+
+- 설치한 도커를 사용할 때, **docker 일반 유저 사용 권한 문제**가 발생하는 경우가 있습니다. 즉, docker 가 root 계정으로 설치되면 root 계정이 아닌 계정으로 docker 실행 시 permission 문제가 발생합니다. 예를 들어 `Solving Docker permission denied while trying to connect to the Docker daemon socket`와 같은 경고가 발생합니다.
+- 이 때, 로그인 한 계정에 docker 그룹을 추가하여 사용 권한 문제를 해결할 수 있습니다.
+
+<br>
+
+- `sudo usermod -aG docker $USER`
+
+<br>
+
+- `usermod`는 user modification의 약자로 사용자 계정의 정보를 변경합니다. `-a`는 계정에 정보를 추가하는 것이고 `-G`는 추가할 대상이 그룹임을 명시하는 것으로 종합하여 `usermod -a -G <그룹> <계정>`로 사용하였을 때, docker라는 그룹을 `$USER`에 그룹을 추가하게 되어 권한 문제를 해결할 수 있습니다.
+
+<br>
+
+- 반면 윈도우와 리눅스에서 도커를 설치하는 방법은 조금 다릅니다. 왜냐하면 앞에서 설명한 바와 같이 도커는 기본적으로 리눅스 위에서 동작하기 때문입니다.
+- 따라서 아래와 같은 Docker for Mac 또는 Docker for Windows를 설치하여 Mac OS 또는 윈도우의 가상 머신 위에 docker가 설치되도록 합니다.
+    - 다운로드 링크 : [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
+- 가상 머신을 위해서 Mac OS에서는 `xhyve`를 윈도우에서는 `Hypter-V`가 사용되어집니다.
+
+<br>
+<center><img src="../assets/img/etc/dev/docker/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 설치가 완료되면 `docker version`을 커맨드에 입력하여 정상적인 화면이 출력되는 지 확인해 봅니다.
+- 이 때, 도커는 `Client - Sever` 구조를 통하여 아래 그림과 같이 동작하는 프로세스를 가집니다.
+
+<br>
+<center><img src="../assets/img/etc/dev/docker/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 먼저 ① Client 측에서 docker와 관련된 명령어를 입력하면 그 명령어에 따라서 ② docker의 서버 (host)에서 실제 동작을 하게 되고 ③ 그 결과를 다시 출력하게 됩니다. 즉, docker CLI는 도커 호스트에 명령을 전달하고 결과를 받아서 출력하는 역할을 한다고 정의할 수 있습니다.
+
+
+
+
+<br>
+
+## **도커 기본 사용법**
+
+<br>
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br>
 
 ## **Immutable infrastructure 패러다임**
 
