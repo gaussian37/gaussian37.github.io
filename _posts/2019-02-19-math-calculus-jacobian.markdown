@@ -47,11 +47,11 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
     
-$$ dx = Jdq $$
+- $$ dx = Jdq $$
 
-$$ dq = J^{-1}dx $$
+- $$ dq = J^{-1}dx $$
 
-$$ \therefore q_{2} = q_{1} + J^{-1}dx  $$
+- $$ \therefore q_{2} = q_{1} + J^{-1}dx  $$
     
 <br>
 
@@ -59,10 +59,10 @@ $$ \therefore q_{2} = q_{1} + J^{-1}dx  $$
 
 <br>
 
-$$ \int_{a}^{b}f(g(x))g^{\prime}(x)dx=\int_{g(a)}^{g(b)}f(u)du \quad\quad( u=g(x)\; \iff \;du=g^{\prime}(x)dx) $$
+- $$ \int_{a}^{b}f(g(x))g^{\prime}(x)dx=\int_{g(a)}^{g(b)}f(u)du \quad\quad( u=g(x)\; \iff \;du=g^{\prime}(x)dx) $$
 
 <br>
 
-$$ \begin{split}\int_{0}^{1} \sqrt{1-x^2} d x  &=\int_{0}^{\pi/2} \sqrt{1-\sin^2 \theta} \cos \theta d \theta \quad (x=\sin \theta\; \iff \;dx=\cos \theta d \theta) \\ &=\int_{0}^{\pi/2} \cos^2 \theta d \theta =\int_{0}^{\pi/2} \frac{1}{2} (1+\cos 2 \theta) d \theta \\ &= \frac{1}{2} \left[ \theta + \frac{1}{2} \sin 2 \theta \right]_0^{\pi/2}=\frac{\pi}{4} \end{split} $$
+- $$ \begin{split}\int_{0}^{1} \sqrt{1-x^2} d x  &=\int_{0}^{\pi/2} \sqrt{1-\sin^2 \theta} \cos \theta d \theta \quad (x=\sin \theta\; \iff \;dx=\cos \theta d \theta) \\ &=\int_{0}^{\pi/2} \cos^2 \theta d \theta =\int_{0}^{\pi/2} \frac{1}{2} (1+\cos 2 \theta) d \theta \\ &= \frac{1}{2} \left[ \theta + \frac{1}{2} \sin 2 \theta \right]_0^{\pi/2}=\frac{\pi}{4} \end{split} $$
 
-$$ \cos{2\theta} = 2\cos{\alpha}^{2} - 1 $$
+- $$ \cos{2\theta} = 2\cos{\alpha}^{2} - 1 $$

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Fourier transform (퓨리에 변환)
+title: Fourier transform (푸리에 변환)
 date: 2021-02-17 00:00:00
 img: vision/concept/fourier_transform/0.png
 categories: [vision-concept] 
@@ -188,7 +188,19 @@ tags: [fourier transform, 퓨리에 변환] # add tag
 <center><img src="../assets/img/vision/concept/fourier_transform/7.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 식에서 `cos` 함수는 1 Hz를 가지고 `sin` 함수는 `3 Hz를 가진다고 가정을 하여 식을 정하면 위 그래프와 같이 나타낼 수 있습니다.
+- 위 식에서 `cos` 함수는 1Hz를 가지고 `sin` 함수는 3Hz를 가진다고 가정을 하여 식을 정하면 위 그래프와 같이 나타낼 수 있습니다.
+- 왼쪽의 큰 그래프는 함수 $$ x(t) $$를 뜻하며 수식에 해당하는 그래프를 그리면 위 그래프와 같습니다.
+- 이 $$ x(t) $$ 함수와 $$ \cos{2 * \pi * 1 * t}, \sin{2 * \pi * 1 * t} $$를 각각 내적 후 적분을 취하면 각각 0.5, 0이 됨을 계산할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/fourier_transform/8.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/concept/fourier_transform/9.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 상세 계산 과정은 다음 [링크](https://drive.google.com/file/d/1X0mojHAIXZrAKAgzEX6rh2Zawbjmh04B/view?usp=sharing)를 참조해 주시기 바랍니다.
 
 <br>
 

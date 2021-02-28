@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 선형 시불변 시스템 (Linear Time-Invariant System))
+title: 선형 시불변 시스템 (Linear Time-Invariant System)
 date: 2021-02-17 00:00:00
 img: vision/signal/0.png
 categories: [vision-signal] 
