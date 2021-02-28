@@ -13,7 +13,12 @@ tags: [오일러 공식, euler formula, 미분 방정식] # add tag
 
 <br>
 
-- 이번 글에서는 오일러 공식을 유도하는 방법에 대하여 다루어 보도록 하겠습니다.
+- 이번 글에서 다룰 오일러 공식은 다음 식과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/euler_formula/0.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
 - 오일러 공식을 유도하는 다양한 방법 중 대표적으로 `미분 방정식`을 이용하여 유도하는 방법에 대하여 이 글에서 다루어 보도록 하겠습니다.
 
 <br>
