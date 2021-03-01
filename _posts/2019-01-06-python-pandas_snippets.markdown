@@ -15,6 +15,7 @@ tags: [pandas, python, python 기본] # add tag
 
 <br>
 
+- ### [Pandas GUI 사용 방법](#pandas-gui-사용-방법-1)
 - ### [DataFrame에 column 추가](#dataframe에-column-추가)
 - ### [DataFrame에 행 단위로 데이터 추가하기](#dataframe에-행-단위로-데이터-추가하기-1)
 - ### [pd.read_csv(excel) 함수를 통하여 파일 읽을 때](#pdread_csvexcel-함수를-통하여-파일-읽을-때-1)
@@ -23,6 +24,27 @@ tags: [pandas, python, python 기본] # add tag
 - ### [category 데이터 → Ordinal 데이터로 변경](#category-데이터--ordinal-데이터로-변경-1)
 - ### [category 데이터 → one hot 데이터로 변경](#category-데이터--one-hot-데이터로-변경-1)
 - ### [Pandas에서 결측값 제거하기](#pandas에서-결측값-제거하기-1)
+
+<br>
+
+## **Pandas GUI 사용 방법**
+
+<br>
+
+- 관련 페이지 : [https://pypi.org/project/pandasgui/](https://pypi.org/project/pandasgui/)
+- 설치 방법 : `pip install pandasgui`
+- 사용 방법 : [pandas gui로 타이타닉 데이터 분석](https://towardsdatascience.com/pandasgui-analyzing-pandas-dataframes-with-a-graphical-user-interface-36f5c1357b1d)
+- 동영상 설명 : [https://youtu.be/F8mSlETrcl8](https://youtu.be/F8mSlETrcl8)
+
+<br>
+
+- pandas를 이용하여 데이터 분석을 할 때, 커스텀한 목적이 있지 않고 기본적인 데이터의 분포를 살펴보려고 한다면 `pandas gui`를 통하여 시각적으로 분석하는 것이 굉장히 효율적입니다.
+- ① `DataFrame 탭` : 가장 기본적인 기능으로 `DataFrame`을 엑셀 화면과 같이 볼 수 있고, 편집까지 할 수 있는 기능을 제공합니다.
+- ② `Filters 탭` : `DataFrame`에 `Filter`를 적용할 수 있는 기능이 제공됩니다. Filter는 숫자의 경우 부등호를 이용하여 필터를 할 수 있고 문자열의 경우 `==`, `!=` 등과 같이 문자열을 비교하는 기호를 통하여 비교할 수 있습니다. 이 때, 비교를 해야하는 기준은 `column 이름`입니다. 예를 들어 column 이름이 `age`라면 `age >= 20` 과 같이 사용할 수 있습니다. 또는 `sex == 'mail'`과 같이 문자열 비교도 할 수 있습니다.
+- ③ `Statistics 탭` : 각 column을 기준으로 `Type`, `Count`, `N Unique`, `Mean`, `StdDev`, `Min`, `Max` 값에 대한 정리를 합니다.
+- ④ `Grapher 탭` : 파이썬에서 사용하는 보편적인 그래프를 쉽게 사용할 수 있도록 기능을 제공합니다.
+- ⑤ `Reshaper 탭` : 테이블에서 주로 사용하는 `Pivot`과 `Melt` 기능을 제공합니다.
+    - Melt 기능 참조 : [https://www.geeksforgeeks.org/reshaping-pandas-dataframes-using-melt-and-unmelt/](https://www.geeksforgeeks.org/reshaping-pandas-dataframes-using-melt-and-unmelt/)
 
 <br>
 
