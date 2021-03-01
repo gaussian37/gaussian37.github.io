@@ -19,7 +19,7 @@ tags: [오일러 공식, euler formula, 미분 방정식] # add tag
 <center><img src="../assets/img/math/calculus/euler_formula/0.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 오일러 공식을 유도하는 다양한 방법 중 대표적으로 `미분 방정식`을 이용하여 유도하는 방법에 대하여 이 글에서 다루어 보도록 하겠습니다.
+- 오일러 공식을 유도하는 다양한 방법 중 대표적으로 `미분 방정식`을 이용하여 유도하는 방법과 `테일러 급수`를 이용하여 유도하는 방법에 대하여 이 글에서 다루어 보도록 하겠습니다.
 
 <br>
 
@@ -61,6 +61,40 @@ tags: [오일러 공식, euler formula, 미분 방정식] # add tag
 - $$ e^{i \pi} +1 = 0 $$
 
 <br>
+
+## **테일러 급수를 이용한 오일러 공식 유도**
+
+<br>
+
+- 먼저 테일러 급수에 대한 개념은 다음 링크를 참조하시기 바랍니다. 테일러 급수의 내용을 이해하고 있다는 전제 하에 진행하겠습니다.
+    - 링크 : [https://gaussian37.github.io/math-mfml-taylor_series_and_linearisation/](https://gaussian37.github.io/math-mfml-taylor_series_and_linearisation/)
+
+<br>
+<center><img src="../assets/img/math/calculus/euler_formula/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 먼저 $$ e^{x}, \sin{x}, \cos{x} $$를 각각 테일러 급수 형태로 나타내면 위 식과 같습니다. 이 식을 이용하여 오일러 공식을 유도해 보겠습니다.
+- 먼저 $$ e^{x} $$의 $$ x $$에 $$ ix $$를 대입해 보겠습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/euler_formula/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 식의 전개를 살펴보면 자연 상수 $$ e $$의 테일러 급수 표현과 $$ \sin{x}, \cos{x} $$ 각각의 테일러 급수 표현을 이용하여 오일러 공식을 유도하였습니다.
+
+<br>
+
+## **오일러 공식의 기하학적 의미**
+
+<br>
+
+- 앞에서 다룬 내용과 다소 중복되지만 단순히 기하학적으로만 접근하여 오일러 공식을 유도하면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/euler_formula/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이와 같은 다양한 방법(`미분 방정식`, `테일러 급수`, `기하학적 접근`)으로 오일러 공식을 유도할 수 있습니다.
 
 <br>
 
