@@ -70,7 +70,7 @@ tags: [오일러 공식, euler formula, 미분 방정식] # add tag
     - 링크 : [https://gaussian37.github.io/math-mfml-taylor_series_and_linearisation/](https://gaussian37.github.io/math-mfml-taylor_series_and_linearisation/)
 
 <br>
-<center><img src="../assets/img/math/calculus/euler_formula/5.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/calculus/euler_formula/5.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 먼저 $$ e^{x}, \sin{x}, \cos{x} $$를 각각 테일러 급수 형태로 나타내면 위 식과 같습니다. 이 식을 이용하여 오일러 공식을 유도해 보겠습니다.
