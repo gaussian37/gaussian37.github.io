@@ -24,6 +24,8 @@ tags: [pandas, python, python 기본] # add tag
 - ### [category 데이터 → Ordinal 데이터로 변경](#category-데이터--ordinal-데이터로-변경-1)
 - ### [category 데이터 → one hot 데이터로 변경](#category-데이터--one-hot-데이터로-변경-1)
 - ### [Pandas에서 결측값 제거하기](#pandas에서-결측값-제거하기-1)
+- ### [column의 인덱스 번호를 이용하여 열 선택](#column의-인덱스-번호를-이용하여-열-선택-1)
+- ### [concat 함수를 이용한 DataFrame 합치기](#concat-함수를-이용한-dataframe-합치기-1)
 
 <br>
 
@@ -339,3 +341,41 @@ df[df.isnull()] = 0
 ```
 
 <br>
+
+## **column의 인덱스 번호를 이용하여 열 선택**
+
+<br>
+
+- 참조 : [https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html](https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html)
+- 참조 : [https://stackoverflow.com/questions/17193850/how-to-get-column-by-number-in-pandas](https://stackoverflow.com/questions/17193850/how-to-get-column-by-number-in-pandas)
+- DataFrame에서 특정 열의 인덱스를 기준으로 열을 선택하는 방법은 다음과 같습니다. (물론 인덱스는 0부터 시작합니다.)
+
+<br>
+
+```python
+selected_columns = [1, 3, 5]
+df.iloc[:, selected_columns]
+```
+
+<br>
+
+- 위 코드를 통하여 선택된 열인 1, 3, 5 열만 DataFrame에서 선택되는 것을 확인할 수 있습니다.
+
+<br>
+
+## **concat 함수를 이용한 DataFrame 합치기**
+
+<br>
+
+- 참조 : [https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html)
+- DataFrame을 합칠 때, 행 방향과 열 방향으로 합칠 수 있습니다. 다른 NumPy와 같은 라이브러리와 같이 `concat` 함수가 존재하며 행 방향과 열 방향으로 합칠 수 있습니다.
+
+<br>
+
+```python
+# 행 방향 (아래로) DataFrame 합치기
+df3 = pd.concat([df1, df2], axis = 0)
+
+# 열 방향 (옆으로) DataFrame 합치기
+df3 = pd.concat([df1, df2], axis = 1)
+```
