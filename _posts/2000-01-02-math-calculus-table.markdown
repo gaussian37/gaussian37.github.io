@@ -11,3 +11,4 @@ tags: [미분적분, calculus] # add tag
 
 - [Jacobian(자코비안) 이란?](https://gaussian37.github.io/math-calculus-jacobian/)
 - [오일러 공식 (Euler formula)](https://gaussian37.github.io/math-calculus-euler_formula/)
+- [페이저 (Phasor)](https://gaussian37.github.io/math-calculus-phasor/)
