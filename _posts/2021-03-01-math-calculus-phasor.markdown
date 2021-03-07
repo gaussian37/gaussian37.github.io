@@ -15,7 +15,7 @@ tags: [phasor, 페이저] # add tag
 
 - 참조 : https://angeloyeo.github.io/2019/06/18/phasor.html
 
-<br.>
+<br>
 
 - 이번 글에서는 물리학 또는 신호 처리에서 사용되는 `Phasor`의 정의에 대하여 간략하게 알아보도록 하겠습니다.
 - 먼저 `정현파(sinusoidal wave)`의 의미에 대하여 알아보겠습니다. 정현파는 **막대기의 회전 운동**을 통하여 유도할 수 있습니다. 다음 그림을 참조하면 쉽게 이해할 수 있습니다.
@@ -28,7 +28,7 @@ tags: [phasor, 페이저] # add tag
 - 반면 sin 함수의 궤적은 오른쪽에서 바라본 그림자 길이의 자취로 생각할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/math/calculus/phasor/1.gif" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/calculus/phasor/1.gif" alt="Drawing" style="height: 400px;"/></center>
 <br>
 
 - 위 그림은 cos 함수를 나타낸 것입니다. 막대의 움직임이 반시계 방향으로 점점 증가함에 따라서 위에서 바라본 그림자의 길이를 자취로 나타낸 형태입니다.
@@ -44,9 +44,11 @@ tags: [phasor, 페이저] # add tag
 <center><img src="../assets/img/math/calculus/phasor/3.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 그러면, 좀 더 개념을 확장해 보도록 하겠습니다. 사용할 변수는 $$ A, \theta, f, t $$ 입니다. 
+- 그러면, 좀 더 개념을 확장해 보도록 하겠습니다. 사용할 변수는 $$ A, \phi, f, t $$ 입니다. 
 - ① $$ A $$ : 위 그림에서는 막대의 길이에 해당하며 **진폭**과 관련 있습니다.
-- ② $$ \theta $$ : 위 그림에서 막대가 움직이는 각도에 해당
+- ② $$ \phi $$ : 위 그림에서 회전을 시작하는 처음 각도에 해당합니다. 따라서 cos 함수의 시작점을 뜻합니다.
+- ③ $$ f $$ : 주파수를 뜻하며 위 그림에서는 막대가 반시계방향으로 **회전하는 주기**와 관련 있습니다.
+- ④ $$ t $$ : cos 함수에서의 $$ x $$축에 해당하는 값입니다.
 
 위 그림과 같이 막대의 길이가 `A`이고 $$ \theta $$ 의 크기를 변경해가면서 반시계 방향으로 움직여 보겠습니다.
 
