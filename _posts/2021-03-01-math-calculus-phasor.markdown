@@ -65,8 +65,6 @@ tags: [phasor, 페이저] # add tag
 
 
 
-
-
 <br>
 
 [Calculus 관련 글 목차](https://gaussian37.github.io/math-calculus-table/)

@@ -15,6 +15,7 @@ tags: [pandas, python, python 기본] # add tag
 
 <br>
 
+- ### [Pandas Cheatsheet 모음](#pandas-cheatsheet-모음-1)
 - ### [Pandas GUI 사용 방법](#pandas-gui-사용-방법-1)
 - ### [DataFrame에 column 추가](#dataframe에-column-추가)
 - ### [DataFrame에 행 단위로 데이터 추가하기](#dataframe에-행-단위로-데이터-추가하기-1)
@@ -26,6 +27,27 @@ tags: [pandas, python, python 기본] # add tag
 - ### [Pandas에서 결측값 제거하기](#pandas에서-결측값-제거하기-1)
 - ### [column의 인덱스 번호를 이용하여 열 선택](#column의-인덱스-번호를-이용하여-열-선택-1)
 - ### [concat 함수를 이용한 DataFrame 합치기](#concat-함수를-이용한-dataframe-합치기-1)
+
+<br>
+
+## **Pandas Cheatsheet 모음**
+
+<br>
+
+- https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
+- https://www.dataquest.io/blog/pandas-cheat-sheet/
+- https://blog.finxter.com/pandas-cheat-sheets/#3_The_Excel_Users_Cheat_Sheet
+- https://www.enthought.com/wp-content/uploads/Enthought-Python-Pandas-Cheat-Sheets-1-8-v1.0.2.pdf
+- http://datacamp-community-prod.s3.amazonaws.com/dbed353d-2757-4617-8206-8767ab379ab3
+
+<br>
+<center><img src="../assets/img/python/basic/pandas/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/python/basic/pandas/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
 
 <br>
 
