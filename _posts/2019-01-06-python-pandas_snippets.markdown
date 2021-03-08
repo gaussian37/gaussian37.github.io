@@ -34,18 +34,18 @@ tags: [pandas, python, python 기본] # add tag
 
 <br>
 
-- https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
-- https://www.dataquest.io/blog/pandas-cheat-sheet/
-- https://blog.finxter.com/pandas-cheat-sheets/#3_The_Excel_Users_Cheat_Sheet
-- https://www.enthought.com/wp-content/uploads/Enthought-Python-Pandas-Cheat-Sheets-1-8-v1.0.2.pdf
-- http://datacamp-community-prod.s3.amazonaws.com/dbed353d-2757-4617-8206-8767ab379ab3
+- [https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
+- [https://www.dataquest.io/blog/pandas-cheat-sheet/](https://www.dataquest.io/blog/pandas-cheat-sheet/)
+- [https://blog.finxter.com/pandas-cheat-sheets/#3_The_Excel_Users_Cheat_Sheet](https://blog.finxter.com/pandas-cheat-sheets/#3_The_Excel_Users_Cheat_Sheet)
+- [https://www.enthought.com/wp-content/uploads/Enthought-Python-Pandas-Cheat-Sheets-1-8-v1.0.2.pdf](https://www.enthought.com/wp-content/uploads/Enthought-Python-Pandas-Cheat-Sheets-1-8-v1.0.2.pdf)
+- [http://datacamp-community-prod.s3.amazonaws.com/dbed353d-2757-4617-8206-8767ab379ab3](http://datacamp-community-prod.s3.amazonaws.com/dbed353d-2757-4617-8206-8767ab379ab3)
 
 <br>
-<center><img src="../assets/img/python/basic/pandas/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/python/basic/pandas/1.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/python/basic/pandas/2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/python/basic/pandas/2.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 
