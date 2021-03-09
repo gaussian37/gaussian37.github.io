@@ -313,13 +313,13 @@ echo "hello2"
 <br>
 
 - 리눅스에서 `tar` 관련 압축을 할 때, `tar`와 `tar.gz` 키워드를 볼 수 있습니다.
-- `tar`는 리눅스의 압축방식으로 파일을 묶는 역할을 하고 `gz`는 압축하는 역활을 합니다. 따라서 `tar` 파일을 묶어서 하나의 파일로 만드는 역할을 하는 것으로 볼 수 있으면 `tar.gz`는 묶은 하나의 파일을 압축 하는 용도로 볼 수 있습니다.
+- `tar`는 리눅스의 압축방식으로 파일을 묶는 역할을 하고 `gz`는 압축하는 역활을 합니다. 따라서 `tar`는 파일을 묶어서 하나의 파일로 만드는 역할을 하는 것으로 볼 수 있으면 `tar.gz`는 묶은 하나의 파일을 압축 하는 용도로 볼 수 있습니다.
 
 - `tar로 압축` : `tar -cvf [파일명.tar] [폴더명]`
     - 예시 : `tar -cvf aaa.tar abc` (abc라는 폴더를 aaa.tar로 압축)
 - ` tar 압축 풀기` : `tar -xvf [파일명.tar]`
     - 예시 : `tar -xvf aaa.tar` (aaa.tar라는 tar파일 압축을 풀고자 한다면)
-- `tar.gz로 압축` : ` tar -zcvf [파일명.tar.gz] [폴더명]`
+- `tar.gz로 압축` : `tar -zcvf [파일명.tar.gz] [폴더명]`
     - 예시 : `tar -zcvf aaa.tar.gz abc` (abc라는 폴더를 aaa.tar.gz로 압축)
 - `tar.gz 압축 풀기` : `tar -zxvf [파일명.tar.gz]`
     - 예시 : `tar -zxvf aaa.tar.gz` (aaa.tar.gz라는 tar.gz파일 압축)
