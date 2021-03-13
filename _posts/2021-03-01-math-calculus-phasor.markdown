@@ -66,6 +66,31 @@ tags: [phasor, 페이저] # add tag
 <br>
 
 - `phasor`에서는 2차원 벡터를 표현해주는 좌표계로 **복소 평면**을 사용합니다. 왜냐하면 허수는 회전을 의미하기 때문입니다.
+- 따라서 벡터는 다음과 같은 형태로 사용할 수 있습니다.
+
+<br>
+
+- $$ (X,Y) = (A\cos(\phi), A\sin(\phi)) = X + jY = A\cos{(\phi)} + j A \sin{(\phi)} $$
+
+<br>
+
+- 위 식을 [오일러 공식](https://gaussian37.github.io/math-calculus-euler_formula/)을 이용하면 다음과 같이 나타낼 수 있습니다.
+
+<br>
+
+- $$ A \times exp(j\phi) $$
+
+<br>
+
+- 간단하게 막대기의 길이 $$ A $$와 각도 $$ \phi $$만을 이용하여 나타낼 수 있습니다. 이 경우 앞에서도 가정한 바와 같이 주파수가 고정되어 있는 경우입니다.
+
+<br>
+
+- $$ A \angle \phi \ \ \ \ \text{(polar coordinate representation)} $$ 
+
+<br>
+
+- 이와 같이 위에서 정의한 식 모두 하나의 회전 운동하는 막대기를 표현할 수 있게 되며, 주파수가 고정되어 있다고 가정한다면 네 개의 표현 방법은 모두 같은 현상을 표현한 것입니다.
 
 
 

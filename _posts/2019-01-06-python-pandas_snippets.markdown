@@ -34,18 +34,57 @@ tags: [pandas, python, python 기본] # add tag
 
 <br>
 
+- [https://blog.finxter.com/pandas-cheat-sheets/#3_The_Excel_Users_Cheat_Sheet](https://blog.finxter.com/pandas-cheat-sheets/#3_The_Excel_Users_Cheat_Sheet)
 - [https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
 - [https://www.dataquest.io/blog/pandas-cheat-sheet/](https://www.dataquest.io/blog/pandas-cheat-sheet/)
-- [https://blog.finxter.com/pandas-cheat-sheets/#3_The_Excel_Users_Cheat_Sheet](https://blog.finxter.com/pandas-cheat-sheets/#3_The_Excel_Users_Cheat_Sheet)
-- [https://www.enthought.com/wp-content/uploads/Enthought-Python-Pandas-Cheat-Sheets-1-8-v1.0.2.pdf](https://www.enthought.com/wp-content/uploads/Enthought-Python-Pandas-Cheat-Sheets-1-8-v1.0.2.pdf)
-- [http://datacamp-community-prod.s3.amazonaws.com/dbed353d-2757-4617-8206-8767ab379ab3](http://datacamp-community-prod.s3.amazonaws.com/dbed353d-2757-4617-8206-8767ab379ab3)
+- [The Most Beautiful Cheat Sheet](https://www.enthought.com/wp-content/uploads/Enthought-Python-Pandas-Cheat-Sheets-1-8-v1.0.2.pdf)
+- [The Most Compact Cheat Sheet](http://datacamp-community-prod.s3.amazonaws.com/dbed353d-2757-4617-8206-8767ab379ab3)
+- [The Best Machine Learning Cheat Sheet](https://elitedatascience.com/python-cheat-sheet)
+- [The Best Statistics Cheat Sheet](https://www.webpages.uidaho.edu/~stevel/504/pandas%20dataframe%20notes.pdf)
 
 <br>
-<center><img src="../assets/img/python/basic/pandas/1.png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/python/basic/pandas/3.png" alt="Drawing" style="width: 1200px;"/></center>
+<br>
+
+
+<br>
+<center><img src="../assets/img/python/basic/pandas/1.png" alt="Drawing" style="width: 1200px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/python/basic/pandas/2.png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/python/basic/pandas/2.png" alt="Drawing" style="width: 1200px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/python/basic/pandas/4.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/python/basic/pandas/5.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/python/basic/pandas/6.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/python/basic/pandas/7.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/python/basic/pandas/8.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/python/basic/pandas/9.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/python/basic/pandas/10.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/python/basic/pandas/11.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 
@@ -59,6 +98,25 @@ tags: [pandas, python, python 기본] # add tag
 - 설치 방법 : `pip install pandasgui`
 - 사용 방법 : [pandas gui로 타이타닉 데이터 분석](https://towardsdatascience.com/pandasgui-analyzing-pandas-dataframes-with-a-graphical-user-interface-36f5c1357b1d)
 - 동영상 설명 : [https://youtu.be/F8mSlETrcl8](https://youtu.be/F8mSlETrcl8)
+
+<br>
+
+- pandas gui를 사용하는 방법은 아래와 같습니다.
+
+<br>
+
+```python
+# 1개의 DataFrame을 pandas gui로 열기
+import pandas as pd
+from pandasgui import show
+df = pd.DataFrame(([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), columns=['a', 'b', 'c'])
+show(df)
+
+# n개의 DataFrame을 pandas gui로 열기
+from pandasgui import show
+from pandasgui.datasets import pokemon, titanic, all_datasets
+show(**all_datasets)
+```
 
 <br>
 
