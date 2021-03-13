@@ -17,6 +17,7 @@ tags: [python, machine learning, ml, sklearn, scikit learn] # add tag
 
 <br>
 
+- ### [SKlearn Cheatsheet 모음](#sklearn-cheatsheet-모음-1)
 - ### [Dictionary에서 Feature 가져오기](#dictionary에서-feature-가져오기-1)
 - ### [sklearn의 Toy Data 불러오기](#sklearn의-toy-data-불러오기-1)
 - ### [sklearn의 학습한 모델 저장하기](#sklearn의-학습한-모델-저장하기-1)
@@ -24,7 +25,23 @@ tags: [python, machine learning, ml, sklearn, scikit learn] # add tag
 - ### [Pandas Categorical 데이터 전처리](#pandas-categorical-데이터-전처리-1)
 - ### [sklearn을 이용한 데이터 분할](#sklearn을-이용한-데이터-분할-1)
 - ### [Outlier 검출 후 제거하기](#outlier-검출-후-제거하기-1)
-- ### [CountVectorizer와 TfidfVectorizer를 이용한 문서 분석]
+- ### [CountVectorizer와 TfidfVectorizer를 이용한 문서 분석](#countvectorizer와-tfidfvectorizer를-이용한-문서-분석-1)
+
+<br>
+
+## **SKlearn Cheatsheet 모음**
+
+<br>
+
+- [https://www.datacamp.com/community/blog/scikit-learn-cheat-sheet](https://www.datacamp.com/community/blog/scikit-learn-cheat-sheet)
+- [https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Scikit_Learn_Cheat_Sheet_Python.pdf](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Scikit_Learn_Cheat_Sheet_Python.pdf)
+
+<br>
+<center><img src="../assets/img/ml/sklearn/snippets/1.png" alt="Drawing" style="width: 1200px;"/></center>
+<br>
+
+
+
 
 <br>
 
