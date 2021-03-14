@@ -29,6 +29,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [optimizer.zero_grad(), loss.backward(), optimizer.step()](#optimizerzero_grad-lossbackward-optimizerstep-1)
 - ### [optimizer.step()을 통한 파라미터 업데이트와 loss.backward()와의 관계](#optimizerstep을-통한-파라미터-업데이트와-lossbackward와의-관계-1)
 - ### [gradient를 직접 zero로 셋팅하는 이유와 활용 방법](#gradient를-직접-zero로-셋팅하는-이유와-활용-방법-1)
+- ### [validation의 Loss 계산 시 detach 사용 관련](#validation의-loss-계산-시-detach-사용-관련-1)
 - ### [model.eval()와 torch.no_grad() 비교](#modeleval와-torchno_grad-비교-1)
 - ### [Dropout 적용 시 Tensor 값 변경 메커니즘](#dropout-적용-시-tensor-값-변경-메커니즘-1)
 
@@ -411,6 +412,55 @@ for epoch in range(epochs):
 
 - 위 두 가지 경우의 코드와 같은 방법으로 weight를 update를 할 수 있으며 방법에 따라 `optimizer.zero_grad()`를 실행하는 시점이 달라집니다.
 - 일반적으로 ① 방법인 `iteration 마다 weight를 업데이트 하는 방법`을 많이 사용하고 저 또한 이 방법을 사용하여 학습합니다.
+
+<br>
+
+## **validation의 Loss 계산 시 detach 사용 관련**
+
+<br>
+
+- ['CUDA error: out of memory' after several epochs](https://discuss.pytorch.org/t/cuda-error-out-of-memory-after-several-epochs/29094/2)
+- [CUDA out of memory - on the 8th epoch?](https://discuss.pytorch.org/t/cuda-out-of-memory-on-the-8th-epoch/67288)
+
+<br>
+
+- 학습 중 일부 epoch을 진행한 다음에 `CUDA error: out of memory` 에러가 발생하는 경우가 있습니다.
+- 이번에 다룰 내용은 loss 계산 중에 이러한 에러가 발생하는 경우에 대하여 다루도록 하겠습니다.
+- 학습 단계에서 가장 기본적으로 `Train 데이터 셋`과 `Validation 데이터 셋`에 대하여 Loss를 구합니다. 
+- `Train 데이터 셋`을 사용하는 경우 ① Loss를 구하고 ② Loss의 `.backward()`를 이용하여 backpropagation을 적용합니다.
+- 반면 `Validation 데이터 셋`을 사용하는 경우 Loss만 구하고 backpropagation은 적용하지 않습니다.
+- 이러한 차이점으로 인하여 의도치 않게 Pytorch를 사용할 떄, `CUDA error: out of memory` 문제가 발생하곤 합니다.
+- Pytorch 사용 시, ① model → ② optimizer → ③ loss 순서로 연결이 되어 있습니다. 예를 들어 다음 코드와 같습니다.
+
+```python
+out = model(input)
+criterion = nn.CrossEntropyLoss()
+loss = criterion(out, target)
+loss.backward()
+```
+
+<br>
+
+- 이 때, `loss`를 `backward()` 하지 않으면 backpropagation을 하기 위한 그래프의 히스토리가 loss에 계속 쌓이게 됩니다. 각 epoch의 loss를 구하기 위하여 각 `batch`에서 계산된 loss를 모두 더한 뒤 평균을 내는 방법을 많이 사용합니다. loss의 `backward()` 연산을 하면 연결된 그래프에 backpropagation 계산을 하게 되므로 히스토리가 쌓이지 않지만 `backward()`를 하지 않고 사용하면 히스토리가 계속 쌓이게 되고 GPU 연산에도 영향을 끼쳐서 `CUDA error: out of memory` 문제가 발생하곤 합니다.
+- 이 경우 `loss`에 `.detach()` 함수를 사용하여 그래프의 히스토리를 의도적으로 끊는 방법을 사용하여 메모리 문제를 피할 수 있습니다.
+
+<br>
+
+```python
+out = model(input)
+criterion = nn.CrossEntropyLoss()
+loss = criterion(out, target).detach()
+```
+
+<br>
+
+- 이 경우 loss의 그래프가 끊어졌기 떄문에 `backward()`를 사용할 수 없습니다. 따라서 이 경우는 `backward()`를 사용하지 않는 validation 데이터 셋 연산 시 위 코드와 같이 `loss`의 `.detach()`를 사용할 수 있습니다.
+
+<br>
+
+- 정리하면 다음과 같습니다.
+- `Train 데이터 셋` : Train 시 `loss.backward()`를 사용하고 `loss.backward()` 시, loss의 그래프 히스토리가 초기화되므로 epoch이 진행 됨에 따라 그래프가 계속 누적되어 메모리 문제가 발생하지 않음
+- `Validation(Test) 데이터 셋` : Validation(Test) 시 `loss.backward()`를 사용하지 않으므로 loss의 그래프 히스토리가 계속 누적되어 epoch이 진행됨에 따라 메모리 문제가 발생하게 됨. 따라서 `loss.detach()`를 이용하여 loss의 그래프가 누적되지 않도록 의도적으로 끊어주어 메모리 문제를 개선할 수 있음
 
 <br>
 
