@@ -4,7 +4,7 @@ title: Fourier transform (푸리에 변환)
 date: 2021-02-17 00:00:00
 img: vision/concept/fourier_transform/0.png
 categories: [vision-concept] 
-tags: [fourier transform, 퓨리에 변환] # add tag
+tags: [fourier transform, 푸리에 변환] # add tag
 ---
 
 <br>
@@ -16,8 +16,8 @@ tags: [fourier transform, 퓨리에 변환] # add tag
 
 <br>
 
-- 이번 글에서는 기본적인 퓨리에 변환 (Fourier transform)에 대하여 다루어 보도록 하겠습니다.
-- 보다 자세한 내용의 퓨리에 변환은 아래 링크를 참조해 주시기 바랍니다. 이 글은 신호와 시스템 전반적인 내용을 다루며 그 중 퓨리에 변환에 대한 자세한 내용을 확인하실 수 있습니다.
+- 이번 글에서는 기본적인 푸리에 변환 (Fourier transform)에 대하여 다루어 보도록 하겠습니다.
+- 보다 자세한 내용의 푸리에 변환은 아래 링크를 참조해 주시기 바랍니다. 이 글은 신호와 시스템 전반적인 내용을 다루며 그 중 푸리에 변환에 대한 자세한 내용을 확인하실 수 있습니다.
     - 링크 : [https://gaussian37.github.io/vision/signal/](https://gaussian37.github.io/vision/signal/)
 
 <br>
@@ -40,6 +40,11 @@ tags: [fourier transform, 퓨리에 변환] # add tag
 
 ## **푸리에 급수를 배우는 이유**
 
+<br>
+
+
+
+<br>
 
 ## **푸리에 급수의 의미와 주파수 분석에서의 활용**
 
@@ -48,13 +53,13 @@ tags: [fourier transform, 퓨리에 변환] # add tag
 - 아래 두가지 식은 푸리에 급수에 관련된 동일한 식을 다른 관점으로 표현한 식입니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/fourier_transform/1.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/concept/fourier_transform/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 식의 관점은 **연속 신호(함수)는 무한 차원 벡터이고, 이것은 기저 벡터의 선형 결합으로 재구성할 수 있음**입니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/fourier_transform/2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/fourier_transform/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 반면 위 식의 관점은 **신호를 구성하는 각 기저 벡터는 얼마 만큼의 기여도를 가지고 있는지를 뜻**하며 이는 `주파수 분석에 활용 가능`합니다.
@@ -145,15 +150,19 @@ tags: [fourier transform, 퓨리에 변환] # add tag
 <br>
 
 - 즉, 어떤 임의의 신호(함수값)은 `cos`, `sin` 함수의 합으로 표현할 수 있음을 알 수 있습니다.
-- 이 식에서 가장 중요한 것은 지수부의 식 $$ \text{exp}(j \frac{2\pi k}{T} t) $$가 Orthogonal set인 지 확인하는 것입니다. 따라서 집합 $$ \{\phi_{k}(t) \vert \phi_{k}(t) = \text{exp}(j \frac{2\pi k}{T}t), \ \ k = \text{integer on } [0, T] \} $$이 orthogonal set인 지 확인해 보겠습니다.
+- 이 식에서 가장 중요한 것은 지수부의 식 $$ \text{exp}(j \frac{2\pi k}{T} t) $$가 Orthogonal set인 지 확인하는 것입니다. 따라서 다음 집합이 `orthogonal set`인 지 확인해 보겠습니다.
 
 <br>
 
-- 위 집합의 임의의 두 원소인 함수 $$ \phi_{k}(t) = \text{exp}(j \frac{2\pi \color{red}{k}}{T} t) $$와 $$ \phi_{p}}(t) = \text{exp}(j \frac{2\pi \color{blueL{p}}{T} t) $$가 있을 때, 두 함수의 내적을 해보겠습니다.
+- $$ \{\phi_{k}(t) \ \vert \  \phi_{k}(t) = \text{exp}(j \frac{2\pi k}{T}t), \ \ k = \text{integer on } [0, T] \} $$
 
 <br>
 
-- $$ \begin{align} \int_{0}^{T} \phi_{k}(t) \phi_{p}^{*}(t) dt &= \int_{0}^{T} \text{exp}(j \frac{2\pi k}{T} t) \text{exp}(-j \frac{2\pi k}{T} t) \\ &= \int_{0}^{T} \text{exp}(j \frac{2\pi (k-p}{T} t) = \Biggl[ \frac{T}{j 2\pi (k-p)} \text{exp}(j \frac{2\pi (k-p}{T} t) \Biggr]_{0}^{T} \\ &= \frac{T}{j 2\pi (k-p)} [ \text{exp}(j 2\pi(k-p)) - 1] = 0 \quad (\because \cos{2n\pi} = 0 \text{ and } \sin{2n\pi} = 1) \end{align} $$
+- 위 집합의 임의의 두 원소인 함수 $$ \phi_{\color{red}{k}(t) = \text{exp}(j \frac{2\pi \color{red}{k}}{T} t) $$와 $$ \phi_{\color{blue}{p}}(t) = \text{exp}(j \frac{ 2\pi \color{blue}{p} }{T} t) $$가 있을 때, 두 함수의 내적을 해보겠습니다.
+
+<br>
+
+-  $$ \begin{align} \int_{0}^{T} \phi_{k}(t) \phi_{p}^{*}(t) dt &= \int_{0}^{T} \text{exp}(j \frac{2\pi k}{T} t) \text{exp}(-j \frac{2\pi p}{T} t)dt \\ &= \int_{0}^{T} \text{exp}(j \frac{2\pi (k-p)}{T} t)dt = \Biggl[ \frac{T}{j 2\pi (k-p)} \text{exp}(j \frac{2\pi (k-p)}{T} t) \Biggr]_{0}^{T} \\ &= \frac{T}{j 2\pi (k-p)} [ \text{exp}(j 2\pi(k-p)) - 1] \\ &= \frac{T}{j 2\pi (k-p)}[\cos{(2\pi(k-p))} + j\sin{(2\pi(k-0))}] = 0 \quad (\because \cos{(2n\pi)} = 0 \text{ and } \sin{(2n\pi)} = 1) \end{align} $$
 
 <br>
 
@@ -161,7 +170,7 @@ tags: [fourier transform, 퓨리에 변환] # add tag
 - 처음 위 식을 설명할 때 다음과 같은 문구와 같이 설명하였었습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/fourier_transform/1.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/concept/fourier_transform/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 식의 관점은 **연속 신호(함수)는 무한 차원 벡터이고, 이것은 기저 벡터의 선형 결합으로 재구성할 수 있음**입니다.
@@ -172,7 +181,7 @@ tags: [fourier transform, 퓨리에 변환] # add tag
 - 다음으로 아래 식과 뜻에 대하여 알아보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/fourier_transform/2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/fourier_transform/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 반면 위 식의 관점은 **신호를 구성하는 각 기저 벡터는 얼마 만큼의 기여도를 가지고 있는지를 뜻**하며 이는 `주파수 분석에 활용 가능`합니다.
@@ -258,7 +267,7 @@ tags: [fourier transform, 퓨리에 변환] # add tag
 
 - 따라서 위 그래프와 같이 $$ a_{k} $$를 이용하여 가로축이 주파수인 `주파수 분석`을 할 수 있음을 의미합니다.
 - 위 그래프를 해석하면 1, -1 Hz 성분은 0.5씩 존재하고 3, -3 Hz 성분은 0.4씩 존재한다는 것을 확인할 수 있습니다. 여기서 **음의 주파수의 의미는 이 글에 뒷부분에서 다루겠습니다.**
-- 이 값을 처음에 다룬 $$ x(t) = \cos{2 \pi \color{red}{t}} + 0.8 \sin{2 \pi \color{blue}{3t}} $$와 연계해서 보면 `cos`의 `1Hz` 성분 $$ \color{red}{t} $$를 음의 주파수, 양의 주파수 반반씩 0.5로 나타내어 지고 (0.5 * 2 =  1), `sin`의 `3Hz` 성분 $$ \color{blue}{t} $$를 음의 주파수, 양의 주파수 반반씩 0.4로 나타내어 집니다. (0.4 * 2 = 0.8)
+- 이 값을 처음에 다룬 $$ x(t) = \cos{2 \pi \color{red}{t}} + 0.8 \sin{2 \pi \color{blue}{3t}} $$와 연계해서 보면 `cos`의 `1Hz` 성분 $$ \color{red}{t} $$를 음의 주파수, 양의 주파수 반반씩 0.5로 나타내어 지고 (0.5 * 2 =  1), `sin`의 `3Hz` 성분 $$ \color{blue}{3t} $$를 음의 주파수, 양의 주파수 반반씩 0.4로 나타내어 집니다. (0.4 * 2 = 0.8)
 - 여기서 나타나는 $$ 
 
 <br>
