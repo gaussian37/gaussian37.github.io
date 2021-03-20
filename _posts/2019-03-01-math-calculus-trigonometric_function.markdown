@@ -2,7 +2,7 @@
 layout: post
 title: 삼각학수 공식 모음
 date: 2021-03-01 00:00:00
-img: math/calculus/trigonometric_function/0.png
+img: math/calculus/trigonometric_function/1.png
 categories: [math-calculus] 
 tags: [trigonometric_function, 삼각 함수, 삼각 함수 공식] # add tag
 ---
