@@ -88,6 +88,28 @@ tags: [trigonometric_function, 삼각 함수, 삼각 함수 공식] # add tag
 ## **삼각 함수 공식들**
 
 <br>
+
+- `2배각 공식`
+
+<br>
+<center><img src="../assets/img/math/calculus/trigonometric_function/13.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- `반각 공식`
+
+<br>
+<center><img src="../assets/img/math/calculus/trigonometric_function/14.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `각의 합과 차`
+
+<br>
+<center><img src="../assets/img/math/calculus/trigonometric_function/15.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 삼각 함수 공식 관련 정리
+
+<br>
 <center><img src="../assets/img/math/calculus/trigonometric_function/12.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
