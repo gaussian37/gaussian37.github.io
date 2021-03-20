@@ -98,6 +98,27 @@ tags: [오일러 공식, euler formula, 미분 방정식] # add tag
 
 <br>
 
+## **오일러 공식의 응용**
+
+<br>
+
+- 오일러 공식을 통하여 지수 함수를 삼각함수 형태로 나타내었습니다. 이 관계식을 이용하면 반대로 삼각함수를 지수 함수 형태로 나타낼 수 있습니다.
+
+<br>
+
+- $$ \sin{(ix)} = \frac{e^{-x} - e^{x}}{2i} $$
+
+- $$ \cos{(ix)} = \\frac{e^{x} + e^{-x}}{2} $$
+
+<br>
+
+
+
+
+
+
+<br>
+
 [Calculus 관련 글 목차](https://gaussian37.github.io/math-calculus-table/)
 
 <br>
