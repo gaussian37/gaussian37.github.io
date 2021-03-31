@@ -24,6 +24,7 @@ tags: [deep learning, pytorch] # add tag
 - [Dropout과 BatchNormalization](https://gaussian37.github.io/dl-pytorch-dropout-and-batchnorm/)
 - [Pytorch의 시각화 및 학습 현황 확인](https://gaussian37.github.io/dl-pytorch-observe/)
 - [Pytorch Learning Rate Scheduler 정리](https://gaussian37.github.io/dl-pytorch-lr_scheduler/)
+- [Pytorch Loss function 정리](https://gaussian37.github.io/dl-pytorch-loss_functions/)
 
 <br>
 
