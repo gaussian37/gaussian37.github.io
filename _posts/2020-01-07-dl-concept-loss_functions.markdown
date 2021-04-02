@@ -65,7 +65,7 @@ tags: [deep learning, loss function, softmax, negatics log likelihood] # add tag
 
 <br>
 
-- 앞에서 다룬 `softmax`와 더불어서 `NLL`을 이용하여 딥러닝의 `Loss`를 만들 수 있습니다. 적용하는 방법은 간단합니다. `sofrmax` 출력에 다음 식을 적용하면 됩니다.
+- 앞에서 다룬 `softmax`와 더불어서 `NLL`을 이용하여 딥러닝의 `Loss`를 만들 수 있습니다. 적용하는 방법은 간단합니다. 어떤 입력에 대한 `sofrmax` 출력 중 **가장 큰 값**을 다음 식에 적용하면 됩니다. $$ y $$는 softamx 출력값 중 가장 큰 값입니다.
 
 <br>
 
@@ -73,12 +73,24 @@ tags: [deep learning, loss function, softmax, negatics log likelihood] # add tag
 
 <br>
 
-- 위 식에서 **log 함수**와 **음의 부호**를 사용함으로써 
+- 위 식에서 **log 함수**와 **음의 부호**를 사용함으로써 softmax의 출력이 낮은 값은 $$ -log(y) $$ 값이 크도록 만들 수 있고 softmax의 출력이 높은 값은 $$ -log(y) $$의 값이 0에 가깝도록 만듭니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/loss_functions/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 정답 클래스의 softmax 출력이 높은 값을 가진다면 출력이 정확한 것이므로 $$ -\log(\mathbf{y}) $$가 매우 작아지게 됩니다. 마치 Loss가 작아지는 것과 같습니다.
+- 정답 클래스의 softmax 출력이 낮다면 $$ -\log(\mathbf{y}) $$는 큰 값을 가집니다. 즉, 출력이 정확하지 못한 부분에 대해서는 높은 Loss를 가지는 것 처럼 나타낼 수 있습니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/loss_functions/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
+- 따라서 위 그래프와 같이 softmax 출력에 대한 $$ -\log(\mathbf{y}) $$는 Loss 처럼 나타낼 수 있습니다.
+
+<br>
+
+#### **Derivative of the Sofrtmax with NLL**
 
 <br>
 
