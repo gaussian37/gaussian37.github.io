@@ -3,7 +3,7 @@ layout: post
 title: 반도체 시장 생태계
 date: 2021-02-12 00:00:00
 img: etc/etc/semiconductor_ecosystem/0.png
-categories: [autodrive-concept] 
+categories: [etc-etc] 
 tags: [반도체, 칩리스, 팹리스, 파운드리, IDM] # add tag
 ---
 
