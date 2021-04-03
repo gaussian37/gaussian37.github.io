@@ -14,7 +14,6 @@ tags: [python, deep learning, dl] # add tag
 <br>
 
 - [Convolution arithmetic](https://gaussian37.github.io/dl-concept-covolution_operation/)
-- [Loss function 모음](https://gaussian37.github.io/dl-concept-loss_functions/)
 - [Activation function 요약](https://gaussian37.github.io/dl-concept-activation_functions/)
 - [PReLU (Parametric ReLU)](https://gaussian37.github.io/dl-concept-prelu/)
 - [ReLU6와 ReLU6를 사용하는 이유](https://gaussian37.github.io/dl-concept-relu6/)
@@ -59,6 +58,14 @@ tags: [python, deep learning, dl] # add tag
 - [Bag of Tricks for Image Classification with Convolutional Neural Networks]()
 - [경량 딥러닝 기술 동향](https://gaussian37.github.io/dl-concept-light_weight_dl/)
 - 스마트폰 위의 딥러닝
+
+<br>
+
+## **Loss function 모음**
+
+<br>
+
+- [Negative Log Likelihood Loss](https://gaussian37.github.io/dl-concept-nll_loss/)
 
 <br>
 
