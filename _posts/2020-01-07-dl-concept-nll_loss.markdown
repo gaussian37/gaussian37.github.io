@@ -109,11 +109,66 @@ tags: [deep learning, loss function, softmax, negatics log likelihood] # add tag
 
 <br>
 
-- $$ \dfrac{\partial L_i}{\partial f_k} $$
+- 위 식에 대하여 $$ \dfrac{\partial L_i}{\partial f_k} $$ 와 같이 미분한 결과를 통하여 backpropagation을 할 때, Loss가 어떻게 반영되는 지 알 수 있습니다.
 
 <br>
 
+- $$ \dfrac{\partial L_i}{\partial f_k} = \dfrac{\partial L_i}{\partial p_k} \dfrac{\partial p_k}{\partial f_k} $$
 
+<br>
+
+- 따라서 위 식과 같이 Loss의 $$ f_{k} $$에 대한 미분값을 알아보기 위하여 $$ \dfrac{\partial L_i}{\partial p_k} $$를 먼저 풀고 그 다음 $$ \dfrac{\partial
+p_{y_i}}{\partial f_k} $$ 결과를 연달아서 계산해 보도록 하겠습니다.
+
+<br>
+
+- 먼저 $$ \dfrac{\partial L_i}{\partial p_k} $$ 의 계산 결과는 간단하게 구할 수 있습니다.
+
+<br>
+
+- $$ \dfrac{\partial L_i}{\partial p_k} = -\dfrac{1}{p_k} $$
+
+<br>
+
+- 그 다음으로 두번째 term을 미분하기 위하여 다음과 같이 분수 미분을 적용하려고 합니다.
+
+<br>
+
+- $$ \dfrac{f(x)}{g(x)} = \dfrac{g(x) \mathbf{D} f(x) - f(x) \mathbf{D} g(x)}{g(x)^2} $$
+
+<br>
+
+- 식을 단순하 하기 위하여 $$ \sum_{j} e^{f_j} = \Sigma $$로 치환하고 다음과 같이 식을 전개합니다.
+
+<br>
+
+- $$ \begin{eqnarray} \dfrac{\partial p_k}{\partial f_k} &=& \dfrac{\partial}{\partial f_k} \left(\dfrac{e^{f_k}}{\sum_{j} e^{f_j}}\right) \\ &=& \dfrac{\Sigma \mathbf{D} e^{f_k} - e^{f_k} \mathbf{D} \Sigma}{\Sigma^2} \\ &=& \dfrac{e^{f_k}(\Sigma - e^{f_k})}{\Sigma^2} \end{eqnarray} $$
+
+<br>
+
+- 다음 스텝으로 위 식에서 $$ \mathbf{D}\Sigma= \mathbf{D} \sum_{j} e^{f_j} = e^{f_k} $$ 를 적용합니다. 왜냐하면 $$ k $$번째 항에 대하여 미분을 할 때에는 $$ k $$ 번째 항이 아닌 항은 모두 0이 되고 $$ k $$번째 항은 $$ e^{f_k} $$가 되기 때문입니다.
+
+<br>
+
+- $$ \begin{eqnarray} \dfrac{\partial p_k}{\partial f_k} &=& \dfrac{e^{f_k}(\Sigma - e^{f_k})}{\Sigma^2} \\ &=& \dfrac{e^{f_k}}{\Sigma} \dfrac{\Sigma - e^{f_k}}{\Sigma} \\ &=& p_k * (1-p_k) \end{eqnarray} $$
+
+<br>
+
+- 따라서 backpropagation 결과를 모두 합치면 다음과 같이 미분할 수 있습니다.
+
+<br>
+
+- $$ \begin{eqnarray} \dfrac{\partial L_i}{\partial f_k} &=& \dfrac{\partial L_i}{\partial p_k} \dfrac{\partial p_k}{\partial f_k} \\ &=& -\dfrac{1}{p_k} (p_k * (1-p_k)) \\ &=& (p_k - 1) \end{eqnarray} $$
+
+<br>
+
+- `NLL Loss` 미분의 결과가 $$ p_{k} - 1 $$이 됨을 통하여 softmax와 negative log likelihood를 조합하여 Loss로 사용할 수 있음을 확인하였습니다.
+
+<br>
+
+## **Pytorch에서 사용 방법**
+
+<br>
 
 
 
