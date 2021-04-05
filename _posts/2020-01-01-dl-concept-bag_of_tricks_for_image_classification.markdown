@@ -31,16 +31,6 @@ tags: [딥러닝, bag of tricks] # add tag
 
 <br>
 
-## **목차**
-
-<br>
-
-- ### Efficient Training
-- ### Model Tweaks
-- ### Training Refinement
-
-<br>
-
 ## **Efficient Training**
 
 <br>
