@@ -32,6 +32,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [validation의 Loss 계산 시 detach 사용 관련](#validation의-loss-계산-시-detach-사용-관련-1)
 - ### [model.eval()와 torch.no_grad() 비교](#modeleval와-torchno_grad-비교-1)
 - ### [Dropout 적용 시 Tensor 값 변경 메커니즘](#dropout-적용-시-tensor-값-변경-메커니즘-1)
+- ### [재현을 위한 랜덤 seed값 고정](#재현을-위한-랜덤-seed값-고정-1)
 
 
 <br>
@@ -561,6 +562,33 @@ print(drop(x))
 - 위 예제에서 p = 0.3이라는 뜻은 전체 값 중 0.3의 확률로 0이 된다는 것을 뜻합니다.
 - 이 때 0이 되지 않은 0.7에 해당하는 값은 (1/0.7) 만큼 scale이 됩니다. 따라서 (1/0.7 = 1.4286...)이 됩니다.
 - 정리하면 **Dropout에 적용된 p 만큼의 비율로 Tensor의 값이 0이되고 0이되지 않은 값들은 기존값에 (1/(1-p)) 만큼 곱해져서 값이 커집니다.**
+
+<br>
+
+## **재현을 위한 랜덤 seed값 고정**
+
+<br>
+
+- Pytorch에서 코드를 재현하기 위해서는 랜덤 Seed 값을 고정을 해주어야 합니다. 먼저 `파이썬`, `Numpy`, `Pytorch`의 Seed을 수동으로 설정해주어야 하고 추가적으로 `cudnn`에 대한 설정이 필요합니다.
+- 먼저 `torch.backends.cudnn.benchmark = False`가 되어야 합니다. 아래 참조 1의 설명에 따르면 (**This flag allows you to enable the inbuilt cudnn auto-tuner to find the best algorithm to use for your hardware.**) 이 옵션을 통해서 `cudnn`이 하드웨어에 따라 최적화된 알고리즘을 사용한다고 되어 있습니다. 반대로 말하면 하드웨어의 상태에 따라서 사용되는 알고리즘이 다르다는 것을 뜻하므로 재현을 위해서는 옵션을 꺼줍니다.
+    - 참조 1 : [https://discuss.pytorch.org/t/what-does-torch-backends-cudnn-benchmark-do/5936/2](https://discuss.pytorch.org/t/what-does-torch-backends-cudnn-benchmark-do/5936/2)
+- 추가적으로 `torch.backends.cudnn.deterministic = True` 옵션을 사용하면 cudnn에서 같은 input에 대하여 재현 가능하도록 만들어 줍니다. 아래 참조 2 링크를 참조하시기 바랍니다.
+    - 참조 2 : [https://discuss.pytorch.org/t/what-is-the-differenc-between-cudnn-deterministic-and-cudnn-benchmark/38054/2](https://discuss.pytorch.org/t/what-is-the-differenc-between-cudnn-deterministic-and-cudnn-benchmark/38054/2)
+- 따라서 `cudnn`에 관한 2가지 옵션을 동시에 사용하시면 됩니다.
+- 매뉴얼 랜덤 Seed와 cudnn 옵션의 조합은 아래와 같이 사용하시면 됩니다.
+
+<br>
+
+```python
+seed=1
+torch.manual_seed(seed)
+np.random.seed(seed)
+random.seed(seed)
+torch.cuda.manual_seed(seed)
+torch.cuda.manual_seed_all(seed)
+torch.backends.cudnn.benchmark = False
+torch.backends.cudnn.deterministic = True
+```
 
 <br>
 
