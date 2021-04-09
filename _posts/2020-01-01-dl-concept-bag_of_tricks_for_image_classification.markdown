@@ -100,7 +100,8 @@ tags: [딥러닝, bag of tricks] # add tag
 - 만약 $$ \gamma = 0 $$으로 두면 학습 시작할 때, 위 그림과 같은 ResNet 구조에서 Residual Block 내부의 weight에 0이 곱해지므로 무시하게 됩니다. 따라서 `Identity mapping`으로만 weight가 전달됩니다.
 - 이와 같은 방법을 사용하면 학습 시작할 때 네트워크의 구조를 단순화 함으로써 네트워크의 복잡도를 일시적으로 낮출 수 있고, backpropagation을 통해 의미 있는 weight update가 발생하면 그 때 부터 Residual Block 내부가 사용됨과 동시에 원래 설계한 네트워크의 복잡도를 사용할 수 있습니다.
 - Pytorch의 `BatchNorm2d`는 다음 링크에서 사용 방법을 알 수 있습니다.
-    - 링크 : [https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html)
+    - 참조 : [https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html)
+    - 참조 : [https://discuss.pytorch.org/t/change-batch-norm-gammas-init/81278/3](https://discuss.pytorch.org/t/change-batch-norm-gammas-init/81278/3)
 - `BatchNorm2d` 함수의 파라미터에 Gamma를 직접 제어하는 파라미터는 없으므로 Gamma에 직접 접근하여 값을 변경해주면 됩니다. 다음과 같습니다.
 
 <br>
