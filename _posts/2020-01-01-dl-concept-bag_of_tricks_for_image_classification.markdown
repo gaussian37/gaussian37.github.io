@@ -64,6 +64,8 @@ tags: [딥러닝, bag of tricks] # add tag
 - 다음으로 Learning rate warm-up과 관련된 내용입니다. 보통 learning rate는 초기 설정한 값을 기준으로 계속 줄여주는 방식을 많이 사용하고 있습니다.
 - 이와는 반대로 초기에 learning rate를 0으로 설정하고 이를 일정 기간 동한 linear 하게 키워주는 방식을 learning rate warmup 방식으로 소개합니다.
 - 위 그래프에서는 5 epoch 동안 조금씩 learning rate를 키워서 initial learning rate 값을 5 epoch에 0.4까지 도달하게 만든 후 점점 learning rate가 줄어들도록 변경하였습니다.
+- 위 방법은 이 글의 뒷부분에 제시된 `Cosine Learning Rate Decay` 부분과 혼합하여 사용할 수 있으며 그 코드는 다음 링크를 참조하시기 바랍니다.
+    - 링크 : [https://gaussian37.github.io/dl-pytorch-lr_scheduler/](https://gaussian37.github.io/dl-pytorch-lr_scheduler/)
 
 <br>
 
@@ -89,7 +91,37 @@ tags: [딥러닝, bag of tricks] # add tag
 <br>
 
 - 예를 들면 위 그림과 같은 시그모이드 함수를 activation function으로 사용하였을 때, Batch Normalization의 결과에 scale과 shift를 적용하지 않으면 위 그림의 빨간색 영역만 그대로 사용할 수 있습니다. 그러면 non-lineariry의 효과가 줄어들게 됩니다. 이 문제를 해결하는 역할로 $$ \gamma, \beta $$가 사용됩니다.
-- 이 값을 일반적으로 $$ \gamma = 0, \beta = 1 $$로 초기화 하고 학습을 하는데 이 논문에서는 $$ \gamma = 0 $$로 초기화 하는 것을 추천합니다. 이 방법은 **휴리스틱**한 방법으로 찾은 값이므로 실제 내가 풀어야 하는 문제에는 적합한 지 확인이 필요 합니다.
+- 이 값을 일반적으로 $$ \gamma = 0, \beta = 1 $$로 초기화 하고 학습을 하는데 이 논문에서는 $$ \gamma = 0 $$로 초기화 하는 것을 추천합니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/bag_of_tricks/7.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 만약 $$ \gamma = 0 $$으로 두면 학습 시작할 때, 위 그림과 같은 ResNet 구조에서 Residual Block 내부의 weight에 0이 곱해지므로 무시하게 됩니다. 따라서 `Identity mapping`으로만 weight가 전달됩니다.
+- 이와 같은 방법을 사용하면 학습 시작할 때 네트워크의 구조를 단순화 함으로써 네트워크의 복잡도를 일시적으로 낮출 수 있고, backpropagation을 통해 의미 있는 weight update가 발생하면 그 때 부터 Residual Block 내부가 사용됨과 동시에 원래 설계한 네트워크의 복잡도를 사용할 수 있습니다.
+- Pytorch의 `BatchNorm2d`는 다음 링크에서 사용 방법을 알 수 있습니다.
+    - 링크 : [https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html)
+- `BatchNorm2d` 함수의 파라미터에 Gamma를 직접 제어하는 파라미터는 없으므로 Gamma에 직접 접근하여 값을 변경해주면 됩니다. 다음과 같습니다.
+
+<br>
+
+```python
+def SetZeroGammaInBatchNorm2d(bn):
+    bn.weight.data = torch.zeros(bn.weight.data.shape, requires_grad=True)
+    return bn
+
+bn = nn.BatchNorm2d(3, affine=True)
+print(bn.weight, bn.bias)
+# Parameter containing:
+# tensor([1., 1., 1.], requires_grad=True)
+# tensor([0., 0., 0.], requires_grad=True)
+
+bn = SetZeroGammaInBatchNorm2d(bn)
+print(bn.weight, bn.bias)
+# Parameter containing:
+# tensor([0., 0., 0.], requires_grad=True) ← Changed
+# tensor([0., 0., 0.], requires_grad=True)
+```
 
 <br>
 
@@ -105,3 +137,5 @@ tags: [딥러닝, bag of tricks] # add tag
 #### **Low-precision training**
 
 <br>
+
+- 
