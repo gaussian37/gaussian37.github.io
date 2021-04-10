@@ -22,6 +22,14 @@ layout: main
         <div class="page-date"><span>{{page.date | date: '%Y, %b %d'}}&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
 
       </header>      
+      
+      <div style="text-align: center;">
+        <a href="http://hits.dwyl.com/{{ site.url | remove_first: 'https://' | remove_first: 'http://' }}{{ page.url }}"
+          target="_blank">
+          <img
+            src="http://hits.dwyl.com/{{ site.url | remove_first: 'https://' | remove_first: 'http://' }}{{ page.url }}.svg" />
+        </a>
+      </div>
 
       {{content | markdownify}}
       <div class="page-footer">
