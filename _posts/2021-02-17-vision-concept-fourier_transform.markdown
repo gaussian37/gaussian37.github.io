@@ -13,6 +13,8 @@ tags: [fourier transform, 푸리에 변환] # add tag
 - 참조 : https://youtu.be/TB1A2-Db67s
 - 참조 : https://www.youtube.com/watch?v=spUNpyF58BY
 - 참조 : https://www.youtube.com/playlist?list=PL5yujGYFVt0DhDXdKkFeou8zSV-KjOlAG (공돌이의 수학정리노트)
+- 참조 : https://youtu.be/c8Q2lZvvnJo
+- 참조 : https://www.youtube.com/playlist?list=PLEGnaIwMq6ozCqLEM_rEGxvZqqDi63omB
 
 <br>
 
