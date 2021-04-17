@@ -2,49 +2,63 @@
 layout: post
 title: t-SNE 개념과 사용법  
 date: 2019-02-09 08:42:00
-img: ml/concept/t-SNE/t-sne.png
+img: ml/concept/t-sne/0.png
 categories: [ml-concept] 
 tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
 ---
 
-출처 : 
-+ https://www.datacamp.com/community/tutorials/introduction-t-sne
-+ https://www.youtube.com/watch?v=zpJwm7f7EXs&t=58s
+- 참조 : https://www.datacamp.com/community/tutorials/introduction-t-sne
+- 참조 : https://www.youtube.com/watch?v=zpJwm7f7EXs&t=58s
 
-+ 이번 글에서는 `t-SNE`에 대하여 알아보도록 하겠습니다.
-    + Dimensionality Reduction
-    + Principal Component Analysis (PCA)와 파이썬에서의 사용법
-    + t-Distributed Stochastic Neighbor Embedding (t-SNE)와 파이썬에서의 사용법
-    + PCA와 t-SNE 의 visualization 차이점
-    + PCA와 t-SNE의 차이점 비교
+<br>
 
-<br><br>
+## **목차**
 
-## Dimensionality Reduction
+<br>
 
-+ 수많은 feature들을 가지고 있는 데이터셋을 이용하여 작업을 해보았다면, feature들 간의 관계를 파악하기가 어려운 것을 느꼈을 것입니다.
-    + feature의 수가 너무 많으면 머신 러닝 모델의 성능을 저하시키곤 합니다.
-    + feature의 갯수가 너무 많으면 overfit이 될 가능성이 있습니다. (PRML 책 참조)
-+ 머신 러닝에서 dimensionality reduction(차원 축소)는 중요한 feature의 갯수는 남기고 불필요한 feature의 갯수를 줄이는 데 사용되곤 합니다.
-+ 불필요한 feature의 갯수를 줄이는 방법으로 
-    + 복잡한 feature들 간의 관계를 줄일 수도 있습니다.
-    + 2D, 3D로 시각화 할 수도 있습니다.
-    + overfit을 방지할 수도 있습니다.
-
-+ Dimensionality Reduction은 다음과 같은 방법으로 할 수 있습니다.
-    + `Feature Elimination`
-        + Feature를 단순히 삭제하는 방법입니다. 이 방법은 간단하나 삭제된 feature들로 부터 어떠한 정보를 얻지는 못합니다.
-    + `Feature Selection`
-        + 통계적인 방법을 이용하여 feature들의 중요도에 rank를 정합니다.
-        + 이 방법 또한 information loss가 발생할 수 있으며 동일한 문제를 푸는 다른 데이터셋에서는 다른 rank를 매길 수 있다는 문제가 있을 수 있습니다.
-    + `Feature Extraction`
-        + 새로운 독립적인 feature를 만드는 방법이 있습니다.
-        + 새로 만들어진 feature는 기존에 존재하였던 독립적인 feature들의 결합으로 만들어 집니다.
-        + 이 방법에는 linear한 방법과 non-linear한 방법들로 나뉘어 집니다.
+- ### Dimensionality Reduction
+- ### t-SNE의 의미와 기본적인 활용 방법
+- ### Principal Component Analysis (PCA)와 파이썬에서의 사용법
+- ### t-Distributed Stochastic Neighbor Embedding (t-SNE)와 파이썬에서의 사용법
+- ### PCA와 t-SNE 의 visualization 차이점
+- ### PCA와 t-SNE의 차이점 비교
 
 <br><br>
+
+## **Dimensionality Reduction**
+
+<br>
+
+- 수많은 feature들을 가지고 있는 데이터셋을 이용하여 작업을 해보았다면, feature들 간의 관계를 파악하기가 어려운 것을 느꼈을 것입니다.
+- 예를 들어 **feature의 수가 너무 많으면** 머신 러닝 **모델의 성능을 저하**시키곤 하고 **feature의 갯수가 너무 많으면** **overfit**이 될 가능성이 있습니다.
+- 머신 러닝에서 `dimensionality reduction(차원 축소)`는 중요한 feature의 갯수는 남기고 불필요한 feature의 갯수를 줄이는 데 사용되곤 합니다.
+- 불필요한 feature의 갯수를 줄이는 방법으로 복잡한 **feature들 간의 관계를 줄일 수** 있고 **2D, 3D로 시각화** 할 수도 있습니다. 뿐만 아니라 앞에서 언급한 문제인 **overfit을 방지**할 수도 있습니다.
+- Dimensionality Reduction은 다음과 같은 방법으로 할 수 있습니다.
+- `Feature Elimination`
+    - Feature를 단순히 삭제하는 방법입니다. 이 방법은 간단하나 삭제된 feature들로 부터 어떠한 정보를 얻지는 못합니다.
+- `Feature Selection`
+    - 통계적인 방법을 이용하여 feature들의 중요도에 rank를 정합니다.
+    - 이 방법 또한 information loss가 발생할 수 있으며 동일한 문제를 푸는 다른 데이터셋에서는 다른 rank를 매길 수 있다는 문제가 있을 수 있습니다.
+- `Feature Extraction`
+    - 새로운 독립적인 feature를 만드는 방법이 있습니다.
+    - 새로 만들어진 feature는 기존에 존재하였던 독립적인 feature들의 결합으로 만들어 집니다.
+    - 이 방법에는 linear한 방법과 non-linear한 방법들로 나뉘어 집니다.
+
+<br>
+
+## **t-SNE의 의미와 기본적인 활용 방법**
+
+<br>
+<center><img src="../assets/img/ml/concept/t-sne/1.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- `t-distributed stochastic neighbor embedding` 소위 `t-SNE`라고 불리는 방법은 높은 차원의 복잡한 데이터를 2차원에 차원 축소하는 방법입니다. 낮은 차원 공간의 시각화에 주로 사용하며 차원 축소할 때는 비슷한 구조끼리 데이터를 정리한 상태이므로 데이터 구조를 이해하는 데 도움을 줍니다.
+
+
     
-## Principal Component Analysis (PCA)
+## **Principal Component Analysis (PCA)**
+
+<br>
 
 + PCA는 `Feature Extraction`의 방법이고 linear한 방법을 사용합니다.
 + PCA는 원본 데이터를 저차원으로 linear mapping 합니다. 이 방법으로 저차원에 표현되는 데이터의 variance가 최대화 됩니다.
