@@ -90,7 +90,7 @@ tags: [선형 계획법, 정수 계획법, 엑셀] # add tag
 
 <br>
 
-- 선형 계획법 자동차 조립 문제 엑셀 시트 : [https://drive.google.com/file/d/1FGm5ydPWAfxm83ONHzVOZm8CT08ora3Q/view?usp=sharing](https://drive.google.com/file/d/1FGm5ydPWAfxm83ONHzVOZm8CT08ora3Q/view?usp=sharing)
+- 선형 계획법 자동차 조립 문제 엑셀 시트 : [https://drive.google.com/file/d/1wGrsPBD1Ix_LBdoG7S1kMpe2gBUyVsnb/view?usp=sharing](https://drive.google.com/file/d/1wGrsPBD1Ix_LBdoG7S1kMpe2gBUyVsnb/view?usp=sharing)
 
 <br>
 
