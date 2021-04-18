@@ -73,13 +73,15 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
+- [VAE(Variational AutoEncoder)](https://gaussian37.github.io/dl-concept-vae/)
+- [GAN(Generative Adversarial Network)](https://gaussian37.github.io/dl-concept-gan/)
+
+<br>
+
 - Probability Model
 - (Probabilistic) Discriminative Model
 - Basic Bayesian Theory
 - [Basic Information Theory](https://gaussian37.github.io/gan-concept-information_theory/)
-- (Supervised) Generative Model
-- Discriminative Vs Generative Model
-- (Unsupervised) Generative Model
 
 <br>
 
