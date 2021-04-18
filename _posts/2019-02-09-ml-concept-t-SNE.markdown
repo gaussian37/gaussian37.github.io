@@ -9,6 +9,8 @@ tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
 
 - 참조 : https://www.datacamp.com/community/tutorials/introduction-t-sne
 - 참조 : https://www.youtube.com/watch?v=zpJwm7f7EXs&t=58s
+- 참조 : https://blog.naver.com/PostView.nhn?blogId=yunjh7024&logNo=220832689977&proxyReferer=http:%2F%2Fm.blog.naver.com%2F
+- 참조 : 머신러닝 도감
 
 <br>
 
@@ -17,7 +19,9 @@ tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
 <br>
 
 - ### Dimensionality Reduction
+- ### t-분포의 의미
 - ### t-SNE의 의미와 기본적인 활용 방법
+- ### t-SNE에 대한 수식적 의미
 - ### Principal Component Analysis (PCA)와 파이썬에서의 사용법
 - ### t-Distributed Stochastic Neighbor Embedding (t-SNE)와 파이썬에서의 사용법
 - ### PCA와 t-SNE 의 visualization 차이점
@@ -84,9 +88,26 @@ tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
 <center><img src="../assets/img/ml/concept/t-sne/4.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 위 그래프는 t-분포와 가우시안 분포를 비교한 것입니다.
+- 위 그래프는 가로축으로 거리, 세로축으로 유사도를 설정하여 `t-분포`와 `가우시안 분포`를 비교한 것입니다.
+- **데이터 사이의 거리가 가까울수록 유사도가 크고, 멀수록 유사도가 작아집니다.** 먼저 `원본`의 높은 차원 공간에서 `정규 분포`로 유사도를 계산하고 $$ p_{ij} $$라는 분포로 나타냅니다. $$ p_{ij} $$는 데이터 포인트 $$ x_{i}, x_{j} $$의 유사도를 나타냅니다.
+- 다음으로 $$  x_{i} $$에 대응하는 데이터 포인트 $$ y_{i} $$를 낮은 차원 공간에 무작위로 배치합니다. $$ y_{i} $$에 관해서도 `t-분포`로 유사도를 나타내는 $$ q_{ij} $$를 계산합니다.
+- 여기서 $$ p_{ij} $$와 $$ q_{ij} $$를 계산하면 $$ q_{ij} $$를  $$ p_{ij} $$와 같은 분포가 되도록 데이터 포인트 $$ y_{i} $$를 갱신합니다. 이는 높은 차원 공간의 $$ x_{i} $$ 유사도 각각의 관계를 낮은 차원 공간의 $$ y_{i} $$에서 재현하는 것입니다. 이 때, 낮은 차원 공간에서 `t-분포`를 이용하므로, **유사도가 큰 상태**의 관계를 재현할 때는 낮은 차원 공간에서 **데이터 포인트를 더 가까이** 배치합니다. 반대로 **유사도가 작은 상태의 관계**를 재현할 때에는 **낮은 차원 공간에서 데이터 포인트를 더 멀리 배치**합니다.
 
+<br>
+<center><img src="../assets/img/ml/concept/t-sne/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
+- 위 그림은 앞의 스위스 롤 데이터셋에서 `t-sne`를 적용하였을 때, 데이터 포인트 $$ y_{i} $$를 갱신하는 모습입니다.
+- 왼쪽 그래프는 갱신 횟수가 250회이고 오른쪽 그래프는 갱신 횟수가 500회 입니다. **갱신 횟수가 늘수록 데이터 포인트의 차이를 명확하게 나타냅니다.**
+
+<br>
+
+- `t-SNE`에서 낮은 차원에 임베딩 할 때, 정규 분포를 사용하지 않고 t-분포를 사용합니다. 그 이유는 앞에서 다루었듯이 t-분포가 `heavy-tailed distribution`임을 이용하기 위해서 입니다. 즉, `t-분포`는 **일반적인 정규분포보다 끝단의 값이 두터운 분포**를 가집니다. 
+- `t-SNE`가 전제하는 확률 분포는 정규 분포이지만 정규 분포는 꼬리가 두텁지 않아서 i번째 개체에서 적당히 떨어져 있는 이웃 j와 아주 많이 떨어져 있는 이웃 k가 선택될 **확률이 크게 차이가 나지 않게** 됩니다. 또한 **높은 차원 공간에서는 분포의 중심에서 먼 부분의 데이터 비중이 높기 때문에** 데이터 일부분의 정보를 고차원에서 유지하기가 어렵습니다.
+- 이러한 문제로 인하여 구분을 좀 더 잘하기 위해 정규 분포보다 **꼬리가 두터운 t분포**를 쓰게 되며 꼬리가 부분이 상대적으로 더 두텁게 **degree of freedom = 1**로 적용하여 사용합니다.
+- 또한 앞에서 설명드린 바와 같이 `t-분포`도 마찬가지로 표본 평균, 표본 분산으로 정의되는 확률변수이기 때문에 표본의 수가 많아질수록 `중심 극한 정리`에 의해 결국에는 정규 분포로 수렴하게 됩니다. 이것은 `t-SNE`가 전제하는 확률 분포가 정규 분포인 점과 일맥상통 합니다.
+
+<br>
     
 ## **Principal Component Analysis (PCA)**
 
