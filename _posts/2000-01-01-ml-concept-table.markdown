@@ -40,7 +40,7 @@ tags: [python, machine learning, ml] # add tag
 - [XGBoost]()
 - [LightGBM]()
 - [Stacking]()
-- [t-SNE(t-distributed stochastic neighbor embedding)](https://gaussian37.github.io/ml-concept-t-SNE/)
+- [t-SNE(t-distributed stochastic neighbor embedding)](https://gaussian37.github.io/ml-concept-t-sne/)
 
 <br>
 
