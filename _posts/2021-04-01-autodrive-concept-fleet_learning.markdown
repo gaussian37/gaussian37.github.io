@@ -2,7 +2,7 @@
 layout: post
 title: 테슬라 플릿 러닝 (Fleet Learning)
 date: 2021-04-01 00:00:00
-img: autodrive/concept/fleet_learning/0.png
+img: autodrive/concept/fleet_learning/5.png
 categories: [autodrive-concept] 
 tags: [자율주행, 자율주행 자동차, 테슬라, 플릿 러닝, Fleet Learning] # add tag
 ---
