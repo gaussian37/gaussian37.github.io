@@ -388,7 +388,7 @@ tags: [선형 계획법, 정수 계획법, 엑셀] # add tag
 
 <br>
 
-- 정수 계획법 서비스 조직망 문제 엑셀 링크 : 
+- 정수 계획법 서비스 조직망 문제 엑셀 링크 : [https://drive.google.com/file/d/1221WzIljbzJlyL3LrQPoWUR6qYR_3OMn/view?usp=sharing](https://drive.google.com/file/d/1221WzIljbzJlyL3LrQPoWUR6qYR_3OMn/view?usp=sharing)
 
 <br>
 
@@ -425,11 +425,73 @@ tags: [선형 계획법, 정수 계획법, 엑셀] # add tag
 <center><img src="../assets/img/etc/or/linear_programming/24.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-
-
-
 <br>
 
 #### **고정비용과 시설의 위치 문제 (0-1 정수 모형)**
 
+<br>
+
+- 정수 계획법 고정비용과 시설의 위치 문제 엑셀 링크 : [https://drive.google.com/file/d/1sqBjPMem3R_KnjNU6EejhRu3XQ8WuDIr/view?usp=sharing](https://drive.google.com/file/d/1sqBjPMem3R_KnjNU6EejhRu3XQ8WuDIr/view?usp=sharing)
+<br>
+
+- 이번 문제는 마지막 문제로 꽤 복잡한 문제입니다.
+
+<br>
+<center><img src="../assets/img/etc/or/linear_programming/28.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 농장에서 수확한 농작물을 공장으로 전달하여 제품을 만들려고 합니다.
+- 이 때, 고려해야 할 점은 선택 가능한 6개의 농장의 생산량과 고정 비용이 다르다는 점이 있고 공장에서도 수용 가능한 양이 다른점 입니다.
+- 이 때, 농장과 공장 간 수송 비용도 고려해야 합니다.
+- 이 상황에서의 사용 가능한 생산 용량을 모두 사용하면서 총 비용을 최소화 하는 방법을 구해보겠습니다.
+
+<br>
+<center><img src="../assets/img/etc/or/linear_programming/25.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 먼저 후보지인 6개의 농장들은 아래와 같은 연간 고정 비용과 연간 추정 생산량을 가지고 있습니다.
+
+<br>
+<center><img src="../assets/img/etc/or/linear_programming/26.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 회사가 현재 보유하고 있는 가공 공장들은 추가 가능 용량이 위 표과 같습니다.
+
+<br>
+<center><img src="../assets/img/etc/or/linear_programming/27.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 농장에서 각 공장 까지 수송 비용이 위 표와 같습니다.
+
+<br>
+<center><img src="../assets/img/etc/or/linear_programming/29.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 전체 정보를 요약하면 위 그림과 같습니다.
+
+<br>
+
+- ① `의사 결정 변수` : 
+    - 　$$ y_{i} $$ : 농장 $$ i $$를 선택하지 않음 (0), 농장 $$ i $$를 선택 (1) ($$ i = 1, 2, 3, 4, 5, 6 $$)
+    - 　$$ X_{ij} $$ : 농장 $$ i $$로부터 공장 $$ j $$ 까지 수송할 감자의 양 ($$ i = 1, 2, 3, 4, 5, 6 / j = A, B, C $$)
+- ② `목적 함수` : 최소화 $$ Z = 18X_{1A} + 15X_{1B} + 12X_{1C} + 13X_{2A} + 10X_{2B} + 17X_{2C} + 16X_{3A} + 14X_{3B} + 18X_{3C} + 19X_{4A} + 15X_{4B} + 16X_{4C} + 17X_{5A} + 19X_{5B} +12X_{5C} + 14X_{6A} + 16X_{6B} + 12X_{6C} + 405y_{1} + 390y_{2}+ 450y_{3}+ 368y_{4}+ 520y_{5}+ 465y_{6} $$
+- ③ `제약식` : 
+    - 　$$ X_{1A} + X_{1B} + X_{1C} \le 11.2y_{1} $$
+    - 　$$ X_{2A} + X_{2B} + X_{2C} \le 10.5y_{2} $$
+    - 　$$ X_{3A} + X_{3B} + X_{3C} \le 12.8y_{3} $$
+    - 　$$ X_{4A} + X_{4B} + X_{4C} \le 9.3y_{4} $$
+    - 　$$ X_{5A} + X_{5B} + X_{5C} \le 10.8y_{5} $$
+    - 　$$ X_{6A} + X_{6B} + X_{6C} \le 9.6y_{6} $$
+    - 　$$ X_{1A} + X_{2A} + X_{3A} + X_{4A} + X_{5A} + X_{6A} = 12 $$
+    - 　$$ X_{1B} + X_{2B} + X_{3B} + X_{4B} + X_{5B} + X_{6B} = 10 $$
+    - 　$$ X_{1C} + X_{2C} + X_{3C} + X_{4C} + X_{5C} + X_{6C} = 14 $$
+    - 　$$ X_{ij} \ge 0 $$
+    - 　$$ y_{i} $$ : 1 (선택), 0 (미선택)
+
+<br>
+<center><img src="../assets/img/etc/or/linear_programming/30.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/etc/or/linear_programming/31.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
