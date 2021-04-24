@@ -208,6 +208,12 @@ print(model.fit_transform(data.data))
 <br>
 
 - `early_exaggerattion`
+- 데이터 타입 : float
+- 기본값 : 12.0
+- 의미 : 기존 공간에서 데이터의 클러스터 간 거리가 타겟 공간에서 얼만큼 조밀하거나 먼 지 나타내는 파라미터 입니다. 이 값을 큰 값으로 설정할 경우 기존 공간의 클러스터 사이의 공간이 타겟 공간에서 더 커지도록 학습됩니다. 이 매개 변수의 선택은 크게 중요하지는 않으나 학습 초기에 비용 함수가 증가하면 early_exaggeration 또는 initial learning rate가 너무 높을 수 있으니 이 경우 살펴 보면 됩니다.
+
+<br>
+
 - `learning_rate`
 - `n_iter`
 - `n_iter_without_progress`
