@@ -140,14 +140,51 @@ tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
 + 하지만 `t-SNE` 과정이 끝나면 input feature를 확인하기가 어렵습니다. 그리고 t-SNE 결과만 가지고 무언가를 추론 하기는 어려움도 있습니다.
     + 따라서 `t-SNE`는 주로 시각화 툴로 사용 됩니다.
 
-<br><br>
+<br>
 
-## t-SNE의 자세한 설명
+## **파이썬을 이용한 t-SNE 구현 방법**
 
+<br>
 
+- 먼저 MNIST 데이터를 이용하여 시각화 하는 방법에 대하여 살펴보도록 하겠습니다. `sklearn`을 통하여 TSNE를 사용합니다.
 
+<br>
 
-## 파이썬을 이용한 t-SNE 구현 방법
+```python
+from sklearn.manifold import TSNE
+from sklearn.datasets import load_digits
+
+# MNIST 데이터 불러오기
+data = load_digits()
+
+# 2차원으로 차원 축소
+n_components = 2
+
+# t-sne 모델 생성
+model = TSNE(n_components=n_components)
+
+# 학습한 결과 2차원 공간 값 출력
+print(model.fit_transform(data.data))
+# [
+#     [67.38322, -1.9517338],
+#     [-11.936052, -8.906425],
+#     ...
+#     [-10.278599, 8.832907],
+#     [25.714725, 11.745557],
+# ]
+```
+
+<br>
+
+- 위 코드에서는 MNIST 이미지를 받아서 2차원으로 차원 축소하므로 그 결과 2차원 좌표계에서 각 데이터의 좌표값이 출력됩니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/t-sne/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 시각화 결과는 왼쪽부터 차례로 PCA, Local Linear Embedding, T-SNE 결과를 나타냅니다. PCA와 Local Linear Embedding은 차원 축소 방법을 선형적으로 접근하지만 T-SNE는 비선형적으로 접근하기 때문에 표현력이 증가됩니다. 따라서 위 시각화 결과와 같이 T-SNE는 클래스 간 분별력이 있게 시각화 할 수 있습니다.
+
+<br>
 
 + Fashion MNIST 데이터에 `t-SNE`를 적용하고 결과를 시각화 해보겠습니다.
     + [Fashion MNIST 데이터](https://github.com/zalandoresearch/fashion-mnist)
