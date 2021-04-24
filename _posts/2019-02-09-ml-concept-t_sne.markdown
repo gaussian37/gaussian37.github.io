@@ -146,6 +146,8 @@ tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
 
 <br>
 
+- T-SNE를 사용하기 위해서 대표적으로 `sklearn`에 구현된 `T-SNE`를 많이 사용합니다.
+- 매뉴얼 : [https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html)
 - 먼저 MNIST 데이터를 이용하여 시각화 하는 방법에 대하여 살펴보도록 하겠습니다. `sklearn`을 통하여 TSNE를 사용합니다.
 
 <br>
@@ -179,76 +181,41 @@ print(model.fit_transform(data.data))
 - 위 코드에서는 MNIST 이미지를 받아서 2차원으로 차원 축소하므로 그 결과 2차원 좌표계에서 각 데이터의 좌표값이 출력됩니다.
 
 <br>
-<center><img src="../assets/img/ml/concept/t-sne/7.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/ml/concept/t-sne/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 시각화 결과는 왼쪽부터 차례로 PCA, Local Linear Embedding, T-SNE 결과를 나타냅니다. PCA와 Local Linear Embedding은 차원 축소 방법을 선형적으로 접근하지만 T-SNE는 비선형적으로 접근하기 때문에 표현력이 증가됩니다. 따라서 위 시각화 결과와 같이 T-SNE는 클래스 간 분별력이 있게 시각화 할 수 있습니다.
 
 <br>
 
-+ Fashion MNIST 데이터에 `t-SNE`를 적용하고 결과를 시각화 해보겠습니다.
-    + [Fashion MNIST 데이터](https://github.com/zalandoresearch/fashion-mnist)
-    + Fashion-MNIST 데이터 세트는 카테고리 당 7,000 개 이미지, 10 개 카테고리, 70,000 개 패션 제품에 대한 28x28 grayscale 이미지 입니다.
-    + training 세트에는 60,000 개의 이미지가 있고 test 세트에는 10,000 개의 이미지가 있습니다. 
-    + MNIST와 마찬가지로 Fashion-MNIST는 10 개의 레이블로 이루어져 있지만, 숫자 대신 샌들, 셔츠, 바지 등과 같은 패션 액세서리의 10 가지 레이블이 있습니다.
-        + 0 T-shirt/top
-        + 1 Trouser
-        + 2 Pullover
-        + 3 Dress
-        + 4 Coat
-        + 5 Sandal
-        + 6 Shirt
-        + 7 Sneaker
-        + 8 Bag
-        + 9 Ankle boot
-    
-+ 또한 동일한 데이터 세트에서 `PCA`의 출력을 시각화하고 `t-SNE`와 비교해 보도록 하겠습니다.
-+ 먼저 fashion MNIST 데이터를 다운 받아 보도록 하겠습니다.
-
-```python
-import keras
-(X_train, y_train), (X_test, y_test) = keras.datasets.fashion_mnist.load_data()
-```
+- 위 예제 코드에서 입력된 `n_components`는 축소할 차원을 정하는 것이기 때문에 반드시 필요합니다. 반면 다른 파라미터는 차원 축소를 좀 더 잘 하기 위한 파라미터로 반드시 필요한 것은 아니나 사용 방법은 반드시 숙지해 놓는 것이 알고리즘을 이해하는 데에도 도움이 됩니다.
+- `T-SNE` 함수에 사용되는 옵션은 다음과 같습니다.
 
 <br>
 
-+ 입력 받은 `X_train` 데이터의 shape을 확인해 보겠습니다.
-
-```python
->> print(X_train.shape)
-
-(60000, 28, 28)
-```
+- `n_components`
+- 데이터 타입 : int
+- 기본값 : 2
+- 의미 : 차원 축소 결과 임베딩되는 차원
 
 <br>
 
-+ 현재 각 이미지가 (28, 28)의 크기로 되어 있습니다. 이미지들을 28 x 28 = 784 크기의 벡터로 만들겠습니다.
-    + 각 이미지가 열벡터로 된 행렬을 만들어야 처리하기 용이합니다.
-    
-```python
-X_train = X_train.reshape(60000, 784)
-```
+- `perplexity`
+- 데이터 타입 : float
+- 기본값 : 30.0
+- 의미 : 다른 manifold learning의 nearest neighbors 갯수에 사용되는 값을 뜻합니다. 일반적으로 더 큰 데이터 셋은 보통 더 큰 `perplexity` 값을 필요로 합니다. 이 값을 정할 때, 5 ~ 50 사이의 값을 선택해 보고 더 좋은 결과를 얻기 위해서 값을 변경해 가면서 조정할 필요가 있습니다.
 
 <br>
 
-+ `y_train`은 `X_train`의 이미지에 해당하는 클래스 정답값 입니다.
-
-```python
->> y_train
-
-array([9, 0, 0, ..., 3, 0, 5], dtype=uint8)
-```
-
-<br>
-
-
-
-
- 
-    
-    
-
-
-  
-
-
+- `early_exaggerattion`
+- `learning_rate`
+- `n_iter`
+- `n_iter_without_progress`
+- `min_grad_norm`
+- `metric`
+- `init`
+- `random_state`
+- `method`
+- `angle`
+- `n_jobs`
+- `square_distances`
