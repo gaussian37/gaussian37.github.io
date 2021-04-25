@@ -31,6 +31,7 @@ tags: [리눅스 유틸리티] # add tag
 - ### tree를 이용한 디렉토리 구조 출력
 - ### tweak tool을 이용한 GUI 제어
 - ### NVIDIA GPU 상태 확인
+- ### 터미널 tab 관리
 
 <br>
 
@@ -250,3 +251,14 @@ xmodmap -pke > ~/.Xmodmap
 - 만약 실시간으로 상태를 업데이트해서 보고싶으면 다음 명령어를 이용합니다.
     - `watch -d -n 초 nvidia-smi`
     - 만약 0.5초 간격으로 업데이트 해서 터미널에서 보고 싶으면 `watch -d -n 0.5 nvidia-smi`라고 입력하면 됩니다.
+
+<br>
+
+## **터미널 tab 관리**
+
+<br>
+
+- 참조 : [https://superuser.com/questions/657867/how-to-open-new-tab-in-existing-terminal-session-and-using-keyboard-shortcut-m](https://superuser.com/questions/657867/how-to-open-new-tab-in-existing-terminal-session-and-using-keyboard-shortcut-m)
+- 리눅스 터미널을 사용할 때, 기존 터미널에서 탭을 생성하여 하나의 터미널 창에서 여러개의 터미널을 사용하고 싶은 경우가 있습니다.
+ - 새로운 터미널 창을 생성하는 단축키가 `CTRL + ALT + T`인 반면 기존의 터미널에서 새로운 탭으로 새로운 터미널을 생성하려고 하면 `CTRL + SHIFT + T` 를 사용하여 오픈하면 됩니다. 
+- 만약 여러개의 탭이 실행되어 있는 경우 `ALT + (tab number)`를 이용하여 원하는 탭을 바로 접근할 수 있습니다. 예를 들어 ALT + 1 (첫번째 터미널 탭으로 변경) Alt + 2 (두번째 터미널 탭으로 변경)와 같이 접근할 수 있습니다.
