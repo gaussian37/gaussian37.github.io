@@ -20,8 +20,9 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [Vision of Linear Algebra 2020, Gilbert Strang]()
 - 선형대수학 주요 용어
 - 역행렬과 행렬식
-- [고유값과 고유벡터](https://gaussian37.github.io/math-la-eigen/)
-- 특이값 분해(SVD)
+- [고유값과 고유벡터](https://gaussian37.github.io/math-la-eigenthings/)
+- [고유값 분해]()
+- [특이값 분해(SVD)](https://gaussian37.github.io/math-la-svd/)
 - LU 분해
 - QR 분해
 - 그람 슈미트 과정

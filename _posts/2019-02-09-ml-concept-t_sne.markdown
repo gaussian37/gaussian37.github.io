@@ -189,7 +189,8 @@ print(model.fit_transform(data.data))
 <br>
 
 - 위 예제 코드에서 입력된 `n_components`는 축소할 차원을 정하는 것이기 때문에 반드시 필요합니다. 반면 다른 파라미터는 차원 축소를 좀 더 잘 하기 위한 파라미터로 반드시 필요한 것은 아니나 사용 방법은 반드시 숙지해 놓는 것이 알고리즘을 이해하는 데에도 도움이 됩니다.
-- `T-SNE` 함수에 사용되는 옵션은 다음과 같습니다.
+- `T-SNE` 함수에 사용되는 대표적인 옵션은 다음과 같습니다. 일부 생략된 옵션은 공식 문서를 참조하시기 바랍니다.
+    - 링크 : [https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html)
 
 <br>
 
@@ -215,13 +216,22 @@ print(model.fit_transform(data.data))
 <br>
 
 - `learning_rate`
+- 데이터 타입 : float
+- 기본값 : 200.0
+- 의미 : 학습을 할 때 사용하는 learning rate 이며 일반적으로 10 ~ 1000 사이의 값을 가집니다. learning rate가 너무 높으면 데이터가 가장 가까운 이웃과 거의 같은 거리에있는 '공'처럼 보일 수 있습니다. 반면 learning rate가 너무 낮으면 대부분의 포인트가 특이치가 거의 없는 조밀 한 클라우드에서 압축 된 것처럼 보일 수 있습니다.
+
+<br>
+
 - `n_iter`
+- 데이터 타입 : int
+- 기본값 : 1000
+- 의미 : 최적화를 위한 최대 반복 횟수입니다. 이 값은 최소 250 이상이어야 학습하는 데 지장이 없습니다.
+
+<br>
+
 - `n_iter_without_progress`
-- `min_grad_norm`
-- `metric`
-- `init`
-- `random_state`
-- `method`
-- `angle`
-- `n_jobs`
-- `square_distances`
+- 데이터 타입 : int
+- 기본값 : 300
+- 의미 : 성능 개선 없이 학습이 지속되면 학습을 중지하는 옵션이며 카운트는 50의 배수 단위로 카운트 됩니다.
+
+<br>

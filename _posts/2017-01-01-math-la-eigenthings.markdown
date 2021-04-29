@@ -1,16 +1,21 @@
 ---
 layout: post
-title: 선형 대수학 관련 기본 내용 
+title: 고유값과 고유벡터
 date: 2016-12-01 00:00:00
 img: math/la/linear-algebra-image.jpg
 categories: [math-la] 
-tags: [Linear algebra, 선형대수학] # add tag
+tags: [Linear algebra, 선형대수학, 고유값, 고유벡터, eigenvalue, eigenvector] # add tag
 ---
 
-출처 : https://darkpgmr.tistory.com/
+<br>
 
-이번 글에서는 자주 사용하는 선형대수학 개념들에 대하여 정리해 보도록 하겠습니다.
-이 글 전체 내용은 [다크프로그래머님 블로그](https://darkpgmr.tistory.com/)에서 필요한 내용한 가져와서 정리하였습니다.
+- 참조 : https://darkpgmr.tistory.com/
+
+<br>
+
+- 이번 글에서는 선형대수학에서 가장 핵심이 되는 `고유값(eigenvalue)`과 `고유벡터(eigenvector)`에 대하여 다루어 보도록 하겠습니다.
+- 고유값과 고유벡터에 대한 내용은 블로그 내의 다음 글에서도 참조 가능합니다.
+    - Mathematics For Machine Learning : [https://gaussian37.github.io/math-mfml-eigenthings/](https://gaussian37.github.io/math-mfml-eigenthings/)
 
 <br>
 
