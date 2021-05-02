@@ -1,10 +1,10 @@
 ---
 layout: post
-title: pytorch 모델 저장과 ONNX, TensorRT, OpenVINO 사용
+title: pytorch 모델 저장과 ONNX 사용
 date: 2019-05-18 00:00:00
 img: dl/pytorch/pytorch.jpg
 categories: [dl-pytorch] 
-tags: [pytorch, deploy] # add tag
+tags: [pytorch, deploy, onnx, onnxruntime] # add tag
 ---
 
 <br>
@@ -19,8 +19,12 @@ tags: [pytorch, deploy] # add tag
 
 - ### [모델 저장과 불러오기](#모델-저장과-불러오기-1)
 - ### [ONNX를 사용한 다른 프레임워크와의 연계](#onnx를-사용한-다른-프레임워크와의-연계-1)
-- ### [ONNX를 TensorRT에서 사용](#onnx를-tensorrt에서-사용-1)
-- ### [ONNX를 OpenVINO에서 사용](#onnx를-openvino에서-사용-1)
+- ### [pytorch에서 학습 완료된 모델 불러오기]()
+- ### [ONNX로 export]()
+- ### [onnx 파일 확인]()
+- ### [netron을 이용한 ONNX 시각화]()
+- ### [ONNX 모델을 caffe2 모델로 저장]()
+- ### [onnxruntime을 이용한 모델 사용](#onnxruntime을-이용한-모델-사용-1)
 
 <br>
 
@@ -83,7 +87,7 @@ torch.save(params, "net.prm", pickle_protocol=4)
 
 <br>
 
--  ONNX란 Open Neural Network eXchange의 줄임말입니다.
+-  `ONNX`란 `Open Neural Network eXchange`의 줄임말입니다.
 - 이 글에서는 ONNX라는 신경망 모델의 표준 포맷에 대하여 설명하고, `pytorch`로 학습한 모델을 ONNX를 경유해서 `Caffe2`로 실행해 보겠습니다. (pytorch와 caffe2 모두 페이스북에서 개발한 것으로 비교적 안정적으로 동작합니다.)
 - 먼저 ONNX에 대하여 간단하게 살펴보면 Facebook과 MS가 개발한 신경망 모델의 호환 포맷입니다. 
 - 특정 프레임워크에서 작성한 모델을 다른 프레임워크에서 사용할 수 있게 하는 도구로 `pytorch, caffe, CNTK, MXNet`등을 지원하고 caffe나 MXNet 같은 C++ 기반의 프레임워크를 지원하기 때문에 모바일 기기에 배포할 수 있어서 응용 범위가 넓어집니다.
@@ -91,7 +95,7 @@ torch.save(params, "net.prm", pickle_protocol=4)
 
 <br>
 
-### **pytorch에서 학습 완료된 모델 불러오기**
+## **pytorch에서 학습 완료된 모델 불러오기**
 
 <br>
 
@@ -123,7 +127,7 @@ net.eval()
 
 <br>
 
-### **ONNX로 export**
+## **ONNX로 export**
 
 <br>
 
@@ -144,7 +148,7 @@ torch.onnx.export(net, dummy_data, "output.onnx")
 <br>
 
 - 위와 같이 코드를 입력하면 export가 완료됩니다. ONNX의 제약 중 하나는 pytorch 등의 동적 계산 프레임워크로부터 export할 경우에 1회 계산을 해야하므로 네트워크 내에서 if문 등으로 분기가 이루어지지 않는 경우에는 제대로 export가 되지 않을 수 있습니다.
-- ONNX로 변환시 입력부와 출력부의 이름은 임의의 이름으로 지정되어 있습니다. ONNX를 사용하는 입장에서 입력부와 출력부의 이름을 특정 이름으로 지정하고 싶으면 export 할 때 옵션을 다음과 같이 지정할 수 있습니다.
+- ONNX로 변환시 입력부와 출력부의 이름은 임의의 이름으로 지정되어 있습니다. ONNX를 사용하는 입장에서 `입력부`와 `출력부`의 이름을 특정 이름으로 지정하고 싶으면 export 할 때 옵션을 다음과 같이 지정할 수 있습니다.
 
 <br>
 
@@ -158,7 +162,7 @@ torch.onnx.export(net, dummy_data,  input_names = ['input'], output_names = ['cl
 
  <br>
  
- ### **onnx 파일 확인**
+ ## **onnx 파일 확인**
  
  <br>
  
@@ -184,7 +188,24 @@ for init in graph.initializer:
 
 <br>
 
-### **Caffe2에서 ONNX 모델 사용**
+## **netron을 이용한 ONNX 시각화**
+
+<br>
+
+- `netron`을 이용하면 onnx로 변환된 model의 그래프를 시각적으로 확인할 수 있습니다.
+    - 링크 : [https://github.com/lutzroeder/netron](https://github.com/lutzroeder/netron)
+- 위 링크에서 매뉴얼을 읽은 후 각 OS에 맞는 파일을 설치를 하면 onnx 파일을 실행할 수 있는 어플리케이션이 설치 됩니다. 이 어플리케이션을 이용하여 onnx 파일을 실행 시키면 아래 그림과 같이 입력 ~ 출력 까지 그래프 형태로 모델의 구조를 살펴볼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/deploy/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이와 같은 시각화를 통하여 모델의 전체적인 구조 및 파라미터 등을 알 수 있고 특히 onnx에서 사용하는 입출력의 이름과 shape을 확인할 수 있습니다.
+- 이 과정을 통하여 글의 뒷부분에 작성한 `onnxruntime을 이용한 모델 사용`에서 사용하는 입출력의 이름과 입력의 shape 정보를 쉽게 확인할 수 있습니다.
+
+<br>
+
+## **Caffe2에서 ONNX 모델 사용**
 
  <br>
 
@@ -248,7 +269,7 @@ output[0]
 
 <br>
 
-### **ONNX 모델을 caffe2 모델로 저장**
+## **ONNX 모델을 caffe2 모델로 저장**
 
 <br>
 
@@ -279,14 +300,64 @@ with open('predict_net.pb', "wb") as fopen:
 
 <br>
 
-## **ONNX를 TensorRT에서 사용**
+## **onnxruntime을 이용한 모델 사용**
 
 <br>
 
+- 참조 : https://pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html
 
 <br>
 
-## **ONNX를 OpenVINO에서 사용**
+- 앞선 과정을 통하여 onnx 파일을 생성하면 그 onnx 파일의 입력의 형태와 출력의 형태가 결정됩니다. onnx의 입력 형태에 맞게 입력을 넣어주면 정해진 형식대로 출력을 생성할 수 있습니다.
+- 이 과정은 `onnxruntime` 이라는 패키지를 이용하여 사용할 수 있습니다.
 
 <br>
+
+```python
+import onnxruntime
+session = onnxruntime.InferenceSession("path/.../to/model.onnx")
+
+input_name = session.get_inputs()[0].name
+output_name = session.get_outputs()[0].name
+
+out = session.run([output_name], {input_name : data})[0]
+```
+
+<br>
+
+- 먼저 위 코드를 한 줄 씩 살펴보도록 하곘습니다.
+- 첫번째 코드인 `session = onnxruntime.InferenceSession("path/.../to/model.onnx")`을 이용하여 `onnxruntim` 패키지를 이용해 inference에 사용 할 `onnx` 파일을 불러옵니다. 일반적으로 `session` 이란 변수명으로 저장합니다.
+- 위 코드에서 `input_name`, `output_name`은 글의 초반부에 `onnx` 파일을 저장할 때 지정한 input의 이름과 output의 이름입니다. `torch.onnx.export` 함수 부분을 살펴 보시면 export 할 때, input_name과 output_name을 지정하였었습니다. 이 값을 지정하는 이유는 onnx를 inference할 때, 모델에서 원하는 위치에서 부터 입력을 넣고 원하는 위치에서 출력을 만들어 내기 위함입니다. 일반적으로 **end-to-end** 방식으로 입출력을 구성하기 때문에 모델의 시작점인 input_name을 입력부로 설정하고 모델의 끝부분인 output_name을 출력부로 설정합니다.
+- 마지막으로 inference 하는 부분인 `out = session.run([output_name], {input_name : data})[0]` 을 살펴보겠습니다. 먼저 출력부인 output_name을 설정하고 그 다음으로 입력부인 `input_name`과 입력할 데이터를 key, value 형태로 입력해 줍니다. 마지막에 `[0]`을 붙인 이유는 `session.run()`의 결과가 리스트 형태이기 때문에 inference 결과에 해당하는 인덱스 0번째 값을 가져오기 위함입니다.
+- onnxruntime에서 사용되는 `data`는 `numpy` 데이터가 사용됩니다.
+
+<br>
+
+- 위와 같은 방법을 이용하여 `out`에 원하는 inference 결과를 저장할 수 있습니다.
+- 만약 이미지 데이터를 `pytorch`를 이용하여 딥러닝 모델을 학습하고 그 결과를 `onnx`로 사용한다면 `[batch, channel, height, width]`의 순서로 입력을 받는 것이 일반적입니다.
+- 아래는 `opencv`를 이용하여 1개의 이미지를 입력으로 받고 `[batch, channel, height, width]`로 입력의 크기를 변경해주는 코드입니다.
+
+<br>
+
+```python
+img = cv2.imread(image_name).astype(np.float32)
+
+# image resize가 필요한 경우 아래와 같이 적용
+img = cv2.resize(img, (width, height), interpolation=cv2.INTER_LINEAR)    
+
+# image 스케일을 [0, 255] → [0, 1]로 변경 이 필요하면 변경한다.
+# image의 normalization이 필요하면 적용한다.
+
+# [height, width, channel] → [channel, height, width]
+img = img.transpose((2, 0, 1))
+# [channel, height, width] → [1, channel, height, width] (1은 batch를 의미함)
+img = np.expand_dims(img, axis=0)
+# out : [1, 출력 shape] (1은 batch를 의미함)
+out = session.run([output_name], {input_name : src_image})[0]
+# out : 출력 shape (batch dimension 제거)
+out = out.squeeze(0)
+```
+
+<br>
+
 
