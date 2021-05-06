@@ -10,6 +10,11 @@ tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
 - 참조 : https://www.datacamp.com/community/tutorials/introduction-t-sne
 - 참조 : https://www.youtube.com/watch?v=zpJwm7f7EXs&t=58s
 - 참조 : https://blog.naver.com/PostView.nhn?blogId=yunjh7024&logNo=220832689977&proxyReferer=http:%2F%2Fm.blog.naver.com%2F
+- 참조 : http://www.ktword.co.kr/abbr_view.php?m_temp1=1134
+- 참조 : https://youtu.be/zCYKD3YfcSM
+- 참조 : https://youtu.be/NEaUSP4YerM
+- 참조 : https://youtu.be/MNfcUxmnRkQ
+- 참조 : https://youtu.be/INHwh8k4XhM
 - 참조 : 머신러닝 도감
 
 <br>
@@ -54,8 +59,38 @@ tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
 
 <br>
 
+- t-분포의 정확한 수식적 유도를 확인하려면 다음 글에서 확인 하시면 알 수 있습니다.
+    - 링크 : [https://gaussian37.github.io/math-pb-distribution_of_sampling_variance_and_t_distribution/](https://gaussian37.github.io/math-pb-distribution_of_sampling_variance_and_t_distribution/)
+- 너무 상세한 내용이 아닌 대략적인 t-분포의 의미에 대해서는 이 글에서 설명해 보겠습니다.
+- `t-분포`는 소 표본 (n < 30)으로 모 평균 추정하고 모집단이 정규분포와 유사함을 알고 있으나 모 표준편차를 모를 때 주로 사용합니다.
+- t 분포의 이름은 Student 라는 가명을 사용한 이름의 학자가 발표한 Student t-분포에서 이름을 따왔습니다.
 
+<br>
+<center><img src="../assets/img/ml/concept/t-sne/7.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
+- t-분포는 표준 정규분포와 유사하게 0을 중심으로 좌우 대칭 형태를 이루며 표준 정규분포보다 평평하고 기다른 꼬리 형태를 가집니다. 즉, **양쪽 꼬리 형태가 두터운 형태**를 가집니다. 이와 같은 형태를 가지는 이유는 **표준 정규분포보다 분산이 크기 때문**입니다.
+- 정규분포는 평균과 분산을 통하여 그 형태가 달라지게 됩니다. 반면 t-분포는 `자유도`에 따라 다른 모양을 나타냅니다. 이 점은 카이 제곱 분포와 유사하다고 말할 수 있습니다. `자유도 = 표본의 수 -1`로 정의되며 자세한 의미는 위에서 언급한 상세 내용 링크에서 확인할 수 있습니다. 이 자유도가 점점 더 커질수록 표준 정규분포에 가까워지고 대개 자유도가 30이 넘으면 표준 정규분포와 가까워지기 때문에 **표본이 30이 넘어가게 되면 정규 분포를 사용하고 표본이 30 보다 작으면 t-분포를 사용하는 것이 일반적인 사용법**입니다.
+
+<br>
+
+- t-분포에서 확률 변수를 $$ T $$로 표현하면 $$ T $$는 모평균 $$ \mu $$의 추정에 사용되는 추정 통계량을 의미합니다. 이는 표준정규분포에서 표준화 변량인 $$ Z $$와 같이 표본 평균 $$ \bar{X} $$를 변환한 것과 같은 의미입니다.
+
+<br>
+
+- $$ T = \frac{\bar{X} - \mu}{s / \sqrt{n}}  $$
+
+<br>
+
+- 　$$ n $$ : 표본 수
+- 　$$ n - 1 $$ : 자유도
+- 　$$ \bar{X} $$ : 표본 평균
+- 　$$ \mu $$ : 모 평균
+- 　$$ s $$ : 표본의 표준편차
+
+<br>
+
+- 정리하면 t-분포는 `자유도 = 표본 수 - 1`라는 모수에 따라 그 분포가 달라지며, 자유도가 30 이하이면 표준정규분포 보다 분산이 커져서 평평한 모양이 되고, 30이 넘으면 표준 정규분포와 비슷해지며 120 이상이 되면 표준정규분포와 완전히 같아집니다.
 
 <br>
 
