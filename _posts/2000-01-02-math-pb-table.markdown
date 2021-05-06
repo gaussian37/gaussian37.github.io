@@ -8,8 +8,6 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 ---
 
 <br>
-
-<br>
 <center><img src="../assets/img/math/pb/dist.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
@@ -109,7 +107,7 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 - 계승적률	
 - 확률표본	
 - 표본분포	
-- 표본분산의 분포. t분포	
+- [표본분산의 분포와 t분포](https://gaussian37.github.io/math-pb-distribution_of_sampling_variance_and_t_distribution/)
 - F분포	
 - 표본적률	
 - 순서통계량 (1)	
