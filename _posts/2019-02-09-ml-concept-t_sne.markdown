@@ -18,18 +18,18 @@ tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
 
 <br>
 
-- ### Dimensionality Reduction
-- ### t-분포의 의미
-- ### t-SNE의 의미와 기본적인 활용 방법
-- ### t-SNE에 대한 수식적 의미
-- ### Principal Component Analysis (PCA)와 파이썬에서의 사용법
-- ### t-Distributed Stochastic Neighbor Embedding (t-SNE)와 파이썬에서의 사용법
-- ### PCA와 t-SNE 의 visualization 차이점
-- ### PCA와 t-SNE의 차이점 비교
+- ### [Dimensionality Reduction의 의미](#)
+- ### [t-분포의 의미](#)
+- ### [t-SNE의 의미와 기본적인 활용 방법](#)
+- ### [t-SNE에 대한 수식적 의미](#)
+- ### [Principal Component Analysis (PCA)와 파이썬에서의 사용법](#)
+- ### [t-Distributed Stochastic Neighbor Embedding (t-SNE)와 파이썬에서의 사용법](#)
+- ### [PCA와 t-SNE 의 visualization 차이점](#)
+- ### [PCA와 t-SNE의 차이점 비교](#)
 
-<br><br>
+<br>
 
-## **Dimensionality Reduction**
+## **Dimensionality Reduction의 의미**
 
 <br>
 
@@ -37,16 +37,25 @@ tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
 - 예를 들어 **feature의 수가 너무 많으면** 머신 러닝 **모델의 성능을 저하**시키곤 하고 **feature의 갯수가 너무 많으면** **overfit**이 될 가능성이 있습니다.
 - 머신 러닝에서 `dimensionality reduction(차원 축소)`는 중요한 feature의 갯수는 남기고 불필요한 feature의 갯수를 줄이는 데 사용되곤 합니다.
 - 불필요한 feature의 갯수를 줄이는 방법으로 복잡한 **feature들 간의 관계를 줄일 수** 있고 **2D, 3D로 시각화** 할 수도 있습니다. 뿐만 아니라 앞에서 언급한 문제인 **overfit을 방지**할 수도 있습니다.
-- Dimensionality Reduction은 다음과 같은 방법으로 할 수 있습니다.
-- `Feature Elimination`
+- Dimensionality Reduction은 다음과 같은 방법으로 사용 할 수 있습니다.
+- ① `Feature Elimination`
     - Feature를 단순히 삭제하는 방법입니다. 이 방법은 간단하나 삭제된 feature들로 부터 어떠한 정보를 얻지는 못합니다.
-- `Feature Selection`
+- ② `Feature Selection`
     - 통계적인 방법을 이용하여 feature들의 중요도에 rank를 정합니다.
-    - 이 방법 또한 information loss가 발생할 수 있으며 동일한 문제를 푸는 다른 데이터셋에서는 다른 rank를 매길 수 있다는 문제가 있을 수 있습니다.
-- `Feature Extraction`
-    - 새로운 독립적인 feature를 만드는 방법이 있습니다.
+    - 이 방법 또한 **information loss**가 발생할 수 있으며 동일한 문제를 푸는 다른 데이터셋에서는 다른 rank를 매길 수 있다는 문제가 있을 수 있습니다.
+- ③ `Feature Extraction`
+    - **새로운 독립적인 feature**를 만드는 방법이 있습니다.
     - 새로 만들어진 feature는 기존에 존재하였던 독립적인 feature들의 결합으로 만들어 집니다.
-    - 이 방법에는 linear한 방법과 non-linear한 방법들로 나뉘어 집니다.
+    - 이 방법에는 linear한 방법과 **non-linear한 방법**들로 나뉘어 집니다.
+
+<br>
+
+## **t-분포의 의미**
+
+<br>
+
+
+
 
 <br>
 
@@ -106,6 +115,15 @@ tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
 - `t-SNE`가 전제하는 확률 분포는 정규 분포이지만 정규 분포는 꼬리가 두텁지 않아서 i번째 개체에서 적당히 떨어져 있는 이웃 j와 아주 많이 떨어져 있는 이웃 k가 선택될 **확률이 크게 차이가 나지 않게** 됩니다. 또한 **높은 차원 공간에서는 분포의 중심에서 먼 부분의 데이터 비중이 높기 때문에** 데이터 일부분의 정보를 고차원에서 유지하기가 어렵습니다.
 - 이러한 문제로 인하여 구분을 좀 더 잘하기 위해 정규 분포보다 **꼬리가 두터운 t분포**를 쓰게 되며 꼬리가 부분이 상대적으로 더 두텁게 **degree of freedom = 1**로 적용하여 사용합니다.
 - 또한 앞에서 설명드린 바와 같이 `t-분포`도 마찬가지로 표본 평균, 표본 분산으로 정의되는 확률변수이기 때문에 표본의 수가 많아질수록 `중심 극한 정리`에 의해 결국에는 정규 분포로 수렴하게 됩니다. 이것은 `t-SNE`가 전제하는 확률 분포가 정규 분포인 점과 일맥상통 합니다.
+
+<br>
+
+## **t-SNE에 대한 수식적 의미**
+
+<br>
+
+
+
 
 <br>
     
