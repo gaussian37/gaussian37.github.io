@@ -13,6 +13,12 @@ tags: [pytorch, loss function, softmax, negative log likelihood] # add tag
 
 <br>
 
+<br>
+<center><img src="../assets/img/dl/pytorch/loss/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+
 ## **목차**
 
 <br>
