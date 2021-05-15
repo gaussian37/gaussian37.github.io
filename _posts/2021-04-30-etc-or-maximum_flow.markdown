@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 선형계획법을 이용한 최대 유량 문제와 엑셀의 활용
-date: 2021-04-29 00:00:00
+date: 2021-04-30 00:00:00
 img: etc/or/maximum_flow/0.png
 categories: [etc-or] 
 tags: [선형 계획법, 최대 유량, 엑셀] # add tag
