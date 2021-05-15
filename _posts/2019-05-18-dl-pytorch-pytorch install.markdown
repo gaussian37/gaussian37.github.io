@@ -82,9 +82,22 @@ tensor([[-5.5635e-24,  0.0000e+00,  4.4842e-44,  0.0000e+00],
     + 딥러닝을 사용하는 것이니 GPU를 선택해 주어야 합니다.
 + 아래 코드를 입력하여 PyTorch를 설치해줍니다.
 
+<br>
+
 ```python
 !pip3 install torch
 !pip3 install torchvision
+```
+
+<br>
+
+- 만약 `colab`에서 google drive의 파일 또는 디렉토리를 연결해서 사용하려면 아래 명령어를 입력하여 실행하면 연결된 계정의 google drive를 사용할 수 있습니다.
+
+<br>
+
+```python
+from google.colab import drive
+drive.mount('/content/gdrive')
 ```
 
 <br>

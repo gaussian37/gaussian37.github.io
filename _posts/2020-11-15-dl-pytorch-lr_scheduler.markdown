@@ -27,6 +27,7 @@ tags: [pytorch, learning rate, learning rate scheduler] # add tag
 
 <br>
 
+- ### [learning rate 임의 변경](#learning-rate-임의-변경-1)
 - ### [LambdaLR](#lambdalr-1)
 - ### [StepLR](#steplr-1)
 - ### [MultiStepLR](#multisteplr-1)
@@ -35,6 +36,22 @@ tags: [pytorch, learning rate, learning rate scheduler] # add tag
 - ### [CyclicLR](#cycliclr-1)
 - ### [CosineAnnealingWarmRestarts](#cosineannealingwarmrestarts-1)
 - ### [Custom CosineAnnealingWarmRestarts](#custom-cosineannealingwarmrestarts-1)
+
+<br>
+
+## **learning rate 임의 변경**
+
+<br>
+
+- 학습에 사용되는 learning rate를 임의로 변경하기 위해서는 SGD, Adam과 같은 optimizer로 선언한 optimizer 객체를 직접 접근하여 수정할 수 있습니다.
+- 일반적인 환경인 1개의 optimizer를 사용한다면 `optimizer.param_groups[0]`을 통하여 현재 dictionary 형태의 optimizer 정보를 접근할 수 있습니다. 그 중 `lr`이라는 key를 이용하여 learning rate의 value값을 접근할 수 있습니다.
+- 다음은 learning rate를 반으로 줄이는 작업을 나타내는 예시입니다.
+
+<br>
+
+```python
+optimizer.param_groups[0]['lr'] /= 2
+```
 
 <br>
 

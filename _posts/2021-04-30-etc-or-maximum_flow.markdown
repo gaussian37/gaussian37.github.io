@@ -19,6 +19,10 @@ tags: [선형 계획법, 최대 유량, 엑셀] # add tag
 
 <br>
 
+## **최대 유량 기본 예제**
+
+<br>
+
 - 최대 유량 기본 문제 엑셀 시트 : [https://drive.google.com/file/d/1FHLfIlwR2A0pQays8C0UbY27hJQg8AqP/view?usp=sharing](https://drive.google.com/file/d/1FHLfIlwR2A0pQays8C0UbY27hJQg8AqP/view?usp=sharing)
 
 <br>
@@ -97,5 +101,9 @@ tags: [선형 계획법, 최대 유량, 엑셀] # add tag
 <br>
 
 - 위 절차를 통하여 최대 유량은 `15`로 구할 수 있으며 최대 유량이 선택 되기 위한 각 간선의 유량을 구할 수 있습니다.
+
+<br>
+
+## **최대 유량 기본 예제**
 
 <br>
