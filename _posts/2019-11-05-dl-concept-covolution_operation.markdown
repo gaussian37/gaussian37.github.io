@@ -189,7 +189,7 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 
 <br>
 
-$$ G_{out}(x, y) = \sum_{in=0}^{N_{in}} w_{out, in} * F_{in}(x, y) = \sum_{in=0}^{N_{in}}\Biggl( \Biggl( \sum_{\delta x = -k_{i}}^{k_{i}} \sum_{\delta y = -k_{j}}^{k_{j}} w_{out, in}(\delta x, \delta y) \cdot F_{in}(x + \delta x, y + \delta y) \Biggr) + {w_{out, in}}_{bias} \biggr)$$
+- $$ G_{out}(x, y) = \sum_{in=0}^{N_{in}} w_{out, in} * F_{in}(x, y) = \sum_{in=0}^{N_{in}}\Biggl( \Biggl( \sum_{\delta x = -k_{i}}^{k_{i}} \sum_{\delta y = -k_{j}}^{k_{j}} w_{out, in}(\delta x, \delta y) \cdot F_{in}(x + \delta x, y + \delta y) \Biggr) + {w_{out, in}}_{bias} \biggr)$$
 
 <br>
 
