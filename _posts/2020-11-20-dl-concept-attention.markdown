@@ -123,7 +123,7 @@ tags: [attention, seq2seq] # add tag
 <center><img src="../assets/img/dl/concept/attention/0.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- Attention에서는 Query에 대하서 어떤 Key가 유사한지 비교를 하고, `유사도`를 반영하여 Key에 대응하는 Value를 합성(Aggregation)한 것이 `Attention Value`가 됩니다.
+- Attention에서는 Query에 대해서 어떤 Key와 유사한지 비교를 하고, `유사도`를 반영하여 Key에 대응하는 Value를 합성(Aggregation)한 것이 `Attention Value`가 됩니다.
 - 여기서 주목할 점은 **Query는 하나**이고 그 **Query에 해당하는 Dictionary의 Key값들이 Query와 얼만큼 유사한지 계산**을 한다는 점입니다.
 
 <br>
@@ -179,7 +179,7 @@ tags: [attention, seq2seq] # add tag
 <br>
 
 - 먼저 Decoder의 hidden state는 RNN(LSTM)에서 받아서 연산하여 $$ s_{i} $$ → $$ s_{i+1} $$로 만듭니다.
-- 그 후 Attenen value인 $$ a_{i} $$와 $$ s_{i+1} $$을 concat ($$ v_{i} = \[s_{i}; a_{i-1}\] $$) 하여 $$ v_{i+1} $$을 만듭니다. 이 값을 FC layer와 Softmax를 거쳐서 최종 출력인 $$ y_{i} $$를 출력합니다.
+- 그 후 Attenen value인 $$ a_{i} $$와 $$ s_{i+1} $$을 concat ($$ v_{i} = [s_{i}; a_{i-1}] $$) 하여 $$ v_{i+1} $$을 만듭니다. 이 값을 FC layer와 Softmax를 거쳐서 최종 출력인 $$ y_{i} $$를 출력합니다.
 
 <br>
 

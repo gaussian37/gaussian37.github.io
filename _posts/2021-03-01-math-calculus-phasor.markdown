@@ -92,8 +92,6 @@ tags: [phasor, 페이저] # add tag
 
 - 이와 같이 위에서 정의한 식 모두 하나의 회전 운동하는 막대기를 표현할 수 있게 되며, 주파수가 고정되어 있다고 가정한다면 네 개의 표현 방법은 모두 같은 현상을 표현한 것입니다.
 
-
-
 <br>
 
 [Calculus 관련 글 목차](https://gaussian37.github.io/math-calculus-table/)
