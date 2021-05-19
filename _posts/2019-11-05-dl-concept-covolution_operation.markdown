@@ -19,16 +19,17 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 
 <br>
 
-- ### Convolution 연산 소개
-- ### Kernel 이란
-- ### Trainable parameter와 bias 란
-- ### Input, output channel의 갯수란
-- ### Kernel의 size 란
-- ### Stride 란
-- ### Padding 이란
-- ### Dilation 이란
-- ### Group 이란
-- ### Output Channel Size 란
+- ### [Convolution 연산 소개](#convolution-연산-소개-1)
+- ### [Kernel 이란](#kernel-이란-1)
+- ### [Trainable parameter와 bias 란](#trainable-parameter와-bias-란-1)
+- ### [Input, output channel의 갯수란](#trainable-parameter와-bias-란-1)
+- ### [Kernel의 size 란](#kernel의-size-란-1)
+- ### [Stride 란](#stride-란-1)
+- ### [Padding 이란](#padding-이란-1)
+- ### [Dilation 이란](#dilation-이란-1)
+- ### [Group 이란](#group-이란-1)
+- ### [Output Channel Size 란](#output-channel-size-란-1)
+- ### [Basic Convolution Operation](#basic-convolution-operation)
 
 <br>
 
@@ -216,9 +217,9 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 
 <br>
 
-- 앞의 모든 예제에서 kernel의 크기를 (3, 3)을 사용하였습니다. 어떤 커널의 크기를 사용하는 지는 딥러닝 네트워크 설계에 달려있습니다. 다만 지금까지 연구되어 온 바로는 (3, 3)을 여러개 사용하는 것이 (5, 5), (7, 7)과 같이 큰 네트워크를 사용하는 것에 비해 효과가 좋다고 알려져 있기 때문에 (3, 3)의 크기의 kernel이 일반적으로 사용되고 있습니다.
+- 앞의 모든 예제에서 kernel의 크기를 (3, 3)을 사용하였습니다. 어떤 커널의 크기를 사용하는 지는 딥러닝 네트워크 설계에 달려있습니다. 다만 지금까지 연구되어 온 바로는 **(3, 3)을 여러개 사용하는 것**이 (5, 5), (7, 7)과 같이 큰 네트워크를 사용하는 것에 비해 **효과가 좋다고 알려져 있기 때문**에 (3, 3)의 크기의 kernel이 일반적으로 사용되고 있습니다.
 - 바로 위 예제에서는 일반적인 (3, 3) 크기의 kernel 대신 (5, 2)라는 다소 특이한 크기의 kernel을 예제로 사용해 보았습니다. 목적만 뚜렷하다면 height, width의 크기가 달라도 상관없습니다.
-- 특히 kernel의 사이즈를 height, width 모두 홀수를 사용하는 것은 중앙의 pixel 점을 기준으로 대칭적으로 만들기 위함입니다. 대칭적으로 만들어야 연산할 때 고려할 점이 줄어들기 때문이며 물론 목적만 뚜렷하다면 짝수의 크기를 사용해도 상관없습니다.
+- 특히 kernel의 사이즈를 height, width 모두 **홀수를 사용하는 것**은 **중앙의 pixel 점을 기준으로 대칭적으로 만들기 위함**입니다. 대칭적으로 만들어야 연산할 때 고려할 점이 줄어들기 때문이며 물론 목적만 뚜렷하다면 짝수의 크기를 사용해도 상관없습니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/conv/9.png" alt="Drawing" style="width: 800px;"/></center>
@@ -251,7 +252,7 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 
 <br>
 
-- stride의 사용 목적은 `downsampling` 입니다. 즉, Output의 shape을 줄이기 위함입니다.
+- **stride의 사용 목적**은 `downsampling` 입니다. 즉, Output의 shape을 줄이기 위함입니다.
 - 하지만 위 연산 과정을 보면 stride의 크기를 늘리면 output의 shape이 작아지기는 하지만 parameter의 수는 그대로 인 것을 확인할 수 있습니다.
 
 <br>
@@ -290,7 +291,7 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 <center><img src="../assets/img/dl/concept/conv/13.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 앞의 stride와 같은 이유로 padding은 output의 크기를 조절하는 역할을 할 뿐 파라미터의 수와 상관 없습니다.
+- 앞의 stride와 같은 이유로 **padding은 output의 크기를 조절**하는 역할을 할 뿐 **파라미터의 수와 상관 없습니다.**
 - 따라서 위 그래프 처럼 padding의 크기에 상관없이 파라미터의 수는 같지만 padding의 크기가 커질수록 수행시간은 커지게 됨을 알 수 있습니다.
 - padding을 할 때, 추가적으로 생성된 가장자리에 어떤 값을 넣을 지는 어떤 padding을 사용하는 지에 따라 다릅니다. zero padding의 경우 0의 값을 넣는 반면 가장자리의 값을 그대로 복사하는 경우도 있고 interpolation 하는 방법으로 값을 넣을 수도 있습니다.
 
@@ -318,7 +319,7 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 <br>
 
 - 위 예제의 dilation은 (4, 2) 입니다. 즉, Input과 계산되는 kernel에서 한 픽셀에서 바로 옆의 픽셀 까지의 height 방향으로 4칸 이동해야 하고 width 방향으로 2칸 이동해야 한다는 뜻입니다.
-- 이와 같은 방법을 사용하는 이유는 `receptive field`를 넓히기 위함입니다. 즉, kernel이 한번에 넓은 영역을 보고 학습할 수 있다는 뜻입니다.
+- 이와 같은 방법을 사용하는 이유는 `receptive field`를 **넓히기 위함**입니다. 즉, **kernel이 한번에 넓은 영역을 보고 학습할 수 있다는 뜻**입니다.
 - 만약 dilation이 (1, 1)이면 kernel의 receptive field는 (3, 3)이지만 위 처럼 (4, 2)의 dilation을 적용하면 (4 * (3 - 1) + 1, 2 * (3 - 1) + 1) = (9, 5)가 됩니다.
  
 <br>
@@ -355,7 +356,8 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 - 위 예제를 보면 Input의 channel이 2이고 Group이 2 그리고 kernel 셋이 2개가 있기 때문에 Output의 channel이 4가 됨을 알 수 있습니다.
 - 이렇게 group을 나누는 이유를 보면 다양한 이유가 있을 수 있습니다. 예를 들어 kernel을 연산한 결과를 하나로 합해야 할 이유가 없을 때가 있을 수 있습니다. 즉, Input의 channel 마다 성질이 달라 `independent` 하다면 element-wise multiplication 결과를 굳이 하나로 합칠 필요가 없습니다.
 - 또는 `mobilenet` 에서 사용되는 depthwise separable 연산과 같이 파라미터의 수를 줄이기 위해서도 사용될 수 있습니다. 위 예제를 보시다 시피 **kernel 이 공유되어서 사용되기 때문**입니다.
-- 보통 pytorch와 같은 framework에서는 Input과 Output의 크기를 정한 뒤 group을 지정해줍니다. 이 때, 주의해야 할 점은 연산을 하기 위해 **group이 반드시 Input의 channel과 output의 channel의 공약수**이어야 한다는 점입니다.
+- 계산 측면에서도 이와 같은 group convolution은 효율적입니다. 왜냐하면 나뉘어진 group를 병렬로 계산할 경우 그 효율성이 더 높아지기 때문입니다.
+- Group Convolution을 사용할 때, 보통 pytorch와 같은 framework에서는 Input과 Output의 크기를 정한 뒤 group을 지정해줍니다. 이 때, 주의해야 할 점은 연산을 하기 위해 **group이 반드시 Input의 channel과 output의 channel의 공약수**이어야 한다는 점입니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/conv/17.png" alt="Drawing" style="width: 800px;"/></center>
@@ -391,32 +393,43 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 - 아래 애니메이션들도 보면 파란색의 인풋이 convolution 연산을 거치면서 청록색 아웃풋 처럼 사이즈가 작아지게 된 것을 볼 수 있습니다.
 
 <br>
-
-<br>
 <center><img src="../assets/img/dl/concept/conv/no_padding_no_strides.gif" alt="Drawing" style="width: 400px;"/></center>
 <br>
+
+- No padding, No strides
 
 <br>
 <center><img src="../assets/img/dl/concept/conv/arbitrary_padding_no_strides.gif" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
+- Arbitrary padding, No strides
+
 <br>
 <center><img src="../assets/img/dl/concept/conv/same_padding_no_strides.gif" alt="Drawing" style="width: 400px;"/></center>
 <br>
+
+- Half padding, no strides
 
 <br>
 <center><img src="../assets/img/dl/concept/conv/full_padding_no_strides.gif" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
+- Full padding, No strides
+
 <br>
 <center><img src="../assets/img/dl/concept/conv/no_padding_strides.gif" alt="Drawing" style="width: 400px;"/></center>
 <br>
+
+- No padding, strides
 
 <br>
 <center><img src="../assets/img/dl/concept/conv/padding_strides.gif" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
+- Padding, strides
+
 <br>
 <center><img src="../assets/img/dl/concept/conv/padding_strides_odd.gif" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
+- Padding, strides (odd)
