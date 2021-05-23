@@ -24,6 +24,7 @@ tags: [python, pyinstaller] # add tag
 <br>
 
 - ## **PyQt5 개념 관련 글**
+- ### PyQt5 설치
 - ### PyQt5 기본 예제
 - ### Signals, Slots, Events
 - ### Window 생성
@@ -50,7 +51,16 @@ tags: [python, pyinstaller] # add tag
 
 <br>
 
-## PyQt5를 이용한 Hello World
+## **PyQt5 설치**
+
+<br>
+
+- PyQt5 설치 : `pip install pyqt5`
+- 리눅스 사전 설치 : `sudo apt install libxkbcommon-x11-0 libxcb-xinerama0`
+
+<br>
+
+## **PyQt5 기본 예제**
 
 <br>
 
