@@ -94,3 +94,21 @@ final_clip.write_videofile("final.mp4")
 ```
 
 <br>
+
+- 만약 특정 path의 `*.mp4` 파일을 이름순으로 차례대로 이어 붙이려면 아래 코드를 사용하면 됩니다.
+
+<br>
+
+```python
+import os
+from moviepy.editor import VideoFileClip, concatenate_videoclips
+
+video_path = "./"
+video_names = os.listdir(video_path)
+video_names.sort()
+clips = [VideoFileClip(video_name) for video_name in video_names if video_name.split(".")[-1] == "mp4"]
+final_clip = concatenate_videoclips(clips)
+final_clip.write_videofile("final.mp4")
+```
+
+<br>

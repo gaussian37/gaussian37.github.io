@@ -19,13 +19,13 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 
 <br>
 
-- ### **--- 셋팅 및 문법 관련 ---**
+- ### **-------------------- 셋팅 및 문법 관련 --------------------**
 - ### [pytorch import 모음](#pytorch-import-모음-1)
 - ### [pytorch 셋팅 관련 코드](#pytorch-셋팅-관련-코드-1)
 - ### [GPU 셋팅 관련 코드](#gpu-셋팅-관련-코드-1)
+- ### [dataloader의 num_workers 지정](#dataloader의-num_workers-지정-1)
 - ### [dataloader의 pin_memory](#dataloader의-pin_memory-1)
 - ### [GPU 사용 시 data.cuda(non_blocking=True) 사용](#gpu-사용-시-datacudanon_blockingtrue-사용-1)
-- ### [dataloader의 num_workers 지정](#dataloader의-num_workers-지정-1)
 - ### [optimizer.zero_grad(), loss.backward(), optimizer.step()](#optimizerzero_grad-lossbackward-optimizerstep-1)
 - ### [optimizer.step()을 통한 파라미터 업데이트와 loss.backward()와의 관계](#optimizerstep을-통한-파라미터-업데이트와-lossbackward와의-관계-1)
 - ### [gradient를 직접 zero로 셋팅하는 이유와 활용 방법](#gradient를-직접-zero로-셋팅하는-이유와-활용-방법-1)
@@ -36,7 +36,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 
 <br>
 
-- ### **--- 자주사용하는 함수 ---**
+- ### **-------------------- 자주사용하는 함수 --------------------**
 - ### [torch.argmx(input, dim, keepdim)](#torchargmxinput-dim-keepdim-1)
 - ### [Numpy → Tensor : torch.from_numpy(numpy.ndarray)](#numpy--tensor--torchfrom_numpynumpyndarray-1)
 - ### [Tensor → Numpy](#tensor--numpy-1)
@@ -55,7 +55,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 
 <br>
 
-- ### **--- 자주 사용하는 코드 모음 ---**
+- ### **-------------------- 자주 사용하는 코드 모음 --------------------**
 - ### [weight 초기화 방법](#weight-초기화-방법)
 - ### [load와 save 방법](#load와-save-방법)
 - ### [Dataloader 사용 방법](#dataloader-사용-방법)
@@ -65,6 +65,15 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [model의 parameter 확인 방법](#model의-parameter-확인-방법)
 - ### [Tensor 깊은 복사](#tensor-깊은-복사)
 - ### [일부 weight만 업데이트 하는 방법](#일부-weight만-업데이트-하는-방법-1)
+
+<br>
+
+- ### **-------------------- 효율적인 코드 사용 모음 --------------------**
+- ### [convolution - batchnorm 사용 시, convolution bias 사용 하지 않음](#)
+
+
+
+
 
 <br>
 
@@ -170,11 +179,34 @@ for gpu_id in gpu_ids:
 
 <br>
 
+## **dataloader의 num_workers 지정**
+
+<br>
+
+- 참조 : https://discuss.pytorch.org/t/guidelines-for-assigning-num-workers-to-dataloader/813
+- pytorch를 이용하여 학습을 할 때, 데이터를 불러오는 방법으로 DataLoder(`from torch.utils.data import DataLoader`)를 사용합니다. 
+- Dataloader의 `num_workers`는 CPU → GPU로 데이터를 로드할 때 사용하는 프로세스의 갯수를 뜻합니다.
+- 컴퓨터에서 병목 현상이 발생하는 대표적인 구간이 바로 I/O(Input/Output) 연산입니다. 따라서 I/O 연산에 최대 사용할 수 있는 코어를 적당하게 나누어 주어서 병목 현상을 제거하는 것이 전체 학습 시간을 줄일 수 있는 데 도움이 됩니다.
+- `num_workers = 0`이 기본값으로 사용됩니다. 이 옵션의 의미는 data loading이 오직 `main process`에서만 발생하도록 하는 `synchronous` 방법을 의미합니다. 
+- 따라서 `num_workers > 0` 조건이 되도록 설정하여 `asynchronous` 하게 data loading이 가능해 지기 때문에, GPU 연산과 병렬적으로 data lodaing이 가능해지게 되어 병목 문제를 개선할 수 있습니다.
+- 여기서 `적당하게`라는 것이 상당히 휴리스틱하여 파이토치 디스커션에도 많은 의견이 있었습니다. (위 링크를 참조하시기 바랍니다.)
+- 참조 링크 중 실험적으로 접근해 본 한 사람의 의견으로는 `num_workers = 4 x num_GPU`가 사용하기 좋았다라는 의견이 있었습니다. 예를 들어 GPU 2개를 사용하면 num_workers = 8을 사용하는 것입니다.
+- 이 관계식을 참조하여 저 또한 실험을 해보았고 위 관계식 처럼 사용해 보니 나쁘지 않았습니다. 휴리스틱하게 접근한 방법이므로 최적은 아니지만 저는 위 관계식 대로 사용하여 `num_workers = torch.cuda.device_count() * 4`로 적용하여 사용합니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 내용은 NVIDIA의 conference의 내용이며 기본 값인 `num_workers=0`, `pin_memory=False`를 `num_workers > 0`과 `pin_memory=True`로 변경하면서 실험 하였을 때, 성능 변화를 나타낸 것입니다. NVIDIA에서도 `num_workers > 0`과 `pin_memory=True`를 사용하기를 추천하며 특히 CPU와 RAM의 자원이 충분하다면 더 좋은 효과를 볼 수 있습니다.
+
+<br>
+
 ## **dataloader의 pin_memory**
 
 <br>
 
 - `torch.utils.data.DataLoader()`를 사용할 때, 옵션으로 `pin_memory = True` 라는 것이 있습니다. 이 옵션의 의미에 대하여 알아보도록 하겠습니다. (pin memory : 고정된 메모리)
+- 먼저 `pin_memory = False`가 기본값으로 사용됩니다. 이 옵션의 의미는 CPU → GPU로의 메모리 복사 시 오직 `main process`에서만 복사가 발생하도록 하는 `synchronous` 방법을 의미합니다. 하드웨어 자원이 많을 때, 궂이 하나의 프로세스에서만 작업하는 것은 비효율적입니다.
 - `pin_memory = True`로 설정하면 학습 중에 CPU가 데이터를 GPU로 전달하는 속도를 향상시킵니다. 따라서 **이 옵션은 GPU를 사용하여 학습할 때에는 항상 사용**한다고 보셔도 됩니다.
 - `pin_memory` 관련 내용은 NVIDIA의 `CUDA`와 연관되어 있습니다. 전체 내용은 아래 링크를 통해 확인하면 되고 링크의 내용에서도 `pinned memory` 방식으로 사용하면 GPU 학습 시 더 큰 bandwidth를 사용할 수 있다고 설명합니다.
 - 링크 : https://developer.nvidia.com/blog/how-optimize-data-transfers-cuda-cc/
@@ -183,7 +215,7 @@ for gpu_id in gpu_ids:
 <center><img src="../assets/img/dl/pytorch/snippets/7.png" alt="Drawing" style="height: 400px;"/></center>
 <br>
 
-- 위 그림에서 `Host`는 CPU이고 `Device`는 GPU입니다. 즉, 데이터 torch.utils.data.DataLoader를 통하여 Host에서 Device로 데이터를 불러옵니다. 일반적인 방식은 CPU에서 [페이징](https://ko.wikipedia.org/wiki/%ED%8E%98%EC%9D%B4%EC%A7%95)기법을 통해 pageable memory를 관리하는데 이는 가상 메모리를 관리하는 블록입니다. 이 가상 메모리는 실제 메모리 블록에 대응이 되도록 되어 있습니다.
+- 위 그림에서 `Host`는 CPU이고 `Device`는 GPU입니다. 즉, 데이터 `torch.utils.data.DataLoader`를 통하여 Host에서 Device로 데이터를 불러옵니다. 일반적인 방식은 CPU에서 [페이징](https://ko.wikipedia.org/wiki/%ED%8E%98%EC%9D%B4%EC%A7%95)기법을 통해 pageable memory를 관리하는데 이는 가상 메모리를 관리하는 블록입니다. 이 가상 메모리는 실제 메모리 블록에 대응이 되도록 되어 있습니다.
 - 따라서 CPU → GPU로 데이터를 전달하기 위해서는 ① pageable memory에서 전달할 데이터들의 위치를 읽고, ② 전달할 데이터를 pinned memory에 모아서 복사한 다음에 ③ pinned moemry 영역에 있는 데이터를 GPU로 전달합니다.
 - `pin_memory = True` 옵션은 ① → ②의 과정을 줄여서 GPU 학습 시 효율적으로 CPU → GPU로 데이터를 전달합니다. 즉, pageable memory에서 전달할 데이터들을 확인한 다음 pinned memory 영역에 옮기지 않고 CPU 메모리 영역에 GPU로 옮길 데이터들을 바로 저장하는 방식입니다. 따라서 DataLoader는 추가 연산 없이 이 영역에 있는 데이터들을 GPU로 바로 옮길 수 있습니다.
 - 이런 연산 과정 때문에 `pin_memory`를 사용하는 것을 `page-locked memory` 라고도 합니다.
@@ -229,20 +261,6 @@ for i, (images, target) in enumerate(train_loader):
 
 - 위 그림의 첫번째가 동기식(synchronous) 방식이고 두번째, 세번째가 비동기식(asynchronous)방식입니다. 동기식 방식의 경우 CPU → GPU로 데이터 전달이 끝이나야 그 다음 연산이 진행되는 반면에 비동기식 방식에서는 데이터 전송과 GPU 연산이 동시에 발생할 수 있습니다.
 - 이와 같은 방법을 통하여 `데이터 전송`과 `계산`을 겹쳐서 (비동기식)으로 할 수 있으므로 연산 속도 향상에 도움을 줍니다.
-
-<br>
-
-## **dataloader의 num_workers 지정**
-
-<br>
-
-- 참조 : https://discuss.pytorch.org/t/guidelines-for-assigning-num-workers-to-dataloader/813
-- pytorch를 이용하여 학습을 할 때, 데이터를 불러오는 방법으로 DataLoder(`from torch.utils.data import DataLoader`)를 사용합니다. 
-- Dataloader의 `num_workers`는 CPU → GPU로 데이터를 로드할 때 사용하는 CPU의 코어 갯수를 말합니다. (정확히는 쓰레드의 갯수를 말하는게 아닐까 생각합니다.)
-- 컴퓨터에서 병목 현상이 발생하는 대표적인 구간이 바로 I/O(Input/Output) 연산입니다. 따라서 I/O 연산에 최대 사용할 수 있는 코어를 적당하게 나누어 주어서 병목 현상을 제거하는 것이 전체 학습 시간을 줄일 수 있는 데 도움이 됩니다.
-- 여기서 `적당하게`라는 것이 상당히 휴리스틱하여 파이토치 디스커션에도 많은 의견이 있었습니다. (위 링크를 참조하시기 바랍니다.)
-- 참조 링크 중 실험적으로 접근해 본 한 사람의 의견으로는 `num_workers = 4 x num_GPU`가 사용하기 좋았다라는 의견이 있었습니다. 예를 들어 GPU 2개를 사용하면 num_workers = 8을 사용하는 것입니다.
-- 이 관계식을 참조하여 저 또한 실험을 해보았고 위 관계식 처럼 사용해 보니 나쁘지 않았습니다. 휴리스틱하게 접근한 방법이므로 최적은 아니지만 저는 위 관계식 대로 사용하여 `num_workers = torch.cuda.device_count() * 4`로 적용하여 사용합니다.
 
 <br>
 
@@ -2294,3 +2312,27 @@ model_dict.update(filtered_update_dict)
 # 3. load the new state dict
 model.load_state_dict(model_dict)
 ```
+
+<br>
+
+- ### **-------------------- 효율적인 코드 사용 모음 --------------------**
+- 참조 : [PyTorch Performance Tuning Guide - Szymon Migacz, NVIDIA](https://youtu.be/9mS1fIYj1So)
+
+<br>
+
+## **convolution - batchnorm 사용 시, convolution bias 사용 하지 않음**
+
+<br>
+
+- 참조 : https://d2l.ai/chapter_convolutional-modern/batch-norm.html
+- 참조 : https://learnml.today/speeding-up-model-with-fusing-batch-normalization-and-convolution-3
+- 참조 : https://stackoverflow.com/questions/46256747/can-not-use-both-bias-and-batch-normalization-in-convolution-layers
+- 참조 : https://stackoverflow.com/questions/56544217/why-we-dont-need-bias-in-convolution-layer-after-batchnorm-and-activation/56704082
+- 참조 : https://stats.stackexchange.com/questions/482305/batch-normalization-and-the-need-for-bias-in-neural-networks
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/10.png" alt="Drawing" style="height: 800px;"/></center>
+<br>
+
+- Convolution과 Batch Normalization이 연속적으로 
+
