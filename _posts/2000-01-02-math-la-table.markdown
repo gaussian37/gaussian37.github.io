@@ -142,3 +142,4 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [회전 변환 행렬 (2D, 3D)](https://gaussian37.github.io/math-la-rotation_matrix/)
 - [벡터의 정사영(projection)](https://gaussian37.github.io/math-la-projection/)
 - [sparse matrix(희소 행렬)](https://gaussian37.github.io/math-la-sparse_matrix/)
+- [블록 행렬 곱 (block matrix multiplication)](https://gaussian37.github.io/math-la-block_matrix_multiplication/)
