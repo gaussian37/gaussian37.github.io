@@ -46,7 +46,7 @@ tags: [pytorch, gradient] # add tag
 
 <br>
 
-$$ f(x) = 9x^{4} + 2x^{3} + 3x^{2} + 6x + 1 $$ 
+- $$ f(x) = 9x^{4} + 2x^{3} + 3x^{2} + 6x + 1 $$ 
 
 <br>
 
@@ -54,7 +54,7 @@ $$ f(x) = 9x^{4} + 2x^{3} + 3x^{2} + 6x + 1 $$
 
 <br>
 
-$$ \frac{df(x)}{dx} = \frac{d(9x^{4} + 2x^{3} + 3x^{2} + 6x + 1)}{dx} = 36x^{3} + 6x^{2} + 6x + 6 $$
+- $$ \frac{df(x)}{dx} = \frac{d(9x^{4} + 2x^{3} + 3x^{2} + 6x + 1)}{dx} = 36x^{3} + 6x^{2} + 6x + 6 $$
 
 - 만약 $$ x = 2 $$ 라고 하면 $$ x = 2 $$의 변화율은 $$ 36 \times 2^{3} + 6 \times 2^{2} + 6 \times 2 + 6 = 330 $$ 입니다.
 - 이 과정을 코드를 통해서 한번 살펴보겠습니다.
@@ -79,9 +79,9 @@ print(x.grad)
 
 <br>
 
-$$ f(X) = \overline{3(X_{ij} + 2)^{2}} = \frac{1}{4}\sum_{i = 0}^{1}\sum_{j=0}^{1} 3(X_{ij} + 2)^{2} $$
+- $$ f(X) = \overline{3(X_{ij} + 2)^{2}} = \frac{1}{4}\sum_{i = 0}^{1}\sum_{j=0}^{1} 3(X_{ij} + 2)^{2} $$
 
-$$ \frac{df(X)}{dX} = \frac{1}{4} \sum_{i=0}^{1}\sum_{j=0}^{1} (6X_{ij} + 12) =  \sum_{i=0}^{1}\sum_{j=0}^{1} (1.5X_{ij} + 3) = 1.5(X_{00} + X_{01} + X_{10} + X_{11} ) + 3 $$
+- $$ \frac{df(X)}{dX} = \frac{1}{4} \sum_{i=0}^{1}\sum_{j=0}^{1} (6X_{ij} + 12) =  \sum_{i=0}^{1}\sum_{j=0}^{1} (1.5X_{ij} + 3) = 1.5(X_{00} + X_{01} + X_{10} + X_{11} ) + 3 $$
 
 <br>
 
@@ -89,7 +89,7 @@ $$ \frac{df(X)}{dX} = \frac{1}{4} \sum_{i=0}^{1}\sum_{j=0}^{1} (6X_{ij} + 12) = 
 
 <br>
 
-$$ \frac{df(X)}{dX} = \begin{bmatrix} 1.5(X_{00}) + 3 & 1.5(X_{01}) + 3 \\ 1.5(X_{10}) + 3 & 1.5(X_{11}) + 3 \end{bmatrix} $$
+- $$ \frac{df(X)}{dX} = \begin{bmatrix} 1.5(X_{00}) + 3 & 1.5(X_{01}) + 3 \\ 1.5(X_{10}) + 3 & 1.5(X_{11}) + 3 \end{bmatrix} $$
 
 <br>
 
@@ -97,7 +97,7 @@ $$ \frac{df(X)}{dX} = \begin{bmatrix} 1.5(X_{00}) + 3 & 1.5(X_{01}) + 3 \\ 1.5(X
 
 <br>
 
-$$ \frac{df(X)}{dX} = \begin{bmatrix} 1.5(X_{00}) + 3 & 1.5(X_{01}) + 3 \\ 1.5(X_{10}) + 3 & 1.5(X_{11}) + 3 \end{bmatrix} = \begin{bmatrix} 4.5 & 6.0 \\ 7.5 & 9.0 \end{bmatrix} $$
+- $$ \frac{df(X)}{dX} = \begin{bmatrix} 1.5(X_{00}) + 3 & 1.5(X_{01}) + 3 \\ 1.5(X_{10}) + 3 & 1.5(X_{11}) + 3 \end{bmatrix} = \begin{bmatrix} 4.5 & 6.0 \\ 7.5 & 9.0 \end{bmatrix} $$
 
 <br>
 
@@ -190,7 +190,7 @@ print(x.grad, z.grad)
 
 <br>
 
-## 학습 모드와 평가 모드
+## **학습 모드와 평가 모드**
 
 <br>
 
