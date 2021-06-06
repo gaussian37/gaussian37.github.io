@@ -2,7 +2,7 @@
 layout: post
 title: 블록 행렬 곱 (block matrix multiplication)
 date: 2020-08-26 00:00:00
-img: math/la/projection/0.png
+img: math/la/block_matrix_multiplication/0.png
 categories: [math-la] 
 tags: [Linear algebra, block matrix multiplication] # add tag
 ---
@@ -59,7 +59,7 @@ tags: [Linear algebra, block matrix multiplication] # add tag
 
 <br>
 
-$$ \begin{equation*} AB = \left[ \begin{array}{cc} I & O \\ P & Q \end{array} \right] \left[ \begin{array}{c} X \\ Y \end{array} \right] = \left[ \begin{array}{c} IX + OY \\ PX + QY \end{array} \right] = \left[ \begin{array}{c} X \\ PX + QY \end{array} \right] = \left[ \begin{array}{rr} 4 & -2 \\ 5 & 6 \\ \hline 30 & 8 \\ 8 & 27 \end{array} \right] \end{equation*} $$
+- $$ \begin{equation*} AB = \left[ \begin{array}{cc} I & O \\ P & Q \end{array} \right] \left[ \begin{array}{c} X \\ Y \end{array} \right] = \left[ \begin{array}{c} IX + OY \\ PX + QY \end{array} \right] = \left[ \begin{array}{c} X \\ PX + QY \end{array} \right] = \left[ \begin{array}{rr} 4 & -2 \\ 5 & 6 \\ \hline 30 & 8 \\ 8 & 27 \end{array} \right] \end{equation*} $$
 
 <br>
 
