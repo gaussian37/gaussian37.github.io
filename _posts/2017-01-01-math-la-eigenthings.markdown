@@ -33,7 +33,7 @@ tags: [Linear algebra, 선형대수학, 고유값, 고유벡터, eigenvalue, eig
 
 <br>
 
-### **1. 고유값과 고유벡터란?**
+## **1. 고유값과 고유벡터란?**
 
 <br>
 
@@ -53,7 +53,7 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
 
 <br>
 
-### **2. 고유값과 고유벡터의 기하학적 의미**
+## **2. 고유값과 고유벡터의 기하학적 의미**
 
 <br>
 
@@ -65,7 +65,7 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
     
 <br>
 
-### **3. 고유값 분해를 이용한 대각화 : eigen-decomposition**
+## **3. 고유값 분해를 이용한 대각화 : eigen-decomposition**
 
 <br>
 
@@ -118,7 +118,7 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
 
 <br>
 
-### **4. 고유값 분해(eigen-decomposition) 가능조건 - 일차 독립**
+## **4. 고유값 분해(eigen-decomposition) 가능조건 - 일차 독립**
 
 <br>
 
@@ -140,7 +140,7 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
    
 <br>   
  
-### **5. 고유값, 고유벡터의 계산**
+## **5. 고유값, 고유벡터의 계산**
 
 <br>
 
@@ -192,7 +192,7 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
 
 <br>
     
-### **6. 대칭행렬과 고유값 분해**
+## **6. 대칭행렬과 고유값 분해**
 
 <br>
 
@@ -209,7 +209,7 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
 
 <br>
 
-### **7. 직교(orthogonal)와 정규직교(orthonormal) 그리고 직교행렬(orthogonal matrix)**
+## **7. 직교(orthogonal)와 정규직교(orthonormal) 그리고 직교행렬(orthogonal matrix)**
 
 <br>
 
@@ -231,3 +231,30 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
     + `orthonormal` : `orthogonal` + 크기가 1인 단위 벡터
     + `orthogonal matrix` : $$ AA^{T} = E $$ (행렬을 구성하는 열벡터(행벡터)들이 `orthonormal`하다.) 
     
+<br>
+
+## **python을 이용한 고유값과 고유벡터 구하기**
+
+<br>
+
+- 파이썬의 numpy를 이용하면 고유값과 고유벡터를 쉽게 구할 수 있습니다. 아래 코드는 임의의 행렬을 받았을 때, ① 고유값과 고유행렬을 구하고 ② 고유값의 크기가 큰 순서대로 내림차순 정렬을 하고 ③ 마지막으로 고유값의 크기가 0 (또는 0에 매우 근사)인 값을 제거하는 코드입니다.
+
+<br>
+
+```python
+import numpy as np
+
+A = np.array([ 
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+])
+
+eigvals, eigvecs = np.linalg.eig(A)
+idx = np.argsort(eigvals)[::-1]
+eigvals = eigvals[idx]
+eigvecs = eigvecs[:, idx]
+
+
+
+```

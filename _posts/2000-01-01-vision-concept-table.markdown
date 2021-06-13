@@ -29,3 +29,4 @@ tags: [vision] # add tag
 - 민시프트
 - 워터쉐드
 - [Optical Flow 알아보기](https://gaussian37.github.io/vision-concept-optical_flow/)
+- [스케일 불변 특징점 검출 (SIFT, SURF)](https://gaussian37.github.io/vision-concept-scale_invariant_feature_extraction/)
