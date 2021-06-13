@@ -237,7 +237,7 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
 
 <br>
 
-- 파이썬의 numpy를 이용하면 고유값과 고유벡터를 쉽게 구할 수 있습니다. 아래 코드는 임의의 행렬을 받았을 때, ① 고유값과 고유행렬을 구하고 ② 고유값의 크기가 큰 순서대로 내림차순 정렬을 하고 ③ 마지막으로 고유값의 크기가 0 (또는 0에 매우 근사)인 값을 제거하는 코드입니다.
+- 파이썬의 numpy를 이용하면 고유값과 고유벡터를 쉽게 구할 수 있습니다. 아래 코드는 임의의 행렬을 받았을 때, **① 고유값과 고유행렬**을 구하고 **② 고유값의 크기가 큰 순서대로 내림차순 정렬**을 하고 **③ 마지막으로 고유값의 크기가 0 (또는 0에 매우 근사)인 값을 제거**하는 코드입니다.
 
 <br>
 
@@ -255,6 +255,7 @@ idx = np.argsort(eigvals)[::-1]
 eigvals = eigvals[idx]
 eigvecs = eigvecs[:, idx]
 
-
-
+zero_eigvals_idx = np.where(np.abs(eigvals) < 1e-10)
+eigvals = np.delete(eigvals, zero_eigvals_idx)
+eigvecs = np.delete(eigvecs, zero_eigvals_idx, axis = 1)
 ```

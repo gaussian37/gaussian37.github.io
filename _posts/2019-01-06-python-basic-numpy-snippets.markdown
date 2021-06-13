@@ -27,6 +27,7 @@ tags: [Numpy, 넘파이] # add tag
 - ### [차원 확장 방법](#차원-확장-방법-1)
 - ### [결측값 제거하기](#결측값-제거하기-1)
 - ### [np.einsum](#npeinsum-1)
+- ### [np.where로 필요한 값 인덱스 찾기](#npwhere로-필요한-값-인덱스-찾기-1)
 
 
 <br>
@@ -507,3 +508,99 @@ np.einsum("ii->", x)
 # 2.0850463488460376
 ```
 
+<br>
+
+## **np.where로 필요한 값 인덱스 찾기**
+
+<br>
+
+- numpy array에서 필요한 값을 찾을 때, 인덱싱을 이용하여 찾으면 쉽게 찾을 수 있습니다. 간단하게 다음과 같습니다.
+
+<br>
+
+```python
+import numpy as np
+arr = np.arange(5, 30, 2)
+boolArr = arr < 10
+print(boolArr)
+# [ True  True  True False False False False False False False False False  False]
+newArr = arr[boolArr] # newArr = arr[arr < 10]
+print(newArr)
+# [5 7 9]
+```
+
+<br>
+
+- 위 구조를 보면 조건문을 통하여 각 인덱스 별 True, False를 확인하고 True값에 해당하는 값만 선택하도록 되어있습니다. 이 방법이 numpy array에서 가장 일반적으로 값을 조회하여 선택하는 방법입니다.
+- 이와는 조금 다르게 조건에 해당하는 인덱스만 먼저 찾은 다음에 인덱스로 값을 선택하는 방법이 있습니다. 이 방법 또한 많이 사용되며 `np.where`를 이용하여 사용 가능합니다.
+
+<br>
+
+```python
+import numpy as np
+arr = np.array([11, 12, 13, 14, 15, 16, 17, 15, 11, 12, 14, 15, 16, 17])
+result = np.where(arr == 15)
+print(result)
+# (array([ 4,  7, 11], dtype=int64),)
+print(arr[result])
+# [15 15 15]
+
+
+# Create a 2D Numpy array from list of lists
+arr = np.array([[11, 12, 13],
+                [14, 15, 16],
+                [17, 15, 11],
+                [12, 14, 15]])
+
+
+# Get the index of elements with value 15
+result = np.where(arr == 15)
+print(result)
+# (array([1, 2, 3], dtype=int64), array([1, 1, 2], dtype=int64))
+print(arr[result])
+# [15 15 15]
+
+```
+
+<br>
+
+- 위 예제를 보면 1차원 뿐만 아니라 2차원 이상의 다차원에서도 적용 가능한 것을 확인할 수 있습니다. `np.where(condition)`을 통하여 condition을 만족하는 인덱스를 차원에 맞게 출력하는 것을 확인할 수 있습니다.
+
+<br>
+
+## **np.delete를 이용한 값 제거**
+
+<br>
+
+- numpy에서 특정 값 또는 행, 열 등을 삭제할 때 `np.delete`를 이용하면 쉽게 삭제할 수 있습니다. delete 결과는 원본 array에 영향을 주지 않으며 따로 저장해야 합니다. 아래 예제를 살펴보겠습니다.
+- 사용 방법은 `np.delete(array, 삭제할 인덱스, 차원)`입니다.
+
+<br>
+
+```python
+import numpy as np
+arr = np.array([[11, 12, 13],
+                [14, 15, 16],
+                [17, 15, 11],
+                [12, 14, 15]])
+
+# 1 번째 인덱스 (12)만 삭제되어 행렬 shape이 깨져서 벡터로 변경됨
+print(np.delete(arr, 1))
+# [11 13 14 15 16 17 15 11 12 14 15]
+
+# axis = 0은 행을 의미하며 1번째 행인 [14, 15, 16]이 삭제됨
+print(np.delete(arr, 1, axis=0))
+# [[11 12 13]
+#  [17 15 11]
+#  [12 14 15]]
+
+# axis = 1은 열을 의미하며 1번째 행인 [13, 16, 11, 15]' 열이 삭제됨
+print(np.delete(arr, 1, axis=1))
+# [[11 13]
+#  [14 16]
+#  [17 11]
+#  [12 15]]
+
+```
+
+<br>
