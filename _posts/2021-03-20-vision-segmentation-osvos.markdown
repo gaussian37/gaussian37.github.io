@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Video Object Segmentation
+title: OSVOS, One-Shot Video Object Segmentation
 date: 2021-03-20 00:00:00
 img: vision/segmentation/osvos/0.png
 categories: [vision-segmentation] 
