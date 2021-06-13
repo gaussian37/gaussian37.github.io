@@ -245,17 +245,37 @@ $$ \begin{pmatrix} a_{11} & \cdots & a_{1n} \\     \vdots & \ddots & \vdots \\ a
 import numpy as np
 
 A = np.array([ 
-    [1,2,3],
-    [4,5,6],
-    [7,8,9]
+    [1,0,2],
+    [4,3,6],
+    [3,1,9]
 ])
 
-eigvals, eigvecs = np.linalg.eig(A)
-idx = np.argsort(eigvals)[::-1]
-eigvals = eigvals[idx]
-eigvecs = eigvecs[:, idx]
+def get_eigen(A, sorted=True, non_zero=True, round_digit=4):
+    eigvals, eigvecs = np.linalg.eig(A)
+    eigvals = np.round(eigvals, round_digit)
+    eigvecs = np.round(eigvecs, round_digit)
 
-zero_eigvals_idx = np.where(np.abs(eigvals) < 1e-10)
-eigvals = np.delete(eigvals, zero_eigvals_idx)
-eigvecs = np.delete(eigvecs, zero_eigvals_idx, axis = 1)
+    if sorted:
+        idx = np.argsort(eigvals)[::-1]
+        eigvals = eigvals[idx]
+        eigvecs = eigvecs[:, idx]
+
+    if non_zero:
+        zero_eigvals_idx = np.where(np.abs(eigvals) < 1e-10)
+        eigvals = np.delete(eigvals, zero_eigvals_idx)
+        eigvecs = np.delete(eigvecs, zero_eigvals_idx, axis = 1)
+
+    return eigvals, eigvecs
+
+eigvals, eigvecs = get_eigen(A)
+
+print(eigvals)
+# [10.5366  1.9196  0.5439]
+
+print(eigvecs)
+# [[-0.1535  0.1574 -0.6742]
+#  [-0.664  -0.9849  0.7224]
+#  [-0.7318  0.0724  0.1538]]
 ```
+
+<br>
