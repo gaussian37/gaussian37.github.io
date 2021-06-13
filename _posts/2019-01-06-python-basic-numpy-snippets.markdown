@@ -28,6 +28,7 @@ tags: [Numpy, 넘파이] # add tag
 - ### [결측값 제거하기](#결측값-제거하기-1)
 - ### [np.einsum](#npeinsum-1)
 - ### [np.where로 필요한 값 인덱스 찾기](#npwhere로-필요한-값-인덱스-찾기-1)
+- ### [np.delete를 이용한 값 제거](#npdelete를-이용한-값-제거-1)
 
 
 <br>

@@ -9,6 +9,9 @@ tags: [vision, optical flow] # add tag
 
 <br>
 
+- 참조 : 컴퓨터 비전 (오일석 저)
+- 참조 : 영상신호처리특론 강의 (연세대 )
+
 - 이번 글에서는 object의 움직임과 관련된 개념 중 하나인 `optical flow`에 대하여 알아보도록 하겠습니다.
 
 <br>
@@ -18,8 +21,7 @@ tags: [vision, optical flow] # add tag
 <br>
 
 - ### 연속 영상에 관한 지식
-- ### Optical flow란 무엇인가
-- ### Optical flow 추정 원리
+- ### Optical flow의 의미와 추정 원리
 - ### Lucas-Kanade 알고리즘
 - ### Horn-Schunck 알고리즘
 - ### Optical flow의 확용
