@@ -51,7 +51,7 @@ tags: [vision, optical flow] # add tag
 - 연속된 Frame이 들어올 떄, `영상 일관성(coherence)`를 가집니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/optical_flow/2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/optical_flow/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 예를 들어 어떤 픽셀 (y, x)의 색이 빨간색이라면, 주변 픽셀의도 유사한 색을 띌 가능성이 높다는 것입니다.
@@ -61,7 +61,7 @@ tags: [vision, optical flow] # add tag
 - 연속된 Frame에서의 또 다른 성질로 `시간 일관성`을 가집니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/optical_flow/3.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/optical_flow/3.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 즉, $$ t $$ 순간의 픽셀 값 $$ f(y, x, t) $$는 다음 순간 $$ f(y, x, t + 1) $$과 비슷할 가능성이 높습니다. 만약 픽셀값의 변경량이 거의 없다면 그 만큼 이동량이 작다고 직관적으로 생각할 수 있습니다.
