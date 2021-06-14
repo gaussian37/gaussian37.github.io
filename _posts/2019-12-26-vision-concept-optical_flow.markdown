@@ -342,6 +342,34 @@ $$ f(n) = \begin{cases} 1, & \vert f(y, x, t) - f(y, x, r) \vert > \tau \\[2ex] 
 
 <br>
 
+- `Lucas-Kanade 알고리즘`은 윈도우 영역 내부를 고려하는 지역적 방식을 사용하였습니다. 반면 `Horn-Schunk 알고리즘`은 영상 전체를 한꺼번에 고려하는 `전역적 방식`을 사용합니다.
+- `Horn-Shunk 알고리즘`에서 전역적 방식을 사용하기 위해서 한가지 전제 조건이 추가로 필요합니다. `optical flow는 균일해야 한다.` 입니다. 따라서 Horn-Schunk 알고리즘은 다음 3가지 전제 조건이 필요합니다.
+    - ① 밝기 향상성 (brightness constancy)
+    - ② Frame 간 움직임이 작다.  
+    - ③ optical flow는 균일해야 한다.
+
+<br>
+
+- optical flow 맵의 `균일한 정도`는 아래 식을 사용하여 추정합니다.
+
+<br>
+
+- $$ \Vert \nabla v \Vert^{2} + \Vert \nabla u \Vert^{2} = \biggl( \frac{\partial v}{\partial y} \biggr)^{2} + \biggl( \frac{\partial v}{\partial x} \biggr)^{2} + \biggl( \frac{\partial u}{\partial y} \biggr)^{2} + \biggl( \frac{\partial u}{\partial x} \biggr)^{2} $$
+
+<br>
+
+- 위 식에서 $$ \nabla v = \biggl(\frac{\partial v}{\partial y}, \frac{\partial v}{\partial x} \biggr) $$로 $$ v $$를 $$ y $$와 $$ x $$ 방향으로 미분한 gradient 입니다. $$ \nabla u $$도 동일하게 정의됩니다.
+- 만약 **gradient가 작다**면 이 뜻은 이웃한 화소의 $$ v $$와 $$ u $$가 비슷하다는 뜻입니다. 
+
+<br>
+<center><img src="../assets/img/vision/concept/optical_flow/14.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 두 optical flow 맵을 살펴보면 왼쪽은 optical flow가 균일합니다. 반면 오른쪽은 optical flow가 균일하지 않습니다.
+- **gradient가 작다**면 왼쪽과 같이 optical flow가 균일
+
+
+
 <br>
 
 ## **Optical flow의 활용**
