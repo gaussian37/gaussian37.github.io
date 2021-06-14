@@ -73,7 +73,7 @@ tags: [vision, optical flow] # add tag
 
 <br>
 
-$$ f(n) = \begin{cases} 1, & \vert f(y, x, t) - f(y, x, r) \vert > \tau \\[2ex] 0, & \text{else} \end{cases} $$
+$$ f(n) = \begin{cases} 1, & \vert f(y, x, t) - f(y, x, r) \vert > \tau \\[2ex\] 0, & \text{else} \end{cases} $$
 
 <br>
 
@@ -366,7 +366,36 @@ $$ f(n) = \begin{cases} 1, & \vert f(y, x, t) - f(y, x, r) \vert > \tau \\[2ex] 
 <br>
 
 - 위 두 optical flow 맵을 살펴보면 왼쪽은 optical flow가 균일합니다. 반면 오른쪽은 optical flow가 균일하지 않습니다.
-- **gradient가 작다**면 왼쪽과 같이 optical flow가 균일
+- **gradient가 작다**면 왼쪽 그림과 같이 optical flow가 균일하다고 할 수 있습니다. 반면 오른쪽 그림과 같이 optical flow가 균일하지 않다면 **벡터의 방향이 크게 변하는 지점에서 gradient 값일 클 것**입니다.
+- 따라서 $$ \Vert \nabla v \Vert^{2} + \Vert \nabla u \Vert^{2} $$를 작게하여 gradient 값이 작도록 해야 합니다.
+
+<br>
+
+- 뿐만 아니라 Horn-Schunk 알고리즘은 기존의 optical flow의 `밝기 항상성` 조건식인 $$ \frac{\partial f}{\partial y}v + \frac{\partial f}{\partial x}u + \frac{\partial f}{\partial t} = 0 $$ 식도 만족해야 합니다. 정리하면 다음과 같습니다.
+
+<br>
+
+- $$ \frac{\partial f}{\partial y}v + \frac{\partial f}{\partial x}u + \frac{\partial f}{\partial t} = 0 $$ 
+
+- $$ \text{Minimize  } \Vert \nabla v \Vert^{2} + \Vert \nabla u \Vert^{2} = \biggl( \frac{\partial v}{\partial y} \biggr)^{2} + \biggl( \frac{\partial v}{\partial x} \biggr)^{2} + \biggl( \frac{\partial u}{\partial y} \biggr)^{2} + \biggl( \frac{\partial u}{\partial x} \biggr)^{2} $$ 
+
+<br>
+
+- Horm-Schunk 알고리즘은 영상 전체에 대해 이들 값을 최소로 하는 해를 찾는 전략을 취합니다.
+- 이러한 전략을 반영한 것이 다음 식입니다.
+
+<br>
+
+- $$ E = \int\int \biggl(\biggl(\frac{\partial f(y, x)}{\partial y}v + \frac{\partial f(y, x)}{\partial x}u + \frac{\partial f(y, x)}{\partial t} \biggr)^{2} + \alpha^{2}( \Vert \nabla v(y, x) \Vert^{2} + \Vert \nabla u(y, x) \Vert^{2} ) \biggr)dydx $$
+
+<br>
+
+- 위 식에서 적분 식 속에 있는 첫번째 항은 optical flow의 `밝기 항상성` 조건식이고 두번째 항은 `전역적 방식`을 위한 식입니다. 이 때, $$ \alpha $$는 어느 것에 더 큰 비중을 둘 것인 지 결정해 주는 **가중치**입니다. 이와 같은 두번째 항을 `regularization term` 이라고 합니다. 이와 같이 정규화 항을 이용하여 `균일한 optical flow의 해`를 구하는 방법을 정규화 기법 이라고 합니다.
+
+<br>
+
+- 위 식은 Error이므로 Error를 최소로 하는 optical flow 맵, 즉 모든 픽셀 $$ (y, x) $$에 대한 $$ v(y, x)
+
 
 
 
