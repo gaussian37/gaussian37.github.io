@@ -28,19 +28,19 @@ tags: [linear algebra, 고유값, 고유벡터, 고유값 공식] # add tag
 
 <br>
 
-$$ A = \begin{bmatrix} a & b \\ c & d \\ \end{bmatrix} $$
+- $$ A = \begin{bmatrix} a & b \\ c & d \\ \end{bmatrix} $$
 
 <br>
 
-$$ T = a + d, \ \ D = ad - bc $$
+- $$ T = a + d, \ \ D = ad - bc $$
 
 <br>
 
-$$ L_{1} = \frac{T}{2} + (\frac{T^{2}}{4} - D)^{0.5} $$
+- $$ L_{1} = \frac{T}{2} + (\frac{T^{2}}{4} - D)^{0.5} $$
 
 <br>
 
-$$ L_{2} = \frac{T}{2} - (\frac{T^{2}}{4} - D)^{0.5} $$
+- $$ L_{2} = \frac{T}{2} - (\frac{T^{2}}{4} - D)^{0.5} $$
 
 <br>
 
@@ -49,7 +49,7 @@ $$ L_{2} = \frac{T}{2} - (\frac{T^{2}}{4} - D)^{0.5} $$
 
 <br>
 
-$$ \begin{bmatrix} L_{1} - d \\ c \end{bmatrix}, \ \ \begin{bmatrix} L_{2} - d \\ c \end{bmatrix}$$
+- $$ \begin{bmatrix} L_{1} - d \\ c \end{bmatrix}, \ \ \begin{bmatrix} L_{2} - d \\ c \end{bmatrix}$$
 
 <br>
 
@@ -57,7 +57,7 @@ $$ \begin{bmatrix} L_{1} - d \\ c \end{bmatrix}, \ \ \begin{bmatrix} L_{2} - d \
 
 <br>
 
-$$ \begin{bmatrix} b \\ L_{1} - a \end{bmatrix}, \ \ \begin{bmatrix} b \\ L_{2} - a \end{bmatrix} $$
+- $$ \begin{bmatrix} b \\ L_{1} - a \end{bmatrix}, \ \ \begin{bmatrix} b \\ L_{2} - a \end{bmatrix} $$
 
 <br>
 
@@ -65,7 +65,7 @@ $$ \begin{bmatrix} b \\ L_{1} - a \end{bmatrix}, \ \ \begin{bmatrix} b \\ L_{2} 
 
 <br>
 
-$$ \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \ \ \begin{bmatrix} 0 \\ 1 \end{bmatrix} $$
+- $$ \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \ \ \begin{bmatrix} 0 \\ 1 \end{bmatrix} $$
 
 <br>
 
