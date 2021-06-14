@@ -73,7 +73,7 @@ tags: [vision, optical flow] # add tag
 
 <br>
 
-$$ f(n) = \begin{cases} 1, & \vert f(y, x, t) - f(y, x, r) \vert > \tau \\[2ex\] 0, & \text{else} \end{cases} $$
+- $$ f(n) = \begin{cases} 1, & \vert f(y, x, t) - f(y, x, r) \vert > \tau \\[2ex] 0, & \text{else} \end{cases} $$
 
 <br>
 
