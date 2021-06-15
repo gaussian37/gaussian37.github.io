@@ -334,7 +334,18 @@ tags: [vision, optical flow] # add tag
 - 위 식이 optical flow를 추정하는 `Lucas-Kanade 알고리즘`의 핵심입니다.
 
 
+<br>
 
+- 이러한 이유로 `Lucas-Kanade` optical flow 방식은 다음과 같은 장단점을 가집니다.
+- 장점 : Lucas-Kanade algorithm은 sparse optical flow에 속하여 코너와 같이 두드러지는 특징 점을 사용하여 optical flow를 추적하기 때문에 **연산량이 적다는 장점**이 있다.
+- 단점 : 좁은 지역의 윈도우를 사용하기 때문에 이 윈도우보다 큰 움직임이 발생하였을 경우 움직임을 계산하지 못한다는 단점이 있고, 특징 점을 사용하여 optical flow를 얻기 때문에 dense optical flow에 비해서 **정확도가 낮은 편**이다.
+
+<br>
+
+추가적으로 살펴본 `Lucas-Kanade method with pyramids` 방법에 대하여 장단점을 정리하면 다음과 같습니다.
+- `원리` : `Lukas-Kanade` 방법에서 큰 움직임을 계산하지 못하는 단점을 개선하기 위해 고안되어진 방법으로 원본 영상으로부터 영상 스케일에 따른 영상 피라미드를 구성한다.
+- `장점` : 영상 피라미드의 상위계층에서 하위계층으로 추적하면서 다양한 스케일의 이미지를 탐색하기 때문에 커다란 움직임도 찾아낼 수 있다.
+- `단점` : 몇 개의 특징점을 추출하고 그 특징 점에 대하여 optical flow를 얻으므로 dense optical flow algorithm 보다는 정확성이 떨어진다는 단점이 있다.
 
 <br>
 
@@ -399,6 +410,15 @@ tags: [vision, optical flow] # add tag
 
 
 
+
+<br>
+
+- 이러한 이유로 `Horn-Shunk` optical flow 방식은 다음과 같은 장단점을 가집니다.
+- 장점 : 영상 모든 픽셀을 탐색하는 알고리즘으로써 다른 알고리즘보다 정확하다는 장점이 있습니다.
+- 단점 : 대표적인 dense optical flow 로써 영상 내부의 모든 픽셀의 속도를 계산하므로 느리다는 단점이 있습니다.
+
+
+
 <br>
 
 ## **Optical flow의 활용**
@@ -418,3 +438,4 @@ tags: [vision, optical flow] # add tag
 <br>
 
 <br>
+
