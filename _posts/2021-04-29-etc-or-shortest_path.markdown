@@ -64,5 +64,8 @@ tags: [선형 계획법, 최단 경로, 엑셀] # add tag
 <center><img src="../assets/img/etc/or/shortest_path/2.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+<br>
+<center><img src="../assets/img/etc/or/shortest_path/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 
