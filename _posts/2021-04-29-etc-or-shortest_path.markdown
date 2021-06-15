@@ -19,7 +19,7 @@ tags: [선형 계획법, 최단 경로, 엑셀] # add tag
 
 <br>
 
-- 최단 경로 문제 엑셀 시트 : [https://drive.google.com/file/d/1ILrNU3EaOGUgZb9yNPB0dKkDWG-OiTFd/view?usp=sharing](https://drive.google.com/file/d/1ILrNU3EaOGUgZb9yNPB0dKkDWG-OiTFd/view?usp=sharing)
+- 최단 경로 문제 엑셀 시트 : [https://drive.google.com/file/d/12p2tTqP4rjDZf7galYMstjcYOo7yOrFs/view?usp=sharing](https://drive.google.com/file/d/12p2tTqP4rjDZf7galYMstjcYOo7yOrFs/view?usp=sharing)
 
 <br>
 <center><img src="../assets/img/etc/or/shortest_path/0.png" alt="Drawing" style="width: 800px;"/></center>
