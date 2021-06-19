@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Optical Flow 알아보기
+title: Optical Flow 알아보기 (Luckas-Kanade w/ Pyramid, Horn-Schunck, FlowNet)
 date: 2019-12-26 00:00:00
 img: vision/concept/optical_flow/0.png
 categories: [vision-concept] 
-tags: [vision, optical flow] # add tag
+tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 ---
 
 <br>
@@ -28,7 +28,6 @@ tags: [vision, optical flow] # add tag
 - ### Lucas-Kanade 알고리즘
 - ### Horn-Schunck 알고리즘
 - ### Optical flow의 활용
-- ### Optical flow 성능 평가
 - ### FlowNet을 이용한 딥러닝에서의 optical flow
 
 <br>
@@ -333,12 +332,22 @@ tags: [vision, optical flow] # add tag
 
 - 위 식이 optical flow를 추정하는 `Lucas-Kanade 알고리즘`의 핵심입니다.
 
-
 <br>
 
 - 이러한 이유로 `Lucas-Kanade` optical flow 방식은 다음과 같은 장단점을 가집니다.
 - 장점 : Lucas-Kanade algorithm은 sparse optical flow에 속하여 코너와 같이 두드러지는 특징 점을 사용하여 optical flow를 추적하기 때문에 **연산량이 적다는 장점**이 있다.
 - 단점 : 좁은 지역의 윈도우를 사용하기 때문에 이 윈도우보다 큰 움직임이 발생하였을 경우 움직임을 계산하지 못한다는 단점이 있고, 특징 점을 사용하여 optical flow를 얻기 때문에 dense optical flow에 비해서 **정확도가 낮은 편**이다.
+
+<br>
+
+- `Luckas-Kanade` 알고리즘은 위와 같은 장단점을 가집니다. 단점을 통해 알 수 있듯이 motion vector를 가지는 작은 window에 대하여 적용하는 알고리즘이므로 만일 **영상내의 object가 큰 움직임의 motion vector를 가진다면** `aliasing이 발생`한다.
+
+<br>
+<center><img src="../assets/img/vision/concept/optical_flow/15.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 이 문제를 해결하기 위하여 `Pyramid 방식`
+
 
 <br>
 
