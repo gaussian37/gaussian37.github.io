@@ -77,7 +77,7 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 - 측도적 개념
 - 결합확률측도. 확률변수의 독립성
 - 확률변수의 평균
-- 분산과 공분산
+- [분산과 공분산](https://gaussian37.github.io/math-pb-variance_covariance/)
 - 선형결합된 확률변수의 평균과 분산
 - 체비셰프 정리
 - 이산형 균일분포
