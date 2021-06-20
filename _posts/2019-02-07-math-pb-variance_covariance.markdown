@@ -155,11 +155,11 @@ tags: [통계학, 수리통계학, 분산, 공분산] # add tag
 - 이번에는 연속확률분포의 예제를 살펴보겠습니다.
 
 <br>
-<center><img src="../assets/img/math/pb/variance_covariance/16.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/math/pb/variance_covariance/16.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/math/pb/variance_covariance/17.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/pb/variance_covariance/17.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 ## **상관계수에 대하여**
