@@ -134,7 +134,7 @@ tags: [통계학, 수리통계학, 분산, 공분산] # add tag
 <center><img src="../assets/img/math/pb/variance_covariance/12.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 이산 확률 변수의 경우 아래와 같고 연속 확률 변수의 경우 $$ \Sum $$을 $$ \int $$로 변경하면 됩니다.
+- 이산 확률 변수의 경우 아래와 같고 연속 확률 변수의 경우 $$ \sum $$을 $$ \int $$로 변경하면 됩니다.
 
 <br>
 <center><img src="../assets/img/math/pb/variance_covariance/13.png" alt="Drawing" style="width: 800px;"/></center>
