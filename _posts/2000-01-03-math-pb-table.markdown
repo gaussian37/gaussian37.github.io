@@ -65,6 +65,7 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 
 <br>
 
+- [수리통계학 정리 모음](https://gaussian37.github.io/math-pb-mathematical_probability_theorem/)
 - 통계학 개요. 표본추출. 실험
 - 자료의 요약. 도표를 이용한 자료의 정리
 - 표본공간. 사상. 경우의 수
