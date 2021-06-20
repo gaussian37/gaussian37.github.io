@@ -27,7 +27,9 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 - ### Optical flow의 의미와 추정 원리
 - ### Lucas-Kanade 알고리즘
 - ### Horn-Schunck 알고리즘
+- ### Optical flow 알고리즘 성능 동향
 - ### Optical flow의 활용
+- ### OpenCV를 이용한 Optical flow 예제
 - ### FlowNet을 이용한 딥러닝에서의 optical flow
 
 <br>
@@ -426,7 +428,23 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 - 장점 : 영상 모든 픽셀을 탐색하는 알고리즘으로써 다른 알고리즘보다 정확하다는 장점이 있습니다.
 - 단점 : 대표적인 dense optical flow 로써 영상 내부의 모든 픽셀의 속도를 계산하므로 느리다는 단점이 있습니다.
 
+<br>
 
+## **Optical flow 알고리즘 성능 동향**
+
+<br>
+
+- 지금까지 설명한 바와 같이 `Lucas-Kanade (LK)` 알고리즘은 지역적이로, `Horn-Schunck (HS)` 알고리즘은 전역적입니다. 이러한 특성 때문에 `LK`는 optical flow 값이 정해지지 않는 영역이 군데군데 발생할 수 있는데, 특히 명암 변화가 적은 곳에서 잘 나타납니다. 반대로 `HS`는 반복하는 과정에서 명암 변화가 적은 영역에도 정보가 파급되므로 모든 픽셀이 motion vector를 가지는 밀집된 optical flow 맵을 생성해 줍니다. 이는 일종의 interpolation 효과로 볼 수 있습니다.
+- `LK`나 `HS` 모두 미분으로 얻은 도함수를 기반으로 작동하는 optical flow 알고리즘입니다. 이와 같은 알고리즘을 `미분 기반 방법`이라고 합니다.
+- 미분 기반 방법 이외에도 optical flow를 추정하는 다양한 방법들이 있습니다. 예를 들어 블록 매칭 방법, 에너지 방법, 위상 방법 등이 있는데, Performance of optical flow techniques (Barron94] J. L. Barron, D. J. Fleet, and S. S. Beauchemin, International Journal of Computer Vision, Vol. 12，No .l, pp.43-77.)에 따르면 **미분을 사용하는 Luckas-Kanade** 알고리즘이 가장 우수하다는 결론을 이끌어 냈습니다.
+
+<br>
+
+- 2000년 이후에 발표된 방법까지 포함하여 가장 성능이 좋다고 알려진 `"Lucas/Kanade meets Horn/Schunck : combining local and global optic flow methods"`(Andres Bruhn, Joachim Weickert, and Christoph Schnorr, International Journal of Computer Vision, Vol.61, No.3)이 가장 우수하다는 결론을 도출하였습니다.
+
+<br>
+
+- 실질적으로 optical flow를 활용할 때에는 정확도와 효율성을 고려하여 `Luckas-Kanade with Pyramid` 알고리즘을 사용하기를 추천드립니다.
 
 <br>
 
@@ -434,11 +452,38 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 
 <br>
 
-<br>
-
-## **Optical flow 성능 평가**
+- optical flow 알고리즘을 이용하여 다음과 같은 optical flow 맵을 얻게 되면 물체 추적이나 인식같은 컴퓨터 비전 처리에 필요한 feature들을 얻을 수 있습니다.
 
 <br>
+<center><img src="../assets/img/vision/concept/optical_flow/16.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림은 optical flow로 부터 얻은 motion vector의 형상을 간단하게 표현해 보았습니다. 실제로 motion vector는 알고리즘의 한계와 다양한 노이즈로 인하여 많은 오차를 포함하기 때문에 위 그림과 같이 깔끔하게 나타나지는 않습니다.
+- `A`와 같은 형태의 motion vector를 가지게 되면 물체가 오른쪽으로 이동함과 동시에 카메라에 가까워지는 상황임을 추정할 수 있습니다. 이 때, motion vector가 모이는 한 점을 `FOE (Factor of Expansion)` 이라고 합니다.
+- `B`는 카메라와 일정한 거리를 유지하면서 오른쪽 위로 이동하는 물체를 나타냅니다.
+- `C`는 물체가 광축 방향을 따라 카메라에 다가오는 상황을 나타냅니다.
+- `D`는 제자리에서 회전하는 물체를 나타냅니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/optical_flow/17.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림에서는 optical flow를 통하여 객체를 인식하고 각 객체의 motion vector를 시각화 하여 나타낸 것입니다. motion vector의 방향을 통하여 인식한 객체의 이동 방향을 추정할 수 있습니다.
+- 이 예제는 글 아래에서 OpenCV를 통하여 살펴볼 예정입니다.
+
+<br>
+
+- 위 예시와 같이 motion vector를 이용하여 주변 물체의 상태를 확인할 수 있을 뿐 아니라, 카메라가 고정되어 있을 때, 로봇이나 자동차의 현재 자신의 위치인 `ego motion`을 추정하는 문제에도 활용할 수 있습니다. 
+- 뿐만 아니라 `motion vector`를 feature로 이용하고 이 feature들과 SVM과 같은 classifier 이용하여 다양한 분류 문제에도 활용할 수 있습니다.
+
+<br>
+
+## **OpenCV를 이용한 Optical flow 예제**
+
+<br>
+
+
+
 
 <br>
 
