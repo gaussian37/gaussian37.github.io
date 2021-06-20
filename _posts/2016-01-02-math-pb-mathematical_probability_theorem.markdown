@@ -1,9 +1,9 @@
 ---
 layout: post
 title: 수리통계학 정리 모음
-date: 2000-01-01 00:00:00
+date: 2016-01-02 00:00:00
 img: math/pb/probability.jpg
-categories: [math-pb] 
+categories: [math-pb]
 tags: [통계학, 수리통계학, 정리 모음] # add tag
 ---
 
@@ -163,8 +163,6 @@ tags: [통계학, 수리통계학, 정리 모음] # add tag
 <br>
 <center><img src="../assets/img/math/pb/mathematical_probability_theorem/4_2_6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
-
-
 
 <br>
 

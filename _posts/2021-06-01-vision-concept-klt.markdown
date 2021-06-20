@@ -13,7 +13,12 @@ tags: [이미지 압축, image compression, KLT,Karhunen, Loeve, Hottelling] # a
 
 <br>
 
+- 참조 : https://www.commsp.ee.ic.ac.uk/~tania/teaching/DIP%202014/Image%20Transforms.pdf
+- 참조 : 영상신호처리 강의 (연세대학교, 최윤식 교수님)
 
+<br>
+
+- 이번 글에서는 `KLT` 라고 알려진 `Karhunen-Loeve Transform`에 대하여 알아보도록 하겠습니다.
 
 
 
