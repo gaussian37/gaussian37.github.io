@@ -106,7 +106,7 @@ tags: [vision, deep learning, osvos, one shot video object segmentation, vos] # 
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/xKtegsclTI8" frameborder="0" allowfullscreen="true" width="800px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/xKtegsclTI8" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
 
 <br>
