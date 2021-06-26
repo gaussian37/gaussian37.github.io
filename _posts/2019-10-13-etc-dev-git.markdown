@@ -17,13 +17,14 @@ tags: [git, git 셋팅] # add tag
 
 <br>
 
-- ### git 관련 셋팅
-- ### 자주 사용하는 명령어
-- ### 버전 컨트롤
-- ### .git
-- ### git status
-- ### git diff
-- ### git ignore
+- ### [git 관련 셋팅](#git-관련-셋팅-1)
+- ### [자주 사용하는 명령어](#자주-사용하는-명령어-1)
+- ### [버전 컨트롤](#버전-컨트롤-1)
+- ### [.git](#git-1)
+- ### [git status](#git-status-1)
+- ### [git diff](#git-diff-1)
+- ### [git ignore](#git-ignore-1)
+- ### [git 작업 취소 관련](#git-작업-취소-관련-1)
 
 <br>
 
@@ -34,6 +35,7 @@ tags: [git, git 셋팅] # add tag
 - 링크 : https://medium.com/@thucnc/how-to-show-current-git-branch-with-colors-in-bash-prompt-380d05a24745
 - 링크 : https://wjs890204.tistory.com/886
 - 우분투 터미널에서 git을 사용할 때, 어떤 branch에 접속한 상태인 지 확인이 필요하거나 color로 터미널에서 git의 상태가 구분되었으면 좋을 때 다음 2가지 방법을 사용할 수 있습니다.
+- **잘못된 git branch를 사용하는 실수를 방지하기 위하여** 아래 셋팅은 반드시 하길 권장 드립니다.
 - 1) 아래 코드를 `.bashrc`에 입력해 놓는 방법입니다. 단, 우분투 터미널의 기본적인 글자 색도 바뀌니 그 점은 유의하시기 바랍니다.
 - `.bashrc` 파일 열기 : `gedit ~/.bashrc`
 
@@ -203,3 +205,33 @@ index e713b17..4c0742a 100644
 - `*.ext` : 특정 확장자를 모두 무시할 수 있습니다.
 - `**/folder/` : folder 라는 이름의 디렉토리가 저장소 내 어떤 위치에 존재하더라도 모두 ignore 처리됩니다. 마지막에 반드시 `/`를 붙여야 합니다. 이 경우 folder 라는 이름의 하위 디렉토리 및 파일 보두 ignore 처리됩니다.
 - `folder_A/**/folder_B/` : folder_A 내부에 있는 folder_B 하부의 모든 파일 및 디렉토리가 모두 ignore가 됩니다. folder_A와 folder_B 사이는 대상에서 제외됩니다.
+
+<br>
+
+## **git 작업 취소 관련**
+
+<br>
+
+- git에서 작업을 하다가 작업한 내용을 취소해야 하는 경우가 발생합니다. 글 도입부의 flow를 살펴보면 git에는 4가지 단계가 있습니다.
+- `working directory` : 현재 작업 공간을 뜻하며 git에 어떠한 반영도 하지 않은 상태입니다.
+- `stage area` : git add를 통하여 변경된 내용을 commit 하기 위한 준비 상태로 둡니다.
+- `local repository` : git commit을 마친 상태로 실제 업데이트 하기 위한 대상이 된 상태입니다.
+- `remote repository` : 최종적으로 사용되고 있는 git 서버에서의 상태입니다.
+
+<br>
+
+- 위에서 살펴본 4가지 단계에서 현재 작업한 내용을 취소하고 싶을 때, 각 단계에서 다음과 같이 취소 가능합니다.
+- **git add 명령 이전 (stage에 올리지 않은 상태)** : 
+    - repository 내 모든 수정 되돌리기 : `git checkout .`
+    - 특정 폴더 아래의 모든 수정 되돌리기 : `git checkout {dir}`
+    - 특정 파일의 수정 되돌리기 : `git checkout {file_name}`
+- **git add 명령으로 stage에 올린 경우** : `git reset`
+- **git commit을 한 경우** : 
+    - commit 내용을 없애고 이전 상태로 원복 : `git reset --hard HEAD^` (브랜치의 마지막 커밋을 가리키던 HEAD를 그 이전으로 이동시켜서 commit 내용을 없앰)
+    - commit은 취소하고 commit 했던 내용은 남기고 unstaged 상태로 만들기 : `git reset HEAD^`
+    -  commit은 취소하고 commit 했던 내용은 남기고 staged 상태로 만들기 : `git reset --soft HEAD^`
+- **모든 untracked 파일들을 지우기** : `git clean -fdx`
+- **git push를 한 경우 remote repository도 이전으로 되돌리기**
+    - ① `git reset HEAD^` : local repository에서 commit을 하나 되돌림
+    - ② `git commit -m "revert reason comments"` : local repository의 직전 상태로 되돌린 것으로 commit
+    - ③ `git push origin branch명` : local repository의 직전 상태를 다시 push 함으로써 remote repository를 강제로 revert 시킴
