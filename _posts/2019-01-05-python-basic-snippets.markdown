@@ -69,6 +69,7 @@ tags: [python, python 기본] # add tag
 - #### [Dictionary와 JSON](#dictionary와-json-1)
 - #### [Dicionary의 최대, 최소 value 찾기](#dicionary의-최대-최소-value-찾기-1)
 - #### [copy를 이용한 deepcopy](#copy를-이용한-deepcopy-1)
+- #### [glob을 이용한 폴더 및 파일 접근](#glob을-이용한-폴더-및-파일-접근-1)
 
 <br>
 
@@ -1879,6 +1880,28 @@ print(min(a, key=lambda k : a[k]))
 ```python
 from copy import deepcopy
 object2 = deepcopy(object1)
+```
+
+<br>
+
+## **glob을 이용한 폴더 및 파일 접근**
+
+<br>
+
+- `glob`은 파이썬을 이용하여 파일을 탐색할 때, 굉장히 유용한 라이브러리입니다. 보통 `os`의 `os.listdir()`과 같은 방식을 많이 이용합니다. 다만 검색 조건이 필요할 때에 `glob`을 사용하면 쉽게 구현할 수 있습니다.
+- 아래는 현재 위치 기준에서 2-depth 아래에 있는 파이썬 파일을 찾는 코드 입니다. 핵심은 `path`에 사용된 문자열이며 문자열의 정규식을 어떻게 사용하는 지에 따라서 찾는 조건이 달라집니다.
+
+<br>
+
+```python
+import glob
+
+path = "./*/*.py"
+file_list = glob.glob(path)
+file_list_py = [file for file in file_list]
+# file_list_py = [file for file in file_list if file.endswith(".py")]
+
+print ("file_list_py: {}".format(file_list_py))
 ```
 
 <br>
