@@ -22,6 +22,7 @@ tags: [pytorch, deploy, onnx, onnxruntime] # add tag
 - ### [pytorch에서 학습 완료된 모델 불러오기](#pytorch에서-학습-완료된-모델-불러오기-1)
 - ### [ONNX로 export](#onnx로-export-1)
 - ### [onnx 파일 확인](#onnx-파일-확인-1)
+- ### [pytorch와 onnx 비교](#pytorch와-onnx-비교-1)
 - ### [netron을 이용한 ONNX 시각화](netron을-이용한-onnx-시각화-1)
 - ### [ONNX 모델을 caffe2 모델로 저장](onnx-모델을-caffe2-모델로-저장-1)
 - ### [onnxruntime을 이용한 모델 사용](#onnxruntime을-이용한-모델-사용-1)
@@ -110,8 +111,6 @@ from torchvision import models
 # resnet18의 binary classification 예제
 def CreateNetwork():
     net = models.resnet18()
-    fc_input_dim = net.fc.in_features
-    net.fc = nn.Linear(fc_input_dim, 2)
     return net
 
 # 모델 생성
@@ -185,6 +184,22 @@ for init in graph.initializer:
 <br>
 
 - 위 코드를 이용하여 `onnx`를 불러오고 `numpy_helper`를 이용하여 각 layer의 값을 `numpy`의 자료형으로 변환시키면 **각 layer 별로 어떤 값을 가지는 지 알 수 있습니다.**
+
+<br>
+
+## **pytorch와 onnx 비교**
+
+<br>
+
+- 지금까지 pytorch를 이용하여 onnx 파일을 만드는 방법에 대하여 알아보았습니다. 이 때, 정확히 pytorch → onnx로 변환이 되었는 지 확인하기 위하여 각 layer 별 weight 변환을 확인해 볼 필요가 있습니다.
+- 아래 코드에서는 **기존의 pytorch 모델과 onnx의 layer 별 weight 비교** 하는 방법을 보여줍니다.
+
+<br>
+
+```python
+
+
+```
 
 <br>
 
