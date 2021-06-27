@@ -71,6 +71,9 @@ tags: [python, python 기본] # add tag
 - #### [Dicionary의 최대, 최소 value 찾기](#dicionary의-최대-최소-value-찾기-1)
 - #### [copy를 이용한 deepcopy](#copy를-이용한-deepcopy-1)
 - #### [glob을 이용한 폴더 및 파일 접근](#glob을-이용한-폴더-및-파일-접근-1)
+- #### [파일 목록 얻기](#파일-목록-얻기-1)
+- #### [디렉토리 다루기](#디렉토리-다루기-1)
+- #### [경로명 분리하기](#경로명-분리하기-1)
 
 <br>
 
@@ -2123,6 +2126,81 @@ file_list_py = [file for file in file_list]
 # file_list_py = [file for file in file_list if file.endswith(".py")]
 
 print ("file_list_py: {}".format(file_list_py))
+```
+
+<br>
+
+## **파일 목록 얻기**
+
+<br>
+
+```python
+# 유닉스 경로명 패턴 스타일로 파일 목록을 얻을 수 있다. 
+glob.glob(wildcard_type_path)
+
+# 지정된 디렉토리의 전체 파일 목록을 얻을 수 있다. 
+os.listdir(path)
+```
+
+<br>
+
+## **디렉토리 다루기**
+
+<br>
+
+```python
+# 작업하고 있는 디렉토리 변경
+os.chdir(path)
+
+# 현재 프로세스의 작업 디렉토리 얻기
+os.getcwd()
+
+# 파일이나 디렉토리 지우기
+os.remove(file_path or path)
+
+ # 디렉토리 만들기
+os.mkdir(path)
+
+# mkdir과 유사하지만 중간에 sub directory 까지 한번에 만들어 줍니다.
+os.makedirs(path)
+
+# 파일의 상대 경로를 절대 경로로 바꾸는 함수
+os.path.abspath(file_path)
+
+# 주어진 경로의 파일이 있는지 확인하는 함수
+os.path.exists(file_path)
+
+# 현재 디렉토리 얻기
+os.curdir()
+
+# 부모 디렉토리 얻기
+os.pardir()
+
+# 디렉토리 분리 문자 얻기. . windows는 \ linux는 / 를 반환합니다.
+os.sep() 
+```
+
+<br>
+
+## **경로명 분리하기**
+
+<br>
+
+```python
+# 파일명만 추출
+os.path.basename(file_path)
+
+# 디렉토리 경로 추출
+os.path.dirname(file_path)
+
+# 경로와 파일명을 분리
+os.path.split(file_path)
+
+# 드라이브명과 나머지 분리 (MS Windows의 경우)
+os.path.splitdrive(file_path)
+
+# 확장자와 나머지 분리
+os.path.splitext(file_path)
 ```
 
 <br>
