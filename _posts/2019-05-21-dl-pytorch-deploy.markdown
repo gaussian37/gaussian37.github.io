@@ -193,12 +193,54 @@ for init in graph.initializer:
 
 - 지금까지 pytorch를 이용하여 onnx 파일을 만드는 방법에 대하여 알아보았습니다. 이 때, 정확히 pytorch → onnx로 변환이 되었는 지 확인하기 위하여 각 layer 별 weight 변환을 확인해 볼 필요가 있습니다.
 - 아래 코드에서는 **기존의 pytorch 모델과 onnx의 layer 별 weight 비교** 하는 방법을 보여줍니다.
+- 특히 두 numpy array를 비교하는 `compare_two_array`의 numpy 함수는 [https://gaussian37.github.io/python-basic-numpy-snippets/](https://gaussian37.github.io/python-basic-numpy-snippets/) 에서 내용을 살펴보시기 바랍니다.
+- 전체적인 흐름은 다음과 같습니다.
+- ① 입력 받은 onnx 파일 경로를 통해 onnx 모델을 불러옵니다.
+- ② onnx 모델의 정보를 layer 이름 : layer값 기준으로 저장합니다.
+- ③ torch 모델의 정보를 layer 이름 : layer값 기준으로 저장합니다.
+- ④ onnx와 torch 모델의 성분은 1:1 대응이 되지만 저장하는 기준이 다르므로 onnx와 torch의 각 weight가 1:1 대응이 되는 성분만 필터합니다.
+- ⑤ compare_two_array 함수를 통하여 onnx와 torch의 각 대응되는 layer의 값을 비교합니다.
 
 <br>
 
 ```python
+def compare_two_array(actual, desired, layer_name, rtol=1e-7, atol=0):
+    # Reference : https://gaussian37.github.io/python-basic-numpy-snippets/
+    try : 
+        np.testing.assert_allclose(actual, desired, rtol=rtol, atol=atol)
+        # print(layer_name + ": allwable difference.")
+    except AssertionError as msg:
+        print(layer_name + ": Error.")
+        print(msg)
 
+# ① 입력 받은 onnx 파일 경로를 통해 onnx 모델을 불러옵니다.
+onnx_path = "output.onnx"
+onnx_model = onnx.load(onnx_path)
 
+# ② onnx 모델의 정보를 layer 이름 : layer값 기준으로 저장합니다.
+onnx_layers = dict()
+for layer in onnx_model.graph.initializer:
+    onnx_layers[layer.name] = numpy_helper.to_array(layer)
+
+# ③ torch 모델의 정보를 layer 이름 : layer값 기준으로 저장합니다.
+torch_layers = {}
+for layer_name, layer_value in net.named_modules():
+    torch_layers[layer_name] = layer_value   
+
+# ④ onnx와 torch 모델의 성분은 1:1 대응이 되지만 저장하는 기준이 다르므로 
+# onnx와 torch의 각 weight가 1:1 대응이 되는 성분만 필터합니다.
+onnx_layers_set = set(onnx_layers.keys())
+# onnx 모델의 각 layer에는 .weight가 suffix로 추가되어 있어서 문자열 비교 시 추가함
+torch_layers_set = set([layer_name + ".weight" for layer_name in list(torch_layers.keys())])
+filtered_onnx_layers = list(onnx_layers_set.intersection(torch_layers_set))
+
+# ⑤ compare_two_array 함수를 통하여 onnx와 torch의 각 대응되는 layer의 값을 비교합니다.
+for layer_name in filtered_onnx_layers:
+    onnx_layer_name = layer_name
+    torch_layer_name = layer_name.replace(".weight", "")
+    onnx_weight = onnx_layers[onnx_layer_name]
+    torch_weight = torch_layers[torch_layer_name].weight.detach().numpy()
+    compare_two_array(onnx_weight, torch_weight, onnx_layer_name)
 ```
 
 <br>
