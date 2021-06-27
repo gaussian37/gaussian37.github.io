@@ -29,6 +29,7 @@ tags: [Numpy, 넘파이] # add tag
 - ### [np.einsum](#npeinsum-1)
 - ### [np.where로 필요한 값 인덱스 찾기](#npwhere로-필요한-값-인덱스-찾기-1)
 - ### [np.delete를 이용한 값 제거](#npdelete를-이용한-값-제거-1)
+- ### [np.testing을 이용한 두 값의 차이값 확인](#nptesting을-이용한-두-값의-차이값-확인-1)
 
 
 <br>
@@ -605,3 +606,41 @@ print(np.delete(arr, 1, axis=1))
 ```
 
 <br>
+
+## **np.testing을 이용한 두 값의 차이값 확인**
+
+<br>
+
+- numpy 두 배열이 얼만큼 차이나는 지 알고 싶을 때, 많이 사용하는 함수로 `np.testing.assert_allclose`가 있습니다.
+- 아래 코드를 통하여 actual 값이 desired 값과 오차 범위 이내에 있는 지 확인이 가능하며 오차 범위 밖에 있으면 다른 값으로 간주하고 그 결과를 출력합니다.
+- 오차 범위는 `rtol (relative tolerance)`와 `atol (absolute tolerance)`를 이용하여 나타내며 actual 값이 `rtol * abs(desired) + atol`의 범위를 넘어가면 에러를 발생시킵니다.
+- 간단하게 `atol = 0`으로 두었을 때, `rtol`의 값 만큼의 허용 오차를 가진다고 생각해도 됩니다. 예를 들어 아래 기본 코드와 같이 `rtol=1e-7, atol=0`으로 두었다면 허용 오차는 1e-7 미만이며 1e-7이상의 차이가 나면 다른 값으로 인식합니다.
+
+<br>
+
+```python
+def compare_two_array(actual, desired, rtol=1e-7, atol=0):
+    # actual * ato
+    try : 
+        np.testing.assert_allclose(actual, desired, rtol=rtol, atol=atol)
+        print("allwable difference.")
+    except AssertionError as msg:
+        print(msg)
+
+desired = np.array([0.1, 0.1, 0.1])
+actual = np.array([0.1, 0.1000001, 0.1])
+
+# 1e-7의 오차 범위로는 다른 값으로 인식함
+compare_two_array(actual, desired)
+# Not equal to tolerance rtol=1e-07, atol=0
+
+# Mismatched elements: 1 / 3 (33.3%)
+# Max absolute difference: 1.e-07
+# Max relative difference: 1.e-06
+#  x: array([0.1, 0.1, 0.1])
+#  y: array([0.1, 0.1, 0.1])
+
+# 1e-6의 오차 범위로는 같은 값으로 인식함
+compare_two_array(actual, desired, rtol=1e-6)
+# allwable difference.
+```
