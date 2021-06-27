@@ -208,7 +208,7 @@ def compare_two_array(actual, desired, layer_name, rtol=1e-7, atol=0):
     # Reference : https://gaussian37.github.io/python-basic-numpy-snippets/
     try : 
         np.testing.assert_allclose(actual, desired, rtol=rtol, atol=atol)
-        # print(layer_name + ": allwable difference.")
+        print(layer_name + ": allwable difference.")
     except AssertionError as msg:
         print(layer_name + ": Error.")
         print(msg)
