@@ -26,6 +26,7 @@ tags: [pytorch, deploy, onnx, onnxruntime] # add tag
 - ### [onnx 모델에 pytorch weight 할당](#onnx-모델에-pytorch-weight-할당-1)
 - ### [onnx 모델 export 코드 종합](#onnx-모델-export-코드-종합-1)
 - ### [netron을 이용한 ONNX 시각화](netron을-이용한-onnx-시각화-1)
+- ### [onnx 모델의 shape 확인](#onnx-모델의-shape-확인-1)
 - ### [ONNX 모델을 caffe2 모델로 저장](onnx-모델을-caffe2-모델로-저장-1)
 - ### [onnxruntime을 이용한 모델 사용](#onnxruntime을-이용한-모델-사용-1)
 
@@ -407,6 +408,51 @@ if difference_flag:
 
 - 이와 같은 시각화를 통하여 모델의 전체적인 구조 및 파라미터 등을 알 수 있고 특히 onnx에서 사용하는 입출력의 이름과 shape을 확인할 수 있습니다.
 - 이 과정을 통하여 글의 뒷부분에 작성한 `onnxruntime을 이용한 모델 사용`에서 사용하는 입출력의 이름과 입력의 shape 정보를 쉽게 확인할 수 있습니다.
+
+<br>
+
+## **onnx 모델의 shape 확인**
+
+<br>
+
+- 위에서 살펴본 `netron`에서 확인하기 어려운 점이 하나 있는데, 각 layer의 shape입니다. 이 정보는 `shape_inference`라는 onnx의 기능을 통해서 확인할 수 있습니다.
+- 확인 방법은 아래 코드를 참조하시기 바랍니다.
+
+<br>
+
+```python
+import onnx
+from onnx import helper, shape_inference
+
+onnx_model = onnx.load(onnx_path)
+inferred_model = shape_inference.infer_shapes(onnx_model)
+inferred_model.graph.value_info[0]
+
+# name: "123"
+# type {
+#   tensor_type {
+#     elem_type: 1
+#     shape {
+#       dim {
+#         dim_value: 1
+#       }
+#       dim {
+#         dim_value: 64
+#       }
+#       dim {
+#         dim_value: 112
+#       }
+#       dim {
+#         dim_value: 112
+#       }
+#     }
+#   }
+# }
+```
+
+<br>
+
+- 위 출력에서 `dim`을 살펴볼 수 있습니다. dim을 차례대로 보면 shape을 알 수 있습니다. 위 예시에서는 (1, 64, 112, 112)로 된 것을 통하여 이 layer의 shape을 확인할 수 있습니다.
 
 <br>
 
