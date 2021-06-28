@@ -23,6 +23,8 @@ tags: [pytorch, deploy, onnx, onnxruntime] # add tag
 - ### [ONNX로 export](#onnx로-export-1)
 - ### [onnx 파일 확인](#onnx-파일-확인-1)
 - ### [pytorch와 onnx 비교](#pytorch와-onnx-비교-1)
+- ### [onnx 모델에 pytorch weight 할당](#onnx-모델에-pytorch-weight-할당-1)
+- ### [onnx 모델 export 코드 종합](#onnx-모델-export-코드-종합-1)
 - ### [netron을 이용한 ONNX 시각화](netron을-이용한-onnx-시각화-1)
 - ### [ONNX 모델을 caffe2 모델로 저장](onnx-모델을-caffe2-모델로-저장-1)
 - ### [onnxruntime을 이용한 모델 사용](#onnxruntime을-이용한-모델-사용-1)
@@ -198,7 +200,12 @@ for init in graph.initializer:
 - ① 입력 받은 onnx 파일 경로를 통해 onnx 모델을 불러옵니다.
 - ② onnx 모델의 정보를 layer 이름 : layer값 기준으로 저장합니다.
 - ③ torch 모델의 정보를 layer 이름 : layer값 기준으로 저장합니다.
-- ④ onnx와 torch 모델의 성분은 1:1 대응이 되지만 저장하는 기준이 다르므로 onnx와 torch의 각 weight가 1:1 대응이 되는 성분만 필터합니다.
+- ④ onnx와 torch 모델의 성분은 1:1 대응이 되지만 저장하는 기준이 다르므로 onnx와 torch의 각 weight가 1:1 대응이 되는 성분만 필터합니다. 아래 왼쪽은 onnx 모델의 layer 정보이고 오른쪽은 torch 모델의 layer 정보입니다. 아래 정보와 같이 onnx 모델은 weight 이외의 layer를 별도로 가지는 반면 torch 모델은 weight가 suffix로 있는 layer만 존재합니다. 정확히는 torch 모델의 bn과 같은 일부 layer의 정보가 onnx 모델에서는 weight, bias, running_mean, running_var과 같이 여러 개로 풀어졌기 때문에 onnx 모델의 layer가 더 많은 것처럼 보입니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/deploy/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
 - ⑤ compare_two_array 함수를 통하여 onnx와 torch의 각 대응되는 layer의 값을 비교합니다.
 
 <br>
@@ -206,12 +213,15 @@ for init in graph.initializer:
 ```python
 def compare_two_array(actual, desired, layer_name, rtol=1e-7, atol=0):
     # Reference : https://gaussian37.github.io/python-basic-numpy-snippets/
+    flag = False
     try : 
         np.testing.assert_allclose(actual, desired, rtol=rtol, atol=atol)
-        print(layer_name + ": allwable difference.")
+        print(layer_name + ": no difference.")
     except AssertionError as msg:
         print(layer_name + ": Error.")
         print(msg)
+        flag = True
+    return flag
 
 # ① 입력 받은 onnx 파일 경로를 통해 onnx 모델을 불러옵니다.
 onnx_path = "output.onnx"
@@ -241,6 +251,144 @@ for layer_name in filtered_onnx_layers:
     onnx_weight = onnx_layers[onnx_layer_name]
     torch_weight = torch_layers[torch_layer_name].weight.detach().numpy()
     compare_two_array(onnx_weight, torch_weight, onnx_layer_name)
+```
+
+<br>
+
+## **onnx 모델에 pytorch weight 할당**
+
+<br>
+
+- 바로 직전 예제에서 onnx 모델의 weight와 pytorch 모델의 weight를 비교하여 차이가 있는 지 확인하였습니다.
+- 간혹 weight의 차이가 있는 경우가 발생하는데, 이 때 가장 직관적이며 빠른 해결 방법은 pytorch의 weight를 onnx 모델의 weight에 저장하는 것입니다.
+- 앞에 두 모델의 비교 예제에서 살펴보았듯이 두 모델의 각 weight를 가지는 layer는 1:1 대응이 되므로 쉽게 구현할 수 있습니다. 다른 weight를 복사하여 onnx 모델의 layer를 업데이트 할 때, `onnx_model.graph.initializer[index].CopyFrom(tensor)`를 이용할 수 있습니다. (onnx_model은 onnx.onnx_ml_pb2.ModelProto 타입입니다.)
+- onnx의 weight를 변경할 때, 주의할 점은 **weight 뿐만 아니라 layer 이름도 같이 업데이트** 해주어야 한다는 점입니다. 아래 코드를 살펴보겠습니다.
+- ① onnx 모델의 layer가 torch 모델의 layer에 속하는 지 확인
+- ② torch 모델의 weight를 onnx 모델의 weight로 복사하고 이 때, layer name의 정보도 같이 복사함
+- ③ onnx 재저장
+
+<br>
+
+```python
+graph = onnx_model.graph
+for index, layer in enumerate(graph.initializer):
+    layer_name = layer.name
+    # ① onnx 모델의 layer가 torch 모델의 layer에 속하는 지 확인
+    if layer_name in filtered_onnx_layers:
+        onnx_layer_name = layer_name
+        torch_layer_name = layer_name.replace(".weight", "")
+        onnx_weight = onnx_layers[onnx_layer_name]
+        torch_weight = torch_layers[torch_layer_name].weight.detach().numpy()
+        # ② torch 모델의 weight를 onnx 모델의 weight로 복사하고 이 때, layer name의 정보도 같이 복사함
+        copy_tensor = numpy_helper.from_array(torch_weight, onnx_layer_name)
+        onnx_model.graph.initializer[index].CopyFrom(copy_tensor)
+
+
+onnx_new_path = os.path.dirname(os.path.abspath(onnx_path)) + os.sep + "updated_" + os.path.basename(onnx_path)
+onnx.save(onnx_model, onnx_new_path)
+```
+
+<br>
+
+## **onnx 모델 export 코드 종합**
+
+<br>
+
+- 앞에서 살펴본 모든 코드를 하나로 종합하였습니다. 코드가 실행되는 전체적인 flow는 다음과 같습니다.
+- ① 사용할 딥러닝 네트워크를 불러온 뒤 평가 모드로 설정합니다.
+- ② torch 모델을 이용하여 onnx 모델을 생성합니다.
+- ③ 생성한  onnx 모델을 다시 블루어와서 torch 모델과 onnx 모델의 weight를 비교합니다.
+- ④ onnx 모델에 기존 torch 모델과 다른 weight가 있으면 전체 update를 한 후 새로 저장합니다.
+
+<br>
+
+```python
+import numpy as np
+import torch.nn as nn
+import torch.onnx
+from torchvision import models
+import onnx
+import onnx.numpy_helper as numpy_helper
+
+# CreateNetwork should be modified by custom deep-learning model
+def CreateNetwork():
+    net = models.resnet18()
+    return net
+
+def compare_two_array(actual, desired, layer_name, rtol=1e-7, atol=0):
+    # Reference : https://gaussian37.github.io/python-basic-numpy-snippets/
+    flag = False
+    try : 
+        np.testing.assert_allclose(actual, desired, rtol=rtol, atol=atol)
+        print(layer_name + ": no difference.")
+    except AssertionError as msg:
+        print(layer_name + ": Error.")
+        print(msg)
+        flag = True
+    return flag
+
+        
+# parameters
+channel = 3
+height = 224
+width = 224
+onnx_path = "output.onnx"
+
+# ① 사용할 딥러닝 네트워크를 불러온 뒤 평가 모드로 설정합니다.
+net = CreateNetwork()
+net.eval()
+
+# ② torch 모델을 이용하여 onnx 모델을 생성합니다.
+# (B, C, H, W) 의 dimension을 가지는 것으로 가정함
+dummy_data = torch.empty(1, channel, height, width, dtype = torch.float32)
+torch.onnx.export(net, dummy_data, "output.onnx", input_names = ['input'], output_names = ['output'])
+
+# ③ 생성한  onnx 모델을 다시 블루어와서 torch 모델과 onnx 모델의 weight를 비교합니다.
+# 입력 받은 onnx 파일 경로를 통해 onnx 모델을 불러옵니다.
+onnx_model = onnx.load(onnx_path)
+
+# onnx 모델의 정보를 layer 이름 : layer값 기준으로 저장합니다.
+onnx_layers = dict()
+for layer in onnx_model.graph.initializer:
+    onnx_layers[layer.name] = numpy_helper.to_array(layer)
+
+# torch 모델의 정보를 layer 이름 : layer값 기준으로 저장합니다.
+torch_layers = {}
+for layer_name, layer_value in net.named_modules():
+    torch_layers[layer_name] = layer_value   
+
+# onnx와 torch 모델의 성분은 1:1 대응이 되지만 저장하는 기준이 다릅니다.
+# onnx와 torch의 각 weight가 1:1 대응이 되는 성분만 필터합니다.
+onnx_layers_set = set(onnx_layers.keys())
+# onnx 모델의 각 layer에는 .weight가 suffix로 추가되어 있어서 문자열 비교 시 추가함
+torch_layers_set = set([layer_name + ".weight" for layer_name in list(torch_layers.keys())])
+filtered_onnx_layers = list(onnx_layers_set.intersection(torch_layers_set))
+
+difference_flag = False
+for layer_name in filtered_onnx_layers:
+    onnx_layer_name = layer_name
+    torch_layer_name = layer_name.replace(".weight", "")
+    onnx_weight = onnx_layers[onnx_layer_name]
+    torch_weight = torch_layers[torch_layer_name].weight.detach().numpy()
+    flag = compare_two_array(onnx_weight, torch_weight, onnx_layer_name)
+    difference_flag = True if flag == True else False
+    
+# ④ onnx 모델에 기존 torch 모델과 다른 weight가 있으면 전체 update를 한 후 새로 저장합니다.
+if difference_flag:
+    print("update onnx weight from torch model.")
+    for index, layer in enumerate(onnx_model.graph.initializer):
+        layer_name = layer.name
+        if layer_name in filtered_onnx_layers:
+            onnx_layer_name = layer_name
+            torch_layer_name = layer_name.replace(".weight", "")
+            onnx_weight = onnx_layers[onnx_layer_name]
+            torch_weight = torch_layers[torch_layer_name].weight.detach().numpy()
+            copy_tensor = numpy_helper.from_array(torch_weight, onnx_layer_name)
+            onnx_model.graph.initializer[index].CopyFrom(copy_tensor)
+    
+    print("save updated onnx model.")
+    onnx_new_path = os.path.dirname(os.path.abspath(onnx_path)) + os.sep + "updated_" + os.path.basename(onnx_path)
+    onnx.save(onnx_model, onnx_new_path)
 ```
 
 <br>
@@ -417,4 +565,6 @@ out = out.squeeze(0)
 
 <br>
 
-
+- 마지막으로 `onnxruntime`에는 이슈가 있음을 언급하면서 글을 마치겠습니다. 
+- pytorch 모델의 inference 결과와 onnxruntime을 이용한 onnx 모델의 inference 결과에는 차이점이 있으며 일반적으로 onnx 모델의 결과가 더 성능이 좋지 않습니다.
+- stackoverflow를 보면 이러한 inference 성능 차이 문제는 각 과제 별 풀어야 할 숙제로 남아져 있습니다. 사용하시는 분들은 별다른 문제가 없길 바랍니다.
