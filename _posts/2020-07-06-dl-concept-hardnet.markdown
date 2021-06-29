@@ -23,18 +23,14 @@ tags: [딥러닝, HarDNet, harmonious densenet, densenet, densely connected conv
 
 <br>
 
-- ### Abstract
-- ### Introduction
-- ### Related works
-- ### Proposed Harmonic DenseNet
-- ### Experiments
-- ### Discussion
-- ### Concolusion
-- ### Pytorch Code
-
-<br>
-
-[deep learning 관련 글 목차](https://gaussian37.github.io/dl-concept-table/)
+- ### [Abstract](#abstract-1)
+- ### [Introduction](#introduction-1)
+- ### [Related works](#related-works-1)
+- ### [Proposed Harmonic DenseNet](#proposed-harmonic-densenet-1)
+- ### [Experiments](#Experiments-1)
+- ### [Discussion](#Discussion-1)
+- ### [Concolusion](#Concolusion-1)
+- ### [Pytorch Code](#pytorch-code-1)
 
 <br>
 
