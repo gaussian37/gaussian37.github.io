@@ -9,4 +9,8 @@ tags: [딥러닝, deep learning, ddp, distributed data parallel, pytorch] # add 
 
 <br>
 
-
+- 참조 : https://pytorch.org/docs/master/notes/ddp.html
+- 참조 : https://pytorch.org/tutorials/intermediate/dist_tuto.html
+- 참조 : https://tutorials.pytorch.kr/intermediate/dist_tuto.html
+- 참조 : https://arxiv.org/pdf/2006.15704.pdf
+- 참조 : https://stackoverflow.com/questions/58671916/in-torch-distributed-how-to-average-gradients-on-different-gpus-correctly
