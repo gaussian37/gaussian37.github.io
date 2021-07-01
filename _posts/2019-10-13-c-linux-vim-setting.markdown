@@ -57,8 +57,8 @@ set showmatch    " 매칭되는 괄호를 보여줌
 set nowrap         " 자동 줄바꿈 하지 않음
 set wmnu           " tab 자동완성시 가능한 목록을 보여줌
 set showcmd        " show (partial) command in status line
-set paste
 syntax on        " 문법 하이라이트 킴"
+# set paste
 ```
 
 <br>
