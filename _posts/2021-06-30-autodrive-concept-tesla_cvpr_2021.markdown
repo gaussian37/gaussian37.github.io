@@ -17,7 +17,7 @@ tags: [자율주행, 자율주행 자동차, 테슬라, cvpr, cvpr 2021, worksho
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/NSDTZQdo6H8" frameborder="0" allowfullscreen="true" width="800px" height="600px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/NSDTZQdo6H8" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
 
 <br>
