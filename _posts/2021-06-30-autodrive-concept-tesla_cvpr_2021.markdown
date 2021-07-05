@@ -17,7 +17,7 @@ tags: [자율주행, 자율주행 자동차, 테슬라, cvpr, cvpr 2021, worksho
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/NSDTZQdo6H8" frameborder="0" allowfullscreen="true" width="800px" height="800px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/NSDTZQdo6H8" frameborder="0" allowfullscreen="true" width="800px" height="600px"> </iframe>
 </div>
 
 <br>
@@ -128,6 +128,8 @@ tags: [자율주행, 자율주행 자동차, 테슬라, cvpr, cvpr 2021, worksho
 <center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/14.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 좀 더 자세한 설명은 아래 링크를 참조해 주시기 바랍니다.
+    - 링크 : [https://gaussian37.github.io/autodrive-concept-fleet_learning/](https://gaussian37.github.io/autodrive-concept-fleet_learning/)
 - 앞에서 사용하는 쉐도우 모두의 flow를 정리하면 위 그림과 같습니다. 시작은 오른쪽 상단의 Train 부터 시작합니다.
 - ① `Train` : 기본적인 기초 데이터로 뉴럴넷을 학습 시킵니다.
 - ② `Deploy` : 고객 차량에서 쉐도우 모드로 사용할 뉴럴넷을 배포시킵니다.
@@ -156,7 +158,63 @@ tags: [자율주행, 자율주행 자동차, 테슬라, cvpr, cvpr 2021, worksho
 <center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/17.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 현재 테슬라에는 슈퍼 컴퓨터를 보유하고 있으며 FLOP 측면에서 세계 5위의 슈퍼 컴퓨터라고 합니다. 상세한 하드웨어 스펙은 위 장표를 참조하시기 바랍니다. 이러한 슈퍼 컴퓨터의 지원으로 대용량 데이터로 학습이 가능해졌으며 컴퓨터 비전 기반의 자율 주행 시스템 구축을 하였습니다.
+- 현재 테슬라에는 슈퍼 컴퓨터를 보유하고 있으며 FLOP 측면에서 세계 5위의 슈퍼 컴퓨터라고 합니다. 
+- **A100 GPU 8개를 가지는 컴퓨터 720개를 묶은 컴퓨터이므로 총 5760개의 GPU를 사용 중**입니다. 상세한 하드웨어 스펙은 위 장표를 참조하시기 바랍니다. 이러한 슈퍼 컴퓨터의 지원으로 대용량 데이터로 학습이 가능해졌으며 컴퓨터 비전 기반의 자율 주행 시스템 구축을 하였습니다.
+- 또한 학습 시 사용된 gradient를 잘 효율적으로 동기화가 잘 되도록 연구하여 적용하고 있습니다.
+- 테슬라의 이러한 슈퍼 컴퓨터 프로젝트를 `DOJO`라고 하고 있으며 계속 발전되고 있다고 합니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/18.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 실제 테슬라에서 사용하는 하드웨어 칩의 사양은 위와 같습니다. 12 CPU와 GPU 그리고 NPU 까지 사용되는 것을 알 수 있습니다.
+- Graph Optimization과 Int8 Quantization Aware Training을 적용하여 최적화 하는 것도 확인할 수 있습니다.
+- 테슬라는 소프트웨어 뿐 아니라 하드웨어 까지 자체 설계하는 것으로 알려져 있습니다. 즉, 소프트웨어에 적합한 하드웨어 또는 하드웨어에 적합한 소프트웨어를 동시에 고려하여 만들 수 있습니다.
+
+<br>
+
+- 그 다음으로 테슬라에서 레이더를 포함한 센서 퓨전의 결과가 비전만을 이용한 결과에 비하여 어떤 문제를 일으켰는 지 예시를 보여줍니다.
+- 핵심 내용은 **레이더를 사용하지 않게 된 이유**라고 보시면 됩니다.
+- 앞으로 3가지 예시에서 노란색이 레이더를 사용한 센서 퓨전의 결과이고 파란색이 현재 사용하는 비전만 사용한 결과입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/19.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 예시의 그래프는 위에서 부터 차례대로 상대 위치, 속도, 가속도를 뜻합니다. 
+- 노란색의 그래프는 레이더를 포함한 센서 퓨전한 결과이며 감속이 심하게 발생하며 물체를 추적하는 tracker가 끊김이 발생한 문제가 있었습니다. 위 예시의 센서 퓨전 결과에서는 같은 물체를 6번이 새로운 물체로 판단하게 되었다고 합니다. 반면 파란색 선의 비전에서는 그러한 문제가 발생하지 않았습니다. 파란색 선은 뉴럴넷의 출력 그대로를 표시한 것입니다.
+- 물론 레이더의 파라미터를 바꾸어가면서 그 원인을 파악할 수 있지만 그 노력을 오히려 비전 시스템 개선에 두는 것이 더 낫다고 판단하여 레이더는 제거하기로 하였다고 합니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/20.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 또다른 레이더의 문제를 살펴보겠습니다. 레이더는 수직 방향의 해상도가 좁습니다. 따라서 도로 위에 있는 다리를 정지되어 있는 물체로 오인식 하는 경우가 발생한다고 합니다.
+- 노란색 선의 상대 속도를 보면 다리를 도로 위의 정지된 물체로 파악하고 급감속을 하는 것을 확인할 수 있습니다. 반면 파란색의 비전 시스템에서는 약간 감속하는 것을 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/21.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 마지막 예시는 고속 상황에서의 실제 정차된 차량이 있는 경우입니다.
+- 파란색 선의 비전 시스템의 경우 실제 정지된 차량을 일찍 인식하여 이른 시간에 감속해야 함을 확인하였지만 주황색 선의 센서 퓨전의 경우 오히려 늦은 시간에 감속해야 한다고 판단하였습니다. 오히려 비전 시스템을 방해한 경우라고 볼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/22.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 현재 테슬라의 검증 및 배포 환경은 위와 같습니다.
+- 설명 중 인상적이었던 내용은 레이더를 포함한 센서 퓨전 결과의 배포 시에는 500만 마일 당 사고가 발생한 반면 비전만 사용한 경우 1500만 마일의 주행 중에도 사고가 발생하지 않았다고 합니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/22.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 테슬라에서의 발표를 정리하면 비전 시스템 만으로 `뎁스 추정`이 가능하다고 하며 (왜냐하면 비전은 정보의 대역폭이 넓은 좋은 센서이기 때문입니다.) 이를 위해서는 아래 4가지의 조건이 필요합니다.
+- ① **뉴럴넷을 학습할 슈퍼 컴퓨터**
+- ② **대용량의 학습 데이터를 수집할 Fleet 차량**
+- ③ **대용량의 학습 데이터를 관리한 시스템**
+- ④ **학습 데이터 수집, 학습 및 배포를 하기 위한 전체 Flow** 
 
 <br>
 
