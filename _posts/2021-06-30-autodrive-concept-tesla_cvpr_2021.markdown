@@ -16,6 +16,11 @@ tags: [자율주행, 자율주행 자동차, 테슬라, cvpr, cvpr 2021, worksho
 - 출처 : https://www.youtube.com/watch?v=NSDTZQdo6H8
 
 <br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/NSDTZQdo6H8" frameborder="0" allowfullscreen="true" width="800px" height="800px"> </iframe>
+</div>
+
+<br>
 
 - 이번 글은 Andrej Karpathy가 CVPR 2021에서 발표한 Vision만을 이용하여 어떻게 테슬라에서 자율주행을 하는 지에 대한 간략한 설명을 정리하였습니다.
 - 영상의 주요 내용은 `Vision`만으로도 자율주행을 위한 인식이 사용 가능하다는 것과 vision의 성능을 향상하기 위하여 어떻게 데이터를 구축하였는 지에 대한 내용입니다.
@@ -82,6 +87,76 @@ tags: [자율주행, 자율주행 자동차, 테슬라, cvpr, cvpr 2021, worksho
 - 이와 같은 상황에서 영상에서 인식한 거리, 속도 등의 정보와 레이더의 정보를 센서 퓨전하는 데 어려움이 있습니다.
 - 다행이도 대량의 데이터로 학습한 영상 기반의 뉴럴넷에서 인식한 거리와 속도가 레이더에서 인식한 것과 유사한 수준에서 확인할 수 있었습니다. 따라서 레이더 없이 영상 기반으로 거리, 속도를 인식할 수 있었습니다. 여기서 핵심은 `데이터 수집`입니다.
 
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 뉴럴넷이 잘 동작하기 위해서는 `Large`, `Clean`, `Diverse` 조건을 만족해야 합니다.
+- 먼저 `Large` 즉, 수백만개의 데이터 비디오가 필요합니다. 일단 어느 정도 양을 충족해야 합니다.
+- 그 다음으로 `Clean` 즉, 각 데이터는 질이 좋게 라벨링이 되어야 하며 물체를 인식할 때 필요한 depth, velocity, acceleration 등이 포함됭야 합니다.
+- 마지막으로 `Diverse` 즉, 일반적인 상황의 데이터가 아니라 예외적인 상황까지 포함된 데이터이어야 합니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 모든 데이터를 수작업으로 맡기면 이 작업 또한 굉장히 많은 비용일 발생합니다. 따라서 데이터 수집의 자동화를 위하여 Data Auto Labelling 즉, 데이터를 자동으로 라벨링 하는 작업을 진행하였습니다.
+- 모든 Frame을 실시간으로 처리하는 방식과는 다르게 별도의 뉴럴넷이 동작하고 있으며 이 뉴럴넷의 예측을 통하여 데이터 라벨링을 부분적으로 자동화 할 수 있습니다. 이 때 사용되는 뉴럴넷은 실시간으로 동작할 필요가 없으므로 조금 더 신중하게 작업을 하도록 할 수 있도록 수행 속도는 느리지만 고성능의 뉴럴넷 모델을 사용할 수 있습니다. 이와 같이 실시간 인식 성능에 연관된 모델과 별도로 고객 차량에서 별도로 Data Auto Labelling을 위한 작업을 수행하는 데 이를 `쉐도우 모드`라고 합니다.
+- 물론 이 모든 작업이 완전 자동화는 아니며 작업자가 Auto Labelling된 데이터를 정리 및 검수를 해야합니다. 하지만 이 과정을 통하여 라벨링 작업을 자동화는 할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림에서는 카메라에 물이 튀어서 뿌옇게 보이는 상황을 나타냅니다. 이런 다양한 데이터를 수집하는 데 Data Auto Labelling 시스템은 중요합니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림에서는 눈이오는 환경에서의 주행 데이터 입니다. 이와 같은 데이터도 일반적이지 않은 데이터의 예시입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 모든 데이터를 다 수집하면 데이터의 양이 너무 방대해질 뿐 아니라 불필요한 데이터까지 수집될 수 있습니다.
+- 따라서 테슬라는 221개의 트리거를 사용하여 위 예시에 해당하는 트리거에 만족할 때, Data Auto Labelling을 수행하고 있습니다.
+- 221개의 트리거 중 일부 공개한 위 예시를 보면 어떤 전략을 통하여 데이터를 수집하는 지 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/14.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 사용하는 쉐도우 모두의 flow를 정리하면 위 그림과 같습니다. 시작은 오른쪽 상단의 Train 부터 시작합니다.
+- ① `Train` : 기본적인 기초 데이터로 뉴럴넷을 학습 시킵니다.
+- ② `Deploy` : 고객 차량에서 쉐도우 모드로 사용할 뉴럴넷을 배포시킵니다.
+- ③ 그 다음 쉐도우 모드에서 뉴럴넷이 예측을 합니다.
+- ④ `Inaccuracy` : **뉴럴넷의 부정확성을 찾아내는 도구**가 필요하며 앞에서 설명한 221개의 트리거를 사용하면 네트워크가 잘못 동작하는 시나리오를 확인할 수 있습니다. 
+- ⑤ 이런 시나리오를 자동 라벨링 하게 되고 학습 데이터에 다시 적용하도록 합니다. 그리고 비동기 프로세스로 항상 현재 학습 데이터를 정리하는 작업을 합니다.
+- ⑥ 앞의 과정을 계속 반복하면서 뉴럴넷의 성능을 계속 향상시키며 이 과정을 반복합니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/15.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 테슬라의 2021 CVPR 발표 이전에 뉴럴넷 배포에 사용한 방법 예시를 보면 다음과 같습니다.
+- ① 총 7번의 쉐도우 모드를 실행하였습니다.
+- ② 다양한 시나리오의 백만건의 8 카메라-36fps-10초 정도의 비디오를 로깅하였습니다.
+- ③ 모든 데이터에 포함된 내용을 살펴보면 60억 건의 object label이 있습니다. (각 object label은 정확한 depth와 velocity 정보를 가집니다.)
+- ④ 이 모든 데이터를 합하였을 때, 약 1.5 페타 바이트의 용량을 가집니다. (기존 데이터 + 쉐도우 모드로 자동 라벨링 한 데이터의 총 합이라고 생각됩니다.)
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/16.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 1.5 페타 바이트의 거대한 데이터를 위 그림과 같은 뉴럴넷 아키텍쳐에서 학습을 하게 됩니다. 이 때, 대용량의 데이터를 다소 복잡한 네트워크에 학습하려고 한다면 고성능 컴퓨팅 파워가 필요합니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2021/17.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 현재 테슬라에는 슈퍼 컴퓨터를 보유하고 있으며 FLOP 측면에서 세계 5위의 슈퍼 컴퓨터라고 합니다. 상세한 하드웨어 스펙은 위 장표를 참조하시기 바랍니다. 이러한 슈퍼 컴퓨터의 지원으로 대용량 데이터로 학습이 가능해졌으며 컴퓨터 비전 기반의 자율 주행 시스템 구축을 하였습니다.
 
 <br>
 
