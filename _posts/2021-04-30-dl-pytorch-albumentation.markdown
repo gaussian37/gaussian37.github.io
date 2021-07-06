@@ -13,6 +13,7 @@ tags: [deep learning, augmentation, albumentation, pytorch] # add tag
 
 <br>
 
+- 참조 : https://youtu.be/c3h7kNHpXw4
 - 참조 : https://github.com/albumentations-team/albumentations
 - 참조 : https://albumentations.ai/docs/
 - 참조 : https://hoya012.github.io/blog/albumentation_tutorial/
@@ -25,7 +26,7 @@ tags: [deep learning, augmentation, albumentation, pytorch] # add tag
 
 - ### albumentation 이란
 - ### albumentation 설치 및 기본 사용 방법
-- ### Pytorch에서의 사용 방법
+- ### pytorch에서의 사용 방법
 
 <br>
 
@@ -61,7 +62,10 @@ tags: [deep learning, augmentation, albumentation, pytorch] # add tag
     - 명령어 : `pip install -U albumentations`
 - albumentation을 위한 전체 document는 아래 링크를 참조하시면 됩니다.
     - 링크 : [https://albumentations.ai/docs/](https://albumentations.ai/docs/)
-- 
+- albumentation은 pytorch의 `DataSet`과 `DataLoader`의 역할을 합니다. 따라서 이 2가지 기능에 대해서는 반드시 숙지하시길 바랍니다.
+    - 관련 링크 : [https://gaussian37.github.io/dl-pytorch-dataset-and-dataloader/](https://gaussian37.github.io/dl-pytorch-dataset-and-dataloader/)
+
+
 
 
 
