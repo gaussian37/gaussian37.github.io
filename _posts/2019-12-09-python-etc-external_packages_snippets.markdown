@@ -4,7 +4,7 @@ title: python 외부 package snippets
 date: 2019-12-09 00:00:00
 img: python/etc/external_packages/0.png
 categories: [python-etc] 
-tags: [python, external packages, snippets] # add tag
+tags: [python, external packages, snippets, tqdm, pygame, pyautogui, sourcedefender, moviepy] # add tag
 ---
 <br>
 
@@ -12,10 +12,74 @@ tags: [python, external packages, snippets] # add tag
 
 <br>
 
+- ### tqdm을 이용한 progress 출력
 - ### pygame 으로 mp3 파일 출력
 - ### pyautogui 으로 화면 해상도 출력
 - ### sourcedefender를 이용한 소스코드 암호화
 - ### moviepy를 이용한 동영상 붙이기
+
+<br>
+
+## **tqdm을 이용한 progress 출력**
+
+<br>
+
+- `tqdm`을 사용하면 파이썬에서 현재 진행중인 loop나 작업의 진행 사항을 progress bar 형태로 알 수 있습니다.
+- 사용 방법은 다음과 같습니다. `iterable`을 `tqdm`으로 감싸기만 하면 됩니다.
+
+<br>
+
+```python
+from tqdm import tqdm
+import time
+
+text = ""
+for char in tqdm(["a", "b", "c", "d"]):
+    time.sleep(0.25)
+    text = text + char
+
+# 100%|████| 4/4 [00:01<00:00,  3.84it/s]
+```
+
+<br>
+
+- 위 예시는 `iterable`인 `list`를 `tqdm`으로 감싸 예제입니다. 
+
+<br>
+
+```python
+from tqdm import tqdm
+import time
+for i in tqdm(range(100), desc="tqdm example"):
+    time.sleep(0.1)
+
+# tqdm example: 100%|████| 100/100 [00:10<00:00,  9.41it/s]
+
+```
+
+<br>
+
+- 위 예시와 같이 `range`를 `tqdm`으로 감싸서 사용할 수 있습니다. `desc`는 `tqdm` 출력의 description으로 사용됩니다.
+
+<br>
+
+- 간혹 사용하는 환경에 따라 같은 line에서 tqdm의 출력이 업데이트 되지 않고 new line으로 progress bar가 출력되는 경우가 발생합니다.
+- 이 경우 progress bar를 한 줄에서 관찰할 수 없으므로 불편합니다. 이 경우 `ascii=True` 옵션을 적용하여 해결할 수 있습니다. 이 경우 Progressbar에 사용된 문자가 지원이 안되어 깨진 상태입니다.
+
+<br>
+
+```python
+from tqdm import tqdm
+import time
+for i in tqdm(range(100), ascii=True):
+    time.sleep(0.1)
+
+# 95%|#######9| 95/100 [00:10<00:00,  9.50it/s]
+```
+
+<br>
+
+- `ascii=True`를 적용하였을 때, Progressbar가 #과 숫자 형태로 나타나는 것을 확인할 수 있습니다.
 
 <br>
 
