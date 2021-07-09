@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Focal Loss for Dense Object Detection
+title: Focal Loss 와 Focal Tvresky Loss 
 date: 2021-04-30 00:00:00
 img: dl/concept/focal_loss/0.png
 categories: [dl-concept]
