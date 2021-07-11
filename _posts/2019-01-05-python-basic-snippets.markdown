@@ -56,6 +56,7 @@ tags: [python, python 기본] # add tag
 - #### [숫자에 0을 채워서 출력](#숫자에-0을-채워서-출력-1)
 - #### [문자열 양 끝의 공백 문자 없애기](#문자열-양-끝의-공백-문자-없애기-1)
 - #### [os 관련 함수 모음](#os-관련-함수-모음-1)
+- #### [glob을 이용한 폴더 및 파일 접근](#glob을-이용한-폴더-및-파일-접근-1)
 - #### [pickle 사용 방법](#pickle-사용-방법-1)
 - #### [exec을 이용한 문자열로 코드 실행](#exec을-이용한-문자열로-코드-실행-1)
 - #### [type과 isinstance를 통한 데이터 타입 확인](#type과-isinstance를-통한-데이터-타입-확인-1)
@@ -70,10 +71,6 @@ tags: [python, python 기본] # add tag
 - #### [Dictionary와 JSON](#dictionary와-json-1)
 - #### [Dicionary의 최대, 최소 value 찾기](#dicionary의-최대-최소-value-찾기-1)
 - #### [copy를 이용한 deepcopy](#copy를-이용한-deepcopy-1)
-- #### [glob을 이용한 폴더 및 파일 접근](#glob을-이용한-폴더-및-파일-접근-1)
-- #### [파일 목록 얻기](#파일-목록-얻기-1)
-- #### [디렉토리 다루기](#디렉토리-다루기-1)
-- #### [경로명 분리하기](#경로명-분리하기-1)
 
 <br>
 
@@ -1545,11 +1542,16 @@ os.environ['HOME'] # 'HOME' 대신에 다양한 시스템 정보들이 들어갈
 os.environ.get('HOME')
 os.path.isfile('filename')
 os.path.isdir('dirname')
-os.path.exists(path) # path가 존재하는 지 확인
-os.mkdir(folder_name) # 현재 경로에 folder 생성
+
+# path가 존재하는 지 확인
+os.path.exists(path) 
+
+# 현재 경로에 folder 생성
+os.mkdir(folder_name) 
 
 # 지정된 path에 folder 생성하며 path에 포함된 branch 까지 생성
 # 예를 들어 path가 ./A/B/C 이고 B/C가 없다면 마지막 C를 생성할 때까지 중간에 필요한 폴더 계층을 모두 생성합니다.
+# mkdir과 유사하지만 중간에 sub directory 까지 한번에 만들어 줍니다.
 os.makedirs(path) 
 
 # 현재 디렉토리의 절대 경로를 출력함
@@ -1560,6 +1562,52 @@ os.chdir(path)
 # cmd 명령어 입력
 command = "ls -al"
 os.system(command)
+
+# 작업하고 있는 디렉토리 변경
+os.chdir(path)
+
+# 현재 프로세스의 작업 디렉토리 얻기
+os.getcwd()
+
+# 파일이나 디렉토리 지우기
+os.remove(file_path or path)
+
+# 파일의 상대 경로를 절대 경로로 바꾸는 함수
+os.path.abspath(file_path)
+
+# 주어진 경로의 파일이 있는지 확인하는 함수
+os.path.exists(file_path)
+
+# 현재 디렉토리 얻기
+os.curdir()
+
+# 부모 디렉토리 얻기
+os.pardir()
+
+# 디렉토리 분리 문자 얻기. . windows는 \ linux는 / 를 반환합니다.
+os.sep() 
+
+# 파일명만 추출
+os.path.basename(file_path)
+
+# 디렉토리 경로 추출
+os.path.dirname(file_path)
+
+# 마지막 디렉토리 폴더명 추출
+path = "folder_A/folder_B/folder_C/folder_D"
+os.path.basename(os.path.normpath(path))
+# folder_D
+
+# 경로와 파일명을 분리
+os.path.split(file_path)
+
+# 드라이브명과 나머지 분리 (MS Windows의 경우)
+os.path.splitdrive(file_path)
+
+# 확장자와 나머지 분리
+os.path.splitext(file_path)
+
+
 ```
 
 <br>
@@ -1577,6 +1625,29 @@ os.system(command)
 
 - 파이썬에서 시스템 커맨드를 입력하려면 `os.system(command)`를 이용하면 됩니다.
 - 시스템 상에서 사용할 수 있는 유용한 명령어들을 파이썬 함수 내에서 사용할 수 있기 때문에 굉장히 유용하게 사용할 수 있습니다.
+
+<br>
+
+## **glob을 이용한 폴더 및 파일 접근**
+
+<br>
+
+- `glob`은 파이썬을 이용하여 파일을 탐색할 때, 굉장히 유용한 라이브러리입니다. 보통 `os`의 `os.listdir()`과 같은 방식을 많이 이용합니다. 다만 검색 조건이 필요할 때에 `glob`을 사용하면 쉽게 구현할 수 있습니다.
+- 아래는 현재 위치 기준에서 2-depth 아래에 있는 파이썬 파일을 찾는 코드 입니다. 핵심은 `path`에 사용된 문자열이며 문자열의 정규식을 어떻게 사용하는 지에 따라서 찾는 조건이 달라집니다. glob의 기본적인 사용방법은 다음과 같습니다.
+    - `glob.glob(wildcard_type_path)` : 정규식 형태의 스타일로 파일 목록을 얻을 수 있습니다.
+
+<br>
+
+```python
+import glob
+
+path = "./*/*.py"
+file_list = glob.glob(path)
+file_list_py = [file for file in file_list]
+# file_list_py = [file for file in file_list if file.endswith(".py")]
+
+print ("file_list_py: {}".format(file_list_py))
+```
 
 <br>
 
@@ -2108,99 +2179,15 @@ object2 = deepcopy(object1)
 
 <br>
 
-## **glob을 이용한 폴더 및 파일 접근**
-
-<br>
-
-- `glob`은 파이썬을 이용하여 파일을 탐색할 때, 굉장히 유용한 라이브러리입니다. 보통 `os`의 `os.listdir()`과 같은 방식을 많이 이용합니다. 다만 검색 조건이 필요할 때에 `glob`을 사용하면 쉽게 구현할 수 있습니다.
-- 아래는 현재 위치 기준에서 2-depth 아래에 있는 파이썬 파일을 찾는 코드 입니다. 핵심은 `path`에 사용된 문자열이며 문자열의 정규식을 어떻게 사용하는 지에 따라서 찾는 조건이 달라집니다.
-
-<br>
-
-```python
-import glob
-
-path = "./*/*.py"
-file_list = glob.glob(path)
-file_list_py = [file for file in file_list]
-# file_list_py = [file for file in file_list if file.endswith(".py")]
-
-print ("file_list_py: {}".format(file_list_py))
-```
-
-<br>
-
 ## **파일 목록 얻기**
 
 <br>
 
 ```python
-# 유닉스 경로명 패턴 스타일로 파일 목록을 얻을 수 있다. 
-glob.glob(wildcard_type_path)
+
 
 # 지정된 디렉토리의 전체 파일 목록을 얻을 수 있다. 
 os.listdir(path)
-```
-
-<br>
-
-## **디렉토리 다루기**
-
-<br>
-
-```python
-# 작업하고 있는 디렉토리 변경
-os.chdir(path)
-
-# 현재 프로세스의 작업 디렉토리 얻기
-os.getcwd()
-
-# 파일이나 디렉토리 지우기
-os.remove(file_path or path)
-
- # 디렉토리 만들기
-os.mkdir(path)
-
-# mkdir과 유사하지만 중간에 sub directory 까지 한번에 만들어 줍니다.
-os.makedirs(path)
-
-# 파일의 상대 경로를 절대 경로로 바꾸는 함수
-os.path.abspath(file_path)
-
-# 주어진 경로의 파일이 있는지 확인하는 함수
-os.path.exists(file_path)
-
-# 현재 디렉토리 얻기
-os.curdir()
-
-# 부모 디렉토리 얻기
-os.pardir()
-
-# 디렉토리 분리 문자 얻기. . windows는 \ linux는 / 를 반환합니다.
-os.sep() 
-```
-
-<br>
-
-## **경로명 분리하기**
-
-<br>
-
-```python
-# 파일명만 추출
-os.path.basename(file_path)
-
-# 디렉토리 경로 추출
-os.path.dirname(file_path)
-
-# 경로와 파일명을 분리
-os.path.split(file_path)
-
-# 드라이브명과 나머지 분리 (MS Windows의 경우)
-os.path.splitdrive(file_path)
-
-# 확장자와 나머지 분리
-os.path.splitext(file_path)
 ```
 
 <br>

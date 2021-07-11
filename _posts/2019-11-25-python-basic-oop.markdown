@@ -18,12 +18,12 @@ tags: [python, oop, object oriented, 객체 지향] # add tag
 
 <br>
 
-- ### __init__과 __call__의 차이점(#__init__과-__call__의-차이점-1)
-- ### 상속과 다형성(#상속과-다형성)
-- ### 객체의 생성과 초기화(#객체의-생성과-초기화)
-- ### __str__과 __repr__의 차이점(#__str__과-__repr__의-차이점-1)
-- ### __getattr__ 와 __getattribute__(#__getattr__-와-__getattribute__-1)
-- ### __bytes__(#__bytes__)
+- ### [__init__과 __call__의 차이점](#__init__과-__call__의-차이점-1)
+- ### [상속과 다형성](#상속과-다형성)
+- ### [객체의 생성과 초기화](#객체의-생성과-초기화)
+- ### [__str__과 __repr__의 차이점](#__str__과-__repr__의-차이점-1)
+- ### [__getattr__ 와 __getattribute__](#__getattr__-와-__getattribute__-1)
+- ### [__bytes__](#__bytes__)
 
 <br>
 
