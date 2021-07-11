@@ -1607,6 +1607,13 @@ os.path.splitdrive(file_path)
 # 확장자와 나머지 분리
 os.path.splitext(file_path)
 
+# 파일 사이즈 계산
+MB = 1024 ** 2
+GB = 1024 ** 3
+# Mega Byte 단위로 표현
+os.path.getsize(file_path) // MB
+# Giga Byte 단위로 표현
+os.path.getsize(file_path) // GB
 
 ```
 
