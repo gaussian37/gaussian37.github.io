@@ -4,7 +4,7 @@ title: S3 storage를 위한 boto3 사용법 정리
 date: 2021-05-19 13:46:00
 img: python/etc/s3_storage_for_boto3/0.png
 categories: [python-etc] 
-tags: [python, amazon, aws, s3 storage, boto3, s3 upload download] # add tag
+tags: [python, amazon, aws, s3 storage, boto3, s3 upload download, bot3 사용법, s3 upload, s3 download] # add tag
 ---
 
 <br>
