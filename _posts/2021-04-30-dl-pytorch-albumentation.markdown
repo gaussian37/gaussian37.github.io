@@ -24,14 +24,45 @@ tags: [deep learning, augmentation, albumentation, pytorch] # add tag
 
 <br>
 
-- ### albumentation 이란
-- ### albumentation 설치 및 기본 사용 방법
-- ### pytorch에서의 사용 방법
+- ### [albumentation 이란](#)
+- ### [albumentation 설치 및 기본 사용 방법](#)
+- ### [pytorch에서의 사용 방법](#)
 
 <br>
 
 - ## **자주 사용하는 이미지 augmentation 리스트**
-- ### 
+
+<br>
+
+- ### [ColorJitter](#)
+
+<br>
+
+- ### [GaussNoise](#)
+- ### [ISONoise](#)
+- ### [GaussianBlur](#)
+- ### [MotionBlur](#)
+- ### [ImageCompression](#)
+
+<br>
+
+- ### [RandomFog](#)
+- ### [RandomGamma](#)
+- ### [RandomRain](#)
+- ### [RandomShadow](#)
+- ### [RandomSnow](#)
+- ### [RandomSunFlare](#)
+
+<br>
+
+- ### [Flip](#)
+- ### [GridDistortion](#)
+- ### [Perspective](#)
+
+<br>
+
+- ### [RandomResizedCrop](#)
+- ### [RandomRotate90 & Resize](#)
 
 <br>
 
@@ -40,9 +71,15 @@ tags: [deep learning, augmentation, albumentation, pytorch] # add tag
 <br>
 
 - `albumentation`은 **이미지 augmentation을 쉽고 효율적으로** 할 수 있도록 만든 라이브러리 입니다.
-- 딥러닝 기반의 이미지 어플리케이션을 개발할 때에는 제한된 학습 이미지로 인하여 augmentation은 필수적으로 사용하고 있습니다.
-- Pytorch를 기준으로 예시를 들면 torchvision이라는 패키지를 이용하여 다양한 transform을 할 수 있도록 지원하고 있습니다.
+- 딥러닝 기반의 이미지 어플리케이션을 개발할 때에는 제한된 학습 이미지로 인하여 augmentation은 필수적으로 사용하고 있습니다. Pytorch를 기준으로 예시를 들면 torchvision이라는 패키지를 이용하여 다양한 transform을 할 수 있도록 지원하고 있습니다.
 - 이번 글에서 설명할 `albumentation`은 torchvision에서 지원하는 transform 보다 더 효율적이면서도 다양한 augmentation 기법을 지원합니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/albumentation/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 뿐만 아니라 이미지 기반 딥러닝 어플리케이션 중 대표적인 세그멘테이션(Masks), 2D object detection(BBoxes) 그리고 Keypoints를 자동으로 augmentation에 적용시켜 줍니다.
+- 예를 들어 위 예제와 같이 Crop을 하면 Mask 또한 Crop이되고 BBox와 Keypoint 또한 Crop을 반영한 좌표가 적용됩니다. 이 점을 잘 이용하면 굉장히 쉽게 augmentation을 적용할 수 있습니다.
 
 <br>
 <center><img src="../assets/img/dl/pytorch/albumentation/1.png" alt="Drawing" style="width: 800px;"/></center>
@@ -65,8 +102,132 @@ tags: [deep learning, augmentation, albumentation, pytorch] # add tag
 - albumentation은 pytorch의 `DataSet`과 `DataLoader`의 역할을 합니다. 따라서 이 2가지 기능에 대해서는 반드시 숙지하시길 바랍니다.
     - 관련 링크 : [https://gaussian37.github.io/dl-pytorch-dataset-and-dataloader/](https://gaussian37.github.io/dl-pytorch-dataset-and-dataloader/)
 
+<br>
+
+## **pytorch에서의 사용 방법**
+
+<br>
+
+<br>
 
 
+## **자주 사용하는 이미지 augmentation 리스트**
+
+<br>
+
+## **ColorJitter**
+
+<br>
+
+<br>
+
+
+<br>
+
+## **GaussNoise**
+
+<br>
+
+<br>
+
+## **ISONoise**
+
+<br>
+
+<br>
+
+## **GaussianBlur**
+
+<br>
+
+<br>
+
+## **MotionBlur**
+
+<br>
+
+<br>
+
+## **ImageCompression**
+
+<br>
+
+<br>
+
+
+<br>
+
+## **RandomFog**
+
+<br>
+
+<br>
+
+## **RandomGamma**
+
+<br>
+
+<br>
+
+## **RandomRain**
+
+<br>
+
+<br>
+
+## **RandomShadow**
+
+<br>
+
+<br>
+
+## **RandomSnow**
+
+<br>
+
+<br>
+
+## **RandomSunFlare**
+
+<br>
+
+<br>
+
+
+<br>
+
+## **Flip**
+
+<br>
+
+<br>
+
+## **GridDistortion**
+
+<br>
+
+<br>
+
+## **Perspective**
+
+<br>
+
+<br>
+
+
+<br>
+
+## **RandomResizedCrop**
+
+<br>
+
+<br>
+
+## **RandomRotate90 & Resize**
+
+<br>
+
+<br>
 
 
 

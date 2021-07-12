@@ -597,7 +597,12 @@ tags: [딥러닝, 머신러닝, Andrew Ng, Machine Learning Yearning] # add tag
 
 <br>
 
-### **18. "눈알"과 "블랙박스" 개발데이터셋은 얼마나 커야 할까?**
+### **18. Eyeball과 Blackbox 개발데이터셋은 얼마나 커야 할까?**
+
+<br>
+
+
+
 
 
 <br>
