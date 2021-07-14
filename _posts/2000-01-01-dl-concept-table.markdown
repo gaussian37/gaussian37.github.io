@@ -55,9 +55,10 @@ tags: [python, deep learning, dl] # add tag
 
 <br>
 
-- [Bag of Tricks for Image Classification with Convolutional Neural Networks]()
+- [Bag of Tricks for Image Classification with Convolutional Neural Networks](https://gaussian37.github.io/dl-concept-bag_of_tricks_for_image_classification/)
 - [경량 딥러닝 기술 동향](https://gaussian37.github.io/dl-concept-light_weight_dl/)
-- 스마트폰 위의 딥러닝
+- [Quantization과 Quantization Aware Training](https://gaussian37.github.io/dl-concept-quantization/)
+- [더 효율적이고 경량회된 Convolution Neural Network 설계 기법]()
 
 <br>
 
