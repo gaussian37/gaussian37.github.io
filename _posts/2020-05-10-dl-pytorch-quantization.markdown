@@ -22,9 +22,6 @@ tags: [딥러닝, deep learning, quantization, pytorch] # add tag
 
 <br>
 
-
-<br>
-
 ## **Pytorch Quantization Aware Training 예시**
 
 <br>
@@ -336,7 +333,7 @@ def main():
     quantized_model_filepath = os.path.join(model_dir, quantized_model_filename)
 
     set_random_seeds(random_seed=random_seed)
-
+    
     # Create an untrained model.
     model = create_model(num_classes=num_classes)
 
@@ -347,9 +344,13 @@ def main():
     model = train_model(model=model, train_loader=train_loader, test_loader=test_loader, device=cuda_device, learning_rate=1e-1, num_epochs=200)
     # Save model.
     save_model(model=model, model_dir=model_dir, model_filename=model_filename)
+    
+    # ① floating point 타입으로 모델을 학습하거나 pre-trained 모델을 불러옵니다.
     # Load a pretrained model.
     model = load_model(model=model, model_filepath=model_filepath, device=cuda_device)
     # Move the model to CPU since static quantization does not support CUDA currently.
+    
+    # ② 모델을 CPU 상태로 두고 학습 모드로 변환합니다. (model.train())
     model.to(cpu_device)
     # Make a copy of the model for layer fusion
     fused_model = copy.deepcopy(model)
@@ -358,7 +359,8 @@ def main():
     # The model has to be switched to training mode before any layer fusion.
     # Otherwise the quantization aware training will not work correctly.
     fused_model.train()
-
+    
+    # ③ layer fusion을 적용합니다.
     # Fuse the model in place rather manually.
     fused_model = torch.quantization.fuse_modules(fused_model, [["conv1", "bn1", "relu"]], inplace=True)
     for module_name, module in fused_model.named_children():
@@ -374,17 +376,22 @@ def main():
     # Print fused model.
     print(fused_model)
 
+    # ④ 모델을 평가 모드로 변환 후 (model.eval()) layer fusion이 잘 적용되었는 지 확인합니다. 확인 후에는 다시 학습 모드로 변경해 줍니다.
     # Model and fused model should be equivalent.
     model.eval()
     fused_model.eval()
     assert model_equivalence(model_1=model, model_2=fused_model, device=cpu_device, rtol=1e-03, atol=1e-06, num_tests=100, input_size=(1,3,32,32)), "Fused model is not equivalent to the original model!"
 
+    
+    # ⑤ input에는 torch.quantization.QuantStub()를 적용시키고 output에는 torch.quantization.DeQuantStub()을 적용시킵니다.
     # Prepare the model for quantization aware training. This inserts observers in
     # the model that will observe activation tensors during calibration.
     quantized_model = QuantizedResNet18(model_fp32=fused_model)
     # Using un-fused model will fail.
     # Because there is no quantized layer implementation for a single batch normalization layer.
     # quantized_model = QuantizedResNet18(model_fp32=model)
+    
+    # ⑥ quantization configuration을 지정합니다. (ex. symmetric quantization, asymmetric quantization)
     # Select quantization schemes from 
     # https://pytorch.org/docs/stable/quantization-support.html
     quantization_config = torch.quantization.get_default_qconfig("fbgemm")
@@ -400,16 +407,21 @@ def main():
     # https://pytorch.org/docs/stable/_modules/torch/quantization/quantize.html#prepare_qat
     torch.quantization.prepare_qat(quantized_model, inplace=True)
 
+    # ⑦ QAT를 하기 위하여 quantization 모델을 준비합니다.
     # # Use training data for calibration.
     print("Training QAT Model...")
     quantized_model.train()
+    
+    # ⑧ 모델을 다시 CUDA가 상태로 적용하고 CUDA를 이용하여 QAT를 모델 학습을 진행합니다.
     train_model(model=quantized_model, train_loader=train_loader, test_loader=test_loader, device=cuda_device, learning_rate=1e-3, num_epochs=10)
-    quantized_model.to(cpu_device)
-
+    
+    # ⑨ 모델을 다시 CPU 상태로 두고 QAT가 적용된 floating point 모델을 quantized integer model로 변환합니다.    
+    quantized_model.to(cpu_device)    
     # Using high-level static quantization wrapper
     # The above steps, including torch.quantization.prepare, calibrate_model, and torch.quantization.convert, are also equivalent to
     # quantized_model = torch.quantization.quantize_qat(model=quantized_model, run_fn=train_model, run_args=[train_loader, test_loader, cuda_device], mapping=None, inplace=False)
 
+    # ⑪ quantized integer model을 저장합니다.
     quantized_model = torch.quantization.convert(quantized_model, inplace=True)
 
     quantized_model.eval()
