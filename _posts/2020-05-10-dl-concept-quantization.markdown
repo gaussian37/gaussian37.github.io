@@ -144,10 +144,6 @@ efficient inference: A whitepaper)
 - 작성중 ....
 
 <br>
-<center><img src="../assets/img/dl/concept/quantization/4.png" alt="Drawing" style="width: 800px;"/></center>
-<br>
-
-<br>
 <center><img src="../assets/img/dl/concept/quantization/5.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
