@@ -132,6 +132,34 @@ efficient inference: A whitepaper)
 
 <br>
 
+- 아래는 `value clipping`을 위한 과정입니다.
+
+- $$ x_q = \text{clip}\Big( \text{round}\big(\frac{1}{s} x + z\big), \alpha_q, \beta_q \Big) $$
+
+- $$ \begin{align} \text{clip}(x, l, u) &= \begin{cases} l & \text{if $x < l$}\\ x & \text{if $l \leq x \leq u$}\\ u & \text{if $x > u$}\\ \end{cases} \end{align} $$
+
+
+<br>
+
+- 작성중 ....
+
+<br>
+<center><img src="../assets/img/dl/concept/quantization/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/dl/concept/quantization/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/dl/concept/quantization/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/dl/concept/quantization/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
 
 ## **Post Training Quantization과 Quantization Aware Training 비교**
 
