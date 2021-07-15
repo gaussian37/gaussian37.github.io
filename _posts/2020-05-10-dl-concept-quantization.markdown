@@ -63,11 +63,72 @@ efficient inference: A whitepaper)
 
 <br>
 
-- Quantization을 식으로 쓰면 다음과 같이 간단하게 나타낼 수 있습니다.
+- **Quantization의 의미를 수식으로** 알아보도록 하겠습니다. floating point 값인 $$ x \in [\alpha, \beta] $$ 를 quantized가 적용된 값인 $$ x_q \in [\alpha_q, \beta_q] $$ 라고 한다면 `de-quantization`의 과정은 다음과 같습니다.
 
 <br>
 
-- $$ \text{Quantization : } \text{float} \ \  x \ \ \text{in} \ \ [x_{min}, x_{max}] \to \text{int} \ \ q \ \ \text{in} \ \ [0, N_{level}, 1] $$
+- $$ x = c (x_q + d) $$
+
+<br>
+
+- 반대로 `quantization`의 과정은 다음과 같이 나타낼 수 있습니다.
+
+<br> 
+
+- $$ x_q = \text{round}\big(\frac{1}{c} x - d\big) $$
+
+<br>
+
+- 위 식에서 $$ c, d $$는 Quantization 시 필요한 변수입니다.
+
+<br>
+
+- 구해야 하는 변수가 $$ c, d $$ 2개이므로 2개의 식을 통해 연립방정식 형태로 $$ c, d $$를 구할 수 있습니다.
+
+<br>
+
+- $$ \begin{align} \beta &= c (\beta_q + d) \\ \alpha &= c (\alpha_q + d) \\ \end{align} $$
+
+<br>
+
+- 위 식과 같이 2개의 $$ \alpha, \beta $$식이 있다고 가정하면 다음과 같이 식을 전개할 수 있습니다.
+
+<br>
+
+- $$ \begin{align} c &= \frac{\beta - \alpha}{\beta_q - \alpha_q} \\ d &= \frac{\alpha \beta_q - \beta \alpha_q}{\beta - \alpha} \\ \end{align} $$
+
+<br>
+
+- 이러한 Quantization 과정 거칠 때, floating point $$ 0 $$은 quantization error가 없다고 가정합니다. 이 때, $$ x = 0 $$을 $$ x_{q} $$로 나타내면 다음과 같습니다.
+
+<br> 
+
+- $$ \begin{align} x_q &= \text{round}\big(\frac{1}{c} 0 - d\big) \\ &= \text{round}(- d) \\ &= - \text{round}(d) \\ &= - d \\ \end{align} $$
+
+<br>
+
+- 위 식은 다음과 같은 의미를 가집니다.
+
+<br>
+
+- $$ \begin{align} d &= \text{round}(d) \\ &= \text{round}\big(\frac{\alpha \beta_q - \beta \alpha_q}{\beta - \alpha}\big) \\ \end{align} $$
+
+<br>
+
+- Quantization을 나타낼 때, 관습적으로 위 식에서 $$ c $$는 `scale` $$ s $$로 나타내고 $$ -d $$는 `zero point` $$ z $$로 나타냅니다.
+- 정리하면  `de-quantization`과 `quantizaton`과 $$ s, z $$는 다음과 같이 나타낼 수 있습니다.
+
+<br>
+
+- $$ \text{de-quantization : } x = s (x_q - z) $$
+
+- $$ \text{quantization : } x_q = \text{round}\big(\frac{1}{s} x + z\big) $$
+
+- $$ \begin{align} s &= \frac{\beta - \alpha}{\beta_q - \alpha_q} \\ z &= \text{round}\big(\frac{\beta \alpha_q - \alpha \beta_q}{\beta - \alpha}\big) \\ \end{align} $$
+
+<br>
+
+- 위 식에서 $$ z $$ 는 `integer` 이고 $$ s $$는 `positive floating point`입니다.
 
 <br>
 
