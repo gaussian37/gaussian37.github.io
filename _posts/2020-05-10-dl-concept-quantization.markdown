@@ -28,11 +28,11 @@ efficient inference: A whitepaper)
 
 <br>
 
-- ### [Quantization 이란](#)
-- ### [Quantization Mapping 이란](#)
-- ### [Quantized Matrix Multiplication 이란](#)
-- ### [QAT (Quantization Aware Training) 방법](#)
-- ### [Post Training Quantization과 Quantization Aware Training 비교](#)
+- ### [Quantization 이란](#quantization-이란-1)
+- ### [Quantization Mapping 이란](#quantization-mapping-이란-1)
+- ### [Quantized Matrix Multiplication 이란](#quantization-mapping-이란-1)
+- ### [Post Training Quantization과 Quantization Aware Training 비교](#post-training-quantization과-quantization-aware-training-비교-1)
+- ### [QAT (Quantization Aware Training) 방법](#qat-quantization-aware-training-방법-1)
 
 <br>
 
@@ -216,14 +216,6 @@ efficient inference: A whitepaper)
 
 <br>
 
-
-
-
-
-
-
-
-- 작성중 ....
 
 <br>
 <center><img src="../assets/img/dl/concept/quantization/5.png" alt="Drawing" style="width: 800px;"/></center>
