@@ -39,7 +39,7 @@ efficient inference: A whitepaper)
 
 <br>
 
-- Quantization은 실수형 변수(floating-point type)를 정수형 변수 (integer or fixed point)로 변환하는 과정을 뜻합니다.
+- Quantization은 실수형 변수(floating-point type)를 정수형 변수(integer or fixed point)로 변환하는 과정을 뜻합니다.
 
 <br>
 <center><img src="../assets/img/dl/concept/quantization/3.png" alt="Drawing" style="width: 800px;"/></center>
@@ -59,7 +59,7 @@ efficient inference: A whitepaper)
 <br>
 
 - 예를 들어 위 그림의 형광펜을 칠한 위치를 살펴보겠습니다. `Precision`에 해당하는 2, 3, 4, 8은 Quantization 하였을 때, 사용한 `bit`가 됩니다. ResNet-34를 2 bit로 표현하였을 때의 Top-1 Accuracy가 ResNet-18을 4-bit로 표현하였을 때 보다 성능이 더 좋은 것을 알 수 있습니다. 이 때 모델 사이즈는 오히려 ResNet-34가 조금 더 가벼운 것도 확인할 수 있습니다.
-- 즉, 여기서 얻을 수 있는 교훈은 작은 네트워크로 quantization을 대충하는 것 보다 큰 네트워크로 quantization을 더 잘하는게 성능 및 모델 사이즈 측면에서 더 좋을 수 있다는 점입니다.
+- 즉, 여기서 얻을 수 있는 교훈은 **작은 네트워크로 quantization을 대충하는 것 보다 큰 네트워크로 quantization을 더 잘하는게 성능 및 모델 사이즈 측면에서 더 좋을 수 있다**는 점입니다.
 
 <br>
 
@@ -71,6 +71,7 @@ efficient inference: A whitepaper)
 
 <br>
 
+- 즉, floating point 값인 $$ x $$ 는 quantized된 정수값 $$ x_{q} $$ 를 통해 $$ x = c (x_q + d) $$ 로 나타나짐을 알 수 있습니다.
 - 반대로 `quantization`의 과정은 다음과 같이 나타낼 수 있습니다.
 
 <br> 
@@ -79,7 +80,7 @@ efficient inference: A whitepaper)
 
 <br>
 
-- 위 식에서 $$ c, d $$는 Quantization 시 필요한 변수입니다.
+- 위 식에서 $$ c, d $$ 는 Quantization 시 필요한 변수입니다. 위 식에서 $$ x_{q} $$ 는 integer형태이지만 floating point $$ x $$ 를 $$ c $$ 로 나누게 되면서 생기게 되는 오차가 발생합니다. (round 처리를 하면서 버림/올림을 하게 되면 발생하게 되는 오차입니다.) 이 때, 발생하는 오차가 주요한 `quantization error`가 된다고 말할 수 있습니다.
 
 <br>
 
@@ -99,7 +100,7 @@ efficient inference: A whitepaper)
 
 <br>
 
-- 이러한 Quantization 과정 거칠 때, floating point $$ 0 $$은 quantization error가 없다고 가정합니다. 이 때, $$ x = 0 $$을 $$ x_{q} $$로 나타내면 다음과 같습니다.
+- 이러한 Quantization 과정 거칠 때, floating point $$ 0 $$ 은 `quantization error가 없다고 가정`합니다. 이 때, $$ x = 0 $$ 을 $$ x_{q} $$ 로 나타내면 다음과 같습니다.
 
 <br> 
 
@@ -107,7 +108,9 @@ efficient inference: A whitepaper)
 
 <br>
 
-- 위 식은 다음과 같은 의미를 가집니다.
+- floating point 0을 quantization하였을 때, error가 없다고 가정하기 때문에 (`no quantization error`) 위 식에서 $$ -\text{round}d = -d $$ 를 만족합니다. 즉, `round` 연산을 통해서 발생하는 error가 없다고 해석하면 됩니다.
+- 즉, 정리하면 quantization은 floating point 0을 기준으로 floating point를 int형으로 변환하는 방법을 의미하고 이 때, floating point 0을 에러가 없다고 가정하여 변환할 때 사용하기 때문에, 임의의 $$ x $$ 를 $$ x_{q} $$ 로 변환할 때에도 기준이 되는 $$ -d $$ 를 사용합니다.
+- 위 식의 $$ d $$ 를 풀어 쓰면 다음과 같은 의미를 가집니다.
 
 <br>
 
@@ -115,7 +118,7 @@ efficient inference: A whitepaper)
 
 <br>
 
-- Quantization을 나타낼 때, 관습적으로 위 식에서 $$ c $$는 `scale` $$ s $$로 나타내고 $$ -d $$는 `zero point` $$ z $$로 나타냅니다.
+- Quantization을 나타낼 때, 관습적으로 위 식에서 $$ c $$ 는 `scale` $$ s $$ 로 나타내고 $$ -d $$ 는 `zero point` $$ z $$ 로 나타냅니다.
 - 정리하면  `de-quantization`과 `quantizaton`과 $$ s, z $$는 다음과 같이 나타낼 수 있습니다.
 
 <br>
