@@ -28,10 +28,11 @@ efficient inference: A whitepaper)
 
 <br>
 
-- ### Quantization 이란
-- ### Quantization의 방법
-- ### QAT (Quantization Aware Training) 방법
-- ### Post Training Quantization과 Quantization Aware Training 비교
+- ### [Quantization 이란](#)
+- ### [Quantization Mapping 이란](#)
+- ### [Quantized Matrix Multiplication 이란](#)
+- ### [QAT (Quantization Aware Training) 방법](#)
+- ### [Post Training Quantization과 Quantization Aware Training 비교](#)
 
 <br>
 
@@ -60,6 +61,10 @@ efficient inference: A whitepaper)
 
 - 예를 들어 위 그림의 형광펜을 칠한 위치를 살펴보겠습니다. `Precision`에 해당하는 2, 3, 4, 8은 Quantization 하였을 때, 사용한 `bit`가 됩니다. ResNet-34를 2 bit로 표현하였을 때의 Top-1 Accuracy가 ResNet-18을 4-bit로 표현하였을 때 보다 성능이 더 좋은 것을 알 수 있습니다. 이 때 모델 사이즈는 오히려 ResNet-34가 조금 더 가벼운 것도 확인할 수 있습니다.
 - 즉, 여기서 얻을 수 있는 교훈은 **작은 네트워크로 quantization을 대충하는 것 보다 큰 네트워크로 quantization을 더 잘하는게 성능 및 모델 사이즈 측면에서 더 좋을 수 있다**는 점입니다.
+
+<br>
+
+## **Quantization Mapping 이란**
 
 <br>
 
@@ -131,18 +136,92 @@ efficient inference: A whitepaper)
 
 <br>
 
-- 위 식에서 $$ z $$ 는 `integer` 이고 $$ s $$는 `positive floating point`입니다.
+- 위 식에서 $$ z, x $$ 각각의 의미를 살펴보면 $$ z $$ 는 `integer` 이고 $$ s $$는 `positive floating point`입니다.
 
 <br>
 
-- 아래는 `value clipping`을 위한 과정입니다.
+- 만약 `quantization`을 하였을 때, 범위를 $$ [\alpha, \beta] \to [\alpha_q, \beta_q] $$ 로 한정하려고 한다면, Quantization할 때, 범위를 벗어난 $$ x $$ 의 값을 잘라버리는 (clipping) 방식을 취할 수 있습니다.
+- quantization 하는 범위가 음의 정수를 포함하는 경우와 그렇지 않은 경우를 나누어서 생각하면 다음과 같습니다.
 
-- $$ x_q = \text{clip}\Big( \text{round}\big(\frac{1}{s} x + z\big), \alpha_q, \beta_q \Big) $$
+<br>
+
+- $$ \text{int-b : } (\alpha_q, \beta_q) = (-2^{b-1}, 2^{b-1}-1) $$
+
+- $$ \text{unsigned int-b : } (\alpha_q, \beta_q) = (0, 2^{b}-1) $$
+
+<br>
+
+- 위 제한된 범위에만 $$ x $$ 가 $$ x_{q} $$ 로 변환될 수 있도록 값을 자르는 방식을 `value clipping`이라고 하면 과정은 다음과 같습니다.
+- 먼저 함수 `clip`을 정의하면 다음과 같습니다.
+
+<br>
 
 - $$ \begin{align} \text{clip}(x, l, u) &= \begin{cases} l & \text{if $x < l$}\\ x & \text{if $l \leq x \leq u$}\\ u & \text{if $x > u$}\\ \end{cases} \end{align} $$
 
+<br>
+
+- $$ x_q = \text{clip}\Big( \text{round}\big(\frac{1}{s} x + z\big), \alpha_q, \beta_q \Big) $$
 
 <br>
+
+- 이와 같은 방식으로 Quantization하는 방식을 `Affine Quantization Mapping` 이라고 합니다.
+
+<br>
+
+- 다른 Quantization 방식으로 `Scale Quantization Mapping`이 있습니다. 앞에서 살펴본 방식과 유사합니다. 다만, 2가지 조건이 추가됩니다.
+- ① 만약 Quantization 시 floating point를 integer로 다음과 같은 범위로 변환한다고 가정해 보겠습니다.
+
+<br>
+
+- $$ (\alpha_q, \beta_q) = (-2^{b-1} + 1, 2^{b-1}-1) $$ 
+
+<br>
+
+- ② 앞에서 사용한 `zero-point`를 0으로 가정하겠습니다.
+
+<br>
+
+- $$ z = 0 $$
+
+<br>
+
+- ①, ②번 조건에 의하여 다음을 만족해야 합니다.
+
+<br>
+
+- $$ \begin{gather} \alpha_q = -\beta_q \\ \text{round}\big(\frac{\beta \alpha_q - \alpha \beta_q}{\beta - \alpha} \big) = 0 \\ \end{gather} $$
+
+<br>
+
+- 위 식의 조건을 상시 만족하려면 $$ \alpha = -\beta $$ 를 만족해야 함을 알 수 있습니다. 즉, `Scale Quantization Mapping`의 목적이 제약조건 하에서 $$ [\alpha, \beta] = [\alpha, -\alpha] \to [\alpha_{q}, \beta_{q}] = [\alpha_q, -\alpha_q] $$ 로 변환하는 것입니다.
+- 이와 같은 방식으로 표현하였을 때, Quantization 결과는 `0`을 기준으로 대칭되도록 나타내어집니다. 이러한 특성으로 인하여 `symmetric quantization mapping`이라고도 부릅니다.
+
+<br>
+
+- 앞에서 설명하였듯이 `scale quantization mapping`은 `affine quantization mapping`의 특수한 한가지 방법에 해당합니다.
+
+<br>
+
+- 지금까지 Quantization mapping의 주요 방법인 `Affine Quantization Mapping`과 이 방법 중의 하나인 `Scale Quantization Mapping`에 대하여 살펴보았습니다. 가장 핵심이 되는 `Affine Quantization Mapping`의 방법의 식을 다시 한번 살펴보면서 다음 내용으로 넘어가겠습니다.
+
+<br>
+
+- $$ \text{quantization : } f_q(x, s, z) = \text{clip}\Big( \text{round}\big(\frac{1}{s} x + z\big), \alpha_q, \beta_q \Big) $$
+
+- $$ \text{de-quantization : } f_d(x_q, s, z) = s (x_q - z) $$
+
+<br>
+
+## **Quantized Matrix Multiplication 이란**
+
+<br>
+
+
+
+
+
+
+
 
 - 작성중 ....
 
