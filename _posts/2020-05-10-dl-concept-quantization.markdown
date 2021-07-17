@@ -278,15 +278,6 @@ b \in \mathbb{R}^{n}, Y \in \mathbb{R}^{m \times n} $$ 의 조건을 가지며 �
 <br>
 
 - NVIDIA에서는 [NVIDIA Tensor Core](https://www.nvidia.com/en-us/data-center/tensor-cores/) 또는 [Tensor Core IMMA Operation](https://docs.nvidia.com/cuda/ampere-tuning-guide/index.html#tensor-operations)을 지원하며 이 방법을 이용하면 기본적인 matrix multiplication 보다 더 빠르게 계산을 할 수 있습니다. (위 그림은 NVIDIA Tensor Core Operations과 관련된 그림입니다.)
-- 
-
-
-
-
-
-
-
-
 
 <br>
 
