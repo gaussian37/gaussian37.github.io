@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Quantization과 Quantization Aware Training
+title: 딥러닝의 Quantization과 Quantization Aware Training
 date: 2020-05-30 00:00:00
 img: dl/concept/quantization/0.png
 categories: [dl-concept]
-tags: [dilated residual network, DRN] # add tag
+tags: [deep learning, machine learning, dl, 딥러닝, quantization, ptq, post traingin quantization, quantization mapping, qat, QAT, quantization aware training, matrix quantization, pytorch] # add tag
 ---
 
 <br>
@@ -21,6 +21,7 @@ efficient inference: A whitepaper)
 - 참조 : https://spell.ml/blog/pytorch-quantization-X8e7wBAAACIAHPhT
 - 참조 : https://www.youtube.com/playlist?list=PLC89UNusI0eSBZhwHlGauwNqVQWTquWqp
 - 참조 : https://wannabeaprogrammer.tistory.com/42
+- 참조 : https://youtu.be/DDelqfkYCuo
 
 <br>
 
@@ -31,6 +32,7 @@ efficient inference: A whitepaper)
 - ### [Quantization 이란](#quantization-이란-1)
 - ### [Quantization Mapping 이란](#quantization-mapping-이란-1)
 - ### [Quantized Matrix Multiplication 이란](#quantization-mapping-이란-1)
+- ### [Quantized Deep Learning Layers](#)
 - ### [Post Training Quantization과 Quantization Aware Training 비교](#post-training-quantization과-quantization-aware-training-비교-1)
 - ### [QAT (Quantization Aware Training) 방법](#qat-quantization-aware-training-방법-1)
 
@@ -215,6 +217,44 @@ efficient inference: A whitepaper)
 ## **Quantized Matrix Multiplication 이란**
 
 <br>
+
+- 지금까지 임의의 값(스칼라 값)에 대하여 `Affine Quantization Mapping`이란 방법을 이용하여 Quantization을 하는 방법에 대하여 알아보았습니다.
+- 머신러닝 / 딥러닝에서 다루는 데이터는 최소 Matrix이며 Tensor 범위까지 늘어나기 때문에 가장 기본이 되는 `Matrix`에서의 Quantization이 어떻게 적용되는 지 살펴보도록 하겠습니다.
+
+<br>
+
+- 먼저 다루어 볼 식은 $$ Y = XW + b, \text{where, } X \in \mathbb{R}^{m \times p}, W \in \mathbb{R}^{p \times n}, 
+b \in \mathbb{R}^{n}, Y \in \mathbb{R}^{m \times n} $$ 의 조건을 가지며 정리하면 다음과 같습니다.
+
+<br>
+
+- $$ \begin{align} Y_{i, j} = b_j + \sum_{k=1}^{p} X_{i,k} W_{k,j} \end{align} $$
+
+<br>
+
+- 위 식에서 $$ Y_{i, j} $$ 를 계산하기 위하여 연산되는 행렬 $$ X, W $$ 의 사이즈는 각각 (i, p)와 (p, j)를 가지고 최종적으로 (i, j) 크기의 행렬 $$ Y_{i, j} $$ 을 만들어 냅니다.
+- 즉, $$ Y_{i, j} $$ 행렬에서 원소 하나의 값을 구하기 위하여 $$ p $$ 번의 **floating point 곱 연산과 합 연산이 필요** 합니다. 따라서 전체 행렬 $$ Y_{i, j} $$ 을 계산하기 위해서는 $$ m \times p \times n $$ 번의 **floating point 곱 연산과 합 연산이 필요**합니다.
+
+<br>
+
+- 앞에서 계속 다루어 온 것 처럼 floating point를 이용하여 많은 양의 곱과 합 연산이 발생하면 계산 속도가 느려집니다. 물론 어떤 precision 만큼 사용하느냐에 따라 달라질 수 있지만, integer에 비해서는 계산 속도가 느리기 때문에 위에서 사용한 $$ Y_{i, j} $$ 을 어떻게 
+
+
+
+
+
+
+
+
+
+<br>
+
+## **Quantized Deep Learning Layers**
+
+<br>
+
+
+
 
 
 <br>

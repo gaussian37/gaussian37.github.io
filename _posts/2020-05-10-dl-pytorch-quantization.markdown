@@ -4,7 +4,7 @@ title: Pytorch Quantization 정리
 date: 2020-05-10 00:00:00
 img: dl/pytorch/pytorch.jpg
 categories: [dl-pytorch] 
-tags: [딥러닝, deep learning, quantization, pytorch] # add tag
+tags: [deep learning, machine learning, dl, 딥러닝, quantization, ptq, post traingin quantization, quantization mapping, qat, QAT, quantization aware training, matrix quantization, pytorch] # add tag
 ---
 
 <br>
