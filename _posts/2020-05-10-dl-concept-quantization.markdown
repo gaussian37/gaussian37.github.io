@@ -257,6 +257,27 @@ b \in \mathbb{R}^{n}, Y \in \mathbb{R}^{m \times n} $$ 의 조건을 가지며 �
 
 <br>
 
+- 위 식에서 다음 4가지 성분은 inference 시 상수값이므로 inference 하기 전에 미리 구해놓으면 효율적으로 계산할 수 있습니다.
+
+<br>
+
+- $$ z_Y $$
+
+- $$ \frac{s_b}{s_Y} (b_{q, j} - z_b) $$
+
+- $$ z_X \sum_{k=1}^{p} W_{q, k,j} $$
+
+- $$ p z_X z_W $$
+
+<br>
+
+- 위 식과 같이 $$ Y_{q, i, j} $$ 를 정리하였을 때, $$ \sum_{k=1}^{p} X_{q,i,k} W_{q, k,j} $$ 는 **integer의 곱과 합**으로 나타나지며 이러한 **integer matrix multiplication**은 다양한 하드웨어에서 자체적으로 연산 최적화 방법을 제시합니다. 
+
+<br>
+<center><img src="../assets/img/dl/concept/quantization/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- NVIDIA에서는 [NVIDIA Tensor Core](https://www.nvidia.com/en-us/data-center/tensor-cores/) 또는 [Tensor Core IMMA Operation](https://docs.nvidia.com/cuda/ampere-tuning-guide/index.html#tensor-operations)을 지원하며 이 방법을 이용하면 기본적인 matrix multiplication 보다 더 빠르게 계산을 할 수 있습니다. (위 그림은 NVIDIA Tensor Core Operations과 관련된 그림입니다.)
 - 
 
 
@@ -277,9 +298,7 @@ b \in \mathbb{R}^{n}, Y \in \mathbb{R}^{m \times n} $$ 의 조건을 가지며 �
 
 
 
-<br>
-<center><img src="../assets/img/dl/concept/quantization/5.png" alt="Drawing" style="width: 800px;"/></center>
-<br>
+
 
 <br>
 <center><img src="../assets/img/dl/concept/quantization/6.png" alt="Drawing" style="width: 800px;"/></center>
