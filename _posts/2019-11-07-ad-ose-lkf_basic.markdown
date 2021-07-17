@@ -9,6 +9,11 @@ tags: [칼만 필터, kalman filter, 선형 칼만 필터] # add tag
 
 <br>
 
+- 선수 지식 : [베이즈 필터](https://gaussian37.github.io/autodrive-ose-bayes_filter/)
+- 칼만 필터의 뿌리는 베이즈 필터입니다. 즉, 칼만 필터 또한 베이지안 확률을 이용한 필터라고 말할 수 있습니다. 특히, 베이즈 필터의 문제점인 `적분 계산`을 개선하기 위해 칼만 필터가 도입된 만큼 시간적 여유가 있으시면 `베이즈 필터`를 먼저 숙지하시길 추천드립니다.
+
+<br>
+
 - 참조: https://www.bzarg.com/p/how-a-kalman-filter-works-in-pictures/#mathybits
 
 <br>

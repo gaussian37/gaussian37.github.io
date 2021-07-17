@@ -20,7 +20,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 <br>
 
 - 참조 1 : Probabilistic Robotics (Sebastian Thrun)
-- 참조 2 : 순천향 대학교 박성근 교수님 강의
+- 참조 2 : [순천향 대학교 박성근 교수님 강의](http://www.kocw.net/home/search/kemView.do?kemId=1257780)
 
 - 이번 글에서는 Bayes Filter에 대하여 다루어 보도록 하겠습니다. Bayes Filter는 Kalman Filter와 Particle Filter 개념의 기초가 되는 간단하지만 매우 중요한 Filter입니다. 따라서 Kalman Filter나 Particle Filter를 배우기 전 단계라면 베이즈 필터를 통하여 최적 상태를 추정하는 필터들이 어떻게 동작하는 지 그 메커니즘을 먼저 배우기를 추천합니다.
 - 만약 Kalman Filter와 Particle Filter에 대하여 잘 아신다면 아래 Bayes Filter의 개념과 비교해 보는 것을 추천 드립니다.
