@@ -512,7 +512,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 <br>
 
 - 이번에는 자동차 이동 예제를 통하여 Bayes Filter 수식을 살펴보도록 하겠습니다. 이 예제는 직전 자동차의 위치 $$ bel(x_{t-1}) $$ 를 기준으로 현재 자동차의 위치 $$ bel(x_{t}) $$ 를 추정하는 예제입니다.
-- 추정하는 방법은 $$ bel(x_{t-1}) $$ 를 기준으로 현재 시간의 제어( $$ u_t $$ )를 반영하고 현재 시간의 센서값( $$ u_t $$ )을 통하여 보정하는 작업을 `베이즈 필터`를 이용하여 적용해보겠습니다.
+- 추정하는 방법은 $$ bel(x_{t-1}) $$ 를 기준으로 현재 시간의 제어( $$ u_t $$ )를 반영하고 현재 시간의 센서값( $$ u_t $$ )을 통하여 보정하는 작업을 `베이즈 필터`를 이용하여 적용해 보겠습니다.
 
 <br>
 
@@ -561,10 +561,9 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 <center><img src="../assets/img/autodrive/ose/bayes_filter/45.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 그다음으로 $$ bel(x_{t-1} = 0) $$ 상태를 고려해 보도록 하겠습니다.
+- 그 다음으로 $$ bel(x_{t-1} = 0) $$ 상태를 고려해 보도록 하겠습니다.
 
 <br>
-
 
 - $$ bel(x_{t-1} = 0)p(x_t=2 \vert u_t=2, x_{t-1} = 0)=0.7\times0.2=0.14 \tag{4} $$
 
