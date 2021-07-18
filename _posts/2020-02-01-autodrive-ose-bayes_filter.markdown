@@ -520,7 +520,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 <br>
 
-- $$ bel(x_{t-1}=i) = \begin{cases} i=-1 : 0.2 \\ i=0: 0.7 \\ i=1 : 0.1\end{cases} $$
+
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/44.png" alt="Drawing" style="width: 800px;"/></center>
@@ -538,7 +538,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 <bt>
 
-- $$ p(u_{t}=i) = \begin{cases} i=2 : 0.2 \\ i=3 : 0.6 \\ i=4 : 0.2 \end{cases} $$
+
 
 <br>
 
