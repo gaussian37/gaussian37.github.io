@@ -520,7 +520,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 <br>
 
-
+- $$ bel(x_{t-1}=i) = \begin{cases} i=-1 : 0.2 \\ i=0: 0.7 \\ i=1 : 0.1\end{cases} $$
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/44.png" alt="Drawing" style="width: 800px;"/></center>
@@ -536,9 +536,9 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - 위 상태에서 현재 시간 $$ t $$의 제어값인 $$ u_{t} = +3 $$ 즉, 오른쪽으로 3칸 이동을 반영해 보도록 하겠습니다. 이 때, 제어값에 대한 노이즈가 존재하므로 이 또한 확률 분포로 나타내면 다음과 같습니다.
 
-<bt>
+<br>
 
-
+- $$ p(u_{t}=i) = \begin{cases} i=2 : 0.2 \\ i=3 : 0.6 \\ i=4 : 0.2 \end{cases} $$
 
 <br>
 
