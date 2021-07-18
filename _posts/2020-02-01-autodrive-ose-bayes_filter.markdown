@@ -553,7 +553,11 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - $$ bel(x_{t-1} = -1)p(x_t=1 \vert u_t=2, x_{t-1} = -1)=0.2\times0.2=0.04 \tag{1} $$
 
+<br>
+
 - $$ bel(x_{t-1} = -1)p(x_t=2 \vert u_t=3, x_{t-1} = -1)=0.2\times0.6=0.12 \tag{2} $$
+
+<br>
 
 - $$ bel(x_{t-1} = -1)p(x_t=3 \vert u_t=4, x_{t-1} = -1)=0.2\times0.2=0.04 \tag{3} $$
 
@@ -561,13 +565,17 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 <center><img src="../assets/img/autodrive/ose/bayes_filter/45.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 그 다음으로 $$ bel(x_{t-1} = 0) $$ 상태를 고려해 보도록 하겠습니다.
+- 그 다음으로 $$ bel(x_{t-1} = 0) $$상태를 고려해 보도록 하겠습니다.
 
 <br>
 
 - $$ bel(x_{t-1} = 0)p(x_t=2 \vert u_t=2, x_{t-1} = 0)=0.7\times0.2=0.14 \tag{4} $$
 
+<br>
+
 - $$ bel(x_{t-1} = 0)p(x_t=3 \vert u_t=3, x_{t-1} = 0)=0.7\times0.6=0.42 \tag{5} $$
+
+<br>
 
 - $$ bel(x_{t-1} = 0)p(x_t=4 \vert u_t=4, x_{t-1} = 0)=0.7\times0.2=0.14 \tag{6} $$
 
@@ -581,7 +589,11 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - $$ bel(x_{t-1} = 1)p(x_t=3 \vert u_t=2, x_{t-1} = 1)=0.1\times0.2=0.02 \tag{7} $$
 
+<br>
+
 - $$ bel(x_{t-1} = 1)p(x_t=4 \vert u_t=3, x_{t-1} = 1)=0.1\times0.6=0.06 \tag{8} $$
+
+<br>
 
 - $$ bel(x_{t-1} = 1)p(x_t=5 \vert u_t=4, x_{t-1} = 1)=0.1\times0.2=0.02 \tag{9} $$
 
@@ -595,11 +607,19 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - $$ \overline{bel}(x_{t} = 1) = 0.04 (\text{eq. (1)}) $$
 
+<br>
+
 - $$ \overline{bel}(x_{t} = 2) = 0.12 (\text{eq. (2)}) + 0.14 (\text{eq. (4)}) = 0.26 $$
+
+<br>
 
 - $$ \overline{bel}(x_{t} = 3) = 0.04 (\text{eq. (3)}) + 0.42 (\text{eq. (5)}) + 0.02 (\text{eq. (7)}) =0.48 $$
 
+<br>
+
 - $$ \overline{bel}(x_{t} = 4) = 0.14 (\text{eq. (6)}) + 0.06 (\text{eq. (8)}) $$
+
+<br>
 
 - $$ \overline{bel}(x_{t} = 5) = 0.02 (\text{eq. (9)}) $$
 
@@ -640,11 +660,19 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - $$ p(z_t = 1 \vert x_{t} ) \overline{bel}(x_t = 1) = 0.05 \times 0.04 = 0.002 $$
 
+<br>
+
 - $$ p(z_t = 2 \vert x_{t} ) \overline{bel}(x_t = 2) = 0.20 \times 0.26 = 0.052 $$
+
+<br>
 
 - $$ p(z_t = 3 \vert x_{t} ) \overline{bel}(x_t = 3) = 0.50 \times 0.48 = 0.24 $$
 
+<br>
+
 - $$ p(z_t = 4 \vert x_{t} ) \overline{bel}(x_t = 4) = 0.20 \times 0.20 = 0.04 $$
+
+<br>
 
 - $$ p(z_t = 5 \vert x_{t} ) \overline{bel}(x_t = 5) = 0.05 \times 0.02 = 0.001 $$
 
@@ -667,11 +695,19 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - $$ bel(x_{t} = 1) = \eta p(z_t = 1 \vert x_{t} ) \overline{bel}(x_t = 1) = 2.9851 \times 0.05 \times 0.04 = 0.005970149 $$
 
+<br>
+
 - $$ bel(x_{t} = 2) = \eta p(z_t = 2 \vert x_{t} ) \overline{bel}(x_t = 2) = 2.9851 \times 0.20 \times 0.26 = 0.155223881 $$
+
+<br>
 
 - $$ bel(x_{t} = 3) = \eta p(z_t = 3 \vert x_{t} ) \overline{bel}(x_t = 3) = 2.9851 \times 0.50 \times 0.48 = 0.71641791 $$
 
+<br>
+
 - $$ bel(x_{t} = 4) = \eta p(z_t = 4 \vert x_{t} ) \overline{bel}(x_t = 4) = 2.9851 \times 0.20 \times 0.20 = 0.119402985 $$
+
+<br>
 
 - $$ bel(x_{t} = 5) = \eta p(z_t = 5 \vert x_{t} ) \overline{bel}(x_t = 5) = 2.9851 \times 0.05 \times 0.02 = 0.002985075 $$
 
