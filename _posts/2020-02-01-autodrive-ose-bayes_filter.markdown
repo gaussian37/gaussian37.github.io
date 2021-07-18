@@ -35,8 +35,8 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 - ### [로봇 이동 예제를 통한 Bayes Filter 이해](#로봇-이동-예제를-통한-bayes-filter-이해-1)
 - ### [Bayes Filter 알고리즘의 이해](#bayes-filter-알고리즘의-이해-1)
 - ### [Bayes Filter 수식의 이해](#bayes-filter-수식의-이해-1)
-- ### [예제를 통한 Bayes Filter 수식의 이해](#예제를-통한-bayes-filter-수식의-이해-1)
-- ### [자동차 이동 예제를 이용한 Bayes Filter의 구체적인 이해](#자동차-이동-예제를-이용한-bayes-filter의-구체적인-이해-1)
+- ### [로봇 이동 예제를 통한 Bayes Filter 수식의 이해](#로봇-이동-예제를-통한-bayes-filter-수식의-이해-1)
+- ### [자동차 이동 예제를 이용한 Bayes Filter 수식의 이해](#자동차-이동-예제를-이용한-bayes-filter-수식의-이해-1)
 - ### [Bayes Filter의 한계와 개선 방법](#bayes-filter의-한계와-개선-방법-1)
 
 <br>
@@ -290,7 +290,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 <br>
 
-## **예제를 통한 Bayes Filter 수식의 이해**
+## **로봇 이동 예제를 통한 Bayes Filter 수식의 이해**
 
 <br>
 
@@ -507,12 +507,188 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 <br>
 
-## **자동차 이동 예제를 이용한 Bayes Filter의 구체적인 이해**
+## **자동차 이동 예제를 이용한 Bayes Filter 수식의 이해**
+
+<br>
+
+- 이번에는 자동차 이동 예제를 통하여 Bayes Filter 수식을 살펴보도록 하겠습니다. 이 예제는 직전 자동차의 위치 $$ bel(x_{t-1}) $$ 를 기준으로 현재 자동차의 위치 $$ bel(x_{t}) $$ 를 추정하는 예제입니다.
+- 추정하는 방법은 $$ bel(x_{t-1}) $$ 를 기준으로 현재 시간의 제어( $$ u_t $$ )를 반영하고 현재 시간의 센서값( $$ u_t $$ )을 통하여 보정하는 작업을 `베이즈 필터`를 이용하여 적용해보겠습니다.
+
+<br>
+
+- 먼저 이전 시간 $$ t - 1 $$ 까지의 자차의 위치는 다음과 같다고 가정하겠습니다.
+
+<br>
+
+$$ bel(x_{t-1}) = \begin{cases} -1 : 0.2 \\ 0: 0.7 \\ 1 : 0.1\end{cases} $$
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/44.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/51.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 지금 작업한 과정은 **베에즈 필터 식의 ①에 해당**합니다.
+
+<br>
+
+- 위 상태에서 현재 시간 $$ t $$ 의 제어값인 $$ u_{t} = +3 $$ 즉, 오른쪽으로 3칸 이동을 반영해 보도록 하겠습니다. 이 때, 제어값에 대한 노이즈가 존재하므로 이 또한 확률 분포로 나타내면 다음과 같습니다.
+
+<bt>
+
+- $$ p(u_{t}) = \begin{cases} 2 : 0.2 \\ 3 : 0.6 \\ 4 : 0.2 \end{cases} $$
+
+<br>
+
+- 직전 상태에서 현재 시간에 입력 받은 제어값을 반영할 때, 모든 경우의 확률 분포를 반영해야 합니다. 즉, 직전 상태 $$ x_{t-1} =  -1, 0, 1 $$ 각각에서 제어값을 입력 받았을 때의 확률 분포를 구해야 합니다.
+
+<br>
+
+- 먼저 $$ bel(x_{t-1} = -1) $$ 상태부터 고려해 보도록 하겠습니다.
+- 아래 그림의 차가 투명할수록 확률은 0에 가깝고 불투명할수록 높은 확률을 가집니다.
+
+<br>
+
+- $$ bel(x_{t-1} = -1)p(x_t=1 \vert u_t=2, x_{t-1} = -1)=0.2\times0.2=0.04 \tag{1} $$
+
+- $$ bel(x_{t-1} = -1)p(x_t=2 \vert u_t=3, x_{t-1} = -1)=0.2\times0.6=0.12 \tag{2} $$
+
+- $$ bel(x_{t-1} = -1)p(x_t=3 \vert u_t=4, x_{t-1} = -1)=0.2\times0.2=0.04 \tag{3} $$
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/45.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 그다음으로 $$ bel(x_{t-1} = 0) $$ 상태를 고려해 보도록 하겠습니다.
 
 <br>
 
 
+- $$ bel(x_{t-1} = 0)p(x_t=2 \vert u_t=2, x_{t-1} = 0)=0.7\times0.2=0.14 \tag{4} $$
 
+- $$ bel(x_{t-1} = 0)p(x_t=3 \vert u_t=3, x_{t-1} = 0)=0.7\times0.6=0.42 \tag{5} $$
+
+- $$ bel(x_{t-1} = 0)p(x_t=4 \vert u_t=4, x_{t-1} = 0)=0.7\times0.2=0.14 \tag{6} $$
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/46.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 마지막으로 $$ bel(x_{t-1} = 1) $$ 상태를 고려해 보도록 하겠습니다.
+
+<br>
+
+- $$ bel(x_{t-1} = 1)p(x_t=3 \vert u_t=2, x_{t-1} = 1)=0.1\times0.2=0.02 \tag{7} $$
+
+- $$ bel(x_{t-1} = 1)p(x_t=4 \vert u_t=3, x_{t-1} = 1)=0.1\times0.6=0.06 \tag{8} $$
+
+- $$ bel(x_{t-1} = 1)p(x_t=5 \vert u_t=4, x_{t-1} = 1)=0.1\times0.2=0.02 \tag{9} $$
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/47.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 지금까지 살펴본 $$ bel(x_{t-1}) $$ 을 모두 검토하였을 때, 아래와 같이 각 위치에서는 $$ \overline{bel(x_{t})} $$ 를 구할 수 있습니다. 앞에서 살펴본 바와 같이 bar 형태는 prediction에 해당합니다.
+
+<br>
+
+- $$ \overline{bel}(x_{t} = 1) = 0.04 (\text{eq. (1)}) $$
+
+- $$ \overline{bel}(x_{t} = 2) = 0.12 (\text{eq. (2)}) + 0.14 (\text{eq. (4)}) = 0.26 $$
+
+- $$ \overline{bel}(x_{t} = 3) = 0.04 (\text{eq. (3)}) + 0.42 (\text{eq. (5)}) + 0.02 (\text{eq. (7)}) =0.48 $$
+
+- $$ \overline{bel}(x_{t} = 4) = 0.14 (\text{eq. (6)}) + 0.06 (\text{eq. (8)}) $$
+
+- $$ \overline{bel}(x_{t} = 5) = 0.02 (\text{eq. (9)}) $$
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/48.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 식에서 $$ \sum_{i=1}^{5} \overline{bel}(x_{t} = i)  = 1 $$ 을 만족함으로 확률의 합은 1인것을 확인할 수 있습니다.
+- 이와 같은 방법으로 **직전 위치와 제어값을 이용하여 현재 위치를 추정**할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/51.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 지금 작업한 과정은 **베에즈 필터 식의 ②, ③에 해당**합니다.
+
+<br>
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/49.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 이번에는 앞에서 추정한 값을 보정(correction)하기 위하여 GPS 센서 값을 사용하겠습니다. 글 앞에서 다룬것 처럼 센서값은 $$ z_{t} $$로 표현하겠습니다.
+
+<br>
+
+- GPS를 이용하여 얻은 $$ t $$ 시간의 현재 위치값 $$ z_{t} $$ 가 다음과 같다고 가정해 보겠습니다.
+
+<br>
+
+- $$ p(z_{t} =i \vert x_{t} ) = \begin{cases} i = 1 : 0.05 \\ i=2 : 0.20 \\ i=3 : 0.50 \\i=4 : 0.20 \\ i=5 : 0.05\end{cases} $$
+
+<br>
+
+- 이 때, 확률 분포는 다음과 같습니다.
+
+<br>
+
+- $$ p(z_t = 1 \vert x_{t} ) \overline{bel}(x_t = 1) = 0.05 \times 0.04 = 0.002 $$
+
+- $$ p(z_t = 2 \vert x_{t} ) \overline{bel}(x_t = 2) = 0.20 \times 0.26 = 0.052 $$
+
+- $$ p(z_t = 3 \vert x_{t} ) \overline{bel}(x_t = 3) = 0.50 \times 0.48 = 0.24 $$
+
+- $$ p(z_t = 4 \vert x_{t} ) \overline{bel}(x_t = 4) = 0.20 \times 0.20 = 0.04 $$
+
+- $$ p(z_t = 5 \vert x_{t} ) \overline{bel}(x_t = 5) = 0.05 \times 0.02 = 0.001 $$
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/51.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 지금 작업한 과정은 **베에즈 필터 식의 ④에 해당**합니다.
+
+<br>
+
+
+- 위 값들을 모두 더하면 1이 되지 않으므로 normalization을 하기 위하여 $$ \eta $$ 를 곱해주어야 합니다. $$ eta $$ 는 위 값을 모두 더한값의 역수가 됩니다.
+
+<br>
+
+- $$ \eta = 1 / (0.002 + 0.052 + 0.24 + 0.04 + 0.001)  = 2.9851 $$
+
+<br>
+
+- $$ bel(x_{t} = 1) = \eta p(z_t = 1 \vert x_{t} ) \overline{bel}(x_t = 1) = 2.9851 \times 0.05 \times 0.04 = 0.005970149 $$
+
+- $$ bel(x_{t} = 2) = \eta p(z_t = 2 \vert x_{t} ) \overline{bel}(x_t = 2) = 2.9851 \times 0.20 \times 0.26 = 0.155223881 $$
+
+- $$ bel(x_{t} = 3) = \eta p(z_t = 3 \vert x_{t} ) \overline{bel}(x_t = 3) = 2.9851 \times 0.50 \times 0.48 = 0.71641791 $$
+
+- $$ bel(x_{t} = 4) = \eta p(z_t = 4 \vert x_{t} ) \overline{bel}(x_t = 4) = 2.9851 \times 0.20 \times 0.20 = 0.119402985 $$
+
+- $$ bel(x_{t} = 5) = \eta p(z_t = 5 \vert x_{t} ) \overline{bel}(x_t = 5) = 2.9851 \times 0.05 \times 0.02 = 0.002985075 $$
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/50.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+
+- 위 값을 모두 합하면 1이 되므로 확률로 나타낼 수 있습니다. 뿐만 아니라 예측값을 센서값으로 보정하여 자동차의 위치를 파악하는 데 더 용이해 졌습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/bayes_filter/51.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 마지막으로 작업한 과정은 **베에즈 필터 식의 ⑤에 해당**합니다.
 
 <br>
 
@@ -538,6 +714,11 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 - 예를 들어 위 그림과 같은 multimodal 형태의 곡선을 적분하는 것은 생각보다 쉽지 않을 수 있습니다. 계산 과정도 복잡하여 어플리케이션에서 사용하기 어려울 수도 있습니다.
 - 이와 같은 문제를 해결하기 위하여 크게 2가지 방법이 있습니다.
 - 첫번째가 적분이 되지 않는 식을 적분하는 대신 `Monte Carlo Integration`이란 방법의 **랜덤 샘플링 방식을 통하여 근사화** 하는 방법이 있습니다. 이 방법을 이용한 Bayes Filter가 `Particle Filter`가 됩니다.
+- 랜덤 샘플링 방식을 통하여 Bayes Filter를 개선하는 `Particle Filter`에 대한 이해가 필요하시면 다음 링크를 참조하시기 바랍니다.
+    - [파티클 필터의 원리 이해](https://gaussian37.github.io/ad-ose-particle_filter/)
+
+<br>
+
 - 두번째 방법은 더 간단합니다. **적분이 되는 식만 사용**하는 컨셉입니다. 적분을 쉽게 할 수 있으면서 적분이 안되는 식을 근사화 하여 사용할 수 있는 확률 분포가 있을까요?  네 있습니다. 바로 `가우시안 (정규) 분포`입니다.
 
 <br>
@@ -548,8 +729,10 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 - 심지어 적분 테이블 까지 마련되어 있을 정도입니다. 뿐만 아니라 파라미터도 `평균`과 `표준편차`만 있어서 다루기가 쉽습니다.
 - Bayes Filter의 제어값과 센서값의 노이즈가 정규 분포를 따른다고 가정하고 특히, 노이즈의 평균은 0, 표준편차는 $$ \sigma $$를 따른다고 가정하면 이 문제는 굉장히 쉬워집니다.
 - 이와 같이 Bayes Filter에서 상태 방정식의 분포 및 노이즈가 `가우시안 분포`를 따르는 Filter를 `Kalman Filter` 라고 합니다.
-- Bayes Filter가 다 이해가 되셨다면 다음 링크의 Linear Kalman Filter를 학습해 보시길 추천드립니다/
-    - [선형 칼만 필터의 원리 이해](https://gaussian37.github.io/ad-ose-lkf_basic/)
+- Bayes Filter가 다 이해가 되셨다면 다음 링크의 Linear Kalman Filter를 학습해 보시길 추천드립니다.
+    - [선형 칼만 필터 (Linear Kalman Filter)의 원리 이해](https://gaussian37.github.io/ad-ose-lkf_basic/)
+    - [확장 칼만 필터 (Extended Kalman Filter)의 원리 이해](https://gaussian37.github.io/ad-ose-ekf/)
+    - [무향 칼만 필터 (Unscented Kalman Filter)의 원리 이해](https://gaussian37.github.io/ad-ose-ukf/)
 
 <br>
 
