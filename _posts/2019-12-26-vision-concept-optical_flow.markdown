@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Optical Flow 알아보기 (Luckas-Kanade w/ Pyramid, Horn-Schunck, FlowNet)
+title: 옵티컬 플로우 (Optical Flow) 알아보기 (Luckas-Kanade w/ Pyramid, Horn-Schunck, FlowNet)
 date: 2019-12-26 00:00:00
 img: vision/concept/optical_flow/0.png
 categories: [vision-concept] 
