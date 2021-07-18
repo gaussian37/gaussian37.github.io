@@ -548,7 +548,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 <br>
 
 - 먼저 $$ bel(x_{t-1} = -1) $$의 상태부터 고려해 보도록 하겠습니다.
-- 아래 그림의 차가 투명할수록 확률은 0에 가깝고 불투명할수록 높은 확률을 가집니다.
+- 아래 그림의 자동차가 투명할수록 확률은 0에 가깝고 불투명할수록 높은 확률을 가집니다.
 
 <br>
 
@@ -594,15 +594,15 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 <br>
 
-- $$ \overline{bel}(x_{t} = 1) = 0.04 (\text{eq. (1)}) $$
+- $$ \overline{bel}(x_{t} = 1) = 0.04 (\text{eq. (1)}) = 0.04 $$
 
 - $$ \overline{bel}(x_{t} = 2) = 0.12 (\text{eq. (2)}) + 0.14 (\text{eq. (4)}) = 0.26 $$
 
-- $$ \overline{bel}(x_{t} = 3) = 0.04 (\text{eq. (3)}) + 0.42 (\text{eq. (5)}) + 0.02 (\text{eq. (7)}) =0.48 $$
+- $$ \overline{bel}(x_{t} = 3) = 0.04 (\text{eq. (3)}) + 0.42 (\text{eq. (5)}) + 0.02 (\text{eq. (7)}) = 0.48 $$
 
-- $$ \overline{bel}(x_{t} = 4) = 0.14 (\text{eq. (6)}) + 0.06 (\text{eq. (8)}) $$
+- $$ \overline{bel}(x_{t} = 4) = 0.14 (\text{eq. (6)}) + 0.06 (\text{eq. (8)}) = 0.20$$
 
-- $$ \overline{bel}(x_{t} = 5) = 0.02 (\text{eq. (9)}) $$
+- $$ \overline{bel}(x_{t} = 5) = 0.02 (\text{eq. (9)}) = 0.02 $$
 
 <br>
 <center><img src="../assets/img/autodrive/ose/bayes_filter/48.png" alt="Drawing" style="width: 800px;"/></center>
