@@ -511,12 +511,12 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 <br>
 
-- 이번에는 자동차 이동 예제를 통하여 Bayes Filter 수식을 살펴보도록 하겠습니다. 이 예제는 직전 자동차의 위치 $$ bel(x_{t-1}) $$ 를 기준으로 현재 자동차의 위치 $$ bel(x_{t}) $$ 를 추정하는 예제입니다.
-- 추정하는 방법은 $$ bel(x_{t-1}) $$ 를 기준으로 현재 시간의 제어( $$ u_t $$ )를 반영하고 현재 시간의 센서값( $$ u_t $$ )을 통하여 보정하는 작업을 `베이즈 필터`를 이용하여 적용해 보겠습니다.
+- 이번에는 자동차 이동 예제를 통하여 Bayes Filter 수식을 살펴보도록 하겠습니다. 이 예제는 직전 자동차의 위치 $$ bel(x_{t-1}) $$ 를 기준으로 현재 자동차의 위치 $$ bel(x_{t}) $$를 추정하는 예제입니다.
+- 추정하는 방법은 $$ bel(x_{t-1}) $$를 기준으로 현재 시간의 제어($$ u_t $$)를 반영하고 현재 시간의 센서값($$ u_t $$)을 통하여 보정하는 작업을 `베이즈 필터`를 이용하여 적용해 보겠습니다.
 
 <br>
 
-- 먼저 이전 시간 $$ t - 1 $$ 까지의 자차의 위치는 다음과 같다고 가정하겠습니다.
+- 먼저 이전 시간 $$ t - 1 $$까지의 자차의 위치는 다음과 같다고 가정하겠습니다.
 
 <br>
 
@@ -534,7 +534,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 <br>
 
-- 위 상태에서 현재 시간 $$ t $$ 의 제어값인 $$ u_{t} = +3 $$ 즉, 오른쪽으로 3칸 이동을 반영해 보도록 하겠습니다. 이 때, 제어값에 대한 노이즈가 존재하므로 이 또한 확률 분포로 나타내면 다음과 같습니다.
+- 위 상태에서 현재 시간 $$ t $$의 제어값인 $$ u_{t} = +3 $$ 즉, 오른쪽으로 3칸 이동을 반영해 보도록 하겠습니다. 이 때, 제어값에 대한 노이즈가 존재하므로 이 또한 확률 분포로 나타내면 다음과 같습니다.
 
 <bt>
 
@@ -553,11 +553,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - $$ bel(x_{t-1} = -1)p(x_t=1 \vert u_t=2, x_{t-1} = -1)=0.2\times0.2=0.04 \tag{1} $$
 
-<br>
-
 - $$ bel(x_{t-1} = -1)p(x_t=2 \vert u_t=3, x_{t-1} = -1)=0.2\times0.6=0.12 \tag{2} $$
-
-<br>
 
 - $$ bel(x_{t-1} = -1)p(x_t=3 \vert u_t=4, x_{t-1} = -1)=0.2\times0.2=0.04 \tag{3} $$
 
@@ -571,11 +567,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - $$ bel(x_{t-1} = 0)p(x_t=2 \vert u_t=2, x_{t-1} = 0)=0.7\times0.2=0.14 \tag{4} $$
 
-<br>
-
 - $$ bel(x_{t-1} = 0)p(x_t=3 \vert u_t=3, x_{t-1} = 0)=0.7\times0.6=0.42 \tag{5} $$
-
-<br>
 
 - $$ bel(x_{t-1} = 0)p(x_t=4 \vert u_t=4, x_{t-1} = 0)=0.7\times0.2=0.14 \tag{6} $$
 
@@ -589,11 +581,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - $$ bel(x_{t-1} = 1)p(x_t=3 \vert u_t=2, x_{t-1} = 1)=0.1\times0.2=0.02 \tag{7} $$
 
-<br>
-
 - $$ bel(x_{t-1} = 1)p(x_t=4 \vert u_t=3, x_{t-1} = 1)=0.1\times0.6=0.06 \tag{8} $$
-
-<br>
 
 - $$ bel(x_{t-1} = 1)p(x_t=5 \vert u_t=4, x_{t-1} = 1)=0.1\times0.2=0.02 \tag{9} $$
 
@@ -607,19 +595,11 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - $$ \overline{bel}(x_{t} = 1) = 0.04 (\text{eq. (1)}) $$
 
-<br>
-
 - $$ \overline{bel}(x_{t} = 2) = 0.12 (\text{eq. (2)}) + 0.14 (\text{eq. (4)}) = 0.26 $$
-
-<br>
 
 - $$ \overline{bel}(x_{t} = 3) = 0.04 (\text{eq. (3)}) + 0.42 (\text{eq. (5)}) + 0.02 (\text{eq. (7)}) =0.48 $$
 
-<br>
-
 - $$ \overline{bel}(x_{t} = 4) = 0.14 (\text{eq. (6)}) + 0.06 (\text{eq. (8)}) $$
-
-<br>
 
 - $$ \overline{bel}(x_{t} = 5) = 0.02 (\text{eq. (9)}) $$
 
@@ -660,19 +640,11 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - $$ p(z_t = 1 \vert x_{t} ) \overline{bel}(x_t = 1) = 0.05 \times 0.04 = 0.002 $$
 
-<br>
-
 - $$ p(z_t = 2 \vert x_{t} ) \overline{bel}(x_t = 2) = 0.20 \times 0.26 = 0.052 $$
-
-<br>
 
 - $$ p(z_t = 3 \vert x_{t} ) \overline{bel}(x_t = 3) = 0.50 \times 0.48 = 0.24 $$
 
-<br>
-
 - $$ p(z_t = 4 \vert x_{t} ) \overline{bel}(x_t = 4) = 0.20 \times 0.20 = 0.04 $$
-
-<br>
 
 - $$ p(z_t = 5 \vert x_{t} ) \overline{bel}(x_t = 5) = 0.05 \times 0.02 = 0.001 $$
 
@@ -685,7 +657,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 <br>
 
 
-- 위 값들을 모두 더하면 1이 되지 않으므로 normalization을 하기 위하여 $$ \eta $$ 를 곱해주어야 합니다. $$ eta $$ 는 위 값을 모두 더한값의 역수가 됩니다.
+- 위 값들을 모두 더하면 1이 되지 않으므로 normalization을 하기 위하여 $$ \eta $$를 곱해주어야 합니다. $$ \eta $$는 위 값을 모두 더한값의 역수가 됩니다.
 
 <br>
 
@@ -695,19 +667,11 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 
 - $$ bel(x_{t} = 1) = \eta p(z_t = 1 \vert x_{t} ) \overline{bel}(x_t = 1) = 2.9851 \times 0.05 \times 0.04 = 0.005970149 $$
 
-<br>
-
 - $$ bel(x_{t} = 2) = \eta p(z_t = 2 \vert x_{t} ) \overline{bel}(x_t = 2) = 2.9851 \times 0.20 \times 0.26 = 0.155223881 $$
-
-<br>
 
 - $$ bel(x_{t} = 3) = \eta p(z_t = 3 \vert x_{t} ) \overline{bel}(x_t = 3) = 2.9851 \times 0.50 \times 0.48 = 0.71641791 $$
 
-<br>
-
 - $$ bel(x_{t} = 4) = \eta p(z_t = 4 \vert x_{t} ) \overline{bel}(x_t = 4) = 2.9851 \times 0.20 \times 0.20 = 0.119402985 $$
-
-<br>
 
 - $$ bel(x_{t} = 5) = \eta p(z_t = 5 \vert x_{t} ) \overline{bel}(x_t = 5) = 2.9851 \times 0.05 \times 0.02 = 0.002985075 $$
 
