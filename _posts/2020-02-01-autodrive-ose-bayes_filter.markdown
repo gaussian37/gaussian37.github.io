@@ -530,7 +530,7 @@ tags: [Optimal State Estimation, 최정 상태 이론, 베이즈 필터, Bayes f
 <center><img src="../assets/img/autodrive/ose/bayes_filter/51.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 지금 작업한 과정은 **베에즈 필터 식의 ①에 해당**합니다.
+- 위에서 작업한 과정은 **베에즈 필터 식의 ①에 해당**합니다.
 
 <br>
 
