@@ -1,10 +1,10 @@
 ---
 layout: post
-title: 딥러닝의 Quantization과 Quantization Aware Training
+title: 딥러닝의 Quantization (양자화)와 Quantization Aware Training
 date: 2020-05-30 00:00:00
 img: dl/concept/quantization/0.png
 categories: [dl-concept]
-tags: [deep learning, machine learning, dl, 딥러닝, quantization, ptq, post traingin quantization, quantization mapping, qat, QAT, quantization aware training, matrix quantization, pytorch] # add tag
+tags: [deep learning, machine learning, dl, 딥러닝, quantization, ptq, post traingin quantization, quantization mapping, qat, QAT, quantization aware training, matrix quantization, pytorch, 양자화] # add tag
 ---
 
 <br>
