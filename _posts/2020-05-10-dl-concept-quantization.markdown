@@ -15,6 +15,8 @@ tags: [deep learning, machine learning, dl, 딥러닝, quantization, ptq, post t
 
 - 참조 : https://arxiv.org/pdf/1806.08342.pdf (Quantizing deep convolutional networks for
 efficient inference: A whitepaper)
+- 참조 : https://arxiv.org/pdf/2004.09602.pdf (INTEGER QUANTIZATION FOR DEEP LEARNING INFERENCE:
+PRINCIPLES AND EMPIRICAL EVALUATION)
 - 참조 : https://youtu.be/Oh1pLlir39Q
 - 참조 : https://leimao.github.io/article/Neural-Networks-Quantization/
 - 참조 : https://leimao.github.io/blog/PyTorch-Quantization-Aware-Training/

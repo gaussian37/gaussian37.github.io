@@ -49,7 +49,7 @@ tags: [object detection, centernet, object as points] # add tag
 - 이 논문에서는 박스의 중앙점을 object로 판단하고 이 중앙점을 이용하여 bounding box의 좌표를 예측합니다.
 - 따라서 object의 중앙점을 예측하는 것이 이 네트워크의 가장 기본적이면서 중요한 예측 문제라고 할 수 있습니다.
 - CenterNet에서는 이미지를 네트워크를 통하여 연산을 하면 최종 출력되는 feature에서는 서로 다른 key point들에 대하여 `heatmap`을 가지게 됩니다. 이 **heatmap의 최고점(peak)이 object의 중앙점으로 예측**되는 구조입니다.
-- 각각의 중앙점은 bounding box를 위해 **고유**한 width와 height를 가집니다. 따라서 `중앙점 + width + height`로 그려지는 bounding box로 인하여 다른 네트워크 구조에서 사용된 `NMS(Non-Maximal Suppresion)`이 사용되지 않는 장점이 있습니다.
+- 각각의 중앙점은 bounding box를 위해 **고유**한 width와 height를 가집니다. 따라서 `중앙점 + width + height`로 그려지는 bounding box로 인하여 다른 네트워크 구조에서 사용된 `NMS(Non-Maximal Suppresion)`이 사용되지 않는 장점이 있습니다. (**단 하나의 Anchor를 사용한다고 보면 됩니다.**)
 - 각 중앙점이 어떤 클래스에 해당하는 지 파악할 때에도 앞에서 언급한 heatmap의 peak를 사용하게 됩니다.
 - 따라서 이 중앙점과 그 정보들을 사용함으로써 **박스의 위치 및 크기와 그 박스가 나타내는 클래스의 정보**를 알 수 있습니다.
 
@@ -64,8 +64,10 @@ tags: [object detection, centernet, object as points] # add tag
 <br>
 
 - CenterNet의 아키텍쳐를 단순화 시켜서 보면 위 그림과 같습니다. 출력 부분을 보면 3개의 모듈로 나뉘어 지는 것을 확인할 수 있습니다. 
-- 각 모듈은 `Heatmap Head`, `Dimension(w-h) Head`, `Offset Head`가 있습니다.
-- 입력 이미지 `I`의 height가 `H`, width가 `W`, 채널은 `C = 3`이라고 하겠습니다. `R`은 output stride
+- 각 모듈은 `Dimension(w-h) Head`, `Heatmap Head`, `Offset Head`가 있습니다.
+- 입력 이미지 `I`의 height가 `H`, width가 `W`, 채널은 `C = 3`이라고 하겠습니다. `R`은 output stride로 3가지 head의 dimension에 영향을 줍니다. 모든 head는 같은 크기의 height, width 사이즈 (`H/R`, `W/R`)를 가집니다. 위 아키텍쳐 예제에서 `R = 4`로 각 head는 (512/4=128, 512/4=128)의 크기를 가집니다.
+- 반면 채널 `C`는 서로 다른 값을 가집니다. 위 그림의 아키텍쳐에서 `Dimension Head`는 2개의 채널을 가지고 `Heatmap Head`는 80개의 채널을 가지고 마지막으로 `Offset Head`는 2개의 채널을 가짐을 알 수 있습니다. Heatmap Head가 가지는 80개의 채널은 `클래스의 수`에 해당합니다.
+- 그러면 각 Head가 가지는 의미에 대하여 알아보도록 하겠습니다.
 
 <br>
 
@@ -73,8 +75,13 @@ tags: [object detection, centernet, object as points] # add tag
 
 <br>
 
+- `Heatmap Head`는 주어진 입력 이미지의 key point들을 추정하는 데 사용됩니다. 여기서 key point는 object detection의 박스의 중심점을 나타냅니다.
+- `Heatmap Head`의 목적은 heatmap인 $$ \hat{Y} $$ 을 예측하는 것이며 이 값은 (`W/R`, `H/R`, `C`)의 dimension을 가집니다. 이 때, output stride는 `R`, 클래스의 수는 `C`를 가집니다. (COCO 데이터셋을 기준으로 클래스는 80입니다.)
+- 여기서 $$ \hat{Y} $$ 은 $$ x, y, c $$의 function 형태로 나타낼 수 있습니다. 만약 $$ \hat{Y}(x, y, c) == 1 $$ 이라면 어떤 클래스 $$ c $$의 center point를 감지한 것으로 나타낼 수 있습니다. 반면 $$ \hat{Y}(x, y, c) == 0 $$이라면 배경(background)라고 나타낼 수 있습니다.
 
+<br>
 
+- Heatmap에서 
 
 <br>
 
