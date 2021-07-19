@@ -1,6 +1,6 @@
 ---
 layout: post
-title: CenterNet (Objects as Points)
+title: 센터넷, CenterNet (Objects as Points)
 date: 2020-11-25 00:00:00
 img: vision/detection/centernet/0.png
 categories: [vision-detection] 
@@ -64,7 +64,8 @@ tags: [object detection, centernet, object as points] # add tag
 <br>
 
 - CenterNet의 아키텍쳐를 단순화 시켜서 보면 위 그림과 같습니다. 출력 부분을 보면 3개의 모듈로 나뉘어 지는 것을 확인할 수 있습니다. 
-- 각 모듈은 `Heatmap Head`, `Dimension(w-h) Head`, `Offset Head`가 있습니다. 각 모듈에 대하여 알아보겠습니다.
+- 각 모듈은 `Heatmap Head`, `Dimension(w-h) Head`, `Offset Head`가 있습니다.
+- 입력 이미지 `I`의 height가 `H`, width가 `W`, 채널은 `C = 3`이라고 하겠습니다. `R`은 output stride
 
 <br>
 
