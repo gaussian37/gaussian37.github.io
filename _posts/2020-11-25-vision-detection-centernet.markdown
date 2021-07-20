@@ -80,9 +80,33 @@ tags: [object detection, centernet, object as points] # add tag
 - 여기서 $$ \hat{Y} $$ 은 $$ x, y, c $$의 function 형태로 나타낼 수 있습니다. 만약 $$ \hat{Y}(x, y, c) == 1 $$ 이라면 어떤 클래스 $$ c $$의 center point를 감지한 것으로 나타낼 수 있습니다. 반면 $$ \hat{Y}(x, y, c) == 0 $$이라면 배경(background)라고 나타낼 수 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/detection/centernet/4.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/detection/centernet/4.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- $$ Y_{xyc} = \text{exp}\biggl( -\frac{  (x - \tilde{p}_{x})^{2} + (y - \tilde{p}_{y})^{2} }{2\sigma^{2}_{p}} \biggr) $$
+
+<br>
+
+- heamap head에서 loss를 구하기 위해 `ground truth에 대한 전처리`가 필요하여 그 과정은 위 flow와 같습니다.
+- 먼저 stride를 거친 저해상도 영상을 바로 사용하지 않고 `2D Gaussian Kernel`을 적용하여 blur를 적용합니다. 
+- 가장 왼쪽의 기존의 해상도 영상에서 빨간색 점을 저해상도로 변환 후 바로 사용하면 GT에 해당하는 점, 단 하나만 1의 값을 가지고 주변은 0의 값을 가지게 됩니다. 이 경우 prediction한 결과와 ground truth에 해당하는 좌표가 상당히 가까이 (극단적으로 바로 옆에) 있어도 prediction을 잘 했다고 Loss를 반영하기가 어려워집니다.
+- 따라서 Gaussian Kernel을 이용하여 blur를 적용한 ground truth를 사용하면 prediction에 대한 허용 오차가 생기게 되어 Loss 반영이 좀 더 쉬워집니다.
+
+<br>
+
+- $$ Y_{xyc} \longleftrightarrow \hat{Y}_{xyc} \in [0, 1]^{\frac{H}{R} \times \frac{W}{R} \times C } $$
+
+<br>
+
+- 따라서 최종적으로 Loss를 계산하기 위하여 $$ Y_{xyc} $$와 $$ \hat{Y} $$ 간의 비교를 통하여 Loss를 계산할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/centernet/5.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- ※ Focal Loss에 대한 상세 내용 : [https://gaussian37.github.io/dl-concept-focal_loss/](https://gaussian37.github.io/dl-concept-focal_loss/)
+- `heatmap head`에서 사용하는 loss는 `Focal Loss`를 사용합니다. Focal Loss의 내용을 간단하게 살펴보면 $$ Y_{xyc} = 1 $$ 이면 즉, 예측한 좌표가 center point가 맞다면, 예측한 좌표가 얼만큼 오차가 있는 지 구합니다. 반면에 $$ Y_{xyc} \ne 1 $$ 이면 즉, 예측한 좌표가 center point가 아니면, 0인 영역에서 얼만큼 떨어져 있는 지를 통하여 Loss를 구합니다.
+- 이와 같이 Focal Loss를 사용하는 이유는 Detection이 쉬운 Object의 경우 Loss 값을 낮추고 Detection이 어려운 Object의 경우 Loss 값을 높여서 잘 검출이 안되는 Object에 집중을 하여 학습을 하겠다는 방법입니다. (Focal Loss의 상세 내용은 위 링크를 참조하시기 바랍니다.)
 
 
 
