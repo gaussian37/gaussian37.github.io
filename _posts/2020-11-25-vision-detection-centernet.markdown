@@ -108,8 +108,6 @@ tags: [object detection, centernet, object as points] # add tag
 - `heatmap head`에서 사용하는 loss는 `Focal Loss`를 사용합니다. Focal Loss의 내용을 간단하게 살펴보면 $$ Y_{xyc} = 1 $$ 이면 즉, 예측한 좌표가 center point가 맞다면, 예측한 좌표가 얼만큼 오차가 있는 지 구합니다. 반면에 $$ Y_{xyc} \ne 1 $$ 이면 즉, 예측한 좌표가 center point가 아니면, 0인 영역에서 얼만큼 떨어져 있는 지를 통하여 Loss를 구합니다.
 - 이와 같이 Focal Loss를 사용하는 이유는 Detection이 쉬운 Object의 경우 Loss 값을 낮추고 Detection이 어려운 Object의 경우 Loss 값을 높여서 잘 검출이 안되는 Object에 집중을 하여 학습을 하겠다는 방법입니다. (Focal Loss의 상세 내용은 위 링크를 참조하시기 바랍니다.)
 
-
-
 <br>
 
 #### **dimension head**
@@ -131,11 +129,6 @@ tags: [object detection, centernet, object as points] # add tag
 - center point를 예측한 후에, 이 예측한 center point를 입력 이미지의 해상도에 맞추어 매핑을 해야합니다. downsampling 된 해상도에서의 center point를 입력 이미지 해상도에 맞게 복원할 때, `정수값`의 좌표로 복원해야 하므로 floating point → integer 값으로 좌표를 복원할 때 값을 정정해 주기 위하여 `offset head` $$ \hat{O} $$ 를 사용합니다.
 - offset head의 dimension은 (`H/R`, `W/R`, `2`)를 가지며 channel 방향으로 가지는 2개의 값은 `x`, `y` 방향으로의 좌표 offset 값을 나타냅니다.
 
-
-
-
-
-
 <br>
 
 ## **CenterNet Performance**
@@ -149,7 +142,7 @@ tags: [object detection, centernet, object as points] # add tag
 
 <br>
 
-
+- 참조 : https://github.com/gakkiri/simple-centernet-pytorch
 
 
 <br>
