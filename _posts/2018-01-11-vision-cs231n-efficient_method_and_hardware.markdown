@@ -85,7 +85,6 @@ tags: [cs231n, efficienct method and hardware] # add tag
 
 
 
-
 <br>
 
 [CS231n 강의 목록](https://gaussian37.github.io/vision-cs231n-table/)
