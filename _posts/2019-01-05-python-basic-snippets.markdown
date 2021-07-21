@@ -71,6 +71,7 @@ tags: [python, python 기본] # add tag
 - #### [Dictionary와 JSON](#dictionary와-json-1)
 - #### [Dicionary의 최대, 최소 value 찾기](#dicionary의-최대-최소-value-찾기-1)
 - #### [copy를 이용한 deepcopy](#copy를-이용한-deepcopy-1)
+- #### [zipfile을 이용한 압축 풀기](#zipfile을-이용한-압축-풀기-`)
 
 <br>
 
@@ -2195,6 +2196,31 @@ object2 = deepcopy(object1)
 
 # 지정된 디렉토리의 전체 파일 목록을 얻을 수 있다. 
 os.listdir(path)
+```
+
+<br>
+
+## **zipfile을 이용한 압축 풀기**
+
+<br>
+
+- 파이썬에서 압축 파일을 해제하려면 `zipfile`을 이용하여 해제할 수 있습니다. 코드는 아래와 같고 아래 코드는 압축파일을 해제하고 압축파일을 삭제하는 것 까지 적용하였습니다.
+- 참고로 아래 코드의 `dest_path`에 압축 파일을 해제할 때, 현재 directory가 없다고 하더라도 자동적으로 생성하여 압축 해제한 파일을 풀어놓으므로 사전에 폴더 구조를 미리 만들 필요 없습니다.
+
+<br>
+
+```python
+import zipfile
+import os
+
+def extract_zipfile(src_file_path, dest_path):
+    with zipfile.ZipFile(src_file_path,"r") as zip_ref:
+        zip_ref.extractall(dest_path)
+    os.remove(src_file_path)
+
+src_file_path = "src_path/.../.../file.zip"
+dest_path = "dest_path/../../"
+extract_zipfile(src_file_path, dest_path)
 ```
 
 <br>

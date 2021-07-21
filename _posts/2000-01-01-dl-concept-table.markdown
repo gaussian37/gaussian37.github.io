@@ -28,6 +28,7 @@ tags: [python, deep learning, dl] # add tag
 - [Attention 모델과 Seq2seq with Attention](https://gaussian37.github.io/dl-concept-attention/)
 - [Transformer 모델 (Attention is all you need)](https://gaussian37.github.io/dl-concept-transformer/)
 - [Active Learning](https://gaussian37.github.io/dl-concept-active_learning/)
+- [Deep Learning에서의 Uncertainty](https://gaussian37.github.io/dl-concept-uncertainty_in_deep_learning/)
 
 <br>
 
@@ -46,8 +47,6 @@ tags: [python, deep learning, dl] # add tag
 - [MobileNet v3](https://gaussian37.github.io/dl-concept-mobilenet_v3/)
 - [ShuffleNet](https://gaussian37.github.io/dl-concept-shufflenet/)
 - [DenseNet](https://gaussian37.github.io/dl-concept-densenet/)
-- [NAS, Neural Architecture Search with RL]()
-- [MNasNet]()
 
 <br>
 
