@@ -18,6 +18,9 @@ tags: [object detection, centernet, object as points] # add tag
 - 참조 : https://medium.com/visionwizard/centernet-objects-as-points-a-comprehensive-guide-2ed9993c48bc
 - 참조 : https://nuggy875.tistory.com/34
 - 참조 : https://seongkyun.github.io/papers/2019/10/28/centernet/
+- 참조 : https://github.com/gakkiri/simple-centernet-pytorch/tree/master/model
+- 참조 : https://github.com/JavisPeng/CenterNet-pytorch-detection-simple-tutorial
+- 참조 : https://www.kaggle.com/kyoshioka47/centernet-starterkit-pytorch
 
 <br>
 
