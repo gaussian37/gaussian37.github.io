@@ -56,7 +56,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 <br>
 
 - ### **-------------------- 자주 사용하는 코드 모음 --------------------**
-- ### [model 파일을 읽어서 네트워크 객체 생성](#model-파일을-읽어서-네트워크-객체-생성)
+- ### [파이썬 파일을 읽어서 네트워크 객체 생성](#파이썬-파일을-읽어서-네트워크-객체-생성)
 - ### [weight 초기화 방법](#weight-초기화-방법)
 - ### [load와 save 방법](#load와-save-방법)
 - ### [Dataloader 사용 방법](#dataloader-사용-방법)
@@ -1933,7 +1933,7 @@ torch.arange(0, 4).repeat(3, 4)
 
 <br>
 
-## **model 파일을 읽어서 네트워크 객체 생성**
+## **파이썬 파일을 읽어서 네트워크 객체 생성**
 
 <br>
 
