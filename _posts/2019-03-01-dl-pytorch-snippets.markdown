@@ -56,6 +56,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 <br>
 
 - ### **-------------------- 자주 사용하는 코드 모음 --------------------**
+- ### [model 파일을 읽어서 네트워크 객체 생성](#model-파일을-읽어서-네트워크-객체-생성)
 - ### [weight 초기화 방법](#weight-초기화-방법)
 - ### [load와 save 방법](#load와-save-방법)
 - ### [Dataloader 사용 방법](#dataloader-사용-방법)
@@ -1929,6 +1930,32 @@ torch.arange(0, 4).repeat(3, 4)
 <br>
 
 - 위 예제를 보면 실제 어떻게 기존 Tensor가 반복되어 repeat함수를 통해 값이 채워지는 지 알 수 있습니다. 이 패턴을 이용하여 반복된 형태의 데이터를 쉽게 생성할 수 있습니다.
+
+<br>
+
+## **model 파일을 읽어서 네트워크 객체 생성**
+
+<br>
+
+- pytorch에서 모델을 불러올 때, 모델에 해당하는 `model.py` 코드를 직접 접근하여 import가 필요할 때가 있습니다. 예를 들면 argument로 모델을 입력하면 직접 파일을 접근하여 모델을 불러와야 하는 경우에 해당합니다.
+- 다음 코드는 ① 모델 코드가 있는 위치를 읽을 수 있도록 path를 추가한 뒤 ② 모델을 import하여 객체를 생성하는 코드입니다. (**모델의 클래스 명은 Net인 것으로 가정하겠습니다.**)
+
+<br>
+
+```python
+import os
+import sys
+import importlib
+
+def get_model(path):
+    # 시스템에 모델의 path를 추가합니다.
+    sys.path.append(os.path.dirname(path))
+    
+    # model을 import 합니다.
+    net = importlib.import_module(os.path.basename(path).split('.')[0])
+    model = net.Net()
+    return model
+```
 
 <br>
 
