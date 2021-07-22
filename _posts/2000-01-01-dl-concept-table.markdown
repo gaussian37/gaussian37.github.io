@@ -29,6 +29,7 @@ tags: [python, deep learning, dl] # add tag
 - [Transformer 모델 (Attention is all you need)](https://gaussian37.github.io/dl-concept-transformer/)
 - [Active Learning](https://gaussian37.github.io/dl-concept-active_learning/)
 - [Deep Learning에서의 Uncertainty](https://gaussian37.github.io/dl-concept-uncertainty_in_deep_learning/)
+- [Bayesian Neural Network](https://gaussian37.github.io/dl-concept-bayesian_neural_network/)
 
 <br>
 
