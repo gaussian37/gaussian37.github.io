@@ -12,9 +12,7 @@ tags: [ps, c++, python] # add tag
 
 ### 문제 풀 때 필요한 문법 관련 내용
 
-- [C++에서 문제 풀 때 좋은 문법 및 템플릿](https://gaussian37.github.io/math-ps-tip/)
-- [C++에서 문제 풀 때 좋은 STL](https://gaussian37.github.io/math-ps-stl/)
-- [Python에서 문제 풀 때 필요한 문법]()
+- [C++에서 문제 풀 때 좋은 코드 snippets](https://gaussian37.github.io/math-ps-cpp_snippets/)
 
 <br>
 

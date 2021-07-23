@@ -13,10 +13,46 @@ tags: [ps, c++] # add tag
 
 <br>
 
+- ### [문자열 입출력](#문자열-입출력-1)
 - ### [lower_bound, upper_bound](#lower_bound-upper_bound-1)
 - ### [unique와 erase 사용하기](#unique와-erase-사용하기-1)
 - ### [문자열에서 숫자 찾는 tokenizer](#문자열에서-숫자-찾는-tokenizer-1)
 - ### [문자열 숫자와 정수,실수형 숫자 간의 변환](#문자열-숫자와-정수실수형-숫자-간의-변환-1)
+
+<br>
+
+## **문자열 입출력**
+
+<br>
+
+- C++의 cin, cout을 scanf, print와 같이 빠르게 사용하고 싶다면 다음 코드를 입력해 줍니다.
+
+<br>
+
+```cpp
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+cout.tie(NULL);
+```
+
+<br>
+
+- 대신에 `cin`, `cout`을 쓰면서 절대로 `scanf`와 `printf`를 같이 써서는 안됩니다. (동기화가 끊겨서 값이 뒤죽박죽 됩니다.)
+    
+<br>
+
+- 입력을 EOF까지 입력을 받는 경우 다음과 같이 받으면 됩니다.
+    - C 스타일 : `while(scanf("%d %d", &a, &b) == 2)`
+    - C++ 스타일 : `while(cin>>a>>b))`
+
+<br>
+
+- 한 줄을 입력 받고 싶으면 다음과 같이 입력 받습니다.
+- `C 스타일` : `scanf("%[^\n]\n", s);`
+	- scanf 안의 `%[^\n]`의 뜻을 살펴보면 **^**뒤의 문자만 빼고 입력을 받겠다는 뜻입니다. 
+	- 즉, 개행 문자는 빼고 문자를 받는 다는 뜻이고 대괄호 밖의 마지막 문자 개행문자의 뜻은 입력 받는 마지막의 문자는 개행 문자여야 한다는 뜻입니다.
+	- 따라서 입력 받는 문자열에서 마지막 문자는 개행문자이어야 하고 그 이전에 받는 개행 문자는 무시한다는 뜻입니다.
+- `C++ 스타일` : `getline(cin, s);`
 
 <br>
 
@@ -108,3 +144,6 @@ vector<int> tokToNum(string s, string del = " ") {
     - stoull : string → unsigend long long
 - from `정수, 실수` to `문자열`
     - to_string() 함수 사용
+
+
+    
