@@ -13,10 +13,10 @@ tags: [ps, c++] # add tag
 
 <br>
 
-- ### lower_bound, upper_bound
-- ### unique와 erase 사용하기
-- ### 문자열에서 숫자 찾는 tokenizer
-- ### 문자열 숫자와 정수,실수형 숫자 간의 변환
+- ### [lower_bound, upper_bound](#lower_bound-upper_bound-1)
+- ### [unique와 erase 사용하기](#unique와-erase-사용하기-1)
+- ### [문자열에서 숫자 찾는 tokenizer](#문자열에서-숫자-찾는-tokenizer-1)
+- ### [문자열 숫자와 정수,실수형 숫자 간의 변환](#문자열-숫자와-정수실수형-숫자-간의-변환-1)
 
 <br>
 
