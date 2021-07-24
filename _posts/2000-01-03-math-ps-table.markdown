@@ -7,10 +7,19 @@ categories: [math-ps]
 tags: [ps, c++, python] # add tag
 ---
 
-- Problem Solving 문제 리스트 입니다. 
-- 1개의 문제라도 깊고 확실히 알 수 있도록 훈련해 보고 있습니다.
+<br>
 
-### 문제 풀 때 필요한 문법 관련 내용
+## **알고리즘 문제 리스트 **
+
+<br>
+
+- [난이도 및 주제 별 알고리즘 문제 리스트](https://docs.google.com/spreadsheets/d/1_s86bWk_ZiFMIVBfKQPR1oIDW-uKBzdzDl11fPB0Nig/edit#gid=0)
+
+<br>
+
+## **문제 풀 때 필요한 문법 관련 내용**
+
+<br>
 
 - [C++에서 문제 풀 때 좋은 코드 snippets](https://gaussian37.github.io/math-ps-cpp_snippets/)
 
