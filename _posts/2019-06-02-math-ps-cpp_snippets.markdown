@@ -81,7 +81,6 @@ scanf("%10s",s);
 
 <br>
 
-- 
 
 
 <br>
@@ -131,6 +130,44 @@ vector<int> tokToNum(string s, string del = " ") {
     - stoull : string → unsigend long long
 - from `정수, 실수` to `문자열`
     - to_string() 함수 사용
+
+<br>
+
+- `char 배열`과 `string` 모두 문자열 숫자를 숫자형으로 변경 가능하며 코드는 다음과 같습니다.
+- `char 배열`은 `atoi` 형태의 함수를 사용하고 `string`은 위 예시처럼 `stoi` 형태의 함수를 사용합니다. `char` 배열이 더 가벼우므로 연산 속도는 더 빠르며 심지어 `string`을 `c_str()` 함수를 통하여 char 배열로 변환한 뒤 `atoi`로 변환하는 경우가 더 연산 속도가 빠릅니다.
+
+<br>
+
+```cpp
+#include <cstdio>
+#include <string>
+
+using namespace std;
+
+int main(){
+
+    char int_s[100] = "12345";
+    char float_s[100] = "123.45";
+
+    string int_str = "12345";
+    string float_str = "123.45";
+
+    int int_num = atoi(int_s); // atol, atoll
+    double float_num = atof(float_s);
+
+    int int_num2 = stoi(int_s); // atol, atoll
+    double float_num2 = stod(float_s);
+
+    int int_num3 = atoi(int_str.c_str()); // atol, atoll
+    double float_num3 = stod(float_s);
+
+
+    printf("%d %lf\n", int_num, float_num);
+    printf("%d %lf\n", int_num2, float_num2);
+    printf("%d %lf\n", int_num3, float_num3);    
+
+}
+```
 
 <br>
 
