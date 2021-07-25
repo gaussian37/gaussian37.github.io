@@ -16,6 +16,23 @@ tags: [가우시안 프로세스, gaussian process, gaussian] # add tag
 - 참조 : https://www.edwith.org/bayesiandeeplearning/
 - 참조 : https://students.brown.edu/seeing-theory/
 
+<br>
+
+## **목차**
+
+<br>
+
+- ### 배경지식 : Random Variable, Random Process, Functional Analysis
+- ### Gaussian Process
+- ### Weight Space View
+- ### Function Space View
+- ### Gaussian process latent variable model (GPLVM)
+- ### Gaussian process Application
+
+<br>
+
+
+
 
 <br>
 

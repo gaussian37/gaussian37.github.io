@@ -18,13 +18,15 @@ tags: [python, 세팅, 설치] # add tag
 
 ## **목차**
 
-- ### 가상 환경 세팅
-- ### reqirement 파일 생성
-- ### python2, python3 구분하여 설치
+- ### [가상 환경 세팅 이유](#가상-환경-세팅-이유-1)
+- ### [가상 환경 설치](#가상-환경-설치-1)
+- ### [가상 환경 실행](#가상-환경-실행-1)
+- ### [requirements 파일 생성](#requirements-파일-생성-1)
+- ### [python2, python3 구분하여 설치](#python2-python3-구분하여-설치-1)
 
 <br>
 
-## **가상 환경 세팅**
+## **가상 환경 세팅 이유**
 
 <br>
 
@@ -95,7 +97,7 @@ virtualenv myenv
 
 <br>
 
-## **reqirement 파일 생성**
+## **requirements 파일 생성**
 
 <br>
 
