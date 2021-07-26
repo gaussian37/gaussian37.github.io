@@ -75,7 +75,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/vision/concept/' or page.url == '/vision/segmentation/' or page.url == '/vision/depth/' or page.url == '/vision/cs231n/' or page.url == '/vision/opencv/' or page.url == '/vision/signal/' or page.url == '/vision/detection/ or page.url == '/vision/etc/'%} active {% endif %}">
+            {% if page.url == '/vision/concept/' or page.url == '/vision/segmentation/' or page.url == '/vision/depth/' or  page.url == '/vision/of/' or page.url == '/vision/cs231n/' or page.url == '/vision/opencv/' or page.url == '/vision/signal/' or page.url == '/vision/detection/ or page.url == '/vision/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('vision-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -83,10 +83,11 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="vision-dropdown">
                     <a class="dropdown-item" href="{{ "/vision/concept" | prepend: site.baseurl }}">Concept</a>
+                    <a class="dropdown-item" href="{{ "/vision/segmentation" | prepend: site.baseurl }}">Segmentation based on DL</a>
+                    <a class="dropdown-item" href="{{ "/vision/detection" | prepend: site.baseurl }}">Detection based on DL</a>
+                    <a class="dropdown-item" href="{{ "/vision/depth" | prepend: site.baseurl }}">Depth Estimation based on DL</a>
+                    <a class="dropdown-item" href="{{ "/vision/of" | prepend: site.baseurl }}">Optical Flow based on DL</a>
                     <a class="dropdown-item" href="{{ "/vision/signal" | prepend: site.baseurl }}">Signal and System</a>
-                    <a class="dropdown-item" href="{{ "/vision/segmentation" | prepend: site.baseurl }}">Segmentation</a>
-                    <a class="dropdown-item" href="{{ "/vision/detection" | prepend: site.baseurl }}">Detection</a>
-                    <a class="dropdown-item" href="{{ "/vision/depth" | prepend: site.baseurl }}">Depth Estimation</a>
                     <a class="dropdown-item" href="{{ "/vision/opencv" | prepend: site.baseurl }}">OpenCV</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/vision/cs231n" | prepend: site.baseurl }}">CS231n</a>

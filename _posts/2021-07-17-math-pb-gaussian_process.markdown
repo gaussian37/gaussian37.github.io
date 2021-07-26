@@ -27,16 +27,61 @@ tags: [가우시안 프로세스, gaussian process, gaussian] # add tag
 
 <br>
 
-- ### 배경지식 설명
 - ### Gaussian Process
 - ### Weight Space View
 - ### Function Space View
 - ### Gaussian process latent variable model (GPLVM)
 - ### Gaussian process Application
+- ### Appendix : 배경지식 설명
 
 <br>
 
-## **배경지식 설명**
+## **Gaussian Process**
+
+<br>
+
+
+
+
+<br>
+
+## **Weight Space View**
+
+<br>
+
+
+
+<br>
+
+## **Function Space View**
+
+<br>
+
+
+
+<br>
+
+## **Gaussian process latent variable model (GPLVM)**
+
+<br>
+
+
+
+<br>
+
+## **Gaussian process Application**
+
+<br>
+
+
+
+<br>
+
+
+
+<br>
+
+## **Appendix : 배경지식 설명**
 
 <br>
 
