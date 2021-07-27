@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Improving Semantic Segmentation via Video Propagation and Label Relaxation 정리
+title: Video Propagation and Label Relaxation 정리
 date: 2021-07-07 00:00:00
-img: vision/segmentation/improving_semantic_segmentation_via_video_propagation_and_label_relaxation/0.png
+img: vision/segmentation/video_propagation_and_label_relaxation/0.png
 categories: [vision-segmentation] 
-tags: [vision, improving_semantic_segmentation_via_video_propagation_and_label_relaxation, nvidia] # add tag
+tags: [vision, video_propagation_and_label_relaxation, nvidia] # add tag
 ---
 
 <br>
