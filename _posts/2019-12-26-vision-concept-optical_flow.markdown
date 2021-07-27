@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 옵티컬 플로우 (Optical Flow) 알아보기 (Luckas-Kanade w/ Pyramid, Horn-Schunck, FlowNet)
+title: 옵티컬 플로우 (Optical Flow) 알아보기 (Luckas-Kanade w/ Pyramid, Horn-Schunck, FlowNet 등)
 date: 2019-12-26 00:00:00
 img: vision/concept/optical_flow/0.png
 categories: [vision-concept] 
@@ -23,14 +23,14 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 
 <br>
 
-- ### 연속 영상에 관한 지식
-- ### Optical flow의 의미와 추정 원리
-- ### Lucas-Kanade 알고리즘
-- ### Horn-Schunck 알고리즘
-- ### Optical flow 알고리즘 성능 동향
-- ### Optical flow의 활용
-- ### OpenCV를 이용한 Optical flow 예제
-- ### FlowNet을 이용한 딥러닝에서의 optical flow
+- ### [연속 영상에 관한 지식](#)
+- ### [Optical flow의 의미와 추정 원리](#)
+- ### [Lucas-Kanade 알고리즘](#)
+- ### [Horn-Schunck 알고리즘](#)
+- ### [Optical flow 알고리즘 성능 동향](#)
+- ### [Optical flow의 활용](#)
+- ### [OpenCV를 이용한 Optical flow 예제](#)
+- ### [딥러닝을 이용한 Optical Flow 구하기](#)
 
 <br>
 
@@ -44,12 +44,12 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 <center><img src="../assets/img/vision/concept/optical_flow/1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 위 그림과 같이 기존에 이미지 좌표계인 $$ y, x $$ 이외의 $$ t $$ 축이 더 추가되며 1 초당 몇 번의 Frame을 다루는 지에 따라서 `FPS(Frame Per Second)`라는 단위를 사용합니다. 예를 들어 30 fps는 30 frame / sec 를 뜻합니다.
+- 위 그림과 같이 기존에 이미지 좌표계인 $$ y, x $$ 이외의 $$ t $$ 축이 더 추가되며 1 초당 몇 번의 Frame을 다루는 지에 따라서 `FPS(Frame Per Second)`라는 단위를 사용합니다. 예를 들어 30 fps는 30 frame / sec 즉, 1초당 30개의 이미지를 다룬다는 뜻입니다.
 - 동영상에서 다루는 fps는 어떤 영상을 다루는 지에 따라서 다르게 설정됩니다. 예를 들어 일반 웹캡이나 감시 카메라 등은 일반적으로 10 ~ 30 fps를 사용합니다. 
 
 <br>
 
-- 연속된 Frame이 들어올 떄, `영상 일관성(coherence)`를 가집니다.
+- 일반적으로 연속된 Frame이 들어올 떄, 영상은 `영상 일관성(coherence)`이라는 성질을 가집니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/optical_flow/2.png" alt="Drawing" style="width: 600px;"/></center>
@@ -59,7 +59,7 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 
 <br>
 
-- 연속된 Frame에서의 또 다른 성질로 `시간 일관성`을 가집니다.
+- 연속된 Frame에서의 또 다른 성질 중 하나는 `시간 일관성`입니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/optical_flow/3.png" alt="Drawing" style="width: 600px;"/></center>
@@ -477,8 +477,21 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 - 뿐만 아니라 `motion vector`를 feature로 이용하고 이 feature들과 SVM과 같은 classifier 이용하여 다양한 분류 문제에도 활용할 수 있습니다.
 
 <br>
+<center><img src="../assets/img/vision/concept/optical_flow/18.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
-## **OpenCV를 이용한 Optical flow 예제**
+- 위 그림과 같이 비디오에서 `Shout boundary detection`의 용도로도 옵티컬 플로우를 사용할 수 있습니다. 아래 그림과 같이 같은 비디오에서는 옵티컬 플로우 추정이 가능하므로 영상이 완전히 바뀌게 되면 옵티컬 플로우를 추정할 수 없게 되므로 영상이 바뀐 시점을 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/optical_flow/19.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 또 다른 사용 방법으로 배경을 제거하는 방법이 있습니다. 움직이는 물체의 옵티컬 플로우를 추정하면 물체와 배경을 구분할 수 있으므로 위 그림과 같이 사용할 수 있습니다.
+- 반대로 말하면 움직이는 물체의 Motion만을 분리 즉, `Motion Segmentation` Task에도 사용할 수 있습니다.
+
+<br>
+
+## **OpenCV를 이용한 Optical Flow 예제**
 
 <br>
 
@@ -487,11 +500,19 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 
 <br>
 
-## **FlowNet을 이용한 딥러닝에서의 optical flow**
+## **딥러닝을 이용한 Optical Flow 구하기**
 
 <br>
 
-
+- 지금까지 살펴본 `Lucas-Kanade`, `Horn-Schunck`과 같은 옵티컬 플로우를 구하는 알고리즘은 딥러닝과 무관하게 사용가능한 고전적인 컴퓨터 비전 방법에 해당합니다. 현재까지도 앞에서 다룬 방식의 옵티컬 플로우가 오랜 시간 동안 최적화가 잘 되어 있기 때문에, 효율적으로 잘 사용되고 있습니다.
+- 최근에는 컴퓨터 비전에 해당하는 대부분의 Task들을 딥러닝을 통해 해결하고자 하며 옵티컬 플로우 또한 2015년의 `FlowNet`을 시작으로 다양한 모델이 나타나기 시작하였습니다.
+- 이번 글에서 모든 딥러닝 모델을 다루기는 글이 길어지므로 딥러닝 모델과 관련된 글은 별도로 다루겠습니다. 아래 링크에서 레퍼런스가 되는 옵티컬 플로우 목적의 딥러닝 모델의 내용을 확인하실 수 있습니다.
 
 <br>
 
+- [FlowNet 알아보기](https://gaussian37.github.io/vision-of-flownet/)
+- [FlowNet 2.0 알아보기](https://gaussian37.github.io/vision-of-flownet2/)
+- [PWC-Net 알아보기]()
+- [RAFT 알아보기]()
+
+<br>
