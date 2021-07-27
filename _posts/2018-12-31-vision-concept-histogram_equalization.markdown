@@ -2,7 +2,7 @@
 layout: post
 title: Histogram Equalization (히스토그램 평활화) 알아보기
 date: 2018-12-29 00:00:00
-img: vision/coconcept/histogram_equalization/0.png
+img: vision/concept/histogram_equalization/0.png
 categories: [vision-concept] 
 tags: [vision, 히스토그램 평활화, histogram equalization, opencv, equalization, equalizeHist, 히스토그램, hist, histogram] # add tag
 ---
