@@ -9,7 +9,7 @@ tags: [vision, video_propagation_and_label_relaxation, nvidia] # add tag
 
 <br>
 
-- 논문 : https://openaccess.thecvf.com/content_CVPR_2019/papers/Zhu_Improving_Semantic_Segmentation_via_Video_Propagation_and_Label_Relaxation_CVPR_2019_paper.pdf
+- 논문 : [Improving_Semantic_Segmentation_via_Video_Propagation_and_Label_Relaxation](https://openaccess.thecvf.com/content_CVPR_2019/papers/Zhu_Improving_Semantic_Segmentation_via_Video_Propagation_and_Label_Relaxation_CVPR_2019_paper.pdf)
 - 깃헙 : https://github.com/NVIDIA/semantic-segmentation
 - 참조 : https://www.youtube.com/watch?v=aEbXjGZDZSQ
 - 참조 : https://nv-adlr.github.io/publication/2018-Segmentation
