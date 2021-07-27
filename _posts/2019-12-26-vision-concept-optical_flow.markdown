@@ -101,7 +101,17 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 <br>
 
 - `motion field`는 움직임이 발생한 모든 점의 모션 벡터로 얻어낸 2차원 모션맵을 뜻합니다.
-- 위 그림을 보면 초록색 삼각형( $$ t $$ )이 파란색 삼각형($$ t+1 $$)과 같이 이동하였을 떄, 픽셀들이 일관성 있게 이동한 것을 확인할 수 있습니다. 따라서 위 그림과 같은 상황에서는 이상적으로 motion field를 구할 수 있습니다. 물론 근본적으로 **현실 이미지에서는 위 그림과 같은 motion field를 구하기는 어렵습니다.** 대표적으로 `구체 회전`과 `광원 회전`과 같은 어려움이 있습니다.
+- 위 그림을 보면 초록색 삼각형( $$ t $$ )이 파란색 삼각형($$ t+1 $$)과 같이 이동하였을 떄, 픽셀들이 일관성 있게 이동한 것을 확인할 수 있습니다. 따라서 위 그림과 같은 상황에서는 이상적으로 motion field를 구할 수 있습니다. 
+
+<br>
+<center><img src="../assets/img/vision/concept/optical_flow/20.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `motion field`를 구하여 분석하면 위 그림과 같이 움직인 픽셀에 대한 정보를 추정할 수 있습니다.
+
+<br>
+
+- 물론 근본적으로 **현실 이미지에서는 위 그림 예시들과 같은 motion field를 정확하게 구하기는 어려울 수 있습니다.** 대표적으로 `구체 회전`과 `광원 회전`과 같은 어려움이 있습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/optical_flow/7.png" alt="Drawing" style="width: 800px;"/></center>
@@ -137,13 +147,19 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 - Optical flow를 사용하면 위 그림 예시와 같이 차량의 움직임을 나타낼 수 있습니다. 그 결과 Optical flow가 좌측으로 발생하게 되는 것을 확인할 수 있습니다.
 
 <br>
+<center><img src="../assets/img/vision/concept/optical_flow/21.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
-- 지금부터 살펴 볼 optical flow는 인접한 두 장의 영상에 나타나는 `명암 변화`만을 고려합니다.  optical flow 추정의 단계에서는 물체를 검출하거나 검출한 물체의 움직임을 반영하려는 시도를 하지 않게 때문에 **물체에 독립적인 추정 방식**입니다.
+- 따라서 Optical flow 문제를 정의하면 위 그림과 같이 각 **픽셀 별**로 $$ I(x, y, t) \to I(x, y, t+1) $$ 를 어떻게 추정하는 지 구하는 문제가 됩니다.
+
+<br>
+
+- 지금부터 살펴 볼 optical flow는 인접한 두 장의 영상에 나타나는 `명암 변화`만을 고려합니다.  optical flow 추정의 단계에서는 물체를 검출하거나 검출한 물체의 움직임을 반영하려는 시도를 하지 않게 때문에 **물체와는 독립적인 추정 방식**입니다.
 - optical flow는 계산 과정에서 개별 물체의 움직임을 명시적으로 반영하지는 않지만 **물체가 움직이면 그에 따른 명암 변화가 발생하므로 암시적으로 물체의 움직임**인 `motion field`를 반영한다고 말할 수 있습니다. (물론 구체 회전이나 광원 이동과 같은 한계 상황에서는 여전히 어려움이 있습니다.)
 
 <br>
 
-- optical flow는 인접한 두 영상의 명암 변화를 분석하여 움직임 정보를 추정합니다. $$ t $$라는 순간의 영상 $$ f(y, x, t) $$와 짧은 시간이 흐른 후의 인접 영상 $$ f(y, x, t+1) $$이 주어졌다고 가정해 보겠습니다.
+- 이와 같이 optical flow는 인접한 두 영상의 명암 변화를 분석하여 움직임 정보를 추정합니다. $$ t $$라는 순간의 영상 $$ f(y, x, t) $$와 짧은 시간이 흐른 후의 인접 영상 $$ f(y, x, t+1) $$이 주어졌다고 가정해 보겠습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/optical_flow/10.png" alt="Drawing" style="width: 800px;"/></center>
@@ -156,9 +172,15 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 
 <br>
 
-- optical flow를 추정하기 위해서는 현실을 훼손하지 않는 범위 내에서 적절하게 가정을 세웁니다. optical flow의 전제 조건 2가지는 다음과 같습니다.
-    - ① 밝기 향상성 (brightness constancy)
-    - ② Frame 간 움직임이 작다.    
+- optical flow를 추정하기 위해서는 현실을 훼손하지 않는 범위 내에서 적절하게 `가정`을 세웁니다. optical flow의 전제 조건 2가지는 다음과 같습니다.
+    - ① `color/brightness constancy` : 어떤 픽셀과 그 픽셀의 주변 픽셀의 색/밝기는 같음을 가정으로 세웁니다.
+    - ② `small motion` : Frame 간 움직임이 작아서 어떤 픽셀 점은 멀리 움직이지 않는 것을 가정으로 세웁니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/optical_flow/21.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞의 그림을 다시 살펴 보면 $$ I(x, y, t) $$ 와 $$ I(x, y, t+1) $$ 의 4가지 픽셀은 $$ t \to t+1 $$ 로 변경되더라도 색/밝기 항상성은 유지된다는 것과 움직임 또한 크지 않고 근처에 있음을 알 수 있습니다.
 - 이 중 첫번째 전제 조건인 `밝기 항상성`은 optical flow의 가장 중요한 가정입니다. **연속한 두 영상에 나타난 물체의 같은 점은 명암값이 같거나 비슷**하다는 뜻입니다.
 
 <br>
