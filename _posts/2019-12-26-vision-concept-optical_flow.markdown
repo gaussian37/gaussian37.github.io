@@ -236,8 +236,7 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 
 - 위 식에서 $$ \frac{\partial f}{\partial y}, \frac{\partial f}{\partial x}, \frac{\partial f}{\partial t} $$의 의미를 살펴보겠습니다.
 - 이 값들은 영상 $$ f(y, x, t) $$를 각각 매개변수 $$ y, x, t $$로 편미분한 값입니다.
-- 먼저 $$ \biggl( \frac{\partial f}{\partial y}, \frac{\partial f}{\partial x}) \biggr) $$는 gradient vector를 의미합니다.
-- 반면 $$ \frac{dy}{dt}, \frac{dx}{dt} $$는 시간 $$ dt $$ 동안 $$ y $$와 $$ x $$ 방향으로의 이동량을 뜻하므로 motion vector에 해당합니다. 따라서 $$ \frac{dy}{dt} = v, \frac{dx}{dt} = u $$를 뜻하며 최종적으로 다음과 같이 정리할 수 있습니다.
+- 먼저 $$ \biggl( \frac{\partial f}{\partial y}, \frac{\partial f}{\partial x} \biggr) $$는 `gradient vector`를 의미합니다. 반면 $$ \frac{dy}{dt}, \frac{dx}{dt} $$는 시간 $$ dt $$ 동안 $$ y $$와 $$ x $$ 방향으로의 이동량을 뜻하므로 motion vector에 해당합니다. 따라서 $$ \frac{dy}{dt} = v, \frac{dx}{dt} = u $$를 뜻하며 최종적으로 다음과 같이 정리할 수 있습니다.
 
 <br>
 
@@ -246,11 +245,12 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 <br>
 
 - 이 식은 미분 방정식으로 `optical flow constraint equation` 또는 `gradient constraint equation` 이라고 부릅니다. 미분을 이용하는 대부분의 optical flow 추정 알고리즘은 이 방정식을 풀어 motion vector를 구합니다. 앞으로 살펴 볼 Lucas-Kanade 알고리즘과 Horn-Schunck 알고리즘이 이 식을 사용합니다.
-- 이 식을 살펴보면 gradient를 구성하는 세 개의 값 $$ \frac{\partial f}{\partial y}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial t} $$를 모두 구했다 하더라도 $$ v, u $$ 즉, **motion vector를 유일한 값으로 결정할 수 없음**을 알 수 있습니다. 방정식은 하나인데 구해야 할 값은 $$ v, u $$ 두개 이기 때문입니다. 따라서 motion vector $$ v, u $$를 구하기 위하여 가장 널리 사용되는 Lucas-Kanade 알고리즘과 Horn-Shunck 알고리즘을 살펴보도록 하곘습니다.
+- 이 식을 살펴보면 gradient를 구성하는 세 개의 값 $$ \frac{\partial f}{\partial y}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial t} $$를 모두 구했다 하더라도 $$ v, u $$ 즉, **motion vector를 유일한 값으로 결정할 수 없음**을 알 수 있습니다. 방정식은 하나인데 구해야 할 값은 $$ v, u $$ 두개 이기 때문입니다. 
+- 앞으로 살펴 볼 2가지 알고리즘 (Lucas-Kanade, Horn-Shunck) 각각에서는 조건을 추가하여 방정식의 해를 찾아 motion vector $$ v, u $$를 구합니다.
 
 <br>
 
-- 먼저 위에서 정의한 식만을 이용해서 optical flow를 추정해 보겠습니다.
+- `optical flow constraint equation`의 의미를 구체적인 예시를 통하여 좀 더 자세하게 알아보도록 하겠습니다. 먼저 위에서 정의한 식만을 이용해서 optical flow를 추정해 보겠습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/optical_flow/11.png" alt="Drawing" style="width: 400px;"/></center>
