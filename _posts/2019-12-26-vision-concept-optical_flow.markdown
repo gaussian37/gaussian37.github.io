@@ -4,7 +4,7 @@ title: 옵티컬 플로우 (Optical Flow) 알아보기 (Luckas-Kanade w/ Pyramid
 date: 2019-12-26 00:00:00
 img: vision/concept/optical_flow/0.png
 categories: [vision-concept] 
-tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
+tags: [vision, optical flow, luckas-kanade, lucas-kanade pyramid, pyramid, Hierarchical lucas-kanade, horn-shunk, flownet] # add tag
 ---
 
 <br>
@@ -12,6 +12,8 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 - 참조 : 컴퓨터 비전 (오일석 저)
 - 참조 : 영상신호처리특론 강의 (연세대 이상훈 교수님)
 - 참조 : https://powerofsummary.tistory.com/35
+- 참조 : https://learnopencv.com/optical-flow-in-opencv/
+- 참조 : Introduction to Computer Vision
 
 <br>
 
@@ -26,6 +28,7 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 - ### [연속 영상에 관한 지식](#)
 - ### [Optical flow의 의미와 추정 원리](#)
 - ### [Lucas-Kanade 알고리즘](#)
+- ### [Hierarchical Lucas-Kanade 알고리즘](#)
 - ### [Horn-Schunck 알고리즘](#)
 - ### [Optical flow 알고리즘 성능 동향](#)
 - ### [Optical flow의 활용](#)
@@ -245,8 +248,12 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 <br>
 
 - 이 식은 미분 방정식으로 `optical flow constraint equation` 또는 `gradient constraint equation` 이라고 부릅니다. 미분을 이용하는 대부분의 optical flow 추정 알고리즘은 이 방정식을 풀어 motion vector를 구합니다. 앞으로 살펴 볼 Lucas-Kanade 알고리즘과 Horn-Schunck 알고리즘이 이 식을 사용합니다.
+
+
+
+
 - 이 식을 살펴보면 gradient를 구성하는 세 개의 값 $$ \frac{\partial f}{\partial y}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial t} $$를 모두 구했다 하더라도 $$ v, u $$ 즉, **motion vector를 유일한 값으로 결정할 수 없음**을 알 수 있습니다. 방정식은 하나인데 구해야 할 값은 $$ v, u $$ 두개 이기 때문입니다. 
-- 앞으로 살펴 볼 2가지 알고리즘 (Lucas-Kanade, Horn-Shunck) 각각에서는 조건을 추가하여 방정식의 해를 찾아 motion vector $$ v, u $$를 구합니다.
+- 바로 뒤에서 살펴 볼 2가지 알고리즘 (Lucas-Kanade, Horn-Shunck) 각각에서는 조건을 추가하여 방정식의 해를 찾아 motion vector $$ v, u $$를 구합니다.
 
 <br>
 
@@ -382,7 +389,27 @@ tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
 <center><img src="../assets/img/vision/concept/optical_flow/15.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 이 문제를 해결하기 위하여 `Pyramid 방식`
+- 또한 `지역적 방법`의 옵티컬 플로우를 찾는 방식의 주요한 문제점 중 하나는 `aperture problem`이라고 불리는 문제입니다. `aperture`는 작은 구멍이라는 뜻을 가지는 단어입니다. 아래 그림을 살펴보겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/optical_flow/23.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림의 왼쪽과 같이 어떤 edge 성분이 왼쪽 → 오른쪽으로 이동했다고 가정하겠습니다. 이 때, edge 전체의 움직임을 보고 판단하였을 떄, edge가 오른쪽으로 이동했다고 판단합니다.
+- 반면 구멍 안의 edge 성분의 이동을 살펴보면 오른쪽 상단으로 이동한 것으로 판단됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/optical_flow/24.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 반면 위 그림처럼 투명하게 살펴보았을 경우 edge 성분이 오른쪽으로 이동한 것을 알 수 있습니다. 이와 같이 edge를 투명하게 본다는 것은 지역적 방법이 아닌 `전역적 방법`을 뜻합니다.
+- 이처럼 지역적 방법에는 `aperture problem`으로 인하여 옵티컬 플로우 추정이 불확실하게 나타날 수 있습니다.
+
+<br>
+
+- 이와 같은 문제를 해결하기 위하여 `Pyramid 방식`의 `Lucas-Kanade` 알고리즘이 도입되었습니다.
+
+
 
 
 <br>
