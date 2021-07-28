@@ -10,10 +10,12 @@ tags: [vision, optical flow, luckas-kanade, lucas-kanade pyramid, pyramid, Hiera
 <br>
 
 - 참조 : 컴퓨터 비전 (오일석 저)
-- 참조 : 영상신호처리특론 강의 (연세대 이상훈 교수님)
 - 참조 : https://powerofsummary.tistory.com/35
 - 참조 : https://learnopencv.com/optical-flow-in-opencv/
 - 참조 : Introduction to Computer Vision
+- 참조 : http://www.cse.psu.edu/~rtc12/CSE486/lecture30.pdf
+- 참조 : https://www.ri.cmu.edu/pub_files/pub3/baker_simon_2002_3/baker_simon_2002_3.pdf
+- 참조 : http://www.cs.cmu.edu/~16385/s17/Slides/14.3_OF__HornSchunck.pdf
 
 <br>
 
