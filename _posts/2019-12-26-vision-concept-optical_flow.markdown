@@ -409,9 +409,6 @@ tags: [vision, optical flow, luckas-kanade, lucas-kanade pyramid, pyramid, Hiera
 
 - 이와 같은 문제를 해결하기 위하여 `Pyramid 방식`의 `Lucas-Kanade` 알고리즘이 도입되었습니다.
 
-
-
-
 <br>
 
 추가적으로 살펴본 `Lucas-Kanade method with pyramids` 방법에 대하여 장단점을 정리하면 다음과 같습니다.
