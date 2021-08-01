@@ -176,6 +176,10 @@ tags: [vision, optical flow, flownet, Learning Optical Flow with Convolutional N
 - Figure 2에 해당하는 correlation 연산에 좀 더 자세하게 알아보도록 하겠습니다. 이 작업은 두 이미지에서 추출한 feature $$ f_{1}, f_{2} $$ 의 매칭을 잘 하기 위한 연산입니다.
 
 <br>
+<center><img src="../assets/img/vision/of/flownet/16.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
 
 ## **4. Training Data**
 
