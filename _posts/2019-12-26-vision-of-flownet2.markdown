@@ -2,9 +2,9 @@
 layout: post
 title: FlowNet 2.0 (Evolution of Optical Flow Estimation with Deep Networks) 알아보기
 date: 2019-12-26 00:00:00
-img: vision/concept/optical_flow/0.png
-categories: [vision-concept] 
-tags: [vision, optical flow, luckas-kanade, horn-shunk, flownet] # add tag
+img: vision/of/flownet2/0.png
+categories: [vision-of] 
+tags: [vision, optical flow, flownet, flownet 2.0, flownet2, 옵티컬 플로우] # add tag
 ---
 
 <br>
