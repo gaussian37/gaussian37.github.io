@@ -52,7 +52,7 @@ tags: [vision, optical flow, flownet] # add tag
 <br>
 
 - 정리하면 `FlowNet`은 옵티컬 플로우 문제를 딥러닝을 이용하여 해결해 보려는 시도였고 학습을 하기 위해 합성 영상 데이터셋을 만들어서 학습을 하였는데 이 결과가 현실 영상에서도 적용 가능했다는 점입니다.
-- 옵티컬 플로우는 보통 옵티컬 플로우 자체가 목적이라기 보다는 픽셀 별 모션 벡터를 이용하여 어플리케이션에 적용하기 위해 사용됩니다. 즉, `FlowNet`을 통하여 딥러닝 방식으로 옵티컬 플로우를 추정하게 되면 `End-To-End` 방식의 어플리케이션을 적용할 수 있다는 의의도 있습니다.
+- 옵티컬 플로우는 보통 옵티컬 플로우 자체가 목적이라기 보다는 픽셀 별 `모션 벡터`를 이용하여 어플리케이션에 적용하기 위해 사용됩니다. 즉, `FlowNet`을 통하여 딥러닝 방식으로 옵티컬 플로우를 추정하게 되면 `End-To-End` 방식의 어플리케이션을 적용할 수 있다는 의의도 있습니다.
 - 현재 시점으로는 `FlowNet`을 발전시킨 `FlowNet 2.0`이 많이 사용되고 있습니다. 개선된 버전의 핵심 내용은 FlowNet을 따르므로 이 글을 잘 이해하고 그 다음 FlowNet 2.0 글을 읽으시길 추천드립니다.
 
 <br>
@@ -65,13 +65,25 @@ tags: [vision, optical flow, flownet] # add tag
 <center><img src="../assets/img/vision/of/flownet/1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-
+- FlowNet은 옵티컬 플로우 추정을 supervised learning 방식으로 학습을 하는 알고리즘을 뜻합니다.
+- 네트워크의 아키텍쳐에 따라서 `generic architecture`에 해당하는 `FlowNetS` 모델이 있고 반면에 서로다른 이미지의 featue vector의 correlation을 이용하는 방법인 `FlowNetC`이 있습니다.
+- 앞에서 언급하였듯이 학습을 하기에 충분한 데이터가 없으므로 `Flying Chairs`라는 인공적으로 만든 합성 데이터를 이용하여 학습을 진행하였습니다.
 
 <br>
 
 ## **1. Introduction**
 
 <br>
+
+<br>
+<center><img src="../assets/img/vision/of/flownet/2.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/of/flownet/3.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+
 
 <br>
 
