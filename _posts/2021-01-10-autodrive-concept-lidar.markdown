@@ -13,7 +13,21 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar] # add tag
 
 <br>
 
-- 참조 : REC.ON : Autonomous Vehicle (Fast Campus)
+- 참조 : REC.ON : Autonomous Vehicle (Fast Campus) 강의 기준으로 작성하였습니다.
+
+<br>
+
+## **목차**
+
+<br>
+
+- ### [자율주행 요소 기술](#자율주행-요소-기술-1)
+- ### [라이다 센서](#)
+- ### [라이다의 활용 : 위치 추정, 객체 인지](#)
+
+<br>
+
+## **자율주행 요소 기술**
 
 <br>
 
@@ -74,8 +88,50 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar] # add tag
 - 하지만 레이더의 경우 아직 까지 해상도가 낮기 때문에 레이더 센서의 값만을 가지고 감지된 물체가 차량인지 사람인 지 판단하는 데에는 한계가 있습니다. 현재 수준으로는 물체의 구분보다는 물체의 유무 판단에 적합합니다.
 
 <br>
-<center><img src="../assets/img/autodrive/concept/lidar/7.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/autodrive/concept/lidar/9.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
+
+- 위 그림은 레이더를 통하여 도로 위의 물체를 파악하여 위치를 표시한 예시입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/lidar/8.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 마지막으로 이 글에서 다룰 `라이다, LIDAR(Light Detection and Rangin)`은 빛 즉 `레이저`를 이용하여 고해상도의 3차원 정보를 제공하는 센서입니다. 레이저를 송출하고 레이저가 물체에 맞고 반사되어 돌아오는 시간을 계산하여 빛의 이동 시간을 계산하고 이를 통해 주변 환경에 대한 3차원 형상을 측정합니다.
+
+- 카메라에 비해서 눈, 비, 안개, 조명과 같은 주변 환경 등에 강건하기도 하고 레이더에 비해서 고해상도의 3차원 형상 정보를 제공하고 있어서 레이더, 카메라와 함꼐 주변 환경을 감지할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/lidar/10.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 라이다를 이용하면 위 그림과 같이 주변 환경의 3D 정보를 수많은 점들의 뭉치인 point cloud 형태로 나타낼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/lidar/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 지금까지 알아본 센서 중에 흔히 가장 많이 사용되고 다루어지는 센서는 카메라, 레이더, 라이다 센서입니다.
+- 위 표와 같이 각 센서는 장단점의 영역이 다르게 분포되어 있음을 알 수 있습니다. 즉, 단일 센서로는 모든 영역을 다 커버할 수 없습니다. 따라서 **다양한 센서의 센서 퓨전**을 통하여 서로의 장단점을 보완하는 것이 추세입니다.
+
+<br>
+
+## **라이다 센서**
+
+<br>
+
+
+<br>
+
+## **라이다의 활용 : 위치 추정, 객체 인지**
+
+<br>
+
+
+
+
+<br>
+
 
 
 <br>
