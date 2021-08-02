@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 레이더(radar) 센서
+title: 자율주행을 위한 레이더(radar) 센서
 date: 2021-01-10 00:00:00
 img: autodrive/concept/radar/0.png
 categories: [autodrive-concept] 
