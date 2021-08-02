@@ -19,6 +19,8 @@ tags: [python, openpyxl, excel] # add tag
 
 - ### [openpyxl 설치 방법](#openpyxl-설치-방법-1)
 - ### [openpyxl 기본 사용법](#openpyxl-기본-사용법-1)
+- ### [pandas to openpyxl](#pandas-to-openpyxl-1)
+- ### [openpyxl to pandas](#openpyxl-to-pandas-1)
 - ### [비밀번호로 시트 보호](#비밀번호로-시트-보호-1)
 - ### [열 너비 자동 맞춤](#열-너비-자동-맞춤-1)
 
@@ -175,6 +177,77 @@ sheet["A1"].fill = yellowFill
 - 새로운 sheet를 추가하려면 workbook 객체에서 `.create_sheet(title=None, index=None)` 함수를 사용하면 됩니다.
 - `wb.create_sheet(title=None, index=None)`와 같은 형태이며 예를 들어 `wb.create_sheet(index = 1 , title = sheetname)`와 같이 사용할 수 있습니다.
 - 두 인자 모두 선택적으로 사용가능하며 모두 입력하지 않으면 기본값으로 입력됩니다.
+
+<br>
+
+## **pandas to openpyxl**
+
+<br>
+
+- 파이썬으로 structured data를 다룰 때 가장 많이 사용하는 자료형이 `pandas` 입니다. pandas를 사용하면 굉장히 편리하게 structured data를 다룰 수 있기 때문입니다. 따라서 openpyxl에서 모든 작업을 다 처리하는 것 보다 `pandas`에서 작업을 하고 마지막에 openpyxl을 이용하여 xlsx 포맷으로 변경하는 것이 편리합니다.
+- 따라서 이번 글에서는 pandas를 openpyxl로 변경하는 방법을 살펴보겠습니다. 먼저 가장 간단하게 변환할 수 있는 방법은 아래와 같습니다. active된 worksheet에 행 방향으로 데이터가 쌓입니다.
+
+<br>
+
+```python
+from openpyxl.utils.dataframe import dataframe_to_rows
+wb = Workbook()
+ws = wb.active
+
+for r in dataframe_to_rows(df, index=True, header=True):
+    ws.append(r)
+```
+
+<br>
+
+- 만약 `header`와 `index`를 pandas 타입과 같이 강조하려면 다음과 같이 사용하시면 됩니다. 한번 출력해 보시면 내용을 이해하실 수 있습니다.
+
+<br>
+
+```python
+wb = Workbook()
+ws = wb.active
+
+for r in dataframe_to_rows(df, index=True, header=True):
+    ws.append(r)
+
+for cell in ws['A'] + ws[1]:
+    cell.style = 'Pandas'
+
+wb.save("pandas_openpyxl.xlsx")
+```
+
+<br>
+
+## **openpyxl to pandas**
+
+<br>
+
+- 이번에는 앞의 예제와 반대로 기존의 `엑셀 파일`을 `pandas`로 변경하는 방법에 대하여 살펴보겠습니다.
+- 물론 엑셀 파일의 내용은 pandas로 변경이 가능한 내용이 저장되어 있어야 합니다.
+
+<br>
+
+```python
+import openpyxl
+from itertools import islice
+from pandas import DataFrame
+
+wb = openpyxl.load_workbook('example.xlsx')
+ws = wb.active
+
+# 모든 값을 DataFrame에 포함하고 index와 comlumn 이름은 0, 1, 2, ...의 숫자 사용
+df = DataFrame(ws.values)
+
+data = ws.values
+cols = next(data)[1:]
+data = list(data)
+idx = [r[0] for r in data]
+data = (islice(r, 1, None) for r in data)
+
+# 첫 행이 index이고 첫 열이 column 명일 경우에 사용
+df = DataFrame(data, index=idx, columns=cols)
+```
 
 <br>
 
