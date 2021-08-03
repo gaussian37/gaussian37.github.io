@@ -106,7 +106,7 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar] # add tag
 - 위 그림과 같이 라이다는 레이저를 송출하고 레이저가 물체에 맞고 반사되어 돌아오는 시간을 계산하여 빛의 이동 시간을 계산하고 이를 통해 주변 환경에 대한 3차원 형상을 측정합니다.
 
 <br>
-<center><img src="../assets/img/autodrive/concept/lidar/13.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/autodrive/concept/lidar/13.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 좀 더 상세하게 알아보면 라이다의 프로세는 위 그림과 같습니다.
