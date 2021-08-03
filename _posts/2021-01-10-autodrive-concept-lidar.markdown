@@ -97,9 +97,28 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar] # add tag
 <center><img src="../assets/img/autodrive/concept/lidar/8.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 마지막으로 이 글에서 다룰 `라이다, LIDAR(Light Detection and Rangin)`은 빛 즉 `레이저`를 이용하여 고해상도의 3차원 정보를 제공하는 센서입니다. 레이저를 송출하고 레이저가 물체에 맞고 반사되어 돌아오는 시간을 계산하여 빛의 이동 시간을 계산하고 이를 통해 주변 환경에 대한 3차원 형상을 측정합니다.
+- 마지막으로 이 글에서 다룰 `라이다, LIDAR(Light Detection and Rangin)`은 빛 즉 `레이저`를 이용하여 고해상도의 3차원 정보를 제공하는 센서입니다. 
 
-- 카메라에 비해서 눈, 비, 안개, 조명과 같은 주변 환경 등에 강건하기도 하고 레이더에 비해서 고해상도의 3차원 형상 정보를 제공하고 있어서 레이더, 카메라와 함꼐 주변 환경을 감지할 수 있습니다.
+<br>
+<center><img src="../assets/img/autodrive/concept/lidar/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림과 같이 라이다는 레이저를 송출하고 레이저가 물체에 맞고 반사되어 돌아오는 시간을 계산하여 빛의 이동 시간을 계산하고 이를 통해 주변 환경에 대한 3차원 형상을 측정합니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/lidar/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 좀 더 상세하게 알아보면 라이다의 프로세는 위 그림과 같습니다.
+- ① `Emitter` : 레이저를 송출하는 역할을 합니다.
+- ② `Scanning System` : 송출한 레이저를 주변 환경에 맞게 조사하는 역할을 합니다.
+- ③ `Receiver` : 반사되어 들어오는 빛을 다시 측정하는 역할을 합니다.
+- ④ `Signal Processing` : `Emitter` ~ `Receiver` 까지 걸린 시간을 이용하여 각 포인트 마다의 거리를 계산하는 역할을 합니다.
+- ⑤ `Software` : `Signal Processing`을 통해 얻은 각 Point 정보를 이용하여 주변 물체에 대한 측정 결과를 제공합니다.
+
+<br>
+
+- 라이다의 특성 상 카메라에 비해서 눈, 비, 안개, 조명과 같은 주변 환경 등에 강건하기도 하고 레이더에 비해서 고해상도의 3차원 형상 정보를 제공하고 있어서 레이더, 카메라와 함꼐 주변 환경을 감지할 수 있습니다.
 
 <br>
 <center><img src="../assets/img/autodrive/concept/lidar/10.png" alt="Drawing" style="width: 400px;"/></center>
@@ -113,6 +132,7 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar] # add tag
 
 - 지금까지 알아본 센서 중에 흔히 가장 많이 사용되고 다루어지는 센서는 카메라, 레이더, 라이다 센서입니다.
 - 위 표와 같이 각 센서는 장단점의 영역이 다르게 분포되어 있음을 알 수 있습니다. 즉, 단일 센서로는 모든 영역을 다 커버할 수 없습니다. 따라서 **다양한 센서의 센서 퓨전**을 통하여 서로의 장단점을 보완하는 것이 추세입니다.
+- 특히 정교한 3D 데이터를 측정하기 위해서는 라이다가 독보적인 것을 알 수 있습니다.
 
 <br>
 
