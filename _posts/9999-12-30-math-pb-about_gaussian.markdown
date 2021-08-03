@@ -1,15 +1,15 @@
 ---
 layout: post
-title: 가우시안 관련
-date: 2019-11-17 00:00:00
+title: 가우시안 (Gaussian) 관련 내용 정리
+date: 9999-12-30 00:00:00
 img: math/pb/about_gaussian/0.png
 categories: [math-pb] 
-tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식] # add tag
+tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우시안 프로세스] # add tag
 ---
 
 <br>
 
-- 공학에서 가우시안은 너무나 중요한 개념입니다. 공부하면서 종종 쓰였단 가우시안의 개념들을 정리해 놓는 글입니다.
+- 공학에서 `가우시안`과 관련된 내용은 너무나 중요한 개념입니다. 공부하면서 종종 쓰였단 가우시안과 관련된 개념들을 이 글에 정리하고자 하며 학습 범위가 깊어지는 글은 별도 링크를 달아두도록 하겠습니다.
 
 <br>
 
@@ -17,10 +17,12 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식] # add 
 
 <br>
 
-- ### 가우스 함수
-- ### 가우스 적분 증명
-- ### 가우시안 분포 공식 증명
-- ### covariance와 zero-mean gaussian의 covariance
+- ### [가우스 함수](#가우스-함수-1)
+- ### [가우스 적분 증명](#가우스-적분-증명-1)
+- ### [가우시안 분포 공식 증명](#가우시안-분포-공식-증명-1)
+- ### [가우시안 PDF의 곱과 Convoltuion 연산](https://gaussian37.github.io/math-pb-product_convolution_gaussian_pdf/)
+- ### [covariance와 zero-mean gaussian의 covariance](#covariance와-zero-mean-gaussian의-covariance-1)
+- ### [가우시안 프로세스](#가우시안-프로세스-1)
 
 <br><br>
 
@@ -32,7 +34,7 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식] # add 
 
 <br>
 
-$$ f(x) = a \cdot exp(-\frac{(x - b)^{2}}{c^{2}}) $$
+- $$ f(x) = a \cdot exp(-\frac{(x - b)^{2}}{c^{2}}) $$
 
 <br>
 
@@ -51,7 +53,7 @@ $$ f(x) = a \cdot exp(-\frac{(x - b)^{2}}{c^{2}}) $$
 
 <br>
 
-$$ \int_{-\infty}^{\infty} e^{-x^{2}} dx = \sqrt{\pi} $$ 
+- $$ \int_{-\infty}^{\infty} e^{-x^{2}} dx = \sqrt{\pi} $$ 
 
 <br>
 
@@ -59,9 +61,9 @@ $$ \int_{-\infty}^{\infty} e^{-x^{2}} dx = \sqrt{\pi} $$
 
 <br>
 
-$$ I = \int_{-\infty}^{\infty} e^{-x^{2}} dx $$
+- $$ I = \int_{-\infty}^{\infty} e^{-x^{2}} dx $$
 
-$$ I^{2} = \Biggl( \int_{-\infty}^{\infty} e^{-x^{2}} dx \Biggr)^{2} = \int_{-\infty}^{\infty} e^{-x^{2}} dx \int_{-\infty}^{\infty} e^{-y^{2}} dy $$
+- $$ I^{2} = \Biggl( \int_{-\infty}^{\infty} e^{-x^{2}} dx \Biggr)^{2} = \int_{-\infty}^{\infty} e^{-x^{2}} dx \int_{-\infty}^{\infty} e^{-y^{2}} dy $$
 
 <br>
 
@@ -69,7 +71,7 @@ $$ I^{2} = \Biggl( \int_{-\infty}^{\infty} e^{-x^{2}} dx \Biggr)^{2} = \int_{-\i
 
 <br>
 
-$$ \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} e^{-(x^{2} + y^{2})} dx dy $$
+- $$ \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} e^{-(x^{2} + y^{2})} dx dy $$
 
 <br>
 
@@ -90,7 +92,7 @@ $$ \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} e^{-(x^{2} + y^{2})} dx dy $$
 
 <br>
 
-$$ x^{2} + y^{2} = (r \cos{(\theta)})^{2} + (r \sin{(\theta)})^{2} = r^{2}(\cos^{2}{(\theta)} + \sin^{2}{(\theta)}) = r^{2} $$
+- $$ x^{2} + y^{2} = (r \cos{(\theta)})^{2} + (r \sin{(\theta)})^{2} = r^{2}(\cos^{2}{(\theta)} + \sin^{2}{(\theta)}) = r^{2} $$
 
 <br>
 
@@ -124,7 +126,7 @@ $$ x^{2} + y^{2} = (r \cos{(\theta)})^{2} + (r \sin{(\theta)})^{2} = r^{2}(\cos^
 
 <br>
 
-$$ \frac{1}{2} \int_{a}^{b} r(\theta)^{2} d\theta $$
+- $$ \frac{1}{2} \int_{a}^{b} r(\theta)^{2} d\theta $$
 
 <br>
 
@@ -133,7 +135,7 @@ $$ \frac{1}{2} \int_{a}^{b} r(\theta)^{2} d\theta $$
 
 <br>
 
-$$ \sum_{i=1}^{n} \frac{1}{2} r(\theta_{i})^{2} \Delta \theta $$
+- $$ \sum_{i=1}^{n} \frac{1}{2} r(\theta_{i})^{2} \Delta \theta $$
 
 <br>
 
@@ -149,9 +151,9 @@ $$ \sum_{i=1}^{n} \frac{1}{2} r(\theta_{i})^{2} \Delta \theta $$
 
 <br>
 
-$$ x = r \cos{(\theta)} $$
+- $$ x = r \cos{(\theta)} $$
 
-$$ y = r \sin{(\theta)} $$
+- $$ y = r \sin{(\theta)} $$
 
 <br>
 
@@ -160,13 +162,13 @@ $$ y = r \sin{(\theta)} $$
 
 <br>
 
-$$ \frac{\partial(x, y)}{\partial(r, \theta)} = \begin{bmatrix} \partial x / \partial r & \partial x / \partial \theta \\ \partial y / \partial r & \partial y / \partial \theta \end{bmatrix} = \begin{bmatrix} \cos{(\theta)} & -r\sin{(\theta)} \\ \sin{(\theta)} & r\cos{(\theta)} \end{bmatrix} $$
+- $$ \frac{\partial(x, y)}{\partial(r, \theta)} = \begin{bmatrix} \partial x / \partial r & \partial x / \partial \theta \\ \partial y / \partial r & \partial y / \partial \theta \end{bmatrix} = \begin{bmatrix} \cos{(\theta)} & -r\sin{(\theta)} \\ \sin{(\theta)} & r\cos{(\theta)} \end{bmatrix} $$
 
 - 변화의 **scale**을 구할 때, `determinant`를 사용할 수 있습니다. 지금과 같은 2차원에서 변화의 총량은 변화하였을 때의 `넓이`의 **scale**이 됩니다. 그러면 위에서 구한 자코비안의 determinant를 $$ J $$라고 나타내면 다음과 같습니다.
 
 <br>
 
-$$ J = \begin{vmatrix} \cos{(\theta)} & -r\sin{(\theta)} \\ \sin{(\theta)} & r\cos{(\theta)} \end{vmatrix} = r \cos^{2}{(\theta)} + r \sin^{2}{(\theta)} = r $$
+- $$ J = \begin{vmatrix} \cos{(\theta)} & -r\sin{(\theta)} \\ \sin{(\theta)} & r\cos{(\theta)} \end{vmatrix} = r \cos^{2}{(\theta)} + r \sin^{2}{(\theta)} = r $$
 
 <br>
 
@@ -175,7 +177,7 @@ $$ J = \begin{vmatrix} \cos{(\theta)} & -r\sin{(\theta)} \\ \sin{(\theta)} & r\c
 
 <br>
 
-$$ dA = dx \cdot dy = J \cdot dr \cdot d\theta = r \cdot dr \cdot d\theta $$
+- $$ dA = dx \cdot dy = J \cdot dr \cdot d\theta = r \cdot dr \cdot d\theta $$
 
 <br>
 <center><img src="../assets/img/math/pb/about_gaussian/3.png" alt="Drawing" style="width: 800px;"/></center>
@@ -192,7 +194,7 @@ $$ dA = dx \cdot dy = J \cdot dr \cdot d\theta = r \cdot dr \cdot d\theta $$
 
 <br>
 
-$$ \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} e^{-(x^{2} + y^{2})} \cdot dx \cdot dy = \int_{0}^{2\pi}\int_{0}^{\infty} e^{-r^{2}} \cdot r \cdot dr \cdot d\theta $$
+- $$ \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} e^{-(x^{2} + y^{2})} \cdot dx \cdot dy = \int_{0}^{2\pi}\int_{0}^{\infty} e^{-r^{2}} \cdot r \cdot dr \cdot d\theta $$
 
 <br>
 
@@ -200,17 +202,17 @@ $$ \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} e^{-(x^{2} + y^{2})} \cdot dx 
 
 <br>
 
-$$ -r^{2} = u $$
+- $$ -r^{2} = u $$
 
-$$ -2r dr = du $$
+- $$ -2r dr = du $$
 
-$$ r dr = -\frac{1}{2} du $$
+- $$ r dr = -\frac{1}{2} du $$
 
-$$ \begin{split} \int_{0}^{2\pi}\int_{0}^{\infty} e^{-r^{2}} \cdot r \cdot dr \cdot d\theta &= \int_{0}^{2\pi}\int_{0}^{-\infty} e^{u} (-\frac{1}{2})du \cdot d\theta &= -\frac{1}{2} \int_{0}^{2\pi} [e^{u}]_{0}^{-\infty} d\theta &= \frac{1}{2} \int_{0}^{2\pi} d\theta = \pi \end{split}$$
+- $$ \begin{split} \int_{0}^{2\pi}\int_{0}^{\infty} e^{-r^{2}} \cdot r \cdot dr \cdot d\theta &= \int_{0}^{2\pi}\int_{0}^{-\infty} e^{u} (-\frac{1}{2})du \cdot d\theta &= -\frac{1}{2} \int_{0}^{2\pi} [e^{u}]_{0}^{-\infty} d\theta &= \frac{1}{2} \int_{0}^{2\pi} d\theta = \pi \end{split}$$
 
-$$ I^{2} = \pi = \Biggl( \int_{-\infty}^{\infty} e^{-x^{2}} dx \Biggr)^{2} $$
+- $$ I^{2} = \pi = \Biggl( \int_{-\infty}^{\infty} e^{-x^{2}} dx \Biggr)^{2} $$
 
-$$ \therefore \quad \int_{-\infty}^{\infty} e^{-x^{2}} dx = \sqrt{\pi} $$
+- $$ \therefore \quad \int_{-\infty}^{\infty} e^{-x^{2}} dx = \sqrt{\pi} $$
 
 <br><br>
 
@@ -227,7 +229,7 @@ $$ \therefore \quad \int_{-\infty}^{\infty} e^{-x^{2}} dx = \sqrt{\pi} $$
 
 <br>
 
-$$ \boldsymbol x= \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} $$
+- $$ \boldsymbol x= \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} $$
 
 <br>
 
@@ -235,15 +237,11 @@ $$ \boldsymbol x= \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} $$
 
 <br>
 
-$$
-
-\boldsymbol x= \begin{bmatrix} \color{blue}{x_1} \\ \color{red}{x_2} \end{bmatrix}=\begin{bmatrix}\color{blue}{x_{11} \\ x_{12}\\\vdots\\ x_{1h}}\\\color{red}{x_{21}\\x_{22}\\\vdots\\ x_{2k}}\end{bmatrix}\tag{$n \times 1$} 
-
-$$
+- $$ \boldsymbol x= \begin{bmatrix} \color{blue}{x_1} \\ \color{red}{x_2} \end{bmatrix}=\begin{bmatrix}\color{blue}{x_{11} \\ x_{12}\\\vdots\\ x_{1h}}\\\color{red}{x_{21}\\x_{22}\\\vdots\\ x_{2k}}\end{bmatrix}\tag{$n \times 1$} $$
 
 <br>
 
-$$ \boldsymbol\mu= \begin{bmatrix} \mu_1 \\ \mu_2 \end{bmatrix} $$
+- $$ \boldsymbol\mu= \begin{bmatrix} \mu_1 \\ \mu_2 \end{bmatrix} $$
 
 <br>
 
@@ -251,14 +249,7 @@ $$ \boldsymbol\mu= \begin{bmatrix} \mu_1 \\ \mu_2 \end{bmatrix} $$
 
 <br>
 
-$$ 
-
-\begin{bmatrix}
-\Sigma_{\color{blue}{11}} & \Sigma_{\color{blue}{1}\color{red}{2}}\\
-\Sigma_{\color{red}{2}\color{blue}{1}} & \Sigma_{\color{red}{22}}
-\end{bmatrix} \tag {$n \times n$}
-
-$$
+- $$ \begin{bmatrix} \Sigma_{\color{blue}{11}} & \Sigma_{\color{blue}{1}\color{red}{2}} \\ \Sigma_{\color{red}{2}\color{blue}{1}} & \Sigma_{\color{red}{22}} \end{bmatrix} \tag {$n \times n$} $$
 
 <br>
 
@@ -266,56 +257,21 @@ $$
 
 <br>
 
-$$
-
-\Sigma_{\color{blue}{11}}=\begin{bmatrix}
-\sigma^2({\color{blue}{x_{11}}}) & \text{cov}(\color{blue}{x_{11},x_{12}}) & \dots & \text{cov}(\color{blue}{x_{11},x_{1h}}) \\
-\text{cov}(\color{blue}{x_{12},x_{11}}) & \sigma^2({\color{blue}{x_{12}}}) & \dots & \text{cov}(\color{blue}{x_{12},x_{1h}}) \\
-\vdots & \vdots & & \vdots \\
-\text{cov}(\color{blue}{x_{1h},x_{11}})  &  \text{cov}(\color{blue}{x_{1h},x_{12}}) &\dots& \sigma^2({\color{blue}{x_{1h}}})
-\end{bmatrix} \tag{$h \times h$}
-
-$$
+- $$ \Sigma_{\color{blue}{11}}=\begin{bmatrix} \sigma^2({\color{blue}{x_{11}}}) & \text{cov}(\color{blue}{x_{11},x_{12}}) & \dots & \text{cov}(\color{blue}{x_{11},x_{1h}}) \\ \text{cov}(\color{blue}{x_{12},x_{11}}) & \sigma^2({\color{blue}{x_{12}}}) & \dots & \text{cov}(\color{blue}{x_{12},x_{1h}}) \\ \vdots & \vdots & & \vdots \\ \text{cov}(\color{blue}{x_{1h},x_{11}})  &  \text{cov}(\color{blue}{x_{1h},x_{12}}) &\dots& \sigma^2({\color{blue}{x_{1h}}}) \end{bmatrix} \tag{$h \times h$} $$
 
 <br>
 
-$$
-
- \Sigma_{\color{blue}{1}\color{red}{2}}=
-\begin{bmatrix}
-\text{cov}({\color{blue}{x_{11}}},\color{red}{x_{21}}) & \text{cov}(\color{blue}{x_{11}},\color{red}{x_{22}}) & \dots & \text{cov}(\color{blue}{x_{11}},\color{red}{x_{2k}}) \\
-\text{cov}({\color{blue}{x_{12}}},\color{red}{x_{21}}) & \text{cov}(\color{blue}{x_{12}},\color{red}{x_{22}}) & \dots & \text{cov}(\color{blue}{x_{12}},\color{red}{x_{2k}}) \\
-\vdots & \vdots & & \vdots \\
-\text{cov}({\color{blue}{x_{1h}}},\color{red}{x_{21}}) & \text{cov}(\color{blue}{x_{1h}},\color{red}{x_{22}}) & \dots & \text{cov}(\color{blue}{x_{1h}},\color{red}{x_{2k}})
-\end{bmatrix}\tag{$h \times k$}
-
-$$
+- $$ \Sigma_{\color{blue}{1}\color{red}{2}}= \begin{bmatrix} \text{cov}({\color{blue}{x_{11}}},\color{red}{x_{21}}) & \text{cov}(\color{blue}{x_{11}},\color{red}{x_{22}}) & \dots & \text{cov}(\color{blue}{x_{11}},\color{red}{x_{2k}}) \\ \text{cov}({\color{blue}{x_{12}}},\color{red}{x_{21}}) & \text{cov}(\color{blue}{x_{12}},\color{red}{x_{22}}) & \dots & \text{cov} \color{blue}{x_{12}},\color{red}{x_{2k}}) \\ \vdots & \vdots & & \vdots \\ \text{cov}({\color{blue}{x_{1h}}},\color{red}{x_{21}}) & \text{cov}(\color{blue}{x_{1h}},\color{red}{x_{22}}) & \dots & \text{cov}(\color{blue}{x_{1h}},\color{red}{x_{2k}})
+\end{bmatrix}\tag{$h \times k$} $$
 
 <br>
 
-$$
-
- \Sigma_{\color{red}{2}\color{blue}{1}}=
-\begin{bmatrix}
-\text{cov}({\color{red}{x_{21}}},\color{blue}{x_{11}}) & \text{cov}(\color{red}{x_{21}},\color{blue}{x_{12}}) & \dots & \text{cov}(\color{red}{x_{21}},\color{blue}{x_{1h}}) \\\text{cov}({\color{red}{x_{22}}},\color{blue}{x_{11}}) & \text{cov}(\color{red}{x_{22}},\color{blue}{x_{12}}) & \dots & \text{cov}(\color{red}{x_{22}},\color{blue}{x_{1h}}) \\
-\vdots & \vdots & & \vdots \\
-\text{cov}({\color{red}{x_{2k}}},\color{blue}{x_{11}}) & \text{cov}(\color{red}{x_{2k}},\color{blue}{x_{12}}) & \dots & \text{cov}(\color{red}{x_{2k}},\color{blue}{x_{1h}})
-\end{bmatrix}\tag{$k \times h$}
-
-$$
+- $$ \Sigma_{\color{red}{2}\color{blue}{1}} = \begin{bmatrix} \text{cov}({\color{red}{x_{21}}},\color{blue}{x_{11}}) & \text{cov}(\color{red}{x_{21}},\color{blue}{x_{12}}) & \dots & \text{cov}(\color{red}{x_{21}},\color{blue}{x_{1h}}) \\\text{cov}({\color{red}{x_{22}}},\color{blue}{x_{11}}) & \text{cov}(\color{red}{x_{22}},\color{blue}{x_{12}}) & \dots & \text{cov} \color{red}{x_{22}},\color{blue}{x_{1h}}) \\ \vdots & \vdots & & \vdots \\ \text{cov}({\color{red}{x_{2k}}},\color{blue}{x_{11}}) & \text{cov}(\color{red}{x_{2k}},\color{blue}{x_{12}}) & \dots & \text{cov}(\color{red}{x_{2k}},\color{blue}{x_{1h}})
+\end{bmatrix}\tag{$k \times h$} $$
 
 <br>
 
-$$
-
-\Sigma_{\color{red}{22}}=\begin{bmatrix}
-\sigma^2({\color{red}{x_{21}}}) & \text{cov}(\color{red}{x_{21},x_{22}}) & \dots & \text{cov}(\color{red}{x_{21},x_{2k}}) \\
-\text{cov}(\color{red}{x_{22},x_{21}}) & \sigma^2({\color{red}{x_{22}}}) & \dots & \text{cov}(\color{red}{x_{22},x_{2k}}) \\
-\vdots & \vdots & & \vdots \\
-\text{cov}(\color{red}{x_{2k},x_{21}})  &  \text{cov}(\color{red}{x_{2k},x_{22}}) &\dots& \sigma^2({\color{red}{x_{2k}}})
-\end{bmatrix} \tag{$k \times k$}
-
-$$
+- $$ \Sigma_{\color{red}{22}}=\begin{bmatrix} \sigma^2({\color{red}{x_{21}}}) & \text{cov}(\color{red}{x_{21},x_{22}}) & \dots & \text{cov}(\color{red}{x_{21},x_{2k}}) \\ \text{cov}(\color{red}{x_{22},x_{21}}) & \sigma^2({\color{red}{x_{22}}}) & \dots & \text{cov}(\color{red}{x_{22},x_{2k}}) \\ \vdots & \vdots & & \vdots \\ \text{cov}(\color{red}{x_{2k},x_{21}})  &  \text{cov}(\color{red}{x_{2k},x_{22}}) &\dots& \sigma^2({\color{red}{x_{2k}}}) \end{bmatrix} \tag{$k \times k$} $$
 
 <br>
 
@@ -325,7 +281,7 @@ $$
 
 <br>
 
-$$ \text{cov}({x_{i}, x_{j}}) = E[ (x_{i} - \mu_{i})(x_{j} - \mu_{j})] $$
+- $$ \text{cov}({x_{i}, x_{j}}) = E[ (x_{i} - \mu_{i})(x_{j} - \mu_{j})] $$
 
 <br>
 
@@ -340,21 +296,13 @@ $$ \text{cov}({x_{i}, x_{j}}) = E[ (x_{i} - \mu_{i})(x_{j} - \mu_{j})] $$
 
 <br>
 
-$$ \text{cov}({x_{i}, x_{j}}) = E[ (x_{i} - \mu_{i})(x_{j} - \mu_{j}) ] = E[ (x_{i})(x_{j}) ]  = E[x_{i}]E[x_{j}]  = \mu_{i}\mu_{j} = 0 $$
+- $$ \text{cov}({x_{i}, x_{j}}) = E[ (x_{i} - \mu_{i})(x_{j} - \mu_{j}) ] = E[ (x_{i})(x_{j}) ]  = E[x_{i}]E[x_{j}]  = \mu_{i}\mu_{j} = 0 $$
 
 <br>
 
 - zero-mean gaussian 이기 때문에 $$ \mu $$는 모두 0이 되고 $$ E(XY) = E(X)E(Y) $$이기 때문에 분리가 됩니다. 분리한 각각의 값이 또 평균이기 때문에 각 평균은 0이되어 최종적으로 $$ \text{cov}{x_{i}, x_{j}} $$은 0이 됩니다.
 - 따라서 `zero-mean gaussian distribution`에서 **대각 성분은 분산이 되고 그 이외 성분은 모두 0이 됩니다.**
 
+<br>
 
-$$
-
-\Sigma_{}=\begin{bmatrix}
-\sigma^2({\color{blue}{x_{1}}}) & 0 & \dots & 0 \\
-0 & \sigma^2({\color{blue}{x_{2}}}) & \dots & 0 \\
-\vdots & \vdots & & \vdots \\
-0 & 0&\dots& \sigma^2({\color{blue}{x_{m}}})
-\end{bmatrix} \tag{$h \times h$}
-
-$$
+- $$ \Sigma_{}=\begin{bmatrix} \sigma^2({\color{blue}{x_{1}}}) & 0 & \dots & 0 \\ 0 & \sigma^2({\color{blue}{x_{2}}}) & dots & 0 \\ \vdots & \vdots & & \vdots \\ 0 & 0&\dots& \sigma^2({\color{blue}{x_{m}}}) \end{bmatrix} \tag{$h \times h$} $$
