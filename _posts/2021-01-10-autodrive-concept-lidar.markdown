@@ -92,12 +92,21 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar] # add tag
 <br>
 
 - 위 그림은 레이더를 통하여 도로 위의 물체를 파악하여 위치를 표시한 예시입니다.
+- 지금 까지 라이다 센서를 제외한 자율 주행에 많이 사용되는 센서들의 특성에 대하여 간략하게 알아보았습니다.
+
+<br>
+
+## **라이다 센서**
+
+<br>
+
+- 그러면 이 글의 주제인 라이다에 대하여 알아보도록 하겠습니다.
 
 <br>
 <center><img src="../assets/img/autodrive/concept/lidar/8.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 마지막으로 이 글에서 다룰 `라이다, LIDAR(Light Detection and Rangin)`은 빛 즉 `레이저`를 이용하여 고해상도의 3차원 정보를 제공하는 센서입니다. 
+- `라이다, LIDAR(Light Detection and Rangin)`는 빛 즉 `레이저`를 이용하여 고해상도의 3차원 정보를 제공하는 센서입니다. 
 
 <br>
 <center><img src="../assets/img/autodrive/concept/lidar/12.png" alt="Drawing" style="width: 800px;"/></center>
@@ -134,11 +143,7 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar] # add tag
 - 위 표와 같이 각 센서는 장단점의 영역이 다르게 분포되어 있음을 알 수 있습니다. 즉, 단일 센서로는 모든 영역을 다 커버할 수 없습니다. 따라서 **다양한 센서의 센서 퓨전**을 통하여 서로의 장단점을 보완하는 것이 추세입니다.
 - 특히 정교한 3D 데이터를 측정하기 위해서는 라이다가 독보적인 것을 알 수 있습니다.
 
-<br>
 
-## **라이다 센서**
-
-<br>
 
 
 <br>
