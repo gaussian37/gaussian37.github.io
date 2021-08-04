@@ -19,10 +19,12 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 
 - ### [가우스 함수](#가우스-함수-1)
 - ### [가우스 적분 증명](#가우스-적분-증명-1)
-- ### [가우시안 분포 공식 증명](#가우시안-분포-공식-증명-1)
-- ### [가우시안 PDF의 곱과 Convoltuion 연산](https://gaussian37.github.io/math-pb-product_convolution_gaussian_pdf/)
+- ### [가우시안 분포 공식 유도](#가우시안-분포-공식-유도-1)
+- ### [가우시안 PDF의 곱과 Convoltuion 연산](#)
 - ### [covariance와 zero-mean gaussian의 covariance](#covariance와-zero-mean-gaussian의-covariance-1)
 - ### [가우시안 프로세스](#가우시안-프로세스-1)
+- ### [가우시안 혼합 모델(Gaussian Mixture Model)과 EM 알고리즘](#)
+- ### [가우시안 분포를 이용한 Anomaly Detection 응용](#가우시안-분포를-이용한-anomaly-detection-응용-1)
 
 <br><br>
 
@@ -216,7 +218,46 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 
 <br><br>
 
-## **가우시안 분포 공식 증명**
+## **가우시안 분포 공식 유도**
+
+<br>
+
+- 참조 : https://www.alternatievewiskunde.nl/QED/normal.pdf
+- 참조 : https://angeloyeo.github.io/2020/09/14/normal_distribution_derivation.html
+
+<br>
+
+- `가우시안 분포`는 `정규 분포`라는 이름으로 중고등학교 때 부터 이미 많이 사용되어 왔지만 그 공식의 유도는 많은 분들이 다루어 보지 못하였을 것으로 생각됩니다.
+- 이번 글에서는 가우시안 분포 공식을 유도해보도록 하겠습니다. 이 식의 유도는 위 2개의 글을 참조하여 작성하였습니다.
+- 먼저 바로 앞에서 다룬 [가우스 적분 증명](#가우스-적분-증명-1) 내용은 먼저 확인해 주시기 바랍니다.
+
+<br>
+
+- 먼저 가우시안 분포의 형태를 살펴보면 다음과 같습니다.
+
+<br>
+
+- $$ f(x) = \frac{1}{\sigma \sqrt{2\pi}} \exp{\biggl( -\frac{(x - \mu)^{2}}{2\sigma^{2}} \biggr) } $$
+
+<br>
+
+- 가우시안 분포를 유도하기 위하여 3가지 부분으로 나누어서 차례대로 유도해보겠습니다.
+
+<br>
+
+- $$ f(x) = \color{blue}{\frac{1}{\sigma \sqrt{2\pi}}} \color{red}{\exp{\biggl(-\color{green}{\frac{(x - \mu)^{2}}{2\sigma^{2}}} \biggr) }} $$
+
+<br>
+
+
+<br>
+
+## **가우시안 PDF의 곱과 Convoltuion 연산**
+
+<br>
+
+- 아래 글은 가우시안 PDF의 곱과 Convolution 연산에 관한 내용을 다룹니다. 이 내용은 다소 긴 내용으로 별도 페이지를 작성하였으며 링크는 아래와 같습니다. 글을 읽기 전에 기억할 핵심 내용은 **두 가우시안 분포의 곱은 가우시안 분포로 나타내어 진다**라는 것입니다.
+- 링크 : [https://gaussian37.github.io/math-pb-product_convolution_gaussian_pdf/](https://gaussian37.github.io/math-pb-product_convolution_gaussian_pdf/)
 
 <br>
 
@@ -306,3 +347,14 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 <br>
 
 - $$ \Sigma_{}=\begin{bmatrix} \sigma^2({\color{blue}{x_{1}}}) & 0 & \dots & 0 \\ 0 & \sigma^2({\color{blue}{x_{2}}}) & dots & 0 \\ \vdots & \vdots & & \vdots \\ 0 & 0&\dots& \sigma^2({\color{blue}{x_{m}}}) \end{bmatrix} \tag{$h \times h$} $$
+
+<br>
+
+## **가우시안 프로세스**
+
+<br>
+
+
+<br>
+
+
