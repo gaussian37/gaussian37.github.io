@@ -22,8 +22,8 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 - ### [가우시안 분포 공식 유도](#가우시안-분포-공식-유도-1)
 - ### [가우시안 PDF의 곱과 Convoltuion 연산](#)
 - ### [covariance와 zero-mean gaussian의 covariance](#covariance와-zero-mean-gaussian의-covariance-1)
-- ### [가우시안 프로세스](#가우시안-프로세스-1)
 - ### [가우시안 혼합 모델(Gaussian Mixture Model)과 EM 알고리즘](#)
+- ### [가우시안 프로세스](#가우시안-프로세스-1)
 - ### [가우시안 분포를 이용한 Anomaly Detection 응용](#가우시안-분포를-이용한-anomaly-detection-응용-1)
 
 <br><br>
@@ -248,6 +248,175 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 - $$ f(x) = \color{blue}{\frac{1}{\sigma \sqrt{2\pi}}} \color{red}{\exp{\biggl(-\color{green}{\frac{(x - \mu)^{2}}{2\sigma^{2}}} \biggr) }} $$
 
 <br>
+
+- ① $$ \color{red}{e^{-x^{2}}} $$ 의 꼴을 유도해 보겠습니다.
+- ② $$ \color{blue}{\frac{1}{\sigma \sqrt{2\pi}}} $$ 의 꼴을 유도해 보겠습니다.
+- ③ $$ \color{green}{\frac{(x-\mu)^{2}}{2\sigma^{2}}} $$ 의 꼴을 유도해 보겠습니다.
+
+<br>
+
+#### **Determining the Shape of the Distribution**
+
+<br>
+
+- 그러면 먼저 가우시안 분포 $$ f(x) $$ 가 $$ e^{-x^{2}} $$ 형태의 꼴을 따르는 ① 식을 살펴보겠습니다.
+- 이 식의 전개를 살펴보기 위하여 `직교좌표계`와 `극좌표계`의 관계를 이용해야하기 때문에 다음과 같은 가정을 사용합니다.
+
+<br>
+<center><img src="../assets/img/math/pb/about_gaussian/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- ⓐ **원점으로 같은 거리에 있는 점은 확률 값은 모두 같으므로** 확률 밀도 함수는 **회전 각도에 독립적**입니다.
+- ⓑ 사각형의 크기가 같을 때, **원점으로부터 사각형까지의 거리가 가까울수록** 그 사각형의 **확률밀도는 높습니다.**
+- ⓒ 사각형까지의 거리가 같을 떄에는 사각형의 넓이가 넓을 수록 확률밀도가 높습니다.
+
+<br>
+
+- 위 그림을 살펴보면 사각형 A, B, C는 크기는 같지만 원점을 중심으로 거리가 다르기 때문에 $$ A \gt B \gt C $$ 크기 순으로 확률 값을 가집니다.
+- 반면 D, E, F는 원점으로 부터 사각형의 거리는 같지만 사각형의 크기가 차이가 나므로 $$ F \gt E \gt D $$ 크기 순으로 확률 값을 가집니다.
+
+<br>
+<center><img src="../assets/img/math/pb/about_gaussian/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞의 조건들을 전제 조건으로 위 그림의 Figure 2의 음영 처리된 면적이 선택될 확률을 살펴보겠습니다.
+- 먼저 연속 확률 밀도 함수에서의 기댓값의 정의 $$ \int x f(x) dx $$ 에 따라 다음과 같이 음영 부분의 확률 밀도 함수를 표현하도록 하겠습니다.
+
+<br>
+
+- $$ p(x) \Delta x = \int_{x}^{x + \Delta x} x f_x(x) dx $$ 
+
+- $$ p(y) \Delta y = \int_{y}^{y + \Delta y} y f_y(x) dy $$ 
+
+<br>
+
+- 또한 앞서 언급한 전제 조건 ⓐ, ⓑ, ⓒ에 따라서 원점을 기준으로 `normal probability density function`의 성질을 가짐을 알 수 있습니다.
+- 따라서 음영 지역을 선택할 확률은 $$ p(x) \Delta x \cdot p(y) \Delta y $$ 가 됩니다.
+
+<br>
+
+- 또한 ⓐ 조건에 따라 어떤 영역이라도 회전 각도에 독립적이므로 $$ r, \theta $$ 를 이용하여 `극 좌표계`로 확률값을 나타내면 직교좌표계 결과를 참조하여 $$ g(r) \Delta x \Delta y $$ 로 나타낼 수 있습니다. 
+- 같은 음영 면적이 선택될 확률에 대하여 `직교 좌표계` 상에서의 확률과 `극 좌표계` 상에서의 확률은 같아야 하므로 다음과 같이 식을 적을 수 있습니다.
+
+<br>
+
+- $$ p(x) \Delta x \cdot p(y) \Delta y = g(r) \Delta x \Delta y $$
+
+- $$ g(r) = p(x) p(y) $$
+
+<br>
+
+- 여기서 $$ g(r) $$ 은 각의 변화에 대하여 독립적이므로 각 $$ \theta $$ 에 대하여 미분을 하면 변화량이 없으므로 0이 되어야 합니다. 따라서 위 식을 $$ \theta $$ 에 미분하면 다음과 같습니다. 
+
+- $$ \frac{d p(x)}{d\theta}p(y) + \frac{d p(y)}{d\theta}p(x) = \frac{g(r)}{d\theta} = 0 $$
+
+- $$ \Rightarrow \frac{d p(x)}{dx}\frac{dx}{d\theta}p(y) + \frac{d p(y)}{dy}\frac{dy}{d\theta}p(x) = 0 $$
+
+- $$ \Rightarrow p(x)\frac{d p(y)}{dy}\frac{dy}{d\theta} + p(y)\frac{d p(x)}{dx}\frac{dx}{d\theta} = 0 $$
+
+- $$ \Rightarrow p(x)p'(y)\frac{dy}{d\theta} + p(y)p'(x)\frac{dx}{d\theta} = 0 $$
+
+<br>
+
+- 극 좌표계에서 $$ x = r \cos{(\theta)}, y = r\sin{(\theta)} $$ 이므로 $$ x, y $$ 를 $$ \theta $$ 에 미분하면 다음과 같습니다.
+
+<br>
+
+- $$ \frac{dx}{d\theta} = -r\sin(\theta) $$
+
+- $$ \frac{dy}{d\theta} = r\cos(\theta) $$
+
+<br>
+
+- 이 값을 이용하여 식을 다시 전개하면 다음과 같습니다.
+
+<br>
+
+- $$ p(x)p'(y)\frac{dy}{d\theta} + p(y)p'(x)\frac{dx}{d\theta} = 0 $$
+
+- $$ \Rightarrow p(x)p'(y)(r\cos(\theta)) + p(y)p'(x)(-r\sin(\theta)) = 0 $$ 
+
+<br>
+
+- 여기서 $$ r\sin(\theta)=y $$ 과 $$ r\cos(\theta)=x $$ 을 이용하면 다음과 같이 식을 정리할 수 있습니다.
+
+<br>
+
+- $$ p(x)p'(y)x - p(y)p'(x)y = 0 $$
+
+- $$ p(x)p'(y)x = p(y)p'(x)y $$
+
+- $$ \frac{p'(x)}{x p(x)} = \frac{p'(y)}{yp(y)} \ \ \ \ \ \cdots \text{(solved by separating variables)} $$
+
+<br>
+
+- 위 미분 방정식은 어떤 $$ x, y $$ 에 대하여 만족해야 하며 $$ x, y $$ 각각은 독립적이어야 합니다. 이 조건을 만족하려면 위 식이 항상 어떤 상수 값이 되어야 합니다. 
+
+<br>
+
+- $$ \frac{p'(x)}{x p(x)} = \frac{p'(y)}{yp(y)} = C $$
+
+<br>
+
+- 위 식의 좌변과 우변의 형태가 같기 때문에 좌변인 $$ \frac{p'(x)}{x p(x)} $$ 에 대하여 식을 풀어주면 같은 결과를 얻을 수 있으므로 다음 미분 방정식을 풀어줍니다.
+
+<br>
+
+- $$ \frac{p'(x)}{x p(x)} = C $$
+
+- $$ \frac{x p(x)}{p'(x)} = C \ \ \ \ \text{C is constant.} $$ 
+
+- $$ x = C\frac{p'(x)}{p(x)} $$ 
+
+- $$ \text{applying integral } \Rightarrow \frac{1}{2}x^{2} = C \ln{(p(x))} + C' $$
+
+<br>
+
+- 위 식에서 $$ C' $$ 은 적분에 의해 생긴 또 다른 상수입니다. 따라서 합쳐서 적을 수 있습니다.
+
+<br>
+
+- $$ \frac{1}{2}x^{2} - C' = C \ln{(p(x))} $$
+
+- $$ \frac{1}{2C}x^{2} - \frac{C'}{C} = \ln{(p(x))} $$
+
+- $$ p(x) = \exp{(\frac{1}{2C}x^{2} - \frac{C'}{C})} = \exp{\frac{1}{2C}x^{2}} \cdot \exp{-\frac{C'}{C}} = \exp{\frac{1}{2}c x^{2}} A $$
+
+<br> 
+
+- 마지막 식에서 상수 $$ 1/C $$ 는 $$ c $$ 로 다시 표현하였고 $$ \exp{-\frac{C'}{C}}  = A $$ 로 표현하였습니다. 따라서 식을 정리하면 다음과 같습니다.
+
+<br>
+
+- $$ p(x) = A e^{\frac{c}{2}x^{2}} $$
+
+<br>
+
+- 이 때, 앞에서 정의한 가정인 **ⓑ 사각형의 크기가 같을 때, 원점으로부터 사각형까지의 거리가 가까울수록 그 사각형의 확률밀도는 높습니다.** 조건으로 인하여 원점으로부터 거리가 가까울수록 확률이 높도록 식을 만들어야 하기 때문에 $$ \exp{()} $$ 내부의 값은 음수가 되도록 하여 **지수승의 값이 0에 가까울수록 큰 값을 가지도록 하고 무한대에 가까워질수록 0에 가까운 값을 가지도록 만듭니다.** 따라서 $$ k > 0 $$ 인 양의 값을 도입하여 다음과 같이 식을 적을 수 있습니다.
+
+<br>
+
+- $$ p(x) = A e^{-\frac{k}{2}x^{2}} $$
+
+<br>
+
+- 지금까지 살펴본 바로 가우시안 분포에서 첫번째 부분인 ① $$ \color{red}{e^{-x^{2}}} $$ 의 꼴을 유도하였습니다.
+
+<br>
+
+- $$ f(x) = \color{blue}{\frac{1}{\sigma \sqrt{2\pi}}} \color{red}{\exp{\biggl(-\color{green}{\frac{(x - \mu)^{2}}{2\sigma^{2}}} \biggr) }} $$
+
+<br>
+
+- 그 다음으로 앞에서 유도한 식의 `A`의 값이 어떻게 $$ \color{blue}{\frac{1}{\sigma \sqrt{2\pi}}} $$ 을 만족하는 지 살펴보도록 하겠습니다.
+
+<br>
+
+#### **Determining the Coefficient A**
+
+<br>
+
+
 
 
 <br>

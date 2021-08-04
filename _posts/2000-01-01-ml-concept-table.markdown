@@ -13,15 +13,23 @@ tags: [python, machine learning, ml] # add tag
 
 <br>
 
-- [머신러닝의 평가 지표](https://gaussian37.github.io/ml-concept-ml-evaluation/)    
 - [확률과 통계 기초](https://gaussian37.github.io/ml-concept-basic_probability_statistics/)
-- 베이시언 결정 이론
-- [Bias와 Variance](https://gaussian37.github.io/machine-learning-concept-bias_and_variance/)
 - [ML(Maximum Likelihood)와 MAP(maximum a posterior)](https://gaussian37.github.io/ml-concept-mle-and-map/)
 - [MLE(Maximum Likelihood Estimation)와 MAP(Maxim A Posterior)에 관하여](https://gaussian37.github.io/ml-concept-mlemap)
+- [Probability Model](https://gaussian37.github.io/ml-concept-probability_model/)
+- [Probabilistic Discriminative Model](https://gaussian37.github.io/ml-concept-probabilistic_discriminative_model/)
+- [Basic Bayesian Theory](https://gaussian37.github.io/ml-concept-basic_bayesian_theory/)
+- [Basic Information Theory](https://gaussian37.github.io/ml-concept-basic_information_theory/)
+- [정보 이론 (Entropy, Cross Entropy, KL Divergence)](https://gaussian37.github.io/ml-concept-infomation_theory/)
+- [Naive Bayes Model](https://gaussian37.github.io/ml-concept-naive_bayes_model/)
+- [Gaussian Discriminant Analysis (GDA)](https://gaussian37.github.io/ml-concept_gda/)
+- [Discriminative Vs Generative Model 비교](https://gaussian37.github.io/ml-concept-discriminative_generative_model)
+- [Gaussian Mixture Model (GMM)과 EM algorithm](https://gaussian37.github.io/ml-concept-gmm_em_algorithm)
+- [Variational Inference (변분 추론)](https://gaussian37.github.io/ml-concept-variational_inference)
+- [머신러닝의 평가 지표](https://gaussian37.github.io/ml-concept-ml-evaluation/)    
+- [Bias와 Variance](https://gaussian37.github.io/machine-learning-concept-bias_and_variance/)
 - [가우시안 분포와 분별 함수 (선형 분별 분석(LDA), 2차 분별 분석(QDA))](https://gaussian37.github.io/ml-concept-gaussian_discriminant/)
 - [마할라노비스 거리(mahalanobis distance)](https://gaussian37.github.io/ml-concept-mahalanobis_distance/)
-- [정보 이론 (Entropy, Cross Entropy, KL Divergence)](https://gaussian37.github.io/ml-concept-infomation_theory/)
 - [Anomaly Detection with Gaussian Distribution](https://gaussian37.github.io/ml-concept-andrewng-anomalydetection/)
 - [Recommender System](https://gaussian37.github.io/ml-concept-andrewng-recommender/)
 - [Clustering with K-Means Algorithm](https://gaussian37.github.io/ml-concept-andrewng-kmeans/)
