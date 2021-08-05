@@ -274,6 +274,7 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 
 - 위 그림을 살펴보면 사각형 A, B, C는 크기는 같지만 원점을 중심으로 거리가 다르기 때문에 $$ A \gt B \gt C $$ 크기 순으로 확률 값을 가집니다.
 - 반면 D, E, F는 원점으로 부터 사각형의 거리는 같지만 사각형의 크기가 차이가 나므로 $$ F \gt E \gt D $$ 크기 순으로 확률 값을 가집니다.
+- 위 조건을 유심히 살펴보면 **원점이 가장 나타날 확률이 높고 원점에서 멀어질수록 확률이 낮아지는 정규 분포 형태**를 가짐을 알 수 있습니다. 즉, **정규 분포와 유사한 조건을 전제 조건**으로 둔 것을 알 수 있습니다.
 
 <br>
 <center><img src="../assets/img/math/pb/about_gaussian/8.png" alt="Drawing" style="width: 800px;"/></center>
@@ -416,7 +417,92 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 
 <br>
 
+- 앞에서 정의한 $$ p(x) = A e^{-\frac{k}{2}x^{2}} $$ 확률 분포 또한 확률이기 때문에 곡선 아래의 전체 면적은 전체 확률값인 1이 되어야 합니다.
+- 따라서 $$ A $$ 값을 적당하게 조정하여 면적의 값이 1이 되도록 만들어 $$ A $$ 의 값을 정해보도록 하겠습니다.
 
+<br>
+
+- $$ \int_{-\infty}^{\infty} A e^{-\frac{k}{2}x^{2}} dx = 1 $$
+
+- $$ \int_{-\infty}^{\infty} e^{-\frac{k}{2}x^{2}} dx = \frac{1}{A} $$
+
+- $$ \Rightarrow \biggl( \int_{-\infty}^{\infty} e^{-\frac{k}{2}x^{2}} dx \biggr)\biggl( \int_{-\infty}^{\infty} e^{-\frac{k}{2}y^{2}} dy \biggr) = \frac{1}{A^{2}} $$
+
+<br>
+
+- 위 식에서 $$ x, y $$ 각각은 독립적인 dummy 변수이므로 다음과 같이 적을 수 있습니다.
+
+<br>
+
+- $$ \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} e^{-\frac{k}{2}(x^{2} + y^{2})} dy dx = \frac{1}{A^{2}} $$
+
+<br>
+
+- 위 식을 직교좌표계에서 극좌표계로 바꾸어서 쓰면 다음과 같이 바꿔 적을 수 있습니다.
+
+<br>
+
+- $$ \int_{0}^{\infty} \int_{0}^{\infty} e^{-\frac{k}{2}(x^{2} + y^{2})} dy dx = \frac{1}{A^{2}} $$
+
+- $$ \Rightarrow \int_{\theta=0}^{\theta=2\pi} \int_{r=0}^{r=\infty} e^{-\frac{k}{2}r^{2}} r dr d\theta = \frac{1}{A^{2}} $$
+
+<br>
+
+- 위 적분을 풀기 위하여 다음과 같이 치환을 해줍니다.
+
+<br>
+
+- $$ -\frac{1}{2}kr^{2} = u $$
+
+- $$ -krdr = du $$
+
+- $$ rdr = -\frac{1}{k} du $$
+
+<br>
+
+- 위 식을 이용하여 $$ -\frac{1}{2}kr^{2} \to u $$ , $$ rdr \to -\frac{1}{k} du $$ 형태로 모두 바꾸어 치환 적분하면 다음과 같습니다.
+
+<br>
+
+- $$ \int_{\theta=0}^{\theta=2\pi} \int_{u=0}^{u=-\infty} e^{-\frac{k}{2}r^{2}} r dr d\theta = \frac{1}{4A^{2}} $$
+
+- $$ = \int_{\theta=0}^{\theta=2\pi} \int_{u=0}^{u=-\infty} e^{u} -\frac{1}{k} du d\theta $$
+
+- $$ = -\frac{1}{k} \int_{\theta=0}^{\theta=2\pi} \int_{u=0}^{u=-\infty} e^{u} du d\theta $$
+
+- $$ = -\frac{1}{k} \int_{\theta=0}^{\theta=2\pi} [e^{u}]_{0}^{-\infty} d\theta $$
+
+- $$ = -\frac{1}{k} \int_{\theta=0}^{\theta=2\pi} (-1) d\theta $$
+
+- $$ = \frac{2\pi}{k} = \frac{1}{A^{2}} $$
+
+<br>
+
+- 마지막 식을 $$ A $$ 에 대하여 정리해 보겠습니다. 앞에서 다룬 값은 확률밀도함수의 넓이와 관련된 것이므로 항상 양수이기 때문에 **양의 값**을 가지게 됨을 유의해야 합니다.
+
+<br>
+
+- $$ A^{2} = \frac{k}{2\pi} $$
+
+- $$ A = \sqrt{\frac{k}{2\pi}} $$
+
+<br>
+
+- 따라서 $$ A $$ 는 위 식과 같이 구할 수 있고 지금 까지 구한 확률 분포를 살펴보면 다음과 같습니다.
+
+<br>
+
+- $$ p(x) = \sqrt{\frac{k}{2\pi}} e^{-\frac{k}{2}x^{2}} $$
+
+<br>
+
+- 처음에 살펴본 가우시안 분포에서 ② $$ \color{blue}{\frac{1}{\sigma \sqrt{2\pi}}} $$ 과 $$ \sqrt{\frac{k}{2\pi}} $$ 를 비교하면 $$ k $$ 에 대한 값을 확인하는 과정이 더 필요합니다. 마지막으로 $$ k $$ 에 대하여 알아보도록 하겠습니다.
+
+<br>
+
+#### **Determining the Value of k**
+
+<br>
 
 
 <br>
