@@ -223,6 +223,7 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 <br>
 
 - 참조 : https://www.alternatievewiskunde.nl/QED/normal.pdf
+- 자료 : https://drive.google.com/file/d/1n_PeSlIzJRsbHmfUlGHSBuNh1AdDWx6e/view?usp=sharing
 - 참조 : https://angeloyeo.github.io/2020/09/14/normal_distribution_derivation.html
 
 <br>
@@ -585,9 +586,6 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 <br>
 
 - $$ p(x) = \frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right) $$
-
-<br>
-
 
 <br>
 
