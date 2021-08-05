@@ -496,13 +496,51 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 
 <br>
 
-- 처음에 살펴본 가우시안 분포에서 ② $$ \color{blue}{\frac{1}{\sigma \sqrt{2\pi}}} $$ 과 $$ \sqrt{\frac{k}{2\pi}} $$ 를 비교하면 $$ k $$ 에 대한 값을 확인하는 과정이 더 필요합니다. 마지막으로 $$ k $$ 에 대하여 알아보도록 하겠습니다.
+- 처음에 살펴본 가우시안 분포에서 ② $$ \color{blue}{\frac{1}{\sigma \sqrt{2\pi}}} $$ 과 $$ \sqrt{\frac{k}{2\pi}} $$ 를 비교하면 $$ k = 1 / \sigma^{2} $$ 에 대한 값을 확인하는 과정이 더 필요합니다. 마지막으로 $$ k $$ 에 대하여 알아보도록 하겠습니다.
 
 <br>
 
 #### **Determining the Value of k**
 
 <br>
+
+- 앞에서 구한 식의 미지수 $$ k $$ 를 구하기 위하여 `평균`과 `분산`의 개념을 도입하여 식을 전개해 보도록 하겠습니다. 왜냐하면 $$ k $$ 값이 확률 분포에 사용되는 값이기 때문에 `평균`, `분산`과 연관이 되어 있고 이 추가적인 식을 이용하여 미지수 $$ k $$ 를 풀 수 있기 때문입니다.
+- 먼저, 평균 $$ \mu $$ 와 분산 $$ \sigma^{2} $$ 은 다음과 같은 식으로 적을 수 있습니다.
+
+<br>
+
+- $$ \mu = \int_{-\infty}^{\infty} x p(x) dx $$
+
+- $$ \sigma^{2} = \int_{-\infty}^{\infty} (x - \mu)^{2} p(x) dx $$
+
+<br>
+
+- 이 때, $$ x $$ 자체는 기함수 (odd function)이고 $$ p(x) = \sqrt{\frac{k}{2\pi}} e^{-\frac{k}{2}x^{2}} $$ 는 우함수 (even function)입니다. $$ x p(x) $$ 는 기함수와 우함수의 곱이므로 `기함수`입니다.
+- 음의 무한대와 양의 무한대 전체 범위에서 기함수의 평균은 0 입니다. 따라서 평균 식은 다음과 같이 정리됩니다.
+
+<br>
+
+- $$ \mu = \int_{-\infty}^{\infty} x p(x) dx  = 0 $$
+
+<br>
+
+- [분산의 정의](https://gaussian37.github.io/math-pb-variance_covariance/)에 따라 아래 식은 다음과 같이 변경 가능합니다. (편차의 평균 → (제곱의 평균 - 평균의 제곱)), 링크를 참조해 주시기 바랍니다.
+
+<br>
+
+- $$ \sigma^{2} = \int_{-\infty}^{\infty} (x - \mu)^{2} p(x) dx = \int_{-\infty}^{\infty} x^{2} p(x) dx - \mu^{2} $$
+
+- $$ \Rightarrow \sigma^{2} = \int_{-\infty}^{\infty} x^{2} p(x) dx - 0 = \int_{-\infty}^{\infty} x^{2} p(x) dx $$
+
+- $$ \Rightarrow \sigma^2 = \int_{-\infty}^{\infty}x^2\sqrt{\frac{k}{2\pi}}\exp\left(-\frac{1}{2}kx^2\right)dx =\sqrt{\frac{k}{2\pi}}\int_{-\infty}^{\infty}x^2\exp\left(-\frac{1}{2}kx^2\right)dx = \sqrt{\frac{k}{2\pi}}\int_{-\infty}^{\infty}x\cdot x\exp\left(-\frac{1}{2}kx^2\right)dx $$
+
+<br>
+
+
+
+
+
+
 
 
 <br>
@@ -601,7 +639,7 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 
 <br>
 
-- $$ \Sigma_{}=\begin{bmatrix} \sigma^2({\color{blue}{x_{1}}}) & 0 & \dots & 0 \\ 0 & \sigma^2({\color{blue}{x_{2}}}) & dots & 0 \\ \vdots & \vdots & & \vdots \\ 0 & 0&\dots& \sigma^2({\color{blue}{x_{m}}}) \end{bmatrix} \tag{$h \times h$} $$
+- $$ \Sigma_{}=\begin{bmatrix} \sigma^2({\color{blue}{x_{1}}}) & 0 & \dots & 0 \\ 0 & \sigma^2({\color{blue}{x_{2}}}) & \dots & 0 \\ \vdots & \vdots & & \vdots \\ 0 & 0&\dots& \sigma^2({\color{blue}{x_{m}}}) \end{bmatrix} \tag{$h \times h$} $$
 
 <br>
 
