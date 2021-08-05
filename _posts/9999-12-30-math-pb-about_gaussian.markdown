@@ -448,7 +448,8 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 
 <br>
 
-- 위 적분을 풀기 위하여 다음과 같이 치환을 해줍니다.
+- 적분을 풀기 위하여 다음과 같이 치환 적분을 해주려고 합니다. 다만, 계산 과정을 스킵하시고 싶으면 아래 울프람 알파의 결과만 확인하시기 바랍니다.
+- 계산 과정은 다음과 같습니다. 먼저 위 적분을 풀기 위하여 다음과 같이 치환을 해줍니다.
 
 <br>
 
@@ -478,6 +479,11 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 
 <br>
 
+<br>
+<center><img src="../assets/img/math/pb/about_gaussian/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 적분의 결과와 울프람 알파의 결과가 같은 것을 확인할 수 있습니다.
 - 마지막 식을 $$ A $$ 에 대하여 정리해 보겠습니다. 앞에서 다룬 값은 확률밀도함수의 넓이와 관련된 것이므로 항상 양수이기 때문에 **양의 값**을 가지게 됨을 유의해야 합니다.
 
 <br>
@@ -536,11 +542,51 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 
 <br>
 
+- 위 적분식을 구하기 위하여 부분 적분법을 사용하겠습니다. (단순 계산 방법이므로 스킵하시고 아래 울프람 알파 결과만 확인하셔도 됩니다.)
 
+<br>
 
+- $$ \begin{cases}u = x \\ du = 1\end{cases} $$
 
+- $$ \begin{cases} dv = x\exp\left(-\frac{1}{2}kx^2\right) \\ v = -\frac{1}{k}\exp\left(-\frac{1}{2}kx^2\right) \end{cases} $$
 
+- $$ \sqrt{\frac{k}{2\pi}}\left\lbrace\left[x\cdot\left(-\frac{1}{k}\right)\exp\left(-\frac{1}{2}kx^2\right)\right]_{-\infty}^{\infty}+\frac{1}{k}\int_{-\infty}^{\infty}\exp\left(-\frac{1}{2}kx^2\right)dx\right\rbrace $$
 
+<br>
+
+- 식 중간의 대괄호 부분을 계산하면 0이 되므로 다음과 같이 정리할 수 있습니다.
+
+<br>
+
+- $$ \sqrt{\frac{k}{2\pi}}\left\lbrace\frac{1}{k}\int_{-\infty}^{\infty}\exp\left(-\frac{1}{2}kx^2\right)dx\right\rbrace = \sqrt{\frac{k}{2\pi}}\left(\frac{1}{k}\right)\sqrt{\frac{2\pi}{k}} = \frac{1}{k} $$
+
+<br>
+<center><img src="../assets/img/math/pb/about_gaussian/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 적분의 결과와 울프람 알파의 결과가 같은 것을 확인할 수 있습니다.
+
+<br>
+
+- $$ \therefore k = \frac{1}{\sigma^{2}} $$
+
+<br>
+
+- 따라서 앞에서 구한 식에 $$ k $$ 를 대입하면 다음과 같이 정리할 수 있습니다.
+
+<br>
+
+- $$ p(x) = \sqrt{\frac{k}{2\pi}} e^{-\frac{k}{2}x^{2}} = \sqrt{\frac{1}{\sigma^{2}2\pi}} e^{-\frac{1}{2}\sigma^{2}x^{2}} $$
+
+<br>
+
+- 위 식은 가우시안 분포의 수식에서 평균값이 0인 경우를 의미하며 평균값이 $$ \mu $$ 인 경우에는 $$ x $$ 를 $$ x - \mu $$ 로 평행이동 시켜주면 되므로 최종적인 가우시안 분포 공식은 다음과 같이 유도할 수 있습니다.
+
+<br>
+
+- $$ p(x) = \frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right) $$
+
+<br>
 
 
 <br>
