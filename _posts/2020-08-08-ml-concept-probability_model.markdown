@@ -47,7 +47,7 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 
 <br>
 
-- $$ X = {x_{1}, x_{2}, \cdots , x_{n}}, \ \ x_{i} \sim p(x \vert \theta^{*}) $$
+- $$ X = (x_{1}, x_{2}, \cdots , x_{n}), \ \ x_{i} \sim p(x \vert \theta^{*}) $$
 
 <br>
 
@@ -58,6 +58,19 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 <br>
 
 ## **MLE(Maximum Likelihood Estimation)**
+
+<br>
+
+- 관측된 데이터 $$ X = (x_{1}, x_{2}, x_{3}, \cdots , x_{n}) $$ 를 토대로 우리가 상정한 확률 모형이 **데이터를 잘 설명**하도록 $$ \theta $$ 를 찾는 방법을 `MLE (Maximum Likelihood Estimation)` 이라 부르고, 수식은 다음과 같습니다.
+
+<br>
+
+- $$ \hat{\theta} = \operatorname*{argmax}_\theta L(\theta) = \operatorname*{argmax}_\theta p(X \vert \theta) $$
+
+<br>
+
+- 이 때, $$ L(\theta) $$ 는 $$ \theta $$ 에 대한 함수로서 `가능도 함수 (likelihood function)` 라고 부르며 `확률 모형`을 나타내는 함수입니다.
+- 여기서 주의할 점은 상황에 따라 $$ L(\theta \vert X) $$ 와 같이 표기하기도 하지만, 가능도 함수는 관측된 데이터 $$ X = (x_{1}, x_{2}, x_{3}, \cdots , x_{n}) $$ 을 토대로 정의된 것으로 데이터에 관한 함수가 아니라는 점입니다.  즉, **데이터는 고정이고 $$ \theta $$ 가 변수로 움직이면서 likelihood가 변하게 됩니다.** 이 때, $$ \operatorname*{argmax}_\theta p(X \vert \theta) $$ 를 통해 **$$ p(X \vert \theta) $$ 확률값이 최대화**가 되도록 하는 것이 위 식의 목적입니다.
 
 <br>
 
