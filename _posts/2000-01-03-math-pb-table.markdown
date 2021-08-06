@@ -87,7 +87,8 @@ tags: [통계학, 수리통계학, 베이지안] # add tag
 - 음이항분포와 기하분포
 - 포아송 분포와 포아송 과정 (1)
 - 포아송 분포와 포아송 과정 (2)
-- 연속형 균일분포. 정규분포. 표준정규분포
+- [연속형 균일 분포](https://gaussian37.github.io/math-pb-continuous_uniform_distribution/)
+- [정규분포 및 표준 정규분포](https://gaussian37.github.io/math-pb-normal_distribution/)
 - 정규분포의 적용. 이항분포의 정규근사
 - [감마분포와 지수분포](https://gaussian37.github.io/math-pb-gamma_and_exponential_distribution/)
 - [감마분포와 지수분포의 적용](https://gaussian37.github.io/math-pb-gamma_and_exponential_distribution_application/)

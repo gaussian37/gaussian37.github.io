@@ -4,7 +4,7 @@ title: Probability Model (확률 모형) 개념 학습
 date: 2020-08-08 00:00:00
 img: ml/concept/probability_model/0.png
 categories: [ml-concept] 
-tags: [machine learning, probability model, 확률 모형]] # add tag
+tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likelihood Estimation] # add tag
 ---
 
 <br>
@@ -54,6 +54,12 @@ tags: [machine learning, probability model, 확률 모형]] # add tag
 - 위 식에서 $$ p(x \vert \theta^{*}) $$ 이 의미하는 바는 `이상적인 실제 확률 분포`를 뜻합니다. 이러한 이상적인 확률 분포에서 $$ X $$ 를 수집한다고 이해하면 됩니다.
 - 일반적으로 모수 $$ \theta $$ 추정의 목적은 관측된 데이터의 실제 확률 분포 $$ p(X \vert \theta^{*}) $$  를 **최대한 잘 근사 하는 수학적 모형을 찾는 것**입니다. 이와 같이 근사화한 모델을 사용하는 이유는 실제 데이터 확률 분포 또는 실제 파라미터 $$ \theta^{*} $$ 를 정확히 할 수 없기 때문입니다.
 - 따라서 임의의 확률 모형 $$ p(x \vert \cdot) $$ 을 가정한 뒤, 적어도 그 모형이 데이터를 가장 잘 설명하는 파라미터 $$ \theta (\approx \theta^{*}) $$ 를 찾는 과정을 `모수 추정`이라고 합니다. 예를 들어 $$ p(x \vert \theta) = N(x \vert \mu, \sigma^{2}), \theta = [\mu, \sigma] $$ 와 같은 식에서 구체적인 값 $$ \theta $$ 를 찾는 과정이라고 말할 수 있습니다.
+
+<br>
+
+## **MLE(Maximum Likelihood Estimation)**
+
+<br>
 
 
 
