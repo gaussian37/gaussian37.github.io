@@ -71,22 +71,14 @@ def uploadDirectory(path,bucketname):
 
 <br>
 
-```python
-import boto3
-from botocore.errorfactory import ClientError
-def path_exists(path, bucket_name):
-    """Check to see if an object exists on S3"""
-    s3 = boto3.resource('s3')
-    try:
-        s3.ObjectSummary(bucket_name=bucket_name, key=path).load()
-    except ClientError as e:
-        if e.response['Error']['Code'] == "404":
-            return False
-        else:
-            raise e
-    return True
+- 아래 코드를 이용하여 s3 storage에 파일 존재 유무를 확인하는 방법이 가장 간단한 방법 중 하나입니다.
+- `path`에 해당하는 부분에 경로 이름 또는 파일 이름을 입력하였을 경우에 일치하면 True를 반환합니다.
 
-path_exists('path/to/file.html')
+```python
+def prefix_exits(bucket, path):
+    s3_client = boto3.client('s3')
+    res = s3_client.list_objects_v2(Bucket=bucket, Prefix=path, MaxKeys=1)
+    return 'Contents' in res
 ```
 
 <br>
