@@ -86,9 +86,9 @@ tags: [Statistical modeling, Bayesian modeling, Monte carlo estimation, Markov c
 
 <br>
 
-$$ n = 15, \ \ \ \  y_{i} = \mu + \epsilon_{i}, \ \ \ \  \epsilon_{i} \sim N(0, \sigma^{2}) \dots ( 	ext{i.i.d}) $$
+- $$ n = 15, \ \ \ \  y_{i} = \mu + \epsilon_{i}, \ \ \ \  \epsilon_{i} \sim N(0, \sigma^{2}) \dots ( 	ext{i.i.d}) $$
 
-$$ y_{i} \sim N(\mu, \sigma^{2}) \dots ( 	ext{i.i.d}) $$
+- - $$ y_{i} \sim N(\mu, \sigma^{2}) \dots ( 	ext{i.i.d}) $$
 
 <br>
 
@@ -103,7 +103,7 @@ $$ y_{i} \sim N(\mu, \sigma^{2}) \dots ( 	ext{i.i.d}) $$
 
 <br>
 
-$$ \text{likelihood} = p(y \vert \theta) $$
+- $$ \text{likelihood} = p(y \vert \theta) $$
 
 <br>
 
@@ -111,7 +111,7 @@ $$ \text{likelihood} = p(y \vert \theta) $$
 
 <br>
 
-$$ \text{prior} = p(\theta) $$
+- $$ \text{prior} = p(\theta) $$
 
 <br>
 
@@ -119,7 +119,7 @@ $$ \text{prior} = p(\theta) $$
 
 <br>
 
-$$ p(y, \theta) = p(\theta)p(y \vert \theta) $$
+- $$ p(y, \theta) = p(\theta)p(y \vert \theta) $$
 
 <br>
 
@@ -127,7 +127,7 @@ $$ p(y, \theta) = p(\theta)p(y \vert \theta) $$
 
 <br>
 
-$$ p(\theta \vert y) = \frac{p(\theta, y)}{p(y)} = \frac{p(\theta, y)}{\int p(\theta, y)d\theta} = \frac{p(y \vert \theta)p(\theta)}{\int p(y \vert \theta)p(\theta)d\theta} $$
+- $$ p(\theta \vert y) = \frac{p(\theta, y)}{p(y)} = \frac{p(\theta, y)}{\int p(\theta, y)d\theta} = \frac{p(y \vert \theta)p(\theta)}{\int p(y \vert \theta)p(\theta)d\theta} $$
 
 <br>
 
@@ -146,7 +146,7 @@ $$ p(\theta \vert y) = \frac{p(\theta, y)}{p(y)} = \frac{p(\theta, y)}{\int p(\t
 
 <br>
 
-$$ y_{i} \vert \mu, \sigma^{2} \ \sim \ N(\mu, \sigma^{2}) \dots (\text{i.i.d}), \ \ \ i = 1, 2, ..., n $$
+- $$ y_{i} \vert \mu, \sigma^{2} \ \sim \ N(\mu, \sigma^{2}) \dots (\text{i.i.d}), \ \ \ i = 1, 2, ..., n $$
 
 <br>
 
@@ -154,7 +154,7 @@ $$ y_{i} \vert \mu, \sigma^{2} \ \sim \ N(\mu, \sigma^{2}) \dots (\text{i.i.d}),
 
 <br>
 
-$$ p(\mu, \sigma^{2}) = p(\mu)p(\sigma^{2}) $$
+- $$ p(\mu, \sigma^{2}) = p(\mu)p(\sigma^{2}) $$
 
 <br>
 
@@ -162,9 +162,9 @@ $$ p(\mu, \sigma^{2}) = p(\mu)p(\sigma^{2}) $$
 
 <br>
 
-$$ \mu \ \sim \ N(\mu_{0}, \sigma_{0}^{2}) $$
+- $$ \mu \ \sim \ N(\mu_{0}, \sigma_{0}^{2}) $$
 
-$$ \sigma^{2} \ \sim \ \text{Inverse Gamma}(\nu_{0}, \beta_{0}) $$
+- $$ \sigma^{2} \ \sim \ \text{Inverse Gamma}(\nu_{0}, \beta_{0}) $$
 
 <br>
 
@@ -176,7 +176,11 @@ $$ \sigma^{2} \ \sim \ \text{Inverse Gamma}(\nu_{0}, \beta_{0}) $$
 
 - 위 그림에서 한 개의 동그라미는 `자체적으로 분포`를 가지는 random variable 임을 뜻합니다.
 - 두 개의 동그라미는 데이터에서 `관측`이 가능한 random variable임을 뜻합니다.
-- 화살표의 뜻은 도착점의 random variable이 시작점의 random variable에 종속적이라는 뜻입니다. 즉, $$ y_{i} $$는 $$ \mu $$와 $$ \sigma^{2} $$에 종속적입니다.
+- 화살표의 뜻은 도착점의 random variable이 시작점의 random variable에 종속적이라는 뜻입니다. 즉, $$ y_{i} $$는 - 
+
+<br>
+
+- $$ \mu $$와 $$ \sigma^{2} $$에 종속적입니다.
 
 <br>
 <center><img src="../assets/img/math/pb/statistical_model_to_monte_carlo/2.png" alt="Drawing" style="width: 300px;"/></center>
@@ -196,11 +200,11 @@ $$ \sigma^{2} \ \sim \ \text{Inverse Gamma}(\nu_{0}, \beta_{0}) $$
 
 <br>
 
-$$ y_{i} \vert \mu, \sigma^{2} \sim N(\mu, \sigma^{2}) $$
+- $$ y_{i} \vert \mu, \sigma^{2} \sim N(\mu, \sigma^{2}) $$
 
-$$ \mu \vert \sigma^{2} \sim N(\mu_{0}, \sigma^{2}) $$
+- $$ \mu \vert \sigma^{2} \sim N(\mu_{0}, \sigma^{2}) $$
 
-$$ \sigma^{2} \sim \text{inverse gamma}(\nu_{0}, \beta_{0}) $$
+- $$ \sigma^{2} \sim \text{inverse gamma}(\nu_{0}, \beta_{0}) $$
 
 <br>
 
@@ -214,7 +218,7 @@ $$ \sigma^{2} \sim \text{inverse gamma}(\nu_{0}, \beta_{0}) $$
 
 <br>
 
-$$ p(y_{1}, \cdots, y_{n}, \mu, \sigma^{2}) = p(y_{1}, \cdots, y_{n} \vert \mu, \sigma^{2})p(\mu \vert \sigma^{2})p(\sigma^{2})  = \prod_{i=1}^{n} = \Biggl( N(y_{i} \vert \mu, \sigma^{2}) \Biggr) \times N(\mu \vert \mu_{0}, \sigma^{2}) \times \text{inverse gamma}(\sigma^{2} \vert \nu_{0}, \beta_{0}) $$
+- $$ p(y_{1}, \cdots, y_{n}, \mu, \sigma^{2}) = p(y_{1}, \cdots, y_{n} \vert \mu, \sigma^{2})p(\mu \vert \sigma^{2})p(\sigma^{2})  = \prod_{i=1}^{n} = \Biggl( N(y_{i} \vert \mu, \sigma^{2}) \Biggr) \times N(\mu \vert \mu_{0}, \sigma^{2}) \times \text{inverse gamma}(\sigma^{2} \vert \nu_{0}, \beta_{0}) $$
 
 <br>
 
@@ -222,7 +226,7 @@ $$ p(y_{1}, \cdots, y_{n}, \mu, \sigma^{2}) = p(y_{1}, \cdots, y_{n} \vert \mu, 
 
 <br>
 
-$$ p(\theta \vert y) = \frac{ p(y \vert \theta)p(\theta) }{ \int p(y \vert \theta)p(\theta) d\theta} \propto p(y \vert \theta)p(\theta) $$
+- $$ p(\theta \vert y) = \frac{ p(y \vert \theta)p(\theta) }{ \int p(y \vert \theta)p(\theta) d\theta} \propto p(y \vert \theta)p(\theta) $$
 
 <br>
 
@@ -232,7 +236,7 @@ $$ p(\theta \vert y) = \frac{ p(y \vert \theta)p(\theta) }{ \int p(y \vert \thet
 
 <br>
 
-$$ p(y_{1}, \cdots, y_{n}, \mu, \sigma^{2}) = p(y_{1}, \cdots, y_{n} \vert \mu, \sigma^{2})p(\mu \vert \sigma^{2})p(\sigma^{2}) \propto p(\mu, \sigma^{2} \vert y_{1}, \cdots y_{n}) $$
+- $$ p(y_{1}, \cdots, y_{n}, \mu, \sigma^{2}) = p(y_{1}, \cdots, y_{n} \vert \mu, \sigma^{2})p(\mu \vert \sigma^{2})p(\sigma^{2}) \propto p(\mu, \sigma^{2} \vert y_{1}, \cdots y_{n}) $$
 
 <br>
 
@@ -254,9 +258,9 @@ $$ p(y_{1}, \cdots, y_{n}, \mu, \sigma^{2}) = p(y_{1}, \cdots, y_{n} \vert \mu, 
 
 <br>
 
-$$ y_{i} \vert \mu \ \sim \ N(\mu, 1) $$
+- $$ y_{i} \vert \mu \ \sim \ N(\mu, 1) $$
 
-$$ \mu \ ~ \ \frac{1}{\pi(1 + \mu^{2})} $$
+- $$ \mu \ ~ \ \frac{1}{\pi(1 + \mu^{2})} $$
 
 <br>
 
@@ -265,7 +269,7 @@ $$ \mu \ ~ \ \frac{1}{\pi(1 + \mu^{2})} $$
 
 <br>
 
-$$ p(\mu \vert y_{1}, \cdots , y_{n}) \ \propto \ \prod_{i=1}^{n} \Biggl( \frac{1}{\sqrt{2\pi}}\text{exp}(-\frac{1}{2}(y_{i} - \mu)^{2})  \Biggr)\frac{1}{\pi(1 + \mu^{2})} \\ \propto \text{exp}\Biggl( -\frac{1}{2} \sum_{i=1}^{n} (y_{i} - \mu)^{2} \Biggr) \frac{1}{\pi(1 + \mu^{2})} \\ \propto \text{exp} \Biggl( -\frac{1}{2}\Biggl( \sum_{i=1}^{n}y_{i}^{2} - 2\mu\sum_{i=1}^{n}y_{i} + n\mu^{2} \Biggr)\Biggr)\frac{1}{\pi(1 + \mu^{2})} \\ \propto \frac{\text{exp}\Biggl(n(\bar{y}\mu - \frac{\mu^{2}}{2}) \Biggr)}{1 + \mu^{2}} $$
+- $$ p(\mu \vert y_{1}, \cdots , y_{n}) \ \propto \ \prod_{i=1}^{n} \Biggl( \frac{1}{\sqrt{2\pi}}\text{exp}(-\frac{1}{2}(y_{i} - \mu)^{2})  \Biggr)\frac{1}{\pi(1 + \mu^{2})} \\ \propto \text{exp}\Biggl( -\frac{1}{2} \sum_{i=1}^{n} (y_{i} - \mu)^{2} \Biggr) \frac{1}{\pi(1 + \mu^{2})} \\ \propto \text{exp} \Biggl( -\frac{1}{2}\Biggl( \sum_{i=1}^{n}y_{i}^{2} - 2\mu\sum_{i=1}^{n}y_{i} + n\mu^{2} \Biggr)\Biggr)\frac{1}{\pi(1 + \mu^{2})} \\ \propto \frac{\text{exp}\Biggl(n(\bar{y}\mu - \frac{\mu^{2}}{2}) \Biggr)}{1 + \mu^{2}} $$
 
 <br>
 
@@ -326,9 +330,9 @@ $$ p(\mu \vert y_{1}, \cdots , y_{n}) \ \propto \ \prod_{i=1}^{n} \Biggl( \frac{
 
 <br>
 
- $$ \theta \ \sim \ \text{Gamma}(a, b) $$ 
+ - $$ \theta \ \sim \ \text{Gamma}(a, b) $$ 
  
- $$ E(\theta) = \int_{0}^{\infty} \theta p(\theta) d\theta = \int_{0}^{\infty} \frac{b^{a}}{\Gamma(a)}\theta^{a-1}e^{-b\theta}d\theta = \frac{a}{b} $$
+ - $$ E(\theta) = \int_{0}^{\infty} \theta p(\theta) d\theta = \int_{0}^{\infty} \frac{b^{a}}{\Gamma(a)}\theta^{a-1}e^{-b\theta}d\theta = \frac{a}{b} $$
 
 <br>
 
@@ -337,7 +341,7 @@ $$ p(\mu \vert y_{1}, \cdots , y_{n}) \ \propto \ \prod_{i=1}^{n} \Biggl( \frac{
 
 <br>
 
-$$ \theta^{*}_{i} \ \ i = 1, \cdots m $$
+- $$ \theta^{*}_{i} \ \ i = 1, \cdots m $$
 
 <br>
 
@@ -345,7 +349,7 @@ $$ \theta^{*}_{i} \ \ i = 1, \cdots m $$
 
 <br>
 
-$$ \bar{\theta}^{*} = \frac{1}{m} \sum_{i = 1}^{m} \theta_{i}^{*} $$
+- $$ \bar{\theta}^{*} = \frac{1}{m} \sum_{i = 1}^{m} \theta_{i}^{*} $$
 
 <br>
 
@@ -354,7 +358,7 @@ $$ \bar{\theta}^{*} = \frac{1}{m} \sum_{i = 1}^{m} \theta_{i}^{*} $$
 
 <br>
 
-$$ \text{var}(\theta) = \int_{0}^{\infty}(\theta - E(\theta))^{2} p(\theta) d\theta $$
+- $$ \text{var}(\theta) = \int_{0}^{\infty}(\theta - E(\theta))^{2} p(\theta) d\theta $$
 
 <br>
 
@@ -363,7 +367,7 @@ $$ \text{var}(\theta) = \int_{0}^{\infty}(\theta - E(\theta))^{2} p(\theta) d\th
 
 <br>
 
-$$ \int h(\theta)p(\theta)d\theta = E[h(\theta)] \approx \frac{1}{m}\sum_{i=1}^{m}h(\theta_{i}^{*}) $$
+- $$ \int h(\theta)p(\theta)d\theta = E[h(\theta)] \approx \frac{1}{m}\sum_{i=1}^{m}h(\theta_{i}^{*}) $$
 
 <br>
 
@@ -371,9 +375,9 @@ $$ \int h(\theta)p(\theta)d\theta = E[h(\theta)] \approx \frac{1}{m}\sum_{i=1}^{
 
 <br>
 
-$$ h(\theta) = I_{\theta < 5}(\theta) $$
+- $$ h(\theta) = I_{\theta < 5}(\theta) $$
 
-$$ E(h(\theta)) = \int_{0}^{\infty} I_{\theta < 5}(\theta) p(\theta) d\theta = \int_{0}^{5} 1 \cdot p(\theta) d\theta + \int_{5}^{\infty} 0 \cdot p(\theta) d\theta = \text{Pr}[0 \gt \theta \gt 5] \approx \frac{1}{m} \sum_{i=1}^{m} I_{\theta^{*} < 5}(\theta_{i}^{*}) $$
+- $$ E(h(\theta)) = \int_{0}^{\infty} I_{\theta < 5}(\theta) p(\theta) d\theta = \int_{0}^{5} 1 \cdot p(\theta) d\theta + \int_{5}^{\infty} 0 \cdot p(\theta) d\theta = \text{Pr}[0 \gt \theta \gt 5] \approx \frac{1}{m} \sum_{i=1}^{m} I_{\theta^{*} < 5}(\theta_{i}^{*}) $$
 
 <br>
 
@@ -390,7 +394,7 @@ $$ E(h(\theta)) = \int_{0}^{\infty} I_{\theta < 5}(\theta) p(\theta) d\theta = \
 
 <br>
 
-$$ \bar{\theta^{*}} \ \sim \ N(E(\theta) , \frac{var(\theta)}{m} $$
+- $$ \bar{\theta^{*}} \ \sim \ N(E(\theta) , \frac{var(\theta)}{m} $$
 
 <br>
 
@@ -398,7 +402,7 @@ $$ \bar{\theta^{*}} \ \sim \ N(E(\theta) , \frac{var(\theta)}{m} $$
 
 <br>
 
-$$ \bar{var(\theta)} = \frac{1}{m} \sum_{i=1}^{m} (\theta_{i}^{*} - \bar{\theta}^{*})^{2} $$
+- $$ \bar{var(\theta)} = \frac{1}{m} \sum_{i=1}^{m} (\theta_{i}^{*} - \bar{\theta}^{*})^{2} $$
 
 <br>
 
@@ -408,7 +412,7 @@ $$ \bar{var(\theta)} = \frac{1}{m} \sum_{i=1}^{m} (\theta_{i}^{*} - \bar{\theta}
 
 <br>
 
-$$ \sqrt{\frac{\bar{var(\theta)}}{m} } $$
+- $$ \sqrt{\frac{\bar{var(\theta)}}{m} } $$
 
 <br>
 
@@ -420,15 +424,15 @@ $$ \sqrt{\frac{\bar{var(\theta)}}{m} } $$
 
 <br>
 
-$$ y \vert \phi \ \sim \ \text{Bin}(10, \phi) $$
+- $$ y \vert \phi \ \sim \ \text{Bin}(10, \phi) $$
 
-$$ \phi \ \sim \ \text{Beta}(2, 2) $$
+- $$ \phi \ \sim \ \text{Beta}(2, 2) $$
 
 - 위 분포를 이용하여 joint distribution을 만들면 다음과 같습니다.
 
 <br>
 
-$$ p(y, \phi) = p(\phi)p(\y \vert \phi) $$
+- $$ p(y, \phi) = p(\phi)p(\y \vert \phi) $$
 
 <br>
 

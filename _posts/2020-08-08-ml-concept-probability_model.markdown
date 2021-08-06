@@ -1,0 +1,41 @@
+---
+layout: post
+title: Probability Model (확률 모형) 개념 학습
+date: 2020-08-08 00:00:00
+img: ml/concept/probability_model/0.png
+categories: [ml-concept] 
+tags: [machine learning, probability model, 확률 모형]] # add tag
+---
+
+<br>
+
+[머신 러닝 관련 글 목록](https://gaussian37.github.io/ml-concept-table/)
+
+<br>
+
+- 이번 글에서는 `Probability Model`이란 개념을 `Gaussian Distribution`을 통해 이해해 보도록 하겠습니다.
+
+<br>
+
+## **확률 모형 (Probability Model) 이란?
+
+<br>
+
+- 확률 모형이란 **수집 및 관측된 데이터의 발생 확률 (또는 분포)을 잘 근사하는 `모형`으로 일반적으로 $$ p(x \vert \theta) $$ 로 표기합니다. `확률 모형 (Probability Model)`, `통계 모형 (Statistical Model)`, `확률 분포 (Probability Distribution)` 모두 같은 뜻으로 사용됩니다.
+- 이때, $$ \theta $$ 는 확률 모형을 정의하는 데 중요한 역할을 하는 값으로 모수 `parameter` 또는 요약 통계량 (Descriptive measure)라고 부릅니다.
+- 확률 모형은 상황에 따라 $$ p(x; \theta), p_{\theta}(x) $$ 와 같이 쓰이며 경우에 따라서 $$ p(x) $$ 와 같이 parameter $$ \theta $$ 를 생략하고 표기하기도 합니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/probability_model/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 가우시안 분포와 관련된 상세 설명은 아래 링크를 참조하시기 바랍니다.
+    - 링크 : [가우시안 분포 공식 유도](https://gaussian37.github.io/math-pb-about_gaussian/#%EA%B0%80%EC%9A%B0%EC%8B%9C%EC%95%88-%EB%B6%84%ED%8F%AC-%EA%B3%B5%EC%8B%9D-%EC%9C%A0%EB%8F%84-1)
+    - 링크 : []
+
+
+<br>
+
+[머신 러닝 관련 글 목록](https://gaussian37.github.io/ml-concept-table/)
+
+<br>
