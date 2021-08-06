@@ -31,7 +31,15 @@ tags: [machine learning, probability model, 확률 모형]] # add tag
 
 - 가우시안 분포와 관련된 상세 설명은 아래 링크를 참조하시기 바랍니다.
     - 링크 : [가우시안 분포 공식 유도](https://gaussian37.github.io/math-pb-about_gaussian/#%EA%B0%80%EC%9A%B0%EC%8B%9C%EC%95%88-%EB%B6%84%ED%8F%AC-%EA%B3%B5%EC%8B%9D-%EC%9C%A0%EB%8F%84-1)
-    - 링크 : []
+    - 링크 : [정규 분포](https://gaussian37.github.io/math-pb-normal_distribution)
+
+<br>
+
+- `가우시안 분포`를 확률 모형을 설명하는 데 사용하는 이유는 기초적인 확률 모형 (또는 확률 분포)로 관찰된 전체 데이터 집합이 평균을 중심으로 하여 뭉쳐져 있는 형태를 표현하는 데 가장 적합하기 때문입니다.
+
+<br>
+
+
 
 
 <br>
