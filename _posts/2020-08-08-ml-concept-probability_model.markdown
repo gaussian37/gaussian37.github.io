@@ -114,7 +114,29 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 
 <br>
 
+- 머신러닝 및 딥러닝에서 많이 다루는 방법이 단순히 `likelihood`를 최대화 하는 것이 아니라 `log likelihood`를 최대화 하는 방법을 많이 사용하곤 합니다. 왜냐하면 **MLE를 추정할 때, likelihood를 모두 곱하였는데, 이 결과가 기하급수적으로 작아지므로 합으로 바꾸어서 표현하기 위함**입니다.
+- `MLE` 방식으로 모수 추정을 하기 위해서 실제 `likelihood` ( $$ L(\theta) $$ )에 `log`를 붙인 `log likelihood` $$ l(\theta) $$ 를 아래 식과 같이 표현할 수 있습니다.
 
+<br>
+
+- $$ \hat{\theta} = \operatorname*{argmax}_\theta L(\theta) = \operatorname*{argmax}_\theta l(\theta) \tag{6} $$
+
+- $$ = \operatorname*{argmax}_\theta \log{\prod_{i=1}^{n}} p(x_{i} \vert \theta) \tag{7} $$
+
+- $$ = \operatorname*{argmax}_\theta \sum_{i=1}^{n} \log{p(x_{i} \vert \theta)} \tag{8} $$
+
+- $$ = \operatorname*{argmax}_\theta \frac{1}{n} \sum_{i=1}^{n} \log{p(x_{i} \vert \theta)} \tag{9} $$
+
+<br>
+
+- 식 (6) → 식 (7)로 변경해도 등식이 성립하는 것은 `log` 함수가 `단조 증가 함수`이기 때문입니다. 따라서 `log` 함수를 적용하여도 최솟값, 최댓값에 해당하는 모수를 추정할 때에는 전혀 영향을 끼치지 않습니다.
+- 데이터 셋 $$ (x_{i})_{i=1}^{n} $$ 으로 부터 정의된 식 (9)를 흔히 `empirical expectation` 이라고 부르며 다음과 같이 표현합니다.
+
+<br>
+
+- $$ E_{x \sim p(x \vert \theta^{*})} \log{p(x_{i} \vert \theta)} \approx \frac{1}{n} \sum_{i=1}^{n} \log{p(x_{i} \vert \theta)} \tag{10} $$
+
+<br>
 
 <br>
 
