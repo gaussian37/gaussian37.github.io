@@ -37,7 +37,11 @@ tags: [vision, optical flow, flownet, Learning Optical Flow with Convolutional N
 
 <br>
 
-- 이번 글에서는 **딥러닝을 이용한 옵티컬 플로우를 추정**하는 논문인 `FlowNet`을 알아보도록 하겠습니다.
+<br>
+<center><img src="../assets/img/vision/of/flownet/17.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 이번 글에서는 **딥러닝을 이용한 옵티컬 플로우를 추정**하는 논문인 `FlowNet`을 알아보도록 하겠습니다. **옵티컬 플로우는 위 그림과 같이 픽셀 단위의 움직임(Motion)을 나타내는 Vector Map (Pixel Displacement)**를 의미 합니다.
 
 <br>
 <div style="text-align: center;">
@@ -45,8 +49,20 @@ tags: [vision, optical flow, flownet, Learning Optical Flow with Convolutional N
 </div>
 <br>
 
-- 위 영상을 통해 FlowNet의 데모 영상을 확인할 수 있습니다. FlowNet의 목적에 맞게 옵티컬 플로우를 잘 추정하는 것을 볼 수 있습니다.
-- FlowNet의 논문을 읽으면서 느낀 `contribution`은 다음과 같습니다.
+- 위 영상을 통해 `FlowNet`의 데모 영상을 확인할 수 있습니다. FlowNet의 목적에 맞게 옵티컬 플로우를 잘 추정하는 것을 볼 수 있습니다.
+- 위 영상의 색이 의미하는 바를 먼저 살펴보면 첫번째 그림과 같이 모든 픽셀에 대하여 모션 벡터를 화살표 형태로 표현하기에는 시인성이 좋지 않으므로 모션 벡터의 정보를 `HSV` 컬러 정보를 이용하여 표현한 것입니다.
+
+<br>
+<center><img src="../assets/img/vision/of/flownet/18.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `H (Hue)` : 색상 정보를 나타내며 **모션 벡터의 방향**을 의미합니다. 예를 들어 파란색에 가까울수록 픽셀의 움직임이 왼쪽 위 방향 (↖)으로 해석할 수 있고 빨간색에 가까울수록 픽셀의 움직임이 오른쪽 아래 방향 (↘)인 것으로 해석할 수 있습니다.
+- `S (Saturation)` : 채도 정보를 나타내며 **모션 벡터의 크기** 즉, 얼마나 많이 움직였는 지 나타냅니다. 흰색에 가까울수록 움직임이 거의 없다고 해석할 수 있고 색이 진할수록 움직임이 크다고 해석할 수 있습니다.
+- `V (Value)` : 명도 정도를 나타내며 여기서는 사용되지 않습니다.
+
+<br>
+
+- 다음으로 FlowNet의 논문을 읽으면서 느낀 `contribution`에 대하여 먼저 정리해 보겠습니다.
 - ① **Optical Flow를 위한 최초의 딥러닝 모델**의 의미가 있다고 생각합니다. 초기 모델인 만큼 아이디어와 네트워크 아키텍쳐도 간단합니다.
 - ② 현실적으로 만들기 어려운 학습 데이터를 **저자가 직접 합성 데이터를 만들어서 학습을 진행**한 점입니다. 이 학습 데이터는 이후에 다른 옵티컬 플로우 논문에서도 학습을 위해 사용됩니다.
 - ③ **합성 영상을 이용하여 학습을 하여도 현실 영상에 적용이 가능한 수준**임을 확인한 것입니다.
