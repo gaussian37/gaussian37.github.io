@@ -160,7 +160,7 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 
 - $$ \hat{\theta} = \operatorname*{argmax}_\theta l(\theta) \tag{11} $$
 
-- $$ l(\mu, \sigma) = \sum_{i=1}^{n} \log{N(x_{i} \vert \mu, \sigm^{2})} \tag{12} $$
+- $$ l(\mu, \sigma) = \sum_{i=1}^{n} \log{N(x_{i} \vert \mu, \sigma^{2})} \tag{12} $$
 
 - $$ = \sum_{i=1}^{n} \log{\frac{1}{\sigma \sqrt{2\pi}} \exp{ (-\frac{(x_{i} - \mu)^{2}}{2\sigma^{2}})}} \tag{13} $$
 
@@ -194,11 +194,11 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 
 - $$ \frac{d l(\mu, \sigma)}{d \sigma} = \frac{d}{d\sigma} \biggl(-\frac{n}{2} \log{(2\pi \sigma^{2})} -\frac{1}{2\sigma^{2}} \sum_{i=1}^{n} (x_{i} - \mu)^{2} \biggr) \tag{19} $$
 
-- $$ = -frac{n}{\sigma} -\frac{1}{2}\sum_{i=1}^{n} (x_{i} - \mu)^{2} \frac{d}{d\sigma}(\frac{1}{\sigma^{2}}) \tag{20} $$
+- $$ = -\frac{n}{\sigma} -\frac{1}{2}\sum_{i=1}^{n} (x_{i} - \mu)^{2} \frac{d}{d\sigma}(\frac{1}{\sigma^{2}}) \tag{20} $$
 
-- $$ = -frac{n}{\sigma} -\frac{1}{2}\sum_{i=1}^{n} (x_{i} - \mu)^{2} \times 2\frac{1}{\sigma}(-\frac{1}{\sigma^{2}}) \tag{21} $$
+- $$ = -\frac{n}{\sigma} -\frac{1}{2}\sum_{i=1}^{n} (x_{i} - \mu)^{2} \times 2\frac{1}{\sigma}(-\frac{1}{\sigma^{2}}) \tag{21} $$
 
-- $$ = -frac{n}{\sigma} + \frac{1}{\sigma^{3}}\sum_{i=1}^{n} (x_{i} - \mu)^{2} = 0 \tag{22} $$
+- $$ = -\frac{n}{\sigma} + \frac{1}{\sigma^{3}}\sum_{i=1}^{n} (x_{i} - \mu)^{2} = 0 \tag{22} $$
 
 - $$ \therefore \ \ \sigma^{2} = \frac{1}{n} \sum_{i=1}^{n} (x_{i} - \mu)^{2} $$
 
