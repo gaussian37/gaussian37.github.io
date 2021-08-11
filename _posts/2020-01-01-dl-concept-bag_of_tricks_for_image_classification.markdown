@@ -23,10 +23,10 @@ tags: [딥러닝, bag of tricks] # add tag
 
 - ### [Base line](#base-line-1)
 - ### [Linear scaling learning rate](#linear-scaling-learning-rate-1)
-- ### [Learning rate warm-up](#learning-rate-warmup-1)
+- ### [Learning rate warm-up](#learning-rate-warm-up-1)
 - ### [Zero Gamma in BatchNorm](#zero-gamma-in-batchnorm-1)
 - ### [No bias decay](#no-bias-decay-1)
-- ### [Low-precision training](#lowprecision-training-1)
+- ### [Low-precision training](#low-precision-training-1)
 - ### [Cosine Learning Rate Decay](#cosine-learning-rate-decay-1)
 
 <br>
@@ -186,7 +186,7 @@ print(bn.weight, bn.bias)
 - 또한 앞에서 다룬 `Learning rate warm-up`과 함께 `Cosine` 형태의 Learning rate 스케쥴러를 사용하는 방법을 제시하였습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/bag_of_tricks/8.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/dl/concept/bag_of_tricks/9.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그림과 같이 `SGDR` 또는 이 논문을 참조한 다른 논문에서는 `restart`는 하지 않고 `warm-up` + `cosine scheduler`만 사용하는 경우도 많이 있었습니다.
