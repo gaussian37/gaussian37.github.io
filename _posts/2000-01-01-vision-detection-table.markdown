@@ -31,12 +31,13 @@ tags: [vision, deep learning, detection] # add tag
 
 <br>
 
-## **Detector 이외**
+## **Detector 알고리즘 이외 내용**
 
 <br>
 
 - [IoU(Intersection over Union)](https://gaussian37.github.io/math-algorithm-iou/)
 - [GIoU(Generalized Intersection over Union)](https://gaussian37.github.io/vision-detection-giou/)
+- [Monocular 3D Object Detection 에서의 Orientation Estimation (방향 추정)](https://gaussian37.github.io/vision-detection-orientation_estimation_monocular_3d_od/)
 
 <br>
 

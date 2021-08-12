@@ -2,19 +2,20 @@
 layout: post
 title: 가우시안 프로세스 (Gaussian Process) 내용 정리
 date: 2021-07-17 00:00:00
-img: math/pb/gaussian_process/0.png
-categories: [math-pb]
+img: ml/concept/gaussian_process/0.png
+categories: [ml-concept]
 tags: [가우시안 프로세스, gaussian process, gaussian] # add tag
 ---
 
 <br>
 
-[통계학 관련 글 목차](https://gaussian37.github.io/math-pb-table/)
+[머신러닝 관련 글 목차](https://gaussian37.github.io/ml-concept-table/)
 
 <br>
 
 - 참조 : https://www.edwith.org/bayesiandeeplearning/
 - 참조 : https://students.brown.edu/seeing-theory/
+- 참조 : https://youtu.be/9NeDYW9BfpQ
 
 <br>
 
@@ -27,12 +28,90 @@ tags: [가우시안 프로세스, gaussian process, gaussian] # add tag
 
 <br>
 
+- ### Gaussian Process 퀵하게 알아보기
 - ### Gaussian Process
 - ### Weight Space View
 - ### Function Space View
 - ### Gaussian process latent variable model (GPLVM)
 - ### Gaussian process Application
 - ### Appendix : 배경지식 설명
+
+<br>
+
+## **Gaussian Process 퀵하게 알아보기**
+
+<br>
+
+- classification이나 regression과 같은 supervised learning은 `parametric 모델`을 통해 해결되고 있습니다. 여기서 말하는 `parametric 모델`은 모델 학습 동안 training data의 정보를 **모델과 그 모델의 파라미터를 통해 표현하는 방법**을 의미합니다.
+- 이러한 모델들은 **설명 가능하다는 장점**을 가지나 **복잡한 데이터 셋에서는 제대로 작동하기 힘든 단점**이 있습니다. 이러한 단점을 개선하기 위하여 `SVM (Support Vector Machine)`이나 `GP (Gaussian Process)`와 같은 `kernel 기반 모델`이 등장하게 되었습니다.
+
+<br>
+
+- 먼저 `GP`에 대하여 알아보면 임의의 집합 $$ S $$ 가 있을 떄, `GP`는 $$ S $$ 에 대하여 `jointly gaussian distribution`을 따르는 random variable의 set을 의미합니다. 식으로 표현하면 다음과 같습니다.
+
+<br>
+
+- $$ f \sim GP(m, k) $$
+
+- $$ m \text{ : mean function}, k \text{ : covariance function} $$
+
+<br>
+
+- 일반적인 가우시안 분포의 꼴은 다음과 같습니다.
+
+<br>
+
+- $$ X \sim N(\mu, \sigma^{2}) $$
+
+<br>
+
+- 가우시안 프로세스와 가우시안 분포의 차이를 보면 가이시안 프로세스는 평균과 분산에 function형태가 들어간 반면 가우시안 분포는 평균과 분산에 특정 값이 들어간다는 차이가 있습니다.
+
+<br>
+
+- 아래 내용은 예시를 들어 `GP`에 사용되는 파라미터 함수 $$ m, k $$ 사용하는 방법에 대하여 다루어 보겠습니다.
+
+<br>
+
+- $$ f \sim GP(m, k) $$
+
+- $$ m(x) = \frac{1}{2} x^{2} $$
+
+- $$ k(x, x') = \exp{( -\frac{1}{2} (x - x')^{2} )} $$
+
+<br>
+
+- 이러한 경우 가우시안 분포 처럼 아래와 같이 표현할 수 있습니다.
+
+<br>
+
+- $$ \mu_{i} = m(x_{i}) = \frac{1}{2} x_{i}^{2}, \ \ i = 1, 2, \cdots n $$
+
+- $$ \sigma_{ij} = k(x_{i}, x_{j}) = \exp{(-\frac{1}{2}(x_{i} - x_{j})^{2} )}, \ \ i,j = 1, 2, \cdots n $$
+
+<br>
+
+<br>
+<center><img src="../assets/img/ml/concept/gaussian_process/4.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림과 같이 함수 $$ m, k $$ 에 의해 각 점에서 가우시안 분포를 가지게 되면 음영으로 표시된 것과 같이 영역을 가지게 됩니다. 즉, 단순히 특정 데이터 하나가 아닌 확률 분포를 가지게됨을 알 수 있습니다.
+
+<br>
+
+- 이와 같은 가우시안 프로세스 과정은 `베이지안 인퍼런스` 과정에서 사용될 수 있습니다. 먼저 베이즈 이론을 다시 간략하게 살펴보면 다음과 같습니다.
+
+<br>
+
+- $$ \color{green}{P(Y \vert X)} = \frac{\color{red}{P(X \vert Y)} P(Y)}{\color{blue}{P(X)}} $$
+
+- $$ \color{red}{\text{Posterior}} = \frac{\color{green}{\text{likelihood}} \times \color{blue}{\text{prior}}}{\text{evidence}} $$
+
+<br>
+
+
+
+
 
 <br>
 
@@ -97,7 +176,7 @@ tags: [가우시안 프로세스, gaussian process, gaussian] # add tag
 - 먼저 `random variable`에 대하여 알아보겠습니다. 많은 분들이 기존 통계학을 공부하실 때 이미 학습하신 내용입니다.
 
 <br>
-<center><img src="../assets/img/math/pb/gaussian_process/1.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ml/concept/gaussian_process/1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 먼저 `Random`의 의미를 살펴보면 `sample space`에서 한 개의 원소를 뽑는 것을 의미합니다.
@@ -130,7 +209,7 @@ tags: [가우시안 프로세스, gaussian process, gaussian] # add tag
 - 이 때, $$ Y $$ 가 random variable이라고 하면 $$ E(X \vert Y ) $$ 또한 random variable이 된다는 점입니다.
 
 <br>
-<center><img src="../assets/img/math/pb/gaussian_process/2.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ml/concept/gaussian_process/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그래프에서 $$ X $$는 위 그림과 같은 고정된 분포를 가지므로 deterministic variable이 됩니다.
@@ -146,7 +225,7 @@ tags: [가우시안 프로세스, gaussian process, gaussian] # add tag
 - 어떤 확률 분포를 나타낼 때 대표적인 값으로 기댓값 즉 평균값을 많이 사용합니다. 물론 평균값에 의해 왜곡되는 것이 많다는 것을 알고 있음에도 불구하고 대표적으로 사용하고 있습니다.
 
 <br>
-<center><img src="../assets/img/math/pb/gaussian_process/2.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ml/concept/gaussian_process/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 평균이라는 값은 `n-th moment` 중 1차에 해당하며 `2-th moment`는 흔히 아는 `variance` 이며 3차는 `skewness`, 4차는 `kurtosis` 라고 합니다.
@@ -154,6 +233,6 @@ tags: [가우시안 프로세스, gaussian process, gaussian] # add tag
 
 <br>
 
-[통계학 관련 글 목차](https://gaussian37.github.io/math-pb-table/)
+[머신러닝 관련 글 목차](https://gaussian37.github.io/ml-concept-table/)
 
 <br>

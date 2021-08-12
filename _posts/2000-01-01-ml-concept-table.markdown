@@ -49,6 +49,7 @@ tags: [python, machine learning, ml] # add tag
 - [LightGBM]()
 - [Stacking]()
 - [t-SNE(t-distributed stochastic neighbor embedding)](https://gaussian37.github.io/ml-concept-t_sne/)
+- [가우시안 프로세스 (Gaussian Process)](https://gaussian37.github.io/ml-concept-gaussian_process/)
 
 <br>
 
