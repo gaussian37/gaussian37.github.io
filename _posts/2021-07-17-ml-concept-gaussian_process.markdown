@@ -103,13 +103,16 @@ tags: [가우시안 프로세스, gaussian process, gaussian] # add tag
 
 <br>
 
-- $$ \color{green}{P(Y \vert X)} = \frac{\color{red}{P(X \vert Y)} P(Y)}{\color{blue}{P(X)}} $$
-
-- $$ \color{red}{\text{Posterior}} = \frac{\color{green}{\text{likelihood}} \times \color{blue}{\text{prior}}}{\text{evidence}} $$
+- $$ \color{red}{P(\theta \vert x)} = \frac{\color{green}{P(x \vert \theta)} \color{blue}{P(\theta)}{P(x)} $$
 
 <br>
 
+- 위 식에서 빨간색이 베이즈 이론에서 구하고자 하는 `posterior`에 해당하고 초록색은 `likelihood` 그리고 파란색은 `prior`에 해당합니다. `prior`가 $$ \theta $$ 라는 모수를 가지는 확률 분포라 하고 최종적으로 구하고자 하는 `posterior`는 데이터 $$ x $$ 가 주어졌을 때, $$ \theta $$  모수에 대한 확률 분포를 의미합니다. 반면 `likelihood`는 $$ \theta $$ 모수가 주어졌을 때, 주어진 데이터 $$ x $$ 를 얼만큼 잘 표현하는 지 나타내는 수치를 의미합니다.
+- `베이지안 인퍼런스` 과정에서는 앞에서 구한 `GP`를 `prior`로 사용하고 `likelihood`는 데이터 $$ x $$ 가 있으면 구할 수 있기 때문에 최종 목적인 `posterior`를 구할 수 있다는 컨셉입니다.
 
+<br>
+
+-  
 
 
 
