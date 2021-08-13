@@ -36,8 +36,6 @@ tags: [vision, optical flow, flownet, Learning Optical Flow with Convolutional N
 ## **Contribution**
 
 <br>
-
-<br>
 <center><img src="../assets/img/vision/of/flownet/17.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
@@ -172,7 +170,7 @@ tags: [vision, optical flow, flownet, Learning Optical Flow with Convolutional N
 - 계산 복잡도를 고려한 현실적인 학습을 위하여 Pooling layer는 필수적이며 Pooling layer를 통하여 넓은 영역의 정보를 합칠 수 있습니다. 하지만 Pooling layer를 거치면 해상도가 줄어들게 되므로 픽셀 단위의 출력을 하기 위해서는 앞에서 설명하였듯이 다시 고해상도로 원복하는 작업이 필요합니다.
 
 <br>
-<center><img src="../assets/img/vision/of/flownet/11.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/of/flownet/11.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 따라서 위 그림과 같은 아키텍처를 통해 이 작업을 수행하며 논문에서는 `FlowNetSimple`과 `FlowNetCorr` 2가지 아키텍쳐를 제안합니다.
@@ -181,18 +179,20 @@ tags: [vision, optical flow, flownet, Learning Optical Flow with Convolutional N
 <center><img src="../assets/img/vision/of/flownet/14.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 위 2가지 아키텍쳐를 살펴보면 Figure 1은 좀 더 간단한 형태로 `FlowNetSimple` 이라는 구조입니다. 채널 수를 보면 6인 것을 통해 알 수 있듯이, 2장의 이미지를 concat한 다음에 네트워크의 입력으로 넣어줍니다. 이를 통하여 네트워크가 어떻게 이미지 쌍의 모션 정보를 추출할 지 스스로 결정할 수 있도록 학습시킵니다.
+- 위 2가지 아키텍쳐를 살펴보면 Figure 1은 좀 더 간단한 형태로 `FlowNetSimple` 이라는 구조입니다. `채널 수`를 보면 `6`인 것을 통해 알 수 있듯이, 2장의 이미지를 concat한 다음에 네트워크의 입력으로 넣어줍니다. 이를 통하여 네트워크가 어떻게 이미지 쌍의 모션 정보를 추출할 지 스스로 결정할 수 있도록 학습시킵니다.
 - 반면에 Figure 2는 조금 더 복잡한 형태로 `FlowNetCorr`이라는 구조입니다. 이 구조는 입력단이 2개로 분리되어 있고 각 입력은 이미지를 받습니다. 채널이 3임을 통하여 컬러 이미지 각각을 입력 받는 것임을 알 수 있습니다. 2개 입력단의 구조는 완전히 동일하며 이후 layer에서 `correlation` 연산을 통하여 하나로 합쳐집니다. 각 입력단의 네트워크를 통하여 의미있는 representation feature를 추출한 다음에 하나로 합쳐지도록 학습 시키는 구조입니다. 
 
 <br>
 <center><img src="../assets/img/vision/of/flownet/15.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- Figure 2에 해당하는 correlation 연산에 좀 더 자세하게 알아보도록 하겠습니다. 이 작업은 두 이미지에서 추출한 feature $$ f_{1}, f_{2} $$ 의 매칭을 잘 하기 위한 연산입니다.
+- Figure 2에 해당하는 `correlation 연산`에 좀 더 자세하게 알아보도록 하겠습니다. 이 작업은 두 이미지에서 추출한 feature $$ f_{1}, f_{2} $$ 의 매칭을 잘 하기 위한 연산입니다.
 
 <br>
 <center><img src="../assets/img/vision/of/flownet/16.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+- 
 
 <br>
 
