@@ -214,7 +214,7 @@ tags: [deep learning, Bayesian Deep Learning, 베이지안 뉴럴 네트워크] 
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/0-oyDeR9HrE" frameborder="0" allowfullscreen="true" width="800px" height="800px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/0-oyDeR9HrE" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
 
 - 위 영상을 참조하면 dropout 적용 시 어떤 동작을 하는 지 살펴볼 수 있습니다. 추가적으로 오른쪽의 초록색 선으로 불확실성을 표현하였는데 **학습 데이터가 부족한 부분에서 불확실성이 큰 것**을 볼 수 있습니다.
