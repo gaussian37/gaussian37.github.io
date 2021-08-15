@@ -192,7 +192,7 @@ tags: [vision, optical flow, flownet, Learning Optical Flow with Convolutional N
 <center><img src="../assets/img/vision/of/flownet/16.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 
+- `correlation 연산`을 위한 수식은 식 (1) $$ c(x_{1}, x_{2}) $$ 와 같습니다.
 
 <br>
 

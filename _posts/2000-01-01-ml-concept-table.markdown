@@ -17,7 +17,7 @@ tags: [python, machine learning, ml] # add tag
 - [ML(Maximum Likelihood)와 MAP(maximum a posterior)](https://gaussian37.github.io/ml-concept-mle-and-map/)
 - [MLE(Maximum Likelihood Estimation)와 MAP(Maxim A Posterior)에 관하여](https://gaussian37.github.io/ml-concept-mlemap)
 - [Probability Model (확률 모형) 및 likelihood 개념 학습](https://gaussian37.github.io/ml-concept-probability_model/)
-- [Probabilistic Discriminative Model](https://gaussian37.github.io/ml-concept-probabilistic_discriminative_model/)
+- [Linear, Logistic Regression의 확률적 해석](https://gaussian37.github.io/ml-concept-probability_analysis_of_regression/)
 - [Basic Bayesian Theory](https://gaussian37.github.io/ml-concept-basic_bayesian_theory/)
 - [Basic Information Theory](https://gaussian37.github.io/ml-concept-basic_information_theory/)
 - [정보 이론 (Entropy, Cross Entropy, KL Divergence)](https://gaussian37.github.io/ml-concept-infomation_theory/)
