@@ -123,6 +123,7 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 <br>
 
 - 식 (11)은 앞에서 살펴 보았던 `Cost Function`에 해당하며 Cost Function의 사용 목적도 Cost를 최소화 하기 위함인 것을 상기하면 `Linear Model`  $$ y^{(i)} = \theta^{T}x^{(i)} + \epsilon^{(i)} $$ 에서 $$ \epsilon^{(i)} $$ 가 `zero-mean gaussian` 분포를 따른다는 가정하에 `MLE`와 `Cost`를 최소화 하는 것은 같음을 알 수 있습니다.
+- 참고로 $$ \epsilon $$ 을 `Laplacian`으로 가정하면 `Cost Function`이 절대값으로 나오게 됩니다. 따라서 **어떤 분포로 가정하느냐에 따라** 다른 형태의 `Cost Function`으로 유도됩니다.
 
 <br>
 <center><img src="../assets/img/ml/concept/probability_analysis_of_regression/3.png" alt="Drawing" style="width: 1000px;"/></center>
@@ -144,6 +145,40 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 
 <br>
 
+- `Logistic Regression` 또한 많이 알려진 모델이며 `Classification Model`로써 사용되고 있습니다. 이번에는 앞의 Linear Regression과 유사하게 `Logistic Regression`을 이용한 확률적 해석을 해보도록 하겠습니다.
+
+
+<br>
+<center><img src="../assets/img/ml/concept/probability_analysis_of_regression/4.png" alt="Drawing" style="width:600px;"/></center>
+<br>
+
+- 위 그림과 같이 입력값 $$ x $$ 에 따라 출력값 $$ y $$ 는 0 또는 1을 가지게 되므로 `Logistric Regression`의 경우 입력값 $$ x $$ 를 받았을 때, 0 또는 1의 출력을 내야 합니다. 먼저 모델의 형태에 대하여 알아보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/probability_analysis_of_regression/5.png" alt="Drawing" style="width:800px;"/></center>
+<br>
+
+<br>
+
+- $$ h_{\theta}(x) = g(\theta^{T}x) = \frac{1}{1 + e^{-\theta^{T}x}} \tag{12} $$
+
+- $$ \theta^{T}x = \theta_{0} + \sum_{j=1}^{n}\theta_{j}x_{j} \tag{13} $$
+
+<br>
+
+- 앞에서 `Linear Regression`에서 기본적으로 사용하였던 Cost Function이 `Squared Error`를 소개하였었습니다. 일반적으로 `Logistic Regression`에서는 `Cross Entropy`를 Cost Function으로 사용합니다. 형태는 다음과 같습니다.
+
+<br>
+
+- $$ J(\theta) = \frac{1}{m} \sum c(h_{\theta}(x), y) \tag{14} $$
+
+- $$  c(h_{\theta}(x), y) = \begin{cases} -\log{(h_{\theta}(x))} & : y = 1 \\ -\log{(1 - h_{\theta}(x))} & : y= 0 \end{cases} \tag{15} $$
+
+- $$ \to c(h_{\theta}(x), y) = -y\log{(h_{\theta}(x))} -(1-y)\log{(1 - h_{\theta}(x))} \tag{16} $$
+
+<br>
+
+
 
 
 <br>
@@ -151,6 +186,8 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 ## **Logistic Regression의 확률적 표현**
 
 <br>
+
+
 
 <br>
 
