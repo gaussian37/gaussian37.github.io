@@ -56,6 +56,13 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 
 <br>
 
+- 참조 사항으로 좀더 자세하게 `Loss Function의 조건`에 대하여 알아보면 다음 3가지 조건을 만족해야 합니다.
+- ① Gradient를 계산할 수 있도록 **미분이 가능해야 합니다.**
+- ② **Loss 값에 음수가 없어야** 합니다.
+- ③ Loss Function이 **Convexity 형태를** 가져야 합니다.
+
+<br>
+
 ## **Linear Regression의 확률적 표현**
 
 <br>
@@ -122,8 +129,8 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 
 <br>
 
-- 식 (11)은 앞에서 살펴 보았던 `Cost Function`에 해당하며 Cost Function의 사용 목적도 Cost를 최소화 하기 위함인 것을 상기하면 `Linear Model`  $$ y^{(i)} = \theta^{T}x^{(i)} + \epsilon^{(i)} $$ 에서 $$ \epsilon^{(i)} $$ 가 `zero-mean gaussian` 분포를 따른다는 가정하에 `MLE`와 `Cost`를 최소화 하는 것은 같음을 알 수 있습니다.
-- 참고로 $$ \epsilon $$ 을 `Laplacian`으로 가정하면 `Cost Function`이 절대값으로 나오게 됩니다. 따라서 **어떤 분포로 가정하느냐에 따라** 다른 형태의 `Cost Function`으로 유도됩니다.
+- 식 (11)은 앞에서 살펴 보았던 `Loss Function`에 해당하며 Loss Function의 사용 목적도 Loss를 최소화 하기 위함인 것을 상기하면 `Linear Model`  $$ y^{(i)} = \theta^{T}x^{(i)} + \epsilon^{(i)} $$ 에서 $$ \epsilon^{(i)} $$ 가 `zero-mean gaussian` 분포를 따른다는 가정하에 `MLE`와 `Loss`를 최소화 하는 것은 같음을 알 수 있습니다.
+- 참고로 $$ \epsilon $$ 을 `Laplacian`으로 가정하면 `Loss Function`이 절대값으로 나오게 됩니다. 따라서 **어떤 분포로 가정하느냐에 따라** 다른 형태의 `Loss Function`으로 유도됩니다.
 
 <br>
 <center><img src="../assets/img/ml/concept/probability_analysis_of_regression/3.png" alt="Drawing" style="width: 1000px;"/></center>
@@ -137,7 +144,7 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 <br>
 
 - 지금까지 과정을 정리하면 변수 $$ X, Y $$ 들의 관계를 확률 모형 $$ p_{\theta}(Y \vert X) $$ 로 정의하고, Likelihood $$ L(\theta) $$ 를 정의하였을 때, `MLE(Maximum Likelihood Estimation)`을 통하여 최적의 해 $$ \theta $$를 찾는 과정은 `Least-square cost`를 최소화 하는 것과 같음을 살펴 보았습니다. (몇가지 가우시안 가정을 전제로 하였습니다.)
-- 이와 같이 확률 분포를 이용한 모형 해석을 통해 기존 `Linear Regression`에서 `Least Square Cost`를 사용하는 하나의 근거를 찾을 수 있었습니다.
+- 이와 같이 확률 분포를 이용한 모형 해석을 통해 기존 `Linear Regression`에서 `Least Square Loss`를 사용하는 하나의 근거를 찾을 수 있었습니다.
 
 <br>
 
@@ -166,7 +173,7 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 
 <br>
 
-- 앞에서 `Linear Regression`에서 기본적으로 사용하였던 Cost Function이 `Squared Error`를 소개하였었습니다. 일반적으로 `Logistic Regression`에서는 `Cross Entropy`를 Cost Function으로 사용합니다. 형태는 다음과 같습니다.
+- 앞에서 `Linear Regression`에서 기본적으로 사용하였던 Loss Function이 `Squared Error`를 소개하였었습니다. 일반적으로 `Logistic Regression`에서는 `Cross Entropy`를 Loss Function으로 사용합니다. 형태는 다음과 같습니다.ㄴ
 
 <br>
 
@@ -178,8 +185,8 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 
 <br>
 
-
-
+- `Logistic Regression`에서 사용되는 `Cross Entropy` 형식은 0/1을 선택하는 `Binary Cross Entropy`를 따릅니다. 보통 `Softmax → Cross Entropy`를 차례로 적용하거나 `Sigmoid → Binary Cross Entropy`를 적용합니다. 
+- 현재 다루고 있는 `Logistic Regression`의 경우 `Sigmoid → Binary Cross Entropy`에 해당합니다. 즉, `Sigmoid`를 거치기 때문에 0/1 사이의 값을 가지게 됩니다.
 
 <br>
 
@@ -187,7 +194,49 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 
 <br>
 
+- 그러면 이 정보들을 이용하여 앞의 Linear Regression에서 다룬 바와 같이 확률 모델로 나타내 보겠습니다. $$ h_{\theta}(x) $$ 즉, hypothesis를 인풋 변수 $$ x $$ 가 주어졌을 때 아웃풋 변수 $$ y $$ 에 대한 확률 모형 $$ p(Y \vert X) $$ 로 가정하겠습니다.
 
+<br>
+
+- $$ p(y = 1 \vert x; \theta) = h_{\theta}(x) \tag{17} $$
+
+- $$ p(y = 0 \vert x; \theta) = 1 - h_{\theta}(x) \tag{18} $$
+
+<br>
+
+- `Sigmoid` 함수의 출력을 이용하므로 Binary Cross Entropy를 적용하기 전 출력의 범위가 0 ~ 1 사이가 되고 식 (17
+), (18)의 확률 모형이 $$ x $$ 가 주어졌을 때, 0 이나올 확률 또는 1이 나올 확률 2가지를 대상으로 확률을 얻는 문제가 되므로 `Bernoulli Distribution`으로 해석할 수 있습니다.
+
+<br>
+
+- $$ p(y \vert x; \theta) = (h_{\theta}(x))^{y}(1 - h_{\theta}(x))^{1-y} \tag{19} $$
+
+- $$ y \vert x; \theta \sim \text{Bernoulli}(\phi) \tag{20} $$
+
+<br>
+
+- 식 (20) 에서 $$ \phi $$ 에 해당하는 값은 $$ h_{\theta}(x) $$ 입니다.
+- 식 (19)의 확률 모델을 이용하여 `MLE`를 구하기 위해 `likelihood` 함수 식을 유도하면 다음과 같습니다.
+
+<br>
+
+- $$ L(\theta) = p(Y \vert X; \theta) \tag{21} $$
+
+- $$ \prod_{i=1}^{m} p(y^{(i)} \vert x^{(i)}; \theta) \tag{22} $$
+
+- $$ \prod_{i=1}^{m}  (h_{\theta}(x^{(i)}))^{y^{(i)}}(1 - h_{\theta}(x^{(i)}))^{1-y^{(i)}} \tag{23} $$
+
+<br>
+
+- $$ l(\theta) = \log{L(\theta)} \tag{24} $$
+
+- $$ = \sum_{i=1}^{m} y^{(i)} \log{(h_{\theta}(x^{(i)}))} + (1-y^{(i)})\log{(1 - h_{\theta}(x^{(i)}))} \tag{25} $$
+
+- $$ = -\sum_{i=1}^{m} y^{(i)} -\log{(h_{\theta}(x^{(i)}))} - (1-y^{(i)})\log{(1 - h_{\theta}(x^{(i)}))} \tag{26} $$
+
+<br>
+
+- 식 (26)의 값을 최대화 하는 것은 식 (14)인 `Logistic Regression`의 `Loss Function`을 최소화 하는 것과 같은 의미를 가지게 됩니다. 따라서 **Logistic Regression의 `MLE`를 구하는 것은 Binary Cross Entropy Loss Function을 최소화 하는 것과 같다**라고 이해할 수 있습니다.
 
 <br>
 
@@ -195,9 +244,9 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 
 <br>
 
-<br>
-
-
+- 지금까지 평소 익숙한 `Linear Regression`과 `Logistic Regression`을 확률 모형 (Probabilistic Model)로 표현하였고 두 모형 다 input $$ X $$ 와 output $$ Y $$ 데이터 쌍이 활용되는 `Supervised Learning` 상황에서 학습하였습니다.
+- 평소 익숙한 모형들의 학습에 사용되는 Loss Function이 확룔로 정의되는 모형에 의한 `log-Likelihood` 함수를 최적화 하는 것과 같은 것임을 확인하였습니다.
+- 또한 용어를 정리하면 `Discriminative Approach`는 확률 모형 $$ p_{\theta}(Y \vert X) $$ 를 가정하고 `MLE`를 만족시키는 최적의 파라미터 $$ \theta $$ 를 학습하는 것임을 숙지하시면 도움이 됩니다.
 
 <br>
 
