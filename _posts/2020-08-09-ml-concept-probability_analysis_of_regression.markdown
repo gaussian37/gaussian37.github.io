@@ -65,16 +65,16 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 
 <br>
 
-- $$ y^{(i)} = \theta^{T}x^{(i)} + \eta^{(i)} \tag{1} $$
+- $$ y^{(i)} = \theta^{T}x^{(i)} + \epsilon^{(i)} \tag{1} $$
 
 <br>
 
-- 식 (1)의 노이즈 $$ \eta $$ 가 평균이 0인 `zero mean gaussian` 분포를 따른다고 가정하겠습니다. ( $$ \eta \sim N(0, \sigma) $$ )
-- 식 (1)을 $$ \eta $$ 를 기준으로 정리하면 다음과 같습니다.
+- 식 (1)의 노이즈 $$ \epsilon $$ 가 평균이 0인 `zero mean gaussian` 분포를 따른다고 가정하겠습니다. ( $$ \epsilon \sim N(0, \sigma) $$ )
+- 식 (1)을 $$ \epsilon $$ 를 기준으로 정리하면 다음과 같습니다.
 
 <br>
 
-- $$ p(\eta^{(i)}) = \frac{1}{\sqrt{2\pi} \sigma}\exp{\biggl( -\frac{(\eta^{(i)} - 0)^{2}}{2\sigma^{2}}   \biggr)} \tag{2} $$
+- $$ p(\epsilon^{(i)}) = \frac{1}{\sqrt{2\pi} \sigma}\exp{\biggl( -\frac{(\epsilon^{(i)} - 0)^{2}}{2\sigma^{2}}   \biggr)} \tag{2} $$
 
 <br>
 
@@ -82,7 +82,7 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 
 <br>
 
-- $$ \eta^{(i)} = y^{(i)} - \theta^{T}x^{(i)} \tag{3} $$ 
+- $$ \epsilon^{(i)} = y^{(i)} - \theta^{T}x^{(i)} \tag{3} $$ 
 
 - $$ p(y^{(i)} \vert x^{(i)}; \theta ) = \frac{1}{\sqrt{2\pi} \sigma}\exp{\biggl( -\frac{( y^{(i)} - \theta^{T}x^{(i)})^{2}}{2\sigma^{2}} \biggr)} \tag{4} $$
 
@@ -110,7 +110,7 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 
 - $$ = \sum_{i=1}^{m} \log{ \frac{1}{\sqrt{2\pi}\sigma} \exp{\biggl(-\frac{(y^{(i)} - \theta^{T}x^{(i)})^{2}}{2\sigma^{2}} \biggr)}} \tag{9} $$
 
-- $$ = -m \log{\frac{1}{\sqrt{2\pi}\sigma} \frac{1}{\sigma^{2}} \cdot \frac{1}{2} \sum_{i=1}^{m}(y^{(i)} - \theta^{T}x^{(i)})^{2}  \tag{10} $$
+- $$ = -m \log{\frac{1}{\sqrt{2\pi}\sigma} \frac{1}{\sigma^{2}} \cdot \frac{1}{2} \sum_{i=1}^{m}(y^{(i)} - \theta^{T}x^{(i)})^{2}}  \tag{10} $$
 
 <br>
 
@@ -122,16 +122,29 @@ tags: [machine learning, probability model, 확률 모형, MLE, Maximum Likeliho
 
 <br>
 
-- 식 (11)은 앞에서 살펴 보았던 `Cost Function`에 해당하며 Cost Function의 사용 목적도 Cost를 최소화 하기 위함인 것을 상기하면 `MLE`와 `Cost`를 최소화 하는 것은 같음을 알 수 있습니다.
+- 식 (11)은 앞에서 살펴 보았던 `Cost Function`에 해당하며 Cost Function의 사용 목적도 Cost를 최소화 하기 위함인 것을 상기하면 `Linear Model`  $$ y^{(i)} = \theta^{T}x^{(i)} + \epsilon^{(i)} $$ 에서 $$ \epsilon^{(i)} $$ 가 `zero-mean gaussian` 분포를 따른다는 가정하에 `MLE`와 `Cost`를 최소화 하는 것은 같음을 알 수 있습니다.
 
+<br>
+<center><img src="../assets/img/ml/concept/probability_analysis_of_regression/3.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
 
+- 앞에서 수식으로 표현한 것을 그래프로 나타내면 위 그림과 같습니다.
+- 먼저 ① 그림에서 검정색 선이 `Linear Regression Fitting`한 것이 됩니다. ② 그림에서 보면 이 Fitting한 선을 따라 데이터가 가우시안 분포를 가지게 되며 선에 해당하는 값이 `평균값`이 됩니다. [참조 링크](https://gaussian37.github.io/ml-concept-probability_model/])를 통해 확인하면 가우시안 분포의 Maximum Likelihood는 `평균값`에서 만족합니다.
+- 식 ③과 같은 `확률 모형`이 결정이 되면 이 식에 따라 **데이터가 분포**됩니다. 식 ③은 가우시안 분포를 가정하여 수립되었기 때문에 $$ x^{(i)} $$ 가 입력값이고 그 함수값인 $$ \theta^{T}x^{(i)} $$ 는 `평균값`의 역할을 하게 됩니다.
+- 이 때, $$ f(x^{(i)}; \theta) = \theta^{T}x^{(i)} $$ 라고 정의하면 **이 함수값의 변형에 따라 평균과 분포가 바뀌게 되고 그 결과 fitting된 곡선이 바뀔 수 있습니다.**
 
+<br>
+
+- 지금까지 과정을 정리하면 변수 $$ X, Y $$ 들의 관계를 확률 모형 $$ p_{\theta}(Y \vert X) $$ 로 정의하고, Likelihood $$ L(\theta) $$ 를 정의하였을 때, `MLE(Maximum Likelihood Estimation)`을 통하여 최적의 해 $$ \theta $$를 찾는 과정은 `Least-square cost`를 최소화 하는 것과 같음을 살펴 보았습니다. (몇가지 가우시안 가정을 전제로 하였습니다.)
+- 이와 같이 확률 분포를 이용한 모형 해석을 통해 기존 `Linear Regression`에서 `Least Square Cost`를 사용하는 하나의 근거를 찾을 수 있었습니다.
 
 <br>
 
 ## **Logistic Regression**
 
 <br>
+
+
 
 <br>
 
