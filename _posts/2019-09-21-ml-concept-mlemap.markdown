@@ -7,7 +7,28 @@ categories: [ml-concept]
 tags: [MLE, ML, Maximum likelihood estimation] # add tag
 ---
 
-### **Reference**
+<br>
+
+[머신 러닝 관련 글 목록](https://gaussian37.github.io/ml-concept-table/)
+
+<br>
+
+## **목차**
+
+<br>
+
+- ### [Reference](#reference-1)
+- ### [확률밀도함수(PDF: Probability Density Function)](#확률밀도함수pdf-probability-density-function-1)
+- ### [가능도(Likelihood) : 특정 사건이 일어날 가능성](#가능도likelihood--특정-사건이-일어날-가능성-1)
+- ### [사건이 여러 번 발생할 경우의 가능도](#사건이-여러-번-발생할-경우의-가능도-1)
+- ### [최대우도추정(MLE: Maximum Likelihood Estimation)](#최대우도추정mle-maximum-likelihood-estimation-1)
+- ### [MLE 예시](#mle-예시-1)
+- ### [최대 사후 확률 추정(MAP: Maximum A Posterior)](#최대-사후-확률-추정map-maximum-a-posterior-1)
+- ### [Bayes Theory](#bayes-theory-1)
+
+<br>
+
+## **Reference**
 
 <br>
 
@@ -18,22 +39,11 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
 <br>
 
 - 통계학 및 머신러닝 전반적으로 아주 중요한 개념인 MLE(Maximum Likelihood Estimation)와 MAP(Maximum A Posterior)에 대하여 다루어 보겠습니다.
-- 제 블로그의 [다른 글](https://gaussian37.github.io/ml-concept-mle-and-map/)을 참조하셔도 충분합니다. 
+- 제 블로그의 [다른 글](https://gaussian37.github.io/ml-concept-mle-and-map/)을 참조하셔도 충분합니다.
 
 <br>
 
-- 이 글에서 다룰 내용
-- 확률밀도함수(PDF: Probability Density Function)
-- 가능도(Likelihood) : 특정 사건이 일어날 가능성
-- 사건이 여러 번 발생할 경우의 가능도
-- 최대우도추정(MLE: Maximum Likelihood Estimation)
-- MLE 예시
-- 최대 사후 확률 추정(MAP: Maximum A Posterior)
-- Bayes Theory
-
-<br>
-
-### **확률밀도함수(PDF: Probability Density Function)**
+## **확률밀도함수(PDF: Probability Density Function)**
 
 <br>
 
@@ -85,7 +95,7 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
 
 <br>
 
-### **가능도(Likelihood) : 특정 사건이 일어날 가능성**
+## **가능도(Likelihood) : 특정 사건이 일어날 가능성**
 
 <br>
 
@@ -100,7 +110,7 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
 
 <br>
 
-### **사건이 여러 번 발생할 경우의 가능도**
+## **사건이 여러 번 발생할 경우의 가능도**
 
 <br>
 
@@ -121,7 +131,7 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
 
 <br>
 
-### **최대우도추정(MLE: Maximum Likelihood Estimation)**
+## **최대우도추정(MLE: Maximum Likelihood Estimation)**
 
 <br>
 
@@ -145,7 +155,7 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
 
 <br>
 
-- $$ \hat{\theta} = argmax_{\theta} L(\theta; X) = argmax_{\theta} f(X \vert \theta) $$
+- $$ \hat{\theta} = \operatorname*{argmax}_\theta L(\theta; X) = \operatorname*{argmax}_\theta f(X \vert \theta) $$
 
 <br>
        
@@ -156,7 +166,7 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
 
 <br>
 
-### **MLE 예시**
+## **MLE 예시**
 
 <br>
 
@@ -195,7 +205,7 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
 
 <br>
 
-### **최대 사후 확률 추정(MAP: Maximum A Posterior)**
+## **최대 사후 확률 추정(MAP: Maximum A Posterior)**
 
 <br>
 
@@ -214,7 +224,7 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
 
 <br>
 
-### **Bayes Theory**
+## **Bayes Theory**
 
 <br>
 
@@ -233,12 +243,12 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
 
 <br>
 
-- $$ \hat{\theta} = argmax_{\theta} f(\theta \vert X) = argmax_{\theta} \frac{f(X \vert \theta) f(\theta) }{ f(X) } = argmax_{\theta} \frac{ L(\theta; X) f(\theta) }{f(X)} = argmax_{\theta} L(\theta; X) f(\theta) $$
+- $$ \hat{\theta} = \operatorname*{argmax}_\theta f(\theta \vert X) = \operatorname*{argmax}_\theta \frac{f(X \vert \theta) f(\theta) }{ f(X) } = \operatorname*{argmax}_\theta \frac{ L(\theta; X) f(\theta) }{f(X)} = \operatorname*{argmax}_\theta L(\theta; X) f(\theta) $$
 
 <br>
 
 - 위 식에서 마지막 전개는 $$ f(X) $$가 $$ \theta $$에 영향을 주지 않으므로 등식이 성립하게 됩니다.
-- 따라서 $$ argmax_{\theta} $$를 하는 경우에 $$ f(\theta \vert X) = L(\theta; X)f(\theta) $$가 됨을 알 수 있습니다. 아주 중요합니다!
+- 따라서 $$ \operatorname*{argmax}_\theta $$를 하는 경우에 $$ f(\theta \vert X) = L(\theta; X)f(\theta) $$가 됨을 알 수 있습니다. 아주 중요합니다!
 - 즉, `posterior`와 `likelihood`의 관계는 `prior`가 어떤 영향을 미치는 지에 따라서 같아질수도 있고 달라질수도 있다는 뜻입니다.
 - 먼저 `posterior`와 `likelihood`가 같은 경우부터 살펴보면 `prior` 즉, $$ \theta $$에 대한 확률이 어떤 $$ \theta $$에도 상관없이 특정한 상수값을 가질 때 입니다. 즉 unifom distribution 을 가지는 경우라고 볼 수 있습니다.
 - 반면에 $$ \theta $$에 대한 확률이 일정하지 않는 다면 `likelihood`와 `posterior`의 값은 달라집니다. $$ \theta $$에 대한 확률이 커질수록 `posterior`도 커집니다. 즉 비례관계를 가집니다.
@@ -260,4 +270,8 @@ tags: [MLE, ML, Maximum likelihood estimation] # add tag
 - `MAP`에서는 관심 영역이 관측된 데이터에 대한 $$ \theta $$가 발생할 확률 값이고 물론 데이터에 크게 영향을 받지만 가능도와 같이 100% 관측된 데이터로만 계산되는 것이 아니기 때문에 편향된 데이터에 대하여 보상할 수 있는 여지가 있습니다.
     - 여기서 보상할 수 있다는 여지가 바로 `prior`입니다. 편향된 데이터가 입력되었다 하더라도 올바른 `prior`가 곱해지면 `MAP`에서는 개선이 될 수 있습니다.
 
-  
+<br>
+
+[머신 러닝 관련 글 목록](https://gaussian37.github.io/ml-concept-table/)
+
+<br>
