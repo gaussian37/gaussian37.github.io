@@ -28,10 +28,18 @@ tags: [object detection, centernet, object as points] # add tag
 
 <br>
 
-- ### **CenterNet, Objects as Points 소개**
-- ### **CenterNet Architecture**
-- ### **CenterNet Performance**
-- ### **Pytorch Code**
+- ### [CenterNet, Objects as Points 소개](#centernet-objects-as-points-소개-1)
+- ### [CenterNet Architecture](#centernet-architecture-1)
+- ### [Abstract](#)
+- ### [Introduction](#)
+- ### [Related work](#)
+- ### [Preliminary](#)
+- ### [Objects as Points](#)
+- ### [Implementation details](#)
+- ### [Experiments](#)
+- ### [Conclusion](#)
+
+- ### [Pytorch Code](#)
 
 <br>
 
@@ -51,7 +59,7 @@ tags: [object detection, centernet, object as points] # add tag
 - CenterNet은 object detection을 위하여 위 그림과 같이 Keypoint를 사용합니다. 위 그림에서 보행자를 찾은 Keypoint는 박스의 Center point입니다.
 - 이 논문에서는 박스의 중앙점을 object로 판단하고 이 중앙점을 이용하여 bounding box의 좌표를 예측합니다.
 - 따라서 object의 중앙점을 예측하는 것이 이 네트워크의 가장 기본적이면서 중요한 예측 문제라고 할 수 있습니다.
-- CenterNet에서는 이미지를 네트워크를 통하여 연산을 하면 최종 출력되는 feature에서는 서로 다른 key point들에 대하여 `heatmap`을 가지게 됩니다. 이 **heatmap의 최고점(peak)이 object의 중앙점으로 예측**되는 구조입니다.
+- CenterNet에서는 네트워크를 통하여 입력으로 받은 이미지를 연산 하면 최종 출력되는 feature에서는 서로 다른 key point들에 대하여 `heatmap`을 가지게 됩니다. 이 **heatmap의 최고점(peak)이 object의 중앙점으로 예측**되는 구조입니다.
 - 각각의 중앙점은 bounding box를 위해 **고유**한 width와 height를 가집니다. 따라서 `중앙점 + width + height`로 그려지는 bounding box로 인하여 다른 네트워크 구조에서 사용된 `NMS(Non-Maximal Suppresion)`이 사용되지 않는 장점이 있습니다. (**단 하나의 Anchor를 사용한다고 보면 됩니다.**)
 - 각 중앙점이 어떤 클래스에 해당하는 지 파악할 때에도 앞에서 언급한 heatmap의 peak를 사용하게 됩니다.
 - 따라서 이 중앙점과 그 정보들을 사용함으로써 **박스의 위치 및 크기와 그 박스가 나타내는 클래스의 정보**를 알 수 있습니다.
@@ -69,12 +77,12 @@ tags: [object detection, centernet, object as points] # add tag
 - CenterNet의 아키텍쳐를 단순화 시켜서 보면 위 그림과 같습니다. 출력 부분을 보면 3개의 모듈로 나뉘어 지는 것을 확인할 수 있습니다. 
 - 각 모듈은 `dimension(w-h) head`, `heatmap head`, `Offset head`가 있습니다.
 - 입력 이미지 `I`의 height가 `H`, width가 `W`, 채널은 `C = 3`이라고 하겠습니다. `R`은 output stride로 3가지 head의 dimension에 영향을 줍니다. 모든 head는 같은 크기의 height, width 사이즈 (`H/R`, `W/R`)를 가집니다. 위 아키텍쳐 예제에서 `R = 4`로 각 head는 (512/4=128, 512/4=128)의 크기를 가집니다.
-- 반면 채널 `C`는 서로 다른 값을 가집니다. 위 그림의 아키텍쳐에서 `dimension head`는 2개의 채널을 가지고 `heatmap head`는 80개의 채널을 가지고 마지막으로 `Offset head`는 2개의 채널을 가짐을 알 수 있습니다. heatmap head가 가지는 80개의 채널은 `클래스의 수`에 해당합니다.
+- 반면 채널 `C`는 서로 다른 값을 가집니다. 위 그림의 아키텍쳐에서 `w-h 또는 dimension head`는 2개의 채널을 가지고 `heatmap head`는 80개의 채널 을 가지고 마지막으로 `Offset head`는 2개의 채널을 가짐을 알 수 있습니다. heatmap head가 가지는 80개의 채널은 `클래스의 수`에 해당합니다. 여기서 80이라는 클래스의 수는 **COCO 데이터 셋 클래스 기준**입니다.
 - 그러면 각 head가 가지는 의미에 대하여 알아보도록 하겠습니다.
 
 <br>
 
-#### **heatmap head**
+#### **① heatmap head**
 
 <br>
 
@@ -113,7 +121,7 @@ tags: [object detection, centernet, object as points] # add tag
 
 <br>
 
-#### **dimension head**
+#### **② dimension head**
 
 <br>
 
@@ -124,7 +132,7 @@ tags: [object detection, centernet, object as points] # add tag
 
 <br>
 
-#### **offset head**
+#### **③ offset head**
 
 <br>
 
@@ -134,9 +142,6 @@ tags: [object detection, centernet, object as points] # add tag
 
 <br>
 
-## **CenterNet Performance**
-
-<br>
 
 
 <br>
