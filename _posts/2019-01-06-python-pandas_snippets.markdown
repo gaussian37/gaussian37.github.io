@@ -43,48 +43,48 @@ tags: [pandas, python, python 기본] # add tag
 - [The Best Statistics Cheat Sheet](https://www.webpages.uidaho.edu/~stevel/504/pandas%20dataframe%20notes.pdf)
 
 <br>
-<center><img src="../assets/img/python/basic/pandas/3.png" alt="Drawing" style="width: 1200px;"/></center>
+<center><img src="../assets/img/python/basic/pandas/3.png" alt="Drawing" style="width: 1400px;"/></center>
 <br>
 
 
 <br>
-<center><img src="../assets/img/python/basic/pandas/1.png" alt="Drawing" style="width: 1200px;"/></center>
+<center><img src="../assets/img/python/basic/pandas/1.png" alt="Drawing" style="width: 1400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/python/basic/pandas/2.png" alt="Drawing" style="width: 1200px;"/></center>
+<center><img src="../assets/img/python/basic/pandas/2.png" alt="Drawing" style="width: 1400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/python/basic/pandas/4.png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/python/basic/pandas/4.png" alt="Drawing" style="width: 1400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/python/basic/pandas/5.png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/python/basic/pandas/5.png" alt="Drawing" style="width: 1400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/python/basic/pandas/6.png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/python/basic/pandas/6.png" alt="Drawing" style="width: 1400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/python/basic/pandas/7.png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/python/basic/pandas/7.png" alt="Drawing" style="width: 1400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/python/basic/pandas/8.png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/python/basic/pandas/8.png" alt="Drawing" style="width: 1400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/python/basic/pandas/9.png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/python/basic/pandas/9.png" alt="Drawing" style="width: 1400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/python/basic/pandas/10.png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/python/basic/pandas/10.png" alt="Drawing" style="width: 1400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/python/basic/pandas/11.png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/python/basic/pandas/11.png" alt="Drawing" style="width: 1400px;"/></center>
 <br>
 
 
