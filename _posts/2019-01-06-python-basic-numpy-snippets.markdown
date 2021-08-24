@@ -653,4 +653,22 @@ compare_two_array(actual, desired, rtol=1e-6)
 <br>
 
 - 참조 : [https://numpy.org/doc/stable/reference/generated/numpy.cov.html](https://numpy.org/doc/stable/reference/generated/numpy.cov.html)
-- 
+- 넘파이를 이용하여 확률 및 통계 관련 개념을 구현할 때, 공분산 (covariance)는 항상 쓰이게 됩니다.
+- N 차원의 데이터 $$ X = [ x_{1}, x_{2}, \cdots , x_{n} ]^{T} $$ 를 입력 받았을 때, 공분산 행렬 $$ C $$ 의 각 원소값인 $$ C_{ij} $$ 는 $$ x_{i} $$ 와 $$ x_{j} $$ 를 통해 구해집니다.
+- 대각성분인 $$ C_{ii} $$ 는 $$ x_{i} $$ 와 $$ x_{i} $$ 를 통해 구해집니다.
+
+<br>
+
+```python
+x = np.array([[0, 2], [1, 1], [2, 0]]).T
+# array([[0, 1, 2],
+#        [2, 1, 0]])
+
+np.cov(x)
+# array([[ 1., -1.],
+#        [-1.,  1.]])
+
+```
+
+<br>
+

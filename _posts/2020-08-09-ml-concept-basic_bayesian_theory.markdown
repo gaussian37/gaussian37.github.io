@@ -45,7 +45,7 @@ tags: [machine learning, probability model, 베이지안, bayesian, bernoulli, b
 
 <br>
 
-- $$ text{Bernoulli RV} X \in \{0, 1 \} \tag{1} $$
+- $$ \text{Bernoulli RV} X \in \{0, 1 \} \tag{1} $$
 
 - $$ P(X = 1) = p \tag{2} $$
 
@@ -81,13 +81,13 @@ tags: [machine learning, probability model, 베이지안, bayesian, bernoulli, b
 
 <br>
 
-- $$ \theta{\text{ML}} = \operatorname*{argmax}_\theta l(\theta) \tag{5} $$
+- $$ \theta_{\text{ML}} = \operatorname*{argmax}_\theta l(\theta) \tag{5} $$
 
-- $$ \frac{\parital l(\theta)}{\parital \theta} = \frac{\partial}{\parital \theta}\sum_{i=1}^{5} \log{P(x_{i} ]vert \theta)} \tag{6} $$
+- $$ \frac{\partial l(\theta)}{\partial \theta} = \frac{\partial}{\partial \theta}\sum_{i=1}^{5} \log{P(x_{i} ]vert \theta)} \tag{6} $$
 
-- $$ = \frac{\partial}{\parital \theta} \log{\theta \cdot (1 - \theta) \cdot (1 - \theta) \cdot (1 - \theta) \cdot (1 - \theta)} \tag{7} $$
+- $$ = \frac{\partial}{\partial \theta} \log{\theta \cdot (1 - \theta) \cdot (1 - \theta) \cdot (1 - \theta) \cdot (1 - \theta)} \tag{7} $$
 
-- $$ = \frac{\partial}{\parital \theta} (\log{\theta} + 4\log{(1 - \theta)}) \tag{8} $$
+- $$ = \frac{\partial}{\partial \theta} (\log{\theta} + 4\log{(1 - \theta)}) \tag{8} $$
 
 - $$ = \frac{1}{\theta} - \frac{4}{1 - \theta} \tag{9} $$
 
