@@ -76,7 +76,7 @@ tags: [deep learning, focal loss] # add tag
 
 <br>
 
-- $$ \text{Cross Entropy Loss} = -Y_{\text{act}} \log{(Y_{\pred})} - (1 - Y_{\text{act}})\log{1 - Y_{\text{pred}}} \tag{1} $$ 
+- $$ \text{Cross Entropy Loss} = -Y_{\text{act}} \log{(Y_{pred})} - (1 - Y_{\text{act}})\log{1 - Y_{\text{pred}}} \tag{1} $$ 
 
 - $$ \text{where} Y_{\text{act}} = \text{Actual Value of Y} $$
 
