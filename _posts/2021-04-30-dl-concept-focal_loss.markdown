@@ -97,10 +97,30 @@ tags: [deep learning, focal loss] # add tag
 - 반면 $$ p $$ 의 값을 0에 가깝게 예측하게 되면 $$ \text{CE}(p, y) \approx \infty $$ 가 됩니다. 즉, 페널티가 굉장히 커지게 됩니다.
 
 <br>
+<center><img src="../assets/img/dl/concept/focal_loss/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
-- 
+- $$ \text{Cross Entropy}(p_{t}) = -\log{(p_{t})} \tag{3} $$
 
+- $$ \text{Focal Loss} = -(1 - p_{t})^{\gamma}\log{(p_{t})} \tag{4} $$
 
+<br>
+
+- 위 그래프와 식은 `Focal Loss`를 나타냅니다. `Focal Loss`와 `Cross Entropy`의 식을 비교해 보면 기본적인 Cross Entropy Loss에 $$ (1 - p_{t})^{\gamma} $$ term이 더 추가된 것을 확인할 수 있습니다. 기본적인 Cross Entropy는 $$ \gamma $$ 가 0일 때 입니다.
+- 여기서 추가된 $$ (1 - p_{t})^{\gamma} $$ 의 역할은 `easy example`에 사용되는 **loss의 가중치를 줄이기 위함**입니다.
+- 예를 들어 다음과 같은 2가지 경우를 살펴보겠습니다. 첫번째는 `Foreground` 케이스이며 이 때, $$ Y = 1 $$ 이라고 하며 $$ p = 0.95 $$ 라고 가정하겠습니다. 두번째는 `Background` 케이스이며 이 때, $$ Y = 0 $$ 이라고 하며 $$ p = 0.05 $$ 라고 가정하겠습니다.
+
+<br>
+
+- $$ \text{CE(Foreground)} = -\log{(0.95)} = 0.05 \tag{5} $$
+
+- $$ \text{CE(Background)} = -\log{(1 - 0.05)} = 0.05 \tag{6} $$
+
+<br>
+
+- 식 (5)의 Foreground 케이스를 살펴보면 Foreground인 객체에 대하여 높은 확률인 0.95로 잘 분류하였고 그 결과 Loss가 0.05로 작은 것을 알 수 있습니다.
+- 이와 유사하게 식 (6)의 Background 케이스를 살펴보면 Background임에 따라 낮은 확률인 0.05로 잘 분류하였고 그 결과 Loss가 0.05로 작은 것을 알 수 있습니다.
+- 문제가 없어보이지만 여기서 발생하는 문제점은 **Foregound 케이스와 Background 케이스 모두 같은 Loss 값을 가진다는 것**에 있습니다. 왜냐하면 Background 케이스의 수가 훨씬 더 많기 때문에 같은 비율로 Loss 값이 업데이트되면 Background에 대하여 학습이 훨씬 많이 될 것이고 이 작업이 계속 누적되면 Foreground에 대한 학습량이 현저히 줄어들기 때문입니다.
 
 <br>
 
