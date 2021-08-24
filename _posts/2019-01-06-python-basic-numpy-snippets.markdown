@@ -30,6 +30,7 @@ tags: [Numpy, 넘파이] # add tag
 - ### [np.where로 필요한 값 인덱스 찾기](#npwhere로-필요한-값-인덱스-찾기-1)
 - ### [np.delete를 이용한 값 제거](#npdelete를-이용한-값-제거-1)
 - ### [np.testing을 이용한 두 값의 차이값 확인](#nptesting을-이용한-두-값의-차이값-확인-1)
+- ### [np.cov를 이용한 공분산 구하기](#npcov를-이용한-공분산-구하기-1)
 
 
 <br>
@@ -644,3 +645,12 @@ compare_two_array(actual, desired)
 compare_two_array(actual, desired, rtol=1e-6)
 # allwable difference.
 ```
+
+<br>
+
+## **np.cov를 이용한 공분산 구하기**
+
+<br>
+
+- 참조 : [https://numpy.org/doc/stable/reference/generated/numpy.cov.html](https://numpy.org/doc/stable/reference/generated/numpy.cov.html)
+- 
