@@ -30,6 +30,7 @@ tags: [machine learning, probability model, 베이지안, bayesian, bernoulli, b
 - ### MLE의 가정과 문제점
 - ### 베이지안 이론
 - ### Conjugate Prior
+- ### 베이즈 갱신 (Bayes Update)
 
 <br>
 
