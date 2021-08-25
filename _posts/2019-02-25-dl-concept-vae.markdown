@@ -9,6 +9,10 @@ tags: [deep learning, autoencoder, vae, variational autoencoder] # add tag
 
 <br>
 
+[deep learning 관련 글 목록](https://gaussian37.github.io/dl-concept-table/)
+
+<br>
+
 - 이번 글에서는 Variational AutoEncoder의 기본적인 내용에 대하여 다루어 보도록 하겠습니다.
 
 <br>
@@ -173,5 +177,13 @@ tags: [deep learning, autoencoder, vae, variational autoencoder] # add tag
 <br>
 
 ## **Variational AutoEncoder의 구현**
+
+<br>
+
+
+
+<br>
+
+[deep learning 관련 글 목록](https://gaussian37.github.io/dl-concept-table/)
 
 <br>
