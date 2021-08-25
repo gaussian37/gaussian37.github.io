@@ -24,6 +24,7 @@ tags: [python, oop, object oriented, 객체 지향] # add tag
 - ### [__str__과 __repr__의 차이점](#__str__과-__repr__의-차이점-1)
 - ### [__getattr__ 와 __getattribute__](#__getattr__-와-__getattribute__-1)
 - ### [__bytes__](#__bytes__)
+- ### [__slots__](#__slots__)
 
 <br>
 
@@ -326,3 +327,29 @@ bytes(a)
 ```
 
 <br>
+
+## **__slots__**
+
+<br>
+
+- 어떤 객체를 사용할 때, `init`에 생성한 멤버 변수 이외에는 다른 변수명을 실수로 사용하는 경우가 가끔씩 발생하곤 합니다. 예를 들어 객체를 헷갈려서 사용하였거나, 아니면 코드상에서 오타가 발생한 경우가 있습니다.
+- `__slots__`를 사용하면 `slots`에 할당된 멤버 변수 이외에는 생성이 안되도록 방지할 수 있습니다. 사용 방법은 다음과 같습니다.
+
+<br>
+
+```python
+class Card:
+    __slots__ = 'rank', 'suite'
+    def __init__(self, rank, suite):
+            self.rank = rank
+            self.suite = suite
+
+qh = Card('queen', 'hearts')
+
+qh.rnak = 'queen'
+# 'Card' object has no attribute 'rnak'
+```
+
+<br>
+
+- 위 예제처럼 rank를 rnak로 잘못 친 경우에 값이 할당되는 것을 방지할 수 있습니다.

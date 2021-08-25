@@ -26,7 +26,7 @@ tags: [python, python 기본] # add tag
 - #### [Function annotation](#function-annotation-1)
 - #### [typing 모듈로 타입 표시하기](#typing-모듈로-타입-표시하기-1)
 - #### [is와 == 연산의 차이점](#is와--연산의-차이점-1)
-- #### [파이썬에서의 asterisk(*) 사용 방법](#)
+- #### [파이썬에서의 asterisk(*) 사용 방법](#파이썬에서의-asterisk-사용-방법-1)
 
 <br>
 
@@ -70,8 +70,10 @@ tags: [python, python 기본] # add tag
 - #### [문자열을 이용하여 패키지 import](#문자열을-이용하여-패키지-import-1)
 - #### [Dictionary와 JSON](#dictionary와-json-1)
 - #### [Dicionary의 최대, 최소 value 찾기](#dicionary의-최대-최소-value-찾기-1)
+- #### [Dictionary로 구성된 list 정렬 방법](#dictionary로-구성된-list-정렬-방법-1)
+- #### [Dictionary 합치는 방법](#dictionary-합치는-방법-1)
 - #### [copy를 이용한 deepcopy](#copy를-이용한-deepcopy-1)
-- #### [zipfile을 이용한 압축 풀기](#zipfile을-이용한-압축-풀기-`)
+- #### [zipfile을 이용한 압축 풀기](#zipfile을-이용한-압축-풀기-1)
 
 <br>
 
@@ -2172,6 +2174,67 @@ print(min(a, key=lambda k : a[k]))
 
 <br>
 
+## **Dictionary로 구성된 list 정렬 방법**
+
+<br>
+
+- 다음과 같은 딕셔너리를 담고 있는 리스트가 있을 때, 어떤 `key`를 기준으로 정렬하고 싶으면 다음과 같이 정렬할 수 있습니다.
+
+<br>
+
+```python
+people = [
+    { 'name': 'John', "age": 64 },
+    { 'name': 'Janet', "age": 34 },
+    { 'name': 'Ed', "age": 24 },
+    { 'name': 'Sara', "age": 64 },
+    { 'name': 'John', "age": 32 },
+    { 'name': 'Jane', "age": 34 },
+    { 'name': 'John', "age": 99 },
+]
+
+import operator
+
+people.sort(key=operator.itemgetter('age'))
+people.sort(key=operator.itemgetter('name'))
+
+# [{'name': 'Ed', 'age': 24},
+#  {'name': 'Jane', 'age': 34},
+#  {'name': 'Janet', 'age': 34},
+#  {'name': 'John', 'age': 32},
+#  {'name': 'John', 'age': 64},
+#  {'name': 'John', 'age': 99},
+#  {'name': 'Sara', 'age': 64}]
+```
+
+<br>
+
+## **Dictionary 합치는 방법**
+
+<br>
+
+- Dictionary를 merge하는 방법은 크게 2가지 방법이 있습니다. 3.9 버전 이하 까지는 `*`를 이용하여야 하고 3.9 버전 부터는 or 연산자로 합칠 수 있습니다. (참조 : [파이썬에서의 asterisk 사용 방법](#파이썬에서의-asterisk-사용-방법-1))
+- 사용 방법은 아래를 참조하시기 바랍니다.
+
+<br>
+
+```python
+dict1 = { 'a': 1, 'b': 2 }
+dict2 = { 'b': 3, 'c': 4 }
+merged = { **dict1, **dict2 }
+
+print (merged)
+# {'a': 1, 'b': 3, 'c': 4}
+
+# Python >= 3.9 only
+merged = dict1 | dict2
+
+print (merged)
+# {'a': 1, 'b': 3, 'c': 4}
+```
+
+<br>
+
 ## **copy를 이용한 deepcopy**
 
 <br>
@@ -2488,6 +2551,21 @@ from itertools import product
 items = [['a', 'b', 'c,'], ['1', '2', '3', '4'], ['!', '@', '#']]
 list(product(*items))
 # [('a', '1', '!'), ('a', '1', '@'), ('a', '1', '#'), ('a', '2', '!'), ('a', '2', '@'), ('a', '2', '#'), ('a', '3', '!'), ('a', '3', '@'), ('a', '3', '#'), ('a', '4', '!'), ('a', '4', '@'), ('a', '4', '#'), ('b', '1', '!'), ('b', '1', '@'), ('b', '1', '#'), ('b', '2', '!'), ('b', '2', '@'), ('b', '2', '#'), ('b', '3', '!'), ('b', '3', '@'), ('b', '3', '#'), ('b', '4', '!'), ('b', '4', '@'), ('b', '4', '#'), ('c,', '1', '!'), ('c,', '1', '@'), ('c,', '1', '#'), ('c,', '2', '!'), ('c,', '2', '@'), ('c,', '2', '#'), ('c,', '3', '!'), ('c,', '3', '@'), ('c,', '3', '#'), ('c,', '4', '!'), ('c,', '4', '@'), ('c,', '4', '#')]
+
+# Calculate all profucs of an input
+list(itertools.product('abc', repeat=2))
+# [('a', 'a'), ('a', 'b'), ('a', 'c'), 
+#  ('b', 'a'), ('b', 'b'), ('b', 'c'), 
+#  ('c', 'a'), ('c', 'b'), ('c', 'c')]
+ 
+# Calculate all permutations
+list(itertools.permutations('abc'))
+# [('a', 'b', 'c'), ('a', 'c', 'b'), ('b', 'a', 'c'), 
+#  ('b', 'c', 'a'), ('c', 'a', 'b'), ('c', 'b', 'a')]
+
+>>> # Take elements for iterator as long as predicate is True
+>>> list(itertools.takewhile(lambda x: x<5, [1,4,6,4,1]))
+[1, 4]
 ```
 
 <br>
