@@ -123,8 +123,7 @@ tags: [machine learning, probability model, 베이지안, bayesian, bernoulli, b
 <br>
 
 - 앞에서 다룬 동전 던지기 예제에서 과연 5번의 시도만으로 앞면의 확률이 1/5이라고 단정지을 수 있을까요?
-- 이 예제에 따르면 `MLE`는 **초기 관측에 쉽게 overfitting하게 됩니다.**
-- 극단적으로 동전 던지기를 1번 해서 앞면이 나오면 앞면의 확률이 1이라고 단정지을 수 있을까요?
+- 이 예제에 따르면 `MLE`는 **초기 관측에 쉽게 overfitting하게 됩니다.** 극단적으로 동전 던지기를 1번 해서 앞면이 나오면 앞면의 확률이 1이라고 단정지을 수 있을까요?
 - 이러한 문제를 개선하기 위하여 `베이지안` 방식으로 접근할 수 있습니다.
 
 <br>
@@ -133,6 +132,15 @@ tags: [machine learning, probability model, 베이지안, bayesian, bernoulli, b
 
 <br>
 
+- 앞에서 살펴본 `MLE`에서는 관측된 데이터에 한정하여 Maximum Likelihood를 추정하므로 극단적으로 동전을 던졌을 때, 계속 앞면이 나오면 앞면이 나올 확률을 1로 단정지어 버리는 문제가 발생하였습니다.
+- 하지만 우리는 일반적인 동전 던지기의 확률은 0.5인 것을 알고 있습니다. **이러한 사전 정보를 사용하여 확률을 구하고자 하는 것이 베이지안 접근 방식**입니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/basic_bayesian_theory/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 즉, 경험적으로 동전 던지기에서 앞/뒷면이 나올 확률이 반반인 동전이 많은 것을 알고 있고 파라미터 $$ \theta $$ 에 대해 우리의 경험을 바탕으로한 확률적인 가정 $$ \theta = 1/2 $$ 을 더하는 것이 베이지안 접근 방식입니다.
+- 베이지안 접근 방식을 사용하면 궁극적으로 알고 싶은 `사후 정보`를 `MLE`에서 구하는 `Likelihood`와 사전 정보인 `Prior`를 통해 구할 수 있으므로 단순히 `Likelihood`만을 이용하였을 때, 발생하는 overfitting문제를 개선할 수 있습니다.
 
 
 <br>
