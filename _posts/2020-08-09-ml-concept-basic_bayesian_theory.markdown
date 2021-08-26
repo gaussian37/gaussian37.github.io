@@ -25,12 +25,12 @@ tags: [machine learning, probability model, 베이지안, bayesian, bernoulli, b
 
 <br>
 
-- ### 베르누이 분포
-- ### 베르누이 분포와 MLE
-- ### MLE의 가정과 문제점
-- ### 베이지안 이론
-- ### Conjugate Prior
-- ### 베이즈 갱신 (Bayes Update)
+- ### [베르누이 분포](#베르누이-분포-1)
+- ### [베르누이 분포와 MLE](#베르누이-분포와-mle-1)
+- ### [MLE의 가정과 문제점](#mle의-가정과-문제점-1)
+- ### [베이지안 이론](#베이지안-이론-1)
+- ### [Conjugate Prior](#conjugate-prior-1)
+- ### [베이즈 갱신 (Bayes Update)](#베이즈-갱신-bayes-update-1)
 
 <br>
 
@@ -46,7 +46,7 @@ tags: [machine learning, probability model, 베이지안, bayesian, bernoulli, b
 
 <br>
 
-- $$ \text{Bernoulli RV} X \in \{0, 1 \} \tag{1} $$
+- $$ \text{Bernoulli Random Variable : } X \in \{0, 1 \} \tag{1} $$
 
 - $$ P(X = 1) = p \tag{2} $$
 
