@@ -150,9 +150,81 @@ tags: [machine learning, probability model, 베이지안, bayesian, bernoulli, b
 
 <br>
 
-
+- 동전 던지기 문제에 `베이지안 접근` 방식을 도입하려면, `Likelihood`, `Prior`, `Posterior`를 정의해야 합니다.
+- 결론적으로 살펴보면 `Likelihood`는 `Bernoulli distribution`이 되고, `Prior`와 `Posterior`는 `Beta distribution`이 됩니다.
 
 <br>
+
+- 만약 `Bernoulli distribution`을 Likelihood로 사용하였을 때, 베이지안 식에서 `Prior`와 `Posterior`에 사용될 수 있는 분포는 `Beta distribution`가 됩니다. 식은 다음과 같습니다.
+
+<br>
+
+- $$ P(\theta \vert \alpha, \beta) = \frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha, \beta)} \tag{11} $$
+
+<br>
+<center><img src="../assets/img/ml/concept/basic_bayesian_theory/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `Beta distribution`의 자세한 내용은 다음 링크를 참조해 주시기 바랍니다.
+    - 링크 : [https://gaussian37.github.io/math-pb-beta-distribution/](https://gaussian37.github.io/math-pb-beta-distribution/)
+
+<br>
+
+- 여기서 `Likelihood`가 `Bernoulli distribution`일 때, `Prior`와 `Posterior`는 `Beta distribution`이라고 설명하였습니다. 
+- 즉, `Prior`와 `Posterior`가 `Beta distribution`이라는 **같은 분포**를 가진다는 뜻입니다. 이와 같이 `Prior`와 `Posterior`가 같은 형태의 분포를 가지는 경우는 특수한 형태이며 이와 같은 쌍을 가질 때, `Conjugate Prior`라고 부릅니다.
+- 이와 같은 `Conjugate Prior` 관계를 가지는 `Prior`와 `Posterior`를 사용하여 식을 전개할 때, 직관적이며 편리한점이 생깁니다. 
+- 예를 들면 식을 해설할 때, `Prior`가 `Likelihood`를 이용하여 확률값을 업데이트하면 `Posterior`가 되는데, 그 **확률 분포의 형태는 같고 파라미터값만 변경되므로 관측값에 따라 확률 분포가 업데이트 되는 것 처럼 해석할 수 있습니다.**  
+
+<br>
+
+- 정리하면, `Conjugate prior`는 베이즈 룰에 의해 식을 유도하였을 떄, `Posterior`가 `Prior`와 같은 distribution 형태를 갖게 하는 `prior`입니다.
+
+<br>
+
+- $$ \text{Bayes Theorem : } P(\theta \vert x) = \frac{P(x \vert \theta)P(\theta)}{P(x)} \tag{12} $$
+
+- $$ \text{Bernoulli Likelihood : } P(x \vert \theta) = \theta^{x} (1 - \theta)^{1-x} \tag{13} $$
+
+- $$ \text{Beta Prior : } P(\theta \vert \alpha, \beta) = \frac{\theta^{\alpha -1}(1 - \theta)^{\beta - 1}}{B(\alpha, \beta)} \tag{14} $$
+
+- $$ \text{Posterior : } P(\theta \vert x) = \frac{\theta^{x} (1 - \theta)^{1-x} \theta^{\alpha -1}(1 - \theta)^{\beta - 1}}{P(x)B(\alpha, \beta)} \propto \theta^{\alpha + x -1}(1 - \theta)^{\beta +(1-x)-1} = \text{Beta}(\hat{\alpha}, \hat{\beta}) \tag{15} $$
+
+<br>
+
+- 식 (15)를 보면 결국 `Prior`와 `Posterior`는 같은 `Beta distribution`이 되었고 `Posterior`는 파라미터가 업데이트된 상태가 됩니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/basic_bayesian_theory/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 흔히 베이지안 룰에서 많이 사용하느 `Conjugate prior`는 위 식과 같습니다.
+- `Normal distribution`, `Binomial distribution`, `Poisson distribution`, `Multinomial distribution`은 많이 들어본 확률 분포 입니다. 이와 같은 분포는 Prior와 Posterior의 형태가 같은 대표적인 케이습니다.
+- 전통적인 베이지안에서는 이와 같은 Conjugate 관계를 중요시하며 이 관계를 통해 recursive하게 Prior와 Posterior를 업데이트 합니다.
+- 지금까지 살펴본 케이스는 `Bernoulli distribution`이었고 이 분포는 `Binomial distribution`의 형태로 확장될 수 있기 때문에 `Binomial`과 `Beta`가 한 쌍을 으루고 있습니다.
+
+<br>
+
+- 위 표에서 `Bernoulli distribution` 대신 표현된 `Binomial distribution`에 대하여 간략하게 알아보겠습니다.  `Bernoulli distribution`는 어떤 실험이 두 가지 가능한 결과만을 가질 경우 이를 표현하는 확률 모형이었습니다.
+- 만약 Random Variable $$ X $$ 가 **n번의 연속적인 베르누이 시행**이라면 어떻게 표현될 수 있을까요?
+
+<br>
+
+- $$ X \in \{0, n \} $$
+
+- $$ f(x) = P(X = x) = \begin{pmatrix} n \\ x \end{pmatrix} p^{x}(1-p)^{n-x} = \frac{n!}{x!(n-x)!} p^{x}(1-p)^{n-x} \tag{16} $$
+
+<br>
+
+- 식 (11)과 같이 연속적인 베르누이 분포를 가지는 확률 분포를 `Binomial distribution` (이항 분포) 라고 합니다.
+- 베르누이 분포와의 차이는 여러번 시행하는 횟수의 차이이므로 `Binomial distribution`의 최적의 파라미터를 구하는 문제 또한 `Likelihood`를 구하는 문제가 됩니다. 즉, `Likelihood`로 사용할 수 있습니다.
+
+<br>
+
+## **베이즈 갱신 (Bayes Update)**
+
+<br>
+
+
 
 
 
