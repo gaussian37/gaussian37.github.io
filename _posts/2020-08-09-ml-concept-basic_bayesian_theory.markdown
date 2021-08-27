@@ -223,11 +223,53 @@ tags: [machine learning, probability model, 베이지안, bayesian, bernoulli, b
 ## **베이즈 갱신 (Bayes Update)**
 
 <br>
+<center><img src="../assets/img/ml/concept/basic_bayesian_theory/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
+- 지금까지 살펴본 개념을 이용하여 `Bayes Update`를 진행해 보도록 하겠습니다.
+- 가장 오른쪽 `Prior` 그래프는 베타 분포의 예시를 나타냅니다. 초기 `Prior`는 사전에 가지고 있는 데이터나 주관적인 믿음의 분포를 나타내며 `Likelihood`를 통해 그 믿음이 update되는 결과가 `Posterior`가 됩니다.
+- 동전 던지기를 할 때, 일반적으로 가지고 있는 `Prior`는 동전이 앞면이 나올 확률이 1/2 이므로 $$ theta = 1/2 $$ 로 정의 됩니다.
+- 앞에서 살펴본 바와 같이 실제 5번 동전을 던져서 1번 앞면이 나왔다고 하였을 때, `MLE`를 구하면 $$ theta = 1/5 $$ 가 됩니다.
+- 즉, `Prior` :  $$ theta = 1/2 $$ 가 `MLE` : $$ \theta = 1/5 $$ 에 의해 업데이트되어 `MAP` $$ \1/5 \lt \theta \lt 1/2 $$ 가 됩니다. `MAP (Maximum a Posterior)`는 `Posterior`가 최대인 지점을 의미합니다. `MAP`의 수식적인 의미를 살펴보면 다음과 같습니다.
 
+<br>
 
+- $$ \hat{\theta}_{\text{MAP}} = \operatorname*{argmax}_\theta P(\theta \vert X) \tag{17} $$
 
+- $$ = \operatorname*{argmax}_\theta \frac{P(X \vert \theta) P(\theta)}{P(X)} \tag{18} $$
 
+- $$ = \operatorname*{argmax}_\theta \log{P(X \vert \theta)} + \log{P(\theta)} - \log{P(X)} \tag{19} $$
+
+- $$ = \operatorname*{argmax}_\theta \log{P(X \vert \theta)} + \log{P(\theta)} - \cancel{\log{P(X)}} \tag{20} $$
+
+<br>
+
+- 식 (20) 에서 마지막 항은 $$ \theta $$ 가 없으므로 `argmax` 과정과 무관하여 소거되며 `regularization`의 의미를 가집니다.
+- 정리하면 `Posterior`는 `likelihood`를 통해서 Data를 관측하고 정보가 업데이트된 `Prior` 이며 이를 식으로 나타내면 다음과 같습니다.
+
+<br>
+
+- $$ P(z) \tag{16} $$
+
+- $$ P(z \vert x_{1}) = \frac{}{P(x_{1})} \tag{17} $$
+
+- $$ P(z \vert x_{1}, x_{2}) = \frac{P(x_{2} \vert z, x_{1})P(z \vert x_{1})}{P(x_{2} \vert x_{1})} = \frac{ P(x_{2} \vert z) P(z \vert x_{1})}{P(x_{2})} \tag{17} $$
+
+- $$ P(z \vert x_{1}, x_{2}, x_{3}) = \frac{P(x_{3} \vert z) P(z \vert x_{1}, x_{2})}{P(x_{3})} \tag{18} $$
+
+- $$ P(z \vert X) \tag{19} $$
+
+<br>
+
+- 위 식과 같이 step이 진행될수록 $$ t - 1 $$ 번째의 `Posterior`가 $$ t $$ 번째의 `Prior`가 되며 데이터가 많이 쌓일 수록 `Posterior`는 정확해 집니다.
+
+<br>
+
+- 이번 글에서 알아본 내용을 정리하면 다음과 같습니다.
+- 관측된 데이터를 가장 잘 설명하는 파라미터 $$ \theta $$ 즉, 분포를 찾기 위하여 `MLE`를 사용하였습니다.
+- 하지만 제한된 데이터에서는 `MLE`로는 overfitting이 발생하는 것을 확인하였고 이를 개선하기 위하여 베이지안 룰을 사용하였습니다. 베이즈를 이용하면 `prior`를 적용할 수 있고 제한된 데이터에서 overfitting을 개선할 수 있으며 데이터가 많아질수록 `MLE`는 수렴하게됩니다.
+- 베이지안 접근법은 파라미터에 확률 분포를 추가적으로 가정한 후 `Posterior`를 통해서 `Optimal Parameter` $$ \theta $$ 를 추정하는 `MAP` 과정을 의미합니다.
+- `Posterior`는 `likelihood`를 통해서 데이터를 관측하고 정보가 업데이트된 `Prior`를 의미하며 이 `Prior`는 재귀적으로 계속 사용이 되어집니다.
 
 <br>
 
