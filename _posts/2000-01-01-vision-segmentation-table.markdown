@@ -40,7 +40,7 @@ tags: [vision, deep learning, segmentation] # add tag
 
 - [DeepLab_v1 (Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs)]()
 - [DeepLab_v2 (DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs)]()
-- [DeepLab_v3 (Rethinking Atrous Convolution for Semantic Image Segmentation)]()
+- [DeepLab_v3 (Rethinking Atrous Convolution for Semantic Image Segmentation)](https://gaussian37.github.io/vision-segmentation-deeplabv3/)
 - [DeepLab_v3+ (Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation)](https://gaussian37.github.io/vision-segmentation-deeplabv3plus/)
 - [DFN(Discriminative Feature Network)]()
 - [The One Hundred Layers Tiramisu: Fully Convolutional DenseNets for Semantic Segmentation]()
