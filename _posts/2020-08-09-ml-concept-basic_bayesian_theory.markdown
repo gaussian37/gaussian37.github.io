@@ -240,7 +240,7 @@ tags: [machine learning, probability model, 베이지안, bayesian, bernoulli, b
 
 - $$ = \operatorname*{argmax}_\theta \log{P(X \vert \theta)} + \log{P(\theta)} - \log{P(X)} \tag{19} $$
 
-- $$ = \operatorname*{argmax}_\theta \log{P(X \vert \theta)} + \log{P(\theta)} - \cancel{\log{P(X)}} \tag{20} $$
+- $$ = \operatorname*{argmax}_\theta \log{P(X \vert \theta)} + \log{P(\theta)} - \require{cancel} \cancel{\log{P(X)}} \tag{20} $$
 
 <br>
 
