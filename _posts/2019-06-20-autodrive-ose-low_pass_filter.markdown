@@ -7,6 +7,12 @@ categories: [autodrive-ose]
 tags: [저주파 통과 필터, low pass filter] # add tag
 ---
 
+<br>
+
+- [Optimal State Estimation 글 목록](https://gaussian37.github.io/autodrive-ose-table/)
+
+<br>
+
 - 출처 : 칼만필터는 어렵지 않아
 - 저주파 통과 필터(low pass filter)는 이름 그대로 저주파 신호는 통과시키고 고주파 신호는 걸러내는 필터를 말합니다.
 - 저주파 통과 필터는 노이즈 제거용으로 많이 사용되는데 대개 측정하려는 신호는 저주파이고 노이즈는 고주파 성분으로 되어 있기 때문입니다.
@@ -30,7 +36,9 @@ tags: [저주파 통과 필터, low pass filter] # add tag
 
 <br>
 
-### 1차 저주파 통과 필터
+## **1차 저주파 통과 필터**
+
+<br>
 
 - 최근 측정값에 높은 가중치를 주는 방법으로 앞에서 언급한 1차 저주파 통과 필터가 있습니다.
 - 　$$ \bar{x}_{k} = \alpha \bar{x}_{k-1}+ (1-\alpha)x_{k} \ \ \ (0 \lt \alpha \lt 1) $$ 
@@ -75,9 +83,9 @@ tags: [저주파 통과 필터, low pass filter] # add tag
         
 <br>
 
-### 저주파 통과 필터 코드
+## **저주파 통과 필터 코드**
 
-- python 코드
+<br>
 
 ```python
 class LPF:
@@ -95,9 +103,11 @@ class LPF:
 
 <br>
 
-- cpp 코드
+- 1차 저주파 통과 필터의 수식은 매우 단순하며 이동 평균 필터에 비해 좋은 특성을 가지고도 있습니다.
+- 이 덕분에 측정 신호의 **변화 추이를 이동평균 필터보다 더 잘 감지**해 낼 수 있습니다.
 
 <br>
 
-- 1차 저주파 통과 필터의 수식은 매우 단순하며 이동 평균 필터에 비해 좋은 특성을 가지고도 있습니다.
-- 이 덕분에 측정 신호의 **변화 추이를 이동평균 필터보다 더 잘 감지**해 낼 수 있습니다.
+- [Optimal State Estimation 글 목록](https://gaussian37.github.io/autodrive-ose-table/)
+
+<br>

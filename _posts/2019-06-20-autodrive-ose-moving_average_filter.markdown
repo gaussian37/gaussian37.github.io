@@ -1,11 +1,17 @@
 ---
 layout: post
-title: 이동평균필터(moving average filter)
+title: 이동 평균 필터(moving average filter)
 date: 2019-06-22 00:00:01
 img: autodrive/ose/kalman_filter.jpg
-categories: [ad-kalmanfilter] 
+categories: [autodrive-ose] 
 tags: [이동 평균 필터, moving average filter] # add tag
 ---
+
+<br>
+
+- [Optimal State Estimation 글 목록](https://gaussian37.github.io/autodrive-ose-table/)
+
+<br>
 
 - 출처 : 칼만필터는 어렵지 않아
 - 이동 평균은 모든 측정 데이터가 아니라, 지정된 갯수의 최근 측정값만 가지고 계산한 평균입니다.
@@ -78,3 +84,9 @@ class MovAvgFilter:
 - 마지막으로 정리하면 이동평균 필터는 평균 계산에 포함되는 데이터 갯수가 많으면 노이즈 제거 성능은 좋아지지만 측정 신호의 변화가 제때 반영되지 않고 시간 지연이 생깁니다.
 - 반대로 데이터의 갯수가 적으면 측정 신호의 변화는 잘 따라가지만 노이즈가 잘 제거되지 않습니다.
 - 따라서 신호의 특성을 잘 파악하여 이동평균의 데이터 갯수를 선정해야합니다.
+
+<br>
+
+- [Optimal State Estimation 글 목록](https://gaussian37.github.io/autodrive-ose-table/)
+
+<br>

@@ -14,8 +14,8 @@ tags: [칼만 필터, kalman filter. bayes filter, particle filter, optimal stat
 <br>
 
 - [재귀 필터 : 평균필터(Average Filter)](https://gaussian37.github.io/autodrive-ose-average-filter/)
-- [재귀 필터 : 이동평균필터(Moving Average Filter)](https://gaussian37.github.io/ad-kalmanfilter-moving-average/)
-- [재귀 필터 : 저주파 통과 필터(Low-Pass Filter)](https://gaussian37.github.io/autodrive-ose-low-pass-filter/) 
+- [재귀 필터 : 이동평균필터(Moving Average Filter)](https://gaussian37.github.io/autodrive-ose-moving_average_filter/)
+- [재귀 필터 : 저주파 통과 필터(Low-Pass Filter)](https://gaussian37.github.io/autodrive-ose-low_pass_filter/) 
 - [Localization과 Tracking](https://gaussian37.github.io/autodrive-ose-localization_and_tracking/)
 - [상태 방정식](https://gaussian37.github.io/autodrive-ose-state_equation/)
 - [Bayes Filter (베이즈 필터)](https://gaussian37.github.io/autodrive-ose-bayes_filter/)
