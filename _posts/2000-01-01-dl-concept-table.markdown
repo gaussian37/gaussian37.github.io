@@ -49,6 +49,8 @@ tags: [python, deep learning, dl] # add tag
 - [MobileNet v3](https://gaussian37.github.io/dl-concept-mobilenet_v3/)
 - [ShuffleNet](https://gaussian37.github.io/dl-concept-shufflenet/)
 - [DenseNet](https://gaussian37.github.io/dl-concept-densenet/)
+- [EfficientNet](https://gaussian37.github.io/dl-concept-efficientnet/)
+- [RegNet (Designing Network Design Spaces)](https://gaussian37.github.io/dl-concept-regnet/)
 
 <br>
 

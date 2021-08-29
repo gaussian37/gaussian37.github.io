@@ -41,9 +41,9 @@ tags: [이동 평균 필터, moving average filter] # add tag
 
 <br>
 
-### 이동 평균 코드
+## **이동 평균 코드**
 
-- python 코드
+<br>
 
 ```python
 import queue
@@ -74,10 +74,6 @@ class MovAvgFilter:
         
         return avg      
 ```
-
-<br>
-
-- cpp 코드
 
 <br>
 
