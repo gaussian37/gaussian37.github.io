@@ -175,14 +175,12 @@ tags: [자율주행, 자율주행 자동차, 테슬라, AI데이] # add tag
 <br>
 
 - 이 문제를 해결하기 위하여 `Multi-Cam Vector Space`를 구현하고자 하였습니다. 이미지 공간에서의 feature가 `vector space`의 feature로 다시 표시되도록 만드는 것이 목적입니다. 이 때, 2가지 문제를 해결해야 합니다.
-- ① 각 카메라로 부터 들어온 영상을 image space → vector space로 변환할 것인지 해결해야 합니다.
-- ② 
+- ① 각 카메라로 부터 들어온 영상을 `image space` → `vector space`로 어떻게 변환할 것인지 해결해야 합니다.
+- ② `vector space`를 딥러닝으로 예측하기 위해서는 `vector space dataset`이 필요합니다. 이 데이터셋이 있어야 End-to-End로 학습이 가능해지기 때문입니다.
 
+<br>
 
-
-
-
-
+- 먼저 [Tesla Vision](#tesla-vision-1) 챕터에서는 ① 문제인 `vector space` 생성 방법에 대하여 다루고 그 이후 챕터인 [Manual Labelling](#manual-labelling-1), [Auto Labelling](#auto-labelling-1), [Simulation](#simulation-1)에서 ② 문제인 `vector space dataset` 생성에 대하여 다루도록 하겠습니다.
 
 
 
