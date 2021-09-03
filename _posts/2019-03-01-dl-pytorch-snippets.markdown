@@ -46,6 +46,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [F.interpolate()와 nn.Upsample()](#finterpolate와-nnupsample-1)
 - ### [block을 쌓기 위한 Module, Sequential, ModuleList, ModuleDict](#block을-쌓기-위한-module-sequential-modulelist-moduledict-1)
 - ### [shape 변경을 위한 transpose](#shape-변경을-위한-transpose-1)
+- ### [permute를 이용한 shape 변경](#permute를-이용한-shape-변경-1)
 - ### [nn.Dropout vs. F.dropout](#nndropout-vs-fdropout-1)
 - ### [nn.AvgPool2d vs. nn.AdaptiveAvgPool2d](#nnavgpool2d-vs-nnadaptiveavgpool2d-1)
 - ### [optimizer.state_dict() 저장 결과](#optimizerstate_dict-저장-결과-1)
@@ -66,6 +67,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [model의 parameter 확인 방법](#model의-parameter-확인-방법)
 - ### [Tensor 깊은 복사](#tensor-깊은-복사)
 - ### [일부 weight만 업데이트 하는 방법](#일부-weight만-업데이트-하는-방법-1)
+- ### [OpenCV로 입력 받은 이미지 torch 형태로 변경](#opencv로-입력-받은-이미지-torch-형태로-변경-1)
 
 <br>
 
@@ -1486,6 +1488,36 @@ print(B_transposed2.shape)
 
 <br>
 
+## **permute를 이용한 shape 변경**
+
+<br>
+
+- 앞에서 설명한 `torch.transpose`를 이용하여 shape을 변경하는 방법을 살펴보았습니다. `torch.transpose`의 경우 교환하고 싶은 2개의 각 dimension을 1:1 교환하는 방법이었습니다.
+- 반면 `.permute()`를 이용하면 채널 방향의 순서를 한번에 쉽게 바꿀 수 있습니다. 사용 방법은 다음과 같습니다.
+
+<br>
+
+```python
+A = torch.ones(1, 3, 10, 20)
+print(A.shape)
+#torch.Size([1, 3, 10, 20]) 
+
+A = A.permute(1, 3, 0, 2)
+print(A.shape)
+#torch.Size([3, 20, 1, 10]) 
+```
+
+<br>
+
+- 위 예시와 같이 `.permute()`를 사용하면 기존의 dimension의 인덱스 0, 1, 2, 3, ... 을 기준으로 이동하였으면 하는 위치에 기존의 인덱스를 적으면 됩니다. 위 예제에서의 이동 방향은 다음과 같습니다.
+    - 기존 : 1번 차원 → 0번 차원
+    - 기존 : 3번 차원 → 1번 차원
+    - 기존 : 0번 차원 → 2번 차원
+    - 기존 : 2번 차원 → 3번 차원
+- 만약에 `A.permute(0, 1, 2, 3)`으로 입력하면 변경이 전혀 없고 `A.permute(3, 2, 1, 0)`으로 입력하면 차원이 완전히 반대로 변경 됩니다.
+
+<br>
+
 ## **nn.Dropout vs. F.dropout**
 
 <br>
@@ -2338,6 +2370,34 @@ filtered_update_dict = {k: v for k, v in update_dict.items() if k in model_dict}
 model_dict.update(filtered_update_dict) 
 # 3. load the new state dict
 model.load_state_dict(model_dict)
+```
+
+<br>
+
+## **OpenCV로 입력 받은 이미지 torch 형태로 변경**
+
+<br>
+
+- `OpenCV`를 이용하여 이미지 데이터를 입력 받고 입력 받은 데이터를 `torch` 타입 및 `(Batch, Channel, Height, Width)` 형태로 바꾸는 예시를 살펴보겠습니다. 아래는 하나의 컬러 이미지를 이용하므로 `(1, 3, height, width)` 형태를 사용한 예시입니다. 순서는 다음과 같습니다.
+- ① OpenCV를 이용하여 이미지 데이터 읽기 
+- ② (Optional) BGR → RGB
+- ③ Numpy → Tensor
+- ④ Dimension 변경
+- ⑤ (Channel, Height, Width) → (Batch, Channel, Height, Width)
+
+<br>
+
+```python
+# ① OpenCV를 이용하여 이미지 데이터 읽기 
+img = cv2.imread("image.png")
+# ② (Optional) BGR → RGB
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+# ③ Numpy → Tensor
+img = torch.Tensor(img)
+# ④ Dimension 변경
+img = img.permute(2, 0, 1)
+# ⑤ (Channel, Height, Width) → (Batch, Channel, Height, Width)
+img = torch.unsqueeze(img, 0)
 ```
 
 <br>
