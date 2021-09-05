@@ -255,7 +255,7 @@ tags: [machine learning, probability model, entropy, kl-divergence, mutual infor
 - 이와 같이 `엔트로피 인코딩`을 이용한 유명한 사례가 `모스 부호`입니다.
 
 <br>
-<center><img src="../assets/img/ml/concept/basic_information_theory/2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/ml/concept/basic_information_theory/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그림과 같이 E, I 같은 알파벳은 빈도수가 많기 때문에 그만큼 정보량이 작으므로 짧은 심볼에 매칭하였습니다.
