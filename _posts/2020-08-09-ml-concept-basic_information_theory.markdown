@@ -21,8 +21,11 @@ tags: [machine learning, probability model, entropy, kl-divergence, mutual infor
 - ① `정보 이론 (Information Theory)` : 확률 분포 $$ P(X) $$ 의 불확실 정도를 평가하는 방법
 - ② `정보량 (information)` : 불확실함을 해소하기 위해 필요한 질문(정보)의 수, 또는 어떤 Event가 발생하기 까지 필요한 시행의 수
 - ③ `엔트로피 (Entropy)` : 확률분포 $$ P(X) $$ 에 대한 정보량의 기댓값 (평균)
-- ④ `크로스 엔트로피 (Cross Entropy)` : 
-- ⑤ `KL divergence` : 
+- ④ `크로스 엔트로피 (Cross Entropy)` : 실제 데이터는 $$ P(X) $$ 분포로부터 생성되지만 $$ Q(X) $$ 분포를 사용하여 정보량을 축정해서 계산판 정보량의 기댓값
+- ⑤ `KL divergence` : `크로스 엔트로피` - `엔트로피`로 두 분포 $$ P(X) $$ 와 $$ Q(X) $$ 의 차이를 의미
+- ⑥ `Jensen's inequality` : 아래로 볼록한 그래프에서 함수값의 평균 > 평균의 함수값을 만족함
+- ⑦ `Gibb's inqeuality` : $$ H(P, Q) \ge H(P) $$
+- ⑧ `Mutual Information` : 두 확률 변수들이 얼마나 서로 dependent지 측정하는 방법으로 `KL divergence`로 측정할 수 있음
 
 <br>
 
@@ -35,6 +38,7 @@ tags: [machine learning, probability model, entropy, kl-divergence, mutual infor
 - ### Entropy
 - ### Cross Entropy
 - ### KL divergence
+- ### KL divergence와 Log likelihood
 - ### Mutual Information
 
 <br>
@@ -264,6 +268,17 @@ tags: [machine learning, probability model, entropy, kl-divergence, mutual infor
 
 <br>
 
+- 현재 가지고 있는 데이터 분포가 $$ P(X) $$ 일 때, 이 $$ P(X) $$ 를 근사화 할 수 있는 새로운 분포 $$ Q(X) $$ 를 이용하여 `엔트로피`를 구해볼 수 있을까요?
+- 앞에서 배운 `엔트로피`의 정의가 `정보량의 기댓값`이었기 때문에, `정보량`은 $$ Q(X) $$ 를 사용하고 이 때 사용되는 확률 분포는 $$ P(X) $$ 를 사용하여 다음과 같이 표현해 보겠습니다.
+
+<br>
+
+- $$ H(P, Q) = \sum_{X} P(X) \log{\frac{1}{Q(X)}} = -\sum_{X} P(X) \log{Q(X)} \tag{20} $$
+
+<br>
+
+- `크로스 엔트로피`란 **실제 데이터는 $$ P(X) $$ 분포로부터 생성되지만 $$ Q(X) $$ 분포를 사용하여 정보량을 축정해서 계산판 정보량의 기댓값**을 의미합니다.
+- 일반적으로 $$ H(P, Q) \ge H(P) $$ 를 만족합니다. 즉, 새롭게 가정한 데이터 분포 $$ Q(X) $$ 를 이용하여 엔트로피 인코딩을 하면 실제의 분포 $$ P(X) $$ 를 가정한 최적의 코딩방식보다 `엔트로피`가 더 커지게 됩니다.
 
 <br>
 
@@ -271,6 +286,127 @@ tags: [machine learning, probability model, entropy, kl-divergence, mutual infor
 
 <br>
 
+- `크로스 엔트로피` $$ H(P, Q) $$ `엔트로피` $$ H(P) $$ 보다 항승 크고 $$ P(X) = Q(X) $$ 일때만 같음으로 **두 항의 차이를 분포 사이의 거리**처럼 사용할 수 있습니다.
+
+<br>
+
+- $$ D_{\text{KL}}(P \Vert Q) = H(P, Q) - H(P) \tag{21} $$
+
+- $$ = \sum_{x} P(X) \log{\frac{1}{Q(X)}} - P(X)\log{\frac{1}{P(X)}} \tag{22} $$
+
+- $$ = \sum_{x} P(X) \log{\frac{P(X)}{Q(X)}} \tag{23} $$
+
+<br>
+
+- 식 (23)을 `KL divergence` 라고 하며 데이터 인코딩 관점에서 보면 `KL divergence`는 데이터 소스의 분포인 $$ P(X) $$ 대신 다른 분포 $$ Q(X) $$ 를 사용해서 심볼을 인코딩하면 **추가로 몇 bit의 낭비가 발생하는 지 나타낼 수 있다**고 해석할 수 있습니다.
+- 이와 같은 방식으로 `KL divergence`는 두 확률 분포 P와 Q의 차이를 측정할 수 있습니다.
+
+<br>
+
+- 추가적으로 `KL divergence`의 몇가지 성질에 대하여 살펴보겠습니다.
+
+<br>
+
+- ① $$ D_{\text{KL}}(P \Vert Q) = 0 \text{iff} P = Q $$
+
+<br>
+
+- ② $$ D_{\text{KL}}(P \Vert Q) \ge 0 $$
+
+<br>
+
+- ③ $$ D_{\text{KL}}(P \Vert Q) \ne D_{\text{KL}}(Q \Vert P) \text{(reverse KL)} $$
+
+<br>
+
+- ④ $$ P $$ 를 고정하고 $$ Q_{\theta} $$ 를 움직일 때, $$ D_{\text{KL}}(P \Vert Q_{\theta}) $$ 의 변화는 $$ H(P, Q_{\theta}) $$ 와 같습니다.
+
+<br>
+
+- 위 4가지 성질 중에서 ① 내용은 앞에서 다루었고, ④는 식을 살펴보면 알 수 있습니다.
+- ② 내용 즉, `KL divergence`는 항상 0보다 크거나 같다라는 내용에 대하여 알아보겠습니다. 이 식을 유도하기 위하여 `Jensen's inequality`를 사용하겠습니다.
+
+<br>
+<center><img src="../assets/img/ml/concept/basic_information_theory/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `Jensen's inequality`는 위 그래프와 같이 `아래로 볼록`한 그래프에서 **함수값의 평균 > 평균의 함수값** 보다 크다는 것을 의미합니다.
+- 예를 들어 `아래로 볼록`한 Convex 함수로 지금까지 살펴본 `-log`를 대입하여 살펴보면 다음과 같습니다.
+
+<br>
+
+- $$ E[-\log{x}] \ge -\log{(E[x])} \tag{24} $$
+
+- $$ sum_{x}P(x)\log{x} \ge -\log{(\sum_{x}P(x) \times x)} \tag{25} $$
+
+<br>
+
+- `Jensen's inequality`를 이용하여 아래 식을 유도해 보겠습니다.
+
+<br>
+
+- $$ D_{\text{KL}}(P \Vert Q) = H(P, Q) - H(P) \tag{26} $$
+
+- $$ = \sum P(X) \log{\frac{P(X)}{Q(X)}} \tag{27} $$
+
+- $$ = \sum P(X) -\log{\frac{Q(X)}{P(X)}} \tag{28} $$
+
+- $$ \ge -\log{ \sum P(X){\frac{Q(X)}{P(X)}} } \tag{29} $$
+
+- $$ = -\log{ \sum Q(X) } = 0 \tag{30} $$
+
+<br>
+
+- 식 (28) → 식 (29)로 전개할 때, `Jensen's inequality`가 사용이 되어 lower bound 값이 생겼고 이를 이용하여 $$ D_{\text{KL}}(P \Vert Q) \ge 0 $$ 을 만족할 수 있었습니다.
+- 식 (26)과 같이 $$ H(P, Q) \ge H(P) $$ 를 `Gibbs' inequality`라고 합니다.
+
+<br>
+
+- `KL divergence`의 ③ 특성은 `KL divergence`에는 교환 법칙이 성립하지 않는다는 점입니다.
+- 교환 법칙이 성립되지 않기 떄문에 정확히는 **거리함수라고 말할 수 없습니다.** 하지만 두 분포가 다를수록 큰값을 가지며 둘이 일치할 때에만 0이 된다는 성질을 이용하여 거리 함수와 비슷한 용도로 사용할 수 있습니다.
+
+<br>
+
+## **KL divergence와 Log likelihood**
+
+<br>
+
+- 만약 $$ P $$ 가 실제 데이터 분포이고 $$ Q_{\theta} $$ 가 우리가 설계하는 확률 모델이라고 하면 $$ D_{\text{KL}}(P \Vert Q_{\theta}) $$ 를 최소화 하는 것은, 우리 모형의 `log-likelihood`를 최대화 하는 것과 같아지게 됩니다.
+
+<br>
+
+- $$ P(x \vert \theta^{*}) : \text{Data distribution with True parameter} \theta^{*} \tag{31} $$
+
+- $$ P(x \vert \theta) : \text{Our Model with tunable parameter} \theta \tag{32} $$
+
+<br>
+
+- $$ D_{\text{KL}}[P(x \vert \theta^{*}) \Vert P(x \vert \theta)] \tag{33} $$
+
+- $$ \mathbb{E}_{x \sim P(x \vert \theta^{*})} \left[\log{\frac{P(x \vert \theta^{*})}{P(x \vert \theta)}} \right] \tag{34} $$
+
+- $$ \mathbb{E}_{x \sim P(x \vert \theta^{*})} \left[\log{P(x \vert \theta^{*})} - \log{P(x \vert \theta)} \right] \tag{35} $$
+
+- $$ \color{blue}{\mathbb{E}_{x \sim P(x \vert \theta^{*})} \left[\log{P(x \vert \theta^{*})} \right]} - \color{red}{\mathbb{E}_{x \sim P(x \vert \theta^{*})} \left[\log{P(x \vert \theta)} \right]} \tag{36} $$
+
+- $$ -\color{blue}{H[P(x \vert \theta^{*})]} + \color{red}{H[P(x \vert \theta^{*}), P(x \vert \theta)]} \tag{37} $$
+
+<br>
+
+- 식 (36), (37) 에서 파란색에 해당하는 부분이 `엔트로피`이고 빨간색에 해당하는 부분이 `크로스 엔트로피`입니다. `엔트로피` 부분은 $$ \theta $$ 를 학습하는 것과 무관하므로 고정값으로 두면 실제 모델을 학습 시 영향을 끼치는 것은 `크로스 엔트로피`가 됩니다.
+
+<br>
+
+- 식 (36) 에서 `크로스 엔트로피` 부분만 이용하여 `큰 수의 법칙 (Law of Large Numbers)`를 적용하면 `크로스 엔트로피` 부분을 다음과 같이 적을 수 있습니다.
+
+<br>
+
+- $$ \text{Cross Entropy : } \mathbb{E}_{x \sim P(x \vert \theta^{*})} \left[\log{P(x \vert \theta)} \right] = \color{red}{-\frac{1}{N}\sum_{i}^{N} \log{P(x_{i} \vert \theta)}} \tag{38} $$
+
+<br>
+
+- 식 (38)에서 빨간색 부분인 `크로스 엔트로피`는 `Negative log-likelihood`가 됩니다.
+- 우리의 목적은 `크로스 엔트로피`를 최소화 하여 $$ P(x \vert \theta^{*}) $$ 와 $$ P(x \vert \theta) $$ 의 분포 차이를 최소화 하는 것입니다. 이 과정은 결국 `Negative log-likelihood`를 최소화 하는 것과 같고 이는 `Log-likelihood`를 최대화 하는 것과 같으므로 `Maximum Likelihood Estimation` 이라고 할 수 있습니다.
 
 <br>
 
@@ -278,12 +414,33 @@ tags: [machine learning, probability model, entropy, kl-divergence, mutual infor
 
 <br>
 
+- 임의의 두 확률 변수 $$ X $$ 와 $$ Y $$ 가 `독립적`이라면 `결합(Joint)확률 분포`는 확률 곱으로 표현 가능합니다.
 
 <br>
 
+- $$ P(X, Y) = P(X)P(Y) $$
 
+<br>
 
+- 만약 $$ X, Y $$ 가 서로 독립적이지 않다면 확률 곱과 결합 확률 분포간의 차이를 `KL divergence`로 측정할 수 있습니다.
 
+<br>
+
+- $$ I(X; Y) = \sum_{y \in Y}\sum_{x \in X} p(x, y) \log{ \left( \frac{p(x, y)}{p(x)p(y)} \right) } \tag{39} $$
+
+- $$ I(X; y) = D_{\text{KL}}(p(x, y) \Vert p(x)p(y)) \tag{40} $$
+
+<br>
+
+- 이와 같이 `Mutual Information`은 두 확률 변수들이 얼마나 서로 `dependent` 한 지 측정하며 서로 `independent`한 경우 `Mutual Information = 0`을 만족하고 서로 `dependent`할 수록 값이 커집니다. (즉, divergnece가 크다고 해석할 수 있습니다.)
+
+<br>
+
+- 이번 글에서 다룬 핵심 내용을 정리하면 다음 4가지로 정리할 수 있습니다.
+- ① `엔트로피`는 확률 분포 $$ P(X) $$ 에서 일어날 수 있는 모든 사건들의 정보량의 기대값으로 $$ P(X) $$ 의 불확실 정도를 평가합니다.
+- ② `크로스 엔트로피`의 의미는 실제 데이터는 분포 $$ P(X) $$ 로부터 생성되지만, 분포 $$ Q(X) $$ 를 사용하여 정보량을 측정해서 나타낸 정보량의 기대값을 의미합니다.
+- ③ `KL divergence`는 두 확률 분포 $$ P(X) $$ 와 $$ Q(X) $$ 의 차이를 측정합니다.
+- ④ `Mutual Information` 은 두 확률 변수들이 얼마나 서로 `dependent`한 지 측정합니다.
 
 <br>
 
