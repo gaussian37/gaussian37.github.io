@@ -337,7 +337,7 @@ tags: [machine learning, probability model, entropy, kl-divergence, mutual infor
 
 - $$ E[-\log{x}] \ge -\log{(E[x])} \tag{24} $$
 
-- $$ sum_{x}P(x)\log{x} \ge -\log{(\sum_{x}P(x) \times x)} \tag{25} $$
+- $$ \sum_{x}P(x)\log{x} \ge -\log{(\sum_{x}P(x) \times x)} \tag{25} $$
 
 <br>
 
