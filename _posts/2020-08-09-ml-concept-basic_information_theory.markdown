@@ -33,13 +33,13 @@ tags: [machine learning, probability model, entropy, kl-divergence, mutual infor
 
 <br>
 
-- ### 정보이론의 의미
-- ### 정보량의 의미
-- ### Entropy
-- ### Cross Entropy
-- ### KL divergence
-- ### KL divergence와 Log likelihood
-- ### Mutual Information
+- ### [정보이론의 의미](#정보이론의-의미-1)
+- ### [정보량의 의미](#정보량의-의미-1)
+- ### [Entropy](#entropy-1)
+- ### [Cross Entropy](#cross-entropy-1)
+- ### [KL divergence](#kl-divergence-1)
+- ### [KL divergence와 Log likelihood](#kl-divergence와-log-likelihood-1)
+- ### [Mutual Information](#mutual-information-1)
 
 <br>
 
