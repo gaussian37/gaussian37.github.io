@@ -327,7 +327,7 @@ tags: [machine learning, probability model, entropy, kl-divergence, mutual infor
 - ② 내용 즉, `KL divergence`는 항상 0보다 크거나 같다라는 내용에 대하여 알아보겠습니다. 이 식을 유도하기 위하여 `Jensen's inequality`를 사용하겠습니다.
 
 <br>
-<center><img src="../assets/img/ml/concept/basic_information_theory/2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/ml/concept/basic_information_theory/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - `Jensen's inequality`는 위 그래프와 같이 `아래로 볼록`한 그래프에서 **함수값의 평균 > 평균의 함수값** 보다 크다는 것을 의미합니다.
