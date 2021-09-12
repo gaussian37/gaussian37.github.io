@@ -29,8 +29,7 @@ tags: [segmentation, deeplab v3+, deeplab, deeplab v3] # add tag
 - ### ResNets
 - ### Atrous Convolutions
 - ### Atrous Spatial Pyramid Pooling
-- ### Implementation Details
-- ### Results
+- ### Torchvision DeepLabv3 살펴보기
 
 <br>
 
@@ -197,4 +196,71 @@ tags: [segmentation, deeplab v3+, deeplab, deeplab v3] # add tag
 
 <br>
 
+## **Torchvision DeepLabv3 살펴보기**
 
+<br>
+
+- 다음은 위에서 배운 개념과 비교하여 `torchvision`에서 제공하는 DeepLab v3과 비교해서 살펴보도록 하겠습니다. 사용한 모델은 `resnet50 기반의 deeplabv3`입니다.
+- 먼저 다음과 같은 코드를 이용하여 `onnx`를 만든 다음과 `netron`에서 실행 후 비교하겠습니다. 상세 과정은 다음 절차를 참조 하시면 됩니다.
+    - 링크 : [https://gaussian37.github.io/dl-pytorch-deploy/](https://gaussian37.github.io/dl-pytorch-deploy/)
+
+<br>
+
+```python
+import torch.onnx
+from torchvision import models
+
+model = models.segmentation.deeplabv3_resnet50()
+dummy_data = torch.empty(1, 3, 512, 1024, dtype = torch.float32)
+torch.onnx.export(model, dummy_data, "deeplabv3_resnet50.onnx", opset_version=11)
+torch.onnx.export(model, dummy_data, "deeplabv3_resnet50.onnx", opset_version=11)
+onnx.save(onnx.shape_inference.infer_shapes(onnx.load("deeplabv3_resnet50.onnx")), "deeplabv3_resnet50.onnx")
+```
+
+<br>
+
+- 위 코드를 살펴보면 `(C, H, W) = (3, 512, 1024)`의 사이즈의 입력을 사용하였습니다.
+- 생성된 전체 모델의 아키텍쳐를 살펴보려면 다음 링크 또는 글 가장 아래 이미지를 참조해 주시면 됩니다.
+    - 링크 : [resnet50 deeplab v3 아키텍쳐](https://raw.githubusercontent.com/gaussian37/gaussian37.github.io/master/assets/img/vision/segmentation/deeplabv3/deeplabv3_resnet50.svg)
+- 앞에서 다룬 내용과 torchvision의 모델에는 차이점이 있는 것을 확인하였습니다. 이점 참조하여 아래 내용 살펴보겠습니다.
+- 살펴볼 내용은 크게 3가지 부분으로 ① `downsampling`, ② `residual block`, ③ `ASPP` 입니다.
+- 입력 데이터를 받은 후 ①, ②를 반복하여 구성한 다음에 마지막에 ③ 을 통해 `Encoder`를 완성하고 마지막에는 `interpolation`을 통해 원래 해상도로 복원하는 `Decoder`를 적용하였습니다.
+
+<br>
+
+- ① `downsampling` 내용을 살펴보겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/deeplabv3/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `intput 및 feature`를 입력 받으면 `maxpooling`을 통하여 downsampling을 한 뒤, 위 아키텍쳐와 같은 형태로 block을 구성합니다.
+
+<br>
+
+- ② `residual block` 내용을 살펴보겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/deeplabv3/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 다룬 `fuul pre-activation` 구조가 아닌 기본적인 `baseline` 구조를 사용하였습니다. 어떤 연산도 적용되지 않은 `skip connection`과 `conv-batchnorm-relu` 2번이 적용된 feature가 `Add` 된 후 다시 `relu`가 적용된 형태가 `residual block`이 됩니다.
+
+<br>
+
+- ③ `ASPP` 내용을 마지막으로 살펴보겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/deeplabv3/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 왼쪽서 부터 4개의 convolution이 parallel하게 있습니다. 가장 왼쪽은 1x1 convolution이고 2, 3, 4번째 convolution은 3x3 convolution이며 dilation=(6, 12, 18)로 적용되어 있습니다.
+- 추가적으로 Global Average Pooling도 parallel하게 적용되어 있는 것을 볼 수 있습니다.
+
+<br>
+
+- 다음은 전체 아키텍쳐를 나타낸 것입니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/deeplabv3/deeplabv3_resnet50.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
