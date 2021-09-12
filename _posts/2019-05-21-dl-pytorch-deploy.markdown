@@ -185,6 +185,12 @@ onnx.save(onnx.shape_inference.infer_shapes(onnx.load(path)), path)
 
 - 위 코드를 실행하면 기존의 onnx 파일에 shape 정보를 추가한 뒤 다시 덮어 쓰게 됩니다.
 
+<br>
+<center><img src="../assets/img/dl/pytorch/deploy/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이렇게 shape을 저장하면 onnx에 별도로 shape에 대한 정보를 알 수 있게 됩니다. 
+- 위 그림은 이 글 뒷부분에서 다루는 `netron`을 이용하여 시각화한 정보입니다. 각 layer의 입출력 크기를 시각화 해서 알 수 있기 때문에 모델 아키텍쳐 분석이 쉬워집니다.
 
 <br>
  
