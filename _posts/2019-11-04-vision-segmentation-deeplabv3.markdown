@@ -24,12 +24,12 @@ tags: [segmentation, deeplab v3+, deeplab, deeplab v3] # add tag
 
 <br>
 
-- ### Semantic Segmentation
-- ### Model Architecture
-- ### ResNets
-- ### Atrous Convolutions
-- ### Atrous Spatial Pyramid Pooling
-- ### Torchvision DeepLabv3 살펴보기
+- ### [Semantic Segmentation](#semantic-segmentation-1)
+- ### [Model Architecture](#model-architecture-1)
+- ### [ResNets](#resnets-1)
+- ### [Atrous Convolutions](#atrous-convolutions-1)
+- ### [Atrous Spatial Pyramid Pooling](#atrous-spatial-pyramid-pooling-1)
+- ### [Torchvision DeepLabv3 살펴보기](#torchvision-deeplabv3-살펴보기-1)
 
 <br>
 
