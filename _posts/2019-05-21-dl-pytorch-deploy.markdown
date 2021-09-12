@@ -325,10 +325,11 @@ onnx.save(onnx_model, onnx_new_path)
 
 <br>
 
+- 참조 : [https://github.com/gaussian37/pytorch_onnx_exporter](https://github.com/gaussian37/pytorch_onnx_exporter)
 - 앞에서 살펴본 모든 코드를 하나로 종합하였습니다. 코드가 실행되는 전체적인 flow는 다음과 같습니다.
 - ① 사용할 딥러닝 네트워크를 불러온 뒤 평가 모드로 설정합니다.
 - ② torch 모델을 이용하여 onnx 모델을 생성합니다.
-- ③ 생성한  onnx 모델을 다시 블루어와서 torch 모델과 onnx 모델의 weight를 비교합니다.
+- ③ 생성한  onnx 모델을 다시 불러와서 torch 모델과 onnx 모델의 weight를 비교합니다.
 - ④ onnx 모델에 기존 torch 모델과 다른 weight가 있으면 전체 update를 한 후 새로 저장합니다.
 - ⑤ 최종적으로 저장된 onnx 모델을 불러와서 shape 정보를 추가한 뒤 다시 저장합니다.
 
