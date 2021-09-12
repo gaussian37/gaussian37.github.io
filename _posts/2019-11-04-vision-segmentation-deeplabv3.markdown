@@ -72,3 +72,129 @@ tags: [segmentation, deeplab v3+, deeplab, deeplab v3] # add tag
 - 이러한 문제를 해결하기 위하여 가장 많이 사용되는 방법이 위 그림과 같이 `downsampling`와 `upsampling` layer를 사용하여 연산량을 줄이는 방법입니다.
 - 먼저 `downsampling` 방법을 살펴보면 `convolution layer`를 `stride` 또는 `pooling` 연산과 함께 사용하는 방법이 있습니다. `downsampling`의 목적은 feature map의 spatial dimension을 줄여서 효율성을 높이는 것입니다. 위 그림의 `Encoder`영역을 보면 이와 같은 역할을 볼 수 있습니다. 연산의 효율성을 높이는 대신에 feature 일부를 소실한 것을 확인할 수 있습니다.
 - 이와 같은 `Encoder` 구조는 `classification`에서 fully connected layer를 적용하기 이전의 구조와 같습니다. 즉 `feature extraction`을 하는 역할을 한다고 볼 수 있습니다.
+- 가운데 `compressed representation`을 살펴보면 `feature`의 shape이 `(w, h d)`로 나타내어져 있고 모양을 보았을 때, `w`, `h`는 입력 이미지에 비해 작을 것이고 `d`는 입력 이미지에 비해 클 것으로 판단됩니다. 이와 같은 방식으로 spatial dimension이 압축이 되었습니다.
+- 이제 압축된 feature를 다시 원래 해상도로 원복하는 역할을 해야 합니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/deeplabv3/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 윗쪽 이미지는 전형적인 classification을 나타낸 것이고 아랫쪽 이미지는 classification의 마지막 fully connected layer를 1x1 convolution으로 대체한 뒤 나온 출력을 heatmap 형태로 표시한 것입니다. 이 때, 어느 부분이 classification에 직접적으로 사용된 영역인 지 heatmap으로 볼 수 있습니다.
+- 이와 유사한 방법으로 feature의 마지막 부분에 `upsample layer`를 붙여서 **압축된 feature를 원래 해상도로 다시 복원하는 작업**을 하여 segmentation을 완수합니다.
+
+<br>
+
+- `upsample` 방법으로 `strided transpose convolution` 을 많이 사용하곤 합니다. 이 layer는 기본적으로 deep 하고 narrow한 feature를 wider 하고 shallow한 형태로 바꾸는 작업을 합니다.
+- 대부분의 논문에서는 입력 이미지를 압축된 feature로 바꾸는 역할의 layer를 `Encoder`라고 하며 압축된 feature를 다시 원복하는 역할을 `Decoder`라고 합니다.
+- 많은 segmentation 모델들은 `Encoder - Decoder` 형태를 따르고 있으며 이번 글에서 다루는 `DeepLab v3` 또한 이와 같은 구조를 따릅니다.
+- 이번 글에서 다룰 점은 `DeepLab v3`의 `Encoder`와 `Decoder`가 어떤 형태를 따르는 지 살펴보겠습니다.
+
+<br>
+
+## **Model Architecture**
+
+<br>
+
+- DeepLab v3에서는 `multi-scale contextual feature`를 학습할 수 있도록 구조를 설계하였습니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/deeplabv3/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림에서 (a) Atrous Spatial Pyramid Pooling 이 핵심 내용이 됩니다.
+- DeepLab v3에서는 feature extractor로써 ImageNet pre-trained 된 `ResNet`을 사용합니다. 차이점은 ResNet 마지막 부분에 단순히 convolution으로 끝나는 것이 아니라 atrous convolution을 사용한다는 점입니다. 이 각각의 atroud convolution의 dilation을 다르게 적용하여 `multi-scale context`를 학습하는 데 그 목적이 있습니다.
+- 이러한 구조가 위 그림에서 나타낸 (a) 이며 이 내용은 글 아래에서 더 자세하게 살펴보겠습니다.
+- 그러면 `Encoder`를 정확히 알아보기 위하여 ① `ResNet`, ② `Atrous Convolution`, ③ `ASPP(Atrous Spatial Pyramid Pooling)` 순으로 나누어 알아보겠습니다.
+
+<br>
+
+## **ResNets**
+
+<br>
+
+- ResNet은 더 깊은 네트워크를 쌓을 수 있도록 skip connection을 적용한 유명한 모델이며 이 글에서는 DeepLab v3에서 어떤 ResNet을 적용하였는 지 위주로 살펴볼 예정입니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/deeplabv3/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림에서 왼쪽 형태가 ResNet의 기본 block 중 `baseline`이라고 불리고 오른쪽 형태가 `bottleneck unit`이라고 불립니다.
+- 각 사각형 박스는 convolution layer를 의미하며 각 convolution layer는 `conv - batchnorm - ReLu`의 형태로 이루어져 있습니다.
+- 위 식에서는 convolution layer를 거친 feature를 `F(x)`로 표현하고 skip connection을 통해 그대로 전파된 feature를 `x`로 표현하였습니다.
+- `F(x) + x`에서 x를 통해 전파되는 gradient의 값이 유지되므로 gradient vanishing문제를 개선할 수 있었고 그 결과 더 깊은 layer를 쌓을 수 있었습니다.
+- `baseline`은 단순히 2번의 convolution layer와 skip connection으로 연결된 feature를 합치는 방식을 취합니다.
+- `bottleneck unit`은 baseline에 비해 추가된 `1x1 convolution`을 이용하여 feature의 dimension 크기가 줄었다가 다시 커지는 형태를 띄게 됩니다
+- 2가지 방식의 성능을 비교하면 `baseline`에서도 충분히 좋은 accuracy 성능을 가지지만 연산 속도 측면에서 `bottleneck unit`이 더 이점을 가지게 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/deeplabv3/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- DeepLab v3에서 사용되는 ResNet의 형태는 위 그림의 가장 오른쪽과 같으며 `full pre-activation` 버전이라고 칭합니다. DeepLab v3 당시 full pre-activation 버전의 성능이 좋았으므로 이와 같이 적용 되었습니다.
+
+<br>
+
+## **Atrous Convolutions**
+
+<br>
+
+- Atrous (diliated) convolution은 기본적인 convolution layer에서 filter의 FOV (Field Of View)를 늘리기 위하여 필터 window 내부적으로 간격을 띄운 형태를 의미합니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/deeplabv3/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림은 `dilation rate`를 변화하였을 때, convolution layer의 FOV를 나타냅니다. rate를 높였을 때, filter가 가지는 weight의 갯수는 같지만 FOV는 좀 더 넓어진 것을 볼 수 있습니다.
+- dilation rate가 커지면 filter 내부적으로 빈 공간이 늘어나게 되고 이 빈 공간은 0으로 채워지게 되어 sparse한 형태를 가지게 됩니다.
+- 만약 dilation rate = 2로 적용한 경우 5 x 5 convolution과 같은 영역을 보게되지만, sparse한 형태를 가지므로 연산은 3 x 3 convolution과 같아집니다. 이러한 연산을 효율적으로 하기 위하여 각 framework에서는 실제 sparse한 형태의 큰 필터를 설계하지 않고 3 x 3 의 크기만 연산할 수 있도록 operation을 지원합니다.
+- 이와 같은 원리로 dilation rate = 3으로 적용한 경우 7 x 7 convolution과 같은 영역을 보도록 convolution layer를 만들 수 있습니다.
+- 이와 같은 방식으로 **FOV는 넓히고 파라미터 수와 연산량은 유지하는 방법을 사용하고자 하는 것이 Atrous Convolution**입니다.
+- DeepLab v3에서 보여준 점 중에서 **feature map의 크기에 따라서 dilation rate를 튜닝해 주어야 한는 점**이 있습니다. 이와 같은 이유는 **작은 feature map에 너무 큰 dilation을 적용하였을 때 발생하는 문제점**때문입니다.
+
+<br>
+<center><img src="../assets/img/vision/segmentation/deeplabv3/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림과 같이 작은 feature map에 너무 큰 dilation rate를 적용하면 의도치 않게 3 x 3 convolution이 1 x 1 convolution 처럼 적용되는 문제가 발생하게 됩니다. 
+- 따라서 핵심이 되는 `dilation rate`를 어떻게 조정하는 지가 성능에 큰 영향을 끼치게 되며 이 값을 튜닝하는 데 노력을 기울여야 한다고 설명합니다.
+
+<br>
+
+- 추가적으로 `output stride`라는 용어를 통해 **입력 이미지의 해상도 대비 출력 feature의 해상도의 비율**을 관리하고 이 비율이 너무 줄어들지 않도록 합니다. deeplab v3에서는 `output stride=8` 또는 ``output stride=16`을 사용하여 공간 정보가 너무 줄어드는 것을 관리하였습니다. 예를 들어 입력 이미지가 (512, 512)의 사이즈를 가지고 출력하고자 하는 feature의 해상도가 (32, 32)를 가지면 `output stride=8`이 됩니다.
+- `output stride`가 작을수록 segmentation의 결과가 더 정교합니다. 물론 연산해야 할 feature의 크기는 크므로 연산량은 더 많아지는 단점이 있습니다.
+
+<br>
+
+## **Atrous Spatial Pyramid Pooling**
+
+<br>
+
+- DeepLab v3에서는 이와 같은 `Atrous Convolution`의 개념과 `Output Stride`라는 개념을 이용하여 `ASPP`라는 모듈을 만들어 사용합니다.
+- `ASPP`는 DeepLab v2에서 먼저 사용되었고 DeepLab v3에서는 이 ASPP 구조를 좀 더 개선하여 사용하고 있습니다. 자세한 내용은 아래 제 블로그 링크에서 확인할 수 있습니다.
+    - 링크 : [DeepLab V3의 ASPP 관련 상세 설명](https://gaussian37.github.io/vision-segmentation-aspp/#asppatrous-spatial-pyramid-pooling-deeplab-v3-1)
+- 이 글에서 간략하게 다루어 보면 `ASPP`는 Atrous Convolution을 Multi-Scale로 적용하는 것이 핵심으로 다양한 `dilation rate`의 convolution을 parallel 하게 사용하여 Multi-Scale의 FOV를 가질 수 있도록 합니다. 구체적으로 1개의 1x1 convolution과 3개의 3x3 convolution을 parallel하게 사용하며 3x3 convolution 각각은 `dilation = (6, 12, 18)` 또는 `dilation = (12, 24, 36)`을 적용하였습니다.
+- 추가적으로 `GAP (Global Average Pooling)` 또한 사용하여 Global Context를 이해할 수 있도록 하여 최종적으로 다음과 같은 연산을 거치게 됩니다.
+
+<br>
+
+- ① = 1x1 convolution → BatchNorm → ReLu
+- ② = 3x3 convolution w/ rate=6 (or 12) → BatchNorm → ReLu
+- ③ = 3x3 convolution w/ rate=12 (or 24) → BatchNorm → ReLu
+- ④ = 3x3 convolution w/ rate=18 (or 36) → BatchNorm → ReLu
+- ⑤ = AdaptiveAvgPool2d → 1x1 convolution → BatchNorm → ReLu
+- ⑥ = concatenate(① + ② + ③ + ④ + ⑤)
+- ⑦ = 1x1 convolution → BatchNorm → ReLu
+
+<br>
+<center><img src="../assets/img/vision/segmentation/deeplabv3/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 글의 처음에 사용한 DeepLab v3의 이미지를 다시 한번 살펴보겠습니다.
+- 각 파란색 박스는 `Residual Block`을 나타내며 앞의 글 `ResNet`에서 다룬 내용에 해당합니다.
+- 각 feature 아래에 노란색 글씨는  feature의 `output stride`를 나타내며 `rate`는 `dilation rate`를 나타냅니다.
+- `Block4`는 `Atrous Residual Block`이 적용이 되었고 방법은 `Multi Grid = (1, 2, 4) or (2, 4, 8)` 방법을 사용하였습니다.
+- `Atrous Residual Block` 이후에는 `ASPP` 구조가 적용되었습니다.
+
+<br>
+
+
