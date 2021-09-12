@@ -21,6 +21,7 @@ tags: [pytorch, deploy, onnx, onnxruntime] # add tag
 - ### [ONNX를 사용한 다른 프레임워크와의 연계](#onnx를-사용한-다른-프레임워크와의-연계-1)
 - ### [pytorch에서 학습 완료된 모델 불러오기](#pytorch에서-학습-완료된-모델-불러오기-1)
 - ### [ONNX로 export](#onnx로-export-1)
+- ### [ONNX에 shape 정보 저장](#onnx에-shape-정보-저장-1)
 - ### [onnx 파일 확인](#onnx-파일-확인-1)
 - ### [pytorch와 onnx 비교](#pytorch와-onnx-비교-1)
 - ### [onnx 모델에 pytorch weight 할당](#onnx-모델에-pytorch-weight-할당-1)
@@ -163,6 +164,29 @@ torch.onnx.export(net, dummy_data,  input_names = ['input'], output_names = ['cl
 ```
 
 <br>
+
+## **ONNX에 shape 정보 저장**
+
+<br>
+
+- 단순히 `torch.onnx.export`를 하였을 때에는, layer 간 입출력 크기를 확인할 수 없습니다. 단순히 모델 전체의 입출력만 표시되어 있습니다.
+- 모델 아키텍쳐 전체를 이해하기 위해서는 layer 간 입출력의 크기를 알아야 하기 때문에 다음과 같이 `torch.onnx.export`로 저장된 `output.onnx`를 다시 불러와서 `shape` 정보를 다시 입력한 다음 저장해 주면 이 문제를 해결할 수 있습니다.
+
+<br>
+
+```python
+import onnx
+from onnx import shape_inference
+path = ".../path/to/the/output.onnx"
+onnx.save(onnx.shape_inference.infer_shapes(onnx.load(path)), path)
+```
+
+<br>
+
+- 위 코드를 실행하면 기존의 onnx 파일에 shape 정보를 추가한 뒤 다시 덮어 쓰게 됩니다.
+
+
+<br>
  
 ## **onnx 파일 확인**
  
@@ -300,6 +324,7 @@ onnx.save(onnx_model, onnx_new_path)
 - ② torch 모델을 이용하여 onnx 모델을 생성합니다.
 - ③ 생성한  onnx 모델을 다시 블루어와서 torch 모델과 onnx 모델의 weight를 비교합니다.
 - ④ onnx 모델에 기존 torch 모델과 다른 weight가 있으면 전체 update를 한 후 새로 저장합니다.
+- ⑤ 최종적으로 저장된 onnx 모델을 불러와서 shape 정보를 추가한 뒤 다시 저장합니다.
 
 <br>
 
@@ -309,6 +334,7 @@ import torch.nn as nn
 import torch.onnx
 from torchvision import models
 import onnx
+from onnx import shape_inference
 import onnx.numpy_helper as numpy_helper
 
 # CreateNetwork should be modified by custom deep-learning model
@@ -342,7 +368,7 @@ net.eval()
 # ② torch 모델을 이용하여 onnx 모델을 생성합니다.
 # (B, C, H, W) 의 dimension을 가지는 것으로 가정함
 dummy_data = torch.empty(1, channel, height, width, dtype = torch.float32)
-torch.onnx.export(net, dummy_data, "output.onnx", input_names = ['input'], output_names = ['output'])
+torch.onnx.export(net, dummy_data, onnx_path, input_names = ['input'], output_names = ['output'])
 
 # ③ 생성한  onnx 모델을 다시 블루어와서 torch 모델과 onnx 모델의 weight를 비교합니다.
 # 입력 받은 onnx 파일 경로를 통해 onnx 모델을 불러옵니다.
@@ -390,6 +416,12 @@ if difference_flag:
     print("save updated onnx model.")
     onnx_new_path = os.path.dirname(os.path.abspath(onnx_path)) + os.sep + "updated_" + os.path.basename(onnx_path)
     onnx.save(onnx_model, onnx_new_path)
+
+# ⑤ 최종적으로 저장된 onnx 모델을 불러와서 shape 정보를 추가한 뒤 다시 저장합니다.
+if difference_flag:
+    onnx.save(onnx.shape_inference.infer_shapes(onnx.load(onnx_new_path)), onnx_new_path)
+else:
+    onnx.save(onnx.shape_inference.infer_shapes(onnx.load(onnx_path)), onnx_path)
 ```
 
 <br>
