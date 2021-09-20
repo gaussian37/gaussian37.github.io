@@ -2,7 +2,7 @@
 layout: post
 title: Softmax와 Negative Log Likelihood Loss
 date: 2020-01-07 00:00:00
-img: dl/concept/nll_loss/0.png
+img: dl/concept/nll_loss/4.png
 categories: [dl-concept]
 tags: [deep learning, loss function, softmax, negatics log likelihood] # add tag
 ---
