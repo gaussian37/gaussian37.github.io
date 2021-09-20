@@ -17,10 +17,10 @@ tags: [deep learning, loss function, softmax, negatics log likelihood] # add tag
 
 <br>
 
-- ### Softmax
-- ### Negative Log-Likelihood (NLL)
-- ### Negative Log Likelihood에 대한 Softmax 함수의 미분
-- ### Pytorch에서 사용 방법
+- ### [Softmax](#softmax-1)
+- ### [Negative Log-Likelihood (NLL)](#negative-log-likelihood-nll-1)
+- ### [Negative Log Likelihood에 대한 Softmax 함수의 미분](#negative-log-likelihood에-대한-softmax-함수의-미분-1)
+- ### [Pytorch에서 사용 방법](#pytorch에서-사용-방법-1)
 
 <br>
 
@@ -62,7 +62,8 @@ tags: [deep learning, loss function, softmax, negatics log likelihood] # add tag
 
 <br>
 
-- 앞에서 다룬 `softmax`와 더불어서 `NLL`을 이용하여 딥러닝의 `Loss`를 만들 수 있습니다. 적용하는 방법은 간단합니다. 어떤 입력에 대한 `sofrmax` 출력 중 **가장 큰 값**을 다음 식에 적용하면 됩니다. $$ y $$는 softamx 출력값 중 가장 큰 값입니다.
+- 앞에서 다룬 `softmax`와 더불어서 `NLL`을 이용하여 딥러닝의 `Loss`를 만들 수 있습니다. 적용하는 방법은 간단하며 구현 방법에 따라 다음 두가지 방법으로 나뉩니다. 방법은 ① `argmax`를 취하는 방법과 ② `모든 logit`에 적용하는 방법이 있습니다.
+- ① `argmax`를 취하는 방법 : 어떤 입력에 대한 `sofrmax` 출력 중 **가장 큰 값**을 다음 식에 적용하면 됩니다. $$ y $$는 softamx 출력값 중 가장 큰 값입니다.
 
 <br>
 
@@ -84,6 +85,24 @@ tags: [deep learning, loss function, softmax, negatics log likelihood] # add tag
 <br>
 
 - 따라서 위 그래프와 같이 softmax 출력에 대한 $$ -\log(\mathbf{y}) $$는 Loss 처럼 나타낼 수 있습니다.
+
+<br>
+
+- ② `모든 logit`에 적용하는 방법 : 이 방법은 ①에서 다룬 `argmax` 부분을 없애고 softmax를 취하고 나온 모든 `logit`에 대하여 `loss`를 구하는 방법입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/nll_loss/4.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 위 그림과 같이 정답에 해당하는 클래스에는 `-log(a)`를 취하고 정답이 아닌 클래스에는 `-log(1-a)`를 취합니다. 
+- 정답 클래스의 경우 softmax의 결과가 1에 가까워야 하고 1에 가까울수록 `-log(a)`는 0에 가까워지므로 loss가 줄어들게 됩니다.
+- 반면 정답이 아닌 클래스의 경우 softmax의 결과가 0에 가까워야 하고 0에 가까울수록 `-log(1-a)`는 0에 가까워지므로 loss가 줄어들게 됩니다.
+- 최종적으로 계산된 모든 `NLL Loss`에 대하여 `sum` 또는 `mean` 연산을 취하면 Loss가 하나의 스칼라 값으로 도출되게 됩니다.
+- `eps`를 적용하는 이유는 극단적으로 Loss값이 무한대에 가까워져서 `NaN`이 생기는 것을 방지하기 위함입니다.
+
+<br>
+
+- 참고로 `Pytorch`에서 사용되는 Loss 방법은 ② `모든 logit`에 적용하는 방법이므로 이를 참조하여 Custom한 Loss를 설계하는데 참조하시면 됩니다.
 
 <br>
 

@@ -31,7 +31,10 @@ tags: [deep learning, focal loss] # add tag
 
 - ### Focal Loss의 필요성
 - ### Cross Entropy Loss의 문제점
+- ### Balanced Cross Entropy Loss의 한계
 - ### Focal Loss 알아보기
+- ### Object Detection의 Focal Loss
+- ### Semantic Segmentation의 Focal Loss
 
 <br>
 
@@ -76,11 +79,11 @@ tags: [deep learning, focal loss] # add tag
 
 <br>
 
-- $$ \text{Cross Entropy Loss} = -Y_{\text{act}} \log{(Y_{pred})} - (1 - Y_{\text{act}})\log{1 - Y_{\text{pred}}} \tag{1} $$ 
+- $$ \text{Cross Entropy Loss} = -Y_{\text{act}} \log{(Y_{pred})} - (1 - Y_{\text{act}})\log{(1 - Y_{\text{pred}})} \tag{1} $$ 
 
-- $$ \text{where} Y_{\text{act}} = \text{Actual Value of Y} $$
+- $$ \text{where,  } Y_{\text{act}} = \text{Actual Value of Y} $$
 
-- $$ \text{where} Y_{\text{pred}} = \text{Predicted Value of Y} $$
+- $$ \text{where,  } Y_{\text{pred}} = \text{Predicted Value of Y} $$
 
 <br>
 
@@ -124,12 +127,50 @@ tags: [deep learning, focal loss] # add tag
 
 <br>
 
+## **Balanced Cross Entropy Loss의 한계**
+
+<br>
+
+- Cross Entropy 케이스에서 발생하는 문제인 Foreground와 Background 케이스의 비율이 다른 점을 개선하기 위하여 Cross Entropy Loss 자체에 비율을 보상하기 위한 weight를 추가로 곱해주는 방법을 사용할 수 있습니다.
+- 예를 들어 Foreground 객체의 클래스 수와 Background 객체의 클래스 수 각각의 역수의 갯수를 각 Loss에 곱한다면 클래스 수가 많은 Background의 경우 Loss가 작게 반영될 것이고 클래스 수가 적은 Foreground의 경우 Loss가 크게 반영될 것입니다.
+- 이와 같이 **각 클래스의 Loss 비율을 조절하는 weight** $$ w_{t} $$ 를 곱해주어 imbalance class 문제에 대한 개선을 하고자 하는 방법이 `Balanced Cross Entropy Loss` 라고 합니다.
+- 일반적으로 $$ 0 \le w_{t} \le 1 $$ 범위의 값을 사용하며 식으로 표현하면 다음과 같습니다.
+
+<br>
+
+- $$ \text{CE}(p_{t}) = -w_{t}\log{(p_{t})} \tag{7} $$
+
+<br>
+
+- `Cross Entropy Loss`의 근본적인 문제가 Foreground 대비 Background의 객체가 굉장히 많이 나오는 class imbalance 문제에 해당하였습니다. 따라서 `Balanced Cross Entropy Loss`의 `weight` $$ w $$ 를 이용하면 $$ w $$ 에 대한 값의 조절을 통해 해결할 수 있을 것으로 보입니다. 즉, Forground의 weight는 크게 Background의 weight는 작게 적용하는 방향으로 개선하고자 하는 것입니다.
+- 하지만 이와 같은 방법에는 문제점이 있습니다. 바로, **Easy/Hard example 구분을 할 수 없다는 점**입니다. **단순히 갯수가 많다고 Easy라고 판단하거나 Hard라고 판단하는 것에는 오차가 발생할 수 있습니다.**
+- 다음과 같은 예제를 살펴보겠습니다. 0.95의 확률로 Foreground 객체라고 분류한 Foreground 케이스에 weight 0.75를 주는 경우와 0.05의 확률로 Foreground 객체라고 분류 (즉, 0.95의 확률로 Background 객체라고 분류)한 Background 케이스에 weight 0.25를 주는 경우를 살펴보겠습니다.
+
+<br>
+
+- $$ \text{CE(FG)} = -0.75 \log{(0.95)} = 0.038 \tag{8} $$
+
+- $$ \text{CE(BG)} = -(1 - 0.75) \log{(1 - 0.05)} = 0.0128 \tag{9} $$
+
+<br>
+
+- 앞에서 설명한 바와 같이 통상적으로 Background 객체의 수가 작으므로 더 낮은 Loss를 반영하기 위해 더 작은 weight를 반영하도록 하였습니다.
+- 그리고 식을 살펴보면 `Easy/Hard Example`에 대한 반영은 전혀 없는 것 또한 알 수 있습니다.
+- 따라서, `Easy/Hard Example`을 반영하기 위하여 이 글의 주제인 `Focal Loss`에 대하여 다루어 보도록 하겠습니다.
+
+<br>
+
 ## **Focal Loss 알아보기**
 
 <br>
 
+- `Focal Loss`는 **Easy Example의 weight를 줄이고 Hard Negative Example에 대한 학습에 초점을 맞추는 Cross Entropy Loss 함수의 확장판**이라고 말할 수 있습니다.
+
+
 
 <br>
+
+
 
 
 
