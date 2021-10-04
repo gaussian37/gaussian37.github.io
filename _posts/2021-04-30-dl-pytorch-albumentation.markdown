@@ -158,6 +158,7 @@ cv2.imwrite("city_mask_augmented.png", augmentation_mask)
 - 위 코드에서 사용된 `RandomResizedCrop`을 통하여 원본 영상이 resize 된 것을 알 수 있습니다.
 - segmentation에서 사용되는 `mask`는 각 픽셀 별 클래스 정보를 나타내므로 1 채널 8bit 이미지이지만 시각화를 위하여 컬러 이미지를 사용하였습니다.
 - 여기서 핵심은 `augmentations = transform(image=image, mask=mask)` 입니다. `image`와 `mask`에 해당하는 데이터를 단순히 `transform`의 `image`와 `mask`라는 파라미터로 넘겨주기만 하면 **segmentation 목적에 맞게 data가 변형됩니다.** 이 점이 바로 `albumentation`의 핵심이라고 말할 수 있습니다.
+- 기본적으로 `image`는 `bilinear interpolation`이 적용되어 이미지의 사이즈가 변형이 되고 `mask`는 `nearest`가 적용이 되어 이미지의 사이즈가 변형이 됩니다.
 
 <br>
 
@@ -184,10 +185,20 @@ cv2.imwrite("city_mask_augmented.png", augmentation_mask)
 <center><img src="../assets/img/dl/pytorch/albumentation/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- `albumentation`의 다양한 augmentation 기법은 공식 문서를 통해 확인이 가능하며 대략적으로 아래와 같은 범주로 augmentation을 지원합니다.
 
+<br>
+<center><img src="../assets/img/dl/pytorch/albumentation/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
+- 다양한 augmentation 방법을 `A.Compose()`로 묶어서 `transform`을 생성합니다. 여러가지 방법을 조합하는 방법은 다음과 같습니다.
 
+<br>
+<center><img src="../assets/img/dl/pytorch/albumentation/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
+- 위 예시에서 다양한 augmentation 방법이 List 형식으로 차례대로 이어져 있습니다.
+- 여기서 `A.OneOf`라는 방법을 살펴보면 `A.OneOf([...])`의 List에 있는 방법 중 하나가 적용된다는 의미입니다. 이 때, 각 augmentation의 발생 확률을 상세하게 정할 수 있어 어떤 augmentation이 좀 더 잘 선택 될수 있도록 할 수도 있습니다. 만약 `A.OneOf([...], p)`와 같이 `A.OneOf` 자체에 `p` 값을 입력하면 `A.OneOf` 자체가 적용될 확률 또한 적용할 수 있습니다.
 
 <br>
 
@@ -195,7 +206,7 @@ cv2.imwrite("city_mask_augmented.png", augmentation_mask)
 
 <br>
 
--  
+- 
 
 <br>
 
