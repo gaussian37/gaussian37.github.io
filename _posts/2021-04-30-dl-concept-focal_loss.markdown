@@ -33,8 +33,7 @@ tags: [deep learning, focal loss] # add tag
 - ### Cross Entropy Loss의 문제점
 - ### Balanced Cross Entropy Loss의 한계
 - ### Focal Loss 알아보기
-- ### Object Detection의 Focal Loss
-- ### Semantic Segmentation의 Focal Loss
+- ### Focal Loss Pytorch Code
 
 <br>
 
@@ -165,12 +164,53 @@ tags: [deep learning, focal loss] # add tag
 <br>
 
 - `Focal Loss`는 **Easy Example의 weight를 줄이고 Hard Negative Example에 대한 학습에 초점을 맞추는 Cross Entropy Loss 함수의 확장판**이라고 말할 수 있습니다.
-
-
+- Cross Entropy Loss 대비 Loss에 곱해지는 항인 $$ (1 - p_{t})^{\gamma} $$ 에서 $$ \gamma \ge 0 $$ 의 값을 잘 조절해야 좋은 성능을 얻을 수 있습니다.
+- 추가적으로 전체적인 Loss 값을 조절하는 $$ \alpha $$ 값 또한 논문에서 사용되어 $$ \alpha, \gamma $$ 값을 조절하여 어떤 값이 좋은 성능을 가졌는 지 보여주었습니다. 식은 아래와 같고 논문에서는 $$ \alpha = 0.25, \gamma = 2 $$ 를 최종적으로 사용하였습니다.
 
 <br>
 
+- $$ \text{FL(p_{t})} = -\alpha_{t}(1 - p_{t})^{\gamma} \log{(p_{t})} \tag{10} $$
 
+<br>
+
+- 위 식에서 Foreground에 대해서는 $$ \alpha = 0.25 $$ 가 적용되면 Background에 대해서는 $$ \alpha = 0.75 $$ 가 적용되도록 사용됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/focal_loss/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그래프는 $$ \gamma $$ 가 0 ~ 5 까지 변화할 때의 변화를 나타내며 $$ \gamma = 0 $$ 일 때, Cross Entropy Loss와 같고 $$ \gamma $$ 가 커질수록 Easy Example에 대한 Loss가 크게 줄어들며 Easy Examle에 대한 범위도 더 커집니다.
+- 위 그래프를 통하여 Focal Loss의 속성을 크게 3가지 분류할 수 있습니다.
+- ① 잘못 분류되어 $$ p_{t} $$ 가 작아지게 되면 $$ (1 - p_{t})^{\gamma} $$ 도 1에 가까워지고 $$ \log{(p_{t})} $$ 또한 커져서 Loss에 반영됩니다.
+- ② $$ p_{t} $$ 가 1에 가까워지면 $$ (1 - p_{t})^{\gamma} $$ 은 0에 가까워지고 Cross Entropy Loss와 동일하게 $$ \log{(p_{t})} $$ 값 또한 줄어들게 됩니다.
+- ③ $$ (1 - p_{t})^{\gamma} $$ 에서 $$ \gamma $$ 를 `focusing parameter` 라고 하며 **Easy Example에 대한 Loss의 비중을 낮추는 역할**을 합니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/focal_loss/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림을 살펴보겠습니다. ① 빨간색 케이스의 경우 Hard 케이스의 문제이며 ② 초록색의 경우 Easy 케이스의 문제입니다. 그래프에 적용된 $$ \alpha = 1, \gamma = 1 $$ 입니다.
+
+<br>
+
+- $$ \text{CE}(\p_{t}) = -\log{(\p_{t})} $$
+
+- $$ \text{FL}(\p_{t}) = -(1 - p_{t})\log{(\p_{t})} $$
+
+<br>
+
+- ①에서는 $$ p_{t} = 0.1 $$ 이므로 $$ \text{CE}(0.1) = -\log{(0.1)} = 2.30259... \approx = 2.3 $$ 이고 $$ \text{FL}(0.1) = -(1 - 0.1)\log{(0.1)} = 2.07233... \approx = 2.1 $$ 임을 알 수 있습니다.
+- ②에서는 $$ p_{t} = 0.9 $$ 이므로 $$ \text{CE}(0.9) = -\log{(0.9)} = 0.105361... \approx = 0.1 $$ 이고 $$ \text{FL}(0.9) = -(1 - 0.9)\log{(0.9)} = 0.0105361... \approx = 0.01 $$ 임을 알 수 있습니다.
+- Hard 케이스 보다 **Easy 케이스의 경우 weight가 더 많이 떨어짐을 통하여 기존에 문제가 되었던 수많은 Easy Negative 케이스에 의한 Loss가 누적되는 문제를 개선**합니다.
+
+- `Focal Loss`를 정리하면 다음과 같습니다.
+- 배경(background)와 같은 Easy Negative 케이스는 잘 맞추기 때문에 loss는 작다. 하지만 갯수가 많아서 누적이 되면 전체 loss 값은 커진다.
+반면 실제 객체는 상대적으로 Hard 한 문제이고 따라서 loss 값은 커지지만 갯수가 작기 때문에
+일반적으로 실제 객체 추정에 필요한 loss 의 총합보다 배경에 사옹된 loss의 총합이 커지는 문제가 발생한다.
+Focal loss 에서는 마지막에 출력되는 각 클래스의 probability가 CE LOSS에 사용될 때 
+최종 확률값이 큰 EASY 케이스는 LOSS를 크게 줄이고 최종 확률 값이 낮은  HARD 케이스는 LOSS를 낮게 줄이는 역할을 한다.
+기본적으로 CE는 확률이 낮은 케이스에 페널티를 주는 역할만 하고 확률이 높은 케이스에 어떠한 보상도 주지 않는다.
+FL는 확률이 높은 케이스에는 확률이 낮은 케이스 보다 LOSS를 더 크게 낮추는 보상을 준다. 이 점이 차이점이다.
 
 
 

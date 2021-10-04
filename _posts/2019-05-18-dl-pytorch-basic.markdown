@@ -13,26 +13,26 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 
 <br>
 
-- ### Pytorch 란?
-- ### PyTorch 패키지의 구성 요소
-- ### PyTorch 기초 사용법
-- ### 텐서의 생성과 변환
-- ### 텐서의 인덱스 조작
-- ### 텐서 연산
-- ### 수학 함수 사용
-- ### 텐서의 차원 조작
-- ### Tensor 생성
-- ### Tensor 데이터 타입
-- ### Numpy to Tensor 또는 Tensor to Numpy
-- ### CPU 타입과 GPU 타입의 Tensor
-- ### Tensor 사이즈 확인하기
-- ### Index (slicing) 기능 사용방법
-- ### Join(cat, stack) 기능 사용 방법
-- ### slicing 기능 사용 방법
-- ### squeezing 기능 사용 방법
-- ### Initialization, 초기화 방법
-- ### Math Operation
-- ### Gradient를 구하는 방법
+- ### [Pytorch 란?](#pytorch-란-1)
+- ### [PyTorch 패키지의 구성 요소](#pytorch-패키지의-구성-요소-1)
+- ### [PyTorch 기초 사용법](#pytorch-기초-사용법-1)
+- ### [텐서의 생성과 변환](#텐서의-생성과-변환-1)
+- ### [텐서의 인덱스 조작](#텐서의-인덱스-조작-1)
+- ### [텐서 연산](#텐서-연산-1)
+- ### [텐서의 차원 조작](#텐서의-차원-조작-1)
+- ### [Tensor 생성](#tensor-생성-1)
+- ### [Tensor 데이터 타입](#tensor-데이터-타입-1)
+- ### [Numpy to Tensor 또는 Tensor to Numpy](#numpy-to-tensor-또는-tensor-to-numpy-1)
+- ### [CPU 타입과 GPU 타입의 Tensor](#cpu-타입과-gpu-타입의-tensor-1)
+- ### [Tensor 사이즈 확인하기](#tensor-사이즈-확인하기-1)
+- ### [Index (slicing) 기능 사용방법](#index-slicing-기능-사용방법-1)
+- ### [Join(cat, stack) 기능 사용 방법](#joincat-stack-기능-사용-방법-1)
+- ### [slicing 기능 사용 방법](#slicing-기능-사용-방법-1)
+- ### [squeezing 기능 사용 방법](#squeezing-기능-사용-방법-1)
+- ### [Initialization, 초기화 방법](#initialization-초기화-방법-1)
+- ### [Math Operation](#math-operation-1)
+- ### [Gradient를 구하는 방법](#gradient를-구하는-방법-1)
+- ### [벡터와 텐서의 element-wise multiplication](#)
 
 <br>
 
@@ -1035,3 +1035,49 @@ x1 = torch.FloatTensor(4,4)
 
 - Pytorch를 이용하여 Gradient를 구하는 방법에 대하여는 제 블로그의 다른 글에서 자세하게 다루었습니다.
     - 링크 : https://gaussian37.github.io/dl-pytorch-gradient/
+
+<br>
+
+## **벡터와 텐서의 element-wise multiplication**
+
+<br>
+
+- 딥러닝에서 연산을 하다보면 다음과 같은 그림의 연산을 하는 경우가 종종 발생합니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/basic/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 다음 코드를 통해 `channel` 크기가 같은 벡터와 텐서를 생성해 보겠습니다.
+
+<br>
+
+```python
+A = torch.ones(5, 3, 3)
+# tensor([[[1., 1., 1.],
+#          [1., 1., 1.],
+#          [1., 1., 1.]],
+
+#         [[1., 1., 1.],
+#          [1., 1., 1.],
+#          [1., 1., 1.]],
+
+#         [[1., 1., 1.],
+#          [1., 1., 1.],
+#          [1., 1., 1.]],
+
+#         [[1., 1., 1.],
+#          [1., 1., 1.],
+#          [1., 1., 1.]],
+
+#         [[1., 1., 1.],
+#          [1., 1., 1.],
+#          [1., 1., 1.]]])
+
+v = torch.arange(1, 5)
+# tensor([1, 2, 3, 4, 5])
+```
+
+<br>
+<center><img src="../assets/img/dl/pytorch/basic/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
