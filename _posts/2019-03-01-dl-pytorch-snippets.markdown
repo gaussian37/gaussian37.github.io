@@ -57,15 +57,16 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 <br>
 
 - ### **-------------------- 자주 사용하는 코드 모음 --------------------**
-- ### [파이썬 파일을 읽어서 네트워크 객체 생성](#파이썬-파일을-읽어서-네트워크-객체-생성)
-- ### [weight 초기화 방법](#weight-초기화-방법)
-- ### [load와 save 방법](#load와-save-방법)
-- ### [Dataloader 사용 방법](#dataloader-사용-방법)
-- ### [pre-trained model 사용 방법](#pre-trained-model-사용-방법)
-- ### [pre-trained model 수정 방법](#pre-trained-model-수정-방법)
-- ### [Learning Rate Scheduler 사용 방법](#learning-rate-scheduler-사용-방법)
-- ### [model의 parameter 확인 방법](#model의-parameter-확인-방법)
-- ### [Tensor 깊은 복사](#tensor-깊은-복사)
+- ### [파이썬 파일을 읽어서 네트워크 객체 생성](#파이썬-파일을-읽어서-네트워크-객체-생성-1)
+- ### [weight 초기화 방법](#weight-초기화-방법-1)
+- ### [load와 save 방법](#load와-save-방법-1)
+- ### [Dataloader 사용 방법](#dataloader-사용-방법-1)
+- ### [pre-trained model 사용 방법](#pre-trained-model-사용-방법-1)
+- ### [pre-trained model 수정 방법](#pre-trained-model-수정-방법-1)
+- ### [checkpoint 값 변경 후 저장](#checkpoint-값-변경-후-저장-1)
+- ### [Learning Rate Scheduler 사용 방법](#learning-rate-scheduler-사용-방법-1)
+- ### [model의 parameter 확인 방법](#model의-parameter-확인-방법-1)
+- ### [Tensor 깊은 복사](#tensor-깊은-복사-1)
 - ### [일부 weight만 업데이트 하는 방법](#일부-weight만-업데이트-하는-방법-1)
 - ### [OpenCV로 입력 받은 이미지 torch 형태로 변경](#opencv로-입력-받은-이미지-torch-형태로-변경-1)
 
@@ -2115,7 +2116,14 @@ def main():
     model = torchvision.models.vgg16(pretrained=False)
     optimizer = optim.Adam(model.parameters())
     
-    checkpoint = {'state_dict' : model.state_dict(), 'optimizer': optimizer.state_dict()}
+    checkpoint = {
+        'state_dict' : model.state_dict(), 
+        'optimizer': optimizer.state_dict(),
+        # 'epoch' : epoch,
+        # 'scheduler' : scheduler.state_dict(),
+        # 'lr' : lr,
+        # 'best_val', best_val
+    }
     # Try save checkpoint
     save_checkpoint(checkpoint)
     
@@ -2199,6 +2207,41 @@ print(label.shape)
 
 <br>
 
+- 앞에서 모델을 save, load 하는 방법을 알아보았습니다. 저장한 pre-trained model을 읽을 때, 아래와 같은 정보로 모델이 저장되어 있다고 가정하겠습니다.
+
+<br>
+
+```python
+checkpoint = {
+    'state_dict' : model.state_dict(), 
+    'optimizer': optimizer.state_dict(),
+    'epoch' : epoch,
+    'scheduler' : scheduler.state_dict(),
+    'lr' : lr,
+    'best_val', best_val
+}
+```
+
+<br>
+
+- 위 6가지 정도의 정보는 모델의 학습을 계속 이어 나갈 때 꼭 필요한 정보입니다. 최소한의 정보이므로 모델을 저장할 때 꼭 저장하길 추천드립니다.
+- 위 6가지 정보를 저장하였을 때, 불러와서 사용하는 방법은 다음과 같습니다.
+
+<br>
+
+```python
+resume_file_path = "../path/to/the/.../pre_trained.pth"
+checkpoint = torch.load(resume_file_path)
+
+model.load_state_dict(checkpoint['state_dict'])
+start_epoch = checkpoint['epoch']
+optimizer.load_state_dict(checkpoint['optimizer'])
+scheduler.load_state_dict(checkpoint['scheduler'])
+best_val = checkpoint['best_val']
+```
+
+<br>
+
 ## **pre-trained model 수정 방법**
 
 <br>
@@ -2261,6 +2304,42 @@ for delete_layer in delete_layers:
 
 <br>
 
+## **checkpoint 값 변경 후 저장**
+
+<br>
+
+- checkpoint의 값을 변경 후 저장하는 방법에 대하여 알아보도록 하겠습니다. checkpoint는 아래와 같은 구조로 저장되어 있다고 가정하겠습니다.
+
+<br>
+
+```python
+checkpoint = {
+    'state_dict' : model.state_dict(), 
+    'optimizer': optimizer.state_dict(),
+    'epoch' : epoch,
+    'scheduler' : scheduler.state_dict(),
+    'lr' : lr,
+    'best_val', best_val
+}
+```
+
+<br>
+
+- 이 때, checkpoint의 값을 변경 후 다시 저장하려면 아래와 같은 예시로 저장하면 됩니다.
+
+<br>
+
+```python
+resume_file_path1 = "../path/to/the/.../pre_trained1.pth"
+resume_file_path2 = "../path/to/the/.../pre_trained2.pth"
+checkpoint1 = torch.load(resume_file_path1)
+checkpoint2 = torch.load(resume_file_path2)
+
+checkpoint1['state_dict'] = checkpoint2['state_dict']
+torch.save(state, filename)
+```
+
+<br>
 
 ## **Learning Rate Scheduler 사용 방법**
 

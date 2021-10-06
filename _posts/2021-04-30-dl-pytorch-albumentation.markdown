@@ -36,6 +36,12 @@ tags: [deep learning, augmentation, albumentation, pytorch] # add tag
 
 <br>
 
+- ### [Normalize](#)
+- ### [RandomResizedCrop](#)
+- ### [RandomRotate90 & Resize](#)
+
+<br>
+
 - ### [ColorJitter](#)
 
 <br>
@@ -60,11 +66,6 @@ tags: [deep learning, augmentation, albumentation, pytorch] # add tag
 - ### [Flip](#)
 - ### [GridDistortion](#)
 - ### [Perspective](#)
-
-<br>
-
-- ### [RandomResizedCrop](#)
-- ### [RandomRotate90 & Resize](#)
 
 <br>
 
@@ -206,12 +207,166 @@ cv2.imwrite("city_mask_augmented.png", augmentation_mask)
 
 <br>
 
-- 
+- 링크 : [https://albumentations.ai/docs/api_reference/pytorch/transforms/#albumentations.pytorch.transforms.ToTensorV2](https://albumentations.ai/docs/api_reference/pytorch/transforms/#albumentations.pytorch.transforms.ToTensorV2)
+
+<br>
+<center><img src="../assets/img/dl/pytorch/albumentation/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `albumentation`을 pytorch에서 사용하려면 augmentation이 적용된 데이터 타입을 `torch`로 변환을 해야 합니다.
+- `from albumentations.pytorch import ToTensorV2`를 import 한 다음에 `ToTensorV2`를 `A.Compose` 마지막에 추가하면 augmentation이 적용된 데이터를 `torch` 타입으로 변환할 수 있습니다.
+- 아래 2가지 예시를 통하여 `ToTensorV2`를 적용한 것과 아닌 것의 차이점을 살펴보겠습니다.
+
+<br>
+
+```python
+import albumentations as A
+from albumentations.pytorch import ToTensorV2
+import cv2
+import numpy as np
+
+image = cv2.imread("city_image.png")
+mask = cv2.imread("city_mask.png")
+
+height = 150
+width = 300
+
+# Declare an augmentation pipeline
+transform = A.Compose([
+    A.Normalize(),
+    A.Resize(height=height, width=width),
+    A.RandomResizedCrop(height=height, width=width, scale=(0.3, 1.0)),
+#     ToTensorV2()
+])
+
+augmentations = transform(image=image, mask=mask)
+augmentation_img = augmentations["image"]
+augmentation_mask = augmentations["mask"]
+
+print(augmentation_img.shape)
+# (150, 300, 3)
+
+print(type(augmentation_img))
+# <class 'numpy.ndarray'>
+```
+
+<br>
+
+- 위 예시에서 `image`는 opencv를 통하여 입력되었으므로 numpy 형태이고 이 값을 augmentation 하더라도 그대로 numpy 값을 가집니다. 
+- opencv로 이미지를 읽었을 때, (H, W, C) 순서의 shape을 가지는 것 또한 확인할 수 있습니다.
+
+<br>
+
+```python
+import albumentations as A
+from albumentations.pytorch import ToTensorV2
+import cv2
+import numpy as np
+
+image = cv2.imread("city_image.png")
+mask = cv2.imread("city_mask.png")
+
+height = 150
+width = 300
+
+# Declare an augmentation pipeline
+transform = A.Compose([
+    A.Normalize(),
+    A.Resize(height=height, width=width),
+    A.RandomResizedCrop(height=height, width=width, scale=(0.3, 1.0)),
+    ToTensorV2()
+])
+
+augmentations = transform(image=image, mask=mask)
+augmentation_img = augmentations["image"]
+augmentation_mask = augmentations["mask"]
+
+print(augmentation_img.shape)
+# torch.Size([3, 150, 300])
+
+print(type(augmentation_img))
+# <class 'torch.Tensor'>
+```
+
+<br>
+
+- `A.Compose`의 마지막에 `ToTensorV2()`를 추가하였을 때, shape과 class가 모두 `torch` 타입으로 바뀌어져 있는 것을 알 수 있습니다. shape의 순서가 (H, W, C) → (C, H, W) 가 되고 class도 `torch.Tensor`가 되었습니다.
 
 <br>
 
 
 ## **자주 사용하는 이미지 augmentation 리스트**
+
+<br>
+
+## **Normalize**
+
+<br>
+
+- 링크 : [https://albumentations.ai/docs/api_reference/augmentations/transforms/#albumentations.augmentations.transforms.Normalize](https://albumentations.ai/docs/api_reference/augmentations/transforms/#albumentations.augmentations.transforms.Normalize)
+
+<br>
+<center><img src="../assets/img/dl/pytorch/albumentation/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `Normalize`는 입력 받은 이미지 값의 범위를 (0, 255) → (-1, 1) 범위로 줄여주는 역할을 합니다. 이와 같이 하는 이유는 입력 값의 범위를 줄여줌으로써 학습이 빨리 수렴되게 하고 특정 입력값이 커짐으로써 특정 weight값이 커지는 문제를 개선할 수 있기 때문입니다.
+- `Normalize`를 할 때, `mean,` `std` 값이 필요하며 albumentation에서는 추가적으로 `max_pixel_value`라는 값을 필요로 합니다. 그 이유는 `Normalize`하는 식이 다음과 같기 때문입니다.
+
+<br>
+
+- `img = (img - mean * max_pixel_value) / (std * max_pixel_value)`
+
+<br>
+
+- 보통 `mean`, `std` 값을 (0, 255) 사이의 값으로 저장하거나 (-1, 1) 사이의 값으로 저장합니다. 이 때, `max_pixel_value` 값은 다음과 같이 설정합니다. 참고로 `mean`, `std`는 리스트, 튜플 또는 넘파이 배열로 입력하면 됩니다.
+
+<br>
+
+- ① `mean`, `std` 값의 범위 (0, 255) : `max_pixel_value = 1.0`으로 설정 합니다. 
+
+<br>
+
+```python
+mean1 = [90, 100, 100]
+std1 = [30, 32, 28]
+
+transform = A.Compose([
+    A.Normalize(mean=mean1, std=std1, max_pixel_value=1.0),
+])
+```
+
+<br>
+
+- ②`mean`, `std` 값의 범위 (-1, 1) : `max_pixel_value = 255`으로 설정
+
+<br>
+
+```python
+mean2 = [mean1[0]/255, mean1[1]/255, mean1[2]/255]
+std2 = [std1[0]/255, std1[1]/255, std1[2]/255]
+
+transform = A.Compose([
+    A.Normalize(mean=mean2, std=std2, max_pixel_value=255),
+])
+```
+
+<br>
+
+- 위와 같이 `max_pixel_value`를 설정해야 정확한 Normalization 수식 `(변량 - 평균) / 표준편차`를 적용할 수 있습니다.
+
+<br>
+
+## **RandomResizedCrop**
+
+<br>
+
+<br>
+
+## **RandomRotate90 & Resize**
+
+<br>
+
+<br>
 
 <br>
 
@@ -315,19 +470,7 @@ cv2.imwrite("city_mask_augmented.png", augmentation_mask)
 <br>
 
 
-<br>
 
-## **RandomResizedCrop**
-
-<br>
-
-<br>
-
-## **RandomRotate90 & Resize**
-
-<br>
-
-<br>
 
 
 
