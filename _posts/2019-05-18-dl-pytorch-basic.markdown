@@ -32,7 +32,7 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 - ### [Initialization, 초기화 방법](#initialization-초기화-방법-1)
 - ### [Math Operation](#math-operation-1)
 - ### [Gradient를 구하는 방법](#gradient를-구하는-방법-1)
-- ### [벡터와 텐서의 element-wise multiplication](#)
+- ### [벡터와 텐서의 element-wise multiplication](#벡터와-텐서의-element-wise-multiplication-1)
 
 <br>
 
@@ -1048,6 +1048,7 @@ x1 = torch.FloatTensor(4,4)
 <center><img src="../assets/img/dl/pytorch/basic/2.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 위 연산은 element를 5개 가지는 주황색의 벡터와 (C, H, W) = (5, 3, 3)를 element-wise multiplication 하는 연산입니다. multiplication의 방향은 `C=Channel` 방향으로 곱해집니다.
 - 다음 코드를 통해 `channel` 크기가 같은 벡터와 텐서를 생성해 보겠습니다.
 
 <br>
@@ -1081,3 +1082,91 @@ v = torch.arange(1, 5)
 <br>
 <center><img src="../assets/img/dl/pytorch/basic/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
+
+- 파란색의 Tensor 값은 모두 1을 가진다고 가정해 보겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/basic/4.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 반면 주황색의 벡터는 1, 2, 3, 4, 5를 차례대로 가진다고 가정해 보겠습니다.
+- 이 때, channel 방향으로 element-wise multiplication을 하면 Tensor는 channel 방향으로 1, 2, 3, 4, 5를 가지게 됩니다.
+
+<br>
+
+- 이와 같은 연산을 하기 위해서는 다음 절차를 따르는 방법을 많이 사용합니다.
+- ① `view`를 사용하여 벡터를 텐서와 같은 shape으로 맞추어서 텐서로 만듭니다.
+- ② 두 텐서를 곱합니다.
+
+<br>
+
+```python
+A = torch.ones(5, 3, 3)
+print("A.shape : ", A.shape)
+# A.shape :  torch.Size([5, 3, 3])
+print(A)
+# tensor([[[1., 1., 1.],
+#          [1., 1., 1.],
+#          [1., 1., 1.]],
+
+#         [[1., 1., 1.],
+#          [1., 1., 1.],
+#          [1., 1., 1.]],
+
+#         [[1., 1., 1.],
+#          [1., 1., 1.],
+#          [1., 1., 1.]],
+
+#         [[1., 1., 1.],
+#          [1., 1., 1.],
+#          [1., 1., 1.]],
+
+#         [[1., 1., 1.],
+#          [1., 1., 1.],
+#          [1., 1., 1.]]])
+
+v = torch.arange(0, 5)
+print("v.shape : ", v.shape)
+# v.shape :  torch.Size([5])
+print(v)
+# tensor([0, 1, 2, 3, 4])
+
+v_tensor = v.view(v.size()[0], 1, 1)
+print("v_tensor.shape : ", v_tensor.shape)
+# v_tensor.shape :  torch.Size([5, 1, 1])
+print(v_tensor)
+# tensor([[[0]],
+
+#         [[1]],
+
+#         [[2]],
+
+#         [[3]],
+
+#         [[4]]])
+
+result = v_tensor * A
+print("result.shape : ", result.shape)
+# result.shape :  torch.Size([5, 3, 3])
+print(result)
+# tensor([[[0., 0., 0.],
+#          [0., 0., 0.],
+#          [0., 0., 0.]],
+
+#         [[1., 1., 1.],
+#          [1., 1., 1.],
+#          [1., 1., 1.]],
+
+#         [[2., 2., 2.],
+#          [2., 2., 2.],
+#          [2., 2., 2.]],
+
+#         [[3., 3., 3.],
+#          [3., 3., 3.],
+#          [3., 3., 3.]],
+
+#         [[4., 4., 4.],
+#          [4., 4., 4.],
+#          [4., 4., 4.]]])
+```
+
