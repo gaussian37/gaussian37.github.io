@@ -61,7 +61,6 @@ tags: [딥러닝, HarDNet, harmonious densenet, densenet, densely connected conv
 - 위 그림의 아래쪽을 보면 HarDNet Block의 구조를 볼 수 있습니다. DenseNet, LogDenseNet에 비해 connection 수가 줄어든 것을 볼 수 있습니다.
 - 위와 같은 방법을 통하여 concatenation 에 필요한 메모리, 계산 비용등을 줄일 수 있는 것이 HarDNet의 핵심 내용입니다.
 
-
 <br>
 
 - 이 논문에서 `harmonic` 이라는 용어를 사용한 이유는 논문에서 제시하는 block에서 layer 간 concatenation 하는 양상이 harmonic 한 형태로 이루어지기 떄문입니다.
