@@ -77,6 +77,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [torch.einsum 함수 사용 예제](#torcheinsum-함수-사용-예제-1)
 - ### [torch.softmax 함수 사용 예제](#torchsoftmax-함수-사용-예제-1)
 - ### [torch.repeat 함수 사용 예제](#torchrepeat-함수-사용-예제-1)
+- ### [torch.scatter 함수 사용 예제](#torchscatter-함수-사용-예제-1)
 
 <br>
 
@@ -93,6 +94,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [Tensor 깊은 복사](#tensor-깊은-복사-1)
 - ### [일부 weight만 업데이트 하는 방법](#일부-weight만-업데이트-하는-방법-1)
 - ### [OpenCV로 입력 받은 이미지 torch 형태로 변경](#opencv로-입력-받은-이미지-torch-형태로-변경-1)
+- ### [label을 이용하여 one hot 생성](#label을-이용하여-one-hot-생성-1)
 
 <br>
 
@@ -3120,6 +3122,87 @@ torch.arange(0, 4).repeat(3, 4)
 <br>
 
 - 위 예제를 보면 실제 어떻게 기존 Tensor가 반복되어 repeat함수를 통해 값이 채워지는 지 알 수 있습니다. 이 패턴을 이용하여 반복된 형태의 데이터를 쉽게 생성할 수 있습니다.
+
+<br>
+
+## **torch.scatter 함수 사용 예제**
+
+<br>
+
+- 참조 : https://pytorch.org/docs/stable/generated/torch.Tensor.scatter_.html#torch.Tensor.scatter_
+- `torch.scatter`는 index가 가리키는 위치에 특정 값을 대입하는 연산을 의미합니다. `scatter`가 흩뿌리다는 의미를 가지듯이 **특정 인덱스에 특정 값을 대입하는 연산**으로 값을 흩뿌린다고 생각하면 좋을 것 같습니다.
+- 연산 방식에는 `torch.scatter`와 `torch.scatter_`가 있습니다. `torch.scatter`는 `out-of-place` 버전으로 별도 메모리를 할당받아 추가로 데이터를 만드는 버전이고 `torch.scatter_`는 `inplace` 버전으로 기존의 데이터에 그대로 사용하는 방법입니다.
+
+<br>
+
+- `torch.scatter_` 즉, `inplace` 기준으로 동작되는 방법은 아래와 같습니다.
+
+<br>
+
+- `Tensor.scatter_(dim, index, src, reduce=None) → Tensor`
+
+<br>
+
+```python
+self[index[i][j][k]][j][k] = src[i][j][k]  # if dim == 0
+self[i][index[i][j][k]][k] = src[i][j][k]  # if dim == 1
+self[i][j][index[i][j][k]] = src[i][j][k]  # if dim == 2
+```
+
+<br>
+
+- `self`는 `inplace` 동작 기준으로 기존의 tensor 그대로를 의미합니다.
+- `dim` 값에 따라서 어떤 dimension에 `src` 값이 대입되는 지 달라집니다.
+
+<br>
+
+- 사용되는 파라미터는 다음과 같습니다.
+- `dim (int)` : 인덱스가 적용될 dimension을 입력합니다. 2차원에서 0번째는 행방향, 1번째는 열방향을 의미합니다.
+- `index (LongTensor)` : `scatter`할 값의 입력할 값인 `src`와 같은 차원을 가지도록 지정해야 합니다. 만약 인덱스가 비어있으면 변경되지 않습니다.
+- `src (Tensor or float)` : `dim` 방향에 `index`로 실제 입력할 값입니다.
+- `reduce (str, optional)` : 값을 넣지 않으면 `src` 값을 단순 대입하게 됩니다. 만약 `add`를 사용하면 대입 대신에 덧셈이 적용되고 `multiply`를 사용하면 곱셈이 적용됩니다.
+
+<br>
+
+```python
+src = torch.arange(1, 11).reshape((2, 5))
+print(src)
+# tensor([[ 1,  2,  3,  4,  5],
+#         [ 6,  7,  8,  9, 10]])
+
+index = torch.tensor([[0, 1, 2, 0, 2]])
+torch.zeros(3, 5, dtype=src.dtype).scatter_(0, index, src)
+# tensor([[1, 0, 0, 4, 0],
+#         [0, 2, 0, 0, 0],
+#         [0, 0, 3, 0, 5]])
+```
+
+<br>
+
+- 위 예제에서 `scatter_`의 `dim=0` 이므로 행 방향 (↓)으로 (3, 5) 사이즈의 zero tensor에 1, 2, 3, 4, 5가 각 인덱스 별로 대입된 것을 볼 수 있습니다. 6, 7, 8, 9 10에 해당하는 인덱스는 지정되지 않았으므로 무시됩니다.
+
+<br>
+
+```python
+src = torch.arange(1, 11).reshape((2, 5))
+print(src)
+# tensor([[ 1,  2,  3,  4,  5],
+#         [ 6,  7,  8,  9, 10]])
+
+index = torch.tensor([[0, 1, 2], [0, 1, 4]])
+torch.zeros(3, 5, dtype=src.dtype).scatter_(1, index, src)
+
+# tensor([[1, 2, 3, 0, 0],
+#         [6, 7, 0, 0, 8],
+#         [0, 0, 0, 0, 0]])
+```
+
+<br>
+
+- 위 예제에서는 `scatter_`가 `dim=1` 이므로 열 방향 (→)으로 (3, 5) 사이즈의 zero tensor에 연산된 것을 볼 수 있습니다.
+- 이와 같은 연산은 `one hot vector`를 만들 때 유용하게 사용할 수 있으며 다음 링크에서 참조할 수 있습니다.
+    - [segmentation 학습을 위한 one hot vector label 생성]()
+    
 
 <br>
 
