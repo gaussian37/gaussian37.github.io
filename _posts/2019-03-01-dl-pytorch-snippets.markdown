@@ -3200,8 +3200,8 @@ torch.zeros(3, 5, dtype=src.dtype).scatter_(1, index, src)
 <br>
 
 - 위 예제에서는 `scatter_`가 `dim=1` 이므로 열 방향 (→)으로 (3, 5) 사이즈의 zero tensor에 연산된 것을 볼 수 있습니다.
-- 이와 같은 연산은 `one hot vector`를 만들 때 유용하게 사용할 수 있으며 다음 링크에서 참조할 수 있습니다.
-    - [segmentation 학습을 위한 one hot label 생성](https://gaussian37.github.io/vision-segmentation-one_hot_label/)
+- 이와 같은 연산은 `one hot`을 만들 때 유용하게 사용할 수 있으며 다음 링크에서 참조할 수 있습니다.
+    - [segmentation 학습을 위한 one hot label 생성 및 Loss 연산](https://gaussian37.github.io/vision-segmentation-one_hot_label/)
     
 
 <br>

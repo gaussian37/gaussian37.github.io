@@ -1,11 +1,25 @@
 ---
 layout: post
-title: segmentation 학습을 위한 one hot label 생성
+title: segmentation 학습을 위한 one hot label 생성 및 Loss 연산
 date: 2021-03-28 00:00:00
 img: vision/segmentation/one_hot_label/0.png
 categories: [vision-segmentation] 
 tags: [vision, deep learning, segmentation, one hot label] # add tag
 ---
+
+<br>
+
+## **목치**
+
+<br>
+
+- ### [one hot label 생성 방법](#one-hot-label-생성-방법-1)
+- ### [segmentation 모델의 출력과 one hot label로 Loss 구하기](#segmentation-모델의-출력과-one-hot-label로-loss-구하기-1)
+
+
+<br>
+
+## **one hot label 생성 방법**
 
 <br>
 
@@ -126,3 +140,39 @@ segmetaion_label_to_one_hot_label(labels, num_classes=3)
 - 위 출력을 보면 `labels`의 값이 `one-hot`의 인덱스이고 그 인덱스 부분에 해당하는 값은 1을 가지고 그 이외의 부분은 0에 가까운 값을 가지는 것을 확인할 수 있습니다. channel 방향으로 인덱스를 적용해 보면 쉽게 이해할 수 있습니다.
 - 위 코드에서 `.scatter_`의 동작이 `one-hot`의 핵심이며 동작 방식은 다음 링크에서 확인 가능합니다.
     - 링크 : [torch.scatter 사용 방법](https://gaussian37.github.io/dl-pytorch-snippets/#torchscatter-%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C-1)
+
+<br>
+
+## **segmentation 모델의 출력과 one hot label 로 Loss 구하기**
+
+<br>
+
+- 앞의 과정을 통하여 `image`와 `label` 각각의 연산은 다음과 같은 과정을 거쳐서 shape이 결정되는 것을 확인하였습니다.
+- ① `image` : `(B, C=3, H, W)` → segmentation 모델 → `(B, C=#class, H, W)`
+- ② `label` : `(B, H, W)` → one hot label 생성 → `(B, C=#class, H, W)`
+
+<br>
+
+- `(B, C=#class, H, W)`로 크기가 같아졌으므로 두 텐서를 단순히 곱하면 element-wise로 곱을 하게 됩니다. 곱의 결과를 살펴보면 one-hot에서 hot(1)에 해당하는 클래스 부분의 확률 값은 유지되고 나머지 부분은 0 또는 0에 가까운 값이 곱해져서 0에 수렴하게 됩니다. 이 결과를 이용하여 Loss를 구하게 되며 그 순서는 다음과 같습니다.
+- ① segmentation 모델을 이용하여 prdict를 구합니다. (`(B, C=3, H, W)` → segmentation 모델 → `(B, C=#class, H, W)`)
+- ② label을 ont hot label로 생성합니다. (`(B, C=#class, H, W)`)
+- ③ (B, C, H, W)에서 C (Channel) 방향으로 sum을 합니다. (`(B, H, W)`)
+- ④ 최종 Loss 값이 스칼라 값이 되도록 하기 위하여 `mean` (또는 `sum`)을 적용하여 스칼라 값을 구합니다.
+
+<br>
+
+```python
+import cv2
+
+# image : (1, 3, H, W)
+image = cv2.imread("input.png")
+label = cv2.imread("label.png")
+
+predict = segmentation(image)
+one_hot_label = segmetaion_label_to_one_hot_label(label, num_classes=10)
+loss_temp = torch.sum(predict * one_hot_label, dim=1)
+loss = torch.mean(loss_temp)
+# loss = torch.sum(loss_temp)
+```
+
+<br>

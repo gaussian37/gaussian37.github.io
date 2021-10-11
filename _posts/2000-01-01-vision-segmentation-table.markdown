@@ -19,7 +19,7 @@ tags: [vision, deep learning, segmentation] # add tag
 
 <br>
 
-- [segmentation 학습을 위한 one hot label 생성](https://gaussian37.github.io/vision-segmentation-one_hot_label/)
+- [segmentation 학습을 위한 one hot label 생성 및 Loss 연산](https://gaussian37.github.io/vision-segmentation-one_hot_label/)
 - [mIoU(Mean Intersection over Union)](https://gaussian37.github.io/vision-segmentation-miou/)
 - [Fully Convolutional Networks for Semantic Segmentation](https://gaussian37.github.io/vision-segmentation-fcn/)
 - [SPPNet]()
