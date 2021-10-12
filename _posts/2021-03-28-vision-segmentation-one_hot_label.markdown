@@ -68,7 +68,7 @@ tags: [vision, deep learning, segmentation, one hot label] # add tag
 import torch
 from typing import Optional
 
-def segmetaion_label_to_one_hot_label(
+def label_to_one_hot_label(
     labels: torch.Tensor,
     num_classes: int,
     device: Optional[torch.device] = None,
@@ -92,7 +92,7 @@ def segmetaion_label_to_one_hot_label(
                 [[0, 1], 
                 [2, 0]]
             ])
-        >>> segmetaion_label_to_one_hot_label(labels, num_classes=3)
+        >>> label_to_one_hot_label(labels, num_classes=3)
         tensor([[[[1.0000e+00, 1.0000e-06],
                   [1.0000e-06, 1.0000e+00]],
         
@@ -121,7 +121,7 @@ labels = torch.LongTensor([
                 [[0, 1], 
                 [2, 0]]
             ])
-segmetaion_label_to_one_hot_label(labels, num_classes=3)
+label_to_one_hot_label(labels, num_classes=3)
 
 # tensor([[[[1.0000e+00, 1.0000e-06],
 #           [1.0000e-06, 1.0000e+00]],
@@ -136,10 +136,82 @@ segmetaion_label_to_one_hot_label(labels, num_classes=3)
 
 <br>
 
-- 위 예제를 살펴보면 (2, 2) 크기의 `labels`을 임시로 만들었습니다. 클래스는 총 3개입니다. 함수 `segmetaion_label_to_one_hot_label`를 이용하여 실행을 하면 위 주석 부분의 출력과 같이 나타나는 것을 확인할 수 있습니다.
+- 위 예제를 살펴보면 (2, 2) 크기의 `labels`을 임시로 만들었습니다. 클래스는 총 3개입니다. 함수 `label_to_one_hot_label`를 이용하여 실행을 하면 위 주석 부분의 출력과 같이 나타나는 것을 확인할 수 있습니다.
 - 위 출력을 보면 `labels`의 값이 `one-hot`의 인덱스이고 그 인덱스 부분에 해당하는 값은 1을 가지고 그 이외의 부분은 0에 가까운 값을 가지는 것을 확인할 수 있습니다. channel 방향으로 인덱스를 적용해 보면 쉽게 이해할 수 있습니다.
 - 위 코드에서 `.scatter_`의 동작이 `one-hot`의 핵심이며 동작 방식은 다음 링크에서 확인 가능합니다.
     - 링크 : [torch.scatter 사용 방법](https://gaussian37.github.io/dl-pytorch-snippets/#torchscatter-%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C-1)
+
+<br>
+
+- 만약 `one hot label`을 만들 때, `ignore_index` 설정이 필요한 경우가 발생합니다. `ignore_index`에 해당하는 label은 one hot의 모든 값을 0으로 설정하도록 만드는 경우에 해당합니다.
+- 이와 같이 만드는 경우는 Loss를 계산할 때, 계산이 되지 않도록 무시하기 위함입니다. 이와 같은 기능은 Pytorch에서 제공하는 Loss에도 구현되어 있습니다.
+- 아래 코드에서는 `ignore_index`가 일반적으로 사용하는 label보다 항상 큰 값을 사용한다는 것을 가정합니다. 예를 들어 label이 0 ~ 10까지 사용되었다면 `ignore_index`는 10보다 큰 수를 사용하는 것을 가정하는 것입니다.
+
+<br>
+
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import numpy as np
+from typing import Optional
+
+def label_to_one_hot_label(
+    labels: torch.Tensor,
+    num_classes: int,
+    device: Optional[torch.device] = None,
+    dtype: Optional[torch.dtype] = None,
+    eps: float = 1e-6,
+    ignore_index=100,
+) -> torch.Tensor:
+    r"""Convert an integer label x-D tensor to a one-hot (x+1)-D tensor.
+
+    Args:
+        labels: tensor with labels of shape :math:`(N, *)`, where N is batch size.
+          Each value is an integer representing correct classification.
+        num_classes: number of classes in labels.
+        device: the desired device of returned tensor.
+        dtype: the desired data type of returned tensor.
+
+    Returns:
+        the labels in one hot tensor of shape :math:`(N, C, *)`,
+
+    Examples:
+        >>> labels = torch.LongTensor([
+                [[0, 1], 
+                [2, 0]]
+            ])
+        >>> one_hot(labels, num_classes=3)
+        tensor([[[[1.0000e+00, 1.0000e-06],
+                  [1.0000e-06, 1.0000e+00]],
+        
+                 [[1.0000e-06, 1.0000e+00],
+                  [1.0000e-06, 1.0000e-06]],
+        
+                 [[1.0000e-06, 1.0000e-06],
+                  [1.0000e+00, 1.0000e-06]]]])
+
+    """
+    shape = labels.shape
+    # one hot : (B, C=ignore_index+1, H, W)
+    one_hot = torch.zeros((shape[0], ignore_index+1) + shape[1:], device=device, dtype=dtype)
+    
+    # labels : (B, H, W)
+    # labels.unsqueeze(1) : (B, C=1, H, W)
+    # one_hot : (B, C=ignore_index+1, H, W)
+    one_hot = one_hot.scatter_(1, labels.unsqueeze(1), 1.0) + eps
+    
+    # ret : (B, C=num_classes, H, W)
+    ret = torch.split(one_hot, [num_classes, ignore_index+1-num_classes], dim=1)[0]
+    
+    return ret
+```
+
+<br>
+
+- 위 코드 설명을 위해 실제 사용되는 label = 0 ~ 9로 가정하고 ignore_index=30이라고 가정하고 설명해 보겠습니다.
+- 위 코드에서는 dimension=1 방향으로 `ignore_index=30` 만큼의 크기를 가지는 `ont hot label`을 만든 후 `num_classes=10` 만큼 split 하여 dimension 방향으로 num_classes=10 만큼만 사용하도록 합니다.
+- `label` : (B, H, W) → `one hot label` : (B, C=ignore_index, H, W) → `one hot label` : (B, C=num_classes, H, W)로 크기가 변경됩니다.
 
 <br>
 
@@ -169,7 +241,7 @@ image = cv2.imread("input.png")
 label = cv2.imread("label.png")
 
 predict = segmentation(image)
-one_hot_label = segmetaion_label_to_one_hot_label(label, num_classes=10)
+one_hot_label = label_to_one_hot_label(label, num_classes=10)
 loss_temp = torch.sum(predict * one_hot_label, dim=1)
 loss = torch.mean(loss_temp)
 # loss = torch.sum(loss_temp)
