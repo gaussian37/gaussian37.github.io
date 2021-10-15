@@ -25,10 +25,11 @@ tags: [deep learning, augmentation, albumentation, pytorch] # add tag
 
 <br>
 
-- ### [albumentation 설치 및 기본 사용 방법](#)
+- ### [albumentation 설치](#)
 - ### [albumentation 이란](#)
 - ### [albumentation의 기본적인 사용 방법](#)
 - ### [albumentation의 pytorch에서의 사용 방법](#)
+- ### [albumentation 사용 시 tip](#)
 
 <br>
 
@@ -294,6 +295,32 @@ print(type(augmentation_img))
 
 <br>
 
+## **albumentation 사용 시 tip**
+
+<br>
+
+- ① 멀티 GPU를 사용한다면 다음 2가지의 `opencv` 설정을 해주면 효과적입니다.
+    - `cv2.setNumThreads(0)`
+    - `cv2.ocl.setUseOpenCL(False)`
+    - 이유는 다음과 같습니다. In some systems, in the multiple GPU regime, PyTorch may deadlock the DataLoader if OpenCV was compiled with OpenCL optimizations. Adding the following two lines before the library import may help. For more details https://github.com/pytorch/pytorch/issues/1355
+- ② transform을 한 이후에 `image`, `label`의 값이 유효한 지 한번 더 체크하는 것이 좋습니다. 저의 경우 transform 이후 label이 이상한 값을 가지게 되어 Loss 에서 에러가 발생하는 경우가 있었습니다. 아래와 같이 해결하였습니다.
+
+<br>
+    
+```python
+augmentations = transform(image=image, mask=mask)
+image = augmentations['image']
+mask = augmentations['mask']
+
+no_use_class = 99
+mask[mask >= num_class] = no_use_class
+mask[mask < 0] = no_use_class
+```
+
+<br>
+
+
+<br>
 
 ## **자주 사용하는 이미지 augmentation 리스트**
 
