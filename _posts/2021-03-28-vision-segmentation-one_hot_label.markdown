@@ -14,7 +14,8 @@ tags: [vision, deep learning, segmentation, one hot label] # add tag
 <br>
 
 - ### [one hot label 생성 방법](#one-hot-label-생성-방법-1)
-- ### [segmentation 모델의 출력과 one hot label로 Loss 구하기](#segmentation-모델의-출력과-one-hot-label로-loss-구하기-1)
+- ### [ignore index를 반영한 one hot label 생성 방법](#ignore-index-를-반영한-one-hot-label-생성-방법-1)
+- ### [segmentation 모델의 출력과 one hot label로 Loss 구하기](#segmentation-모델의-출력과-one-hot-label-로-loss-구하기-1)
 
 
 <br>
@@ -140,6 +141,10 @@ label_to_one_hot_label(labels, num_classes=3)
 - 위 출력을 보면 `labels`의 값이 `one-hot`의 인덱스이고 그 인덱스 부분에 해당하는 값은 1을 가지고 그 이외의 부분은 0에 가까운 값을 가지는 것을 확인할 수 있습니다. channel 방향으로 인덱스를 적용해 보면 쉽게 이해할 수 있습니다.
 - 위 코드에서 `.scatter_`의 동작이 `one-hot`의 핵심이며 동작 방식은 다음 링크에서 확인 가능합니다.
     - 링크 : [torch.scatter 사용 방법](https://gaussian37.github.io/dl-pytorch-snippets/#torchscatter-%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C-1)
+
+<br>
+
+## **ignore index를 반영한 one hot label 생성 방법**
 
 <br>
 
