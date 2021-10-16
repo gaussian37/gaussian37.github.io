@@ -14,8 +14,8 @@ tags: [vision, deep learning, segmentation, one hot label] # add tag
 <br>
 
 - ### [one hot label 생성 방법](#one-hot-label-생성-방법-1)
-- ### [ignore index를 반영한 one hot label 생성 방법](#ignore-index-를-반영한-one-hot-label-생성-방법-1)
-- ### [segmentation 모델의 출력과 one hot label로 Loss 구하기](#segmentation-모델의-출력과-one-hot-label-로-loss-구하기-1)
+- ### [ignore index를 반영한 one hot label 생성 방법](#ignore-index를-반영한-one-hot-label-생성-방법-1)
+- ### [segmentation 모델의 출력과 one hot label로 Loss 구하기](#segmentation-모델의-출력과-one-hot-label-로-loss-구하기)
 
 
 <br>
