@@ -9,9 +9,19 @@ tags: [Database, SQL] # add tag
 
 <br>
 
-- 이번 글에서는 DataBase의 교과서라고 불리는 [Database System Concepts](https://www.db-book.com/db7/)의 예제를 이용하여 기본적인 `SQL`에 대하여 알아보도록 하겠습니다.
-- ① SQL 실습 방법 : [https://www.db-book.com/db7/university-lab-dir/sqljs.html](https://www.db-book.com/db7/university-lab-dir/sqljs.html)
-- ② MySQL 또는 PostgreSQL에서 실습하기 위한 Table 및 샘플 DB 선언 후 사용 시 글 마지막의 SQL문을 사용하시면 됩니다.
+- 이번 글에서는 DataBase의 교과서라고 불리는 [Database System Concepts](https://www.db-book.com)의 예제를 이용하여 기본적인 `SQL`에 대하여 알아보도록 하겠습니다.
+- ① SQL 실습 방법 : [https://www.db-book.com/university-lab-dir/sqljs.html](https://www.db-book.com/university-lab-dir/sqljs.html)
+- ② MySQL 또는 PostgreSQL에서 실습하기 위한 Table 및 샘플 DB 선언은 다음 파일을 참조하시기 바랍니다.
+    - [ddl.sql](#https://drive.google.com/file/d/1b6t1fYjvaWs7S7j3tvZyCVgNFGDPFmo4/view?usp=sharing) : 최초 DB 테이블 생성 시 사용
+    - [ddl_with_drop.sql](#https://drive.google.com/file/d/1_Q6y7HCs7PN7MkX4b_gsvprpjNDdsGiQ/view?usp=sharing) : 기존에 DB 생성 이력이 있다면 기존 DB를 Drop 후 재생성
+    - [small_relation_insert_file.sql](#https://drive.google.com/file/d/1yQVi710aUegoT2vF-OJFS6Hm2i3odoU2/view?usp=sharing) : small relation을 가지는 small data
+    - [large_relation_insert_file.sql](#https://drive.google.com/file/d/1vJCcI2gSoIVM6k2qjsIA02GObs2CThbE/view?usp=sharing) : large ralation을 가지는 large data
+
+<br>
+<center><img src="../assets/img/etc/db/sql_basic/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
 
 <br>
 
@@ -72,170 +82,137 @@ where semester = 'Spring' and year = 2018;
 <br>
 
 - `SQL`에서는 Query 안에서 또다른 `select-from-where`를 가지는 sub query를 가질 수 있습니다.
-- 다음과 
-
-
-<br>
-
-## **Table 및 샘플 DB 선언을 위한 SQL**
 
 <br>
 
 ```sql
-DROP TABLE IF EXISTS `classroom`;
-
-CREATE TABLE `classroom` (
-  `building` varchar(15) NOT NULL,
-  `room_number` varchar(7) NOT NULL,
-  `capacity` int DEFAULT NULL,
-  PRIMARY KEY (`building`,`room_number`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `classroom` VALUES ('Packard','101',500),('Painter','514',10),('Taylor','3128',70),('Watson','100',30),('Watson','120',50);
-
-DROP TABLE IF EXISTS `department`;
-
-CREATE TABLE `department` (
-	`dept_name` varchar(20) NOT NULL,
-	`building` varchar(15) DEFAULT NULL,
-	`budget` decimal(12,2) DEFAULT NULL,
-	PRIMARY KEY (`dept_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `department` VALUES ('Biology','Watson',90000.00),('Comp. Sci.','Taylor',100000.00),('Elec. Eng.','Taylor',85000.00),('Finance','Painter',120000.00),('History','Painter',50000.00),('Music','Packard',80000.00),('Physics','Watson',70000.00);
-
-DROP TABLE IF EXISTS `course`;
-
-CREATE TABLE `course` (
-  `course_id` varchar(8) NOT NULL,
-  `title` varchar(50) DEFAULT NULL,
-  `dept_name` varchar(20) NOT NULL,
-  `credits` int DEFAULT NULL,
-  PRIMARY KEY (`course_id`),
-  FOREIGN KEY (`dept_name`) references `department`(`dept_name`) on delete RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `course` VALUES ('BIO-101','Intro. to Biology','Biology',4),('BIO-301','Genetics','Biology',4),('BIO-399','Computational Biology','Biology',3),('CS-101','Intro. to Computer Science','Comp. Sci.',4),('CS-190','Game Design','Comp. Sci.',4),('CS-315','Robotics','Comp. Sci.',3),('CS-319','Image Processing','Comp. Sci.',3),('CS-347','Database System Concepts','Comp. Sci.',3),('EE-181','Intro. to Digital Systems','Elec. Eng.',3),('FIN-201','Investment Banking','Finance',3),('HIS-351','World History','History',3),('MU-199','Music Video Production','Music',3),('PHY-101','Physical Principles','Physics',4);
-
-DROP TABLE IF EXISTS `instructor`;
-
-CREATE TABLE `instructor` (
-	`ID` char(5)  NOT NULL,
-	`name` varchar(20) NOT NULL,
-	`dept_name`  varchar(20) NOT NULL, 
-	`salary` decimal(8,2) DEFAULT NULL, 
-	PRIMARY KEY (`ID`),            
-	FOREIGN KEY (`dept_name`) references `department`(`dept_name`) on delete RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `instructor` VALUES ('10101','Srinivasan','Comp. Sci.',65000.00),('12121','Wu','Finance',90000.00),('15151','Mozart','Music',40000.00),('22222','Einstein','Physics',95000.00),('32343','El Said','History',60000.00),('33456','Gold','Physics',87000.00),('45565','Katz','Comp. Sci.',75000.00),('58583','Califieri','History',62000.00),('76543','Singh','Finance',80000.00),('76766','Crick','Biology',72000.00),('83821','Brandt','Comp. Sci.',92000.00),('98345','Kim','Elec. Eng.',80000.00);
-
-DROP TABLE IF EXISTS `time_slot`;
-
-CREATE TABLE `time_slot` (
-  `time_slot_id` varchar(4) NOT NULL,
-  `day` varchar(1) NOT NULL,
-  `start_hr` decimal(2,0) NOT NULL,
-  `start_min` decimal(2,0) NOT NULL,
-  `end_hr` decimal(2,0) NOT NULL,
-  `end_min` decimal(2,0) NOT NULL,
-  PRIMARY KEY (`time_slot_id`,`day`,`start_hr`,`start_min`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `time_slot` VALUES ('A','F',8,0,8,50),('A','M',8,0,8,50),('A','W',8,0,8,50),('B','F',9,0,9,50),('B','M',9,0,9,50),('B','W',9,0,9,50),('C','F',11,0,11,50),('C','M',11,0,11,50),('C','W',11,0,11,50),('D','F',13,0,13,50),('D','M',13,0,13,50),('D','W',13,0,13,50),('E','R',10,30,11,45),('E','T',10,30,11,45),('F','R',14,30,15,45),('F','T',14,30,15,45),('G','F',16,0,16,50),('G','M',16,0,16,50),('G','W',16,0,16,50),('H','W',10,0,12,30);
-
-DROP TABLE IF EXISTS `section`;
-
-CREATE TABLE `section` (
-  `course_id` varchar(8) NOT NULL,
-  `sec_id` varchar(8) NOT NULL,
-  `semester` varchar(6) NOT NULL,
-  `year` int NOT NULL,
-  `building` varchar(15) NOT NULL,
-  `room_number` varchar(7) NOT NULL,
-  `time_slot_id` varchar(4) NOT NULL,
-  PRIMARY KEY (`course_id`,`sec_id`,`semester`,`year`),
-  FOREIGN KEY (`course_id`) references `course`(`course_id`) on delete RESTRICT,
-  FOREIGN KEY (`building`, `room_number`) references `classroom`(`building`, `room_number`) on delete RESTRICT,
-  FOREIGN KEY (`time_slot_id`) references `time_slot`(`time_slot_id`) on delete RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `section` VALUES ('BIO-101','1','Summer',2009,'Painter','514','B'),('BIO-301','1','Summer',2010,'Painter','514','A'),('CS-101','1','Fall',2009,'Packard','101','H'),('CS-101','1','Spring',2010,'Packard','101','F'),('CS-190','1','Spring',2009,'Taylor','3128','E'),('CS-190','2','Spring',2009,'Taylor','3128','A'),('CS-315','1','Spring',2010,'Watson','120','D'),('CS-319','1','Spring',2010,'Watson','100','B'),('CS-319','2','Spring',2010,'Taylor','3128','C'),('CS-347','1','Fall',2009,'Taylor','3128','A'),('EE-181','1','Spring',2009,'Taylor','3128','C'),('FIN-201','1','Spring',2010,'Packard','101','B'),('HIS-351','1','Spring',2010,'Painter','514','C'),('MU-199','1','Spring',2010,'Packard','101','D'),('PHY-101','1','Fall',2009,'Watson','100','A');
-
-DROP TABLE IF EXISTS `teaches`;
-
-CREATE TABLE `teaches` (
-  `ID` varchar(5) NOT NULL,
-  `course_id` varchar(8) NOT NULL,
-  `sec_id` varchar(8) NOT NULL,
-  `semester` varchar(6) NOT NULL,
-  `year` int NOT NULL,
-  PRIMARY KEY (`ID`,`course_id`,`sec_id`,`semester`,`year`),
-  FOREIGN KEY (`course_id`,`sec_id`,`semester`,`year`) references `section`(`course_id`,`sec_id`,`semester`,`year`) on delete restrict,
-  FOREIGN KEY (`ID`) references `instructor`(`ID`) on delete RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `teaches` VALUES ('10101','CS-101','1','Fall',2009),('10101','CS-315','1','Spring',2010),('10101','CS-347','1','Fall',2009),('12121','FIN-201','1','Spring',2010),('15151','MU-199','1','Spring',2010),('22222','PHY-101','1','Fall',2009),('32343','HIS-351','1','Spring',2010),('45565','CS-101','1','Spring',2010),('45565','CS-319','1','Spring',2010),('76766','BIO-101','1','Summer',2009),('76766','BIO-301','1','Summer',2010),('83821','CS-190','1','Spring',2009),('83821','CS-190','2','Spring',2009),('83821','CS-319','2','Spring',2010),('98345','EE-181','1','Spring',2009);
-
-DROP TABLE IF EXISTS `student`;
-
-CREATE TABLE `student` (
-  `ID` varchar(5) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `dept_name` varchar(20),
-  `tot_cred` int,
-  PRIMARY KEY (`ID`),
-  FOREIGN KEY (`dept_name`) references `department`(`dept_name`) on delete RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `student` VALUES ('00000', 'ShinHwan Kang', 'Comp. Sci.', 100), ('00001', 'HoeHoon Jung', 'Comp. Sci.', 100), ('00128','Zhang','Comp. Sci.',102),('12345','Shankar','Comp. Sci.',32),('19991','Brandt','History',80),('23121','Chavez','Finance',110),('44553','Peltier','Physics',56),('45678','Levy','Physics',46),('54321','Williams','Comp. Sci.',54),('55739','Sanchez','Music',38),('70557','Snow','Physics',0),('76543','Brown','Comp. Sci.',58),('76653','Aoi','Elec. Eng.',60),('98765','Bourikas','Elec. Eng.',98),('98988','Tanaka','Biology',120);
-
-DROP TABLE IF EXISTS `advisor`;
-
-CREATE TABLE `advisor` (
-  `s_ID` varchar(5) NOT NULL,
-  `i_ID` varchar(5) NOT NULL,
-  PRIMARY KEY (`s_ID`),
-  FOREIGN KEY (`i_ID`) REFERENCES `instructor` (`ID`) on DELETE RESTRICT,
-  FOREIGN KEY (`s_ID`) REFERENCES `student` (`ID`) on DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `advisor` (`s_ID`, `i_ID`) VALUES
-('12345', '10101'),
-('44553', '22222'),
-('45678', '22222'),
-('00128', '45565'),
-('76543', '45565'),
-('23121', '76543'),
-('98988', '76766'),
-('76653', '98345'),
-('98765', '98345');
-
-DROP TABLE IF EXISTS `takes`;
-
-CREATE TABLE `takes` (
-  `ID` varchar(5) NOT NULL,
-  `course_id` varchar(8) NOT NULL,
-  `sec_id` varchar(8) NOT NULL,
-  `semester` varchar(6) NOT NULL,
-  `year` int NOT NULL,
-  `grade` varchar(2) DEFAULT NULL,
-  PRIMARY KEY (`ID`,`course_id`,`sec_id`,`semester`,`year`),
-  FOREIGN KEY (`ID`) REFERENCES `student` (`ID`) on DELETE RESTRICT,
-  FOREIGN KEY (`course_id`,`sec_id`,`semester`,`year`) references `section`(`course_id`,`sec_id`,`semester`,`year`) on delete restrict
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `takes` VALUES ('00000', 'CS-347', '1', 'Fall', '2009', 'A+'), ('00001', 'CS-347', '1', 'Fall', '2009', 'A+'), ('00128','CS-101','1','Fall',2009,'A'),('00128','CS-347','1','Fall',2009,'A-'),('12345','CS-101','1','Fall',2009,'C'),('12345','CS-190','2','Spring',2009,'A'),('12345','CS-315','1','Spring',2010,'A'),('12345','CS-347','1','Fall',2009,'A'),('19991','HIS-351','1','Spring',2010,'B'),('23121','FIN-201','1','Spring',2010,'C+'),('44553','PHY-101','1','Fall',2009,'B-'),('45678','CS-101','1','Fall',2009,'F'),('45678','CS-101','1','Spring',2010,'B+'),('45678','CS-319','1','Spring',2010,'B'),('54321','CS-101','1','Fall',2009,'A-'),('54321','CS-190','2','Spring',2009,'B+'),('55739','MU-199','1','Spring',2010,'A-'),('76543','CS-101','1','Fall',2009,'A'),('76543','CS-319','2','Spring',2010,'A'),('76653','EE-181','1','Spring',2009,'C'),('98765','CS-101','1','Fall',2009,'C-'),('98765','CS-315','1','Spring',2010,'B'),('98988','BIO-101','1','Summer',2009,'A'),('98988','BIO-301','1','Summer',2010,NULL);
-
-DROP TABLE IF EXISTS `prereq`;
-
-CREATE TABLE `prereq` (
-  `course_id` varchar(8) NOT NULL,
-  `prereq_id` varchar(8) NOT NULL,
-  PRIMARY KEY (`course_id`,`prereq_id`),
-  FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`) on DELETE RESTRICT,
-  FOREIGN KEY (`prereq_id`) REFERENCES `course` (`course_id`) on DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `prereq` VALUES ('BIO-301','BIO-101'),('BIO-399','BIO-101'),('CS-190','CS-101'),('CS-315','CS-101'),('CS-319','CS-101'),('CS-347','CS-101'),('EE-181','PHY-101');
+select A_1, A_2, ..., A_n
+from r_1, r_2, ..., r_m
+where P
 ```
+
+<br>
+
+- 위 식에서 `A_i`는 `single value` 값을 생성하는 subquery로 교체될 수 있습니다.
+- `r_i`는 어떠한 subquery로도 변경될 수 있습니다.
+- 마지막으로 `P`는 `B <operation> subquery` 형태로 변경될 수 있습니다. `B`는 Attribute의 이름을 사용하면 되고 `operation`은 `=, >, <, in, not in` 등이 될 수 있습니다. 
+
+<br>
+
+- 이번 글에서는 다음과 같은 간단한 기능에 대하여 알아보겠습니다.
+- `set membership` 관련 기능 : `in`, `not in`
+- `set comparision` 관련 기능 : `some`, `all`, 
+- 그 이외 : `exists`, `not exists`, `unique`, 
+
+예제를 살펴보면 간단하게 이해할 수 있습니다.
+
+<br>
+
+- **2017 년도 가을 (Fall) 학기와 2018년도 봄 (Spring) 학기에 모두 열린 과목**을 찾아보겠습니다.
+
+<br>
+
+```sql
+select distinct course_id
+from section
+where semester = 'Fall' and year = '2017' and course_id in (
+    select course_id
+    from section
+    where semester = 'Spring' and year = '2018'
+)
+```
+
+<br>
+
+- subquery를 사용할 때, 일반적으로 위 코드와 같이 사용합니다.
+- subquery 부분만 보면 `course_id`가 operation인 `in` 앞에 사용되고 subquery에서도 `course_id`가 사용되었습니다. 뜻을 살펴보면 subquery 조건에 해당하는 값의 결과 중에서 course_id에 해당하는 것을 추출하는 것이므로 operation을 기준으로 양쪽의 Attribute가 같아서 조건이 성립되는 것을 알 수 있습니다.
+
+<br>
+
+- 이번에는 **2017 년도 가을 (Fall) 학기에는 열렸지만 2018년도 봄 (Spring) 학기에는 열리지 않은 과목**을 찾아보겠습니다.
+
+<br>
+
+```sql
+select course_id
+from section
+where semester = 'Fall' and year = '2017' and course_id not in (
+    select course_id
+    from section
+    where semester = 'Spring' and year = '2018'
+)
+
+-- course_id
+-- CS-347
+-- PHY-101
+```
+
+<br>
+
+- 이번에는 `some`에 대한 내용을 예제를 통하여 살펴보도록 하겠습니다. 예제는 `Biology` 학부의 임의의 교수님보다 급여가 높은 교수님의 명단을 찾는 것입니다.
+- 앞에서 배운 것과 같이 cartesian product를 이용하여 찾으면 다음과 같습니다.
+
+<br>
+
+```sql
+select distinct T.name
+from instructor as T, instructor as S
+where T.salary > S.salary and S.dept_name='Biology'
+
+-- name
+-- Wu
+-- Einstein
+-- Gold
+-- Katz
+-- Singh
+-- Brandt
+-- Kim
+```
+
+<br>
+
+- 이 식을 cartesian product를 이용하지 않고 사용하는 방법으로 `some`을 이용할 수 있습니다. 다음과 같습니다.
+
+<br>
+
+```sql
+select name
+from instructor
+where salary > some (
+    select salary
+    from instructor
+    where dept_name = 'Biology'
+)
+
+-- name
+-- Wu
+-- Einstein
+-- Gold
+-- Katz
+-- Singh
+-- Brandt
+-- Kim
+```
+
+<br>
+
+- 즉, 위 코드에서는 `> some`을 통하여 subquery의 결과 중 하나라도 일치하면 where을 만족한다고 판단합니다.
+
+<br>
+
+- `some`과는 반대로 `> all`을 이용하면 subquery의 결과를 모두 만족하면 where을 만족한다고 판단하도록 설정할 수 있습니다.
+
+<br>
+
+```sql
+select name
+from instructor 
+where salary > all (
+  select salary
+  from instructor
+  where dept_name = 'Biology'
+);
+```
+
+<br>
+
