@@ -160,9 +160,9 @@ tags: [python, deep learning, backpropagation, 역전파] # add tag
 
 - $$ \frac{\partial p_{k}}{\partial z_{k}} = \frac{\partial}{\partial z_{k}} \biggl( \frac{e^{z_{k}}}{\sum_{i}e^{z_{i}}} \biggr) \tag{24} $$
 
-- $$ = \frac{\mathbf{D} e^{z_{k}} \Sigma - e^{z_{k} \mathbf{D} \Sigma}{\Sigma^{2}} (\because \dfrac{f(x)}{g(x)} = \dfrac{g(x) \mathbf{D} f(x) - f(x) \mathbf{D} g(x)}{g(x)^2}) \tag{25} $$
+- $$ = \frac{\mathbf{D} \cdot e^{z_{k}} \Sigma - e^{z_{k}} \cdot\mathbf{D} \Sigma}{\Sigma^{2}}  \quad (\because \dfrac{f(x)}{g(x)} = \dfrac{g(x) \mathbf{D} f(x) - f(x) \mathbf{D} g(x)}{g(x)^2}) \tag{25} $$
 
-- $$ = \frac{e^{z_{k}}(\Sigma - e^{z_{k})}}{\Sigma^{2}} (\because \mathbf{D}\Sigma= \mathbf{D} \sum_{i} e^{z_{i} = e^{z_{k}) \tag{26} $$
+- $$ = \frac{e^{z_{k}}(\Sigma - e^{z_{k})}}{\Sigma^{2}} \quad(\because \mathbf{D}\Sigma= \mathbf{D} \sum_{i} e^{z_{i}} = e^{z_{k}}) \tag{26} $$
 
 - $$ = \frac{e^{z_{k}}}{\Sigma} \dfrac{\Sigma - e^{z_{k}}}{\Sigma} \tag{27} $$
 
