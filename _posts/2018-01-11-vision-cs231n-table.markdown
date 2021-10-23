@@ -14,7 +14,7 @@ tags: [cs231n] # add tag
 - ① Introduction
 - ② [Image Classification](https://gaussian37.github.io/vision-cs231n-image_classification/)
 - ③ [Loss Functions and Optimization](https://gaussian37.github.io/vision-cs231n-loss_function_and_optimization/)
-- ④ [Introduction to Neural Networks](https://gaussian37.github.io/vision-cs231n-introduction_to_neural_network/)
+- ④ [Backpropagation and Neural Networks](https://gaussian37.github.io/vision-cs231n-backpropagation_and_neural_networks/)
 - ⑤ [Convolutional Neural Networks](https://gaussian37.github.io/vision-cs231n-convolutional_neural_networks/)
 - ⑥ [Training Neural Networks 1](https://gaussian37.github.io/vision-cs231n-training_neural_networks_1/)
 - ⑦ [Training Neural Networks 2](https://gaussian37.github.io/vision-cs231n-training_neural_networks_2/)
