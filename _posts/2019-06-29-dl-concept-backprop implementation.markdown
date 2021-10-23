@@ -160,12 +160,19 @@ tags: [python, deep learning, backpropagation, 역전파] # add tag
 
 - $$ \frac{\partial p_{k}}{\partial z_{k}} = \frac{\partial}{\partial z_{k}} \biggl( \frac{e^{z_{k}}}{\sum_{i}e^{z_{i}}} \biggr) \tag{24} $$
 
-- $$ = \frac{\partial e^{z_{k}} \Sigma - e^{z_{k} \partial \Sigma}{\Sigma^{2}}  \tag{25} $$
+- $$ = \frac{\mathbf{D} e^{z_{k}} \Sigma - e^{z_{k} \mathbf{D} \Sigma}{\Sigma^{2}} (\because \dfrac{f(x)}{g(x)} = \dfrac{g(x) \mathbf{D} f(x) - f(x) \mathbf{D} g(x)}{g(x)^2}) \tag{25} $$
 
-- $$ = $$
+- $$ = \frac{e^{z_{k}}(\Sigma - e^{z_{k})}}{\Sigma^{2}} (\because \mathbf{D}\Sigma= \mathbf{D} \sum_{i} e^{z_{i} = e^{z_{k}) \tag{26} $$
 
+- $$ = \frac{e^{z_{k}}}{\Sigma} \dfrac{\Sigma - e^{z_{k}}}{\Sigma} \tag{27} $$
 
+- $$ = p_{k}(1 - p_{k}) \tag{28} $$
 
+- $$ \therefore \frac{\partial p_{k}}{\partial z_{k}} =  p_{k}(1 - p_{k}) \tag{29} $$
+
+<br>
+
+- 식 (29)인 `softmax`의 미분 결과와 식 (11)의 `sigmoid` 결과를 비교해보면 결과가 같은 것을 확인할 수 있습니다.
 
 <br>
 
