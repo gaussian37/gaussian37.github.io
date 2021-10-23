@@ -27,6 +27,7 @@ tags: [python, deep learning, backpropagation, 역전파] # add tag
 - ### softmax
 - ### cross entropy with softmax
 - ### multi layer perceptron
+- ### multi layer perceptron with multiclass
 
 <br>
 
@@ -38,37 +39,38 @@ tags: [python, deep learning, backpropagation, 역전파] # add tag
 
 <br>
 
-- $$ \sigma(x) = \frac{1}{1 + e^{-x}} \tag{1} $$
+- $$ \sigma(z) = \frac{1}{1 + e^{-z}} \tag{1} $$
 
 <br>
 
+- 식 (1)의 $$ z $$ 는 모델의 출력값에 해당합니다.
 - `sigmoid` 함수의 미분 결과는 다음과 같습니다.
 
 <br>
 
-- $$ \frac{d\sigma(x)}{dx} = \frac{d}{dx} (1 + e^{-x})^{-1} \tag{2} $$
+- $$ \frac{d\sigma(z)}{dz} = \frac{d}{dz} (1 + e^{-z})^{-1} \tag{2} $$
 
-- $$ = (-1)\frac{1}{(1 + e^{-x})^{2}} \frac{d}{dx}(1 + e^{-x}) \tag{3} $$
+- $$ = (-1)\frac{1}{(1 + e^{-z})^{2}} \frac{d}{dz}(1 + e^{-z}) \tag{3} $$
 
-- $$ = (-1)\frac{1}{(1 + e^{-x})^{2}} (0 + e^{-x}) \frac{d}{dx}(-x) \tag{4} $$
+- $$ = (-1)\frac{1}{(1 + e^{-z})^{2}} (0 + e^{-z}) \frac{d}{dz}(-z) \tag{4} $$
 
-- $$ = (-1)\frac{1}{(1 + e^{-x})^{2}}e^{-x}(-1) \tag{5} $$
+- $$ = (-1)\frac{1}{(1 + e^{-z})^{2}}e^{-z}(-1) \tag{5} $$
 
-- $$ = \frac{e^{-x}}{(1 + e^{-x})^{2}} \tag{6} $$
+- $$ = \frac{e^{-z}}{(1 + e^{-z})^{2}} \tag{6} $$
 
-- $$ = \frac{1 + e^{-x} - 1}{(1 + e^{-x})^{2}} \tag{7} $$
+- $$ = \frac{1 + e^{-z} - 1}{(1 + e^{-z})^{2}} \tag{7} $$
 
-- $$ = \frac{1 + e^{-x}}{(1 + e^{-x})^{2}} - \frac{1}{(1 + e^{-x})^{2}} \tag{8} $$
+- $$ = \frac{1 + e^{-z}}{(1 + e^{-z})^{2}} - \frac{1}{(1 + e^{-z})^{2}} \tag{8} $$
 
-- $$ = \frac{1}{(1 + e^{-x})} - \frac{1}{(1 + e^{-x})^{2}} \tag{9} $$
+- $$ = \frac{1}{(1 + e^{-z})} - \frac{1}{(1 + e^{-z})^{2}} \tag{9} $$
 
-- $$ = \frac{1}{(1 + e^{-x})}(1 - \frac{1}{(1 + e^{-x})} \tag{10} $$
+- $$ = \frac{1}{(1 + e^{-z})}(1 - \frac{1}{(1 + e^{-z})} \tag{10} $$
 
-- $$ = \sigma(x)(1 - \sigma(x)) \tag{11} $$
+- $$ = \sigma(z)(1 - \sigma(z)) \tag{11} $$
 
 <br>
 
-- $$ \therefore  \frac{d\sigma(x)}{dx} = \sigma(x)(1 - \sigma(x)) \tag{12} $$
+- $$ \therefore  \frac{d\sigma(z)}{dz} = \sigma(z)(1 - \sigma(z)) \tag{12} $$
 
 <br>
 
@@ -142,6 +144,32 @@ tags: [python, deep learning, backpropagation, 역전파] # add tag
 <br>
 
 - `sofrmax`의 식은 다음과 같습니다.
+
+<br>
+
+- $$ p_{k} = \frac{e^{z_{k}}}{\sum_{i}e^{z_{i}}} \tag{23} $$
+
+<br>
+
+- 식 (23) 에서 $$ p_{k} $$ 는 인덱스 $$ k $$ 에 해당하는 출력의 확률값을 의미합니다. $$ z_{k} $$ 는 인덱스 $$ k $$ 의 출력을 의미합니다.
+- 모든 출력에 대하여 `exp`를 적용하고 각 인덱스 $$ i $$ 에 대하여 전체에 대한 비율을 계산하므로 확률값 처럼 나타낼 수 있으며 모든 $$ p_{k} $$ 를 다 더하면 1이 됩니다.
+- 식 (23)의 $$ p_{k} $$ 의 $$ z_{k} $$ 에 대한 미분값은 아래 식의 과정으로 구할 수 있습니다.
+- 표기의 편의성을 위하여 $$ \sum_{i}e^{z_{i}} = \Sigma $$ 로 표기하겠습니다.
+
+<br>
+
+- $$ \frac{\partial p_{k}}{\partial z_{k}} = \frac{\partial}{\partial z_{k}} \biggl( \frac{e^{z_{k}}}{\sum_{i}e^{z_{i}}} \biggr) \tag{24} $$
+
+- $$ = \frac{\partial e^{z_{k}} \Sigma - e^{z_{k} \partial \Sigma}{\Sigma^{2}}  \tag{25} $$
+
+- $$ = $$
+
+
+
+
+<br>
+
+
 
 
 <br>
