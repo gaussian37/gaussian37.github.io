@@ -101,7 +101,7 @@ tags: [python, deep learning, backpropagation, 역전파] # add tag
 <br>
 
 - 일반적으로 `binary classification` 같은 문제에서는 `binary cross entropy`와 `sigmoid`를 섞어서 사용합니다.
-- 식 (13)의 $$ p $$ 가 모델의 최종 출력 $$ z $$ 에 `sigmoid` 함수를 적용한 $$ \sigmoid(z) $$ 라고 가정해 보겠습니다. 그러면 다음과 같이 식을 적을 수 있습니다.
+- 식 (13)의 $$ p $$ 가 모델의 최종 출력 $$ z $$ 에 `sigmoid` 함수를 적용한 $$ \sigma(z) $$ 라고 가정해 보겠습니다. 그러면 다음과 같이 식을 적을 수 있습니다.
 
 <br>
 
