@@ -28,6 +28,10 @@ tags: [python, deep learning, backpropagation, 역전파] # add tag
 - ### cross entropy with softmax
 - ### multi layer perceptron
 - ### multi layer perceptron with multiclass
+- ### convolution
+- ### zero padding
+- ### pooling
+- ### transposed convolution
 
 <br>
 
@@ -192,6 +196,7 @@ tags: [python, deep learning, backpropagation, 역전파] # add tag
 
 <br>
 
+## **multi layer perceptron with multiclass**
 
 <br>
 
