@@ -17,9 +17,12 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 
 <br>
 
-- 아래 방법은 '17.11.18 시점 기준 GPU 세팅 방법입니다.
-- CUDA를 설치해야 합니다. [CUDA](https://developer.nvidia.com/cuda-downloads)에서 본인 컴퓨터에 맞는 사양으로 설치하시면 됩니다.
-- cuDNN 파일을 컴퓨터에 붙어넣어야 합니다.
+- `RTX 3070`을 이용하여 로컬 컴퓨터에 설치하였을 때, `CUDA 11.1`, `cuDNN 8.2.0`, `Python 3.7.9`에서 정상적으로 동작함을 확인하였습니다.
+
+<br>
+
+- ① CUDA를 설치해야 합니다. [CUDA](https://developer.nvidia.com/cuda-downloads)에서 본인 컴퓨터에 맞는 사양으로 설치하시면 됩니다.
+- ② cuDNN 파일을 컴퓨터에 붙어넣어야 합니다.
     - [cuDNN](https://developer.nvidia.com/cudnn) 에서 컴퓨터 사양에 맞는 버전을 다운 받습니다.
     - 다운 받은 파일의 압축을 풀어 cuda/bin, cuda/incldue, cuda/lib의 폴더와 파일을 다음 경로에 붙여 넣습니다. (아래 경로 참조 하시어 컴퓨터 실제 경로에 맞도록 붙여넣습니다.)
         - C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\8.0 (또는 9.0)
