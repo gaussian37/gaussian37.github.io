@@ -29,11 +29,11 @@ tags: [deep learning, focal loss] # add tag
 
 <br>
 
-- ### Focal Loss의 필요성
-- ### Cross Entropy Loss의 문제점
-- ### Balanced Cross Entropy Loss의 한계
-- ### Focal Loss 알아보기
-- ### Focal Loss Pytorch Code
+- ### [Focal Loss의 필요성](#focal-loss의-필요성-1)
+- ### [Cross Entropy Loss의 문제점](#cross-entropy-loss의-문제점-1)
+- ### [Balanced Cross Entropy Loss의 한계](#balanced-cross-entropy-loss의-한계-1)
+- ### [Focal Loss 알아보기](#focal-loss-알아보기-1)
+- ### [Focal Loss Pytorch Code](#focal-loss-pytorch-code-1)
 
 <br>
 
@@ -193,9 +193,9 @@ tags: [deep learning, focal loss] # add tag
 
 <br>
 
-- $$ \text{CE}(\p_{t}) = -\log{(\p_{t})} $$
+- $$ \text{CE}(p_{t}) = -\log{(p_{t})} \tag{10} $$
 
-- $$ \text{FL}(\p_{t}) = -(1 - p_{t})\log{(\p_{t})} $$
+- $$ \text{FL}(p_{t}) = -(1 - p_{t})\log{(p_{t})} \tag{11} $$
 
 <br>
 
@@ -203,14 +203,13 @@ tags: [deep learning, focal loss] # add tag
 - ②에서는 $$ p_{t} = 0.9 $$ 이므로 $$ \text{CE}(0.9) = -\log{(0.9)} = 0.105361... \approx = 0.1 $$ 이고 $$ \text{FL}(0.9) = -(1 - 0.9)\log{(0.9)} = 0.0105361... \approx = 0.01 $$ 임을 알 수 있습니다.
 - Hard 케이스 보다 **Easy 케이스의 경우 weight가 더 많이 떨어짐을 통하여 기존에 문제가 되었던 수많은 Easy Negative 케이스에 의한 Loss가 누적되는 문제를 개선**합니다.
 
-- `Focal Loss`를 정리하면 다음과 같습니다.
-- 배경(background)와 같은 Easy Negative 케이스는 잘 맞추기 때문에 loss는 작다. 하지만 갯수가 많아서 누적이 되면 전체 loss 값은 커진다.
-반면 실제 객체는 상대적으로 Hard 한 문제이고 따라서 loss 값은 커지지만 갯수가 작기 때문에
-일반적으로 실제 객체 추정에 필요한 loss 의 총합보다 배경에 사옹된 loss의 총합이 커지는 문제가 발생한다.
-Focal loss 에서는 마지막에 출력되는 각 클래스의 probability가 CE LOSS에 사용될 때 
-최종 확률값이 큰 EASY 케이스는 LOSS를 크게 줄이고 최종 확률 값이 낮은  HARD 케이스는 LOSS를 낮게 줄이는 역할을 한다.
-기본적으로 CE는 확률이 낮은 케이스에 페널티를 주는 역할만 하고 확률이 높은 케이스에 어떠한 보상도 주지 않는다.
-FL는 확률이 높은 케이스에는 확률이 낮은 케이스 보다 LOSS를 더 크게 낮추는 보상을 준다. 이 점이 차이점이다.
+<br>
+
+- 지금까지 알아본 `Focal Loss`를 정리하면 다음과 같습니다.
+- 배경(background)과 같은 `Easy Negative` 케이스는 딥러닝 모델의 정확도가 높기 때문에 loss는 작습니다. 하지만 `Easy Negative` 케이스의 갯수가 많아서 누적이 되면 전체 loss 값은 커지게 됩니다.
+- 반면 실제 객체는 상대적으로 Hard 한 문제이고 따라서 loss 값은 커지지만 갯수가 작기 때문에 일반적으로 실제 객체 추정에 필요한 loss 의 총합보다 배경에 사옹된 loss의 총합이 커지는 문제가 발생한다.
+- `Focal loss`는 `Cross Entropy`의 이러한 문제를 개선하고자 하며 Cross Entropy의 마지막에 출력되는 각 클래스의 probability에서 최종 확률값이 큰 Eays 케이스는 Loss를 크게 줄이고 최종 확률 값이 낮은 Hard 케이스는 Loss를 낮게 줄이는 역할을 합니다.
+- 기본적으로 `Cross Entropy`는 확률이 낮은 케이스에 페널티를 주는 역할만 하고 확률이 높은 케이스에 어떠한 보상도 주지 않지만 `Focal Loss`는 확률이 높은 케이스에는 확률이 낮은 케이스 보다 Loss를 더 크게 낮추는 보상을 줍니다. 이 점이 차이점입니다.
 
 <br>
 
@@ -218,6 +217,31 @@ FL는 확률이 높은 케이스에는 확률이 낮은 케이스 보다 LOSS를
 
 <br>
 
+- 아래 코드는 `Focal Loss`를 `Semantic Segmentation`에 적용하기 위한 Pytorch 코드입니다.
+- Classification이나 Object Detection의 Task에 사용되는 Focal Loss 코드는 많으나 Semantic Segmentation에 정상적으로 동작하는 코드가 많이 없어서 아래와 같이 작성하였습니다.
+- `Cross Entropy Loss`만 정확하게 짤 수 있다면 `Cross Entropy Loss`에 $$ (1 - p_{t})^{\gamma} $$ 만 추가하면 되므로 어렵지 않습니다.
+
+<br>
+
+- $$ \text{FL}(p_{t}) = -\alpha_{t}(1 - p_{t})^{\gamma}\log{(p_{t})} \tag{12} $$
+
+<br>
+
+- 지금부터 구현할 코드는 식 (12)를 사용할 수 있도록 구현합니다. 위 코드처럼 $$ \alpha_{t} $$ 을 추가하면 `Balanced Cross Entropy` 까지 적용할 수 있기 때문입니다.
+- 아래 코드의 [label_to_one_hot_label](https://gaussian37.github.io/vision-segmentation-one_hot_label/#ignore-index%EB%A5%BC-%EB%B0%98%EC%98%81%ED%95%9C-one-hot-label-%EC%83%9D%EC%84%B1-%EB%B0%A9%EB%B2%95-1)에서는 아래와 같은 원리로 $$ \alpha_{t} $$ 를 연산해 줍니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/focal_loss/3.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림과 같이 클래스 별 weight를 담고 있는 `one hot vector`를 위 그림과 같이 연산을 합니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/focal_loss/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 그러면 위 그림과 같이 `channel` 방향으로 주황색 one hot vector인 $$ \alpha_{t} $$ 가 최종 출력 (위 그림에서 모두 1로 되어 있는 tensor)에 곱해지게 됩니다.
+- 또한 `ignore label` 기능을 지하기 위해 `torch.split`를 이용하여 필요하지 않는 인덱스를 삭제하도록 하였습니다.
 
 <br>
 
