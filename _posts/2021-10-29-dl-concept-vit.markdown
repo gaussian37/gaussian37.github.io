@@ -250,6 +250,31 @@ tags: [deep learning, transformer, vision transformer] # add tag
 
 <br>
 
+- Vision Transformer를 학습할 때, 다음과 같은 방식을 사용하고 있습니다. 차례 차례 정리해 보면 아래와 같습니다.
+- ① large 데이터셋으로 사전학습 후 더 작은 데이터셋에 대해 fine-tune하는 방식 (이미지 resize 및 MLP 헤드 부분을 클래스 수에 맞게 교체합니다.)
+- ② 학습을 위해 large 데이터셋인 ImageNet, ImageNet-21k, JFT 사용
+- ③ 전처리는 Resize, RandomCrop, RandomHorizontalFlip 사용
+- ④ 광범위하게 Dropout 적용 (qkv-prediction 부분 제외)
+- ⑤ ImageNet, CIFAR10/100, 9-task VTAB 등 데이터셋에 대해 transfer learning을 진행
+
+<br>
+
+- `사전 학습 조건`은 다음과 같습니다.
+- `Optimizer` : ADAM
+- `스케줄링` : linear learning rate decay
+- `weight decay` : 0.1 (**강한 regularization 사용**)
+- `배치 사이즈` : 4,096
+- `Label smoothing` 사용 (**regularization 사용**)
+- validation accuracy 기준 early-stopping
+
+<br>
+
+- `transfer learning 학습 조건`은 다음과 같습니다.
+- `Optimizer` : SGD 모멘텀
+- `스케줄링` : cosine learning rate decay
+- `weight decay` : 미적용 
+- `grad clipping` 적용 
+- `배치 사이즈` : 512
 
 <br>
 
@@ -257,6 +282,27 @@ tags: [deep learning, transformer, vision transformer] # add tag
 
 <br>
 
+<br>
+<center><img src="../assets/img/dl/concept/vit/15.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 테스트는 ViT-Base, Vit-Large, Vit-Huge 3가지 모델에 대하여 진행하였습니다. 아래 표의 /14, /16은 패치 크기를 나타냅니다.
+- 두번째 표에서 성능을 살펴보면 CNN 모델에 비해 성능이 좋다는 것을 보여주고자 합니다. 특히, 학습 시간도 절약한 것이 인상적입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/vit/16.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 데이터의 특성에 따라 정확도가 달라질 수 있기 때문에, 여러 데이터의 유사한 종류의 데이터를 묶어서 성능을 비교하였습니다. 이 때에도 ViT의 성능이 좋은 점을 보여주고자 하였습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/vit/17.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 가장 왼쪽의 **RGB embedding filter 그림의 시사점은 ViT 또한 CNN과 같은 형태로 학습이 되었다는 점**입니다. RGB embedding filter는 Transformer Encoder에 입력되기 전 Embedding을 할 때 사용한 filter를 의미합니다. 이 filter의 일부분을 가져와서 시각화 하였을 때, 위 그림과 같은 형태가 나타납니다. 핵심은 CNN에서의 low level layer에서와 유사한 형태의 결과가 시각화로 나타난다는 점입니다. 즉, CNN 처럼 학습이 잘 되었다는 것을 의미합니다.
+- 중간의 Positional Embedding Similarity 그림의 시사점은 **Positional Embedding이 데이터의 위치를 잘 위미하도록 학습이 잘 되었다는 점**입니다. Positional Embedding 에는 각 패치 마다 대응되는 Embedding 벡터가 존재합니다. 모든 패치 $$ p(_{i}, p_{j} ) $$ 에 대하여 cosine similarity를 구하였을 때 각 row, col에 해당하는 부분의 패치가 similarity가 높은 것을 통해 Position이 의미가 있도록 학습이 잘 되었다는 것을 확인할 수 있습니다.
+- 가장 오른쪽의 그래프는 attention이 관심을 두는 위치의 편차를 나타냅니다. **low level layer에서는 가까운 곳에서부터 먼 곳까지 모두 살펴보는 반면 high level layer로 전체적으로 본다는 것을 의미**합니다. y축의 distance의 의미는 어떤 query 위치를 기준으로 의미있는 영역까지의 평균 거리를 나타냅니다. 이 거리가 짧을수록 가까운 영역에 대하여 attention을 한다는 것이고 이 거리가 길수록 먼 영역에 대하여 attention을 한다는 것을 의미합니다. 
+- CNN 또한 convolution 연산의 특성상 layer가 깊어질수록 점점 더 큰 영역을 보게되는데 Vision Transformer 또한 그러한 성질을 가지는 것을 확인할 수 있었습니다.
 
 <br>
 
@@ -264,13 +310,98 @@ tags: [deep learning, transformer, vision transformer] # add tag
 
 <br>
 
+```python
+import torch
+import torch.nn as nn
 
-<br>
+class LinearProjection(nn.Module):
 
+    def __init__(self, patch_vec_size, num_patches, latent_vec_dim, drop_rate):
+        super().__init__()
+        self.linear_proj = nn.Linear(patch_vec_size, latent_vec_dim)
+        self.cls_token = nn.Parameter(torch.randn(1, latent_vec_dim))
+        self.pos_embedding = nn.Parameter(torch.randn(1, num_patches+1, latent_vec_dim))
+        self.dropout = nn.Dropout(drop_rate)
 
+    def forward(self, x):
+        batch_size = x.size(0)
+        x = torch.cat([self.cls_token.repeat(batch_size, 1, 1), self.linear_proj(x)], dim=1)
+        x += self.pos_embedding
+        x = self.dropout(x)
+        return x
 
+class MultiheadedSelfAttention(nn.Module):
+    def __init__(self, latent_vec_dim, num_heads, drop_rate):
+        super().__init__()
+        device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        self.num_heads = num_heads
+        self.latent_vec_dim = latent_vec_dim
+        self.head_dim = int(latent_vec_dim / num_heads)
+        self.query = nn.Linear(latent_vec_dim, latent_vec_dim)
+        self.key = nn.Linear(latent_vec_dim, latent_vec_dim)
+        self.value = nn.Linear(latent_vec_dim, latent_vec_dim)
+        self.scale = torch.sqrt(latent_vec_dim*torch.ones(1)).to(device)
+        self.dropout = nn.Dropout(drop_rate)
 
- 
+    def forward(self, x):
+        batch_size = x.size(0)
+        q = self.query(x)
+        k = self.key(x)
+        v = self.value(x)
+        q = q.view(batch_size, -1, self.num_heads, self.head_dim).permute(0,2,1,3)
+        k = k.view(batch_size, -1, self.num_heads, self.head_dim).permute(0,2,3,1) # k.t
+        v = v.view(batch_size, -1, self.num_heads, self.head_dim).permute(0,2,1,3)
+        attention = torch.softmax(q @ k / self.scale, dim=-1)
+        x = self.dropout(attention) @ v
+        x = x.permute(0,2,1,3).reshape(batch_size, -1, self.latent_vec_dim)
+
+        return x, attention
+
+class TFencoderLayer(nn.Module):
+    def __init__(self, latent_vec_dim, num_heads, mlp_hidden_dim, drop_rate):
+        super().__init__()
+        self.ln1 = nn.LayerNorm(latent_vec_dim)
+        self.ln2 = nn.LayerNorm(latent_vec_dim)
+        self.msa = MultiheadedSelfAttention(latent_vec_dim=latent_vec_dim, num_heads=num_heads, drop_rate=drop_rate)
+        self.dropout = nn.Dropout(drop_rate)
+        self.mlp = nn.Sequential(nn.Linear(latent_vec_dim, mlp_hidden_dim),
+                                 nn.GELU(), nn.Dropout(drop_rate),
+                                 nn.Linear(mlp_hidden_dim, latent_vec_dim),
+                                 nn.Dropout(drop_rate))
+
+    def forward(self, x):
+        z = self.ln1(x)
+        z, att = self.msa(z)
+        z = self.dropout(z)
+        x = x + z
+        z = self.ln2(x)
+        z = self.mlp(z)
+        x = x + z
+
+        return x, att
+
+class VisionTransformer(nn.Module):
+    def __init__(self, patch_vec_size, num_patches, latent_vec_dim, num_heads, mlp_hidden_dim, drop_rate, num_layers, num_classes):
+        super().__init__()
+        self.patchembedding = LinearProjection(patch_vec_size=patch_vec_size, num_patches=num_patches,
+                                               latent_vec_dim=latent_vec_dim, drop_rate=drop_rate)
+        self.transformer = nn.ModuleList([TFencoderLayer(latent_vec_dim=latent_vec_dim, num_heads=num_heads,
+                                                         mlp_hidden_dim=mlp_hidden_dim, drop_rate=drop_rate)
+                                          for _ in range(num_layers)])
+
+        self.mlp_head = nn.Sequential(nn.LayerNorm(latent_vec_dim), nn.Linear(latent_vec_dim, num_classes))
+
+    def forward(self, x):
+        att_list = []
+        x = self.patchembedding(x)
+        for layer in self.transformer:
+            x, att = layer(x)
+            att_list.append(att)
+        x = self.mlp_head(x[:,0])
+
+        return x, att_list
+```
+
 <br>
 
 [deep learning 관련 글 목차](https://gaussian37.github.io/dl-concept-table/)
