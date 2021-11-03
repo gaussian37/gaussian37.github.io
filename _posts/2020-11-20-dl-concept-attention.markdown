@@ -30,6 +30,7 @@ tags: [attention, seq2seq] # add tag
 
 - ### [seq2seq 모델의 이해](#seq2seq-모델의-이해-1)
 - ### [Attention 메커니즘](#attention-메커니즘-1)
+- ### [영상 데이터 관점에서의 Attention](#영상-데이터-관점에서의-attention-1)
 
 <br>
 
@@ -179,6 +180,35 @@ tags: [attention, seq2seq] # add tag
 
 - 먼저 Decoder의 hidden state는 RNN(LSTM)에서 받아서 연산하여 $$ s_{i} $$ → $$ s_{i+1} $$로 만듭니다.
 - 그 후 Attenen value인 $$ a_{i} $$와 $$ s_{i+1} $$을 concat ($$ v_{i} = [s_{i}; a_{i-1}] $$) 하여 $$ v_{i+1} $$을 만듭니다. 이 값을 FC layer와 Softmax를 거쳐서 최종 출력인 $$ y_{i} $$를 출력합니다.
+
+<br>
+
+## **영상 데이터 관점에서의 Attention**
+
+<br>
+
+- 이미지 처리를 위한 딥러닝에서 일반적으로 많이 사용하는 방식은 Convolution 연산을 사용하는 방식입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/vit/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Convolution 연산을 사용하면 위 그림과 같이 빨간색 영역의 필터를 순차적으로 이동하면서 각 영역의 정보를 읽어들입니다.
+- 이와 같이 각 필터가 local한 영역의 정보를 읽어서 이해하고 layer가 쌓이면서 점점 더 넓은 영역의 정보를 읽어들이는 것이 convolution layer의 동작 방식입니다.
+- 이 특성이 convolution layer의 장점이자 단점이 되는데 얕은 layer에서는 local 영역을 자세하게 볼 수 있고 깊은 layer에서는 점점 더 넓은 영역을 볼 수 있어서 자세하면서 넓게 볼수 있는 장점을 가지는 반면 다음과 같은 두 영역을 한번에 고려하지는 못합니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/vit/2.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 일반적인 convolution 연산을 사용하는 뉴럴 네트워크에서는 한번에 위 2가지 영역을 고려하지는 않습니다. 앞에서 설명한 바와 같이 점점 더 receptive field를 넓혀가는 구조이지 convolution 필터가 왼쪽 상단을 볼 때, 동시에 전체를 고려하지 않습니다. 이러한 점이 convolution 연산의 단점이 될 수 있습니다.
+
+<br>
+
+- `Attention` 개념은 주어진 어떤 입력에 대하여 **어떤 부분을 중심적으로 볼 지 가중치를 주는 것**으로 이해할 수 있습니다. 기본적으로 Attention이란 개념을 설명할 때, Query, Key Value 개념을 이용하여 설명을 하는데 그 이전에 개념적으로 어떤 의미를 가지는 지 살펴보겠습니다.
+
+
+
 
 <br>
 
