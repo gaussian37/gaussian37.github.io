@@ -186,13 +186,13 @@ tags: [deep learning, transformer, vision transformer] # add tag
 
 <br>
 
-- $$ q = z \cdot w_{q} (w_{q} \in \mathbb{R}^{D \times D_{h} \tag{4} $$
+- $$ q = z \cdot w_{q} \quad (w_{q} \in \mathbb{R}^{D \times D_{h}}) \tag{4} $$
 
-- $$ k = z \cdot w_{k} (w_{k} \in \mathbb{R}^{D \times D_{h} \tag{5} $$
+- $$ k = z \cdot w_{k} \quad (w_{k} \in \mathbb{R}^{D \times D_{h}}) \tag{5} $$
 
-- $$ v = z \cdot w_{v} (w_{v} \in \mathbb{R}^{D \times D_{h} \tag{6} $$
+- $$ v = z \cdot w_{v} \quad (w_{v} \in \mathbb{R}^{D \times D_{h}}) \tag{6} $$
 
-- $$ [q, k, v] = z \cdot U_{qkv} (U_{qkv} \in \mathbb{R}^{D \times 3D_{h} \tag{7} $$
+- $$ [q, k, v] = z \cdot U_{qkv} \quad (U_{qkv} \in \mathbb{R}^{D \times 3D_{h}}) \tag{7} $$
 
 <br>
 
@@ -204,7 +204,7 @@ tags: [deep learning, transformer, vision transformer] # add tag
 
 - $$ \text{SA}(z) = A \cdot v \in R^{N times D_{h}} \tag{9} $$
 
-- $$ \text{MSA}(z) = [\text{SA}_{1}(z); \text{SA}_{2}(z); \cdots ; \text{SA}_{k}(z)] U_{msa} {\tag{10} $$
+- $$ \text{MSA}(z) = [\text{SA}_{1}(z); \text{SA}_{2}(z); \cdots ; \text{SA}_{k}(z)] U_{msa} \tag{10} $$
 
 <br>
 
