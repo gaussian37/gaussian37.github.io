@@ -181,7 +181,7 @@ tags: [deep learning, transformer, vision transformer] # add tag
 <center><img src="../assets/img/dl/concept/vit/12.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- `Multi-Head Attention`에 대하여 알아보도록 하겠습니다. Notation의 표기를 간단히 하기 위하여 입출력을  $$ z_{l} \in \mathbb{R}^{N+1 X D} \to z_{l} \in \mathbb{R}^{N X D} $$ 로 사용하였습니다.
+- `Multi-Head Attention`에 대하여 알아보도록 하겠습니다. Notation의 표기를 간단히 하기 위하여 입출력을  $$ z_{l} \in \mathbb{R}^{N+1 \times D} \to z_{l} \in \mathbb{R}^{N \times D} $$ 로 사용하였습니다.
 - Attention 구조에 맞게 `q(query)`, `k(Key)`, `v(value)` 를 가지며 self attention 구조에 맞게 다음 식과 같이 q, k, v가 구성됩니다.
 
 <br>
@@ -200,9 +200,9 @@ tags: [deep learning, transformer, vision transformer] # add tag
 
 <br>
 
-- $$ A = \text{softmax}(\frac{q \cdot k^{T}}{\sqrt{D_{h}}}) \in R^{N times N}\tag{8} $$
+- $$ A = \text{softmax}(\frac{q \cdot k^{T}}{\sqrt{D_{h}}}) \in R^{N \times N}\tag{8} $$
 
-- $$ \text{SA}(z) = A \cdot v \in R^{N times D_{h}} \tag{9} $$
+- $$ \text{SA}(z) = A \cdot v \in R^{N \times D_{h}} \tag{9} $$
 
 - $$ \text{MSA}(z) = [\text{SA}_{1}(z); \text{SA}_{2}(z); \cdots ; \text{SA}_{k}(z)] U_{msa} \tag{10} $$
 
