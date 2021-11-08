@@ -78,6 +78,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [torch.softmax 함수 사용 예제](#torchsoftmax-함수-사용-예제-1)
 - ### [torch.repeat 함수 사용 예제](#torchrepeat-함수-사용-예제-1)
 - ### [torch.scatter 함수 사용 예제](#torchscatter-함수-사용-예제-1)
+- ### [torch.split 함수 사용 예제](#torchsplit-함수-사용-예제-1)
 
 <br>
 
@@ -3202,7 +3203,40 @@ torch.zeros(3, 5, dtype=src.dtype).scatter_(1, index, src)
 - 위 예제에서는 `scatter_`가 `dim=1` 이므로 열 방향 (→)으로 (3, 5) 사이즈의 zero tensor에 연산된 것을 볼 수 있습니다.
 - 이와 같은 연산은 `one hot`을 만들 때 유용하게 사용할 수 있으며 다음 링크에서 참조할 수 있습니다.
     - [segmentation 학습을 위한 one hot label 생성 및 Loss 연산](https://gaussian37.github.io/vision-segmentation-one_hot_label/)
-    
+
+<br>
+
+## **torch.split 함수 사용 예제**
+
+<br>
+
+- `torch.split`는 tensor를 쪼개는 역할을 합니다. 텐서를 쪼갤 때 등분해야 할 크기 또는 비율 등을 입력하여 쪼갭니다 아래 예시를 살펴보면 간단히 이해할 수 있습니다.
+- 함수의 사용 방법은 `torch.split(tensor, size or ratio, dim)` 입니다.
+
+<br>
+
+```python
+a = torch.arange(10).reshape(5,2)
+# tensor([[0, 1],
+#         [2, 3],
+#         [4, 5],
+#         [6, 7],
+#         [8, 9]])
+
+ torch.split(a, 2)
+#  (tensor([[0, 1],
+#          [2, 3]]),
+#  tensor([[4, 5],
+#          [6, 7]]),
+#  tensor([[8, 9]]))
+
+torch.split(a, [1,4])
+# (tensor([[0, 1]]),
+#  tensor([[2, 3],
+#          [4, 5],
+#          [6, 7],
+#          [8, 9]]))
+```
 
 <br>
 
