@@ -57,11 +57,12 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [model.eval()와 torch.no_grad() 비교](#modeleval와-torchno_grad-비교-1)
 - ### [Dropout 적용 시 Tensor 값 변경 메커니즘](#dropout-적용-시-tensor-값-변경-메커니즘-1)
 - ### [재현을 위한 랜덤 seed값 고정](#재현을-위한-랜덤-seed값-고정-1)
+- ### [contiguous()의 의미](#contiguous의-의미-1)
 
 <br>
 
 - ### **-------------------- 자주사용하는 함수 --------------------**
-- ### [torch.argmx(input, dim, keepdim)](#torchargmxinput-dim-keepdim-1)
+- ### [torch.argmax(input, dim, keepdim)](#torchargmaxinput-dim-keepdim-1)
 - ### [Numpy → Tensor : torch.from_numpy(numpy.ndarray)](#numpy--tensor--torchfrom_numpynumpyndarray-1)
 - ### [Tensor → Numpy](#tensor--numpy-1)
 - ### [torch.unsqueeze(input, dim)](#torchunsqueezeinput-dim-1)
@@ -1773,7 +1774,110 @@ torch.backends.cudnn.deterministic = True
 
 <br>
 
-## **torch.argmx(input, dim, keepdim)**
+## **contiguous()의 의미**
+
+<br>
+
+- 참조 : [https://stackoverflow.com/questions/48915810/pytorch-what-does-contiguous-do](https://stackoverflow.com/questions/48915810/pytorch-what-does-contiguous-do)
+- pytorch 코드를 살펴볼 때, `.contiguous()` 라는 코드를 종종 볼 수 있습니다. 이 코드의 의미는 무엇일까요?
+- 결론적으로 사용자 입장에서는 큰 차이가 없을 수 있으며 이와 관련된 에러가 발생 시 `.contiguous()` 를 실행하여 에러를 회피하도록 하면 됩니다.
+- 다만 이 값이 가지는 의미를 살펴보기 위해 torch의 tensor가 동작하는 방식을 살펴보면 다음과 같습니다.
+    - **① tensor에 해당하는 값을 실제 메모리에 할당합니다.**
+    - **② 사용할 떄에는 meta 정보에 따라 사용자에게 값이 보여집니다.**
+- 이와 같은 방식을 사용하는 이유는 tensor를 사용할 때, 같은 값의 형 변환이 자주 발생하게 되는데 이 때마다 메모리 할당이 다시 일어나게 되면 비효율적이기 때문에 메모리에 저장된 값은 유지할 체 사용자에게는 shape 등의 형이 변경된 것 처럼 보여줍니다. 이 때, 사용자가 원하는 형으로 보여주기 위하여 **meta 정보**를 사용합니다.
+
+<br>
+
+- 예를 들어 0, 1, 2, 3, 4의 값을 가지는 tensor가 있다고 가정해 보겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/11.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 먼저 어떤 tensor의 값이 실제 메모리에 위 그림과 같이 연속적으로 저장되어 있고 사용자도 이와 같은 순서의 데이터를 사용한다고 하면 `contiguous` 하다고 말합니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/12.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 반면 어떤 tensor가 위 그림과 같이 메모리에 저장되어 있으나 사용자는 0, 1, 2, 3, 4 순서로 연속해서 사용할 수 있다고 하면 이러한 tensor는 `non contiguous` 하다고 말할 수 있습니다.
+
+<br>
+
+```python
+A = torch.tensor([[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]]) 
+# tensor([[ 0,  1,  2,  3],
+#         [ 4,  5,  6,  7],
+#         [ 8,  9, 10, 11]])
+
+A.is_contiguous()
+# True
+
+A_t = A.T
+# tensor([[ 0,  4,  8],
+#         [ 1,  5,  9],
+#         [ 2,  6, 10],            
+#         [ 3,  7, 11]])   
+
+
+A_t.is_contiguous()
+# False
+
+A_t_contiguous = A_t.contiguous()
+# tensor([[ 0,  4,  8],
+#         [ 1,  5,  9],
+#         [ 2,  6, 10],            
+#         [ 3,  7, 11]])   
+
+A_t_contiguous.is_contiguous()
+# True
+
+```
+
+<br>
+
+- 먼저 `A`가 사용자에게 보여지는 방식은 아래와 같이 행렬려 보여지게 됩니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/13.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 그리고 `A`는 처음 저장될 때, 아래와 같은 순서로 메모리에 저장됩니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/14.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- tensor를 처음 생성하였을 때에는 실제 메모리에 저장된 순서와 meta 정보가 같습니다. 따라서 `A.is_contiguous()`는 `True` 값을 가집니다.
+- 그러면 `A`를 Transpose한 `A.T`를 살펴보겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/15.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 먼저 `A.T`는 위 행렬과 같은 형태로 사용자가 사용하게 됩니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/14.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 하지만 앞에서 설명한 바와 같이 실제 메모리에 저장된 순서가 바뀐게 아니라 사용자에게 보여주는 meta 정보가 바뀐 것이므로 메모리에 저장된 값은 `A`와 동일하며 위 그림과 같습니다.
+- 이 경우에 `A_t.is_contiguous()`는 `False`를 가집니다. 
+- 의도적으로 메모리에 저장된 순서를 현재 meta 정보와 같이 변경하려고 하면 `.contiguou()`를 통해 변경할 수 있습니다. `A_t_contiguous = A_t.contiguous()` 를 통해 meta 정보와 같은 방향으로 메모리 업데이트를 하면 다음과 같이 변경됩니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/16.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/15.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- `A_t_contiguous`는 실제 메모리에 저장된 값의 순서와 사용자가 사용하는 값의 순서가 같습니다. 따라서 `A_t_contiguous.is_contiguous()`는 `True` 값을 가지게 됩니다.
+
+<br>
+
+## **torch.argmax(input, dim, keepdim)**
 
 <br>
 
