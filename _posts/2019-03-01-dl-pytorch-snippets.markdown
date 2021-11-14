@@ -40,6 +40,9 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [Math Operation](#math-operation-1)
 - ### [Gradient를 구하는 방법](#gradient를-구하는-방법-1)
 - ### [벡터와 텐서의 element-wise multiplication](#벡터와-텐서의-element-wise-multiplication-1)
+- ### [gather 기능 사용 방법](#gather-기능-사용-방법-1)
+- ### [expand와 repeat 기능 사용 방법](#expand와-repeat-기능-사용-방법-1)
+- ### [topk 기능 사용 방법](#topk-기능-사용-방법-1)
 
 <br>
 
@@ -1239,6 +1242,27 @@ print(result)
 #          [4., 4., 4.],
 #          [4., 4., 4.]]])
 ```
+
+<br>
+
+## **gather 기능 사용 방법**
+
+<br>
+
+<br>
+
+## **expand와 repeat 기능 사용 방법**
+
+<br>
+
+<br>
+
+## **topk 기능 사용 방법**
+
+<br>
+
+<br>
+
 
 <br>
 
