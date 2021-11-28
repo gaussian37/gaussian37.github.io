@@ -1521,6 +1521,63 @@ x = torch.rand(2, 4, 3)
 #          [0.9162, 0.2517, 0.7321],
 #          [0.0617, 0.8910, 0.8623]]])
 
+values, indices = torch.topk(x, 2)
+print(values)
+# tensor([[[0.6340, 0.6071],
+#          [0.9077, 0.5568],
+#          [0.8181, 0.7513],
+#          [0.7240, 0.3967]],
+
+#         [[0.7943, 0.3591],
+#          [0.6734, 0.3078],
+#          [0.9162, 0.7321],
+#          [0.8910, 0.8623]]])
+print(indices)
+# tensor([[[0, 1],
+#          [2, 1],
+#          [0, 2],
+#          [1, 0]],
+
+#         [[1, 2],
+#          [2, 1],
+#          [0, 2],
+#          [1, 2]]]) 
+```
+
+<br>
+
+- 차원을 확장해서 출력을 해보았습니다. 이 때, values의 값은 마지막 차원을 기준으로 top 2의 값을 저장하고 있고 indices는 그 위치를 저장하고 있습니다. 
+- indices의 의미를 살펴보면 가장 첫번째 2개의 값인 0, 1은 x의 가장 첫번째 값인 0.6340, 0.6071, 0.1662 중 0번째, 1번째 값이라는 의미 입니다.
+- 이 indices 값을 어떻게 쓰면 편리하게 쓸 수 있을까요? `torch.gather` 함수를 이용하면 쉽게 사용할 수 있습니다.
+    - [torch.gather](https://gaussian37.github.io/dl-pytorch-snippets/#gather-%EA%B8%B0%EB%8A%A5-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95-1) 사용법
+
+<br>
+
+```python
+torch.gather(x, -1, indices) == values
+
+# tensor([[[True, True],
+#          [True, True],
+#          [True, True],
+#          [True, True]],
+
+#         [[True, True],
+#          [True, True],
+#          [True, True],
+#          [True, True]]])
+```
+
+<br>
+
+- `torch.gather`는 해당 인덱스에 대응되는 값을 추출하는 역할을 합니다. 따라서 위 코드와 같이 사용할 수 있습니다.
+
+<br>
+
+- 어떤 차원에서도 topk를 이용하여 특정 차원을 기준으로 topk 개의 값을 추출할 수 있습니다.
+
+<br>
+
+```python
 values, indices = torch.topk(x, 2, dim=1)
 print(values)
 # tensor([[[0.8181, 0.7240, 0.9077],
@@ -1528,19 +1585,39 @@ print(values)
 
 #         [[0.9162, 0.8910, 0.8623],
 #          [0.2583, 0.7943, 0.7321]]])
+
 print(indices)
 # tensor([[[2, 3, 1],
 #          [0, 2, 2]],
 
 #         [[2, 3, 3],
 #          [0, 0, 2]]])
+
+
+torch.gather(x, 1, indices) == values
+# tensor([[[True, True, True],
+#          [True, True, True]],
+
+#         [[True, True, True],
+#          [True, True, True]]])
 ```
 
 <br>
 
-- 위 코드는 0, 1, 2 dimension 중 dimension 1을 기준으로 top 2개를 뽑는 연산을 합니다.
-- indices의 첫번째 값인 2, 3, 1의 의미를 살펴보면 
+- 지금까지 topk의 사용방법과 torch.gather를 이용하여 indices를 어떻게 사용하는 지 살펴보았습니다. 실제 많이 사용하는 사례는 다음과 같습니다.
+- `x`, `y`의 shape이 같고 x의 최댓값의 위치에 해당하는 y의 값을 찾고자 합니다 이 떄 아래와 같이 사용할 수 있습니다.
 
+<br>
+
+```python
+x = torch.rand(3, 4, 5)
+y = torch.rand(3, 4, 5)
+
+# x의 2번째 차원을 기준으로 가장 큰 값을 하나 뽑습니다.
+values, indices = torch.topk(x, 1, dim=2)
+# x에서 추출된 값과 똑같은 위치에서 y의 값을 하나 뽑습니다.
+torch.gather(y, 2, indices)
+```
 
 <br>
 
