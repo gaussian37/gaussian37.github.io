@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Active Learning
+title: Active Learning과 Learning Loss와 Bayesian Deep Learning을 이용한 Active Learning
 date: 2021-01-07 00:00:00
 img: dl/concept/active_learning/0.png
 categories: [dl-concept]
@@ -10,6 +10,17 @@ tags: [deep learning, active learning] # add tag
 <br>
 
 [deep learning 관련 글 목차](https://gaussian37.github.io/dl-concept-table/)
+
+<br>
+
+## **목차**
+
+<br>
+
+- ### Active Learning 이란 
+- ### classification 문제를 통한 Active Learning의 Uncertainty
+- ### Learning Loss for Active Learning
+- ### Deep Bayesian Active Learning with Image Data
 
 <br>
 
@@ -56,11 +67,13 @@ tags: [deep learning, active learning] # add tag
 
 <br>
 
-- 그러면 Object Detection과 Semantic Segmentation에서는 어떤 방식으로 Active Learning이 적용 가능할까요? 이 점에 대하여 알아보도록 하겠습니다.
+- 이미지를 이용한 대표적인 딥러닝 Task에는 Classification, Object Detection, Segmentation, Depth regression 등이 있습니다.
+- 이러한 각각의 Task에 맞춤형인 Active Learning 알고리즘도 있는 반면 Task에 무관하게 적용할 수 있는 Active Learning 방법들도 있습니다.
+- 
 
 <br>
 
-## **Object Detection의 Active Learning**
+## **Learning Loss for Active Learning**
 
 <br>
 
@@ -68,7 +81,7 @@ tags: [deep learning, active learning] # add tag
 
 <br>
 
-## **Segmentation의 Active Learning**
+## **Deep Bayesian Active Learning with Image Data**
 
 <br>
 

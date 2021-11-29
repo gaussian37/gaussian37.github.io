@@ -29,7 +29,7 @@ tags: [python, deep learning, dl] # add tag
 - [Attention 모델과 Seq2seq with Attention](https://gaussian37.github.io/dl-concept-attention/)
 - [Transformer 모델 (Attention is all you need)](https://gaussian37.github.io/dl-concept-transformer/)
 - [Vision Transformer](https://gaussian37.github.io/dl-concept-vit/)
-- [Active Learning](https://gaussian37.github.io/dl-concept-active_learning/)
+- [Active Learning과 Learning Loss와 Bayesian Deep Learning을 이용한 Active Learning](https://gaussian37.github.io/dl-concept-active_learning/)
 - [Deep Learning에서의 Uncertainty](https://gaussian37.github.io/dl-concept-uncertainty_in_deep_learning/)
 - [Bayesian Neural Network](https://gaussian37.github.io/dl-concept-bayesian_neural_network/)
 
