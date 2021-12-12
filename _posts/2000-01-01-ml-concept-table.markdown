@@ -39,6 +39,7 @@ tags: [python, machine learning, ml] # add tag
 - [Luis Serrano의 PCA(Principal Component Analysis) 강의](https://gaussian37.github.io/ml-concept-serrano_pca/)
 - [Luis Serrano의 SVM(Support Vector Machine) 강의]()
 - [Luis Serrano의 SVD(Singular Vector Decomposition) 강의]()
+- [KNN (K-Nearest Neighbors) 알고리즘](https://gaussian37.github.io/ml-concept-knn/)
 - [Decision tree]()
 - [Voting classifier]()
 - [Bagging]()
