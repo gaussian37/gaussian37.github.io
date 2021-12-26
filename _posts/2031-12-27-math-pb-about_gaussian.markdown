@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 가우시안 (Gaussian) 관련 내용 정리
-date: 2031-12-30 00:00:00
+date: 2021-12-27 00:00:00
 img: math/pb/about_gaussian/0.png
 categories: [math-pb] 
 tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우시안 프로세스] # add tag
