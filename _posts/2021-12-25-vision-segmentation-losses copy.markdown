@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Segmentation에서 사용되는 loss 정리
-date: 2021-12-01 00:00:00
+date: 2021-12-25 00:00:00
 img: vision/segmentation/loss/0.png
 categories: [vision-segmentation]
 tags: [deep learning, segmentation, loss] # add tag
