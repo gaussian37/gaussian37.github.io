@@ -17,9 +17,9 @@ tags: [deep learning, segmentation, entropy] # add tag
 
 <br>
 
-- ### Entropy map의 의미
-- ### Entropy map을 구하는 방법
-- ### Torchvision 모델로 Entropy map 구하기
+- ### [Entropy map의 의미](#entropy-map의-의미-1)
+- ### [Entropy map을 구하는 방법](#entropy-map을-구하는-방법-1)
+- ### [Torchvision 모델로 Entropy map 구하기](#torchvision-모델로-entropy-map-구하기-1)
 
 <br>
 
