@@ -20,6 +20,7 @@ tags: [deep learning, segmentation, entropy] # add tag
 - ### [Entropy map의 의미](#entropy-map의-의미-1)
 - ### [Entropy map을 구하는 방법](#entropy-map을-구하는-방법-1)
 - ### [Torchvision 모델로 Entropy map 구하기](#torchvision-모델로-entropy-map-구하기-1)
+- ### [Direct Entropy Minimization](#)
 
 <br>
 
@@ -136,7 +137,7 @@ def decode_segmap(image, nc=21):
     rgb = np.stack([r, g, b], axis=2)
     return rgb
 
-def segment_and_entropy(net, path, show_orig=True, dev='cuda'):
+def segment_and_entropy(net, path, show_orig=True, classes=-1, dev='cuda'):
     img = Image.open(path)
     if show_orig: plt.imshow(img); plt.axis('off'); plt.show()
     # Comment the Resize and CenterCrop for better inference results
@@ -151,19 +152,31 @@ def segment_and_entropy(net, path, show_orig=True, dev='cuda'):
     rgb = decode_segmap(om)
     plt.imshow(rgb); plt.axis('off'); plt.show()
     
-    out_soft = torch.softmax(out, dim=1)
-    out_soft_squeeze = out_soft.squeeze(0)
-    out_entropy = -torch.sum(out_soft_squeeze * torch.log(out_soft_squeeze), dim=0)
-    out_entropy = out_entropy.detach().numpy()
+    out_soft = torch.softmax(out, dim=1)    
+    entropy_map = -out_soft * torch.log(out_soft)
+        
+    if classes == -1:
+        entropy_map = torch.sum(entropy_map, dim=1)
+    else:
+        indices = torch.tensor(classes)
+        entropy_map = torch.index_select(entropy_map, 1, indices)
+        entropy_map = torch.sum(entropy_map, dim=1)
     
-    plt.imshow(out_entropy, cmap=plt.cm.jet); plt.axis('off'); plt.show()
-    entropy = np.sum(out_entropy)
+    entropy_map = entropy_map.squeeze(0)
+    entropy_map = entropy_map.detach().numpy()
+    
+    plt.imshow(entropy_map, cmap=plt.cm.jet); plt.axis('off'); plt.show()
+    entropy = np.sum(entropy_map)
     
     return entropy
 
 dlab = models.segmentation.deeplabv3_resnet101(pretrained=1).eval()
 path = "" # 이미지 경로
-entropy = segment_and_entropy(dlab, path)
+
+# 전체 클래스에 대한 entropy 계산
+entropy = segment_and_entropy(dlab, path, classes=-1)
+# 특정 클래스에 대한 entropy 계산
+# entropy = segment_and_entropy(dlab, path, classes=[0, 3, 5])
 
 print(entropy)
 ```
@@ -177,6 +190,19 @@ print(entropy)
 <br>
 
 - 위 그림을 살펴보면 상대적으로 Entropy가 낮은 가장 왼쪽의 오토바이 이미지에서 Entropy의 총합이 낮은 것을 확인할 수 있고 가운데와 오른쪽 이미지에서는 Entropy가 높은 것을 확인할 수 있습니다.
+
+<br>
+
+- 아래는 인터넷에서 임의의 말 사진을 받아서 출력을 해본 예제입니다. 말의 클래스 번호는 13이므로 다음 코드를 실행하였습니다.
+- `entropy = segment_and_entropy(dlab, path, classes=13, dev='cpu')`
+
+<br>
+<center><img src="../assets/img/vision/segmentation/entropy/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 임의의 말 사진에 대해서도 일반적인 성능이 나오는 것을 확인할 수 있습니다. 파란색 영역은 Entropy가 작은 영역으로 예측의 불확실성이 작은 반면 빨간색 영역은 Entropy가 큰 영역으로 argmax를 통해 출력을 구할 때, 불확실성이 큰 것을 알 수 있습니다. 말의 갈기나 꼬리 등의 털 등에서 불확실성이 큰 것을 확인할 수 있으며 직관적으로 수긍할 수 있는 불확실성 입니다.
+
+<br>
 
 <br>
 
