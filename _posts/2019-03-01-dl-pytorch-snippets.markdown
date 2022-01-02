@@ -83,6 +83,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [torch.repeat 함수 사용 예제](#torchrepeat-함수-사용-예제-1)
 - ### [torch.scatter 함수 사용 예제](#torchscatter-함수-사용-예제-1)
 - ### [torch.split 함수 사용 예제](#torchsplit-함수-사용-예제-1)
+- ### [torch.nan_to_num 함수 사용 예제](#torchnan_to_num-함수-사용-예제-1)
 
 <br>
 
@@ -210,7 +211,7 @@ nums + nums
 
 <br>
 
-- 텐서는 파이토치의 가장 기본이 되는 데이터 구조와 기능을 제공하는 다차원 배열을 처리하기 위한 데이터 구조입니다.
+- 텐서는 pytorch의 가장 기본이 되는 데이터 구조와 기능을 제공하는 다차원 배열을 처리하기 위한 데이터 구조입니다.
 - API 형태는 `Numpy`의 ndarray와 비슷하며 GPU를 사용하는 계산도 지원합니다.
 - 텐서는 각 데이터 형태별로 정의되어 있습니다.
     - `torch.FloatTensor` : 32bit float point
@@ -3720,6 +3721,32 @@ torch.split(a, [1,4])
 #          [6, 7],
 #          [8, 9]]))
 ```
+
+<br>
+
+## **torch.nan_to_num 함수 사용 예제**
+
+<br>
+
+- 파이썬, pytorch를 이용하여 계산을 다룰 때, 유념해야 할 2가지 숫자가 있습니다. 바로 `nan`과 `inf` 입니다. 계산 과정 중 `nan`이나 `inf`가 발생하게 되면 원하는대로 계산이 안되거나 오류가 발생하기 떄문입니다.
+- 이 2가지 값을 피하는 가장 좋은 방법은 왜 이 값이 도출되었는 지 확인하는 것입니다. 
+- 경우에 따라서 만약 이 값이 도출이 된다면 강제로 변환 시킬 수 있는 함수가 pytorch에 구현되어 있는데 `torch.nan_to_num`을 사용하면 됩니다.
+
+<br>
+
+```python
+import torch
+
+x = torch.tensor([float('nan'), float('inf'), -float('inf'), 3.14])
+torch.nan_to_num(x)
+# tensor([ 0.0000e+00,  3.4028e+38, -3.4028e+38,  3.1400e+00])
+torch.nan_to_num(x, nan = 0.0, posinf=1e10, neginf=-1e10)
+# tensor([ 0.0000e+00,  1.0000e+10, -1.0000e+10,  3.1400e+00])
+```
+
+<br>
+
+- `nan`, `posinf`, `neginf`에 해당하는 값이 있을 때, 기본값으로 변환해주는 역할을 하며 변경되는 값은 함수 호출 시 파라미터를 통해 변경할 수 있습니다.
 
 <br>
 
