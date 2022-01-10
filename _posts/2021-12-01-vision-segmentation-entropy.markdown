@@ -153,7 +153,7 @@ def segment_and_entropy(net, path, show_orig=True, classes=-1, dev='cuda'):
     plt.imshow(rgb); plt.axis('off'); plt.show()
     
     out_soft = torch.softmax(out, dim=1)    
-    entropy_map = -out_soft * torch.log(out_soft)
+    entropy_map = -out_soft * torch.log(out_soft + 1e-6)
         
     if classes == -1:
         entropy_map = torch.sum(entropy_map, dim=1)
@@ -162,8 +162,12 @@ def segment_and_entropy(net, path, show_orig=True, classes=-1, dev='cuda'):
         entropy_map = torch.index_select(entropy_map, 1, indices)
         entropy_map = torch.sum(entropy_map, dim=1)
     
-    entropy_map = entropy_map.squeeze(0)
-    entropy_map = entropy_map.detach().numpy()
+    ## opencv version of jetmap entropy
+    # entropy_map = entropy_map.squeeze(0)
+    # entropy_map = entropy_map.detach().numpy()
+    # entropy_map = entropy_map / np.max(entropy_map) * 255
+    # entropy_map = entropy_map.astype(np.uint8)
+    # entropy_map = cv2.applyColorMap(entropy_map, cv2.COLORMAP_JET)
     
     plt.imshow(entropy_map, cmap=plt.cm.jet); plt.axis('off'); plt.show()
     entropy = np.sum(entropy_map)
