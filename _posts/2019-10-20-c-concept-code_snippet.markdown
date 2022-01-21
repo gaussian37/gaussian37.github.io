@@ -28,6 +28,12 @@ tags: [C] # add tag
 
 <br>
 
+- ## 머신러닝 / 딥러닝 관련 모음
+- ### softmax 함수
+- ### entropy 함수
+
+<br>
+
 ## **매크로 모음**
 
 <br>
@@ -400,5 +406,40 @@ struct tm {
 };
 ```
 
+## **머신러닝 / 딥러닝 관련 모음**
+
+<br>
+
+## **softmax 함수**
+
+<br>
+
+- 아래 코드는 (h, w, c) 크기의 이미지가 있을 때, 채널 c 방향으로 softmax를 적용하는 함수 입니다.
+
+<br>
+
+```c
+
+#define MAX(a,b) (((a)>(b))?(a):(b))
+
+void set_softmax(float probablities[], int num_classes) {
+	float max_value = -999;
+	float denominator = 0;
+	for (int i = 0; i < num_classes; ++i) {
+		max_value = MAX(max_value, probablities[i]);
+	}
+	for (int i = 0; i < num_classes; ++i) {
+		probablities[i] -= max_value;
+		probablities[i] = expf(probablities[i]);
+		denominator += probablities[i];
+	}
+	for (int i = 0; i < num_classes; ++i) {
+		probablities[i] /= denominator;
+	}
+}
+
+```
+
+<br>
 
 
