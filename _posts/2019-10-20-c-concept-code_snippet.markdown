@@ -28,7 +28,10 @@ tags: [C] # add tag
 
 <br>
 
-- ## 머신러닝 / 딥러닝 관련 모음
+## **머신러닝 / 딥러닝 관련 모음**
+
+<br>
+
 - ### softmax 함수
 - ### entropy 함수
 
@@ -405,6 +408,8 @@ struct tm {
    int tm_isdst;       /* summer time                        */
 };
 ```
+
+<br>
 
 ## **머신러닝 / 딥러닝 관련 모음**
 
