@@ -115,13 +115,22 @@ tags: [vision, detection, fcos] # add tag
 
 <br>
 
+- `Anchor-based Detector` : Region Proposal의 반복적인 연산을 제거하기 위하여 Anchor Box 개념을 도입하여 Faster-RCNN, SSD, YOLOv2 등이 개발이 되어 왔습니다. 앞에서 언급한 바와 같이 Anchor를 잘 선정하기 위한 튜닝에 어려움이 있으며 수많은 Anchor들이 Negative Sample로 빠지게 되는 단점이 있습니다.
+- `Anchor-free Detector` : 기존에 유명한 Anchor-free Detector는 YOLOv1이 있었습니다. 하지만 YOLOv1은 Recall 성능이 떨어진다는 단점이 있어서 YOLOv2에서 부터는 Anchor Box를 사용하게 되었습니다. `FCOS`는 YOLOv1과 같이 GT bounding box 이내의 모든 점들에 대하여 bounding box를 예측하도록 하고 low-quality를 가지는 점들에 대해서는 `center-ness` 개념을 도입하여 출력되지 않도록 억누르는 역할을 합니다. 이러한 방법으로 recall의 성능을 높일 수 있도록 하였습니다.
 
+<br>
+<center><img src="../assets/img/vision/detection/fcos/8.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 기존의 Anchor-freee Detector들은 Post Processing이 다소 복잡하거나 겹치는 bounding box를 처리하는 문제 또는 recall이 상대적으로 낮은 문제가 있었습니다. 하지만 `multi-level FPN` 구조와 `center-ness`를 통하여 이 문제를 개선하였고 더 간단한 구조로 구현할 수 있었습니다.
 
 <br>
 
 ## **Approach**
 
 <br>
+
+
 
 <br>
 
