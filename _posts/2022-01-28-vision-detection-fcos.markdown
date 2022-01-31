@@ -15,6 +15,10 @@ tags: [vision, detection, fcos] # add tag
 
 <br>
 
+- 배경 지식 : [https://gaussian37.github.io/vision-segmentation-fcn/](https://gaussian37.github.io/vision-segmentation-fcn/)
+
+<br>
+
 - 이번 글에서는 `Anchor Free` 기반의 Object Detection 모델인 `FCOS`, Fully Convolutional One-Stage Object Detection 논문에 대하여 알아보도록 하겠습니다.
 - 전체적으로 논문의 내용을 리뷰한 뒤, Pytorch 코드를 확인하는 순서로 알아보겠습니다.
 
@@ -24,13 +28,13 @@ tags: [vision, detection, fcos] # add tag
 
 <br>
 
-- ### Abstract
-- ### Introduction
-- ### Related Work
-- ### Approach
-- ### Ablation Study
-- ### Concolusion
-- ### Pytorch Code
+- ### [Abstract](#abstract-1)
+- ### [Introduction](#introduction-1)
+- ### [Related Work](#related-work-1)
+- ### [Approach](#approach-1)
+- ### [Ablation Study](#ablation-study-1)
+- ### [Concolusion](#concolusion-1)
+- ### [Pytorch Code](#pytorch-code-1)
 
 <br>
 
@@ -66,9 +70,52 @@ tags: [vision, detection, fcos] # add tag
 
 <br>
 
+- 위 4가지의 anchor based 모델의 단점이 확인된 가운데 FCN (Fully Convolutional Network)과 같은 구조를 이용하여 semantic segmentation, depth estimation, keypoint estimation 등의 task에 좋은 성능을 보여 주어 object detection 또한 자연스럽게 이와 같은 방법 (per-pixel prediction)을 이용하고자 하는 시도가 FCOS를 통해 시도 되었습니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/4.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- FCN 구조를 이용하여 object detection을 할 때, semantic segmentation과 같이 단순히 픽셀 별 classification 만을 하는 것이 아니라 픽셀 별로 4개의 원소값을 가지는 4D vector를 추가적으로 가지게 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/3.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림의 왼쪽의 야구 이미지와 오른쪽의 테니스 이미지를 분리하여 살펴보겠습니다.
+- 먼저 왼쪽의 야구 이미지를 보면 박스 내의 어떤 점을 기준으로 상/하/좌/우의 경계 부분까지의 거리를 추정하게 됩니다.
+- 이와 같은 방법을 이용하여 박스를 추정하였을 때, 한가지 문제가 생기는데 바로 오른쪽 테니스 같은 이미지가 예입니다. 만약 어떤 하나의 위치를 기준으로 여러개의 상/하/좌/우의 경계를 추정하려면 어떻게 해야 할까요? 각 픽셀당 1개의 상/하/좌/우 위치를 추정하기 때문에 이와 같은 예시는 모호해질 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/5.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 오버랩이 되는 영역에서의 모호함을 개선하기 위하여 `FPN (Feature Pyramid Network)` 구조를 사용합니다. Feature Pyramid 구조를 통하여 다양한 크기의 Feature를 사용할 수 있습니다. 이 내용은 이 글의 Approach 부분에서 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/6.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- FCOS에서는 `center-ness` 라는 개념을 도입하여 실제 물체의 중심점으로 부터 멀리 떨어져 있게 바운딩 박스를 예측한 경우를 제한하도록 하였습니다. center-ness의 구체적인 개념은 Approach에서 알아볼 예정입니다. 이러한 center-ness의 도입으로 ancor 기반의 모델보다 더 좋은 성능을 가질 수 있을 수 있었습니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/7.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- Introduction에서 설명한 내용에 대하여 정리해 보도록 하겠습니다.
+- ① semantic segmentation 문제를 푸는 FCN 구조를 이용하여 Detection에 접목할 수 있고 이러한 아이디어를 이용하여 다른 Task에도 접목할 수 있습니다.
+- ② FCOS는 Region Proposal과 Anchor 모두가 free한 one-stage anchor free 모델입니다. 이러한 모델의 구조는 추가적인 하이퍼파라미터 튜닝 없이 구조가 간단하다는 장점이 있습니다.
+- ③ Anchor의 제거는 Anchor box의 IoU 연산 제거와 Anchor box와 GT 간의 비교 연산을 없앨 수 있습니다.
+- ④ FCOS는 one-stage detector 중에서 성능이 좋으며 FCOS의 결과는 two-stage detector의 Region Proposal로 사용할 수 있습니다.
+- ⑤ 구조를 조금 수정하면 다른 task에 접목할 수 있고 특히 instance 단위의 prediction을 할 때 좋은 방법이 될 수 있습니다.
+
+<br>
+
 ## **Related Work**
 
 <br>
+
+
 
 <br>
 
