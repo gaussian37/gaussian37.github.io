@@ -32,7 +32,10 @@ tags: [vision, detection, fcos] # add tag
 - ### [Introduction](#introduction-1)
 - ### [Related Work](#related-work-1)
 - ### [Approach](#approach-1)
-- ### [Ablation Study](#ablation-study-1)
+    - #### [Fully Convolutional One-Stage Object Detector](#)
+    - #### [Multi-level Prediction with FPN for FCOS](#)
+    - #### [Center-ness for FCOS](#)
+- ### [Experiments](#experiments-1)
 - ### [Concolusion](#concolusion-1)
 - ### [Pytorch Code](#pytorch-code-1)
 
@@ -129,6 +132,45 @@ tags: [vision, detection, fcos] # add tag
 ## **Approach**
 
 <br>
+<center><img src="../assets/img/vision/detection/fcos/9.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- Approach에서는 FCOS의 컨셉에 대하여 본격적으로 알아보도록 하겠습니다.
+- 먼저 `Fully Convolutional One-Stage Object Detector`에서는 Object Detection을 per-pixel prediction 방식으로 어떻게 하는 지 알아보겠습니다.
+- 그 다음으로 `Multi-level Prediction with FPN for FCOS`에서는 recall 성능 개선과 겹친 bounding box 처리 문제 개선을 위한 Multi-level Prediction 방법을 알아보겠습니다.
+- 마지막으로 `center-ness` branch를 통하여 low-quality detected bounding box를 제거하는 방법에 대하여 다루어 보겠습니다.
+
+<br>
+
+### **Fully Convolutional One-Stage Object Detector**
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/10.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 먼저 CNN의 backbone 중 layer $$ i $$ 에 해당하는 `feature map`을 $$ F_{i} $$ 라고 하고 $$ s $$ 는 각 layer에 사용된 `stride`로 정의하겠습니다.
+- 각 이미지의 ground truth는 $$ B_{i} $$ 로 표시하며 $$ (x_{0}^{(i)}, y_{0}^{(i)}, x_{1}^{(i)}, y_{0}^{(i)}, c^{(i)}) \in \mathbb{R}^{4} \times \{1, 2, ... , C} $$ 의 형태를 가집니다. 즉, 임의의 픽셀에서 최대 클래스의 갯수 만큼의 물체의 위치를 가질 수 있다는 뜻이며 한 픽셀에서 2개 이상의 같은 클래스는 추정하지 않음을 나타냅니다. 그러면 최대 클래스의 갯수 C 만큼의 위치를 가진다면 각각의 클래스에 대하여 $$ x_{0}^{(i)}, y_{0}^{(i)}, x_{1}^{(i)}, y_{0}^{(i)} $$ 라는 bounding box 까지의 거리 정보를 가지게 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/11.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- feature map $$ F_{i} $$ 의 (x, y) 위치의 좌표는 실제 이미지에서 다음 식을 따릅니다.
+
+<br>
+
+- $$ ( \lfloor{ \frac{s}{2} \rfloor} + xs, \lfloor{ \frac{s}{2} \rfloor} + ys ) $$
+
+<br>
+
+- 예를 들어 어떤 layer에서의 좌표가 (23, 30) 이고 stride가 8이 었다면 실제 이미지에서는 (4 + 23 * 8, 4 + 30 * 8) = (188, 244)가 됩니다. 각 좌표에서 $$ \lfloor{ \frac{s}{2} \rfloor} $$ 는 stride 연산을 통해 발생하는 오차를 stride의 반 만큼만 더해줘서 보상을 해주는 역할을 합니다.
+- 이러한 방법을 통하여 기존의 anchor box를 통하여 추정 하지 않고 직접적으로 각 위치를 추정하게 됩니다. 즉, 각각의 좌표 위치를 학습해야 할 대상으로 바라보게 됩니다. 이는 anchor 기반의 detector와는 차이점을 보입니다.
+
+### **Multi-level Prediction with FPN for FCOS**
+
+### **Center-ness for FCOS**
+
+
 
 
 
