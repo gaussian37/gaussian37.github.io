@@ -32,9 +32,9 @@ tags: [vision, detection, fcos] # add tag
 - ### [Introduction](#introduction-1)
 - ### [Related Work](#related-work-1)
 - ### [Approach](#approach-1)
-    - #### [Fully Convolutional One-Stage Object Detector](#)
-    - #### [Multi-level Prediction with FPN for FCOS](#)
-    - #### [Center-ness for FCOS](#)
+    - #### [Fully Convolutional One-Stage Object Detector](#fully-convolutional-one-stage-object-detector-1)
+    - #### [Multi-level Prediction with FPN for FCOS](#multi-level-prediction-with-fpn-for-fcos-1)
+    - #### [Center-ness for FCOS](#center-ness-for-fcos-1)
 - ### [Experiments](#experiments-1)
 - ### [Concolusion](#concolusion-1)
 - ### [Pytorch Code](#pytorch-code-1)
@@ -166,9 +166,51 @@ tags: [vision, detection, fcos] # add tag
 - 예를 들어 어떤 layer에서의 좌표가 (23, 30) 이고 stride가 8이 었다면 실제 이미지에서는 (4 + 23 * 8, 4 + 30 * 8) = (188, 244)가 됩니다. 각 좌표에서 $$ \lfloor{ \frac{s}{2} \rfloor} $$ 는 stride 연산을 통해 발생하는 오차를 stride의 반 만큼만 더해줘서 보상을 해주는 역할을 합니다.
 - 이러한 방법을 통하여 기존의 anchor box를 통하여 추정 하지 않고 직접적으로 각 위치를 추정하게 됩니다. 즉, 각각의 좌표 위치를 학습해야 할 대상으로 바라보게 됩니다. 이는 anchor 기반의 detector와는 차이점을 보입니다.
 
+<br>
+<center><img src="../assets/img/vision/detection/fcos/12.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 그러면 각 feature map에서의 (x, y)와 GT를 어떻게 비교하면 될까요? 컨셉은 간단합니다. (x, y)가 GT bounding box에 속하면 positive sample로 간주하고 클래스는 GT에 해당하는 클래스 $$ c^{*} $$ 에 대응합니다. 만약 (x, y)가 GT bounding box에 속하지 않는다면 negative sample로 간주하고 클래스는 0으로 ( $$ c^{*} = 0 $$ ) 둡니다. 이는 background class 임을 뜻합니다.
+- 이 때 bounding box의 크기를 예측하기 위하여 다음 식을 이용합니다.
+
+<br>
+
+- $$ \boldsymbol{t^{*}} = (l^{*}, t^{*}, r^{*}, b^{*}) $$ 
+
+- $$ l^{*} = x - x__{0}^{(i)}, t^{*} = y - y__{0}^{(i)} $$
+
+- $$ r^{*} = x_{1}^{(i)} - x, b^{*} = y_{1}^{(i)} - y $$
+
+<br>
+
+- 위 식을 이용하여 prediction과 target인 GT 간의 오차를 $$ \boldsymbol{t^{*}} $$ 벡터로 구할 수 있습니다. 벡터의 각 값은 차례대로 좌/상/우/하 방향으로 (x, y)와 bounding box 까지의 거리를 나타냅니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/13.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림의 l, t, r, b 를 참조하시면 됩니다.
+- 만약 한 점 (x, y)가 여러 개의 bounding box에 속하게 된다면 영역이 가장 작은 bounding box를 선택하는 방법을 이용합니다. 이와 같은 방식으로 bounding box를 선택하는 이유는 뒤에서 다룰 Multi-level prediction과 관련되어 있으며 Multi-level prediction을 이용하기 때문에 성능이 거의 영향을 주지 않습니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/14.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- FCOS 에서는 l, t, r, b를 추정하면서 **가능한한 많이 foreground에 대하여 regressor를 학습**하려고 합니다. anchor 기반의 모델에서는 GT bounding box와 anchor box의 IoU가 충분히 높은 경우에만 foreground인 positive sample로 학습하는 것과 차이점이 있습니다. 이 점이 FCOS가 anchor 기반의 모델에 비해 높은 성능을 내는 이유 중의 하나로 설명합니다.
+
+<br>
+
 ### **Multi-level Prediction with FPN for FCOS**
 
+<br>
+
+
+
+<br>
+
 ### **Center-ness for FCOS**
+
+<br>
 
 
 
@@ -176,7 +218,7 @@ tags: [vision, detection, fcos] # add tag
 
 <br>
 
-## **Ablation Study**
+## **Experiments**
 
 <br>
 
