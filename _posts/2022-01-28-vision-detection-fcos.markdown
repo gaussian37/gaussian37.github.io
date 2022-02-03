@@ -199,6 +199,40 @@ tags: [vision, detection, fcos] # add tag
 - FCOS 에서는 l, t, r, b를 추정하면서 **가능한한 많이 foreground에 대하여 regressor를 학습**하려고 합니다. anchor 기반의 모델에서는 GT bounding box와 anchor box의 IoU가 충분히 높은 경우에만 foreground인 positive sample로 학습하는 것과 차이점이 있습니다. 이 점이 FCOS가 anchor 기반의 모델에 비해 높은 성능을 내는 이유 중의 하나로 설명합니다.
 
 <br>
+<center><img src="../assets/img/vision/detection/fcos/15.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- FCOS에서 사용하는 네트워크의 마지막 layer는 클래스 갯수 (MS COCO의 경우 80개)의 차원을 가지는 벡터와 4차원인 $$ \boldsymbol{t^{*}} = (l^{*}, t^{*}, r^{*}, b^{*}) $$ 을 예측합니다.
+- 학습 시에는 multi-class classifier를 이용하여 학습하지 않고 클래스 갯수 $$ C $$ 개의 binary classifier를 사용합니다.
+- 또한 4개의 convolutional layer를 backbone으로 부터 나온 feature map에 각각 추가하여 classification과 regression을 위한 branch로 만듭니다.
+- regression을 할 때, regression의 target은 항상 positive로 분류되므로 regression branch에 exponential을 적용하여 0 ~ 양의 무한대 범위의 값으로 맵핑합니다. 
+- 이와 같은 방법을 통하여 FCOS는 anchor를 사용하지 않고 regression을 하며 anchor 기반의 네트워크에 비해 anchor의 갯수의 배수 만큼 더 적은 output variable을 가지게 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/16.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- classification을 위한 Loss는 Focal Loss를 사용하였고 Regression을 위한 Loss는 IoU Loss를 사용하였습니다. 각 Loss는 positive 샘플의 갯수 만큼 나누어서 normalization을 하였습니다.
+- regression 부분에서 $$ \lambda $$ 를 사용하여 loss의 weight를 조절할 수 있으나 기본적으로는 1을 사용하였습니다. 클래스 인덱스가 0보다 큰 경우 즉, positive sample일 때에는 모든 feature map에서 연산이 되는 반면 클래스 인덱스가 0인 경우에는 negative sample로 간주하여 연산이 무시됩니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/17.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 인퍼런스를 할 때에는 이미지를 네트워크에 feedforward한 후에 각 feature map인 $$ F_{i} $$의 각 (x, y) 위치에 대하여 classification score인 $$ p_{x, y} $$ 와 regression prediction 인 $$ t_{x, y} $$를 얻습니다.
+- 만약 $$ p_{x, y} > 0.05 $$ 조건을 만족하면 positive sample로 간주하고 다음 식을 통하여 bounding box를 구할 수 있습니다.
+
+<br>
+
+- $$ \hat{x_{l}} = x - l^{*} $$
+
+- $$ \hat{y_{l}} = y - t^{*} $$
+
+- $$ \hat{x_{r}} = x + r^{*} $$
+
+- $$ \hat{y_{r}} = y + b^{*} $$
+
+<br>
 
 ### **Multi-level Prediction with FPN for FCOS**
 
