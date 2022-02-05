@@ -46,7 +46,7 @@ torch.nn.Conv2d(
 
 <br>
 
-$$ out(N_{i}, C_{out}) = bias(C_{out_{j}}) + \sum_{k=0}^{C_{in}-1} weight(C_{out}, k) \otimes input(N_{i}, k) $$ 
+- $$ \text{out}(N_{i}, C_{out}) = \text{bias}(C_{\text{out}_{j}}) + \sum_{k=0}^{C_{\text{in}}-1} \text{weight}(C_{\text{out}}, k) \otimes \text{input}(N_{i}, k) $$ 
 
 <br>   
 
