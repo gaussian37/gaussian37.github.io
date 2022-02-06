@@ -237,6 +237,27 @@ tags: [vision, detection, fcos] # add tag
 ### **Multi-level Prediction with FPN for FCOS**
 
 <br>
+<center><img src="../assets/img/vision/detection/fcos/18.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 앞에서 설명한 내용 중에 FCOS의 문제점 2가지를 `FPN 구조의 multi-level prediction`을 통하여 해결한 내용을 설명하도록 하겠습니다.
+- 먼저 2가지 문제점은 **① stride가 크면 Recall이 낮아질 수 있는 문제점**과 **② GT box가 겹칠 때, 모호함이 발생할 수 있는 것**입니다.
+- 먼저 첫번째 문제에 대하여 살펴보도록 하겠습니다. 예를 들어 stride가 누적된 결과 마지막 feature map에서의  stride가 16 정도가 되었다면 낮은 `BPR(Best Possible Recall)`을 얻을 수 있습니다. Anchor 기반의 디덱터에서는 recall 수치가 낮아지면 필요한 IoU 스코어를 낮추어서 Positive Sample의 갯수를 늘리면 Recall을 의도적으로 늘릴 수 있습니다.
+- 반면 FCOS에서는 large stride로 인하여 마지막 feature map에서 해당 물체의 위치가 없어지게 되면 recall을 늘릴 수 있는 방법이 없어질 것으로 생각이 들 수 있습니다.
+- 하지만 FCOS 모델을 이용하여 실험을 해보았을 때, Anchor 기반의 모델인 RetinaNet 보다 더 좋은 BPR 성능을 얻을 수 있음을 확인하였습니다. 또한 `multi-level FPN prediction` 구조를 통하여 더 성능을 개선할 수 있음을 확인하였습니다.
+- 다음의 두번째 문제인 GT 박스가 겹치는 상황의 모호성에 대해서도 multi-levl FPN prediction 구조가 개선책임 될 수 있음을 설명합니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/19.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/20.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림의 $$ P_{3} $$ ~ $$ P_{7} $$ 까지의 feature는 서로 다른 크기의 feature입니다. $$ P_{3}, P_{4}, P_{5} $$ 는 각각 $$ C_{3}, C_{4}, C_{5} $$ 에 1 x 1 convolution을 통해 feature를 얻고 $$ P_{5} \to P_{4} \to P_{3} $$ 의 top-down 방향으로 연결합니다.
+- 그리고 $$ P_{6}, P_{7} $$ 은 $$ P_{5} $$ 부터 시작하여 stride 2를 차례대로 적용하여 $$ P_{5} \to P_{6} \to P_{7} $$ 순서로 만들어 냅니다.
+- 그 결과 $$ P_{3} = 8, P_{4} = 16, P_{5} = 32, P_{6} = 64, P_{7} = 128 $$ 에 해당하는 stride 크기를 가집니다.
 
 
 
