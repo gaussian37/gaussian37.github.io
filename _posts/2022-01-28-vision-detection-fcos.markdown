@@ -132,6 +132,14 @@ tags: [vision, detection, fcos] # add tag
 ## **Approach**
 
 <br>
+<center><img src="../assets/img/vision/detection/fcos/0.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `FCOS`의 전체적인 architecture는 위 그림과 같습니다. Backbone 단계에서 3가지 크기의 feature를 추출하고 이 feature를 이용하여 5단계의 Feature Pyramid를 생성합니다. 이 Feature Pyramid를 통해 각 Head를 얻게되는데 Classification에 해당하는 부분이 FCN 기반의 세그멘테이션 구조와 유사합니다.
+- 나머지 Center-ness는 Object Detection 성능을 개선하기 위한 구조이며 마지막 Regression을 통하여 Bounding Box의 크기를 결정합니다.
+- 자세한 내용은 차례대로 살펴보도록 하겠습니다.
+
+<br>
 <center><img src="../assets/img/vision/detection/fcos/9.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
@@ -259,7 +267,29 @@ tags: [vision, detection, fcos] # add tag
 - 그리고 $$ P_{6}, P_{7} $$ 은 $$ P_{5} $$ 부터 시작하여 stride 2를 차례대로 적용하여 $$ P_{5} \to P_{6} \to P_{7} $$ 순서로 만들어 냅니다.
 - 그 결과 $$ P_{3} = 8, P_{4} = 16, P_{5} = 32, P_{6} = 64, P_{7} = 128 $$ 에 해당하는 stride 크기를 가집니다.
 
+<br>
+<center><img src="../assets/img/vision/detection/fcos/21.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
+- 기존의 anchor 기반의 detector와는 다르게 각 level의 feature에서 bounding box를 regression할 때, 범위를 제한합니다.
+- 예를 들어 bounding box의 중심점에서 각 bounding box 까지의 좌/상/우/하 까지의 거리를 $$ l^{*}, t^{*}, r^{*}, b^{*} $$ 라고 하면 각 $$ i $$ 번째 feature 에서의 거리 범위는 아래와 같습니다.
+
+<br>
+
+- $$ m_{i-1} \le \text{max}(l^{*}, t^{*}, r^{*}, b^{*}) \le m_{i} $$
+
+<br>
+
+- 위 식에서 $$ m_{2}, ..., m_{6} $$ 은 각각 0, 64, 128, 256, 512, $$ \infty $$ 가 되며 위 식의 범위를 벗어나면 negative sample로 인식합니다.
+- 인덱스 $$ i $$ 가 작을 수록 stride가 작기 때문에 더 좁은 범위를 찾을 수 있고 $$ i $$ 가 클수록 stride가 더 크기 때문에 더 넓은 범위를 찾을 수 있습니다. 이 방식과 대응하여 $$ i $$ 가 작을수록 찾고자 하는 거리 범위의 제한도 작아 작은 물체를 찾도록 하고 $$ i $$ 가 클수록 찾고자 하는 거리 범위도 커져서 넓은 범위에서 큰 물체를 찾도록 합니다.
+- 만약 이와 같은 multi-level FPN 구조를 사용하였음에도 불구하고 한 위치에 여러개의 gt 박스가 할당이 되면 면적이 가장 작은 gt box를 사용하는 것으로 기준을 정하여 모호함을 제거하였습니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/22.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 더 좋은 성능을 위하여 마지막 head 간에도 공유가 있는 것이 좋지만 앞에서 설명한 multi-level feature 간 서로 다른 사이즈의 범위로 regression 하는 것의 효과가 있기 때문에 서로 다른 level 에서의 head는 공유하지 않습니다. 
+- 추가적으로 regression brach의 exponential 함수에 trainable parameter를 적용하여 성능 개선을 하였습니다.
 
 <br>
 
