@@ -296,6 +296,14 @@ tags: [vision, detection, fcos] # add tag
 ### **Center-ness for FCOS**
 
 <br>
+<center><img src="../assets/img/vision/detection/fcos/23.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 앞에서 설명한 Multi-level Prediction을 사용하더라도 FCOS와 anchor 기반의 디텍터와의 성능 차이가 있었습니다.
+- FCOS에서는 상대적으로 low-quality bounding box가 많이 예측이 되었기 때문인데 이러한 box들은 실제 물체의 중앙점에서 멀리 떨어진 상태로 추정되는 경향이 있습니다.
+- 여기서 소개하는 `center-ness`는 하이퍼파라미터 없이 실제 중앙에 가까운 점들을 예측할 수 있도록 돕는 역할을 합니다. 위 식에서 나타내는 `centerness`를 출력에 곱해주게 되면 마지막 layer의 `NMS`에서 객체의 중앙과 멀리 떨어져서 위치를 추정한 박스는 걸러지도록 만들 수 있습니다.
+- 
+
 
 
 
