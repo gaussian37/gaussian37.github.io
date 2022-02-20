@@ -94,6 +94,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [Dataloader 사용 방법](#dataloader-사용-방법-1)
 - ### [pre-trained model 사용 방법](#pre-trained-model-사용-방법-1)
 - ### [pre-trained model 수정 방법](#pre-trained-model-수정-방법-1)
+- ### [pre-trained model fine tuning 방법](#pre-trained-model-fine-tuning-방법-1)
 - ### [checkpoint 값 변경 후 저장](#checkpoint-값-변경-후-저장-1)
 - ### [Learning Rate Scheduler 사용 방법](#learning-rate-scheduler-사용-방법-1)
 - ### [model의 parameter 확인 방법](#model의-parameter-확인-방법-1)
@@ -4085,6 +4086,148 @@ delete_layers = [key for i, key in enumerate(pretrained_weight.keys()) if i >= d
 for delete_layer in delete_layers:
     del pretrained_weight[delete_layer]
 ```
+
+<br>
+
+## **pre-trained model fine tuning 방법**
+
+<br>
+
+- pre-trained 모델을 이용하여 fine turing을 하기 위해서는 선언된 모델의 `requires_grad`를 `False`로 입력하면 됩니다.
+- 아래 코드는 임의의 뉴럴 네트워크를 이용하여 특정 layer는 학습을 하도록 하고 특정 layer는 학습하지 않도록 하는 코드입니다.
+
+<br>
+
+```python
+import torch
+import torch.nn as nn
+
+class CustomModel(nn.Module):   
+    def __init__(self):
+        super(CustomModel, self).__init__()
+
+        self.freeze_layers = nn.Sequential(
+            # Defining a 2D convolution layer
+            nn.Conv2d(1, 4, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(4),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            # Defining another 2D convolution layer
+            nn.Conv2d(4, 4, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(4),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+        )
+
+        self.non_freeze_layers = nn.Linear(4 * 7 * 7, 10)
+
+    # Defining the forward pass    
+    def forward(self, x):
+        x = self.freeze_layers(x)
+        x = x.view(x.size(0), -1)
+        x = self.linear_layers(x)
+        return x
+
+custom_model = CustomModel()
+```
+
+<br>
+
+- 위 코드와 같이 모델을 선언하면 `freeze_layers`와 `non_freeze_layers`를 prefix로 각 layer를 접근할 수 있습니다. 각 layer를 살펴보는 방법은 다음과 같습니다.
+
+<br>
+
+```python
+for name, param in custom_model.named_parameters():
+    print("name : ", name)
+    print("requires_grad : ", param.requires_grad)
+    print()
+
+# name :  freeze_layers.0.weight
+# requires_grad :  True
+
+# name :  freeze_layers.0.bias
+# requires_grad :  True
+
+# name :  freeze_layers.1.weight
+# requires_grad :  True
+
+# name :  freeze_layers.1.bias
+# requires_grad :  True
+
+# name :  freeze_layers.4.weight
+# requires_grad :  True
+
+# name :  freeze_layers.4.bias
+# requires_grad :  True
+
+# name :  freeze_layers.5.weight
+# requires_grad :  True
+
+# name :  freeze_layers.5.bias
+# requires_grad :  True
+
+# name :  non_freeze_layers.weight
+# requires_grad :  True
+
+# name :  non_freeze_layers.bias
+# requires_grad :  True
+```
+
+<br>
+
+- 위 코드의 출력 결과에서 살펴볼 점은 2가지입니다. 첫번째로 각 parameter의 name과 requires_grad값입니다.
+- 첫번째로 각 parameter의 name은 실제 모델에서 layer를 선언할 때 사용한 변수명을 따릅니다. 따라서 **fine tuning 시 freeze / non_freeze 대상을 구별**하여 변수명을 선언하면 구현하는 데 도움이 됩니다.
+- 두번째 내용인 `requires_grad`을 살펴보면 기본적으로 모델의 각 layer를 선언할 때, `requires_grad=True`로 설정되기 때문에 위 결과와 같이 모든 layer는 `requires_grad :  True`가 되는 것을 확인할 수 있습니다.
+- 이 2가지 내용을 이용하여 `freeze_layers`로 시작하는 layer는 학습하지 않도록 `requires_grad=False`로 셋팅해보면 다음과 같습니다.
+
+<br>
+
+```python
+non_freeze_prefix = "non_freeze"
+for name, param in custom_model.named_parameters():
+    if name.startswith(non_freeze_prefix) == False:
+        param.requires_grad = False 
+
+for name, param in custom_model.named_parameters():
+    print("name : ", name)
+    print("requires_grad : ", param.requires_grad)
+    print()
+
+# name :  freeze_layers.0.weight
+# requires_grad :  False
+
+# name :  freeze_layers.0.bias
+# requires_grad :  False
+
+# name :  freeze_layers.1.weight
+# requires_grad :  False
+
+# name :  freeze_layers.1.bias
+# requires_grad :  False
+
+# name :  freeze_layers.4.weight
+# requires_grad :  False
+
+# name :  freeze_layers.4.bias
+# requires_grad :  False
+
+# name :  freeze_layers.5.weight
+# requires_grad :  False
+
+# name :  freeze_layers.5.bias
+# requires_grad :  False
+
+# name :  non_freeze_layers.weight
+# requires_grad :  True
+
+# name :  non_freeze_layers.bias
+# requires_grad :  True
+```
+
+<br>
+
+- 위 코드의 결과를 살펴보면 마지막 2개의 non_freeze_layer에 해당하는 weight, bias를 제외하고 모두 `requires_grad = False`로 되어있음을 알 수 있습니다.
 
 <br>
 
