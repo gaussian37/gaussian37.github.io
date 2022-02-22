@@ -13,9 +13,9 @@ tags: [딥러닝, glbal average pooling, pooling] # add tag
 
 <br>
 
-- 참조 : https://principlesofdeeplearning.com/index.php/a-tutorial-on-global-average-pooling/#:~:text=The%20global%20average%20pooling%20mechanism,all%20digits%20summing%20to%201.0.)
 - 참조 : https://kevinthegrey.tistory.com/142
 - 참조 : https://blog.naver.com/nywoo19/221930484253
+- 참조 : https://discuss.pytorch.org/t/global-average-pooling-in-pytorch/6721/11
 
 <br>
 
@@ -70,6 +70,28 @@ tags: [딥러닝, glbal average pooling, pooling] # add tag
 - 반면 GAP는 어떤 크기의 feature 라도 같은 채널의 값들을 하나의 평균 값으로 대체하기 때문에 벡터가 됩니다. 따라서 **어떤 사이즈의 입력이 들어와도 상관이 없습니다.** 또한 단순히 (H, W, C) → (1, 1, C) 크기로 줄어드는 연산이므로 파라미터가 추가되지 않으므로 학습 측면에서도 유리합니다. 또한 파라미터의 갯수가 FC Layer 만큼 폭발적으로 증가하지 않아서 over fitting 측면에서도 유리합니다.
 - 따라서 GAP 연산 결과 1차원 벡터가 되기 때문에 **최종 출력에 FC Layer 대신 사용**할 수 있습니다.
 - 경우에 따라서 FC layer와 같이 사용 되기도 합니다. FC layer에 전달하기 전에 GAP를 이용하여 차원을 줄여서 벡터로 만든 다음에 FC layer로 전달 하면 FC Layer에서 쉽게 사이즈를 맞출 수 있기 때문입니다.
+
+<br>
+
+## **Pytorch 구현 방법**
+
+<br>
+
+- pytorch를 이용하여 Global Average Pooling을 구현하는 방법은 크게 3가지가 있으며 아래 코드를 참조하시면 됩니다.
+- average pooling 관련 함수를 사용하여도 되고 단순히 feature를 reshape한 다음에 `torch.mean` 함수를 이용하여도 됩니다.
+
+<br>
+
+```python
+import torch
+import torch.nn.functional as F
+
+x = torch.randn((256, 96, 128, 128)).cuda()
+
+F.avg_pool2d(x, x.size()[2:])
+F.adaptive_avg_pool2d(x, (1, 1))
+torch.mean(x.view(x.size(0), x.size(1), -1), dim=2)
+```
 
 <br>
 
