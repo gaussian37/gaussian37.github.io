@@ -58,7 +58,11 @@ tags: [라이다, 포인트 클라우드, lidar, point cloud] # add tag
 
 <br>
 
-- 지금까지 라이다의 기본 원리에 대하여 살펴보았습니다. 최근에는 라이다의 3가지 요소를 기준으로 라이다가 발전하고 있습니다. 라이다의 3가지 요소는 ① 3D Beam-scanning technology, ② Distance measurement, ③ Laser wavelength, Power 입니다. 지금부터 이 3가지 요소에 대하여 자세히 살펴보도록 하겠습니다.
+- 지금까지 라이다의 기본 원리에 대하여 살펴보았습니다. 최근에는 라이다의 3가지 요소를 기준으로 라이다가 발전하고 있습니다. 라이다의 3가지 요소는 ① 3D Beam-scanning technology, ② Distance measurement, ③ Laser wavelength, Power 입니다. 지금부터 이 3가지 요소에 대하여 자세히 살펴보도록 하겠습니다. 각 항목에서 다룰 내용은 다음과 같습니다.
+- `① 3D Beam-scanning technology` : 어떻게 Beam을 사용할 지에 대한 기술로 앞의 예제에서 거울을 이용하여 laser beam의 방향을 바꾸는 것에 해당합니다.
+- `② Distance measurement` : 거리를 어떻게 측정할 지에 해당합니다. 앞의 예제에서는 ToF(Time of Flight)라는 방법 즉, laser가 송출되었다가 수신되는 시간 차이를 이용한 거리 추정 방법에 해당합니다.
+- `③ Laser wavelength, Power` : 라이다의 wavelength, Power를 어떻게 설정할 지에 해당합니다.
+- 그러면 위 3가지 요소를 차례대로 살펴보도록 하겠습니다.
 
 <br>
 
@@ -67,3 +71,14 @@ tags: [라이다, 포인트 클라우드, lidar, point cloud] # add tag
 <br>
 
 - 앞에서 가장 기본적인 lidar의 구조에 대하여 살펴보았고 성능 개선, 가격 경쟁력을 위하여 다양한 시도들이 이루어 지고 있습니다.
+- 먼저 Beam sanning 기술은 앞에서 설명한 거울을 이용하여 beam의 방향을 바꾸는 것에 해당하며 이와 같이 beam의 방향을 바꾸는 이유는 원하는 방향으로 laser를 설치하여 사용 하면 laser의 갯수가 늘어나서 가격이 비싸지는 문제점이 있기 때문입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/lidar_pointcloud_process/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Beam scanning 관점에서 라이다는 크게 Non-scanning과 scanning 방식의 라이다로 나눌 수 있습니다. 
+- 먼저 Non-scanning 라이다는 laser를 scanning 하지 않고 고정된 방식으로 쏘게 되나 laser를 퍼트려 줌으로써 다양한 영역을 감지할 수 있는 방식입니다.
+- scanning 방식에는 크게 Non-mechanical scanner와 Mechanical scanner 2가지 방식이 있습니다. Non-mechanical scanner 전자식을 의미하며 Mechanical scanner는 말 그대로 기계식 방식을 의미합니다. 라이다가 동작할 때, 내부적으로 회전이 발생하는 것이 보인다면 Mechanical scanner입니다.
+- `Motorized Optomechanical Scanners`라고 불리는 방식은 Beam Scanning을 위하여 모터가 돌아가는 방식이며 자동차에서 사용 중인 벨로다인 라이다를 보면 내부적으로 모터가 돌아가는 것을 확인할 수 있는데 이 라이다가 대표적인 예시입니다.
+- `MEMS Scanners`의 MEMS는 Micro Electro Mechanical Systems의 약자로 굉장히 작은 전자 기계 방식을 이용합니다. 앞의 모터 방식은 모터가 사람 눈으로 볼 수 있을 정도로 크지만 `MEMS Scanner`는 그렇지 않습니다.
