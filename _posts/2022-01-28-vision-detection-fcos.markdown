@@ -302,7 +302,13 @@ tags: [vision, detection, fcos] # add tag
 - 앞에서 설명한 Multi-level Prediction을 사용하더라도 FCOS와 anchor 기반의 디텍터와의 성능 차이가 있었습니다.
 - FCOS에서는 상대적으로 low-quality bounding box가 많이 예측이 되었기 때문인데 이러한 box들은 실제 물체의 중앙점에서 멀리 떨어진 상태로 추정되는 경향이 있습니다. low-quality bounding box의 정의는 IoU와 classification score 중에서 IoU의 스코어가 더 낮은 box를 의미합니다. 이와 같은 box는 위치가 부정확한 상태로 높은 확률로 box를 오인식 할 수 있기 때문입니다.
 - 여기서 소개하는 `center-ness`는 하이퍼파라미터 없이 실제 중앙에 가까운 점들을 예측할 수 있도록 돕는 역할을 합니다. 위 식에서 나타내는 `center-ness`를 classification score 출력에 곱해주게 되면 마지막 layer의 `NMS`에서 객체의 중앙과 멀리 떨어져서 위치를 추정한 박스는 걸러지도록 만들 수 있습니다. 이와 같은 역할을 하기 위하여 single layer branch를 추가하여 어떤 위치에서의 center-ness를 예측합니다.
-- `center-ness`식의 의미는 center 점에서 왼쪽/상단/오른쪽/하단 끝 부분까지의 normalized distance를 의미합니다. 여기서 `sqrt`를 적용한 이유는 center-ness 값이 많이 줄어들지 않기 위함입니다. sqrt 내부의 값이 0 ~ 1 사이의 값이므로 sqrt를 적용하면 적용하지 않았을 때 보다 값이 더 커집니다. center-ness의 값의 범위는 0 ~ 1사이이며 Binary Cross Entropy Loss를 통하여 학습이 됩니다.
+- `center-ness`식의 의미는 center 점에서 왼쪽($$ l^{*} $$)/상단($$ t^{*} $$)/오른쪽($$ r^{*} $$)/하단($$ b^{*} $$) 끝 부분까지의 normalized distance를 의미합니다. 
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/26.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 여기서 `sqrt`를 적용한 이유는 center-ness 값이 많이 줄어들지 않기 위함입니다. sqrt 내부의 값이 0 ~ 1 사이의 값이므로 sqrt를 적용하면 적용하지 않았을 때 보다 값이 더 커집니다. center-ness의 값의 범위는 0 ~ 1사이이며 Binary Cross Entropy Loss를 통하여 학습이 됩니다.
 - 이 때 사용된 Loss는 앞에서 정의한 전체 Loss에 추가적으로 더해집니다.
 
 <br>
@@ -325,8 +331,46 @@ tags: [vision, detection, fcos] # add tag
 
 <br>
 
+- 지금까지 FCOS의 전체적인 아키텍쳐에 대하여 알아보았습니다.
 
+<br>
+<center><img src="../assets/img/vision/detection/fcos/27.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
+- 위 내용은 Training와 Inference 시의 상세 내용을 기입한 것입니다. backbone은 ResNet-50을 사용하였고 상세 파라미터는 RetinaNet을 따른 것으로 설명합니다. Inference 또한 상세 내용은 RetinaNet을 따릅니다.
+
+<br>
+
+- FCOS 논문에서는 Anchor free 기반임에도 불구하고 Anchor 기반의 모델에 비해 좋은 성능을 낼 수 있는 이유로 ① **Multi-level Prediction with FPN**과 ② **Center-ness**를 제시하였습니다. 그러면 이 각각의 아이디어에 대한 실험 내용을 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/28.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 먼저 Multi-level Prediction with FPN과 관련된 내용 됩니다. FCN 기반의 디텍터는 low recall에 대한 문제점과 출력 bounding box와 GT가 애매하게 겹치는 ambiguous samples에 대한 문제점이 나타나곤 합니다. 이 문제는 `Multi-level Prediction with FPN`을 통하여 크게 개선될 수 있음을 보여줍니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/29.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 도표에서 RetinaNet은 Anchor 기반의 모델이고 FCOS는 Anchor free 기반의 모델입니다. 2번째 열인 w/FPN은 FPN이 사용된 구조에서 체크가 되어 있으며 3번째 열인 Low-quality matches는 Anchor 기반인 RetinaNet에서 사용되는 방법이며 Low-quality matche가 많이 사용될수록 Recall은 높아지게 됩니다. (반대로 Precision은 내려갈 수 있습니다.)
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/30.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `BPR`은 Best Possible Recalls의 줄임말로 가능한 Recall의 최댓값을 의미합니다. BPR에서는 Precision은 고려하지 않고 Recall 수치만 고려하여 가능한 Recall의 최댓값은 얼마인지 확인을 통해 이 모델의 Recall 성능을 확인해 볼 수 있습니다.
+- 그 결과 FCOS를 사용하여도 Anchor 기반의 RetinaNet 보다 수치가 높거나 1% 미만으로 낮음을 알 수 있습니다. 특히 FPN을 사용하였을 때, 성능 개선이 있음을 통하여 Anchor free 모델의 recall 성능이 낮다는 문제는 개선할 수 있음을 확인하였습니다.
+
+<br>
+
+- 그 다음으로 다룰 문제는 `Ambiguous Samples`와 관련된 내용입니다. 
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/31.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- `Ambiguous Samples` 문제는 GT bounding box들이 겹치는 문제 때문에 발생하며 위 그림과 같은 문제가 있을 수 있습니다. 위 문제를 살펴보면 같은 위치의 센터점에서 사람과 테니스 라켓의 bounding box를 그리고 있습니다. 즉, 위 그림처럼 겹치는 문제로 인해 발생하는 문제가 Ambiguous Samples 라고 합니다.
 
 <br>
 
