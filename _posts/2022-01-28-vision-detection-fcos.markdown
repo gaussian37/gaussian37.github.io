@@ -300,20 +300,33 @@ tags: [vision, detection, fcos] # add tag
 <br>
 
 - 앞에서 설명한 Multi-level Prediction을 사용하더라도 FCOS와 anchor 기반의 디텍터와의 성능 차이가 있었습니다.
-- FCOS에서는 상대적으로 low-quality bounding box가 많이 예측이 되었기 때문인데 이러한 box들은 실제 물체의 중앙점에서 멀리 떨어진 상태로 추정되는 경향이 있습니다.
-- 여기서 소개하는 `center-ness`는 하이퍼파라미터 없이 실제 중앙에 가까운 점들을 예측할 수 있도록 돕는 역할을 합니다. 위 식에서 나타내는 `centerness`를 출력에 곱해주게 되면 마지막 layer의 `NMS`에서 객체의 중앙과 멀리 떨어져서 위치를 추정한 박스는 걸러지도록 만들 수 있습니다.
-- 
+- FCOS에서는 상대적으로 low-quality bounding box가 많이 예측이 되었기 때문인데 이러한 box들은 실제 물체의 중앙점에서 멀리 떨어진 상태로 추정되는 경향이 있습니다. low-quality bounding box의 정의는 IoU와 classification score 중에서 IoU의 스코어가 더 낮은 box를 의미합니다. 이와 같은 box는 위치가 부정확한 상태로 높은 확률로 box를 오인식 할 수 있기 때문입니다.
+- 여기서 소개하는 `center-ness`는 하이퍼파라미터 없이 실제 중앙에 가까운 점들을 예측할 수 있도록 돕는 역할을 합니다. 위 식에서 나타내는 `center-ness`를 classification score 출력에 곱해주게 되면 마지막 layer의 `NMS`에서 객체의 중앙과 멀리 떨어져서 위치를 추정한 박스는 걸러지도록 만들 수 있습니다. 이와 같은 역할을 하기 위하여 single layer branch를 추가하여 어떤 위치에서의 center-ness를 예측합니다.
+- `center-ness`식의 의미는 center 점에서 왼쪽/상단/오른쪽/하단 끝 부분까지의 normalized distance를 의미합니다. 여기서 `sqrt`를 적용한 이유는 center-ness 값이 많이 줄어들지 않기 위함입니다. sqrt 내부의 값이 0 ~ 1 사이의 값이므로 sqrt를 적용하면 적용하지 않았을 때 보다 값이 더 커집니다. center-ness의 값의 범위는 0 ~ 1사이이며 Binary Cross Entropy Loss를 통하여 학습이 됩니다.
+- 이 때 사용된 Loss는 앞에서 정의한 전체 Loss에 추가적으로 더해집니다.
 
+<br>
+<center><img src="../assets/img/vision/detection/fcos/24.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
+- 논문에서 `center-ness`를 사용하였을 때 효과를 위 그래프와 같이 나타내었습니다. 왼쪽 그래프의 가로축은 classification score를 나타내고 오른쪽 그래프의 가로축은 classification score에 center-ness를 곱한 값을 나타냅니다. 세로축은 Inference와 GT 간의 IoU를 나타내며 가로축, 세로축 값 모두 1에 가까울수록 좋습니다.
+- 왼쪽 그래프와 오른쪽 그래프를 비교하면 오른쪽 그래프는 y=x 선을 기준으로 왼쪽 상단에 대부분의 점들이 위치하는 것을 알 수 있습니다. 즉, IoU는 낮으나 classification score가 높은 샘플들을 IoU가 classification score (* center-ness) 보다 상대적으로 더 높도록 만들어지도록 하였습니다.
+- 처음에 제기된 low-quality bounding box와 연결시켜 보면 왼쪽 그래프에서 y=x 선 아래에 있는 점들은 IoU가 Classification score보다 상대적으로 낮아서 오인식할 수 있는 가능성이 있는 집단을 표현하였습니다. 반면 오른쪽 그래프에서는 low-quality bounding box에 해당하는 집단의 수가 현저히 줄어들었습니다. 즉, Classification score가 상대적으로 높아서 출력 대상으로 뽑혔으나 IoU가 낮아서 잘못된 위치에 객체를 인식할 수 있는 대상들을 없앤 것입니다.
 
+<br>
+<center><img src="../assets/img/vision/detection/fcos/25.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
-
+- test 시점에서는 앞에서 설명한 바와 같이 classification score와 center-ness를 곱한 결과를 이용하여 각 bounding box의 스코어를 계산하고 최종적으로는 NMS를 통하여 필터링이 되도록 하면 성능을 개선할 수 있습니다.
 
 <br>
 
 ## **Experiments**
 
 <br>
+
+
+
 
 <br>
 

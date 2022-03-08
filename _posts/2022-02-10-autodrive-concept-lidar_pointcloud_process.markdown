@@ -10,6 +10,7 @@ tags: [라이다, 포인트 클라우드, lidar, point cloud] # add tag
 <br>
 
 - 이 글은 라이다 포인트 클라우드 처리 및 응용 (건국대학교 조기춘 교수님) 강의를 듣고 정리한 내용입니다.
+- 추가적으로 라이다 포인트 클라우드를 처리하기 위한 방법을 
 
 <br>
 
@@ -82,3 +83,4 @@ tags: [라이다, 포인트 클라우드, lidar, point cloud] # add tag
 - scanning 방식에는 크게 Non-mechanical scanner와 Mechanical scanner 2가지 방식이 있습니다. Non-mechanical scanner 전자식을 의미하며 Mechanical scanner는 말 그대로 기계식 방식을 의미합니다. 라이다가 동작할 때, 내부적으로 회전이 발생하는 것이 보인다면 Mechanical scanner입니다.
 - `Motorized Optomechanical Scanners`라고 불리는 방식은 Beam Scanning을 위하여 모터가 돌아가는 방식이며 자동차에서 사용 중인 벨로다인 라이다를 보면 내부적으로 모터가 돌아가는 것을 확인할 수 있는데 이 라이다가 대표적인 예시입니다.
 - `MEMS Scanners`의 MEMS는 Micro Electro Mechanical Systems의 약자로 굉장히 작은 전자 기계 방식을 이용합니다. 앞의 모터 방식은 모터가 사람 눈으로 볼 수 있을 정도로 크지만 `MEMS Scanner`는 그렇지 않습니다.
+

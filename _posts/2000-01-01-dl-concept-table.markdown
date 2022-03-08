@@ -32,6 +32,7 @@ tags: [python, deep learning, dl] # add tag
 - [Active Learning과 Learning Loss와 Bayesian Deep Learning을 이용한 Active Learning](https://gaussian37.github.io/dl-concept-active_learning/)
 - [Deep Learning에서의 Uncertainty](https://gaussian37.github.io/dl-concept-uncertainty_in_deep_learning/)
 - [Bayesian Neural Network](https://gaussian37.github.io/dl-concept-bayesian_neural_network/)
+- [Multi Task Deep Learning 개념 및 실습](https://gaussian37.github.io/dl-concept-mtl/)
 
 <br>
 
