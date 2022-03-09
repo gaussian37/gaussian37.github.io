@@ -373,6 +373,20 @@ tags: [vision, detection, fcos] # add tag
 - `Ambiguous Samples` 문제는 GT bounding box들이 겹치는 문제 때문에 발생하며 위 그림과 같은 문제가 있을 수 있습니다. 위 문제를 살펴보면 같은 위치의 센터점에서 사람과 테니스 라켓의 bounding box를 그리고 있습니다. 즉, 위 그림처럼 겹치는 문제로 인해 발생하는 문제가 Ambiguous Samples 라고 합니다.
 
 <br>
+<center><img src="../assets/img/vision/detection/fcos/32.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 먼저 FPN을 사용하지 않고 오직 $$ P_{4} $$ 의 feature만 사용 하여 ambiguous sample 을 확인하였을 때 약 23.16%의 샘플을 확인할 수 있었으나 FPN 구조를 사용하면 7.14 %로 줄어드는 것을 확인할 수 있었습니다. 즉, FPN 구조를 통하여 앞서 언급하였던 FCN 구조의 Detector에서 발생하는 2번째 문제인 Ambiguous Sample을 개선할 수 있었습니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/33.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 테이블의 수치는 center-ness를 사용하였을 때, 얼마나 성능이 향상하는 지 나타냅니다. None은 center-ness를 사용하지 않은 것이고 십자가 모양의 center-ness는 center-ness에 필요한 수치를 regression vector를 사용한 것 그리고 마지막 행이 center-ness를 별도의 branch로 둔 다음에 (H X W X 1)의 형태로 예측하여 사용한 케이스 입니다.
+- 결과적으로 논문의 아키텍쳐에서 제공한 형태로 branch를 별도로 사용하는 방식이 가장 성능이 좋으며 이렇게 사용할 때, Anchor 기반의 RetinaNet 보다 성능이 좋은 것을 확인하였습니다.
+- 추가적으로 RetinaNet에는 Anchor box가 샘플을 Positive / Negative 로 구분하기 위한 2개의 하이퍼파라미터가 있는 단점이 있는데 FCOS의 구조에서는 이러한 하이퍼파라미터 없이 학습된 결과만으로도 더 좋은 성능을 얻었음을 제시합니다.
+
+<br>
 
 ## **Concolusion**
 
