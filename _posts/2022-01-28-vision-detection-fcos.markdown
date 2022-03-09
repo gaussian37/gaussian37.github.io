@@ -409,7 +409,7 @@ tags: [vision, detection, fcos] # add tag
 <br>
 
 - 위 테이블 참조 시 RetinaNet과 FCOS, $$ C_{5}, P_{5} $$ 이용 유무, Group Normalization 사용 등이 주요 구분점으로 사용되었고 이 차이점을 이용하여 성능을 비교하였습니다.
-- FCOS의 가장 기본이 되는 구조는 $$ P_{5} $$ 와 Group Normalization을 사용하는 것으로 위에서 5번째 성능을 참조하면 됩니다. 추가적인 Improvements는
+- FCOS의 가장 기본이 되는 구조는 $$ P_{5} $$ 와 Group Normalization을 사용하는 것으로 위에서 5번째 성능을 참조하면 됩니다. 추가적인 Improvements 내용은 위 논문을 참조하시면 되며 
 
 <br>
 
