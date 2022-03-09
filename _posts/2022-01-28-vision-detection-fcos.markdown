@@ -344,6 +344,10 @@ tags: [vision, detection, fcos] # add tag
 - FCOS 논문에서는 Anchor free 기반임에도 불구하고 Anchor 기반의 모델에 비해 좋은 성능을 낼 수 있는 이유로 ① **Multi-level Prediction with FPN**과 ② **Center-ness**를 제시하였습니다. 그러면 이 각각의 아이디어에 대한 실험 내용을 살펴보도록 하겠습니다.
 
 <br>
+
+#### **Multi-level Prediction with FPN**
+
+<br>
 <center><img src="../assets/img/vision/detection/fcos/28.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
@@ -379,12 +383,33 @@ tags: [vision, detection, fcos] # add tag
 - 먼저 FPN을 사용하지 않고 오직 $$ P_{4} $$ 의 feature만 사용 하여 ambiguous sample 을 확인하였을 때 약 23.16%의 샘플을 확인할 수 있었으나 FPN 구조를 사용하면 7.14 %로 줄어드는 것을 확인할 수 있었습니다. 즉, FPN 구조를 통하여 앞서 언급하였던 FCN 구조의 Detector에서 발생하는 2번째 문제인 Ambiguous Sample을 개선할 수 있었습니다.
 
 <br>
+
+#### **With or Without Center-ness**
+
+<br>
 <center><img src="../assets/img/vision/detection/fcos/33.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 테이블의 수치는 center-ness를 사용하였을 때, 얼마나 성능이 향상하는 지 나타냅니다. None은 center-ness를 사용하지 않은 것이고 십자가 모양의 center-ness는 center-ness에 필요한 수치를 regression vector를 사용한 것 그리고 마지막 행이 center-ness를 별도의 branch로 둔 다음에 (H X W X 1)의 형태로 예측하여 사용한 케이스 입니다.
 - 결과적으로 논문의 아키텍쳐에서 제공한 형태로 branch를 별도로 사용하는 방식이 가장 성능이 좋으며 이렇게 사용할 때, Anchor 기반의 RetinaNet 보다 성능이 좋은 것을 확인하였습니다.
 - 추가적으로 RetinaNet에는 Anchor box가 샘플을 Positive / Negative 로 구분하기 위한 2개의 하이퍼파라미터가 있는 단점이 있는데 FCOS의 구조에서는 이러한 하이퍼파라미터 없이 학습된 결과만으로도 더 좋은 성능을 얻었음을 제시합니다.
+
+<br>
+
+#### **FCOS vs. Anchor-based Detectors**
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/34.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- FCOS 논문에서는 RetinaNet과의 동등 비교를 위하여 가능한한 하이퍼파라미터는 동일하게 사용하되 Group Normalization을 사용한 것과 전체 아키텍쳐 참조 시 $$ C_{5} $$ 대신 $$ P_{5} $$ feature를 이용하여 $$ P_{6}, P_{7} $$ 을 생성한 것에 차이를 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/35.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 테이블 참조 시 RetinaNet과 FCOS, $$ C_{5}, P_{5} $$ 이용 유무, Group Normalization 사용 등이 주요 구분점으로 사용되었고 이 차이점을 이용하여 성능을 비교하였습니다.
+- FCOS의 가장 기본이 되는 구조는 $$ P_{5} $$ 와 Group Normalization을 사용하는 것으로 위에서 5번째 성능을 참조하면 됩니다. 추가적인 Improvements는
 
 <br>
 
