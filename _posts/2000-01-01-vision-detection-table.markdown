@@ -18,6 +18,8 @@ tags: [vision, deep learning, detection] # add tag
 <br>
 
 - [CenterNet](https://gaussian37.github.io/vision-detection-centernet/)
+- [FCOS](https://gaussian37.github.io/vision-detection-fcos/)
+- [FCOS3D](https://gaussian37.github.io/vision-detection-fcos3d/)
 
 
 <br>
