@@ -1,10 +1,10 @@
 ---
 layout: post
 title: FCOS3D (Fully Convolutional One-Stage Monocular 3D Object Detection)
-date: 2022-03-10 00:00:00
+date: 2022-03-05 00:00:00
 img: vision/detection/fcos3d/0.png
 categories: [vision-detection] 
-tags: [vision, detection, fcos, fcos 3d] # add tag
+tags: [vision, detection, fcos, fcos3d] # add tag
 ---
 
 <br>
