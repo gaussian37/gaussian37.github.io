@@ -409,19 +409,46 @@ tags: [vision, detection, fcos] # add tag
 <br>
 
 - 위 테이블 참조 시 RetinaNet과 FCOS, $$ C_{5}, P_{5} $$ 이용 유무, Group Normalization 사용 등이 주요 구분점으로 사용되었고 이 차이점을 이용하여 성능을 비교하였습니다.
-- FCOS의 가장 기본이 되는 구조는 $$ P_{5} $$ 와 Group Normalization을 사용하는 것으로 위에서 5번째 성능을 참조하면 됩니다. 추가적인 Improvements 내용은 위 논문을 참조하시면 되며 
+- FCOS의 가장 기본이 되는 구조는 $$ P_{5} $$ 와 Group Normalization을 사용하는 것으로 위에서 5번째 성능을 참조하면 됩니다. 추가적인 Improvements 내용은 위 논문을 참조하시면 됩니다.
 
 <br>
 
-## **Concolusion**
+#### **Comparison with State-of-the-art Detectors**
 
 <br>
+<center><img src="../assets/img/vision/detection/fcos/36.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- FCOS와 다른 Detector 모델을 비교한 결과를 살펴볼 수 있습니다. 결과적으로 FCOS가 Ancor 기반의 RetinaNet 보다 좋은 성능을 보였으며 Two-Stage 모델의 Faster R-CNN 보다 좋은 성능을 보인 것을 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/37.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 테이블에서 `FCOS`가 같은 backbone을 사용하였음에도 불구하고 높은 성능을 가진것을 확인할 수 있습니다.
+
+<br>
+
+## **Conclusion**
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/38.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 마지막으로 FCOS의 contribution을 정리하며 내용을 마치겠습니다.
+- ① Anchor free 기반의 모델로 Anchor box와 관련된 내용과 관련 하이퍼파라미터는 모두 제외되었습니다.
+- ② semantis segmentation을 구하는 방법과 유사하게 pixel 단위의 예측을 할 수 있는 구조를 사용하였습니다.
+- ③ `one-stage` + `anchor free` + `per-pixel prediction` 방법 (+ `multi-level FPN` + `center-ness`)을 이용하여 SOTA를 기록하였습니다.
+- ④ two-stage detector로 응용하였을 때, 좋은 Resion Proposal Network로도 사용될 수 있습니다.
+- ⑤ 전체 구조가 복잡하지 않고 간단하면서 성능이 좋기 때문에 다른 Task에 응용하기 쉽습니다.
 
 <br>
 
 ## **Pytorch Code**
 
 <br>
+
+- FCOS 구현과 관련된 Pytorch 코드에 대하여 살펴보도록 하겠습니다.
 
 <br>
 
