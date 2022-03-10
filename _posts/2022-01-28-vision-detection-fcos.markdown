@@ -118,7 +118,7 @@ tags: [vision, detection, fcos] # add tag
 
 <br>
 
-- `Anchor-based Detector` : Region Proposal의 반복적인 연산을 제거하기 위하여 Anchor Box 개념을 도입하여 Faster-RCNN, SSD, YOLOv2 등이 개발이 되어 왔습니다. 앞에서 언급한 바와 같이 Anchor를 잘 선정하기 위한 튜닝에 어려움이 있으며 수많은 Anchor들이 Negative Sample로 빠지게 되는 단점이 있습니다.
+- `Anchor-based Detector` : Region Proposal의 반복적인 연산을 제거하기 위하여 Anchor Box 개념을 도입하여 Faster-RCNN, SSD, YOLOv2 등이 개발이 되어 왔습니다. 앞에서 언급한 바와 같이 Anchor를 잘 선정하기 위한 튜닝에 어려움이 있으며 수많은 Anchor들이 negative sample로 빠지게 되는 단점이 있습니다. Anchor 기반의 detector는 feature map의 각 픽셀 위치를 object center라고 가정하고 미리 정한 크기의 anchor box를 regression 합니다. 이중 IoU가 낮은 bounding box들은 negative sample이 되므로 **실제 학습 과정에서 object의 위치를 추정하는데 사용되는 픽셀은 object center 근처에 있는 픽셀들이 전부**입니다.
 - `Anchor-free Detector` : 기존에 유명한 Anchor-free Detector는 YOLOv1이 있었습니다. 하지만 YOLOv1은 Recall 성능이 떨어진다는 단점이 있어서 YOLOv2에서 부터는 Anchor Box를 사용하게 되었습니다. `FCOS`는 YOLOv1과 같이 GT bounding box 이내의 모든 점들에 대하여 bounding box를 예측하도록 하고 low-quality를 가지는 점들에 대해서는 `center-ness` 개념을 도입하여 출력되지 않도록 억누르는 역할을 합니다. 이러한 방법으로 recall의 성능을 높일 수 있도록 하였습니다.
 
 <br>
@@ -126,6 +126,7 @@ tags: [vision, detection, fcos] # add tag
 <br>
 
 - 기존의 Anchor-freee Detector들은 Post Processing이 다소 복잡하거나 겹치는 bounding box를 처리하는 문제 또는 recall이 상대적으로 낮은 문제가 있었습니다. 하지만 `multi-level FPN` 구조와 `center-ness`를 통하여 이 문제를 개선하였고 더 간단한 구조로 구현할 수 있었습니다.
+- 또한 앞의 Anchor-based Detector에서 언급한 바와 같이 수많은 negative sample로 인하여 object의 위치 추정에 사용되는 픽셀 수가 작은 문제를 FCOS에서는 **feature map의 모든 픽셀 위치에서 해당 픽셀이 특정 object에 속한 픽셀인 지 아닌 지 확인**하고 **object에 속한 픽셀이라면 해당 픽셀에서 예측한 bounding box는 무엇**인지를 계산합니다.
 
 <br>
 
@@ -210,11 +211,20 @@ tags: [vision, detection, fcos] # add tag
 <center><img src="../assets/img/vision/detection/fcos/15.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- FCOS에서 사용하는 네트워크의 마지막 layer는 클래스 갯수 (MS COCO의 경우 80개)의 차원을 가지는 벡터와 4차원인 $$ \boldsymbol{t^{*}} = (l^{*}, t^{*}, r^{*}, b^{*}) $$ 을 예측합니다.
-- 학습 시에는 multi-class classifier를 이용하여 학습하지 않고 클래스 갯수 $$ C $$ 개의 binary classifier를 사용합니다.
+- FCOS에서 사용하는 네트워크의 마지막 layer는 클래스 갯수 (MS COCO의 경우 80개)의 차원을 가지는 벡터와 4차원인 $$ \boldsymbol{t^{*}} = (l^{*}, t^{*}, r^{*}, b^{*}) $$ 을 예측합니다. feature map의 모든 픽셀에 대하여 해당 픽셀이 속한 클래스 $$ c^{i} $$ 와 bounding box를 추측하기 위한 4개의 값 ($$ l^{*}, t^{*}, t^{*}, b^{*} $$)를 추정하도록 네트워크를 구성합니다. 따라서 **한 픽셀 당 ($$ l, t, r, b, c $$) 5개의 값을 예측합니다.
+- 이 때, feature map 상의 픽셀 (x, y)가 GT bounding box (클래스 = $$ c^{*} $$) 내부에 있는 픽셀이라면 target의 클래스는 $$ c^{*} $$ 으로 정의하고 positive sample로 간주합니다. 반면 픽셀 (x, y)가 bounding box에 속하지 않는 픽셀이라면 $$ c^{*} = 0 $$으로 정의하여 nagetive sample로 간주합니다.
+
+<br>
+
+- 학습 시에는 multi-class classifier를 이용하여 학습하지 않고 클래스 갯수 $$ C $$ 개의 `binary classifier`를 사용합니다. 
+- 실제 FCN과 같은 per-pixel prediction에서는 마지막 layer에서 채널 방향의 크기가 분류하려는 클래스의 갯수와 같으며 채널 방향으로 각 클래스가 선택될 확률이 나타날 수 있게 `softmax`를 적용합니다. 예를 들어 분류해야 할 클래스가 10개이면 채널의 사이즈가 10개이며 채널 방향으로 총합이 1이되도록 최종 layer에서 값이 출력됩니다. 이와 같은 방법을 이용하여 multi-class classification을 하는 것이 일반적인 per-pixel prediction (semantic segmentation)의 방법입니다.
 
 <br>
 <center><img src="../assets/img/vision/detection/fcos/39.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 하지만 앞에서 설명한 바와 같이 **각 채널 별로 binary classification**을 적용하여 해당 픽셀 (x, y)가 각 클래스에 속하는 지 loss를 구함으로써 FCN에서 segmentation task와의 차이점을 두었습니다.
+
 <br>
 
 - 또한 4개의 convolutional layer를 backbone으로 부터 나온 feature map에 각각 추가하여 classification과 regression을 위한 branch로 만듭니다.
@@ -255,10 +265,21 @@ tags: [vision, detection, fcos] # add tag
 
 - 앞에서 설명한 내용 중에 FCOS의 문제점 2가지를 `FPN 구조의 multi-level prediction`을 통하여 해결한 내용을 설명하도록 하겠습니다.
 - 먼저 2가지 문제점은 **① stride가 크면 Recall이 낮아질 수 있는 문제점**과 **② GT box가 겹칠 때, 모호함이 발생할 수 있는 것**입니다.
-- 먼저 첫번째 문제에 대하여 살펴보도록 하겠습니다. 예를 들어 stride가 누적된 결과 마지막 feature map에서의  stride가 16 정도가 되었다면 낮은 `BPR(Best Possible Recall)`을 얻을 수 있습니다. Anchor 기반의 디덱터에서는 recall 수치가 낮아지면 필요한 IoU 스코어를 낮추어서 Positive Sample의 갯수를 늘리면 Recall을 의도적으로 늘릴 수 있습니다.
-- 반면 FCOS에서는 large stride로 인하여 마지막 feature map에서 해당 물체의 위치가 없어지게 되면 recall을 늘릴 수 있는 방법이 없어질 것으로 생각이 들 수 있습니다.
-- 하지만 FCOS 모델을 이용하여 실험을 해보았을 때, Anchor 기반의 모델인 RetinaNet 보다 더 좋은 BPR 성능을 얻을 수 있음을 확인하였습니다. 또한 `multi-level FPN prediction` 구조를 통하여 더 성능을 개선할 수 있음을 확인하였습니다.
-- 다음의 두번째 문제인 GT 박스가 겹치는 상황의 모호성에 대해서도 multi-levl FPN prediction 구조가 개선책임 될 수 있음을 설명합니다.
+
+<br>
+
+- 먼저 첫번째 문제에 대하여 살펴보도록 하겠습니다. 예를 들어 stride가 누적된 결과 마지막 feature map에서의  stride가 16 정도가 되었다면 낮은 `BPR(Best Possible Recall)`을 얻을 수 있습니다. **큰 output stride를 가질 때, 작은 물체들은 해당 feature map에서 표현이 안될 수 있어서 찾기 어려우므로 recall을 낮게 만드는 원인이 됩니다.**
+- 이 때, Anchor 기반의 디덱터에서는 recall 수치가 낮아지면 필요한 IoU 스코어를 낮추어서 Positive Sample의 갯수를 늘리면 Recall을 의도적으로 늘릴 수 있습니다. 반면 FCOS에서는 large stride로 인하여 마지막 feature map에서 해당 물체의 위치가 없어지게 되면 다른 방법으로 recall 성능을 높일 수 있습니다. **각 FPN에서 생성되는 feature map은 서로 다른 output stride를 가지므로 작은 output stride를 가지는 feature map에서 작은 물체를 찾고, 큰 output stride를 가지는 feature map 에서는 큰 물체를 찾도록 하면 됩니다.** 상세 내용은 뒤에서 다룰 예정입니다.
+- 이와 같은 방법을 이용하여 FCOS 모델을 이용하여 실험을 해보았을 때, Anchor 기반의 모델인 RetinaNet 보다 더 좋은 BPR 성능을 얻을 수 있음을 확인하였습니다. 또한 `multi-level FPN prediction` 구조를 통하여 더 성능을 개선할 수 있음을 확인하였습니다.
+
+<br>
+
+- 다음의 두번째 문제인 **GT 박스가 겹치는 상황의 모호성**에 대해서도 multi-levl FPN prediction 구조가 개선책임 될 수 있음을 설명합니다. 이 문제는 **overlap된 구간에 존재하는 pixel들이 어떤 겹쳐진 두 bounding box에 속하게 될 때, 어떤 bounding box와 class를 대상으로 학습**을 해야하는 지에 대한 모호성 입니다.
+- 이러한 문제 또한 FPN 구조를 이용하여 개선할 수 있음을 다룰 예정입니다. 개선되는 이유는 bounding box의 크기 차이가 발생하는 물체들 간에 모호성이 발생하게되는데 물체의 크기 차이가 발생하게 되면 서로 다른 feature map에서 찾게되므로 이 문제를 개선할 수 있습니다.
+
+<br>
+
+- 그러면 전반적인 Multi-level FPN 구조와 사용법에 대하여 살펴보도록 하겠습니다.
 
 <br>
 <center><img src="../assets/img/vision/detection/fcos/19.png" alt="Drawing" style="width: 600px;"/></center>
@@ -300,7 +321,7 @@ tags: [vision, detection, fcos] # add tag
 <br>
 
 - 더 좋은 성능을 위하여 마지막 head 간에도 공유가 있는 것이 좋지만 앞에서 설명한 multi-level feature 간 서로 다른 사이즈의 범위로 regression 하는 것의 효과가 있기 때문에 서로 다른 level 에서의 head는 공유하지 않습니다. 
-- 추가적으로 regression brach의 exponential 함수에 trainable parameter를 적용하여 성능 개선을 하였습니다.
+- 추가적으로 regression brach의 exponential 함수에 trainable parameter를 적용하여 성능 개선을 하였습니다. 즉, bounding box를 추정할 때, 네트워크에서 추정한 값을 ($$ l, t, r, b $$)라 하고 최종 출력을 ($$ l^{*}, t^{*}, r^{*}, b^{*} $$)라고 하였을 때,  exponential을 이용하여 $$ l \to l^{*} $$로 변환합니다. 이렇게 사용하는 이유는 ($$ l, t, r, b $$)가 큰 값을 가지게 되면 원하는 만큼 학습이 잘 안될 수 있으므로 의도적으로 작은 값을 가지도록 하는 것이며 학습 가능한 파라미터 $$ s_{i} $$ 를 사용하여 $$ \exp{(s_{i}l)} $$과 같이 사용하여 $$ l \to l^{*} $$ 을 추정하도록 하였습니다.
 
 <br>
 
@@ -311,7 +332,8 @@ tags: [vision, detection, fcos] # add tag
 <br>
 
 - 앞에서 설명한 Multi-level Prediction을 사용하더라도 FCOS와 anchor 기반의 디텍터와의 성능 차이가 있었습니다.
-- FCOS에서는 상대적으로 low-quality bounding box가 많이 예측이 되었기 때문인데 이러한 box들은 실제 물체의 중앙점에서 멀리 떨어진 상태로 추정되는 경향이 있습니다. low-quality bounding box의 정의는 IoU와 classification score 중에서 IoU의 스코어가 더 낮은 box를 의미합니다. 이와 같은 box는 위치가 부정확한 상태로 높은 확률로 box를 오인식 할 수 있기 때문입니다.
+- FCOS에서는 상대적으로 low-quality bounding box가 많이 예측이 되었기 때문인데 이러한 box들은 **실제 물체의 중앙점에서 멀리 떨어진 상태로 추정되는 경향**이 있습니다. low-quality bounding box의 정의는 IoU와 classification score 중에서 IoU의 스코어가 더 낮은 box를 의미합니다. 이와 같은 box는 위치는 부정확한 하지만 높은 확률을 가지므로 box를 오인식 할 수 있기 때문입니다.
+- 간단히 말하면 **물체의 중앙에서 멀리 떨어진 위치의 boundong box의 예측값의 품질이 좋지 않아 오인식 되는 경향이 있다는 뜻**입니다.
 - 여기서 소개하는 `center-ness`는 하이퍼파라미터 없이 실제 중앙에 가까운 점들을 예측할 수 있도록 돕는 역할을 합니다. `center-ness`는 중심점과의 거리를 정규화 하여 **어떤 박스가 중심점과 가깝다면 1에 가까운 값을 배정하고, 중심정과 멀다면 0에 가까운 값을 갖도록 만듭니다.**
 - 따라서 위 식에서 나타내는 `center-ness`를 classification score 출력에 곱해주게 되면 마지막 layer의 `NMS`에서 **객체의 중앙과 멀리 떨어져서 위치를 추정한 박스는 걸러지도록** 만들 수 있습니다. 이와 같은 역할을 하기 위하여 single layer branch를 추가하여 어떤 위치에서의 center-ness를 예측합니다.
 - `center-ness`식의 의미는 center 점에서 왼쪽($$ l^{*} $$)/상단($$ t^{*} $$)/오른쪽($$ r^{*} $$)/하단($$ b^{*} $$) 끝 부분까지의 normalized distance를 의미합니다. 
