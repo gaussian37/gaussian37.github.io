@@ -66,7 +66,7 @@ tags: [vision, detection, fcos] # add tag
 <center><img src="../assets/img/vision/detection/fcos/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- ① Object Detection 모델의 성능이 **anchor box에 민감하다는 것이 단점**이 됩니다. 즉, anchor box의 크기, 비율, 갯수 등을 잘 선정해 주어야 좋은 성능을 기대할 수 있습니다. 하이퍼파라미터의 영역으로 anchor box가 남게 되어 사용하는 데 어려움이 있습니다.
+- ① Object Detection 모델의 성능이 **anchor box에 민감하다는 것이 단점**이 됩니다. 즉, anchor box의 크기, 비율 (aspect ratio), 갯수 등을 잘 선정해 주어야 좋은 성능을 기대할 수 있습니다. 하이퍼파라미터의 영역으로 anchor box가 남게 되어 사용하는 데 어려움이 있습니다. box scale과 aspect ratio가 고정이기 때문에 다양한 모양을 가지는 small object에는 비효율적일 수 있습니다.
 - ② anchor box가 정해지면 학습할 때에는 보통 고정이 되는데, 어떤 물체의 크기의 변화가 크다면 anchor box가 효과적으로 사용되지 못할 수 있습니다. 즉, 물체의 변화가 커서 생각한 것과 많이 다른 크기의 형상을 가진다면 기존에 선정한 anchor box의 비율과 맞지 않게 되어 검출을 할 수 없습니다. 특히, 이러한 경향은 작은 물체에 대하여 종종 나타납니다.
 - ③ 높은 recall 수치를 얻기 위해서는 다양한 갯수의 anchor box가 필요해 집니다. 어떤 경우에는 굉장히 dense한 형태로 anchor box의 경우의 수를 다양화하여 180,000 개 정도를 사용하기도 합니다. 이와 같은 경우의 문제점은 대부분의 경우가 negative sample로 분류되기 때문에 학습 시, positive와 negative간 갯수의 불균형이 심하게 발생할 수 있다는 점입니다.
 - ④ anchor box를 이용한 GT와의 IoU (Intersection over union) 계산 비용이 별도로 필요해 집니다.
@@ -212,6 +212,11 @@ tags: [vision, detection, fcos] # add tag
 
 - FCOS에서 사용하는 네트워크의 마지막 layer는 클래스 갯수 (MS COCO의 경우 80개)의 차원을 가지는 벡터와 4차원인 $$ \boldsymbol{t^{*}} = (l^{*}, t^{*}, r^{*}, b^{*}) $$ 을 예측합니다.
 - 학습 시에는 multi-class classifier를 이용하여 학습하지 않고 클래스 갯수 $$ C $$ 개의 binary classifier를 사용합니다.
+
+<br>
+<center><img src="../assets/img/vision/detection/fcos/39.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
 - 또한 4개의 convolutional layer를 backbone으로 부터 나온 feature map에 각각 추가하여 classification과 regression을 위한 branch로 만듭니다.
 - regression을 할 때, regression의 target은 항상 positive로 분류되므로 regression branch에 exponential을 적용하여 0 ~ 양의 무한대 범위의 값으로 맵핑합니다. 
 - 이와 같은 방법을 통하여 FCOS는 anchor를 사용하지 않고 regression을 하며 anchor 기반의 네트워크에 비해 anchor의 갯수의 배수 만큼 더 적은 output variable을 가지게 됩니다.

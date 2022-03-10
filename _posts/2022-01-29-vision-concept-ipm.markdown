@@ -1,10 +1,10 @@
 ---
 layout: post
-title: IPM(Inverse Perspective Mapping)을 이용한 Bird Eye View 변환
-date: 2022-01-28 00:00:00
+title: IPM(Inverse Perspective Mapping)을 이용한 Bird Eye View (Top View) 변환
+date: 2022-01-29 00:00:00
 img: vision/concept/ipm/0.png
 categories: [vision-concept] 
-tags: [IPM, Bird Eye View, BEV, Top-Down] # add tag
+tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 ---
 
 <br>
