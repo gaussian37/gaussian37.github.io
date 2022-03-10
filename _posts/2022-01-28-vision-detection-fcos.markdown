@@ -49,8 +49,8 @@ tags: [vision, detection, fcos] # add tag
 <center><img src="../assets/img/vision/detection/fcos/1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- FCOS는 one-stage detector의 한 종류이며 다른 one-stage detector와의 차이점은 semantic segmentation과 유사하게 픽셀 단위의 예측을 통해 Object Detection 문제를 해결하고자 합니다.
-- 특히 anchor box가 없다는 점에서 anchor free의 대표적인 방법으로 사용되고 있습니다. anchor box를 제거함으로써 FCOS는 복잡함 anchor box 관련 연산을 없앨 수 있었습니다. 또한 어떤 anchor box를 사용해야 하는 지 이 또한 고민거리이지만 anchor box를 없앰으로써 고려하지 않아도 됩니다.
+- FCOS는 **one-stage detector**의 한 종류이며 다른 one-stage detector와의 차이점은 semantic segmentation과 유사하게 픽셀 단위 (`per-pixel prediction`)의 예측을 통해 Object Detection 문제를 해결하고자 합니다. 따라서 FCN(Fully Convolutional Network)에서 사용한 segmentation을 위한 다양한 기법들을 사용할 수 있습니다.
+- 특히 **anchor box가 없다는 점**에서 anchor free의 대표적인 방법으로 사용되고 있습니다. anchor box를 제거함으로써 FCOS는 복잡한 anchor box 관련 연산을 없앨 수 있었습니다. 또한 어떤 anchor box를 사용해야 하는 지 선택하는 것 또한 고민거리이지만 anchor box를 없앰으로써 고려하지 않아도 됩니다. 따라서 Anchor box와 관련된 다양한 하이퍼파라미터를 줄일 수 있고 이와 관련된 연산도 없앨 수 있습니다.
 - 정리하면 `FCOS`는 semantic segmentation과 유사한 방법의 픽셀 단위의 prediction 방법을 이용하는 **anchor free one-stage detector**이며 이 방법은 간단하면서도 성능이 좋고 다른 instance-level task에도 사용될 수 있습니다.
 
 <br>
@@ -66,7 +66,7 @@ tags: [vision, detection, fcos] # add tag
 <center><img src="../assets/img/vision/detection/fcos/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- ① Object Detection 모델의 성능이 anchor box에 민감하다는 것이 단점이 됩니다. 즉, anchor box의 크기, 비율, 갯수 등을 잘 선정해 주어야 좋은 성능을 기대할 수 있습니다. 하이퍼파라미터의 영역으로 anchor box가 남게 되어 사용하는 데 어려움이 있습니다.
+- ① Object Detection 모델의 성능이 **anchor box에 민감하다는 것이 단점**이 됩니다. 즉, anchor box의 크기, 비율, 갯수 등을 잘 선정해 주어야 좋은 성능을 기대할 수 있습니다. 하이퍼파라미터의 영역으로 anchor box가 남게 되어 사용하는 데 어려움이 있습니다.
 - ② anchor box가 정해지면 학습할 때에는 보통 고정이 되는데, 어떤 물체의 크기의 변화가 크다면 anchor box가 효과적으로 사용되지 못할 수 있습니다. 즉, 물체의 변화가 커서 생각한 것과 많이 다른 크기의 형상을 가진다면 기존에 선정한 anchor box의 비율과 맞지 않게 되어 검출을 할 수 없습니다. 특히, 이러한 경향은 작은 물체에 대하여 종종 나타납니다.
 - ③ 높은 recall 수치를 얻기 위해서는 다양한 갯수의 anchor box가 필요해 집니다. 어떤 경우에는 굉장히 dense한 형태로 anchor box의 경우의 수를 다양화하여 180,000 개 정도를 사용하기도 합니다. 이와 같은 경우의 문제점은 대부분의 경우가 negative sample로 분류되기 때문에 학습 시, positive와 negative간 갯수의 불균형이 심하게 발생할 수 있다는 점입니다.
 - ④ anchor box를 이용한 GT와의 IoU (Intersection over union) 계산 비용이 별도로 필요해 집니다.
@@ -220,7 +220,7 @@ tags: [vision, detection, fcos] # add tag
 <center><img src="../assets/img/vision/detection/fcos/16.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- classification을 위한 Loss는 Focal Loss를 사용하였고 Regression을 위한 Loss는 IoU Loss를 사용하였습니다. 각 Loss는 positive 샘플의 갯수 만큼 나누어서 normalization을 하였습니다.
+- classification을 위한 Loss는 `Focal Loss`를 사용하였고 Regression을 위한 Loss는 `IoU Loss`를 사용하였습니다. 각 Loss는 positive 샘플의 갯수 만큼 나누어서 normalization을 하였습니다.
 - regression 부분에서 $$ \lambda $$ 를 사용하여 loss의 weight를 조절할 수 있으나 기본적으로는 1을 사용하였습니다. 클래스 인덱스가 0보다 큰 경우 즉, positive sample일 때에는 모든 feature map에서 연산이 되는 반면 클래스 인덱스가 0인 경우에는 negative sample로 간주하여 연산이 무시됩니다.
 
 <br>
@@ -285,6 +285,12 @@ tags: [vision, detection, fcos] # add tag
 - 만약 이와 같은 multi-level FPN 구조를 사용하였음에도 불구하고 한 위치에 여러개의 gt 박스가 할당이 되면 면적이 가장 작은 gt box를 사용하는 것으로 기준을 정하여 모호함을 제거하였습니다.
 
 <br>
+<center><img src="../assets/img/vision/detection/fcos/31.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 예를 들어 위 그림과 같이 bounding box가 겹치는 경우 작은 박스는 $$ p_{3} $$에서 검출되고 큰 박스는 $$ p_{6} $$ 에서 검출됩니다.
+
+<br>
 <center><img src="../assets/img/vision/detection/fcos/22.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
@@ -301,7 +307,8 @@ tags: [vision, detection, fcos] # add tag
 
 - 앞에서 설명한 Multi-level Prediction을 사용하더라도 FCOS와 anchor 기반의 디텍터와의 성능 차이가 있었습니다.
 - FCOS에서는 상대적으로 low-quality bounding box가 많이 예측이 되었기 때문인데 이러한 box들은 실제 물체의 중앙점에서 멀리 떨어진 상태로 추정되는 경향이 있습니다. low-quality bounding box의 정의는 IoU와 classification score 중에서 IoU의 스코어가 더 낮은 box를 의미합니다. 이와 같은 box는 위치가 부정확한 상태로 높은 확률로 box를 오인식 할 수 있기 때문입니다.
-- 여기서 소개하는 `center-ness`는 하이퍼파라미터 없이 실제 중앙에 가까운 점들을 예측할 수 있도록 돕는 역할을 합니다. 위 식에서 나타내는 `center-ness`를 classification score 출력에 곱해주게 되면 마지막 layer의 `NMS`에서 객체의 중앙과 멀리 떨어져서 위치를 추정한 박스는 걸러지도록 만들 수 있습니다. 이와 같은 역할을 하기 위하여 single layer branch를 추가하여 어떤 위치에서의 center-ness를 예측합니다.
+- 여기서 소개하는 `center-ness`는 하이퍼파라미터 없이 실제 중앙에 가까운 점들을 예측할 수 있도록 돕는 역할을 합니다. `center-ness`는 중심점과의 거리를 정규화 하여 **어떤 박스가 중심점과 가깝다면 1에 가까운 값을 배정하고, 중심정과 멀다면 0에 가까운 값을 갖도록 만듭니다.**
+- 따라서 위 식에서 나타내는 `center-ness`를 classification score 출력에 곱해주게 되면 마지막 layer의 `NMS`에서 **객체의 중앙과 멀리 떨어져서 위치를 추정한 박스는 걸러지도록** 만들 수 있습니다. 이와 같은 역할을 하기 위하여 single layer branch를 추가하여 어떤 위치에서의 center-ness를 예측합니다.
 - `center-ness`식의 의미는 center 점에서 왼쪽($$ l^{*} $$)/상단($$ t^{*} $$)/오른쪽($$ r^{*} $$)/하단($$ b^{*} $$) 끝 부분까지의 normalized distance를 의미합니다. 
 
 <br>
@@ -451,6 +458,3 @@ tags: [vision, detection, fcos] # add tag
 - FCOS 구현과 관련된 Pytorch 코드에 대하여 살펴보도록 하겠습니다.
 
 <br>
-
-
-
