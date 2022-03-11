@@ -23,7 +23,7 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 
 <br>
 
-- ### Image Formation and Pinhole Model of the Camera
+- ### 이미지 형성과 핀홀 모델 카메라
 - ### Camera Extrinsic Matrix with Example in Python
 - ### Camera Intrinsic Matrix with Example in Python
 - ### Find the Minimum Stretching Direction of Positive Definite Matrices
@@ -31,5 +31,47 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 
 <br>
 
+## **이미지 형성과 핀홀 모델 카메라**
+
+<br>
+
+- 이미지 형성의 기본 아이디어는 `object`에서 `medium`으로 반사되는 광선(Rays)을 포착하는 것에서 부터 시작합니다.
+- 가장 단순한 방법은 `object` 앞에 `medium`을 놓고 반사되어 들어오는 광선을 캡쳐하면 됩니다. 하지만 단순히 이러한 방식으로 하면 필름 전체에 회색만 보일 수 있습니다. 왜냐하면 object의 다른 지점에서 나오는 광선이 필름에서 서로 겹쳐서 엉망이 되기 때문입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림을 살펴보면 
+
+<br>
+
+## **Camera Extrinsic Matrix with Example in Python**
+
+<br>
+
+
+<br>
+
+## **Camera Intrinsic Matrix with Example in Python**
+
+<br>
+
+
+<br>
+
+## **Find the Minimum Stretching Direction of Positive Definite Matrices**
+
+<br>
+
+
+<br>
+
+## **Camera Calibration with Example in Python**
+
+<br>
+
+
+<br>
 
 
