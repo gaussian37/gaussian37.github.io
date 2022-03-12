@@ -113,8 +113,171 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 <center><img src="../assets/img/vision/concept/calibration/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 예시는 2차원 ($$ $$ \mathbb{R}^{2} $$) XY 평면에서 점 $$ P $$ 를 $$ \theta $$ 만큼 회전하여 $$ P' $$ 를 얻을 때 사용하는 행렬을 나타냅니다.
+- 위 예시는 2차원 ($$ $$ \mathbb{R}^{2} $$) XY 평면에서 점 $$ P $$ 를 $$ \theta $$ 만큼 회전하여 $$ P' $$ 를 얻을 때 사용하는 행렬을 나타냅니다. 그러면 위 그래프를 기준으로 식을 전개해 보도록 하겠습니다.
+- 먼저 $$ \alpha $$ 각도에 대하여 다루어 보도록 하곘습니다.
 
+<br>
+
+- $$ \sin{(\alpha)} = \frac{y}{r}, \cos{(\alpha)} = \frac{x}{r} \tag{1} $$
+
+<br>
+
+- 위 식에서 $$ r $$ 을 기준으로 등식을 만들어 정리하면 다음과 같이 두 식을 정리할 수 있습니다.
+
+<br>
+
+- $$ x\sin{(\alpha)} = y \cos{(\alpha)} \tag{2} $$
+
+<br>
+
+- 이번에는 $$ \theta + \alpha $$ 각도에 대하여 다루어 보도록 하겠습니다.
+
+<br>
+
+- $$ x' = r\cos{(\theta + \alpha)} \tag{3} $$
+
+- $$ \cos{(\theta + \alpha)} = \cos{(\theta)}\cos{(\alpha)} - \sin{(\theta)}\sin{(\alpha)} \tag{4} $$
+
+<br>
+
+- 식(4)를 이용하여 식(3)을 전개해 보도록 하겠습니다.
+
+<br>
+
+- $$ \Rightarrow r\cos{(\theta + \alpha)} = r(\cos{(\theta)}\cos{(\alpha)} - \sin{(\theta)}\sin{(\alpha)}) \tag{5} $$
+
+- $$ = r(\cos{(\theta)}\frac{x}{r} - \sin{(\theta)}\frac{y}{r}) = x\cos{(\theta)} - y\sin{(\theta)} \tag{6} $$
+
+- $$ \therefore x' = x\cos{(\theta)} - y\sin{(\theta)} \tag{7} $$
+
+<br>
+
+- 이번에는 다른 식을 살펴보도록 하겠습니다.
+
+<br>
+
+- $$ y' = r\sin{(\theta + \alpha)} \tag{8} $$
+
+- $$ \sin{(\theta + \alpha)} = \sin{(\theta)}\cos{(\alpha)} + \cos{(\theta)}\sin{(\alpha)} \tag{9} $$
+
+<br>
+
+- 식(7)을 전개하는 과정과 동일한 방식으로 식(8)을 식(9)를 이용하여 정리하면 다음과 같습니다.
+
+<br>
+
+- $$ y' = x\sin{(\theta)} + y\cos{(\theta)} \tag{10} $$
+
+<br>
+
+- 식 (7)과 식(10)을 묶어서 행렬로 나타내면 다음과 같습니다.
+
+<br>
+
+- $$ \begin{bmatrix} x' \\ y' \end{bmatrix} = \begin{bmatrix} \cos{(\theta)} & -\sin{(\theta)} \\ \sin{(\theta)} & \cos{(\theta)} \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} \tag{11} $$
+
+<br>
+
+- 식(11)을 이용하면 점 $$ P $$를 $$ P' $$ 로 변환할 수 있습니다.
+
+<br>
+
+- 위 예시는 2차원 평면에서의 회전 변환을 나타냅니다. 만약 3차원 평면에서의 회전이 발생하면 어떻게 될까요? 각 $$ X, Y, Z $$ 축 방향으로 회전 변환 행렬을 적용하면 됩니다. 변환 행렬은 다음과 같습니다.
+
+<br>
+
+- $$ R_{x}(\theta) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & \text{cos}\theta & -\text{sin}\theta \\ 0 & \text{sin}\theta & \text{cos}\theta \end{bmatrix} \tag{12} $$
+
+- $$ R_{y}(\theta) = \begin{bmatrix} \text{cos}\theta & 0 & \text{sin}\theta \\ 0 & 1 & 0 \\  -\text{sin}\theta & 0 & \text{cos}\theta \end{bmatrix} \tag{13} $$
+
+- $$ R_{z}(\theta) = \begin{bmatrix} \text{cos}\theta & -\text{sin}\theta & 0 \\ \text{sin}\theta & \text{cos}\theta & 0 \\ 0 & 0 & 1 \end{bmatrix} \tag{14} $$
+
+<br>
+
+- 전체 변환 행렬 $$ R $$ 은 $$ R = R_{z}(\alpha)R_{y}(\beta)R_{x}(\gamma) $$ 로 행렬 곱을 통해 나타낼 수 있습니다. $$ \alpha, \beta, \gamma $$ 각각은 각 축으로 회전한 각도를 의미합니다.
+
+<br>
+
+- $$ R = R_{z}(\alpha)R_{y}(\beta)R_{x}(\gamma) = \begin{bmatrix} \text{cos}\alpha & -\text{sin}\alpha & 0 \\ \text{sin}\alpha & \text{cos}\alpha & 0 \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} \text{cos}\beta & 0 & \text{sin}\beta \\ 0 & 1 & 0 \\  -\text{sin}\beta & 0 & \text{cos}\beta \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\ 0 & \text{cos}\gamma & -\text{sin}\gamma \\ 0 & \text{sin}\gamma & \text{cos}\gamma \end{bmatrix} \tag{15} $$
+
+<br>
+
+- $$ R = \begin{bmatrix} \text{cos}\alpha \ \text{cos}\beta & \text{cos}\alpha \ \text{sin}\beta \ \text{sin}\gamma - \text{sin}\alpha \ \text{cos}\gamma & \text{cos}\alpha \ \text{sin}\beta \ \text{cos}\gamma + \text{sin}\alpha \ \text{sin}\gamma \\ \text{sin}\alpha \ \text{cos}\beta & \text{sin}\alpha \ \text{sin}\beta \ \text{sin}\gamma + \text{cos}\alpha \ \text{cos}\gamma & \text{sin}\alpha \ \text{sin}\beta \ \text{cos}\gamma - \text{cos}\alpha \ \text{sin}\gamma \\ -\text{sin}\beta & \text{cos}\beta \ \text{sin} \gamma & \text{cos}\beta \ \text{cos} \gamma \\ \end{bmatrix} \tag{16} $$
+
+<br>
+
+#### **Change of basis by rotation**
+
+<br>
+
+- 지금까지 살펴본 내용은 한 점 $$ P $$ 가 각 축의 방향으로 회전하였을 때 새로운 위치를 계산하는 방법에 대하여 알아보았습니다.
+- 앞으로 살펴볼 내용은 `basis`가 회전할 때 각 좌표들이 어떻게 변경되는 지 살펴보도록 하겠습니다. 앞의 좌표 변환과 유사하지만 다소 차이점이 있으니 그 점을 유의해서 살펴보시면 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그래프를 살펴보면 기존의 $$ X, Y $$ 축이 이루는 평면을 $$ X', Y' $$ 평면이 이루는 축으로 변경을 해야 합니다.
+- XY 평면 상의 점 P가 X'Y'평면 상에서 어떤 좌표값을 가지는 지 알면 XY → X'Y'의 변환 관계를 알 수 있습니다.
+- 결과는 위 그림의 행렬 식과 같이 회전 변환 행렬의 역행렬을 곱하면 됩니다.
+
+<br>
+
+- $$ \sin{(\alpha)} = \frac{y'}{r}, \cos{(\alpha)} = \frac{x'}{r} \tag{17} $$
+
+- $$ \Rightarrow x'\sin{(\alpha)} = y'\cos{(\alpha)} \tag{18} $$
+
+- $$ x = r\cos{(\theta + \alpha)} = \frac{x'}{\cos{(\alpha)}}\cos{(\theta + \alpha)} \tag{19} $$
+
+<br> 
+
+- 식 (4)의 코사인 법칙을 이용하여 식을 전개합니다.
+
+<br>
+
+- $$ x = \frac{x'}{\cos{(\alpha)}}\cos{(\theta + \alpha)} = \frac{x'}{\cos{(\alpha)}}(\cos{(\theta)}\cos{(\alpha)} - \sin{(\theta)}\sin{(\alpha)}) \tag{20} $$
+
+- $$ x = x'\cos{(\alpha)} - x'\sin{(\alpha)}\frac{\sin{(\theta)}}{\cos{(\alpha)}} \tag{21} $$
+
+<br>
+
+- 식 (21)에 식 (17)을 이용하여 $$ x'\sin{(\alpha)} $$ 을 $$ y'\cos{(\alpha)} $$ 로 대체한다.
+
+<br>
+
+- $$ x =  x'\cos{(\alpha)} -  y'\cos{(\alpha)}\frac{\sin{(\theta)}}{\cos{(\alpha)}} \tag{22} $$
+
+- $$ x =  x'\cos{(\alpha)} -  y'\sin{(\theta)} \tag{23} $$
+
+<br>
+
+- 이 방법과 유사하게 아래 식 (24)를 식 (9)의 sin법칙과 식 (17)을 이용하여 전개하면 식 (25)와 같이 정리 됩니다.
+
+<br>
+
+- $$ y = r\sin{(\theta + \alpha)} = \frac{y'}{\sin{(\alpha)}}\sin{(\theta + \alpha)} \tag{24} $$
+
+- $$ \Rightarrow x'\sin{(\theta)} + y'\cos{(\theta)} \tag{25} $$
+
+<br>
+
+- 따라서 basis를 회전하였을 때, 회전 변환 행렬은 다음과 같이 정리할 수 있습니다.
+
+<br>
+
+- $$ \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} \cos{(\theta)} & -\sin{(\theta)} \\ \sin{(\theta)} & \cos{(\theta)} \end{bmatrix} \begin{bmatrix} x' \\ y' \end{bmatrix} \tag{26} $$
+
+<br>
+
+- 변환의 최종 목적은 (x, y) → (x', y')로 변환하기 위한 행렬을 찾는 것이므로 아래와 같이 행렬식을 변경합니다.
+
+<br>
+
+- $$ \begin{bmatrix} x' \\ y' \end{bmatrix} = \begin{bmatrix} \cos{(\theta)} & -\sin{(\theta)} \\ \sin{(\theta)} & \cos{(\theta)} \end{bmatrix}^{-1} \begin{bmatrix} x \\ y \end{bmatrix} \tag{27} $$
+
+<br>
+
+- 식 (27)과 같이 basis 행렬의 변환은 기존의 회전 변환 행렬을 역행렬 한 것으로 확인할 수 있습니다. 따라서 카메라의 `extrinsic`인 Rotation, Translation 정보를 안다면 역행렬을 이용하여 카메라 좌표계의 basis와 실제 세계의 basis 간의 변환을 할 수 있습니다.
 
 <br>
 
