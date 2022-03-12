@@ -98,7 +98,22 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 
 <br>
 
+- 카메라가 설치되는 위치와 방향에 따라 world coordinate system에서 camera coordinate system으로 변형하기 위하여 `extrinsic`이 필요하다고 앞에서 설명하였습니다.
+- `extrinsic`을 구하기 위해서는 world space 상에서 카메라의 방향과 위치를 알아야 하며 이것을 알기 위해서는 ① `rotation`과 ② `translation`에 대한 변환이 어떻게 되어있는 지 알아야 합니다. world space 상에서의 좌표 기준이 있고 카메라가 얼만큼 회전(rotation)이 되었는 지를 알면 카메라가 바라보는 방향을 알 수 있고 카메라가 얼만큼 이동(translation)하였는 지 알면 카메라가 world space에서의 이동량을 알 수 있습니다.
 
+<br>
+
+#### **Change of coordinates by rotation**
+
+<br>
+
+- 점 $$ P $$가 $$ \theta $$ 만큼 회전하였을 때 좌표를 구하기 위하여 다음 그림을 참조해 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 예시는 2차원 ($$ $$ \mathbb{R}^{2} $$) XY 평면에서 점 $$ P $$ 를 $$ \theta $$ 만큼 회전하여 $$ P' $$ 를 얻을 때 사용하는 행렬을 나타냅니다.
 
 
 <br>
