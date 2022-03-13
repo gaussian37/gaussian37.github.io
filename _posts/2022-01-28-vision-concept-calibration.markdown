@@ -382,7 +382,38 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 
 <br>
 
+#### **Degrees of Freedom**
 
+<br>
+
+- 지금까지 살펴본 `Extrinsic Camera matrix`를 선언할 때, 필요한 파라미터는 6가지가 있었습니다. X, Y, Z 축으로 얼만큼 회전하였는 지와 X, Y, Z 축으로 부터 얼마 만큼의 translation이 발생하였는 지 입니다.
+- 이 필요한 파라미터를 `DoF(Degree of Freedom)`이라고 하며 따라서 Extrinsic을 구할 때에는 6개의 DoF가 필요하다고 말합니다.
+
+<br>
+
+- 지금까지 배운 내용을 파이썬으로 실습해 보도록 하겠습니다. 아래 링크의 예제는 world coordinate system → camera coordinate system으로 기저 변환이 되었을 때, $$ y $$ 축으로 45도 회전과 -8만큼 translation이 발생하였다고 가정하고 변환하였습니다.
+- 그래프 출력 결과는 colab에서 생성이 안되어 local의 jupyter notebook에서 실행하시길 바랍니다.
+
+<br>
+
+- colab 링크 : [Image formation and camera extrinsics](https://colab.research.google.com/drive/1PKCBW46wrPyK-V9gMfmEX7oc-uowf9l0?usp=sharing)
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/11.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/12.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 먼저 결과부터 살펴보면 기존의 파란색 평면 (world 좌표계)이 Y축 (초록색 축)을 기준으로 45도 rotation과 Y축 기준으로 -8 만큼 translation이 발생한 것을 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/13.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 코드 부분에서 `R`과 `T`는 각각 Y축 방향으로 45도 회전과 -8만큼 translation이 발생함을 나타낸 것입니다.
+- `R_`과 `T_`는 
 
 <br>
 
