@@ -98,8 +98,13 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 
 <br>
 
-- 카메라가 설치되는 위치와 방향에 따라 world coordinate system에서 camera coordinate system으로 변형하기 위하여 `extrinsic`이 필요하다고 앞에서 설명하였습니다.
-- `extrinsic`을 구하기 위해서는 world space 상에서 카메라의 방향과 위치를 알아야 하며 이것을 알기 위해서는 ① `rotation`과 ② `translation`에 대한 변환이 어떻게 되어있는 지 알아야 합니다. world space 상에서의 좌표 기준이 있고 카메라가 얼만큼 회전(rotation)이 되었는 지를 알면 카메라가 바라보는 방향을 알 수 있고 카메라가 얼만큼 이동(translation)하였는 지 알면 카메라가 world space에서의 이동량을 알 수 있습니다.
+- 카메라가 설치되는 위치와 방향에 따라 `world coordinate system`에서 `camera coordinate system`으로 변형하기 위하여 `extrinsic`이 필요하다고 앞에서 설명하였습니다.
+- `extrinsic`을 구하기 위해서는 world space 상에서 카메라의 방향과 위치를 알아야 하며 이것을 알기 위해서는 ① `rotation`과 ② `translation`에 대한 변환이 어떻게 되어있는 지 알아야 합니다. world space 상에서의 좌표 기준이 있고 그 좌표계에서 카메라가 얼만큼 회전(rotation)이 되었는 지를 알고 카메라가 얼만큼 이동(translation)하였는 지 알면 카메라 좌표계 상에서의 위치 변화를 알 수 있습니다.
+
+<br>
+
+- 지금부터 살펴볼 내용은 `rotation`과 `translation` 각각에 대하여 기저 (basis) 변환을 어떻게 하는 지 살펴보려고 합니다. 기저 변환을 확인하기 위하여 먼저 ① 같은 기저 내에서 점 $$ P \to P' $$ 로 `rotation`과 `translation`을 하는 방법에 대하여 알아보고 ② 기저1의 점 $$ P $$ 가 기저2에서는 어떤 좌표값을 가지는 지 살펴도록하곘습니다.
+- 이와 같이 기저 변환을 통하여 좌표가 어떻게 바뀌는 지 알아보는 이유는 world space 상의 `world coordinate system`에서 `camera coordinate system`으로 기저 변환을 하기 위함입니다.
 
 <br>
 
@@ -277,7 +282,107 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 
 <br>
 
-- 식 (27)과 같이 basis 행렬의 변환은 기존의 회전 변환 행렬을 역행렬 한 것으로 확인할 수 있습니다. 따라서 카메라의 `extrinsic`인 Rotation, Translation 정보를 안다면 역행렬을 이용하여 카메라 좌표계의 basis와 실제 세계의 basis 간의 변환을 할 수 있습니다.
+- 식 (27)과 같이 basis 행렬의 변환은 기존의 회전 변환 행렬을 역행렬 한 것으로 확인할 수 있습니다. 따라서 카메라의 `extrinsic`의 요소인 Rotation 정보를 안다면 역행렬을 이용하여 카메라 좌표계의 basis와 실제 세계의 basis 간의 변환을 할 수 있습니다.
+
+<br>
+
+- 지금까지 특정 점이 회전하는 경우와 기저(basis)가 회전하는 경우에 대하여 살펴보았습니다. 그러면 특정 점이나 기저가 이동 (translation)하는 경우에 대하여 살펴보도록 하겠습니다.
+
+<br>
+
+#### **Change of coordinates by translation**
+
+<br>
+
+- 먼저 translation에 의하여 특점 점의 좌표값이 바뀌는 경우에 대하여 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림과 같이 점 $$ P $$ 가 점 $$ P' $$ 로 이동한 경우입니다. 아래 식과 같이 이동할 수 있습니다.
+
+<br>
+
+- $$ x' = x + a, y' = y + b \tag{28} $$
+
+<br>
+
+- 위 식을 행렬 곱으로 나타내려면 차원이 맞지 않기 때문에 차원을 하나 늘려주는 트릭을 통해 행렬의 곱으로 나타낼 수 있습니다. 이와 같이 행렬의 곱셈으로 나타내려는 이유는 앞에서 살펴본 rotation과 translation을 한번에 표현하기 위함입니다.
+
+<br>
+
+- $$ \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \begin{bmatrix}1 & 0 & a \\ 0 & 1 & b \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x \\ y \\ 1\end{bmatrix} \tag{29} $$
+
+<br>
+
+- 위 식과 같이 차원을 추가하여 좌표를 표현한는 것을 `homogeneous coordinates`라고 합니다. 행렬의 곱으로만 표현된 형태를 뜻합니다.
+- 만약 위 식에서 $$ x, y $$ 좌표값을 구하고 싶으면 다음과 같이 마지막 상수항을 나눠서 구할 수 있습니다.
+
+<br>
+
+- $$ \begin{bmatrix} x & y & 1 \end{bmatrix} \approx \begin{bmatrix} x/1 & y/1 \end{bmatrix} = \begin{bmatrix} x & y \end{bmatrix} \tag{30} $$
+
+<br>
+
+- 실제 연산을 할 때에는 homogeneous coordinate 상에서 연산을 하고 좌표를 구할 때에는 식 (30)을 이용하여 구합니다. 상세 내용은 글 이후에서 다룰 예정입니다.
+
+<br>
+
+#### **Change of coordinates by translation**
+
+<br>
+
+- 앞에서 다룬 것과 마찬가지로 XY 평면을 X'Y' 평면으로 translation 해보도록 하겠습니다. 두 기전 간의 관계는 점 $$ P $$ 를 고정으로 둔 다음에 좌표가 어떻게 바뀌는 지 확인하여 살펴보겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- $$ x' = x - a, y' = y - b \tag{31} $$
+
+- $$ \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \begin{bmatrix}1 & 0 & -a \\ 0 & 1 & -b \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x \\ y \\ 1\end{bmatrix} \tag{32} $$
+
+<br>
+
+- 식 (27)의 rotation에서 살펴보았듯이 좌표 위치 변환을 위한 linear transformation과 basis transformation 간에 `역(inverse) 관계`가 있었듯이 translation에서도 역관계가 있음을 확인할 수 있습니다. 
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/10.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 풀이 과정을 통하여 식 (29)의 우변의 행렬과 식 (32)의 우변의 행렬은 역행렬 관계임을 알 수 있습니다.
+- 정리하면 **rotation과 translation에서의 basis transformation과 coordinate transformation에는 역행렬 관계가 있습니다.**
+
+<br>
+
+#### **Extrinsic Camera Matrix**
+
+<br>
+
+- 지금까지 `rotation`과 `translation`을 각각 살펴보았습니다. 그러면 `homogeneous coordinate` 형태로 나타내어 본 이유가 한번에 행렬곱으로 연산하기 위함이었듯이 행렬 곱으로 나타내어 보겠습니다.
+
+<br>
+
+- $$ E^{-1} = \begin{bmatrix} R & T \\ 0^{T} & 1 \end{bmatrix} = \begin{bmatrix} 1 & T \\ 0^{T} & 1  \end{bmatrix} \begin{bmatrix} R & 0 \\ 0^{T} & 1  \end{bmatrix} \tag{33} $$
+
+<br>
+
+- 위 식에서 $$ R $$ 은 rotation을 의미하고 $$ T $$ 는 translation을 의미합니다. $$ R $$ 은 (2, 2), (3, 3)과 같은 정사각행렬의 크기를 가집니다. 이 때 차원이 결정되면 $$ R $$의 차원과 동일한 차원의 $$ T $$ 열벡터가 크기 2, 3과 같은 사이즈를 가지게 됩니다. $$ 0^{T} $$ 는 열벡터를 행벡터 형태로 나타내기 위함입니다.
+- 3차원 공간에서의 rotation과 translation을 위한 행렬에서 $$ R $$ 은 (3, 3)의 크기의 행렬을 가지고 $$ T $$ 는 (3, 1)의 크기의 열벡터를 가지므로 최종적으로 (4, 4) 크기의 행렬이 됩니다.
+- 어떤 점 $$ P \to P' $$ 로 `coordinate transform` 할 때 사용한 행렬을 $$ A $$ 라고 하면 $$ A^{-1} $$ 은 `basis transformation` 이라고 하였습니다. 따라서 식 (33)의 행렬의 역행렬이 `basis transformation`을 위한 행렬이 됩니다. 이 `basis transformation`을 `extrinsic camera matrix` $$ E $$ 라고 합니다.
+
+<br>
+
+- $$ P^{C} = E \times P^{W} \tag{34} $$
+
+<br>
+
+- 식 (34)와 같이 extrinsic camera matrix $$ E $$ 를 이용하여 `world coordinate system`에서 `camera coordinate system`으로의 기저 변환을 할 수 있습니다.
+
+<br>
+
+
 
 <br>
 
