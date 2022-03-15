@@ -407,13 +407,86 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 <br>
 
 - 먼저 결과부터 살펴보면 기존의 파란색 평면 (world 좌표계)이 Y축 (초록색 축)을 기준으로 45도 rotation과 Y축 기준으로 -8 만큼 translation이 발생한 것을 확인할 수 있습니다.
+- 파란색 평면 아래에 있는 좌표 축이 위 좌표계의 기준 축입니다. X, Y, Z 축의 원점이 (0, 0, 0)에 있는 것을 확인할 수 있습니다. 이것을 편의상 `world coordinate system`이라고 하겠습니다.
+- 반면에 주황색 평면 아래에 있는 좌표 축은 새로운 좌표축이며 편의상 `camera coordinate system`이라고 하곘습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/13.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 코드 부분에서 `R`과 `T`는 각각 Y축 방향으로 45도 회전과 -8만큼 translation이 발생함을 나타낸 것입니다.
-- `R_`과 `T_`는 
+- `R_`과 `T_`는 homogeneous coordinate로 표현하기 위하여 나타낸 것이며 이렇게 표현하면 `R_`과 `T_`의 행렬 곱을 통하여 rotation과 translation을 한번에 표현할 수 있습니다.
+- 따라서 `camera coordinate system`은 `world coordinate system`에 비하여 Y축 방향으로 +45도 회전과 -8만큼의 translation이 발생한 것을 확인할 수 있습니다.
+
+<br>
+
+```python
+# create an image grid
+xx, yy, Z = create_image_grid(f, img_size)
+# convert the image grid to homogeneous coordinates
+pt_h = convert_grid_to_homogeneous(xx, yy, Z, img_size)
+# transform the homogeneous coordinates
+pt_h_transformed = R_ @ T_ @ pt_h
+# convert the transformed homogeneous coordinates back to the image grid
+xxt, yyt, Zt = convert_homogeneous_to_grid(pt_h_transformed, img_size)
+```
+
+<br>
+
+- 위 코드에서 xx, yy, Z는 (3, 3) 평면을 만들기 위한 코드이며 pt_h는 (4, 9)의 크기를 가지는 행렬입니다. 여기서 행 사이즈인 4의 의미는 X, Y, Z 방향에서의 값과 homogeneous를 만들기 위한 dummy 차원 1개를 의미하며 열 사이즈는 (3, 3) 크기 행렬에 속한 값들을 의미합니다.
+- 위 코드에서 `pt_h_transformed = R_ @ T_ @ pt_h`을 보면 `world coordinate system`상에서 파란색 평면을 주황색 평면 위치로 변환하는 역할을 합니다.
+
+<br>
+
+```python
+# define axis and figure
+fig = plt.figure(figsize=(8, 6))
+ax = fig.add_subplot(111,projection='3d')
+
+# set limits
+ax.set(xlim=(-10, 5), ylim=(-10, 10), zlim=(0, 10))
+
+# plot the global basis and the transformed camera basis
+ax = pr.plot_basis(ax)
+ax = pr.plot_basis(ax, R, T)
+
+# plot the original and transformed image plane
+ax.plot_surface(xx, yy, Z, alpha=0.75)
+ax.plot_surface(xxt, yyt, Zt, alpha=0.75)
+
+ax.set_title("camera transformation")
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+```
+
+<br>
+
+- 위 그래프를 생설할 때, 주황색 평면 아래 좌표축은 `ax = pr.plot_basis(ax, R, T)`을 통해서 만든 것입니다. 즉, 기존 `R`, `T`를 이용하여 `world coordinate system`을 `camera coordinate system`로 변환시킨 것임을 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/14.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 앞에서 설명한 바와 같이 rotation과 translation을 하나의 homogeneous 형태로 만든 `R_T_`의 역행렬이 기저 즉, 좌표계를 변환하는 행렬임을 확인하였습니다. 따라서 위 식의 `E = np.linalg.inv(R_ @ T_)`를 `world coordinate system`좌표계를 `camera coordinate system` 좌표계로 변환하는 extrinsic 행렬 `E`를 구할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/15.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- (4, 4) 행렬의 `E`의 마지막 행을 삭제하여 (3, 4) 크기의 행렬을 만들면 왼쪽 (3, 3)은 Rotation을 의미하고 가장 오른쪽 (3, 1) 크기의 열벡터는 Translation을 의미하게 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/16.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 코드의 `cw`는 `world coordinate system`에서의 좌표를 의미하고 `cc`는 `camera coordinate system`의 좌표를 의미합니다.
+- 앞에서 선언한 `E`를 이용하여 `cw` → `cc`로 변환하고자 합니다. 여기서 중요한 것은 **`cw`와 `cc` 모두 같은 한 점을 의미하지만 좌표계가 다르기 때문에 다른 값을 가진다는 것**입니다.
+- `world coordinate system`에서는 약 (X = -0.7, Y = -8, Z = 0.7)을 가지지만 `camera coordinate system`에서는 (X = -1, Y = 0, Z = 1)을 가짐을 코드 또는 그래프를 통해서 확인할 수 있습니다.
+
+<br>
+
+- 지금까지 살펴본 예제가 Camera Extrinsic을 의미하며 이와 같은 원리로 사용됩니다.
 
 <br>
 
