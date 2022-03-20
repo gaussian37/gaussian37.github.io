@@ -87,7 +87,7 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 <br>
 
 - 카메라는 어느 위치에나 장착될 수 있고 카메라가 보는 방향도 제각각 입니다. 여기서 해결해야 할 점은 `world space`에서 반사되어 들어오는 광선을 어떻게 `image plane`에 투영할 지 정해야 한다는 것입니다. 바꿔 말하면 `world space`와 `image plane` 간의 관계를 알아내어야 실제 이미지를 만들어 낼 수 있습니다.
-- 이 관계는 `world space` → `image planem`으로 변환하는 행렬을 구해야 하며 이 때 필요한 2가지 행렬을 `extrinsic`, `intrinsic` 이라고 합니다.
+- 이 관계는 `world space` → `image plane`으로 변환하는 행렬을 구해야 하며 이 때 필요한 2가지 행렬을 `extrinsic`, `intrinsic` 이라고 합니다.
 - `extrinsic` : `world space`의 좌표계를 `world coordinate system`이라고 하고 앞에서 $$ X, Y, Z $$ 축으로 표현한 좌표계를 `camera coordinate system`이라고 합니다. 이 때, `world coordinate system` → `camera coordinate system`으로 좌표계를 변환할 때 사용하는 행렬을 `extrinsic`이라고 합니다. 이 행렬은 카메라가 실제 장착된 위치 등의 환경과 관련이 있습니다.
 - `intrinsic` : `camera coordinate system`의 점들을 `image plane`의 좌표로 변환하는 행렬을 `intrinsic`이라고 합니다. 이 행렬은 카메라 내부 환경과 관련이 있습니다.
 - `extrinsic`과 `intrinsic`을 확인하는 것을 카메라 캘리브레이션이라고 합니다.
@@ -493,7 +493,171 @@ ax.set_zlabel("Z-axis")
 ## **Camera Intrinsic Matrix with Example in Python**
 
 <br>
+<center><img src="../assets/img/vision/concept/calibration/17.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
+- 지금까지 `world coordinate system`에서 `camera coordinate system`으로 변환하는 방법을 `camera extrinsic`을 통하여 알아보았습니다. 지금부터는 `camera coordinate system`에서 `image plane`으로 어떻게 변환이 되는지를 통하여 `intrinsic`에 대하여 알아보도록 하겠습니다. 위 그림의 초록색 점들이 표현된 곳이 `image plane`입니다.
+
+<br>
+
+#### **Projection of a point**
+
+<br>
+
+- 이미지 형성을 위한 기본적인 아이디어는 물체로 반사되어 온 빛을 image plane에 projection 하는 것입니다. 이 때, image plane은 물체로 부터 반사된 빛을 캡쳐한다는 관점에서 필름과 같이 이해할 수 있습니다. 그리고 이미지에서의 각 픽셀은 image plane에서의 각 위치와 대응이 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/18.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림에서 원점은 앞에서 계속 명시하였던 `center of projection`으로 물체로부터 반사되어 온 빛을 projection 하였을 때 한 곳으로 모이는 점이 됩니다.
+- `image plane`은 원점으로부터 Z축 방향으로 $$ f $$ 만큼 떨어져 있다고 가정합니다. 여기서 $$ f $$ 를 `focal length`라고 합니다.
+- 물체 $$ P $$ 가 `image plane`에 projection되었을 때, `image plane`상에서의 점을 $$ P' $$ 라고 하곘습니다. 그러면 위 그림의 $$ X, Y, Z $$ 축 기준으로 $$ P $$ 의 좌표는 $$ (x, y, z) $$ 인 반면 $$ P' $$의 좌표는 $$ (x', y', f) $$ 가 됩니다. 여기서 목표는 $$ P' $$ 좌표를 알아내는 것 입니다.
+- 위 그림에서 $$ \Delta \text{OMP} $$ 와 $$ \Delta \text{OO'P} $$ 가 닮은꼴 삼각형임을 이용하여 $$ P' $$ 좌표를 추정하면 다음과 같습니다.
+
+<br>
+
+- $$ \frac{x'}{x} = \frac{y'}{y} = \frac{f}{z} \tag{35} $$
+
+- $$ x' = x * \frac{f}{z} \tag{36} $$
+
+- $$ y' = y * \frac{f}{z} \tag{37} $$
+
+<br>
+
+- 식 (36), 식 (37)을 이용하여 $$ x', y' $$ 은 알 수 있으며 $$ z' = f $$ 로 고정됩니다. 
+- 만약 $$ P $$ 가 카메라로 부터 점점 더 멀어진다면 image plane에 projection 된 물체의 좌표값인 $$ P' $$ 는 점점 작아질 것입니다. 왜냐하면 물체가 카메라로부터 멀어지면 $$ f $$ 는 고정이나 $$ z $$ 값이 커져서 $$ x', y' $$ 는 작아지기 때문입니다. 따라서 멀리 있는 물체가 이미지의 상단에 위치하게 되는 것입니다.
+
+<br>
+
+- projection 된 이미지 상의 좌표를 구하고 싶다면 식 (36), (37)을 이용하여 $$ x', y' $$ 좌표를 구하고 $$ z' $$ 좌표는 버리면 됩니다. 예를 들어 $$ P' = (xf/z, yf/z, f) $$ 에서 마지막 $$ z' = f $$ 제외하면 됩니다. 이렇게 구한 좌표를 `image coordinate` 라고 하며 $$ (u, v) $$ 로 표현합니다.
+
+<br>
+
+- $$ (u, v) = (\frac{xf}{z}, \frac{yf}{z}) \tag{38} $$
+
+<br>
+
+- 식 (38)을 이용하면 `camera coordinate system` → `image coordinate`로 변경할 수 있습니다. 하지만 현실적으로 `image plane`이 XY plane과 평행하지 않을 수 있고, `image plane`이 Z축과 많이 벗어날 수 있고 심지어 `image plane` 자체가 기울어져 있을 수도 있습니다. 카메라 제작 상황에 따라서 이 부분은 바뀔 수 있습니다.
+- 따라서 정확하게 `camera coordinate system` → `image coordinate`로 기저를 변경하기 위한 행렬을 `intrinsic` 이라고 합니다.
+- `intrinsic`에는 크게 5가지 `DoF`가 있으며 이 값에 따라서 어떻게 `image coordinate`가 형성되는 지 달라집니다. 지금부터는 이 값을 이용하여 어떻게 `intrinsic matrix`를 만드는 지 살펴보도록 하겠습니다. 살펴볼 요소는 크게 4가지로 `Scale, Rectangular Pixels, Offset, Skew` 입니다.
+
+<br>
+
+#### **Scale**
+
+<br>
+
+- 카메라를 구입하면 카메라의 상세 스펙으로 adjustable focal length라는 부분이 있습니다. 이 수치는 주로 mm와 같은 길이 수치로 되어 있습니다. 이 값은 앞에서 설명한 $$ f $$에 해당합니다.
+
+<br>
+
+- $$ (u, v) = (\alpha \frac{x}{z}, \alpha *\frac{y}{z}) \tag{39} $$
+
+<br>
+
+#### **Rectangular Pixels**
+
+- 위 예시에서 $$ u, v $$ 를 구하기 위하여 동일한 $$ \alpha $$를 썻다는 것 또한 이상적인 환경입니다. 만약 image plane의 픽셀의 크기가 정사각형이 아니라 직사각형 형태이면 어떻게 될까요?
+- 이상적인 환경에서 픽셀의 크기는 정사각형이지만 실제로는 height와 width의 크기가 다른 직사각형 형태인 경우가 많습니다. 따라서 앞의 $$ u, v $$ 좌표를 다음과 같이 표현하도록 하겠습니다.
+
+<br>
+
+- $$ (u, v) = (\alpha \frac{x}{z}, \beta *\frac{y}{z}) \tag{40} $$
+
+<br>
+
+- 식 (40)에서 $$ \alpha $$는 width 방향으로의 scaling factor이고 $$ \beta $$ 는 height 방향으로의 scaling factor입니다.
+
+<br>
+
+#### **Offset**
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/19.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+
+- `camera center`와 `image plane` 의 수직선을 `optical axis`라고 합니다. 이상적인 환경에서는 `optical center`와 `image plane`의 `origin`은 서로 일치하지만, 실제 카메라 환경에서는 차이가 발생할 수 있습니다. 이 차이를 보상해 주는 것을 `Offset` 이라고 합니다.
+- `Offset`은 위 그림에서 $$ O $$ 와 $$ O' $$ 간의 image plane에서의 차이를 뜻하며 $$ O $$ 는 `optical axis`와 image plane의 수직선이 만나는 부분이고 $$ O' $$ 는 `image plane`의 중심점을 뜻합니다. 
+
+<br>
+
+- $$ (u, v) = (\alpha \frac{x}{z} + x_{0}, \beta *\frac{y}{z} + y_{0}) \tag{41} $$
+
+<br>
+
+- 따라서 식 (41)과 같이 $$ x_{0} , y_{0} $$ 를 통하여 $$ (u, v) $$ 를 보정하여 구합니다.
+
+<br>
+
+#### **Skew**
+
+<br>
+
+- 지금까지 `image plane`은 직사각형 형태를 가지고 있음을 가정하였습니다. 하지만 실제 image plane이 기울어져서 평행사변형 형태인 경우도 있습니다. 
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/20.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 왼쪽 그림은 이상적인 image plane이고 X, Y 축은 직각 관계를 가집니다. 반면 오른쪽 그림은 기울어직 image plane입니다. 지금부터 왼쪽 image plane과 오른쪽 image plane 간의 관계를 파악하고 image plane을 변환하는 방법에 대하여 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/21.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 지금부터 $$ x' $$와 $$ x $$ 의 관계식과 $$ y' $$와 $$ y $$ 의 관계식을 각각 알아보고 검정색 $$ xy $$ 평면을 하늘색 $$ x'y' $$ 평면으로 변환하는 식을 정의해 보겠습니다.
+
+<br>
+
+- $$ \cos{(90 - \theta)} = \frac{y}{y'} \tag{42} $$
+
+- $$ \sin{(\theta)} = \frac{y}{y'} \tag{43} $$
+
+- $$ y = y'\sin{(\theta)} \tag{44} $$
+
+- $$ \therefore y' = \frac{y}{\sin{(\theta)}} \tag{45} $$
+
+<br>
+
+- $$ \sin{(90 - \theta)} = \frac{(x - x')}{y'} \tag{44} $$
+
+- $$ y'\cos{(\theta)} = x - x' \tag{45} $$
+
+- $$ x' = x - y'\cos{\theta} \tag{46} $$
+
+- $$ y' = \frac{y}{\sin{(\theta)}} \tag{47} $$
+
+- $$ x' = x - \frac{y\cos{(\theta)}}{\sin{(\theta)}} \tag{48} $$
+
+- $$ \therefore x' = x - y\cot{(\theta)} \tag{49} $$
+
+<br>
+
+-  식(49)를 통하여 $$ x' $$의 관계식을 찾았고 식 (45)를 통하여 $$ y' $$의 관계식을 찾았습니다. 식 (45)와 식 (49)를 식 (41)에 대입하여 기울어진 평면 위의 좌표인 $$ (u, v) $$ 를 정의해 보겠습니다.
+
+<br>
+
+- $$ u = \alpha \frac{x'}{z} + x_{0} = \alpha \frac{x - y\cot{(\theta)}}{z} + x_{0} \tag{50} $$
+
+- $$ v = \beta \frac{y'}{z} + y_{0} = \beta \frac{\frac{y}{\sin{(\theta)}}}{z} + y_{0} = \beta \frac{y}{z\sin{(\theta)}} + y_{0} \tag{51} $$
+
+<br>
+
+#### **Camera Intrinsic Matrix**
+
+<br>
+
+- 식 (50), (51)을 이용하여 image plane의 `scale`, `offset`, `skew`를 고려한 $$ u, v $$ 좌표를 구하는 방법에 대하여 알아보았습니다. 다시 좌표 형태로 표현하면 다음과 같습니다.
+
+<br>
+
+- $$ (u, v) = (\frac{\alphax}{z}x - \frac{\alpha\cot{(\theta)}}}{z}y + x_{0}, \frac{\beta}{z\sin{(\theta)}}y + y_{0}) \tag{52} $$
+
+<br>
+
+- 앞에서 `extrinsic`을 구할 때, `homogeneous coordinates` 형태의 행렬 곱으로 나타낸 것과 같이 `intrinsic`을 구할 때에도 이와 같은 형태를 사용해 보도록 하겠습니다.
 
 <br>
 
