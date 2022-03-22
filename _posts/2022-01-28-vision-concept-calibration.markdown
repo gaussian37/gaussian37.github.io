@@ -12,6 +12,7 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 - 참조 : https://ms-neerajkrishna.medium.com/
 - 참조 : https://darkpgmr.tistory.com/32
 - 참조 : https://www.mathworks.com/help/vision/ug/camera-calibration.html
+- 참조 : https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0165487
 
 <br>
 
@@ -653,7 +654,7 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- $$ (u, v) = (\frac{\alphax}{z}x - \frac{\alpha\cot{(\theta)}}}{z}y + x_{0}, \frac{\beta}{z\sin{(\theta)}}y + y_{0}) \tag{52} $$
+- $$ (u, v) = (\frac{\alpha x}{z}x - \frac{\alpha\cot{(\theta)}} {z}y + x_{0}, \frac{\beta}{z\sin{(\theta)}}y + y_{0}) \tag{52} $$
 
 <br>
 
