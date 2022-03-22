@@ -520,9 +520,9 @@ ax.set_zlabel("Z-axis")
 
 - $$ \frac{x'}{x} = \frac{y'}{y} = \frac{f}{z} \tag{35} $$
 
-- $$ x' = x * \frac{f}{z} \tag{36} $$
+- $$ x' = x \frac{f}{z} \tag{36} $$
 
-- $$ y' = y * \frac{f}{z} \tag{37} $$
+- $$ y' = y \frac{f}{z} \tag{37} $$
 
 <br>
 
@@ -553,7 +553,7 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- $$ (u, v) = (\alpha \frac{x}{z}, \alpha *\frac{y}{z}) \tag{39} $$
+- $$ (u, v) = (\alpha \frac{x}{z}, \alpha \frac{y}{z}) \tag{39} $$
 
 <br>
 
@@ -659,6 +659,47 @@ ax.set_zlabel("Z-axis")
 <br>
 
 - 앞에서 `extrinsic`을 구할 때, `homogeneous coordinates` 형태의 행렬 곱으로 나타낸 것과 같이 `intrinsic`을 구할 때에도 이와 같은 형태를 사용해 보도록 하겠습니다.
+- 앞으로의 식 전개를 위해 식 (52)의 양변에 $$ z $$ 를 곱하면 다음과 같습니다. 아래 $$ x', y' $$ 는 앞에서 사용된 $$ x', y' $$ 와 무관하며 좌변과 우변의 관계를 나타내기 위하여 사용하였습니다.
+
+<br>
+
+- $$ (x', y') = (zu, zv) = (\alpha x - \alpha\cot{(\theta)}y + x_{0}, \frac{(\beta y)}{\sin{(\theta)}} + y_{0} \tag{53} $$
+
+<br>
+
+- 아래와 같은 행렬 연산식인 식(54)를 정의해 보겠습니다. 식(54)에 추가 연산을 통하여 최종 좌표를 구할 수 있습니다.
+
+<br>
+
+- $$ \begin{bmatrix} x' \\ y' \\ z' \end{bmatrix} = \begin{bmatrix} \alpha & -\alpha\cot{(\theta)} & x_{0} \\ 0 & \beta\sin^{-1}{(\theta)} & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} \tag{54} $$
+
+<br>
+
+- 식 (54)의 우변의 3 x 3 행렬을 `camera intrinsic matrix` 라고하며 $$ \kappa $$ 라고 나타냅니다. 따라서 $$ P_{c} $$ 인 `camera coordinate system`에서의 좌표가 $$ \kappa $$ 인 `camera intrinsic matrix`와 곱해지면 이미지 상의 좌표인 $$ P' $$ 로 구해집니다.
+
+<br>
+
+- $$ P' = \kappa P_{c} \tag{55} $$
+
+- $$ P' : \text{Homogeneous coordinates of the point in the image} $$
+
+- $$ \kappa : \text{Camera Intrinsic Matrix} $$
+
+- $$ P_{c} : \text{Homogeneous Coordinates of the point in the world wrt camera} $$
+
+<br>
+
+- homogeneous coordinates인 $$ P_{c} $$ 로부터 최종 구하고자 하는 좌표 $$ u, v $$를 구하면 다음 식과 같습니다.
+
+<br>
+
+- $$ \begin{bmatrix} x' \\ y' \\ z' \end{bmatrix} = \begin{bmatrix} x'/z' \\ y'/z' \\ 1 \end{bmatrix} \cong \begin{bmatrix} x'/z' \\ y'/z' \end{bmatrix} = \begin{bmatrix} u \\ v \end{bmatrix} \tag{56} $$
+
+<br>
+
+- 최종적으로 식 (56) 과정을 거치면 image plane 상의 pixel 위치인 $$ u, v $$ 를 구할 수 있습니다.
+- 지금까지 알아본 내용이 `camera coordinate system`에서 `intrinsic`을 곱하여 `image plane`으로 좌표를 변환할 수 있었습니다.
+- 추가적으로 `intrinsic`을 나타내는 가장 많이 사용하는 기호와 기술의 발전으로 생략을 많이하는 부분을 언급하면서 `intrinsic`의 개념은 마무리하도록 하겠습니다.
 
 <br>
 
