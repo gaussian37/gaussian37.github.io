@@ -716,9 +716,7 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- $$ \begin{bmatrix} \alpha & -\alpha\cot{(\theta)} & x_{0} \\ 0 & \beta\sin^{-1}{(\theta)} & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \Longrightarrow  \begin{bmatrix} f & 0 & x_{0} \\ 0 & f & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \\tag{57} $$ 
-
-
+- $$ \begin{bmatrix} \alpha & -\alpha\cot{(\theta)} & x_{0} \\ 0 & \beta\sin^{-1}{(\theta)} & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \Longrightarrow  \begin{bmatrix} f & 0 & x_{0} \\ 0 & f & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \tag{57} $$
 
 <br>
 
