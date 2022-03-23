@@ -564,7 +564,7 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- $$ (u, v) = (\alpha \frac{x}{z}, \beta *\frac{y}{z}) \tag{40} $$
+- $$ (u, v) = (\alpha \frac{x}{z}, \beta \frac{y}{z}) \tag{40} $$
 
 <br>
 
@@ -663,7 +663,7 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- $$ (x', y') = (zu, zv) = (\alpha x - \alpha\cot{(\theta)}y + x_{0}, \frac{(\beta y)}{\sin{(\theta)}} + y_{0} \tag{53} $$
+- $$ (x', y') = (zu, zv) = (\alpha x - \alpha\cot{(\theta)}y + x_{0}, \frac{\beta}{\sin{(\theta)}}y + y_{0}) \tag{53} $$
 
 <br>
 
@@ -698,8 +698,27 @@ ax.set_zlabel("Z-axis")
 <br>
 
 - 최종적으로 식 (56) 과정을 거치면 image plane 상의 pixel 위치인 $$ u, v $$ 를 구할 수 있습니다.
-- 지금까지 알아본 내용이 `camera coordinate system`에서 `intrinsic`을 곱하여 `image plane`으로 좌표를 변환할 수 있었습니다.
+- 지금까지 알아본 내용을 통하여 `camera coordinate system`에서 `intrinsic`을 곱하여 `image plane`으로 좌표를 변환할 수 있었습니다.
 - 추가적으로 `intrinsic`을 나타내는 가장 많이 사용하는 기호와 기술의 발전으로 생략을 많이하는 부분을 언급하면서 `intrinsic`의 개념은 마무리하도록 하겠습니다.
+
+<br>
+
+- 먼저 식 (54) 에서 사용한 $$ \alpha $$ 와 $$ \beta $$ 는 $$ f_{x}, f_{y} $$ 라는 용어로 많이 사용됩니다. $$ \alpha, \beta $$ 는 image plane 에서의 각 pixel의 가로와 세로의 scale을 나타냅니다. 이 scale의 단위를 `focal length`와 연관지어 나타낸 것이 $$ f_{x}, f_{y} $$ 입니다.
+- 앞에서 focal length는 mm 와 같은 길이를 나타내는 수치를 사용한다고 하였습니다. 하지만 실제로는 픽셀 단위로 표현을 많이 합니다.
+- 이미지의 픽셀은 이미지 센서 셀에 대응됩니다. 따라서 focal length와 이미지 센서 셀 크기의 상대적인 크기값을 scale로 나타낼 수 있습니다. 따라서 $$ f_{x} $$ 는 (focal length / 셀 가로 길이)로 나타낼 수 있고 $$ f_{y} $$ 는 (focal length / 셀 세로 길이)로 나타낼 수 있습니다. 이와 같이 픽셀 단위로 길이를 나타내면 이미지에서의 길이 단위가 통일 되기 때문에 사용이 편해집니다.
+
+<br>
+
+- 현재 기술의 발달로 앞에서 정의한 `camera intrinsic matrix`를 단순화 할 수 있습니다.
+- 먼저 $$ f_{x} = f_{y} = f $$ 로 단순화 할 수 있습니다. 앞에서 픽셀의 크기 (이미지 센서 셀 크기)가 가로와 세로가 다를 수 있기 때문에 $$ \alpha (f_{x}), \beta (\f_{y}) $$ 로 scale을 나타내었습니다. 하지만 현대 기술을 이용하면 정사각형 크기의 픽셀을 만드는 데 어려움이 없다고 알려져 있습니다. 따라서 $$ f_{x} = f_{y} = f $$ 로 많이 사용하고 있습니다.
+- 그리고 image plane 또한 기울어지지 않기 때문에 $$ \theta = \frac{\pi}{2} $$ 로 둘 수 있습니다. 따라서 $$ \cot{(\frac{\pi}{2})} = 0, \sin^{-1}{(\frac{\pi}{2})} = 1 $$ 을 사용할 수 있습니다.
+- 위 2가지 내용을 이용하여 `camera intrinsic matrix`를 단순화하면 다음과 같습니다.
+
+<br>
+
+- $$ \begin{bmatrix} \alpha & -\alpha\cot{(\theta)} & x_{0} \\ 0 & \beta\sin^{-1}{(\theta)} & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \Longrightarrow  \begin{bmatrix} f & 0 & x_{0} \\ 0 & f & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \\tag{57} $$ 
+
+
 
 <br>
 
