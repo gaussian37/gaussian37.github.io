@@ -25,6 +25,7 @@ tags: [normalization, 정규화] # add tag
 - ### Normalization과 Regularization
 - ### Batch Normalization 
 
+<br>
 
 ## **Normalization과 Regularization**
 
