@@ -417,6 +417,7 @@ struct tm {
 <br>
 
 ```c
+
 int comparator(int left, int right){
     return left < right; // ascending
     // return left > right; // descending
@@ -480,6 +481,7 @@ int main(){
 <br>
 
 ```c
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
