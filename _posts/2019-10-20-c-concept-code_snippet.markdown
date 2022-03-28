@@ -25,6 +25,7 @@ tags: [C] # add tag
 - ### 부분 문자열 (substr) 저장
 - ### 부분 문자열 (substr) 출력
 - ### 현재 시간 출력
+- ### 정렬 (quick sort)
 
 <br>
 
@@ -407,6 +408,159 @@ struct tm {
    int tm_yday;        /* elapsed day of year, range 0 to 365  */
    int tm_isdst;       /* summer time                        */
 };
+```
+
+<br>
+
+## **정렬 (quick sort)**
+
+<br>
+
+```c
+int comparator(int left, int right){
+    return left < right; // ascending
+    // return left > right; // descending
+}
+
+void swap(int* arr, int i, int j){
+
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+    
+}
+
+void quick_sort(int* arr, int lo, int hi){
+    if (hi - lo <= 0){
+        return;
+    }
+
+    int pivot = arr[lo + (hi - lo + 1) / 2];
+    int i = lo, j = hi;
+
+    while(i <= j){
+        while(comparator(arr[i], pivot)) i++;
+        while(comparator(pivot, arr[j])) j--;
+
+        if (i > j){
+            break;
+        }
+
+        swap(arr, i, j);        
+
+        i++;
+        j--;
+    }
+
+    quick_sort(arr, lo, j);
+    quick_sort(arr, i, hi);
+}
+
+int main(){
+    int arr[10];
+    for(int i=0; i < 10; ++i){
+     arr[i] = rand() % 100;
+    }
+    quick_sort(arr, 0, 10);
+}
+
+```
+
+<br>
+
+- 위 코드는 퀵 정렬을 나타낸 것이며 정렬 기준은 `comparator`를 사용하면 됩니다. 
+- `swap` 함수를 통하여 값을 교환하면 됩니다.
+- 위 코드와 같이 `comparator`와 `swap`을 분리한 이유는 구조체나 특수한 정렬 기준을 준 경우 편리하게 적용하기 위함입니다.
+- 구조체를 사용하는 경우 `pivot`의 자료형도 구조체에 맞게 사용하면 됩니다.
+
+<br>
+
+- 다음과 같이 응용할 수 있습니다.
+
+<br>
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int comparator(int left, int right){
+    return left < right; // ascending
+    // return left > right; // descending
+}
+
+void swap(int arr[], char strs[][40], int i, int j){
+
+    char temp_str[40];
+    strcpy(temp_str, strs[i]);
+    strcpy(strs[i], strs[j]);
+    strcpy(strs[j], temp_str);
+
+
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+
+void quick_sort(int arr[], char strs[][40], int lo, int hi){
+    if (hi - lo <= 0){
+        return;
+    }
+
+    int pivot = arr[lo + (hi - lo + 1) / 2];
+    int i = lo, j = hi;
+
+    while(i <= j){
+        while(comparator(arr[i], pivot)) ++i;
+        while(comparator(pivot, arr[j])) --j;
+
+        if (i > j){
+            break;
+        }
+
+        swap(arr, strs, i, j);        
+
+        i++;
+        j--;
+    }
+
+    quick_sort(arr, strs, lo, j);
+    quick_sort(arr, strs, i, hi);
+}
+
+int main(void) {
+
+    int arr[13];
+    char strs[13][40];
+
+    for(int i=0; i < 10; ++i){
+        arr[i] = rand() % 100;
+    }
+
+    strcpy(strs[0], "01");
+    strcpy(strs[1], "02");
+    strcpy(strs[2], "03");
+    strcpy(strs[3], "04");
+    strcpy(strs[4], "05");
+    strcpy(strs[5], "06");
+    strcpy(strs[6], "07");
+    strcpy(strs[7], "08");
+    strcpy(strs[8], "09");
+    strcpy(strs[9], "10");
+
+    for(int i = 0; i < 10; ++i){
+        printf("%d %s\n", arr[i], strs[i]);
+    }
+
+    printf("\n\n");
+
+    quick_sort(arr, strs, 0, 9);
+
+   for(int i = 0; i < 10; ++i){
+        printf("%d %s\n", arr[i], strs[i]);
+    }
+    
+}
 ```
 
 <br>
