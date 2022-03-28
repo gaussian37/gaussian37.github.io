@@ -25,7 +25,6 @@ tags: [C] # add tag
 - ### 부분 문자열 (substr) 저장
 - ### 부분 문자열 (substr) 출력
 - ### 현재 시간 출력
-- ### 정렬 (quick sort)
 
 <br>
 
@@ -412,6 +411,7 @@ struct tm {
 
 <br>
 
+<<<<<<< HEAD
 ## **정렬 (quick sort)**
 
 <br>
@@ -568,6 +568,8 @@ int main(void) {
 
 <br>
 
+=======
+>>>>>>> parent of 89b6cd4f (update)
 ## **머신러닝 / 딥러닝 관련 모음**
 
 <br>

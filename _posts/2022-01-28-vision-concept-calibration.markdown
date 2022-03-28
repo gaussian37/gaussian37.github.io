@@ -13,7 +13,6 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 - 참조 : https://darkpgmr.tistory.com/32
 - 참조 : https://www.mathworks.com/help/vision/ug/camera-calibration.html
 - 참조 : https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0165487
-- 참조 : https://blog.immenselyhappy.com/post/camera-axis-skew/
 
 <br>
 
