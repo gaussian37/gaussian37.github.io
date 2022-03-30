@@ -13,10 +13,11 @@ tags: [vision, slam, superpoint] # add tag
 
 <br>
 
-- 배경 지식 : [https://gaussian37.github.io/vision-detection-fcos/](https://gaussian37.github.io/vision-detection-fcos/)
+- 참조 : https://saraswathimamidala30.medium.com/superpoint-self-supervised-interest-point-detection-and-description-7d6b7b0ccf57
+- 참조 : https://www.youtube.com/watch?v=_N7ClqAb_ek
+- 참조 : https://velog.io/@chowy333/SuperPoint-Self-Supervised-Interest-Point-Detection-and-Description-CVPRW-2018
+- 참조 : https://www.koreascience.or.kr/article/JAKO202120941728297.pdf
+- 참조 : http://www.cv-learn.com/20201227-cvpr2020-slam-malisiewicz/?fbclid=IwAR2XhGUkwhW0xcd5aojAmNkHCAh2IH2KcGuZ3VG5EIEyhjTBJugnzOrgX9M
+- 참조 : https://github.com/magicleap/SuperPointPretrainedNetwork
+- 참조 : https://www.youtube.com/watch?v=6jfw8MuKwpI
 
-<br>
-
-- 이번 글에서는 FCOS3D 라는 논문을 알아볼 예정이며 이 논문은 [FCOS](https://gaussian37.github.io/vision-detection-fcos/)를 기반으로 작성되었으므로 FCOS를 먼저 이해하고 오시는 것을 권장 드립니다.
-
-<br>
