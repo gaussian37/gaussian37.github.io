@@ -13,6 +13,8 @@ tags: [deep learning, machine learning, dl, 딥러닝, quantization, ptq, post t
 
 <br>
 
+- 참조 : https://arxiv.org/pdf/2103.13630.pdf (A Survey of Quantization Methods for Efficient
+Neural Network Inference)
 - 참조 : https://arxiv.org/pdf/1806.08342.pdf (Quantizing deep convolutional networks for
 efficient inference: A whitepaper)
 - 참조 : https://arxiv.org/pdf/2004.09602.pdf (INTEGER QUANTIZATION FOR DEEP LEARNING INFERENCE:
@@ -32,6 +34,7 @@ PRINCIPLES AND EMPIRICAL EVALUATION)
 <br>
 
 - ### [Quantization 이란](#quantization-이란-1)
+- ### [Weight Quantization 요약](#weight-quantization-요약-1)
 - ### [Quantization Mapping 이란](#quantization-mapping-이란-1)
 - ### [Quantized Matrix Multiplication 이란](#quantization-mapping-이란-1)
 - ### [Quantized Deep Learning Layers](#)
@@ -47,6 +50,12 @@ PRINCIPLES AND EMPIRICAL EVALUATION)
 - Quantization은 실수형 변수(floating-point type)를 정수형 변수(integer or fixed point)로 변환하는 과정을 뜻합니다.
 
 <br>
+<center><img src="../assets/img/dl/concept/quantization/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 예를 들어 위 그림과 같이 Quantization을 적용하면 일반적으로 많이 사용하는 `FP32` 타입의 파라미터를 `INT8` 형태로 변환한 다음에 실제 inference를 하게됩니다.
+
+<br>
 <center><img src="../assets/img/dl/concept/quantization/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
@@ -60,11 +69,189 @@ PRINCIPLES AND EMPIRICAL EVALUATION)
 - 정리하면 `① 모델의 사이즈 축소`, `② 모델의 연산량 감소`, `③ 효율적인 하드웨어 사용`이 Quantization의 주요 목적이라고 말할 수 있습니다.
 
 <br>
+
+- 간단하게 floating point 대신 int형을 사용해야 하는 지 살펴보면 다음과 같습니다.
+
+<br>
+
+```python
+import time
+t1 = time.time()
+print(3.123456789 - 2.345678912)
+t2 = time.time()
+print(3 - 2)
+t3 = time.time()
+
+print((t2 - t1))
+# 0.025929689407348633
+print((t3 - t2))
+# 0.023936748504638672
+print((t2 - t1) / (t3 - t2))
+# 1.083258630650013
+```
+
+<br>
+
+- 위 코드 결과와 같이 단순히 1개의 연산만을 할 경우에도 소수 연산이 정수 연산보다 8% 만큼의 시간이 더 걸리는 것을 확인할 수 있습니다.
+
+<br>
+
+- 딥러닝에서의 Quantization의 역할에 대해서 다음과 같이 살펴보도록 하곘습니다.
+
+<br>
 <center><img src="../assets/img/dl/concept/quantization/2.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 예를 들어 위 그림의 형광펜을 칠한 위치를 살펴보겠습니다. `Precision`에 해당하는 2, 3, 4, 8은 Quantization 하였을 때, 사용한 `bit`가 됩니다. ResNet-34를 2 bit로 표현하였을 때의 Top-1 Accuracy가 ResNet-18을 4-bit로 표현하였을 때 보다 성능이 더 좋은 것을 알 수 있습니다. 이 때 모델 사이즈는 오히려 ResNet-34가 조금 더 가벼운 것도 확인할 수 있습니다.
 - 즉, 여기서 얻을 수 있는 교훈은 **작은 네트워크로 quantization을 대충하는 것 보다 큰 네트워크로 quantization을 더 잘하는게 성능 및 모델 사이즈 측면에서 더 좋을 수 있다**는 점입니다.
+- `FP32` 대신 `INT8`을 사용한다면 보통 `model size`는 1/4이 되고 `inference speed`가 2 ~ 4배 빨라지며 `memory bandwidth`도 2 ~ 4배 가벼워집니다.
+
+<br>
+
+## **Weight Quantization 요약**
+
+<br>
+
+- 먼저 딥러닝 시 사용할 Quantization에 관한 용어 및 내용을 간략하게 정리해 보도록 하겠습니다. 좀 더 상세한 내용은 아래 `Quantization Mapping 이란` 부분부터 글 끝까지 설펴보시면 되고 간략하게 전체 내용을 훑고 싶으시면 `Weight Quantization 요약` 부분만 빠르게 읽으시면 됩니다.
+
+<br>
+
+- 내용을 살펴보기에 앞서서 딥러닝에서의 `Quantization`을 할 때 아래 5가지 전제조건을 숙지하도록 하겠습니다.
+
+<br>
+
+- ① `Inference Only` : Quantization은 `inference`에서만 사용합니다. 즉, 학습 시간을 줄이기 위한 것과는 관련이 없습니다.
+- ② `Not every layer can be quantized` : 구현한 딥러닝 모델의 모든 layer가 quantization이 될 수 없는 경우가 있습니다. 이것은 각 layer 자체의 특수성으로 어려운 부분도 있지만 Pytorch와 같은 Framework가 지원하지 않는 경우도 있습니다.
+- ③ `Not every layer shoud be quantized` : 모든 layer가 반드시 quantization이 되어야 하는 것이 가장 효율적인 것은 아닙니다. 경우에 따라서는 layer를 fusion 하여 한번에 quantization을 하기도 합니다.
+- ④ `Not every model reacts the same way to quantization` : 같은 quantization을 적용하더라도 모든 딥러닝 모델이 동일한 효과가 나타나는 것은 아닙니다. 앞의 layer에서도 말했듯이 layer의 특성이 있기 때문에 layer의 집합인 model에서는 그 현상이 더 크게 나타납니다.
+- ⑤ `Most available implementations are CPU only` : quantization이 적용된 많은 연산이 아직 CPU에서 사용해야 하는 경우도 있습니다.
+
+<br>
+
+- 딥러닝에서의 `Quantization`은 아래와 같이 6가지 단계를 가지게 됩니다.
+- ① `Module Fusion` : layer들을 하나로 묶어주는 Fusion 단계를 의미합니다. 이 단계는 반드시 필요한 것은 아니지만 좋은 성능을 위해서 많이 사용하고 있습니다. 대표적으로 `Conv-BatchNorm-ReLU`를 Fusion 하는 방법을 많이 사용하고 있습니다. 이 작업은 필요시에만 사용합니다.
+- ② `Formula Definition` : Qunaitization 시 사용하는 식을 정의합니다. 일반적으로 `FP32 → INT8`의 방식을 사용하며 반대로 다시 Floting Point로 변경 시 `INT8 → FP32`로 변경하는 `Dequantization` 방법도 정의합니다.
+- ③ `Hardware Deployment` :하드웨어에 따라서 어떻게 calibration하는 지 달라집니다. 대표적으로 `인텔`계열과 `ARM`계열이 있습니다.
+- ④ `Dataset Calibration` : `weight`를 변환하기 위한 식의 파라미터를 Dataset을 이용하여 계산합니다.
+- ⑤ `Weight Conversion` : 실제 `weight`를 FP 타입에서 INT 타입으로 변환합니다.
+- ⑥ `Dequantization` : 마지막으로 inference를 통해 얻은 출력을 `dequantization`을 통하여 다시 Floating 타입으로 변경합니다. 이 작업은 필요시에만 사용합니다.
+
+<br>
+
+- 이 글에서 다룰 `Quantization` 테크닉은 크게 3가지 입니다. ① `Dynamic Quantization`, ② `Static Quantization`, ③ `Quantization Aware Training` 이며 위 6단계 설 명과 더불어서 설명하도록 하겠습니다.
+
+<br>
+
+#### **① Module Fusion**
+
+<br>
+<center><img src="../assets/img/dl/concept/quantization/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림을 살펴보면 `CONV2D - BATCHNORM - RELU`가 한 쌍으로 되어 있습니다. 실제 이 순서대로 layer를 많이 쌓기 때문에 실제 사용 케이스와 유사합니다. 주황색은 첫번째 모듈이고 초록색은 두번째 모듈을 뜻합니다.
+- 위 그림에서 첫번째 행에 소개된 내용은 CONV2D, BATCHNORM, RELU 각각을 quantization을 적용한다는 뜻이고 두번째 행에 소개된 내용은 `CONV2D - BATCHNORM - RELU`을 하나로 묶어서 한번만 quantization을 한다는 뜻입니다.
+- 첫번째 행의 `precision`을 살펴보면 quantization이 적용된 layer를 걸칠때마다 precision이 감소하는 것을 알 수 있습니다.
+- 따라서 같은 모듈에서 quantization 하는 횟수를 3번에서 1번으로 줄여서 정확도를 얻고자 하는 방법으로 `Moudel Fusion`이 사용됩니다. 이와 같이 모든 layer에 quantization을 적용하지 않는 이유는 크게 2가지가 있습니다.
+- quantization 횟수를 줄이면 `inference time` (less quantization eperations)과 `precision` (less approximation)을 개선할 수 있기 때문입니다. 하지만 과도하게 quantization 횟수를 줄여버리면 quantization 자체의 목적이 사라질 수 있기 때문에 어느 부분에 `Module Fusion`을 하는 것이 좋은지 또한 연구 분야입니다. 따라서 사용하는 입장에서는 이미 성능 효과가 나타난 `CONV2D - BATCHNORM - RELU`에 대한 Module Fusion을 하기를 권장합니다.
+
+<br>
+
+#### **② Formula Definition**
+
+<br>
+
+- Quantization의 가장 큰 핵심인 어떻게 Quantization을 하는 지 `formula`를 정하는 방법에 대하여 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/quantization/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림의 왼쪽이 `FP32`일 때의 숫자이고 오른쪽은 formula를 통해 변환한 `INT8`에 해당하는 값입니다. 실제로는 `FP32`과 `INT8`의 숫자는 딥러닝 모델의 weight에 해당한다고 보시면 됩니다. 위 도표를 통해서 아래 식 (1), (2), (4)을 통해 정의한 Formula를 연산해 보도록 하겠습니다. 식의 상세 내용은 [Quantization Mapping 이란](#quantization-mapping-이란-1) 부터 읽어보시면 됩니다.
+
+<br>
+
+- $$ f_{q}(x, s, z) = \text{Clip}(\text{round}(\frac{x}{s}) + z) \tag{1} $$
+
+- $$ f_{q}(x, s, z) : \text{quantized value} $$
+
+- $$ \text{clip}() : \text{clip the values in a range (ex. 0 ~ 255)} $$
+
+- $$ x : \text{real value (float32)} $$
+
+- $$ s : \text{scale} $$
+
+- $$ z : \text{zero-point integer} $$
+
+<br>
+
+- 위 식에서 input은 $$ r $$ 이고 이 값을 $$ Q $$ 로 변환하기 위해서는 $$ s, z $$ 의 값이 정해져야 합니다. 그러면 $$ s, z $$ 값을 정의해 보도록 하겠습니다.
+
+<br>
+
+- $$ s = \frac{\beta - \alpha}{\beta_q - \alpha_q} \tag{2} $$
+
+- $$ \alpha, \beta : \text{min/max values of filter/layer} $$
+
+- $$ \alpha_q, \beta_q : \text{min/max values of quantized value} $$
+
+<br>
+
+- 이 부분의 식을 정의하기 위해서는 칩이 `ARM`인지 `INTEL` 계열인 지 먼저 알아야 합니다. `ARM`은 MinMax를 이용하여 $$ s $$ 를 구하는 반면 `INTEL` 계열은 히스토그램 알고리즘을 이용합니다. 식 (2)는 `ARMA`의 MinMax를 이용하는 예시입니다.
+- 이 글의 예제는 식 (2)를 이용하여 $$ s $$ 를 구하며 filter 또는 layer의 최소값은 $$ \alpha $$, 최댓값은 $$ \beta $$ 를 이용하여 식 (1)의 `clip` 함수를 구현하기도 합니다. (다른 방법들도 있습니다.) 이 때, `clip`의 range는 $$ [\alpha, \beta] $$ 가 됩니다.
+- 위 식에서 $$ \alpha_q, \beta_q $$ 는 quantization을 하였을 때, 최솟값과 최댓값이 되며 정수를 가집니다. 보통 `INT8`로 quantization을 할때, unsigned 형태를 사용하면 0 ~ 255 까지의 값을 가지고 signed 형태를 사용하면 -128 ~ 127의 값을 가지게 됩니다.
+
+<br>
+
+- 위 표에서 최댓값은 4.67이고 최솟값은 -4.75입니다. 따라서 $$ \alpha = -4.75 $$, $$ \beta = 4.67 $$ 가 됩니다. 그리고 `FP32 → INT8 (UNSIGNED)`로 변경한다고 가정하면 $$ \alpha_q = 0, \beta_q = 255 $$ 가 됩니다.
+
+<br>
+
+- $$ s = \frac{\beta - \alpha}{\beta_q - \alpha_q} = \frac{4.67 - (-4.75)}{255 - 0} = \frac{9.42}{255} = 0.037 \tag{3} $$
+
+<br>
+
+- 마지막으로 $$ z $$ 식을 정의해 보도록 하겠습니다.
+
+<br>
+
+- $$ z = \text{round}\big(\frac{\beta \alpha_q - \alpha \beta_q}{\beta - \alpha}\big) \tag{4} $$
+
+<br>
+
+- 위 식을 이용하여 $$ z $$ 를 구하면 다음과 같습니다.
+
+<br>
+
+- $$ z = \text{round}\big(\frac{4.67*0 - (-4.75)*255}{4.67 - (-4.75)} \big) = 129 \tag{5} $$
+
+<br>
+
+- 지금까지 $$ s, z $$ 를 구하였으므로 $$ x = -3.57 $$ 이라고 가정하고 식 (1)을 이용하여 quantization을 진행해 보도록 하겠습니다. 이 때, `clip`은 잠시 생략하겠습니다.
+
+<br>
+
+- $$ q = \text{round}(\frac{x}{s}) + z) =  \text{round}(\frac{-3.57}{0.037}) + 129) = 33 \tag{6} $$ 
+
+<br>
+
+- 마지막으로 clipping 개념만 적용하면서 마무리 하겠습니다. clipping 방법은 다양한 방법이 있지만 여기서 다룰 clipping 방법은 간단하게 lower_bound와 upper_bound를 이용하여 값을 $$ alpha_q, beta_q $$ 범위안의 값을 가지도록 하는 것입니다.
+
+<br>
+
+- $$ \begin{align} \text{clip}(x, \alpha_q, \beta_q) &= \begin{cases} \alpha_q & \text{if $x < \alpha_q $} \\ x & \text{if $\alpha_q \leq x \leq \beta_q$}\\ \beta_q & \text{if $x > \beta_q$}\\ \end{cases} \end{align} \tag{7} $$
+
+<br>
+
+- 식 (7) 까지 적용하면 식 (1) 전체를 이해하실 수 있습니다. 식의 자세한 전개는 글 뒷부분에서 확인하시면 도움이 됩니다.
+
+<br>
+
+- 위 과정 전체를 실습해 보려면 아래 colab 링크를 참조하시기 바랍니다.
+- [How to Quantize](https://colab.research.google.com/drive/16j3to2AwrWKJzMWnSd8HR2QRkAQvUlE5)
+
+<br>
+
+#### **③ Hardware Deployment**
 
 <br>
 
@@ -358,6 +545,8 @@ b \in \mathbb{R}^{n}, Y \in \mathbb{R}^{m \times n} $$ 의 조건을 가지며 �
 - `QAT`의 메커니즘은 간단합니다. floating point 모델에서 quantized된 정수 모델로 변환하는 동안 quantized가 발생하는 위치에 fake quantization module, 즉 quantization 및 dequantization 모듈을 배치하여 integer quantization에 의해 가져오는 [클램핑](https://en.wikipedia.org/wiki/Clamping_(graphics)) 및 반올림의 효과를 시뮬레이션합니다.
 - fake quantization 모듈은 `scale`과 `weight` 및 `activation`의 zero-point를 모니터링합니다. 
 - `QAT`가 일단 끝나면 floating point 모델은 fake quantization 모듈에 저장된 정보를 사용하여 quantized integer model로 변환될 수 있습니다.
+
+(작성중 ...)
 
 
 <br>
