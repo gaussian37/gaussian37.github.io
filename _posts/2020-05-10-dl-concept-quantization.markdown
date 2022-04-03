@@ -247,7 +247,7 @@ print((t2 - t1) / (t3 - t2))
 <br>
 
 - 위 과정 전체를 실습해 보려면 아래 colab 링크를 참조하시기 바랍니다.
-- [How to Quantize](https://colab.research.google.com/drive/16j3to2AwrWKJzMWnSd8HR2QRkAQvUlE5)
+- 링크 : [How to Quantize](https://colab.research.google.com/drive/16j3to2AwrWKJzMWnSd8HR2QRkAQvUlE5)
 
 <br>
 
