@@ -26,6 +26,7 @@ PRINCIPLES AND EMPIRICAL EVALUATION)
 - 참조 : https://www.youtube.com/playlist?list=PLC89UNusI0eSBZhwHlGauwNqVQWTquWqp
 - 참조 : https://wannabeaprogrammer.tistory.com/42
 - 참조 : https://youtu.be/DDelqfkYCuo
+- 참조 : https://www.tensorflow.org/model_optimization/guide/quantization/training_example
 
 <br>
 
@@ -196,7 +197,7 @@ print((t2 - t1) / (t3 - t2))
 
 <br>
 
-- 이 부분의 식을 정의하기 위해서는 칩이 `ARM`인지 `INTEL` 계열인 지 먼저 알아야 합니다. `ARM`은 MinMax를 이용하여 $$ s $$ 를 구하는 반면 `INTEL` 계열은 히스토그램 알고리즘을 이용합니다. 식 (2)는 `ARMA`의 MinMax를 이용하는 예시입니다.
+- 이 부분의 식을 정의하기 위해서는 칩이 `ARM`인지 `INTEL` 계열인 지 먼저 알아야 합니다. `ARM`은 MinMax를 이용하여 $$ s $$ 를 구하는 반면 `INTEL` 계열은 히스토그램 알고리즘을 이용합니다. 식 (2)는 `ARM`의 MinMax를 이용하는 예시입니다.
 - 이 글의 예제는 식 (2)를 이용하여 $$ s $$ 를 구하며 filter 또는 layer의 최소값은 $$ \alpha $$, 최댓값은 $$ \beta $$ 를 이용하여 식 (1)의 `clip` 함수를 구현하기도 합니다. (다른 방법들도 있습니다.) 이 때, `clip`의 range는 $$ [\alpha, \beta] $$ 가 됩니다.
 - 위 식에서 $$ \alpha_q, \beta_q $$ 는 quantization을 하였을 때, 최솟값과 최댓값이 되며 정수를 가집니다. 보통 `INT8`로 quantization을 할때, unsigned 형태를 사용하면 0 ~ 255 까지의 값을 가지고 signed 형태를 사용하면 -128 ~ 127의 값을 가지게 됩니다.
 
@@ -252,6 +253,32 @@ print((t2 - t1) / (t3 - t2))
 <br>
 
 #### **③ Hardware Deployment**
+
+<br>
+
+- 앞에서 설명한 바와 같이 하드웨어에 따라서 어떻게 calibration하는 지 달라집니다. 대표적으로 `인텔`계열과 `ARM`계열이 있고 `인텔` 칩을 사용하는 경우 히스토그램 방식을 이용하고 `ARM` 칩을 사용하는 경우 위 글에서 다룬 MinMax 방식을 이용합니다.
+
+<br>
+
+#### **④ Dataset Calibration**
+
+<br>
+
+- MinMax 방법 또는 히스토그램 방법이든 식 (2)의 스케일 값인 $$ S $$ 를 정할 때 $$ \alpha, \beta $$ 와 같은 범위값을 정하여 formula에 필요한 파라미터를 모두 정의합니다.
+
+<br>
+
+#### **⑤ Weight Conversion**
+
+<br>
+
+- ④ 과정을 통하여 formula가 정의되면 `FP32`에 대하여 `INT8`로 변환합니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/quantization/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 마지막인 ⑥ Dequantization은 `INT8`의 결과를 다시 `FP32`로 변환하는 것이며 상세 식은 Quantization Mapping에서 다루겠습니다. 다만 기억하실 점은 `FP32 → INT8`로 변환 시 정보 손실이 발생하기때문에 역으로 `INT8 →  FP32`로 변환 시 잃어버린 정보로 인하여 그대로 변환되지 않습니다. 이 때 발생하는 Error를 Quantization Error라고 하며 이 Error를 줄이는 것이 좋은 Quantization 알고리즘이라고 말할 수 있습니다.
 
 <br>
 
