@@ -21,8 +21,8 @@ tags: [deep learning, loss function, softmax, negatics log likelihood] # add tag
 - ### [Negative Log-Likelihood (NLL)](#negative-log-likelihood-nll-1)
 - ### [Negative Log Likelihood에 대한 Softmax 함수의 미분](#negative-log-likelihood에-대한-softmax-함수의-미분-1)
 - ### [Pytorch에서 사용 방법](#pytorch에서-사용-방법-1)
-- ### [Softmax의 overflow 방지]()
-- ### [2차원 Softmax 함수]()
+- ### [Softmax의 overflow 방지](softmax의-overflow-방지-1)
+- ### [2차원 Softmax 함수](2차원-이상의-softmax-함수)
 
 <br>
 
@@ -219,7 +219,7 @@ loss(F.log_softmax(output, 1), targets)
 
 <br>
 
-- $$ y_{k} = \frac{\text{exp}(a_{k})}{\sum_{i=1}^{n} \text{exp}(a_{i})} = \frac{C \text{exp}(a_{k})}{C \sum_{i=1}^{n} \text{exp}(a_{i}) $$
+- $$ y_{k} = \frac{\text{exp}(a_{k})}{\sum_{i=1}^{n} \text{exp}(a_{i})} = \frac{C \text{exp}(a_{k})}{C \sum_{i=1}^{n} \text{exp}(a_{i})} $$
 
 - $$ = \frac{\text{exp}(a_{k} + \log{(C)})}{\sum_{i=1}^{n} \text{exp}(a_{i} + \log{(C)})} $$
 
