@@ -21,6 +21,8 @@ tags: [deep learning, loss function, softmax, negatics log likelihood] # add tag
 - ### [Negative Log-Likelihood (NLL)](#negative-log-likelihood-nll-1)
 - ### [Negative Log Likelihood에 대한 Softmax 함수의 미분](#negative-log-likelihood에-대한-softmax-함수의-미분-1)
 - ### [Pytorch에서 사용 방법](#pytorch에서-사용-방법-1)
+- ### [Softmax의 overflow 방지]()
+- ### [2차원 Softmax 함수]()
 
 <br>
 
@@ -206,6 +208,130 @@ loss = nn.NLLLoss(weight)
 # output shape : (Batch Size, C, d1, d2, ...)
 loss(F.log_softmax(output, 1), targets)
 ```
+
+<br>
+
+## **Softmax의 overflow 방지**
+
+<br>
+
+- 앞에서 다룬 `softmax`를 실제 구현해서 사용한다면 `exp` 함수를 사용할 때, 너무 큰 수가 지수 승으로 입력이 되면 overflow가 발생하게 됩니다. 따라서 아래와 같이 개선된 버전의 수식을 사용하는 것이 일반적입니다.
+
+<br>
+
+- $$ y_{k} = \frac{\text{exp}(a_{k})}{\sum_{i=1}^{n} \text{exp}(a_{i})} = \frac{C \text{exp}(a_{k})}{C \sum_{i=1}^{n} \text{exp}(a_{i}) $$
+
+- $$ = \frac{\text{exp}(a_{k} + \log{(C)})}{\sum_{i=1}^{n} \text{exp}(a_{i} + \log{(C)})} $$
+
+- $$ = \frac{\text{exp}(a_{k} + C')}{\sum_{i=1}^{n} \text{exp}(a_{i} + C')} $$
+
+<br>
+
+- 즉, 위 식을 정리하면 $$ C $$ 라는 값을 기존 softmax 식의 분모 분자에 곱한 후 $$ C $$ 를 `exp` 안으로 옮겨 `log(C)`로 변경 후 최종적으로 `C'`로 치환하였습니다.
+- 즉, **어떤 정수를 `exp`에 더하더라도 결과를 유지한다는 뜻**이 됩니다. 이 성질을 이용하여 overflow를 방지해보겠습니다.
+- 아래 코드에서 구현하는 방법은 값 중의 최댓값을 전체 값에 빼준 다음에 softmax를 취해주게 되면 overflow를 방지할 수 있는 내용입니다.
+
+<br>
+
+```python
+a = np.array([1010, 1000, 990]) 
+print(np.exp(a) / np.sum( np.exp(a) ))
+# array([nan, nan, nan])
+```
+
+<br>
+
+- 위 코드 결과와 같이 overflow 방지를 위해 아래와 같이 사용합니다.
+
+<br>
+
+```python
+c = np.max(a) 
+print(a - c)
+# array([ 0, -10, -20])
+
+print(np.exp(a - c) / np.sum( np.exp(a - c) ))
+# array([9.99954600e-01, 4.53978686e-05, 2.06106005e-09])
+```
+
+<br>
+
+- 기존 코드에서는 overflow가 발생하였지만, 최댓값을 뺀 다음에 사용하면 overflow가 발생하지 않습니다.
+
+<br>
+
+- 위 트릭을 적용하여 softmax 함수를 다시 정의하면 아래와 같습니다.
+
+<br>
+
+```python
+def softmax(a):
+    c = np.max(a)
+    exp_a = np.exp(a - c) 
+    sum_exp_a = np.sum(exp_a) 
+    y = exp_a / sum_exp_a
+
+    return y
+```
+
+<br>
+
+## **2차원 이상의 Softmax 함수**
+
+<br>
+
+- 앞에서 선언한 `softmax` 함수는 1차원 배열을 대상으로 적용할 수 있는 함수입니다. 2차원 이상의 배열에 대하여 softmax를 적용하려면 어떻게 해야 하는 지 살펴보겠습니다.
+
+<br>
+
+```python
+# 최종 softmax
+
+def softmax(a):
+    if a.ndim >= 2:
+        # axis 1에 대하여 최댓값을 구함
+        c = np.max(a, axis=1, keepdims=True )
+        # 각 값에 axis 1 기준으로 최댓값을 뺌
+        exp_a = np.exp(a - c)
+        # exp 적용
+        sum_exp_a = np.sum( exp_a, axis=1, keepdims=True )
+    else:
+        c = np.max(a)
+        exp_a = np.exp(a - c)
+        sum_exp_a = np.sum(exp_a)
+
+    return exp_a / sum_exp_a
+
+
+a = np.array([ [0.3, 2.9, 4.0], 
+               [0.5, 1.1, 8.0],
+               [0.9, 12.9, 34.0] ])
+
+
+b = np.array([0.3, 2.9, 4.0])
+
+print( 'softmax(a)\n', softmax(a))
+# softmax(a)
+#  [[1.82112733e-02 2.45191813e-01 7.36596914e-01]
+#  [5.52222423e-04 1.00621486e-03 9.98441563e-01]
+#  [4.21553451e-15 6.86098439e-10 9.99999999e-01]]
+
+print('softmax(b)\n', softmax(b))
+# softmax(b)
+#  [0.01821127 0.24519181 0.73659691]
+
+print('sum( softmax(a) )\n', np.sum( softmax(a), axis=1, keepdims=True))
+# sum( softmax(a) )
+#  [[1.]
+#  [1.]
+#  [1.]]
+
+print('sum( softmax(b) )\n', np.sum(softmax(b)))
+# sum( softmax(b) )
+#  1.0
+```
+
+
 
 <br>
 
