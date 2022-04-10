@@ -231,11 +231,11 @@ print((t2 - t1) / (t3 - t2))
 
 <br>
 
-- $$ q = \text{round}(\frac{x}{s}) + z) =  \text{round}(\frac{-3.57}{0.037}) + 129) = 33 \tag{6} $$ 
+- $$ q = \text{round}(\frac{x}{s}) + z =  \text{round}(\frac{-3.57}{0.037}) + 129 = 33 \tag{6} $$ 
 
 <br>
 
-- 마지막으로 clipping 개념만 적용하면서 마무리 하겠습니다. clipping 방법은 다양한 방법이 있지만 여기서 다룰 clipping 방법은 간단하게 lower_bound와 upper_bound를 이용하여 값을 $$ alpha_q, beta_q $$ 범위안의 값을 가지도록 하는 것입니다.
+- 마지막으로 clipping 개념만 적용하면서 마무리 하겠습니다. clipping 방법은 다양한 방법이 있지만 여기서 다룰 clipping 방법은 간단하게 lower_bound와 upper_bound를 이용하여 값을 $$ \alpha_q, \beta_q $$ 범위안의 값을 가지도록 하는 것입니다.
 
 <br>
 
@@ -282,11 +282,60 @@ print((t2 - t1) / (t3 - t2))
 
 <br>
 
+#### **Symmetric vs Asymmetric Quantization**
+
+<br>
+
+- range를 결정하는 $$ \alpha, \beta $$ 가 절대값이 같은 값으나 부호가 다르게 사용된다면 `Symmetric`이라고 하고 서로 다른 절대값을 가지는 경우라면 `Asymmetric` 이라고 합니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/quantization/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 다룬 위 예시에서 최솟값은 -4.75이고 최댓값은 4.67입니다. 최솟값과 최댓값이 다르므로 이 값을 그대로 사용한다면 `Asymmetric` 하게 됩니다. Symmetric 하게 하려면 최솟값과 최댓값 중 절대값이 큰 값을 선택한 다음에 $$ \alpha, \beta $$ 로 사용하면 됩니다. 다음과 같습니다.
+
+<br>
+
+- `Symmetric quantization` : $$ [-4.75, 4.75] $$
+- `Asymmetric quantization` : $$ [-4.75, 4.67] $$
+
+<br>
+
+- 즉, Symmetric quantization을 사용할 때에는 $$ \alpha = -\beta $$ 가 되기 때문에 식 (4)에 대입하면 다음과 같이 식이 간단해 집니다.
+
+<br>
+
+- $$ z = \text{round}\big(\frac{\beta \alpha_q - \alpha \beta_q}{\beta - \alpha}\big) = \text{round}\big(\frac{\beta \alpha_q - (-\beta) \beta_q}{\beta - (-\beta)}\big) = \text{round}\big(\frac{\beta(\alpha_q + \beta_q)}{2\beta}\big) = \text{round}\big(\frac{\alpha_q + \beta_q}{2}\big) \tag{8} $$
+
+<br>
+
+- 만약 식 (8) 에서 `INT8`의 범위가 -128 ~ 127 이라고 가정하면 식 (8)을 통해 $$ z = 0 $$ 임을 알 수 있습니다.
+- 여기 까지 진행된 내용을 통하여 `FP32` → `INT8`로 mapping을 한 다음에 outlier가 발생 시 `INT8`의 최솟값 또는 최댓값으로 clipping 되도록 적용하면 quantization이 마무리 됩니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/quantization/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림의 왼쪽은 `Symmetric quantization`이고 오른쪽은 `Asymmetric quantization` 입니다. Floating point에서의 시작점이 왼쪽 그림에서는 $$ [-1, 1] $$ 사이인 반면에 오른쪽 그림은 $$ [-0.5, 1.5] $$ 인 것을 알 수 있습니다.
+
+<br>
+
+#### **Static vs Dynamic Quantization**
+
+<br>
+
+
+
+
+
+<br>
+
 ## **Quantization Mapping 이란**
 
 <br>
 
-- **Quantization의 의미를 수식으로** 알아보도록 하겠습니다. floating point 값인 $$ x \in [\alpha, \beta] $$ 를 quantized가 적용된 값인 $$ x_q \in [\alpha_q, \beta_q] $$ 라고 한다면 `de-quantization`의 과정은 다음과 같습니다.
+- 지금부터 앞에서 다룬 내용을 좀 더 자세하게 다루어 보도록 하겠습니다.
+- 먼저 **Quantization의 의미를 수식으로** 알아보도록 하겠습니다. floating point 값인 $$ x \in [\alpha, \beta] $$ 를 quantized가 적용된 값인 $$ x_q \in [\alpha_q, \beta_q] $$ 라고 한다면 `de-quantization`의 과정은 다음과 같습니다.
 
 <br>
 
