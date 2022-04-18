@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 이미지 Geometric Transformation 알아보기
+title: Image Transformation 알아보기
 date: 2019-12-26 00:00:00
-img: vision/concept/geometric_transformation/0.png
+img: vision/concept/image_transformation/0.png
 categories: [vision-concept] 
 tags: [vision, 2d transformation, ] # add tag
 ---
@@ -41,7 +41,7 @@ tags: [vision, 2d transformation, ] # add tag
 - 영상의 `기하학적 변환 (Geometric Transformation)`이란 영상을 구성하는 픽셀이 배치된 구조를 변경함으로써 **전체 영상의 모양을 바꾸는 작업**을 뜻합니다. 즉, 어떤 픽셀의 좌표가 다른 좌표로 이동되는 경우를 말합니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/geometric_transformation/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/image_transformation/1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 그림은 대표적인 Geometric Transformation의 예시를 나타냅니다. 이 중에서 `affine` 변환과 `projective` 변환에 대해서는 이 글의 내용을 읽어 보시길 권장드립니다. 그 만큼 중요합니다.
@@ -51,7 +51,7 @@ tags: [vision, 2d transformation, ] # add tag
 ## **Translation transformation (이동 변환)**
 
 <br>
-<center><img src="../assets/img/vision/concept/geometric_transformation/2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/image_transformation/2.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 먼저 영상의 이동 변환에 대하여 알아보도록 하겠습니다. 영상의 픽셀 값이 한 쪽 방향으로 이동한 경우를 나타내며 shift 라고도 합니다.
@@ -97,7 +97,7 @@ tags: [vision, 2d transformation, ] # add tag
 - 따라서 전단 변환의 결과로 한쪽으로 기울어진 영상을 만들어 낼 수 있습니다. 따라서 각 방향으로 기울어진 변환을 적용하기 위하여 $$ x $$축과 $$ y $$축 각각에 대하여 변환을 적용하면 됩니다. 아래와 같습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/geometric_transformation/3.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/image_transformation/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 전단 변환 또한 affine 변환 행렬을 통하여 변환 상태를 나타낼 수 있습니다. affine 변환 행렬로 나타내는 방식은 이동 변환과 똑같은 방식입니다.
@@ -129,7 +129,7 @@ tags: [vision, 2d transformation, ] # add tag
 - 크기 변환을 하기 위해서는 $$ x $$ 방향 또는 $$ y $$ 방향으로 얼마나 크게 또는 작게 만들기 위한 `scale factor`가 필요로 합니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/geometric_transformation/4.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/image_transformation/4.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 확대 및 축소를 위한 비율은 입력 영상과 출력 영상의 비율을 이용하여 `scale factor`를 구할 수 있습니다.
@@ -161,7 +161,7 @@ tags: [vision, 2d transformation, ] # add tag
 - 이미지의 대칭 변환은 **크기 변환 + 이동 변환**을 조합한 결과를 통해 만들어 낼 수 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/geometric_transformation/5.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/image_transformation/5.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 예를 들어 좌우 대칭된 변환은 크기를 -1배하여 변환할 수 있고 (위 그림의 왼쪽) 그 결과를 이동 변환을 통하여 (위 그림의 오른쪽) 기존 이미지를 대칭한 것 처럼 변환할 수 있습니다.
@@ -178,7 +178,7 @@ tags: [vision, 2d transformation, ] # add tag
 - 이번에는 영상을 회전하는 회전 변환에 대하여 알아보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/geometric_transformation/6.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/image_transformation/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 영상을 회전 하기 위한 변환은 위 식과 같이 $$ \sin{\theta}, \cos{\theta} $$의 식을 이용하여 표현할 수 있습니다.
@@ -196,7 +196,7 @@ tags: [vision, 2d transformation, ] # add tag
 - 위 affine 변환 행렬을 이용하면 원점 (0, 0)을 기준으로 이미지가 회전을 하게 됩니다. 이 때, 문제점이 발생하는데 한정된 공간에서 왼쪽 상단의 (0, 0)을 기준으로 회전을 하게 되면 영상의 많은 영역이 잘리게 됩니다. 
 
 <br>
-<center><img src="../assets/img/vision/concept/geometric_transformation/7.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/image_transformation/7.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 따라서 영상의 원점이 아닌 중앙점을 이용하여 회전하는 것이 일반적입니다. 이 때, 사용하는 affine 변환 행렬은 다음과 같습니다.
@@ -210,7 +210,7 @@ tags: [vision, 2d transformation, ] # add tag
 - 위 affine 변환 행렬을 보면 3열에서 (0, 0)이 아니라 연산되는 항이 추가로 정의 되어 있습니다. 이 원리는 위 링크를 보면 확인 할 수 있고 간단하게 설명하면 다음과 같습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/geometric_transformation/8.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/image_transformation/8.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 변환 순서를 보면 한번에 어떤 점 (ex. 중앙점)을 기준으로 회전하는 것이 아니라, ① 회전 기준점을 원점으로 이동 변환 ② 회전 변환 ③ 이동 변환을 거쳐서 임의의 점을 기준으로 회전을 하는 작업입니다.
@@ -241,7 +241,7 @@ tags: [vision, 2d transformation, ] # add tag
 - `Affine Transformation`을 `Perspective Transformation(또는 Homography, Projective Transformation 라고도 함)`과 비교하기 위하여 2 X 3 크기의 행렬을 3 X 3 크기의 행렬로 확장하여 아래와 같이 비교해 보겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/geometric_transformation/9.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/image_transformation/9.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 먼저 Affine Transformation은 앞에서 다룬 것과 같이 6개의 파라미터를 가집니다. 여기서 파라미터를 `DOF(Degree Of Freedom)`이라고 하며 DOF를 통하여 자유롭게 변형이 이미지의 기하학적 변환이 가능하기 때문에 이와 같은 이름으로 불립니다.
@@ -250,7 +250,7 @@ tags: [vision, 2d transformation, ] # add tag
 - 변환된 이미지의 모양을 보면 평행사변형(Parallelograms) 형태의 Affine Transformation 보다 Perspective Transform이 더 자유로운 모양을 띄게 됩니다. 그 이유는 DOF가 2개 더 많기 때문에 자유로움이 더 높이 때문입니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/geometric_transformation/10.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/image_transformation/10.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - Affine Transformation에서 6개의 파라미터를 알기 위해서는 6개의 연립 방정식이 필요합니다. 1개의 (x, y)에 대한 homogeneous 행렬에서 DOF에 관한 2개의 식을 구할 수 있기 때문에 3개 점의 6개 식을 이용하면 6개의 DOF를 구할 수 있습니다. 이는 위 그림과 같이 Affine Transformation이 평행사변형 형태를 유지하는 변환이기 때문에 3개의 점을 지정하면 자동적으로 하나의 점이 고정이 되어 3개의 점을 통해 변환 행렬을 구할 수 있는 것과 의미가 같습니다. 따라서 **3개의 점의 변환 전 좌표와 변환 후 좌표를 알아야 Affine 변환 행렬을 구할 수 있습니다.**
