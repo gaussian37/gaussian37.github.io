@@ -30,6 +30,8 @@ tags: [vision, 2d transformation, ] # add tag
 - ### [Reflection Transformation (대칭 변환)](#reflection-transformation-대칭-변환-1)
 - ### [Rotation Transformation (회전 변환)](#rotation-transformation-회전-변환-1)
 - ### [Affine Transformation과 Perspective Transformation](#affine-transformation과-perspective-transformation-1)
+- ### [Remapping](#remapping-1)
+- ### [Perspective Transform을 이용한 문서 스캐너]()
 
 <br>
 
