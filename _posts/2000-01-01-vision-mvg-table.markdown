@@ -29,7 +29,7 @@ tags: [vision, Multiple View Geometry] # add tag
 - [18. N-View Computational Methods]()
 - [19. Auto-Caibration]()
 - [20. Duality]()
-- [21 Cheirality]()
+- [21. Cheirality]()
 - [22. Degenerate Configurations]()
 
 <br>
