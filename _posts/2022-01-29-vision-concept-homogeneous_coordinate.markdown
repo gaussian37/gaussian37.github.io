@@ -100,3 +100,24 @@ tags: [homogeneous coordinate, 동차 좌표계] # add tag
 <br>
 
 - 이와 같이 식 (7) ~ (10) 까지의 결과를 통해 `homogeneous coordinate` 상에서 transformation matrix를 만들면 벡터와 포인트 각각에 대하여 행렬곱 연산만으로 transformation을 할 수 있음을 알 수 있었습니다.
+
+<br>
+
+- 지금까지 `homogeneous coordinate`의 의미와 사용 방법에 다루어 보았습니다. 그러면 이 좌표계를 왜 사용하는 것일까요? 가장 직접적인 이유는 `projective transformation`을 편리하게 다루기 위함입니다. 
+
+<br>
+<center><img src="../assets/img/vision/concept/homogeneous_coordinate/3.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림과 같이 3차원 좌표계에서 2차원 평면으로 투영을 한다고 가정해 보겠습니다. 이와 같은 투영을 `projective transformation` 통해 발생하게 되는데 원점으로부터 얼만큼 떨어져 있는 평면에 투영하느냐에 따라서 투영한 결과가 달라지게 됩니다.
+- 물론 3차원 좌표계에서는 의미하는 점이 변하지 않지만 투영하고자 하는 평면에 따라서 평면 상에서의 값은 달라지게 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/homogeneous_coordinate/4.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림과 같이 3차원 상에서 빨간색 점이 존재하고 이 점을 2차원 평면에 투영한다고 하였을 때, 어떤 평면에 투영하는 지에 따라서 같은 점이 다른 좌표에 표현되게 됩니다. 
+- 그런데 같은 평면이 달라진다고 해서 값이 의미 없이 달라지는 것은 아니고 스케일에 비례하여 달라지는 것을 알 수 있습니다.  (간단한 도형의 닮음을 이용하여 비례하는 것을 살펴보면 됩니다.)
+- 이 때, 스케일을 의미하는 것이 앞에서 살펴본 **추가된 차원의 값**입니다. 추가된 차원을 $$ w $$ 라고 하겠습니다. ($$ x, y, z $$ 축과 별도로 $$ w $$ 축을 추가하였음)
+- 앞에서 포인트의 경우 $$ w = 1 $$ 을 적용하였습니다. 이것의 의미는 normalized 된 평면에 3차원 좌표의 어떤 점을 2차원 normalized 평면에 투영시킨 것을 의미합니다. 만약 $$ w = 2 $$가 된다면 normalized 평면보다 원점에 2배 가깝게 투영된 것입니다. 반대로 $$ w = 0.5 $$가 되면 normalized 평면보다 원점에서 2배 멀게 투영된 것입니다.
+- 만약 $$ w = 0 $$이 된다면 어떻게 될까요? 이 경우 투영되는 평면이 무한대로 멀어지게 되어 단순히 평면에 투영되는 점이 아닌 무한대로 뻗어나아가는 벡터로 이해할 수 있습니다. 따라서 따로 무한대의 표현을 하지않고 $$ w = 0 $$을 사용하면 평면에 투영되는 특정 점이 아닌 벡터로 나타낼 수 있습니다.
