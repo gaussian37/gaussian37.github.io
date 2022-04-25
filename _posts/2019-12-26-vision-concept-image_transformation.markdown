@@ -30,7 +30,6 @@ tags: [vision, 2d transformation, ] # add tag
 - ### [Reflection Transformation (대칭 변환)](#reflection-transformation-대칭-변환-1)
 - ### [Rotation Transformation (회전 변환)](#rotation-transformation-회전-변환-1)
 - ### [Affine Transformation과 Perspective Transformation](#affine-transformation과-perspective-transformation-1)
-- ### [Remapping](#remapping-1)
 - ### [Perspective Transform을 이용한 문서 스캐너]()
 
 <br>
@@ -260,4 +259,11 @@ tags: [vision, 2d transformation, ] # add tag
 
 <br>
 
+## **Perspective Transform을 이용한 문서 스캐너**
 
+<br>
+
+- 앞에서 배운 `Perspective Transform`을 `OpenCV`를 이용하여 구현하려면 다음 링크의 함수를 참조해야 합니다.
+    - 링크 : [getPerspectiveTransform과 warpPerspective](https://gaussian37.github.io/vision-opencv_python_snippets/#warpaffine%EA%B3%BC-warpperspective%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EA%B8%B0%ED%95%98%ED%95%99%EC%A0%81-%EB%B3%80%ED%99%98-1)
+
+<br>
