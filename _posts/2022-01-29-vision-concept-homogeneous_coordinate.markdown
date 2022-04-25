@@ -68,10 +68,13 @@ tags: [homogeneous coordinate, 동차 좌표계] # add tag
 <br>
 
 - 사용법을 먼저 다루고 상세 내용은 이후에 다루도록 하겠습니다. `homogeneous coordinate`의 사용 방법은 $$ N $$ 차원의 벡터와 포인트를 표현할 때, $$ N + 1 $$ 차원의 벡터와 포인트를 사용하는 것입니다. 예를 들어 벡터의 경우 식 (5)와 같이 차원을 하나 추가하고 추가된 차원에는 0을 사용합니다. 반면 포인트의 경우 식 (6)과 같이 차원을 하나 추가하고 추가된 차원에는 1을 사용합니다. 
+- 예를 들어 2차원 실수 좌표계의 좌표값 $$ (x, y) $$ 는 동차 좌표계에서 $$ (x, y, 1) $$ 과 같이 표현되고 3차원 실수 좌표계의 좌표값 $$ (x, y, z) $$ 는 동차 좌표계에서 $$ (x, y, z, 1) $$ 과 같이 표현됩니다. 포인트를 나타날 때, 마지막 차원의 값이 0이 아닌 경우 모두 포인트 의미를 가지기 때문에 **homogeneous 좌표 표현은 무한히 많이 존재**하게 됩니다.
 - 이와 같은 형태로 transformation matrix를 사용하게 되면 벡터와 포인트에 대하여 linear transformation과 translation을 하나의 transformation matrix로 표현할 수 있습니다.
+- 만약 homogeneous coordinate에서 원래의 좌표를 구하려면 끝 자리가 1이 되도록 scale을 바꾼 후 1을 때어내면 됩니다. 예를 들어 homogeneous coordinate에서 $$ (x, y, \alpha) \to (x/\alpha, y/\alpha, 1) $$ 로 바꾼 다음 2차원 실 수 좌표계에서는 $$ (x/\alpha, y/\alpha) $$ 로 표현할 수 있습니다.
 
 <br>
 
+- 그러면 `homogeneous coodrdinate`를 실제로 어떻게 사용하는 지 행렬곱을 통하여 알아보도록 하겠습니다.
 - 먼저 translation matrix를 `homogeneous coordinate` 방식으로 나타내고 각각 `homogeneous coordinate`에서 벡터와 포인트에 각각 곱해보겠습니다.
 - translation matrix를 이용하여 벡터 자체는 이동 할 수 없고 포인트는 이동할 수 있는 성질을 이용하여 `homogeneous coordinate`에서 translation matrix를 벡터와 포인트에 각각 곱하면 어떻게 되는지 살펴보겠습니다.
 
@@ -103,7 +106,8 @@ tags: [homogeneous coordinate, 동차 좌표계] # add tag
 
 <br>
 
-- 지금까지 `homogeneous coordinate`의 의미와 사용 방법에 다루어 보았습니다. 그러면 이 좌표계를 왜 사용하는 것일까요? 가장 직접적인 이유는 `projective transformation`을 편리하게 다루기 위함입니다. 
+- 지금까지 `homogeneous coordinate`의 의미와 사용 방법에 다루어 보았습니다. 그러면 이 좌표계를 왜 사용하는 것일까요? 가장 직접적인 이유는 `projective transformation`을 편리하게 다루기 위함입니다.
+- 카메라 영상과 관련된 예제를 살펴보면 쉽게 설명할 수 있습니다. 예를 들어 카메라 영상은 3차원 공간에 있는 점들을 이미지 평면에 `projection`시킨 것입니다. 카메라 초점과 투영된 점을 연결하면 하나의 긴 `projection ray`가 나오게 되며 이 선 상에 있는 모든 점들은 모두 동일한 한 점으로 투영됩니다. 따라서 이미지 평면상의 한 점에 대한 `homogeneous 좌표`는 이 점으로 투영되는 `projection ray` 상의 모든 점들을 한꺼번에 표현하는 방법이 됩니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/homogeneous_coordinate/3.png" alt="Drawing" style="width: 600px;"/></center>
