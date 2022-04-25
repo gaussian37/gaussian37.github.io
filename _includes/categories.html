@@ -59,7 +59,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/dl/larochelle/' or page.url == '/dl/pytorch/' or page.url == '/dl/dlai/' or page.url == '/dl/dlai_nlp/' or page.url == '/dl/concept/' or page.url == '/dl/etc/'%} active {% endif %}">
+            {% if page.url == '/dl/larochelle/' or page.url == '/dl/pytorch/' or page.url == '/dl/dlai/' or page.url == '/dl/dlai_nlp/' or page.url == '/dl/dlai_gan/ or page.url == '/dl/concept/' or page.url == '/dl/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('dl-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -70,6 +70,7 @@
                     <a class="dropdown-item" href="{{ "/dl/pytorch" | prepend: site.baseurl }}">PyTorch</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/dl/dlai" | prepend: site.baseurl }}">Deeplearning.ai</a>
+                    <a class="dropdown-item" href="{{ "/dl/dlai_gan" | prepend: site.baseurl }}">Deeplearning.ai GAN</a>
                     <a class="dropdown-item" href="{{ "/dl/dlai_nlp" | prepend: site.baseurl }}">Deeplearning.ai NLP</a>
                     <a class="dropdown-item" href="{{ "/dl/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
@@ -88,8 +89,6 @@
                     <a class="dropdown-item" href="{{ "/vision/of" | prepend: site.baseurl }}">Optical Flow based on DL</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/vision/detection" | prepend: site.baseurl }}">Detection based on DL</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ "/vision/generative" | prepend: site.baseurl }}">Generative Model based on DL</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/vision/mvg" | prepend: site.baseurl }}">Multiple View Geometry</a>
                     <div class="dropdown-divider"></div>
