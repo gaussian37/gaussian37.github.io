@@ -124,4 +124,4 @@ tags: [homogeneous coordinate, 동차 좌표계] # add tag
 
 <br>
 
-- 지금 까지 내용을 다시 정리하면 동차 좌표계는 **벡터와 포인트를 같이 표현할 수 있는 좌표계** 라는 특성이 있고 이 특성을 이용하여 Projective Transformation 할 때, 포인트와 벡터 간의 변환될 수 있는 관계를 확인하였습니다. 이 성질로 인하여 `Affine/Perspective Transform` 형태를 행렬곱 형태 $$ y = Ax $$ (`Linear Transformation`)로 나타낼 수 있으므로 `Affine/Perspective Transform`이 연속적으로 발생하더라고 `Linear Transformation`형태로 나타낼 수 있다는 점이 동차 좌표계를 사용할 때 큰 이점이라고 말할 수 있습니다.
+- 지금 까지 내용을 다시 정리하면 동차 좌표계는 **벡터와 포인트를 같이 표현할 수 있는 좌표계** 라는 특성이 있고 이 특성을 이용하여 Projective Transformation 할 때, 포인트와 벡터가 서로 변환될 수 있는 관계임을 확인하였습니다. 이 성질로 인하여 `Affine/Perspective Transform` 형태를 행렬곱 형태 $$ y = Ax $$ (`Linear Transformation`)로 나타낼 수 있으므로 `Affine/Perspective Transform`이 연속적으로 발생하더라고 `Linear Transformation`형태로 나타낼 수 있다는 점이 동차 좌표계를 사용할 때 큰 이점이라고 말할 수 있습니다.
