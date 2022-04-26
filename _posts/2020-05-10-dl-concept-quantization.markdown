@@ -39,6 +39,7 @@ PRINCIPLES AND EMPIRICAL EVALUATION)
 - ### [Quantization Mapping 이란](#quantization-mapping-이란-1)
 - ### [Quantized Matrix Multiplication 이란](#quantization-mapping-이란-1)
 - ### [Quantized Deep Learning Layers](#)
+- ### [Pytorch를 이용한 Static Quantization 실습](#)
 - ### [Post Training Quantization과 Quantization Aware Training 비교](#post-training-quantization과-quantization-aware-training-비교-1)
 - ### [QAT (Quantization Aware Training) 방법](#qat-quantization-aware-training-방법-1)
 
@@ -324,8 +325,9 @@ print((t2 - t1) / (t3 - t2))
 
 <br>
 
-
-
+- `Static`과 `Dynamic`의 의미는 앞에서 설명한 `clipping range`를 어떻게 정하는 지에 따라 달라집니다.
+- `static quantization` : `clipping range`는 사전에 미리 계산이 되어서 inference 시에는 고정된 값으로 사용되는 방법을 의미합니다. 고정된 `clipping range`를 사용하기 때문에 이 방법은 추가적인 계산 비용이 발생하지 않지만 `dynamic quantization` 방법에 비해 낮은 성능을 보이곤 합니다. `static quantization`의 `clipping range`를 사전에 정하는 대표적인 방법은 샘플 입력 데이터를 준비하여 range를 정해보는 것입니다. 이 방법을 calibration이라고 부릅니다.
+- `dynamic quantization` : 동작 중 (runtime)에 각 activation map에 해당하는 `clipping`에서 `clipping range`가 동적으로 계산됩니다. 동작 중에 동적으로 계산되어야 하기 때문에 실시간성이 보장되는 계산 방법이 이용되며 대표적으로 min, max, percentile 등이 있습니다. 추가 계산 비용이 들지만 매번 input에 맞춰서 clipping range가 결정되기 때문에 `dynamic quantization` 방법은 `static quantization` 방법보다 더 좋은 성능을 가집니다.
 
 
 <br>
@@ -552,10 +554,6 @@ b \in \mathbb{R}^{n}, Y \in \mathbb{R}^{m \times n} $$ 의 조건을 가지며 �
 
 
 
-
-
-
-
 <br>
 <center><img src="../assets/img/dl/concept/quantization/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
@@ -563,6 +561,19 @@ b \in \mathbb{R}^{n}, Y \in \mathbb{R}^{m \times n} $$ 의 조건을 가지며 �
 <br>
 <center><img src="../assets/img/dl/concept/quantization/7.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
+
+<br>
+
+## **Pytorch를 이용한 Static Quantization 실습**
+
+<br>
+
+
+
+
+
+
+
 
 <br>
 
@@ -622,11 +633,22 @@ b \in \mathbb{R}^{n}, Y \in \mathbb{R}^{m \times n} $$ 의 조건을 가지며 �
 - fake quantization 모듈은 `scale`과 `weight` 및 `activation`의 zero-point를 모니터링합니다. 
 - `QAT`가 일단 끝나면 floating point 모델은 fake quantization 모듈에 저장된 정보를 사용하여 quantized integer model로 변환될 수 있습니다.
 
-(작성중 ...)
+<br>
 
+- 이와 같은 방법은 마치 `fine-tuning`을 하는 것과 같습니다. `quantization`은 Floating Point 형태로 학습된 파라미터를 그대로 사용하지 못하고 Floating Point가 Int 형으로 바뀜으로써 파라미터 값에 변화가 생기기 때문에 이와 같은 문제를 `fine-tuning` 방법으로 개선하고자 하는 것입니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/quantization/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `Quantization Aware Training`을 할 때에는 위 그림과 같은 절차를 통하여 weight 학습이 됩니다.
+- 먼저 위 그림에서 파란색 부분은 지금까지 살펴보았던 내용입니다. 학습된 Floating Point형의 Weight를 Quantization 합니다. 핵심은 학습 중에 시도해 본다는 것입니다. 그 다음에 `Forward Pass`를 진행합니다. 
+- 그 다음 `Backpropagation`이 진행될 때, Quantized 된 Weight `Q` 에 대하여 `gradient`를 구합니다. gradient 값은 Floating Point 형태로 나오게 됩니다. `STE(Straight Through Estimator)` (논문 참조 : [Estimating or Propagating Gradients Through Stochastic Neurons for Conditional Computation](https://arxiv.org/abs/1308.3432)) 를 통하여 Quantized 된 영역을 다시 straight 하게 만들어 주고 실제 weight 반영은 Weight `r`에 대하여 진행합니다. 
+- 즉, 최초 Gradient는 `dL/dQ (FP)`를 이용하여 구하지만 실제 back propagation 할 때에는 `dL/dr (FP)`가 될 수 있도록 환경을 재구성하는 것입니다.
 
 <br>
 
+- `QAT`를 진행하기 위해서 Pytorch에서 어떻게 사용하면 될 지 알아보도록 하겠습니다.
 
 
 <br>
