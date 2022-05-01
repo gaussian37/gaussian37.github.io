@@ -21,6 +21,16 @@ tags: [homogeneous coordinate, 동차 좌표계] # add tag
 
 <br>
 
+## **목차**
+
+<br>
+
+- ### [Homogeneous coordinate의 의미와 사용 이유](#)
+- ### [Homogeneous coordinate의 사용 예시](#)
+- ### [Homogeneous coordinate 내용 정리](#)
+
+<br>
+
 ## **Homogeneous coordinate의 의미와 사용 이유**
 
 <br>
@@ -74,6 +84,16 @@ tags: [homogeneous coordinate, 동차 좌표계] # add tag
 
 <br>
 
+- 앞에서 설명한 내용을 다른 방식으로 한번 더 설명해 보도록 하겠습니다. 앞의 내용이 이해가 되셨으면 스킵하셔도 됩니다.
+- `homogeneous coordinate`를 다루는 이유는 좌표계가 `projection`과 관련되어 있어 **3차원에서 정의된 3차원 가상 공간 객체의 2차원에 투영된 이미지를 얻는 일**과 관련되어 있기 때문이고 또 한가지 이유는 **3차원 공간의 affine 변환들을 모두 4 x 4 행렬로 표현하기 위함**입니다.
+- 단순히 숫자 하나를 추가하여 표현한다면 2차원 공간의 좌표 $$ (x, y) $$는 $$ (x, y, 1) $$로 표현할 수 있습니다. 이와 같이 표현하면 보통 행벡터로 생각을 하고 열벡터로 표현할 경우 $$ [x, y]^{T} $$ 또는 $$ [x, y, 1]^{T} $$로 표현합니다.
+
+<br>
+
+## **Homogeneous coordinate의 사용 예시**
+
+<br>
+
 - 그러면 `homogeneous coodrdinate`를 실제로 어떻게 사용하는 지 행렬곱을 통하여 알아보도록 하겠습니다.
 - 먼저 translation matrix를 `homogeneous coordinate` 방식으로 나타내고 각각 `homogeneous coordinate`에서 벡터와 포인트에 각각 곱해보겠습니다.
 - translation matrix를 이용하여 벡터 자체는 이동 할 수 없고 포인트는 이동할 수 있는 성질을 이용하여 `homogeneous coordinate`에서 translation matrix를 벡터와 포인트에 각각 곱하면 어떻게 되는지 살펴보겠습니다.
@@ -103,6 +123,10 @@ tags: [homogeneous coordinate, 동차 좌표계] # add tag
 <br>
 
 - 이와 같이 식 (7) ~ (10) 까지의 결과를 통해 `homogeneous coordinate` 상에서 transformation matrix를 만들면 벡터와 포인트 각각에 대하여 행렬곱 연산만으로 transformation을 할 수 있음을 알 수 있었습니다.
+
+<br>
+
+## **Homogeneous coordinate 내용 정리**
 
 <br>
 

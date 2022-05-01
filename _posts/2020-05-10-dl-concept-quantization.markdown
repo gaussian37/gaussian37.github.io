@@ -40,6 +40,7 @@ PRINCIPLES AND EMPIRICAL EVALUATION)
 - ### [Quantized Matrix Multiplication 이란](#quantization-mapping-이란-1)
 - ### [Quantized Deep Learning Layers](#)
 - ### [Pytorch를 이용한 Static Quantization 실습](#)
+- ### [Pytorch를 이용한 Sementic Segmentation의 Static Quantization 실습](#)
 - ### [Post Training Quantization과 Quantization Aware Training 비교](#post-training-quantization과-quantization-aware-training-비교-1)
 - ### [QAT (Quantization Aware Training) 방법](#qat-quantization-aware-training-방법-1)
 
@@ -568,12 +569,16 @@ b \in \mathbb{R}^{n}, Y \in \mathbb{R}^{m \times n} $$ 의 조건을 가지며 �
 
 <br>
 
+- (작성중)
 
+<br>
 
+## **Pytorch를 이용한 Sementic Segmentation의 Static Quantization 실습**
 
+<br>
 
-
-
+- 코드 링크 : [static quantization for sementic segmentation](https://colab.research.google.com/drive/19AOEPldXMjxXVx57GQJSK-lH6TN0UH0c?usp=sharing)
+- 앞의 예제를 통하여 Static Quantization의 간단한 예제를 살펴보았습니다. 이번에는 `static quantization`을 `semantic segmentation`에 적용하는 예제를 통하여 실제 사용하는 예제에는 어떻게 적용하는 지 살펴보도록 하겠습니다.
 
 <br>
 
