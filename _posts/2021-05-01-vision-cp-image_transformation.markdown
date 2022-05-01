@@ -2,7 +2,7 @@
 layout: post
 title: 5-1 Image Transformation
 date: 2021-05-01 00:00:00
-img: vision/concept/ipm/0.png
+img: vision/cp/cp.png
 categories: [vision-cp] 
 tags: [Computational Photography, Image Transformation] # add tag
 ---
