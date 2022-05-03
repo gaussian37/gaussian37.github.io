@@ -257,7 +257,83 @@ tags: [homogeneous coordinate, 동차 좌표계] # add tag
 
 <br>
 
-- 작성중....
+- 어떤 점 $$ p $$ 가 좌표계 $$ A $$ 에서는 $$ p_{A} $$ 라고 정의된다고 가정하겠습니다. 이 점을 다른 좌표계 $$ B $$ 의 입장에서 보면 다른 좌표 $$ p_{B} $$가 됩니다. 이렇게 좌표계가 달라질 때 바뀐 좌표계에 따라 새로운 좌표를 계산해야 합니다.
+- 대표적인 경우가 가상 공간 내의 모든 객체의 위치를 하나의 기준으로 정의하는데에 필요한 `global coordinate system`이며, 다른 하나는 개별 객체 내에 정의된 `local coordinate system`입니다. 가상 공간에서 객체들이 이동, 회전 변환 등을 통해 위치와 방향이 바뀌어 있을 때, 이 객체를 구성하는 기하 정보의 좌표는 `global coordinate system`를 기준으로 변경됩니다. 하지만 이 객체가 변형을 일으키지 않는다면 `local coordinate system`을 기준으로 한 기하 정보는 언제나 일정하게 유지됩니다. 
+- 그러면 좌표계가 변경되었을 때 좌표가 어떻게 바뀌는 지 살펴보도록 하겠습니다.
+
+<br>
+
+- 아래는 `좌표계의 이동`을 나타냅니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/homogeneous_coordinate/6.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림의 좌표계에서 나타난 바와 같이 일정한 변위 벡터 $$ d $$ 에 의해 좌표계 $$ A $$ 가 좌표계 $$ B $$ 로 이동했다고 가정하겠습니다. 이렇게 좌표계가 이동하였을 때 원래의 좌표계를 $$ A $$, 옮겨간 좌표계를 $$ B $$ 라고 하면 어떤 하나의 점 $$ p $$ 가 각각의 좌표계에서 같은 좌표를 $$ p_{A} $$ 와 $$ p_{B} $$ 라고 하겠습니다.
+- 두 좌표의 관계는 $$ p_{A} = p_{B} + d $$ 로 표현할 수 있습니다. 행렬로 표현하면 좌표계를 옮겨 놓는 변환 행렬 $$ T_{d} $$ 와 좌표 $$ p_{A}, p_{B} $$ 는 다음과 같습니다.
+
+<br>
+
+- $$ T_{d} = \begin{bmatrix} 1 & 0 & 0 & d_{x} \\ 0 & 1 & 0 & d_{y} \\ 0 & 0 & 1 & d_{z} \\ 0 & 0 & 0 & 1 \end{bmatrix} \tag{11} $$
+
+- $$ p_{A} = T_{d}p_{B} \tag{12} $$
+
+- $$ p_{B} = T_{d}^{-1}p_{A} \tag{13} $$
+
+<br>
+
+- 아래는 `좌표계의 회전`을 나타냅니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/homogeneous_coordinate/7.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림의 좌표계와 같이 회전 행렬 $$ R_{A \to B} $$ 에 의해 $$ A $$ 에서 $$ B $$ 로 회전되었다고 가정해 보겠습니다. 이 경우 각각의 좌표계를 기준으로 $$ p $$ 의 좌표를 정했을 때 얻어지는 좌표를 각각 $$ p_{A}, p_{B} $$ 라고 하겠습니다. 이 때, 두 좌표 사이에는 다음과 같은 관계가 존재합니다.
+
+<br>
+
+- $$ p_{A} = R_{A \to B}p_{B} \tag{14} $$
+
+- $$ p_{B} = R_{A \to B}^{-1}p_{A} = R_{A \to B}^{T}p_{A} \tag{15} $$
+
+<br>
+
+- 회전 행렬이 정규 직교 (orthonormal) 이라는 것과 정규직교인 행렬의 역행렬은 전치를 이용하여 쉽게 구할 수 있다는 사실을 이용하여 식 (15)를 전개하였습니다.
+
+<br>
+
+- 아래는 `좌표계의 회전과 이동이 동시 발생`을 나타냅니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/homogeneous_coordinate/8.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림의 좌표계는 이동과 회전 두가지 변환이 함께 적용된 예시입니다. 먼저 회전 변환 행렬 $$ R $$ 로 회전한 다음에 이동 변환 행렬인 $$ T_{d} $$ 를 이용하여 이동한 것입니다.
+- 회전 행렬 $$ R $$ 과 이동 변환 행렬 $$ T_{d} $$ 가 `homogeneous coordinate`에서 정의되는 4 x 4 행렬이라면 다음과 같이 표현할 수 있습니다.
+
+<br>
+
+- $$ R = \begin{bmatrix} R_{33} & 0 \\ O_{3}^{\text{row}} & 1 \end{bmatrix} \tag{16} $$
+
+- $$ T_{d} = \begin{bmatrix} I_{33} & d \\ O_{3}^{\text{row}} & 1 \end{bmatrix} \tag{17} $$
+
+<br>
+
+- 회전이 먼저 이루어지고 이동이 그 다음에 수행되므로 복합 변환은 $$ T_{d} R $$ 이 됩니다.
+
+<br>
+
+- $$ T_{d}R = \begin{bmatrix} R_{33} & d \\ O_{3}^{\text{row}} & 1 \end{bmatrix} \tag{18} $$
+
+<br>
+
+- 좌표 $$ p $$ 를 각각의 좌표계에서 표현하는 좌표 $$ p_{A} $$ 와 $$ p_{B} $$ 사이의 변환은 다음과 같습니다.
+
+<br>
+
+- $$ p_{A} = \begin{bmatrix} R_{33} & d \\ O_{3}^{\text{row}} & 1 \end{bmatrix} p_{B} \tag{19} $$
+
+- $$ p_{B} = \begin{bmatrix} R_{33}^{T} & R_{33}^{T}d \\ O_{3}^{\text{row}} & 1 \end{bmatrix} p_{A} \tag{20} $$
 
 <br>
 
