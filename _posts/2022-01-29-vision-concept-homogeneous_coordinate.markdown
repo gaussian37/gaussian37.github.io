@@ -276,9 +276,9 @@ tags: [homogeneous coordinate, 동차 좌표계] # add tag
 
 - $$ T_{d} = \begin{bmatrix} 1 & 0 & 0 & d_{x} \\ 0 & 1 & 0 & d_{y} \\ 0 & 0 & 1 & d_{z} \\ 0 & 0 & 0 & 1 \end{bmatrix} \tag{11} $$
 
-- $$ p_{A} = T_{d}p_{B} \tag{12} $$
+- $$ p_{A} = T_{d} p_{B} \tag{12} $$
 
-- $$ p_{B} = T_{d}^{-1}p_{A} \tag{13} $$
+- $$ p_{B} = T_{d}^{-1} p_{A} \tag{13} $$
 
 <br>
 
@@ -292,7 +292,7 @@ tags: [homogeneous coordinate, 동차 좌표계] # add tag
 
 <br>
 
-- $$ p_{A} = R_{A \to B}p_{B} \tag{14} $$
+- $$ p_{A} = R_{A \to B} p_{B} \tag{14} $$
 
 - $$ p_{B} = R_{A \to B}^{-1}p_{A} = R_{A \to B}^{T}p_{A} \tag{15} $$
 
@@ -334,6 +334,11 @@ tags: [homogeneous coordinate, 동차 좌표계] # add tag
 - $$ p_{A} = \begin{bmatrix} R_{33} & d \\ O_{3}^{\text{row}} & 1 \end{bmatrix} p_{B} \tag{19} $$
 
 - $$ p_{B} = \begin{bmatrix} R_{33}^{T} & R_{33}^{T}d \\ O_{3}^{\text{row}} & 1 \end{bmatrix} p_{A} \tag{20} $$
+
+<br>
+
+- `좌표계 변환`과 관련된 좀 더 자세한 내용을 확인하고 싶으시면 아래 링크를 참조하시기 바랍니다.
+    - 링크 : [https://gaussian37.github.io/vision-concept-calibration/](https://gaussian37.github.io/vision-concept-calibration/)
 
 <br>
 
