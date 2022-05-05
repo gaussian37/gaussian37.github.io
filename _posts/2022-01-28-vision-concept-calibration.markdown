@@ -120,7 +120,7 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 <center><img src="../assets/img/vision/concept/calibration/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 예시는 2차원 ($$ $$ \mathbb{R}^{2} $$) XY 평면에서 점 $$ P $$ 를 $$ \theta $$ 만큼 회전하여 $$ P' $$ 를 얻을 때 사용하는 행렬을 나타냅니다. 그러면 위 그래프를 기준으로 식을 전개해 보도록 하겠습니다.
+- 위 예시는 2차원 ($$ \mathbb{R}^{2} $$) XY 평면에서 점 $$ P $$ 를 $$ \theta $$ 만큼 회전하여 $$ P' $$ 를 얻을 때 사용하는 행렬을 나타냅니다. 그러면 위 그래프를 기준으로 식을 전개해 보도록 하겠습니다.
 - 먼저 $$ \alpha $$ 각도에 대하여 다루어 보도록 하곘습니다.
 
 <br>
@@ -319,6 +319,8 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 <br>
 
 - 위 식과 같이 차원을 추가하여 좌표를 표현한는 것을 `homogeneous coordinates`라고 합니다. 행렬의 곱으로만 표현된 형태를 뜻합니다.
+- `homogeneous coordinate`의 정확한 뜻을 알고 싶으면 아래 링크를 참조하시기 바랍니다.
+    - 링크 : [https://gaussian37.github.io/vision-concept-homogeneous_coordinate/](https://gaussian37.github.io/vision-concept-homogeneous_coordinate/)
 - 만약 위 식에서 $$ x, y $$ 좌표값을 구하고 싶으면 다음과 같이 마지막 상수항을 나눠서 구할 수 있습니다.
 
 <br>
