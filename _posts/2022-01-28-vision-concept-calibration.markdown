@@ -365,16 +365,19 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 <br>
 
 - 지금까지 `rotation`과 `translation`을 각각 살펴보았습니다. 그러면 `homogeneous coordinate` 형태로 나타내어 본 이유가 한번에 행렬곱으로 연산하기 위함이었듯이 행렬 곱으로 나타내어 보겠습니다.
+- 아래 식을 어떤 점 $$ P $$ 를 $$ P' $$ 로 변환하기 위한 행렬식이라고 가정하겠습니다.
 
 <br>
 
-- $$ E^{-1} = \begin{bmatrix} R & T \\ 0^{T} & 1 \end{bmatrix} = \begin{bmatrix} 1 & T \\ 0^{T} & 1  \end{bmatrix} \begin{bmatrix} R & 0 \\ 0^{T} & 1  \end{bmatrix} \tag{33} $$
+- $$ \begin{bmatrix} R & T \\ 0^{T} & 1 \end{bmatrix} = \begin{bmatrix} 1 & T \\ 0^{T} & 1  \end{bmatrix} \begin{bmatrix} R & 0 \\ 0^{T} & 1  \end{bmatrix} \tag{33} $$
 
 <br>
 
 - 위 식에서 $$ R $$ 은 rotation을 의미하고 $$ T $$ 는 translation을 의미합니다. $$ R $$ 은 (2, 2), (3, 3)과 같은 정사각행렬의 크기를 가집니다. 이 때 차원이 결정되면 $$ R $$의 차원과 동일한 차원의 $$ T $$ 열벡터가 크기 2, 3과 같은 사이즈를 가지게 됩니다. $$ 0^{T} $$ 는 열벡터를 행벡터 형태로 나타내기 위함입니다.
 - 3차원 공간에서의 rotation과 translation을 위한 행렬에서 $$ R $$ 은 (3, 3)의 크기의 행렬을 가지고 $$ T $$ 는 (3, 1)의 크기의 열벡터를 가지므로 최종적으로 (4, 4) 크기의 행렬이 됩니다.
-- 어떤 점 $$ P \to P' $$ 로 `coordinate transform` 할 때 사용한 행렬을 $$ A $$ 라고 하면 $$ A^{-1} $$ 은 `basis transformation` 이라고 하였습니다. 따라서 식 (33)의 행렬의 역행렬이 `basis transformation`을 위한 행렬이 됩니다. 이 `basis transformation`을 `extrinsic camera matrix` $$ E $$ 라고 합니다.
+- 어떤 점 $$ P \to P' $$ 로 `coordinate transform` 할 때 사용한 행렬을 $$ A $$ 라고 하면 $$ A^{-1} $$ 은 `basis transformation` 이라고 하였습니다.
+- 따라서 식 (33)의 행렬을 $$ A $$ 라고 하면 `basis transformation` 행렬은 $$ A^{-1} $$ 이 되고 `world coordinate system`을 `camera coordinate system`으로 변환하는 것을 `extrinsic camera matrix` $$ E $$ 라고 하기 때문에 $$ A^{-1} = E $$ 라고 정의하겠습니다.
+- 만약 어떤 점 $$ p $$ 가 있고 `world coordinate system`에서는 $$ p $$ 를 좌표 $$ p_{w} $$ 의 값을 가지고 `camera coordinate system`에서는 좌표 $$ p_{c} $$ 를 가진다고 하면 좌표 기준으로 $$ p_{w} \to p_{c} $$ 로 변환하는 행렬을 구할 수 있습니다. 이 행렬을 앞의 예제와 같이 $$ A $$ 라고 한다면 반대로 `world coordinate system` 인 $$ P^{W} $$ 를 `camera coordinate system` 인 $$ P^{C} $$ 로 변환하는 행렬은 $$ A^{-1} = E $$ 가 됩니다.
 
 <br>
 
@@ -383,6 +386,14 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 <br>
 
 - 식 (34)와 같이 extrinsic camera matrix $$ E $$ 를 이용하여 `world coordinate system`에서 `camera coordinate system`으로의 기저 변환을 할 수 있습니다.
+
+<br>
+
+- 지금 까지 내용을 정리하면 `coordinate system`을 변환하는 행렬은 다음과 같은 순서로 구할 수 있습니다.
+- ① 어떤 점 $$ P $$ 에 대하여 $$ A $$ 좌표계와 $$ B $$ 좌표계 각각에서 가지는 좌표값 $$ P_{A} $$ 와 $$ P_{B} $$ 를 구합니다.
+- ② 한 좌표계의 점을 기준으로 삼습니다. 편의상 $$ A $$ 좌표계를 기준으로 삼겠습니다. 
+- ③ $$ P_{A} $$ 를 $$ P_{B} $$ 로 변환할 수 있는 변환 행렬 $$ T $$ 를 구합니다.
+- ④ 변환 행렬 $$ T $$ 를 이용하여 $$ T^{-1} \times A = B $$ 또는 $$ A = T \times B $$ 형태로 좌표계 변환에 적용합니다.
 
 <br>
 
@@ -395,7 +406,7 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 
 <br>
 
-- 지금까지 배운 내용을 파이썬으로 실습해 보도록 하겠습니다. 아래 링크의 예제는 world coordinate system → camera coordinate system으로 기저 변환이 되었을 때, $$ y $$ 축으로 45도 회전과 -8만큼 translation이 발생하였다고 가정하고 변환하였습니다.
+- 앞에서 살펴본 내용을 파이썬으로 실습해 보도록 하겠습니다. 아래 링크의 예제는 world coordinate system → camera coordinate system으로 기저 변환이 되었을 때, $$ y $$ 축으로 45도 회전과 -8만큼 translation이 발생하였다고 가정하고 변환하였습니다.
 - 그래프 출력 결과는 colab에서 생성이 안되어 local의 jupyter notebook에서 실행하시길 바랍니다.
 
 <br>
@@ -412,15 +423,16 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 
 - 먼저 결과부터 살펴보면 기존의 파란색 평면 (world 좌표계)이 Y축 (초록색 축)을 기준으로 45도 rotation과 Y축 기준으로 -8 만큼 translation이 발생한 것을 확인할 수 있습니다.
 - 파란색 평면 아래에 있는 좌표 축이 위 좌표계의 기준 축입니다. X, Y, Z 축의 원점이 (0, 0, 0)에 있는 것을 확인할 수 있습니다. 이것을 편의상 `world coordinate system`이라고 하겠습니다.
-- 반면에 주황색 평면 아래에 있는 좌표 축은 새로운 좌표축이며 편의상 `camera coordinate system`이라고 하곘습니다.
+- 반면에 주황색 평면 아래에 있는 좌표 축은 새로운 좌표축이며 편의상 `camera coordinate system`이라고 하겠습니다.
+- 파란색 평면과 주황색 평면은 **좌표의 집합**입니다. 즉, 파란색 평면을 주황색 평면으로 변환하는 것은 좌표를 변환하는 것과 같습니다. 
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/13.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 위 코드 부분에서 `R`과 `T`는 각각 Y축 방향으로 45도 회전과 -8만큼 translation이 발생함을 나타낸 것입니다.
+- 위 코드 부분에서 `R`과 `T`는 각각 Y축 방향으로 45도 회전과 -8만큼 translation이 발생함을 나타낸 것입니다. 즉, 파란색 평면을 주황색 평면으로 변환하기 위한 것이고 이것은 좌표를 변환하는 것과 같습니다.
 - `R_`과 `T_`는 homogeneous coordinate로 표현하기 위하여 나타낸 것이며 이렇게 표현하면 `R_`과 `T_`의 행렬 곱을 통하여 rotation과 translation을 한번에 표현할 수 있습니다.
-- 따라서 `camera coordinate system`은 `world coordinate system`에 비하여 Y축 방향으로 +45도 회전과 -8만큼의 translation이 발생한 것을 확인할 수 있습니다.
+- 따라서 주황색 평면은 파란생 평면에에 비하여 Y축 방향으로 +45도 회전과 -8만큼의 translation이 발생한 것을 확인할 수 있습니다.
 
 <br>
 
@@ -479,6 +491,7 @@ ax.set_zlabel("Z-axis")
 <br>
 
 - (4, 4) 행렬의 `E`의 마지막 행을 삭제하여 (3, 4) 크기의 행렬을 만들면 왼쪽 (3, 3)은 Rotation을 의미하고 가장 오른쪽 (3, 1) 크기의 열벡터는 Translation을 의미하게 됩니다.
+- 이 과정의 의미는 `homogeneous coordinate (동차 좌표계)`를 다시 `cartesian coordinate (직교 좌표계)`로 표현한 것입니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/16.png" alt="Drawing" style="width: 600px;"/></center>
