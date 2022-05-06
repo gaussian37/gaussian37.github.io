@@ -15,7 +15,7 @@ tags: [vision, deep learning, segmentation] # add tag
 
 <br>
 
-## **Segmentation** 관련 내용
+## **Segmentation 관련 내용**
 
 <br>
 
@@ -23,10 +23,10 @@ tags: [vision, deep learning, segmentation] # add tag
 - [mIoU(Mean Intersection over Union)](https://gaussian37.github.io/vision-segmentation-miou/)
 - [Segmentation의 Entropy 표현 방법](https://gaussian37.github.io/vision-segmentation-entropy/)
 - [Fully Convolutional Networks for Semantic Segmentation](https://gaussian37.github.io/vision-segmentation-fcn/)
-- [SPPNet]()
 - [U-Net](https://gaussian37.github.io/vision-segmentation-unet/)
 - [Multi-Scale Context Aggregation by Dilated Convolutions](https://blog.naver.com/laonple/220991967450)
 - [ASPP(Atrous Spatial Pyramid Pooling)](https://gaussian37.github.io/vision-segmentation-aspp/)
+- [CRF (Conditional Random Field) 내용 알아보기](https://gaussian37.github.io/vision-segmentation-crf/)
 - [Learning Deconvolution Network for Semantic Segmentation]()
 - [RTSeg: Real-time Semantic Segmentation Comparative Study]()
 - [Multi-scale context aggregation by dilated convolutions]()
@@ -53,14 +53,7 @@ tags: [vision, deep learning, segmentation] # add tag
 
 <br>
 
-- [ENet]()
-- [BiSeNet]()
 - [ESPNet]()
-- [ERFNet]()
-- [RPNet]()
-- [DSNet]()
-- [C3 : Concentrated-Comprehensive Convolution and its application to semantic segmentation]()
-- [Light-weight refinenet for realtime semantic segmentation]()
 - [SegNet]()
 - [CGNet](https://gaussian37.github.io/vision-segmentation-cgnet/)
 - [LiteSeg, A Novel Lightweight ConvNet for Semantic Segmentation](https://gaussian37.github.io/vision-segmentation-liteseg/)
@@ -72,8 +65,7 @@ tags: [vision, deep learning, segmentation] # add tag
 
 <br>
 
-
-
+- [Temporally Distributed Networks for Fast Video Semantic Segmentation]()
 
 <br>
 
@@ -81,8 +73,6 @@ tags: [vision, deep learning, segmentation] # add tag
 
 <br>
 
-## **Instance Segmentation**
+- [OSVOS, One-Shot Video Object Segmentation](https://gaussian37.github.io/vision-segmentation-osvos/)
 
 <br>
-
-- [YOLACT(You Only Look At Cofficient Ts) : Real-time Instance Segmentation](https://gaussian37.github.io/vision-segmentation-yolact/)
