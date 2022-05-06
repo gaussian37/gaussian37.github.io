@@ -25,16 +25,16 @@ tags: [Multiple View Geometry, Projective Geometry and Transformations] # add ta
 
 <br>
 
-- ### Planar geometry
-- ### The 2D projective plane
-- ### Projective transformations
-- ### A hierarchy of transformations
-- ### The projective geometry of 1D
-- ### Topology of the projective plane
-- ### Recovery of affine and metric properties from images
-- ### More properties of conics
-- ### Fixed points and lines
-- ### Closure
+- ### [Planar geometry](#planar-geometry-1)
+- ### [The 2D projective plane](#the-2d-projective-plane-1)
+- ### [Projective transformations](#projective-transformations-1)
+- ### [A hierarchy of transformations](#a-hierarchy-of-transformations-1)
+- ### [The projective geometry of 1D](#the-projective-geometry-of-1d-1)
+- ### [Topology of the projective plane](#the-projective-geometry-of-1d-1)
+- ### [Recovery of affine and metric properties from images](#recovery-of-affine-and-metric-properties-from-images-1)
+- ### [More properties of conics](#more-properties-of-conics-1)
+- ### [Fixed points and lines](#fixed-points-and-lines-1)
+- ### [Closure](#closure-1)
 
 <br>
 
@@ -58,6 +58,8 @@ tags: [Multiple View Geometry, Projective Geometry and Transformations] # add ta
 
 <br>
 
+#### **Definition 2.9** 
+ 
 
 <br>
 

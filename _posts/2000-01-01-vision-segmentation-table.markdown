@@ -22,21 +22,16 @@ tags: [vision, deep learning, segmentation] # add tag
 - [segmentation 학습을 위한 one hot label 생성 및 Loss 연산](https://gaussian37.github.io/vision-segmentation-one_hot_label/)
 - [mIoU(Mean Intersection over Union)](https://gaussian37.github.io/vision-segmentation-miou/)
 - [Segmentation의 Entropy 표현 방법](https://gaussian37.github.io/vision-segmentation-entropy/)
-- [Fully Convolutional Networks for Semantic Segmentation](https://gaussian37.github.io/vision-segmentation-fcn/)
-- [U-Net](https://gaussian37.github.io/vision-segmentation-unet/)
 - [Multi-Scale Context Aggregation by Dilated Convolutions](https://blog.naver.com/laonple/220991967450)
 - [ASPP(Atrous Spatial Pyramid Pooling)](https://gaussian37.github.io/vision-segmentation-aspp/)
 - [CRF (Conditional Random Field) 내용 알아보기](https://gaussian37.github.io/vision-segmentation-crf/)
 - [Learning Deconvolution Network for Semantic Segmentation]()
-- [RTSeg: Real-time Semantic Segmentation Comparative Study]()
-- [Multi-scale context aggregation by dilated convolutions]()
-- [Parsenet: Looking wider to see better]()
-- [Fast, Exact and Multi-Scale Inference for Semantic Image Segmentation with Deep Gaussian CRFs]()
-- [Hierarchical Multi-Scale Attention for Semantic Segmentation]()
+- [Multi-scale context aggregation by dilated convolutions](https://arxiv.org/pdf/1511.07122.pdf)
+- [STEGO (Unsupervised Semantic Segmentation by Distilling Feature Correspondences)](https://arxiv.org/abs/2203.08414)
 
 <br>
 
-## **mIoU 성능 위주의 Sementic Segmentation 모델**
+## **Performance Oriented Sementic Segmentation 모델**
 
 - [DeepLab_v1 (Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs)]()
 - [DeepLab_v2 (DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs)]()
@@ -46,13 +41,17 @@ tags: [vision, deep learning, segmentation] # add tag
 - [The One Hundred Layers Tiramisu: Fully Convolutional DenseNets for Semantic Segmentation]()
 - [DenseASPP for Semantic Segmentation in Street Scenes]()
 - [PSPNet(Pyramid Scene Parsing Network)](https://gaussian37.github.io/vision-segmentation-pspnet/)
+- [Hierarchical Multi-Scale Attention for Semantic Segmentation]()
 
 <br>
 
-## **Realtime 성능 위주의 Sementic Segmentation 모델**
+## **Realtime Oriented Sementic Segmentation 모델**
 
 <br>
 
+- [RTSeg: Real-time Semantic Segmentation Comparative Study]()
+- [Fully Convolutional Networks for Semantic Segmentation](https://gaussian37.github.io/vision-segmentation-fcn/)
+- [U-Net](https://gaussian37.github.io/vision-segmentation-unet/)
 - [ESPNet]()
 - [SegNet]()
 - [CGNet](https://gaussian37.github.io/vision-segmentation-cgnet/)
