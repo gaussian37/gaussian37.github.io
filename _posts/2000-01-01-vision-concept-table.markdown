@@ -8,27 +8,20 @@ tags: [vision] # add tag
 ---
 
 - [히스토그램 영상 처리](https://gaussian37.github.io/vision-concept-histogram/)
+- [Histogram Equalization (히스토그램 평활화) 알아보기](https://gaussian37.github.io/vision-concept-histogram_equalization/)
+- [Image Transformation 알아보기](https://gaussian37.github.io/vision-concept-image_transformation/)
 - [2D Transformation](https://gaussian37.github.io/vision-concept-2d_transformation/)
-- 이진 영상 처리
-- 영상 처리 기본 연산 (점, 영역, 기하)
-- 다해상도
-- 모폴로지
-- 컬러
-- 에지 검출 
-- 영교차 이론
-- 캐니 에지
-- 컬러 에지
-- 선분 검출
-- 지역 특징 검출 기초
-- 이동과 회전에 불변한 특징점 검출(모라벡, 해리스 코터, 2차 미분 방법, 슈산)
-- 위치 찾기 알고리즘
-- 스케일에 불변한 특징점 검출(스케일 공간, 해리스 라플라스 특징, SIFT, SURF)
-- 영상 분할
-- 전통적인 영상 분할 방법
-- 그래프 영상 분할 방법
-- 민시프트
-- 워터쉐드
 - [Optical Flow 알아보기 (Luckas-Kanade w/ Pyramid, Horn-Schunck, FlowNet)](https://gaussian37.github.io/vision-concept-optical_flow/)
 - [스케일 불변 특징점 검출 (SIFT, SURF)](https://gaussian37.github.io/vision-concept-scale_invariant_feature_extraction/)
 - [이미지 압축 알아보기](https://gaussian37.github.io/vision-concept-image_compression/)
 - [Karhunen-Loeve Transform (KLT) 알아보기](https://gaussian37.github.io/vision-concept-klt/)
+- [RANSAC (RANdom SAmple Consensus) 개념 및 실습](https://gaussian37.github.io/vision-concept-ransac/)
+- [Homogeneous coordinate (동차 좌표계)](https://gaussian37.github.io/vision-concept-homogeneous_coordinate/)
+- [IPM(Inverse Perspective Mapping)을 이용한 Bird Eye View 변환](https://gaussian37.github.io/vision-concept-ipm/)
+- [카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)
+- [스케일 불변 특징점 검출 (SIFT, SURF)](https://gaussian37.github.io/vision-concept-scale_invariant_feature_extraction/)
+- [이미지 압축 알아보기](https://gaussian37.github.io/vision-concept-image_compression/)
+- [Fourier transform (푸리에 변환)](https://gaussian37.github.io/vision-concept-fourier_transform/)
+- [Direct Linear Transformation](https://gaussian37.github.io/vision-concept-direct_linear_transformation/)
+- [VOT(Visual Object Tracking)와 MOT(Multiple Object Tracking)](https://gaussian37.github.io/vision-concept-vot_mot/)
+- [옵티컬 플로우 (Optical Flow) 알아보기 (Luckas-Kanade w/ Pyramid, Horn-Schunck, FlowNet 등)](https://gaussian37.github.io/vision-concept-optical_flow/)
