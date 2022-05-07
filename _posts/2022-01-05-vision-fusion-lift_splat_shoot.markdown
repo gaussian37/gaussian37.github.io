@@ -73,7 +73,7 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 <br>
 
 <br>
-<center><img src="../assets/img/vision/fusion/lift_splat_shoot/3.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/3.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 컴퓨터 비전 알고리즘은 좌표계가 무관한 classification과 같은 task가 있고 detection, semantic segmentation과 같이 입력 좌표계와 동일한 좌표계에서 문제를 해결하는 task도 있습니다.
@@ -82,24 +82,46 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 - 본 논문은 멀티 뷰 이미지를 입력으로 받아서 각 frame 별 출력으로 만든 BEV에서 인식을 하고 end-to-end 방식으로 planning 까지 다룹니다.
 
 <br>
-<center><img src="../assets/img/vision/fusion/lift_splat_shoot/4.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/4.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 한 개의 이미지에서 멀티 뷰 이미지로 확장하기 위해서 여러 개의 카메라들을 각 카메라의 intrinsic과 extrinsic 정보를 이용하여 각 카메라의 좌표계 기준을 기준 좌표계 기준으로 변환해야 합니다. 이 때, 카메라의 intrinsic과 extrinsic을 이용합니다.
 - 이와 같은 멀티 뷰 이미지로의 개념 확장은 아래 3가지 특성을 만족을 기대합니다.
 - ① `Translation equivariance` : 각 이미지 내의 픽셀 좌표계에서 물체가 이동하면, 동일한 크기만큼 출력 좌표계에서도 물체가 이동되어야 합니다.
-- ② `Permutation invariance` : 
-- ③ `Ego-frame isometry equivariance` : 
+- ② `Permutation invariance` : 최종 출력은 카메라 입력의 순서에 의존적이지 않아야 합니다.
+- ③ `Ego-frame isometry equivariance` : 멀티 뷰 이미지에서 동일한 물체를 인식하면 자차 기준의 ego-frame에서 같은 물체로 인식되어야 합니다. 즉, 차량에 장착된 카메라가 회전 및 이동이 발생하면 그 변경양에 맞춰서 보정이 되어서 같은 물체를 다른 물체 또는 다른 위치에서 인식하지 않도록 해야 합니다. (멀티 뷰 전체를 고려한 Frame을 ego-frame 이라는 용어로 사용하였습니다.)
+
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/6.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 가장 간단한 방법은 post process 방식을 이용하여 인식 결과를 처리하는 것입니다. 하지만 이러한 접근 방식은 ego-frame 에서 서로 다른 센서를 통해 얻은 예측을 구분하는 데 방해가 될 수 있습니다.
+- 그리고 post process 방식을 시용하면 모델이 data-driven 방식으로 학습을 할 수 없습니다. 가장 좋은 방식은 멀티 뷰 카메라 간 정보를 퓨전하는 것인데 data-driven 방식으로 학습하면서 자동적으로 개선되는 방식이 좋습니다. 
+
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/7.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 따라서 본 논문에서는 `Lift-Splat` 이라는 모델의 학습을 통하여 앞에서 언급한 멀티 뷰 이미지의 3가지 요소인 `Translation equivariance`, `Permutation invariance`, `Ego-frame isometry equivariance` 를 만족하도록 하려고 합니다.
 
 <br>
 
+- 이후에 다룰 내용 중 `3.Method` 에서는 `lift-splat`모델의 내용을 다룰 예정입니다. 
+- 먼저 `lifts`에서는 2D 이미지에서 얻은 정보를 frustum 모양의 contextual feature 포인트 클라우드로 생성하여 3D로 나타내는데 이 과정을 `lift` 라고 합니다. 즉, 2D 이미지를 3D feature로 lift (들어 올린다) 한다고 생각하시면 됩니다.
+- 그 다음 `splat`에서는 모든 frustum feature들을 `reference plane`에 펼칩니다. 말 그대로 `splat` 하는 것입니다. 이 과정을 통해 그 이후에 진행되는 motion planning에 도움이 됩니다.
+- 마지막으로 `shooting`이라는 과정은 reference plnae 상에서 trajectory를 제안하는 방법입니다. 이 방법을 통하여 해석 가능한 end-to-end 방식의 motion planning을 접근합니다.
 
+<br>
+
+- `4. Implementation`에서는 멀티 뷰 카메라에서 어떻게 `lift-splat` 모델이 학습하는 지 상세히 다루어 보겠습니다. `5. Experiments and Results`에서는 실험적 증거를 통하여 `lift-splat` 모델이 여러 카메라의 정보를 효과적으로 퓨전한 지를 소개하겠습니다.
 
 <br>
 
 ## **2. Related Work**
 
 <br>
+
+
 
 
 
