@@ -2,7 +2,7 @@
 layout: post
 title: RANSAC (RANdom SAmple Consensus) 개념 및 실습
 date: 2022-03-20 00:00:00
-img: vision/concept/ransan/0.png
+img: vision/concept/ransac/0.png
 categories: [vision-concept] 
 tags: [RANSAC, random sample consensus, 란삭] # add tag
 ---
