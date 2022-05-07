@@ -19,7 +19,7 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 
 <br>
 
-- 이번 글에서는 NVIDIA의 멀티 카메라 기반의 BEV 세그멘테이션 논문인 `Lift, Splat, Shoot`을 자세하게 다루어 보도록 하겠습니다.
+- 이번 글에서는 NVIDIA의 멀티 카메라 기반의 BEV (Bird Eye View) 세그멘테이션 논문인 `Lift, Splat, Shoot`을 자세하게 다루어 보도록 하겠습니다.
 
 <br>
 
@@ -69,8 +69,29 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 ## **1. Introduction**
 
 <br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
-- 
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 컴퓨터 비전 알고리즘은 좌표계가 무관한 classification과 같은 task가 있고 detection, semantic segmentation과 같이 입력 좌표계와 동일한 좌표계에서 문제를 해결하는 task도 있습니다.
+- 자율주행 관련된 task 에서는 여러 개의 센서로부터 입력을 받아서 자차 (ego car)를 중심으로 만든 새로운 좌표계를 기준으로 예측값을 출력합니다.
+- 위 Fig. 2. 와 같이 기존의 semantic segmentation에서는 입력 이미지와 동일한 해상도의 출력 이미지를 만들어내는 FIg. 2. 의 오른쪽 이미지는 planning을 할 때 BEV 환경에서 동작하는 예시를 나타냅니다.
+- 본 논문은 멀티 뷰 이미지를 입력으로 받아서 각 frame 별 출력으로 만든 BEV에서 인식을 하고 end-to-end 방식으로 planning 까지 다룹니다.
+
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 한 개의 이미지에서 멀티 뷰 이미지로 확장하기 위해서 여러 개의 카메라들을 각 카메라의 intrinsic과 extrinsic 정보를 이용하여 각 카메라의 좌표계 기준을 기준 좌표계 기준으로 변환해야 합니다. 이 때, 카메라의 intrinsic과 extrinsic을 이용합니다.
+- 이와 같은 멀티 뷰 이미지로의 개념 확장은 아래 3가지 특성을 만족을 기대합니다.
+- ① `Translation equivariance` : 각 이미지 내의 픽셀 좌표계에서 물체가 이동하면, 동일한 크기만큼 출력 좌표계에서도 물체가 이동되어야 합니다.
+- ② `Permutation invariance` : 
+- ③ `Ego-frame isometry equivariance` : 
+
+<br>
 
 
 
