@@ -108,7 +108,7 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 
 - 이후에 다룰 내용 중 `3.Method` 에서는 `lift-splat`모델의 내용을 다룰 예정입니다. 
 - 먼저 `lifts`에서는 2D 이미지에서 얻은 정보를 frustum 모양의 contextual feature 포인트 클라우드로 생성하여 3D로 나타내는데 이 과정을 `lift` 라고 합니다. 즉, 2D 이미지를 3D feature로 lift (들어 올린다) 한다고 생각하시면 됩니다.
-- 그 다음 `splat`에서는 모든 frustum feature들을 `reference plane`에 펼칩니다. 말 그대로 `splat` 하는 것입니다. 이 과정을 통해 그 이후에 진행되는 motion planning에 도움이 됩니다.
+- 그 다음 `splat`에서는 모든 frustum feature들을 `reference plane (BEV)`에 펼칩니다. 말 그대로 `splat` 하는 것입니다. 이 과정을 통해 그 이후에 진행되는 motion planning에 도움이 됩니다.
 - 마지막으로 `shooting`이라는 과정은 reference plnae 상에서 trajectory를 제안하는 방법입니다. 이 방법을 통하여 해석 가능한 end-to-end 방식의 motion planning을 접근합니다.
 
 <br>
@@ -120,7 +120,8 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 ## **2. Related Work**
 
 <br>
-
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/8.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
 
 
