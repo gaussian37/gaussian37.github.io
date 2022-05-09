@@ -143,6 +143,68 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
     - 카메라는 평면의 y축 중간점에 위치하고 정렬됨
     - ...
 
+<br>
+
+#### **Deriving and Applying Perspective projection**
+
+<br>
+
+
+```python
+{
+    "baseline": 0.21409619719999115,
+    "pitch": 0.03842560000000292,
+    "roll": 0.0,
+    "x": 1.7,
+    "y": 0.026239999999999368,
+    "yaw": -0.009726800000000934,
+    "z": 1.212400000000026,
+
+    "fx": 2263.54773399985,
+    "fy": 2250.3728170599807,
+    "u0": 1079.0175620000632,
+    "v0": 515.0066006000195
+
+}
+```
+
+<br>
+
+```python
+def load_camera_params(file):
+    """
+    Get the intrinsic and extrinsic parameters
+    Returns:
+        Camera extrinsic and intrinsic matrices
+    """
+    with open(file, 'rt') as handle:
+        p = json.load(handle)
+
+    fx, fy = p['fx'], p['fy']
+    u0, v0 = p['u0'], p['v0']
+
+    pitch, roll, yaw = p['pitch'], p['roll'], p['yaw']
+    x, y, z = p['x'], p['y'], p['z']
+
+    # Intrinsic
+    K = np.array([[fx, 0, u0, 0],
+                  [0, fy, v0, 0],
+                  [0, 0, 1, 0],
+                  [0, 0, 0, 1]])
+
+    # Extrinsic
+    R_veh2cam = np.transpose(rotation_from_euler(roll, pitch, yaw))
+    T_veh2cam = translation_matrix((-x, -y, -z))
+
+    # Rotate to camera coordinates
+    R = np.array([[0., -1., 0., 0.],
+                  [0., 0., -1., 0.],
+                  [1., 0., 0., 0.],
+                  [0., 0., 0., 1.]])
+
+    RT = R @ R_veh2cam @ T_veh2cam
+    return RT, K
+```
 
 
 

@@ -123,6 +123,34 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 <center><img src="../assets/img/vision/fusion/lift_splat_shoot/8.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- 멀티 카메라로 부터 얻은 이미지 데이터로 부터 얻은 결합된 표현 방식 (cohesive representation)에 대한 학습은 센서 퓨전과 단안 카메라 이미지에서의 객체 인식에 관한 최근 연구들이 많이 진행 되어 왔습니다.
+- 다양한 multi-model 데이터셋이 공개되어 있어서 데이터셋들로 부터 많이 연구가 되고 있고 본 논문의 Lift-Splat 아키텍쳐 또한 이러한 데이터 셋들을 이용하여 연구되었습니다.
+
+<br>
+
+#### **Monocular Object Detection**
+
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/9.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 단안 카메라 이미지에서 객체를 인식 할 때에는 2D image plane에서 3D reference frame으로 어떻게 모델을 이용하여 변환하는 지가 학샘입니다.
+- nuScences 데이터가 대표적으로 많이 사용되고 있으며 기존 2D detector에 depth를 추정하는 loss를 추가하여 3D detector 형태로 사용하고 있습니다. 이러한 접근 방식이 좋은 성능을 보이곤 하는데 단안 카메라의 depth 추정의 모호함을 제거해주는 역할을 하기 때문입니다.
+- 이 방식은 결국 2D 이미지에서 3D 물체의 위치를 추정하는 것으로 정리할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/10.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 반면 다른 방식으로 한 개의 네트워크는 단안 카메라 영상에서 depth를 추정하고 또 다른 네트워크에서는 BEV 좌표계에서 객체 인식을 하는 것입니다.
+- 이러한 depth prediction을 이용하는 접근 방식을 `pseudo lidar`라고 하며 BEV 좌표계에서 객체를 인식하기 때문에 최종적으로 어플리케이션에서 사용되는 좌표 형태에서 바로 객체의 위치를 나타낼 수 있다는 의의가 있습니다.
+
+<br>
+
+#### **Inference in the Bird’s-Eye-View Frame**
+
+<br>
+
 
 
 
