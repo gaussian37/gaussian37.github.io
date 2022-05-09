@@ -150,8 +150,8 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 #### **Inference in the Bird’s-Eye-View Frame**
 
 <br>
-
-
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/10.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
 
 <br>
