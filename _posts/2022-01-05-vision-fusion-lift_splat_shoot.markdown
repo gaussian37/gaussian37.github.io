@@ -150,9 +150,14 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 #### **Inference in the Bird’s-Eye-View Frame**
 
 <br>
-<center><img src="../assets/img/vision/fusion/lift_splat_shoot/10.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/11.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- extrinsic과 intrinsic을 사용하여 BEV frame에 직접 인식 결과를 출력하는 모델에 대한 연구가 여러 방면으로 진행되고 있습니다.
+- `MonoLayout` 은 단안 카메라를 통하여 BEV 출력을 하였으며 BEV 출력에서 adversarial loss를 통하여 가려진 물체에 대해서도 출력할 수 있도록 연구하였습니다.
+- `Pyramid Occupancy Network`는 transformer 구조(Attention 구조는 아니며, view를 변환한다는 의미의 transform)를 사용하여 image representation을 BEV representation으로 변경하여 segmentation 하는 연구를 하였습니다.
+- `FISHING Net`은 멀티 뷰 환경에서 다양한 센서를 입력 받아 하나의 BEV 환경에 표현하고자 하였으며 현재 Frame과 향후 Frame에 대하여 세그멘테이션을 하고자 하였습니다.
+- 본 논문에서는 이전 다른 연구보다 높은 성능을 얻을 수 있었으며 관련 내용은 다음 챕터에서부터 설명하도록 하겠습니다.
 
 <br>
 
