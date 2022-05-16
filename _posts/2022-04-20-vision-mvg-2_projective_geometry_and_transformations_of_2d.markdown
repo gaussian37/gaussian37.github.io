@@ -59,6 +59,8 @@ tags: [Multiple View Geometry, Projective Geometry and Transformations] # add ta
 <br>
 
 #### **Definition 2.9** 
+
+#### **Definition 2.10** 
  
 
 <br>

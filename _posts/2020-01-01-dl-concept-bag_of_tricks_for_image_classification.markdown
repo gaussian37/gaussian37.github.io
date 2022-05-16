@@ -178,7 +178,7 @@ print(bn.weight, bn.bias)
 - `Cosine Learning Rate Decay`의 형태를 살펴보면 아래 그림과 같이 양의 값을 가지는 Cosine 함수 형태를 가집니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/bag_of_tricks/8.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/dl/concept/bag_of_tricks/10.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - Cosine값은 처음에 천천히 감소하다가 점점 감소량이 커지고 마지막에 로컬 미니멈에 빠지게 되었을 떄, 다시 천천히 감소하게 되는 형태를 나타냅니다.

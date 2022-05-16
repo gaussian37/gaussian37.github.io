@@ -16,6 +16,7 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 - 논문 : https://arxiv.org/abs/2008.05711
 - 논문 : https://nv-tlabs.github.io/lift-splat-shoot/
 - 참조 : https://towardsdatascience.com/monocular-birds-eye-view-semantic-segmentation-for-autonomous-driving-ee2f771afb59
+- 참조 : https://patrick-llgc.github.io/Learning-Deep-Learning/paper_notes/lift_splat_shoot.html
 
 <br>
 
@@ -27,6 +28,7 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 
 <br>
 
+- ### 전체 내용 요약
 - ### 0. Abstract
 - ### 1. Introduction
 - ### 2. Related Work
@@ -35,6 +37,32 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 - ### 5. Experiments and Results
 - ### 6. Conclusion
 - ### Pytorch 코드 분석
+
+<br>
+
+## **전체 내용 요약**
+
+<br>
+
+- `Lift, Splat, Shoot` 논문은 각 픽셀을 학습 가능한 BEV map에 생성하여 거리 분포를 예측하는 모델입니다.
+- 이 논문은 [OFT(Orthographic Feature Transform for Monocular 3D Object Detection)](https://arxiv.org/abs/1811.08188), [PyrOccNet](https://arxiv.org/abs/2003.13402), [MonoLayout](https://arxiv.org/abs/2002.08394), [Pseudo-lidar](https://arxiv.org/abs/1812.07179) 논문 등의 시도들을 기반으로 만들어 졌습니다.
+- 이 논문에서는 RGB 영상의 픽셀에 대하여 뎁스 (depth) 분포 예측을 통하여 RGB 영상의 픽셀에 대한 깊이 분포 예측을 통한 확률적 `3D lifting`을 제안하여 격자 형태의 픽셀에 사영(projection) 시킵니다. 이 사영된 결과는 학습 가능한 (미분가능한) `semantic BEV map`이 됩니다.
+- `semantic BEV map` 예측을 하기 위하여 모든 카메를 통해 얻은 예측값을 결합된 (chohesive) 하나의 representation으로 퓨전해야 합니다. 이것은 카메라 입력에 따라 자차의 주변의 360도 전체 scene에 대한 학습이고 궁극적으로 BEV map 예측을 통하여 motion planning을 위한 `dense representation`을 학습합니다.
+- 본 논문이 다른 논문에 비하여 아쉬운 점은 픽셀 간의 간격이 0.5m 정도로 꽤 픽셀 간격이 넓습니다. 다른 논문인 FishingNet은 픽셀 간의 간격이 0.1m, 0.2m 인것에 비교하면 resolution이 낮습니다. (동등 비교는 아니지만 HDMap을 사용한 모델과도 resolution의 차이가 납니다.)
+
+<br>
+
+- `View transformation` : Probabilistic pixel-wise depth prediction
+- `Lift` : **probabilistic (and differentiable) 3D lifting**
+- `Splat` : 
+- `Shoot` : 
+
+<br>
+
+
+
+
+
 
 <br>
 
@@ -155,7 +183,7 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 
 - extrinsic과 intrinsic을 사용하여 BEV frame에 직접 인식 결과를 출력하는 모델에 대한 연구가 여러 방면으로 진행되고 있습니다.
 - `MonoLayout` 은 단안 카메라를 통하여 BEV 출력을 하였으며 BEV 출력에서 adversarial loss를 통하여 가려진 물체에 대해서도 출력할 수 있도록 연구하였습니다.
-- `Pyramid Occupancy Network`는 transformer 구조(Attention 구조는 아니며, view를 변환한다는 의미의 transform)를 사용하여 image representation을 BEV representation으로 변경하여 segmentation 하는 연구를 하였습니다.
+- [Pyramid Occupancy Network](https://gaussian37.github.io/vision-fusion-pyroccnet/)는 transformer 구조(Attention 구조는 아니며, view를 변환한다는 의미의 transform)를 사용하여 image representation을 BEV representation으로 변경하여 segmentation 하는 연구를 하였습니다.
 - `FISHING Net`은 멀티 뷰 환경에서 다양한 센서를 입력 받아 하나의 BEV 환경에 표현하고자 하였으며 현재 Frame과 향후 Frame에 대하여 세그멘테이션을 하고자 하였습니다.
 - 본 논문에서는 이전 다른 연구보다 높은 성능을 얻을 수 있었으며 관련 내용은 다음 챕터에서부터 설명하도록 하겠습니다.
 
@@ -165,6 +193,25 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 
 <br>
 
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/12.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/13.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/14.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/15.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/16.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
 
 <br>

@@ -28,18 +28,11 @@ tags: [딥러닝, PReLU, parametric ReLU] # add tag
 
 <br>
 
-$$
-f(y_{i}) = \left\{ 
-\begin{array}{c}
-y_{i}, \ \ \ if \ \  y_{i} \gt 0 \\ 
-a_{i}y_{i} \ \ if \ \  y_{i} \le0 \\ 
-\end{array}
-\right. 
-$$
+- $$ f(y_{i}) = \left\{ \begin{array}{c} y_{i}, \ \ \ if \ \  y_{i} \gt 0 \\ a_{i}y_{i} \ \ if \ \  y_{i} \le0 \\ \end{array} \right. $$
 
 <br>
 
-$$ f(y_{i}) = max(0, y_{i}) + a_{i}min(0, y_{i}) $$
+- $$ f(y_{i}) = \text{max}(0, y_{i}) + a_{i} \text{min}(0, y_{i}) $$
 
 <br>
 
