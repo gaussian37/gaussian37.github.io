@@ -1,7 +1,6 @@
 ---
 layout: post
-title: PyrOccNet, Predicting Semantic Map Representations from Images
-using Pyramid Occupancy Networks
+title: PyrOccNet, Predicting Semantic Map Representations from Images using Pyramid Occupancy Networks
 date: 2022-05-05 00:00:00
 img: vision/fusion/pyroccnet/0.png
 categories: [vision-fusion]
