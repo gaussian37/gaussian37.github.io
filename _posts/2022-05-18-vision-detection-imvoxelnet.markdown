@@ -39,6 +39,11 @@ tags: [vision, detection, fusion, ImVoxelNet, Multi-View] # add tag
 <br>
 
 <br>
+<center><img src="../assets/img/vision/fusion/imvoxelnet/16.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+
+<br>
 <center><img src="../assets/img/vision/fusion/imvoxelnet/7.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
@@ -68,4 +73,8 @@ tags: [vision, detection, fusion, ImVoxelNet, Multi-View] # add tag
 
 <br>
 <center><img src="../assets/img/vision/fusion/imvoxelnet/14.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/imvoxelnet/15.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
