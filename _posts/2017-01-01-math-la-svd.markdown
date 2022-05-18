@@ -176,7 +176,7 @@ $$ A = \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} $$
 
 <br>
 
-$$ U = \frac{1}{\sqrt{2}} \begin{bmatrix} -1 & 1 \\ 1 & 1 \end{bmatrix} $$
+- $$ U = \frac{1}{\sqrt{2}} \begin{bmatrix} -1 & 1 \\ 1 & 1 \end{bmatrix} $$
 
 <br>
 
@@ -184,9 +184,9 @@ $$ U = \frac{1}{\sqrt{2}} \begin{bmatrix} -1 & 1 \\ 1 & 1 \end{bmatrix} $$
 
 <br>
 
-- x_{1} = \frac{1}{\sqrt{6}}  \begin{bmatrix} 1 \\ -2 \\ 1 \end{bmatrix} $$
+- $$ x_{1} = \frac{1}{\sqrt{6}}  \begin{bmatrix} 1 \\ -2 \\ 1 \end{bmatrix} $$
 
-- x_{2} = \frac{1}{\sqrt{2}}  \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix} $$
+- $$ x_{2} = \frac{1}{\sqrt{2}}  \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix} $$
 
 <br>
 
@@ -194,7 +194,7 @@ $$ U = \frac{1}{\sqrt{2}} \begin{bmatrix} -1 & 1 \\ 1 & 1 \end{bmatrix} $$
 
 <br>
 
-- x_{3} = \frac{1}{\sqrt{3}}  \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} $$
+- $$ x_{3} = \frac{1}{\sqrt{3}}  \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} $$
 
 <br>
 
