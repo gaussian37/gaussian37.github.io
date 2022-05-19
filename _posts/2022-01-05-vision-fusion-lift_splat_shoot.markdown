@@ -13,7 +13,7 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 
 <br>
 
-- 논문 : https://arxiv.org/abs/2008.05711
+- 논문 : https://arxiv.org/abs/2008.05711 
 - 논문 : https://nv-tlabs.github.io/lift-splat-shoot/
 - 참조 : https://towardsdatascience.com/monocular-birds-eye-view-semantic-segmentation-for-autonomous-driving-ee2f771afb59
 - 참조 : https://patrick-llgc.github.io/Learning-Deep-Learning/paper_notes/lift_splat_shoot.html
@@ -201,9 +201,17 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 <center><img src="../assets/img/vision/fusion/lift_splat_shoot/13.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- 이번 섹션에서는 임의의 카메라로 부터 얻은 이미지를 통해 얻은 BEV representation을 학습하는 방법을 알아보도록 하겠습니다.
+- `extrinsic` $$ E_{k} \in \mathbb{R}^{3 \times 4} $$ 와 `intrinsic` $$ I_{k} \in \mathbb{R}^{3 \times 3} $$ 의 정보를 가진 각 이미지 $$ X_{k} \in \mathbb{R}^{3 \times H \times W} $$ 가 주어질 때, BEV 좌표계의 `rasterized representation` 형태로 나타내고자 합니다. BEV 좌표계는 $$ y \in \mathbb{R}^{C \times X \times Y} $$ 로 나타냅니다.
+- n개의 카메라 각각에 대하여 `extrinsic`과 `intrinsic` 행렬을 사용하기 때문에 3차원 world coordinate인 `reference coordinate` $$ (x, y, z) $$ 와 `local pixel coordinate`인 $$ (h, w, d) $$ 간 매핑이 가능해집니다. `refernece coodrinate`는 모든 카메라를 다 고려하였을 때, 실제 3차원의 좌표라고 생각할 수 있는 반면 `local p;ixel coordinate`는 각 카메라의 이미지 좌표계 기준으로 거리 개념이 추가된 것으로 볼 수 있습니다.
+- 이와 같은 방법을 이용 시 학습 또는 테스트 시 뎁스와 관련된 센서는 필요 없어집니다.
+
 <br>
 <center><img src="../assets/img/vision/fusion/lift_splat_shoot/14.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+- 본 논문의 첫번째 단계인 `lift`는 각 카메라로 부터 얻은 이미지를 2D 이미지 좌표계에서 3D 좌표계로 변환 (여기서는 `lift` 라는 용어를 사용) 하는 작업을 의미합니다.
+- `lift`에서는 기존의 단안 카메라를 퓨전 시 뎁스가 모호한 점을 개선하기 위하여 뎁스를 추정할 수 있는 모든 픽셀에 대하여 새로운 방식의 representation을 만듭니다.
 
 <br>
 <center><img src="../assets/img/vision/fusion/lift_splat_shoot/15.png" alt="Drawing" style="width: 600px;"/></center>
