@@ -52,17 +52,24 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 
 <br>
 
-- `View transformation` : Probabilistic pixel-wise depth prediction
-- `Lift` : **probabilistic (and differentiable) 3D lifting**
-- `Splat` : 
-- `Shoot` : 
+- `핵심 아이디어`는 다음과 같습니다.
+    - `View transformation` : Probabilistic pixel-wise depth prediction
+    - `Lift` : **probabilistic (and differentiable) 3D lifting**
+    - `Splat` : **point pillar generation**
+    - `Shoot` : **motion planning** + $$ K $$ template에 대한 분포를 예측합니다.
 
 <br>
 
+- `Resolution` 관련 내용은 다음과 같습니다.
+    - `카메라 이미지` : $$ H \times W = 128 \times 512 $$ 
+    - `BEV grid` : $$ X \times Y = 200 \times 200 $$, 각 픽셀 당 0.5m의 간격을 가지므로 $$ 100m \times 100m $$의 전체 영역을 가집니다.
+    - `Depth resolution` : $$ [4, 45] $$ m 범위를 1m 간격으로 구분합니다.
 
+<br>
 
-
-
+- `학습 관련 내용`은 다음과 같습니다.
+    - `cumsum trick`을 이용한 `sum pooling`을 통해 이미지를 통합하여 BEV로 나타나는 데 효율적으로 연산할 수 있었습니다.
+    - 학습 과정 중에 `camera dropout` (input dropout)을 이용하고 `noisy extrinsic`을 이용한 학습을 통하여 카메라 입력과 `calibration noise`에 좀 더 강건해 질 수 있도록 학습하였습니다.
 
 <br>
 
