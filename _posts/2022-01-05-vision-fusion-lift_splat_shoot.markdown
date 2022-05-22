@@ -208,6 +208,9 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 
 <br>
 
+- `lift` 과정의 전체적인 구조는 다음 `OFT` 논문을 베이스로 발전되었습니다. 따라서 아래 논문을 먼저 참조하는 것이 아키텍쳐 이해에 도움이 됩니다.
+    - [OFT(Orthographic feature transform for monocular 3d object detection)]()
+
 <br>
 <center><img src="../assets/img/vision/fusion/lift_splat_shoot/14.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
@@ -224,7 +227,7 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 - 　$$ E, I $$ : $$ X $$ 이미지에 사용되는 카메라의 Extrinsic, Intrinsic 파라미터를 의미합니다.
 - 　$$ p, h, w $$ : $$ p $$ 는 $$ X $$ 이미지의 픽셀을 의미하고 $$ h, w $$ 는 각 픽셀의 위치를 의미합니다.
 - 　$$ D $$ : $$ D $$ `discrete depth`의 집합을 의미합니다. 픽셀 $$ p $$ 의 각 위치인 $$ (h, w) $$ 에 `discrete depth` 형식으로 총 $$ \vert D \vert $$ 개 단계로 depth를 나누었을 때, $$ \{d_{0} + \Delta, ... , d_{0} + \vert D \vert \Delta \} $$ 와 같은 집합으로 각 단계별 $$ d $$ 를 표현할 수 있습니다. 이 때, $$ \{(h, w, d) \in \mathbb{R}^{3} \vert d \in D \} $$ 와 같이 각 픽셀 별로 `discrete depth` $$ D $$ 를 가집니다. 이와 같은 방식으로 뎁스 $$ D $$ 를 나타내어 $$ D \cdot H \cdot W $$ 크기의 포인트 클라우드를 만들어냅니다.
-- 뎁스와는 별도로 이미지를 통해 얻은 feature를 나타내는 정보가 있으며 이 feature는 각 픽셀 $$ p $$ 별로 벡터 형태로 있어서 `context vector` 라고 합니다. 각 픽셀 $$ p $$ 에 대하여 네트워크는 `context`인 $$ c \in \mathbb{R}^{C} $$ 와 `depth` $$ \alpha \in \Delta ^{\vert D \vert - 1} 에 대한 분포를 예측합니다.
+- 뎁스와는 별도로 이미지를 통해 얻은 feature를 나타내는 정보가 있으며 이 feature는 각 픽셀 $$ p $$ 별로 벡터 형태로 있어서 `context vector` 라고 합니다. 각 픽셀 $$ p $$ 에 대하여 네트워크는 `context`인 $$ c \in \mathbb{R}^{C} $$ 와 `depth` $$ \alpha \in \Delta ^{\vert D \vert - 1} $$ 에 대한 분포를 예측합니다.
 - 　$$ \alpha_{d} $$ : 먼저 $$ d $$ 인덱스는 $$ D $$ 집합에서 카메라로 부터 가장 가까운 뎁스를 $$ d = 0 $$, 가장 먼 뎁스를 $$ d = \vert D \vert -1 $$ 라고 하였을 때 선택되는 인덱스를 의미합니다. $$ \alpha $$ 는 뎁스를 의미하므로 $$ \alpha_{d} $$ 는 뎁스에 대한 분포에서 $$ d $$ 번째 뎁스를 의미합니다.
 - 　$$ c_{d} $$ : 각 픽셀 $$ p $$ 별로 `context vector` 인 $$ c $$ 가 존재하는데, $$ c_{d} = \alpha_{d}c $$ 로 정의됩니다. 즉, `context vector`에 뎁스를 곱한 것이 $$ c_{d} $$ 가 됩니다.
 
@@ -252,8 +255,20 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 
 <br>
 
-- 
+- `splat` 과정의 전체적인 구조는 다음 `PointPillars` 논문을 베이스로 발전되었습니다. 따라서 아래 논문을 먼저 참조하는 것이 아키텍쳐 이해에 도움이 됩니다.
+    - [PointPillars(Fast encoders for object detection from point clouds)]()
 
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/17.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/18.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
+- 
 
 <br>
 
