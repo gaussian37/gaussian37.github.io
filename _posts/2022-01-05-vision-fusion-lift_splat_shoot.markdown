@@ -183,7 +183,7 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 
 - extrinsic과 intrinsic을 사용하여 BEV frame에 직접 인식 결과를 출력하는 모델에 대한 연구가 여러 방면으로 진행되고 있습니다.
 - `MonoLayout` 은 단안 카메라를 통하여 BEV 출력을 하였으며 BEV 출력에서 adversarial loss를 통하여 가려진 물체에 대해서도 출력할 수 있도록 연구하였습니다.
-- [Pyramid Occupancy Network](https://gaussian37.github.io/vision-fusion-pyroccnet/)는 transformer 구조(Attention 구조는 아니며, view를 변환한다는 의미의 transform)를 사용하여 image representation을 BEV representation으로 변경하여 segmentation 하는 연구를 하였습니다.
+- `Pyramid Occupancy Network`는 transformer 구조(Attention 구조는 아니며, view를 변환한다는 의미의 transform)를 사용하여 image representation을 BEV representation으로 변경하여 segmentation 하는 연구를 하였습니다.
 - `FISHING Net`은 멀티 뷰 환경에서 다양한 센서를 입력 받아 하나의 BEV 환경에 표현하고자 하였으며 현재 Frame과 향후 Frame에 대하여 세그멘테이션을 하고자 하였습니다.
 - 본 논문에서는 이전 다른 연구보다 높은 성능을 얻을 수 있었으며 관련 내용은 다음 챕터에서부터 설명하도록 하겠습니다.
 
@@ -191,10 +191,6 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 
 ## **3. Method**
 
-<br>
-
-<br>
-<center><img src="../assets/img/vision/fusion/lift_splat_shoot/12.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 <br>
@@ -207,19 +203,56 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 - 이와 같은 방법을 이용 시 학습 또는 테스트 시 뎁스와 관련된 센서는 필요 없어집니다.
 
 <br>
+
+#### **3.1 Lift: Latent Depth Distribution**
+
+<br>
+
+<br>
 <center><img src="../assets/img/vision/fusion/lift_splat_shoot/14.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 본 논문의 첫번째 단계인 `lift`는 각 카메라로 부터 얻은 이미지를 2D 이미지 좌표계에서 3D 좌표계로 변환 (여기서는 `lift` 라는 용어를 사용) 하는 작업을 의미합니다.
-- `lift`에서는 기존의 단안 카메라를 퓨전 시 뎁스가 모호한 점을 개선하기 위하여 뎁스를 추정할 수 있는 모든 픽셀에 대하여 새로운 방식의 representation을 만듭니다.
+- 본 논문의 첫번째 단계인 `lift`는 각 카메라로 부터 얻은 이미지를 2D 이미지 좌표계에서 모든 카메라의 정보가 공유된 3D 좌표계로 변환 (여기서는 `lift` 라는 용어를 사용) 하는 작업을 의미합니다.
+- `lift`에서는 기존의 단안 카메라 퓨전 시 뎁스가 모호한 점을 개선하기 위하여 뎁스를 추정할 수 있는 모든 픽셀에 대하여 새로운 방식의 representation을 만듭니다.
 
 <br>
 <center><img src="../assets/img/vision/fusion/lift_splat_shoot/15.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- 먼저 `lift`에 사용된 개념을 알아보기 위해 관련 용어를 정리해보도록 하겠습니다.
+- 　$$ X \in \mathbb{R}^{3 \times H \times W} $$ : $$ X $$ 는 각 카메라를 통해 얻은 이미지를 나타냅니다.
+- 　$$ E, I $$ : $$ X $$ 이미지에 사용되는 카메라의 Extrinsic, Intrinsic 파라미터를 의미합니다.
+- 　$$ p, h, w $$ : $$ p $$ 는 $$ X $$ 이미지의 픽셀을 의미하고 $$ h, w $$ 는 각 픽셀의 위치를 의미합니다.
+- 　$$ D $$ : $$ D $$ `discrete depth`의 집합을 의미합니다. 픽셀 $$ p $$ 의 각 위치인 $$ (h, w) $$ 에 `discrete depth` 형식으로 총 $$ \vert D \vert $$ 개 단계로 depth를 나누었을 때, $$ \{d_{0} + \Delta, ... , d_{0} + \vert D \vert \Delta \} $$ 와 같은 집합으로 각 단계별 $$ d $$ 를 표현할 수 있습니다. 이 때, $$ \{(h, w, d) \in \mathbb{R}^{3} \vert d \in D \} $$ 와 같이 각 픽셀 별로 `discrete depth` $$ D $$ 를 가집니다. 이와 같은 방식으로 뎁스 $$ D $$ 를 나타내어 $$ D \cdot H \cdot W $$ 크기의 포인트 클라우드를 만들어냅니다.
+- 뎁스와는 별도로 이미지를 통해 얻은 feature를 나타내는 정보가 있으며 이 feature는 각 픽셀 $$ p $$ 별로 벡터 형태로 있어서 `context vector` 라고 합니다. 각 픽셀 $$ p $$ 에 대하여 네트워크는 `context`인 $$ c \in \mathbb{R}^{C} $$ 와 `depth` $$ \alpha \in \Delta ^{\vert D \vert - 1} 에 대한 분포를 예측합니다.
+- 　$$ \alpha_{d} $$ : 먼저 $$ d $$ 인덱스는 $$ D $$ 집합에서 카메라로 부터 가장 가까운 뎁스를 $$ d = 0 $$, 가장 먼 뎁스를 $$ d = \vert D \vert -1 $$ 라고 하였을 때 선택되는 인덱스를 의미합니다. $$ \alpha $$ 는 뎁스를 의미하므로 $$ \alpha_{d} $$ 는 뎁스에 대한 분포에서 $$ d $$ 번째 뎁스를 의미합니다.
+- 　$$ c_{d} $$ : 각 픽셀 $$ p $$ 별로 `context vector` 인 $$ c $$ 가 존재하는데, $$ c_{d} = \alpha_{d}c $$ 로 정의됩니다. 즉, `context vector`에 뎁스를 곱한 것이 $$ c_{d} $$ 가 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/12.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림을 살펴보면 각 픽셀 별로 $$ \vert D \vert $$ 개의 뎁스 단계가 있고 어떤 단계에 그 픽셀의 뎁스가 해당하는지 `depth distribution` $$ \alpha $$ 를 통해 표시됩니다. 
+- 이 때, $$ \alpha $$ 와 feature $$ c $$ 의 곱을 통해 나타내는 결과를 `per-pixel outer product`로 표시하며 **각 열**은 $$ c_{0}, c_{1}, ... $$ 와 같이 표시할 수 있습니다.
+
 <br>
 <center><img src="../assets/img/vision/fusion/lift_splat_shoot/16.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+- 네트워크가 $$ \alpha $$ 에 대한 원-핫 벡터를 예측하는 경우 $$ p_{d} $$ 지점의 context는 `pseudo-lidar`에서와 같이 단일 깊이 $$ d^{*} $$ 에 대해 0이 아니며 만일 네트워크가 뎁스에 대하여 uniform distribution으로 예측하였다면 각 픽셀 별로 뎁스와 독립적으로 같은 representation을 예측할 것입니다.
+- 따라서 우리 네트워크는 뎁스가 모호한 경우 BEV representation의 특정 위치에 이미지의 context를 배치하는 것과 전체 ray (빛) 공간에 context를 분산시키는 방법등을 선택할 수 있습니다.
+
+<br>
+
+- (이 부분의 문장의 뜻은 정확히 이해 못함) 최종적으로 `lift`는 각 이미지에 대하여 $$ g_{c} : (x, y, z) \in \mathbb{R}^{3} \to c \in \mathbb{C} $$ 로 생성하는 함수를 뜻하며 이 함수는 이미지의 어떤 spatial location에 대한 query에 `context vector`로 return해 주는 역할을 합니다.
+
+<br>
+
+#### **3.2 Splat: Pillar Pooling**
+
+<br>
+
+- 
 
 
 <br>
