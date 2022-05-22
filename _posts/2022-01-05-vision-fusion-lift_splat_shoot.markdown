@@ -262,13 +262,26 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 <center><img src="../assets/img/vision/fusion/lift_splat_shoot/17.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- `lift`에 의한 포인트 클라우드 출력을 변환하기 위하여 앞서 설명한 `PointPillars` 아키텍쳐를 따릅니다. `Pillars`는 높이가 무한한 voxel을 의미합니다.
+- 포인트 클라우드의 모든 Point는 가장 가까운 pillar로 할당되고 $$ C \times H \times W $$ 의 텐서를 만들기 위하여 `sum pooling` 연산을 수행합니다. pooling 연산 속도를 향상하기 위하여 베이스 논문이 되는 `OFT`와 유사하게 sum pooling을 사용하며 padding 방법을 고려하여 좀 더 효율적으로 연산하기 위하여 `cumsum trick`을 사용합니다. 이와 관련 내용은 Chapter 4에서 다루도록 하곘습니다.
+- sum pooling을 이용하여 이와 같은 형태($$ C \times H \times W $$)의 텐서를 만드는 이유는 일반적인 `2D CNN` 사용하기 위함입니다. CNN 연산을 이용하여 BEV 상에서 inference를 하며 전체적인 `lift-splat` 아래 그림을 참조하시면 됩니다.
 
 <br>
 <center><img src="../assets/img/vision/fusion/lift_splat_shoot/18.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 위 아키텍쳐는 `lift-splat` 전체 아키텍쳐를 나타내며 크게 3가지 부분으로 나뉘어져 있는 것을 알 수 있습니다.
+- ① `Per-Image CNN + Lift` : n개의 이미지와 그 이미지의 카메라 extrinsic, intrinsic 파라미터를 입력으로 받습니다. `lift` 단계에서는 frustum 모양의 포인트 클라우드 feature가 각 이미지에 대하여 생성됩니다.
+- ② `Extrinsic + Splat` : 카메라의 extrinsic과 intrinsic 파라미터를 사용하여 ① 단계에서 생성한 frustum 모양의 feature를 BEV plane으로 펼칩니다. 이 과정을 `Splat` 이라고 합니다.
+- ③ `Bird's-Eye-View CNN` : 마지막으로 BEV 상에서 semantic segmentation과 planning을 하기 위하여 BEV representation을 CNN으로 처리합니다.
 
-- 
+<br>
+
+#### **3.3 Shoot: Motion Planning**
+
+<br>
+
+
 
 <br>
 
