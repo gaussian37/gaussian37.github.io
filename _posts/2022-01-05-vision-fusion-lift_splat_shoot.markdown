@@ -296,13 +296,43 @@ tags: [camera fusion, multi camera, nvidia, lift, splat, shoot] # add tag
 
 <br>
 
+#### **4.1 Architecture Details**
 
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/19.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 본 논문의 모델은 2개의 큰 backbone 네트워크를 가집니다. **첫번째 backbone**은 각 이미지로부터 생성된 point cloud feature를 만들기 위한 모델입니다. 첫번째 backbone은 `EfficientNet`을 사용하여 feature를 생성하였습니다.
+- **두번째 backbone**은 point cloud가 reference frame의 pillar로 펼쳐 (splat) 지도록 하는 역할을 하며 최종적으로 BEV를 만들어 냅니다. 이 backbone은 ResNet block의 조합을 사용하여 만들어지며 block의 상세 내용은 논문을 참조하시면 됩니다.
+- 이러한 2종류의 네트워크가 결합이 되어 `lift-splat`이되며 약 14.3M개의 학습 파라미터를 가지는 모델을 구성합니다.
+
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/20.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 모델의 전체 아키텍쳐를 설계하기 위하여 중요한 `하이퍼파라미터`들이 존재합니다.
+- 첫번째 하이퍼파라미터는 입력 이미지의 해상도 $$ H \times W $$ 를 정하는 것입니다. 본 논문의 모델은 원본 이미지를 resize와 crop을 하여 $$ 128 \times 352 $$ 크기를 만들고 그 크기에 맞추어서 카메라 파라미터를 수정하였습니다.
+- 두번째 하이퍼파라미터는 BEV grid의 해상도 $$ X \times Y $$ 입니다. 본 논문에서는 $$ x, y $$의 범위를 -50m ~ 50m 까지 범위로 정하였고 grid의 각셀은 $$ 0.5 \text{m} \times 0.5 \text{m} $$ 의 크기를 가집니다. 따라서 총 $$ 200 \times 200 $$ 개의 셀을 가지는 BEV grid를 만들도록 하이퍼파라미터를 정합니다.
+- 세번째 하이퍼파라미터는 `lift` 단계에서 사용하는 depth의 해상도인 $$ D $$ 입니다. 본 논문에서는 $$ D $$ 를 4.0m ~ 45.0 m 까지 1.0m로 구분하여 나뉘었고 40개의 단위로 구분하여 확률 분포를 구하였습니다.
+- 이 하이퍼파라미터는 모델 전체의 사이즈를 결정하는데 중요한 역할을 하며 위와 같이 하이퍼파라미터를 사용 시 forward pass에 35 Hz (약 28 ms) 정도의 수행시간을 가지게 됩니다.
+
+<br>
+
+#### **4.2 Frustum Pooling Cumulative Sum Trick**
+
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/lift_splat_shoot/21.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
 <br>
 
 ## **5. Experiments and Results**
 
 <br>
+
+- 
 
 
 
