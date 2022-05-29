@@ -30,7 +30,8 @@ tags: [vision, 2d transformation, ] # add tag
 - ### [Reflection Transformation (대칭 변환)](#reflection-transformation-대칭-변환-1)
 - ### [Rotation Transformation (회전 변환)](#rotation-transformation-회전-변환-1)
 - ### [Affine Transformation과 Perspective Transformation](#affine-transformation과-perspective-transformation-1)
-- ### [Perspective Transform을 이용한 문서 스캐너]()
+- ### [remap 함수를 이용한 remapping](#remap-함수를-이용한-remapping-1)
+- ### [Perspective Transform을 이용한 문서 스캐너](#perspective-transform을-이용한-문서-스캐너-1)
 
 <br>
 
@@ -256,6 +257,84 @@ tags: [vision, 2d transformation, ] # add tag
 
 - Affine Transformation에서 6개의 파라미터를 알기 위해서는 6개의 연립 방정식이 필요합니다. 1개의 (x, y)에 대한 homogeneous 행렬에서 DOF에 관한 2개의 식을 구할 수 있기 때문에 3개 점의 6개 식을 이용하면 6개의 DOF를 구할 수 있습니다. 이는 위 그림과 같이 Affine Transformation이 평행사변형 형태를 유지하는 변환이기 때문에 3개의 점을 지정하면 자동적으로 하나의 점이 고정이 되어 3개의 점을 통해 변환 행렬을 구할 수 있는 것과 의미가 같습니다. 따라서 **3개의 점의 변환 전 좌표와 변환 후 좌표를 알아야 Affine 변환 행렬을 구할 수 있습니다.**
 - 이와 동일한 관점에서 Perspective Transformation은 8개의 DOF를 구하기 위하여 4개의 점을 사용하여 구할 수 있습니다. 이는 위 그림과 같이 Perspective Transformation에서는 4개의 꼭지점이 자유롭게 변환된 상태로 이미지를 변환할 수 있어야 하기 때문에 **4개의 점의 변환 전 좌표와 변환 후 좌표를 알아야 Perspective 변환 행렬을 구할 수** 있습니다.
+
+<br>
+
+## **remap 함수를 이용한 remapping**
+
+<br>
+
+- 리매핑은 (remapping)은 영상의 특정 위치 픽셀을 다른 위치에 재배치하는 일반적인 프로세스이며 projective transformation과 같은 기하학적 변환이 발생하였을 때 일반화하여 mapping 할 때 주로 사용합니다.
+- **리매핑을 사용하면 변환 행렬 없이도 이미지 변환을 사용할 수 있고 비선형 변환 (src에서 직선이었던 물체가 dst에서는 곡선이 될 수 있음)도 할 수 있기 때문에 매우 유용**합니다.
+
+<br>
+
+- $$ \text{dst}(x, y) = \text{src}(\text{map}_{x}(x, y), \text{map}_{y}(x, y})) $$
+ 
+<br>
+
+- 위 식의 의미를 살펴보면 출력 영상 `dst`의 각 픽셀 좌표 $$ x, y $$ 를 입력 영상 `src`에서 참조를 하는데 어느 위치에서 참조할 것인 지를 $$ \text{map}_{x}, \text{map}_{y} $$ 라는 함수를 정의하여 사용한다는 것입니다.
+- 리매핑 시 $$ \text{map}_{x}, \text{map}_{y} $$ 을 잘 정의하면 앞에서 배운 Projective Transformation 뿐만 아니라 **다양한 형태의 Transformation을 유연하게 변환**할 수 있습니다.
+
+<br>
+
+- $$ \text{map}_{x}(x, y) = x - 200 $$
+
+- $$ \text{map}_{y}(x, y) = y - 100 $$
+
+<br>
+
+- 위 식은 이동 변환을 나타내며 이동 변환을 위한 행렬을 사용하지 않더라도 위 식을 통하여 변환을 할 수 있습니다.
+
+<br>
+
+- $$ \text{map}_{x}(x, y) = x - 20 $$
+
+- $$ \text{map}_{y}(x, y) = y - 10 $$
+
+<br>
+
+- map 식에서 주의할 점은 $$ x, y $$ 가 `dst` 기준의 좌표값이라는 것입니다. 즉, 출력값의 $$ x, y $$ 좌표가 있을 때, 이 값이 `src`에서는 어디를 가리키는 지 위치를 알아야 합니다. 예를 들어 `dst`에서의 $$ (x, y) = (30, 40) $$ 인 픽셀은 `src`에서 $$ (30 - 20 = 10, 40 - 10 = 30) = (10, 30) $$ 에 해당합니다. 
+- 즉, `src`에서의 $$ (10, 30) $$ 의 좌표가 `dst` 에서는 $$ (30, 40) $$ 이 되는 것입니다. 따라서 이동 변환이 x축 기준으로 +20, y축 기준으로 +10이 되었습니다.
+- 따라서 `dst`의 좌표값 $$ (x, y) $$ 를 `src`로 부터 참조한다고 생각하면 변환의 방향을 잘 생각하실 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/image_transformation/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 함수 설명의 `map1`과 `map2`가 각각 $$ \text{map}_{x}, \text{map}_{y} $$ 에 해당합니다. `map`은 입력 영상과 크기가 같으며 사용 방법은 다음 예제를 통해 살펴보겠습니다. 
+- 만약 $$ x, y $$ 위치에 해당하는 값이 없으면 0의 값 즉, 검정색 값으로 채우게 되는 것에 유의하시기 바랍니다.
+
+<br>
+
+```python
+src = cv2.imread('scene.png')
+h, w = src.shape[:2]
+
+map2, map1 = np.indices((h, w), dtype=np.float32) 
+map2 = map2 + 10 * np.sin(map1 / 32)
+
+# dst = cv2.remap(src, map1, map2, cv2.INTER_CUBIC)
+dst = cv2.remap(src, map1, map2, cv2.INTER_CUBIC, borderMode=cv2.BORDER_DEFAULT)
+cv2.imwrite('dst.png', dst)
+```
+
+<br>
+
+- 위 코드에서 `map1`, `map2`가 각각 x, y에 대한 위치를 나타냅니다. numpy에서 행렬을 다룰 때에는 y축 값을 먼저 기준으로 사용하기 때문에 `map2`, `map1` 순서로 `np.indices()` 함수를 이용하여 받습니다. `map1`, `map2`의 값 각각은 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/image_transformation/14.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 입력 `src`의  (h, w) 크기와 같은 `map1`, `map2`가 생성되며 각 좌표값을 기준으로 가까운 좌표를 가지고 오게 됩니다. 그 결과는 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/image_transformation/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 결과를 보면 가장 왼쪽이 원본 src이고 중간이 borderMode가 없는 상태이고, 가장 오른쪽이 borderMode가 default (cv2.BORDER_CONSTANT)로 적용된 결과 입니다.
+- 리매핑 과정에 따라 `dst`에서 참조할 수 없는 좌표를 `src`에서 참조하게 되면 중간 그림과 같이 `hole`이 발생하게 됩니다. 이러한 문제를 개선하기 위하여 가장 자리 부분을 채우는 방법이 사용되는데, 기본값은 가장자리 근처의 픽셀값을 고정으로 사용하는 것입니다. 그 결과가 가장 오른쪽 그림과 같습니다.
 
 <br>
 
