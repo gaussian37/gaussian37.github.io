@@ -269,7 +269,7 @@ tags: [vision, 2d transformation, ] # add tag
 
 <br>
 
-- $$ \text{dst}(x, y) = \text{src}(\text{map}_{x}(x, y), \text{map}_{y}(x, y})) $$
+- $$ \text{dst}(x, y) = \text{src}(\text{map}_{x}(x, y), \text{map}_{y}(x, y)) $$
  
 <br>
 
