@@ -23,11 +23,11 @@ tags: [deep learning, multi task, 멀티 태스크] # add tag
 
 <br>
 
-- ### [멀티 태스크 러닝의 소개](#)
-- ### [멀티 태스크의 구현 및 실습](#)
-- ### [멀티 태스크 최적화 방법론](#)
-- ### [멀티 태스크 모델 (Sementic Segmentation과 Depth Estimation) 논문 리뷰](#)
-- ### [멀티 태스크 모델 모델링 및 학습](#)
+- ### [멀티 태스크 러닝의 소개](#멀티-태스크-러닝의-소개-1)
+- ### [멀티 태스크의 구현 및 실습](#멀티-태스크의-구현-및-실습-1)
+- ### [멀티 태스크 최적화 방법론](#멀티-태스크-최적화-방법론-1)
+- ### [멀티 태스크 모델 (Sementic Segmentation과 Depth Estimation) 논문 리뷰](#멀티-태스크-모델-sementic-segmentation과-depth-estimation-논문-리뷰-1)
+- ### [멀티 태스크 모델 모델링 및 학습](#멀티-태스크-모델-모델링-및-학습-1)
 - ### [멀티 태스크 모델 출력 결과 확인](#)
 
 <br>
@@ -52,9 +52,6 @@ tags: [deep learning, multi task, 멀티 태스크] # add tag
     - ③ Loss function을 설계 시, 각 태스크가 잘 학습될 수 있도록 Loss function을 설계해야 합니다. 간단하게 $$ L = \alpha_{1} L_{1} + \alpha_{2} L_{2} + \alpha_{3} L_{3} $$ 과 같이 스케일만 조절하더라도 그 스케일 값을 결정해야 합니다.
     - ④ Fine Tuning을 할 경우에 어떻게 멀티 태스크를 반영해야 할 지 검토해야 합니다.
 
-
-
-
 <br>
 
 
@@ -62,7 +59,53 @@ tags: [deep learning, multi task, 멀티 태스크] # add tag
 
 <br>
 
-- 
+- 기본적인 컴퓨터 비전 태스크를 기반으로 멀티 태스크 러닝 예제를 다루어 보도록 하겠습니다. 실습 코드는 아래 링크를 참조해 주시기 발바니다.
+- colab 링크 : https://colab.research.google.com/drive/1_hEKSoi9_UMZ5el-7PbjwwRedLYgS1w3?usp=sharing
+
+<br>
+
+- 멀티 태스크 러닝의 핵심은 앞의 그림과 같이 `shared backbone`이 있고 그 backbone에서 출력되는 **① 각 태스크 별로 추가적인 layer 구조와 ② 학습을 하기 위한 데이터셋 그리고 ③ Loss function이 필요합니다.** 
+
+<br>
+<center><img src="../assets/img/dl/concept/mtl/2.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 멀티 태스크 러닝을 다루기 위한 이번 예제는 위 그림과 같이 적용합니다.
+- ① `shared backbone`으로 pretrained 된 `resnet50`을 사용하고 resnet의 마지막 feature에서 3가지 출력 (regression, classification, classification)을 적용합니다.
+- ② 데이터셋은 `UTKFace`셋으로 얼굴 이미지를 통하여 나이, 성별, 인종을 예측합니다. 나이는 regression 문제가 되고 성별 (0: male, 1: female)과 인종(0:White, 1:Black, 2:Asian, 3:Indian, 4:Other)은 classification 문제가 됩니다. 데이터셋은 다음 링크를 참조하시면 됩니다. (https://susanqq.github.io/UTKFace/)
+- ③ Loss의 경우 나이는 regression 문제이기 때문에 `L2loss`를 사용하였고, 성별은 binary classification이기 때문에 `Binary Cross Entropy Loss`를 사용하였고 인종은 Multi Classification이기 때문에 `Cross Entropy Loss`를 사용하였습니다.
+
+<br>
+
+```python
+class MultiTaskNet(nn.Module):
+    def __init__(self, net):
+        super(MultiTaskNet, self).__init__()
+        self.net = net
+        self.n_features = self.net.fc.in_features
+        self.net.fc = nn.Identity()
+        self.net.fc1 = nn.Sequential(OrderedDict([('linear', nn.Linear(self.n_features,self.n_features)),('relu1', nn.ReLU()),('final', nn.Linear(self.n_features, 1))]))
+        self.net.fc2 = nn.Sequential(OrderedDict([('linear', nn.Linear(self.n_features,self.n_features)),('relu1', nn.ReLU()),('final', nn.Linear(self.n_features, 1))]))
+        self.net.fc3 = nn.Sequential(OrderedDict([('linear', nn.Linear(self.n_features,self.n_features)),('relu1', nn.ReLU()),('final', nn.Linear(self.n_features, 5))]))
+        
+    def forward(self, x):
+        age_head = self.net.fc1(self.net(x))
+        gender_head = self.net.fc2(self.net(x))
+        race_head = self.net.fc3(self.net(x))
+        return age_head, gender_head, race_head
+
+net = resnet50(pretrained=True)
+model = MultiTaskNet(net)
+model.to(device=device)
+
+race_loss = nn.CrossEntropyLoss()
+gender_loss = nn.BCELoss()
+age_loss = nn.L2Loss()
+```
+
+<br>
+
+- 위 코드는 멀티 태스크 러닝을 위한 네트워크의 구조와 Loss 함수에 대한 내용입니다.
 
 <br>
 
