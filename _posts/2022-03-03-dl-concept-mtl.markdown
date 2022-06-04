@@ -73,7 +73,7 @@ tags: [deep learning, multi task, 멀티 태스크] # add tag
 - 멀티 태스크 러닝을 다루기 위한 이번 예제는 위 그림과 같이 적용합니다.
 - ① `shared backbone`으로 pretrained 된 `resnet50`을 사용하고 resnet의 마지막 feature에서 3가지 출력 (regression, classification, classification)을 적용합니다.
 - ② 데이터셋은 `UTKFace`셋으로 얼굴 이미지를 통하여 나이, 성별, 인종을 예측합니다. 나이는 regression 문제가 되고 성별 (0: male, 1: female)과 인종(0:White, 1:Black, 2:Asian, 3:Indian, 4:Other)은 classification 문제가 됩니다. 데이터셋은 다음 링크를 참조하시면 됩니다. (https://susanqq.github.io/UTKFace/)
-- ③ Loss의 경우 나이는 regression 문제이기 때문에 `L2loss`를 사용하였고, 성별은 binary classification이기 때문에 `Binary Cross Entropy Loss`를 사용하였고 인종은 Multi Classification이기 때문에 `Cross Entropy Loss`를 사용하였습니다.
+- ③ Loss의 경우 나이는 regression 문제이기 때문에 `L1loss`를 사용하였고, 성별은 binary classification이기 때문에 `Binary Cross Entropy Loss`를 사용하였고 인종은 Multi Classification이기 때문에 `Cross Entropy Loss`를 사용하였습니다.
 
 <br>
 
@@ -100,7 +100,7 @@ model.to(device=device)
 
 race_loss = nn.CrossEntropyLoss()
 gender_loss = nn.BCELoss()
-age_loss = nn.L2Loss()
+age_loss = nn.L1Loss()
 ```
 
 <br>
