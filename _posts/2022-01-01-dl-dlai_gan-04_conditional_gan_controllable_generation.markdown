@@ -9,7 +9,7 @@ tags: [deeplearning.ai, coursera, GAN] # add tag
 
 <br>
 
-[GAN Specialization 글 목록]()
+[GAN Specialization 글 목록](https://gaussian37.github.io/dl-dlai_gan-table/)
 
 <br>
 
@@ -17,7 +17,7 @@ tags: [deeplearning.ai, coursera, GAN] # add tag
 
 <br>
 
-[GAN Specialization 글 목록]()
+[GAN Specialization 글 목록](https://gaussian37.github.io/dl-dlai_gan-table/)
 
 <br>
 
