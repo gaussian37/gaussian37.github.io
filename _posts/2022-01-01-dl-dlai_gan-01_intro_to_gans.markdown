@@ -13,7 +13,17 @@ tags: [deeplearning.ai, coursera, GAN] # add tag
 
 <br>
 
+## **목차**
 
+<br>
+
+- ### Generative Models
+- ### Real Life GANs
+- ### Intuition Behind GANs
+- ### Discriminator
+- ### Generator
+- ### BCE Cost Function
+- ### Putting It All Together
 
 <br>
 
