@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Multi Task Deep Learning (멀티 태스크 러닝) 개념 및 컴퓨터 비전 태스크 실습
+title: Multi Task Deep Learning (멀티 태스크 러닝) 개념 및 컴퓨터 비전 태스크 적용
 date: 2022-03-03 00:00:00
 img: dl/concept/mtl/0.png
 categories: [dl-concept]
@@ -60,7 +60,7 @@ tags: [deep learning, multi task, 멀티 태스크] # add tag
 <br>
 
 - 기본적인 컴퓨터 비전 태스크를 기반으로 멀티 태스크 러닝 예제를 다루어 보도록 하겠습니다. 실습 코드는 아래 링크를 참조해 주시기 발바니다.
-- colab 링크 : https://colab.research.google.com/drive/1_hEKSoi9_UMZ5el-7PbjwwRedLYgS1w3?usp=sharing
+- colab 링크 : [https://colab.research.google.com/drive/1_hEKSoi9_UMZ5el-7PbjwwRedLYgS1w3?usp=sharing](https://colab.research.google.com/drive/1_hEKSoi9_UMZ5el-7PbjwwRedLYgS1w3?usp=sharing)
 
 <br>
 
@@ -110,6 +110,9 @@ age_loss = nn.L1Loss()
 <br>
 
 
+
+<br>
+
 ## **멀티 태스크 최적화 방법론**
 
 <br>
@@ -123,6 +126,8 @@ age_loss = nn.L1Loss()
 ## **멀티 태스크 모델 (Sementic Segmentation과 Depth Estimation) 논문 리뷰**
 
 <br>
+
+- [Real-Time Joint Semantic Segmentation and Depth Estimation Using Asymmetric Annotations](https://arxiv.org/pdf/1809.04766.pdf)
 
 <br>
 
