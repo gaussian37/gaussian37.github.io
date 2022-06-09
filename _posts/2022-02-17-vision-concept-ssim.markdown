@@ -23,15 +23,24 @@ tags: [SSIM, Structural Similarity Index] # add tag
 
 <br>
 
-- ### [SSIM의 정의 및 Pytorch Scratch 구현](#)
-- ### [SSIM의 Pytorch 외부 라이브러리 사용](#)
-- ### [SSIM의 skimage 사용](#)
+- ### [SSIM의 정의 및 Pytorch Scratch 구현](#ssim의-정의-및-pytorch-scratch-구현-1)
+- ### [SSIM의 Pytorch 외부 라이브러리 사용](#ssim의-pytorch-외부-라이브러리-사용-1)
+- ### [SSIM의 skimage 사용](#ssim의-skimage-사용-1)
 
 <br>
 
 ## **SSIM의 정의 및 Pytorch Scratch 구현**
 
 <br>
+
+- `SSIM`은 `Structural Similarity Index`의 약어로 사용되며 주어진 2개의 이미지의 `similarity(유사도)`를 계산하는 측도로 사용됩니다.
+- `SSIM`은 두 이미지의 단순 유사도를 측정하는데 사용하기도 하지만 풀고자 하는 문제가 두 이미지가 유사해지도록 만들어야 되는 문제일 때 `SSIM`을 Loss Function 형태로 사용하기도 합니다. 왜냐하면 `SSIM`이 gradient-based로 구현되어 있기 때문입니다.
+- 딥러닝에서 두 이미지를 유사하게 만드는 문제나 depth estimation을 할 때, 두 이미지 또는 두 패치의 유사도를 측정하여 Loss Function을 사용하는 방법이 많이 사용됩니다. 
+- 따라서 이번 챕터에서는 `SSIM`의 원리에 대하여 먼저 알아보고 Pytorch로 어떻게 구현하는 지 살펴보도록 하겠습니다.
+
+<br>
+
+- Objective 
 
 <br>
 
