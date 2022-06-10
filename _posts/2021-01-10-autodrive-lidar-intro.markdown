@@ -4,8 +4,13 @@ title: 자율주행을 위한 라이다(Lidar) 센서와 포인트 클라우드 
 date: 2021-01-10 00:00:00
 img: autodrive/lidar/intro/0.png
 categories: [autodrive-lidar] 
-tags: [autonomous drive, 자율 주행, 라이다, lidar] # add tag
+tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN, KDTree] # add tag
 ---
+
+<br>
+
+- 참조 : REC.ON : Autonomous Vehicle (FastCampus)
+- 참조 : http://www.kibme.org/resources/journal/20210513134622527.pdf
 
 <br>
 
@@ -17,6 +22,7 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar] # add tag
 
 <br>
 
+- ## **라이다 포인트 클라우드 처리 방법**
 - ### [라이다와 포인트 클라우드](#라이다와-포인트-클라우드-1)
 - ### [open3d 사용법](#)
 - ### [포인트 클라우드 with RANSAC](#)
@@ -25,21 +31,59 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar] # add tag
 
 <br>
 
+- ## **자율주행에서의 라이다 동향**
 - ### [자율주행 요소 기술](#자율주행-요소-기술-1)
 - ### [라이다 센서](#라이다-센서-1)
 - ### [라이다의 활용 : 위치 추정, 객체 인지](#)
 
 <br>
 
+- 먼저 이번 글의 첫번째 목적은 아래와 같은 5가지의 프로세스를 하나씩 접근해 보는 것입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/14.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- ① `Sense` : 라이다 센서는 빛 (레이저)를 송신하고 주변 물체로 부터 반사되어 다시 수신하여 물체의 위치를 확인합니다. 하드웨어적인 상세 내용은 글 후반부의 `자율주행에서의 라이다 동향`에서 부터 살펴보시길 바랍니다.
+- ② `Generate a File` : 라이다 센서를 통하여 인식한 결과를 통해 raw data를 생성합니다. 공개된 라이다 데이터셋은 보통 가공이 되어 있는 데이터인 반면에 직접 라이다를 통해 얻은 데이터는 노이즈도 섞여있고 포인트가 필요 이상으로 많이 있기도 합니다. 
+- ③ `Process the File` : 라이다 데이터를 읽으면 포인트 클라우드 형태로 되어있습니다. 3D에서 포인트 클라우드 형태로 데이터를 읽기 위해서 `open3D` 라는 패키지를 사용할 예정입니다.
+- ④ `Process Point Cloud` : 라이다 데이터에서 의미 있는 정보를 찾기 위하여 포인트를 샘플링 하기도하고 추가적인 알고리즘을 이용하여 포인트 들을 클러스터링을 하기도 합니다. 이번 글에서는 bounding box를 적용하여 물체를 찾는 간단한 방법을 다루어 볼 예정입니다.
+- ⑤ `Visualize the results` : 포인트 클라우드 처리가 끝난 결과를 시각화해서 보는 단계를 의미합니다. 위 그림과 같이 포인트 클라우드 상에서 bounding box가 잘 생성되었는 지 살펴보도록 하겠습니다.
+
 ## **라이다와 포인트 클라우드**
 
+<br>
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/15.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 포인트 클라우드는 대표적으로 위 그림과 같이 6개의 포맷으로 저장될 수 있습니다.
+- 공통적으로 가지고 있는 정보는 3차원 공간 상에서 `XYZ 좌표` 정보이며 추가적으로 `intensity` 정보를 많이 사용합니다. 
+- 라이다로 취득한 3차원 포인트 클라우드에서는 가까운 물체가 멀리 있는 물체에 비해 조밀하게 샘플링 되는 특징이 있습니다. 또한 멀리 있는 물체일수록 반사되어 돌아오는 신호의 강도가 약해지고 큰 노이즈를 포함하기 쉽습니다. 이러한 성질을 이용하여 라이다를 이용하여 얻은 포인트 클라우드에는 3차원 좌표와 함께 **반사되어 돌아온 신호의 강도**를 나타내는 반사도의 세기 정보가 포함되는데 이 정보를 `intensity` 라고 합니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/16.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림의 왼쪽에서는 포인트 클라우드의 색이 녹색과 파란색으로 비교적 반사도 세기가 낮고 자동차 번호판 부분은 붉은색으로 비교적 높은 세기를 가집니다. 반사도 세기에 영향을 미치는 요인들은 여러가지가 있는데 레이저 펄스가 통과하는 매질이나 물체의 표면과 펄스가 만나는 각도, 대상 물체 표면의 반사율에 따라서 돌아오는 신호의 세기가 결정됩니다.
+- 앞의 비행기 포인트 클라우드에서도 이와 같은 intensity가 반영되어 색으로 표현되어 있음을 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/17.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 포인트 클라우드를 저장할 때, 대표적으로 ASCII 형식과 Binary 형식을 사용합니다. 잘 알려진 바와 같이 ASCII는 바로 텍스트에서 읽을 수 있지만 용량이 굉장히 커진다는 단점이 있습니다.
+- 반면 Binary 파일은 텍스트 형태로 읽을 수 없지만 좀 더 compact 하여 용량이 작고 더 많은 정보를 가질 수 있고 읽을 때 더 빠르게 읽을 수 있습니다. 따라서 Binary 형태로 저장하고 읽어서 쓰는 것이 일반적입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/18.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 
 
 
 <br>
-
 
 ## **open3d 사용법**
 
