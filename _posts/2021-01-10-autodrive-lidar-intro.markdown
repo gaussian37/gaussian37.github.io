@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 자율주행을 위한 라이다(Lidar) 센서와 포인트 클라우드 처리 방법
+title: 자율주행을 위한 라이다(Lidar) 센서와 라이다 포인트 클라우드 처리 방법
 date: 2021-01-10 00:00:00
 img: autodrive/lidar/intro/0.png
 categories: [autodrive-lidar] 
@@ -24,7 +24,7 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
 
 - ## **라이다 포인트 클라우드 처리 방법**
 - ### [라이다와 포인트 클라우드](#라이다와-포인트-클라우드-1)
-- ### [open3d 사용법](#)
+- ### [open3d를 이용한 포인트 클라우드 처리](#open3d를-이용한-포인트-클라우드-처리)
 - ### [포인트 클라우드 with RANSAC](#)
 - ### [포인트 클라우드 with DBSCAN](#)
 - ### [포인트 클라우드 with KDTree](#)
@@ -74,23 +74,167 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
 <br>
 
 - 포인트 클라우드를 저장할 때, 대표적으로 ASCII 형식과 Binary 형식을 사용합니다. 잘 알려진 바와 같이 ASCII는 바로 텍스트에서 읽을 수 있지만 용량이 굉장히 커진다는 단점이 있습니다.
-- 반면 Binary 파일은 텍스트 형태로 읽을 수 없지만 좀 더 compact 하여 용량이 작고 더 많은 정보를 가질 수 있고 읽을 때 더 빠르게 읽을 수 있습니다. 따라서 Binary 형태로 저장하고 읽어서 쓰는 것이 일반적입니다.
+- 반면 Binary 파일은 텍스트 형태로 읽을 수 없지만 좀 더 compact 하여 용량이 작고 더 많은 정보를 가질 수 있고 읽을 때 더 빠르게 읽을 수 있습니다. 따라서 Binary 형태로 저장하고 읽어서 쓰는 것이 일반적입니다. 앞으로 Binary 파일은 bin 파일로 명칭하겠습니다.
 
 <br>
 <center><img src="../assets/img/autodrive/lidar/intro/18.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 
-
-
-<br>
-
-## **open3d 사용법**
-
-<br>
+- ① `Processing` : bin 파일을 읽으면 1번과 같은 형태의 많은 포인트 클라우드가 생성됩니다. 
+- ② `Downsampling` : 따라서 2번과 같이 Downsamping을 통하여 중복된 포인트 클라우드 수를 줄여줍니다.
+- ③ `Segmentation` : Downsampling된 포인트 들을 의미 단위로 나누는 작업을 합니다. 예를 들어 어떤 포인트는 바닥이고 어떤 포인트는 벽인지 등을 구분합니다.
+- ④ `Clustering` : Segmentation 작업을 통하여 클래스가 분류되면 거리를 기반으로 점들을 클러스터링 하여 필요한 객체 단위로 묶습니다.
+- ⑤ `Bounding Box` : Segmentation과 Clustering 과정을 통해 점들이 클래스와 거리 별로 구분이 되게 되면 Bounding Box를 사용하여 객체의 위치를 표시할 수 있습니다.
+- 이와 같은 ① ~ ⑤ 가 흔히 사용하는 `Obstacle Detection Process` 방법입니다. 이번 글에서도 이와 같은 방식을 이용하여 어떻게 라이다 포인트 클라우드를 처리하는 지 살펴보도록 하겠습니다.
 
 <br>
 
+- 라이다 데이터를 다루기 위해서는 라이다를 다루기 위한 포인트 클라우드 라이브러리와  데이터셋이 필요합니다. 아래 링크를 통해 현재 많이 사용하는 라이다 포인트 클라우드 처리를 위한 라이브로리와 데이터셋을 확인할 수 있습니다.
+- `Point Cloud Libraries` : https://github.com/openMVG/awesome_3DReconstruction_list#mesh-storage-processing
+- `LiDAR Datasets` : https://boschresearch.github.io/multimodalperception/dataset.html
+
+<br>
+
+## **open3d를 이용한 포인트 클라우드 처리**
+
+<br>
+
+- 포인트 클라우드를 처리하기 위하여 3D 포인트 클라우드를 시각화해서 보기 위해 `python`에서 `open3d` 라이브러리를 사용해보도록 하겠습니다. 추가적으로 numpy, matplotlib, pandas 또한 설치하여 데이터를 다루는 데 활용하고 `PPTK` 패키지를 설치하여 더 개선된 시각화를 사용해 보도록 하겠습니다.
+
+<br>
+
+- `pip install open3d`
+- `pip install numpy`
+- `pip install matplotlib`
+- `pip install pandas`
+- `pip install pptk`
+
+<br>
+
+- `open3d`의 documentation은 아래 링크에서 확인할 수 있습니다.
+    - 링크 : http://www.open3d.org/docs/release/
+- 기본적인 `open3d` 사용법에 대한 튜토리얼은 다음 링크에서 확인할 수 있습니다.
+    - 링크 : http://www.open3d.org/docs/release/tutorial/geometry/pointcloud.html
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/19.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림과 같이 `open3d`나 `pptk` 모두 라이다 포인트 클라우드를 읽는 데 문제는 없습니다. 다만 보시는 것과 같이 `pptk`가 좀 더 사용자 편하게 보여주는 점 참조하시면 도움이 됩니다.
+
+<br>
+
+- 이번 글에서 사용할 데이터는 `KITTI`에서 제공하는 `data_object_velodyne` 데이터로 약 29 GB 용량을 가지는 데이터 입니다.
+- [KITTI 사이트](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d)에 접속하시고 **Download Velodyne point clouds, if you want to use laser information (29 GB)** 항목을 클릭하셔서 다운받으시면 됩니다.
+- 위 데이터는 `bin` 형식의 파일이고 아래에 설명할 `convert` 파일을 통하여 `bin → PCD`로 포맷 변환이 가능합니다. `bin`은 효율적으로 데이터를 저장하고 읽기 위해 이와 같이 저장하고 실제 사용할 때에는 `PCD` 라는 확장자의 파일을 사용하는 것이 일반적입니다.
+
+<br>
+
+```python
+import argparse
+import open3d as o3d
+import numpy as np
+import struct
+import os
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--src_path', required = True)
+    parser.add_argument('--dest_path', required = True)
+    parser.add_argument('--size_float', default = 4, type=int)
+    args = parser.parse_args()
+    
+    return args
+
+if __name__ == "__main__":
+    
+    args = get_args()
+    
+    list_pcd = []
+    
+    if os.path.exists(args.dest_path) == False:
+        os.makedirs(args.dest_path)
+    
+    files_to_open = os.listdir(args.src_path)
+    for file_to_open in files_to_open:
+        
+        print("write : ", file_to_open)
+    
+        with open (args.src_path + os.sep + file_to_open, "rb") as f:
+            byte = f.read(args.size_float * 4)
+            while byte:
+                x,y,z,intensity = struct.unpack("ffff", byte)
+                list_pcd.append([x, y, z])
+                byte = f.read(args.size_float*4)
+        np_pcd = np.asarray(list_pcd)
+        pcd = o3d.geometry.PointCloud()
+        v3d = o3d.utility.Vector3dVector
+        pcd.points = v3d(np_pcd)
+
+        file_to_save = args.dest_path + os.sep + os.path.splitext(file_to_open)[0] + ".pcd"
+        
+        o3d.io.write_point_cloud(file_to_save, pcd)
+```
+
+<br>
+
+- 위 코드를 이용하면 폴더 내의 모든 `bin` 파일을 `pcd` 파일로 변경합니다. 저장된 `pcd` 파일은 다음 코드를 통해 읽은 후 `open3d`나 `pptk`로 시각화 할 수 있습니다.
+
+<br>
+
+```python
+import open3d as o3d
+pcd = o3d.io.read_point_cloud("000000.pcd")
+
+# visualization with open3d
+open3d.visualization.draw_geometries([pcd])
+
+# visualization with pptk
+v = pptk.viewer(pcd.points)
+```
+
+<br>
+
+- 파이썬에서 `open3d` 의 `open3d.cpu.pybind.geometry.PointCloud` 객체 형태로 파일을 읽게 된다면 이 값은 numpy로 변경할 수 있습니다. numpy로 변경하게 되면 파이썬에서 다양한 목적으로 쉽게 사용할 수 있습니다.
+- 다음 코드는 읽은 `pcd` 파일을 numpy로 변경하거나 임의의 numpy 파일을 다시 point cloud 객체로 변환하는 방법입니다.
+
+<br>
+
+```python
+import open3d as o3d
+
+# point cloud → numpy
+pcd = o3d.io.read_point_cloud("000000.pcd")
+pcd_np = np.asarray(pcd.points)
+print(pcd_np)
+# array([[896.994  ,  48.7601 ,  82.2656 ],
+#        [906.593  ,  48.7601 ,  80.7452 ],
+#        [907.539  ,  55.4902 ,  83.6581 ],
+#        ...,
+#        [806.665  , 627.363  ,   5.11482],
+#        [806.665  , 654.432  ,   7.51998],
+#        [806.665  , 681.537  ,   9.48744]])
+
+# numpy → point cloud
+A = np.random.random((1000, 3)) * 1000
+pcd = o3d.geometry.PointCloud()
+pcd.points = o3d.utility.Vector3dVector(A)
+# open3d.visualization.draw_geometries([pcd])
+v = pptk.viewer(pcd.points)
+```
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/20.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 코드와 같이 pcd → numpy 형태로 변형할 수 있고 반대로 임의의 numpy 값을 pcd로 변형하여 시각화 할 수 있습니다. 단, 이 때, pcd로 변형될 수 있도록 좌표값에 대한 정보를 3열을 이용하여 나타내어야 합니다.
+
+<br>
+
+
+
+
+<br>
 
 ## **포인트 클라우드 with RANSAC**
 
