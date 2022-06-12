@@ -96,7 +96,7 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
 
 <br>
 
-## **open3d를 이용한 포인트 클라우드 처리**
+## **Processing : open3d를 이용한 포인트 클라우드 처리**
 
 <br>
 
@@ -289,27 +289,16 @@ v = pptk.viewer(pcd.points)
 
 <br>
 
-## **포인트 클라우드 with RANSAC**
+## **Segmentation with RANSAC**
 
 <br>
 
 <br>
 
 
-## **포인트 클라우드 with DBSCAN**
-
 <br>
 
-<br>
-
-
-## **포인트 클라우드 with KDTree**
-
-<br>
-
-<br>
-
-
+## **자율주행에서의 라이다 동향**
 
 <br>
 
