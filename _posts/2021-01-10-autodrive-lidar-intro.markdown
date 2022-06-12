@@ -24,8 +24,9 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
 
 - ## **라이다 포인트 클라우드 처리 방법**
 - ### [라이다와 포인트 클라우드](#라이다와-포인트-클라우드-1)
-- ### [open3d를 이용한 포인트 클라우드 처리](#open3d를-이용한-포인트-클라우드-처리)
-- ### [포인트 클라우드 with RANSAC](#)
+- ### [Processing : open3d를 이용한 포인트 클라우드 처리](#open3d를-이용한-포인트-클라우드-처리)
+- ### [Voxel Grid Downsampling](#voxel-grid-downsampling-1)
+- ### [Segmentation with RANSAC](#)
 - ### [포인트 클라우드 with DBSCAN](#)
 - ### [포인트 클라우드 with KDTree](#)
 
@@ -85,7 +86,7 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
 - ③ `Segmentation` : Downsampling된 포인트 들을 의미 단위로 나누는 작업을 합니다. 예를 들어 어떤 포인트는 바닥이고 어떤 포인트는 벽인지 등을 구분합니다.
 - ④ `Clustering` : Segmentation 작업을 통하여 클래스가 분류되면 거리를 기반으로 점들을 클러스터링 하여 필요한 객체 단위로 묶습니다.
 - ⑤ `Bounding Box` : Segmentation과 Clustering 과정을 통해 점들이 클래스와 거리 별로 구분이 되게 되면 Bounding Box를 사용하여 객체의 위치를 표시할 수 있습니다.
-- 이와 같은 ① ~ ⑤ 가 흔히 사용하는 `Obstacle Detection Process` 방법입니다. 이번 글에서도 이와 같은 방식을 이용하여 어떻게 라이다 포인트 클라우드를 처리하는 지 살펴보도록 하겠습니다.
+- 이와 같은 ① ~ ⑤ 가 흔히 사용하는 `Obstacle Detection Process` 방법입니다. **이번 글에서도 이와 같은 방식을 이용하여 어떻게 라이다 포인트 클라우드를 처리하는 지 살펴보도록 하겠습니다.**
 
 <br>
 
@@ -178,7 +179,17 @@ if __name__ == "__main__":
 
 <br>
 
-- 위 코드를 이용하면 폴더 내의 모든 `bin` 파일을 `pcd` 파일로 변경합니다. 저장된 `pcd` 파일은 다음 코드를 통해 읽은 후 `open3d`나 `pptk`로 시각화 할 수 있습니다.
+- 위 코드를 이용하면 폴더 내의 모든 `bin` 파일을 `pcd` 파일로 변경합니다. 파이썬 코드 사용은 다음과 같습니다. (위 코드를 `bin_to_pcd.py` 로 저장했다고 가정합니다.)
+
+<br>
+
+```python
+python bin_to_pcd.py --src_path=/home/desktop/data_object_velodyne/training/velodyne --dest_path=/home/desktop/data_object_velodyne/training/velodyne_pcd
+```
+
+<br>
+
+- 저장된 `pcd` 파일은 다음 코드를 통해 읽은 후 `open3d`나 `pptk`로 시각화 할 수 있습니다.
 
 <br>
 
@@ -231,8 +242,48 @@ v = pptk.viewer(pcd.points)
 
 <br>
 
+## **Voxel Grid Downsampling**
 
+<br>
 
+- 앞에서 살펴본 포인트 클라우드의 수가 중복된 위치에 필요 이상으로 촘촘히 있는 것을 확인할 수 있습니다.
+- 흔히 센서를 통해 얻은 데이터는 원본 데이터를 사용하기보다 원본 데이터를 일정한 간격으로 줄이는 downsampling 방법을 통해 처리를 해서 사용합니다.
+- 이와 같이 사용하는 이유는 실제 포인트 클라우드를 처리할 때, 효율적으로 처리하기 위함입니다. 원본 데이터를 그대로 사용할 경우 정보는 많으나 데이터를 처리하는 데 시간이 너무 많이 필요하기 때문입니다.
+- 이미지에서도 이와 비슷하게 이미지를 downsampling 하여 실제 알고리즘을 처리할 때 필요한 시간을 줄이기도 하는데, 이와 같은 목적입니다.
+
+<br>
+
+- 라이다 포인트 클라우드에서 downsampling 하는 흔한 방법은 `Voxel Grid` 기반의 downsampling 입니다.
+- `Voxel Grid`는 3D 상의 cube 이며 `Voxel Grid Downsampling`은 이 Voxel Grid 내부에 점 1개만 유지하고 나머지는 필터해서 제거하는 방식입니다. 즉, Voxel Grid 내부에 점이 여러개 있다고 하더라도 1개만 남고 나머지는 없어지므로 유사한 위치에 과도하게 많은 정보를 제거한다는 뜻이 됩니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/22.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 1개의 Voxel Grid에서는 1개의 점만 남기고 나머지는 모두 지워버려 downsampling을 합니다. 이 경우 파라미터는 `Voxel Grid`의 크기가 됩니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/23.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림은 왼쪽부터 downsampling 하기 이전, 0.2의 voxel size로 downsampling을 한것 그리고 1의 voxel size로 downsampling을 한 것을 차례대로 시각화 한 것입니다.
+- voxel size가 커질수록 3D 공간 상에서 필터링 되는 점이 많아지기 때문에 좀 더 sparse 해지게 됩니다.
+- 아래 코드의 `voxel_size` 값을 통해 크기를 조절할 수 있습니다.
+
+<br>
+
+```python
+print(f"Points before downsampling: {len(pcd.points)} ")
+# Points before downsampling: 115384 
+pcd = pcd.voxel_down_sample(voxel_size=0.2)
+print(f"Points after downsampling: {len(pcd.points)}")
+# Points after downsampling: 22625
+v = pptk.viewer(pcd.points)
+```
+
+<br>
+
+- 추가적인 downsampling 방법으로는 `ROI (Region Of Interest)` 영역을 기반으로 downsampling 하는 방법이 있습니다. 이 방법은 내가 관심있는 영역이 10m 라면 10m 이외의 모든 점은 제거하는 방법입니다. 간단하면서도 내가 필요로 하는 포인트만 사용한다는 점에서 굉장히 효율적인 방법입니다.
 
 <br>
 
