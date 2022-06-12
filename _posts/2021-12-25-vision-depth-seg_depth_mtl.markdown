@@ -3,8 +3,8 @@ layout: post
 title: Semantic Segmentation과 Depth Estimation의 Multi Task Learning
 date: 2021-12-25 00:00:00
 img: vision/depth/seg_depth_mtl/0.png
-categories: [vision-segmentation]
-tags: [deep learning, segmentation, loss] # add tag
+categories: [vision-depth]
+tags: [deep learning, segmentation, depth estimation, multi task learning] # add tag
 ---
 
 <br>
