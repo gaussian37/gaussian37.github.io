@@ -26,9 +26,6 @@ tags: [deep learning, multi task, 멀티 태스크] # add tag
 - ### [멀티 태스크 러닝의 소개](#멀티-태스크-러닝의-소개-1)
 - ### [멀티 태스크의 구현 및 실습](#멀티-태스크의-구현-및-실습-1)
 - ### [멀티 태스크 최적화 방법론](#멀티-태스크-최적화-방법론-1)
-- ### [멀티 태스크 모델 (Sementic Segmentation과 Depth Estimation) 논문 리뷰](#멀티-태스크-모델-sementic-segmentation과-depth-estimation-논문-리뷰-1)
-- ### [멀티 태스크 모델 모델링 및 학습](#멀티-태스크-모델-모델링-및-학습-1)
-- ### [멀티 태스크 모델 출력 결과 확인](#)
 
 <br>
 
@@ -121,31 +118,6 @@ age_loss = nn.L1Loss()
 - [Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics]()
 
 <br>
-
-
-## **멀티 태스크 모델 (Sementic Segmentation과 Depth Estimation) 논문 리뷰**
-
-<br>
-
-- [Real-Time Joint Semantic Segmentation and Depth Estimation Using Asymmetric Annotations](https://arxiv.org/pdf/1809.04766.pdf)
-
-<br>
-
-
-## **멀티 태스크 모델 모델링 및 학습**
-
-<br>
-
-<br>
-
-
-## **멀티 태스크 모델 출력 결과 확인**
-
-<br>
-
-<br>
-
-
 
 <br>
 

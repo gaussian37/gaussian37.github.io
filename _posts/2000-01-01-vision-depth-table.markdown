@@ -26,3 +26,7 @@ tags: [vision, depth estimation, 뎁스 추정] # add tag
 - [Single Image Depth Prediction with Wavelet Decomposition]()
 - [AdaBins: Depth Estimation Using Adaptive Bins]()
 - [Unsupervised Scale-consistent Depth Learning from Video]()
+
+<br>
+
+- [Semantic segmentation과 Depth Estimation의 Multi Task Learning](https://gaussian37.github.io/vision-depth-seg_depth_mtl/)

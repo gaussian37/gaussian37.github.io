@@ -232,6 +232,7 @@ pcd = o3d.geometry.PointCloud()
 pcd.points = o3d.utility.Vector3dVector(A)
 # open3d.visualization.draw_geometries([pcd])
 v = pptk.viewer(pcd.points)
+# v = pptk.viewer(np.asarray(pcd.points))
 ```
 
 <br>
@@ -239,6 +240,7 @@ v = pptk.viewer(pcd.points)
 <br>
 
 - 위 코드와 같이 pcd → numpy 형태로 변형할 수 있고 반대로 임의의 numpy 값을 pcd로 변형하여 시각화 할 수 있습니다. 단, 이 때, pcd로 변형될 수 있도록 좌표값에 대한 정보를 3열을 이용하여 나타내어야 합니다.
+- `pptk.viewer`에 numpy 타입의 데이터를 직접 입력해 주는 방식도 사용 가능합니다.
 
 <br>
 
@@ -260,7 +262,7 @@ v = pptk.viewer(pcd.points)
 <center><img src="../assets/img/autodrive/lidar/intro/22.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 위 그림과 같이 1개의 Voxel Grid에서는 1개의 점만 남기고 나머지는 모두 지워버려 downsampling을 합니다. 이 경우 파라미터는 `Voxel Grid`의 크기가 됩니다.
+- 위 그림과 같이 1개의 Voxel Grid에서는 1개의 점만 남기고 나머지는 모두 지워버려 downsampling을 합니다. 이 경우 파라미터는 `Voxel Grid`의 크기가 됩니다. 앞으로 다룰 `voxel_size`의 단위는 `meter`입니다. 따라서 0.1m, 0.2m 등과 같은 길이가 많이 사용됩니다.
 
 <br>
 <center><img src="../assets/img/autodrive/lidar/intro/23.png" alt="Drawing" style="width: 800px;"/></center>
