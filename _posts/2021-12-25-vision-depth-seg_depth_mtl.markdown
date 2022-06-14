@@ -19,7 +19,7 @@ tags: [deep learning, segmentation, depth estimation, multi task learning] # add
 
 <br>
 
-- 이 논문에서 다루는 멀티 태스크 러닝 모델을 HydraNet 이라고 부르도록 하겠습니다.
+- 이 논문에서 다루는 멀티 태스크 러닝 모델을 `HydraNet` 이라고 부르도록 하겠습니다.
 
 <br>
 <center><img src="../assets/img/vision/depth/seg_depth_mtl/0.png" alt="Drawing" style="width: 800px;"/></center>
