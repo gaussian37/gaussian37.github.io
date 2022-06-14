@@ -263,6 +263,7 @@ v = pptk.viewer(pcd.points)
 <br>
 
 - 위 그림과 같이 1개의 Voxel Grid에서는 1개의 점만 남기고 나머지는 모두 지워버려 downsampling을 합니다. 이 경우 파라미터는 `Voxel Grid`의 크기가 됩니다. 앞으로 다룰 `voxel_size`의 단위는 `meter`입니다. 따라서 0.1m, 0.2m 등과 같은 길이가 많이 사용됩니다.
+- `open3d`의 documentation에 따르면 한 개의 `Voxel Grid`에 포함된 포인트 클라우드들을 대상으로 평균을 내어 평균 위치의 포인트를 한 개 생성하고 기존의 포인트 들은 제거하는 방식을 통하여 downsampling 하는 것으로 알려져 있습니다.
 
 <br>
 <center><img src="../assets/img/autodrive/lidar/intro/23.png" alt="Drawing" style="width: 800px;"/></center>
