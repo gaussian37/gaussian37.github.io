@@ -13,6 +13,10 @@ tags: [vision, depth estimation, 뎁스 추정] # add tag
 
 <br>
 
+## **Depth Estimation**
+
+<br>
+
 - [Unsupervised Learning of Depth and Ego-Motion from Video]()
 - [Digging Into Self-Supervised Monocular Depth Estimation]()
 - [Depth from Videos in the Wild: Unsupervised Monocular Depth Learning from Unknown Cameras]()
@@ -26,6 +30,16 @@ tags: [vision, depth estimation, 뎁스 추정] # add tag
 - [Single Image Depth Prediction with Wavelet Decomposition]()
 - [AdaBins: Depth Estimation Using Adaptive Bins]()
 - [Unsupervised Scale-consistent Depth Learning from Video]()
+- [From Big to Small: Multi-Scale Local Planar Guidance for Monocular Depth Estimation]()
+
+<br>
+
+## **Depth Completion**
+
+<br>
+
+- [Non-Local Spatial Propagation Network for Depth Completion]()
+- [PENet: Towards Precise and Efficient Image Guided Depth Completion]()
 
 <br>
 
