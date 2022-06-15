@@ -24,8 +24,10 @@ tags: [deep learning, multi task, 멀티 태스크] # add tag
 <br>
 
 - ### [멀티 태스크 러닝의 소개](#멀티-태스크-러닝의-소개-1)
-- ### [멀티 태스크의 구현 및 실습](#멀티-태스크의-구현-및-실습-1)
-- ### [멀티 태스크 최적화 방법론](#멀티-태스크-최적화-방법론-1)
+- ### [멀티 태스크 러닝 구현 및 실습](#멀티-태스크-러닝-구현-및-실습-1)
+- ### [멀티 태스크 러닝 최적화 방법론](#멀티-태스크-러닝-최적화-방법론-1)
+- ### [멀티 태스크 러닝 조합 방법론](#멀티-태스크-러닝-조합-방법론-1)
+- ### [A Survey on Multi-Task Learning](#a-survey-on-multi-task-learning-1)
 
 <br>
 
@@ -52,7 +54,7 @@ tags: [deep learning, multi task, 멀티 태스크] # add tag
 <br>
 
 
-## **멀티 태스크의 구현 및 실습**
+## **멀티 태스크 러닝 구현 및 실습**
 
 <br>
 
@@ -110,12 +112,34 @@ age_loss = nn.L1Loss()
 
 <br>
 
-## **멀티 태스크 최적화 방법론**
+## **멀티 태스크 러닝 최적화 방법론**
 
 <br>
 
-- 다음은 멀티 태스크 러닝의 학습을 잘 하기 위한 대표적인 학습 방법론입니다. 멀티 태스크 학습을 최적화 할 때 사용하면 도움이 됩니다.
-- [Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics]()
+- 다음은 멀티 태스크 러닝의 학습을 잘 하기 위한 대표적인 학습 방법론입니다. 멀티 태스크 학습을 최적화 할 때 사용하면 도움이 되며 각 내용은 본 글에서 자세히 살펴보도록 하겠습니다.
+
+<br>
+
+- [Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics](https://arxiv.org/pdf/1705.07115.pdf)
+- [GradNorm: Gradient Normalization for Adaptive Loss Balancing in Deep Multitask Networks](https://arxiv.org/pdf/1711.02257.pdf)
+- [Gradient Surgery for Multi-Task Learning](https://arxiv.org/pdf/2001.06782.pdf)
+
+<br>
+
+## **멀티 태스크 러닝 조합 방법론**
+
+<br>
+
+- 아래 내용은 컴퓨터 비전의 멀티 태스크 러닝 사용 시 어떤 조합으로 멀티 태스크 러닝을 해야 효과가 있는 지 조사한 내용입니다.
+- [Which Tasks Should be Learned Together in Multi-Task Learning](https://arxiv.org/pdf/1905.07553.pdf)
+
+<br>
+
+## **A Survey on Multi-Task Learning**
+
+<br>
+
+- 아래 내용은 [A Survey on Multi-Task Learning](https://arxiv.org/pdf/1707.08114.pdf)을 정리한 내용입니다.
 
 <br>
 
