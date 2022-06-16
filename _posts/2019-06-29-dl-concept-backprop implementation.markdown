@@ -265,7 +265,7 @@ tags: [python, deep learning, backpropagation, 역전파] # add tag
 
 <br>
 
-- 지금부터 살펴볼 내용은 
+- 지금부터 살펴볼 내용은 numpy를 이용하여 Conv1d를 기준으로 간단한 forward 및 backpropagation 방법에 대하여 알아보도록 하겠습니다.
 
 
 
