@@ -31,6 +31,7 @@ tags: [python, deep learning, backpropagation, 역전파] # add tag
 - ### convolution
 - ### zero padding
 - ### pooling
+- ### relu
 - ### transposed convolution
 
 <br>
@@ -197,6 +198,65 @@ tags: [python, deep learning, backpropagation, 역전파] # add tag
 <br>
 
 ## **multi layer perceptron with multiclass**
+
+<br>
+
+## **convolution**
+
+<br>
+
+<br>
+
+
+## **zero padding**
+
+<br>
+
+<br>
+
+
+## **pooling**
+
+<br>
+
+- `pooling` 연산은 대표적으로 `average pooling`과 `max pooling`을 사용합니다. 두가지 연산 방식에 대하여 출력부로 부터 흘러온 gradient를 어떻게 전파하는 지 살펴보면 다음과 같습니다.
+
+<br>
+
+#### ** average pooling**
+
+<br>
+<center><img src="../assets/img/dl/concept/backprop_implementation/1.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 먼저 average pooling의 back propagation 시 동작은 위 그림과 같습니다. 
+- average pooling layer에 gradient가 전달되면 average pooling을 한 대상의 갯수 $$ n $$ 으로 나눈 값을 layer들로 전달합니다.
+
+<br>
+
+#### ** max pooling**
+
+<br>
+<center><img src="../assets/img/dl/concept/backprop_implementation/2.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `max pooling`의 경우 실제 최댓값에 해당하는 layer들 부분에만 gradient를 그대로 전달하고 나머지 layer는 0으로 전달합니다.
+
+<br>
+
+## **relu**
+
+<br>
+<center><img src="../assets/img/dl/concept/backprop_implementation/3.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `relu`의 식은 `max(0, X)`와 같이 표현될 수 있습니다. 따라서 relu 층의 입력된 값이 양수이면 gradient도 그대로 전달이되지만 relu층의 입렫된 값이 0 이하의 값이면 0으로 전달됩니다.
+
+<br>
+
+## **transposed convolution**
+
+<br>
 
 <br>
 

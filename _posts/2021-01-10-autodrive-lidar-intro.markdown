@@ -149,10 +149,8 @@ def get_args():
 
 if __name__ == "__main__":
     
-    args = get_args()
-    
-    list_pcd = []
-    
+    args = get_args()  
+        
     if os.path.exists(args.dest_path) == False:
         os.makedirs(args.dest_path)
     
@@ -160,7 +158,8 @@ if __name__ == "__main__":
     for file_to_open in files_to_open:
         
         print("write : ", file_to_open)
-    
+
+        list_pcd = []
         with open (args.src_path + os.sep + file_to_open, "rb") as f:
             byte = f.read(args.size_float * 4)
             while byte:
