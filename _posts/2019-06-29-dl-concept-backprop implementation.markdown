@@ -33,6 +33,7 @@ tags: [python, deep learning, backpropagation, 역전파] # add tag
 - ### pooling
 - ### relu
 - ### transposed convolution
+- ### conv1d example
 
 <br>
 
@@ -223,7 +224,7 @@ tags: [python, deep learning, backpropagation, 역전파] # add tag
 
 <br>
 
-#### ** average pooling**
+#### **average pooling**
 
 <br>
 <center><img src="../assets/img/dl/concept/backprop_implementation/1.png" alt="Drawing" style="width: 600px;"/></center>
@@ -234,7 +235,7 @@ tags: [python, deep learning, backpropagation, 역전파] # add tag
 
 <br>
 
-#### ** max pooling**
+#### **max pooling**
 
 <br>
 <center><img src="../assets/img/dl/concept/backprop_implementation/2.png" alt="Drawing" style="width: 600px;"/></center>
@@ -259,6 +260,12 @@ tags: [python, deep learning, backpropagation, 역전파] # add tag
 <br>
 
 <br>
+
+## **conv1d example**
+
+<br>
+
+- 지금부터 살펴볼 내용은 
 
 
 
