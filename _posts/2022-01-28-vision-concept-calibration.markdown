@@ -360,6 +360,31 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 
 <br>
 
+- 이와 같은 관계를 `Active(Alibi)/Passive(Alias) Transformation` 이라고 합니다. 
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/22.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림의 왼쪽과 같이 `Active Transformation`에서는 어떤 점 $$ P $$ 가 $$ P' $$ 로 $$ \theta $$ 만큼 시계 방향으로 회전합니다. 이 때 회전 기준은 점 $$ P $$ 가 존재하는 좌표계 기준입니다.
+- 반면 위 그림의 오른쪽과 같이 `Passive Transformation`에서는 점 $$ P $$ 는 움직이지 않고 `좌표계`가 $$ \theta $$ 만큼 반시계 방향으로 회전합니다.
+- `Active Transformation`의 점 $$ P' $$ 와 `Passive Transformation`이 반영된 점 $$ P $$ 는 좌표계 기준으로 같은 좌표를 나타내는 것을 알 수 있습니다. 여기서 중요한 점은 방향까지 고려 하였을 때, `Active Transformation`에서는 $$ -\theta $$ 만큼 회전이 반영된 것이 `Passive Transformation`에서는 $$ \theta $$ 만큼 반영된 것입니다. 즉, 서로 `inverse` 관계를 가진다는 것입니다. 이와 같은 `inverse` 관계는 rotation 뿐만 아니라 다른 transformation에서도 적용됩니다.
+- 수학에서는 주로 `Active Transformation`만 다루지만 물리 또는 공학에서는 두가지 모두를 다루게 되며 Computer Vision과 같은 좌표계 변환이 많은 분야에서는 `Passive Transformation`의 관점이 많이 다루어집니다. 예를 들어 어떤 강체 (rigid body)의 연속적인 움직임을 관측할 때에는 `Active Transformation`을 사용하는 반면 한 개의 물체를 두고 local coordinate와 global coordinate가 동시에 존재하는 상황에서는 `Passive Transformation`이 사용됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/23.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림은 `Rotation Matrix` $$ R $$ 을 이용하여 Passive/Active Transformation을 한 그림입니다. 결국 최종 좌표계 기준으로 같은 점을 가리킨다는 것을 나타냅니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/24.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림은 `이미지 좌표계`에서 Translation과 Rotation 각각의 Passiave/Active Transformation을 나타냅니다.
+
+<br>
+
 #### **Extrinsic Camera Matrix**
 
 <br>
