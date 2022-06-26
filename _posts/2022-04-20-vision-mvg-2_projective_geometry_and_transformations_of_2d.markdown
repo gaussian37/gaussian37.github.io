@@ -60,7 +60,13 @@ tags: [Multiple View Geometry, Projective Geometry and Transformations] # add ta
 
 #### **Definition 2.9** 
 
-#### **Definition 2.10** 
+<br>
+
+- Definition 2.9.는 `projectivity`에 대한 
+
+#### **Theorem 2.10** 
+
+#### **Definition 2.11** 
  
 
 <br>

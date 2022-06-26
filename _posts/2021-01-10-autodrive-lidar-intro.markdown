@@ -159,14 +159,16 @@ if __name__ == "__main__":
         
         print("write : ", file_to_open)
 
-        list_pcd = []
-        with open (args.src_path + os.sep + file_to_open, "rb") as f:
-            byte = f.read(args.size_float * 4)
-            while byte:
-                x,y,z,intensity = struct.unpack("ffff", byte)
-                list_pcd.append([x, y, z])
-                byte = f.read(args.size_float*4)
-        np_pcd = np.asarray(list_pcd)
+        # list_pcd = []
+        # with open (args.src_path + os.sep + file_to_open, "rb") as f:
+        #     byte = f.read(args.size_float * 4)
+        #     while byte:
+        #         x,y,z,intensity = struct.unpack("ffff", byte)
+        #         list_pcd.append([x, y, z])
+        #         byte = f.read(args.size_float*4)
+        # np_pcd = np.asarray(list_pcd)
+        np_pcd = np.fromfile(args.src_path + os.sep + file_to_open, dtype=np.float32).reshape((-1, 4))
+        np_pcd = np_pcd[:, :3]
         pcd = o3d.geometry.PointCloud()
         v3d = o3d.utility.Vector3dVector
         pcd.points = v3d(np_pcd)
