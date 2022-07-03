@@ -79,7 +79,7 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
 - 반면 Binary 파일은 텍스트 형태로 읽을 수 없지만 좀 더 compact 하여 용량이 작고 더 많은 정보를 가질 수 있고 읽을 때 더 빠르게 읽을 수 있습니다. 따라서 Binary 형태로 저장하고 읽어서 쓰는 것이 일반적입니다. 앞으로 Binary 파일은 bin 파일로 명칭하겠습니다.
 
 <br>
-<center><img src="../assets/img/autodrive/lidar/intro/18.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/autodrive/lidar/intro/18.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - ① `Processing` : bin 파일을 읽으면 1번과 같은 형태의 많은 포인트 클라우드가 생성됩니다. 
@@ -291,7 +291,92 @@ v = pptk.viewer(pcd.points)
 
 <br>
 
-## **Segmentation with RANSAC**
+## **RANSAC을 이용한 도로와 객체 구분**
+
+<br>
+
+- 지금까지 포인트 클라우드를 읽은 다음 기본적인 downsamping 이외의 처리는 하지 않았습니다. 지금부터 살펴볼 내용은 `RANSAC`을 이용하여 **도로와 객체를 분리**하는 방법에 대하여 알아보도록 하겠습니다. 수많은 포인트 클라우드에서 도로와 객체를 분리만 해도 상당히 많은 수의 포인트가 필터링 됩니다.
+
+<br>
+
+- `RANSAC`에 대한 상세한 내용은 아래 링크에서 참조할 수 있습니다.
+    - 링크 : [RANSAC (RANdom SAmple Consensus) 개념 및 실습](https://gaussian37.github.io/vision-concept-ransac/)
+
+<br>
+
+- `RANSAC`은 `inlier`와 `outlier`를 구분하는 간편하면서도 효과적인 알고리즘 입니다. 도로와 객체를 분리하기 위하여 `RANSAC`을 사용하는 이유는 포인트 클라우드가 형성되는 패턴에 따라서 도로를 `inlier`로 두고 객체를 `outlier`로 두면 간단하면서 효율적으로 두 클래스를 분리할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/24.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림과 같이 도로는 `inlier`로 구분할 수 있고 객체는 `outlier` 형태로 구분할 수 있습니다. 도로와 같은 경우 객체와 다르게 등고선 형태로 쭉 펴져 있는 것을 볼 수 있는데 이러한 성질을 이용하는 것입니다.
+
+<br>
+
+- RANSAC의 자세한 내용은 앞에서 공유한 [RANSAC (RANdom SAmple Consensus) 개념 및 실습](https://gaussian37.github.io/vision-concept-ransac/) 내용을 참조하시고 간단하게 컨셉만 공유해 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/25.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- RANSAC의 기본 원리에 따라 2차원에서는 2개의 점을 선택하고 선택된 점을 이용하여 Line을 Fitting 한 뒤 Line과 점들 간의 오차를 구하고 오차와 내가 선택한 Threshold 값의 차이가 얼만큼 차이가 나는 지 구합니다. 이 차이가 사전에 정한 Threshold 보다 작으면 inlier로 선택되는 구조입니다.
+- 3차원에서는 추가적으로 3개의 점을 선택하고 3개의 점을 통해서 만들 수 있는 Plane을 이용하여 inlier와 outlier를 구하게 됩니다.
+- 이 때, `inlier`로 선택된 점들은 평평한 평면에 가까운 점들로 도로에 해당하고 `outlier`로 선택된 점들은 평면과 거리가 먼 점들로 객체에 해당하게 됩니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/26.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림을 보면 빨간색은 `inlier`로 구분된 점들이고 회색점은 `outlier`로 구분된 점들입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/27.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 평면을 옆에서 살펴보면 평평한 평면에 fitting 될 수 있는 점들이 `inlier`로 선택된 것을 확인할 수 있습니다.
+
+<br>
+
+- 이와 같은 segmentation을 하기 위한 코드는 아래와 같습니다.
+
+<br>
+
+```python
+t1 = time.time()
+plane_model, inliers = pcd.segment_plane(distance_threshold=0.3, ransac_n=3, num_iterations=100)
+inlier_cloud = pcd.select_by_index(inliers)
+outlier_cloud = pcd.select_by_index(inliers, invert=True)
+inlier_cloud.paint_uniform_color([1, 0, 0])
+outlier_cloud.paint_uniform_color([0.5, 0.5, 0.5])
+t2 = time.time()
+print(f"Time to segment points using RANSAC {t2 - t1}")
+o3d.visualization.draw_geometries([inlier_cloud, outlier_cloud])
+```
+
+<br>
+
+## **DBSCAN을 이용한 포인트 클라우드 클러스터링**
+
+<br>
+
+
+<br>
+
+## **HDBSCAN을 이용한 포인트 클라우드 클러스터링**
+
+<br>
+
+
+<br>
+
+## **PCA를 이용한 객체 Boundgin Box**
+
+<br>
+
+
+<br>
+
 
 <br>
 
