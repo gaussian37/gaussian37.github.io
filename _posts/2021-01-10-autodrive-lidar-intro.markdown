@@ -26,9 +26,10 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
 - ### [라이다와 포인트 클라우드](#라이다와-포인트-클라우드-1)
 - ### [Processing : open3d를 이용한 포인트 클라우드 처리](#open3d를-이용한-포인트-클라우드-처리)
 - ### [Voxel Grid Downsampling](#voxel-grid-downsampling-1)
-- ### [Segmentation with RANSAC](#)
-- ### [포인트 클라우드 with DBSCAN](#)
-- ### [포인트 클라우드 with KDTree](#)
+- ### [RANSAC을 이용한 도로와 객체 구분](#)
+- ### [DBSCAN을 이용한 포인트 클라우드 클러스터링](#)
+- ### [HDBSCAN을 이용한 포인트 클라우드 클러스터링](#)
+- ### [PCA를 이용한 객체 Boundgin Box](#)
 
 <br>
 
@@ -158,7 +159,6 @@ if __name__ == "__main__":
     for file_to_open in files_to_open:
         
         print("write : ", file_to_open)
-
         # list_pcd = []
         # with open (args.src_path + os.sep + file_to_open, "rb") as f:
         #     byte = f.read(args.size_float * 4)
@@ -267,7 +267,7 @@ v = pptk.viewer(pcd.points)
 - `open3d`의 documentation에 따르면 한 개의 `Voxel Grid`에 포함된 포인트 클라우드들을 대상으로 평균을 내어 평균 위치의 포인트를 한 개 생성하고 기존의 포인트 들은 제거하는 방식을 통하여 downsampling 하는 것으로 알려져 있습니다.
 
 <br>
-<center><img src="../assets/img/autodrive/lidar/intro/23.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/autodrive/lidar/intro/23.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 위 그림은 왼쪽부터 downsampling 하기 이전, 0.2의 voxel size로 downsampling을 한것 그리고 1의 voxel size로 downsampling을 한 것을 차례대로 시각화 한 것입니다.
