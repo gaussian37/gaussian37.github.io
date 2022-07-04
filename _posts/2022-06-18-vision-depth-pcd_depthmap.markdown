@@ -18,11 +18,214 @@ tags: [vision, depth, point cloud, depth map] # add tag
 
 <br>
 
-- ### PCD to Depth Map 원리
-- ### PCD to Depth Map 실습
-- ### Depth Map to PCD 원리
-- ### Depth Map to PCD 실습
+- ### [PCD to Depth Map 원리](#)
+- ### [PCD to Depth Map 실습](#)
+- ### [Depth Map to PCD 원리](#)
+- ### [Depth Map to PCD 실습](#)
 
 <br>
 
-- 
+## **PCD to Depth Map 원리**
+
+<br>
+
+
+
+<br>
+
+## **PCD to Depth Map 실습**
+
+<br>
+
+- 지금부터 앞에서 다룬 개념을 이용하여 `PCD`를 `Depth Map`으로 바꾸는 방법에 대하여 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/pcd_depthmap/1.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 실습을 위해 사용하는 센서셋은 `KITTI` 데이터의 센서셋 구조를 따라서 해볼 예정입니다. 라이다와 카메라의 장착 위치 및 좌표계를 확인하시면 아래 코드를 이해하는 데 도움이 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/pcd_depthmap/2.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 위 내용은 `KITTI`의 캘리브레이션 관련 파라미터를 정리해 놓은 양식입니다. 실습에서 사용할 양식도 위 구조와 동일합니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/pcd_depthmap/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 포인트 클라우드의 뎁스 정보는 위 색상과 같이 0 ~ 50m 범위에 대하여 색을 나타내 보겠습니다. 코드에서 어떤점을 수정하면 범위를 늘릴 수 있는 지 이후에 설명 드리겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/pcd_depthmap/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 최종적으로 위의 첫번째 이미지에 두번째 이미지와 같이 포인트 클라우드를 색상을 이용하여 표현하는 것을 목적으로 합니다.
+
+<br>
+
+```python
+class LiDAR2Camera(object):
+    def __init__(self, calib_file):
+        calibs = self.read_calib_file(calib_file)
+        
+        P = calibs["P2"]
+        self.P = np.reshape(P, [3, 4])
+        
+        # Rigid transform from Velodyne coord to reference camera coord
+        V2C = calibs["Tr_velo_to_cam"]
+        self.V2C = np.reshape(V2C, [3, 4])
+        # Rotation from reference camera coord to rect camera coord
+        R0 = calibs["R0_rect"]
+        self.R0 = np.reshape(R0, [3, 3])
+
+    def read_calib_file(self, filepath):
+        data = {}
+        with open(filepath, "r") as f:
+            for line in f.readlines():
+                line = line.rstrip()
+                if len(line) == 0:
+                    continue
+                key, value = line.split(":", 1)
+                # The only non-float values in these files are dates, which
+                # we don't care about anyway
+                try:
+                    data[key] = np.array([float(x) for x in value.split()])
+                except ValueError:
+                    pass
+        return data
+    
+    def cart2hom(self, pts_3d):
+        """ Input: nx3 points in Cartesian
+            Oupput: nx4 points in Homogeneous by pending 1
+        """
+        n = pts_3d.shape[0]
+        pts_3d_hom = np.hstack((pts_3d, np.ones((n, 1))))
+        return pts_3d_hom
+    
+    def project_velo_to_image(self, pts_3d_velo, debug=True):
+        '''
+        Input: 3D points in Velodyne Frame [nx3]
+        Output: 2D Pixels in Image Frame [nx2]
+        '''
+
+        R0_homo = np.vstack([self.R0, [0, 0, 0]])
+        R0_homo_2 = np.column_stack([R0_homo, [0, 0, 0, 1]])
+
+        # PxR0
+        p_r0 = np.dot(self.P, R0_homo_2) 
+
+        # PxROxRT
+        p_r0_rt =  np.dot(p_r0, np.vstack((self.V2C, [0, 0, 0, 1]))) 
+        pts_3d_homo = np.column_stack([pts_3d_velo, np.ones((pts_3d_velo.shape[0],1))])
+
+        # P x RO x RT x X
+        p_r0_rt_x = np.dot(p_r0_rt, np.transpose(pts_3d_homo))
+        pts_2d = np.transpose(p_r0_rt_x)
+
+        pts_2d[:, 0] /= pts_2d[:, 2]
+        pts_2d[:, 1] /= pts_2d[:, 2]
+
+        if debug == True:
+            print("R0_homo_2 : ", R0_homo_2)
+            print("")
+            print("p_r0 : ", p_r0)
+            print("")
+            print("rt_homo : ", np.vstack((self.V2C, [0, 0, 0, 1])))
+            print("")
+            print("p_r0_rt : ", p_r0_rt)
+            print("")
+            print("pts_3d_homo : ", pts_3d_homo)
+            print("")
+            print("p_r0_rt_x : ", p_r0_rt_x)
+            print("")
+            print("pts_2d : ", pts_2d)
+            print("")
+
+        return pts_2d[:, 0:2]
+    
+def get_lidar_in_image_fov(self, pc_velo, xmin, ymin, xmax, ymax, clip_distance=0.1):
+    """ Filter lidar points, keep those in image FOV """
+    
+    # point cloud → points in 2d image
+    pts_2d = self.project_velo_to_image(pc_velo)
+    
+    # points index in fov
+    fov_inds = (
+        (pts_2d[:, 0] < xmax)
+        & (pts_2d[:, 0] >= xmin)
+        & (pts_2d[:, 1] < ymax)
+        & (pts_2d[:, 1] >= ymin)
+    )
+
+    # ############# check lidar axis ###############
+    # depth orientation of point cloud is x (pc_velo[:, 0])
+    # We don't want things that are closer to the clip distance (2m)
+    fov_inds = fov_inds & (pc_velo[:, 0] > clip_distance) 
+    imgfov_pc_velo = pc_velo[fov_inds, :]
+    
+    return imgfov_pc_velo, pts_2d, fov_inds
+
+def show_lidar_on_image(self, pc_velo, img, range_meter=50.0, debug=False):
+    
+    """ Project LiDAR points to image """
+    imgfov_pc_velo, pts_2d, fov_inds = self.get_lidar_in_image_fov(
+        pc_velo, 0, 0, img.shape[1], img.shape[0], True
+    )
+    if (debug==True):
+        # The 3D point Cloud Coordinates
+        print("3D PC Velo "+ str(imgfov_pc_velo)) 
+        
+        # The 2D Pixels
+        print("2D PIXEL: " + str(pts_2d)) 
+        
+        # Whether the Pixel is in the image or not
+        print("FOV : "+ str(fov_inds)) 
+    
+    cmap = plt.cm.get_cmap("jet", 256)
+    cmap = np.array([cmap(i) for i in range(256)])[:, :3] * 255
+    
+    # point cloud belonging to fov
+    self.imgfov_pc_velo = imgfov_pc_velo
+    # point in 2d belonging to fov
+    self.imgfov_pts_2d = pts_2d[fov_inds, :]    
+    
+    # 
+    for i in range(self.imgfov_pts_2d.shape[0]):
+        #depth = self.imgfov_pc_rect[i,2]
+        #print(depth)
+        # ############# check lidar axis ###############
+        # depth orientation of point cloud is x (pc_velo[:, 0])
+        depth = imgfov_pc_velo[i,0]
+        color_index = int(255 * min(depth,range_meter)/range_meter)
+        color = cmap[color_index, :]
+        cv2.circle(
+            img,(int(np.round(self.imgfov_pts_2d[i, 0])), int(np.round(self.imgfov_pts_2d[i, 1]))), 2,
+            color=tuple(color),
+            thickness=-1,
+        )
+    return img
+
+```
+
+<br>
+
+
+<br>
+
+## **Depth Map to PCD 원리**
+
+<br>
+
+
+
+<br>
+
+## **Depth Map to PCD 실습**
+
+<br>
+
+
+
+<br>
