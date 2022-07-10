@@ -97,7 +97,7 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 
 - $$ A = \begin{bmatrix} 1 & -3 & 2 \\ -5 & 9 & 1 \end{bmatrix} $$
 
-$$ \Rightarrow \begin{bmatrix} 1 & -3 & 2 \\ 0 & -6 & -9 \end{bmatrix} $$
+- $$ \Rightarrow \begin{bmatrix} 1 & -3 & 2 \\ 0 & -6 & -9 \end{bmatrix} $$
 
 <br>
 
@@ -117,7 +117,7 @@ $$ \Rightarrow \begin{bmatrix} 1 & -3 & 2 \\ 0 & -6 & -9 \end{bmatrix} $$
 
 <br>
 
-$$ \begin{bmatrix} 1 & -3 & 2 \\ 0 & -6 & -9 \end{bmatrix} \begin{bmatrix} x_{1} \\ x_{2} \\ x_{3} \end{bmatrix} = {bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} \tag{1} $$ 
+- $$ \begin{bmatrix} 1 & -3 & 2 \\ 0 & -6 & -9 \end{bmatrix} \begin{bmatrix} x_{1} \\ x_{2} \\ x_{3} \end{bmatrix} = {bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} \tag{1} $$ 
 
 <br>
 
