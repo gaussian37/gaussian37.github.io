@@ -220,5 +220,3 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 [선형대수학 글 목차](https://gaussian37.github.io/math-la-table/)
 
 <br>
-
-`
