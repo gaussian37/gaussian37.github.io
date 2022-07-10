@@ -47,7 +47,7 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 
 <br>
 
-- **(정리) $$ m \times n $$ 행렬 $$ A $$ 의 영공간은 $$ \mathbb{R}^{n} $$ 의 부분공간이다.**
+- **(정리 12) $$ m \times n $$ 행렬 $$ A $$ 의 영공간은 $$ \mathbb{R}^{n} $$ 의 부분공간이다.**
 
 <br>
 
@@ -107,9 +107,9 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 
 <br>
 
-- $$ R : \left\{ [1, -3, 2] \right\} $$
+- $$ \text{Row}(A) = \text{Span}\Biggl( \begin{bmatrix} 1 & -3 & 2 \end{bmatrix} \Biggr) $$
 
-- $$ A : \left\{ [1, -5]^{T} \right\} $$
+$$ \text{Col}(A) = \text{Span}\Biggl( \begin{bmatrix} 1 \\ -5 \end{bmatrix} \Biggr) $$
 
 <br>
 
@@ -117,7 +117,7 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 
 <br>
 
-- $$ \begin{bmatrix} 1 & -3 & 2 \\ 0 & -6 & -9 \end{bmatrix} \begin{bmatrix} x_{1} \\ x_{2} \\ x_{3} \end{bmatrix} = {bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} \tag{1} $$ 
+- $$ \begin{bmatrix} 1 & -3 & 2 \\ 0 & -6 & -9 \end{bmatrix} \begin{bmatrix} x_{1} \\ x_{2} \\ x_{3} \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} \tag{1} $$ 
 
 <br>
 
@@ -145,7 +145,7 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 
 <br>
 
-- $$ \text{Span}\Biggl( \begin{bmatrix} 5 \\ 3 \\ -2 \end{bmatrix} \Biggr) \tag{9} $$
+- $$ \text{Null}(A) = \text{Span}\Biggl( \begin{bmatrix} 5 \\ 3 \\ -2 \end{bmatrix} \Biggr) \tag{9} $$
 
 <br>
 
@@ -175,7 +175,7 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 
 <br>
 
-- $$ \text{Span}\Biggl( [1, -2, 2, 3, -1], [0, 0, 1, 2, -2] \Biggr) \tag{15} $$
+- $$ \text{Row}(A) = \text{Span}\Biggl( [1, -2, 2, 3, -1], [0, 0, 1, 2, -2] \Biggr) \tag{15} $$
 
 <br>
 
@@ -183,7 +183,7 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 
 <br>
 
-- $$ \text{Span}\Biggl( \begin{bmatrix} -3 \\ 1 \\ 2 \end{bmatrix}, \begin{bmatrix} -1 \\ 2 \\ 5 \end{bmatrix} \Biggr) \tag{16} $$
+- $$ \text{Col}(A) = \text{Span}\Biggl( \begin{bmatrix} -3 \\ 1 \\ 2 \end{bmatrix}, \begin{bmatrix} -1 \\ 2 \\ 5 \end{bmatrix} \Biggr) \tag{16} $$
 
 <br>
 
@@ -197,9 +197,34 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 
 - $$ x_{1} - 2x_{2} + 2x_{3} + 3x_{4} - x_{5} = 0 \tag{19} $$
 
-- 식 (18), 식 (19)를 이용하면 영공간의 기저는 다음과 같이 구할 수 있습니다.
+- 먼저 식 (18)을 이용하여 전개해 보겠습니다.
 
-- $$ \text{Span}\Biggl( \begin{bmatrix} 2 \\ 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}, \begin{bmatrix} 1 \\ 0 \\ -2 \\ 1 \\ 0 \end{bmatrix}, \begin{bmatrix} -3 \\ 0 \\ 2 \\ 0 \\ 1 \end{bmatrix} \Biggr) \tag{20} $$
+<br>
+
+- 다음으로 식 (19)를 이용하여 전개해 보겠습니다.
+
+<br>
+
+- $$ x_{1} - 2x_{2} + 2x_{3} + 3x_{4} - x_{5} = x_{1} -2a + 2(-2b + 2c) + 3b - c = 0 \tag{20} $$
+
+- $$ x_{1} -2a -4b + 4c + 3b -c = 0 \tag{21} $$
+
+- $$ x_{1} = 2a + b - 3c \tag{22} $$
+
+- $$ \begin{bmatrix} x_{1} \\ x_{2} \\ x_{3} \\ x_{4} \\ x_{5} \end{bmatrix} = a \begin{bmatrix} 2 \\ 1 \\ 0 \\ 0 \\ 0 \end{bmatrix} + b \begin{bmatrix} 1 \\ 0 \\ -2 \\ 1 \\ 0 \end{bmatrix} + c \begin{bmatrix} -3 \\ 0 \\ 2 \\ 0 \\ 1 \end{bmatrix} \tag{23} $$
+
+<br>
+
+- 따라서 영공간의 기저는 다음과 같습니다.
+
+<br>
+
+- $$ \text{Null}(A) = \text{Span}\left\{ \begin{bmatrix} 2 \\ 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}, \begin{bmatrix} 1 \\ 0 \\ -2 \\ 1 \\ 0 \end{bmatrix}, \begin{bmatrix} -3 \\ 0 \\ 2 \\ 0 \\ 1 \end{bmatrix} \right\} \tag{24} $$
+
+<br>
+
+
+
 
 <br>
 
