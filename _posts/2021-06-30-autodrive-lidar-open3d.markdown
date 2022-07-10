@@ -50,8 +50,7 @@ def show_open3d_pcd(pcd, show_origin=True, origin_size=3, show_grid=True):
 <br>
 
 - open3d로 포인트 클라우드를 읽었을 때, 그 포인트 클라우드의 대략적인 위치를 파악하기가 어렵습니다. 따라서 grid 형태로 거리를 참조할 수 있는 정보가 필요합니다.
-- 아래 코드를 이용하면 어떤 축을 기준으로 grid를 생성합니다. `x_size`와 `y_size` 각각은 grid를 중점으로 부터 가로와 세로 방향으로 얼만큼 늘려갈 지에 해당합니다.
-- `basis_axis`는 어떤 축을 기준으로 grid 평면을 만들 지 정하는 것 입니다. 예를 들어 basis_axis=2라고 하면 Z축을 0으로 둔 다음에 grid 평면을 만듭니다.
+- 아래 코드를 이용하면 XY, YZ, ZX 방향으로 grid를 그려서 포인트 클라우드의 위치를 파악하기 용이합니다.
 
 ```python
 import open3d as o3d
@@ -156,3 +155,27 @@ def show_open3d_pcd(raw, show_origin=True, origin_size=10,
                                        lineset_xy, lineset_yz, lineset_zx
                                       ])  
 ```
+
+<br>
+
+- 아래와 같이 호출하여 사용할 수 있습니다.
+
+<br>
+
+```python
+raw = np.fromfile("00000001.bin", dtype=np.float32).reshape((-1, 4))
+raw = raw[:, :3]
+show_open3d_pcd(raw, grid_len=1)
+```
+
+<br>
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/open3d/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/open3d/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림에서 연한 회색 선은 기본 값인 1m를 나타내고 빨간색 선은 기본 값의 5배인 5m를 나타냅니다. 위 코드에서 기본값을 2m로 바꾸면 빨간색 선은 5배인 10m를 나타냅니다.
