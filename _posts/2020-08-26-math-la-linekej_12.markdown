@@ -36,7 +36,7 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 
 <br>
 
-- 영공간 (Null Space)는 $$ m \times n $$ 행렬 $$ A $$ 를 계수행렬로 가지는 제차연립방정식( $$ Av = 0 $$ )의 해집합으로 $$ \text{Null}(A) = \{v \in \mathbb{R}_{n} \vert Av = 0} $$ 으로 표기합니다.
+- 영공간 (Null Space)는 $$ m \times n $$ 행렬 $$ A $$ 를 계수행렬로 가지는 제차연립방정식( $$ Av = 0 $$ )의 해집합으로 $$ \text{Null}(A) = \{v \in \mathbb{R}_{n} \vert Av = 0 \} $$ 으로 표기합니다.
 - 영공간의 기저는 연립방정식을 풀어야 구할 수 있습니다.
 - 영공간의 `해집합`이기 때문에 해가 유일하게 1개일 수도 있고 해가 없을 수도 있으며 무한히 많은 해를 가질 수도 있습니다.
 
@@ -47,7 +47,7 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 
 <br>
 
-- **(정리 12) $$ m \times n $$ 행렬 $$ A $$ 의 영공간은 $$ \mathbb{R}^{n} $$ 의 부분공간이다.**
+- **(정리) $$ m \times n $$ 행렬 $$ A $$ 의 영공간은 $$ \mathbb{R}^{n} $$ 의 부분공간이다.**
 
 <br>
 
@@ -71,7 +71,7 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 
 - 2) $$ u, v \in \text{Null}(A) $$ 이면 $$ Au = 0 $$ 이고 $$ Av = 0 $$ 이므로 $$ A(u + v) = Au + Av = 0 + 0 = 0 $$ 입니다.
 
-- 3) $$ u \in \text{Null}(A) $$ 와 $$ c \in $$ \mathbb{R} $$ 에 대하여 $$ Au = 0 $$ 이므로 $$ A(cu) = c(Au) = c0 = 0 $$ 입니다. 따라서 $$ cu \in \text{Null}(A) $$ 입니다.
+- 3) $$ u \in \text{Null}(A) $$ 와 $$ c \in \mathbb{R} $$ 에 대하여 $$ Au = 0 $$ 이므로 $$ A(cu) = c(Au) = c0 = 0 $$ 입니다. 따라서 $$ cu \in \text{Null}(A) $$ 입니다.
 
 <br>
 
