@@ -15,6 +15,7 @@ tags: [normalization, 정규화] # add tag
 
 - 참조 : https://mlexplained.com/2018/11/30/an-overview-of-normalization-methods-in-deep-learning/
 - 참조 : https://ocw.mit.edu/resources/res-6-007-signals-and-systems-spring-2011/
+- 참조 : https://youtu.be/rVBfM0A3oWY
 
 <br>
 
