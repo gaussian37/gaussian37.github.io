@@ -70,7 +70,7 @@ tags: [vision, depth, point cloud, depth map] # add tag
 
 ```python
 class LiDAR2CameraKITTI(object):
-    def __init__(self, calib_file, depth_column=0):
+    def __init__(self, calib_file):
         calibs = self.read_calib_file(calib_file)
         
         P = calibs["P2"]
@@ -84,14 +84,12 @@ class LiDAR2CameraKITTI(object):
         R0 = calibs["R0_rect"]
         self.R0 = np.reshape(R0, [3, 3])
         
-        self.depth_column = depth_column
-        
-        # imgfov_points_2d : (N, 2) with (u, v) coordinate
         self.imgfov_points_2d = None
-        # imgfov_point_cloud : (N, 3) with (X, Y, Z) coordinate
-        self.imgfov_point_cloud = None
-        # imgfov_depth : (N, 1)
+        self.imgfov_cam_point_cloud = None
         self.imgfov_depth = None
+        self.img = None
+        self.point_cloud = None
+        self.cam_point_cloud = None
 
     def read_calib_file(self, filepath):
         data = {}
@@ -109,15 +107,25 @@ class LiDAR2CameraKITTI(object):
                     pass
         return data
     
-    def cart2hom(self, pts_3d):
-        """ Input: nx3 points in Cartesian
-            Oupput: nx4 points in Homogeneous by pending 1
-        """
-        n = pts_3d.shape[0]
-        pts_3d_hom = np.hstack((pts_3d, np.ones((n, 1))))
-        return pts_3d_hom
+    def get_image(self, image_path):
+        img = cv2.cvtColor(cv2.imread(image_path), cv2.COLOR_BGR2RGB)
+        return img
     
-    def project_point_cloud_to_image(self, point_cloud, debug=True):
+    def get_point_cloud(self, point_cloud_path):
+        point_cloud = np.fromfile(point_cloud_path, dtype=np.float32).reshape((-1, 4))
+        point_cloud = point_cloud[:, :3]
+        return point_cloud
+    
+    def get_cam_point_cloud(self, point_cloud):
+        # point_cloud : (n, 3) → point_cloud_homo : (n, 4)
+        point_cloud_homo = np.column_stack([point_cloud, np.ones((point_cloud.shape[0], 1))])
+        # lidar to cam X point_cloud_homo.T : (3, 4) x (4, n) = (3, n)
+        cam_point_cloud = np.dot(self.V2C, np.transpose(point_cloud_homo))
+        # cam_point_cloud.T : (3, n) → (n, 3)
+        cam_point_cloud = cam_point_cloud.T
+        return cam_point_cloud        
+    
+    def project_point_cloud_to_image(self, cam_point_cloud, debug=False):
         '''
         Input: 3D points in Velodyne Frame [nx3]
         Output: 2D Pixels in Image Frame [nx2]
@@ -129,30 +137,24 @@ class LiDAR2CameraKITTI(object):
 
         # P x R0 : (3, 4) x (4, 4)
         p_r0 = np.dot(self.P, R0_homo) 
-
-        # P x RO x RT : (3, 4) x (4, 4) x (4, 4) 
-        p_r0_rt =  np.dot(p_r0, np.vstack((self.V2C, [0, 0, 0, 1])))
         
-        # point_cloud : (n, 3) → point_cloud_homo : (n, 4)
-        point_cloud_homo = np.column_stack([point_cloud, np.ones((point_cloud.shape[0], 1))])
+        # point_cloud in camera : (n, 3) → point_cloud_homo in camera : (n, 4)
+        cam_point_cloud_homo = np.column_stack([cam_point_cloud, np.ones((cam_point_cloud.shape[0], 1))])
 
-        # P x RO x RT x X : (3, 4) x (4, 4) x (4, 4) x (4, n) → (3, n)
-        p_r0_rt_x = np.dot(p_r0_rt, np.transpose(point_cloud_homo))
+        # P x RO x X : (3, 4) x (4, 4) x (4, n) → (3, n)
+        p_r0_x = np.dot(p_r0, np.transpose(cam_point_cloud_homo))
+        
         # points_2d : (n, 3)
-        points_2d = np.transpose(p_r0_rt_x)        
+        points_2d = np.transpose(p_r0_x)        
 
         if debug == True:
             print("R0_homo : \n", R0_homo)
             print("")
             print("p_r0 : \n", p_r0)
             print("")
-            print("rt_homo : \n", np.vstack((self.V2C, [0, 0, 0, 1])))
+            print("cam_point_cloud_homo : \n", cam_point_cloud_homo)
             print("")
-            print("p_r0_rt : \n", p_r0_rt)
-            print("")
-            print("point_cloud_homo : \n", point_cloud_homo)
-            print("")
-            print("p_r0_rt_x : \n", p_r0_rt_x)
+            print("p_r0_x : \n", p_r0_x)
             print("")
             print("points_2d : \n", points_2d)
             print("")
@@ -167,11 +169,11 @@ class LiDAR2CameraKITTI(object):
 
         return points_2d[:, 0:2]
     
-    def get_points_in_image_fov(self, point_cloud, xmin, ymin, xmax, ymax, clip_distance=0.1):
-        """ Filter lidar points, keep those in image FOV """
+    def get_points_in_image_fov(self, cam_point_cloud, xmin, ymin, xmax, ymax, clip_distance=0, debug=False):
+        """ Filter point cloud, keep those in image FOV """
 
-        # point cloud → points in 2d image (n, 2)
-        points_2d = self.project_point_cloud_to_image(point_cloud)
+        # point cloud in camera → points in 2d image : (n, 2)
+        points_2d = self.project_point_cloud_to_image(cam_point_cloud, debug)
 
         # points index in fov
         fov_inds = (
@@ -181,71 +183,65 @@ class LiDAR2CameraKITTI(object):
             & (points_2d[:, 1] >= ymin)
         )
 
-        # ############# check lidar axis ###############
-        # depth orientation of point cloud is x (point_cloud[:, 0])
-        # We don't want things that are closer to the clip distance (2m)
-        fov_inds = fov_inds & (point_cloud[:, self.depth_column] > clip_distance)
+        # depth orientation in camera coordinate is 2
+        fov_inds = fov_inds & (cam_point_cloud[:, 2] > clip_distance)
         
-        # imgfov_point_cloud : (K, 3)
-        imgfov_point_cloud = point_cloud[fov_inds, :]
+        # imgfov_cam_point_cloud : (K, 3)
+        imgfov_cam_point_cloud = cam_point_cloud[fov_inds, :]
         # points_2d : (K, 2)
-        points_2d = points_2d[fov_inds, :]
+        imgfov_points_2d = np.round(points_2d[fov_inds, :])
 
-        return imgfov_point_cloud, points_2d
+        return imgfov_cam_point_cloud, imgfov_points_2d
     
-    def get_min_dist_points_in_image_fov(self, imgfov_point_cloud, imgfov_points_2d):
+    def get_min_dist_points_in_image_fov(self, imgfov_cam_point_cloud, imgfov_points_2d):
         
-        imgfov_points_2d = np.round(imgfov_points_2d)
         df = pd.DataFrame({
                 'width' : imgfov_points_2d[:, 0],
                 'height' : imgfov_points_2d[:, 1],
-                'X' : imgfov_point_cloud[:, 0],
-                'Y' : imgfov_point_cloud[:, 1],
-                'Z' : imgfov_point_cloud[:, 2]
+                'X' : imgfov_cam_point_cloud[:, 0],
+                'Y' : imgfov_cam_point_cloud[:, 1],
+                'Z' : imgfov_cam_point_cloud[:, 2]
         })
         
-        # depth axis on lidar is X
-        if self.depth_column == 0:
-            min_depth_df = df.groupby(['width', 'height', 'Y', 'Z'], as_index=False).min()      
-        # depth axis on lidar is Y
-        elif self.depth_column == 1:
-            min_depth_df = df.groupby(['width', 'height', 'X', 'Z'], as_index=False).min()
-        # depth axis on lidar is Z
-        elif self.depth_column == 2:
-            min_depth_df = df.groupby(['width', 'height', 'X', 'Y'], as_index=False).min()
-        else:
-            pass                
+        # Z is depth in camera coordiante
+        min_depth_df = df.groupby(['width', 'height', 'X', 'Y'], as_index=False).min()
         
         min_depth_np = np.array(min_depth_df)     
         imgfov_points_2d = np.c_[min_depth_df['width'].to_numpy(), min_depth_df['height'].to_numpy()]
-        imgfov_point_cloud = np.c_[min_depth_df['X'].to_numpy(), min_depth_df['Y'].to_numpy(), min_depth_df['Z'].to_numpy()]
+        imgfov_cam_point_cloud = np.c_[min_depth_df['X'].to_numpy(), min_depth_df['Y'].to_numpy(), min_depth_df['Z'].to_numpy()]
         
-        return imgfov_point_cloud, imgfov_points_2d
+        return imgfov_cam_point_cloud, imgfov_points_2d
         
 
-    def get_projected_image(self, point_cloud, img, range_meter=50.0, min_depth_filter=True, debug=False):
-
-        """ Project LiDAR points to image """
-        imgfov_point_cloud, imgfov_points_2d = self.get_points_in_image_fov(
-            point_cloud, 0, 0, img.shape[1], img.shape[0]
-        )
+    def get_projected_image(self, image_path, point_cloud_path, range_meter=50.0, min_depth_filter=True, debug=False):
+        """ Project LiDAR points to image """        
         
-        if min_depth_filter:
-            imgfov_point_cloud, imgfov_points_2d = self.get_min_dist_points_in_image_fov(imgfov_point_cloud, imgfov_points_2d)
+        # origin img and point cloud
+        self.img = self.get_image(image_path)
+        # point_cloud in lidar: (n, 3)
+        self.point_cloud = self.get_point_cloud(point_cloud_path)
+        # point_cloud in camera: (n, 3)
+        self.cam_point_cloud = self.get_cam_point_cloud(self.point_cloud)
+        
+        # imgfov_point_cloud : (K, 3), imgfov_points_2d : (K, 2)
+        imgfov_cam_point_cloud, imgfov_points_2d = self.get_points_in_image_fov(
+            self.cam_point_cloud, 0, 0, self.img.shape[1], self.img.shape[0], debug=debug)
+        
+        # if min_depth_filter:
+        #     imgfov_cam_point_cloud, imgfov_points_2d = self.get_min_dist_points_in_image_fov(imgfov_cam_point_cloud, imgfov_points_2d)
             
         # imgfov_points_2d : (N, 2) with (u, v) coordinate
         self.imgfov_points_2d = imgfov_points_2d
         # imgfov_point_cloud : (N, 3) with (X, Y, Z) coordinate
-        self.imgfov_point_cloud = imgfov_point_cloud
+        self.imgfov_cam_point_cloud = imgfov_cam_point_cloud
         # imgfov_depth : (N, 1)
-        self.imgfov_depth = imgfov_point_cloud[:, self.depth_column]
+        self.imgfov_depth = imgfov_cam_point_cloud[:, 2]
         
         cmap = plt.cm.get_cmap("jet", 256)
         cmap = np.array([cmap(i) for i in range(256)])[:, :3] * 255
         
+        img = self.img.copy()
         for i in range(self.imgfov_points_2d.shape[0]):
-            # ############# check lidar axis ###############
-            # depth orientation of point cloud is x (point_cloud[:, 0])
             depth = self.imgfov_depth[i]
             # set color in range from 0 to range_meter (ex. 50 m)
             color_index = int(255 * min(depth,range_meter)/range_meter)
@@ -254,6 +250,7 @@ class LiDAR2CameraKITTI(object):
                 img,(int(np.round(self.imgfov_points_2d[i, 0])), int(np.round(self.imgfov_points_2d[i, 1]))), 2,
                 color=tuple(color),
                 thickness=-1)            
+        
         return img
 ```
 
