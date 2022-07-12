@@ -227,8 +227,8 @@ class LiDAR2CameraKITTI(object):
         imgfov_cam_point_cloud, imgfov_points_2d = self.get_points_in_image_fov(
             self.cam_point_cloud, 0, 0, self.img.shape[1], self.img.shape[0], debug=debug)
         
-        # if min_depth_filter:
-        #     imgfov_cam_point_cloud, imgfov_points_2d = self.get_min_dist_points_in_image_fov(imgfov_cam_point_cloud, imgfov_points_2d)
+        if min_depth_filter:
+            imgfov_cam_point_cloud, imgfov_points_2d = self.get_min_dist_points_in_image_fov(imgfov_cam_point_cloud, imgfov_points_2d)
             
         # imgfov_points_2d : (N, 2) with (u, v) coordinate
         self.imgfov_points_2d = imgfov_points_2d
