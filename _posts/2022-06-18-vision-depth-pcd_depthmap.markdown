@@ -84,12 +84,13 @@ class LiDAR2CameraKITTI(object):
         R0 = calibs["R0_rect"]
         self.R0 = np.reshape(R0, [3, 3])
         
-        self.imgfov_points_2d = None
-        self.imgfov_cam_point_cloud = None
-        self.imgfov_depth = None
         self.img = None
         self.point_cloud = None
         self.cam_point_cloud = None
+
+        self.imgfov_points_2d = None
+        self.imgfov_cam_point_cloud = None
+        self.imgfov_depthmap = None
 
     def read_calib_file(self, filepath):
         data = {}
@@ -234,15 +235,17 @@ class LiDAR2CameraKITTI(object):
         self.imgfov_points_2d = imgfov_points_2d
         # imgfov_point_cloud : (N, 3) with (X, Y, Z) coordinate
         self.imgfov_cam_point_cloud = imgfov_cam_point_cloud
-        # imgfov_depth : (N, 1)
-        self.imgfov_depth = imgfov_cam_point_cloud[:, 2]
+        # imgfov_depthmap : (H, W)
+        self.imgfov_depthmap = np.zeros((self.img[:2]))
+        row_idx, col_idx = self.imgfov_points_2d[:, 1].astype(np.int), self.imgfov_points_2d[:, 0].astype(np.int)
+        self.imgfov_depthmap[row_idx, col_idx] = self.imgfov_points_2d[:, 2]
         
         cmap = plt.cm.get_cmap("jet", 256)
         cmap = np.array([cmap(i) for i in range(256)])[:, :3] * 255
         
         img = self.img.copy()
         for i in range(self.imgfov_points_2d.shape[0]):
-            depth = self.imgfov_depth[i]
+            depth = self.imgfov_points_2d[i, 2]
             # set color in range from 0 to range_meter (ex. 50 m)
             color_index = int(255 * min(depth,range_meter)/range_meter)
             color = cmap[color_index, :]
