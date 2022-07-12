@@ -138,6 +138,8 @@ def show_open3d_pcd(raw, show_origin=True, origin_size=10,
     print(f"z axis grid map range : {int(z_min_val)}m ~ {int(z_max_val)}m")
         
     coord = o3d.geometry.TriangleMesh().create_coordinate_frame(size=origin_size, origin=np.array([0.0, 0.0, 0.0]))
+    
+    z_min_val = min(0, z_min_val)
 
     R, G, B = 0.9, 0.9, 0.9
     lineset_yz = get_grid_lineset(z_min_val, z_max_val, y_min_val, y_max_val, 0, grid_len, [R, G, B])
