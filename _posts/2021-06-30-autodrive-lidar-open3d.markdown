@@ -107,7 +107,7 @@ def get_grid_lineset(h_min_val, h_max_val, w_min_val, w_max_val, ignore_axis, gr
 def show_open3d_pcd(raw, show_origin=True, origin_size=10, 
                     show_grid=True, grid_len=1, 
                     voxel_size=0, 
-                    range_min_xyz=(-80, -80, -10), range_max_xyz=(80, 80, 10)):
+                    range_min_xyz=(-80, -80, 0), range_max_xyz=(80, 80, 80)):
     
     pcd = o3d.geometry.PointCloud()    
     
@@ -139,6 +139,8 @@ def show_open3d_pcd(raw, show_origin=True, origin_size=10,
         
     coord = o3d.geometry.TriangleMesh().create_coordinate_frame(size=origin_size, origin=np.array([0.0, 0.0, 0.0]))
     
+    x_min_val = min(0, x_min_val)
+    y_min_val = min(0, y_min_val)
     z_min_val = min(0, z_min_val)
 
     R, G, B = 0.9, 0.9, 0.9

@@ -90,7 +90,8 @@ class LiDAR2CameraKITTI(object):
 
         self.imgfov_points_2d = None
         self.imgfov_cam_point_cloud = None
-        self.imgfov_depthmap = None
+        self.imgfov_depth = None     
+        self.imgfov_depthmap = None   
 
     def read_calib_file(self, filepath):
         data = {}
@@ -175,6 +176,7 @@ class LiDAR2CameraKITTI(object):
 
         # point cloud in camera → points in 2d image : (n, 2)
         points_2d = self.project_point_cloud_to_image(cam_point_cloud, debug)
+        points_2d = np.round(points_2d)
 
         # points index in fov
         fov_inds = (
@@ -190,7 +192,7 @@ class LiDAR2CameraKITTI(object):
         # imgfov_cam_point_cloud : (K, 3)
         imgfov_cam_point_cloud = cam_point_cloud[fov_inds, :]
         # points_2d : (K, 2)
-        imgfov_points_2d = np.round(points_2d[fov_inds, :])
+        imgfov_points_2d = points_2d[fov_inds, :]
 
         return imgfov_cam_point_cloud, imgfov_points_2d
     
@@ -214,7 +216,7 @@ class LiDAR2CameraKITTI(object):
         return imgfov_cam_point_cloud, imgfov_points_2d
         
 
-    def get_projected_image(self, image_path, point_cloud_path, range_meter=50.0, min_depth_filter=True, debug=False):
+    def get_projected_image(self, image_path, point_cloud_path, range_meter=100.0, min_depth_filter=True, debug=False):
         """ Project LiDAR points to image """        
         
         # origin img and point cloud
@@ -229,23 +231,26 @@ class LiDAR2CameraKITTI(object):
             self.cam_point_cloud, 0, 0, self.img.shape[1], self.img.shape[0], debug=debug)
         
         if min_depth_filter:
-            imgfov_cam_point_cloud, imgfov_points_2d = self.get_min_dist_points_in_image_fov(imgfov_cam_point_cloud, imgfov_points_2d)
+            imgfov_cam_point_cloud, imgfov_points_2d = self.get_min_dist_points_in_image_fov(
+                imgfov_cam_point_cloud, imgfov_points_2d)
             
         # imgfov_points_2d : (N, 2) with (u, v) coordinate
         self.imgfov_points_2d = imgfov_points_2d
         # imgfov_point_cloud : (N, 3) with (X, Y, Z) coordinate
         self.imgfov_cam_point_cloud = imgfov_cam_point_cloud
+        # imgfov_depth : (N, 1)
+        self.imgfov_depth = imgfov_cam_point_cloud[:, 2]
         # imgfov_depthmap : (H, W)
-        self.imgfov_depthmap = np.zeros((self.img[:2]))
-        row_idx, col_idx = self.imgfov_points_2d[:, 1].astype(np.int), self.imgfov_points_2d[:, 0].astype(np.int)
-        self.imgfov_depthmap[row_idx, col_idx] = self.imgfov_points_2d[:, 2]
+        self.imgfov_depthmap = np.zeros((self.img.shape[:2]))
+        row_idx, col_idx = self.imgfov_points_2d[:, 1].astype(np.int16), self.imgfov_points_2d[:, 0].astype(np.int16)
+        self.imgfov_depthmap[row_idx, col_idx] = self.imgfov_depth
         
         cmap = plt.cm.get_cmap("jet", 256)
         cmap = np.array([cmap(i) for i in range(256)])[:, :3] * 255
         
         img = self.img.copy()
         for i in range(self.imgfov_points_2d.shape[0]):
-            depth = self.imgfov_points_2d[i, 2]
+            depth = self.imgfov_depth[i]
             # set color in range from 0 to range_meter (ex. 50 m)
             color_index = int(255 * min(depth,range_meter)/range_meter)
             color = cmap[color_index, :]
