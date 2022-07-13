@@ -153,7 +153,7 @@ tags: [deep learning, focal loss] # add tag
 
 <br>
 
-- 앞에서 설명한 바와 같이 통상적으로 Background 객체의 수가 작으므로 더 낮은 Loss를 반영하기 위해 더 작은 weight를 반영하도록 하였습니다.
+- 앞에서 설명한 바와 같이 통상적으로 Background 객체의 수가 많으므로 더 낮은 Loss를 반영하기 위해 더 작은 weight를 반영하도록 하였습니다.
 - 그리고 식을 살펴보면 `Easy/Hard Example`에 대한 반영은 전혀 없는 것 또한 알 수 있습니다.
 - 따라서, `Easy/Hard Example`을 반영하기 위하여 이 글의 주제인 `Focal Loss`에 대하여 다루어 보도록 하겠습니다.
 
