@@ -82,7 +82,7 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 
 <br>
 
-- 반면 열공간은 사다리꼴행렬 $$ mathbb{R} $$ 에서 얻은 기저를 직접적으로 사용하지 않고 사다리꼴을 통해 확인할 수 있는 열공간의 기저의 위치를 확인한 후 원본 행렬 $$ A $$ 에서 기저의 위치에 해당하는 열을 가져와서 사용합니다.
+- 반면 열공간은 사다리꼴행렬 $$ \mathbb{R} $$ 에서 얻은 기저를 직접적으로 사용하지 않고 사다리꼴을 통해 확인할 수 있는 열공간의 기저의 위치를 확인한 후 원본 행렬 $$ A $$ 에서 기저의 위치에 해당하는 열을 가져와서 사용합니다.
 - 이와 같은 방법을 사용하는 이유는 기본행 연산을 통해 얻은 사다리꼴 행렬에서 열의 정보는 보존 되지 않기 때문입니다.
 
 <br>
@@ -97,7 +97,7 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 
 - $$ A = \begin{bmatrix} 1 & -3 & 2 \\ -5 & 9 & 1 \end{bmatrix} $$
 
-- $$ \Rightarrow \begin{bmatrix} 1 & -3 & 2 \\ 0 & -6 & -9 \end{bmatrix} $$
+- $$ \Rightarrow \begin{bmatrix} 1 & -3 & 2 \\ 0 & -6 & -11 \end{bmatrix} $$
 
 <br>
 
@@ -109,7 +109,7 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 
 - $$ \text{Row}(A) = \text{Span}\Biggl( \begin{bmatrix} 1 & -3 & 2 \end{bmatrix} \Biggr) $$
 
-$$ \text{Col}(A) = \text{Span}\Biggl( \begin{bmatrix} 1 \\ -5 \end{bmatrix} \Biggr) $$
+- $$ \text{Col}(A) = \text{Span}\Biggl( \begin{bmatrix} 1 \\ -5 \end{bmatrix} \Biggr) $$
 
 <br>
 
