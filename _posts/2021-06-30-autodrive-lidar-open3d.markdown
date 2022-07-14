@@ -162,7 +162,7 @@ def show_open3d_pcd(raw, show_origin=True, origin_size=10,
 
 <br>
 
-- 아래와 같이 호출하여 사용할 수 있습니다.
+- 아래와 같이 호출하여 사용할 수 있습니다. 아래 `bin` 파일은 `KITTI` 데이터셋의 포인트 클라우드 데이터이며 `bin` 형태로 저장되어 있습니다. 아래 파일을 읽으면 열 방향으로 `(X, Y, Z, Intensity)` 순서로 읽을 수 있으며 (N, 4)의 크기 행렬을 가지게 됩니다.
 
 <br>
 
