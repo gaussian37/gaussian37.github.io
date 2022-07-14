@@ -58,8 +58,8 @@ import numpy as np
 
 def get_grid_lineset(h_min_val, h_max_val, w_min_val, w_max_val, ignore_axis, grid_length, color):
     
-    num_h_grid = int(np.round((h_max_val - h_min_val) // grid_length, -1)) + 5
-    num_w_grid = int(np.round((w_max_val - w_min_val) // grid_length, -1)) + 5
+    num_h_grid = int(np.round((h_max_val - h_min_val) // grid_length, -1))
+    num_w_grid = int(np.round((w_max_val - w_min_val) // grid_length, -1))
     
     num_h_grid_mid = num_h_grid // 2
     num_w_grid_mid = num_w_grid // 2
@@ -104,11 +104,20 @@ def get_grid_lineset(h_min_val, h_max_val, w_min_val, w_max_val, ignore_axis, gr
     
     return line_set   
 
-def show_open3d_pcd(raw, show_origin=True, origin_size=10, 
+def show_open3d_pcd(raw, show_origin=True, origin_size=3, 
                     show_grid=True, grid_len=1, 
                     voxel_size=0, 
                     range_min_xyz=(-80, -80, 0), range_max_xyz=(80, 80, 80)):
-    
+    '''
+    - raw : numpy 2d array (size : (n, 3)) or o3d.geometry.PointCloud
+    - show_origin : show origin XYZ coordinate. (X=red, Y=green, Z=Blue)
+    - origin_size : size of origin coordinate.
+    - show_grid : if true, show grid in xy, yz, zx plane with 'grid_len' length (default : gray line) and 5 times of 'grid_len' (default : red line)
+    - voxel_size : voxel size to downsampling
+    - range_min_xyz : grid min range of xyz orientation
+    - range_max_xyz : grid max range of xyz orientation
+
+    '''
     pcd = o3d.geometry.PointCloud()    
     
     if isinstance(raw, type(pcd)):
@@ -125,25 +134,17 @@ def show_open3d_pcd(raw, show_origin=True, origin_size=10,
                     (pcd_point[:, 0] < range_max_xyz[0]) & \
                     (pcd_point[:, 1] < range_max_xyz[1]) & \
                     (pcd_point[:, 2] < range_max_xyz[2])    
+    
     pcd_point = pcd_point[inrange_inds]
     filtered_raw = pcd_point
     pcd.points = o3d.utility.Vector3dVector(filtered_raw)
         
-    x_min_val, x_max_val = filtered_raw[:, 0].min(), filtered_raw[:, 0].max()
-    y_min_val, y_max_val = filtered_raw[:, 1].min(), filtered_raw[:, 1].max()
-    z_min_val, z_max_val = filtered_raw[:, 2].min(), filtered_raw[:, 2].max()
+    x_min_val, y_min_val, z_min_val = range_min_xyz
+    x_max_val, y_max_val, z_max_val = range_max_xyz
     
-    print(f"x axis grid map range : {int(x_min_val)}m ~ {int(x_max_val)}m")
-    print(f"y axis grid map range : {int(y_min_val)}m ~ {int(y_max_val)}m")
-    print(f"z axis grid map range : {int(z_min_val)}m ~ {int(z_max_val)}m")
-        
     coord = o3d.geometry.TriangleMesh().create_coordinate_frame(size=origin_size, origin=np.array([0.0, 0.0, 0.0]))
     
-    x_min_val = min(0, x_min_val)
-    y_min_val = min(0, y_min_val)
-    z_min_val = min(0, z_min_val)
-
-    R, G, B = 0.9, 0.9, 0.9
+    R, G, B = 0.8, 0.8, 0.8
     lineset_yz = get_grid_lineset(z_min_val, z_max_val, y_min_val, y_max_val, 0, grid_len, [R, G, B])
     lineset_zx = get_grid_lineset(x_min_val, x_max_val, z_min_val, z_max_val, 1, grid_len, [R, G, B])
     lineset_xy = get_grid_lineset(y_min_val, y_max_val, x_min_val, x_max_val, 2, grid_len, [R, G, B]) 
@@ -169,7 +170,7 @@ def show_open3d_pcd(raw, show_origin=True, origin_size=10,
 ```python
 raw = np.fromfile("00000001.bin", dtype=np.float32).reshape((-1, 4))
 raw = raw[:, :3]
-show_open3d_pcd(raw, grid_len=1)
+show_open3d_pcd(pcd, origin_size=3, range_min_xyz=(-40, -40, -5), range_max_xyz=(40, 40, 5))
 ```
 
 <br>
@@ -178,8 +179,19 @@ show_open3d_pcd(raw, grid_len=1)
 <center><img src="../assets/img/autodrive/lidar/open3d/1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 위 그림에서 연한 회색 선은 기본 값인 1m를 나타내고 빨간색 선은 기본 값의 5배인 5m를 나타냅니다. 위 코드에서 기본값을 2m로 바꾸면 빨간색 선은 5배인 10m를 나타냅니다.
+
 <br>
-<center><img src="../assets/img/autodrive/lidar/open3d/2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/autodrive/lidar/open3d/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 위 그림에서 연한 회색 선은 기본 값인 1m를 나타내고 빨간색 선은 기본 값의 5배인 5m를 나타냅니다. 위 코드에서 기본값을 2m로 바꾸면 빨간색 선은 5배인 10m를 나타냅니다.
+- `show_open3d_pcd` 함수에서 `origin_size=3`으로 지정하였고 origin이 3m 크기로 나타난 것을 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/open3d/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `range_min_xyz=(-40, -40, -5)`, `range_max_xyz=(40, 40, 5)` 의 옵션에 따라 x, y, z 방향으로 포인트들을 필터링하고 남겨진 포인트들을 적당한 마진을 추가하여 XYZ 평면에 표시한 형태입니다.
+
+
+
