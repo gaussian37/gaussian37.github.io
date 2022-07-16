@@ -19,6 +19,10 @@ tags: [Multiple View Geometry] # add tag
 
 <br>
 
+- 이번 글에서는 **Rigid body motion and 3D projective geometry** 내용의 강의를 듣고 정리해 보도록 하겠습니다.
+
+<br>
+
 
 
 <br>
