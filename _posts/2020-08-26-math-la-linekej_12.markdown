@@ -310,7 +310,7 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 
 <br>
 
-- $$ \text{Null}(A) = \begin{bmatrix} x_{1} \\ x_{2} \\ x_{3} \\ x_{4} \\ x_{5} \end{bmatrix} \vert \begin{bmatrix} x_{1} = -4a-2b \\ x_{2} = a \\ x_{3} b \\ x_{4} b \\ x_{5} 0 \end{bmatrix} = \left\{ a \begin{bmatrix} -4 \\ 1 \\ 0 \\ 0 \\ 0 \end{bmatrix} + b \begin{bmatrix} -2 \\ 0 \\ 1 \\ 1 \\ 0 \end{bmatrix} \vert a, b \in R \right\} \tag{35} $$
+- $$ \text{Null}(A) = \left\{ \begin{bmatrix} x_{1} \\ x_{2} \\ x_{3} \\ x_{4} \\ x_{5} \end{bmatrix} \vert \begin{bmatrix} x_{1} = -4a-2b \\ x_{2} = a \\ x_{3} b \\ x_{4} b \\ x_{5} 0 \end{bmatrix} \right\}= \left\{ a \begin{bmatrix} -4 \\ 1 \\ 0 \\ 0 \\ 0 \end{bmatrix} + b \begin{bmatrix} -2 \\ 0 \\ 1 \\ 1 \\ 0 \end{bmatrix} \vert a, b \in R \right\} \tag{35} $$
 
 <br>
 
