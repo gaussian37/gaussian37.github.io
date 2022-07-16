@@ -224,10 +224,6 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 <br>
 
 
-
-
-<br>
-
 ## **계수(Rank)의 정의**
 
 <br>
@@ -239,6 +235,92 @@ tags: [Linear algebra, 행공간, 열공간, 영공간, row space, column space,
 - ① $$ \text{rank}(A) $$ 는 사다리꼴 행렬에서 `pivot`의 갯수와 같다.
 - ② $$ \text{rank}(A) + \text{dim}(\text{Null}(A)) = n $$
 - ③ $$ \text{rank}(A) = \text{dim}(\text{Col}(A)) = \text{dim}(\text{Row}(A)) $$
+
+<br>
+
+- ② 에서 $$ \text{rank}(A) $$ 에서는 선행 변수의 갯수를 구할 수 있고 $$ \text{dim}(\text{Null}(A)) $$ 에서는 자유 변수의 갯수를 구할 수 있습니다. 이 두가지 변수를 합하면 전체 변수의 갯수를 구할 수 있습니다. 이를 `계수 정리`라고 합니다.
+
+<br>
+
+- 다음 예제를 통하여 `행공간의 기저`, `열공간의 기저`, `행렬의 계수`, `영공간의 기저` 를 구해보도록 하겠습니다.
+
+<br>
+
+- $$ A = \begin{bmatrix} 1 & 4 & 0 & 2 & -1 \\ 3 & 12 & 1  & 5 & 5 \\ 2 & 8 & 1 & 3 & 2 \\ 5 & 20 & 2 & 8 & 8 \end{bmatrix}  \tag{25} $$
+
+<br>
+
+- 위 식 (25)를 사다리꼴 행렬로 변경해 보도록 하겠습니다.
+
+<br>
+
+- $$ A \Rightarrow \begin{bmatrix} 1 & 4 & 0 & 2 & -1 \\ 0 & 0 & 1  & -1 & 8 \\ 0 & 0 & 1 & -1 & 4 \\ 0 & 0 & 2 & -2 & 13 \end{bmatrix} \tag{26} $$
+
+- $$ \Rightarrow  \begin{bmatrix} 1 & 4 & 0 & 2 & -1 \\ 0 & 0 & 1  & -1 & 8 \\ 0 & 0 & 0 & 0 & -4 \\ 0 & 0 & 0 & 0 & -3 \end{bmatrix} \tag{27} $$
+
+- $$ \Rightarrow  \begin{bmatrix} 1 & 4 & 0 & 2 & -1 \\ 0 & 0 & 1  & -1 & 8 \\ 0 & 0 & 0 & 0 & -4 \\ 0 & 0 & 0 & 0 & 0 \end{bmatrix} = \mathbb{R} \tag{28} $$
+
+<br>
+
+- 식 (28)을 통하여 확인하였을 때, `pivot`은 1, 2, 3 행에 존재하고 1, 3, 5 열에 존재합니다.
+
+<br>
+
+- `행공간의 기저`를 구하기 위하여 식 (28) 의 $$ \mathbb{R} $$ 에서 기저를 구하면 다음과 같습니다.
+
+<br>
+
+- $$ \text{Row}(A) = \text{Span}\Biggl( \begin{bmatrix} 1 & 4 & 0 & 2 & -1 \end{bmatrix}, \begin{bmatrix} 0 & 0 & 1 & -1 & 8 \end{bmatrix}, \begin{bmatrix} 0 & 0 & 0 & 0 & -4 \end{bmatrix} \Biggr) \tag{29} $$
+
+<br>
+
+- `열공간의 기저`는 앞선 설명에 따라 식 (28)의 피벗에 해당하는 열인 1, 3, 5 열을 식 (25)의 $$ A $$ 행렬에서 구합니다.
+
+<br>
+
+- $$ \text{Col}(A) = \text{Span}\Biggl( \begin{bmatrix} 1 \\ 3 \\ 2 \\ 5 \end{bmatrix}, \begin{bmatrix} 0 \\ 1 \\ 1 \\ 2 \end{bmatrix}, \begin{bmatrix} -1 \\ 5 \\ 2 \\ 8 \end{bmatrix} \Biggr) \tag{30} $$
+
+<br>
+
+- 따라서 `행렬의 계수`는 $$ rank(A) = 3 $$ 임을 알 수 있습니다.
+
+<br>
+
+- 다음으로 `영공간의 기저`를 구해보도록 하겠습니다. 행렬의 계수가 3이므로 영공간의 기저는 2개임을 알 수 있습니다.
+
+<br>
+
+- 식 (28)의 $$ \mathbb{R} $$ 을 이용하여 $$ \mathbb{R}x = 0 $$ 을 전개하면 다음과 같습니다.
+
+<br>
+
+- $$ x_{1} + 4x_{2} + 2x_{4} - x_{5} = 0 \tag{31} $$
+
+- $$ x_{3} - x_{4} + 8x_{5} = 0 \tag{32} $$
+
+- $$ -4x_{5} = 0 \tag{33} $$
+
+<br>
+
+- 식 (31), (32), (33) 을 풀면 다음과 같습니다.
+
+<br>
+
+- $$ \begin{bmatrix} x_{1} \\ x_{2} \\ x_{3} \\ x_{4} \\ x_{5} \end{bmatrix} = \begin{bmatrix} -4a-2b \\ a \\ b \\ b \\ 0 \end{bmatrix} \tag{34} $$
+
+<br>
+
+- $$ \text{Null}(A) = \begin{bmatrix} x_{1} \\ x_{2} \\ x_{3} \\ x_{4} \\ x_{5} \end{bmatrix} \vert \begin{bmatrix} x_{1} = -4a-2b \\ x_{2} = a \\ x_{3} b \\ x_{4} b \\ x_{5} 0 \end{bmatrix} = \left\{ a \begin{bmatrix} -4 \\ 1 \\ 0 \\ 0 \\ 0 \end{bmatrix} + b \begin{bmatrix} -2 \\ 0 \\ 1 \\ 1 \\ 0 \end{bmatrix} \vert a, b \in R \right\} \tag{35} $$
+
+<br>
+
+- 따라서 `영공간의 기저`는 다음과 같이 정리 됩니다.
+
+<br>
+
+- $$ \text{Null}(A) = \text{Span}\Biggl( \begin{bmatrix} -4 \\ 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}, \begin{bmatrix} -2 \\ 0 \\ 1 \\ 1 \\ 0 \end{bmatrix}) \tag{36} $$
+
+<br>
 
 <br>
 
