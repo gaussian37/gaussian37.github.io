@@ -23,6 +23,26 @@ tags: [Multiple View Geometry] # add tag
 
 <br>
 
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/p05akAOSrUA" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+
+<br>
+
+- 지금 부터는 **Rigid body motion and 3D projective geometry** 강의의 후반부로 3차원 공간 상에서의 geometry에 대한 내용을 살펴보도록 하겠습니다.
+
+<br>
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/wpqTPTQcNAM" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+
+<br>
+
+
+
 
 
 <br>

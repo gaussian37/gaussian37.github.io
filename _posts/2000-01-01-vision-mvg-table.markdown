@@ -33,7 +33,7 @@ tags: [vision, Multiple View Geometry] # add tag
 <br>
 
 - [1. Introduction - a Tour of Multiple View Geometry]()
-- [2. Projective Geometry and Transformations of 2D](https://gaussian37.github.io/vision-mvg-2_projective_geometry_and_transformations_of_2d/)
+- [2. Projective Geometry and Transformations of 2D]()
 - [3. Projective Geometry adn Transformations of 3D]()
 - [4. Estimation - 2D Projective Transformations]()
 - [5. Algorithm Evaluation and Error Analysis]()

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: ImVoxelNet, Image to Voxels Projection for Monocular and Multi-View General-Purpose 3D Object Detection
-date: 2022-05-18 00:00:00
+date: 2022-03-18 00:00:00
 img: vision/fusion/imvoxelnet/0.png
 categories: [vision-fusion] 
 tags: [vision, detection, fusion, ImVoxelNet, Multi-View] # add tag

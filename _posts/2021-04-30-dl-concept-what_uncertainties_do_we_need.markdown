@@ -13,6 +13,11 @@ tags: [deep learning, uncertainty, what uncertainty do we need] # add tag
 
 <br>
 
+- 논문 : https://arxiv.org/abs/1703.04977?context=cs
+- 참조 : https://youtu.be/d7y42HfE6uI?list=PL-AYo7WyW9XdNfnXcBX0Dp8pE8y1BCtGu
+
+<br>
+
 - 이번 글에서는 Computer Vision의 `Semantic Segmentation`과 `Depth Estimation`을 이용하여 Computer Vision에서 다루는 `uncertainty`에 대한 개념을 다른 논문인 **What Uncertainties Do We Need in Bayesian DeepLearning for Computer Vision** 에 대한 리뷰를 진행해 보도록 하겠습니다.
 
 <br>
