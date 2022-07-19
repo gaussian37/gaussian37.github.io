@@ -9,7 +9,7 @@ tags: [vision, depth estimation, 뎁스 추정] # add tag
 
 <br>
 
-- https://github.com/paprrik/awesome-Monocular-Depth-Estimation
+- 논문 리스트 : https://github.com/paprrik/awesome-Monocular-Depth-Estimation
 
 <br>
 
@@ -18,7 +18,9 @@ tags: [vision, depth estimation, 뎁스 추정] # add tag
 <br>
 
 - [Unsupervised Learning of Depth and Ego-Motion from Video]()
-- [Digging Into Self-Supervised Monocular Depth Estimation]()
+- [Unsupervised Monocular Depth Estimation with Left-Right Consistency](https://gaussian37.github.io/vision-depth-monodepth1/)
+- [Digging Into Self-Supervised Monocular Depth Estimation](https://gaussian37.github.io/vision-depth-monodepth2/)
+- [Depth Prediction Without the Sensors: Leveraging Structure for Unsupervised Learning from Monocular Videos]()
 - [Depth from Videos in the Wild: Unsupervised Monocular Depth Learning from Unknown Cameras]()
 - [3D Packing for Self-Supervised Monocular Depth Estimation]()
 - [Self-Supervised Monocular Depth Estimation Solving the Dynamic Object Problem by Semantic Guidance]()
@@ -40,6 +42,10 @@ tags: [vision, depth estimation, 뎁스 추정] # add tag
 
 - [Non-Local Spatial Propagation Network for Depth Completion]()
 - [PENet: Towards Precise and Efficient Image Guided Depth Completion]()
+
+<br>
+
+## **ETC**
 
 <br>
 
