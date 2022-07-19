@@ -26,12 +26,12 @@ tags: [라이다, pptk, 포인트 클라우드] # add tag
 
 <br>
 
-- ### pptk를 통해 포인트 클라우드를 읽고 시각화 
-- ### pptk의 기본 마우스 및 키보드 조작방법
+- ### [pptk를 통해 포인트 클라우드를 읽고 시각화](#pptk를-통해-포인트-클라우드를-읽고-시각화-1)
+- ### [pptk의 기본 마우스 및 키보드 조작방법](#pptk의-기본-마우스-및-키보드-조작방법-1)
 
 <br>
 
-## **pptk를 통해 포인트 클라우드를 읽고 시각화 **
+## **pptk를 통해 포인트 클라우드를 읽고 시각화**
 
 <br>
 
@@ -167,4 +167,111 @@ v_selected = pptk.viewer(selected_points)
 <br>
 
 - 선택된 노란색 영역의 점들만 추출되어 표시된 것을 확인할 수 있습니다. viewer에서는 2차원 사각형을 드래그해서 선택하기 때문에 그 2차원 사각형에 대응되는 3차원 정보의 모든 점들이 선택되는 것을 알 수 있습니다.
+
+<br>
+
+#### **pptk 기본 view 관점 조작 기능**
+
+<br>
+
+- 아래는 pptk의 viewer에서 기본적으로 제공하는 view의 관점 (viewpoint)을 변경하는 기능입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/pptk/7.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 먼저 키보드의 1을 눌렀을 때 기능을 살펴보겠습니다. 
+
+<br>
+
+```python
+import numpy as np
+import pptk
+
+# generate random points
+x = np.random.rand(10000, 3)
+
+# visualize points
+# input type is numpy with (N, 3) size
+v = pptk.viewer(x, x[:, 1])
+```
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/pptk/8.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 키보드 1번을 누르면 `+y` 방향으로 `XZ` 평면을 보여줍니다. 위 코드에서 `pptk.viewer(x, x[:, 1])`의 `x[:, 1]`을 통해 y 방향의 크기에 따라 색을 다르게 표시하였고 y 값이 커질수록 빨간색, 작아질수록 파란색에 가까워집니다.
+- `+y` 방향으로 `XZ` 평면을 보았기 때문에 y값이 작은 점이 가장 가깝에 표현되고 y값이 큰 점일 수록 사용자에서 거리가 먼 쪽에 위치되어 보이게 됩니다. (모니터 안쪽 방향으로 점점 증가하는 방향)
+- 위 그림은 왼쪽 부터 실행된 기본 뷰, 키보드 1번을 눌러서 `XZ` 평면으로 보인 뷰, `+y` 축 방향인 지 확인하기 위해 손으로 움직인 뷰가 됩니다. (아래 뷰의 예시도 동일하게 진행하겠습니다.)
+
+<br>
+
+- 다음으로 키보드 3을 눌렀을 때 기능을 살펴보겠습니다.
+
+<br>
+
+```python
+import numpy as np
+import pptk
+
+# generate random points
+x = np.random.rand(10000, 3)
+
+# visualize points
+# input type is numpy with (N, 3) size
+v = pptk.viewer(x, x[:, 0])
+```
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/pptk/9.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 키보드 3을 눌렀을 때에는 `-x` 방향으로 모니터 안쪽으로 점점 감소하는 방향으로 보이게 되는 `YZ` 평면을 확인할 수 있습니다.
+
+<br>
+
+```python
+import numpy as np
+import pptk
+
+# generate random points
+x = np.random.rand(10000, 3)
+
+# visualize points
+# input type is numpy with (N, 3) size
+v = pptk.viewer(x, x[:, 2])
+```
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/pptk/10.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 키보드 7을 누르면 `-z` 방향으로 모니터 안쪽으로 점점 감소하는 방향으로 보이게 되는 `XY` 평면을 확인할 수 있습니다. 일반적으로 전체 형상을 확인하기 위해 많이 사용 하는 뷰입니다.
+
+<br>
+
+- 키보드에서 `C`를 누르면 모든 포인트들의 X, Y, Z 값의 평균에 해당하는 위치로 `RGB 축`을 변경합니다. 이는 기본값에 해당하며 만약 `RGB 축`을 옮겼을 경우 원상 복귀를 위하여 사용할 수 있습니다.
+
+<br>
+
+- 필요에 따라서 RGB 축을 원점으로 옮겨야 할 경우도 있습니다. 아래 코드와 같이 `v.set(lookat=(0, 0, 0)`으로 두면 됩니다. 아쉽게도 이러한 셋팅을 했음에도 불구하고 축을 돌리다 보면 이전 셋팅으로 복귀되는 버그가 종종 발생하곤 합니다. 구글링하면 유사한 문제의 글들이 확인되나 아직 고쳐지지 않은 것 같습니다. 그 점 고려하여 사용하면 다음과 같이 사용할 수 있습니다.
+
+<br>
+
+```python
+import numpy as np
+import pptk
+
+# generate random points
+x = np.random.rand(10000, 3)
+
+# visualize points
+# input type is numpy with (N, 3) size
+v = pptk.viewer(x)
+v.set(lookat=(0, 0, 0))
+```
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/pptk/11.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
 
