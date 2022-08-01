@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Unsupervised Monocular Depth Estimation with Left-Right Consistency (monodepth1)
+title: Monodepth 1 (Unsupervised Monocular Depth Estimation with Left-Right Consistency )
 date: 2021-06-01 00:00:00
 img: vision/depth/monodepth1/0.png
 categories: [vision-depth] 
-tags: [depth estimation, monodepth1] # add tag
+tags: [depth estimation, monodepth1, 모노 뎁스 1] # add tag
 ---
 
 <br>

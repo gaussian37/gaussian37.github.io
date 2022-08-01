@@ -13,6 +13,8 @@ tags: [machine learning, probability model, variational inference, variational a
 
 <br>
 
+- 참조 : https://hyeongminlee.github.io/post/bnn003_vi/
+
 
 
 <br>

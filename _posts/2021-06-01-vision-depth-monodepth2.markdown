@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Digging Into Self-Supervised Monocular Depth Estimation (monodepth2)
+title: Monodepth 2 (Digging Into Self-Supervised Monocular Depth Estimation )
 date: 2021-06-01 00:00:00
 img: vision/depth/monodepth2/0.png
 categories: [vision-depth] 
-tags: [depth estimation, monodepth2] # add tag
+tags: [depth estimation, monodepth2, 모노 뎁스 2] # add tag
 ---
 
 <br>
@@ -20,6 +20,7 @@ tags: [depth estimation, monodepth2] # add tag
 <br>
 
 - 이번 글은 `monodepth2`에 대한 내용으로 `monodepth1`에서 사용한 Left Right Consistency를 위한 스테레오 카메라의 학습 데이터 문제를 개선하여 동일한 시점의 left, right 영상이 아닌 **연속된 단안 카메라 이미지 ($$ I_{t-1}, I_{t}, I_{t+1} $$) 3장을 이용하여 딥러닝 모델을 학습**하여 단안 카메라의 깊이를 추정 하는 내용의 논문 리뷰 입니다.
+- 현재 단안 카메라를 이용하여 `Self-supervised` 방식으로 depth를 추정하는 많은 방식들이 다루어 지고 있고 그 모델들의 기본이 되는 모델 중 하나가 monodepth2이며 코드 공개와 방법이 자세히 설명되어 있는 몇 안되는 모델 중 하나로 이번 글을 통하여 내용을 깊게 확인해 보고자 합니다.
 
 <br>
 
@@ -96,38 +97,83 @@ tags: [depth estimation, monodepth2] # add tag
 
 <br>
 
-- 여기 까지 `monodepth2` 논문의 대략적인 방법론에 대하여 살펴보았습니다. 지금부터 
+- 여기 까지 `monodepth2` 논문의 대략적인 방법론에 대하여 살펴보았습니다. 그러면 논문 내용을 차례대로 살펴보도록 하겠습니다.
 
 <br>
 
-## **. Introduction**
-## **. Related Work**
-## **. Method**
-## **. Experiments**
-## **. Conclusion**
-## **. Supplementary Material**
-## **ytorch Code**
-
-
-
-
-- 내가 설명할 최첨단 방법은 깊이를 측정하기 위해 한 프레임에서 다음 프레임으로 픽셀의 불일치 또는 차이를 사용하는 감독되지 않은 딥 러닝 접근 방식입니다.
+## **Abstract**
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- 픽셀 단위로 깊이 정보를 가진 정답 데이터를 얻는 것은 굉장히 어려우므로 이러한 한계를 극복하기 위하여 `self-supervised` 방식 즉, 정답 데이터가 없는 unsupervised 방식의 학습 방식이 많이 연구가 되고 있습니다.
+- 이번 글에서 다루는 monodepth2는 self-supervised 방식의 깊이 추정 방식의 모델이며 정성 및 정량 모두에서 기존의 다른 모델에 비해 개선된 성능을 보였다는 점에서 의의가 있습니다.
+- 기존의 self-supervised 기반의 깊이 추정을 위해서는 복잡한 모델 구조와 Loss 함수 그리고 disparity를 구하기 위한 이미지 생성 모델이 필요한데 monodepth2에서는 이러한 구조를 단순화 시킨 것에 의의가 있으며 성능 개선을 한 주요 내용은 크게 아래 3가지와 같습니다.
+- ① `minimum reprojection loss`: 기존의 average reprojection loss를 단순히 minimum으로 바꿈으로써 연속된 Frame 간 occlusion이 발생하더라도 강건해질 수 있도록 구조를 변경하였습니다.
+- ② `full-resolution multi-scale sampling method` : depth estimation 결과에서 [visual artifact](https://www.howtogeek.com/740279/what-are-visual-artifacts/)와 같은 현상으로 depth 결과가 나타나는 데 이러한 문제를 개선하기 위하여 multi-scale에서 depth 정보를 추출할 수 있도록 하는 구조를 도입하였습니다.
+- ③ `auto-masking loss` : disparity를 구하기 위해 카메라 pose를 예측할 때, 전제 조건은 카메라는 프레임 간 이동이 발생하지만 그 이외의 물체는 정지되어 있어야 한다는 점입니다. 이러한 전제 조건의 위배되는 경우 중 하나가 카메라의 이동이 발생하지 않아서 물체가 완전히 정지되어 있는 경우입니다. 이와 같은 경우에는 diparity를 구할 수가 없기 때문에 Frame간 변화가 나타나지 않은 경우 필터링하여 학습하지 않도록 하는 방법을 도입하였습니다.
+
+<br>
+
+## **1. Introduction**
+
+<br>
+
+- monodepth2에서는 Monocular video를 입력으로 사용한 경우와 stereo image pair를 입력으로 사용한 경우 2가지에 대한 실험이 있으나 Monocular video를 입력으로 사용한 경우에만 집중해서 이 글을 다룰 예정입니다.
+
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+- 일반적으로 깊이는 스테레오 카메라의 두 영상의 `triangulation`을 통하여 추정하게 되지만 본 글에서는 단일 컬러 이미지로 부터 깊이를 추정하는 것을 학습하고자 합니다.
+- 라이다 센서 없이 컬러 이미지로 부터 깊이를 추정할 수 있으면 사용처가 다양하며 특히 큰 볼륨의 라벨링이 없는 이미지 데이터셋으로 부터 깊이를 학습하는 것은 데이터 준비 측면에서 굉장히 효율적인 방법입니다.
+- 따라서 현실적으로 대량의 데이터 셋을 구하기 어려운 깊이에 대한 정답 데이터를 구하는 대신에 `self-supervised` 방식의 접근 방법이 연구되고 있고 그 방법은 `stereo pairs` 또는 `monocular video`를 이용하는 방법이 있습니다.
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/3.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- `stereo pair`, `monocular video` 2가지 방식 중에서 `monocular video` 방식은 단안 카메라 하나를 통해서 학습 데이터를 만들 수 있어서 데이터 준비 측면에서 더 쉬운 방식이며 센서를 구성하기도 쉽습니다. 하지만 Frame 간 자차 이동 발생 (ego motion) 정도를 알 수 있어야 학습 시 고려할 수 있습니다. 따라서 `pose estimation network`를 통하여 ego motion을 예측해야 합니다.
+- `pose estimation`은 연속적인 frame을 입력으로 받고 frame 간 이동된 카메라의 Rotation, Translation을 반영한 transformation matrix를 출력합니다.
+
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/4.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+- 앞에서 다룬 바와 같이 self-supervised 학습 방식을 잘 적용하기 위하여 크게 3가지 loss를 추가하여 사용 하였습니다.
+- `novel appearance matching loss` : monocular video에서 Frame 간 물체가 가려지는 문제를 다루기 위해 도입되었습니다.
+- `auto masking` : frame간 움직임이 있어야 disparity를 구할 수 있는데 frame 간 움직임이 없는 경우 이를 필터링 하기 위한 masking 기법입니다.
+- `multi-scale appearance matching loss` : 입력 이미지의 다양한 스케일 (1배, 1/2배, 1/4배, 1/8배)에서 각각 깊이를 추정하여 학습함으로써 다양한 해상도의 깊이를 학습함을 통해 visual artifact 문제를 개선할 수 있었습니다.
+- 이러한 기법을 모두 이용하여 self-supervised 방식의 모델 중에서 좋은 성과를 낼 수 있었습니다.
+
+<br>
+
+## **2. Related Work**
+
+<br>
+
+
+
+<br>
+
+## **3. Method**
+
+## **4. Experiments**
+
+## **5. Conclusion**
+
+## **6. Supplementary Material**
+
+<br>
+
+
+
+
+
+
+
+
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/5.png" alt="Drawing" style="width: 600px;"/></center>
@@ -225,8 +271,30 @@ tags: [depth estimation, monodepth2] # add tag
 <center><img src="../assets/img/vision/depth/monodepth2/fig5.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+<br>
+
+## **Pytorch Code**
+
+<br>
+
+- 지금부터 `monodepth2`의 깃헙 코드에 대한 설명을 해보도록 하겠습니다.
+
+<br>
+
+- 링크 : https://github.com/nianticlabs/monodepth2
+
+<br>
+
+- `monodepth2`의 코드는 `trainer.py`에 해당하는 코드 내용을 이해하면 전반적으로 이해할 수 있습니다. 아래 코드의 설명은 몇가지 조건을 정하여 코드를 설명하며 불필요한 부분은 제거하였습니다.
+- 아래 코드 조건은 stereo가 아닌 단안 (mono) 카메라를 통해 얻은 비디오 영상을 이용하여 연속하는 3개의 프레임 ( $$ I_{t-1}, I_{t}, I_{t+1} $$ ) 을 이용하는 옵션을 적용하였으며 추가적으로 라이다 데이터가 있다면 학습에 사용할 수 있도록 코드를 추가하였습니다. (라이다 데이터가 없으면 연속된 프레임으로만 학습합니다.)
+- 논문에 따라서 Depth Estimation 모델의 Encoder와 Pose Network의 Encoder를 별도로 분리하는 경우 더 좋은 성능이 있기 때문에 Encoder를 분리하였습니다.
+
+<br>
+
+```python
 
 
+```
 
 
 
