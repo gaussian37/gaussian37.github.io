@@ -153,28 +153,6 @@ tags: [depth estimation, monodepth2, 모노 뎁스 2] # add tag
 
 <br>
 
-
-
-<br>
-
-## **3. Method**
-
-## **4. Experiments**
-
-## **5. Conclusion**
-
-## **6. Supplementary Material**
-
-<br>
-
-
-
-
-
-
-
-
-
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/5.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
@@ -200,16 +178,51 @@ tags: [depth estimation, monodepth2, 모노 뎁스 2] # add tag
 <br>
 
 <br>
+
+## **3. Method**
+
+<br>
 <center><img src="../assets/img/vision/depth/monodepth2/11.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+- 이번 절에서는 monodepth2에서는 깊이를 추정하는 네트워크가 컬러 이미지 $$ I_{t} $$ 를 입력 받아서 depth map $$ D_{t} $$ 를 출력하는 지 방법에 대하여 다루어 보도록 하겠습니다.
+- 관련 내용으로는 뎁스 추정을 위한 네트워크와 Self-Supervised로 학습하기 위한 Loss가 이에 해당합니다.
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/12.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- Self-Supervised 방식은 전통적으로 사용하는 Disparity를 구하는 방식을 딥러닝을 이용하는 방식입니다. Disparity를 구하기 위해서는 동일한 Scene에 대하여 2개의 View에 해당하는 이미지가 필요합니다. 
+- 따라서 monodepth2에서는 앞에서 설명한 바와 같이 `monocular video`를 이용하여 같은 Scene에 대하여 2개의 View를 구할 것입니다. 기준이 $$ I_{t} $$ 라고 하면 $$ I_{t-1} $$ 또는 $$ I_{t+1} $$ 를 이용하여 $$ I_{t} $$ Scene에 해당하는 영상을 네트워크 학습을 통하여 예측합니다.
+- 따라서 네트워크는 학습 파라미터를 이용하여 타겟 이미지인 $$ I_{t} $$ 시점의 Scene을 다른 시점의 이미지로 부터 생성하여 disparity 및 depth를 구하게 됩니다.
+
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/13.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+- 따라서 disparity를 구하여 Depth를 추정하기 위하여 $$ I_{t-1} $$, $$ I_{t+1} $$ 이미지를 $$ I_{t} $$ 의 Scene으로 가능한한 유사하게 `reprojection`을 합니다. 
+- 즉, $$ t-1 \to t $$, $$ t \to t+1 $$ 로 바뀜에 따라서 카메라의 위치도 바뀌게 되는데, `Pose Network` 라는 별도의 딥러닝 네트워크를 이용하여 서로 다른 시점의 ($$ t $$ 와 $$ t-1 $$ 또는 $$ t $$ 와 $$ t+1 $$) 영상을 **같은 시점( $$ t $$ ) 으로 카메라 위치를 맞추는 Rotation 및 Translation 행렬을 예측하는 방법을 사용**합니다. 
+- 따라서 Pose Network를 통해 구한 R,t 행렬을 이용하여 $$ I_{t-1} \to I_{t} $$ 로 변환하거나 $$ I_{t+1} \to I_{t} $$ 로 변환합니다. 이와 같은 작업을 `reprojection` 이라고 합니다.
+- 위 식 (1)을 살펴보면 다음과 같습니다.
+
+<br>
+
+- $$ L_{p} = \sum_{t'} \text{pe}(I_{t}, I_{t'\to t}) \tag{1} $$
+
+<br>
+
+- 여기서 $$ L_{p} $$ 는 `photometric reprojection error`라고 하며 `pe`는 `photometric reconstruction error`를 줄인말입니다. `pe`는 즉, 두 이미지가 얼만큼 다른 지 error를 구하는 것이고 $$ t' $$ 즉, $$ t-1, t+1 $$ 2가지 경우에 대하여 `pe`를 구하였을 때 error의 총합을 $$ L_{p} $$ 로 나타냅니다. monodepth2에서 `pe`는 L1 Loss를 사용합니다.
+
+<br>
+
+- $$ I_{t' \to t} = I_{t'}<\text{proj}(D_{t}, T_{t \to t'}, K)> \tag{2} $$
+
+<br>
+
+- 식 (2)는 이미지를 어떻게 $$ t' \to t $$ 로 시점을 변환하는 지 나타냅니다. 실제 코드를 살펴보면 다음과 같은 절차를 따릅니다.
+- ① $$ I_{t}, I_{t'} $$ 를 이용하여 Frame 간 카메라의 Rotation, Translation 관계를 나타내는 $$ T_{t \to t'} $$ 를 예측합니다.
+- ② $$ D_{t} $$ 와 intrinsic $$ K $$ 를 이용하여 depth map을 3D 포인트로 변환합니다.
+- ③ 3D 포인트를 ①에서 구한 변환 행렬을 이용하여 
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/14.png" alt="Drawing" style="width: 600px;"/></center>
@@ -270,6 +283,26 @@ tags: [depth estimation, monodepth2, 모노 뎁스 2] # add tag
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/fig5.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+<br>
+
+## **4. Experiments**
+
+## **5. Conclusion**
+
+## **6. Supplementary Material**
+
+<br>
+
+
+
+
+
+
+
+
+
+
 
 <br>
 
