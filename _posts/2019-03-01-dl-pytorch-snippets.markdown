@@ -84,6 +84,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [torch.scatter 함수 사용 예제](#torchscatter-함수-사용-예제-1)
 - ### [torch.split 함수 사용 예제](#torchsplit-함수-사용-예제-1)
 - ### [torch.nan_to_num 함수 사용 예제](#torchnan_to_num-함수-사용-예제-1)
+- ### [F.grid_sample 함수 사용 예제](#)
 
 <br>
 
@@ -3748,6 +3749,15 @@ torch.nan_to_num(x, nan = 0.0, posinf=1e10, neginf=-1e10)
 <br>
 
 - `nan`, `posinf`, `neginf`에 해당하는 값이 있을 때, 기본값으로 변환해주는 역할을 하며 변경되는 값은 함수 호출 시 파라미터를 통해 변경할 수 있습니다.
+
+<br>
+
+## **F.grid_sample 함수 사용 예제**
+
+<br>
+
+- 참조 : https://pytorch.org/docs/stable/generated/torch.nn.functional.grid_sample.html
+- 참조 : https://programmersought.com/article/95846904929/
 
 <br>
 
