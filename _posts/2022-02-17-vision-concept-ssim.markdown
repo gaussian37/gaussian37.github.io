@@ -12,6 +12,8 @@ tags: [SSIM, Structural Similarity Index] # add tag
 - 참조 : https://medium.com/srm-mic/all-about-structural-similarity-index-ssim-theory-code-in-pytorch-6551b455541e
 - 참조 : https://bskyvision.com/878
 - 참조 : https://walkaroundthedevelop.tistory.com/m/56
+- 참조 : https://nate9389.tistory.com/2067
+- 참조 : https://medium.com/@sanari85/image-reconstruction-%EC%97%90%EC%84%9C-ssim-index%EC%9D%98-%EC%9E%AC%EC%A1%B0%EB%AA%85-b3ca26434fb1
 
 <br>
 

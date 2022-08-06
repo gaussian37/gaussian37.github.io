@@ -4,7 +4,7 @@ title: Monodepth 2 (Digging Into Self-Supervised Monocular Depth Estimation )
 date: 2021-06-01 00:00:00
 img: vision/depth/monodepth2/0.png
 categories: [vision-depth] 
-tags: [depth estimation, monodepth2, 모노 뎁스 2] # add tag
+tags: [depth estimation, monodepth2, 모노 뎁스 2, 모노뎁스] # add tag
 ---
 
 <br>
@@ -220,9 +220,21 @@ tags: [depth estimation, monodepth2, 모노 뎁스 2] # add tag
 <br>
 
 - 식 (2)는 이미지를 어떻게 $$ t' \to t $$ 로 시점을 변환하는 지 나타냅니다. 실제 코드를 살펴보면 다음과 같은 절차를 따릅니다.
-- ① $$ I_{t}, I_{t'} $$ 를 이용하여 Frame 간 카메라의 Rotation, Translation 관계를 나타내는 $$ T_{t \to t'} $$ 를 예측합니다.
-- ② $$ D_{t} $$ 와 intrinsic $$ K $$ 를 이용하여 depth map을 3D 포인트로 변환합니다.
-- ③ 3D 포인트를 ①에서 구한 변환 행렬을 이용하여 
+- ① $$ D_{t} $$ 는 $$ t $$ 시점에서 $$ I_{t} $$ 를 입력으로 받은 Depth Network의 출력을 의미합니다. $$ D_{t} $$ 와 intrinsic $$ K $$ 를 이용하여 깊이 추정 결과를 3D 포인트로 변환합니다.
+- ② $$ I_{t}, I_{t'} $$ 를 이용하여 Frame 간 카메라의 Rotation, Translation 관계를 나타내는 $$ T_{t \to t'} $$ 를 예측합니다. 즉 $$ t \to t' $$ 로 카메라의 위치를 변환하는 변환 행렬을 구합니다.
+- ③ $$ t $$ 시점에서 구한 3D 포인트를 ②에서 구한 변환 행렬을 이용하여 $$ t' $$ 시점의 3D 포인트로 변환합니다.
+- ④ 변환된 $$ t' $$ 시점의 3D 포인트 (X, Y, Z)를 intrinsic $$ K $$ 를 이용하여 2D 이미지 좌표인 (u, v)로 변환합니다. 이 2D 좌표가 의미하는 것은  $$ I_{t} $$ 의 각 픽셀 좌표가 $$ I_{t'} $$ 에서 어떤 픽셀에 대응되는 지 나타냅니다. **따라서 $$ I_{t'} $$ 의 RGB 값을 예측한 2D 이미지 좌표를 이용하여 가져오면 $$ I_{t'} $$ 를 이용하여 $$ I_{t} $$ 를 복원할 수 있습니다.** 이 복원이 잘된다는 의미는 ①의 Depth Network의 출력인 Disparity (Depth)가 의미있게 출력되었다는 뜻이고 ②의 $$ T_{t \to t'} $$ 또한 의미있게 출력되었다는 뜻입니다.
+- 이와 같은 방식으로 $$ I_{t' \to t} $$ 를 추정하는 것은 **카메라의 위치만 변경되고 나머지 환경은 변하지 않았다는 가정을 두기 때문**입니다.
+
+<br>
+
+- 따라서 논문의 식 (2)를 통해 구한 $$ I_{t' \to t} $$ 와 $$ I_{t} $$ 를 논문의 식 (1)을 통해 `Loss`를 구하여 학습하면 두 값이 유사해지도록 학습됩니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/monodepth2/23.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- `photometric reprojection error`을 구하기 위한 전체 과정을 도식화 하면 위 그림과 같습니다. $$ t' $$ 가 $$ t-1, t+1 $$ 2가지 경우가 있으므로 $$ I_{t} $$ 에 대하여 $$ I_{t-1}, I_{t+1} $$ 각각에 대하여 1번씩 총 2번의 경우에 대하여 에러를 계산하여 학습합니다.
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/14.png" alt="Drawing" style="width: 600px;"/></center>
