@@ -236,10 +236,47 @@ tags: [depth estimation, monodepth2, 모노 뎁스 2, 모노뎁스] # add tag
 <br>
 
 - `photometric reprojection error`을 구하기 위한 전체 과정을 도식화 하면 위 그림과 같습니다. $$ t' $$ 가 $$ t-1, t+1 $$ 2가지 경우가 있으므로 $$ I_{t} $$ 에 대하여 $$ I_{t-1}, I_{t+1} $$ 각각에 대하여 1번씩 총 2번의 경우에 대하여 에러를 계산하여 학습합니다.
+- 이 때, $$ I_{t-1 \to t} $$ 를 생성하기 위한 `grid sampling` 연산 시 sampling 방법은 `bilinear` 방식으로 없는 픽셀에 대하여 interpolation 하여 생성하며 이와 같은 grid sampling 방식은 미분 가능하기 때문에 학습에 사용될 수 있습니다. 
+- 식 (1)의 $$ L_{p} $$ 를 구하기 위하여 미분 가능한 이미지를 비교하는 대표적인 방식인 `SSIM (Structural Similarity Index)`과 `L1` Loss를 같이 사용하였고 상대적으로 `SSIM`에 좀 더 높은 가중치를 부여하였습니다. `SSIM`의 상세 내용은 아래 링크를 참조하시기 바랍니다.
+    - `SSIM (Structural Similarity Index)` : [https://gaussian37.github.io/vision-concept-ssim/](https://gaussian37.github.io/vision-concept-ssim/)
+
+<br>
+<center><img src="../assets/img/vision/depth/monodepth2/13_1.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 식 (3)에서는 `edge-aware smootheness` Loss를 추가적으로 도입합니다. `edge-aware smootheness`는 monodepth1에서도 사용이 되었으며 사용 목적은 `이미지 변화` ( $$ \partial_{x}I_{t}, \partial_{y}I_{t} $$ )가 낮은 곳에서 `깊이 변화`가 크면 Loss를 크게 반영합니다. 즉, **이미지 변화가 작으면 깊이의 변화도 작도록 학습합니다.** 이와 같은 Loss를 추가함으로써 깊이 추정에서의 문제점 중 하나인 물체의 경계면에서의 깊이 추정 정확도를 개선합니다.
+- 식 (3)에서는 $$ d^{*}_{t} = d_{t} / \bar{d_{t}} $$ 와 같은 `normalization` 형태를 사용함으로써 학습이 잘 되도록 하였습니다. 상세 내용은 아래 코드와 같습니다.
+
+<br>
+
+```python
+def get_smooth_loss(disp, img):
+    """Computes the smoothness loss for a disparity image
+    The color image is used for edge-aware smoothness
+    """
+
+    # disparity의 x 방향 변화량 확인
+    grad_disp_x = torch.abs(disp[:, :, :, :-1] - disp[:, :, :, 1:])
+    # disparity의 y 방향 변화량 확인
+    grad_disp_y = torch.abs(disp[:, :, :-1, :] - disp[:, :, 1:, :])
+
+    # image의 x 방향 변화량 확인
+    grad_img_x = torch.mean(torch.abs(img[:, :, :, :-1] - img[:, :, :, 1:]), 1, keepdim=True)
+    # image의 y 방향 변화량 확인
+    grad_img_y = torch.mean(torch.abs(img[:, :, :-1, :] - img[:, :, 1:, :]), 1, keepdim=True)
+
+    # 이미지의 변화가 작을 때, exp 값이 크므로 disparity의 변화가 작아지도록 유도함
+    grad_disp_x *= torch.exp(-grad_img_x)
+    grad_disp_y *= torch.exp(-grad_img_y)
+
+    return grad_disp_x.mean() + grad_disp_y.mean()
+```
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/14.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+- 만약 monocular sequence를 이용하지 않고 stereo pair를 이용한다면 $$ t' $$ 가 서로 다른 시점이 아닌 같은 시점에서의 다른 카메라의 영상이 됩니다. 그 이외의 학습 방식은 Pose Network를 통해 카메라 간 포즈를 추정하여 이미지를 sampling 하여 비교하는 것은 동일합니다.
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/15.png" alt="Drawing" style="width: 600px;"/></center>
