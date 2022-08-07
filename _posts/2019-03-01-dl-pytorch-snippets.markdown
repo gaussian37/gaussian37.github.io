@@ -84,7 +84,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [torch.scatter 함수 사용 예제](#torchscatter-함수-사용-예제-1)
 - ### [torch.split 함수 사용 예제](#torchsplit-함수-사용-예제-1)
 - ### [torch.nan_to_num 함수 사용 예제](#torchnan_to_num-함수-사용-예제-1)
-- ### [F.grid_sample 함수 사용 예제](#)
+- ### [F.grid_sample 함수 사용 예제](#fgrid_sample-함수-사용-예제-1)
 
 <br>
 
@@ -3758,6 +3758,99 @@ torch.nan_to_num(x, nan = 0.0, posinf=1e10, neginf=-1e10)
 
 - 참조 : https://pytorch.org/docs/stable/generated/torch.nn.functional.grid_sample.html
 - 참조 : https://programmersought.com/article/95846904929/
+
+<br>
+
+- `grid_sample`은 `torch.nn.functional.grid_sample(input, grid, mode='bilinear', padding_mode='zeros', align_corners=None)` 와 같은 형태로 쓰이는 `sampling` 방법이며 torch에서 제공하는 bilinear interpolation과 유사한 역할을 하지만 좀 더 유연하게 sampling 할 수 있는 방법을 제공합니다.
+- pytorch의 document에서 제공하는 용어로 `grid`fmf `flow-field` 라고도 하며 `input`과 `grid`가 주어졌을 때, `grid`의 입력 값과 픽셀 위치를 사용하여 `output`을 계산하는 것으로 설명합니다.
+- `input`은 4D 또는 5D 의 차원으로 입력 받습니다. 이미지의 경우 4D가 되는데 각 인자의 크기 형태는 다음과 같습니다.
+    - `input` : $$ (N, C, H_{text{in}}, W_{text{in}}) $$
+    - `grid` : $$ (N, H_{text{out}}, W_{text{out}}, 2) $$
+    - `output` : $$ (N, C, H_{text{out}}, W_{text{out}}) $$
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/17.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 `input`의 어떤 픽셀을 이용하여 `grid`에서 정의한 (x, y) 좌표에 대응하는 값이 `output`에 대응되게 됩니다.
+- `grid`의 값은 -1 ~ 1의 사이의 소수점 값을 가지게 되고 `input`의 전체 영역을 -1 ~ 1이라고 보았을 때, 이산적인 `input`의 픽셀 값의 위치를 -1 ~ 1 사이의 연속적인 값으로 간주하고 sampling하여 output으로 출력하게 됩니다. 따라서 `grid`의 값은 -1 ~ 1 사이로 normalization을 해주어야 하며 방법은 다음과 같습니다.
+
+<br>
+
+```python
+xs /= WIDTH_SIZE - 1 
+ys /= HEIGHT_SIZE - 1
+xs = (xs - 0.5) * 2
+ys = (ys - 0.5) * 2
+```
+
+<br>
+
+- 위 방법을 통하면 좌표의 범위를 -1 ~ 1 사이로 normalization 할 수 있습니다.
+- normalized된 grid의 좌표를 이용하여 sampling은 다음과 같이 사용할 수 있습니다. 예를 들어 `input`의 사이즈가 height = 10, width = 20 이라고 하면 sampling 할 때 grid의 좌표가 (-1, -1)이면 input의 (0, 0)의 RGB를 가져오게 되고 grid의 좌표가 (1, 1)이라면 input의 (9, 19)의 RGB 를 가져오게 됩니다. grid의 좌표가 (0, 0)이면 input의 (4.5, 9.5)의 픽셀을 가져오게 됩니다. 하지만 소수점의 픽셀은 없기 때문에 `interpolation`을 하여 `input`에서 grid의 좌표에 맞는 RGB 값을 가져옵니다. 이와 같은 방법으로 `sampling` 하는 것을 `grid sampling`이라고 합니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/18.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 그림으로 나타내면 위와 같습니다. 위 그림의 Low Resolution이 Input이고 Flow Field가 Grid 좌표가 됩니다. 이와 같이 Flow Field라고 나타내는 이유는 Optical Flow에서 이와 같은 형태로 sampling 하여 사용하기 때문에 이와 같은 용어를 차용하였습니다.
+
+<br>
+
+```python
+in_data = torch.arange(4*4).view(1, 1, 4, 4).float()
+print(in_data)
+# tensor([[[[ 0.,  1.,  2.,  3.],
+#           [ 4.,  5.,  6.,  7.],
+#           [ 8.,  9., 10., 11.],
+#           [12., 13., 14., 15.]]]])
+
+d = torch.linspace(-1, 1, 4)
+meshx, meshy = torch.meshgrid((d, d))
+grid = torch.stack((meshy, meshx), 2)
+grid = grid.unsqueeze(0)
+print(grid.shape)
+# torch.Size([1, 4, 4, 2])
+print(grid)
+# tensor([[[[-1.0000, -1.0000],
+#           [-0.3333, -1.0000],
+#           [ 0.3333, -1.0000],
+#           [ 1.0000, -1.0000]],
+
+#          [[-1.0000, -0.3333],
+#           [-0.3333, -0.3333],
+#           [ 0.3333, -0.3333],
+#           [ 1.0000, -0.3333]],
+
+#          [[-1.0000,  0.3333],
+#           [-0.3333,  0.3333],
+#           [ 0.3333,  0.3333],
+#           [ 1.0000,  0.3333]],
+
+#          [[-1.0000,  1.0000],
+#           [-0.3333,  1.0000],
+#           [ 0.3333,  1.0000],
+#           [ 1.0000,  1.0000]]]])
+
+output1 = torch.nn.functional.grid_sample(in_data, grid)
+print(output1)
+# tensor([[[[ 0.0000,  0.4167,  1.0833,  0.7500],
+#           [ 1.6667,  4.1667,  5.5000,  3.1667],
+#           [ 4.3333,  9.5000, 10.8333,  5.8333],
+#           [ 3.0000,  6.4167,  7.0833,  3.7500]]]])
+
+output2 = torch.nn.functional.grid_sample(in_data, grid, align_corners=True)
+print(output2)
+# tensor([[[[ 0.0000,  1.0000,  2.0000,  3.0000],
+#           [ 4.0000,  5.0000,  6.0000,  7.0000],
+#           [ 8.0000,  9.0000, 10.0000, 11.0000],
+#           [12.0000, 13.0000, 14.0000, 15.0000]]]])
+
+```
+
+<br>
+
+- `align corner`가 True인 경우에는 `input`의 크기에 딱 맞게 sampling이 되는 것을 볼 수 있습니다. 반면 `align corner`가 False인 경우에는 약간 값이 이상하게 sampling이 되는데 그 이유에 대하여 살펴보겠습니다.
 
 <br>
 
