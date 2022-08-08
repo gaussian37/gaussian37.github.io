@@ -282,7 +282,7 @@ def get_smooth_loss(disp, img):
 <center><img src="../assets/img/vision/depth/monodepth2/15.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 
+- 지금까지 설명한 Loss를 통하여 Self-Supervised 방식으로 
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/16.png" alt="Drawing" style="width: 600px;"/></center>
