@@ -276,11 +276,13 @@ def get_smooth_loss(disp, img):
 <center><img src="../assets/img/vision/depth/monodepth2/14.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 만약 monocular sequence를 이용하지 않고 stereo pair를 이용한다면 $$ t' $$ 가 서로 다른 시점이 아닌 같은 시점에서의 다른 카메라의 영상이 됩니다. 그 이외의 학습 방식은 Pose Network를 통해 카메라 간 포즈를 추정하여 이미지를 sampling 하여 비교하는 것은 동일합니다.
+- 만약 monocular sequence를 이용하지 않고 stereo pair를 이용한다면 $$ t' $$ 가 서로 다른 시점이 아닌 같은 시점에서의 다른 카메라의 영상이 됩니다. 그 이외의 학습 방식은 Monocular Sequence를 이용하는 방식과 동일합니다.
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/15.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+- 
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/16.png" alt="Drawing" style="width: 600px;"/></center>
