@@ -330,7 +330,19 @@ def get_smooth_loss(disp, img):
 <center><img src="../assets/img/vision/depth/monodepth2/16.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 
+- self-supervised으로 monocular sequence를 학습할 때, 2가지 전제조건이 있습니다. **카메라는 움직이되 주변 환경은 움직이지 않는 다는 것입니다.** 만약 이 가정이 깨지게 되면 학습 시 문제가 발생합니다.
+- 예를 들어 카메라의 위치가 움직이지 않는 경우 disparity를 구할 수 없어 학습에 적합하지 않는 데이터가 됩니다. 또한 객체의 움직임이 발생할 경우 같은 환경에 대한 disparity를 구할 수 없어 학습에 적합하지 않는 데이터가 됩니다. **즉, disparity를 구하지 못하는 환경의 데이터는 학습에 사용하기가 어렵습니다.**
+- 이러한 데이터로 학습하게 될 경우 `hole`이 발생하게 되고 이 hole에서는 무한한 깊이를 가지는 잘못된 출력을 만들어 내는 경향이 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/monodepth2/fig2.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 이러한 경향은 monocular sequence를 이용하여 학습하는 위 그림의 Monodepth2 이외의 모델에서 확인이 됩니다.
+
+<br>
+
+
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/17.png" alt="Drawing" style="width: 600px;"/></center>
@@ -360,9 +372,6 @@ def get_smooth_loss(disp, img):
 <center><img src="../assets/img/vision/depth/monodepth2/fig1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-<br>
-<center><img src="../assets/img/vision/depth/monodepth2/fig2.png" alt="Drawing" style="width: 600px;"/></center>
-<br>
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/fig3.png" alt="Drawing" style="width: 600px;"/></center>
