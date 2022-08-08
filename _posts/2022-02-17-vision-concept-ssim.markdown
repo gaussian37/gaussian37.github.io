@@ -31,8 +31,8 @@ tags: [SSIM, Structural Similarity Index] # add tag
 <br>
 
 - ### [SSIM의 정의](#ssim의-정의)
-- ### [SSIM의 Pytorch에서의 사용법 (globally)](#ssim의-pytorch에서의-사용법-1)
-- ### [SSIM의 Pytorch에서의 사용법 (locally)](#ssim의-pytorch에서의-사용법-1)
+- ### [SSIM의 Pytorch에서의 사용법 (globally)](#ssim의-pytorch에서의-사용법-globally-1)
+- ### [SSIM의 Pytorch에서의 사용법 (locally)](#ssim의-pytorch에서의-사용법-locally-1)
 - ### [SSIM의 skimage에서의 사용법](#ssim의-skimage에서의-사용법-1)
 
 <br>
