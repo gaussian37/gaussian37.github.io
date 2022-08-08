@@ -148,6 +148,12 @@ tags: [depth estimation, monodepth2, 모노 뎁스 2, 모노뎁스] # add tag
 - 이러한 기법을 모두 이용하여 self-supervised 방식의 모델 중에서 좋은 성과를 낼 수 있었습니다.
 
 <br>
+<center><img src="../assets/img/vision/depth/monodepth2/fig1.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위에서 설명한 내용을 반영하여 학습 시, 위 깊이 추정 결과와 같이 `monodepth2`에서는 객체의 경계면에서 좀 더 선명하고 품질 좋은 depth map을 만들어 낼 수 있었습니다.
+
+<br>
 
 ## **2. Related Work**
 
@@ -339,22 +345,43 @@ def get_smooth_loss(disp, img):
 <br>
 
 - 이러한 경향은 monocular sequence를 이용하여 학습하는 위 그림의 Monodepth2 이외의 모델에서 확인이 됩니다.
-
-<br>
-
-
+- 반면 monodepth2에서는 정성적인 결과에서 이러한 문제를 개선한 것을 확인할 수 있습니다. 개선 방법은 `Auto-Masking Stationary Pixels` 입니다. **이 방법은 연속된 Frame에서 픽셀값에 변화가 없는 부분을 제거하는 방법**입니다. 픽셀값에 변화가 없으면 Disparity를 구할 수 없기 때문에 제거합니다.
+- 이와 같은 방식으로 픽셀을 제거하면 네트워크는 카메라와 같은 속도로 움직이는 물체를 무시하게 되고 심지어 카메라가 움직이지 않을 때에는 Frame 전체를 무시하기도 합니다.
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/17.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- 이와 같은 필터링을 하기 위하여 아래와 식 (5)을 사용하였습니다. 식 (5)를 통하여 $$ \min_{t'} \text{pe}(I_{t}, I_{t' \to t}) $$ 와 $$ \min_{t'} \text{pe}(I_{t}, I_{t'}) $$ 를 각각 구하고 후자가 큰 픽셀은 1 그렇지 않은 픽셀은 0으로 저장한 다음에 실제 Loss를 계산할 때, **픽셀이 1인 영역만 학습에 반영하는 마스크를 생성**합니다.
+- 식 (5)에서 $$ \min_{t'} \text{pe}(I_{t}, I_{t' \to t}) $$ 는 앞에서 다루었던 minimum reprojection error입니다. 반면 $$ \min_{t'} \text{pe}(I_{t}, I_{t'}) $$ 는 $$ I_{t} $$ 와 $$ I_{t'} $$ 를 대상으로 minimum reprojection error를 계산합니다. 즉, 어떤 픽셀에 대하여 $$ I_{t-1}, I_{t+1} $$ 중에서 $$ I_{t} $$ 와 유사한 픽셀과의 reprojection error를 구하고 이 error가 $$ I_{t}, I_{t' \to t} $$ 를 통해 얻은 reprojection error 보다 큰 경우에만 학습을 진행합니다.
+- 이 연산의 의미는 **$$ I_{t}, I_{t'} $$ RGB 이미지에서 영상 간의 차이가 충분히 있어야 학습하는 데 의미가 있다고 판단**하는 것입니다. 이 연산을 통하여 카메라의 이동 속도와 같아서 움직임이 없어 보이는 물체 또는 카메라가 움직이지 않아서 변화가 없는 픽셀을 제외할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/monodepth2/fig5.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- Figure 5를 살펴보면 1행의 예시가 카메라의 이동 속도와 비슷한 속도로 이동한 물체를 필터링한 경우이고 그 결과 자동차의 대부분의 픽셀이 학습에서 제외된 것을 확인할 수 있습니다.
+- 2행을 보면 대부분의 픽셀이 학습에서 제외된 것을 확인할 수 있는데 이 경우는 자차가 정차되어 있는 상황으로 판단됩니다.
+
+<br>
+
+#### **Multi-scale Estimation**
+
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/18.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- 성능 개선을 위하여 Multi scale Estimation을 적용하였습니다. Multi scale Estimation은 간단하게 low resolution의 출력을 upsample 하여 high resolution으로 만들고 이렇게 만든 high resolution 결과를 이용하여 reprojection loss를 구하는 방식을 말합니다.
+- 이와 같이 다양한 scale (low/mid/high resolution)의 출력으로 부터 high resolution으로 복원을 하여 학습을 하면 같은 각 해상도에서의 깊이 정보에 대한 학습을 다양하게 할 수 있으며 변화량이 작은 영역인 low-texture region에서 주로 발생하는 `hole` 또는 `artifact` 문제에 대하여 다양한 scale의 깊이 정보를 통해 개선할 수 있습니다.
+
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/19.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+- 지금까지 다룬 `Loss`에 대한 내용은 크게 $$ L_{p} $$ 즉, `minimum reprojection loss`와 $$ L_{s} $$ 즉, `edge awareness smooth loss`입니다. 
+- 위 식의 $$ \mu $$ 는 `auto masking`을 의미하므로 $$ \mu L_{p} $$ 는 `masked photometric loss`가 됩니다.
+- 위 식의 $$ \lambda $$ 는 smoothness의 가중치를 의미합니다.
+- 따라서 최종 Loss인 $$ L $$ 을 multi-scale에 대하여 모두 적용하면 monodepth2의 최종 Loss 형태가 됩니다.
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/20.png" alt="Drawing" style="width: 600px;"/></center>
@@ -368,18 +395,9 @@ def get_smooth_loss(disp, img):
 <center><img src="../assets/img/vision/depth/monodepth2/22.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-<br>
-<center><img src="../assets/img/vision/depth/monodepth2/fig1.png" alt="Drawing" style="width: 600px;"/></center>
-<br>
 
 
-<br>
-<center><img src="../assets/img/vision/depth/monodepth2/fig3.png" alt="Drawing" style="width: 600px;"/></center>
-<br>
 
-<br>
-<center><img src="../assets/img/vision/depth/monodepth2/fig5.png" alt="Drawing" style="width: 600px;"/></center>
-<br>
 
 <br>
 
