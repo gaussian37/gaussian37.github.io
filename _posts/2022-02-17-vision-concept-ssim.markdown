@@ -179,6 +179,32 @@ tags: [SSIM, Structural Similarity Index] # add tag
 
 - `SSIM`은 symmetry 성질은 만족하여 x, y 이미지의 순서를 바꿔도 됩니다. 하지만 triangle inequality ( $$ \vert a + b \vert \le \vert a \vert  + \vert b \vert $$ ) 를 만족하지 않아서 distance를 구하기 위한 함수로는 사용할 수 없습니다.
 - `SSIM`을 좀 더 효과적으로 사용하기 위해서는 이미지 전체를 한번에 비교하기 보다는 N x N 윈도우를 이용하여 (ex. 8 X 8, 11 X 11) 지역적으로 비교하여 사용하는 것이 효과적입니다. **왜냐하면 이미지의 왜곡이나 통계적 특성이 이미지 전반에 걸쳐서 나타나는 경우보다 지역적으로 나타나는 경우가 많고 지역적으로 더 다양한 특성을 분석할 수 있기 때문입니다.**
+- 이와 같은 방법으로 지역적으로 `SSIM`을 구하려면 윈도우를 이용하여 슬라이딩 윈도우를 적용하여 각 부분의 값을 구해야 합니다. 이와 관련된 구현 내용으로 아래 `SSIM의 Pytorch에서의 사용법 (locally)`을 참조해 주시기 바랍니다.
+
+<br>
+
+- 만약 `SSIM`을 Loss로 사용하려면 아래와 같이 식을 변경해서 사용하면 됩니다.
+
+<br>
+
+- $$ L_{\text{SSIM}} = 1 - \text{SSIM}(x, y) \tag{7} $$
+
+<br>
+
+- `SSIM`은 미분 가능하므로 Loss로 사용 가능하며 0 ~ 1 사이의 스코어 값을 1에서 빼주면 두 이미지의 유사도가 낮을수록 값이 커지기 때문에 Loss로 사용할 수 있습니다.
+
+<br>
+
+- 만약 RGB 이미지에서 SSIM을 적용해야 한다면 각 채널 별로 SSIM을 구한 후 모두 합해주면 됩니다. 식으로 나타내면 아래와 같습니다.
+
+<br>
+
+- $$ \text{SSIM}_{\text{rgb}} = w_{r}\text{SSIM}_{r}(I_{1}, I_{2}) + w_{g}\text{SSIM}_{g}(I_{1}, I_{2}) + w_{b}\text{SSIM}_{b}(I_{1}, I_{2}) \tag{8}
+
+<br>
+
+- 특정 채널에 대하여 더 가중치를 줄 수도 있으며 일반적으로 `RGB`에 1/3 씩 균등하게 가중치를 주어서 사용합니다.
+- `YCrCb`에서는 `Y`에 0.8, `Cr`, `Cb`에 각각 0.1을 주어서 사용하기도 합니다. ([링크 참조](https://dsp.stackexchange.com/questions/75187/how-to-apply-the-ssim-measure-on-rgb-images))
 
 <br>
 
@@ -186,7 +212,9 @@ tags: [SSIM, Structural Similarity Index] # add tag
 
 <br>
 
-- 먼저 이번 글에서는 
+- 먼저 이미지 전체에서 한번에 `SSIM`을 구하는 방법을 Pytorch을 이용해서 구해보도록 하곘습니다. 이와 같은 방법으로 `SSIM`을 구하면 간단하게 전체 이미지에 대하여 `SSIM`의 Score 또는 `SSIM`을 이용한 `Loss`를 구할 수 있습니다.
+
+<br>
 
 ```python
 class SSIM(nn.Module):
@@ -207,7 +235,6 @@ class SSIM(nn.Module):
         self.C2 = 0.03 ** 2
 
     def forward(self, x, y):
-        # 
         # shape : (xh, xw) -> (xh + 2, xw + 2)
         x = self.refl(x) 
         # shape : (yh, yw) -> (yh + 2, yw + 2)
@@ -223,16 +250,19 @@ class SSIM(nn.Module):
         SSIM_n = (2 * mu_x * mu_y + self.C1) * (2 * sigma_xy + self.C2)
         SSIM_d = (mu_x ** 2 + mu_y ** 2 + self.C1) * (sigma_x + sigma_y + self.C2)
 
-        return torch.clamp((1 - SSIM_n / SSIM_d) / 2, 0, 1)
+        # SSIM score
+        return torch.clamp((SSIM_n / SSIM_d) / 2, 0, 1)
+
+        # Loss function
+        # return torch.clamp((1 - SSIM_n / SSIM_d) / 2, 0, 1)
 ```
-
-
 <br>
 
 ## **SSIM의 Pytorch에서의 사용법 (locally)**
 
 <br>
 
+- 이번에는 `convolution` 연산을 이용하여 로컬한 영역에서 `SSIM`을 구하는 방법에 대하여 Pytorch 코드를 통해 알아보도록 하겠습니다.
 
 <br>
 
@@ -252,3 +282,46 @@ class SSIM(nn.Module):
 
 <br>
 
+- 마지막으로 `skimage`를 이용하여 구하는 방법에 대하여 알아보도록 하겠습니다. 학습에 사용이 아니라 단순히 `SSIM` 스코어를 구하는 데 사용하려면 아래 코드와 같이 간단히 사용해도 무방합니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ssim/1.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 위 그림과 같이 4개의 이미지가 있고 가장 왼쪽이 원본 이미지인 `origin`, 그리고 그 다음 이미지 부터는 노이즈가 섞여있는 이미지로 각각 noise1, noise2, noise3 이라고 해보겠습니다.
+- 아래 코드에서 `ssim` 함수에서 `channel_axis`는 RGB와 같이 채널이 여러개 존재할 때, 그 채널의 axis 인덱스를 명시하는 것이며 `full`은 SSIM 스코어 뿐 아니라 평균을 구하기 이전의 픽셀 단위의 계산 결과도 모두 포함하여 출력하도록 합니다. 이 중간 출력 결과를 통해 두 이미지에 어떤 차이가 있는 지 시각화 해서 볼 수 있습니다.
+- `win_size` 옵션을 추가로 입력하면 로컬 영역에서 SSIM을 구하도록 할 수 있습니다.
+
+<br>
+
+```python
+import cv2
+import matplotlib.pyplot as plt
+from skimage.metrics import structural_similarity as ssim
+
+origin = cv2.cvtColor(cv2.imread("origin.png"), cv2.COLOR_BGR2RGB)
+noise1 = cv2.cvtColor(cv2.imread("noise1.png"), cv2.COLOR_BGR2RGB)
+noise2 = cv2.cvtColor(cv2.imread("noise2.png"), cv2.COLOR_BGR2RGB)
+noise3 = cv2.cvtColor(cv2.imread("noise3.png"), cv2.COLOR_BGR2RGB)
+
+ssim_1, diff1 = ssim(origin, noise1, channel_axis=2, full=True)
+diff1 = (diff1 * 255).astype("uint8")
+# plt.imshow(diff1)
+ssim_2, diff2 = ssim(origin, noise2, channel_axis=2, full=True)
+diff2 = (diff2 * 255).astype("uint8")
+ssim_3, diff3 = ssim(origin, noise3, channel_axis=2, full=True)
+diff3 = (diff3 * 255).astype("uint8")
+
+print(ssim_1, ssim_2, ssim_3)
+# 0.21075336301148573 0.6888119020545118 0.7808179172891382
+
+ssim_1, diff1 = ssim(origin, noise1, channel_axis=2, win_size=11, full=True)
+diff1 = (diff1 * 255).astype("uint8")
+ssim_2, diff2 = ssim(origin, noise2, channel_axis=2, win_size=11, full=True)
+diff2 = (diff2 * 255).astype("uint8")
+ssim_3, diff3 = ssim(origin, noise3, channel_axis=2, win_size=11, full=True)
+diff3 = (diff3 * 255).astype("uint8")
+
+print(ssim_1, ssim_2, ssim_3)
+# 0.23226598957553168 0.7078116166774144 0.7831195478428952
+```

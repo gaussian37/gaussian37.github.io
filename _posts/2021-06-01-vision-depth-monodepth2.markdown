@@ -239,6 +239,7 @@ tags: [depth estimation, monodepth2, 모노 뎁스 2, 모노뎁스] # add tag
 - 이 때, $$ I_{t-1 \to t} $$ 를 생성하기 위한 `grid sampling` 연산 시 sampling 방법은 `bilinear` 방식으로 없는 픽셀에 대하여 interpolation 하여 생성하며 이와 같은 grid sampling 방식은 미분 가능하기 때문에 학습에 사용될 수 있습니다. 
 - 식 (1)의 $$ L_{p} $$ 를 구하기 위하여 미분 가능한 이미지를 비교하는 대표적인 방식인 `SSIM (Structural Similarity Index)`과 `L1` Loss를 같이 사용하였고 상대적으로 `SSIM`에 좀 더 높은 가중치를 부여하였습니다. `SSIM`의 상세 내용은 아래 링크를 참조하시기 바랍니다.
     - `SSIM (Structural Similarity Index)` : [https://gaussian37.github.io/vision-concept-ssim/](https://gaussian37.github.io/vision-concept-ssim/)
+- `SSIM`을 사용하면 좀 더 정교하게 이미지를 복원할 수 있다고 알려져 있으며 정성적인 내용은 아래 링크를 참조해 보시기 바랍니다. [SSIM Loss 효과 참조](https://medium.com/@sanari85/image-reconstruction-%EC%97%90%EC%84%9C-ssim-index%EC%9D%98-%EC%9E%AC%EC%A1%B0%EB%AA%85-b3ca26434fb1)
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/13_1.png" alt="Drawing" style="width: 600px;"/></center>
