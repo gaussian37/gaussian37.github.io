@@ -387,17 +387,21 @@ def get_smooth_loss(disp, img):
 <center><img src="../assets/img/vision/depth/monodepth2/20.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- Depth Network의 Encoder와 Decoder 그리고 Pose Network에 대한 상세 내용을 Additional Consideration에서 확인할 수 있습니다.
+- Depth Network의 Encoder는 ResNet을 사용하였으며 ResNet18과 같은 다소 가벼운 네트워크도 사용하여 구현하였습니다.
+
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/21.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+- Depth Network의 Decoder의 마지막 출력에 sigmoid를 적용하였고 이 출력 결과를 Depth로 변환합니다. 이 때, $$ D = 1 / (a \sigma + b) $$ 의 식을 사용하며 $$ a, b $$는 Depth의 결과를 0.1 ~ 100 사이의 값으로 제한하기 위해 사용됩니다.
+- Depth Decoder에서는 reflection padding을 사용하여 경계 부근에서의 artifact와 관련된 성능을 개선할 수 있었습니다.
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/22.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-
-
-
+- 카메라의 위치를 추정하는 Pose Network는 `axis-angle`로 표현법을 사용하여 6 DoF의 파라미터를 추정하여 Transformation Matrix를 구성합니다. Pose Network의 입력은 연속된 2개의 Frame을 채널 방향으로 붙여서 입력받습니다.
 
 <br>
 
