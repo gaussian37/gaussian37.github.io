@@ -199,7 +199,7 @@ tags: [SSIM, Structural Similarity Index] # add tag
 
 <br>
 
-- $$ \text{SSIM}_{\text{rgb}} = w_{r}\text{SSIM}_{r}(I_{1}, I_{2}) + w_{g}\text{SSIM}_{g}(I_{1}, I_{2}) + w_{b}\text{SSIM}_{b}(I_{1}, I_{2}) \tag{8}
+- $$ \text{SSIM}_{\text{rgb}} = w_{r}\text{SSIM}_{r}(I_{1}, I_{2}) + w_{g}\text{SSIM}_{g}(I_{1}, I_{2}) + w_{b}\text{SSIM}_{b}(I_{1}, I_{2}) \tag{8} $$
 
 <br>
 

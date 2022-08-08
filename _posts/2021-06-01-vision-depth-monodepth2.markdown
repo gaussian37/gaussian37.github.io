@@ -283,11 +283,54 @@ def get_smooth_loss(disp, img):
 <center><img src="../assets/img/vision/depth/monodepth2/15.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 지금까지 설명한 Loss를 통하여 Self-Supervised 방식으로 
+- 지금까지 설명한 Loss를 통하여 Self-Supervised 방식의 학습을 할 수 있으나 supervised 학습 방식과의 차이를 줄이기 위하여 추가적인 3가지 기법을 더 적용하였습니다. 그 내용은 각각 `Per-Pixel Minimum Reprojection Loss`, `Auto-Masking Stationary Pixels`, `Multi-scale Estimation` 입니다.
+
+<br>
+
+#### **Per-Pixel Minimum Reprojection Loss**
+
+<br>
+
+- 먼저 `Per-Pixel Minimum Reprojection Loss`의 내용은 간단하면서 효과적입니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/monodepth2/fig3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 figure에서 (c)의 appearance loss를 살펴보면 $$ I_{t} $$ 와 $$ I_{t-1}, I_{t+1} $$ 의 관계에서 $$ I_{t} $$ 에는 보이는 영역이 $$ I_{t-1} $$ 에서는 보이지 않고 $$ I_{t+1} $$ 에서는 그대로 보이는 예시를 볼 수 있습니다. 일반적으로 이와 같은 경우 average를 사용하여 Loss를 구할수도 있지만 좀 더 좋은 성능을 위하여 `minimum` 연산을 사용하였습니다.
+- 이와 같이 `minimum` 연산을 적용하면 $$ I_{t-1}, I_{t+1} $$ 중 가능한한 $$ I_{t} $$ 와 이미지가 일치하는 이미지를 선택하여 연산을 할 수 있으므로 **학습의 가정과 부합하지 않는 이미지를 배제할 수 있어서 더 좋은 결과를 얻을 수 있습니다.** 평균을 적용하는 경우 깊이 추정 결과에서 blur가 생기는 정성적인 분석 결과도 있습니다.
+- 이와 같이 disparity를 구할 때, 가정에 어긋나는 2가지 주요 상황이 ① 이미지 경계 부근에서 view가 벗어나서 보이지 않게 되거나 ② 카메라가 이동하여 가려진 픽셀이 발생한 경우 입니다.
+- ①과 같이 view가 벗어나는 문제에 대해서는 reprojection loss를 구할 시 sampling 연산을 통하여 view가 벗어나는 영역에 대해서 적절히 masking이 되어 문제를 개선할 수 있지만 occlusion이 발생한 문제에 대해서는 처리하기가 어렵습니다.
+
+<br>
+
+- 따라서 다음 식과 같이 $$ t' $$ 즉, $$ t-1, t+1 $$ 중 reprojection error가 낮은 이미지만 Loss에 반영합니다.
+
+<br>
+
+- $$ L_{p} = \min_{t'} \text{pe}(I_{t}, I_{t' \to t}) \tag{4} $$
+
+<br>
+
+- 이렇게 min error만 사용할 경우 다음과 같은 경우 도움이 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/monodepth2/fig4.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림과 같이 $$ L $$ 이 $$ I_{t} $$ 가 되어 기준이 되었을 때, 빨간색 동그라미의 차 옆의 벽돌 부분은 $$ R $$ 또는 $$ +l $$ 이미지에선 보이지 않지만 $$ -l $$ 이미지에서는 보입니다. 즉, disparity를 구할 수 있는 픽셀이 된다는 뜻입니다.
+- 따라서 이와 같이 disparity를 구할 수 있는 영역이 많을수록 학습에 도움이 되므로 `Per-Pixel Minimum Reprojection Loss`를 사용하게 됩니다.
+- 이와 같은 방법을 통해 정성적으로 분석 시 이미지 경계 부분의 visual artifact 를 줄일 수 있고 occlusion boundary를 좀 더 정교하게 만들 수 있으며 정량적으로도 성능이 향상된 것을 확인할 수 있습니다.
+
+<br>
+
+#### **Auto-Masking Stationary Pixels**
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/16.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+- 
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/17.png" alt="Drawing" style="width: 600px;"/></center>
@@ -318,19 +361,11 @@ def get_smooth_loss(disp, img):
 <br>
 
 <br>
-<center><img src="../assets/img/vision/depth/monodepth2/fig1.png" alt="Drawing" style="width: 600px;"/></center>
-<br>
-
-<br>
 <center><img src="../assets/img/vision/depth/monodepth2/fig2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/fig3.png" alt="Drawing" style="width: 600px;"/></center>
-<br>
-
-<br>
-<center><img src="../assets/img/vision/depth/monodepth2/fig4.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 <br>
