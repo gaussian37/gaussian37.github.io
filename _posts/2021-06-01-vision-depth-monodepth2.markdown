@@ -79,7 +79,7 @@ tags: [depth estimation, monodepth2, 모노 뎁스 2, 모노뎁스] # add tag
 
 <br>
 
-##### *Photometric Reconstruction Error**
+##### **Photometric Reconstruction Error**
 
 <br>
 
