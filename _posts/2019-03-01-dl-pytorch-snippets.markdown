@@ -50,6 +50,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [pytorch import 모음](#pytorch-import-모음-1)
 - ### [pytorch 셋팅 관련 코드](#pytorch-셋팅-관련-코드-1)
 - ### [GPU 셋팅 관련 코드](#gpu-셋팅-관련-코드-1)
+- ### [offline에서 torchvision.models 사용](#offline에서-torchvisionmodels-사용-1)
 - ### [dataloader의 num_workers 지정](#dataloader의-num_workers-지정-1)
 - ### [dataloader의 pin_memory](#dataloader의-pin_memory-1)
 - ### [GPU 사용 시 data.cuda(non_blocking=True) 사용](#gpu-사용-시-datacudanon_blockingtrue-사용-1)
@@ -1723,6 +1724,29 @@ total_gpu_memory = 0
 for gpu_id in gpu_ids:
     total_gpu_memory += torch.cuda.get_device_properties("cuda:" + gpu_id).total_memory
 ```
+
+<br>
+
+## **offline에서 torchvision.models 사용**
+
+<br>
+
+- `torchvision.models`에서 제공되는 pretrained 모델을 offline에서 사용해야 하는 경우 online이 가능한 환경에서 아래와 같은 코드로 모델을 받습니다. 아래 코드는 resnet 예시이며 다양한 모델 리스트는 아래 링크에서 참조 가능합니다.
+- torchvision.models : https://pytorch.org/serve/model_zoo.html
+
+<br>
+
+```python
+import torchvision.models as models
+models.resnet34(pretrained=True)
+```
+
+<br>
+
+- 위 코드에서 `models.resnet34(pretrained=True)`을 실행할 때, 모델을 어느 경로에 다운 받는 지 확인할 수 있습니다. 그 경로는 보통 `.cache/torch/hub/checkpoints`에 있습니다.
+- 윈도우의 경우 C 드라이버를 주요 저장 공간으로 쓴다면 `C:\Users\사용자명\.cache\torch\hub\checkpoints\`으로 되어 있을 것이고 리눅스의 경우 `~/.cache\torch\hub\checkpoints` 경로를 사용합니다.
+- 이 때, 이 경로에 있는 `resnet34-333f7ec4.pth`와 같은 파일을 offline 환경에 위치시키면 됩니다. 예를 들어서 인터넷이 되는 윈도우 PC에서 model을 다운 받고 `C:\Users\사용자명\.cache\torch\hub\checkpoints\`에서 `resnet34-333f7ec4.pth` 파일을 복사한 뒤 인터넷이 안되는 리눅스 PC의 `~/.cache/torch/hub/checkpoints` 에 복사한 파일을 붙여 넣고 사용하면 됩니다. 
+- 단 pytorch의 버전에 따라서 모델의 - 뒤에 숫자와 영어로 되어 있는 부분이 다를 수 있으므로 실제 사용하는 offline 환경에서 필요로 하는 버전명으로 교체해서 사용하면 됩니다. offline에서 사용하는 버전명은 그 환경에서 동일하게 `models.resnet34(pretrained=True)`와 같이 입력하면 알 수 있습니다.
 
 <br>
 
