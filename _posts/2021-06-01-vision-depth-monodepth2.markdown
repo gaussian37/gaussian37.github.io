@@ -440,18 +440,11 @@ def get_smooth_loss(disp, img):
 <br>
 
 - `monodepth2`의 코드는 `trainer.py`에 해당하는 코드 내용을 이해하면 전반적으로 이해할 수 있습니다. 아래 코드의 설명은 몇가지 조건을 정하여 코드를 설명하며 불필요한 부분은 제거하였습니다.
-- 아래 코드 조건은 stereo가 아닌 단안 (mono) 카메라를 통해 얻은 비디오 영상을 이용하여 연속하는 3개의 프레임 ( $$ I_{t-1}, I_{t}, I_{t+1} $$ ) 을 이용하는 옵션을 적용하였으며 추가적으로 라이다 데이터가 있다면 학습에 사용할 수 있도록 코드를 추가하였습니다. (라이다 데이터가 없으면 연속된 프레임으로만 학습합니다.)
-- 논문에 따라서 Depth Estimation 모델의 Encoder와 Pose Network의 Encoder를 별도로 분리하는 경우 더 좋은 성능이 있기 때문에 Encoder를 분리하였습니다.
+- 아래 코드 조건은 stereo가 아닌 단안 (mono) 카메라를 통해 얻은 비디오 영상을 이용하여 연속하는 3개의 프레임 ( $$ I_{t-1}, I_{t}, I_{t+1} $$ ) 을 이용하는 옵션만 적용하였으며 Pose Network는 별도 모델을 사용하는 것으로 적용하였습니다. 즉, 논문의 최고 성능을 발휘할 수 있는 코드만 남기고 나머지 코드는 제거하였습니다.
 
 <br>
 
-```python
-
-
-```
-
-
-
+- 깃헙 repository : [https://github.com/gaussian37/monodepth2_simple](https://github.com/gaussian37/monodepth2_simple)
 
 <br>
 
