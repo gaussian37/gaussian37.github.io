@@ -66,6 +66,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 <br>
 
 - ### **-------------------- 자주사용하는 함수 --------------------**
+- ### [opencv로 이미지를 읽어서 tensor로 변환](#opencv로-이미지를-읽어서-tensor로-변환-1)
 - ### [torch.argmax(input, dim, keepdim)](#torchargmaxinput-dim-keepdim-1)
 - ### [Numpy → Tensor : torch.from_numpy(numpy.ndarray)](#numpy--tensor--torchfrom_numpynumpyndarray-1)
 - ### [Tensor → Numpy](#tensor--numpy-1)
@@ -2280,6 +2281,28 @@ A_t_contiguous.is_contiguous()
 <br>
 
 - `A_t_contiguous`는 실제 메모리에 저장된 값의 순서와 사용자가 사용하는 값의 순서가 같습니다. 따라서 `A_t_contiguous.is_contiguous()`는 `True` 값을 가지게 됩니다.
+
+<br>
+
+## **opencv로 이미지를 읽어서 tensor로 변환**
+
+<br>
+
+- opencv로 이미지를 읽은 후 `tensor`로 변환하는 과정은 다음과 같습니다. 
+- 먼저 opencv와 같은 라이브러리로 이미지를 읽으면 `(H, W, C)`와 같은 형태로 읽게 되어 있으며 pytorch에서 다루는 tensor는 `(B, C, H, W)` 형태로 사용하게 됩니다. 그리고 학습 시 사용하는 tensor 값의 범위는 0 ~ 1로 스케일이 변경되도록 많이 사용합니다.
+- 아래 코드의 `load_image`를 사용하면 이미지를 opencv로 읽어서 BGR을 RGB로 바꾼 뒤, 원하는 사이즈로 resize까지 적용합니다.
+- 그리고 `tensorify`를 사용하면 `(H, W, C)` 형태의 numpy 데이터를 `(B, C, H, W)`의 tensor로 변경해 줍니다. 이 때 tensor의 크기는 `(1, C, H, W)`가 되며 값의 범위도 0 ~ 1 로 변경됩니다.
+
+<br>
+
+```python
+load_images = lambda path, h, w: cv2.resize(cv2.cvtColor(cv2.imread(path, cv2.IMREAD_UNCHANGED), cv2.COLOR_BGR2RGB), ((w, h)))
+tensorify = lambda x: torch.Tensor(x.transpose((2, 0, 1))).unsqueeze(0).float().div(255.0)
+
+img_tensor = tensorify(load_images("img.png", 400, 300))
+print(img_tensor.shape)
+# torch.Size([1, 3, 400, 300])
+```
 
 <br>
 
