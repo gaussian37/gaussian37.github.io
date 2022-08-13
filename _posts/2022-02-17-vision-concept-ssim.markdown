@@ -267,10 +267,157 @@ class SSIM(nn.Module):
 
 <br>
 
+```python
+import torch  
+import torch.nn.functional as F 
+import numpy as np
+import math
+import cv2
+
+def gaussian(window_size, sigma):
+    """
+    Generates a list of Tensor values drawn from a gaussian distribution with standard
+    diviation = sigma and sum of all elements = 1.
+
+    Length of list = window_size
+    """    
+    gauss =  torch.Tensor([math.exp(-(x - window_size//2)**2/float(2*sigma**2)) for x in range(window_size)])
+    return gauss/gauss.sum()
+
+def create_window(window_size, channel=1):
+
+    # Generate an 1D tensor containing values sampled from a gaussian distribution
+    # _1d_window : (window_size, 1)
+    # sum of _1d_window = 1
+    _1d_window = gaussian(window_size=window_size, sigma=1.5).unsqueeze(1)
+    
+    # Converting to 2D  : _1d_window (window_size, 1) @ _1d_window.T (1, window_size)
+    # _2d_window : (window_size, window_size)
+    # sum of _2d_window = 1
+    _2d_window = _1d_window.mm(_1d_window.t()).float().unsqueeze(0).unsqueeze(0)
+     
+    # expand _2d_window to window size
+    # window : (channel, 1, window_size, window_size)
+    window = torch.Tensor(_2d_window.expand(channel, 1, window_size, window_size).contiguous())
+
+    return window
+
+def ssim(img1, img2, window_size=11, val_range=255, window=None, size_average=True, full=False):
+
+    # L is the dynamic range of the pixel values (255 for 8-bit grayscale images),    
+    L = val_range
+    
+    try:
+        _, channels, height, width = img1.size()
+    except:
+        channels, height, width = img1.size()
+
+    # if window is not provided, init one
+    if window is None: 
+        # window should be at least 11x11 
+        real_size = min(window_size, height, width) 
+        window = create_window(real_size, channel=channels).to(img1.device)
+    
+    # calculating the mu parameter (locally) for both images using a gaussian filter 
+    # calculates the luminosity params
+    pad = window_size//2
+    mu1 = F.conv2d(img1, window, padding=pad, groups=channels)
+    mu2 = F.conv2d(img2, window, padding=pad, groups=channels)
+    
+    mu1_sq = mu1 ** 2
+    mu2_sq = mu2 ** 2 
+    mu12 = mu1 * mu2
+
+    # now we calculate the sigma square parameter
+    # Sigma deals with the contrast component 
+    sigma1_sq = F.conv2d(img1 * img1, window, padding=pad, groups=channels) - mu1_sq
+    sigma2_sq = F.conv2d(img2 * img2, window, padding=pad, groups=channels) - mu2_sq
+    sigma12 =  F.conv2d(img1 * img2, window, padding=pad, groups=channels) - mu12
+
+    # Some constants for stability 
+    C1 = (0.01 ) ** 2  # NOTE: Removed L from here (ref PT implementation)
+    C2 = (0.03 ) ** 2 
+
+    contrast_metric = (2.0 * sigma12 + C2) / (sigma1_sq + sigma2_sq + C2)
+    contrast_metric = torch.mean(contrast_metric)
+
+    numerator1 = 2 * mu12 + C1  
+    numerator2 = 2 * sigma12 + C2
+    denominator1 = mu1_sq + mu2_sq + C1 
+    denominator2 = sigma1_sq + sigma2_sq + C2
+
+    ssim_score = (numerator1 * numerator2) / (denominator1 * denominator2)
+
+    if size_average:
+        ret = ssim_score.mean() 
+    else: 
+        ret = ssim_score.mean(1).mean(1).mean(1)
+    
+    if full:
+        return ret, contrast_metric
+    
+    return ret
+```
 
 <br>
 
+- 위 코드에서 `gaussian` 함수는 가우시안 분포를 출력합니다. 다음과 같습니다.
 
+<br>
+
+```python
+gauss_dis = gaussian(11, 1.5)
+print("Distribution: ", gauss_dis)
+# Distribution:  tensor([0.0010, 0.0076, 0.0360, 0.1094, 0.2130, 0.2660, 0.2130, 0.1094, 0.0360, 0.0076, 0.0010])
+print("Sum of Gauss Distribution:", torch.sum(gauss_dis))
+# Sum of Gauss Distribution: tensor(1.)
+```
+
+<br>
+
+- 위 가우시안 분포를 이용하여 이미지의 local 영역을 순회하는 `window`를 생성해야 합니다. 이 때, `create_window` 함수를 사용합니다.
+- `create_window` 함수를 보면 동일한 값의 1D gaussian distribution (N) 을 cross product하여 (N, N) 크기의 2D로 window로 만들고 channel 수 만큼 복사하여 확장합니다.
+- 아래 코드에서는 (11, 11) 크기의 window 를 channel 방향으로 3 만큼 복사합니다.
+
+<br>
+
+```python
+window = create_window(11, 3)
+print(window.shape)
+# torch.Size([3, 1, 11, 11])
+```
+
+<br>
+
+- `F.conv2d` 연산을 보면 생성된 window를 순회하면서 local 영역의 평균과 표준편차를 구하도록 되어있습니다.
+- `F.conv2d`의 첫번째 인자는 입력으로 `(B, C, H, W)`의 크기를 가지고 두번째 인자는 convolution 연산을 위한 weight로 `(#num_filter, channel, H, W) `의 크기를 가집니다. `window = create_window(11, 3)`으로 window를 생성하면 사이즈가 `torch.Size([3, 1, 11, 11])`가 되므로 (channel=1, H=11, W=11) 크기의 필터가 3개 있다는 뜻입니다.
+- 이와 같은 입력과 필터의 연산으로 평균과 표준편차를 local 영역 단위로 구하여 전체 SSIM을 구하게 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ssim/1.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 위 이미지의 가장 왼쪽부터 첫번째 이미지가 원본이고 2 ~ 4번째 이미지는 원본 이미지에 노이즈를 추가한 케이스 입니다.
+- 위 코드를 이용하여 (원본, 두번째 이미지), (원본, 세번째 이미지), (원본, 네번째 이미지) 간의 SSIM을 구하면 아래와 같습니다.
+
+<br>
+
+```python
+load_images = lambda path, h, w: cv2.resize(cv2.cvtColor(cv2.imread(path, cv2.IMREAD_UNCHANGED), cv2.COLOR_BGR2RGB), ((w, h)))
+tensorify = lambda x: torch.Tensor(x.transpose((2, 0, 1))).unsqueeze(0).float().div(255.0)
+
+img_tensor = tensorify(load_images("origin.png", 400, 300))
+noise1_tensor = tensorify(load_images("noise1.png", 400, 300))
+noise2_tensor = tensorify(load_images("noise2.png", 400, 300))
+noise3_tensor = tensorify(load_images("noise3.png", 400, 300))
+
+print(ssim(img_tensor, noise1_tensor), ssim(img_tensor, noise2_tensor), ssim(img_tensor, noise3_tensor))
+# tensor(0.2894) tensor(0.7756) tensor(0.8177)
+```
+
+<br>
+
+- 위 코드 결과 원본 이미지와 가장 마지막 이미지가 SSIM 기준으로 가장 유사한 것을 확인할 수 있습니다.
 
 <br>
 
