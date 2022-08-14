@@ -453,21 +453,41 @@ def get_smooth_loss(disp, img):
 
 ## **4. Experiments**
 
+<br>
+<center><img src="../assets/img/vision/depth/monodepth2/24.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- Experiments에서는 앞에서 설명한 내용에 대하여 어떤 성능 평가를 가질 수 있었는 지 확인합니다.
+- `reprojection loss` 관점에서는 occluded pixel이 존재 시 단순히 average를 사용하는 것 보다 minimum 값을 사용하였을 때 성능이 좋다는 것을 보여줍니다.
+- `auto-masking` 관점에서는 statoc camera 즉, 카메라의 위치가 움직이지 않는 경우에 대하여 auto-masking이 효과적임을 보여줍니다.
+- `multi-scale` 관점에서는 multi-scale을 이용하여 학습 시, 정확도가 향상됨을 보여줍니다.
+
+<br>
+
+... 작성중 ...
+
+<br>
+
 ## **5. Conclusion**
+
+<br>
+<center><img src="../assets/img/vision/depth/monodepth2/25.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 지금 까지 내용으로 논문의 전체적인 내용은 마무리가 되었습니다. 저자는 monodepth2에서의 contribution을 3가지로 요약하였으며 앞에서 언급한 최적화 기법인 `minimum reprojection loss`, `auto-masking loss`, `full-resolution multi-scale sampling` 방식을 언급하였습니다.
+- `minimum reprojection loss`와 `auto-masking loss`를 통하여 Monocular Video를 학습 데이터로 사용하였을 때, `disparity`를 구하기에 적합하지 않는 전제 조건을 개선하였습니다. 
+- `minimum reprojection loss`는 서로 다른 위치로 인하여 disparity를 구하기 어려운 이미지 쌍을 가능한 배제하고자 하는 기법이고 `auto-masking loss`는 disparity를 구하기 위해서는 동일 물체에 대해서 픽셀 간의 위치 차이가 발생해야하는데 카메라가 움직이지 않아 픽셀 간의 위치 차이가 발생하지 않아 disparity를 구하기 어려운 픽셀을 배제하고자 하는 기법입니다.
+- `full-resolution multi-scale sampling` 방법을 통하여 다양한 해상도의 정보를 이용하여 학습하는 것이 성능 향상에 효과적임을 확인할 수 있습니다.
+- 무엇보다 `monodepth2`의 학습 프레임워크를 이용하면 Monocular Video 데이터 뿐만 아니라 Stereo 데이터에도 적용할 수 있으며 더 나아가 Monocular Video와 Stereo 데이터를 동시에 적용하는 것도 가능하다는 것에 장점이 있습니다.
+
+
+<br>
 
 ## **6. Supplementary Material**
 
 <br>
 
-
-
-
-
-
-
-
-
-
+... 작성중 ...
 
 <br>
 
@@ -476,6 +496,15 @@ def get_smooth_loss(disp, img):
 <br>
 
 - 원본 깃헙 링크 : https://github.com/nianticlabs/monodepth2
+
+<br>
+
+- 위 링크는 monodepth2 저자가 제공하는 학습 코드이며 상당히 자세하게 잘 작성되어 있습니다.
+- Ablation study와 다양한 기능을 On/Off 할 수 있도록 작성되어 있어 구체적으로 어떤 기능을 사용할 지 선택할 수 있으나 처음 볼때에는 다소 복잡해 보일 수 있습니다.
+- 따라서 아래 링크에서 중점적으로 사용해야 하는 기능인 `Monoculdar Video Data`를 사용하고, `Minimum reprojection loss`, `Auto-masking`을 사용하며 스테레오 관련 데이터는 모두 제외하도록 간소화 하였습니다.
+
+<br>
+
 - 간소화된 깃헙 링크 : [https://github.com/gaussian37/monodepth2_simple](https://github.com/gaussian37/monodepth2_simple)
 
 <br>
