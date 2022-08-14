@@ -21,6 +21,8 @@ tags: [depth estimation, monodepth2, 모노 뎁스 2, 모노뎁스] # add tag
 
 - 이번 글은 `monodepth2`에 대한 내용으로 `monodepth1`에서 사용한 Left Right Consistency를 위한 스테레오 카메라의 학습 데이터 문제를 개선하여 동일한 시점의 left, right 영상이 아닌 **연속된 단안 카메라 이미지 ($$ I_{t-1}, I_{t}, I_{t+1} $$) 3장을 이용하여 딥러닝 모델을 학습**하여 단안 카메라의 깊이를 추정 하는 내용의 논문 리뷰 입니다.
 - 현재 단안 카메라를 이용하여 `Self-supervised` 방식으로 depth를 추정하는 많은 방식들이 다루어 지고 있고 그 모델들의 기본이 되는 모델 중 하나가 monodepth2이며 코드 공개와 방법이 자세히 설명되어 있는 몇 안되는 모델 중 하나로 이번 글을 통하여 내용을 깊게 확인해 보고자 합니다.
+- `disparity`와 관련된 내용을 이해해야 monodepth2의 학습 방식을 이해할 수 있습니다. 아래 링크 내용을 참조하셔서 사전 필요한 지식을 먼저 읽으시길 권장 드립니다.
+    - 3D 컴퓨터 비전의 기초 : [https://gaussian37.github.io/vision-concept-basic_3d_vision/](https://gaussian37.github.io/vision-concept-basic_3d_vision/)
 
 <br>
 
@@ -69,7 +71,7 @@ tags: [depth estimation, monodepth2, 모노 뎁스 2, 모노뎁스] # add tag
 <center><img src="../assets/img/vision/depth/monodepth2/0_2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 위 그림과 같은 6 DoF (Degree of Freedom)의 상대 pose 또는 rotation 및 translation을 예측하여 두 프레임 간의 카메라 pose 관계를 구하기 위하여 입력으로 두 개의 컬러 이미지를 받는 ResNet18의 pose 네트워크를 사용합니다. pose 네트워크는 일반적인 stereo 이미지 쌍(pair)이 아닌 시간적으로 연속된 이미지 쌍(pair)을 사용합니다. 이것은 연속적인 다른 이미지(t-1, t 번째 프레임 이미지)의 관점에서 대상 이미지 (t번째 이미지)의 모양을 예측합니다.
+- 위 그림과 같은 6 DoF (Degree of Freedom)의 상대 pose 또는 rotation 및 translation을 예측하여 두 프레임 간의 카메라 pose 관계를 구하기 위하여 입력으로 두 개의 컬러 이미지를 받는 ResNet18의 pose 네트워크를 사용합니다. pose 네트워크는 일반적인 스테레오 이미지 쌍(pair)이 아닌 시간적으로 연속된 이미지 쌍(pair)을 사용합니다. 이것은 연속적인 다른 이미지(t-1, t 번째 프레임 이미지)의 관점에서 대상 이미지 (t번째 이미지)의 모양을 예측합니다.
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/0_3.png" alt="Drawing" style="width: 800px;"/></center>
@@ -162,28 +164,70 @@ tags: [depth estimation, monodepth2, 모노 뎁스 2, 모노뎁스] # add tag
 - 이번 글에서 다루는 monodepth2의 주요 학습 방식은 `Self-Supervised Monocular Training`이며 이 학습을 위하여 Appearance Based Loss를 사용합니다.
 
 <br>
-<center><img src="../assets/img/vision/depth/monodepth2/5.png" alt="Drawing" style="width: 600px;"/></center>
+
+- 먼저 `Supervised Depth Estimation` 방법의 동향에 대하여 살펴보도록 하겠습니다.
+
 <br>
+<center><img src="../assets/img/vision/depth/monodepth2/5_1.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- Depth Estimation을 하기 위하여 학습 기반의 방식이 다루어 지고 있습니다. 이러한 방법은 모델의 예측을 통하여 컬러 이미지와 그 컬러 이미지의 깊이 정보의 관계를 추정합니다.
+- 깊이 정보를 추론하기 위하여 end-to-end 방식의 supervised learning 방식들이 연구가 진행되고 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/monodepth2/5_2.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- supervised learning 방식은 효과는 좋으나 학습에 필요한 ground truth를 구하기 어렵다는 단점이 있습니다.
+- 특히 실제 환경에서 이러한 gound truth를 구하는 것은 굉장히 도전적인 일이고 한계점도 많아서 학습 데이터가 weakly supervised로 구성됩니다. 예를 들어 이미지의 모든 픽셀에 대하여 대응되는 깊이 값을 ground truth로 구성하기는 어려운 문제가 있습니다. (따라서 깊이 정보가 듬성 등성 존재하는 sparse depth map을 사용합니다.)
+- 현실에서 깊이 정보를 구하기 어려워 합성 데이터를 사용하는 대안이 있지만 실제 세상에서 나타나는 다양한 환경과 객체들의 움직임을 모두 구현하기는 어렵다는 한계점이 있습니다.
+- 이러한 문제점들을 개선하기 위하여 structure-from-motion 방식과  sparse training data를 모두 이용하여 camera의 pose와 depth를 학습하는 방식을 이용하기도 합니다.
+
+<br>
+
+- 학습 데이터에 전적으로 의존하는 supervised learning 방식으로 깊이 추정 모델을 학습하는 경우 깊이 정보에 대한 GT를 정확하게 구성하기 어려운 한계가 있기 때문에 RGB 이미지에서 학습 정보를 추출하는 `Self-supervised` 학습 방식에 대한 연구도 진행되고 있습니다.
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/6.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- 만약 깊이 정보에 대한 GT가 없는 경우, 대안으로 학습할 수 있는 방식이 `image reconstruction`을 사용하여 학습의 정보로 사용하는 것입니다.
+- 이 때, image reconstruction을 하는 방법은 stero 이미지의 한 쌍이나 monocular sequence에서 한 이미지의 깊이 정보를 이용하여 다른 한 쌍의 이미지나 이전 또는 이후 Frame의 이미지를 예측하여 image reconstruction을 하는 것이고 이 reconstruction error가 작아질수록 disparity를 잘 구할 수 있도록 Loss를 설계하여 학습하도록 합니다.
+
+<br>
+
+- Self-supervised 방식의 학습은 데이터의 종류에 따라 학습 방법이 다릅니다. stero 데이터를 사용하거나 monoculdar sequence 데이터를 사용하는 것에 따라 달라집니다. 
+- 먼저 `Self-supervised Stereo Training`에 대하여 살펴보면 다음과 같습니다.
+
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/7.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+- stereo pair된 이미지를 이용하여 pixel의 disparity를 예측하도록 깊이 추정 네트워크를 학습하면 테스트 시 깊이 추정 네트워크가 단안 영상의 깊이 추정을 할 수 있도록 만들 수 있습니다.
+- stereo 영상을 사용하는 학습 방법의 경향은 stereo 영상을 이용하여 disparity를 잘 구하도록 학습하고 실제 사용 시에는 단안 카메라로 disparity를 구해야 하므로 disparity를 구하기 위한 추가적인 영상을 복원하는 방법을 사용합니다. 예를 들어 단안 카메라가 스테레오 카메라의 왼쪽 카메라 라고 하면 딥러닝을 통하여 오른쪽 카메라 영상을 왼쪽 카메라 영상을 이용하여 복원하고 복원된 카메라 영상과 원본 카메라 영상을 이용하여 disparity를 구합니다.
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/8.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- stereo가 아닌 단안 카메라 영상의 연속적인 frame을 사용하는 self-supervised 방식도 연구되고 있습니다. 
+- 이와 같은 데이터를 이용하기 위해서는 frame 간 카메라의 위치가 어떻게 변화하였는 지 알 수 있어야 합니다. 따라서 pose 네트워크라고 불리는 네트워크가 frame 간 카메라의 위치가 얼만큼 변화하였는 지 pose를 예측하고 깊이 추정을 하는 Depth 네트워크를 학습할 때, 이 정보를 사용합니다.
+- 학습 이외의 과정에서는 깊이를 추정할 때에는 Pose 정보는 사용하지 않습니다. 이와 같은 컨셉이 본 논문에서도 사용됩니다.
+
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/9.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- Self-supervised 방식 중 stereo 데이터 셋을 사용하는 것이 성능에는 효과적이었습니다. 하지만 **Monocular Video 데이터셋을 구성하기가 효율적**이기 때문에 Monocular Video를 이용한 학습 방법이 Stereo 데이터셋을 이용한 방법 수준으로 향상되도록 최적화 하는 방법이 연구되고 있습니다.
+
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/10.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+- Self-supervised 방식의 기본적인 학습 방법은 disparity를 구하는 것입니다. disparity를 구하기 위해서는 두 이미지 간의 동일한 객체를 나타내는 픽셀을 알아야 합니다.
+- 즉, 두 이미지에서 같은 물체에 대한 픽셀 위치의 차이를 안다는 것은 그 차이 만큼 옮겼을 때, 두 이미지가 같아지는 부분이 생긴다는 것을 뜻합니다.
+- 이렇게 같아지는 부분이 잘 생길 수 있도록 Loss를 설계하면 궁극적으로 두 이미지 간의 `disparity`를 잘 구할 수 있음을 의미하고 더 나아가 깊이를 잘 추정할 수 있게 됩니다.
+- 따라서 위 논문에서 언급한 바와 같이 `appearance`, `material` 등에 대한 정보를 Frame 간 일치시킬 수 있도록 Loss를 설계하여 깊이 정보를 잘 추정하고자 하는 것이 학습 방법입니다.
 
 <br>
 
@@ -431,20 +475,14 @@ def get_smooth_loss(disp, img):
 
 <br>
 
-- 지금부터 `monodepth2`의 깃헙 코드에 대한 설명을 해보도록 하겠습니다.
+- 원본 깃헙 링크 : https://github.com/nianticlabs/monodepth2
+- 간소화된 깃헙 링크 : [https://github.com/gaussian37/monodepth2_simple](https://github.com/gaussian37/monodepth2_simple)
 
 <br>
 
-- 링크 : https://github.com/nianticlabs/monodepth2
-
-<br>
-
-- `monodepth2`의 코드는 `trainer.py`에 해당하는 코드 내용을 이해하면 전반적으로 이해할 수 있습니다. 아래 코드의 설명은 몇가지 조건을 정하여 코드를 설명하며 불필요한 부분은 제거하였습니다.
-- 아래 코드 조건은 stereo가 아닌 단안 (mono) 카메라를 통해 얻은 비디오 영상을 이용하여 연속하는 3개의 프레임 ( $$ I_{t-1}, I_{t}, I_{t+1} $$ ) 을 이용하는 옵션만 적용하였으며 Pose Network는 별도 모델을 사용하는 것으로 적용하였습니다. 즉, 논문의 최고 성능을 발휘할 수 있는 코드만 남기고 나머지 코드는 제거하였습니다.
-
-<br>
-
-- 깃헙 repository : [https://github.com/gaussian37/monodepth2_simple](https://github.com/gaussian37/monodepth2_simple)
+- `monodepth2`의 코드는 `trainer.py`에 해당하는 코드 내용을 이해하면 전반적으로 이해할 수 있습니다. 위 깃헙 링크 코드 중 `간소화된 깃헙 링크`는 몇가지 조건을 정하여 코드를 설명하며 불필요한 부분과 ablation study 부분은 제거하고 주석을 추가하였습니다.
+- 몇가지 조건은 스테레오가 아닌 단안 (mono) 카메라를 통해 얻은 비디오 영상을 이용하고 연속하는 3개의 프레임 ( $$ I_{t-1}, I_{t}, I_{t+1} $$ ) 을 이용하는 옵션만 적용하였으며 Pose Network는 별도 모델을 사용하는 것으로 적용하였습니다. 즉, 논문의 최고 성능을 발휘할 수 있는 코드만 남기고 나머지 코드는 제거하였습니다.
+- 코드를 확인하시고 문의 사항이 있으시면 댓글 달아주시면 감사하겠습니다.
 
 <br>
 
