@@ -41,7 +41,7 @@ tags: [SSIM, Structural Similarity Index] # add tag
 
 <br>
 
-- `SSIM`은 Structureal Similarity Index Measure의 약어로 두 이미지의 유사도를 `luminance`, `contrast`, `structure` 3가지 요소를 이용하여 비교하는 방법을 의미합니다. 이와 같은 요소를 이용하여 이미지를 비교하는 이유는 실제 인간의 시각 기관도 이와 같은 방법으로 인식하기 때문입니다.
+- `SSIM`은 Structural Similarity Index Measure의 약어로 두 이미지의 유사도를 `luminance`, `contrast`, `structure` 3가지 요소를 이용하여 비교하는 방법을 의미합니다. 이와 같은 요소를 이용하여 이미지를 비교하는 이유는 실제 인간의 시각 기관도 이와 같은 방법으로 인식하기 때문입니다.
 - `SSIM`의 최종 결과는 0 ~ 1 사이이며 1에 가까울수록 두 이미지가 유사함을 의미합니다. 그러면 `luminance`, `contrast`, `structure`가 각각 어떻게 계산되어서 하나로 합쳐지는 지 살펴보도록 하곘습니다. 입력값의 범위에 따라서 -1 ~ 1 사이의 값을 가질수도 있으며 1에 가까울수록 두 이미지가 유사한 것은 동일합니다.
 
 <br>
