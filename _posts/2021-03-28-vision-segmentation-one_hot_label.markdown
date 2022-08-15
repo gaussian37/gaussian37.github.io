@@ -6,6 +6,9 @@ img: vision/segmentation/one_hot_label/0.png
 categories: [vision-segmentation] 
 tags: [vision, deep learning, segmentation, one hot label] # add tag
 ---
+<br>
+
+[Segmentation 관련 글 목차](https://gaussian37.github.io/vision-segmentation-table/)
 
 <br>
 
@@ -251,5 +254,9 @@ loss_temp = torch.sum(predict * one_hot_label, dim=1)
 loss = torch.mean(loss_temp)
 # loss = torch.sum(loss_temp)
 ```
+
+<br>
+
+[Segmentation 관련 글 목차](https://gaussian37.github.io/vision-segmentation-table/)
 
 <br>

@@ -24,7 +24,7 @@ tags: [vision, deep learning, segmentation] # add tag
 - [Segmentation의 Entropy 표현 방법](https://gaussian37.github.io/vision-segmentation-entropy/)
 - [Multi-Scale Context Aggregation by Dilated Convolutions](https://blog.naver.com/laonple/220991967450)
 - [ASPP(Atrous Spatial Pyramid Pooling)](https://gaussian37.github.io/vision-segmentation-aspp/)
-- [CRF (Conditional Random Field) 내용 알아보기](https://gaussian37.github.io/vision-segmentation-crf/)
+- [DenseCRF, Efficient Inference in Fully Connected CRFs with Gaussian Edge Potentials](https://gaussian37.github.io/vision-segmentation-densecrf/)
 - [Learning Deconvolution Network for Semantic Segmentation]()
 - [Multi-scale context aggregation by dilated convolutions](https://arxiv.org/pdf/1511.07122.pdf)
 - [STEGO (Unsupervised Semantic Segmentation by Distilling Feature Correspondences)](https://arxiv.org/abs/2203.08414)

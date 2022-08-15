@@ -18,8 +18,8 @@ tags: [vision, depth estimation, 뎁스 추정] # add tag
 <br>
 
 - [Unsupervised Learning of Depth and Ego-Motion from Video]()
-- [Unsupervised Monocular Depth Estimation with Left-Right Consistency](https://gaussian37.github.io/vision-depth-monodepth1/)
-- [Digging Into Self-Supervised Monocular Depth Estimation](https://gaussian37.github.io/vision-depth-monodepth2/)
+- [Monodepth, Unsupervised Monocular Depth Estimation with Left-Right Consistency](https://gaussian37.github.io/vision-depth-monodepth1/)
+- [Monodepth2, Digging Into Self-Supervised Monocular Depth Estimation](https://gaussian37.github.io/vision-depth-monodepth2/)
 - [Depth Prediction Without the Sensors: Leveraging Structure for Unsupervised Learning from Monocular Videos]()
 - [Depth from Videos in the Wild: Unsupervised Monocular Depth Learning from Unknown Cameras]()
 - [3D Packing for Self-Supervised Monocular Depth Estimation]()
@@ -49,4 +49,5 @@ tags: [vision, depth estimation, 뎁스 추정] # add tag
 
 <br>
 
+- [Depth Estimation의 Metric](https://gaussian37.github.io/vision-depth-metrics/)
 - [Semantic segmentation과 Depth Estimation의 Multi Task Learning](https://gaussian37.github.io/vision-depth-seg_depth_mtl/)

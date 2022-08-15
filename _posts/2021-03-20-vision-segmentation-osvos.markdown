@@ -9,6 +9,10 @@ tags: [vision, deep learning, osvos, one shot video object segmentation, vos] # 
 
 <br>
 
+[Segmentation 관련 글 목차](https://gaussian37.github.io/vision-segmentation-table/)
+
+<br>
+
 - 논문 : https://arxiv.org/abs/1611.05198
 - 공식 페이지 : https://cvlsegmentation.github.io/osvos/
 - 깃헙 : https://github.com/kmaninis/OSVOS-PyTorch
@@ -142,3 +146,9 @@ tags: [vision, deep learning, osvos, one shot video object segmentation, vos] # 
 
 - 실험 결과를 살펴보면 그 당시의 다른 방법에 비해서는 성능이 좋은 것을 확인할 수 있습니다. 다만, 2020년 시점에서는 더 이상 OSVOS와 같은 방법을 사용하지는 않는 추세입니다.
 - 먼저 `OSVOS`에 비하여 더 성능이 좋은 방법들이 많이 도입되었고, `on-line learning`은 특정 물체에 대해서 특화되는 학습 방법이라서 범용적으로 사용하기 어려운 한계가 있기 때문입니다. 따라서 `off-line learning` 방식 만으로 범용적으로 성능을 만들어 낼 수 있는 방법이 선호도가 높습니다.
+
+<br>
+
+[Segmentation 관련 글 목차](https://gaussian37.github.io/vision-segmentation-table/)
+
+<br>
