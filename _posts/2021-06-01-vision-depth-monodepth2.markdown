@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Monodepth 2 (Digging Into Self-Supervised Monocular Depth Estimation )
+title: Monodepth2, Digging Into Self-Supervised Monocular Depth Estimation
 date: 2021-06-01 00:00:00
 img: vision/depth/monodepth2/0.png
 categories: [vision-depth] 
-tags: [depth estimation, monodepth2, 모노 뎁스 2, 모노뎁스] # add tag
+tags: [depth estimation, monodepth2, 모노 뎁스 2, 모노뎁스, 모노뎁스2, monodepth 2, Monodepth 2] # add tag
 ---
 
 <br>
