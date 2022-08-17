@@ -29,6 +29,7 @@ tags: [opencv, python, snippets] # add tag
 - ### [gif 만들기 with imageio](#gif-만들기-with-imageio-1)
 - ### [두 이미지를 오버레이 하기](#두-이미지를-오버레이-하기-1)
 - ### [픽셀의 하한, 상한 값 정하기](#픽셀의-하한-상한-값-정하기-1)
+- ### [기타 참조 내용](#기타-참조-내용-1)
 
 <br>
 
@@ -469,6 +470,15 @@ lower_bound = 0
 upper_bound = 255
 img = np.clip(img, lower_bound, upper_bound).astype(np.uint8)
 ```
+
+<br>
+
+## **기타 참조 내용**
+
+<br>
+
+- python에서 opencv를 사용 중에 `cannot import name '_registerMatType' from 'cv2.cv2'`와 같은 에러가 발생하는 경우 `opencv-python-headless`를 설치하면 됩니다. head가 생겨서 2중으로 구성되어 (ex. cv2.cv2) 발생한 오류입니다. 아래 버전으로 install 하시면 문제를 해결할 수 있습니다.
+    - 설치 : `pip install opencv-python-headless==4.1.2.30`
 
 <br>
 
