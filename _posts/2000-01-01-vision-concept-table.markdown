@@ -19,7 +19,7 @@ tags: [vision] # add tag
 - [Homogeneous coordinate (동차 좌표계)](https://gaussian37.github.io/vision-concept-homogeneous_coordinate/)
 - [사원수(quaternion)와 회전 ](https://gaussian37.github.io/vision-concept-quaternion/)
 - [IPM(Inverse Perspective Mapping)을 이용한 Bird Eye View 변환](https://gaussian37.github.io/vision-concept-ipm/)
-- [카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)
+- [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)
 - [스케일 불변 특징점 검출 (SIFT, SURF)](https://gaussian37.github.io/vision-concept-scale_invariant_feature_extraction/)
 - [이미지 압축 알아보기](https://gaussian37.github.io/vision-concept-image_compression/)
 - [Fourier transform (푸리에 변환)](https://gaussian37.github.io/vision-concept-fourier_transform/)

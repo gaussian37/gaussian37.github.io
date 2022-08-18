@@ -1,11 +1,15 @@
 ---
 layout: post
-title: 카메라 캘리브레이션의 이해와 Python 실습
+title: 카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습
 date: 2022-01-28 00:00:00
 img: vision/concept/calibration/0.png
 categories: [vision-concept] 
-tags: [vision, concept, calibaration, 캘리브레이션] # add tag
+tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pinhole, 왜곡 보정] # add tag
 ---
+
+<br>
+
+[Vision 관련 글 목차](https://gaussian37.github.io/vision-concept-table/)
 
 <br>
 
@@ -28,8 +32,10 @@ tags: [vision, concept, calibaration, 캘리브레이션] # add tag
 - ### [이미지 형성과 핀홀 모델 카메라](#이미지-형성과-핀홀-모델-카메라-1)
 - ### [Camera Extrinsic Matrix with Example in Python](#camera-extrinsic-matrix-with-example-in-python-1)
 - ### [Camera Intrinsic Matrix with Example in Python](#camera-intrinsic-matrix-with-example-in-python-1)
-- ### [Find the Minimum Stretching Direction of Positive Definite Matrices](#)
+- ### [Find the Minimum Stretching Direction of Positive Definite Matrices](#find-the-minimum-stretching-direction-of-positive-definite-matrices-1)
 - ### [Camera Calibration with Example in Python](#camera-calibration-with-example-in-python-1)
+- ### [Camera Model 정리](#camera-model-정리-1)
+- ### [Camera 왜곡 보정 정리](#camera-왜곡-보정-정리-1)
 
 <br>
 
@@ -773,11 +779,6 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-
-
-
-<br>
-
 ## **Camera Calibration with Example in Python**
 
 <br>
@@ -785,4 +786,24 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
+## **Camera Model 정리**
 
+<br>
+
+- 앞에서 배운 내용들을 이용하여 카메라 모델을 정리해 보도록 하겠습니다. 대표적으로 `Pinhole` 카메라 모델과 `Fisheye` 카메라 모델을 다룰 예정입니다.
+
+<br>
+
+## **Camera 왜곡 보정 정리**
+
+<br>
+
+- Camera Model 정리 부분에서 실제 카메라에서는 빛을 모으기 위한 렌즈가 존재하고 이 렌즈로 인하여 왜곡 (`distortion`) 이 발생하는 것을 알 수 있었습니다.
+- 이 렌즈 모양에 따라서 원본 이미지에 반영되는 왜곡 정도가 다르며 궁극적으로 왜곡이 제거된 왜곡 보정 이미지 (`undistortion`)를 얻고자 하는 경우를 아래와 같이 정리하고자 합니다.
+
+
+<br>
+
+[Vision 관련 글 목차](https://gaussian37.github.io/vision-concept-table/)
+
+<br>

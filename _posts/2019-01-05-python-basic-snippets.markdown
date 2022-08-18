@@ -1372,6 +1372,34 @@ print(args.input)
 
 <br>
 
+- 만약 현재 코드의 args를 문서로 저장하고 싶을 때, 아래 코드와 같이 `json` 파일로 저장할 수 있습니다.
+- 이와 같이 저장하면 코드에서 실제 사용한 args의 리스트를 이후에 확인할 수 있습니다.
+
+<br>
+
+```python
+from argparse import ArgumentParser
+import json
+
+parser = ArgumentParser()
+parser.add_argument('--seed', type=int, default=8)
+parser.add_argument('--resume', type=str, default='a/b/c.ckpt')
+parser.add_argument('--surgery', type=str, default='190', choices=['190', '417'])
+args = parser.parse_args()
+
+with open('commandline_args.json', 'w') as f:
+    json.dump(args.__dict__, f, indent=2)
+
+parser = ArgumentParser()
+args = parser.parse_args()
+with open('commandline_args.json', 'r') as f:
+    args.__dict__ = json.load(f)
+
+print(args)
+```
+
+<br>
+
 ## **문자열 검색 : startswith, endswith, in, find**
 
 <br>
