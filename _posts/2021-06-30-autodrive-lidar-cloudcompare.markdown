@@ -126,7 +126,7 @@ points.to_csv("cloudcompare_input.csv", index_col = False, sep=',')
 
 <br>
 
-## *원점 좌표축 추가**
+## **원점 좌표축 추가**
 
 <br>
 
@@ -186,6 +186,6 @@ origin_axis_df.to_csv("origin.csv", index=False, sep=',')
 
 <br>
 
-## ROI 영역 기준 포인트 클라우드 필터링
+## **ROI 영역 기준 포인트 클라우드 필터링**
 
 <br>
