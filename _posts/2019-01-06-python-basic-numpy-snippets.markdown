@@ -31,6 +31,7 @@ tags: [Numpy, 넘파이] # add tag
 - ### [np.delete를 이용한 값 제거](#npdelete를-이용한-값-제거-1)
 - ### [np.testing을 이용한 두 값의 차이값 확인](#nptesting을-이용한-두-값의-차이값-확인-1)
 - ### [np.cov를 이용한 공분산 구하기](#npcov를-이용한-공분산-구하기-1)
+- ### [np.savetxt 관련 기능 정리](#npsavetxt-관련-기능-정리-1)
 
 
 <br>
@@ -672,3 +673,14 @@ np.cov(x)
 
 <br>
 
+## **np.savetxt 관련 기능 정리**
+
+<br>
+
+- numpy의 배열 값을 txt나 csv 형태로 저장하려고 할 때, `np.savetxt` 함수를 사용하면 됩니다.
+- 아래는 (N, 6)의 값을 가지는 배열을 소수와 정수가 섞인 포맷의 csv 파일로 저장하는 예시 입니다.
+    - `np.savetxt("np_test.csv", C, fmt="%.2f,%.2f,%.2f,%d", header="x,y,z,r,g,b", comments='')`
+- 위 예시에서 `fmt`를 통해 저장할 파일의 형식을 하나의 형식이 아닌 여러 형식으로 정의할 수 있습니다.
+- `header`를 통하여 1행에 열의 이름을 지정할 수 있습니다. header를 사용하면 가장 첫번째 요소에 #이 붙게 되는데 이 문제를 없애기 위하여 `comments=''`을 사용하였습니다.
+
+<br>
