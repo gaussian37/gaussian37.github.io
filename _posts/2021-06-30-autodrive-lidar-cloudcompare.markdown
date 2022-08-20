@@ -9,7 +9,7 @@ tags: [라이다, 클라우드 컴패어, CloudCompare] # add tag
 
 <br>
 
-- CloudCompare 매뉴얼 : https://www.danielgm.net/cc/doc/qCC/Documentation_CloudCompare_version_2_1_eng.pdf
+- CloudCompare 매뉴얼 : http://www.cloudcompare.org/doc/qCC/CloudCompare%20v2.6.1%20-%20User%20manual.pdf
 
 <br>
 
@@ -25,7 +25,7 @@ tags: [라이다, 클라우드 컴패어, CloudCompare] # add tag
 - ### [설치 방법](#)
 - ### [입력 파일 형식 및 예제 준비](#)
 - ### [원점 좌표축 추가](#)
-- ### [자주 사용하는 기능](#)
+- ### [Segments](#)
 
 <br>
 
