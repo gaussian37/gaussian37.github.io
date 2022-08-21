@@ -39,12 +39,15 @@ tags: [deep learning, augmentation, albumentation, pytorch] # add tag
 <br>
 
 - ### [Normalize](#normalize-1)
-- ### [RandomResizedCrop](#randomresizedcrop-1)
-- ### [RandomRotate90 & Resize](#randomrotate90--resize-1)
 
 <br>
 
 - ### [ColorJitter](#colorjitter-1)
+
+<br>
+
+- ### [RandomResizedCrop](#randomresizedcrop-1)
+- ### [RandomRotate90 & Resize](#randomrotate90--resize-1)
 
 <br>
 
@@ -452,6 +455,31 @@ transform = A.Compose([
 
 <br>
 
+## **ColorJitter**
+
+<br>
+
+- `ColorJitter`는 대표적인 Augmentation 방법 중 하나입니다. 픽셀의 값을 `brightness`, `contrast`, `saturation`, `hue` 값으로 분할하고 각 성분에 대한 random 값을 적용하여 다양한 이미지를 생성합니다.
+- 물론 `ColorJitter`를 Augmentation으로 사용하려면 색이 바뀌어도 풀고자 하는 문제에 영향이 없어야 합니다.
+- 상세 내용은 아래 albumentation의 내용을 따릅니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/albumentation/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+```python
+transform = A.Compose([
+    A.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2),
+])
+```
+
+<br>
+<center><img src="../assets/img/dl/pytorch/albumentation/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
+<br>
+
 ## **RandomResizedCrop**
 
 <br>
@@ -464,11 +492,7 @@ transform = A.Compose([
 
 <br>
 
-<br>
 
-## **ColorJitter**
-
-<br>
 
 <br>
 
