@@ -2632,7 +2632,7 @@ print(v2)
 ```python
 torch.nn.functional.interpolate(
     input, # input tensor
-    size=None, # output spatial size로 int나 int 형 tuple이 입력으로 들어옵니다.
+    size=None, # output spatial size로 int나 int 형 tuple이 입력으로 들어옵니다. (height, width)
     scale_factor=None, # spatial size에 곱해지는 scale 값
     mode='nearest', # 어떤 방법으로 upsampling할 것인지 정하게 됩니다. 'nearest', 'linear', 'bilinear', 'bicubic', 'trilinear', 'area'
     align_corners=False, # interpolate 할 때, 가장자리를 어떻게 처리할 지 방법으로 아래 그림 참조.
@@ -2643,20 +2643,11 @@ torch.nn.functional.interpolate(
 
 - `functional.interpolate` 함수에서 필수적으로 사용하는 것은 `input`, `size`, `mode`이고 추가적으로 `align_corners`를 사용합니다.
 - `input`은 입력 Tensor입니다.
-- `size`는 interpolate 할 목표 사이즈 입니다. 이 때, 입력해야 할 사이즈는 batch와 channel을 뺀 사이즈이어야 합니다. 예를 들어 이미지의 경우 height와 width만 있기 때문에 (new_height, new_width) 형태이어야 합니다. (**size 와 scale_factor 중 하나만 입력 해야 합니다.**)
+- `size`는 interpolate 할 목표 사이즈 입니다. 이 때, 입력해야 할 사이즈는 batch와 channel을 뺀 사이즈이어야 합니다. 예를 들어 이미지의 경우 height와 width만 있기 때문에 (`new_height`, `new_width`) 형태이어야 합니다. Tensor의 크기와 대응되도록 height, width 순서로 입력해야 합니다. (**size 와 scale_factor 중 하나만 입력 해야 합니다.**)
 - `scale_factor` 또한 intperpolate 할 목표 사이즈가 됩니다. (**size 와 scale_factor 중 하나만 입력 해야 합니다.**)
 - `mode`는 upsampling 하는 방법으로 `nearest` 또는 `bilinear`를 대표적으로 사용할 수 있습니다. 
     - `nearest` 같은 경우 주변 값을 실제 사용하는 것으로 현재 존재하는 실제 픽셀 값을 사용해야 하는 경우 `nearest`를 사용할 수 있습니다. 예를 들어 input의 feature 값이 정수 인데 interpolate 한 output의 값들도 정수가 되어야 한다면 nearest를 사용하여 소수값이 생기지 않도록 할 수 있습니다.
     - `bilinear`는 [bilinear interpolation](https://en.wikipedia.org/wiki/Bilinear_interpolation) 방법을 이용한 것으로 이미지와 같은 height, width의 속성을 가지는 데이터에 적합한 interpolation 방법입니다. height, width로 구성된 2차원 평면이므로 interpolation 할 때 사용되는 변수도 2개입니다. 이 방법은 단 방향의, 1개의 변수를 이용하여 interpolation 하는 linear 보다 좀 더 나은 방법입니다.
-- `align_corners`는 다음 그림을 참조해 보겠습니다.
-
-<br>
-<center><img src="../assets/img/dl/pytorch/snippets/6.png" alt="Drawing" style="width: 800px;"/></center>
-<br>
-
-- `align_corners`에서 왼쪽 그림이 align_corners = True인 상태이고 오른쪽 그림이 False인 상태입니다. 말 그대로 True로 설정되면 Input점 의 edge(corner)가 Output의 edge(corner)와 정렬을 맞춘 상태에서 interpolation을 합니다. 반면 False 인 상태이면 algin을 맞추지 않은 상태로 inpterpolation을 하게됩니다. **간단하게 말하면 align_corners = True인 상태에 값들이 더 넓게 펼쳐져 있습니다.**
-- **segmentation을 할 때, align_corners = True로 두면** 좀 더 성능이 좋다고 알려져 있습니다. 따라서 이 값은 True로 두는 것을 권장합니다. 다만 `ONNX`로 변환해야 하는 경우 버전에 따라서 반드시 align_corners = False로 두어야 하는 경우가 있으므로 이 점은 유의하여 사용하시길 바랍니다.
-- 그러면 예제를 살펴보도록 하겠습니다.
 
 <br>
 
@@ -2687,6 +2678,46 @@ F.interpolate(input, scale_factor=0.8, mode='nearest')
 #           [ 4.,  5.,  6.],
 #           [ 8.,  9., 10.]]]])
 
+F.interpolate(input, size=(5, 3), mode='bilinear')
+# tensor([[[[ 0.1667,  1.5000,  2.8333],
+#           [ 2.9667,  4.3000,  5.6333],
+#           [ 6.1667,  7.5000,  8.8333],
+#           [ 9.3667, 10.7000, 12.0333],
+#           [12.1667, 13.5000, 14.8333]]]])
+```
+
+<br>
+
+- `align_corners` 내용은 다음 그림을 참조해 보겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림은 source가 (4, 4) 크기일 때, target은 (8, 8)로 2배 upsampling 하는 예제입니다.
+- `align_corners`기준으로 왼쪽 그림이 align_corners = True인 상태이고 오른쪽 그림이 False인 상태입니다.
+- 픽셀 영역으로 grid를 만들 었을 때, source는 grid의 교차점에 위치한 것을 전제로 합니다. `align_corners=False`의 그림을 참조하시면 됩니다. 이 때, `align_corners=True`이면 target 또한 source와 같이 grid의 교차점에 값을 위치시키려고 하나 `align_corners=False`이면 target은 한 픽셀 영역을 가지려고 합니다. 위의 그림을 참조하시기 바랍니다.
+- 따라서 `align_corners=True`인 상태라면 source의 끝점과 target의 끝점이 일치한 상태에서 interpolation이 됩니다. 말 그대로 corner 기준으로 정렬이 맞춰진 것입니다.
+- 반면 `align_corners=False`가 되면 target은 하나의 픽셀 영역이 되고 source의 픽셀들이 target의 픽셀의 grid points가 되도록 구성합니다.
+- **segmentation을 할 때, align_corners = True로 두면** 좀 더 성능이 좋다고 알려져 있습니다. 따라서 이 값은 True로 두는 것을 권장합니다. 다만 `ONNX`로 변환해야 하는 경우 버전에 따라서 반드시 align_corners = False로 두어야 하는 경우가 있으므로 이 점은 유의하여 사용하시길 바랍니다.
+- 그러면 예제를 살펴보도록 하겠습니다.
+
+<br>
+
+```python
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import numpy as np
+
+input = torch.arange(0, 16, dtype=torch.float32).reshape(1, 1, 4, 4)
+# size : torch.Size([1, 1, 4, 4])
+# value : tensor([[[[ 0.,  1.,  2.,  3.],
+#                   [ 4.,  5.,  6.,  7.],
+#                   [ 8.,  9., 10., 11.],
+#                   [12., 13., 14., 15.]]]])
+
 # align_corners가 True일 때와 False일 때의 값 차이 확인
 F.interpolate(input, scale_factor=2, mode='bilinear', align_corners=False)
 # tensor([[[[ 0.0000,  0.2500,  0.7500,  1.2500,  1.7500,  2.2500,  2.7500,  3.0000],
@@ -2707,13 +2738,6 @@ F.interpolate(input, scale_factor=2, mode='bilinear', align_corners=True)
 #           [ 8.5714,  9.0000,  9.4286,  9.8571, 10.2857, 10.7143, 11.1429,  11.5714],
 #           [10.2857, 10.7143, 11.1429, 11.5714, 12.0000, 12.4286, 12.8571,  13.2857],
 #           [12.0000, 12.4286, 12.8571, 13.2857, 13.7143, 14.1429, 14.5714,  15.0000]]]])
-
-F.interpolate(input, size=(5, 3), mode='bilinear', align_corners=False)
-# tensor([[[[ 0.1667,  1.5000,  2.8333],
-#           [ 2.9667,  4.3000,  5.6333],
-#           [ 6.1667,  7.5000,  8.8333],
-#           [ 9.3667, 10.7000, 12.0333],
-#           [12.1667, 13.5000, 14.8333]]]])
 ```
 
 <br>

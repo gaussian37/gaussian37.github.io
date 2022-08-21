@@ -324,8 +324,70 @@ mask[mask < 0] = no_use_class
 
 <br>
 
+- 참조 : https://albumentations.ai/docs/examples/example_multi_target/
 
+<br>
 
+- Augmentation을 적용 시, 동일한 기준으로 여러개의 데이터 셋에 동시에 적용하고자 하는 경우가 있습니다.
+- 이 때, `additional_targets` 옵션을 이용하여 `additional data : base data`로 같은 기준으로 augmentation 하는 짝을 맞추어 주면 됩니다. 다음 코드를 참조하시면 됩니다.
+
+<br>
+
+```python
+import albumentations as A
+
+transform = A.Compose(
+    [HorizontalFlip(p=0.5), ...],
+    additional_targets={
+        'image1': 'image',
+        'image2': 'image',
+        ...
+        'imageN': 'image',
+
+        'bboxes1': 'bboxes',
+        'bboxes1': 'bboxes',
+        ...
+        'bboxesM': 'bboxes',
+
+        'keypoints1': 'keypoints',
+        'keypoints2': 'keypoints',
+        ...
+        'keypointsK': 'keypoints',
+
+        'mask1': 'mask',
+        'mask2': 'mask',
+        ...
+        'maskL': 'mask'
+    })
+```
+
+<br>
+
+- 위 코드에서 `image1`, `image2`, ... , `imageN`는 `image`와 동일한 Augmentation이 적용됩니다. 즉, 어떤 랜덤값에 의하여 Augmentation이 될 때, 동일한 값으로 적용되는 것입니다.
+- image 뿐만 아니라 `bboxes`, `keypoints`, `mask` 등도 동일하게 적용됩니다.
+- 실제 Pytorch에서 사용 시 아래 코드를 따르면 됩니다.
+
+<br>
+
+```python
+import random
+import cv2
+from matplotlib import pyplot as plt
+import albumentations as A
+
+image = cv2.imread('images/multi_target_1.jpg')
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+image0 = cv2.imread('images/multi_target_2.jpg')
+image0 = cv2.cvtColor(image0, cv2.COLOR_BGR2RGB)
+image1 = cv2.imread('images/multi_target_3.jpg')
+image1 = cv2.cvtColor(image1, cv2.COLOR_BGR2RGB)
+
+transform = A.Compose(
+    [A.VerticalFlip(p=1)],
+    additional_targets={'image0': 'image', 'image1': 'image'}
+)
+transformed = transform(image=image, image0=image0, image1=image1)
+```
 
 <br>
 
