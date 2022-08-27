@@ -15,6 +15,7 @@ tags: [3d vision, streo, calibration, epipolar geometry] # add tag
 
 - 참조 : https://www.youtube.com/watch?v=hdbv1FWOclc
 - 참조 : https://darkpgmr.tistory.com/83
+- 참조 : https://youtu.be/KOSS24P3_fY
 
 <br>
 

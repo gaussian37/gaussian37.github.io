@@ -27,6 +27,7 @@ tags: [pytorch, deploy, onnx, onnxruntime] # add tag
 - ### [onnx 모델에 pytorch weight 할당](#onnx-모델에-pytorch-weight-할당-1)
 - ### [onnx 모델 export 코드 종합](#onnx-모델-export-코드-종합-1)
 - ### [netron을 이용한 ONNX 시각화](netron을-이용한-onnx-시각화-1)
+- ### [onnx 그래프 수정](#onnx-그래프-수정-1)
 - ### [onnx 모델의 shape 확인](#onnx-모델의-shape-확인-1)
 - ### [ONNX 모델을 caffe2 모델로 저장](onnx-모델을-caffe2-모델로-저장-1)
 - ### [onnxruntime을 이용한 모델 사용](#onnxruntime을-이용한-모델-사용-1)
@@ -447,6 +448,46 @@ else:
 
 - 이와 같은 시각화를 통하여 모델의 전체적인 구조 및 파라미터 등을 알 수 있고 특히 onnx에서 사용하는 입출력의 이름과 shape을 확인할 수 있습니다.
 - 이 과정을 통하여 글의 뒷부분에 작성한 `onnxruntime을 이용한 모델 사용`에서 사용하는 입출력의 이름과 입력의 shape 정보를 쉽게 확인할 수 있습니다.
+
+<br>
+
+## **onnx 그래프 수정**
+
+<br>
+
+- 깃헙 : https://github.com/ZhangGe6/onnx-modifier
+
+<br>
+
+- 생성이 완료된 onnx 모델을 수정하고 싶은 경우 `onnx-modifer`를 통해 수정이 가능합니다. `onnx-modifier`가 지원하는 연산은 노드의 삭제, 추가, 속성 변경 및 입/출력 추가 등이 있습니다.
+- 실제 학습이 완료된 모델을 onnx로 변환하기 때문에 노드의 추가나 속성 값의 변경은 많이 발생하지 않습니다. 다만 특정 **layer 이후의 모든 layer (childeren)은 삭제**를 하는 기능은 종종 사용합니다. 예를 들어 모든 기능을 다 지원하는 onnx 파일을 만든 이후에 사용 목적에 따라 필요 없는 layer를 삭제하여 경량화 하는 것입니다.
+- 이번 글에서는 **layer를 삭제하는 기능을 살펴볼 것**이며 전체 내용은 위의 깃헙 링크를 참조하시기 바랍니다.
+
+<br>
+
+- 설치 방법 : `pip install onnx flask`
+- 사용 방법 : 
+    - `git clone git@github.com:ZhangGe6/onnx-modifier.git` 또는 위 링크에서 git 다운로드
+    - `cd onnx-modifier`
+    - `python app.py`
+    - 서버가 켜지면 웹 브라우저에서 `http://127.0.0.1:5000/` 접속하면 netron과 유사한 형태의 UI가 켜지는 것을 확인할 수 있습니다.
+
+<br>
+
+- 아래 모델은 MobileNet 모델로 깃헙에서 기본으로 제공하는 모델이며 마지막 출력부의 형태 입니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/deploy/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 특정 layer를 기준으로 그 layer 하부의 연관된 모든 layer를 삭제하는 기능입니다. 먼저 기준이 되 layer를 선택합니다.
+- 그 다음으로 `Delete With Children`을 선택 후 Enter를 누르면 선택된 layer를 기준으로 하부 layer는 삭제된 것을 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/deploy/5.gif" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 삭제가 완료된 모델은 왼쪽 상단의 `Download` 버튼을 통해 다운 받을 수 있습니다.
 
 <br>
 

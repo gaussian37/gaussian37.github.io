@@ -16,6 +16,7 @@ tags: [Multiple View Geometry] # add tag
 - 참조 : https://youtu.be/LAHQ_qIzNGU?list=PLxg0CGqViygP47ERvqHw_v7FVnUovJeaz
 - 참조 : https://youtu.be/gQ7IUS8NKCI?list=PLxg0CGqViygP47ERvqHw_v7FVnUovJeaz
 - 참조 : Multiple View Geometry in Computer Vision
+- 참조 : https://www.cuemath.com/learn/mathematics/conics-in-real-life/
 
 <br>
 

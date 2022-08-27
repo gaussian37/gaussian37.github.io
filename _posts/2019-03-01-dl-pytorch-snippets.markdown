@@ -2516,6 +2516,18 @@ torch.from_numpy(A)
 
 <br>
 
+```python
+torch.Tensor().numpy()
+torch.Tensor().cpu().data.numpy()
+torch.Tensor().cpu().detach().numpy()
+```
+
+<br>
+
+- GPU에 사용되거나 학습에 사용된 경우에 따라서 tensor를 numpy로 바꾸려면 위 3가지 방법 중 하나를 따르게 되어 있습니다. 상황에 맞게 사용하면 됩니다.
+
+<br>
+
 ## **torch.unsqueeze(input, dim)**
 
 <br>

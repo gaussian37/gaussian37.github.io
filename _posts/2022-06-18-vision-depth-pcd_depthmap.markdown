@@ -1,6 +1,6 @@
 ---
 layout: post
-title: PCD와 Depth Map의 변환 관계 정리
+title: 포인트 클라우드와 뎁스 맵의 변환 관계 정리
 date: 2022-06-18 00:00:00
 img: vision/depth/pcd_depthmap/0.png
 categories: [vision-depth] 
@@ -9,8 +9,9 @@ tags: [vision, depth, point cloud, depth map] # add tag
 
 <br>
 
-- 이번 글에서는 `Point Cloud`와 `Depth Map` 사이의 변환 방법에 대하여 알아보도록 하겠습니다.
-- 먼저 라이다를 통해 취득한 `PCD(Point Cloud Data)`를 이미지에 Projection 하여 `Depth Map`을 만드는 방법에 대하여 다루어보고 `Depth Map`이 있을 때, 이 값을 `PCD` 형태로 나타내는 방법에 대하여 다루어 보도록 하겠습니다.
+- 이번 글에서는 `포인트 클라우드`와 `뎁스 맵` 사이의 변환 방법에 대하여 알아보도록 하겠습니다.
+- 먼저 라이다를 통해 취득한 `포인트 클라우드`를 이미지에 Projection 하여 `뎁스 맵`을 만드는 방법에 대하여 다루어보고 `뎁스 맵`이 있을 때, 이 값을 `포인트 클라우드` 형태로 나타내는 방법에 대하여 다루어 보도록 하겠습니다.
+- 이와 같은 연산의 핵심이 되는 값은 카메라 intrinsic 파라미터가되며 **intrinsic을 통하여 3D → 2D로 변환이 가능하며 반대로 2D → 3D로 변환하기 위해서는 깊이(depth) 정보가 필요하기 때문에 intrinsic과 depth를 통해 2D → 3D로 변환할 수 있습니다.**
 
 <br>
 
@@ -18,26 +19,54 @@ tags: [vision, depth, point cloud, depth map] # add tag
 
 <br>
 
-- ### [PCD to Depth Map 원리](#)
-- ### [PCD to Depth Map 실습](#)
-- ### [Depth Map to PCD 원리](#)
-- ### [Depth Map to PCD 실습](#)
+- ### [카메라 좌표계 기준의 포인트 클라우드](#)
+- ### [포인트 클라우드 to 뎁스 맵 원리](#)
+- ### [뎁스 맵 to 포인트 클라우드 원리](#)
+- ### [포인트 클라우드와 뎁스 맵의 변환 간단 예제](#)
+- ### [포인트 클라우드 to 뎁스 맵 실습](#)
+- ### [뎁스 맵 to 포인트 클라우드 실습](#)
 
 <br>
 
-## **PCD to Depth Map 원리**
+## **카메라 좌표계 기준의 포인트 클라우드**
 
 <br>
 
+- 본 글에서 다루은 포인트 클라우드는 카메라 좌표계에서 다루고자 합니다. 따라서 라이다 좌표계 기준에서 카메라 기준으로 포인트 들을 옮겨와야 합니다.
+
+<br>
+
+## **포인트 클라우드 to 뎁스 맵 원리**
+
+<br>
+
+- 
+- 
 
 
 <br>
 
-## **PCD to Depth Map 실습**
+## **뎁스 맵 to 포인트 클라우드 원리**
 
 <br>
 
-- 지금부터 앞에서 다룬 개념을 이용하여 `PCD`를 `Depth Map`으로 바꾸는 방법에 대하여 살펴보도록 하겠습니다.
+- 이번에는 반대 방향으로 뎁스 맵을 이용하여 포인트 클라우드를 생성하는 방법에 대하여 알아보도록 하겠습니다.
+
+<br>
+
+## **포인트 클라우드와 뎁스 맵의 변환 간단 예제***
+
+<br>
+
+- 지금까지 살펴본 내용을 통해 포인트 클라우드와 뎁스 맵의 관계를 간단한 예제를 통하여 살펴보도록 하겠습니다.
+
+<br>
+
+## **포인트 클라우드 to 뎁스 맵 실습**
+
+<br>
+
+- 지금부터 앞에서 다룬 개념을 이용하여 `PCD`를 `뎁스 맵`으로 바꾸는 방법에 대하여 살펴보도록 하겠습니다.
 
 <br>
 <center><img src="../assets/img/vision/depth/pcd_depthmap/1.png" alt="Drawing" style="width: 1000px;"/></center>
@@ -264,18 +293,7 @@ class LiDAR2CameraKITTI(object):
 
 <br>
 
-
-<br>
-
-## **Depth Map to PCD 원리**
-
-<br>
-
-
-
-<br>
-
-## **Depth Map to PCD 실습**
+## **뎁스 맵 to 포인트 클라우드 실습**
 
 <br>
 
