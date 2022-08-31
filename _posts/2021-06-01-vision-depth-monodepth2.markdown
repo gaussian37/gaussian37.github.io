@@ -137,6 +137,10 @@ tags: [depth estimation, monodepth2, 모노 뎁스 2, 모노뎁스, 모노뎁스
 
 - `stereo pair`, `monocular video` 2가지 방식 중에서 `monocular video` 방식은 단안 카메라 하나를 통해서 학습 데이터를 만들 수 있어서 데이터 준비 측면에서 더 쉬운 방식이며 센서를 구성하기도 쉽습니다. 하지만 Frame 간 자차 이동 발생 (ego motion) 정도를 알 수 있어야 학습 시 고려할 수 있습니다. 따라서 `pose estimation network`를 통하여 ego motion을 예측해야 합니다.
 - `pose estimation`은 연속적인 frame을 입력으로 받고 frame 간 이동된 카메라의 Rotation, Translation을 반영한 transformation matrix를 출력합니다.
+- monodepth2에서 사용하는 pose 네트워크는 `Axis-angle rotation`을 사용합니다. 따라서 네트워크의 입력은 연속적인 frame 2개를 받아서 `Axisangle`과 `Translation`을 출력합니다. 이 값을 통해 두 이미지의 카메라 간 Rotation과 Translation을 계산합니다. 일반적인 [Euler rotation](https://gaussian37.github.io/math-la-rotation_matrix/#3d%EC%97%90%EC%84%9C%EC%9D%98-%ED%9A%8C%EC%A0%84-%EB%B3%80%ED%99%98) 방식을 사용하지 않고 `Axis-angle rotation`을 사용하는 이유는 Eulear rotation에서 발생하는 짐벌락 문제로 성능에 영향을 끼치지 않기 위해서입니다. **Learning Depth from Monocular Videos using Direct Methods**에서도 이와 같은 이유로 `Axis-angle rotation`을 사용하였습니다. 이와 관련 내용으로 저자의 의견을 아래 링크에서 볼 수 있습니다.
+    - 링크 : https://github.com/nianticlabs/monodepth2/issues/85
+- `Axis-angle rotation` 관련 내용은 아래 링크를 참조하시기 바랍니다.
+    - 링크 : [https://gaussian37.github.io/vision-concept-axisangle_rotation/](https://gaussian37.github.io/vision-concept-axisangle_rotation/)
 
 <br>
 <center><img src="../assets/img/vision/depth/monodepth2/4.png" alt="Drawing" style="width: 600px;"/></center>
