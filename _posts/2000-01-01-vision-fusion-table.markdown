@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 멀티 카메라 퓨전 관련 글 목록   
+title: 멀티 카메라/뷰 퓨전 관련 글 목록   
 date: 2000-01-01 00:00:00
 img: vision/fusion/fusion.png
 categories: [vision-fusion] 
@@ -15,7 +15,7 @@ tags: [vision, multi camera fusion, fusion] # add tag
 
 <br>
 
-- 멀티 카메라 퓨전을 이용한 다양한 어플리케이션 관련 글 목록 입니다.
+- 멀티 카메라/뷰 퓨전을 이용한 다양한 어플리케이션 관련 글 목록 입니다.
 
 <br>
 
@@ -45,3 +45,13 @@ tags: [vision, multi camera fusion, fusion] # add tag
 - [NEAT (Neural Attention Fields for End-to-End Autonomous Driving)]()
 - [Structured Bird's-Eye-View Traffic Scene Understanding from Onboard Images]()
 - [DETR3D (3D Object Detection from Multi-view Images via 3D-to-2D Queries)]()
+
+<br>
+
+## **멀티 뷰 기반의 3D reconstruction**
+
+<br>
+
+- [NeRF, Representing Scenes as Neural Radiance Fields for View Synthesis](https://gaussian37.github.io/vision-fusion-nerf/)
+
+<br>

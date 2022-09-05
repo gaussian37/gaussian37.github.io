@@ -17,8 +17,8 @@ tags: [depth estimation, metrics, rel, rmse] # add tag
 
 <br>
 
-- 이번 글에서는 Depth Estimation 논문에서 성능 지표로 사용하는 metric에 대하여 간략하게 알아보도록 하겠습니다.
-- 주로 사용하는 Metric은 `Absolute Relative Error`, `Linear Root Mean Square Error`, `log scale invariant RMSE`, `Accuracy under a threshold`
+- 이번 글에서는 Depth Estimation 논문에서 성능 지표로 사용하는 metric에 대하여 간략하게 알아보도록 하겠습니다. 관련 내용은 [Measuring the Performance of Single Image Depth Estimation Methods](http://ylatif.github.io/papers/IROS2016_ccadena.pdf)을 참조하였습니다.
+- 주로 사용하는 Metric은 `Absolute Relative Error`, `Linear Root Mean Square Error`, `log scale invariant RMSE`, `Accuracy under a threshold` 입니다.
 
 
 
@@ -44,9 +44,6 @@ def compute_depth_errors(gt, pred):
 
     return abs_rel, sq_rel, rmse, rmse_log, a1, a2, a3
 ```
-
-
-
 
 <br>
 
