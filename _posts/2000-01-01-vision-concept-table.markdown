@@ -27,3 +27,4 @@ tags: [vision] # add tag
 - [VOT(Visual Object Tracking)와 MOT(Multiple Object Tracking)](https://gaussian37.github.io/vision-concept-vot_mot/)
 - [옵티컬 플로우 (Optical Flow) 알아보기 (Luckas-Kanade w/ Pyramid, Horn-Schunck, FlowNet 등)](https://gaussian37.github.io/vision-concept-optical_flow/)
 - [SSIM (Structural Similarity Index)](https://gaussian37.github.io/vision-concept-ssim/)
+- [카메라 모델과 렌즈 왜곡 (lense distortion)](https://gaussian37.github.io/vision-concept-lense_distortion/)
