@@ -28,5 +28,6 @@ tags: [자율주행, 자율주행 자동차, autodrive, self-driving] # add tag
 - [AI for Full-Self Driving at Tesla](https://gaussian37.github.io/autodrive-concept-ai_for_full_self_driving_at_tesla/)
 - [테슬라 플릿 러닝(Fleet Learning)](https://gaussian37.github.io/autodrive-concept-fleet_learning/)
 - [Andrej Karpathy (Tesla) CVPR 2021 Workshop on Autonomous Vehicles](https://gaussian37.github.io/autodrive-concept-tesla_cvpr_2021/)
+- [Ashok Elluswamy (Tesla) CVPR 2022 Workshop on Autonomous Vehicles (Occupancy Network) 정리](https://gaussian37.github.io/autodrive-concept-tesla_cvpr_2022/)
 - [2021 테슬라 AI 데이 (Day)](https://gaussian37.github.io/autodrive-concept-tesla_ai_day/)
 

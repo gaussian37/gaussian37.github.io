@@ -32,6 +32,10 @@ tags: [vision, Multiple View Geometry] # add tag
 
 <br>
 
+- 연습문제 솔루션 : https://blog.immenselyhappy.com/post/mvg-sol-index/
+
+<br>
+
 - [1. Introduction - a Tour of Multiple View Geometry]()
 - [2. Projective Geometry and Transformations of 2D]()
 - [3. Projective Geometry adn Transformations of 3D]()
