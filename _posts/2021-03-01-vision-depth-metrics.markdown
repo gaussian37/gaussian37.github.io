@@ -151,6 +151,33 @@ tags: [depth estimation, metrics, rel, rmse] # add tag
 <center><img src="../assets/img/vision/depth/metrics/3.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+#### **Root Mean Square Error와 log scale RMSE**
+
+<br>
+
+- `Root Mean Squre Error (RMSE)`와 `log scale RMSE`은 식 (3), (4)를 확인하면 식 (4)에서는 각 $$ d_{p}, \hat{d_{p}} $$ 에 `log`가 적용된 것 이외에는 차이가 없습니다.
+- 앞에서 살펴본 `Absolute Relative Error`, `Square Relative Error`의 경우 두 모델을 비교할 때, 어떤 모델은 전자가 더 좋고 어떤 모델은 후자가 좋은 경우가 생깁니다. 상대적으로 우월한 모델의 경우 두 에러 모두 값이 작아집니다.
+- 반면 `RMSE`와 `log scale RMSE`의 경우 연산 차이가 `log`가 적용된 차이점만 존재하고 `log`는 단조 증가 함수이기 때문에 두 모델을 비교할 때, 에러에 대한 비교가 교차되지 않지만 `RMSE`와 `log scale RMSE`를 같이 비교하는 것은 도움이 됩니다.
+- `log scale RMSE`는 `Absolute Relative Error`와 유사한 성향이 있고 `RMSE`는 `Square Relative Error`와 유사한 성향이 있기 때문입니다. 즉, `log scale RMSE`를 통해 전반적인 성능을 관측할 수 있고 `RMSE`를 통해 이상치 즉, Depth Estimation에서의 한계 상황에 대한 성능을 좀 더 명확하게 확인할 수 있습니다.
+
+<br>
+
+- `RMSE`는 앞에서 다룬 `Square Relative Error`와 유사하지만 Relative 값이 아닌 값 그대로 에러값을 구하는 데 사용합니다. 이 경우 이상치에 민감한 문제가 발생하므로 그 문제를 일부 개선하기 위하여 `Root`를 적용합니다.
+- `log scale RMSE`는 원본 값에 `log`를 적용하여 값의 범위에 민감하지 않도록 만든 후 `RMSE`를 적용합니다. 이와 같은 방식을 이용하여 이상치에 강건해지고 기존 값의 범위가 아닌 `log` 값의 범위에서 에러를 계산함으로써 `log` 값의 범위에서 상대적인 비교를 할 수 있습니다. 따라서 모델 별 `log scale RMSE`의 값을 비교하면 값의 변동이 상대적으로 작은 것을 확인할 수 있습니다.
+
+<br>
+
+- 따라서 `log scale RMSE`과 `RMSE`는 Relative 값이 아닌 실제 값을 이용하여 에러를 계산하되 `log scale RMSE`는 `Absolute Relative Error`와 같이 이상치에 강건하며 전반적인 에러를 계산하게 되고 `RMSE`는 `Square Relative Error`와 같이 이상치에 좀 더 민감하므로 한계 상황에 대하여 에러를 계산하는 데 용이합니다.
+- 앞에서 언급한 바와 같이 `RMSE`를 사용하는 이유는 Relative 값이 아닌 값 그 자체를 사용하는 데 의미가 있습니다.
+
+<br>
+
+#### **Accuracy under threshold**
+
+<br>
+
+- `Accuracy`는 
+
 <br>
 
 ## **Pytorch Code**
