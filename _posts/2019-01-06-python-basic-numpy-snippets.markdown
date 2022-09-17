@@ -783,7 +783,7 @@ Build cuda_11.1.relgpu_drvr455TC455_06.29069683_0
 
 <br>
 
-## cupy 기본 사용법
+## **cupy 기본 사용법**
 
 <br>
 
