@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Numpy 관련 Snippets
+title: Numpy 및 Cupy 관련 Snippets
 date: 2019-01-06 00:00:00
 img: python/pandas/numpy.png
 categories: [python-basic] 
@@ -32,6 +32,12 @@ tags: [Numpy, 넘파이] # add tag
 - ### [np.testing을 이용한 두 값의 차이값 확인](#nptesting을-이용한-두-값의-차이값-확인-1)
 - ### [np.cov를 이용한 공분산 구하기](#npcov를-이용한-공분산-구하기-1)
 - ### [np.savetxt 관련 기능 정리](#npsavetxt-관련-기능-정리-1)
+
+<br>
+
+- ### [cupy의 필요성](#cupy의-필요성-1)
+- ### [cupy 설치 방법](#cupy-설치-방법-1)
+- ### [cupy 기본 사용법](#cupy-기본-사용법-1)
 
 
 <br>
@@ -684,3 +690,207 @@ np.cov(x)
 - `header`를 통하여 1행에 열의 이름을 지정할 수 있습니다. header를 사용하면 가장 첫번째 요소에 #이 붙게 되는데 이 문제를 없애기 위하여 `comments=''`을 사용하였습니다.
 
 <br>
+
+## **cupy의 필요성**
+
+<br>
+
+- `numpy`는 매우 쉽게 연산을 할 수 있는 라이브러리이지만 연산량이 커지면 계산하는 데 시간이 많이 소요됩니다. 왜냐하면 `numpy`의 모든 연산은 `cpu`에서 동작하기 때문입니다.
+- 이러한 연산 속도 문제를 개선하기 위하여 `cupy`라는 라이브러리가 개발되었습니다.`cupy`는 `numpy` 연산을 `cuda`로 할 수 있도록 하는 라이브러리 입니다.
+- `cupy`의 연산 효율성을 다음 예제를 통해 살펴 보도록 하겠습니다. 참고로 `cupy`를 처음 실행할 때에는 초기화 때문에 numpy 보다 다소 오래 걸릴 수 있지만 초기화가 끝나면 연산속도는 다음과 같이 매우 빨라집니다. 아래는 제 PC에서 속도를 측정한 결과입니다.
+
+<br>
+
+```python
+import numpy as np
+import cupy as cp
+
+start = time.time()
+x_cpu = np.random.rand(500, 200, 400)
+y_cpu = np.random.rand(500, 400, 200)
+print(time.time() - start)
+# 0.6273207664489746
+
+start = time.time()
+x_cpu @ y_cpu
+print(time.time() - start)
+# 0.19546985626220703
+
+start = time.time()
+for _ in range(100):    
+    x_cpu @ y_cpu
+print(time.time() - start)
+# 19.48985266685486
+
+start = time.time()
+x2_gpu = cp.random.rand(500, 200, 400)
+y2_gpu = cp.random.rand(500, 400, 200)
+print(time.time() - start)
+# 0.0009970664978027344
+
+start = time.time()
+x2_gpu @ y2_gpu
+print(time.time() - start)
+# 0.0009732246398925781
+
+start = time.time()
+for _ in range(100):    
+    x2_gpu @ y2_gpu
+print(time.time() - start)
+# 0.006982564926147461
+```
+
+<br>
+
+- 위 결과를 살펴보면 1개의 행렬곱 연산을 하였을 때, (0.19546985626220703 / 0.0009732246398925781) = 약 200배의 연산 속도 차이가 났으며 100개의 행렬곱 연산을 하였을 때, (19.48985266685486 / 0.006982564926147461) = 약 2800 배의 연산 속도가 차이가 났습니다.
+- `cuda`를 이용하여 GPU로 병렬 연산을 하면 이와 같이 빠르게 연산할 수 있습니다.
+
+<br>
+
+## **cupy 설치 방법**
+
+<br>
+
+- 먼저 `cupy`를 사용하려면 GPU 연산을 위해 `cuda`를 사용할 수 있는 환경이 되어야 합니다. 따라서 다음과 같이 `cuda` 버전을 확인함으로써 `cuda`가 설치 되어있는 지 확인을 먼저 해야 합니다.
+
+<br>
+
+- `nvcc --version`
+
+<br>
+
+- 제 컴퓨터 환경에서는 아래와 같이 확인할 수 있었습니다.
+
+```
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2020 NVIDIA Corporation
+Built on Tue_Sep_15_19:12:04_Pacific_Daylight_Time_2020
+Cuda compilation tools, release 11.1, V11.1.74
+Build cuda_11.1.relgpu_drvr455TC455_06.29069683_0
+```
+
+<br>
+
+- cuda 설치가 확인되었으면 아래와 같은 설치합니다.
+
+<br>
+
+- `pip install cupy-cuda111`
+
+<br>
+
+- `cuda111`은 제 PC의 환경 cuda 버전이 11.1이기 때문이며 다른 버전의 경우 다른 버전을 사용해서 설치하시면 됩니다.
+
+<br>
+
+## cupy 기본 사용법
+
+<br>
+
+- `cupy`는 cuda를 backend로 사용하며 구현 방식은 numpy와 같습니다. 다만 모든 numpy의 기능이 구현되어 있지는 않으므로 numpy 기능의 부분집합 정도로 생각하시면 됩니다.
+- 아래 코드에서 `cupy.ndarrary` 클래스는 numpy의 `numpy.ndarrary`의 역할과 동일합니다.
+- `cupy`의 사용방법은 `numpy`와 동일하며 결과 또한 같습니다.
+
+<br>
+
+```python
+import numpy as np
+import cupy as cp
+
+x_gpu = cp.array([1, 2, 3])
+l2_gpu = cp.linalg.norm(x_gpu)
+print(l2_gpu)
+# 3.7416573867739413
+
+x_cpu = np.array([1,2,3])
+l2_cpu = np.linalg.norm(x_cpu)
+print(l2_cpu)
+# 3.7416573867739413
+```
+
+<br>
+
+- 위 코드와 같이 `cupy`와 `numpy`의 연산 결과가 같은 것을 확인할 수 있습니다.
+
+<br>
+
+- 만약 컴퓨터가 멀티 GPU라면 원하는 GPU에 cupy 연산을 할당할 수 있습니다. pytorch에서도 동일한 기능을 제공하는데 cupy에서도 동일하게 제공하며 이와 같은 방법으로 메모리가 상대적으로 작은 GPU에서 작업을 여러 GPU로 분할할 수 있습니다.
+
+<br>
+
+```python
+# device : 0
+x_on_gpu = cp.array([1,2,3,4,5])
+
+with cp.cuda.Device(0):
+    x_on_gpu = cp.array([1,2,3,4,5])
+    
+with cp.cuda.Device(1):
+    x_on_gpu = cp.array([1,2,3,4,5])
+```
+
+<br>
+
+- 기본값은 `cuda`의 device 아이디는 0입니다. 만약 멀티 GPU라면 사용가능한 갯수 까지 0 ~ N 까지 할당 가능합니다.
+
+<br>
+
+- `cupy`와 `numpy` 간의 데이터 이동 또한 자유롭게 할 수 있습니다. `cupy`에서 복잡한 연산을 한 뒤 마지막에 `numpy`로 변환하여 다른 라이브러리와 연계해서 사용할 때 유용합니다.
+- 먼저 `numpy → cupy` 부터 알아보도록 하겠습니다.
+
+<br>
+
+```python
+x_cpu = np.array([1, 2, 3])
+x_gpu = cp.asarray(x_cpu) # move the data to the current gpu device
+```
+
+<br>
+
+- GPU 간 데이터 이동도 아래와 같이 가능합니다.
+
+<br>
+
+```python
+with cp.cuda.Device(0):
+    x_gpu_0 = cp.ndarray([1, 2, 3])
+
+with cp.cuda.Device(1):
+    x_gpu_1 = cp.asarray(x_gpu_0)
+```
+
+<br>
+
+- 다음으로 `cupy → numpy` 방법은 다음과 같습니다.
+
+<br>
+
+```python
+x_gpu = cp.array([1, 2, 3])
+x_cpu = cp.asnumpy(x_gpu)
+# or
+x_cpu = x_gpu.get()
+```
+
+<br>
+
+- `cupy`와 `numpy`는 다른 클래스이고 데이터가 저장된 위치 또한 다릅니다. `cupy`의 데이터는 gpu의 RAM에 있고 `numpy`의 데이터는 cpu의 RAM에 있습니다. 따라서 두 연산은 동일한 위치에 사용하지 않으면 연산되지 않습니다.
+
+<br>
+
+```python
+x_gpu = cp.array([1, 2, 3])
+x_cpu = cp.asnumpy(x_gpu)
+
+# x_gpu + x_cpu : error
+
+x_cpu + cp.asnumpy(x_gpu)
+# array([2, 4, 6])
+
+cp.asarray(x_cpu) + x_gpu
+# array([2, 4, 6], dtype=int32)
+```
+
+<br>
+
+- 위 코드와 같이 같은 타입으로 변경하여 연산해야 사용 가능합니다.
