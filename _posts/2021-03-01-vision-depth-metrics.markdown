@@ -176,11 +176,26 @@ tags: [depth estimation, metrics, rel, rmse] # add tag
 
 <br>
 
-- `Accuracy`는 
+- `Accuracy`는 라이다 포인트 클라우드를 이용하여 만든 `sparse depthmap` GT와 Depth Estimation 모델을 통해 얻은 `dense depthmap` prediction 간의 Accuracy를 측정하는 것을 의미합니다.
+- `Accruracy`를 구하는 방법은 식 (5)와 같습니다. $$ \hat{d}_{p} $$ 와 $$ d_{p} $$ 중 큰 값을 분자, 작은 값을 분모에 두어 항상 1보다 큰값을 얻도록 합니다. 식 (5)에서는 편의를 위하여 `max` 값을 통해 1보다 큰 값을 얻도록 하였습니다. 즉, **예측값과 정답값 중 큰 값과 작은 값의 비율을 나타냅니다.**
+- 이 때, `threshold` 값인 $$ \delta $$ 를 이용하여 비율이 $$ \delta $$ 보다 작으면 `True Positive`로 간주합니다.
+- Depth Estimation에서는 전통적으로 $$ \delta = 1.25 $$, $$ \delta^{2} = 1.25^{2} = 1.5625 $$, $$ \delta{3} = 1.25^{3} = 1.953125 $$ 을 `threshold`로 정의합니다. 
+- 이 값의 범위를 5(m) ~ 100 (m) 까지 이해하기 쉽게 표로 정리하면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/metrics/4.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 위 표를 보면 Depth의 크기가 커질수록 오차 범위도 커지는 것을 알 수 있습니다. 이것은 Depth Estimation의 Depth가 커질수록 정밀한 예측이 어렵다는 Task 자체의 한계를 반영한 것입니다.
 
 <br>
 
 ## **Pytorch Code**
+
+<br>
+
+- 지금까지 설명한 7가지의 대표적인 Depth Estimation의 Metric의 계산 과정을 소개하면 아래 코드와 같습니다.
+- 계산 과정은 매우 간단합니다. 아래 코드를 살펴보시기 바랍니다.
 
 <br>
 
