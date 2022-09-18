@@ -42,8 +42,27 @@ tags: [Multiple View Geometry] # add tag
 
 <br>
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec1/46.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
 
+- point $$ x_{i} $$ 가 line $$ l $$ 위에 있을 때, $$ l^{T} x_{i} = 0 $$ 으로 표현할 수 있습니다. 만약 transformed point (`projective transformation`) 인 $$ x_{i}' = H x_{i} $$ 가 $$ l' $$ 위에 있다면 $$ {l'}^{T} x_{i}' = 0 $$ 이 되고 $$ l $$ 과 $$ l' $$ 두 line의 관계로 나타내면 $$ l' = H^{-T} l $$ 으로 표현할 수 있습니다. 수식 전개 과정은 아래와 같습니다.
 
+<br>
+
+- $$ x_{i}' = H x_{i} $$
+
+- $$ {l'}^{T} x_{i}' = 0 $$
+
+- $$ \therefore \quad {l'}^{T} H x_{i} = 0 $$
+
+- $$ {l'}^{T} H x_{i} = l^{t} x_{i} $$
+
+- $$ {l'}^{T} H = l^{t} $$
+
+- $$ H^{T} l' = l $$
+
+- $$ \therefore \quad l' = H^{-T} l $$
 
 <br>
 
