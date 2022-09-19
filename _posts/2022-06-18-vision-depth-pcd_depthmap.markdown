@@ -20,8 +20,9 @@ tags: [vision, depth, point cloud, depth map] # add tag
 <br>
 
 - ### [카메라 좌표계 기준의 포인트 클라우드](#)
-- ### [포인트 클라우드 to 뎁스 맵 원리](#)
-- ### [뎁스 맵 to 포인트 클라우드 원리](#)
+- ### [카메라 좌표계와 이미지 좌표계 간 변환](#)
+- ### [포인트 클라우드 to 뎁스 맵 정리](#)
+- ### [뎁스 맵 to 포인트 클라우드 정리](#)
 - ### [포인트 클라우드와 뎁스 맵의 변환 간단 예제](#)
 - ### [포인트 클라우드 to 뎁스 맵 실습](#)
 - ### [뎁스 맵 to 포인트 클라우드 실습](#)
@@ -33,20 +34,162 @@ tags: [vision, depth, point cloud, depth map] # add tag
 <br>
 
 - 본 글에서 다루은 포인트 클라우드는 카메라 좌표계에서 다루고자 합니다. 따라서 라이다 좌표계 기준에서 카메라 기준으로 포인트 들을 옮겨와야 합니다.
+- 작성중 ...
 
 <br>
 
-## **포인트 클라우드 to 뎁스 맵 원리**
+## **카메라 좌표계와 이미지 좌표계 간 변환**
 
 <br>
 
-- 
-- 
+<br>
+<center><img src="../assets/img/vision/depth/pcd_depthmap/5.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/depth/pcd_depthmap/6.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 아래 코드는 렌즈 왜곡이 없는 핀홀 카메라 모델에서 카메라 좌표계의 3D 포인트를 이미지 좌표계의 픽셀에 대응시키는 예제입니다.
+- 아래 예제는 카메라 좌표계의 (x, y, z) = (20, 30, 40)인 좌표를 (u, v) = (25, 55)로 변경합니다.
+
+<br>
+
+```python
+import numpy as np
+
+X = np.array([20, 30, 40]).T
+z = X[2]
+K = np.array([
+    [10, 0, 20],
+    [0, 20, 40],
+    [0, 0, 1]
+])
+
+# camera coordinate → normalized uv plane
+uv_norm = X / z
+print(uv_norm)
+# [0.5  0.75 1.  ]
+
+# normalized uv plane → uv plane
+uv = np.matmul(K, uv_norm)
+uv = uv.astype(np.uint8)
+print(uv)
+# [25 55  1]
+
+# 과정을 한번에 표현하면 다음과 같습니다.
+# camera coordinate → (normalized uv plane) → uv plane
+uv = (1/z)*np.matmul(K, X)
+uv = uv.astype(np.uint8)
+print(uv)
+# [25 55  1]
+```
+
+<br>
+
+- 이번에는 앞의 예제의 `z`와 `K` 정보를 이용하여 이미지 좌표계의 좌표를 카메라 좌표계의 3D 포인트로 변환하는 작업을 해보겠습니다. 연산은 앞의 예제의 역순으로 진행됩니다.
+
+<br>
+
+```python
+# uv plane → normalized uv plane
+
+uv_norm = np.matmul(np.linalg.inv(K), uv)
+print(uv_norm)
+# [0.5  0.75 1.  ]
+
+# normalized uv plane → camera coordinate
+X = uv_norm * z
+print(X)
+# [20. 30. 40.]
+
+# 과정을 한번에 표현하면 다음과 같습니다.
+# uv plane → (normalized uv plane) → camera coordinate
+X = z * np.matmul(np.linalg.inv(K), uv)
+print(X)
+# [20. 30. 40.]
+```
+
+<br>
+
+- 위 예제와 같이 정확하게 원본 3D 포인트를 복원할 수 있었습니다. 여기서 **3D 포인트를 정확히 복원하는 데 가장 중요한 역할을 하는 것**은 `z` 입니다. `z`의 값을 알 수 있어야 `ray` 상에서 해당하는 3D 포인트로 변환할 수 있습니다.
+- 그러나 일반적으로 단안 카메라를 통하여 입력된 이미지는 uv 좌표계의 2D 이기 때문에 `z` 값을 알 수 없습니다. 따라서 Depth Estimation을 통해 예측한 `z` 값을 도출해 내거나 `z`를 얻기 위하여 스테레오 카메라와 같은 비용이 비싼 센서를 필요로 합니다.
+- 즉, 위 코드의 연산과 같이 `z` 값에 따라 카메라 좌표계의 (x, y, z) 값 전체가 달라지게 됩니다. 따라서 **z 값을 정확히 추정해야 z뿐만 아니라 x, y 또한 정확히 복원해 낼 수 있습니다.**
+
+<br>
+
+- 아래는 `z` 값의 변화에 따라서 예측된 카메라 좌표계 (x, y, z)가 어떻게 달라지는 지 살펴보도록 하겠습니다.
+
+<br>
+
+```python
+# 아래는 정확하게 z 값을 예측한 경우 입니다.
+z_estimation = 40
+X = z_estimation * np.matmul(np.linalg.inv(K), uv)
+print(X)
+# [20. 30. 40.]
+
+# z 값에 오차가 조금 발생한 경우 x, y 값에도 오차가 조금 발생한 것을 확인할 수 있습니다.
+z_estimation = 38
+X = z_estimation * np.matmul(np.linalg.inv(K), uv)
+print(X)
+# [19.  28.5 38. ]
+
+# z 값에 오차가 더 발생한 경우 x, y 값의 오차도 커짐을 확인할 수 있습니다.
+z_estimation = 30
+X = z_estimation * np.matmul(np.linalg.inv(K), uv)
+print(X)
+# [15.  22.5 30. ]
+
+z_estimation = 50
+X = z_estimation * np.matmul(np.linalg.inv(K), uv)
+print(X)
+# [25.  37.5 50. ]
+```
+
+<br>
+
+- 포인트 클라우드의 경우 N 개의 좌표를 한번에 처리할 수 있어야 합니다. 아래 코드는 카메라 좌표계의 5개의 3D 포인트를 한번에 2D 좌표계로 변환하는 예제입니다.
+
+<br>
+
+```python
+X = np.array([
+    [20, 30, 40],
+    [10, 30, 80],
+    [25, 12, 90],
+    [30, 10, 100],
+    [50, 30, 40],
+]).T
+
+print(X)
+# array([[ 20,  10,  25,  30,  50],
+#        [ 30,  30,  12,  10,  30],
+#        [ 40,  80,  90, 100,  40]])
+
+print(X[2, :])
+# array([ 40,  80,  90, 100,  40])
+
+uv = (1/X[2, :])*np.matmul(K, X)
+uv = uv.astype(np.uint8)
+print(uv.T)
+# [[25 55  1]
+#  [21 47  1]
+#  [22 42  1]
+#  [23 42  1]
+#  [32 55  1]]
+```
+
+<br>
+
+## **포인트 클라우드 to 뎁스 맵 정리**
+
+<br>
 
 
 <br>
 
-## **뎁스 맵 to 포인트 클라우드 원리**
+## **뎁스 맵 to 포인트 클라우드 정리**
 
 <br>
 
@@ -59,6 +202,8 @@ tags: [vision, depth, point cloud, depth map] # add tag
 <br>
 
 - 지금까지 살펴본 내용을 통해 포인트 클라우드와 뎁스 맵의 관계를 간단한 예제를 통하여 살펴보도록 하겠습니다.
+
+
 
 <br>
 
