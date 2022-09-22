@@ -68,7 +68,7 @@ tags: [SSIM, Structural Similarity Index] # add tag
 
 <br>
 
-- $$ l(x, y) = \frac{2\mu_{x}\mu_{y} + C_{1}}{\mu_{x}^{2}, \mu_{y}^{2} + C_{1}} \tag{1} $$
+- $$ l(x, y) = \frac{2\mu_{x}\mu_{y} + C_{1}}{\mu_{x}^{2}+ \mu_{y}^{2} + C_{1}} \tag{1} $$
 
 <br>
 
