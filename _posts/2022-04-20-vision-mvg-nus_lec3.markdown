@@ -23,7 +23,7 @@ tags: [Multiple View Geometry, Circular points and Absolute conic] # add tag
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/p6d7av32Y" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/T-p6d7av32Y" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
 <br>
 
@@ -37,7 +37,62 @@ tags: [Multiple View Geometry, Circular points and Absolute conic] # add tag
 - ③ `absolute conic`과 `absolute dual quadrics`를 배우고 `similarity transformation`에서 불변한 성질에 대하여 배워보도록 하겠습니다.
 
 <br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 슬라이드에서 $$ v_{1}, v_{2} $$ 2개의 점의 `cross product`를 이용하여 $$ l $$ 을 구하는 방법은 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/9_1.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같은 선 $$ l $$, $$ v_{1}, v_{2} $$ 점의 관계에서 두 점이 선 $$ l $$ 위에 있으므로 아래 식을 만족합니다.
+
+<br>
+
+- $$ l \cdot v_{1} = 0 $$
+
+- $$ l \cdot v_{2} = 0 $$
+
+<br>
+
+- 벡터 $$ (a, b, c) $$ 는 $$ (x_{1}, y_{1}, z_{1}) $$ 과 $$ (x_{2}, y_{2}, z_{2}) $$ 에 모두 수직인 벡터입니다. 따라서 $$ v_{1} $$ 과 $$ v_{2} $$ 모두에 수직인 벡터를 구하는 방법이 `cross product`이므로 다음과 같이 $$ l $$ 을 구할 수 있습니다.
+
+<br>
+
+- $$ l = v_{1} \times v_{2}  $$
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 
 

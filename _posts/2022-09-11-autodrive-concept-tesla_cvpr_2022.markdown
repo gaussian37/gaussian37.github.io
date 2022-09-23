@@ -9,19 +9,30 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network] # add tag
 
 <br>
 
-- 이번 글에서는 CVPR 2022의 Workshop에서 Tesla가 발표한 `Occupancy Network` 내용에 대하여 정리해 보도록 하겠습니다.
+- 이번 글에서는 CVPR 2022의 Workshop에서 Tesla가 발표한 `Occupancy Network` 내용에 대하여 정리해 보도록 하겠습니다. 아래는 발표 내용입니다.
 
+<br>
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/jPCV4GKX9Dw" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
+<br>
+
+- 발표 전에 `Occupancy Network`가 적용된 `Full Self-Driving Beta 10.69.1`의 성능을 한번 보면 2021년 버전 보다 얼만큼 개선된 지 알 수 있습니다.
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/N4X4GMFmTb0" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
 
 ## **목차**
 
 <br>
 
 - ### Autopilot과 Full Self-Driving Beta Software
-- ### 
-
+- ### Classical Drivable Space 인식의 한계
+- ### Occupancy Network의 소개
+- ### Occupancy Network Architecture
 
 <br>
 
@@ -64,3 +75,65 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network] # add tag
 <br>
 
 - 위 그림은 우회전 상황이며 이 때, 파란색으로 나타나는 차량이 화면에 표시되며 정확한 의미는 확인이 어렵지만, 충돌 가능한 차량으로 이 차가 지나가기를 기다리는 것으로 추정합니다.
+
+<br>
+
+## **Classical Drivable Space 인식의 한계**
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 기존에 3D 공간의 주행 가능 영역 (drivable space)를 확인하는 방법은 **2D 이미지 상에서 픽셀 별 (uv 좌표계 기준)로 주행 가능 영역인 지 Semantic Segmentation 모델을 이용하여 확인**하고 **Depth Estimation을 통해 3D 공간으로 확장하는 방법**을 사용하였습니다.
+- 테슬라에서 최근에 공개한 컴퓨터 비전 기반의 인식 모델의 컨셉은 다른 방향으로 바뀌었는데 어떤 문제가 있어서 컨셉의 변경이 있었는 지 슬라이드에서 제공하는 `기존 문제점`에 대하여 먼저 살펴보겠습니다.
+- **Doesn't get overhanging obstacles & provide 3D structure** : 2D 이미지 → 3D 공간으로 변경 시 물체의 3D 형상을 예측하기 어렵습니다. 위 슬라이드와 같이 포크레인 머리 부분의 돌출부나 건물 벽과 같은 영역의 돌출부의 3D 정보를 추정하는 데 한계가 있습니다.
+- **Extremely sensitive to depth at the horizon** : 원거리에 있는 수평선 라인의 경우 주행 가능 영역인 지 또는 주행 불가능 영역인 지 확인 시 Segmentation의 결과를 이용하여 판단하고 주행 가능 영역의 거리는 Depth Estimation을 통해서 거리를 예측합니다. 하지만 원거리 영역에서의 Depth Estimation은 몇 픽셀에 따라서 큰 차이가 날 수 있고 Segmentation의 결과가 몇 픽셀 부정확하게 예측하면 오차가 크게 발생하는 문제가 생깁니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 2D 이미지 → 3D 공간으로 변환 (`unproejct to 3d points`)하는 것에 한계점은 `Depth Estimation`의 출력에 한계가 있기 때문입니다. 2D 이미지 → 3D 공간으로 변환은 아래 링크를 참조하시기 바랍니다.
+    - 링크 : [포인트 클라우드와 뎁스 맵의 변환 관계 정리](https://gaussian37.github.io/vision-depth-pcd_depthmap/)
+- 위 슬라이드에서 지적하는 Depth Estimation의 단점은 크게 5가지가 있고 각 내용은 **Depth Estimation의 해상도가 높지 않다는 것과 2D 이미지에서 Depth를 검출하는 것의 한계에 관련된 내용**들입니다.
+- **Depth can be inconsistent locally** : local 영역에 대하여 Depth 정보가 일관적이지 않는 경우의 문제 입니다. 이 경우 평평한 벽과 같은 물체에 대해서도 깊이가 일관적이지 않고 들쑥날쑥하게 됩니다.
+- **Too Sparse closer to the horizon** : local 영역에 대하여 Depth가 일관적이지 않아 너무 듬성 듬성 Depth 정보가 존재하게 되면 horizon으로 잘못 인식 하는 경우가 발생하게 됩니다.
+- **Cannot predict through occlusion** : 2D 이미지를 통해 3D 공간을 복원하기 때문에 다른 물체에 의해 가려진다면 가려진 가려진 부분은 3D 공간에 복원할 수 없습니다. 이는 사람 또한 상상으로 복원하는 것이지 가려진 물체의 깊이 정보는 복원할 수 없으나 테슬라에서는 이 부분을 문제로 간주하고 개선하였습니다.
+- **Doesn't distinguish between moving & static obstacles** : 정적인 물체와 동적인 물체를 구분할 수 없습니다. 
+
+<br>
+
+## **Occupancy Network의 소개**
+
+<br>
+
+- Classical Drivable Space 인식 방법에는 앞에서 소개한 문제가 있고 이 문제를 개선하기 위하여 `Occupancy Network`를 사용합니다.
+- Occupancy Network의 출력은 아래와 같습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 아래 링크의 영상 클립을 살펴보시면 데모 영상을 볼 수 있습니다.
+    - 링크 : https://youtube.com/clip/UgkxAWHFUi1Y-Jznqwh9zOLNJfnqjZ2Tc4oU
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 슬라이드에서는 테슬라에서 사용하는 `Occupancy Network`의 좋은 장점들을 소개합니다. 
+- 8개의 카메라에서 입력되는 이미지를 동시에 처리하여 3D 공간 하나를 출력으로 만들고 그 공간에서 어떤 물체가 차지하고 있는 지, 그 물체가 무엇인 지 까지 확인합니다.
+- 이와 같이 3D 공간 상에서 voxel 별 어떤 물체가 점유하고 있는 지 확인할 수 있으므로 `volumetric occupancy`라고 칭합니다.
+- Multi Camera를 Video로 처리하기 때문에 일부 보이지 않는 영역을 연속된 영상의 정보를 이용하여 처리할 수 있고 이 내용을 `Multi-camera & video context, Dynamic occupancy`으로 설명합니다.
+- 앞에서 다룬 2D 이미지 → 3D 공간으로 변환하는 경우 occlusion이 발생하여 2D 이미지 상에서 보이지 않는 물체는 형상을 그려내지 못하지만 위 슬라이드와 같이 `Multi-camera & video` 환경에서 2D 이미지를 거치지 않고 바로 3D로 변환하는 경우 occlusion이 발생한 물체에 대해서도 일부 출력이 가능해 짐을 보여줍니다. (`Persistent through occlusion`)
+- 앞에서 살펴본 2D 이미지의 Depth Prediction은 근거리에서는 해상도가 높지만 원거리에서는 오차 범위가 커져서 해상도가 낮은 문제가 발생합니다. 이 문제로 인하여 Segmentation의 불안정한 출력이 거리 오차를 크게 만드는 문제가 있음을 이전 슬라이드에서 언급하였습니다. `Occupancy Network`에서는 일정한 간격으로 Voxel을 형성하고 각 영역에 물체가 있는 지 여부를 확인하기 때문에 해상도가 급격히 안좋아지는 문제를 개선할 수 있음을 언급합니다. (`Resolution were it matters`)
+- 마지막으로 이와 같은 과정을 10 ms 이내에 처리할 수 있도록 메모리와 계산 측면에서 최적화 하여 `Occupancy Network`의 주기가 10 ms 가 될 수 있도록 구현하였다고 설명합니다. 이전 슬라이드에서 카메라 입력이 35 ms 주기이고 Occupancy Network의 연산이 10 ms 이므로 `Occupancy Network` 기준 전처리 및 후처리를 할 시간이 충분함을 시사합니다.
+
+<br>
+
+## **Occupancy Network Architecture**
+
+<br>
+
+<br>
+
