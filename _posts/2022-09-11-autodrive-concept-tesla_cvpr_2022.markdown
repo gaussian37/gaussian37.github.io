@@ -4,12 +4,12 @@ title: Ashok Elluswamy (Tesla) CVPR 2022 Workshop on Autonomous Vehicles (Occupa
 date: 2022-09-11 00:00:00
 img: autodrive/concept/tesla_cvpr_2022/0.png
 categories: [autodrive-concept] 
-tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network] # add tag
+tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network, AI Day] # add tag
 ---
 
 <br>
 
-- 이번 글에서는 CVPR 2022의 Workshop에서 Tesla가 발표한 `Occupancy Network` 내용에 대하여 정리해 보도록 하겠습니다. 아래는 발표 내용입니다.
+- 이번 글에서는 CVPR 2022의 Workshop에서 Tesla가 발표한 `Occupancy Network` 내용에 대하여 정리해 보도록 하겠습니다. 발표 내용을 보고 제 의견도 중간에 같이 첨부하였으므로 틀린점이 있을 수 있으며 피드백 주시면 수정하겠습니다. 아래는 발표 내용입니다. (여담으로 Karpathy가 퇴사를 하고 Ashok Elluswamy이 Autopilot의 책임자로 임명되었습니다.)
 
 <br>
 <div style="text-align: center;">
@@ -23,6 +23,12 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network] # add tag
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/N4X4GMFmTb0" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
+<br>
+
+- 이와 같은 변화는 테슬라가 컴퓨터 비전 (+ 기타 센서) 으로만 자율주행을 시도하기로 발표한 이후 기존의 한계 상황을 개선하기 위해 `Occupancy Network`라는 컨셉을 사용하면서 나타난 것으로 보입니다.
+- 기존 시스템에서는 Object Detection의 오인식 및 미인식 문제로 인하여 충돌 문제가 발생하였었습니다. 데이터 셋에 없는 물체가 나타날 경우 Object Detection으로 인식을 하지 못하고 라이다와 레이더가 없기 때문에 물체의 priticle 또한 인지하지 못하기 때문에 Freespace로 인지하여 발생하는 문제입니다.
+- 따라서 이와 같은 문제를 개선하기 위하여 이번 발표에서는 `Occupancy Network`를 제안합니다.
+
 <br>
 
 ## **목차**
@@ -86,7 +92,7 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network] # add tag
 
 - 기존에 3D 공간의 주행 가능 영역 (drivable space)를 확인하는 방법은 **2D 이미지 상에서 픽셀 별 (uv 좌표계 기준)로 주행 가능 영역인 지 Semantic Segmentation 모델을 이용하여 확인**하고 **Depth Estimation을 통해 3D 공간으로 확장하는 방법**을 사용하였습니다.
 - 테슬라에서 최근에 공개한 컴퓨터 비전 기반의 인식 모델의 컨셉은 다른 방향으로 바뀌었는데 어떤 문제가 있어서 컨셉의 변경이 있었는 지 슬라이드에서 제공하는 `기존 문제점`에 대하여 먼저 살펴보겠습니다.
-- **Doesn't get overhanging obstacles & provide 3D structure** : 2D 이미지 → 3D 공간으로 변경 시 물체의 3D 형상을 예측하기 어렵습니다. 위 슬라이드와 같이 포크레인 머리 부분의 돌출부나 건물 벽과 같은 영역의 돌출부의 3D 정보를 추정하는 데 한계가 있습니다.
+- **Doesn't get overhanging obstacles & provide 3D structure** : 2D 이미지 → 3D 공간으로 변경 시 물체의 3D 형상을 예측하기 어렵습니다. 기본적으로 물체를 인식하기 위해 2D, 3D Bounding Box를 그리더라도 사각형 형태이기 때문에 위 슬라이드와 같이 포크레인 머리 부분의 돌출부나 건물 벽과 같은 영역의 돌출부의 3D 정보를 추정하는 데 한계가 있습니다.
 - **Extremely sensitive to depth at the horizon** : 원거리에 있는 수평선 라인의 경우 주행 가능 영역인 지 또는 주행 불가능 영역인 지 확인 시 Segmentation의 결과를 이용하여 판단하고 주행 가능 영역의 거리는 Depth Estimation을 통해서 거리를 예측합니다. 하지만 원거리 영역에서의 Depth Estimation은 몇 픽셀에 따라서 큰 차이가 날 수 있고 Segmentation의 결과가 몇 픽셀 부정확하게 예측하면 오차가 크게 발생하는 문제가 생깁니다.
 
 <br>
@@ -96,7 +102,7 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network] # add tag
 - 2D 이미지 → 3D 공간으로 변환 (`unproejct to 3d points`)하는 것에 한계점은 `Depth Estimation`의 출력에 한계가 있기 때문입니다. 2D 이미지 → 3D 공간으로 변환은 아래 링크를 참조하시기 바랍니다.
     - 링크 : [포인트 클라우드와 뎁스 맵의 변환 관계 정리](https://gaussian37.github.io/vision-depth-pcd_depthmap/)
 - 위 슬라이드에서 지적하는 Depth Estimation의 단점은 크게 5가지가 있고 각 내용은 **Depth Estimation의 해상도가 높지 않다는 것과 2D 이미지에서 Depth를 검출하는 것의 한계에 관련된 내용**들입니다.
-- **Depth can be inconsistent locally** : local 영역에 대하여 Depth 정보가 일관적이지 않는 경우의 문제 입니다. 이 경우 평평한 벽과 같은 물체에 대해서도 깊이가 일관적이지 않고 들쑥날쑥하게 됩니다.
+- **Depth can be inconsistent locally** : local 영역에 대하여 Depth 정보가 일관적이지 않는 경우의 문제 입니다. 이 경우 평평한 벽과 같은 물체에 대해서도 깊이가 일관적이지 않고 들쑥날쑥하게 됩니다. 특이 원거리 영역에서는 1, 2개의 픽셀이 넓은 영역의 depth를 의미하기 때문에 오차가 큽니다.
 - **Too Sparse closer to the horizon** : local 영역에 대하여 Depth가 일관적이지 않아 너무 듬성 듬성 Depth 정보가 존재하게 되면 horizon으로 잘못 인식 하는 경우가 발생하게 됩니다.
 - **Cannot predict through occlusion** : 2D 이미지를 통해 3D 공간을 복원하기 때문에 다른 물체에 의해 가려진다면 가려진 가려진 부분은 3D 공간에 복원할 수 없습니다. 이는 사람 또한 상상으로 복원하는 것이지 가려진 물체의 깊이 정보는 복원할 수 없으나 테슬라에서는 이 부분을 문제로 간주하고 개선하였습니다.
 - **Doesn't distinguish between moving & static obstacles** : 정적인 물체와 동적인 물체를 구분할 수 없습니다. 
@@ -108,10 +114,12 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network] # add tag
 <br>
 
 - Classical Drivable Space 인식 방법에는 앞에서 소개한 문제가 있고 이 문제를 개선하기 위하여 `Occupancy Network`를 사용합니다.
+- `Occupancy Network`는 `Occupancy Grid Mapping`이라는 로봇 공학 아이디어를 기반으로 하는 다른 종류의 알고리즘입니다. 이 방법은 실제 공간을 그리드 셀로 나눈 다음 어떤 셀이 점유되고 어떤 셀이 비어 있는지 정의하는 것으로 구성됩니다.
+- 특히 본 글에서는 `Volumetric Occupancy Network`로 표현되면 이것은 개념을 3D로 확장하겠다는 의미입니다.
 - Occupancy Network의 출력은 아래와 같습니다.
 
 <br>
-<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/8.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/8.gif" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 아래 링크의 영상 클립을 살펴보시면 데모 영상을 볼 수 있습니다.
@@ -134,6 +142,49 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network] # add tag
 ## **Occupancy Network Architecture**
 
 <br>
+
+- `Occupancy Network`의 Architecture를 살펴보면 크게 `Input`, `Network`, `Output` 형태로 볼 수 있습니다. 먼저 `Input`에 대하여 살펴보도록 하겠습니다.
+
+<br>
+
+#### **Occupancy Network Input**
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림을 살펴보면 8개의 카메라 중 대표 샘플로 `전방 FishEye` 카메라와 `Left Pillar` 카메라를 예시로 `Normalization` 작업을 설명하였습니다.
+- `Normalization`으로 표현한 내용을 살펴보면 카메라 렌즈의 왜곡을 제거하고 유효한 영역을 적당한 크기로 crop 및 resize 한 것으로 추정됩니다.
+- 렌즈 왜곡에 대한 자세한 내용은 아래 링크를 참조해 주시기 바랍니다.
+    - 링크 : https://gaussian37.github.io/vision-concept-lense_distortion/
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 Fisheye 영상을 보면 빨간색 박스 영역이 Normalize 과정 이후에는 사라졌습니다. 렌즈 왜곡을 제거 후 직사각형 형태로 만들기 위해서는 이미지 가장자리 부분을 일부 제거해야 하며 그 과정을 통해서 제거된 것으로 추정됩니다.
+- 렌즈 왜곡을 제거 하였기 때문에 위 그림의 파란색 박스의 곡선 부분이 Normalize 과정 이후 직선이 된 것을 확인할 수 있습니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Left Pillar는 Fisheye 카메라와 비교하면 상대적으로 굴절이 덜 발생하였으나 위 이미지에서도 육안으로 곡선이 직선이 된 것을 확인할 수 있습니다. 파란색 박스의 표지판을 비교해 보면 됩니다.
+- 이 영상 또한 렌즈 왜곡을 제거하였을 때, 이미지 가장자리 부분을 제거한 것으로 추정됩니다.
+ 
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 8개 카메라의 각 영상은 각 이미지의 feature를 추출하기 위한 딥러닝 `backbone` 으로 입력됩니다.
+- `backbone`이 하나이고 8번을 사용하는 것인 지, 8개의 `backbone`을 각각 사용하는 것인 지 명확하게 나와있지는 않습니다. `backbone`을 통하여 각 카메라 영상의 feature를 추출할 수 있도록 영상의 입력이 준비 되어야 합니다.
+- 만약 하나의 `backbone`을 사용한다면 메모리 효율성에서 좋고 학습에 많은 이미지를 사용할 수 있으나 영상의 환경이 너무 다른 경우 학습 성능에 문제가 있을 수 있습니다. 또한 `backbone`의 구조가 모든 이미지를 처리할 수 있어야 하므로 이미지의 사이즈가 많이 다르면 사용하는 데 제한이 있을 수 있으므로 이 점을 고려해야 합니다.
+- 반면 서로 다른 `backbone`을 사용한다면 각 이미지의 feature를 추출할 수 있도록 학습을 할 수 있고 입력 이미지의 크기 또한 통일할 필요는 없습니다. 단, `backbone`의 weight들을 backbone 갯수 만큼 더 저장해야하므로 메모리 문제가 있을 수 있습니다.
+- 이와 같은 점들을 고려하여 각 카메라의 입력 이미지의 사이즈를 정의한 것으로 추정합니다.
+
+<br>
+
+#### **Occupancy Network Architecture**
 
 <br>
 
