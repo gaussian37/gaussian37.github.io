@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Positional Encoding 의 의미와 사용 목적
+title: Transformer와 Nerf에서의 Positional Encoding의 의미와 사용 목적
 date: 2022-09-01 00:00:00
 img: dl/concept/positional_encoding/0.png
 categories: [dl-concept] 
-tags: [positional encoding, 포지셔널 인코딩] # add tag
+tags: [positional encoding, 포지셔널 인코딩, Transformer, Nerf] # add tag
 ---
 
 <br>
@@ -30,6 +30,7 @@ tags: [positional encoding, 포지셔널 인코딩] # add tag
 - ### [Positional Encoding의 필요 조건](#positional-encoding의-필요-조건-1)
 - ### [Positional Encoding의 기본 형태](#positional-encoding의-기본-형태-1)
 - ### [Positional Encoding의 위치 유사성 계산](#positional-encoding의-위치-유사성-계산-1)
+- ### [Nerf에서의 Positional Encoding의 필요성](#nerf에서의-positional-encoding의-필요성-1)
 - ### [Positional Encoding의 Pytorch 코드](#positional-encoding의-pytorch-코드-1)
 
 <br>
@@ -288,6 +289,14 @@ plt.gcf().colorbar(cax)
 
 - 위 그래프는 (256, 128) 크기의 Positional Encoding Matrix에서 128번째 행을 기준으로 나머지 1 ~ 256 번째 행과의 내적을 통해 유사도를 나타낸 것입니다. 1에 가까울수록 유사도가 높고 0에 가까울수록 유사도가 낮습니다.
 - 위 그래프와 같이 128번째 행에서 멀어질수록 유사도가 낮아지는 경향을 살펴볼 수 있습니다.
+
+<br>
+
+## **Nerf에서의 Positional Encoding의 필요성**
+
+<br>
+
+
 
 <br>
 

@@ -188,3 +188,9 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network, AI Day] # 
 
 <br>
 
+- 8개의 입력을 받은 후 `backbone`과 `Attention` 메커니즘 등을 이용하여 어떻게 `Occupancy Features`를 생성하는 지 살펴보도록 하겠습니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/14.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
