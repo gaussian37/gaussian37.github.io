@@ -29,6 +29,8 @@ tags: [opencv, python, snippets] # add tag
 - ### [gif 만들기 with imageio](#gif-만들기-with-imageio-1)
 - ### [두 이미지를 오버레이 하기](#두-이미지를-오버레이-하기-1)
 - ### [픽셀의 하한, 상한 값 정하기](#픽셀의-하한-상한-값-정하기-1)
+- ### [Automatic Canny Edge Detection](#automatic-canny-edge-detection-1)
+- ### [erosion과 dilation](#erosion과-dilation-1)
 - ### [기타 참조 내용](#기타-참조-내용-1)
 
 <br>
@@ -469,6 +471,45 @@ imageio.mimsave('/path/to/movie.gif', images)
 lower_bound = 0
 upper_bound = 255
 img = np.clip(img, lower_bound, upper_bound).astype(np.uint8)
+```
+
+<br>
+
+## **Automatic Canny Edge Detection**
+
+<br>
+
+- 아래는 `canny edge detection`을 위한 코드 입니다. `canny`에서 필요한 하한값은 $$ -\sigma $$ 을 사용하고 상한값 $$ \sigma $$ 를 사용하여 각각의 이미지의 통계에 맞게 사용할 수 있도록 적용합니다.
+
+<br>
+
+```python
+def auto_canny(image, sigma=0.33):
+	# compute the median of the single channel pixel intensities
+	v = np.median(image)
+	# apply automatic Canny edge detection using the computed median
+	lower = int(max(0, (1.0 - sigma) * v))
+	upper = int(min(255, (1.0 + sigma) * v))
+	edged = cv2.Canny(image, lower, upper)
+	# return the edged image
+	return edged
+```
+
+<br>
+
+## **erosion과 dilation**
+
+<br>
+
+- 아래는 `erosion`과 `dilation`을 위한 간단한 코드 입니다.
+
+<br>
+
+```python
+img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+kernel = np.ones((3, 3), np.uint8)
+erosion = cv2.erode(img, kernel, iterations=1)
+dilation = cv2.dilate(img, kernel, iterations=2)
 ```
 
 <br>

@@ -30,8 +30,11 @@ tags: [positional encoding, 포지셔널 인코딩, Transformer, Nerf] # add tag
 - ### [Positional Encoding의 필요 조건](#positional-encoding의-필요-조건-1)
 - ### [Positional Encoding의 기본 형태](#positional-encoding의-기본-형태-1)
 - ### [Positional Encoding의 위치 유사성 계산](#positional-encoding의-위치-유사성-계산-1)
-- ### [Nerf에서의 Positional Encoding의 필요성](#nerf에서의-positional-encoding의-필요성-1)
 - ### [Positional Encoding의 Pytorch 코드](#positional-encoding의-pytorch-코드-1)
+
+<br>
+
+- ### [Nerf에서의 Positional Encoding의 필요성](#nerf에서의-positional-encoding의-필요성-1)
 
 <br>
 
@@ -292,16 +295,6 @@ plt.gcf().colorbar(cax)
 
 <br>
 
-## **Nerf에서의 Positional Encoding의 필요성**
-
-<br>
-
-- 최근 화두로 떠오르는 `NERF(Neural Radiance Field)` 논문에서 또한 `Positional Encoding`이 사용됩니다. 사용 방식은 Transformer에서 사용한 방식과 같으나 사용 목적이 다릅니다.
-- 본 글에서 살펴본 바와 같이 Transformer에서는 연속적으로 입력되는 데이터를 병렬처리 할 때, 순서를 기억하기 위하 `Positional Encoding`을 사용하며 입력 데이터의 갯수나 크기에 영향 없이 사용하기 위하여 `sin`, `cos` 형태를 사용하였습니다.
-- 반면 `NERF`에서는 `sin`과 `cos`을 이용하여 `Fourier Feature`를 추가하기 위한 용도로 사용합니다. Frequency 도메인에서의 Feature를 `low frequency` 부터 `high frequency` 까지 추가하면 이미지 생성 시 그 특성을 반영하여 고화질의 이미지가 정교하게 생성됩니다.
-
-<br>
-
 ## **Positional Encoding의 Pytorch 코드**
 
 <br>
@@ -377,6 +370,16 @@ print(x_added_PE.shape)
 <br>
 
 - `Embedding Matrix`와 덧셈 연산을 할 때에는 broadcasting을 통하여 batch 단위로 연산이 될 수 있도록 적용하였습니다.
+
+<br>
+
+## **Nerf에서의 Positional Encoding의 필요성**
+
+<br>
+
+- 최근 화두로 떠오르는 `NERF(Neural Radiance Field)` 논문에서 또한 `Positional Encoding`이 사용됩니다. 사용 방식은 Transformer에서 사용한 방식과 같으나 사용 목적이 다릅니다.
+- 본 글에서 살펴본 바와 같이 Transformer에서는 연속적으로 입력되는 데이터를 병렬처리 할 때, 순서를 기억하기 위하 `Positional Encoding`을 사용하며 입력 데이터의 갯수나 크기에 영향 없이 사용하기 위하여 `sin`, `cos` 형태를 사용하였습니다.
+- 반면 `NERF`에서는 `sin`과 `cos`을 이용하여 `Fourier Feature`를 추가하기 위한 용도로 사용합니다. Frequency 도메인에서의 Feature를 `low frequency` 부터 `high frequency` 까지 추가하면 이미지 생성 시 그 특성을 반영하여 고화질의 이미지가 정교하게 생성됩니다.
 
 <br>
 
