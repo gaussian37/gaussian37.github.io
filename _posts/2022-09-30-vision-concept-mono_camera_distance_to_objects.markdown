@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 단안 카메라와 객체와의 거리 구하는 방법
-date: 2022-09-02 00:00:00
+date: 2022-09-30 00:00:00
 img: vision/concept/mono_camera_distance_to_objects/0.png
 categories: [vision-concept] 
 tags: [monocular camera, object, distance] # add tag
