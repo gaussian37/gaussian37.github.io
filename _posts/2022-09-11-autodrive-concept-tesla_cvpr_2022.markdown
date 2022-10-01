@@ -25,8 +25,7 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network, AI Day] # 
 </div>
 <br>
 
-- 위 영상을 보면 현재 `FSD`의 성능 또한 뛰어난 것으로 확인 됩니다. 
-- **하지만 테슬라는 기존 컨셉에 충돌 문제와 관련 문제가 있다고 생각하고 본 발표에서 제시하는 `Occupancy Network`를 이용하여 향후 컨셉의 변화를 줄 것으로 예상**됩니다.
+- 위 영상을 보면 현재 `FSD`의 뛰어난 성능이 이번 워크샵에서 제시하는 `Occupancy Network`를 적용한 것으로 보입니다.
 - 이와 같은 변화는 테슬라가 컴퓨터 비전 (+ 기타 센서) 으로만 자율주행을 시도하기로 발표한 이후 기존의 한계 상황을 개선하기 위해 `Occupancy Network`라는 컨셉을 사용하면서 나타난 것으로 보입니다.
 - 기존 시스템에서는 Object Detection의 오인식 및 미인식 문제로 인하여 `충돌 문제`가 발생하였었습니다. 데이터 셋에 없는 물체가 나타날 경우 Object Detection으로 인식을 하지 못하고 라이다와 레이더가 없기 때문에 물체의 particle 또한 인지하지 못하기 때문에 Freespace로 인지하여 발생하는 문제입니다.
 - 따라서 이와 같은 `충돌 문제`를 개선하기 위하여 2가지 컨셉인 `Occupancy Network`와 `Collision Avoidance`를 제시합니다.
