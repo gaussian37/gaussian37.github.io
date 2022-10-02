@@ -100,7 +100,7 @@ tags: [Multiple View Geometry, Circular points and Absolute conic] # add tag
 
 <br>
 
-- 이번에는 `Vanishing Point`를 어떻게 계산하는 지 살펴보도록 하겠습니다.
+- 이번에는 `Vanishing Point`를 어떻게 계산하는 지 살펴보도록 하겠습니다. 
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/11.png" alt="Drawing" style="width: 800px;"/></center>
@@ -111,9 +111,25 @@ tags: [Multiple View Geometry, Circular points and Absolute conic] # add tag
 <center><img src="../assets/img/vision/mvg/nus_lec3/12.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-
+ 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/14.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/15.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/16.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/17.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 
