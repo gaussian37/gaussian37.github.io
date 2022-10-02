@@ -52,6 +52,8 @@ tags: [Multiple View Geometry, Circular points and Absolute conic] # add tag
 <center><img src="../assets/img/vision/mvg/nus_lec3/5.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+## **Recovery of Affine Properties from Images**
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/6.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
@@ -94,7 +96,33 @@ tags: [Multiple View Geometry, Circular points and Absolute conic] # add tag
 <center><img src="../assets/img/vision/mvg/nus_lec3/10.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+## **Computing a Vanishing Point from a Length Ratio**
 
+<br>
+
+- 이번에는 `Vanishing Point`를 어떻게 계산하는 지 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
+
+<br>
+
+## **Circular Points and Their Dual**
+
+<br>
 
 <br>
 
