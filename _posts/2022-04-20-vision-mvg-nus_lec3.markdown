@@ -219,6 +219,22 @@ tags: [Multiple View Geometry, Circular points and Absolute conic] # add tag
 <br>
 
 <br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/18.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/19.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/20.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/21.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
 
 - 지금 부터는 **Circular points and Absolute conic** 강의의 후반부 내용을 살펴보도록 하겠습니다.
 
