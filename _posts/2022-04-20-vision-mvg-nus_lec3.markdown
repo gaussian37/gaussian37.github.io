@@ -106,14 +106,20 @@ tags: [Multiple View Geometry, Circular points and Absolute conic] # add tag
 <center><img src="../assets/img/vision/mvg/nus_lec3/11.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- vanishing point를 계산하기 위하여 이미지 상에서 동일선(`collinear`) 상에 있는 점들 $$ a, b, c $$ 를 가정하겠습니다. 상세 내용은 다음 슬라이드에서 설명하겠습니다. 
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/12.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 위 그림과 같이 1차원 선 $$ \mathbb{P}^{1} $$ 상에서 $$ a = (0, 1)^{T}, b = (a, 1)^{T}, c = (a + b, 1)^{T} $$ 를 나타내며 그 사이의 거리는 각각 $$ a, b $$ 가 됩니다.
  
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
+
 <br>
 
 ## **Circular Points and Their Dual**
