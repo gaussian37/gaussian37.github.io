@@ -113,12 +113,33 @@ tags: [Multiple View Geometry, Circular points and Absolute conic] # add tag
 <br>
 
 - 위 그림과 같이 1차원 선 $$ \mathbb{P}^{1} $$ 상에서 $$ a = (0, 1)^{T}, b = (a, 1)^{T}, c = (a + b, 1)^{T} $$ 를 나타내며 그 사이의 거리는 각각 $$ a, b $$ 가 됩니다.
+- 이와 같은 방식으로 정한 점 $$ a, b, c $$ 를 `Perspective` 성질이 포함된 이미지 (실제 촬영된 이미지)와 `Perspective` 성질이 제거된 이미지 각각에서 점을 구해볼 수 있습니다.
  
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/13.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/13_1.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
+- `Vanishing Point`를 찾기 위하여 Perspective 성질이 제거된 오른쪽 이미지에서 왼쪽 이미지로 같은 선상의 점들의 이동 관계를 나타내는 $$ H_{2\times2} $$ 행렬을 찾습니다. 그러면 $$ a \to a', b \to b' , c \to c' $$ 로 변환할 수 있습니다.
+- 마지막으로 구하고자 하는 소실점은 오른쪽의 이미지에서는 `point at infinity`인 $$ (1, 0) $$ 에 존재합니다. 이 점을 왼쪽의 perspective 왜곡이 적용된 이미지로 반영하기 위해서는 $$ H_{2\times2} $$ 로 변환해 줍니다.
+
+<br>
+
+- $$ x' = H_{2\times2}x = H_{2\times2} \begin{bmatrix} 1 \\ 0 \end{bmatrix} $$
+
+<br>
+
+- 위 식과 같이 `Vanishing Point`인 $$ x' $$ 를 구할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/13_2.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림에서는 `point at infinity` 를 결정하기 위하여 선분의 동일한 길이 비율을 사용합니다. 선분 간격은 가는 흰색 선을 이용하였고 점은 두꺼운 흰색 선으로 표시하였습니다.
+- 검은색 선은 `line at infinity`이며 검은색 두개의 점은 `point at infinity`입니다. 이 점은 앞에서 다룬 변환과 마찬가지로 Perspective 왜곡이 없는 이미지의 `point at infinity`에 $$ H_{2\times2} $$ 를 적용하여 Perspective 왜곡이 있는 이미지에서 `point at infinity`를 구할 수 있습니다.
 
 <br>
 
@@ -128,10 +149,10 @@ tags: [Multiple View Geometry, Circular points and Absolute conic] # add tag
 <center><img src="../assets/img/vision/mvg/nus_lec3/14.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-
 - 어떤 두 개의 점이 $$ l_{\infty} $$ (`line at infinity`) 상에서 `similarity transformation`에 대하여 `fixed point` 라고 생각해 보겠습니다.
 - 먼저 `fixed point`라고 하면 **정의역과 공역이 공간 $$ X $$ 인 함수 $$ f : X \to X $$ 에 대하여 $$ x_{0} \in X $$ 가 $$ f(x_{0}) = x_{0} $$ 을 만족할 때, 이 점 $$ x_{0} $$ 를 `fixed points`**라고 합니다.
-- 이 때, $$ l_{\infty} $$ 상에 존재하는 `fixed points`인 두 개의 점을 `circula (absolute) points` 라고 하며 아래와 같이 복소수 형태로 나타냅니다. (이름의 의미는 이후 슬라이드에서 설명합니다.)
+- 이 때, $$ l_{\infty} $$ 상에 존재하는 `fixed points`인 두 개의 점을 `circular (absolute) points` 라고 하며 아래와 같이 복소수 형태로 나타냅니다. (이름의 의미는 이후 슬라이드에서 설명합니다.)
+- 아래 $$ I, J $$ 는 표준 좌표의 형태이며 다르게 변형될 수 있습니다.
 
 <br>
 
