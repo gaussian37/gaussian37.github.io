@@ -13,7 +13,7 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network, AI Day] # 
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/jPCV4GKX9Dw" frameborder="0" allowfullscreen="true" width="1000px" height="400px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/jPCV4GKX9Dw" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
 <br>
 
@@ -21,7 +21,7 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network, AI Day] # 
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/N4X4GMFmTb0" frameborder="0" allowfullscreen="true" width="1000px" height="400px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/N4X4GMFmTb0" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
 <br>
 
@@ -32,14 +32,19 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network, AI Day] # 
 
 <br>
 
+- 추가적으로 [2022년 AI DAY](https://gaussian37.github.io/autodrive-concept-tesla_ai_day_2022/)에서 설명한 바로는 `Occupancy Network`로는 Voxel 단위로 물체가 점유해 있는 지 파악하는 용도이며 추가적으로 차선의 구분이나 물체의 구분은 다른 뉴럴 네트워크에서 구분하는 것을 확인하였습니다.
+
+<br>
+
 ## **목차**
 
 <br>
 
-- ### Autopilot과 Full Self-Driving Beta Software
-- ### Classical Drivable Space 인식의 한계
-- ### Occupancy Network의 소개
-- ### Occupancy Network Architecture
+- ### [Autopilot과 Full Self-Driving Beta Software](#autopilot과-full-self-driving-beta-software-1)
+- ### [Classical Drivable Space 인식의 한계](#classical-drivable-space-인식의-한계-1)
+- ### [Occupancy Network의 소개](#occupancy-network의-소개-1)
+- ### [Occupancy Network Architecture](#occupancy-network-architecture-1)
+- ### [Collision Avoidance](#collision-avoidance-1)
 
 <br>
 
@@ -204,7 +209,7 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network, AI Day] # 
 - `backbone`을 통하여 feature extraction을 거친 후 `Image Positional Encoding` (파란색 블록 중간)이 feature에 추가된 이후 `Attention` 과정이 진행 됩니다.
     - `Attention` 내용 살펴보기 : [https://gaussian37.github.io/dl-concept-attention/](https://gaussian37.github.io/dl-concept-attention/)
 
-- 보라색 블럭의 시작을 보면 `Positional Encoding`이 있는 데 `Positional Encoding`에서 부터 시작하여  `Attention`에 사용할 `Query`를 만들고 파란색 블럭의 최종 feature에서 `Key`와 `Value` 가져와서  `Attention` 구조를 만듭니다.
+- 보라색 블럭의 시작을 보면 `Positional Encoding`이 있는 데 `Positional Encoding`에서 부터 시작하여  `Attention`에 사용할 `Query`를 만들고 파란색 블럭의 최종 feature에서 `Key`와 `Value` 가져와서 `Attention` 구조를 만듭니다.
 
 <br>
 
@@ -231,30 +236,48 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network, AI Day] # 
 <br>
 
 - 그런데 앞에서 살펴본 출력을 보면 출력의 종류가 다양하지 않은 것을 알 수 있습니다. 위 그림에서도 보면 자차, 주변 차량, 도로 정도로 굉장히 단순화 되어 있습니다.
-- 이렇게 컨셉이 변경된 이유는 `충돌 문제`를 개선하기 위하여 단순히 해당 영역 (Voxel)에 물체가 Occupy가 되어 있는 지 여부를 확인하기 위한 것으로 소개합니다.
+- 이러한 컨셉을 도입한 이유는 `충돌 문제`를 개선하기 위하여 단순히 해당 영역 (Voxel)에 물체가 Occupy가 되어 있는 지 여부를 확인하기 위한 것으로 소개합니다. (+ AI DAY의 추가 설명 확인 시, 클래스 구분은 다른 네트워크를 이용합니다.)
 
 <br> 
 <center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/16.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 위 슬라이드의 제목은 `Geometry > Ontology` 라는 내용으로 시작합니다. 즉, `Ontology` 보다는 `Geometry`를 사용하겠다는 내용이며 소제목으로 `Things can slip through the ontology cracks` 라고 표현합니다. 즉, **`Ontology` 라는 것을 통해서는 알아차리지 못하는 것들이 있다는 뜻입니다.**
+- 여기서 `Ontology`의 뜻은 **물체들의 유형을 어떻게 계층 별로 나눌 지 방법론에 관한 것입니다.** 
+- 예를 들면 자동차는 승용차, 상용차 등으로 나눌 수 있고 그 하위 항목으로 이륜차, 사륜차 등으로 나눌 수 있으며 또 그 하위에서 차, 트럭, 버스 등으로 나눌 수 있습니다. 
+- 따라서 딥러닝 모델이 인식한 물체를 분류를 할 때, 사전에 설계한 **계층 분류도**를 `Ontology` 라고 말할 수 있습니다.
+- `Ontology`의 한계점은 사전에 고려하지 못한 유형의 객체가 나타났을 때 어떤 분류에 속하지 못하는 경우에 발생하며 꽤 빈번하게 발생할 수 있습니다.
+
 <br> 
 <center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/16_1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 영상의 `Before`에서는 Object가 없는 것으로 표시됩니다. 기존에는 실제 물체를 인식하는 방향 (Object Detection)으로 인식한 반면 `After`에서는 Volume 관점에서 Occupy되어 있는 지 정도로 판단하기 때문에 **사전에 학습하지 못한 데이터**라도 Freespace가 아니라고 인지할 수 있음을 시사합니다.
-- 기존에는 움직이는 물체 (Moving Object)와 움직이지 않는 물체 (Static Object)를 별도로 구분하여 인식하였다고 설명하지만 `Occupancy Network` 컨셉에서는 구분을 두지 않고 인식함을 설명합니다. 즉, 간단히 말하면 `Voxel Classification` 문제로 치환한 것입니다.
+- 위 영상은 테슬라에서 겪은 `Ontology`의 한계점 중 하나를 나타냅니다.
+- 위 영상에 문제가 되는 부분은 컨테이너를 옮기는 차량의 컨테이너에서 발생합니다. 만약 딥러닝 모델이 움직이는 차량을 인식하고 `Ontology`에 대형 트럭이 있는 경우 사전에 인식이 가능할 수 있습니다. 하지만 신호에 대기하여 장시간 정차되고 컨테이너의 뒷모습만 보인다면 `Ontology`에 속하지 않아서 인식 하지 못하는 경우가 발생합니다.
+- 따라서 **사전에 분류되지 못하여 학습하지 못한 데이터는 인지하지 못한다는 한계점**을 보여주는 예시입니다.
 
 <br> 
 <center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/17.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
-- 하지만 단순히 `Occupancy Network`만으로는 위 슬라이드에서 제시하는 문제 등을 풀 수 없습니다.
+- 뿐만 아니라 위 슬라이드와 같은 문제 상황에서 인식을 하는 것에도 한계점이 있습니다.
 - 위 슬라이드의 왼쪽 그림은 사람과 비슷하지만 움직이지 않는 사람 모형이고 오른쪽 그림은 사람처럼 보이지 않을 수 있지만 움직이는 사람입니다.
-- `Occupancy Network`에서 Moving Object와 Static Object의 구분을 어떻게 할 수 있을까요?
+- 이러한 모든 객체에 대하여 Ontology로 분류하고 인식하는 것에는 한계가 있으며 궁극적인 목적이 **움직이거나 정지된 장애물 모든것을 피해서 주행하는 것**이라는 것과 일치하지 않습니다.
+
+<br>
+
+- 테슬라에서는 기존에 움직이는 물체 (Moving Object)와 움직이지 않는 물체 (Static Object)를 별도의 클래스로 구분하여 Ontology를 설계하였는데 
+    - ① Ontology 설계의 한계점도 있고 
+    - ② 궁극적인 목적에서도 정적인 물체와 동적인 물체를 구분하지 않아도 되며 
+    - ③ 앞에서 소개한 바와 같이 정적인 물체 (ex. 컨테이터) 또한 동적인 물체가 될 수 있기 때문에
+- **Ontology 상에서 물체를 인식하지 않고 3차원 Geometry 상에서 Voxel 단위 별로 Voxel에 물체가 있는 지 없는 지 파악하는 방향으로 목적을 바꾸었습니다.**
 
 <br> 
 <center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/18.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
+- 따라서 움직이는 물체를 인식하는 방식 대신 각 Voxel 별 물체의 존재 여부를 파악한 뒤 Voxel 단위 별로 움직임을 예측하는 `occupancy flow` 방식을 사용하여 움직이는 물체를 물체의 종류와 상관 없이 인식합니다.
+- 
 
 <br> 
 <center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/19.png" alt="Drawing" style="width: 1000px;"/></center>
@@ -282,7 +305,13 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network, AI Day] # 
 - 또한 트럭이나 포크레인과 같이 3차원 상에서 큰 구조물이 달려있는 경우에도 BEV에서는 구체적으로 형상을 알 수 없는 한계점이 있습니다.
 
 <br> 
-<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/21_2.png" alt="Drawing" style="width:600px;"/></center>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/21_2.png" alt="Drawing" style="width:400px;"/></center>
 <br>
 
 - 이와 같은 경우에 위 그림과 같은 Voxel 단위로 물체를 인식하는 경우 객체 인식에 도움이 됩니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/21_4.png" alt="Drawing" style="width:600px;"/></center>
+<br>
+
+- 실제로 21년도 10월에 올라온 트위터 내용을 보면 `3D BEV`의 Voxel 기반의 출력을 추가했다는 글이 올라왔었습니다. 이미 Karpathy가 퇴사하기 전에도 진행이 많이 되었던 내용인 것으로 추정할 수 있습니다.

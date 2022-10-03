@@ -801,6 +801,57 @@ ax.set_zlabel("Z-axis")
 - Camera Model 정리 부분에서 실제 카메라에서는 빛을 모으기 위한 렌즈가 존재하고 이 렌즈로 인하여 왜곡 (`distortion`) 이 발생하는 것을 알 수 있었습니다.
 - 이 렌즈 모양에 따라서 원본 이미지에 반영되는 왜곡 정도가 다르며 궁극적으로 왜곡이 제거된 왜곡 보정 이미지 (`undistortion`)를 얻고자 하는 경우를 아래와 같이 정리하고자 합니다.
 
+<br>
+
+<div class="demo_3d" style="">
+    <table style="width: 100%"><tbody><tr style="text-align:center;"><td width="50%">Scene</td><td>Image</td></tr></tbody></table>
+    <div id="3d_container"><canvas width="500" height="166"></canvas>
+    </div>
+    <div class="caption">
+    <em>Left</em>: scene with camera and viewing volume.  Virtual image plane is shown in yellow.   <em>Right</em>: camera's image.</div>
+    <div id="demo_controls" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#intrinsic-controls">Intrinsic</a></li>
+        </ul>
+        <div id="intrinsic-controls" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            <div class="slider-control">
+                <div class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" id="focal_slider">
+                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 7.64702%;"></a></div>
+                <div class="slider-label">
+                Focal Length
+                </div>
+                <div class="clearer"></div>
+            </div>
+            <div class="slider-control">
+                <div class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" id="skew_slider">
+                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a></div>
+                <div class="slider-label">
+                Axis Skew 
+                </div>
+                <div class="clearer"></div>
+            </div>
+            <div class="slider-control">
+                <div class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" id="x0_slider">
+                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 50%;"></a></div>
+                <div class="slider-label">
+                <span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-31-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><msub><mi>x</mi><mn>0</mn></msub></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-527" style="width: 1.214em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.987em; height: 0px; font-size: 118%;"><span style="position: absolute; clip: rect(1.668em, 1000.99em, 2.728em, -999.996em); top: -2.342em; left: 0em;"><span class="mrow" id="MathJax-Span-528"><span class="msubsup" id="MathJax-Span-529"><span style="display: inline-block; position: relative; width: 0.987em; height: 0px;"><span style="position: absolute; clip: rect(3.333em, 1000.53em, 4.241em, -999.996em); top: -4.007em; left: 0em;"><span class="mi" id="MathJax-Span-530" style="font-family: MathJax_Math-italic;">x</span><span style="display: inline-block; width: 0px; height: 4.014em;"></span></span><span style="position: absolute; top: -3.855em; left: 0.609em;"><span class="mn" id="MathJax-Span-531" style="font-size: 70.7%; font-family: MathJax_Main;">0</span><span style="display: inline-block; width: 0px; height: 4.014em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.349em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.263em; border-left: 0px solid; width: 0px; height: 0.897em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>x</mi><mn>0</mn></msub></math></span></span><script type="math/tex" id="MathJax-Element-31">x_0</script>
+                </div>
+                <div class="clearer"></div>
+            </div>
+            <div class="slider-control">
+                <div class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" id="y0_slider">
+                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 49.8%;"></a></div>
+                <div class="slider-label">
+                <span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-32-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><msub><mi>y</mi><mn>0</mn></msub></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-532" style="width: 1.063em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.912em; height: 0px; font-size: 118%;"><span style="position: absolute; clip: rect(1.668em, 1000.91em, 2.803em, -999.996em); top: -2.342em; left: 0em;"><span class="mrow" id="MathJax-Span-533"><span class="msubsup" id="MathJax-Span-534"><span style="display: inline-block; position: relative; width: 0.912em; height: 0px;"><span style="position: absolute; clip: rect(3.333em, 1000.53em, 4.468em, -999.996em); top: -4.007em; left: 0em;"><span class="mi" id="MathJax-Span-535" style="font-family: MathJax_Math-italic;">y<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.004em;"></span></span><span style="display: inline-block; width: 0px; height: 4.014em;"></span></span><span style="position: absolute; top: -3.855em; left: 0.458em;"><span class="mn" id="MathJax-Span-536" style="font-size: 70.7%; font-family: MathJax_Main;">0</span><span style="display: inline-block; width: 0px; height: 4.014em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.349em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.353em; border-left: 0px solid; width: 0px; height: 0.987em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>y</mi><mn>0</mn></msub></math></span></span><script type="math/tex" id="MathJax-Element-32">y_0</script>
+                </div>
+                <div class="clearer"></div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
 
 <br>
 
