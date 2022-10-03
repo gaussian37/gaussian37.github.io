@@ -9,6 +9,11 @@ tags: [vision, Multiple View Geometry] # add tag
 
 <br>
 
+- 아래는 `National University of Singapore`의 `Gim Hee Lee` 교수의 `Multiple View Geometry` 책을 정리한 강의 목록 입니다.
+- 아래 글에서는 강의 진도를 기준으로 `Multiple View Geometry` 책 전체를 정리하고자 하며 책에서 제외된 내용은 각 글에서 강의 순서에 맞게 별도 추가하였습니다.
+
+<br>
+
 ## **3D Computer Vision of National University of Singapore (NUS)**
 
 <br>
@@ -28,35 +33,5 @@ tags: [vision, Multiple View Geometry] # add tag
 
 <br>
 
-## **Multiple View Geometry in Computer Vision**
-
-<br>
-
 - 연습문제 솔루션 : https://blog.immenselyhappy.com/post/mvg-sol-index/
 
-<br>
-
-- [1. Introduction - a Tour of Multiple View Geometry]()
-- [2. Projective Geometry and Transformations of 2D]()
-- [3. Projective Geometry adn Transformations of 3D]()
-- [4. Estimation - 2D Projective Transformations]()
-- [5. Algorithm Evaluation and Error Analysis]()
-- [6. Camera Models]()
-- [7. Computation of the Camera Matrix P]()
-- [8. More Single View Geometry]()
-- [9. Epipolar Geometry and the Fundamental Matrix]()
-- [10. 3D Reconstruction of Cameras and Structure]()
-- [11. Computation of the Fundamental Matrix F]()
-- [12. Structure Computation]()
-- [13. Scene planes and homographies]()
-- [14. Affine Epipolar Geometry]()
-- [15. The Trifocal Tensor]()
-- [16. Computation of the Trifocal Tensor]()
-- [17. N-Linearities and Multiple View Tensors]()
-- [18. N-View Computational Methods]()
-- [19. Auto-Caibration]()
-- [20. Duality]()
-- [21. Cheirality]()
-- [22. Degenerate Configurations]()
-
-<br>

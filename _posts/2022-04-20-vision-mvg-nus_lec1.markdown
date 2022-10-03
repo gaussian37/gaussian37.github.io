@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Lecture 1. 2D and 1D projective geometry
+title: (멀티플 뷰 지오메트리) Lecture 1. 2D and 1D projective geometry
 date: 2022-04-20 00:00:01
 img: vision/mvg/mvg.png
 categories: [vision-mvg] 
-tags: [Multiple View Geometry] # add tag
+tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 ---
 
 <br>
