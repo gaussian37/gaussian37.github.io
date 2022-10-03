@@ -290,13 +290,13 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 
 - $$ C'^{-1} = (H^{-T} C H^{-1})^{-1} $$
 
-- $$ C^{*}' = H C^{*} H^{T} $$
+- $$ C^{*}{'} = H C^{*} H^{T} $$
 
 - 따라서 위 슬라이드에서 $$ C^{*}_{\infty} $$ 또한 다음과 같은 식을 따릅니다.
 
 <br>
 
-- $$ C^{*}_{\infty}' = H_{S} C^{*}_{\infty}  H_{S}^{T} $$
+- $$ C^{*}_{\infty}{'} = H_{S} C^{*}_{\infty}  H_{S}^{T} $$
 
 <br>
 
