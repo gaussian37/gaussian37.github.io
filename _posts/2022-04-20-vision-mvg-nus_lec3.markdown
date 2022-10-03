@@ -272,7 +272,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 
 - $$ x^{T}C x = (H^{-1}x')^{T} C H^{-1}x' = x'^{T} H^{-T} C H^{-1}x' = x'^{T}(H^{-T} C H^{-1})x' $$
 
-- $$ \there \quad C' = H^{-T} C H^{-1} $$
+- $$ \therefore \quad C' = H^{-T} C H^{-1} $$
 
 <br>
 
