@@ -138,6 +138,15 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network, AI Day] # 
 - 위 슬라이드에서는 테슬라에서 사용하는 `Occupancy Network`의 좋은 장점들을 소개합니다. 
 - 8개의 카메라에서 입력되는 이미지를 동시에 처리하여 3D 공간 하나를 출력으로 만들고 그 공간에서 어떤 물체가 차지하고 있는 지, 그 물체가 무엇인 지 까지 확인합니다.
 - 이와 같이 3D 공간 상에서 voxel 별 어떤 물체가 점유하고 있는 지 확인할 수 있으므로 `volumetric occupancy`라고 칭합니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/21_2.png" alt="Drawing" style="width:400px;"/></center>
+<br>
+
+- `voxel`은 위 그림과 같이 3D 공간을 정육면체 형태로 discrete하게 분할하였을 때, 정육면체 단위 하나를 의미합니다.
+
+<br>
+
 - Multi Camera를 Video로 처리하기 때문에 일부 보이지 않는 영역을 연속된 영상의 정보를 이용하여 처리할 수 있고 이 내용을 `Multi-camera & video context, Dynamic occupancy`으로 설명합니다.
 - 앞에서 다룬 2D 이미지 → 3D 공간으로 변환하는 경우 occlusion이 발생하여 2D 이미지 상에서 보이지 않는 물체는 형상을 그려내지 못하지만 위 슬라이드와 같이 `Multi-camera & video` 환경에서 2D 이미지를 거치지 않고 바로 3D로 변환하는 경우 occlusion이 발생한 물체에 대해서도 일부 출력이 가능해 짐을 보여줍니다. (`Persistent through occlusion`)
 - 앞에서 살펴본 2D 이미지의 Depth Prediction은 근거리에서는 해상도가 높지만 원거리에서는 오차 범위가 커져서 해상도가 낮은 문제가 발생합니다. 이 문제로 인하여 Segmentation의 불안정한 출력이 거리 오차를 크게 만드는 문제가 있음을 이전 슬라이드에서 언급하였습니다. `Occupancy Network`에서는 일정한 간격으로 Voxel을 형성하고 각 영역에 물체가 있는 지 여부를 확인하기 때문에 해상도가 급격히 안좋아지는 문제를 개선할 수 있음을 언급합니다. (`Resolution were it matters`)
@@ -277,15 +286,29 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network, AI Day] # 
 <br>
 
 - 따라서 움직이는 물체를 인식하는 방식 대신 각 Voxel 별 물체의 존재 여부를 파악한 뒤 Voxel 단위 별로 움직임을 예측하는 `occupancy flow` 방식을 사용하여 움직이는 물체를 물체의 종류와 상관 없이 인식합니다.
-- 
+- 마치 `optical flow`에서 어떤 픽셀이 다음 Frame에서는 어디로 이동할 지 motion vector가 출력이 되듯이 `occupancy flow`를 통하여 voxel 단위의 motion vector를 추정하는 것으로 생각됩니다.
+- `occupancy flow`를 사용하기 위하여 이전 Frame에서 생성한 `occupancy feature`를 사용합니다. 위 슬라이드와 같이 t, t-1, t-2, ... 등이 사용되는 것을 확인할 수 있습니다.
+- `occupancy flow`를 사용하는 이유는 각 Voxel 별 움직임의 변화를 관찰하여 `Occlusion`이 발생하더라도 이전 Frame의 `occupancy feature` 정보들로 인하여 3D 공간 상에서 Occlusion 된 곳 까지 Voxel의 물체 정보가 예측하도록 합니다.
+
+<br>
+
+#### **Occupancy Network Output**
+
+<br>
 
 <br> 
 <center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/19.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- `occupancy network`의 결과는 위 그림과 같습니다. 출력으로 `occupancy`와 `occupancy flow`를 생성하였고 그 결과를 위 그림과 같이 시각화 하여 표현하였습니다.
+- 빨간색 색상은 motion vector가 양의 방향 즉, 자차와 같은 방향으로 이동 중인 물체이고 초록색은 motion vector가 음의 방향 즉, 자차와 반대 방향으로 이동 중인 물체를 의미합니다. 그리고 회색 물체는 정지된 물체를 의미합니다.
+- 정리하면 위 슬라이드에서는 `occupancy network`가 `motion flow vector`를 추정할 수 있어서 voxel 단위의 모든 3D 위치를 추정할 수 있음을 시사합니다.
+
 <br> 
 <center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/20.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
+- 위 슬라이드에서는 앞에서 문제 제기한 `ontology` 문제에 대한 개선점을 보여줍니다. 실제 어떤 물체인 지 모르더라도 voxel 상에 물체가 있다고 판단하면 Freespace가 아님을 인식합니다.
 
 <br> 
 <center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/21.png" alt="Drawing" style="width: 1000px;"/></center>
@@ -301,17 +324,63 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network, AI Day] # 
 <center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/21_1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 그림과 같이 BEV에서 2D로 인식할 경우 원하는 형상으로 인식할 수 없고 사람과 같이 BEV 환경에서는 1개의 grid에서만 나타날 수 있는 객체 인식에서는 취약할 수 있습니다.
+- 기존에는 3D Bounding Box 형태의 간단한 형식의 출력을 사용하기 때문에 특정 부분이 튀어나오면 인식하기가 어려웠고 최근 연구가 많이 되는 2D Bird Eye View 형태를 사용하면 3D 공간상의 정보를 잃어버리기 때문에 정확한 Freespace를 확인하기 어렵습니다.
+- 위 그림과 같이 BEV에서 2D로 인식할 경우 원하는 사람과 같이 BEV 환경에서는 1개의 grid에서만 나타날 수 있는 객체 인식에서는 취약할 수 있습니다.
 - 또한 트럭이나 포크레인과 같이 3차원 상에서 큰 구조물이 달려있는 경우에도 BEV에서는 구체적으로 형상을 알 수 없는 한계점이 있습니다.
 
 <br> 
-<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/21_2.png" alt="Drawing" style="width:400px;"/></center>
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/22.png" alt="Drawing" style="width:1000px;"/></center>
 <br>
 
-- 이와 같은 경우에 위 그림과 같은 Voxel 단위로 물체를 인식하는 경우 객체 인식에 도움이 됩니다.
+- 그리고 앞에서 설명한 바와 같이 occlusion이 발생하더라도 `occupancy`와 `occupancy flow`를 이용하여 Voxel에 대한 정보를 추론할 수 있습니다. 
+- 위 그림은 비보호 좌회전을 하려는 사진이고 전방에는 교차로가 있고 왼쪽에 나무와 표지판에 의해 가려진 차량이 있습니다. 카메라 관점에서는 차의 정보가 보이지 않지만 3D 공간 상에서는 추론할 수 있음이 `occupancy network`의 장점입니다.
 
 <br> 
 <center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/21_4.png" alt="Drawing" style="width:600px;"/></center>
 <br>
 
-- 실제로 21년도 10월에 올라온 트위터 내용을 보면 `3D BEV`의 Voxel 기반의 출력을 추가했다는 글이 올라왔었습니다. 이미 Karpathy가 퇴사하기 전에도 진행이 많이 되었던 내용인 것으로 추정할 수 있습니다.
+- 실제로 21년도 10월에 올라온 트위터 내용을 보면 3D 상에서 Voxel 기반의 출력을 추가했다는 글이 올라왔었습니다. 이미 Karpathy가 퇴사하기 전에도 진행이 많이 되었던 내용인 것으로 추정할 수 있습니다.
+
+<br>
+
+#### **Occupancy Network Learning Data**
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/23.png" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- `Occupancy Network`의 핵심은 어떻게 학습할 것인 지 문제에 달려 있습니다. 즉, 3D 공간을 Voxel 단위로 만들어 내야 이 Voxel 단위 별 Freespace를 예측할 수 있는데 이미지 별 정답값을 알고 있어야 하기 때문입니다.
+- 이 문제를 해결하기 위하여 `NeRF`를 사용하여 `3D reconstruction` 문제를 해결하였음을 보여줍니다.
+- NeRF 관련 상세 내용은 아래 링크를 참조하시기 바랍니다.
+    - 링크 : [https://gaussian37.github.io/vision-fusion-nerf/](https://gaussian37.github.io/vision-fusion-nerf/)
+- `NeRF`의 초기 모델은 정적인 이미지에 대한 3D reconstruction 방식을 제안하였으나 최근 몇년간 발전하여 움직이는 물체에 대해서도 Voxel 기반의 3D reconstruction을 수행할 수 있으며 NeRF에서는 이미지 취득 시 카메라의 위치를 알아야 하는데 차량의 이동 궤적을 추정하여 이 값을 알 수 있음을 설명합니다. (`D-NeRF`나 그 이후의 모델을 보는 것이 도움이 될 것으로 보입니다.)
+- 이 부분이 데이터를 만드는 가장 중요한 핵심이며 테슬라와 같이 실제 차에서 데이터를 얻어 학습할 수 있어야 (또는 시뮬레이션 환경에서 만들어 낼 수 있어야) 구현할 수 있으므로 학계의 연구와의 차이점이라 말할 수 있습니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/23.gif" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- 구현 결과는 위 그림과 같습니다. 일부 artifact 형태의 결과가 보이긴 하지만 차량에서 취득한 이미지로 3D reconstruction한 결과라면 상당히 좋은 학습 데이터로 판단됩니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/24.png" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- 차량에서 학습 데이터를 얻을 때, 문제가 되는 것은 raw 데이터의 품질입니다. 카메라를 통해 얻는 이미지는 다양한 날씨에 의해 노이즈 (역광, 비 등) 가 있을 수 있으며 카메라에 먼지 등이 묻을 수도 있습니다. 
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/25.png" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- 테슬라에서는 RGB 정보 뿐 아니라 추가적인 `descriptor`를 이용하여 노이즈에 강건한 정보를 RGB에 추가적으로 NeRF에 사용한다고 설명합니다. 이와 같은 방식을 사용하면 RGB 값이 변경하더라도 이미지 내의 의미론적인 요소들이 보호될 수 있기 때문입니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/26.png" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- 최종적으로 `Occupancy Network`의 Input, Architecture, Output과 Label 까지 모두 나타내면 위 슬라이드와 같습니다. 
+- 테슬라에서는 부분적으로 차량에서 학습하는 기법을 사용하는 것이 지난번에도 공유가 되었습니다. 이번에 소개한 Occupancy Network 또한 NeRF를 이용하여 few-shot으로 3D reconstruction을 하고 부분적으로 최적화하기 위하여 차량에서 일부 학습을 진행함을 설명합니다.
+- NeRF를 이용한 3D reconstruction과 네트워크 일부 학습을 차에서 진행한다는 것이 대단하다고 느껴지는 설명입니다.
+
+<br>
+
