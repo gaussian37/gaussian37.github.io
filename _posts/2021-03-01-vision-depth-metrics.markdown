@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Depth Estimation의 Metric
+title: Depth Estimation의 평가 지표 (Metric)
 date: 2021-03-01 00:00:00
 img: vision/depth/metrics/0.png
 categories: [vision-depth] 
@@ -183,10 +183,18 @@ tags: [depth estimation, metrics, rel, rmse] # add tag
 - 이 값의 범위를 5(m) ~ 100 (m) 까지 이해하기 쉽게 표로 정리하면 다음과 같습니다.
 
 <br>
-<center><img src="../assets/img/vision/depth/metrics/4.png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/vision/depth/metrics/4.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 표를 보면 Depth의 크기가 커질수록 오차 범위도 커지는 것을 알 수 있습니다. 이것은 Depth Estimation의 Depth가 커질수록 정밀한 예측이 어렵다는 Task 자체의 한계를 반영한 것입니다.
+
+<br>
+
+- 위 식에서 $$ \delta $$ 의 값을 1.1, 1.15, 1.2로 변경하였을 때의 범위는 아래와 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/metrics/4.png" alt="Drawing" style="width: 1200px;"/></center>
+<br>
 
 <br>
 
