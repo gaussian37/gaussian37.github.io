@@ -193,7 +193,7 @@ tags: [depth estimation, metrics, rel, rmse] # add tag
 - 위 식에서 $$ \delta $$ 의 값을 1.1, 1.15, 1.2로 변경하였을 때의 범위는 아래와 같습니다.
 
 <br>
-<center><img src="../assets/img/vision/depth/metrics/4.png" alt="Drawing" style="width: 1200px;"/></center>
+<center><img src="../assets/img/vision/depth/metrics/8.png" alt="Drawing" style="width: 1200px;"/></center>
 <br>
 
 <br>
