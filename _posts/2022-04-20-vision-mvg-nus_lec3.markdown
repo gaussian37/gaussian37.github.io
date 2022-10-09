@@ -332,9 +332,37 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <center><img src="../assets/img/vision/mvg/nus_lec3/23.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 두 벡터의 내적을 이용하여 두 벡터 사이의 각도 $$ \theta $$ 를 계산하는 방법을 익히 알고 있고 각 선의 식을 이용하여 각 선의 `normal vector`를 구할 수 있으므로 두 선의 각 `normal vector` 간의 사이각을 통해 두 선의 사이각을 구할 수 있습니다.
+
+<br>
+
+- $$ l = (l_{1}, l_{2}, l_{3})^{T} $$
+
+- $$ m = (m_{1}, m_{2}, m_{3})^{T} $$
+
+<br>
+
+- $$ \text{normal vector of } l \text{ : } (l_{1}, l_{2})^{T} $$
+
+- $$ \text{normal vector of } m \text{ : } (m_{1}, m_{2})^{T} $$
+
+<br>
+
+- 따라서 두 `normal vector`의 내적을 통하여 사이각을 구하면 아래와 같습니다.
+
+<br>
+
+- $$  \cos{(\theta)} = \frac{l_{1}m_{1} + l_{2}m_{2}}{\sqrt{(l_{1}^{2} + l_{2}^{2}) + (m_{1}^{2} + m_{2}^{2})}} $$
+
+<br>
+
+- 이와 같은 방식으로 두 선 사이의 각을 구할 수 있으나 `affine/projective transformation`이 적용되었을 때에는 `angle`이 유지되지 않기 때문에 $$ l, m $$ `line`의 사이각을 $$ l'= H^{-T}l, m' = H^{-T}m $$ 에서 적용할 수 없습니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/24.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
+
+- 앞의 슬라이드와 유사한 수식 표현이 위 슬라이드에 나타나 있습니다. 위 슬라이드에서는 $$ C^{*}_{\infty} $$ 개념을 도입하여 `projective transformation`을 적용하더라도 사이 각을 구할 수 있는 방법을 제시합니다.
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/24_1.png" alt="Drawing" style="width: 800px;"/></center>
