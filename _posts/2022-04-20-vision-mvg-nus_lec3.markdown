@@ -146,6 +146,11 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 ## **Circular Points and Their Dual**
 
 <br>
+
+- `circular points`의 개념을 배우기 전에 아래 링크에서 `Affine and Euclidean Geometry` 개념에 대하여 숙지하고 오면 도움이 됩니다.
+    - 링크 : [https://gaussian37.github.io/vision-mvg-nus_lec0/#affine-and-euclidean-geometry-1](https://gaussian37.github.io/vision-mvg-nus_lec0/#affine-and-euclidean-geometry-1)
+
+<br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/14.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
@@ -239,15 +244,30 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 
 - 위 식은 homogeneous coordinate에서의 원의 방정식에 해당합니다. 즉, `conics → circle`으로 구성하였습니다.
 - 여기서 $$ l_{\infty} $$ 와 `conic`이 교차하는 지점의 `ideal points`는 슬라이드와 같이 $$ I, J $$ 에서 만나게 됨을 알 수 있으며 이 때 `ideal points`의 좌표가 앞에서 다룬 $$ I, J $$ 가 됩니다.
-- 이 때 `ideal points`는 $$ x_{3} = 0 $$ 조건과 $$ x_{1}^{2} + x_{2}^{2} = 0 $$ 이 되어야 식을 만족할 수 있습니다.
-- 따라서 $$ I = (1, i, 0)^{T}, J = (1, -i , 0)^{T} $$ 의 복소수 해를 구할 수 있습니다. 위 과정을 통해 `circular points`의 각 요소는 복소수로 확장됨을 확인할 수 있습니다.
+- 이 때 `ideal points`는 $$ x_{3} = 0 $$ 조건과 $$ x_{1}^{2} + x_{2}^{2} = 0 $$ 이 되어야 식을 만족할 수 있습니다. 따라서 $$ I = (1, i, 0)^{T}, J = (1, -i , 0)^{T} $$ 의 복소수 해를 구할 수 있습니다. 
+- 위 과정을 통해 `circular points`의 각 요소는 복소수로 확장됨을 확인할 수 있으며 모든 `circle`은 `circular points`에서 $$ l_{\infty} $$ 와 교차하는 것을 확인할 수 있습니다.
+
+<br>
+
+- 위 연산 과정을 통하여 `circular points`을 확인할 수 있으면 추후에 알아볼 `similarity` 복원 시 circular points를 활용할 수 있습니다.
+- `circular points`를 분해하여 살펴보면 `euclidean geometry`에서의 `orthogonal`인 $$ (1, 0, 0)^{T} $$ 와 $$ (0, 1, 0)^{T} $$ 이며 한 개의 켤레 복소수가 합쳐진 것임을 알 수 있습니다.
+
+<br>
+
+- $$ I = (1, 0, 0)^{T} + i (0, 1, 0)^{T} $$
+
+- $$ J = (1, 0, 0)^{T} + i (0, -1, 0)^{T} $$
+
+<br>
+
+- 따라서 `circular points`가 확인되면 `orthogonal`과 `metric` 속성이 결정됩니다.
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/17.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 일반적으로 `degenerate line conic` 은 $$ C^{*} = xy^{T} + yx^{T} $$ 와 같이 정의되며 `conic` 상의 2개의 점 `x`, `y`를 통하여 만들 수 있습니다.
-- 2개의 점 x, y를 `circular points`인 `I`, `J`를 이용하면 $$ l_{\infty} $$ 가 관통하는 `degenerate line conic`을 만들 수 있고 $$ C^{*}_{\infty} $$ 라고 표현합니다. `line`은 $$ l_{\infty} $$ 가 되며 `I`와 `J`를 각각 통과하는 직선들로 구성됩니다.
+- 2개의 점 x, y를 `circular points`인 `I`, `J`를 이용하여 표현하면 $$ l_{\infty} $$ 가 관통하는 `degenerate line conic`을 만들 수 있고 $$ C^{*}_{\infty} $$ 라고 표현합니다. `line`은 $$ l_{\infty} $$ 가 되며 `I`와 `J`를 각각 통과하는 직선이 됩니다.
 - 그리고 $$ C^{*}_{\infty} $$ 을 풀어 쓰면 `degenerate line conic with circular points`가 되며 `degenerate`가 되었으므로 Rank가 2이면 두 점, Rank가 1이면 중복된 1개의 점이 conic 상에 있는 것을 알 수 있습니다.
 - 위 슬라이드에서는 Rank 2를 가정하였으므로 `I`, `J` 두 점에서 각각 통과하는 직선들로 구성되는 것을 그림으로 나타내었습니다.
 - 추가적으로 표준 좌표를 이용하여 $$ C^{*}_{\infty} $$ 를 수식으로 나타내면 Rank가 2인 행렬이 되는 것을 슬라이드를 통해 확인할 수 있습니다.
