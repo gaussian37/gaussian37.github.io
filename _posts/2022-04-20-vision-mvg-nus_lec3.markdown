@@ -168,7 +168,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <center><img src="../assets/img/vision/mvg/nus_lec3/15.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 슬라이드에서는 `circular points`인 $$ I, J $$ 가 `fixed point` 일 때, `projective transformation` $$ H $$ 는 `similarity`임이 `필요 충분 조건`임을 설명합니다.
+- 위 슬라이드에서는 `circular points`인 $$ I, J $$ 가 `fixed point` 일 때, projective transformation $$ H $$ 는 `similarity transformation`임이 `필요 충분 조건`임을 설명합니다.
 - 따라서 위 슬라이드 조건과 앞에서 설명한 `fixed point`의 정의와 같이 $$ I' = H_{x}I = I $$ 임을 통하여 정의역 $$ I $$ 가 $$ H_{x} $$ 를 거치더라도 $$ I $$ 됨을 통하여 `fixed point` 임을 보입니다.
 
 <br>
@@ -219,9 +219,6 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <br>
 
 - 이번 슬라이드에서는 `circular points`의 의미에 대하여 설명합니다.
-
-<br>
-
 - 이전 강의에서 배운 `conics` 관련 식은 아래와 같습니다.
 
 <br>
@@ -232,7 +229,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <center><img src="../assets/img/vision/mvg/nus_lec3/16_2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 먼저 문제를 간단하게 살펴보기 위해 원 (circle)인 형태를 살펴보면 `conics` 식에서 `a = c = 1`로 가정하고 `b = 0`으로 두겠습니다. 그러면 위 슬라이드와 같이 식이 정리됩니다. (**이 가정은 문제를 간단히 하기 위함이지 필수 조건이 아님을 명심하셔야 합니다.**)
+- `circular points`를 살펴보기 위하여 위 슬라이드의 `conics` 식에서  `a = c = s (ex. 1)`, `b = 0` 으로 두겠습니다. a와 c를 1로 둔 것은 편의를 위함이고 scale 값인 임의의 `s`를 적용해도 무관합니다.
 
 <br>
 
@@ -240,8 +237,9 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 
 <br>
 
+- 위 식은 homogeneous coordinate에서의 원의 방정식에 해당합니다. 즉, `conics → circle`으로 구성하였습니다.
 - 여기서 $$ l_{\infty} $$ 와 `conic`이 교차하는 지점의 `ideal points`는 슬라이드와 같이 $$ I, J $$ 에서 만나게 됨을 알 수 있으며 이 때 `ideal points`의 좌표가 앞에서 다룬 $$ I, J $$ 가 됩니다.
-- 이 때 `ideal points`는 $$ x_{3} = 0 $$ 이 되어야 하므로 위 식을 만족하려면 $$ x_{1}^{2} + x_{2}^{2} = 0 $$ 을 만족해야 합니다.
+- 이 때 `ideal points`는 $$ x_{3} = 0 $$ 조건과 $$ x_{1}^{2} + x_{2}^{2} = 0 $$ 이 되어야 식을 만족할 수 있습니다.
 - 따라서 $$ I = (1, i, 0)^{T}, J = (1, -i , 0)^{T} $$ 의 복소수 해를 구할 수 있습니다. 위 과정을 통해 `circular points`의 각 요소는 복소수로 확장됨을 확인할 수 있습니다.
 
 <br>
