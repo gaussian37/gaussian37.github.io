@@ -34,6 +34,18 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 - 지금 부터는 **2D and 1D projective geometry** 강의의 후반부로 conics, dual conics와 관련된 내용과 transform 관련 내용에 대하여 다루어 보도록 하겠습니다.
 
 <br>
+<br>
+<br>
+
+- `projective plane`이란 3차원 공간에서 원점을 지나는 모든 직선들의 모임으로 해석할 수 있습니다. 이 관점에서 `projective plane`의 `point`는 원점을 지나는 각각의 직선 (`line`)이고 `line`은 원점을 지나는 3차원 공간 속의 2차원 평면 (`plane`)으로 정의할 수 있습니다.
+- `projective plane`은 일반적인 plane과 유사하지만, `point at infinity`라는 `무한대의 점`이 존재하여 모든 두 직선이 항상 교차가 되는 특성이 있습니다. 모든 `point at infinity` 들이 지나는 직선을 `line at infinity`라고 합니다.
+
+<br>
+<br>
+<br>
+
+
+<br>
 
 <br>
 <div style="text-align: center;">

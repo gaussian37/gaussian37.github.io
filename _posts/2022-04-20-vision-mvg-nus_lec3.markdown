@@ -356,6 +356,32 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 
 <br>
 
+- ※ 참고로 `line`을 이용하여 `normal vector`를 구하는 방법은 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/23_1.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- $$ \vec{AP} \perp \vec{n} $$
+
+- $$ \vec{AP} \cdot \vec{n} = 0 $$
+
+- $$ (\vec{p} - \vec{a}) \cdot \vec{n} = 0 $$
+
+- $$ ((x, y) - (x_{1}, y_{1})) \cdot (n_{1}, n_{2}) = 0 $$
+
+- $$ (x - x_{1}, y - y_{1}) \cdot (n_{1}, n_{2}) = 0 $$
+
+- $$ n_{1}(x - x_{1}) + n_{2}(y - y_{1}) = 0 $$
+
+- $$ n_{1}x + n_{2}y - (n_{1}x_{1} + n_{2}y_{1}) = 0 $$
+
+<br>
+
+- 따라서 $$ l = (l_{1}, l_{2}, l_{3}) $$ 에서 $$ (l_{1}, l_{2}) = (n_{1}, n_{2}) $$ 가 되어 `normal vector` 를 `line`을 이용하여 만들 수 있습니다.
+
+<br>
+
 - 이와 같은 방식으로 두 선 사이의 각을 구할 수 있으나 `affine/projective transformation`이 적용되었을 때에는 `angle`이 유지되지 않기 때문에 $$ l, m $$ `line`의 사이각을 $$ l'= H^{-T}l, m' = H^{-T}m $$ 에서 적용할 수 없습니다.
 
 <br>
@@ -375,6 +401,8 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/26.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
+
+- $$ H = H_{P}H_{A}H_{S} = \begin{bmatrix} I & 0 \\ v^{T} & 1 \end{bmatrix} \begin{bmatrix} K & 0 \\ 0^{T} & 1  \end{bmatrix} \begin{bmatrix} sR & t \\ 0^{T} & 1 \end{bmatrix} $$
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/27.png" alt="Drawing" style="width: 800px;"/></center>
