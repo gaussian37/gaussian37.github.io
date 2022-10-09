@@ -260,7 +260,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <br>
 
 - 위 슬라이드에서는 앞선 슬라이드에서 보여준 것 처럼 $$ C^{*}_{\infty} $$ 에서 또한 `similarity transformation`을 적용하면 `fixed`가 됨을 보여줍니다.
-- 식 전개에서 $$ C^{*}_{\infty}' = H_{S} C^{*}_{\infty} H_{S}^{T} $$ 가 됨은 이전 글에서 다루었던 내용입니다. 간략히 정리하면 다음과 같습니다.
+- 식 전개에서 $$ C^{*}_{\infty} {'} = H_{S} C^{*}_{\infty} H_{S}^{T} $$ 가 됨은 이전 글에서 다루었던 내용입니다. 간략히 정리하면 다음과 같습니다.
 
 <br>
 
