@@ -382,6 +382,10 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network, AI Day] # 
 - 테슬라에서는 부분적으로 차량에서 학습하는 기법을 사용하는 것이 지난번에도 공유가 되었습니다. 이번에 소개한 Occupancy Network 또한 NeRF를 이용하여 few-shot으로 3D reconstruction을 하고 부분적으로 최적화하기 위하여 차량에서 일부 학습을 진행함을 설명합니다.
 - NeRF를 이용한 3D reconstruction과 네트워크 일부 학습을 차에서 진행한다는 것이 대단하다고 느껴지는 설명입니다.
 
+<br>
+
+## **Collision Avoidance**
+
 <br> 
 <center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/27.png" alt="Drawing" style="width:1000px;"/></center>
 <br>
