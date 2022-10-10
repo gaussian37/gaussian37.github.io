@@ -20,16 +20,17 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-- ### [SVD의 의미](#svd의-의미-1)
-- ### [SVD 방법](#svd-방법-1)
+- ### [SVD 간단 정의](#svd-간단-정의-1)
+- ### [SVD 계산 방법](#svd-계산-방법-1)
 - ### [SVD 간단 예제](#svd-간단-예제-1)
+- ### [SVD 의미 해석](#svd의-의미-해석-1)
 - ### [SVD 관련 성질](#svd-관련-성질-1)
 - ### [SVD with Python](#svd-with-python-1)
 - ### [SVD의 활용](#svd의-활용-1)
 
 <br>
 
-## **SVD의 의미**
+## **SVD 간단 정의**
 
 <br>
 
@@ -72,7 +73,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-## **SVD 방법**
+## **SVD 계산 방법**
 
 <br>
 
@@ -212,6 +213,15 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 <br>
 
 - $$ \begin{align} A &= \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} = U \Sigma V^{T} \\ &= \frac{1}{\sqrt{2}} = \begin{bmatrix} -1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} \sqrt{3} & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix} \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{-2}{\sqrt{6}} & \frac{1}{\sqrt{6}} \\ \frac{-1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} \end{bmatrix} \end{align} $$
+
+<br>
+
+## **SVD 의미 해석**
+
+<br>
+
+
+
 
 <br>
 
