@@ -379,7 +379,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 - ※ 참고로 `line`을 이용하여 `normal vector`를 구하는 방법은 다음과 같습니다.
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/23_1.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/23_1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - $$ \vec{AP} \perp \vec{n} $$

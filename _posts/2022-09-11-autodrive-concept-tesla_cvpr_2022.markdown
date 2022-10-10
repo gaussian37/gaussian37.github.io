@@ -396,3 +396,102 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network, AI Day] # 
 - 위 슬라이드는 충돌 장면의 차 내부 장치의 움직임을 나타낸 것입니다. 왼쪽 상단 부터 `AEB for pedal Misapplication`, `Driver Pressed Accel Pedal`, `Gear`, `Vehicle Acceleration`에 해당하면 가로축은 시간축이고 세로 축은 각 장치의 센서값에 해당합니다.
 - 위 충돌 예시는 사람의 실수로 인한 충돌 예시이며 그 때 충돌에 영향을 주는 주요 인자의 변화를 그래프로 나타낸 것입니다. 그래프를 보면 가속 페달을 실수로 밟은 것으로 보입니다.
 - 만약 차의 진행 방향등을 고려하였을 때, 충동 가능성이 있으면 사전에 충돌을 하지 않도록 입력된 센서값을 반영하지 않으면 충돌을 방지할 수 있습니다. 즉, **3D 공간 상에서 섬세하게 Freespace를 찾고 차의 이동과 관련된 센서값들을 이용하여 충돌 가능성을 계산해 내어야 합니다.**
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/29.png" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- 자율주행 기능을 유용하게 구현하려면 `safe`, `comfortable`, `resonably fast` 3가지 조건을 만족하도록 구현하는 것을 목표로 합니다.
+- 이 때 단순히 충돌을 피하기 위해 급정거를 하거나 천천히 가는 전략이 아닌 실제 사용성이 있는 방향으로 구현하고자 하는 것이 테슬라의 목표입니다.
+- 위 슬라이드에서 사용한 `jerk` 라는 개념은 가가속도를 뜻합니다. 즉, 가속도의 변화량을 나타내며 식은 다음과 같습니다.
+
+<br>
+
+- $$ r : \text{Position} $$
+
+- $$ \frac{dr}{dt} = r' : \text{Velocity} $$
+
+- $$ \frac{d^{2}r}{dt^{2}} = r'' : \text{Acceleration} $$
+
+- $$ \frac{d^{3}r}{dt^{3}} = r''' : \text{Jerk} $$
+
+<br>
+
+- 즉, 많은 `jerk`를 사용한다면 가속도의 변화량이 많아진다는 뜻이고 자차의 이동이 급변하는 지점이 많아진다는 뜻입니다. 즉, 현실적인 자차의 속도에 반할 수 있습니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/30.png" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- 테슬라에서는 `Collision Avoidance`를 사전에 알아차리기 위하여 `Obstacle Encoder`를 추가하고 `Occupancy Network` feature를 Encoder의 입력으로 사용합니다.
+- `Obstacle Encoder`의 출력과 `vehicle state`를 모두 이용하여 최종 `MLP (Multi Layer Perceptron)` layer를 통해 `Collision Avoidance Implicit Field`를 추론하며 각 영역의 충돌 가능성의 확률 값을 나타날 수 있도록 합니다.
+- `Implicit Field`라고 하면 딥러닝 layer가 각 공간의 정보를 내부적으로 가지고 있어 특정 공간에 대한 정보를 확인하고자 `query`를 입력하였을 때, 그 공간의 정보가 출력이 되도록 하는 구조를 말합니다. 이 때, `vehicle state`가 `query`가 되어 학습된 `Implicit Field`에 `vehicle state`라는 `query`를 입력하여 충돌 가능성을 확인합니다. `vehicle state`에는 `position` ( $$  (x, y) $$ ), `orientation` ($$ \theta $$ ), `velocity`, `lateral, longitudinal acceleration` 등이 포함됩니다.
+- 기존에는 딥러닝의 출력을 이용하여 충돌 가능한 공간과 충동 가능성을 확인하는 별도의 로직을 필요로 하였습니다. 별도 로직을 이용할 때, **충돌 가능 공간과 충돌 가능성을 확인하는 데 시간이 걸려 급정거를 하는 문제가 있었습니다.** 하지만 위 슬라이드와 같이 딥러닝을 이용하여 빠르게 연산하였을 때, 수 micro seconds 단위에서 검출할 수 있음을 확인하였습니다. (따라서 위 슬라이드의 구조가 매우 간단하게 되어 있을 것으로 추정합니다.)
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/31.png" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- `Collision Avoidance`의 결과를 살펴보도록 하겠습니다. (실제 출력은 현재 위치에 대하여 충돌 가능성만 나타낼 뿐 위 그림과 같은 2D Bird's Eye View 전체를 출력하지는 않을 것으로 추정합니다. 중요한 것은 현재 위치의 충돌 가능성 이기 때문이며 이 점만 알면 되기 때문입니다.)
+- 위 그림을 보면 크게 `Obstacles`, `Unobservable region`, `Road surface`, `Road pain`의 주변 형상이 있으며 자차 `ego vehicle`을 원하는 위치에 둔 다음에 시뮬레이션을 할 수 있습니다.
+- 위 슬라이드의 예제는 `H` heading angle과 `v` velocity를 변경하였을 때, 충돌 가능성을 왼쪽 BEV에서 나타냅니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/31_1.gif" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- 먼저 위 그림에서는 `H` heading angle을 변화하였을 때, 즉각적인 (`instantaneous`) 자차의 충돌 가능성을 나타냅니다.
+- 위 슬라이드에서 나타나는 `H`와 `V`의 상태에서 각 픽셀의 위치에 자차를 위치시켰을 때, 안전하다고 판단되는 위치일수록 초록색으로 나타내었고 충돌 가능성이 있다고 판단하는 위치는 빨간색으로 나타냅니다.
+- 즉, 빨간색 영역에 해당하는 어떤 위치에 자차가 현재 `H`, `V` 인 상태로 위치한다면 충돌할 위험이 높다는 뜻입니다.
+- 따라서 위 그림과 같이 `H`를 변경함에 따라 충돌 가능성이 높은 위치와 낮은 위치가 바뀌게 됨을 확인할 수 있습니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/32.gif" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- 반면 위 슬라이드는 현재 `H`, `V`를 유지하였을 때 2초 이내에 충돌할 가능성이 있는 위치를 나타냅니다.
+- 2초의 이동 시간이 있기 때문에 충돌 가능성이 있는 위치가 크게 늘어난 것을 확인할 수 있습니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/33.gif" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- 위 슬라이드에서는 `V` velocity를 변경하였을 때, 충돌 가능성이 큰 영역을 나타냅니다.
+- `V`의 크기는 차 모양의 화살표로 나타내어 지며 `V`의 크기가 커질수록 빨간생 영역 즉, 충돌 가능성이 큰 영역도 커지는 것을 확인할 수 있습니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/34.gif" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- 마지막으로 `H, V`를 모두 수정하였을 때의 경향을 나타내며 앞선 예제를 확장한 것입니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/35.gif" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- 위 그림의 그래프는 자차의 이동에 따른 `velocity`, `acceleration`, `jerk` 를 차례로 보여줍니다.
+- 특히 `jerk` 그래프를 보면 `longitudinal, lateral` 방향의 jerk 와 Collision Avoidance의 자차 주변 색이 같은 것을 확인할 수 있습니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/36.png" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- 위 슬라이드에서는 자차의 이동에 따른 각 차량의 움직인 이유를 1 ~ 4 번 항목으로 나누어서 설명합니다.
+- 각 번호의 차량 움직임에서는 충돌을 피하기 위한 선회와 충돌 가능성이 낮을 때 속도를 낮추지 않고 이동하는 내용을 포함합니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/37.png" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- `Collision Avoidance` 모델을 학습하기 위하여 시뮬레이션 환경에서 부주의한 운전자의 운전 상황을 만들고 충돌을 회피하도록 만듭니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/38.png" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- 지금 까지 내용을 모두 정리하면 멀티 카메라의 영상을 입력으로 받고 Nerf를 이용한 3D Voxel 단위의 학습 데이터를 만들어 Voxel 단위로 물체의 존재 여부를 판단하는 `Occupancy Network`를 학습하고 그 결과 `Occupancy`와 `Occupancy Flow`를 예측 할 수 있습니다.
+- 추가적으로 `Occupancy Network`의 feature와 `Collision Avoidance Encoder`를 이용하여 `Collision Avoidance Field`를 생성하고 `vehicle state`를 `query`로 입력하였을 때, 자차의 충돌 가능성을 예측할 수 있도록 학습합니다.
+
+<br>
+
+- 여기 까지가 테슬라에서 CVPR 2022 Workshop에서 발표한 내용이며 이 내용을 기반으로 AI DAY 2022에 발표할 것으로 예상합니다.
