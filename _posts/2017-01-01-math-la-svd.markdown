@@ -12,7 +12,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 - 참조 : https://darkpgmr.tistory.com/106
 - 참조 : https://angeloyeo.github.io/2019/08/01/SVD.html
 - 참조 : https://dowhati1.tistory.com/7
-- 참조 : https://bskyvision.com/251#:~:text=%E2%96%B6%20%ED%8A%B9%EC%9D%B4%EA%B0%92%20%EB%B6%84%ED%95%B4(Singular,%ED%99%9C%EC%9A%A9%EB%8F%84%EA%B0%80%20%ED%9B%A8%EC%94%AC%20%EB%8D%94%20%ED%81%AC%EB%8B%A4.
+- 참조 : https://bskyvision.com/
 
 <br>
 
@@ -20,11 +20,12 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-- ### SVD의 의미
-- ### SVD 방법
-- ### SVD 간단 예제
-- ### SVD with Python
-- ### SVD의 활용
+- ### [SVD의 의미](#svd의-의미-1)
+- ### [SVD 방법](#svd-방법-1)
+- ### [SVD 간단 예제](#svd-간단-예제-1)
+- ### [SVD 관련 성질](#svd-관련-성질-1)
+- ### [SVD with Python](#svd-with-python-1)
+- ### [SVD의 활용](#svd의-활용-1)
 
 <br>
 
@@ -38,13 +39,13 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 - $$ A = U \Sigma V^{t} $$
 
-- $$ A : m x n \text{rectangular matrix} $$
+- $$ A : m \times n \text{ rectangular matrix} $$
 
-- $$ U : m x m \text{orthogonal matrix} $$
+- $$ U : m \times m \text{ orthogonal matrix} $$
 
-- $$ \Sigma : m x n \text{diagonal matrix} $$
+- $$ \Sigma : m \times n \text{ diagonal matrix} $$
 
-- $$ V : n x n \text{orthogonal matrix} $$
+- $$ V : n \times n \text{ orthogonal matrix} $$
 
 <br>
 
@@ -52,7 +53,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 - 특이값 행렬은 (m x n) 크기의 직사각행렬이므로 m과 n의 크기에 따라 다음과 같은 형태를 가질 수 있습니다.
 
 <br>
-<center><img src="../assets/img/math/la/svd/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/la/svd/1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 직교 행렬(orthogonal matrix)와 대각 행렬(diagonal matrix)에 대한 성질을 살펴보면 다음과 같습니다. $$ U $$를 직교 행렬이라고 하겠습니다.
@@ -93,7 +94,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-$$ A = \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} $$
+- $$ A = \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} $$
 
 <br>
 
@@ -211,6 +212,10 @@ $$ A = \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} $$
 <br>
 
 - $$ \begin{align} A &= \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} = U \Sigma V^{T} \\ &= \frac{1}{\sqrt{2}} = \begin{bmatrix} -1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} \sqrt{3} & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix} \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{-2}{\sqrt{6}} & \frac{1}{\sqrt{6}} \\ \frac{-1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} \end{bmatrix} \end{align} $$
+
+<br>
+
+## **SVD 관련 성질**
 
 <br>
 
