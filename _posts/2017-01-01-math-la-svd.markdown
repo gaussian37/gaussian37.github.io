@@ -40,13 +40,13 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 - $$ A = U \Sigma V^{t} $$
 
-- $$ A : m \times n \text{ rectangular matrix} $$
+- $$ A : m \times n \text{    (rectangular matrix)} $$
 
-- $$ U : m \times m \text{ orthogonal matrix} $$
+- $$ U : m \times m \text{    (orthogonal matrix)} $$
 
-- $$ \Sigma : m \times n \text{ diagonal matrix} $$
+- $$ \Sigma : m \times n \text{    (diagonal matrix)} $$
 
-- $$ V : n \times n \text{ orthogonal matrix} $$
+- $$ V : n \times n \text{    (orthogonal matrix)} $$
 
 <br>
 
