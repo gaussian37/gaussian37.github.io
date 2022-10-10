@@ -382,5 +382,17 @@ tags: [tesla, 테슬라, cvpr, cvpr 2022 workshop, occupancy network, AI Day] # 
 - 테슬라에서는 부분적으로 차량에서 학습하는 기법을 사용하는 것이 지난번에도 공유가 되었습니다. 이번에 소개한 Occupancy Network 또한 NeRF를 이용하여 few-shot으로 3D reconstruction을 하고 부분적으로 최적화하기 위하여 차량에서 일부 학습을 진행함을 설명합니다.
 - NeRF를 이용한 3D reconstruction과 네트워크 일부 학습을 차에서 진행한다는 것이 대단하다고 느껴지는 설명입니다.
 
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/27.png" alt="Drawing" style="width:1000px;"/></center>
 <br>
 
+- 지금부터 살펴볼 내용은 `Collision Avoidance`에 관한 내용입니다. 본 글의 서두에 말씀드린 바와 같이 이번 발표의 핵심은 충돌을 어떻게 피하는 지에 관한 것입니다.
+- 지금까지 3D 공간 상에서 `Voxel` 단위로 어떤 물체가 그 `Voxel`을 점유한 지 유무를 살펴보았다면 그 정보를 활용하여 `Collision Avoidacne`라는 기능을 어떻게 구현한 지 설명합니다.
+
+<br> 
+<center><img src="../assets/img/autodrive/concept/tesla_cvpr_2022/28.png" alt="Drawing" style="width:1000px;"/></center>
+<br>
+
+- 위 슬라이드는 충돌 장면의 차 내부 장치의 움직임을 나타낸 것입니다. 왼쪽 상단 부터 `AEB for pedal Misapplication`, `Driver Pressed Accel Pedal`, `Gear`, `Vehicle Acceleration`에 해당하면 가로축은 시간축이고 세로 축은 각 장치의 센서값에 해당합니다.
+- 위 충돌 예시는 사람의 실수로 인한 충돌 예시이며 그 때 충돌에 영향을 주는 주요 인자의 변화를 그래프로 나타낸 것입니다. 그래프를 보면 가속 페달을 실수로 밟은 것으로 보입니다.
+- 만약 차의 진행 방향등을 고려하였을 때, 충동 가능성이 있으면 사전에 충돌을 하지 않도록 입력된 센서값을 반영하지 않으면 충돌을 방지할 수 있습니다. 즉, **3D 공간 상에서 섬세하게 Freespace를 찾고 차의 이동과 관련된 센서값들을 이용하여 충돌 가능성을 계산해 내어야 합니다.**
