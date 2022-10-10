@@ -266,7 +266,8 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <center><img src="../assets/img/vision/mvg/nus_lec3/17.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 일반적으로 `degenerate line conic` 은 $$ C^{*} = xy^{T} + yx^{T} $$ 와 같이 정의되며 `conic` 상의 2개의 점 `x`, `y`를 통하여 만들 수 있습니다.
+- 일반적으로 `degenerate line conic` 은 $$ C^{*} = xy^{T} + yx^{T} $$ 와 같이 정의되며 `conic` 상의 2개의 점 `x`, `y`를 통하여 만들 수 있습니다. 
+    - [https://gaussian37.github.io/vision-mvg-nus_lec1/](https://gaussian37.github.io/vision-mvg-nus_lec1/)에서 `degenereate conic` 부분을 참조하시면 됩니다.
 - 2개의 점 x, y를 `circular points`인 `I`, `J`를 이용하여 표현하면 $$ l_{\infty} $$ 가 관통하는 `degenerate line conic`을 만들 수 있고 $$ C^{*}_{\infty} $$ 라고 표현합니다. `line`은 $$ l_{\infty} $$ 가 되며 `I`와 `J`를 각각 통과하는 직선이 됩니다.
 - 그리고 $$ C^{*}_{\infty} $$ 을 풀어 쓰면 `degenerate line conic with circular points`가 되며 `degenerate`가 되었으므로 Rank가 2이면 두 점, Rank가 1이면 중복된 1개의 점이 conic 상에 있는 것을 알 수 있습니다.
 - 위 슬라이드에서는 Rank 2를 가정하였으므로 `I`, `J` 두 점에서 각각 통과하는 직선들로 구성되는 것을 그림으로 나타내었습니다.
@@ -329,7 +330,8 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <br>
 
 - ① **$$ C^{*}_{\infty} $$ 은 4 DoF (Degree of Freedom)을 가집니다.** 원래 $$ C^{*}_{\infty} $$ 는 3 X 3 대칭 행렬이고 (3, 3) 위치의 스케일 값을 무시한다고 하면 5개의 자유도를 가집니다. 하지만 $$ \text{det}(C^{*}_{\infty}) = 0 $$ 이고 자유 변수가 1개 생기므로 DoF는 4개로 줄어듭니다.
-- 즉, $$ C^{*}_{\infty} $$ 을 생성하는 데 4개의 변수가 있고 앞에서 표준 좌표를 나타내기 위해 `conic`을 원으로 표현하기 위해 가정하였던 a = c, b = 0 조건이 아닌 다른 조건을 사용하는 상황을 가정할 수 있습니다. 따라서 `4 DoF`는 $$ C^{*}_{\infty} $$ 를 만들 때, a, b, c, d, e, f에서 d, e, f는 소거되어 의미가 없고 의미있는 `a, b, c`의 `3 DoF`에 $$ \text{det}(C^{*}_{\infty}) = 0 $$ 으로 생긴 자유 변수 1개를 추가해서 4 DoF가 된다고 생각할 수 있습니다.
+- **여기서 의문인 점이 있습니다.** `4 DoF`는 $$ C^{*}_{\infty} $$ 를 만들 때, a, b, c, d, e, f에서 d, e, f는 소거되어 의미가 없고 `b = 0`으로 정해집니다. 의미있는 변수인 `a = c`는 같고 어떤 `scale` 값 `s`로 정해져야 하므로 1 DoF가 됩니다. 따라서 나머지 3 DoF는 어떻게 정해져야 하는 지 정확히 이해가 안된 상태입니다.
+- 개인적으로 `conic`을 정할 때, 3 x 3 대칭 행렬에서 성분 a, b, c, d, e, f 를 정해야 하는데 `b = 0`으로 정해지고, `a = c`가 되어서 남은 DoF가 `a=c, d, e, f`로 4 DoF 아닐까 추정합니다. (틀릴 수 있습니다.)
 
 <br>
 
