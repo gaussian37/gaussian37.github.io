@@ -23,20 +23,21 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
 <br>
 
 - ## **라이다 포인트 클라우드 처리 방법**
-- ### [라이다와 포인트 클라우드](#라이다와-포인트-클라우드-1)
-- ### [Processing : open3d를 이용한 포인트 클라우드 처리](#open3d를-이용한-포인트-클라우드-처리)
-- ### [Voxel Grid Downsampling](#voxel-grid-downsampling-1)
-- ### [RANSAC을 이용한 도로와 객체 구분](#)
-- ### [DBSCAN을 이용한 포인트 클라우드 클러스터링](#)
-- ### [HDBSCAN을 이용한 포인트 클라우드 클러스터링](#)
-- ### [PCA를 이용한 객체 Boundgin Box](#)
+    - ### [라이다와 포인트 클라우드](#라이다와-포인트-클라우드-1)
+    - ### [Processing : open3d를 이용한 포인트 클라우드 처리](#open3d를-이용한-포인트-클라우드-처리)
+    - ### [Voxel Grid Downsampling](#voxel-grid-downsampling-1)
+    - ### [Outlier 제거](#outlier-제거-1)
+    - ### [RANSAC을 이용한 도로와 객체 구분](#ransac을-이용한-도로와-객체-구분-1)
+    - ### [DBSCAN을 이용한 포인트 클라우드 클러스터링](#dbscan을-이용한-포인트-클라우드-클러스터링-1)
+    - ### [HDBSCAN을 이용한 포인트 클라우드 클러스터링](#hdbscan을-이용한-포인트-클라우드-클러스터링-1)
+    - ### [PCA를 이용한 객체 Boundgin Box](#pca를-이용한-객체-boundgin-box-1)
 
 <br>
 
 - ## **자율주행에서의 라이다 동향**
-- ### [자율주행 요소 기술](#자율주행-요소-기술-1)
-- ### [라이다 센서](#라이다-센서-1)
-- ### [라이다의 활용 : 위치 추정, 객체 인지](#)
+    - ### [자율주행 요소 기술](#자율주행-요소-기술-1)
+    - ### [라이다 센서](#라이다-센서-1)
+    - ### [라이다의 활용 : 위치 추정, 객체 인지](#)
 
 <br>
 
@@ -288,6 +289,64 @@ v = pptk.viewer(pcd.points)
 <br>
 
 - 추가적인 downsampling 방법으로는 `ROI (Region Of Interest)` 영역을 기반으로 downsampling 하는 방법이 있습니다. 이 방법은 내가 관심있는 영역이 10m 라면 10m 이외의 모든 점은 제거하는 방법입니다. 간단하면서도 내가 필요로 하는 포인트만 사용한다는 점에서 굉장히 효율적인 방법입니다.
+
+<br>
+
+- 추가적으로 `pcd = pcd.uniform_down_sample(every_k_points=5)` 와 같은 방법으로 `uniform_down_sample` 또한 적용할 수 있습니다.
+
+<br>
+
+## **Outlier 제거**
+
+<br>
+
+- `open3d`를 이용하여 outlier를 제거하는 대표적인 방법은 `statistical outlier removal` 방법과 `radius outlier removal` 방법이 있습니다.
+
+<br>
+
+- `statistical outlier removal`은 포인트 클라우드에서 `neighbor`라는 단위로 그룹을 묶은 다음 포인트들 간의 `distance` 기준 평균과 표준 편차를 구하고 `std_ratio` 라는 `threshold` 값을 설정하여 거리의 편차가 큰 포인트를 outlier로 정의합니다.
+- 따라서 정해야 할 파라미터로 `nb_neighbors` 즉, 그룹을 묶을 갯수와 `std_ratio` 라는 threshold 입니다.
+- 아래는 `statistical outlier removal`을 적용하는 코드이며 계산 효율을 위해 `down_sample`이 필요할 수 있습니다.
+
+<br>
+
+```python
+# pcd = pcd.voxel_down_sample(voxel_size=0.5)
+pcd, inliers = pcd.remove_statistical_outlier(nb_neighbors=20, std_ratio=2.0)
+inlier_cloud = pcd.select_by_index(inliers)
+outlier_cloud = pcd.select_by_index(inliers, invert=True)
+inlier_cloud.paint_uniform_color([0.5, 0.5, 0.5])
+outlier_cloud.paint_uniform_color([1, 0, 0])
+o3d.visualization.draw_geometries([inlier_cloud, outlier_cloud])
+```
+
+<br>
+
+- `nb_neighbors`와 `std_ratio`의 크기 변화에 따라 어떻게 outlier가 검출이 되는 지 원하는 방향에 맞게 사용하면 됩니다.
+
+<br>
+
+- 그 다음 방법으로 `radius outlier removal` 방식을 설명하겠습니다.
+- `radius outlier removal`은 구(`sphere`)를 그리고 구(`sphere`) 내부에 포인트의 갯수가 일정 갯수 이하만 있으면 outlier로 제거하는 방식입니다. 즉, 듬성 듬성 존재하는 점들을 제거하기 좋은 방법입니다.
+- 파라미터는 2개가 사용되며 첫번째로 `nb_points`는 구 안에 `nb_points` 이하의 포인트가 존재하면 outlier로 정할 수 있는 임계값이고 `radius`는 구의 반지름에 해당합니다. 단위는 m 입니다. `radius`의 크기가 커지면 계산량이 많아져서 느려집니다.
+
+<br>
+
+```python
+# pcd = pcd.voxel_down_sample(voxel_size=0.5)
+pcd, inliers = pcd.remove_radius_outlier(nb_points=20, radius=0.5)
+inlier_cloud = pcd.select_by_index(inliers)
+outlier_cloud = pcd.select_by_index(inliers, invert=True)
+inlier_cloud.paint_uniform_color([0.5, 0.5, 0.5])
+outlier_cloud.paint_uniform_color([1, 0, 0])
+o3d.visualization.draw_geometries([inlier_cloud, outlier_cloud])
+```
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/28.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 예제는 0.5 m 구 를 그렸을 때, 점이 20개 이하인 점들을 대상으로 제거한 것입니다. 따라서 듬성 듬성 있는 점들에 대하여 빨간색 즉, outlier로 표시된 것을 확인할 수 있습니다.
 
 <br>
 

@@ -22,10 +22,10 @@ tags: [edge detection, gradient, sobel, canny edge] # add tag
 
 <br>
 
-- ### 영상의 미분과 sobel filter
-- ### gradient와 edge detection
-- ### canny edge detection
-- ### auto canny edge edtection
+- ### [영상의 미분과 sobel filter](#영상의-미분과-sobel-filter-1)
+- ### [gradient와 edge detection](#gradient와-edge-detection-1)
+- ### [canny edge detection](#canny-edge-detection-1)
+- ### [auto canny edge edtection](#auto-canny-edge-edtection-1)
 
 <br>
 
