@@ -55,6 +55,7 @@ tags: [python, deep learning, dl] # add tag
 - [DenseNet](https://gaussian37.github.io/dl-concept-densenet/)
 - [EfficientNet](https://gaussian37.github.io/dl-concept-efficientnet/)
 - [RegNet (Designing Network Design Spaces)](https://gaussian37.github.io/dl-concept-regnet/)
+- [BiFPN 구조와 코드](https://gaussian37.github.io/dl-concept-bifpn/)
 
 <br>
 
@@ -65,7 +66,6 @@ tags: [python, deep learning, dl] # add tag
 - [Bag of Tricks for Image Classification with Convolutional Neural Networks](https://gaussian37.github.io/dl-concept-bag_of_tricks_for_image_classification/)
 - [경량 딥러닝 기술 동향](https://gaussian37.github.io/dl-concept-light_weight_dl/)
 - [Quantization과 Quantization Aware Training](https://gaussian37.github.io/dl-concept-quantization/)
-- [더 효율적이고 경량회된 Convolution Neural Network 설계 기법]()
 
 <br>
 
