@@ -25,6 +25,7 @@ tags: [deep learning, BiFPN] # add tag
 - ### [BiFPN의 개념](#bifpn의-개념-1)
 - ### [BiFPN의 구조](#bifpn의-구조-1)
 - ### [Pytorch 코드](#pytorch-코드-1)
+- ### [BiFPN Encoder 코드](#bifpn-encoder-1)
 
 <br>
 
@@ -278,6 +279,34 @@ class BiFPN(nn.Module):
         # output has 5 features
         output = self.bifpn(features)
         return output
+```
+
+<br>
+
+## **BiFPN Encoder 코드**
+
+<br>
+
+- github 링크 : [https://github.com/gaussian37/pytorch_deep_learning_models/blob/master/bifpn/encoder_bifpn.py](https://github.com/gaussian37/pytorch_deep_learning_models/blob/master/bifpn/encoder_bifpn.py)
+
+<br>
+
+- 위 링크는 앞서 설명한 `BiFPN`을 일부 경량화 한 후 `(B, C, H, W)` 크기의 배치 단위의 이미지를 입력 받아서 FeedForward 할 수 있도록 `ResNet18 + BiFPN` 형태로 구성한 코드입니다.
+- 코드를 일부 수정하여 encoder의 출력 사이즈를 변경할 수 있으며 decoder에서 활용하여 다양한 태스크에서 사용할 수 있습니다. (EfficientDet에서는 Object Detection에 활용한 것을 참조하시면 도움이 됩니다.)
+
+<br>
+
+```python
+x = torch.rand(1, 3, 512, 960)
+encoder = Encoder(channels=64, num_layers=2)
+outputs = encoder(x)
+for o in outputs:
+    print(o.shape)
+
+# torch.Size([1, 64, 64, 120])
+# torch.Size([1, 64, 32, 60])
+# torch.Size([1, 64, 16, 30])
+# torch.Size([1, 64, 8, 15])
 ```
 
 <br>
