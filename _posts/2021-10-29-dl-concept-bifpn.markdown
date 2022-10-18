@@ -1,6 +1,6 @@
 ---
 layout: post
-title: BiFPN 구조와 코드
+title: BiFPN (Bi-directional Feature Pyramid Network) 구조와 코드
 date: 2021-10-29 00:00:00
 img: dl/concept/bifpn/0.png
 categories: [dl-concept]
@@ -51,7 +51,7 @@ tags: [deep learning, BiFPN] # add tag
 
 - 하지만 CNN 구조에서는 layer간 feature를 fusion 하는 것이 매우 쉽고 계산 효율도 많이 증가하였기 때문에 `FPN`을 효율적으로 잘 사용할 수 있는 장점이 있습니다. 따라서 feature를 fusion하는 것에는 큰 문제 없이 CNN에서 잘 사용하고 있습니다.
 - `BiFPN`에서는 `FPN`의 feature fusion 성능을 개선하기 위한 새로운 방식을 도입합니다. `FPN`의 피라미드는 모든 feature map의 scale이 다르고 네트워크의 layer 깊이가 다르기 때문에 각 feature 별 의미의 차이가 크지만 단순히 더하는 방향으로 접근합니다. 
-- 즉, `high resolution feature`는 `low-level의 의미`를 해석하고 `low resolution feature`는 `high-level의 의미`를 해석하는 것이 익히 알려져 있습니다. `BiFPN`은 단순히 feature fusion을 위한 feature 피라미드의 단일 방향으로의 덧셈에서 더 나아가 양 방향 (`bidirectional`)으로의 `feature fusion` 방법을 제안합니다.
+- 즉, `high resolution feature`는 `low-level의 의미`를 해석하고 `low resolution feature`는 `high-level의 의미`를 해석하는 것이 익히 알려져 있습니다. `BiFPN`은 단순히 feature fusion을 위한 feature 피라미드의 단일 방향으로의 덧셈에서 더 나아가 양 방향 (`bi-directional`)으로의 `feature fusion` 방법을 제안합니다.
 - 즉, `lateral connection`을 이용한 `bottom-up` 방향과 `top-down` 방향으로의 `feature fusion`을 적용합니다. 
 
 <br>
