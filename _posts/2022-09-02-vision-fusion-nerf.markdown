@@ -15,6 +15,7 @@ tags: [nerf, neural radiance, 너프] # add tag
 
 - 논문 : https://arxiv.org/abs/2003.08934
 - 참조 : https://youtu.be/WSfEfZ0ilw4
+- 참조 : https://www.youtube.com/watch?v=JuH79E8rdKc
 
 <br>
 

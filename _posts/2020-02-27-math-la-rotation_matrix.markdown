@@ -20,6 +20,18 @@ tags: [선형대수학, 회전 변환, rotation, rotation matrix] # add tag
 
 <br>
 
+## **목차**
+
+<br>
+
+- ### [2D에서의 회전 변환](#2d에서의-회전-변환-1)
+- ### [회전 변환 행렬 유도](#회전-변환-행렬-유도-1)
+- ### [임의의 점을 중심으로 회전 변환](#임의의-점을-중심으로-회전-변환-1)
+- ### [3D에서의 회전 변환](#3d에서의-회전-변환-1)
+- ### [회전 변환 행렬의 직교성](#회전-변환-행렬의-직교성-1)
+
+<br>
+
 ## **2D에서의 회전 변환**
 
 <br>
@@ -211,6 +223,60 @@ tags: [선형대수학, 회전 변환, rotation, rotation matrix] # add tag
 <br>
 
 - $$ R = \begin{bmatrix} \text{cos}\alpha \ \text{cos}\beta & \text{cos}\alpha \ \text{sin}\beta \ \text{sin}\gamma - \text{sin}\alpha \ \text{cos}\gamma & \text{cos}\alpha \ \text{sin}\beta \ \text{cos}\gamma + \text{sin}\alpha \ \text{sin}\gamma \\ \text{sin}\alpha \ \text{cos}\beta & \text{sin}\alpha \ \text{sin}\beta \ \text{sin}\gamma + \text{cos}\alpha \ \text{cos}\gamma & \text{sin}\alpha \ \text{sin}\beta \ \text{cos}\gamma - \text{cos}\alpha \ \text{sin}\gamma \\ -\text{sin}\beta & \text{cos}\beta \ \text{sin} \gamma & \text{cos}\beta \ \text{cos} \gamma \\ \end{bmatrix} $$
+
+<br>
+
+## **회전 변환 행렬의 직교성**
+
+<br>
+
+- 지금까지 살펴본 `rotation` 행렬은 `orthogonal` 행렬이며 다음과 같은 성질을 따릅니다.
+
+<br>
+
+- $$ R^{T} = R^{-1} $$
+
+- $$ R^{T} R = I $$
+
+<br>
+
+- `orthogonal` 또는 `orthonormal`인 행렬 $$ Q $$ 가 있을 때, $$ QQ^{T} = Q^{T}Q = I $$ 임은 필요충분 조건임이 알려져 있습니다.
+- 앞에서 살펴본 `2D`, `3D` 회전 변환 행렬의 경우도 $$ RR^{T} = R^{T}R = I $$ 를 만족하며 일반적으로 `orthogonal` 형태이므로 `orthogonal` 하다고 말할 수 있습니다.
+- 또한 `orthogonal`한 경우 **determinant가 1을 만족**하는데 이 조건에도 만족하게 됩니다. 
+
+<br>
+<center><img src="../assets/img/math/la/rotation_matrix/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 계산 결과와 같이 2D 회전 변환 행렬 $$ R $$ 의 $$ RR^{T} = I $$ 임을 확인할 수 있습니다.
+
+<br>
+
+- 3D 회전 변환 행렬의 경우 간단히 `det(R) = I` 임을 통해 `orthogonal`임을 확인해 보겠습니다.
+- 아래 식과 같이 
+
+- $$ R = R_z(\alpha)\,R_y(\beta)\,R_x(\gamma) $$
+
+- $$ R^T\,R=(R_z\,R_y\,R_x)^T\,(R_z\,R_y\,R_x)=R_x^T\,R_y^T\,R_z^T\,R_z\,R_y\,R_x $$
+
+- $$ R_{x}^{T}R_{X} = I $$
+
+- $$ R_{y}^{T}R_{y} = I $$
+
+- $$ R_{z}^{T}R_{z} = I $$
+
+- $$ \therefore R^{T}R = I $$
+
+- $$ \text{plus, } \det(R)=\det(R_z)\,\det(R_y)\,\det(R_x)=1\times 1\times 1=1 $$
+
+<br>
+
+- 아래와 같이 3D 회전 변환 행렬의 각 방향의 $$ R_{x}, R_{y}, R_{z} $$ 의 determinant는 1임을 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/la/rotation_matrix/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
 
 <br>
 
