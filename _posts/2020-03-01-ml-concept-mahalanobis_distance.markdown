@@ -85,7 +85,7 @@ tags: [가우시안, 분별 함수, 패턴 인식, 선형 분별 분석, 2차 �
 
 <br>
 
-- $$ \Sigma = \begin{pmatrix} 8/3 & 0 \\ 0 2/3 \end{pmatrix} $$
+- $$ \Sigma = \begin{pmatrix} 8/3 & 0 \\ 0 & 2/3 \end{pmatrix} $$
 
 <br>
 
