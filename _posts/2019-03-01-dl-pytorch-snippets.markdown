@@ -3939,6 +3939,13 @@ print(output2)
 
 <br>
 
+- `grid_sample`은 이미지 복원을 할 때, 종종 사용되기도 하며 특히 `opencv`의 `cv2.remap` 함수와 같은 용도로 pytorch에서 사용할 수 있습니다.
+- 카메라의 렌즈 왜곡과 같은 문제를 효율적으로 접근하기 위하여 `cv2.remap` 함수를 사용하는데 이 역할이 학습에 추가된다면 `F.grid_sample`을 사용할 수 있습니다.
+- 렌즈 왜곡 문제를 다루기 위하여 `F.grid_sample` 사용방법은 아래 링크를 참조하시기 바랍니다.
+    - 링크 : [https://gaussian37.github.io/vision-concept-lense_distortion/](https://gaussian37.github.io/vision-concept-lense_distortion/)
+
+<br>
+
 ## **파이썬 파일을 읽어서 네트워크 객체 생성**
 
 <br>
