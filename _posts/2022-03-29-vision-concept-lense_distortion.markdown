@@ -62,6 +62,8 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡] # add tag
 - 위 그림의 화각과 초점 거리 (focal length)는 설명을 위한 예시이며 절대적인 기준은 아닙니다.
 - 이번 글에서는 `표준 렌즈`를 사용하는 `표준 카메라`와 `어안 렌즈`를 사용하는 `어안 카메라`에서 렌즈로 인한 물체가 휘어져 보이는 현상이 발생하였을 때, 컴퓨터 비전에서 어떻게 처리하는 지 그 방식과 원리에 대하여 살펴보도록 하겠습니다.
 
+<br>
+
 ## **표준 카메라 렌즈 왜곡 모델**
 
 <br>
@@ -78,14 +80,6 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡] # add tag
 
 <br>
 
-<br>
-
-### **왜곡 영상 Points → 핀홀 모델 영상 Points**
-
-<br>
-
-<br>
-
 ### **undistort를 이용한 왜곡 영상 → 핀홀 모델 영상**
 
 <br>
@@ -93,6 +87,37 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡] # add tag
 <br>
 
 ### **remap을 이용한 왜곡 영상 → 핀홀 모델 영상**
+
+<br>
+
+- `remap`을 이용하여 왜곡 영상을 핀홀 모델 영상으로 왜곡 보정을 하면 앞에서 다룬 `undistort` 함수에 비하여 빠르게 생성할 수 있으며 실시간성을 고려한다면 반드시 `remap` 함수를 이용하여야 합니다.
+- `remap` 함수는 입력 이미지의 x, y 좌표를 출력 이미지의 x, y 좌표 어디에 대응시켜야 할 지 대응 관계를 아래 코드에서 살펴볼 `map_x, map_y`에 정의해 두고 그 관계를 매핑 시켜주는 함수 입니다.
+- `remap` 함수는 입력과 출력이 비선형 관계이어서 관계식이 복잡할 때, 간단히 픽셀 별 대응을 통하여 복잡한 비선형 관계를 매핑 관계로 단순화 하기 때문에 연산도 간단하고 컨셉도 단순하여 많이 사용합니다.
+    - 관련 링크 : [remap 함수를 이용한 remapping](https://gaussian37.github.io/vision-concept-image_transformation/#remap-%ED%95%A8%EC%88%98%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-remapping-1)
+
+<br>
+
+```python
+# 기존 intrinsic과 distortion을 이용하여 출력할 이미지 사이즈 크기의 왜곡 보정 영상을 생성하기 위한 방법
+# 아래 함수를 통해 왜곡 보정된 이미지에서 동작하는 new_intrinsic을 구할 수 있음
+new_intrinsic, roi = cv2.getOptimalNewCameraMatrix(
+    intrinsic, distortion, imageSize=(width, height), alpha, newImageSize=(new_width, new_height)
+)
+
+# (new_width, new_height) 크기의 undistortion 이미지를 만들어 냅니다.
+# cv2.getOptimalNewCameraMatrix()의 newImageSize와 같은 크기로 만들어야 외곽의 여백을 최소화 할 수 있습니다.
+map_x, map_y = cv2.initUndistortRectifyMap(
+    intrinsic, distortion, None, new_intrinsic, (new_width, new_height)
+)
+
+dst = cv2.remap(src, map_x, map_y, cv2.INTER_LINEAR)
+```
+
+<br>
+
+<br>
+
+### **왜곡 영상 Points → 핀홀 모델 영상 Points**
 
 <br>
 
