@@ -34,7 +34,6 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡] # add tag
 - ### [표준 카메라 렌즈 왜곡 모델 ](#)
 - ### [표준 카메라 렌즈 왜곡 보정 방법](#)
 - ### [표준 카메라의 렌즈 왜곡 보정 실습](#)
-    - ### [undistort를 이용한 왜곡 영상 → 핀홀 모델 영상](#)
     - ### [remap을 이용한 왜곡 영상 → 핀홀 모델 영상](#)
     - ### [왜곡 영상 Points → 핀홀 모델 영상 Points](#)
     - ### [Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상](#)
@@ -80,9 +79,9 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡] # add tag
 
 <br>
 
-### **undistort를 이용한 왜곡 영상 → 핀홀 모델 영상**
-
-<br>
+- opencv에서는 `undistort` 함수를 통하여 왜곡 보정을 하거나 `initUndistortRectifyMap`을 이용하여 왜곡 보정하는 방법이 있습니다.
+- 본 글에서는 `initUndistortRectifyMap`을 이용하여 `map_x`, `map_y`를 구하고 이 값을 이용하여 `remap` 함수를 사용하여 **이미지 전체를 왜곡 보정**하거나 **단순히 포인트의 매핑을 이용하여 포인트 단위로 왜곡 보정**하는 방법에 대하여 살펴보도록 하겠습니다.
+- `remap` 함수를 사용하는 방식을 소개하는 이유는 이 방법이 실제 사용하기에 현실적이며 `undistort` 함수는 느려서 실시간으로 사용할 수 없기 때문입니다.
 
 <br>
 
@@ -147,13 +146,13 @@ dst = cv2.remap(src, map_x, map_y, cv2.INTER_LINEAR)
 
 <br>
 
-### **왜곡 영상 Points → 핀홀 모델 영상 Points**
-
-<br>
-
-<br>
-
 ### **remap을 이용한 왜곡 영상 → 핀홀 모델 영상**
+
+<br>
+
+<br>
+
+### **왜곡 영상 Points → 핀홀 모델 영상 Points**
 
 <br>
 
