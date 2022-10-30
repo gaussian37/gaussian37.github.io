@@ -399,6 +399,13 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <br>
 
 - 따라서 $$ l = (l_{1}, l_{2}, l_{3}) $$ 에서 $$ (l_{1}, l_{2}) = (n_{1}, n_{2}) $$ 가 되어 `normal vector` 를 `line`을 이용하여 만들 수 있습니다.
+- 최종적으로 두 벡터의 내적을 통해 다음과 같이 사잇각을 구할 수 있습니다.
+
+<br>
+
+- $$ \begin{bmatrix} l_{1} \\ l_{2} \end{bmatrix}^{T} \begin{bmatrix} m_{1} \\ m_{2} \end{bmatrix} = \Vert \begin{bmatrix} l_{1} & l_{2} \end{bmatrix}^{T} \Vert \Vert \begin{bmatrix} m_{1} & m_{2} \end{bmatrix}^{T} \Vert \cos{(\theta)} $$
+
+- $$  \cos{(\theta)} = \frac{l_{1}m_{1} + l_{2}m_{2}}{\sqrt{(l_{1}^{2} + l_{2}^{2}) + (m_{1}^{2} + m_{2}^{2})}} $$
 
 <br>
 
