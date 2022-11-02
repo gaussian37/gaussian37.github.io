@@ -13,6 +13,15 @@ tags: [스트라드비전, stradvision] # add tag
 
 <br>
 
+- 아래 영상은 22년도 11월에 업로드된 영상으로 최신 데모를 업데이트 하였습니다.
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/UU3UEFZXv5Q" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+
+<br>
+
 - 본 글은 22년도 8월에 MOCAR 채널에서 업로드한 스트라드비전의 인터뷰 영상에서 데모 영상에서 발췌하였습니다. 
 - 최근에 테슬라를 선두로 영상 인식 기술 회사의 상세한 개발 이력을 공유하는 경향이 있습니다. 스트라드비전에서도 MOCAR와의 인터뷰에서 상세한 출력 사양을 공개하면서 기술력을 자랑하였고 인상 깊은 점들에 대하여 정리하였습니다.
 
