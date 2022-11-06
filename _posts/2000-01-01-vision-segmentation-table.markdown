@@ -42,6 +42,7 @@ tags: [vision, deep learning, segmentation] # add tag
 - [DenseASPP for Semantic Segmentation in Street Scenes]()
 - [PSPNet(Pyramid Scene Parsing Network)](https://gaussian37.github.io/vision-segmentation-pspnet/)
 - [Hierarchical Multi-Scale Attention for Semantic Segmentation]()
+- [SegFormer, Simple and Efficient Design for Semantic Segmentation with Transformers](https://gaussian37.github.io/vision-segmentation-segformer/)
 
 <br>
 
