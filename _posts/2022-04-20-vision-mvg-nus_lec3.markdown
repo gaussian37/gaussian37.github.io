@@ -435,6 +435,13 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <center><img src="../assets/img/vision/mvg/nus_lec3/27.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+<br>
+
+- 마지막으로 강의에서는 제외되었지만 책에는 존재하는 `conic의 추가 속성`에 대하여 다루어 보도록 하겠습니다.
+
+<br>
+
+
  
 
 <br>

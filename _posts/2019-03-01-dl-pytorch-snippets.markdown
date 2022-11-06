@@ -104,7 +104,6 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [Tensor 깊은 복사](#tensor-깊은-복사-1)
 - ### [일부 weight만 업데이트 하는 방법](#일부-weight만-업데이트-하는-방법-1)
 - ### [OpenCV로 입력 받은 이미지 torch 형태로 변경](#opencv로-입력-받은-이미지-torch-형태로-변경-1)
-- ### [label을 이용하여 one hot 생성](#label을-이용하여-one-hot-생성-1)
 
 <br>
 
