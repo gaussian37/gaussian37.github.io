@@ -34,8 +34,7 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 - ### [Camera Intrinsic Matrix with Example in Python](#camera-intrinsic-matrix-with-example-in-python-1)
 - ### [Find the Minimum Stretching Direction of Positive Definite Matrices](#find-the-minimum-stretching-direction-of-positive-definite-matrices-1)
 - ### [Camera Calibration with Example in Python](#camera-calibration-with-example-in-python-1)
-- ### [Camera Model 정리](#camera-model-정리-1)
-- ### [Camera 왜곡 보정 정리](#camera-왜곡-보정-정리-1)
+- ### [추가 내용 : 이미지 crop과 resize에 따른 intrinsic 수정 방법](#)
 
 <br>
 
@@ -786,22 +785,37 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-## **Camera Model 정리**
+## **추가 내용 : 이미지 crop과 resize에 따른 intrinsic 수정 방법**
 
 <br>
 
-- 앞에서 배운 내용들을 이용하여 카메라 모델을 정리해 보도록 하겠습니다. 대표적으로 `Pinhole` 카메라 모델과 `Fisheye` 카메라 모델을 다룰 예정입니다.
-
 <br>
 
-## **Camera 왜곡 보정 정리**
+```python
+def get_cropped_and_resized_intrinsic(
+    fx, fy, cx, cy, w_crop_range, h_crop_range, w_resize_ratio, h_resize_ratio):
+    '''
+    w_crop_range : [min_bound, max_bound] of width. e.g. [10, 800]
+    h_crop_range : [min_bound, max_bound] of height. e.g. [20, 300]
+    w_resize_ratio : resize ratio of width orientation. e.g. 0.8
+    h_resize_ratio : resize ratio of height orientation. e.g. 0.6
+
+    example above, image I is cropped I[20:300, 10:800] and cv2.resize(I, (0.8, 0.6)) 
+    '''
+
+    cx -= w_crop_range[0]
+    cy -= h_crop_range[0]
+
+    fx *= w_resize_ratio
+    fy *= h_resize_ratio
+
+    cx *= w_resize_ratio
+    cy *= h_resize_ratio
+
+    return fx, fy, cx, cy
+```
 
 <br>
-
-- Camera Model 정리 부분에서 실제 카메라에서는 빛을 모으기 위한 렌즈가 존재하고 이 렌즈로 인하여 왜곡 (`distortion`) 이 발생하는 것을 알 수 있었습니다.
-- 이 렌즈 모양에 따라서 원본 이미지에 반영되는 왜곡 정도가 다르며 궁극적으로 왜곡이 제거된 왜곡 보정 이미지 (`undistortion`)를 얻고자 하는 경우를 아래와 같이 정리하고자 합니다.
-
-
 
 <br>
 
