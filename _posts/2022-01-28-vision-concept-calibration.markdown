@@ -34,7 +34,7 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 - ### [Camera Intrinsic Matrix with Example in Python](#camera-intrinsic-matrix-with-example-in-python-1)
 - ### [Find the Minimum Stretching Direction of Positive Definite Matrices](#find-the-minimum-stretching-direction-of-positive-definite-matrices-1)
 - ### [Camera Calibration with Example in Python](#camera-calibration-with-example-in-python-1)
-- ### [추가 내용 : 이미지 crop과 resize에 따른 intrinsic 수정 방법](#)
+- ### [추가 내용 : 이미지 crop과 resize에 따른 intrinsic 수정 방법](#추가-내용--이미지-crop과-resize에-따른-intrinsic-수정-방법-1)
 
 <br>
 
@@ -788,6 +788,22 @@ ax.set_zlabel("Z-axis")
 ## **추가 내용 : 이미지 crop과 resize에 따른 intrinsic 수정 방법**
 
 <br>
+
+- 이번 내용은 어떤 이미지를 crop과 resize를 하였을 때, `intrinsic`이 어떻게 변하는 지 살펴보도록 하겠습니다.
+- intrinsic에서 사용되는 유효한 값은 `fx, fy, cx, cy`로 가정하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/25.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `intrinsic`은 `normalized image plane`에서 `image plane`에 영상을 대응하기 위하여 사용하는 값으로 `optical axis`가 image plane의 중심축에 오도록 하기 위한 `cx, cy` 값이 있고 이 값을 기준으로 얼만큼 width, height 방향으로 스케일을 조정하여 `image plane`의 픽셀에 값을 대응할 지 결정하는 `fx, fy`가 있습니다.
+- `image plane`은 위 그림의 회색면을 참조하시면 됩니다. 
+- 따라서 기존에 사용 중인 `intrinsic` 값이 있다고 하더라도 이미지의 가장자리 부분에 crop이 발생하거나 이미지가 일정 비율로 resize가 되었다면 `intrinsic`도 그 변화에 맞추어서 변경할 필요가 있습니다.
+
+<br>
+
+- 먼저 가장자리에 `crop`이 발생하였을 때 `Principal Point`가 변경되는 경우는 이미지 좌표계 기준으로 height, width의 
+
 
 <br>
 

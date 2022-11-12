@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Attention 모델과 Seq2seq with Attention
+title: Attention 메커니즘의 이해
 date: 2020-11-20 00:00:00
 img: dl/concept/attention/0.png
 categories: [dl-concept]
