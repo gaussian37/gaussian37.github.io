@@ -796,37 +796,96 @@ ax.set_zlabel("Z-axis")
 <center><img src="../assets/img/vision/concept/calibration/25.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- `intrinsic`은 `normalized image plane`에서 `image plane`에 영상을 대응하기 위하여 사용하는 값으로 `optical axis`가 image plane의 중심축에 오도록 하기 위한 `cx, cy` 값이 있고 이 값을 기준으로 얼만큼 width, height 방향으로 스케일을 조정하여 `image plane`의 픽셀에 값을 대응할 지 결정하는 `fx, fy`가 있습니다.
-- `image plane`은 위 그림의 회색면을 참조하시면 됩니다. 
-- 따라서 기존에 사용 중인 `intrinsic` 값이 있다고 하더라도 이미지의 가장자리 부분에 crop이 발생하거나 이미지가 일정 비율로 resize가 되었다면 `intrinsic`도 그 변화에 맞추어서 변경할 필요가 있습니다.
+- `intrinsic`은 `normalized image plane`에서 `image plane`에 영상을 대응하기 위하여 사용하는 값입니다.
+- 위 그림에서 $$ X_{c}, Y_{c}, Z_{c} $$ 는 카메라 좌표계를 의미하고 $$ x = X_{c} / Z_{c} $$, $$ y = Y_{C} / Z_{C} $$ 를 이용하여 `normalized image plane`으로 $$ (x, y) $$ 좌표로 좌표값을 변경합니다. 
+- 마지막으로 아래와 같은 `intrinsic`값을 이용하여 `image plane`으로 픽셀 값에 대응 시킵니다.
 
 <br>
 
-- 먼저 가장자리에 `crop`이 발생하였을 때 `Principal Point`가 변경되는 경우는 이미지 좌표계 기준으로 height, width의 
+- $$ \text{intrinsic} = \begin{bmatrix} f_{x} & 0 & c_{x} \\ 0 & f_{y} & c_{y} \\ 0 & 0 & 1 \end{bmatrix} $$
 
+<br>
+
+- 이번 글에서는 기존의 `intrinsic` 파라미터가 있는 상황에서 `image plane`의 `image`의 크기가 달라졌을 때, `intrinsic`을 어떻게 변경해야 하는 지 확인합니다.
+- 먼저 `image plane`의 축인 (0, 0) 부근의 width와 height 방향으로 crop이 발생 시 `intrinsic`의 변화를 살펴보면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/26.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림과 같이 `image plane`의 (0, 0) 부근에서 crop이 발생하면 `normalized image plane` → `image plane` 으로 대응되는 점의 위치가 달라집니다. $$ P_{\text{image}} $$ 의 위치가 crop으로 인하여 width, height 방향으로 좌표 값이 각각 감소한 것을 알 수 있습니다. 
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/27.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림과 같이 crop으로 인한 좌표 값의 상대적인 변화를 알 수 있습니다. 이 변화를 적용하기 위하여 실제 `crop`된 크기 만큼 $$ c_{x}, c_{y} $$ 에 반영해 주면 됩니다. 앞의 `intrinsic` 연산 수식에서 $$ c_{x}, c_{y} $$ 는 `translation` 역할을 하기 때문에 줄어든 값 만큼 아래와 같이 반영하면 됩니다.
+
+<br>
+
+- $$ u = f_{x} x + (c_{x} - \text{crop}_{c_{x}}) $$
+
+- $$ v = f_{y} y + (c_{y} - \text{crop}_{c_{y}}) $$
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/28.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 반면 위 그림과 같이 이미지 좌표계의 시작인 왼쪽 상단이 아닌 우측 하단에서 crop이 발생한 경우 `intrinsic`에 변화가 없는 것을 확인할 수 있습니다. 이미지 끝 쪽 crop은 `image plane` 에서의 좌표계 이동과 무관하기 때문입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/29.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이번에는 `resize`가 발생하였을 때, `intrinsic`의 변화를 살펴보겠습니다. 적용되는 수식은 위 그림과 같습니다.
+- `resize`는 `crop`과 다르게 $$ f_{x}, c_{x} $$ 또는 $$ f_{y}, c_{y} $$ 모두에 영향을 끼칩니다. `resize` 라는 배율에 따라서 `normalized image plane`의 좌표와 곱해지는 $$ f_{x}, f_{y} $$ 뿐만 아니라 `translation` 역할을 하는 $$ c_{x}, c_{y} $$ 값 또한 그 배율만큼 조정되어야 하기 때문입니다. 간단하게 전체적으로 `scale`과 `translation` 모두 `resize`가 반영되었다고 보면 됩니다.
+- 따라서 `resize`에 대한 결과는 다음과 같습니다.
+
+<br>
+
+- $$ u = \text{resize}_{x} (f_{x}x + c_{x}) = \text{resize}_{x}f_{x}x + \text{resize}_{x}c_{x} $$
+
+- $$ u = \text{resize}_{y} (f_{y}y + c_{y}) = \text{resize}_{y}f_{y}y + \text{resize}_{y}c_{y} $$
+
+<br>
+
+- 일반적으로 `crop`과 `resize`를 할 때에는 `crop`을 먼저하여 원하는 부분만 선택한 다음에 `resize`를 적용하여 원하는 사이즈의 이미지를 구합니다. 따라서 다음 순서를 따릅니다.
+
+<br>
+
+- ① 이미지 좌측 상단에서 width, height 방향으로 각각 `crop`할 사이즈를 정한 뒤 `crop`을 적용합니다.
+    - $$ c_{x} -= \text{crop}_{x} $$
+    - $$ c_{y} -= \text{crop}_{y} $$
+- ② `resize` 비율에 맞게 아래와 같이 `resize`를 적용합니다.
+    - $$ f_{x} *=  \text{resize}_{x} f_{x} $$
+    - $$ f_{y} *=  \text{resize}_{y} f_{y} $$
+    - $$ c_{x} *=  \text{resize}_{x} c_{x} $$
+    - $$ c_{y} *=  \text{resize}_{y} c_{y} $$
+
+<br>
+
+- 위 내용을 파이썬 코드로 적용하면 아래와 같습니다.
 
 <br>
 
 ```python
 def get_cropped_and_resized_intrinsic(
-    fx, fy, cx, cy, w_crop_range, h_crop_range, w_resize_ratio, h_resize_ratio):
+    fx, fy, cx, cy, crop_cx, crop_cy, resize_fx, resize_fy):
     '''
-    w_crop_range : [min_bound, max_bound] of width. e.g. [10, 800]
-    h_crop_range : [min_bound, max_bound] of height. e.g. [20, 300]
-    w_resize_ratio : resize ratio of width orientation. e.g. 0.8
-    h_resize_ratio : resize ratio of height orientation. e.g. 0.6
-
-    example above, image I is cropped I[20:300, 10:800] and cv2.resize(I, (0.8, 0.6)) 
+    crop_cx : crop size of u axis orientation in image plane
+    crop_cy : crop size of v axis orientation in image plane
+    resize_fx : resize ratio of width orientation in image plane
+    resize_fy : resize ratio of height orientation in image plane    
     '''
 
-    cx -= w_crop_range[0]
-    cy -= h_crop_range[0]
+    cx -= crop_cx
+    cy -= crop_cy
 
-    fx *= w_resize_ratio
-    fy *= h_resize_ratio
+    fx *= resize_fx
+    fy *= resize_fy
 
-    cx *= w_resize_ratio
-    cy *= h_resize_ratio
+    cx *= resize_fx
+    cy *= resize_fy
 
     return fx, fy, cx, cy
 ```

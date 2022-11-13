@@ -15,7 +15,6 @@ tags: [attention, seq2seq] # add tag
 
 - 참조 : Neural Machine Translation by Jointly Learning to Align and Translate (https://arxiv.org/abs/1409.0473)
 - 참조 : Visualizing A Neural Machine Translation Model (Mechanics of Seq2seq Models With Attention) (http://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/)
-- 참조 : fastcampus 딥러닝/인공지능 올인원 패키지 Online.
 - 참조 : 시퀀스 투 시퀀스 + 어텐션 모델 (https://www.youtube.com/watch?v=WsQLdu2JMgI&feature=youtu.be)
 - 참조 : 모두를 위한 기계번역 (https://youtu.be/N4E53ZcUBJs)
 - 참조 : KoreaUniv DSBA, Seq2Seq Learning (Kor) (https://youtu.be/0lgWzluKq1k)
@@ -23,6 +22,8 @@ tags: [attention, seq2seq] # add tag
 - 참조 : Pytorch Seq2Seq with Attention for Machine Translation (https://youtu.be/sQUqQddQtB4)
 
 <br>
+
+- 이번 글에서는 attention 메커니즘에 대하여 살펴보도록 하겠습니다. attention이 자연어 처리 문제를 
 
 ## **목차**
 
