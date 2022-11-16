@@ -50,6 +50,7 @@ tags: [pytorch, snippets, import, pytorch setting, pytorch GPU, argmax, squeeze,
 - ### [pytorch import 모음](#pytorch-import-모음-1)
 - ### [pytorch 셋팅 관련 코드](#pytorch-셋팅-관련-코드-1)
 - ### [GPU 셋팅 관련 코드](#gpu-셋팅-관련-코드-1)
+- ### [GPU 메모리 해제 방법](#gpu-메모리-해제-방법-1)
 - ### [offline에서 torchvision.models 사용](#offline에서-torchvisionmodels-사용-1)
 - ### [dataloader의 num_workers 지정](#dataloader의-num_workers-지정-1)
 - ### [dataloader의 pin_memory](#dataloader의-pin_memory-1)
@@ -1683,6 +1684,9 @@ torch.cuda.device_count()
 # 사용 가능한 device 갯수에 맞춰서 0번 부터 GPU 할당
 os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(list(map(str, list(range(torch.cuda.device_count())))))
 
+# 실제 사용할 GPU만 선택하려면 아래와 같이 입력하면 됩니다. (예시)
+os.environ["CUDA_VISIBLE_DEVICES"] = "1, 4, 6"
+
 # cudnn을 사용하도록 설정. GPU를 사용하고 있으면 기본값은 True 입니다.
 import torch.backends.cudnn as cudnn
 cudnn.enabled = True
@@ -1723,6 +1727,46 @@ gpu_ids = list(map(str, list(range(torch.cuda.device_count()))))
 total_gpu_memory = 0
 for gpu_id in gpu_ids:
     total_gpu_memory += torch.cuda.get_device_properties("cuda:" + gpu_id).total_memory
+```
+
+<br>
+
+## **GPU 메모리 해제 방법**
+
+<br>
+
+- CUDA 할당 된 Tensor를 GPU에서 완전히 메모리 해제를 하려면 ① 변수를 제거하고 ② cache를 비워야 실제 메모리에서 해제됩니다.
+- 변수가 제거되어도 cache를 남겨두는 이유는 동일한 목적으로 변수가 생성될 때, 빠르게 생성하기 위하여 메모리를 잡고 있습니다. 왜냐하면 실제 Tensor를 사용할 때, 반복적으로 Tensor를 생성하기 때문입니다.
+- 만약 임시로 Tensor를 만들었다가 제거해야 한다면 아래와 같이 변수 제거 후 cache를 비우면 메모리에서 완전 제거됩니다.
+- 변수 제거는 `del 변수명`을 사용하고 cache를 비울 때에는 `torch.cuda.empty_cache()`를 사용합니다.
+
+<br>
+
+```python
+import torch
+
+print(torch.cuda.memory_allocated())
+# 0
+print(torch.cuda.memory_reserved())
+# 0
+
+A = torch.rand(1000000000).cuda()
+print(torch.cuda.memory_allocated())
+# 4000000000 
+print(torch.cuda.memory_reserved())
+# 4001366016
+
+del A
+print(torch.cuda.memory_allocated())
+# 0 
+print(torch.cuda.memory_reserved())
+# 4001366016
+
+torch.cuda.empty_cache()
+print(torch.cuda.memory_allocated())
+# 0
+print(torch.cuda.memory_reserved())
+# 0
 ```
 
 <br>
