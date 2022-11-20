@@ -33,15 +33,7 @@ tags: [vision, depth estimation, 뎁스 추정] # add tag
 - [AdaBins: Depth Estimation Using Adaptive Bins]()
 - [Unsupervised Scale-consistent Depth Learning from Video]()
 - [From Big to Small: Multi-Scale Local Planar Guidance for Monocular Depth Estimation]()
-
-<br>
-
-## **Depth Completion**
-
-<br>
-
-- [Non-Local Spatial Propagation Network for Depth Completion]()
-- [PENet: Towards Precise and Efficient Image Guided Depth Completion]()
+- [DEST, Depth Estimation with Simplified Transformer](https://gaussian37.github.io/vision-depth-dest/)
 
 <br>
 
@@ -50,4 +42,5 @@ tags: [vision, depth estimation, 뎁스 추정] # add tag
 <br>
 
 - [Depth Estimation의 Metric](https://gaussian37.github.io/vision-depth-metrics/)
+- [depthmap 시각화 방법](https://gaussian37.github.io/vision-depth-depthmap_visualization/)
 - [Semantic segmentation과 Depth Estimation의 Multi Task Learning](https://gaussian37.github.io/vision-depth-seg_depth_mtl/)
