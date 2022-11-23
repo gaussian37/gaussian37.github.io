@@ -468,16 +468,19 @@ torch.onnx.export(model, dummy_data, "output.onnx")
 
 <br>
 
+- 참조 : https://tensorboardx.readthedocs.io/en/latest/tensorboard.html
 - 참조 : https://pytorch.org/docs/stable/tensorboard
 - 이 글에서는 pytorch에서 `tensorboard`를 사용하는 방법에 대하여 다루어 보도록 하겠습니다. tensorflow에서 사용하는 tensorboard와 완전히 동일한 그 tensorboard 입니다.
 - 먼저 tensorboard를 설치하기 위하여 다음 명령어를 사용합니다.
   - 명령어 : `pip install tensorboard`
 - 그 다음 tensorboard를 사용하기 위해서는 아래과 같이 `SummaryWriter`를 import하고 객체를 할당합니다.
+- pytorch에 tensorboard가 직접적으로 도입되기 이전에는 pytorch를 이용하여 쉽게 사용하기 위하여 `tensorboardX` 라는 것을 사용하였습니다. 이것 또한 동일하게 `SummaryWriter`를 사용합니다.
 
 <br>
 
 ```python
 from torch.utils.tensorboard import SummaryWriter
+# from tensorboardX import SummaryWriter
 writer = SummaryWriter()
 ```
 
@@ -580,3 +583,25 @@ writer = SummaryWriter(comment="LR_0.1_BATCH_16")
 
 <br>
 
+- 지금 까지 내용을 통하여 `writer.add_scalar()`의 사용법을 정리하면 다음과 같습니다.
+-  `writer.add_scalar('title', y축 값, x축 값)`으로 사용하며 `title`을 고정하여 계속 값을 추가하면 그래프가 그려집니다. 일반적으로 `x축 값`에는 `epoch`을 사용하고 `y축 값`에는 성능 지표 또는 loss 등을 사용하여 표현합니다. 예를 들면 `writer.add_scalar('loss', loss, epoch)`과 같은 형태로 사용할 수 있습니다.
+
+<br>
+
+- 영상 데이터를 처리할 때, 
+
+
+```python
+def rgb_inverse_normalize(x, mean, std):
+    rgb = x.clone()
+    for i in range(3):
+        rgb[i] *= std[i]
+    for i in range(3):
+        rgb[i] += mean[i]
+    rgb.type(torch.uint8)
+    return rgb
+
+def grayscale_3ch(x):
+    x = x.unsqueeze(0).expand(3, -1, -1)
+    return x
+```
