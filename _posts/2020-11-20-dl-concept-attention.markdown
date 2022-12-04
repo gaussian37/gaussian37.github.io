@@ -205,8 +205,86 @@ tags: [attention, seq2seq] # add tag
 - 일반적인 convolution 연산을 사용하는 뉴럴 네트워크에서는 한번에 위 2가지 영역을 고려하지는 않습니다. 앞에서 설명한 바와 같이 점점 더 receptive field를 넓혀가는 구조이지 convolution 필터가 왼쪽 상단을 볼 때, 동시에 전체를 고려하지 않습니다. 이러한 점이 convolution 연산의 단점이 될 수 있습니다.
 
 <br>
+<center><img src="../assets/img/dl/concept/attention/12.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
-- `Attention` 개념은 주어진 어떤 입력에 대하여 **어떤 부분을 중심적으로 볼 지 가중치를 주는 것**으로 이해할 수 있습니다. 기본적으로 Attention이란 개념을 설명할 때, Query, Key Value 개념을 이용하여 설명을 하는데 그 이전에 개념적으로 어떤 의미를 가지는 지 살펴보겠습니다.
+- 예를 들어 위 그림과 같이 고양이를 인식할 떄, convolution 연산은 두 귀를 한번에 보고 인식할 수는 없습니다. layer가 깊어져서 한번에 고양이 전체를 볼 수는 있어도 지엽적으로 두 부분만을 볼 수는 없는 것이 convolution 연산의 아쉬운 부분입니다.
+
+<br>
+
+- `attention` 개념은 주어진 어떤 입력에 대하여 **어떤 부분을 중심적으로 볼 지 가중치를 주는 것**으로 이해할 수 있습니다. 기본적으로 Attention이란 개념을 설명할 때 `Query`, `Key`, `Value` 개념을 이용하여 설명을 하는데 이 개념이 필수적인 것은 아니며 어떤 부분을 중심적으로 볼 지에 대한 컨셉이 있으면 `attention`으로 생각할 수 있습니다.
+
+<br>
+
+- 예를 들어 아래와 같은 개념 또한 `attention`의 일종으로 볼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/attention/13.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 왼쪽과 같이 convolution layer를 거친 feature가 있고 이 feature와 연산이 되는 mask가 있다고 하였을 때, mask와 곱해진다면 어떤 부분은 큰 값이 곱해져 크게 활성화가 되고 어떤 부분은 값이 작아지게 됩니다.
+- 즉, 어떤 부분을 집중해서 봐야 할지 정해지게 되므로 `attention`의 역할을 할 수 있게 됩니다. 이와 같은 방식 
+또한 간단한 attention의 메커니즘으로 볼 수 있습니다.
+
+<br>
+
+#### **BAM : Bottleneck Attention Module**
+
+<br>
+<center><img src="../assets/img/dl/concept/attention/14.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림은 `BAM (Bottleneck Attention Module)`이라는 논문에서 제안한 구조의 attention 메커니즘 입니다.
+- 위 그림과 같이 `BAM`을 거치면 layer 초반부터 background와 같은 부분에 대한 집중을 줄이게 됩니다. 즉, low-level feature에 대한 영향을 줄이게 되는 것입니다. 반면에 high-level feature인 실제 객체에 집중하게 만들어 줍니다. 
+- `BAM`의 수식을 살펴보면 아래와 같습니다.
+
+<br>
+
+- $$ F' = F + F \bigotimes M(F) $$
+
+- $$ \text{feature map} F \in \mathbb{R}^{C \times H \times W} $$
+
+- $$ \text{attention map} M(F) \in \mathbb{R}^{C \times H \times W} $$
+
+<br>
+
+- 위 식에서 $$ \bigotimes $$ 는 `element-wise multiplcation` 을 의미합니다.
+- 이와 같이 layer를 거치면서 `BAM`이 집중하고자 하는 영역을 선택하는 것이 `attention`의 역할을 하는 것과 동일합니다. 좀더 자세히 살펴보면 아래와 같습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/attention/15.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림과 같이 $$ M(F) $$ 는 아래 식과 같이 나타낼 수 있습니다.
+
+<br>
+
+- $$ M(F) = \sigma(M_{c}(F) + M_{s}(F)) $$
+
+- $$ M_{c}(F) \in R^{c} $$
+
+- $$ M_{s}(F) \in R^{H \times W} $$
+
+<br>
+
+- 위 그림과 같이 $$ M() $$ 은 2개의 요소인 $$ M_{c}() $$ 와 $$ M_{F}() $$ 를 각각 추출한 다음에 $$ \bigoplus $$ 즉, 채널 방향으로 `broadcasting` 연산을 통해 최종 `attention map`을 생성합니다. 각 요소의 구성 방법은 위 그림과 같으며 수식으로 나타내면 아래와 같습니다.
+
+<br>
+<center><img src="../assets/img/dl/concept/attention/16.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 이렇게 만들어진 `BAM`을 이용하여 $$ F' = F + F \bigotimes M(F) $$ 연산을 하면 feature 중 `high-level feature`에 attention을 적용할 수 있다고 논문에서는 설명합니다.
+
+<br>
+
+- 지금까지 살펴본 방법은 흔히 알려진 `Key`, `Query`, `Value` 를 이용한 방법이 아닌 다른 방식의 attention 방법 중 하나입니다. 본 글에서 이와 같은 방식을 언급한 이유는 `Key`, `Query`, `Value` 방식의 attention은 수단이지 목적이 아님을 명시하기 위함입니다.
+- 그러면 흔히 알려진 `Key`, `Query`, `Value` 방식의 attention 메커니즘을 컴퓨터 비전 사례를 통해 살펴보겠습니다.
+
+<br>
+
+#### **Key, Query, Value 기반의 Attention 메커니즘**
+
+<br>
 
 
 
