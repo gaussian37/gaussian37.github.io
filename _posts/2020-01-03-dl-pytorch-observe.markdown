@@ -588,8 +588,20 @@ writer = SummaryWriter(comment="LR_0.1_BATCH_16")
 
 <br>
 
-- 영상 데이터를 처리할 때, 
+- 영상 데이터를 처리할 때에는 학습 단계에서 이미지의 학습 과정을 출력해야 하는 단계가 필요합니다.
+- tensorboard에서 이미지를 출력하기 위해서는 `writer.add_image('이미지 출력 라벨', x, iteration)` 형식으로 사용합니다.
+- 첫번째 인자인 이미지 출력 라벨은 tensorboard에서 어떤 라벨로 표시되어 결과가 출력되는 지 이미지의 제목을 나타냅니다.
+- 두번째 인자인 `x`는 출력되는 텐서를 의미합니다. 텐서의 shape은 `[3, H, W]`가 되어야 하며 batch 단위로 표현하려면 별도의 make_grid 함수를 사용해야 합니다. 우선 단일 이미지 기준으로 처리한다면 3차원의 `[3, H, W]` shape의 텐서를 넣으면 됩니다.
+- 마지막 인자인 `iteration`은 몇번째 iteration의 이미지인 지 표시합니다. `이미지 출력 라벨`이 동일한 이미지는 아래 그림과 같이 횡방향 스크롤바를 통하여 연속적으로 보여주기 때문입니다.
 
+<br>
+<center><img src="../assets/img/dl/pytorch/observe/12.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 이 때 고려할 점은 크게 2가지 입니다. 먼저 uint8 형태의 RGB (또는 BGR) 이미지를 사용하였을 때, 일반적으로 이 값을 그대로 사용하지 않고 normalize 해서 사용합니다. 따라서 컬러 형태로 tensorboard에서 출력하기 위해서는 normalize 한 역 방향으로 uint8 타입으로 변환을 해서 사용해야 합니다.
+- 예를 들어 red 값의 mean = 100, std = 25라고 하고 `red_norm = (red - mean) / std`와 같은 형태로 normalize 하였다면 그 역방향인 `red_norm * std + mean = red` 와 같이 처리를 해주어야 정확한 컬러값을 출력할 수 있습니다. 방법은 아래와 같습니다.
+
+<br>
 
 ```python
 def rgb_inverse_normalize(x, mean, std):
@@ -600,7 +612,15 @@ def rgb_inverse_normalize(x, mean, std):
         rgb[i] += mean[i]
     rgb.type(torch.uint8)
     return rgb
+```
 
+<br>
+
+- 만약 grayscale 이미지를 출력할 때, grayscale 이미지 또한 컬러값처럼 변경하여 출력합니다. 따라서 1 channel의 grayscale 값을 복사하여 3 channel의 grayscale 값으로 만들어준 다음 출력하면 됩니다.
+
+<br>
+
+```python
 def grayscale_3ch(x):
     x = x.unsqueeze(0).expand(3, -1, -1)
     return x
