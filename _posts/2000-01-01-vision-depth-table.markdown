@@ -34,6 +34,7 @@ tags: [vision, depth estimation, 뎁스 추정] # add tag
 - [Unsupervised Scale-consistent Depth Learning from Video]()
 - [From Big to Small: Multi-Scale Local Planar Guidance for Monocular Depth Estimation]()
 - [DEST, Depth Estimation with Simplified Transformer](https://gaussian37.github.io/vision-depth-dest/)
+- [How Do Neural Networks See Depth in Single Images?](https://gaussian37.github.io/vision-depth-how_nn_see_depth/)
 
 <br>
 
