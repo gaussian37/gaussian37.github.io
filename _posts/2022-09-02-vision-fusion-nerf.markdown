@@ -27,7 +27,15 @@ tags: [nerf, neural radiance, 너프] # add tag
 
 - ### [NERF 개념 소개](#nerf-개념-소개-1)
 - ### [NERF 논문 분석](#nerf-논문-분석-1)
-- ### [NERF 코드 분석](#nerf-코드-분석-1)
+
+<br>
+
+- ### [코드 분석 - 데이터 전처리](#)
+- ### [코드 분석 - Ray tracing과 Positional Encoding](#)
+- ### [코드 분석 - NERF 모델링](#)
+- ### [코드 분석 - Sampling](#)
+- ### [코드 분석 - Volume Rendering](#)
+- ### [코드 분석 - Model 학습](#)
 
 <br>
 
@@ -82,6 +90,134 @@ tags: [nerf, neural radiance, 너프] # add tag
 - `NERF`는 `implicit feature`를 이용하는 논문들 중 카메라의 `position`과 `direction`에 따른 `R, G, B`, `volume density`를 출력하는 방식을 처음으로 사용하여 주목을 받았습니다. 
 - 위 그림과 같이 5D Input인 $$ X, Y, Z $$ `Position`과 $$ \theta, \phi $$ `Direction`을 입력으로 받아서 Output인 $$ R, G, B $$ `Color`와 $$ \sigma $$ 인 `Density`를 출력합니다.
 - 이 중간 과정에 사용된 뉴럴 네트워크는 $$ F_{\theta} $$ 로 본 논문에서는 `Fully Connected Layer` 즉, `MLP`만 사용하여 구현하였기 때문에 $$ F_{\theta} $$ 로 단순하게 나타냅니다.
+
+<br>
+<center><img src="../assets/img/vision/fusion/nerf/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 뉴럴 네트워크 $$ F_{\theta} $$ 의 역할인 $$ F_{\theta} : (x, d) \to (c, \sigma) $$ 를 위 그림과 같이 나타낼 수 있습니다.
+- ① 하단 부분의 직사각형은 이미지를 위에서 바라본 것이며 하나의 픽셀에 해당합니다. 첫번째 그림은 각각의 픽셀에서 3D 공간 상으로 Ray가 송출되는 것을 의미합니다. 이 때, Ray가 Implicit feature로써 고려해야 할 영역을 사각형 Boundary로 표현하였습니다.
+- ② Ray 상에서 실제 관심 대상으로 선정해야 할 부분을 `샘플링`해야 합니다. 연속적인 공간에서 Ray가 지나가는 모든 지점을 다 사용할 수 없으니 이산적으로 선택해야 할 영역을 샘플링 하는 작업이라고 생각하면 됩니다.
+- ③ 샘플링 한 영역에 $$ F_{\theta} $$ 를 이용하여 color와 density를 얻은 후 적용합니다.
+- ④ 마지막으로 `Volume Rendering`을 통하여 역으로 픽셀의 color 값을 얻을 수 있습니다.
+
+<br>
+
+- 마지막 ④ 과정의 `Volume Rendering` 과정을 통해 새로운 뷰에서의 이미지를 얻을 수 있습니다. `Volume Rendering` 과정은 `미분 가능`하도록 설계되며 미분 가능하기 때문에 뉴럴 네트워크의 학습 과정으로 이용될 수 있습니다.
+- `Volume Rendering`의 이해를 위하여 수식을 통해 간략히 설명해 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/fusion/nerf/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 먼저 첫번째, 두번째 식 모두에 사용되는 $$ \alpha_{i} $$ 의 이해가 중요하므로 이 값의 의미를 살펴보도록 하겠습니다. 결과적으로는 **$$ i $$ 번째 ray segment가 얼마나 의미 있는 점들이 빽빽하게 존재하는 지 정도**를 의미합니다. 간단히 말하면 **ray segment 지점에 물체가 존재할 가능도를 나타낸다고 볼 수 있습니다.**
+
+<br>
+
+- $$ \alpha_{i} = 1 - e^{-\sigma_{i} \delta t_{i}} $$
+
+<br>
+
+- 이 값은 0 ~ 1 사이의 값을 가지도록 구성되어 있으며 1에 가까울수록 $$ i $$ 번째 ray segment의 의미가 크다고 말합니다.
+- 이 값을 결정하는 인자는 $$ \sigma_{i} $$ 와 $$ t_{i} $$ 입니다. $$ \sigma_{i} $$ 는 density이고 density는 0부터 무한대까지 값을 가질 수 있습니다. (물론 실제 무한대를 가지진 않습니다.) 이 값이 0에 가까워질수록  $$ \alpha_{i} $$ 는 0에 가까워 지고 값이 커질수록 $$ \alpha_{i} $$ 는 1에 가까워집니다. 즉, 어떤 segment에서 density가 클수록 ray segment의 중요도가 커진다고 말할 수 있습니다.
+- 반면 $$ t_{i} $$ 는 샘플링된 점들 사이의 거리를 의미합니다. 거리가 멀면 멀수록 그 거리 안에 포함된 점들이 의미상으로 많아지기 때문에 ray segment의 중요도가 커집니다. 반대로 $$ t_{i} $$ 가 0에 가까울수록 포함된 점들의 의미가 얕아지기 때문에 ray segment의 중요도가 작아집니다.
+- 종합하면 density가 높고 샘플링된 포인트 사이의 거리가 멀수록 $$ \alpha_{i} $$ 는 1에 가까워지고 density가 낮고 샘플링된 포인트 사이의 거리가 가까울수록 $$ \alpha_{i} $$ 는 0에 가까워 집니다. 따라서 **ray segment가 얼마나 의미 있는 점들이 빽빽하게 존재하는 지 정도**로 파악할 수 있습니다.
+
+<br>
+
+- 그 다음으로 $$ T_{i} $$ 에 대하여 이해해 보도록 하겠습니다. $$ T $$ 는 `Transmittance`를 의미하며 ray가 얼만큼 투과되는 지를 의미합니다.
+
+<br>
+
+- $$ T_{i} = \Pi_{j=1}^{i-1} (1 - \alpha_{j}) $$
+
+<br>
+
+- $$ T_{i} $$ 는 $$ i $$ 번째 ray segment 까지 얼만큼 ray가 가려졌는 지 정도를 측정하는 수치값입니다. 즉, $$ i $$ 번째 ray segment 까지 density가 많은 영역이 존재하면 가려짐 정도가 크다고 판단할 수 있습니다.
+- 앞에서 살펴본 $$ \alpha_{j} $$ 가 클수록 density가 높다고 말할 수 있으므로 $$ 1 - \alpha_{j} $$ 를 이용하여 density가 높을수록 $$ T_{i} $$ 가 작아지도록 식을 설정합니다.
+- 따라서 $$ 1 ~ (i-1) $$ 까지의 모든 $$ 1 - \alpha_{j} $$ 값을 곱하면 $$ T_{i} $$가 됩니다. 즉, $$ i $$ 번째 ray segment 까지의 누적된 ray의 가림 정도를 의미하며 그 가림 정도는 누적된 곱을 통하여 나타냅니다.
+
+<br>
+
+- 지금까지 살펴본 $$ \alpha_{i}, T_{i} $$ 를 이용하여 렌더링하는 방식을 살펴보겠습니다.
+
+<br>
+
+- $$ C \approx \sum_{i=1}^{N} T_{i} \alpha_{i} c_{i} $$
+
+<br>
+
+- 위 식에서 $$ T_{i}, \alpha{i} $$ 는 앞에서 구하였고 $$ c_{i} $$ 는 `color` 값입니다. 
+- 뉴럴 네트워크를 통해 추출한 모든 `color` 값을 단순히 더하는 것이 아니라 $$ T_{i} $$ 를 이용하여 각 점들에 대하여 얼만큼의 투과도를 반영하여 color 값을 반영할 지 결정합니다. 투과도가 높을수록 color값이 그대로 반영되고 투과도가 낮을수록 그 비중이 작아지게 됩니다. 마찬가지로 $$ \alpha{i} $$ 값을 통해 물체의 존재 여부를 반영합니다.
+- 따라서 각 샘플링되는 $$ i $$ 번째 지점에서 $$ T_{i} \alpha_{i} c_{i} $$ 를 계산하여 누적하는 것이 최종 컬러값을 정하는 방식이 됩니다.
+- 이 때 더하는 연산은 원래 연속적인 공간에서 적분을 하는 것이지만 현실적인 계산을 위하여 이산적인 공간에서 합을 하는 방식을 이용합니다.
+
+<br>
+<center><img src="../assets/img/vision/fusion/nerf/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 사용한 방식을 이용하여 최종적인 학습을 할 때에는 `rendering loss`를 사용합니다. 앞에서는 임의의 픽셀에 대한 예시를 사용하였는데, 이미지에서 학습할 수 있는 영역의 픽셀에 대하여 렌더링을 한 후 학습할 수 있는 이미지를 GT로 둔 다음 L2 Loss를 최소화 하도록 학습합니다.
+- 따라서 어떤 하나의 Ray가 있으면 그 Ray가 Volume Rendering을 하게 되고 그 결과와 GT값의 L2 Loss를 최소화 하는 학습 방식을 통해 NERF가 학습이 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/fusion/nerf/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 사용한 방식을 하나의 이미지가 아닌 다양한 뷰의 여러개의 이미지에 대하여 학습을 하면 다양한 뷰에 대해서도 `implicit feature`를 가지는 뉴럴 네트워크로 학습할 수 있습니다.
+
+<br>
+
+- 이와 같은 방식으로 학습한 결과 카메라의 Position과 Direction에 따른 다양한 결과를 생성해 낼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/fusion/nerf/11.gif" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림의 왼쪽은 카메라의 Position과 Direction을 모두 움직인 결과이고 오른쪽은 카메라의 Position은 그대로 둔 채 Direction만 변경하여 결과를 낸 영상입니다.
+- TV 화면을 보면 같은 물체라도 모두 색이 같은 것이 아니라 카메라의 Position 및 Direction에 따라서 어떻게 색이 변하는 지 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/fusion/nerf/12.gif" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 또한 NERF는 3D 공간 정보를 생성해 내는 것이기 때문에 위 그림과 같이 `depthmap`을 생성할 수 있습니다. 이러한 depthmap을 통해 NERF가 어떻게 공간 정보를 이해하고 있는 지 이해할 수 있습니다.
+
+## 코드 분석 - 데이터 전처리
+
+<br>
+
+<br>
+
+## 코드 분석 - Ray tracing과 Positional Encoding
+
+<br>
+
+<br>
+
+## 코드 분석 - NERF 모델링
+
+<br>
+
+<br>
+
+## 코드 분석 - Sampling
+
+<br>
+
+<br>
+
+## 코드 분석 - Volume Rendering
+
+<br>
+
+<br>
+
+## 코드 분석 - Model 학습
+
+<br>
+
+<br>
+
 
 <br>
 
