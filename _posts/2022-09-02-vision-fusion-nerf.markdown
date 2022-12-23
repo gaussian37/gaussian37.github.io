@@ -26,6 +26,7 @@ tags: [nerf, neural radiance, 너프] # add tag
 <br>
 
 - ### [NERF 개념 소개](#nerf-개념-소개-1)
+- ### [카메라 intrinsic과 extrinsic의 이해](#카메라-intrinsic과-extrinsic의-이해-1)
 - ### [NERF 논문 분석](#nerf-논문-분석-1)
 
 <br>
@@ -181,6 +182,53 @@ tags: [nerf, neural radiance, 너프] # add tag
 <br>
 
 - 또한 NERF는 3D 공간 정보를 생성해 내는 것이기 때문에 위 그림과 같이 `depthmap`을 생성할 수 있습니다. 이러한 depthmap을 통해 NERF가 어떻게 공간 정보를 이해하고 있는 지 이해할 수 있습니다.
+
+<br>
+
+## **카메라 intrinsic과 extrinsic의 이해**
+
+<br>
+
+- `NERF`의 전체 과정을 이해하려면 카메라 intrinsic과 extrinsic을 이해해야 합니다. 아래 링크를 통해 내용을 참조할 수 있으며 본 글에서는 간략히 내용을 설명하겠습니다.
+    - 링크 : [https://gaussian37.github.io/vision-concept-calibration/](https://gaussian37.github.io/vision-concept-calibration/)
+
+<br>
+
+- 먼저 카메라 `intrinsic`에 대하여 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/fusion/nerf/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림과 같이 카메라 좌표계의 3D 공간 상의 X, Y, Z 좌표 값이 핀홀 (초점)을 거쳐서 개념상에 존재하는 Normalized Plane으로 투영됩니다. 여기는 focal length가 1인 개념상 존재하는 공간입니다.
+- Normalized Plane의 좌표를 위 그림에서는 $$ u, v $$ 로 표현하고 (자료마다 표기법은 다릅니다.) intrinsic 파라미터 $$ K $$ 를 곱하면 Image Plane의 좌표로 변환이 됩니다. 
+- 따라서 위 식과 같이 $$ u, v $$ 좌표와 $$ x, y $$ 좌표 간의 변환 관계를 $$ K $$ 로 나타낼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/fusion/nerf/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 앞에서 정의한 intrinsic $$ K $$ 를 자세히 살펴보면 위 식과 같으며 $$ u, v $$ 좌표와 $$ x, y $$ 좌표 간의 변환 관계를 자세히 확인할 수 있습니다.
+
+<br>
+
+- 다음으로 카메라 `extrinsic`에 대하여 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/fusion/nerf/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림에서는 X, Y, Z 축 각각을 회전변환하는 방식의 회전 변환 행렬 $$ R $$ 과 translation을 반영하는 $$ t $$ 를 이용하여 회전 및 이동 변환 행렬을 만듭니다. 이와 관련된 자세한 내용은 아래 링크를 참조하시기 바랍니다.
+    - 링크 : [3D에서의 회전 변환](https://gaussian37.github.io/math-la-rotation_matrix/#3d%EC%97%90%EC%84%9C%EC%9D%98-%ED%9A%8C%EC%A0%84-%EB%B3%80%ED%99%98-1)
+
+<br>
+
+- extrinsic은 카메라의 Pose를 나타내기 위한 행렬입니다. World 좌표라는 3차원 공간 상의 기준 좌표계가 있을 때, 카메라의 위치가 바뀔 수 있습니다. 이 때, 카메라의 위치가 얼만큼 회전하고 이동하였는 지 관계를 알려면 기준 좌표계를 기준으로 회전 및 이동량을 정할 수 있습니다.
+- 이 값이 $$ R $$ 과 $$ t $$ 가 되며 이 값을 위 식과 같이 정할 수 있습니다.
+
+<br>
+
+- 지금 까지 살펴본 카메라의 `intrinsic`과 `extrinsic`은 NERF를 구현하는 데 필수적으로 사용됩니다. 따라서 의미의 이해를 하는 것이 필수적이니 살펴 보시기 바랍니다.
 
 <br>
 
