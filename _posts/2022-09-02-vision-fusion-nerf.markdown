@@ -30,12 +30,12 @@ tags: [nerf, neural radiance, 너프] # add tag
 
 <br>
 
-- ### [코드 분석 - 데이터 전처리](#)
-- ### [코드 분석 - Ray tracing과 Positional Encoding](#)
-- ### [코드 분석 - NERF 모델링](#)
-- ### [코드 분석 - Sampling](#)
-- ### [코드 분석 - Volume Rendering](#)
-- ### [코드 분석 - Model 학습](#)
+- ### [코드 분석 - 데이터 전처리](#코드-분석---데이터-전처리-1)
+- ### [코드 분석 - Ray tracing과 Positional Encoding](#코드-분석---ray-tracing과-positional-encoding-1)
+- ### [코드 분석 - NERF 모델링](#코드-분석---nerf-모델링-1)
+- ### [코드 분석 - Sampling](#코드-분석---sampling-1)
+- ### [코드 분석 - Volume Rendering](#코드-분석---volume-rendering-1)
+- ### [코드 분석 - Model 학습](#코드-분석---model-학습-1)
 
 <br>
 
@@ -49,7 +49,7 @@ tags: [nerf, neural radiance, 너프] # add tag
 <center><img src="../assets/img/vision/fusion/nerf/1.gif" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 위 영상과 같이 `NERF`를 이용하게 되면 2D 이미지를 위 영상과 같은 깊이 정보를 가진 3D 정보 형태로 형태로 나타낼 수 있으며 기존에 가지고 있는 2D 이미지들 사이 사이의 불연속적이어서 표현할 수 없는 부분들을 매끄럽게 만들어 갈 수 있습니다. 이러한 태스크를 `NVS(Novel View Synthesis)` 라고 부릅니다.
+- 위 영상과 같이 `NERF`를 이용하게 되면 2D 이미지를 위 영상과 같은 깊이 정보를 가진 3D 정보 형태로 형태로 나타낼 수 있으며 기존에 가지고 있는 2D 이미지들 사이 사이의 불연속적이어서 표현할 수 없는 부분들을 매끄럽게 만들어 갈 수 있습니다. 이러한 태스크를 `NVS(Novel View Synthesis)` 또는 `View Interpolation` 이라고 부릅니다.
 
 <br>
 <center><img src="../assets/img/vision/fusion/nerf/2.png" alt="Drawing" style="width: 600px;"/></center>
@@ -182,37 +182,43 @@ tags: [nerf, neural radiance, 너프] # add tag
 
 - 또한 NERF는 3D 공간 정보를 생성해 내는 것이기 때문에 위 그림과 같이 `depthmap`을 생성할 수 있습니다. 이러한 depthmap을 통해 NERF가 어떻게 공간 정보를 이해하고 있는 지 이해할 수 있습니다.
 
-## 코드 분석 - 데이터 전처리
+<br>
+
+- 지금부터는 앞에서 살펴본 NERF를 어떻게 학습하는 지 코드를 자세히 살펴보도록 하겠습니다.
+
+<br>
+
+## **코드 분석 - 데이터 전처리**
 
 <br>
 
 <br>
 
-## 코드 분석 - Ray tracing과 Positional Encoding
+## **코드 분석 - Ray tracing과 Positional Encoding**
 
 <br>
 
 <br>
 
-## 코드 분석 - NERF 모델링
+## **코드 분석 - NERF 모델링**
 
 <br>
 
 <br>
 
-## 코드 분석 - Sampling
+## **코드 분석 - Sampling**
 
 <br>
 
 <br>
 
-## 코드 분석 - Volume Rendering
+## **코드 분석 - Volume Rendering**
 
 <br>
 
 <br>
 
-## 코드 분석 - Model 학습
+## **코드 분석 - Model 학습**
 
 <br>
 
