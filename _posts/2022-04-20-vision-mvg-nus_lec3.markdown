@@ -15,6 +15,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 
 - 참조 : https://youtu.be/T-p6d7av32Y?list=PLxg0CGqViygP47ERvqHw_v7FVnUovJeaz
 - 참조 : https://youtu.be/tsO6VO1s_x8?list=PLxg0CGqViygP47ERvqHw_v7FVnUovJeaz
+- 참조 : https://youtu.be/k63Bi74Meyc?list=PLxg0CGqViygP47ERvqHw_v7FVnUovJeaz
 - 참조 : Multiple View Geometry in Computer Vision
 
 <br>
@@ -339,7 +340,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 
 <br>
 
-- 지금 부터는 **Circular points and Absolute conic** 강의의 후반부 내용을 살펴보도록 하겠습니다.
+- 지금 부터는 **Circular points and Absolute conic** 강의의 중반부 내용을 살펴보도록 하겠습니다.
 
 <br>
 <div style="text-align: center;">
@@ -437,12 +438,18 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 
 <br>
 
-- 마지막으로 강의에서는 제외되었지만 책에는 존재하는 `conic의 추가 속성`에 대하여 다루어 보도록 하겠습니다.
+- 강의에서는 제외되었지만 책에는 존재하는 `conic의 추가 속성`에 대하여 다루어 보도록 하겠습니다.
 
 <br>
 
+- 마지막으로 **Circular points and Absolute conic** 강의의 후반부 내용을 살펴보도록 하겠습니다.
 
- 
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/T-k63Bi74Meyc" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
 
 <br>
 
