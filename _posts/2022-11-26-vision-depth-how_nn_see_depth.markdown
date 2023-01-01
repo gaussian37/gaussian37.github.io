@@ -188,6 +188,14 @@ tags: [depth estimation, neural network, depth, cvpr] # add tag
 
 <br>
 
+- 아래는 **① 차량의 `pitch`변화로 인한 `estimated horizon level`의 분석 내용입니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/13.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+
 - 만약 monodepth가 `camera pitch`를 측정할 수 있으면 `camera pitch`가 변경됨에 따라 depthmap에 변화가 발생해야 합니다. 또는 `camera pose`가 지면에 대하여 고정되어 있다면 depthmap에서도 지면의 표면이 고정되어 있어야 합니다.
 - 논문에서는 KITTI 데이터셋에서 발생하는 차량의 `pitch` 또는 `heave` (차량의 들썩거림) motion에 의한 영향을 관찰하여 monodepth의 결과에 반영되는 지 확인하였습니다. 영향성을 확인하기 위하여 `true horizon level`과 depth estimation을 통한 `estimated horizon level`의 비교를 하였습니다. 실제 horizon level은 라이다를 통해 취득한 depthmap에서 정보를 취득하였습니다.
 
@@ -208,6 +216,16 @@ tags: [depth estimation, neural network, depth, cvpr] # add tag
 - 먼저 분석 결과를 살펴보면 상관계수가 0.5으로 `애매한 상관관계`를 가지는 것을 알 수 있고 그 결과 line의 경사도 0.6으로 True horizon과 Estimated horizon이 비례 (1.0) 하지 않음을 알 수 있습니다. 
 
 <br>
+
+- 아래는 **② 이미지 crop을 이용한 `horizon level`이동에 따른 추정된 depthmap의 `horizen level` 변화를 확인한** 내용입니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/14.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+
+<br>
 <center><img src="../assets/img/vision/depth/how_nn_see_depth/10.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
@@ -223,6 +241,12 @@ tags: [depth estimation, neural network, depth, cvpr] # add tag
 
 <br>
 
+- 아래는 **③ `horizon level` 이동에 따른 객체의 깊이 추정 변화량 확인** 내용입니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/15.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
 - 앞에서 살펴본 바와 같이 Depth Estimation에서 `Vertical Position`의 역할이 큰 것을 알 수 있었습니다.
 - 만약 이미지에 어떤 객체가 있고 직전 실험과 동일한 방식으로 `camera pitch`의 변화를 주었을 때, 객체의 depth estimation의 변화가 있으면 `horizon level`의 변화가 객체의 depth esimation 결과에도 영향을 준다고 생각할 수 있습니다.
 
@@ -235,10 +259,42 @@ tags: [depth estimation, neural network, depth, cvpr] # add tag
 
 <br>
 
+- `camera pitch`에 대한 실험 분석을 정리하면 다음과 같습니다.
+- ① 차량의 움직임에 의해 발생한 `pitch`의 변화를 라이다를 통해 얻은 `true horizon level`과 depth estimation의 결과를 RANSAC으로 fitting 하여 얻은 `estimated horizon level`의 상관관계 분석 시 어느 정도 상관은 있으나 충분한 상관관계를 나타낼 수 없으므로 `pitch`의 변화를 모두 반영할 수 없습니다.
+- ② 이미지 crop을 이용한 `horizon level`이동에 따른 추정된 depthmap의 `horizen level` 변화를 확인한 결과 상관관계는 충분히 있으나 crop한 이미지에서 변화된 만큼 depthmap 출력에서 반영되지 않음을 확인하였습니다.
+- ③ `horizon level` 이동에 따른 객체의 깊이 추정 변화량 확인 시 고정된 객체라도 이미지 상의 `horizon level`이 변화하니 추정된 깊이값의 변화가 나타나는 것을 확인하였습니다.
+
+<br>
+
+- 따라서 `camera pitch` 변화에 의한 depth estimation의 영향이 있음을 확인하였고 monodepth가 그 변화는 감지할 수 있으나 그 변화에 맞게 충분히 보상해주지는 못하는 것을 확인하였습니다.
+
+<br>
+
 #### **Camera roll**
 
 <br>
 
+- 이번에는 `camera roll`에 대하여 간단히 다루어 보도록 하겠습니다. 
+
+<br>
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/16.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림과 같이 `camera roll`이 발생한 상황을 가정하여 이미지 중앙 부분을 rotation 하여 crop을 한 후 rotation한 각도 만큼 depthmap에서도 반영되는 지 살펴보았습니다.
+- `camera pitch`를 고려할 때에는 `vertical position`만 고려하였지만 `camera roll`에서는 `horizonal position`도 고려해야 합니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/17.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `camera pitch` 케이스와 유사한 방식으로 논문에서는 실험을 하였고 이미지에서 수평 성분을 뽑기 위하여 disparity가 0.03 ~ 0.0031 사이의 점들만 샘플링 한 다음 Hough Line Detector를 이용하여 수평선을 찾습니다.
+- 이렇게 찾은 수평선을 통해 추정한 각도와 실제 각도 간의 차이를 비교하면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/18.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그래프를 통해 depthmap의 결과를 이용하더라도 `camera roll`이 발생한 것은 확인할 수 있으나 실제 `camera roll`이 발생한 것보다 인식 수준에서 차이가 많이 나는 것을 확인할 수 있습니다.
 
 <br>
 
@@ -246,19 +302,93 @@ tags: [depth estimation, neural network, depth, cvpr] # add tag
 ## **Obstacle Recognition**
 
 <br>
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/20.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
+- 지금까지 살펴본 내용으로 `monodepth`는 객체의 `vertical position`을 참조한다는 것을 확인하였고 추가적으로 객체가 지면과 접하는 지점을 이용한다는 것도 확인하였습니다.
+- KITTI 데이터셋을 통해 학습한 monodepth는 지면과 접한 물체 특히 자동차와 관련된 물체를 인지할 수 있으며 반대로 자동차와 무관한 물체는 인식하는 데 어려움이 있었습니다. 또한 지면은 평평한 것으로 간주하는 것으로 확인하였습니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/19.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림과 같이 자동차는 정확히 인식하지만 냉장고나 개 같은 경우 인지를 못한것을 알 수 있습니다.
+- 그러면 `monodepth`가 객체를 인식할 때 어떤 점을 고려하는 지 ① 물체 표면의 색상이나 질감의 측면과 ② 모양 측면에서 분석해 보도록 하겠습니다.
+
+<br>
+
+#### **color and texture**
+
+<br>
+
+- 먼저 이미지의 `color`와 `texture`가 monodepth에 어떤 영향을 미치는 지 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/22.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/21.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 이 파트에서는 RGB 이미지를 4가지 방식으로 변형을 하여 성능을 확인한 결과를 설명합니다. 먼저 `grayscale` 이미지와 segmentation 정보를 이용하여 `False colors`, `Class-average colors`, `Semantic rgb`로 이미지를 각각 변형하여 `color`가 성능에 어떤 영향을 주는 지 살펴보았습니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/23.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 가장 성능이 좋은 인풋은 원본 이미지이며 Grayscale, False color, Semantic rgb, Class-average colors 순서로 성능이 나빠집니다.
+- 마지막 Class-average colors 이외의 케이스에서는 성능 하락이 발생하지만 큰 성능 하락은 아닐 수 있습니다. 하지만 Class-average colors는 큰 성능 하락이 발생하였는데 이 점을 통하여 monodepth가 color 값에 민감하기 보다 `contrast` 즉, 인접 영역 간의 밝기 차이 등에 성능이 민감한 것을 확인할 수 있었습니다.
+
+<br>
+
+#### **shape and contrast**
+
+<br>
+
+- 객체에 가장 큰 영향을 주는 것은 `vertical position`이고 도로와 객체 간의 경계가 중요함을 확인하였습니다.
+- `shape` and `contrast` 부분에서는 이 점을 기반으로 크게 3가지 실험을 진행합니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/24.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- ① 객체의 texture나 shape 보다는 `vertical position`과 도로와 객체가 만나는 객체의 하단 부분이 중요함을 보여줍니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/25.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 상단, 하단 그림을 비교해 보면 하단의 그림에서는 texture를 완전히 제거하였음에도 불구하고 인식이 잘 되는 것을 볼 수 있습니다. 따라서 `vertical position` 및 객체의 하단이 중요하며 texture가 중요하지 않음을 보여줍니다.
+
+<br>
+
+- ② 객체의 하단 부분과 측면 부분의 `경계`가 객체를 인식할 때 중요함을 보여줍니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/26.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림과 같이 객체의 하단과 측면의 edge만 있으면 깊이를 추정하는 데 큰 문제가 없으며 심지어 객체 내부가 비어져 있어서 상관이 없음을 위 실험에서 보여줍니다.
+- 특히 객체 하단 경계가 없으면 전혀 인지를 못하는 것에서 객체 하단 경계의 중요함을 보여줍니다.
+
+<br>
+
+- ③ 객체의 바닥면에 그림자를 추가하여 객체와 지면과의 의미를 더 부여하면 인식하지 못하던 객체도 인식할 수 있음을 실험적으로 보여주었습니다.
+
+<br>
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/27.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 
 ## **Concolusion and Future Work**
 
 <br>
-
+<center><img src="../assets/img/vision/depth/how_nn_see_depth/28.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-
-
-
+- 본 논문은 `monodepth`의 KITTI 데이터셋으로 학습하여 실험을 진행하였으며 그 결과 monodepth2 모델은 `vertical position`에 매우 민감하며 `camera pose`에 영향을 받으며 `camera pose`의 `pitch`, `roll`의 변화가 발생하였을 때, 그 변화에 대한 인지는 가능하나 충분히 네트워크 자체로 보정하기는 어려움을 확인하였습니다.
+- 추가적으로 데이터 셋에 없는 객체라도 주변 환경 (객체와 지면 사이의 그림자 등)에 따라서 인식이 가능할 수 있음을 확인하였습니다.
 
 <br>
 
