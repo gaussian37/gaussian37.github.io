@@ -74,6 +74,7 @@ tags: [python, python 기본] # add tag
 - #### [Dictionary 합치는 방법](#dictionary-합치는-방법-1)
 - #### [copy를 이용한 deepcopy](#copy를-이용한-deepcopy-1)
 - #### [zipfile을 이용한 압축 풀기](#zipfile을-이용한-압축-풀기-1)
+- #### [shuffle을 이용한 list 섞기](#shuffle을-이용한-list-섞기-1)
 
 <br>
 
@@ -2312,6 +2313,46 @@ def extract_zipfile(src_file_path, dest_path):
 src_file_path = "src_path/.../.../file.zip"
 dest_path = "dest_path/../../"
 extract_zipfile(src_file_path, dest_path)
+```
+
+<br>
+
+## **shuffle을 이용한 list 섞기**
+
+<br>
+
+- 아래 방법은 주어진 리스트를 shuffle을 통하여 섞는 방법입니다.
+
+<br>
+
+```python
+from random import shuffle
+
+A = [1,2,3,4,5]
+shuffle(A)
+print(A)
+# [3, 2, 1, 5, 4]
+```
+
+<br>
+
+- 아래는 2개 이상의 리스트를 같은 기준으로 한번에 shuffle하는 방법입니다.
+
+<br>
+
+```python
+from random import shuffle
+
+A = [1,2,3,4,5]
+B = ["1", "2", "3", "4", "5"]
+
+C = list(zip(A, B)
+shuffle(C)
+A, B = zip(*C)
+print(A)
+# (1, 5, 4, 2, 3)   
+print(B)
+# ('1', '5', '4', '2', '3')
 ```
 
 <br>
