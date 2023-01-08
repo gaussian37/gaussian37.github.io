@@ -75,6 +75,7 @@ tags: [python, deep learning, dl] # add tag
 
 - [Negative Log Likelihood Loss](https://gaussian37.github.io/dl-concept-nll_loss/)
 - [Huber Loss와 Berhu (Reverse Huber) Loss (A robust hybrid of lasso and ridge regression)](https://gaussian37.github.io/ml-concept-huber_berhu_loss/)
+- [In Defense of the Unitary Scalarization for Deep Multi-Task Learning](https://gaussian37.github.io/ml-concept-unitary_scalarization_mtl/)
 
 <br>
 
