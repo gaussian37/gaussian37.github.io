@@ -2,9 +2,9 @@
 layout: post
 title: In Defense of the Unitary Scalarization for Deep Multi-Task Learning 리뷰
 date: 2022-12-20 00:00:00
-img: dl/concept/positional_encoding/0.png
+img: dl/concept/unitary_scalarization_mtl/0.png
 categories: [dl-concept] 
-tags: [positional encoding, 포지셔널 인코딩, Transformer, Nerf] # add tag
+tags: [MTL, Multi Task Learning, 멀티 태스크 러닝, Unitary Scalarization] # add tag
 ---
 
 <br>
