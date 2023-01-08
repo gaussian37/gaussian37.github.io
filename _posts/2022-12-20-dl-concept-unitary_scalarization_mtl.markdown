@@ -42,6 +42,8 @@ tags: [MTL, Multi Task Learning, 멀티 태스크 러닝, Unitary Scalarization]
 
 <br>
 
+- $$ \mathcal L_{\text{MTL}} = \sum_{i=1}^{N} \mathcal L_{\text{task}_i} $$
+
 - 이 방식은 구현하기가 매우 쉽고 단순히 `gradient`를 합하는 방식이기 때문에 연산 과정도 단순합니다.
 - 이 방식이 쉬운 반면 `MTL` 학습에 불리하다는 의견이 있어 더 나은 방식이 연구되었으나 본 논문에서는 학습에 불리하지 않다고 설명합니다.
 
