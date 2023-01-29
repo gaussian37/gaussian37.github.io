@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Softmax와 Negative Log Likelihood Loss
+title: Softmax와 Negative Log Likelihood Loss 및 Binary Cross Entropy
 date: 2020-01-07 00:00:00
 img: dl/concept/nll_loss/4.png
 categories: [dl-concept]
-tags: [deep learning, loss function, softmax, negatics log likelihood] # add tag
+tags: [deep learning, loss function, softmax, negatics log likelihood, binary cross entropy] # add tag
 ---
 
 <br>
@@ -23,6 +23,7 @@ tags: [deep learning, loss function, softmax, negatics log likelihood] # add tag
 - ### [Pytorch에서 사용 방법](#pytorch에서-사용-방법-1)
 - ### [Softmax의 overflow 방지](softmax의-overflow-방지-1)
 - ### [2차원 Softmax 함수](2차원-이상의-softmax-함수)
+- ### [확률 분포를 학습하기 위한 binary_cross_entropy 함수](#)
 
 <br>
 
@@ -331,6 +332,31 @@ print('sum( softmax(b) )\n', np.sum(softmax(b)))
 #  1.0
 ```
 
+<br>
+
+## **확률 분포를 학습하기 위한 binary_cross_entropy 함수**
+
+<br>
+
+- 아래는 `F.binary_cross_entorpy` 함수의 구현 방식의 메커니즘입니다. 파이썬 코드 형태로 메커니즘이 잘 설명되어 있고 실제 출력은 `F.binary_cross_entorpy`와 같습니다.
+
+<br>
+
+```python
+def binary_cross_entropy(pred, y): 
+    log_pred = torch.clamp(torch.log(pred), -100, 100)
+    log_pred_rev = torch.clamp(torch.log(1-pred), -100, 100)
+    return -(log_pred*y + (1-y)*log_pred_rev).sum()
+
+
+a = torch.linspace(0, 1, 10)
+
+w = np.array([F.binary_cross_entropy(x,torch.tensor(0.2)).item() for x in a])
+q = np.array([binary_cross_entropy(x,torch.tensor(0.2)).item() for x in a])
+
+print(w)
+print(q)
+```
 
 
 <br>
