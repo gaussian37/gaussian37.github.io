@@ -30,19 +30,95 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 
 <br>
 
-- ### Abstract
-- ### Introduction
-- ### Related Work
-- ### Pinhole Camera Model
-- ### Unified Camera Model
-- ### Extended Unified Camera Model
-- ### Kannala-Brandt Camera Model
-- ### Field-of-View Camera Model
-- ### Double Sphere Camera Model
-- ### Calibration
-- ### Evaluation
-- ### Conclusion
+- ### [Abstract](#)
+- ### [Introduction](#)
+- ### [Related Work](#)
+- ### [Pinhole Camera Model](#)
+- ### [Unified Camera Model](#)
+- ### [Extended Unified Camera Model](#)
+- ### [Kannala-Brandt Camera Model](#)
+- ### [Field-of-View Camera Model](#)
+- ### [Double Sphere Camera Model](#)
+- ### [Calibration](#)
+- ### [Evaluation](#)
+- ### [Conclusion](#)
 
 <br>
 
+## **Abstract**
 
+<br>
+<center><img src="../assets/img/vision/concept/camera_models/2.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 비전 기반의 다양한 어플리케이션을 개발하기 위하여 넓은 영역의 FOV (Field Of View)를 가지는 카메라가 많이 사용되고 있습니다. 대표적인 카메라가 `fisheye` 카메라로 저렴한 가격과 넓은 시야의 장점으로 많이 사용되고 있으며 본 논문에서도 `fisheye` 카메라를 이용하였습니다. 추가적으로 다양한 광범위한 FOV를 가지는 카메라를 이용하여 실험을 진행하였습니다.
+- 본 논문에서 제안하는 `Double Sphere` 카메라 모델은 `projection` 및 `unprojection` 각각에 대하여 `closed-form` 형태의 식을 가지며 계산 복잡도 낮은 장점을 가집니다. 
+- `Double Sphere` 카메라 모델의 유효성을 다양한 카메라 모델과 다양한 카메라 데이터셋에서 검증하였으며 `reprojection error`, `projection, unprojection, Jacobian computational time`에 대하여 우수한 성능을 지님을 보여줍니다.
+
+<br>
+
+## **Introduction**
+
+<br>
+
+<br>
+
+## **Related Work**
+
+<br>
+
+<br>
+
+## **Pinhole Camera Model**
+
+<br>
+
+<br>
+
+## **Unified Camera Model**
+
+<br>
+
+<br>
+
+## **Extended Unified Camera Model**
+
+<br>
+
+<br>
+
+## **Kannala-Brandt Camera Model**
+
+<br>
+
+<br>
+
+## **Field-of-View Camera Model**
+
+<br>
+
+<br>
+
+## **Double Sphere Camera Model**
+
+<br>
+
+<br>
+
+## **Calibration**
+
+<br>
+
+<br>
+
+## **Evaluation**
+
+<br>
+
+<br>
+
+## **Conclusion**
+
+<br>
+
+<br>
