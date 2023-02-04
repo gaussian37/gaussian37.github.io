@@ -446,7 +446,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/T-k63Bi74Meyc" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/k63Bi74Meyc" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
 <br>
 
