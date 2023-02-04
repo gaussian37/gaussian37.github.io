@@ -122,3 +122,12 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 <br>
 
 <br>
+<center><img src="../assets/img/vision/concept/camera_models/3.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 본 논문에서는 16개의 카메라 데이터셋과 6개의 카메라 모델을 통하여 실험을 진행하였고 `Double Sphere` 카메라 모델의 타당함을 보여주었습니다.
+- 정확도 성능 측면에서는 8개의 파라미터를 사용하는 `Kannala-Brandt` 카메라 모델 성능이 가장 좋았으며 `Double Sphre` 모델이 근소한 차이로 그 뒤를 따랐습니다. 다만 `Kannala-Brandt` 카메라 모델은 계산량이 많아 다른 카메라 모델에 비해 5 ~ 10배 정도 느린 단점이 있었습니다.
+- `Kannala-Brandt`는 `closed-form`형태의 `unprojection` 식이 없다는 단점과 계산량이 크다는 단점이 있는 반면 그 다음으로 성능이 좋은 `Double Sphere` 카메라 모델은 `closed-form` 형태의 `unprojection` 식이 있으며 계산량도 적다는 장점이 있습니다.
+- 따라서 본 논문에서는 넓은 화각의 굴곡이 큰 카메라 렌즈에서 `Double Sphere` 카메라 모델을 사용하는 것의 유효성을 확인할 수 있었습니다.
+
+<br>
