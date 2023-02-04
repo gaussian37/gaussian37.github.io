@@ -1,0 +1,41 @@
+---
+layout: post
+title: (멀티플 뷰 지오메트리) Lecture 4. Robust homography estimation
+date: 2022-04-20 00:00:04
+img: vision/mvg/mvg.png
+categories: [vision-mvg] 
+tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Robust homography estimation] # add tag
+---
+
+<br>
+
+[Multiple View Geometry 글 목차](https://gaussian37.github.io/vision-mvg-table/)
+
+<br>
+
+- 참조 : https://youtu.be/W8vgVoQdwAM?list=PLxg0CGqViygP47ERvqHw_v7FVnUovJeaz
+- 참조 : https://youtu.be/v3322cNhCTk?list=PLxg0CGqViygP47ERvqHw_v7FVnUovJeaz
+- 참조 : Multiple View Geometry in Computer Vision
+
+<br>
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/W8vgVoQdwAM" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/v3322cNhCTk" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
+
+
+<br>
+
+[Multiple View Geometry 글 목차](https://gaussian37.github.io/vision-mvg-table/)
+
+<br>

@@ -30,4 +30,4 @@ tags: [vision] # add tag
 - [카메라 모델과 렌즈 왜곡 (lense distortion)](https://gaussian37.github.io/vision-concept-lense_distortion/)
 - [단안 카메라와 객체와의 거리 구하는 방법](https://gaussian37.github.io/vision-concept-mono_camera_distance_to_objects)
 - [영상의 edge detection (Sobel, Canny Edge) 원리와 사용법](https://gaussian37.github.io/vision-concept-edge_detection)
-- [카메라 모델의 종류 (Pinhole, UCM, EUCM, Double Sphere 등)](https://gaussian37.github.io/vision-concept-camera_models)
+- [Double Sphere 카메라 모델 및 다양한 카메라 모델의 종류 (Pinhole, UCM, EUCM, Kannala-Brandt Camera Model 등))](https://gaussian37.github.io/vision-concept-camera_models)
