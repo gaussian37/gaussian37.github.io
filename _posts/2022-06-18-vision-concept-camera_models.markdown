@@ -182,3 +182,57 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 
 <br>
 
+- `SO(3) Group`은 3차원 Rotation Matrix와 이에 닫혀 있는 연산들로 구성된 군을 의미하며 3차원 물체의 회전을 표현하는 데 사용됩니다.
+
+<br>
+
+$$ \begin{equation} \begin{aligned} SO(3) = \{ \mathbf{R} \in \mathbb{R}^{3 \times 3} \ | \ \mathbf{R} \mathbf{R}^{T} = \mathbf{I}, \text{det}(\mathbf{R})=1 \} \end{aligned} \end{equation} $$
+
+<br>
+
+- `SO(3) Group`의 속성은 다음과 같습니다.
+- `Associativity` : $$ \mathbf{R}_{1} \cdot \mathbf{R}_{2}) \cdot \mathbf{R}_{3} = \mathbf{R}_{1} \cdot (\mathbf{R}_{2} \cdot \mathbf{R}_{3}) $$ 즉, 결합 법칙이 성립합니다.
+- `Identity element` : $$ \mathbf{R} \cdot \mathbf{I} = \mathbf{I} \cdot \mathbf{R}  = \mathbf{R} $$ 를 만족하는 3 X 3 항등 행렬 $$ \mathbf{I} $$ 가 존재합니다.
+- `Inverse` : $$ \mathbf{R}^{-1} \cdot \mathbf{R} = \mathbf{R}\cdot\mathbf{R}^{-1} = \mathbf{I} $$ 을 만족하는 역행렬이 존재하며 $$ \mathbf{R}^{-1} = \mathbf{R}^{\intercal} $$ 가 됩니다. 따라서 $$ \mathbf{R}\cdot \mathbf{R}^{\intercal} = \mathbf{I} $$ 를 만족합니다.
+- `Composition` : `SO(3) Group`의 합성은 다음과 같이 행렬의 곱셈 연산으로 표현할 수 있습니다. $$ \begin{equation} \begin{aligned} & \mathbf{R}_{1} \cdot \mathbf{R}_{2} = \mathbf{R}_{3} \in SO(3) \end{aligned} \end{equation} $$
+- `Non-commutative` : $$ \mathbf{R}_{1}\cdot\mathbf{R}_{2} \neq \mathbf{R}_{2}\cdot\mathbf{R}_{1} $$ 교환 법칙이 성립하지 않습니다.
+- `Determinant` : $$ \text{det}(\mathbf{R})=1 $$ 을 만족합니다.
+- `Rotation` : $$ \mathbb{P}^{2} $$ 공간 상의 점 또는 벡터 $$ \mathbf{x} = \begin{bmatrix} x&y&z \end{bmatrix}^{\intercal} \in \mathbb{P}^{2} $$ 를 다른 방향의 점 또는 벡터 $$ \mathbf{x}' $$ 로 회전시킬 수 있습니다. $$ \begin{equation} \begin{aligned} \mathbf{x}' = \mathbf{R}\cdot \mathbf{x} \end{aligned} \end{equation} $$
+
+<br>
+
+- 논문에서 사용한 `SE(3) Group`은 3차원 공간 상에서 `Rigid Body Transformation`과 관련된 행렬과 이에 닫혀 있는 연산들로 구성된 Group을 의미합니다. 즉, `Rotation`과 `Translation`이 모두 반영되어 있습니다.
+
+<br>
+
+- $$ \begin{equation} \begin{aligned} SE(3) = \left \{ \mathbf{T} = \begin{bmatrix} \mathbf{R} & \mathbf{t} \\ \mathbf{0} & 1 \end{bmatrix} \in \mathbb{R}^{4\times4} \ | \ \mathbf{R} \in SO(3), \mathbf{t} \in \mathbb{R}^{3}  \right \} \end{aligned} \end{equation} $$
+
+<br>
+
+- `SE(3) Group`의 속성은 다음과 같습니다.
+- `Associativity` : $$ \mathbf{T}_{1} \cdot \mathbf{T}_{2}) \cdot \mathbf{T}_{3} = \mathbf{T}_{1} \cdot (\mathbf{T}_{2} \cdot \mathbf{T}_{3}) $$ 와 같이 결합 법칙이 성립합니다.
+- `Identity element` : $$ \mathbf{T} \cdot \mathbf{I} = \mathbf{I} \cdot \mathbf{T}  = \mathbf{T} $$ 를 만족하는 4 x 4 항등 행렬 $$ \mathbf{I} $$ 가 존재합니다.
+- `Inverse` : $$ \mathbf{T}^{-1} \cdot \mathbf{T} = \mathbf{T}\cdot\mathbf{T}^{-1} = \mathbf{I} $$ 을 만족하는 역행렬이 다음과 같습니다.
+
+<br>
+
+- $$ \begin{equation} \begin{aligned} \mathbf{T}^{-1} = \begin{bmatrix} \mathbf{R}^{T} & -\mathbf{R}^{T}\mathbf{t} \\ \mathbf{0} & 1\end{bmatrix} \end{aligned} \end{equation} $$ 
+
+<br>
+
+- `Composition` : `SE(3) Group`의 Composition은 아래와 같이 행렬의 곱셈 연산으로 이루어집니다.
+
+<br>
+
+- $$ \begin{equation} \begin{aligned} \mathbf{T}_{1} \cdot \mathbf{T}_{2} & = \begin{bmatrix} \mathbf{R}_{1} & \mathbf{t}_{1} \\ \mathbf{0} & 1 \end{bmatrix} \cdot \begin{bmatrix} \mathbf{R}_{2} & \mathbf{t}_{2} \\ \mathbf{0} & 1 \end{bmatrix} \\ & = \begin{bmatrix} \mathbf{R}_{1}\mathbf{R}_{2} & \mathbf{R}_{1}\mathbf{t}_{2} + \mathbf{t}_{1} \\ \mathbf{0} & 1 \end{bmatrix} \in SE(3) \end{aligned} \end{equation} $$
+
+<br>
+
+- `Non-commutative` : $$ \mathbf{T}_{1}\cdot\mathbf{T}_{2} \neq \mathbf{T}_{2}\cdot\mathbf{T}_{1} $$ 교환 법칙이 성립하지 않습니다.
+- `Transformation` : $$ \mathbb{P}^{3} $$ 공간 상의 점 또는 벡터 $$ \mathbf{X} = \begin{bmatrix} X&Y&Z&W \end{bmatrix}^{\intercal} \in \mathbb{P}^{3} $$ 를 다른 방향과 위치를 가지는 점 또는 벡터 $$ \mathbf{X}' $$ 로 변환할 수 있습니다.
+
+<br>
+
+- $$ \begin{equation} \begin{aligned} \mathbf{X}' = \mathbf{T}\cdot \mathbf{X} & = \begin{bmatrix} \mathbf{R}&\mathbf{t}\\\mathbf{0}&1 \end{bmatrix} \cdot \mathbf{X} \\ & = \begin{bmatrix} \mathbf{R}(X \ Y \ Z)^{T} + W \cdot \mathbf{t} \\ W \end{bmatrix} \end{aligned} \end{equation} $$
+
+<br>
