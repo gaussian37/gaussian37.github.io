@@ -25,6 +25,54 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Robust homography 
 </div>
 <br>
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/0.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
 
 <br>
 <div style="text-align: center;">
