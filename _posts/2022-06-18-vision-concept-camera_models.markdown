@@ -186,7 +186,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 
 <br>
 
-$$ \begin{equation} \begin{aligned} SO(3) = \{ \mathbf{R} \in \mathbb{R}^{3 \times 3} \ | \ \mathbf{R} \mathbf{R}^{T} = \mathbf{I}, \text{det}(\mathbf{R})=1 \} \end{aligned} \end{equation} $$
+$$ \begin{equation} \begin{aligned} SO(3) = \{ \mathbf{R} \in \mathbb{R}^{3 \times 3} \ \vert \ \mathbf{R} \mathbf{R}^{T} = \mathbf{I}, \text{det}(\mathbf{R})=1 \} \end{aligned} \end{equation} $$
 
 <br>
 
