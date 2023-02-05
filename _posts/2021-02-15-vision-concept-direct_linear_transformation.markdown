@@ -39,7 +39,7 @@ tags: [direct linear transformation, DLT] # add tag
 
 - 먼저 행렬 `H`를 Homography 행렬이라고 합니다. 위 식의 좌변과 우변의 $$ x, y $$ 쌍을 대응해 주기 때문입니다.
 - `H`에서 $$ h _{9} $$는 스케일과 관련된 값으로 1 또는 사용할 스케일 값을 사용합니다. 즉, $$ h_{i} $$해를 구할 때, 크게 고려하지 않아도 됩니다.
-- 따라서 8개의 파라미터 $$ h_{1}, h_{2}, /cdots h_{8} $$을 구하기 위하여 8개의 식이 필요합니다. 즉, $$ (x, y) $$로 이루어진 4개 점을 통하여 8개의 식읃 얻고 8개의 식을 이용하여 파라미터 8개를 연립방정식을 통하여 구할 수 있습니다.
+- 따라서 8개의 파라미터 $$ h_{1}, h_{2}, \cdots h_{8} $$을 구하기 위하여 8개의 식이 필요합니다. 즉, $$ (x, y) $$로 이루어진 4개 점을 통하여 8개의 식을 얻고 8개의 식을 이용하여 파라미터 8개를 연립방정식을 통하여 구할 수 있습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/direct_linear_transformation/2.png" alt="Drawing" style="width: 800px;"/></center>
