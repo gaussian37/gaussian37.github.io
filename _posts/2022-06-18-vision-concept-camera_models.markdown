@@ -138,6 +138,18 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 ## **Double Sphere Camera Model**
 
 <br>
+<center><img src="../assets/img/vision/concept/camera_models/7.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 논문에서 제시하는 `Double Sphere` 카메라 모델에 대하여 설명해 보도록 하곘습니다. 글 서두에 말씀드린 바와 같이 `Double Sphere` 카메라 모델은 화각이 넓은 `fisheye lense`와 같은 환경에서도 잘 동작하며 `unprojection`을 위한 `closed-form` 형태의 식이 존재하고 그 계산량도 적다는 것을 확인하였었습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/camera_models/8.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- `Double Sphere` 카메라 모델은 위 그림과 같이 이름 그대로 3D 포인트가 2개의 단위 구에 투영되는 형태를 가집니다.
+
+
 
 <br>
 
@@ -186,7 +198,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 
 <br>
 
-$$ \begin{equation} \begin{aligned} SO(3) = \{ \mathbf{R} \in \mathbb{R}^{3 \times 3} \ \vert \ \mathbf{R} \mathbf{R}^{T} = \mathbf{I}, \text{det}(\mathbf{R})=1 \} \end{aligned} \end{equation} $$
+$$ \begin{equation} \begin{aligned} SO(3)= \{\mathbf{R} \in \mathbb{R}^{3 \times 3} \ \vert \ \mathbf{R} \mathbf{R}^{T} = \mathbf{I}, \text{det}(\mathbf{R})=1 \} \end{aligned} \end{equation} $$
 
 <br>
 
