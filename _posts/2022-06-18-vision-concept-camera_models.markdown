@@ -148,6 +148,23 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 <br>
 
 - `Double Sphere` 카메라 모델은 위 그림과 같이 이름 그대로 3D 포인트가 2개의 단위 구에 투영되는 형태를 가집니다.
+- 3D 포인트가 먼저 초록색 구에 투영되면서 꺽이게 되고 그 다음 빨간색 구에 투영되면서 한번 더 꺽이면서 렌즈 굴절이 반영됩니다. 빨간색 구의 중심은 $$ \xi $$ 만큼 이동되어 있고 이 값이 구의 반영을 결정하는 파라미터가 됩니다.
+- 가장 아래 부분의 검은색 가로 실선인 `normalized image plane`과 빨간색 구의 중심 간의 거리가 $$ \frac{\alpha}{1 - \alpha} $$ 로 결정됩니다. 따라서 $$ \xi $$ 와 $$ \frac{\alpha}{1 - \alpha} $$ 가 같이 결합되어 변수가 동작하도록 되어 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/camera_models/9.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 Double Sphere 모델에서 구에 의해 꺽이는 양을 표현하면 위 그림과 같습니다. 다만 Double Sphere 카메라 모델 에서는 앞의 다른 카메라 모델과 같이 실제 꺽이는 양을 모델링 하지 않고 $$ \alpha, \xi $$ 값을 이용하여 normalized image plane에 어떻게 투영되는 지 모델링 하는 방법을 사용하였습니다.
+- 즉, `UCM`과 비교하였을 때, $$ \frac{\alpha}{1 - \alpha} $$ 만큼 `shift`가 시작되는 시점이 $$ \xi $$ 만큼 이동되는 것이고 그 첫번째 구와 두번째 구의 복합적인 꺽임 양은 $$ \xi, \alpha $$의 결합으로 이루어짐을 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/camera_models/10.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림을 기준으로 $$ \xi = 0, \alpha = 0 $$ 이 되면 핀홀 모델이 됩니다. 즉, 빨간색 구의 중심이 초록색 구의 중심으로 이동되면서 구의 중심이 하나가 되고 구로 인해 꺽이는 양도 사라져서 normalized image plane이 초록색 및 빨간색 구의 중심선에 생기게 되는 경우입니다.
+- 논문에서는 이와 같은 방식의 카메라 모델을 사용하였을 때 캘리브레이션 패턴에서의 꼭지점이 에러가 적은 형태로 잘 projection 되는 것을 확인할 수 있음을 보여줍니다.
+- 그러면 `Double Sphere` 카메라 모델에 관련된 수식 내용을 상세히 살펴보도록 하겠습니다.
 
 
 
