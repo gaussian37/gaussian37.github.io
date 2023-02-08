@@ -166,7 +166,38 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 - 논문에서는 이와 같은 방식의 카메라 모델을 사용하였을 때 캘리브레이션 패턴에서의 꼭지점이 에러가 적은 형태로 잘 projection 되는 것을 확인할 수 있음을 보여줍니다.
 - 그러면 `Double Sphere` 카메라 모델에 관련된 수식 내용을 상세히 살펴보도록 하겠습니다.
 
+<br>
 
+- `Double Sphere`는 6개의 파라미터를 가집니다. 
+
+<br>
+
+- $$ i = [f_{x}, f_{y}, c_{x}, c_{y}, \xi, \alpha]^{T} $$
+
+<br>
+
+- 위 파라미터 $$ i $$ 를 이용하여 3D 포인트를 2D로 `projection` 하는 함수 $$ \pi $$ 를 정의하면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/camera_models/11.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 앞에서 살펴본 `UCM` 계열과 같이 분모의 $$ \alpha d_{2} + (1-\alpha)(\xi d_{1} + z) $$ 를 통하여 단번에 `undistorted normalized plane` 으로 접근합니다.
+
+<br>
+
+- 다음은 `UCM`과 마찬가지로 $$ \alpha $$ 값의 크기에 따라 `undistorted normalized plane`의 위치가 바뀌므로 $$ \alpha $$ 와 다른 파라미터 값에 따라서 3D 포인트가 2D 이미지의 FOV에 유효한 지 확인하는 함수 식입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/camera_models/12.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 다음으로 `unprojection`하는 `closed-form` 형태의 식이며 `unprojection` 결과 2D 이미지 좌표계에서 `distorted normalized plane`으로 변환하는 역할을 합니다.
+- 만약 `z`값을 복원할 수 있으면 $$ z \pi^{-1}(u, i) = \mathbf{x} $$ 로 3D 포인트를 구할 수 있습니다. `unprojection` 식은 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/camera_models/13.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
 <br>
 
