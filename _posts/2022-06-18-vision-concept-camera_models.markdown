@@ -109,6 +109,9 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 
 <br>
 
+- 먼저 소개하는 카메라 모델은 가장 기본적인 `Pinhole` 카메라 모델 입니다. `Pinhole` 카메라 모델은 카메라 렌즈의 왜곡 (distortion)이 없다고 가정한 카메라 모델이며 앞으로 다룰 `distortion` 모델들은 `Pinhole` 카메라 모델에 렌즈 왜곡을 반영한 모델입니다.
+- 먼저 가장 기본이 되는 `Pinhole` 카메라 모델의 `projection`, `unprojection`에 대하여 다루어 보도록 하겠습니다.
+
 <br>
 
 ## **Unified Camera Model**
