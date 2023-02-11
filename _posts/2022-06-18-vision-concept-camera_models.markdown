@@ -110,7 +110,36 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 <br>
 
 - 먼저 소개하는 카메라 모델은 가장 기본적인 `Pinhole` 카메라 모델 입니다. `Pinhole` 카메라 모델은 카메라 렌즈의 왜곡 (distortion)이 없다고 가정한 카메라 모델이며 앞으로 다룰 `distortion` 모델들은 `Pinhole` 카메라 모델에 렌즈 왜곡을 반영한 모델입니다.
-- 먼저 가장 기본이 되는 `Pinhole` 카메라 모델의 `projection`, `unprojection`에 대하여 다루어 보도록 하겠습니다.
+- 먼저 가장 기본이 되는 `Pinhole` 카메라 모델의 `projection`, `unprojection`에 대하여 다루어 보도록 하겠습니다. `Pinhole` 카메라 모델의 파라미터는 4개이며 다음과 같습니다.
+
+<br>
+
+- $$ i = [f_{x}, f_{y}, c_{x}, c_{y}]^{T} $$
+
+<br>
+
+- 위 4가지 파라미터의 상세 내용은 아래 글을 참조하시면 됩니다.
+    - 링크 : [https://gaussian37.github.io/vision-concept-calibration/](https://gaussian37.github.io/vision-concept-calibration/)
+
+<br>
+
+- `Pinhole` 카메라 모델에서는 3D 포인트를 2D 이미지 좌표계로 변형하려면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/camera_models/14.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 카메라 렌즈의 왜곡이 없기 때문에 단순히 $$ z $$ 로 나누기만 하면 `undistorted normalized image plane`으로 사영됩니다.
+- `projection` 시 유효한 값들은 $$ z > 0 $$ 인 범위의 값이며 기호로 나타내면 다음과 같습니다.
+
+<br>
+
+- $$ \Omega = \{\mathbf{x} \in \mathbb{R}^{3} \vert z > 0 \} $$
+
+<br>
+
+- 위 조건으로 인하여 `FOV (field-of-view)`는 180도 이하만 유효합니다. 즉 카메라 원점 기준으로 뒤의 값은 투영될 수 없습니다.
+- 본 글에서는 `Pinhole` 카메라 모델에 `lense distortion`을 반영하기 위한 모델이 추가되어 120도 이상의 화각을 가지는 카메라 렌즈를 어떻게 사용할 지 다룰 예정입니다.
 
 <br>
 
