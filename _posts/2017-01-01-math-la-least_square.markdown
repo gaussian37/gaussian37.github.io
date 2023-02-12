@@ -31,7 +31,7 @@ tags: [최소자승법, least squares] # add tag
 <center><img src="../assets/img/math/la/least_squares/1.png" alt="Drawing" style="width:400px;"/></center>
 <br>
 
-- 위 그림과 같이 (N, M) 크기의 행렬이 있다고 가정해 보겠습니다. 그러면 $$ \text{rank}(A) = 3 $$을 만족합니다.
+- 위 그림과 같이 (N, M) 크기의 행렬이 있다고 가정해 보겠습니다. 그러면 $$ \text{rank}(A) = M $$을 만족합니다.
 - 행렬 $$ A $$ 의 `column space`의 경우 $$ N $$ 차원 안에서 $$ M $$ 차원으로 `span`하게 됩니다.
 
 <br> 
