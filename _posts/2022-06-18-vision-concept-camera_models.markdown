@@ -165,7 +165,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 <br>
 
 - 일반적으로 위 식의 $$ [m_{x}, m_{y}, 1]^{T} $$ 가 `2D image plane`에서 `normalized image plane`으로 변환하는 식에 해당합니다.
-- 위 식에서는 $$ 1 / \sqrt{m_{x}^{2} + m_{y}^{2} + 1} $$ 이 추가로 곱해집니다. 이 값은 `distance` 값을 나누어 준 값으로 `unit sphere` 형태로 만들어 주기 위해 곱해집니다. 즉, `normalized image plane`에서의 모든 `distance`를 각 픽셀 별로 나누어 줌으로써 모든 거리가 동일한 `unit sphere`로 변환됩니다.
+- 위 식에서는 $$ 1 / \sqrt{m_{x}^{2} + m_{y}^{2} + 1} $$ 이 추가로 곱해집니다. 이 값은 $$ \sqrt{(m_{x} - 0)^{2} + (m_{y} - 0)^{2} + (1 - 0)^{2}} $$ 인 `distance` 값을 나누어 준 값으로 `unit sphere` 형태로 만들어 주기 위해 곱해집니다. 즉, `normalized image plane`에서의 모든 `distance`를 각 픽셀 별로 나누어 줌으로써 모든 거리가 동일한 `unit sphere`로 변환됩니다.
 
 <br>
 
