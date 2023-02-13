@@ -101,7 +101,22 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 - ⑥ $$ x, y, z $$ : 카메라 좌표계는 `principal axis` 축이 $$ z $$ 축이 되며 `image plane`의 width 방향이 $$ x $$, height 방향이 $$ y $$ 인 것과 동일하게 적용됩니다.
 - ⑦ $$ \text{SE(3)} $$ : 논문에서 소개하는 캘리브레이션 패턴의 3D 좌표계에서 카메라 좌표계로 변환하는 `Transformation Matrix`는 `Special Euclidean Group`임을 뜻합니다. `SE(3)`에 대한 상세 내용은 글 가장 아랫부분의 `Appendix`부분에 따로 정리하였습니다.
 - ⑧ $$ \pi $$ : 3D 포인트를 `2D 이미지 공간`에 projection 하는 함수를 의미합니다. 따라서 다음과 같이 기호로 표현합니다. $$ \pi : \Omega \to \Theta $$
-- ⑨ $$ \pi^{-1} $$ :` 2D 이미지 공간`의 픽셀 값을 focal length (vector of unit lenght)가 1인 normalized(standardized) image plane으로 변환하는 함수를 의미합니다. 2D 이미지 공간으로 projection 되었기 때문에 $$ z $$ 값이 사라져서 `unprojection` 결과는 z 값을 곱하기 직전 상태인 `normalized image plane`까지만 변환할 수 있습니다. `normalized image plane`을 논문에서는 $$ \mathbb{S}^{2} $$ 로 표현합니다. 따라서 다음과 같이 기호로 표현할 수 있습니다.$$ \pi^{-1} : \Theta \to \mathbb{S}^{2} $$
+- ⑨ $$ \pi^{-1} $$ :` 2D 이미지 공간`의 픽셀 값을 focal length (vector of unit lenght)가 1인 normalized(standardized) image plane으로 변환하는 함수를 의미합니다. 2D 이미지 공간으로 projection 되었기 때문에 $$ z $$ 값이 사라져서 `unprojection` 결과는 `normalized image plane` 까지 변환할 수 있습니다. 본 논문에서는 `normalized image plane`에서 더 나아가 `unit sphere`에 대응하는 것 까지 확장합니다. `sphere`는 3차원 공간에서 다른 점으로부터 같은 거리에 있는 모든 점의 집합을 찾아 생성된 `2차원 표면`입니다. 수식으로 표현하면 다음과 같습니다.
+
+<br>
+
+- $$ d(x, c) = \sqrt{\sum_{i=1}^{3} (x_{i} - c_{i})^{2}} $$
+
+<br>
+
+- `unit sphere`는 구의 모든 점이 중심에서 하나의 거리에 있도록 하는 구입니다. 휘어져 있기 때문에 3차원 공간에 내장되어 표현되는 경우가 많습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/camera_models/15.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 2차원 표면을 `sphere`라고 하며 3차원으로 확장하면 `ball` 이라고 합니다. 
+- 이러한 이유로 논문에서는 `sphere`를 $$ \mathbb{S}^{2} $$ 로 표현합니다. 따라서 다음과 같이 기호로 표현할 수 있습니다. $$ \pi^{-1} : \Theta \to \mathbb{S}^{2} $$
 
 <br>
 
@@ -140,6 +155,17 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 
 - 위 조건으로 인하여 `FOV (field-of-view)`는 180도 이하만 유효합니다. 즉 카메라 원점 기준으로 뒤의 값은 투영될 수 없습니다.
 - 본 글에서는 `Pinhole` 카메라 모델에 `lense distortion`을 반영하기 위한 모델이 추가되어 120도 이상의 화각을 가지는 카메라 렌즈를 어떻게 사용할 지 다룰 예정입니다.
+
+<br>
+
+- `Pinhole` 카메라 모델의 `unprojection` 식은 다음 식과 같습니다. $$ \pi^{-1} : \Theta \to \mathbb{S}^{2} $$ 이기 때문에 최종 변환 지점은 `unit sphere`입니다. 즉, 일반적으로 사용하는 `normalized image plane`이 아니므로 식이 조금 다릅니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/camera_models/16.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 일반적으로 위 식의 $$ [m_{x}, m_{y}, 1]^{T} $$ 가 `2D image plane`에서 `normalized image plane`으로 변환하는 식에 해당합니다.
+- 위 식에서는 $$ 1 / \sqrt{m_{x}^{2} + m_{y}^{2} + 1} $$ 이 추가로 곱해집니다. 이 값은 `distance` 값을 나누어 준 값으로 `unit sphere` 형태로 만들어 주기 위해 곱해집니다. 즉, `normalized image plane`에서의 모든 `distance`를 각 픽셀 별로 나누어 줌으로써 모든 거리가 동일한 `unit sphere`로 변환됩니다.
 
 <br>
 
