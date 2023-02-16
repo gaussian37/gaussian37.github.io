@@ -165,13 +165,36 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 <br>
 
 - 일반적으로 위 식의 $$ [m_{x}, m_{y}, 1]^{T} $$ 가 `2D image plane`에서 `normalized image plane`으로 변환하는 식에 해당합니다.
+- 카메라 중점과 `depth`가 1이 되는 지점을 `normalized image plane`이라고 부릅니다. 반면 카메라 중점과 `distance`가 1이 되는 지점을 `unit sphere`라고 부르며 이번 글에서는 `unit sphere`를 위주로 다룹니다.
 - 위 식에서는 $$ 1 / \sqrt{m_{x}^{2} + m_{y}^{2} + 1} $$ 이 추가로 곱해집니다. 이 값은 $$ \sqrt{(m_{x} - 0)^{2} + (m_{y} - 0)^{2} + (1 - 0)^{2}} $$ 인 `distance` 값을 나누어 준 값으로 `unit sphere` 형태로 만들어 주기 위해 곱해집니다. 즉, `normalized image plane`에서의 모든 `distance`를 각 픽셀 별로 나누어 줌으로써 모든 거리가 동일한 `unit sphere`로 변환됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/camera_models/17.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- `unit sphere`는 위 그림처럼 `distance`가 1이 되도록 만든 `sphere` 입니다.
+- 이 글에서 표현하는 모든 `projection`은 `3D Point → unit sphere → normalized image plane → image plane`이고 `unprojection`은 그 역순입니다.
+- 따라서 본 논문의 `unprojection`의 결과는 `image plane` → `unit sphere`로의 변환이며 `unit sphere`의 좌표에서 `depth` 방향의 값을 곱하여 scale을 조정하면 실제 `3D Point`의 $$ X, Y, Z $$ 좌표값이 됩니다. 예를 들어 `unit sphere` 상에서 어떤 점은 $$ (X, Y, Z) $$ 값을 가지고 `depth` 방향으로 $$ d $$ 값을 가지면 depth 값을 곱하여 $$ (X*d, Y*d, Z*d) $$ 가 됩니다. 왜냐하면 `3D Point` 에서 `unit sphere` 표면 까지는 직진하기 때문입니다.
+- 반면 `unit sphere` → `normalized image plane` 까지는 `unit sphere` 표면에서 한번 굴절되며 이 굴절되는 정도는 카메라 모델에 따라서 바뀌게 됩니다. 따라서 다음의 형태를 가집니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/camera_models/18.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/concept/camera_models/19.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `Pinhole` 모델에서는 `unit sphere`에서 `normalized image plane` 까지 굴절이 없이 직진하기 때문에 `projection` 시 별다른 수식이 없었습니다.
+- 반면 앞으로 다룰 다른 카메라 모델에서는 `unit sphere`에서 `normalized image plane` 까지 다양한 방식의 굴절을 반영하기 때문에 `Pinhole` 모델보다 다소 복잡한 식을 가지게 되며 이 내용을 다루어 보도록 하겠습니다.
 
 <br>
 
 ## **Unified Camera Model**
 
 <br>
+
+- 
 
 <br>
 
