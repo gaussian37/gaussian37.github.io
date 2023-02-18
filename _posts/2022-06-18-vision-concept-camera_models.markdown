@@ -185,6 +185,10 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 <center><img src="../assets/img/vision/concept/camera_models/19.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- 위 그림은 카메라 원점으로 부터 `distance`가 1인 지점 까지의 `unit sphere`가 `depth`가 1인 지점인 `normalized image plane`으로 변환되어야 하는 것을 나타낸 것입니다. 개념적으로 나타내면 위 그림과 같이 곡면이 평면으로 펴지게 됩니다.
+
+<br>
+
 - `Pinhole` 모델에서는 `unit sphere`에서 `normalized image plane` 까지 굴절이 없이 직진하기 때문에 `projection` 시 별다른 수식이 없었습니다.
 - 반면 앞으로 다룰 다른 카메라 모델에서는 `unit sphere`에서 `normalized image plane` 까지 다양한 방식의 굴절을 반영하기 때문에 `Pinhole` 모델보다 다소 복잡한 식을 가지게 되며 이 내용을 다루어 보도록 하겠습니다.
 
@@ -193,8 +197,10 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 ## **Unified Camera Model**
 
 <br>
+<center><img src="../assets/img/vision/concept/camera_models/20.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
-- 
+
 
 <br>
 
