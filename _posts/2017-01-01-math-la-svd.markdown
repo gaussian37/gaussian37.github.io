@@ -16,6 +16,11 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
+- 아래 내용은 사전 지식 이므로 가능한 먼저 읽으시길 추천 드립니다.
+- `고유값 분해 (EVD, Eigen Value Decomposition)` : [https://gaussian37.github.io/math-la-evd/](https://gaussian37.github.io/math-la-evd/)
+
+<br>
+
 ## **목차**
 
 <br>
@@ -115,7 +120,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-- 따라서 $$ AA^{T} $$의 고유값들은 3, 1이 됩니다. 이것들에 루트를 씌운 것이 행렬 $$ A $$의 특이값이 됩니다. 따라서 $$ \sqrt{3}, 1 $$이 특이값이 됩니다. 특이값 행렬 $$ \Sigma $$는 특이값들을 대각요소로 갖고 있는 (m x n) 크기의 행렬로 이 문제에서는 (2 x 3) 행렬이 됩니다.
+- 따라서 $$ AA^{T} $$ 의 고유값들은 3, 1이 됩니다. 이것들에 **루트를 씌운 것**이 행렬 $$ A $$ 의 `특이값 (Singular Value)`이 됩니다. 따라서 $$ \sqrt{3}, 1 $$이 특이값이 됩니다. 특이값 행렬 $$ \Sigma $$는 특이값들을 대각요소로 갖고 있는 (m x n) 크기의 행렬로 이 문제에서는 (2 x 3) 행렬이 됩니다.
 
 <br>
 
@@ -223,7 +228,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-- $$ \begin{align} A &= \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} = U \Sigma V^{T} \\ &= \frac{1}{\sqrt{2}} = \begin{bmatrix} -1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} \sqrt{3} & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix} \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{-2}{\sqrt{6}} & \frac{1}{\sqrt{6}} \\ \frac{-1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} \end{bmatrix} \end{align} $$
+- $$ \begin{align} A &= \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} = U \Sigma V^{T} \\ &= \frac{1}{\sqrt{2}} \begin{bmatrix} -1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} \sqrt{3} & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix} \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{-2}{\sqrt{6}} & \frac{1}{\sqrt{6}} \\ \frac{-1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} \end{bmatrix} \end{align} $$
 
 <br>
 
@@ -231,8 +236,17 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
+- `SVD`는 임의의 행렬 $$ A $$ 를 $$ A = U \Sigma V^{T} $$ 로 분해하는 것을 확인하였습니다. 즉, 분해된 각 성분은 역할이 있는데 그 역할에 대하여 간략하게 살펴보겠습니다.
+- 임의의 행렬 $$ A $$ 는 어떤 벡터 $$ x $$ 를 $$ x' $$ 로 변환할 때 사용됩니다. 즉, $$ x' = Ax $$ 가 되므로 $$ A $$ 는 선형 변환의 역할로 사용됩니다.
+- 행렬 $$ A = U \Sigma V^{T} $$ 에서 $$ U, V $$ 는 `직교 행렬`이고 $$ \Sigma $$ 는 `대각 행렬` 입니다. `직교 행렬`은 `회전 변환`의 역할을 하고 `대각 행렬`dms `스케일 변환`을 하게 됩니다.
+- 따라서 $$ x' = Ax = U \Sigma V^{T} x $$ 는 벡터 $$ x $$ 를 $$ V^{T} $$ 만큼 `회전 변환`을 한 후 $$ \Sigma $$ 만큼 `스케일 변환`을 한 다음에 다시 $$ U $$ 만큼 `회전 변환`을 적용하여 $$ x \to x' $$ 로 변환합니다. 그림으로 나타내면 다음과 같습니다.
 
+<br>
+<center><img src="../assets/img/math/la/svd/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
+- 따라서 `SVD`를 통해 얻은 `특이값`은 행렬의 `스케일 변환`에 사용됨을 알 수 있습니다.
+- `EVD (고유값 분해)`에서는 `고유값`을 얻을 수 있고 이 `고유값`은 선형 변환에 의해 변환되지 않는 `고유 벡터`에 대한 스케일 값인 반면에 `SVD`에서 얻은 `특이값`은 선형 변환 자체의 스케일 값인 것을 알 수 있습니다. 즉, 선형 변환 $$ A $$ 에 의한 기하학적 변환은 특이값들에 의해서만 결정되는 것을 확인할 수 있습니다.
 
 <br>
 
