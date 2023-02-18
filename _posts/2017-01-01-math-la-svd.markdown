@@ -2,7 +2,7 @@
 layout: post
 title: 특이값 분해(SVD)
 date: 2016-12-01 00:00:00
-img: math/la/linear-algebra-image.jpg
+img: math/la/linear_algebra.jpg
 categories: [math-la] 
 tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # add tag
 ---
@@ -78,8 +78,8 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 <br>
 
 - 어떤 행렬 $$ A $$를 특이값 분해를 하면 $$ U, \Sigma, V $$로 분해가 됩니다. 그러면 어떤 방법으로 분해할 수 있을까요? 먼저 간단하게 분해 방법에 대하여 서술해보겠습니다.
-- 행렬 $$ A $$의 특이값들은 $$ AA^{T} $$ 또는 $$ A^{T}A $$의 0이 아인 고유값들에 루트를 씌은 것입니다.
-- 이 때, $$ AA^{T} $$와 $$ A^{T}A $$는 `동일한 고유값`들을 가집니다.
+- 행렬 $$ A $$의 특이값들은 $$ AA^{T} $$ 또는 $$ A^{T}A $$ 의 0이 아닌 고유값들에 루트를 적용한 것입니다.
+- 이 때, $$ AA^{T} $$ 와 $$ A^{T}A $$ 는 `동일한 고유값`들을 가집니다.
 - 여기서 $$ U $$는 $$ AA^{T} $$의 고유벡터 행렬이고 $$ V $$는 $$ A^{T}A $$의 고유벡터 행렬입니다. 
 - 그리고 $$ U $$와 $$ V $$는 `정규직교벡터`들을 열벡터로 갖는 `직교 행렬`인데 처음 r개의 열벡터는 0이 아닌 고유값들에 해당하는 고유벡터들로 채우면 되고 나머지는 그것들에 직교인 정규직교벡터를 자유롭게 찾아서 채워넣으면 됩니다.
 
@@ -123,6 +123,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
+- `특이값 행렬`의 `고유값`의 작성 순서는 **큰 값을 기준으로 내림차순 순서**로 작성하겠습니다. 이렇게 작성해야 하는 것은 아니나 고유값이 큰 값 순서대로 활용성이 커지기 때문에 이와 같은 방법을 흔히 사용합니다.
 - 이번에는 $$ A^{T}A $$의 고유값을 구해보도록 하겠습니다. 앞에서 설명한 바와 같이 동일하게 3, 1이 나올 것입니다.
 
 <br>
@@ -146,7 +147,17 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-- $$ \begin{bmatrix} -1 & -1 \\ -1 & -1 \end{bmatrix} x_{1} = 0 $$
+- $$ AA^{T}x = \lambda x $$
+
+- $$ (AA^{T} - \lambda I)x = 0 $$
+
+<br>
+
+- 위 식에서 $$ \lambda_{1} = 3, \lambda{2} = 1 $$ 을 각각 대입하여 고유벡터 $$ x_{1}, x_{2} $$ 를 구해보도록 하겠습니다. 먼저 $$ \lambda_{1} = 3 $$ 을 대입하여 구하면 다음과 같습니다.
+
+<br>
+
+- $$ (AA^{T} - \lambda_{1}I)x_{1} = \begin{bmatrix} 2 - 3 & -1 \\ -1 & 2 - 3 \end{bmatrix} x_{1} =  \begin{bmatrix} -1 & -1 \\ -1 & -1 \end{bmatrix} x_{1} = 0 $$
 
 <br>
 
@@ -158,15 +169,15 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-- 그리고 $$ AA^{T} $$의 고유값이 1일 때,
+- 그리고 앞의 방식과 동일하게 $$ AA^{T} $$ 의 고유값 $$ \lambda_{2} = 1 $$ 일 때의 고유벡터 $$ x_{2} $$ 를 찾으면 다음과 같습니다.
 
 <br>
 
-- $$ \begin{bmatrix} -1 & -1 \\ -1 & -1 \end{bmatrix} x_{2} = 0 $$
+- $$ (AA^{T} - \lambda_{1}I)x_{2} = \begin{bmatrix} 2 - 1 & -1 \\ -1 & 2 - 1 \end{bmatrix} x_{2} =  \begin{bmatrix} 1 & -1 \\ -1 & 1 \end{bmatrix} x_{2} = 0 $$
 
 <br>
 
-- 위 식을 만족시키는 정규직교인 고유벡터를 구하면 다음과 같습니다.
+- 위 식을 만족시키는 `정규직교`인 고유벡터를 구하면 다음과 같습니다.
 
 <br>
 
@@ -174,7 +185,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-- 따라서 왼쪽 특이행렬 $$ U $$는 다음과 같습니다.
+- 따라서 왼쪽 특이행렬 $$ U $$ 는 다음과 같습니다. $$ x_{1}, x_{2} $$ 의 순서는 고유값에 대응되며 앞에서 고유값이 큰 값을 기준으로 내림차순으로 사용하기로 하였습니다.
 
 <br>
 
