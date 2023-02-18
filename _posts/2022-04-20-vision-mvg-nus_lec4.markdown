@@ -20,9 +20,9 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Robust homography 
 <br>
 
 - 이번 강의를 이해하기 위해 아래 사전 지식이 필요합니다.
-- `least squrares` : 
-- `rank` :
-- `SVD (Singular Value Decomposition)` : 
+- `least squrares` : [https://gaussian37.github.io/math-la-least_squares/](https://gaussian37.github.io/math-la-least_squares/)
+- `rank` : [https://gaussian37.github.io/math-la-rank/](https://gaussian37.github.io/math-la-rank/)
+- `SVD (Singular Value Decomposition)` : [https://gaussian37.github.io/math-la-svd/](https://gaussian37.github.io/math-la-svd/)
 
 <br>
 
