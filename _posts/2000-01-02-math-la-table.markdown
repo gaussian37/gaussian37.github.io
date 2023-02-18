@@ -13,13 +13,16 @@ tags: [Linear algebra, 선형 대수학] # add tag
 
 <br>
 
-## **선형 대수학 관련 내용**
+## **선형 대수학 관련 주요 내용**
 
 <br>
 
 - [A 2020 Vision of Linear Algebra, Gilbert Strang](https://gaussian37.github.io/math-la-vision_of_linear_algebra/)
 - 선형대수학 주요 용어
 - 역행렬과 행렬식
+- [벡터의 정사영](https://gaussian37.github.io/math-la-projection/)
+- [rank (행렬의 계수)](https://gaussian37.github.io/math-la-rank/)
+- [최소 자승법 (least squares)](https://gaussian37.github.io/math-la-least_squares/)
 - [고유값과 고유벡터](https://gaussian37.github.io/math-la-eigenthings/)
 - [고유값 분해]()
 - [특이값 분해(SVD)](https://gaussian37.github.io/math-la-svd/)
@@ -27,6 +30,10 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - QR 분해
 - 그람 슈미트 과정
 - 선형연립방정식 풀이 
+
+<br>
+
+## **선형 대수학 내용 정리**
 
 <br>
 

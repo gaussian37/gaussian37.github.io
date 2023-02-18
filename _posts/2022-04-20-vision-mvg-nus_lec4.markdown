@@ -19,6 +19,13 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Robust homography 
 
 <br>
 
+- 이번 강의를 이해하기 위해 아래 사전 지식이 필요합니다.
+- `least squrares` : 
+- `rank` :
+- `SVD (Singular Value Decomposition)` : 
+
+<br>
+
 <br>
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/W8vgVoQdwAM" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
@@ -72,6 +79,8 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Robust homography 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec4/11.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
+
+
 
 
 <br>

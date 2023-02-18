@@ -2,7 +2,7 @@
 layout: post
 title: 최소 자승법 (Least Squares)
 date: 2016-12-01 01:00:00
-img: math/la/linear-algebra-image.jpg
+img: math/la/linear_algebra.jpg
 categories: [math-la] 
 tags: [최소자승법, least squares] # add tag
 ---
@@ -187,5 +187,9 @@ plt.plot(x, y, 'or')
 plt.plot(xn, yn)
 plt.show()
 ```
+
+<br> 
+<center><img src="../assets/img/math/la/least_squares/6.png" alt="Drawing" style="width:400px;"/></center>
+<br>
 
 <br>
