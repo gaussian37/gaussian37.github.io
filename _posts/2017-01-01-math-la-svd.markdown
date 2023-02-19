@@ -117,7 +117,8 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 - 어떤 행렬 $$ A $$ 를 특이값 분해를 하면 $$ U, \Sigma, V $$ 로 분해가 됩니다. 그러면 어떤 방법으로 분해할 수 있을까요? 먼저 간단하게 분해 방법에 대하여 서술해보겠습니다.
 - 행렬 $$ A $$ 의 `특이값`들은 $$ AA^{T} $$ 또는 $$ A^{T}A $$ 의 **0이 아닌 고유값들에 루트를 적용**한 것입니다. 이 때, $$ AA^{T} $$ 와 $$ A^{T}A $$ 는 `동일한 고유값`들을 가집니다.
-- 여기서 $$ U $$ 는 $$ AA^{T} $$ 의 고유벡터 행렬이고 $$ V $$는 $$ A^{T}A $$ 의 고유벡터 행렬입니다. 
+- 여기서 $$ U $$ 는 $$ AA^{T} $$ 의 고유벡터 행렬이고 $$ V $$ 는 $$ A^{T}A $$ 의 고유벡터 행렬입니다. 앞으로는 이 벡터들을 `특이 벡터 (Singular vector)`라고 하며 $$ U $$ 의 열벡터를 `left singular vectors`, $$ V $$ 의 열벡터를 `right singular vectors`라고 부르겠습니다.
+- [고유값 분해](https://gaussian37.github.io/math-la-evd/)에서 다룬 바와 같이 `대칭 행렬 (symmetric matrix)`은 항상 고유값 분해가 가능하며 `직교 행렬 (orthogonal matrix)`로 대각화 할 수 있습니다. $$ AA^{T} $$ 와 $$ A^{T}A $$ 는 모두 `대칭 행렬`이므로 고유값 분해가 가능하여 항상 $$ U $$ , $$ V $$ 를 구할 수 있습니다.
 - 그리고 $$ U $$ 와 $$ V $$ 는 `정규 직교 벡터`들을 열벡터로 갖는 `직교 행렬`인데 처음 $$ r $$ 개의 열벡터는 0이 아닌 고유값들에 해당하는 고유벡터들로 채우면 되고 나머지는 그것들에 직교인 `정규 직교 벡터`를 자유롭게 찾아서 채워넣으면 됩니다.
 
 <br>
@@ -283,6 +284,8 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 ## **SVD 관련 성질**
 
 <br>
+
+- 
 
 
 
