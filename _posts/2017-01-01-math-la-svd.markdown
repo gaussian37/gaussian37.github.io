@@ -39,7 +39,12 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-- `SVD (Singular Value Decomposition)`, 특이값 분해는 고유값 분해와 같이 행렬을 `대각화`하는 방법 중 하나입니다. 고유값 분해는 정방 행렬에만 사용가능하고 정방 행렬 중 일부 행렬에 대해서만 적용 가능한 반면, 특이값 분해는 `직사각형 행렬일 때에도 사용 가능`하므로 활용도가 높습니다. m x n 크기의 행렬 $$ A $$를 특이값 분해하였을 때 다음과 같이 분해됩니다.
+- `SVD (Singular Value Decomposition)`, 특이값 분해는 `고유값 분해`와 같이 행렬을 `대각화`하는 방법 중 하나입니다. `고유값 분해`는 정방 행렬에만 사용가능하고 정방 행렬 중 일부 행렬에 대해서만 적용 가능한 반면, 특이값 분해는 `직사각형 행렬일 때에도 사용 가능`하므로 활용도가 높습니다.
+- 즉, `고유값 분해`에서는 행렬 $$ A $$ 가 `대칭 행렬` & `정사각행렬`이면 $$ A = PDP^{T} ( P : \text{orthogonal matrix}, D : \text{diagonal matrix} )$$ 로 분해할 수 있으나 $$ A $$ 가 이 조건을 만족하지 못하는 경우에도 $$ \text{orthogonal matrix} \text{diagonal matrix} \text{orthogonal matrix} $$ 형태로 분해하고자 하는 것이 `SVD`의 목적입니다.
+
+<br>
+
+- `m x n` 크기의 행렬 $$ A $$ 를 `특이값 분해`하면 다음과 같이 분해됩니다.
 
 <br>
 
@@ -55,7 +60,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-- 여기서 $$ U, V $$ 는 각각 서로 다른 `직교행렬`인 `특이 벡터 행렬`이고 $$ \Sigma $$ 는 특이값 $$ \sigma_{1}, \sigma_{1}, \cdots \sigma_{r} $$ 들을 대각요소로 갖고 있는 대각 행렬로서 `특이값 행렬`이라고 불립니다. $$ \sigma_{r} $$ 의 $$ r $$ 은 대각행렬의 `rank`를 의미합니다.
+- 여기서 $$ U, V $$ 는 각각 서로 다른 `직교 행렬`이며 `특이 벡터`로 구성된 행렬입니다. $$ \Sigma $$ 는 `특이값` $$ \sigma_{1}, \sigma_{1}, \cdots \sigma_{r} $$ 들을 대각요소로 갖고 있는 대각 행렬로서 `특이값 행렬`이라고 불립니다. $$ \sigma_{r} $$ 의 $$ r $$ 은 대각행렬의 `rank`를 의미합니다.
 - 행렬 $$ A $$ 의 크기가 $$ m \time n $$ 이고 $$ m \ge n $$ 이라면 $$ r $$ 과의 관계는 다음과 같습니다.
 
 <br>
@@ -64,13 +69,22 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-- 특이값 행렬은 (m x n) 크기의 직사각행렬이므로 m과 n의 크기에 따라 다음과 같은 형태를 가질 수 있습니다.
+- 따라서 $$ \Sigma $$ 는 $$ \text{rank}(A) = r $$ 만큼의 대각 성분을 가지고 나머지 대각 성분은 0을 가지는 대각 행렬이 됩니다.
+
+<br>
+
+- $$ \Sigma = \begin{bmatrix} \sigma_{1} &  &  & \\  & \sigma_{2} &  & \\ & & \ddots & \\ & & & \sigma_{r} \\ & & & & \sigma_{r+1} \\ & & & & &\ddots \\ & & & & && \sigma_{n}
+ \end{bmatrix} $$ 
+
+- $$ \sigma_{r+1}, \cdots \sigma_{n} = 0 $$
+
+- `특이값 행렬`은 (m x n) 크기의 직사각행렬이므로 m과 n의 크기에 따라 다음과 같은 형태를 가질 수 있습니다.
 
 <br>
 <center><img src="../assets/img/math/la/svd/1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- `직교 행렬(orthogonal matrix)`와 `대각 행렬(diagonal matrix)`에 대한 성질을 살펴보면 다음과 같습니다. $$ U $$를 직교 행렬이라고 하겠습니다.
+- `직교 행렬(orthogonal matrix)`와 `대각 행렬(diagonal matrix)`에 대한 성질을 살펴보면 다음과 같습니다. $$ U $$ 를 직교 행렬이라고 하겠습니다.
 
 <br>
 
@@ -113,18 +127,27 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-
-<br>
-
 ## **SVD 계산 방법**
 
 <br>
 
 - 어떤 행렬 $$ A $$ 를 특이값 분해를 하면 $$ U, \Sigma, V $$ 로 분해가 됩니다. 그러면 어떤 방법으로 분해할 수 있을까요? 먼저 간단하게 분해 방법에 대하여 서술해보겠습니다.
-- 행렬 $$ A $$ 의 `특이값`들은 $$ AA^{T} $$ 또는 $$ A^{T}A $$ 의 **0이 아닌 고유값들에 루트를 적용**한 것입니다. 이 때, $$ AA^{T} $$ 와 $$ A^{T}A $$ 는 `동일한 고유값`들을 가집니다.
+- 행렬 $$ A $$ 의 `특이값`들은 $$ AA^{T} $$ 또는 $$ A^{T}A $$ 의 **0이 아닌 고유값들에 루트를 적용**한 것입니다. 이 때, $$ AA^{T} $$ 와 $$ A^{T}A $$ 는 `동일한 고유값`들을 가집니다. (이러한 이유는 아래 `SVD 관련 성질` 부근을 참조하시면 됩니다.)
 - 여기서 $$ U $$ 는 $$ AA^{T} $$ 의 고유벡터 행렬이고 $$ V $$ 는 $$ A^{T}A $$ 의 고유벡터 행렬입니다. 앞으로는 이 벡터들을 `특이 벡터 (Singular vector)`라고 하며 $$ U $$ 의 열벡터를 `left singular vectors`, $$ V $$ 의 열벡터를 `right singular vectors`라고 부르겠습니다.
 - [고유값 분해](https://gaussian37.github.io/math-la-evd/)에서 다룬 바와 같이 `대칭 행렬 (symmetric matrix)`은 항상 고유값 분해가 가능하며 `직교 행렬 (orthogonal matrix)`로 대각화 할 수 있습니다. $$ AA^{T} $$ 와 $$ A^{T}A $$ 는 모두 `대칭 행렬`이므로 고유값 분해가 가능하여 항상 $$ U $$ , $$ V $$ 를 구할 수 있습니다.
-- 그리고 $$ U $$ 와 $$ V $$ 는 `정규 직교 벡터`들을 열벡터로 갖는 `직교 행렬`인데 처음 $$ r $$ 개의 열벡터는 0이 아닌 고유값들에 해당하는 고유벡터들로 채우면 되고 나머지는 그것들에 직교인 `정규 직교 벡터`를 자유롭게 찾아서 채워넣으면 됩니다.
+- 그리고 $$ U $$ 와 $$ V $$ 는 `정규 직교 벡터`들을 열벡터로 갖는 `직교 행렬`인데 처음 $$ r $$ 개의 열벡터는 0이 아닌 고유값들에 해당하는 고유벡터들로 채우면 되고 (고유값과 고유벡터의 짝이 맞아야 합니다.) 나머지는 그것들에 직교인 `정규 직교 벡터`를 자유롭게 찾아서 채워넣으면 됩니다. (이 부분은 아래 예제를 참조하시면 됩니다.)
+
+<br>
+
+- 이와 같은 방법을 사용하면 `SVD`를 할 수 있습니다. 여기서 $$ A^{T}A $$ 를 사용하는 이유는 $$ A^{T}A $$ 가 `대칭 행렬`이 되기 때문입니다.
+
+<br>
+
+- $$ (AA^{T})^{T} = (A^{T})^{T}A^{T} = AA^{T} $$
+
+<br>
+
+- `대칭 행렬`은 `고유값 분해`가 가능함을 이용하는 것이 `SVD`의 조건이고 따라서 $$ AA^{T} $$ 와 $$ A^{T}A $$ 를 모두 이용합니다.
 
 <br>
 
@@ -290,9 +313,46 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-- 
+- `SVD`를 다양한 관점에서 보면 `SVD`에 관련된 다양한 성질이 있음을 확인할 수 있습니다. `SVD`에 관한 다양한 성질을 나열해 보도록 하겠습니다. 아래 나열된 순서의 기준은 우선순위와는 무관합니다.
 
+<br>
 
+- `SVD`를 전개할 때 사용하는 $$ AA^{T} $$ 와 $$ A^{T}A $$ 의 `고유값`은 ① `모두 0 이상`이며 ② 0이 아닌 `고유값들은 서로 동일`하다는 것입니다. `특이값`이 `고유값`에 루트를 적용한 것이므로 `고유값`이 0보다 커야 하고 $$ A = U \Sigma V^{T} $$ 에서 하나의 행렬 $$ \Sigma $$ 를 사용하려면$$ AA^{T} $$ 와 $$ A^{T}A $$ 의 고유값은 같아야 합니다.
+- 먼저 **첫번째 조건**인 $$ AA^{T} $$ 와 $$ A^{T}A $$ 의 `고유값`은 모두 0 이상임을 확인해 보도록 하겠습니다. 아래와 같이 고유값과 고유벡터의 정의를 이용하여 전개해 보겠습니다.
+
+<br>
+
+- $$ A^{T}Av = \lambda v ( v \ne 0) $$
+
+- $$ v^{T}A^{T}Av = \lambda v^{T}v $$
+
+- $$ (Av)^{T}Av = \lambda v^{T}v $$
+
+- $$ \Vert Av \Vert^{2} = \lambda \Vert v \Vert^{2} $$
+
+<br>
+
+- 위 식에서 좌변과 우변이 제곱으로 모두 양수이어야 하기 때문에 $$ \lambda \ge 0 $$ 이 되어야 합니다.
+
+<br>
+
+- **두번째 조건**인 $$ AA^{T} $$ 와 $$ A^{T}A $$ 의 `고유값이 서로 동일`하다는 것을 확인해 보도록 하겠습니다.
+
+<br>
+
+- $$ (A^{T}A)v = \lambda v $$
+
+- $$ A(A^{T}A)v = \lambda Av  $$
+
+- $$ AA^{T}(Av) = \lambda (Av) $$
+
+<br>
+
+- 위 식에서 $$ Av \ne 0 $$ 을 만족해야 한다면 마지막 식에서 $$ AA^{T} $$ 의 `고유값`이 $$ \lambda $$ 가 되며 첫번째 식에서 $$ A^{T}A $$ 의 고유값이 $$ \lambda $$ 임을 전제로 시작하였기 때문에  $$ AA^{T} $$ 와 $$ A^{T}A $$ 의 고유값은 $$ \lambda $$ 로 동일해 집니다.
+
+<br>
+
+- 정리하면 $$ AA^{T} $$ 와 $$ A^{T}A $$ 의 `공통의 고유값`은 $$ \lambda_{1} \ge \lambda_{2} \ge \cdots \lambda_{r} \ge 0 $$ ($$ \text{rank}(A) = \text{rank}(AA^{T}) = \text{rank}(A^{T}A) = r $$) 이 되고 루트를 적용한 값 $$ \sqrt{\lambda_{1}} \ge \sqrt{\lambda_{2}} \ge \cdots \sqrt{\lambda_{r}} \ge 0 $$ (기호를 바꿔 쓰면) $$ \sigma_{1} \ge \sigma_{2} \ge \cdots \sigma_{r} \ge 0 $$ 이 `공통의 특이값`이 됩니다.
 
 <br>
 
