@@ -132,8 +132,17 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 <br>
 
 - 어떤 행렬 $$ A $$ 를 특이값 분해를 하면 $$ U, \Sigma, V $$ 로 분해가 됩니다. 그러면 어떤 방법으로 분해할 수 있을까요? 먼저 간단하게 분해 방법에 대하여 서술해보겠습니다.
-- 행렬 $$ A $$ 의 `특이값`들은 $$ AA^{T} $$ 또는 $$ A^{T}A $$ 의 **0이 아닌 고유값들에 루트를 적용**한 것입니다. 이 때, $$ AA^{T} $$ 와 $$ A^{T}A $$ 는 `동일한 고유값`들을 가집니다. (이러한 이유는 아래 `SVD 관련 성질` 부근을 참조하시면 됩니다.)
-- 여기서 $$ U $$ 는 $$ AA^{T} $$ 의 고유벡터 행렬이고 $$ V $$ 는 $$ A^{T}A $$ 의 고유벡터 행렬입니다. 앞으로는 이 벡터들을 `특이 벡터 (Singular vector)`라고 하며 $$ U $$ 의 열벡터를 `left singular vectors`, $$ V $$ 의 열벡터를 `right singular vectors`라고 부르겠습니다.
+- 행렬 $$ A $$ 의 `특이값 (Singular Value)`들은 $$ AA^{T} $$ 또는 $$ A^{T}A $$ 의 **0이 아닌 고유값들에 루트를 적용**한 것입니다. 이 때, $$ AA^{T} $$ 와 $$ A^{T}A $$ 는 `동일한 고유값`들을 가집니다. (이러한 이유는 글 아래에 설명을 참조하시면 됩니다.)
+- 여기서 $$ U $$ 는 $$ AA^{T} $$ 의 고유벡터 행렬이고 $$ V $$ 는 $$ A^{T}A $$ 의 고유벡터 행렬입니다. 앞으로는 이 벡터들을 `특이 벡터 (Singular vector)`라고 하며 $$ U $$ 의 열벡터를 `left singular vectors`, $$ V $$ 의 열벡터를 `right singular vectors`라고 부르겠습니다. 정리하면 다음과 같습니다.
+
+<br>
+
+- $$ \text{singular value} = \sqrt{\text{eigen value}} $$
+
+- $$ \text{singular vector} = \text{eigen vector} $$
+
+<br>
+
 - [고유값 분해](https://gaussian37.github.io/math-la-evd/)에서 다룬 바와 같이 `대칭 행렬 (symmetric matrix)`은 항상 고유값 분해가 가능하며 `직교 행렬 (orthogonal matrix)`로 대각화 할 수 있습니다. $$ AA^{T} $$ 와 $$ A^{T}A $$ 는 모두 `대칭 행렬`이므로 고유값 분해가 가능하여 항상 $$ U $$ , $$ V $$ 를 구할 수 있습니다.
 - 그리고 $$ U $$ 와 $$ V $$ 는 `정규 직교 벡터`들을 열벡터로 갖는 `직교 행렬`인데 처음 $$ r $$ 개의 열벡터는 0이 아닌 고유값들에 해당하는 고유벡터들로 채우면 되고 (고유값과 고유벡터의 짝이 맞아야 합니다.) 나머지는 그것들에 직교인 `정규 직교 벡터`를 자유롭게 찾아서 채워넣으면 됩니다. (이 부분은 아래 예제를 참조하시면 됩니다.)
 
@@ -148,6 +157,32 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 <br>
 
 - `대칭 행렬`은 `고유값 분해`가 가능함을 이용하는 것이 `SVD`의 조건이고 따라서 $$ AA^{T} $$ 와 $$ A^{T}A $$ 를 모두 이용합니다.
+
+<br>
+
+- 따라서 두개의 `정방 행렬` & `대칭 행렬`인 $$ AA^{T} $$ 와 $$ A^{T}A $$ 를 이용하여 각각 `고유값 분해`를 하면 다음과 같이 분해할 수 있습니다.
+
+<br>
+
+- $$ AA^{T} = UDU^{T} $$
+
+- $$ A^{T}A = VD'V^{T} $$
+
+<br>
+
+- 위 식에서 $$ U, V $$ 는 `고유값 분해`로 인하여 각각 `직교 행렬`이 됩니다. `직교 행렬`의 역행렬은 대칭 행렬이 되므로 다음과 같이 식을 전개할 수 있습니다.
+
+<br>
+
+- $$ AA^{T} = (U \Sigma V^{T}) \times (V \Sigma^{T} U^{T}) = U \Sigma^{2} U^{T} = U D U^{T} $$
+
+- $$ A^{T}A = (V \Sigma T^{T}) \times (T \Sigma^{T} B^{T}) = V \Sigma^{2} V^{T} = V D' V^{T} $$
+
+- $$ D = D' = \Sigma^{2} $$
+
+<br>
+
+- 따라서 $$ AA^{T} $$ 와 $$ A^{T}A $$ 의 `고유값 분해` 결과 `대각 행렬` $$ \Sigma $$ 는 동일한 것을 확인할 수 있습니다.
 
 <br>
 
@@ -305,7 +340,45 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 <br>
 
 - 따라서 `SVD`를 통해 얻은 `특이값`은 행렬의 `스케일 변환`에 사용됨을 알 수 있습니다.
-- `EVD (고유값 분해)`에서는 `고유값`을 얻을 수 있고 이 `고유값`은 선형 변환에 의해 변환되지 않는 `고유 벡터`에 대한 스케일 값인 반면에 `SVD`에서 얻은 `특이값`은 선형 변환 자체의 스케일 값인 것을 알 수 있습니다. 즉, 선형 변환 $$ A $$ 에 의한 기하학적 변환은 특이값들에 의해서만 결정되는 것을 확인할 수 있습니다.
+- `EVD (고유값 분해)`에서는 `고유값`을 얻을 수 있고 이 `고유값`은 선형 변환에 의해 변환되지 않는 `고유 벡터`에 대한 스케일 값인 반면에 `SVD`에서 얻은 `특이값`은 선형 변환 자체의 스케일 값인 것을 알 수 있습니다. 즉, 선형 변환 $$ A $$ 에 의한 기하학적 변환은 `특이값`들에 의해서만 결정되는 것을 확인할 수 있습니다.
+
+<br>
+
+- `SVD`를 선형 변환 개념으로 다시 정리해 보면 다음과 같습니다.
+
+<br>
+
+- $$ A_{mn}x_{n} = b_{m} $$
+
+<br>
+
+- 위 수식은 $$ n $$ 차원의 데이터 $$ x $$ 를 $$ A $$ 를 이용하여 선형 변환을 하면 $$ m $$ 차원의 데이터 $$ b $$ 가 된다는 것이며 변환 방법은 3가지의 순차적인 방법을 거칩니다.
+
+<br>
+
+- ① $$ V^{T}_{nn} $$ : $$ n $$ 차원 내에서의 `직교 변환` (**길이를 바꾸지 않고 방향만 변환함**)
+- ② $$ \Sigma_{mn} $$ : $$ n \to m $$ 차원으로의 변환 (**각 차원에서의 길이(스케일) 변환을하며 $$ \text{rank}(A) = r $$ 차원만큼 실제 의미를 가집니다.**)
+- ③ $$ U_{mm} $$ : $$ m $$ 차원 내에서의 `직교 변환`
+
+<br>
+
+- $$ U_{mm} \times (\Sigma_{mn} \times (V_{T}_{nn} \times x_{n})) = b_{m} $$
+
+<br>
+
+- `SVD`의 개념은 2D 이미지 변환의 `Affine Transformation`에서도 동일하게 사용됩니다.
+
+<br>
+<center><img src="../assets/img/math/la/svd/3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `Affine Transformation`은 평행 성분과 면적 및 길이의 비율은 유지한 상태로 선형 변환을 하는 방법 입니다. `Affine Transformation`에서의 비율을 변환하는 인자가 `Singular Value`가 됩니다. 즉, $$ U $$, $$ V $$ 행렬만으로는 비율이 전혀 변하지 않지만 $$ \Sigma $$ 로 인하여 비율이 변하는 선형 변환이 발생한다는 것을 알 수 있습니다.
+
+<br>
+
+- `SVD`는 정방 행렬 뿐 아니라 직사각형 행렬에서도 사용할 수 있음을 확인하였습니다. 선형 변환의 관점을 $$ m \times n $$ 크기의 직사각형 행렬에서도 살펴보겠습니다.
+- 만약 $$ m \times n $$ 크기의 행렬에서 $$ m \gt n $$ 이라면 $$ \Sigma $$ 에서 0을 덧붙여서 차원을 확장한 후 $$ U $$ 로 회전 변환을 하는 것입니다. ( $$ Ax = U (\Sigma V^{T} x) $$ ) 반면  $$ m \lt n $$ 이라면 투영을 통해 차원을 없애고 회전 변환을 하는 것입니다.
+- `형태적인 변환`은 $$ \Sigma $$ 의 값에 따라 달라지게 되고 `차원의 변화`는 $$ U, V $$ 를 따르게 됩니다.
 
 <br>
 
@@ -353,6 +426,16 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 <br>
 
 - 정리하면 $$ AA^{T} $$ 와 $$ A^{T}A $$ 의 `공통의 고유값`은 $$ \lambda_{1} \ge \lambda_{2} \ge \cdots \lambda_{r} \ge 0 $$ ($$ \text{rank}(A) = \text{rank}(AA^{T}) = \text{rank}(A^{T}A) = r $$) 이 되고 루트를 적용한 값 $$ \sqrt{\lambda_{1}} \ge \sqrt{\lambda_{2}} \ge \cdots \sqrt{\lambda_{r}} \ge 0 $$ (기호를 바꿔 쓰면) $$ \sigma_{1} \ge \sigma_{2} \ge \cdots \sigma_{r} \ge 0 $$ 이 `공통의 특이값`이 됩니다.
+
+<br>
+
+- 참고로 `SVD`에서 언급하는 `Singular`와 `특이 행렬 (Singular Matrix)`에서의 `Singular`는 의미가 다릅니다.
+- 일반적으로 `Singular Matrix`는 `det(A) = 0` 즉, **역행렬이 없는 행렬**을 의미합니다.
+- `SVD`에서의 `Singular`는 앞에서 설명한 `Singular Value`와 `Singular Vector`의 의미로 사용된다는 측면에서 차이가 있습니다. `Singular Matrix`의 의미 즉 **역행렬이 없는 행렬**과 같이 해석하려면 어떤 경우에 해당할까요?
+- `Singluar Value` 중 0이 포함되면 **역행렬이 없는 행렬**에 해당합니다. 앞에서 살펴보았듯이 `Singular Value`가 스케일 변환에 해당하기 때문에 0배 만큼 스케일 변환이 되었다면 행렬 $$ A $$ 의 `det(A) = 0`을 만족합니다. 반면 `Singular Value` 가 모두 0보다 크면 역행렬이 존재하는 `Non-Singular Matrix`가 됩니다.
+- 따라서 0보다 큰 `Singular Value`의 수는 $$ r \le \text{min}(m, n) $$ 이 되어야 `Non-Singular Matrix`가 됩니다.
+
+<br>
 
 <br>
 
