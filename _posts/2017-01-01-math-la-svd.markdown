@@ -534,7 +534,22 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 - 즉, `Null Space` 만큼의 값은 필요 없음을 의미하며 완전히 동일한 값을 얻을 수 있습니다.
 - 따라서 $$ A_{mn} $$ 즉, $$ m \times n $$ 갯수의 모든 값을 $$ m \times r + r + r \times n $$ 의 갯수만으로 표현할 수 있음을 나타냅니다. 만약 $$ r $$ 의 크기가 작다면 필요한 값의 갯수가 작아지기 때문에 효율적으로 데이터를 저장할 수 있습니다. **이러한 성질은 데이터 압축 방법으로도 사용**됩니다.
-- 이와 같은 접근 방법에서 추가적으로 사용하는 방식이 `손실 압축 방식`입니다. 
+
+<br>
+
+- 앞에서 다룬 간단한 예제를 통하여 확인해 보겠습니다. 앞의 2 X 3 크기의 행렬 $$ A $$ 의 $$ \text{rank}(A) = 2 $$ 이기 때문에 `Null Space`인 1개의 차원을 제외해도 무관합니다.
+
+<br>
+
+- $$ \begin{align} A &= \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} = U \Sigma V^{T} \\ &= \frac{1}{\sqrt{2}} \begin{bmatrix} -1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} \sqrt{3} & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix} \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{-2}{\sqrt{6}} & \frac{1}{\sqrt{6}} \\ \frac{-1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} \end{bmatrix} \\ &= \frac{1}{\sqrt{2}} \begin{bmatrix} -1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} \sqrt{3} & 0 \\ 0 & 1 \end{bmatrix} \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{-2}{\sqrt{6}} & \frac{1}{\sqrt{6}} \\ \frac{-1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \end{bmatrix} \\ &= \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} \end{align} $$
+
+<br>
+
+- 위 예제에서는 기존에 $$ m \times n = 2 \times 3 = 6 $$ 개의 값을 저장해야 했고 `특이값 분해`와 `rank` 갯수 만큼 사용하여 값을 저장할 때, $$ m \times r + r + r \times n = 2 \times 2 + 2 + 2 \times 3 = 12 $$ 개의 값을 저장해야 합니다. 이 예제에서는 기존 행렬의 크기가 매우 작기 때문에 효과가 없으나 $$ r $$ 의 크기가 작아질수록 효과그 크게 나타납니다.
+
+<br>
+
+- 이와 같은 접근 방법에서 추가적으로 사용하는 방식이 `손실 압축 방식`이 있습니다.
 - `특이값 행렬`을 구성할 때, `특이값`을 큰 순서로 내림차순 하였습니다. `특이값`이 작다면 그 만큼 스케일 변환에 영향을 주는 정도도 작기 때문에 영향도가 작은 성분끼리 모으기 위함입니다.
 - 만약 `특이값`이 0이 아닌 양의 값이지만 작다고 판단되면 제외할 수 있습니다. 하지만 이 `특이값`과 이에 대응되는 `특이 벡터`를 제외하면 실제 정보가 손실되기 때문에 원본 데이터의 손실이 발생합니다. 이와 같은 방식을 `손실 압축`이라고 하며 뒤의 `SVD`의 활용에서 자세하게 다루어 보도록 하겠습니다.
 
