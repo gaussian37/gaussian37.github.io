@@ -186,11 +186,51 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
+- 이와 같은 성질을 이용하면 행렬 $$ V $$ 와 $$ \Sigma $$ 를 구하면 $$ U $$ 는 별도 계산하지 않고 구할 수 있습니다. 다음과 같습니다.
+
+<br>
+
+- ① $$ (A^{T}A) $$ 의 `고유값` $$ \lambda_{i} $$ 와 $$ v_{i} $$ 를 구합니다.
+- ② `대각 행렬` $$ \Sigma $$ 를 구성합니다. 대각 행렬의 원소는 $$ \sigma_{i} = \sqrt{\lambda_{i}} $$ 이고 내림차순 순서로 정렬하여 구성합니다.
+- ③ $$ u_{i} $$ 는 다음 수식을 이용하여 구합니다. 차례대로 전개해 보면 다음과 같습니다. ($$ AA^{T} $$ 의 고유값 고유벡터를 구하지 않아도 됩니다.)
+
+<br>
+
+- $$ A = \sigma_{1}u_{1}v_{1}^{T} + \sigma_{2}u_{2}v_{2}^{T} + \cdots + \sigma_{r}u_{r}v_{r}^{T} $$
+
+<br>
+
+- 여기서 $$ i $$ 번째 벡터 하나만 다루어 보겠습니다.
+
+<br>
+
+- $$ A = \sigma_{i} u_{i} v_{i}^{T} $$
+
+- $$ Av_{i} = \sigma_{i} u_{i} v_{i}^{T} v_{i} $$
+
+- $$ Av_{i} = \sigma_{i} u_{i} $$
+
+- $$ u_{i} = \frac{Av_{i}}{\sigma_{i}} $$
+
+<br>
+
+- 위 식의 $$ u_{i} $$ 를 구하는 방법을 통하여 행렬 $$ U $$ 를 한번에 구할 수 있습니다. 이 부분도 예제를 살펴보도록 하겠습니다.
+
+<br>
+
+- ④ 대각 원소의 순서에 맞게 직교 행렬 $$ U, V $$ 를 구성합니다.
+
+<br>
+
+- 그러면 실제 `SVD`를 계산하는 예제를 살펴보도록 하겠습니다.
+
+<br>
+
 ## **SVD 간단 예제**
 
 <br>
 
-- 아래 행렬 $$ A $$를 특이값 분해 해보도록 하겠습니다.
+- 아래 행렬 $$ A $$를 특이값 분해 해보도록 하겠습니다. ① 먼저 $$ AA^{T} $$ 와 $$ A^{T}A $$ 를 각각 분해하여 $$ U, \Sigma, V $$ 를 모두 찾아보고 ② 두번째로는 $$ A^{T}A $$ 를 통하여 $$ V $$ 를 찾고 그 값을 이용하여 $$ U $$ 를 찾는 방법을 살펴보겠습니다.
 
 <br>
 
@@ -252,7 +292,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-- 위 식에서 $$ \lambda_{1} = 3, \lambda{2} = 1 $$ 을 각각 대입하여 고유벡터 $$ x_{1}, x_{2} $$ 를 구해보도록 하겠습니다. 먼저 $$ \lambda_{1} = 3 $$ 을 대입하여 구하면 다음과 같습니다.
+- 위 식에서 $$ \lambda_{1} = 3, \lambda_{2} = 1 $$ 을 각각 대입하여 고유벡터 $$ x_{1}, x_{2} $$ 를 구해보도록 하겠습니다. 먼저 $$ \lambda_{1} = 3 $$ 을 대입하여 구하면 다음과 같습니다.
 
 <br>
 
@@ -326,6 +366,53 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
+- 지금까지 $$ AA^{T} $$ 와 $$ A^{T}A $$ 를 각각 분해하여 $$ U, \Sigma, V $$ 를 구해보았습니다.
+- 앞에서 아래 식을 통하여 $$ A^{T}A $$ 의 분해만으로도 $$ U $$ 를 구할 수 있음을 확인하였습니다.
+
+<br>
+
+- $$ u_{i} = \frac{Av_{i}}{\sigma_{i}} $$
+
+<br>
+
+- 이번에는 위 식을 통하여 $$ U $$ 를 구할 수 있는 지 확인해 보도록 하겠습니다. $$ V $$ 와 $$ \Sigma $$ 는 앞에서 계산한 값을 사용하겠습니다.
+
+<br>
+
+- $$ A = \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} $$
+
+- $$ \sigma_{1} = \sqrt{3} $$
+
+- $$ v_{1} = \frac{1}{\sqrt{6}} \begin{bmatrix} 1 \\ -2 \\ 1 \end{bmatrix} $$
+
+- $$ \begin{align} u_{1} &= \frac{Av_{1}}{\sigma_{1}} = \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} \frac{1}{\sqrt{6}} \begin{bmatrix} 1 \\ -2 \\ 1 \end{bmatrix} \frac{1}{\sqrt{3}} \\ &= \frac{1}{\sqrt{6}}\begin{bmatrix} -3 \\ 3 \end{bmatrix} \frac{1}{\sqrt{3}} \\ &= \frac{1}{\sqrt{2}} \begin{bmatrix} -1 \\ 1 \end{bmatrix} \end{align} $$
+
+<br>
+
+- $$ A = \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} $$
+
+- $$ \sigma_{2} = 1 $$
+
+- $$ v_{2} = \frac{1}{\sqrt{2}} \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix} $$
+
+<br>
+
+- $$ \begin{align}u_{2} &= \frac{Av_{2}}{\sigma_{2}} = \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} \frac{1}{\sqrt{2}} \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix} 1 \\ &= \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 1 \end{bmatrix} \end{align} $$
+
+<br>
+
+- 따라서 $$ U $$ 는 다음과 같이 정리할 수 있습니다.
+
+<br>
+
+- $$ U = \begin{bmatrix} u_{1} & u_{2} \end{bmatrix} = \begin{bmatrix} -1/\sqrt{2} & 1/\sqrt{2} \\ 1/\sqrt{2} & 1/\sqrt{2} \end{bmatrix}= \frac{1}{\sqrt{2}} \begin{bmatrix} -1 & 1 \\ 1 & 1 \end{bmatrix} $$
+
+<br>
+
+- 따라서 $$ AA^{T} $$ 를 직접 분해하여 $$ U $$ 를 구한 결과와 동일한 것을 확인할 수 있습니다.
+
+<br>
+
 ## **SVD 의미 해석**
 
 <br>
@@ -362,7 +449,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-- $$ U_{mm} \times (\Sigma_{mn} \times (V_{T}_{nn} \times x_{n})) = b_{m} $$
+- $$ U_{mm} \cdot (\Sigma_{mn} \cdot (V^{T}_{nn} \cdot x_{n})) = b_{m} $$
 
 <br>
 
@@ -436,6 +523,20 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 - 따라서 0보다 큰 `Singular Value`의 수는 $$ r \le \text{min}(m, n) $$ 이 되어야 `Non-Singular Matrix`가 됩니다.
 
 <br>
+
+- `SVD`에서 0이 아닌 고유값의 갯수가 $$ \text{rank}(A) = r $$ 이면 수식을 다음과 같이 줄여서 사용할 수 있습니다.
+
+<br>
+
+- $$ A_{mn} = U_{mm} \Sigma_{mn} V^{T}_{nn} = u_{mr} \Sigma {rr} V^{T}_{rn} $$
+
+<br>
+
+- 즉, `Null Space` 만큼의 값은 필요 없음을 의미하며 완전히 동일한 값을 얻을 수 있습니다.
+- 따라서 $$ A_{mn} $$ 즉, $$ m \times n $$ 갯수의 모든 값을 $$ m \times r + r + r \times n $$ 의 갯수만으로 표현할 수 있음을 나타냅니다. 만약 $$ r $$ 의 크기가 작다면 필요한 값의 갯수가 작아지기 때문에 효율적으로 데이터를 저장할 수 있습니다. **이러한 성질은 데이터 압축 방법으로도 사용**됩니다.
+- 이와 같은 접근 방법에서 추가적으로 사용하는 방식이 `손실 압축 방식`입니다. 
+- `특이값 행렬`을 구성할 때, `특이값`을 큰 순서로 내림차순 하였습니다. `특이값`이 작다면 그 만큼 스케일 변환에 영향을 주는 정도도 작기 때문에 영향도가 작은 성분끼리 모으기 위함입니다.
+- 만약 `특이값`이 0이 아닌 양의 값이지만 작다고 판단되면 제외할 수 있습니다. 하지만 이 `특이값`과 이에 대응되는 `특이 벡터`를 제외하면 실제 정보가 손실되기 때문에 원본 데이터의 손실이 발생합니다. 이와 같은 방식을 `손실 압축`이라고 하며 뒤의 `SVD`의 활용에서 자세하게 다루어 보도록 하겠습니다.
 
 <br>
 
