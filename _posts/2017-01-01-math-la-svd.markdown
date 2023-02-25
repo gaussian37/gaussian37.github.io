@@ -40,7 +40,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 <br>
 
 - `SVD (Singular Value Decomposition)`, 특이값 분해는 `고유값 분해`와 같이 행렬을 `대각화`하는 방법 중 하나입니다. `고유값 분해`는 정방 행렬에만 사용가능하고 정방 행렬 중 일부 행렬에 대해서만 적용 가능한 반면, 특이값 분해는 `직사각형 행렬일 때에도 사용 가능`하므로 활용도가 높습니다.
-- 즉, `고유값 분해`에서는 행렬 $$ A $$ 가 `대칭 행렬` & `정사각행렬`이면 $$ A = PDP^{T} ( P : \text{orthogonal matrix}, D : \text{diagonal matrix} )$$ 로 분해할 수 있으나 $$ A $$ 가 이 조건을 만족하지 못하는 경우에도 $$ \text{orthogonal matrix} \text{diagonal matrix} \text{orthogonal matrix} $$ 형태로 분해하고자 하는 것이 `SVD`의 목적입니다.
+- 즉, `고유값 분해`에서는 행렬 $$ A $$ 가 `대칭 행렬` & `정사각행렬`이면 $$ A = PDP^{T} ( P : \text{orthogonal matrix}, D : \text{diagonal matrix} )$$ 로 분해할 수 있으나 $$ A $$ 가 이 조건을 만족하지 못하는 경우에도 $$ (\text{orthogonal matrix}) \cdot (\text{diagonal matrix}) \cdot (\text{orthogonal matrix}) $$ 형태로 분해하고자 하는 것이 `SVD`의 목적입니다.
 
 <br>
 
@@ -61,7 +61,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 <br>
 
 - 여기서 $$ U, V $$ 는 각각 서로 다른 `직교 행렬`이며 `특이 벡터`로 구성된 행렬입니다. $$ \Sigma $$ 는 `특이값` $$ \sigma_{1}, \sigma_{1}, \cdots \sigma_{r} $$ 들을 대각요소로 갖고 있는 대각 행렬로서 `특이값 행렬`이라고 불립니다. $$ \sigma_{r} $$ 의 $$ r $$ 은 대각행렬의 `rank`를 의미합니다.
-- 행렬 $$ A $$ 의 크기가 $$ m \time n $$ 이고 $$ m \ge n $$ 이라면 $$ r $$ 과의 관계는 다음과 같습니다.
+- 행렬 $$ A $$ 의 크기가 $$ m \times n $$ 이고 $$ m \ge n $$ 이라면 $$ r $$ 과의 관계는 다음과 같습니다.
 
 <br>
 
