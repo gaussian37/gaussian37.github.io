@@ -528,7 +528,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
-- $$ A_{mn} = U_{mm} \Sigma_{mn} V^{T}_{nn} = u_{mr} \Sigma {rr} V^{T}_{rn} $$
+- $$ A_{mn} = U_{mm} \Sigma_{mn} V^{T}_{nn} = u_{mr} \Sigma_{rr} V^{T}_{rn} $$
 
 <br>
 
