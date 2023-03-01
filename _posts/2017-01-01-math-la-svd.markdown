@@ -635,6 +635,48 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
+#### **SVD를 이용한 역행렬 구하기**
+
+<br>
+
+- `SVD`를 이용하여 $$ A = U \Sigma V^{T} $$ 로 행렬을 분해할 수 있었습니다. 여기서 $$ U, V $$ 는 직교 행렬이고 $$ \Sigma $$ 는 대각 행렬입니다. 이 성질을 이용하면 쉽게 역행렬을 구할 수 있습니다.
+- `직교 행렬`의 역행렬은 `전치 행렬`입니다. 그리고 `대각 행렬`의 역행렬은 `대각 성분 역수 적용 & 전치 행렬`입니다. 즉 대각 행렬의 크기가 $$ (m \times n) \to (n \times m) $$ 이 됩니다. 따라서 다음과 같이 식을 전개할 수 있습니다.
+
+<br>
+
+- $$ A^{-1} = (U \Sigma V^{T})^{-1} = (V \Sigma^{-1} U^{T}) $$
+
+<br>
+
+- 만약 $$ A $$ 가 $$ m \times n $$ 크기의 행렬 이었다면 $$ A^{-1} $$ 은 $$ n \times m $$ 크기의 행렬이 됩니다.
+- 이와 같이 역행렬을 구하면 다른 방식으로 역행렬을 구한 경우와 동일한 값을 얻을 수 있으며 `det(A) = 0`과 같이 역행렬이 없거나 직사각행렬인 경우에도 역행렬을 구할 수 있는데 이와 같은 역행렬을 `pseudo-inverse` 라고 합니다. 이와 관련 활용도 `SVD의 활용`에서 다루어 보도록 하겠습니다.
+
+<br>
+
+- 앞에서 사용한 간단 예제를 통하여 `pseudo-inverse`를 구해보면 다음과 같습니다.
+
+<br>
+
+- $$ \begin{align} A &= \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} = U \Sigma V^{T} \\ &= \frac{1}{\sqrt{2}} \begin{bmatrix} -1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} \sqrt{3} & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix} \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{-2}{\sqrt{6}} & \frac{1}{\sqrt{6}} \\ \frac{-1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} \end{bmatrix} \end{align} $$ 
+
+<br>
+
+- $$ \begin{align} A^{-1} &= (U \Sigma V^{T})^{-1} = V \Sigma^{-1}U^{T} \\ &= \begin{bmatrix} \frac{1}{\sqrt{6}} & \frac{-1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \\ \frac{-2}{\sqrt{6}} & 0 & \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{3}} \end{bmatrix} \begin{bmatrix} \frac{1}{\sqrt{3}} & 0 \\ 0 & 1 \\ 0 & 0 \end{bmatrix} \frac{1}{\sqrt{2}} \begin{bmatrix} -1 & 1 \\ 1 & 1 \end{bmatrix} \\ &\approx \begin{bmatrix} -0.66666667 & -0.33333333 \\ 0.33333333 & -0.33333333 \\ 0.33333333 & 0.66666667 \end{bmatrix} \end{align} $$
+
+<br>
+
+- 위 식과 같이 역행렬 $$ A^{-1} $$ 을 구할 수 있습니다.
+
+<br>
+
+- $$ AA^{-1} = \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} \begin{bmatrix} -0.66666667 & -0.33333333 \\ 0.33333333 & -0.33333333 \\ 0.33333333 & 0.66666667 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} = I $$
+
+<br>
+
+- 역행렬이 올바르게 구해졌는 지 확인 하면 위 식과 같이 $$ AA^{-1} = I $$ 가 나오는 것을 확인할 수 있습니다.
+
+<br>
+
 ## **SVD with Python**
 
 <br>
