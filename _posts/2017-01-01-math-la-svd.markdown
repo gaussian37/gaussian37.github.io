@@ -9,6 +9,10 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
+[선형대수학 관련 글 목차](https://gaussian37.github.io/math-la-table/)
+
+<br>
+
 - 참조 : https://darkpgmr.tistory.com/106
 - 참조 : https://angeloyeo.github.io/2019/08/01/SVD.html
 - 참조 : https://dowhati1.tistory.com/7
@@ -529,6 +533,24 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
+#### **고유(특이) 벡터 간의 관계**
+
+<br>
+
+- $$ A = U \Sigma V^{T} $$
+
+- $$ AV = U\Sigma $$
+
+<br>
+
+- 위 식의 $$ U, V $$ 를 벡터 단위로 나누어서 살펴보겠습니다.
+
+<br>
+
+
+
+<br>
+
 #### **Singular Value와 Singular Matrix의 차이점**
 
 <br>
@@ -716,7 +738,8 @@ def get_svd(A, num_dims=0, round_digit=0):
         Sigma = np.round(Sigma, round_digit)
         V = np.round(V, round_digit)
     
-    # 차원 축소를 하기 위하여 영향도가 작은 dimension을 제거합니다.
+    # 차원 축소를 하기 위하여 영향도가 큰 num_dims 만큼의 차원만 유지하고
+    # 나머지 차원은 제거합니다.
     if num_dims > 0:
         U = U[:, :num_dims]
         Sigma = Sigma[:num_dims, :num_dims]
@@ -820,17 +843,16 @@ print("Composition:\n", get_svd_composition(U, Sigma, V), "\n")
 
 <br>
 
-- ① `SVD`를 이용하면 선형 대수학의 근본적인 목적인 `선형 연립 방정식`을 풀 수 있습니다.
-- ② `SVD`를 이용하면 해가 없는 경우에도 근사해를 구할 수 있습니다. 이 방법은 `Least Squares`와 연결되며 어떻게 사용하는 지 살펴 보겠습니다.
-- ③ `SVD`를 이용하면 `손실 압축`을 할 수 있습니다. `SVD`를 이용하여 어떻게 이미지 압축을 하는 지 살펴보도록 하겠습니다.
-- ④ `SVD`를 이용하면 `의사역행렬(Pseudo-Inverse)`을 구할 수 있습니다. 역행렬이 없는 경우나 직사각 행렬과 같이 역행렬이 존재하지 않는 경우에도 역행렬을 만들 수 있도록 고안된 방법이므로 이 방법에 대하여 살펴보도록 하겠습니다.
+- ① `SVD`를 이용하면 `손실 압축`을 할 수 있습니다. `SVD`를 이용하여 어떻게 이미지 압축을 하는 지 살펴보도록 하겠습니다.
+- ② `SVD`를 이용하면 `의사역행렬(Pseudo-Inverse)`을 구할 수 있습니다. 역행렬이 없는 경우나 직사각 행렬과 같이 역행렬이 존재하지 않는 경우에도 역행렬을 만들 수 있도록 고안된 방법이므로 이 방법에 대하여 살펴보도록 하겠습니다.
+- ③ `SVD`를 이용하여 `선형 연립 방정식`을 풀어보도록 하겠습니다. `의사역행렬`을 이용하여 `선형 연립 방정식`을 풀거나 해가 없을 경우 근사해를 구할 수 있습니다.
 
 <br>
 
 
 <br>
 
-- #### **③ `SVD`를 이용하면 `손실 압축`을 할 수 있습니다.**
+- #### **① `SVD`를 이용하면 `손실 압축`을 할 수 있습니다.**
 
 <br>
 
@@ -942,5 +964,98 @@ plt.imshow(image_composition_10, cmap='gray')
 <br>
 
 - 이와 같은 방식으로 정보의 `손실 압축`을 할 수 있습니다. 실제로 `SVD` 성질과 `Discrete Cosine Transform`을 이용하여 이미지를 압축하는 방식이 `JPEG`에 사용되는 방식입니다.
+
+<br>
+
+#### **② `SVD`를 이용하면 `의사역행렬(Pseudo-Inverse)`을 구할 수 있습니다.**
+
+<br>
+
+- 앞에서 `SVD`를 이용하여 `의사역행렬`을 다음 식과 같이 구할 수 있음을 확인하였습니다.
+
+<br>
+
+- $$ A^{-1} = (U \Sigma V^{T})^{-1} = (V \Sigma^{-1} U^{T}) $$
+
+<br>
+
+- 이번에는 파이썬 코드를 이용하여 `의사역행렬`을 구해보도록 하겠습니다.
+
+<br>
+
+```python
+def get_inv(A):
+    U, Sigma, V = get_svd(A)
+    for idx, singular_value in enumerate(np.diag(Sigma)):
+        Sigma[idx, idx] = 1/singular_value if singular_value > 1e-6 else 0        
+    return np.matmul(V, np.matmul(Sigma.T, U.T))    
+```
+
+<br>
+
+- 위 코드에서는 너무 작은 특이값에 의해 전에 값에 왜곡이 생기지 않도록 하기 위한 예외 처리가 추가되었습니다.
+
+<br>
+
+- 먼저 앞에서 살펴본 예제에 대한 `의사역행렬`을 구해보도록 하겠습니다.
+
+<br>
+
+```python
+A = np.array([
+    [-1, 1, 0],
+    [0, -1, 1]
+])
+
+print(get_inv(A))
+# [[-0.66666667, -0.33333333],
+# [ 0.33333333, -0.33333333],
+# [ 0.33333333,  0.66666667]]
+
+print(np.matmul(A, get_inv(A)))
+# [[ 1., -0.],
+#  [-0.,  1.]]
+```
+
+<br>
+
+- numpy의 라이브러리에도 `의사역행렬` 함수가 있습니다. 이 값을 이용해 보면 값이 같은 것을 확인할 수 있습니다.
+
+<br>
+
+```python
+B = np.array([
+    [1, 3, 5],
+    [2, 4, 6], 
+    [3, 7, 3]
+])
+
+print(get_inv(B))
+# [[-1.875  1.625 -0.125]
+#  [ 0.75  -0.75   0.25 ]
+#  [ 0.125  0.125 -0.125]]
+
+print(np.linalg.pinv(B))
+# [[-1.875  1.625 -0.125]
+#  [ 0.75  -0.75   0.25 ]
+#  [ 0.125  0.125 -0.125]]
+
+print(np.matmul(B, get_inv(B)))
+# [[ 1. -0.  0.]
+#  [-0.  1. -0.]
+#  [ 0. -0.  1.]]
+```
+
+<br>
+
+#### **③ `SVD`를 이용하여 `선형 연립 방정식`을 풀어보도록 하겠습니다.**
+
+<br>
+
+
+
+<br>
+
+[선형대수학 관련 글 목차](https://gaussian37.github.io/math-la-table/)
 
 <br>
