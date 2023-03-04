@@ -440,6 +440,40 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
+- `determinant` 관점에서 살펴보아도 의미는 동일하게 해석할 수 있습니다.
+
+<br>
+
+- $$ A\mathbf{x} = U\Sigma V^{T}\mathbf{x} $$
+
+<br>
+
+- 위 식의 행렬 $$ U, V $$ 는 `직교 행렬`이고 직교 행렬의 `det`는 다음과 같습니다.
+
+<br>
+
+- $$ \text{det}(UU^{T}) = 1 $$ 
+
+- $$ \text{det}(VV^{T}) = 1 $$ 
+
+<br>
+
+- 위 식을 전개하면 다음과 같습니다. 아래는 $$ U $$ 에 대해서만 전개하고 $$ V $$ 도 동일합니다.
+
+<br>
+
+- $$ \text{det}(UU^{T}) = \text{det}(U)\text{det}(U^{T}) = \text{det}(U)\text{det}(U) = (\text{det}(U))^{2} = 1 $$ 
+
+- $$ \therefore \quad \text{det}(U) = \pm 1 $$
+
+<br>
+
+- 즉, `determinant`가 1 또는 -1이기 때문에 행렬 $$ U, V $$ 는 스케일의 변화를 주지 못함을 알 수 있습니다. (`unimodular matrix`)
+- 따라서 스케일 변화는 $$ \Sigma $$에 영향을 받습니다.
+
+
+
+
 - `SVD`를 선형 변환 개념으로 다시 정리해 보면 다음과 같습니다.
 
 <br>
@@ -547,7 +581,33 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
+- $$ A \begin{bmatrix} v_{1} & v_{2} & \cdots \end{bmatrix} = \begin{bmatrix} u_{1} & u_{2} & \cdots \end{bmatrix} \begin{bmatrix} \sigma_{1} &  &  & \\ & \sigma_{2} &  & \\ &  &  \ddots & \\ \end{bmatrix} = \begin{bmatrix} \sigma_{1}u_{1} & \sigma_{2}u_{2} & \cdots \end{bmatrix} $$
 
+<br>
+
+- 위 식의 각 성분을 일반화하여 표현하면 다음과 같이 적을 수 있습니다.
+
+<br>
+
+- $$ Av_{i} = \sigma_{i}u_{i} $$
+
+<br>
+
+- 이 식에서 $$ U, V $$ 는 각각 `직교행렬`이므로 다음과 같은 성질을 얻을 수 있습니다.
+
+<br>
+
+- $$ Av_{i} = \sigma_{i}u_{i} $$
+
+- $$ Av_{j} = \sigma_{j}u_{j} $$
+
+- $$ v_{i} \perp v_{j} $$
+
+- $$ u_{i} \perp u_{j} $$
+
+<br>
+
+- 위 식의 의미를 살펴보면 $$ v_{i}, v_{j} $$ 는 서로 `직교`이며 행렬 $$ A $$ 에 의하여 선형 변환이 되더라도 여전히 서로 `직교`함을 의미합니다. 선형 변환을 통하여 `직교`성질은 그대로 유지되며 크기만 $$ \sigma_{i}, \sigma_{j} $$ 에 의해 조절되었습니다.
 
 <br>
 
