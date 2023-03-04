@@ -413,6 +413,11 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
+- **앞으로 실제 연산을 할 때에는 $$ u_{i} = \frac{Av_{i}}{\sigma_{i}} $$ 을 이용한 방식을 사용하겠습니다.** 이 방법을 사용하면 **연산량을 줄일 수 있고** **일관된 방향의 고유 벡터를 구할 수 있기 때문**입니다.
+- 이 글의 뒷부분의 코드 연산도 이 방법을 사용할 예정입니다.
+
+<br>
+
 ## **SVD 의미 해석**
 
 <br>
@@ -681,8 +686,133 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
+- 이번 글에서는 $$ u_{i} = \frac{Av_{i}}{\sigma_{i}} $$ 를 이용 방식으로 코드를 구현하였습니다. 앞에서 설명한 내용과 같이 이 방식을 사용하면 고유값, 고유벡터를 한번만 구해도 되기 때문입니다.
 
+<br>
 
+```python
+def get_svd(A, num_dims=0, round_digit=0):
+    # 고유값, 고유벡터를 구합니다. 
+    eigenvalues, eigenvectors = np.linalg.eig(np.dot(A.T, A))
+    
+    # 특이값을 내림차순으로 정렬합니다.
+    idx = eigenvalues.argsort()[::-1]
+    singular_values = np.sqrt(eigenvalues)
+    singular_values = singular_values[idx]
+
+    # V의 고유벡터를 이용하여 U의 고유 벡터를 구합니다.
+    U = np.zeros((A.shape[0], A.shape[0]))
+    for i in range(A.shape[0]):
+        U[:,i] = np.dot(A, eigenvectors[:,idx[i]]) / singular_values[i]
+
+    V = eigenvectors[:,idx]
+
+    Sigma = np.zeros((U.shape[0], V.shape[0]))
+    np.fill_diagonal(Sigma, singular_values)
+    
+    # 표기의 간략화를 위하여 반올림 합니다.
+    if round_digit > 0:
+        U = np.round(U, round_digit)
+        Sigma = np.round(Sigma, round_digit)
+        V = np.round(V, round_digit)
+    
+    # 차원 축소를 하기 위하여 영향도가 작은 dimension을 제거합니다.
+    if num_dims > 0:
+        U = U[:, :num_dims]
+        Sigma = Sigma[:num_dims, :num_dims]
+        V = V[:, :num_dims]
+
+    return U, Sigma, V
+
+def get_svd_composition(U, Sigma, V):
+    return np.matmul(U, np.matmul(Sigma, V.T))
+```
+
+<br>
+
+- 위 코드에서 `get_svd(A)` 함수를 통하여 `A`를 `U, Sigma, V`로 분해합니다. `num_dims`를 0보다 큰 값을 입력하면 특이값이 큰 순서대로 `num_dims`의 차원 만큼만 남기고 나머지는 제거하여 차원을 축소합니다.
+- 위 코드에서 `get_svd_composition(U, Sigma, V)` 함수를 통하여 행렬 `A`를 복원할 수 있습니다.
+
+<br>
+
+```python
+import numpy as np
+
+A = np.array([
+    [-1, 1, 0],
+    [0, -1, 1]
+])
+
+U, Sigma, V = get_svd(A)
+
+print("Sigma:\n", Sigma, "\n")
+# Sigma:
+#  [[1.73205081 0.         0.        ]
+#  [0.         1.         0.        ]]
+
+print("Left Singular Vectors:\n", U, "\n")
+# U : Left Singular Vectors:
+#  [[ 0.70710678  0.70710678]
+#  [-0.70710678  0.70710678]] 
+
+print("Right Singular Vectors:\n", V, "\n")
+# V : Right Singular Vectors:
+#  [[-0.40824829 -0.70710678  0.57735027]
+#  [ 0.81649658  0.          0.57735027]
+#  [-0.40824829  0.70710678  0.57735027]] 
+
+print("Composition:\n", get_svd_composition(U, Sigma, V), "\n")
+# Composition:
+#  [[-1.  1. -0.]
+#  [-0. -1.  1.]] 
+
+```
+
+<br>
+
+- 앞에서 수식으로 전개한 내용과 일부 다른 점이 있을 수 있습니다. 고유 벡터의 부호가 다를 수 있는데 이 점은 고유 벡터의 방향이 다르게 표현한 것일 뿐 무시하셔도 됩니다. (절대값이 다르지 않습니다.)
+
+<br>
+
+- 한가지 예시를 더 살펴보겠습니다.
+
+<br>
+
+```python
+import numpy as np
+
+A = np.array([
+    [1, 2, 3], 
+    [4, 5, 6], 
+    [7, 8, 9]
+])
+
+U, Sigma, V = get_svd(A)
+
+print("Sigma:\n", Sigma, "\n")
+# Sigma:
+#  [[16.84810335  0.          0.        ]
+#  [ 0.          1.06836951  0.        ]
+#  [ 0.          0.          0.00000009]]
+
+print("U : Left Singular Vectors:\n", U, "\n")
+# U : Left Singular Vectors:
+#  [[-0.21483724  0.88723069  0.00000015]
+#  [-0.52058739  0.24964395  0.00000005]
+#  [-0.82633754 -0.38794278 -0.00000007]] 
+
+print("V : Right Singular Vectors:\n", V, "\n")
+# V : Right Singular Vectors:
+#  [[-0.47967118 -0.77669099  0.40824829]
+#  [-0.57236779 -0.07568647 -0.81649658]
+#  [-0.66506441  0.62531805  0.40824829]] 
+
+print("Composition:\n", get_svd_composition(U, Sigma, V), "\n")
+# Composition:
+#  [[1. 2. 3.]
+#  [4. 5. 6.]
+#  [7. 8. 9.]] 
+```
 
 <br>
 
@@ -694,5 +824,123 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 - ② `SVD`를 이용하면 해가 없는 경우에도 근사해를 구할 수 있습니다. 이 방법은 `Least Squares`와 연결되며 어떻게 사용하는 지 살펴 보겠습니다.
 - ③ `SVD`를 이용하면 `손실 압축`을 할 수 있습니다. `SVD`를 이용하여 어떻게 이미지 압축을 하는 지 살펴보도록 하겠습니다.
 - ④ `SVD`를 이용하면 `의사역행렬(Pseudo-Inverse)`을 구할 수 있습니다. 역행렬이 없는 경우나 직사각 행렬과 같이 역행렬이 존재하지 않는 경우에도 역행렬을 만들 수 있도록 고안된 방법이므로 이 방법에 대하여 살펴보도록 하겠습니다.
+
+<br>
+
+
+<br>
+
+- #### **③ `SVD`를 이용하면 `손실 압축`을 할 수 있습니다.**
+
+<br>
+
+- 아래 샘플 이미지를 살펴 보겠습니다. 아래 링크에서 샘플 이미지를 다운 받을 수 이씃ㅂ니다.
+    - 링크 : https://drive.google.com/file/d/1scpXrkqZhUhmul7VTzZ43_rdFRxjFqar/view?usp=share_link
+
+<br>
+<center><img src="../assets/img/math/la/svd/image.jpg" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 편의상 위 영상을 `grayscale`로 읽어서 채널 1의 이미지로 만든 다음 `손실 압축`을 해보도록 하겠습니다.
+- 위 이미지의 해상도는 (768, 1024) 입니다.
+
+<br>
+
+```python
+import cv2
+image = cv2.imread("image.jpg", cv2.IMREAD_GRAYSCALE)
+print(image.shape)
+# (768, 1024)
+
+fig = plt.figure(figsize=(10, 13))
+plt.imshow(image, cmap='gray')
+```
+
+<br>
+
+- 아래 그림이 원본이며 저장하는 데 $$ 768 \times 1024 = 0.78\text{MB} $$ 가 필요합니다.
+
+<br>
+<center><img src="../assets/img/math/la/svd/4.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+```python
+image_float = image.astype(np.float32)
+U, Sigma, V = get_svd(image_float, num_dims=0)
+image_composition = get_svd_composition(U, Sigma, V)
+
+fig = plt.figure(figsize=(10, 13))
+plt.imshow(image_composition, cmap='gray')
+```
+
+<br>
+
+- 위 코드와 같이 특이값 분해한 결과를 다시 합성하여 이미지로 나타낼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/la/svd/5.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 특이값 분해에서 실제 필요한 값은 $$ 768 \times 768 + 768 + 1024 \times 1024 = 1.6\text{MB}$$ 입니다. 원본을 그대로 복원하며 이 경우에는 오히려 저장해야 할 값이 더 늘어났습니다.
+- 이제 차원 축소를 통한 `손실 압축`을 해보도록 하겠습니다.
+
+<br>
+
+```python
+U, Sigma, V = get_svd(image_float, num_dims=100)
+image_composition_100 = get_svd_composition(U, Sigma, V)
+
+fig = plt.figure(figsize=(10, 13))
+plt.imshow(image_composition_100, cmap='gray')
+```
+
+<br>
+<center><img src="../assets/img/math/la/svd/6.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 코드에서는 `특이값`을 100개만 사용하여 표현하였습니다. 이미지의 나뭇가지와 같은 디테일한 부분이 흐릿해진 것을 확인할 수 있습니다.
+- 위 특이값 분해에서 실제 필요한 값은 $$ 768 \times 100 + 100 + 100 \times 1024 = 0.17\text{MB}$$ 입니다. 원본에 비하여 1/4 이상으로 압축되었습니다.
+
+<br>
+
+```python
+U, Sigma, V = get_svd(image_float, num_dims=50)
+image_composition_50 = get_svd_composition(U, Sigma, V)
+
+fig = plt.figure(figsize=(10, 13))
+plt.imshow(image_composition_50, cmap='gray')
+```
+
+<br>
+
+<br>
+<center><img src="../assets/img/math/la/svd/7.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 코드에서는 `특이값`을 50개만 사용하여 표현하였습니다. 정보가 더 많이 손실 되었습니다.
+- 위 특이값 분해에서 실제 필요한 값은 $$ 768 \times 50 + 50 + 50 \times 1024 = 0.08\text{MB}$$ 입니다. 원본에 비하여 1/10 이상으로 압축되었습니다.
+
+<br>
+
+```python
+U, Sigma, V = get_svd(image_float, num_dims=10)
+image_composition_10 = get_svd_composition(U, Sigma, V)
+
+fig = plt.figure(figsize=(10, 13))
+plt.imshow(image_composition_10, cmap='gray')
+```
+
+<br>
+
+<br>
+<center><img src="../assets/img/math/la/svd/8.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 코드에서는 `특이값`을 10개만 사용하여 표현하였습니다. 이제 많이 흐려졌습니다.
+- 위 특이값 분해에서 실제 필요한 값은 $$ 768 \times 10 + 10 + 10 \times 1024 = 0.017\text{MB}$$ 입니다. 원본에 비하여 1/40 이상으로 압축되었습니다. 
+
+<br>
+
+- 이와 같은 방식으로 정보의 `손실 압축`을 할 수 있습니다. 실제로 `SVD` 성질과 `Discrete Cosine Transform`을 이용하여 이미지를 압축하는 방식이 `JPEG`에 사용되는 방식입니다.
 
 <br>
