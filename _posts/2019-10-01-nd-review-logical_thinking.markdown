@@ -2,12 +2,12 @@
 layout: post
 title: 맥킨지식 로지컬 싱킹
 date: 2019-02-09 00:00:00
-img: nd/humanity/mac_logical_thinking/thumbnail.jpg
-categories: [etc-humanity] 
+img: nd/review/mac_logical_thinking/thumbnail.jpg
+categories: [etc-review] 
 tags: [로지컬 싱킹, logical thinking] # add tag
 ---
 
-- 인문 관련 내용은 다음 [링크](https://gaussian37.github.io/nd-humanity-humanity-table/)를 참조 하시기 바랍니다.
+- 인문 관련 내용은 다음 [링크](https://gaussian37.github.io/nd-review-review-table/)를 참조 하시기 바랍니다.
 - 출처 : 맥킨지식 로지컬 싱킹
 
 <br>
@@ -40,7 +40,7 @@ tags: [로지컬 싱킹, logical thinking] # add tag
 - 그리고 4 ~ 6줄 정도를 쓰는 이유는 너무 많은 내용을 적다 보면 주제를 벗어날 수 있기 때문에 우선순위가 높은 4 ~ 6개 위주로 적는 것이 좋습니다.
 
 <br>
-<center><img src="../assets/img/nd/humanity/mac_logical_thinking/1.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/nd/review/mac_logical_thinking/1.PNG" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 앞에서 말한 것 처럼 반드시 1분안에 쓰는 것이 중요합니다.
@@ -84,7 +84,7 @@ tags: [로지컬 싱킹, logical thinking] # add tag
 - 대표적인 프레임워크 중 하나는 매트릭스를 이용하는 것입니다.
       
 <br>
-<center><img src="../assets/img/nd/humanity/mac_logical_thinking/2.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/nd/review/mac_logical_thinking/2.PNG" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 가장 기본이 되는 방법은 2차원 매트릭스를 사용하는 것입니다. 위의 예는 가로축, 세로축의 구분을 2가지로한 2 x 2 매트릭스의 예시 입니다.
@@ -95,19 +95,19 @@ tags: [로지컬 싱킹, logical thinking] # add tag
 <br>
 
 <br>
-<center><img src="../assets/img/nd/humanity/mac_logical_thinking/3.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/nd/review/mac_logical_thinking/3.PNG" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 현상, 원인, 대책, 향후 계획 등의 순서나 프로젝트의 순서를 적기에 적합한 프레임 워크 입니다.
 
 <br>
-<center><img src="../assets/img/nd/humanity/mac_logical_thinking/4.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/nd/review/mac_logical_thinking/4.PNG" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 서로 연관된 구성 요소의 관계를 표현하기에 적합한 프레임 워크 입니다.
 
 <br>
-<center><img src="../assets/img/nd/humanity/mac_logical_thinking/5.PNG" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/nd/review/mac_logical_thinking/5.PNG" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 상호 인과 관계를 한번에 파악하기 좋은 프레임 워크 입니다.
@@ -125,7 +125,7 @@ tags: [로지컬 싱킹, logical thinking] # add tag
 - 이렇게 정리하면 현상, 문제가 많다고 하더라고 그것에 대한 원인, 대책, 시행법등을 놓치지 않고 챙길 수 있습니다.
 
 <br>
-<center><img src="../assets/img/nd/humanity/mac_logical_thinking/6.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/nd/review/mac_logical_thinking/6.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그림과 같이 일반적으로 **근본적인 원인은 여러가지 현상, 원인을 포함**하는 경우가 많습니다.

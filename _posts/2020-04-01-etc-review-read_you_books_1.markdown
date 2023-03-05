@@ -2,14 +2,14 @@
 layout: post
 title: 책 읽어드립니다. 시즌 1
 date: 2019-02-09 00:00:00
-img: etc/humanity/humanity.jpg
-categories: [etc-humanity] 
+img: etc/review/review.jpg
+categories: [etc-review] 
 tags: [책 읽어드립니다. 시즌 1] # add tag
 ---
 
 <br>
 
-[Humanity 관련 글 목차](https://gaussian37.github.io/etc-humanity-table/)
+[review 관련 글 목차](https://gaussian37.github.io/etc-review-table/)
 
 <br>
 
@@ -73,7 +73,7 @@ tags: [책 읽어드립니다. 시즌 1] # add tag
 - 아래 글의 내용은 공정하게 케익을 자르는 방법으로 무지의 장막과 유사한 점이 있어서 가지고 왔습니다.
 
 <br>
-<center><img src="../assets/img/etc/humanity/read_you_books_1/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/etc/review/read_you_books_1/1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 출처 : https://infuture.kr/752
@@ -108,7 +108,7 @@ tags: [책 읽어드립니다. 시즌 1] # add tag
 
 <br>
 
-[Humanity 관련 글 목차](https://gaussian37.github.io/etc-humanity-table/)
+[review 관련 글 목차](https://gaussian37.github.io/etc-review-table/)
 
 <br>
 

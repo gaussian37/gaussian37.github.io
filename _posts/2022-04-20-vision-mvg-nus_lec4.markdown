@@ -179,6 +179,71 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Robust homography 
 </div>
 <br>
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/23.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/24.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/25.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/26.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/27.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/28.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/29.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/30.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/31.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/32.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/33.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/34.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/35.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/36.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/37.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/38.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 
 <br>

@@ -136,7 +136,7 @@
             </li>
 
             <li class="nav-item dropdown
-            {% if page.url == '/etc/business/' or page.url == '/etc/db/' or page.url == '/etc/network/' or '/etc/or/' or page.url == '/etc/humanity/' or page.url == '/etc/dev/' or page.url == '/etc/etc/' %} active {% endif %}">
+            {% if page.url == '/etc/business/' or page.url == '/etc/db/' or page.url == '/etc/network/' or '/etc/or/' or page.url == '/etc/review/' or page.url == '/etc/dev/' or page.url == '/etc/etc/' %} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('etc-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -147,7 +147,7 @@
                     <a class="dropdown-item" href="{{ "/etc/db" | prepend: site.baseurl }}">Database</a>
                     <a class="dropdown-item" href="{{ "/etc/network" | prepend: site.baseurl }}">Computer Network</a>
                     <a class="dropdown-item" href="{{ "/etc/or" | prepend: site.baseurl }}">Operational Research</a>
-                    <a class="dropdown-item" href="{{ "/etc/humanity" | prepend: site.baseurl }}">Humanity</a>
+                    <a class="dropdown-item" href="{{ "/etc/review" | prepend: site.baseurl }}">Review</a>
                     <a class="dropdown-item" href="{{ "/etc/dev" | prepend: site.baseurl }}">Dev</a>
                     <a class="dropdown-item" href="{{ "/etc/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
