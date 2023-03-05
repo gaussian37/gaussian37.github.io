@@ -213,6 +213,22 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Robust homography 
 <center><img src="../assets/img/vision/mvg/nus_lec4/30.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 어떤 함수 $$ f(x) $$ 를 `테일러 급수`로 근사화 하면 다음과 같이 나타낼 수 있습니다. 아래 $$ p_{n}(x) $$ 가 $$ n $$ 차항 까지 근사화 한 것이고 $$ n \to \infty $$ 가 되면 $$ f(x) = p_{\infty}(x) $$ 를 만족하는 것이 `테일러 급수`의 성질입니다.
+
+<br>
+
+- $$ f(x) = p_{\infty}(x) $$
+
+- $$ \begin{align} f(x) &= p_{n}(x) = f(a) + f'(a)(x - a) + \frac{f''(a)}{2!}(x-a)^{2} + \cdots + \frac{f^{n}(a)}{n!}(x-a)^{n} \\ &= \sum_{k=0}^{n} \frac{f^{k}(a)}{k!}(x-a)^{k} \end{align} $$
+
+<br>
+
+- `테일러 급수`를 변화량 $$ h $$ 와 함께 표현하면 다음과 같이 나타낼 수 있으며 위 식과 표현에 차이만 있을 뿐 의미는 같습니다.
+
+<br>
+
+- $$ \begin{align} f(a + h) &= f(a) + f'(a)h + \frac{f^{2}(a)}{2!}h^{2} + \frac{f^{3}(a)}{3!}h^{3} + \cdots + \frac{f^{n}(a)}{n!}h^{n} \\ &= \sum_{k=0}^{n} \frac{f^{k}(a)}{k!}h^{k} \end{align} $$
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec4/31.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
