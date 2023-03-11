@@ -1063,6 +1063,73 @@ plt.imshow(image_composition_10, cmap='gray')
 
 <br>
 
+- 만약 `RGB` 이미지 전체에 대하여 `SVD`를 적용하고 싶으면 채널 방향으로 `SVD`를 적용하면 됩니다. 아래 코드를 참조하시면 됩니다.
+
+<br>
+
+```python
+def svd_compressor(image, order):
+    """Returns the compressed image channel at the specified order"""
+    
+    # Create an array filled with zeros having the shape of the image
+    compressed = np.zeros(image.shape)
+    
+    # Get the U, S and V terms (S = SIGMA)
+    U, S, V = np.linalg.svd(image)
+    
+    # Loop over U columns (Ui), S diagonal terms (Si) and V rows (Vi) until the chosen order
+    for i in range(order):
+        Ui = U[:, i].reshape(-1, 1)
+        Vi = V[i, :].reshape(1, -1)
+        Si = S[i]
+        compressed += (Ui * Si * Vi)
+    
+    return compressed
+```
+
+<br>
+
+- 위 코드를 사용하며 `RGB` 이미지에 대하여 `order`를 변경하며 손실 압축의 정도를 살펴보도록 하겠습니다.
+
+<br>
+
+```python
+image = cv2.cvtColor(cv2.imread("image.jpg"), cv2.COLOR_BGR2RGB)
+plt.figure(figsize=(20, 4))
+orders = [1, 5, 10, 20, 50, 100, 200, 400, 600]
+for i in range(len(orders)):
+    
+    # Use the compressor function
+    order = orders[i]
+    red_comp = svd_compressor(red_image, order)
+    green_comp = svd_compressor(green_image, order)
+    blue_comp = svd_compressor(blue_image, order)
+    
+    # Combine images
+    color_comp = np.zeros((np.array(image).shape[0], np.array(image).shape[1], 3))
+    color_comp[:, :, 0] = red_comp
+    color_comp[:, :, 1] = green_comp
+    color_comp[:, :, 2] = blue_comp
+    color_comp = np.around(color_comp).astype(int)
+    
+    # Display the compressed colored image in the subplot
+    plt.subplot(2, 5, i + 1)
+    plt.title("Order = {}".format(order))
+    plt.axis('off')
+    plt.imshow(color_comp)
+
+plt.suptitle('Compression at different orders')
+plt.show()
+```
+
+<br>
+
+<br>
+<center><img src="../assets/img/math/la/svd/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+
 #### **② `SVD`를 이용하면 `의사역행렬(Pseudo-Inverse)`을 구할 수 있습니다.**
 
 <br>
