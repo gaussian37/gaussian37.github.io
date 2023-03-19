@@ -23,8 +23,6 @@ tags: [vision, multi camera fusion, fusion] # add tag
 
 <br>
 
-- [Cross-view Semantic Segmentation for Sensing Surroundings]()
-- [FISHING Net (Future Inference of Semantic Heatmaps In Grids)]()
 - [Monocular Semantic Occupancy Grid Mapping with Convolutional Variational Encoder-Decoder Networks]()
 - [Learning to Look around Objects for Top-View Representations of Outdoor Scenes]()
 - [A Sim2Real Deep Learning Approach for the Transformation of Images from Multiple Vehicle-Mounted Cameras to a Semantically Segmented Image in Bird's Eye View]()
@@ -34,7 +32,6 @@ tags: [vision, multi camera fusion, fusion] # add tag
 - [Projecting Your View Attentively (Monocular Road Scene Layout Estimation via Cross-view Transformation)]()
 - [Bird's-Eye-View Panoptic Segmentation Using Monocular Frontal View Images]()
 - [BEV-Seg (Bird's Eye View Semantic Segmentation Using Geometry and Semantic Point Cloud)]()
-- [HDMapNet (An Online HD Map Construction and Evaluation Framework)]()
 
 <br>
 
@@ -45,6 +42,7 @@ tags: [vision, multi camera fusion, fusion] # add tag
 - [NEAT (Neural Attention Fields for End-to-End Autonomous Driving)]()
 - [Structured Bird's-Eye-View Traffic Scene Understanding from Onboard Images]()
 - [DETR3D (3D Object Detection from Multi-view Images via 3D-to-2D Queries)]()
+- [Self-Supervised Surround-View Depth Estimation with Volumetric Feature Fusion](https://gaussian37.github.io/vision-fusion-volumetric_feature_fusion/)
 
 <br>
 
