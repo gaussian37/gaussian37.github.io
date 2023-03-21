@@ -80,11 +80,29 @@ tags: [depth estimation, supervised depth estimation, volumetric feature fusion]
 <br>
 
 <br>
+<center><img src="../assets/img/vision/fusion/volumetric_feature_fusion/8.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/volumetric_feature_fusion/9.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/volumetric_feature_fusion/10.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
 
 
 ## **Surround-View Depth Estimation via Volumetric Feature Fusion**
 
 <br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/volumetric_feature_fusion/11.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+
 
 <br>
 
