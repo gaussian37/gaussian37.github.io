@@ -122,10 +122,37 @@ tags: [depth estimation, supervised depth estimation, volumetric feature fusion]
 <center><img src="../assets/img/vision/fusion/volumetric_feature_fusion/15.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+<br>
+<center><img src="../assets/img/vision/fusion/volumetric_feature_fusion/16.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
+#### **Depth Estimation**
+
+<br>
+<center><img src="../assets/img/vision/fusion/volumetric_feature_fusion/17.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+#### **Canonical motion estimation**
+
+<br>
+<center><img src="../assets/img/vision/fusion/volumetric_feature_fusion/18.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+#### **Self-supervised learning**
 
 <br>
 
+<br>
+<center><img src="../assets/img/vision/fusion/volumetric_feature_fusion/19.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/volumetric_feature_fusion/20.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/volumetric_feature_fusion/21.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
 ## **Experiments**
 
