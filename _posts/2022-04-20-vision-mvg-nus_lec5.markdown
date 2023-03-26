@@ -72,6 +72,8 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Robust homography 
 <center><img src="../assets/img/vision/mvg/nus_lec5/11.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 위 슬라이드에서 $$ \tilde{C} $$ 는 `world 좌표계` 기준에서 `camera 좌표계`의 중점을 나타냅니다. 따라서 `world 좌표계`의 중점에서 `camera 좌표계` 중점까지의 관계를 나타내는 벡터는 $$ 0 - \tilde{C} = -\tilde{C}, \quad (\text{world_coordinate} \to \text{camera_coordinate}) $$ 로 나타낼 수 있습니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec5/12.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
