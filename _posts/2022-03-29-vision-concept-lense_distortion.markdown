@@ -4,7 +4,7 @@ title: 카메라 모델과 렌즈 왜곡 (lense distortion)
 date: 2022-03-29 00:00:00
 img: vision/concept/lense_distortion/0.png
 categories: [vision-concept] 
-tags: [lense distortion, 카메라 모델, 렌즈 왜곡] # add tag
+tags: [lense distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, Brown Camera Model] # add tag
 ---
 
 <br>
