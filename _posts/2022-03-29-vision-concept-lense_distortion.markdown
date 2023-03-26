@@ -33,7 +33,7 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡] # add tag
 <br>
 
 - ### [화각에 따른 카메라의 종류](#)
-- ### [Radial Distotion 이란?](#)
+- ### [Radial Distotion과 Tangential Distortion](#)
 - ### [Generic 카메라 모델과 Brown 카메라 모델](#)
 - ### [Generic 카메라 모델의 3D → 2D](#)
 - ### [Generic 카메라 모델의 2D → 3D](#)
@@ -63,12 +63,19 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡] # add tag
 <center><img src="../assets/img/vision/concept/lense_distortion/1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 위 그림의 화각과 초점 거리 (focal length)는 설명을 위한 예시이며 절대적인 기준은 아닙니다.
-- 이번 글에서는 `표준 렌즈`를 사용하는 `표준 카메라`와 `어안 렌즈`를 사용하는 `어안 카메라`에서 렌즈로 인한 물체가 휘어져 보이는 현상이 발생하였을 때, 컴퓨터 비전에서 어떻게 처리하는 지 그 방식과 원리에 대하여 살펴보도록 하겠습니다.
+- 위 그림의 화각과 `초점 거리 (focal length)`는 설명을 위한 예시이며 절대적인 기준은 아닙니다.
+- 이번 글에서는 `표준 렌즈`를 사용하는 `표준 카메라`와 `어안 렌즈`를 사용하는 `어안 카메라`에서 렌즈로 인한 물체의 휘어지는 `Distortion`이 발생하였을 때 처리하는 방법에 대하여 살펴보도록 하겠습니다.
+- 본 글에서는 크게 2가지의 카메라 모델을 사용할 예정이며 각 카메라 모델의 이름은 `Generic Camera Model`과 `Brown Camera Model`입니다.
+- `Generic Camera Model`은 이름 그대로 어안 렌즈부터 망원 렌즈 까지 모두 사용 가능한 범용적인 카메라 모델이며 특히 화각이 120도 이상의 광각 렌즈에서 효과를 발휘합니다. 결론적으로는 `Generic Camera Model` 하나만 잘 활용해도 180도 이하 화각의 카메라에서는 충분히 잘 사용할 수 있습니다.
+- `Brown Camera Model`은 보통 화각이 100도 이하인 카메라 환경에서 주로 사용합니다. `Generic Camera Model`에 비해 계산도 간단한 장점도 있습니다. 다만 `Generic Camera Model`과 같이 넓은 화각에서는 이 카메라 모델을 사용할 수 없습니다. 사용 시, 정확성이 많이 떨어지게 됩니다.
 
 <br>
 
-## **Radial Distotion 이란?**
+## **Radial Distotion과 Tangential Distortion**
+
+<br>
+
+
 
 <br>
 
