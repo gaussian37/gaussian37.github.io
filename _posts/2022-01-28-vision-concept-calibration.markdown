@@ -595,15 +595,13 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- 카메라를 구입하면 카메라의 상세 스펙으로 adjustable focal length라는 부분이 있습니다. 이 수치는 주로 mm와 같은 길이 수치로 되어 있습니다. 이 값은 앞에서 설명한 $$ f $$에 해당합니다.
+- 카메라를 구입하면 카메라의 상세 스펙으로 `adjustable focal length`라는 부분이 있습니다. 이 수치는 주로 `mm`와 같은 길이 수치로 되어 있습니다. 이 값은 앞에서 설명한 $$ f $$에 해당합니다.
 
 <br>
 
 - $$ (u, v) = (\alpha \frac{x}{z}, \alpha \frac{y}{z}) \tag{39} $$
 
 <br>
-
-#### **Rectangular Pixels**
 
 - 위 예시에서 $$ u, v $$ 를 구하기 위하여 동일한 $$ \alpha $$를 썻다는 것 또한 이상적인 환경입니다. 만약 image plane의 픽셀의 크기가 정사각형이 아니라 직사각형 형태이면 어떻게 될까요?
 - 이상적인 환경에서 픽셀의 크기는 정사각형이지만 실제로는 height와 width의 크기가 다른 직사각형 형태인 경우가 많습니다. 따라서 앞의 $$ u, v $$ 좌표를 다음과 같이 표현하도록 하겠습니다.
@@ -615,6 +613,29 @@ ax.set_zlabel("Z-axis")
 <br>
 
 - 식 (40)에서 $$ \alpha $$는 width 방향으로의 scaling factor이고 $$ \beta $$ 는 height 방향으로의 scaling factor입니다.
+
+<br>
+
+- 식 (40) 에서 표현한 $$ (\alpha \frac{x}{z}, \beta \frac{y}{z}) $$ 에서는 근본적인 원리를 설명하기 위하여 모두 분해하여 나타내었습니다.
+- 하지만 앞에서 언급하였듯이, 실제로 카메라에 기입된 스펙에는 `focal length` 1개가 `mm` 단위로 나타내어져 있습니다. 이상적인 환경에서는 실제 픽셀에 해당하는 이미지 센서의 각 셀의 크기가 정사각형이어야 하지만 현실적으로 직사각형일 수 있으므로 $$ f_{x}, f_{y} $$ 표기법으로 나타내면 다음과 같습니다.
+
+<br>
+
+- $$ \text{f}_{\text{x}} = \text{f}*(\text{width_in_pixels}/\text{sensor_width}) $$
+
+- $$ \text{f}_{\text{y}} = \text{f}*(\text{height_in_pixels}/\text{sensor_height}) $$
+
+<br>
+
+- 최근에는 기술이 발전하여 이미지 센서 셀이 정사각형에 가까우므로 아래와 같이 사용합니다.
+
+<br>
+
+- $$ \text{f}_{\text{x}} \approx \text{f}_{\text{y}} = \text{f} * (\text{num_pixels_per_unit_distance}) $$
+
+<br>
+
+- 따라서 `focal length`에 비례하여 이미지의 $$ f_{x}, f_{y} $$ 가 모두 비례하여 커지기 때문에 이미지에서 확인할 수 있는 3D 공간의 깊이가 깊어지게 되며 `width` 방향의 이미지 픽셀의 갯수가 많으면 횡방향으로 3D 공간의 정보를 더 자세하게 접근할 수 있고 `height` 방향의 이미지 픽셀의 갯수가 많으면 종방향으로 3D 공간의 정보를 더 자세하게 접글할 수 있습니다.
 
 <br>
 
@@ -771,10 +792,10 @@ ax.set_zlabel("Z-axis")
 <br>
 
 - 아래 선형대수학 관련 사전 지식이 있으면 이해하기 편리합니다.
-- [고유값과 고유벡터]()
+- [고유값과 고유벡터](https://gaussian37.github.io/math-la-eigenthings/)
 - [대칭행렬의 대각화]()
 - [이차형식과 원추곡선]()
-- [특이값 분해]()
+- [특이값 분해](https://gaussian37.github.io/math-la-svd/)
 
 <br>
 

@@ -2,7 +2,7 @@
 layout: post
 title: 고유값과 고유벡터
 date: 2016-12-01 00:00:00
-img: math/la/linear-algebra-image.jpg
+img: math/la/linear_algebra.jpg
 categories: [math-la] 
 tags: [Linear algebra, 선형대수학, 고유값, 고유벡터, eigenvalue, eigenvector] # add tag
 ---
