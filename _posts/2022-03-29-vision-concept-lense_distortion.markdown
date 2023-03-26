@@ -24,6 +24,7 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡] # add tag
 <br>
 
 - 이번 글에서는 카메라 모델의 특성, 카메라 렌즈 왜곡 모델 그리고 렌즈 왜곡을 제거하는 방법 등에 대하여 알아보도록 하겠습니다.
+- 특히 가장 많이 사용되는 카메라 모델인 `Generic Camera Model`과 `Brown Camera Model`에 대한 내용을 간략하게 알아보고 각 카메라 모델을 이용하는 방법과 왜곡 보정하는 방법까지 살펴보도록 하겠습니다.
 
 <br>
 
@@ -32,19 +33,22 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡] # add tag
 <br>
 
 - ### [화각에 따른 카메라의 종류](#)
-- ### [표준 카메라 렌즈 왜곡 모델 ](#)
-- ### [표준 카메라 렌즈 왜곡 보정 방법](#)
-- ### [표준 카메라의 렌즈 왜곡 보정 실습](#)
-    - ### [remap을 이용한 왜곡 영상 → 핀홀 모델 영상](#)
-    - ### [왜곡 영상 Points → 핀홀 모델 영상 Points](#)
-    - ### [Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상](#)
-- ### [어안 카메라 렌즈 왜곡 모델 ](#)
-- ### [어안 카메라 렌즈 왜곡 보정 방법](#)
-- ### [어안 카메라의 렌즈 왜곡 보정 실습](#)
-    - ### [remap을 이용한 왜곡 영상 → 핀홀 모델 영상](#)
-    - ### [왜곡 영상 Points → 핀홀 모델 영상 Points](#)
-    - ### [Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상](#)
-- ### [렌즈 왜곡 모델링의 이론적 이해](#)
+- ### [Radial Distotion 이란?](#)
+- ### [Generic 카메라 모델과 Brown 카메라 모델](#)
+- ### [Generic 카메라 모델의 3D → 2D](#)
+- ### [Generic 카메라 모델의 2D → 3D](#)
+- ### [Generic 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기](#)
+- ### [Generic 카메라 모델 remap을 이용한 왜곡 영상 → 핀홀 모델 영상](#)
+- ### [Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상](#)
+
+<br>
+
+- ### [Brown 카메라 모델의 3D → 2D](#)
+- ### [Brown 카메라 모델의 2D → 3D](#)
+- ### [Brown 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기](#)
+- ### [Brown 카메라 모델 remap을 이용한 왜곡 영상 → 핀홀 모델 영상](#)
+- ### [Brown 카메라 모델 Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상](#)
+
 
 <br>
 
@@ -64,19 +68,71 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡] # add tag
 
 <br>
 
-## **표준 카메라 렌즈 왜곡 모델**
+## **Radial Distotion 이란?**
+
+<br>
+
+## **Generic 카메라 모델과 Brown 카메라 모델**
 
 <br>
 
 <br>
 
-## **표준 카메라 렌즈 왜곡 보정 방법**
+## **Generic 카메라 모델의 3D → 2D**
+
+<br>
+
+## **Generic 카메라 모델의 2D → 3D**
 
 <br>
 
 <br>
 
-## **표준 카메라의 렌즈 왜곡 보정 실습**
+## **어안 카메라 렌즈 왜곡 보정 방법**
+
+<br>
+
+- 어안 카메라 또한 렌즈 왜곡 보정 방법은 표준 카메라 왜곡 보정 방법과 같으며 계산 과정 중 사용하는 렌즈 왜곡 모델이 다릅니다. 상세 내용은 앞에서 설명한 표준 카메라 왜곡 보정 방법을 참조하시면 됩니다.
+- 앞에서 살펴본 표준 카메라 모델의 `cv2.initUndistortRectifyMap`과 앞으로 살펴 볼 어안 카메라 모델의 `cv2.fisheye.initUndistortRectifyMap`의 왜곡 보정 계수를 $$ p1 = 0, p2 = 0 $$ 으로 맞추고 $$ k1, k2, ... $$ 등의 값을 맞추더라도 왜곡 모델에 사용된 식이 일부 다르기 때문에 다른 값이 나옵니다.
+
+<br>
+
+## **Generic 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기**
+
+<br>
+
+- 실습을 위해 사용한 데이터는 아래 링크를 사용하였습니다.
+    - 링크 : https://medium.com/@kennethjiang/calibrate-fisheye-lens-using-opencv-part-2-13990f1b157f
+- 본 글에서 사용한 이미지를 그대로 사용하시려면 아래 링크에서 다운 받으시면 됩니다.
+    - 링크 : https://drive.google.com/file/d/1ApfPPwRIcTVdkZA3Mfwqqg17PlzLdBd2/view?usp=share_link
+
+<br>
+
+## **Generic 카메라 모델 remap을 이용한 왜곡 영상 → 핀홀 모델 영상**
+
+<br>
+
+<br>
+
+## **Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상**
+
+<br>
+
+<br>
+
+## **Brown 카메라 모델의 3D → 2D**
+
+<br>
+
+<br>
+
+## **Brown 카메라 모델의 2D → 3D**
+
+<br>
+
+<br>
+
+## **Brown 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기**
 
 <br>
 
@@ -93,7 +149,7 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡] # add tag
 
 <br>
 
-### **remap을 이용한 왜곡 영상 → 핀홀 모델 영상**
+## **Brown 카메라 모델 remap을 이용한 왜곡 영상 → 핀홀 모델 영상**
 
 <br>
 
@@ -123,65 +179,7 @@ dst = cv2.remap(src, map_x, map_y, cv2.INTER_LINEAR)
 
 <br>
 
-<br>
-
-### **왜곡 영상 Points → 핀홀 모델 영상 Points**
-
-<br>
-
-<br>
-
-### **Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상**
-
-<br>
-
-<br>
-
-## **어안 카메라 렌즈 왜곡 모델**
-
-<br>
-
-<br>
-
-## **어안 카메라 렌즈 왜곡 보정 방법**
-
-<br>
-
-- 어안 카메라 또한 렌즈 왜곡 보정 방법은 표준 카메라 왜곡 보정 방법과 같으며 계산 과정 중 사용하는 렌즈 왜곡 모델이 다릅니다. 상세 내용은 앞에서 설명한 표준 카메라 왜곡 보정 방법을 참조하시면 됩니다.
-- 앞에서 살펴본 표준 카메라 모델의 `cv2.initUndistortRectifyMap`과 앞으로 살펴 볼 어안 카메라 모델의 `cv2.fisheye.initUndistortRectifyMap`의 왜곡 보정 계수를 $$ p1 = 0, p2 = 0 $$ 으로 맞추고 $$ k1, k2, ... $$ 등의 값을 맞추더라도 왜곡 모델에 사용된 식이 일부 다르기 때문에 다른 값이 나옵니다.
-
-<br>
-
-## **어안 카메라의 렌즈 왜곡 보정 실습**
-
-<br>
-
-- 실습을 위해 사용한 데이터는 아래 링크를 사용하였습니다.
-    - 링크 : https://medium.com/@kennethjiang/calibrate-fisheye-lens-using-opencv-part-2-13990f1b157f
-- 본 글에서 사용한 이미지를 그대로 사용하시려면 아래 링크에서 다운 받으시면 됩니다.
-    - 링크 : https://drive.google.com/file/d/1ApfPPwRIcTVdkZA3Mfwqqg17PlzLdBd2/view?usp=share_link
-
-<br>
-
-### **remap을 이용한 왜곡 영상 → 핀홀 모델 영상**
-
-<br>
-
-<br>
-
-### **왜곡 영상 Points → 핀홀 모델 영상 Points**
-
-<br>
-
-<br>
-
-### **Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상**
-
-<br>
-
-<br>
-
-## **렌즈 왜곡 모델링의 이론적 이해**
+## **Brown 카메라 모델 Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상**
 
 <br>
 
