@@ -32,22 +32,25 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, 
 
 <br>
 
-- ### [화각에 따른 카메라의 종류](#)
-- ### [Radial Distotion과 Tangential Distortion](#)
-- ### [Generic 카메라 모델과 Brown 카메라 모델](#)
-- ### [Generic 카메라 모델의 3D → 2D](#)
-- ### [Generic 카메라 모델의 2D → 3D](#)
-- ### [Generic 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기](#)
-- ### [Generic 카메라 모델 remap을 이용한 왜곡 영상 → 핀홀 모델 영상](#)
-- ### [Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상](#)
+- ### [화각에 따른 카메라의 종류](#화각에-따른-카메라의-종류-1)
+- ### [Radial Distotion과 Tangential Distortion](#radial-distotion과-tangential-distortion-1)
+- ### [Generic 카메라 모델과 Brown 카메라 모델](#generic-카메라-모델과-brown-카메라-모델-1)
 
 <br>
 
-- ### [Brown 카메라 모델의 3D → 2D](#)
-- ### [Brown 카메라 모델의 2D → 3D](#)
-- ### [Brown 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기](#)
-- ### [Brown 카메라 모델 remap을 이용한 왜곡 영상 → 핀홀 모델 영상](#)
-- ### [Brown 카메라 모델 Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상](#)
+- ### [Generic 카메라 모델의 3D → 2D](#generic-카메라-모델의-3d--2d-1)
+- ### [Generic 카메라 모델의 2D → 3D](#generic-카메라-모델의-2d--3d-1)
+- ### [Generic 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기](#generic-카메라-모델-왜곡-보정을-위한-mapping-함수-구하기-1)
+- ### [Generic 카메라 모델 remap을 이용한 왜곡 영상 → 핀홀 모델 영상](#generic-카메라-모델-remap을-이용한-왜곡-영상--핀홀-모델-영상-1)
+- ### [Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상](#generic-카메라-모델-pytorch를-이용한-왜곡-영상--핀홀-모델-영상-1)
+
+<br>
+
+- ### [Brown 카메라 모델의 3D → 2D](#brown-카메라-모델의-3d--2d-1)
+- ### [Brown 카메라 모델의 2D → 3D](#brown-카메라-모델의-2d--3d-1)
+- ### [Brown 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기](#brown-카메라-모델-왜곡-보정을-위한-mapping-함수-구하기-1)
+- ### [Brown 카메라 모델 remap을 이용한 왜곡 영상 → 핀홀 모델 영상](#brown-카메라-모델-remap을-이용한-왜곡-영상--핀홀-모델-영상-1)
+- ### [Brown 카메라 모델 Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상](#brown-카메라-모델-pytorch를-이용한-왜곡-영상--핀홀-모델-영상-1)
 
 
 <br>
@@ -65,9 +68,7 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, 
 
 - 위 그림의 화각과 `초점 거리 (focal length)`는 설명을 위한 예시이며 절대적인 기준은 아닙니다.
 - 이번 글에서는 `표준 렌즈`를 사용하는 `표준 카메라`와 `어안 렌즈`를 사용하는 `어안 카메라`에서 렌즈로 인한 물체의 휘어지는 `Distortion`이 발생하였을 때 처리하는 방법에 대하여 살펴보도록 하겠습니다.
-- 본 글에서는 크게 2가지의 카메라 모델을 사용할 예정이며 각 카메라 모델의 이름은 `Generic Camera Model`과 `Brown Camera Model`입니다.
-- `Generic Camera Model`은 이름 그대로 어안 렌즈부터 망원 렌즈 까지 모두 사용 가능한 범용적인 카메라 모델이며 특히 화각이 120도 이상의 광각 렌즈에서 효과를 발휘합니다. 결론적으로는 `Generic Camera Model` 하나만 잘 활용해도 180도 이하 화각의 카메라에서는 충분히 잘 사용할 수 있습니다.
-- `Brown Camera Model`은 보통 화각이 100도 이하인 카메라 환경에서 주로 사용합니다. `Generic Camera Model`에 비해 계산도 간단한 장점도 있습니다. 다만 `Generic Camera Model`과 같이 넓은 화각에서는 이 카메라 모델을 사용할 수 없습니다. 사용 시, 정확성이 많이 떨어지게 됩니다.
+- 본 글에서는 크게 2가지의 카메라 모델을 사용할 예정이며 각 카메라 모델의 이름은 `Generic Camera Model`과 `Brown Camera Model`이며 이 모델의 간략한 내용은 글 아래에서 설명하겠습니다.
 
 <br>
 
@@ -75,13 +76,43 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, 
 
 <br>
 
+- 카메라 렌즈로 인하여 발생하는 왜곡은 크게 `Radial Distotion`과 `Tangential Distortion`가 있습니다. 먼저 `Radial Distortion` 부터 살펴보도록 하겠습니다.
 
+<br>
+<center><img src="../assets/img/vision/concept/lense_distortion/2.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림은 `Radial Distortion`을 나타냅니다. `Radial Distortion`은 빛이 렌즈로 입사할 때, 균등하게 들어오지 않고 영역 별로 불균등하게 들어오기 때문에 발생합니다. 이와 같은 이유는 카메라 렌즈를 의도적으로 설계하여 특정 영역을 더 많이 볼 수 있도록 만들기 때문입니다.
+- 예를 들어 넓은 영역을 보고 싶으면 렌즈 가장자리에 더 많은 빛을 모을 수 있어야 더 많은 빛이 들어와서 이미지 센서에 투영되어 상이 맺힐 수 있습니다. 
+- 따라서 실세계에서 빛은 직진하지만 카메라 렌즈로 인하여 굽어져서 들어오게 되어 영역 별로 빛이 많이 모이기도 하고 작게 모이기도 합니다. 이러한 이유로 이미지 안에서 물체가 굽어져 보이는 현상이 발생합니다.
+- 카메라 렌즈 설계 방법에 따라 어떤 영역에 빛을 더 많이 모이게 할 지를 정할 수 있으며 방법에 따라서 `Radial Distortion`이 `Barrel Distortion`이 되거나 `Pincusion Distortion`이 됩니다.
+- `Barrel Distortion`은 빛이 렌즈를 투과하였을 때, 바깥쪽으로 꺽이도록 설계되어 있습니다. 즉, 빛이 바깥 영역으로 점점 쏠리게 되어 더 넓은 영역을 볼 수 있도록 만듭니다. 이러한 이유로 넓은 영역을 봐야 하는 광각 카메라나 어안 카메라에서 이와 같은 왜곡이 발생합니다.
+- 반대로 `Pincusion Distortion`은 빛이 렌즈를 투과하였을 떄, 안쪽으로 꺽이도록 설계되어 있습니다. 즉, 렌즈 가운데 영역으로 점점 쏠리게 되어 더 좁은 영역을 볼 수 밖에 없지만 더 멀리서 투영된 빛도 맺힐 수 있도록 만듭니다. 따라서 더 멀리 있는 영역을 봐야하는 원거리용 카메라에서 이와 같은 왜곡이 발생합니다.
+- 이와 같은 `Radial Distortion`은 앞으로 다룰 카메라 모델에서 `Distortion Center (Image Center)`로 부터 계산된 `Radial Distance`를 다항 함수를 통하여 모델링 합니다. 이 내용은 아래 글에서 다루도록 하겠습니다.
+
+<br>
+
+- `Tangential Distortion`는 카메라 렌즈와 이미지 센서가 평행하게 장착되어 생산되지 못하였을 때 발생하는 왜곡입니다. `Tangential Distortion`이 발생하면 이미지는 비스듬히 기울어져 있습니다. 이러한 이유로 직선이 약간 굽어보이게 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/lense_distortion/3.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 카메라 렌즈와 이미지 센서가 평행하지 않으면 위 그림과 같이 기울어지게 되며 왜곡이 발생하게 됩니다.
 
 <br>
 
 ## **Generic 카메라 모델과 Brown 카메라 모델**
 
 <br>
+
+- `Generic Camera Model`은 이름 그대로 어안 렌즈부터 망원 렌즈 까지 모두 사용 가능한 범용적인 카메라 모델이며 특히 화각이 120도 이상의 광각 렌즈에서 효과를 발휘합니다. 결론적으로는 `Generic Camera Model` 하나만 잘 활용해도 180도 이하 화각의 카메라에서는 충분히 잘 사용할 수 있습니다.
+- `Brown Camera Model`은 보통 화각이 100도 이하인 카메라 환경에서 주로 사용합니다. `Generic Camera Model`에 비해 계산도 간단한 장점도 있습니다. 다만 `Generic Camera Model`과 같이 넓은 화각에서는 이 카메라 모델을 사용할 수 없습니다. 사용 시, 정확성이 많이 떨어지게 됩니다. `Brown Camera Model`은 간단히 원거리 용도의 카메라에 주로 사용한다고 생각하면 되며 `Pinhole Camera Model`에 가깝습니다.
+- 앞에서 살펴볼 식을 보면 `Generic Camera Model`은 `Tangential Distortion`을 무시하고 `Radial Distortion`에 집중하여 다항식으로 모델링 한 것을 살펴볼 수 있습니다. 반면 `Brown Camera Model`은 적당한 다항식 차수의 다항식으로 `Radial Distortion`을 모델링하고 2차 다항식으로 `Tangential Distortion`을 모델링합니다. `Generic Camera Model`에서 이와 같은 방식을 취하는 이유는 화각이 넓은 카메라에서는 `Radial Distortion`의 영향이 크기 때문에 `Tangential Distortion`을 무시할 수 있으며 생산 기술의 발전으로 카메라 렌즈와 이미지 센서가 평행에 가깝게 생산될 수 있어 `Tangential Distortion`를 실질적으로 무시할 정도가 되기 때문입니다. 따라서 `Brown Camera Model`에서도 `Tangential Distortion`을 무시하기도 하며 이와 같은 경우에는 `Generic Camera Model`과 유사해 집니다.
+
+<br>
+
+
 
 <br>
 
@@ -92,15 +123,6 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, 
 ## **Generic 카메라 모델의 2D → 3D**
 
 <br>
-
-<br>
-
-## **어안 카메라 렌즈 왜곡 보정 방법**
-
-<br>
-
-- 어안 카메라 또한 렌즈 왜곡 보정 방법은 표준 카메라 왜곡 보정 방법과 같으며 계산 과정 중 사용하는 렌즈 왜곡 모델이 다릅니다. 상세 내용은 앞에서 설명한 표준 카메라 왜곡 보정 방법을 참조하시면 됩니다.
-- 앞에서 살펴본 표준 카메라 모델의 `cv2.initUndistortRectifyMap`과 앞으로 살펴 볼 어안 카메라 모델의 `cv2.fisheye.initUndistortRectifyMap`의 왜곡 보정 계수를 $$ p1 = 0, p2 = 0 $$ 으로 맞추고 $$ k1, k2, ... $$ 등의 값을 맞추더라도 왜곡 모델에 사용된 식이 일부 다르기 때문에 다른 값이 나옵니다.
 
 <br>
 
