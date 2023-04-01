@@ -20,6 +20,9 @@ tags: [deep learning, regnet, tesla, designing network design space] # add tag
 - 참조 : https://medium.com/@tahasamavati/squeeze-and-excitation-explained-387b5981f249
 - 참조 : https://github.com/signatrix/regnet
 - 참조 : https://www.youtube.com/watch?v=bnbKQRae_u4
+- 참조 : https://medium.com/analytics-vidhya/regnet-or-how-to-methodologically-design-effective-networks-c3560c1cf436
+- 참조 : https://medium.com/visionwizard/simple-powerful-and-fast-regnet-architecture-from-facebook-ai-research-6bbc8818fb44
+- 참조 : https://towardsdatascience.com/regnet-the-most-flexible-network-architecture-for-computer-vision-2fd757f9c5cd
 
 <br>
 
