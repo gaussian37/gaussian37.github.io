@@ -90,9 +90,33 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Robust homography 
 <center><img src="../assets/img/vision/mvg/nus_lec5/15.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/16.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/17.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/18.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/19.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/20.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/21.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/22.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 <br>
 
