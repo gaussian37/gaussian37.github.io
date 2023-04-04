@@ -31,5 +31,5 @@ tags: [자율주행, 자율주행 자동차, autodrive, self-driving] # add tag
 - [2021 테슬라 AI 데이 (Day)](https://gaussian37.github.io/autodrive-concept-tesla_ai_day/)
 - [Ashok Elluswamy (Tesla) CVPR 2022 Workshop on Autonomous Vehicles (Occupancy Network) 정리](https://gaussian37.github.io/autodrive-concept-tesla_cvpr_2022/)
 - [스트라드비전 (StradVision) 영상 인식 결과 분석](https://gaussian37.github.io/autodrive-concept-stradvision//)
-- [2023 Wayve 자율주행 영상 분석](https://gaussian37.github.io/autodrive/concept/)
-- [2023 서울 모빌리티 쇼의 테슬라봇과 보스턴다이나믹스 로봇개](https://gaussian37.github.io/autodrive/soeoul_motorshow_robots/)
+- [2023 Wayve 자율주행 영상 분석](https://gaussian37.github.io/autodrive-concept-wayve)
+- [2023 서울 모빌리티 쇼의 테슬라봇과 보스턴다이나믹스 로봇개](https://gaussian37.github.io/autodrive-concept-soeoul_motorshow_robots/)

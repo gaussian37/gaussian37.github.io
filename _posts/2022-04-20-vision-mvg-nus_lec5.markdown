@@ -119,6 +119,12 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Robust homography 
 <br>
 
 <br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/oyGCk4idsaU" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
+<br>
 
 [Multiple View Geometry 글 목차](https://gaussian37.github.io/vision-mvg-table/)
 

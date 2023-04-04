@@ -31,8 +31,11 @@ tags: [deep learning, regnet, tesla, designing network design space] # add tag
 - 두 네트워크는 모두 `width (layer의 channel 수)`, `depth (layer의 깊이 수)`, `resolution (입력 해상도)`에 따른 네트워크 변경의 자유도를 가지므로 리소스를 고려하여 3가지 항목 + α 의 변경을 통해 네트워크의 크기를 쉽게 조절할 수 있습니다.
 - 컴퓨터 비전 분야에서는 테슬라가 `RegNet`을 이용하여 `Perception`을 구현한 것을 공개 하였기 때문에 집중되기도 하였습니다. 관련 내용은 아래 링크에서 참조하시기 바랍니다.
     - 링크 : [https://gaussian37.github.io/autodrive-concept-tesla_ai_day/](https://gaussian37.github.io/autodrive-concept-tesla_ai_day/)
+    - 링크 : [https://gaussian37.github.io/autodrive-concept-tesla_cvpr_2022/](https://gaussian37.github.io/autodrive-concept-tesla_cvpr_2022/)
 
 <br>
+
+
 
 
 
