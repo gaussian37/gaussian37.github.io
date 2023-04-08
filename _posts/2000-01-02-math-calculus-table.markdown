@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Calculus 글 목차 
+title: Calculus 및 Optimization 글 목차 
 date: 2000-01-01 00:00:00
 img: math/calculus/calculus.jpg
 categories: [math-calculus] 
-tags: [미분적분, calculus] # add tag
+tags: [미분적분, calculus, 최적화, optimization] # add tag
 ---
 
 <br>

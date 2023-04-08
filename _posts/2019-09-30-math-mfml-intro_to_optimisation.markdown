@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Intro to Optimisation
+title: Intro to Optimisation (newton-raphson method, gradient descent, lagrange multipliers)
 date: 2019-09-30 01:00:00
 img: math/mfml/mfml.jpg
 categories: [math-mfml] 

@@ -17,6 +17,70 @@ tags: [vision, coursera, First Principles of Computer Vision, image formation] #
 
 <br>
 
+## **목차**
+
+<br>
+
+- ### [overview of image formation](#)
+- ### [pinhole and perspective projection](#)
+- ### [image formation using lenses](#)
+- ### [depth of field](#)
+- ### [lense related field](#)
+- ### [wide angle cameras](#)
+- ### [animal eyes](#)
+- ### [test quiz](#)
+
+<br>
+
+## **overview of image formation**
+
+<br>
+
+<br>
+
+## **pinhole and perspective projection**
+
+<br>
+
+<br>
+
+## **image formation using lenses**
+
+<br>
+
+<br>
+
+## **depth of field**
+
+<br>
+
+<br>
+
+## **lense related field**
+
+<br>
+
+<br>
+
+## **wide angle cameras**
+
+<br>
+
+<br>
+
+## **animal eyes**
+
+<br>
+
+<br>
+
+## **test quiz**
+
+<br>
+
+<br>
+
+
 
 
 
