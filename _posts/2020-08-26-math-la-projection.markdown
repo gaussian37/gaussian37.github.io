@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 벡터의 정사영 (projection)
+title: 벡터의 내적 (inner product)와 벡터의 정사영 (projection)
 date: 2020-08-26 00:00:00
 img: math/la/projection/0.png
 categories: [math-la] 
@@ -22,9 +22,9 @@ tags: [Linear algebra, vector, projection, 선형 대수학, 벡터, 정사영] 
 <br>
 
 - 먼저 `scalar projection`에서 `vector projection`으로 확장하는 관점에서 `vector projection`에 대하여 알아보겠습니다.
-- `scalar projection`은 한 벡터에서 다른 벡터로 projection을 하였을 때 projection된 벡터의 시작점에서 projection된 지점까지의 `거리(크기)`를 나타냅니다.
-- 반면 `vector projection`은 projection된 벡터의 시작점에서 projection된 지점까지의 거리만큼의 크기를 가지는 `벡터`를 나타냅니다.
-- 그러면 두 벡터 $$ r, s $$가 있고 벡터 $$ s $$를 벡터 $$ r $$에 projection 시킨다는 가정하에 `scalar projection`과 `vector projection`을 구하는 방법에 대하여 알아보겠습니다. 
+- `scalar projection`은 한 벡터에서 다른 벡터로 `projection`을 하였을 때 `projection`된 벡터의 시작점에서 `projection`된 지점까지의 `거리(크기)`를 나타냅니다.
+- 반면 `vector projection`은 `projection`된 벡터의 시작점에서 projection된 지점까지의 거리만큼의 크기를 가지는 `벡터`를 나타냅니다.
+- 그러면 두 벡터 $$ r, s $$ 가 있고 벡터 $$ s $$ 를 벡터 $$ r $$ 에 `projection` 시킨다는 가정하에 `scalar projection`과 `vector projection`을 구하는 방법에 대하여 알아보겠습니다. 
 
 <br>
 
@@ -40,7 +40,7 @@ tags: [Linear algebra, vector, projection, 선형 대수학, 벡터, 정사영] 
 
 <br>
 
-- 위 식을 두 벡터의 내적의 성질에 접목시켜 보겠습니다. 두 벡터의 내적음 다음을 따릅니다.
+- 위 식을 두 벡터의 내적의 성질에 접목시켜 보겠습니다. 두 벡터의 내적은 다음을 따릅니다.
 
 <br>
 
@@ -57,19 +57,27 @@ tags: [Linear algebra, vector, projection, 선형 대수학, 벡터, 정사영] 
 <br>
 
 - 지금 까지가 `scalar projection`에 관한 내용이었습니다. 즉, 위 그림과 같이 두 벡터 $$ r, s $$를 이용하여 파란색의 길이를 알 수 있습니다.
-- 그럼 여기서 `vector projection`으로 개념을 확장시켜 보겠습니다. 아시다 시피 벡터는 크기와 방향을 가집니다. 따라서 `scalar projection`에 
+- 그럼 여기서 `vector projection`으로 개념을 확장시켜 보겠습니다. 아시다시피 벡터는 크기와 방향을 가집니다. 따라서 `scalar projection`에 
 방향을 추가하면 됩니다.
 
 <br>
 <center><img src="../assets/img/math/la/projection/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- $$ \text{vector projection} = \text{scalar projection} \times \text{unit vector} = \frac{r \cdot s}{\vert r \vert} \cdot \frac{r}{\vert r \vert} = \frac{r \cdot s}{r \cdot r} \cdot r $$ 
+- $$ \text{vector projection} = \text{scalar projection} \times \text{unit vector} = \frac{r \cdot s}{\vert r \vert} \cdot \frac{r}{\vert r \vert} = \frac{r \cdot s}{\vert r \vert \cdot \vert r \vert} \cdot r= \frac{r \cdot s}{r \cdot r} \cdot r $$ 
 
 <br>
 
-- 위 식은 scalar projection에서 구한 길이값에 방향인 유닛 벡터를 곱하여 `vector projection`을 하는 식입니다.
-- 위 계산 과정을 보면 `scalar projection`은 projection 된 벡터의 유닛 벡터($$ \hat{r} $$ )와 projection한 벡터($$ s $$)의 내적이 됨을 알 수 있습니다.
+- `unit vector`를 포함한 형태로 나타내면 다음과 같습니다.
+
+<br>
+
+- $$ \text{vector projection} = \text{scalar projection} \times \text{unit vector} = \frac{r \cdot s}{\vert r \vert} \cdot \frac{r}{\vert r \vert} = (\hat{r} \cdot s) \dot \hat{r} $$
+
+<br>
+
+- 위 식은 `scalar projection`에서 구한 길이값에 방향인 유닛 벡터를 곱하여 `vector projection`을 하는 식입니다.
+- 위 계산 과정을 보면 `scalar projection`은 projection 된 벡터의 유닛 벡터($$ \hat{r} $$ )와 `projection`한 벡터($$ s $$)의 내적이 됨을 알 수 있습니다.
 - `vector projection`은 벡터이기 때문에 개념적으로 스칼라 값에 유닛 벡터를 곱하면 됩니다. 따라서 위 식과 같이 유도될 수 있습니다.
 
 <br>
