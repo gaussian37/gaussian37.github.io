@@ -13,7 +13,63 @@ tags: [Linear algebra, vector, projection, 선형 대수학, 벡터, 정사영] 
 
 <br>
 
-- 이번 글에서는 벡터의 정사영을 구하는 2가지 관점에 대하여 간략하게 정리하겠습니다.
+- 참조 : 이득우의 게임 수학
+
+<br>
+
+- 본 글에서는 벡터의 내적의 내용과 대표적인 벡터의 내적의 사용처인 정사영 (projection)에 대하여 간략히 다루어 보도록 하겠습니다. 추가적으로 벡터의 내적을 활용하는 몇가지 예시를 더 살펴보겠습니다.
+
+<br>
+
+## **목차**
+
+<br>
+
+- ### [벡터의 내적 정의 및 성질](#)
+- ### [scalar projection → vector projection](#)
+- ### [vector projection 바로 구하기](#)
+- ### [두 벡터의 방향 확인과 시야 판별](#)
+- ### [조명 효과 표현](#)
+
+<br>
+
+## **벡터의 내적 정의 및 성질**
+
+<br>
+
+- 벡터의 내적은 같은 차원의 두 벡터가 주어졌을 때, 벡터를 구성하는 각 성분을 곱한 후 이들을 더해 스칼라 값을 만들어내는 연산을 의미합니다.
+
+<br>
+
+- $$ \vec{u} = (a, b) $$
+
+- $$ \vec{v} = (c, d) $$
+
+- $$ \vec{u} \cdot \vec{v} = a \cdot c + b \cdot d $$
+
+<br>
+
+- 벡터의 내적은 곱셈과 덧셈으로 구성되어 있으므로 `교환 법칙`은 `성립`합니다.
+- 벡터의 결과가 스칼라이므로 `결합 법칙`은 `성립하지 않습니다.`
+- 벡터의 덧셈에 대한 `분배법칙`은 `성립`합니다.
+
+<br>
+
+- 같은 벡터를 내적하면 벡터의 크기를 제곱한 결과가 나옵니다.
+
+<br>
+
+- $$ (x, y) \cdot (x, y) = x^{2} + y^{2} $$
+
+- $$ \therefore \vec{v} \cdot \vec{v} = \vert \vec{v} \vert^{2} $$
+
+<br>
+
+- 내적은 `교환법칙`과 `분배법칙`이 성립하기 때문에 아래와 같이 두 벡터 합의 내적은 두 벡터의 크기로 표현할 수 있습니다.
+
+<br>
+
+- $$ (\vec{u} + \vec{v}) \cdot (\vec{u} + \vec{v}) = \vec{u} \cdot \vec{u} + \vec{v} \cdot \vec{v} + 2(\vec{u} \cdot \vec{v}) = \vert \vec{u} \vect^{2} + \vert \vec{v} \vect^{2} + 2(\vec{u} \cdot \vec{v}) $$
 
 <br>
 
@@ -120,6 +176,31 @@ tags: [Linear algebra, vector, projection, 선형 대수학, 벡터, 정사영] 
 <br>
 
 - $$ \vec{x} = p\vec{a} = (\vec{b}^{T}\vec{a})\vec{a} $$
+
+<br>
+
+- 이와 같은 방법으로 벡터를 `projection` 하면 다양하게 사용될 수 있습니다. 가장 간단한 예시로 카메라 공간을 분석할 때에도 활용 할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/la/projection/4.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림에서는 어떤 물체의 거리를 알 때, 카메라가 촬영하는 방향으로의 깊이 정보를 알고 싶을 때, `projection`을 통하여 구할 수 있음을 나타냅니다.
+
+<br>
+
+## **두 벡터의 방향 확인과 시야 판별**
+
+<br>
+
+<br>
+
+## **조명 효과 표현**
+
+<br>
+
+<br>
+
 
 <br>
 
