@@ -18,6 +18,7 @@ tags: [Linear algebra, vector, projection, 선형 대수학, 벡터, 정사영] 
 <br>
 
 - 본 글에서는 벡터의 내적의 내용과 대표적인 벡터의 내적의 사용처인 정사영 (projection)에 대하여 간략히 다루어 보도록 하겠습니다. 추가적으로 벡터의 내적을 활용하는 몇가지 예시를 더 살펴보겠습니다.
+- 벡터의 정사영 부분이 필요하시면 아래 `scalar projection → vector projection` 부분부터 읽어보시면 됩니다.
 
 <br>
 
@@ -25,11 +26,11 @@ tags: [Linear algebra, vector, projection, 선형 대수학, 벡터, 정사영] 
 
 <br>
 
-- ### [벡터의 내적 정의 및 성질](#)
-- ### [scalar projection → vector projection](#)
-- ### [vector projection 바로 구하기](#)
-- ### [두 벡터의 방향 확인과 시야 판별](#)
-- ### [조명 효과 표현](#)
+- ### [벡터의 내적 정의 및 성질](#벡터의-내적-정의-및-성질-1)
+- ### [scalar projection → vector projection](#scalar-projection--vector-projection-1)
+- ### [vector projection 바로 구하기](#vector-projection-바로-구하기-1)
+- ### [두 벡터의 방향 확인과 시야 판별](#두-벡터의-방향-확인과-시야-판별-1)
+- ### [조명 효과 표현](#조명-효과-표현-1)
 
 <br>
 
@@ -70,6 +71,69 @@ tags: [Linear algebra, vector, projection, 선형 대수학, 벡터, 정사영] 
 <br>
 
 - $$ (\vec{u} + \vec{v}) \cdot (\vec{u} + \vec{v}) = \vec{u} \cdot \vec{u} + \vec{v} \cdot \vec{v} + 2(\vec{u} \cdot \vec{v}) = \vert \vec{u} \vect^{2} + \vert \vec{v} \vect^{2} + 2(\vec{u} \cdot \vec{v}) $$
+
+<br>
+
+#### **내적과 삼각함수와의 관계**
+
+<br>
+
+- 벡터의 내적은 아래 그림과 같이 두 벡터의 사이각에 대한 `cos` 함수와 비례하는 특징을 가집니다.
+
+<br>
+<center><img src="../assets/img/math/la/projection/5.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- $$ \vec{u} \cdot \vec{v} = \vert \vec{u} \vert \vert \vec{v} \vert \cos{(\theta)} $$
+
+<br>
+
+- 위 식이 유도된 방법을 살펴보면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/la/projection/6.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- $$ \vec{b} = \vec{a} - \vec{c} $$
+
+<br>
+
+- 위 식을 이용하여 식을 전개해 보도록 하겠습니다.
+
+<br>
+
+- $$ \begin{align} \vert \vec{b} \vert^{2} &= \vec{b} \cdot \vec{b} \\ &= (\vec{a} - \vec{c}) \cdot (\vec{a} - \vec{c}) \\ &= \vert \vec{a} \vert^{2} + \vert \vec{c} \vert^{2} -2\vec{a}\vec{c} \tag{1} \end{align} $$
+
+<br>
+
+- 다음으로 다음과 같이 식을 전개해 보도록 하겠습니다.
+
+<br>
+
+- $$ \begin{align} \vert \vec{b} \vert^{2} &= \vert \vec{c} \vert^{2}\sin^{2}{(\theta)} \\ &= (\vert \vec{a} \vert - \vert \vec{c} \vert \cos{(\theta)})^{2} + \vert \vec{c} \vert^{2}\sin^{2}{(\theta)} \quad (\because (\vert \vec{a} \vert - \vert \vec{c} \vert \cos{(\theta)}) = 0) \\ &= \vert \vec{a} \vert^{2} - 2 \vert \vec{a} \vert \vert \vec{c} \vert \cos{(\theta)} + \vert \vec{c} \vert^{2} \cos^{2}{(\theta)} + \vert \vec{c} \vert^{2}\sin^{2}{(\theta)} \\ &= \vert \vec{a} \vert^{2} + \vert \vec{c} \vert^{2} - 2 \vert \vec{a} \vert \vert \vec{c} \vert \cos{(\theta)} \tag{2} \end{align} $$
+
+<br>
+
+- 식 (1) 과 식 (2)을 이용하여 정리하면 벡터의 내적 식을 구할 수 있습니다.
+
+<br>
+
+- $$ \vert \vec{a} \vert^{2} + \vert \vec{c} \vert^{2} -2\vec{a}\vec{c} = \vert \vec{a} \vert^{2} + \vert \vec{c} \vert^{2} - 2 \vert \vec{a} \vert \vert \vec{c} \vert \cos{(\theta)} $$
+
+- $$ \vec{a} \cdot \vec{c} = \vert \vec{a} \vert \vert \vec{c} \vert \cos{(\theta)} \tag{3} $$
+
+<br>
+
+- 식 (3)에서 두 벡터 $$ \vec{a}, \vec{c} $$ 의 크기가 1이면 두 벡터의 내적은 $$ cos{(\theta)} $$ 가 됩니다.
+
+<br>
+
+- $$ \vec{u} \cdot \vec{v} = \cos{(\theta)}  \quad (\text{where, } \vert \vec{u} \vert = 1, \vert \vec{v} \vert = 1) $$
+
+<br>
+
+- 이와 같은 원리를 이용하면 두 벡터의 내적이 0인 경우에 대한 조건이 $$ \cos{(\theta)} = 0 $$ 이 되는 것을 알 수 있으며 이 때 사이각은 90도 또는 270도인 경우 임을 알 수 있습니다.
+- 대표적인 직교하는 벡터는 `표준 기저 벡터`가 있습니다. (1, 0) 과 (0, 1) 은 가장 기본적인 표준 기저 벡터이며 두 벡터의 내적은 0이되고 좌표계 상에서도 직교함을 알 수 있습니다.
 
 <br>
 
