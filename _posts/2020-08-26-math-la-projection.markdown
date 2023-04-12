@@ -70,7 +70,7 @@ tags: [Linear algebra, vector, projection, 선형 대수학, 벡터, 정사영] 
 
 <br>
 
-- $$ (\vec{u} + \vec{v}) \cdot (\vec{u} + \vec{v}) = \vec{u} \cdot \vec{u} + \vec{v} \cdot \vec{v} + 2(\vec{u} \cdot \vec{v}) = \vert \vec{u} \vect^{2} + \vert \vec{v} \vect^{2} + 2(\vec{u} \cdot \vec{v}) $$
+- $$ (\vec{u} + \vec{v}) \cdot (\vec{u} + \vec{v}) = \vec{u} \cdot \vec{u} + \vec{v} \cdot \vec{v} + 2(\vec{u} \cdot \vec{v}) = \vert \vec{u} \vert^{2} + \vert \vec{v} \vert^{2} + 2(\vec{u} \cdot \vec{v}) $$
 
 <br>
 
