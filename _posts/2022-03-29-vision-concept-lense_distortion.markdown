@@ -106,9 +106,10 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, 
 
 <br>
 
-- `Generic Camera Model`은 이름 그대로 어안 렌즈부터 망원 렌즈 까지 모두 사용 가능한 범용적인 카메라 모델이며 특히 화각이 120도 이상의 광각 렌즈에서 효과를 발휘합니다. 결론적으로는 `Generic Camera Model` 하나만 잘 활용해도 180도 이하 화각의 카메라에서는 충분히 잘 사용할 수 있습니다.
+- `Generic Camera Model`은 이름 그대로 어안 렌즈부터 망원 렌즈 까지 모두 사용 가능한 `범용적인 카메라 모델`이며 특히 화각이 120도 이상의 광각 렌즈에서 효과를 발휘합니다. **결론적으로는 `Generic Camera Model` 하나만 잘 활용해도 180도 이하 화각의 카메라에서는 충분히 잘 사용할 수 있습니다.**
 - `Brown Camera Model`은 보통 화각이 100도 이하인 카메라 환경에서 주로 사용합니다. `Generic Camera Model`에 비해 계산도 간단한 장점도 있습니다. 다만 `Generic Camera Model`과 같이 넓은 화각에서는 이 카메라 모델을 사용할 수 없습니다. 사용 시, 정확성이 많이 떨어지게 됩니다. `Brown Camera Model`은 간단히 원거리 용도의 카메라에 주로 사용한다고 생각하면 되며 `Pinhole Camera Model`에 가깝습니다.
 - 앞에서 살펴볼 식을 보면 `Generic Camera Model`은 `Tangential Distortion`을 무시하고 `Radial Distortion`에 집중하여 다항식으로 모델링 한 것을 살펴볼 수 있습니다. 반면 `Brown Camera Model`은 적당한 다항식 차수의 다항식으로 `Radial Distortion`을 모델링하고 2차 다항식으로 `Tangential Distortion`을 모델링합니다. `Generic Camera Model`에서 이와 같은 방식을 취하는 이유는 화각이 넓은 카메라에서는 `Radial Distortion`의 영향이 크기 때문에 `Tangential Distortion`을 무시할 수 있으며 생산 기술의 발전으로 카메라 렌즈와 이미지 센서가 평행에 가깝게 생산될 수 있어 `Tangential Distortion`를 실질적으로 무시할 정도가 되기 때문입니다. 따라서 `Brown Camera Model`에서도 `Tangential Distortion`을 무시하기도 하며 이와 같은 경우에는 `Generic Camera Model`과 유사해 집니다.
+- 어떤 카메라 모델을 사용해야 할 지 고민이 된다면 `Generic Camera Model`을 고민없이 사용하는 것이 좋은 방법일 수 있습니다.
 
 <br>
 

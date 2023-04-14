@@ -192,7 +192,7 @@ tags: [Linear algebra, vector, projection, 선형 대수학, 벡터, 정사영] 
 
 <br>
 
-- $$ \text{vector projection} = \text{scalar projection} \times \text{unit vector} = \frac{r \cdot s}{\vert r \vert} \cdot \frac{r}{\vert r \vert} = (\hat{r} \cdot s) \dot \hat{r} $$
+- $$ \text{vector projection} = \text{scalar projection} \times \text{unit vector} = \frac{r \cdot s}{\vert r \vert} \cdot \frac{r}{\vert r \vert} = (\hat{r} \cdot s) \cdot \hat{r} $$
 
 <br>
 
