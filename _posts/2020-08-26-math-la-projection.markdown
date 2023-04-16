@@ -257,14 +257,43 @@ tags: [Linear algebra, vector, projection, 선형 대수학, 벡터, 정사영] 
 
 <br>
 
+- 벡터의 내적 성질은 유용하게 사용 가능하며 `projection`을 구하는 것 이외에도 다양한 응용으로 사용할 수 있습니다.
+- 대표적인 사용 방법으로 **두 벡터의 방향 확인**이 있습니다.
+- 벡터의 내적으로 구할 때 벡터의 크기 값은 언제나 양수이므로 벡터 내적의 부호는 $$ \cos{(\theta)} $$ 가 결정하며 이 값은 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/la/projection/7.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그래프와 같이 $$ \cos{(\theta)} $$ 는 주황색 영역에서 양수의 값을 가지고 파란색 영역에서 음수의 값을 가집니다. 즉, $$ \theta = (-\pi/2, \pi/2) $$ 까지는 양의 부호를 가지므로 벡터 내적의 `부호`를 이용하면 두 벡터의 방향을 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/la/projection/8.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 벡터 내적의 결과가 양수이면 두 벡터는 같은 방향을 향하고 있습니다. 반면 벡터 내적의 결과가 음수이면 두 벡터는 다른 방향을 향하고 있다고 말할 수 있습니다.
+- 이 방향을 카메라의 촬영 방향이라고 하면 벡터의 내적이 양수이면 같은 방향으로 바라보고 있다고 볼 수 있고 벡터의 내적이 음수이면 서로 반대 방향을 본다고 말할 수 있습니다.
+- 마지막으로 벡터 내적의 결과가 0이면 두 벡터는 서로 직교합니다.
+
 <br>
 
 ## **조명 효과 표현**
 
 <br>
 
+- 조명 효과를 주기 위하여 빛의 반사를 표현할 때, `Lambertian reflection` 모델을 사용합니다. 내용은 굉장히 간단합니다.
+- 어떤 광원이 물체를 향헤 직사광선을 발사할 때, 빛을 받아 표면에 반사되는 빛의 세기는 두 벡터가 만드는 사잇각의 $$ \cos{(\theta)} $$ 함수에 비례한다는 것이 `Lambertian reflection` 모델의 주요 내용입니다.
+
+<br>
+<center><img src="../assets/img/math/la/projection/9.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
+- 위 그림에서 $$ \hat{N} $$ 은 표면의 법선 벡터의 단위 벡터입니다. 즉, 표면이 향하는 방향의 벡터입니다. $$ \hat{L} $$ 은 표면에서 광원으로 향하는 벡터의 단위 벡터 입니다.
+- 두 벡터가 모두 단위 벡터로 설정되었으므로 두 벡터의 내적으로 사용하면 `Lambertian reflection` 모델에 필요한 사잇각을 구할 수 있습니다.
+
+<br>
+
+- $$ \hat{N} \cdot \hat{L} = \cos{(\theta)} $$
 
 <br>
 
