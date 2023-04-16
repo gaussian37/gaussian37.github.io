@@ -18,6 +18,12 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
+- 사전 지식 : https://gaussian37.github.io/math-la-rotation_matrix/
+- 사전 지식 : https://gaussian37.github.io/math-la-projection/
+- 사전 지식 : https://gaussian37.github.io/math-la-cross_product/
+
+<br>
+
 - 이번 글에서는 3차원 회전의 대표적인 방법 중 하나인 `Axis-Angle Rotation`에 대하여 다루어 보도록 하겠습니다. 이 방법은 방법론을 제시한 로드리게스의 이름을 따서 로드리게스 회전이라고도 불립니다. 본 글에서는 `Axis-Angle Rotation`으로 사용하겠습니다.
 
 <br>
@@ -32,8 +38,71 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 - ### Axis-Angle Rotation의 단점
 
 <br>
+
+## **Axis-Angle Rotation의 필요성**
+
+<br>
+
+- `Axis-Angle Rotation`은 `Euler Angle`의 단점을 개선할 수 있는 3차원 회전 방법으로 사용 됩니다. `Euler Angle`을 이용한 3차원 회전은 직관적이며 단순하다는 장점이 있지만 크게 2가지 문제점이 있습니다. 바로 `Gimbal Lock (짐벌 락)` 현상과 `Rotaional Interpolation (회전 보간)`의 한계점 입니다.
+    - 이와 관련된 상세 내용은 아래 링크에서도 확인할 수 있습니다.
+    - 링크 : [https://gaussian37.github.io/math-la-rotation_matrix/](https://gaussian37.github.io/math-la-rotation_matrix/)
+
+<br>
+
+- ① `Gimbal Lock` 현상은 X, Y, Z 축을 90도 회전 시키다 보면 어떤 2개의 축의 회전이 동일해져 버리는 현상을 말합니다. 세 개의 축으로 자유롭게 회전할 수 있었는데 두 개의 축만 회전할 수 있도록 어떤 축의 회전이 `Lock`이 걸려 버리기 때문에 `Gimbal Lock`이라고 표현합니다. 아래 영상을 참조하시면 바로 이해가 되실 겁니다.
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/zc8b2Jo7mno" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/concept/axis_angle_rotation/1.gif" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 90도 회전 시, 축이 사라지는 현상이 발생하는 것을 의미합니다.
+- 물론 이와 같이 항상 축이 사라지지는 않으며 어떤 각도로 먼저 회전할 지에 따라서 문제가 되지 않을 수 있습니다. 따라서 `Euler Angle`에서의 `Gimbal Lock` 문제를 회피하기 위한 방법들이 존재 (위 링크 참조) 하지만, 근본적인 해결을 위해서는 다른 방법의 3차원 회전이 필요합니다.
+
+<br>
+
+- ② `Rotaional Interpolation`은 3차원 회전 시 시작 회전과 끝 회전을 지정하면 두 회전 사이를 부드럽게 전환할 수 있어야 함을 의미합니다. 파워포인트부터 다양한 3D 툴에서 회전량을 지정하면 애니매이션 효과를 줄 수 있는데, 이 때 사용되는 중간 중간의 움직임을 의미합니다.
+- 이러한 동작을 구현하기 위해서는 경과된 시간에 따라 회전이 변화되도록 중간 회전값을 계산할 수 있어야 하는데 결과적으로 `Euler Angle`에서는 **두 축 이상을 사용하는 `Euler Angle`의 `linear interpolation`을 사용할 수 없습니다.** 1개의 축만 사용하여 회전할 때에는 문제가 없지만 2개의 축 이상을 사용할 때에는 이 부분이 문제가 발생합니다.
+
+<br>
+
+- 이와 같은 2가지 문제점을 해결하기 위하여 본 글에서는 다루는 `Axis-Angle Roation`을 사용하거나 `Quaternion`을 사용하여 3차원 회전을 이용합니다. 이 2가지 해결책에도 각각 장단점이 있습니다.
+- 본 글에서는 `Axis-Angle Roation`을 알아볼 것입니다. `Axis-Angle Roation`은 임의의 축에 직교하는 평면에 대한 임의의 회전을 할 수 있는 컨셉입니다. 따라서 `Euler Angle` 보다 더 유연하게 3차원 회전을 할 수 있습니다.
+
+<br>
+
+
+## **Axis-Angle Rotation 수식 설명**
+
+<br>
+
+<br>
 <center><img src="../assets/img/vision/concept/axis_angle_rotation/0.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
+
+<br>
+
+
+## **Axis-Angle Rotation의 Python code**
+
+<br>
+
+<br>
+
+
+## **Axis-Angle Rotation의 단점**
+
+<br>
+
+<br>
+
+
+
 
 
 <br>
