@@ -77,8 +77,8 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
-- 이와 같은 2가지 문제점을 해결하기 위하여 본 글에서는 다루는 `Axis-Angle Roation`을 사용하거나 `Quaternion`을 사용하여 3차원 회전을 이용합니다. 이 2가지 해결책에도 각각 장단점이 있습니다.
-- 본 글에서는 `Axis-Angle Roation`을 알아볼 것입니다. `Axis-Angle Roation`은 임의의 축에 직교하는 평면에 대한 임의의 회전을 할 수 있는 컨셉입니다. 따라서 `Euler Angle` 보다 더 유연하게 3차원 회전을 할 수 있습니다.
+- 이와 같은 2가지 문제점을 해결하기 위하여 본 글에서는 다루는 `Axis-Angle Rotation`을 사용하거나 `Quaternion`을 사용하여 3차원 회전을 이용합니다. 이 2가지 해결책에도 각각 장단점이 있습니다.
+- 본 글에서는 `Axis-Angle Rotation`을 알아볼 것입니다. `Axis-Angle Rotation`은 임의의 축에 직교하는 평면에 대한 임의의 회전을 할 수 있는 컨셉입니다. 따라서 `Euler Angle` 보다 더 유연하게 3차원 회전을 할 수 있습니다.
 
 <br>
 
@@ -87,10 +87,10 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
-- 앞에서 언급한 바와 같이 `Axis-Angle Roation`은 임의의 축에 대한 평면의 회전 방식을 이용합니다.
+- 앞에서 언급한 바와 같이 `Axis-Angle Rotation`은 임의의 축에 대한 평면의 회전 방식을 이용합니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/axis_angle_rotation/3.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/concept/axis_angle_rotation/3.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 그림과 같이 3차원 공간에서 임의의 주황색 축을 이용하고 주황색 축에 직교 하는 검은색 점선 평면에서 회전을 하는 방식으로 3차원 회전을 합니다. 벡터의 내적과 외적 연산을 통하여 3차원 회전을 계산할 수 있으며 이 방법에 대하여 알아보도록 하겠습니다.
@@ -101,9 +101,31 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 - 위 그림에서 점 $$ P $$ 의 좌표를 동차좌표계로 $$ P = (x, y, z, 1) $$ 로 나타내 보겠습니다.
 
+<br>
+
+- 그러면 다음과 같이 간단하게 $$ \vec{u} $$ 를 구할 수 있습니다.
 
 <br>
 
+- $$ \vec{u} = P - O = (x, y, z, 0) $$
+
+<br>
+
+- 최종적으로 구하고자 하는 벡터는 위 그림에서 $$ \vec{u'} $$ 이고 이 값을 구하기 위해서는 $$ \vec{u} $$ , $$ \vec{n} $$ , $$ \theta $$ 가 필요합니다.
+- 임의의 축 $$ \vec{n} $$ 에 대하여 $$ \vec{u} $$ 를 각 $$ \theta $$ 만큼 회전시켜 $$ \vec{u'} $$ 를 계산하는 `Axis-Angle Rotation`의 식은 다음과 같습니다. 아래 식의 $$ \hat{n} $$ 은 $$ \vec{n} $$ 의 크기가 1인 벡터 입니다.
+
+<br>
+
+- $$ \vec{u'} = \cos{(\theta)} \cdot \vec{u} + (1 - \cos{(\theta)}) \cdot (\vec{u} \cdot \hat{n}) \cdot \hat{n} + \sin{(\theta)} \cdot (\hat{n} \times \vec{u}) \tag{1} $$
+
+<br>
+
+- 지금부터는 이 식의 유도 과정을 살펴보도록 하겠습니다.
+
+
+
+
+<br>
 
 ## **Axis-Angle Rotation의 Python code**
 
