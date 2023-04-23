@@ -126,7 +126,7 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
-- $$ \vec{u'} = \cos{(\theta)} \cdot \vec{u} + (1 - \cos{(\theta)}) \cdot (\vec{u} \cdot \hat{n}) \cdot \hat{n} + \sin{(\theta)} \cdot (\hat{n} \times \vec{u}) \tag{1} $$
+- $$ \vec{u'} = \cos{(\theta)} \cdot \vec{u} + (1 - \cos{(\theta)}) \cdot (\vec{u} \cdot \hat{n}) \hat{n} + \sin{(\theta)} \cdot (\hat{n} \times \vec{u}) \tag{1} $$
 
 <br>
 
@@ -140,7 +140,7 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
-- $$ \vec{OO'} = \vec{v} = (\vec{u} \cdot \hat{n}) \cdot \hat{n} \tag{2} $$
+- $$ \vec{OO'} = \vec{v} = (\vec{u} \cdot \hat{n}) \hat{n} \tag{2} $$
 
 <br>
 
@@ -164,7 +164,7 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 <br>
 
 - 위 회전 평면에서 $$ \vec{O'P} $$ 를 $$ \theta $$ 만큼 회전 시킨 $$ \vec{O'P'} $$ 를 구하는 것이 첫번째 목표입니다.
-- 먼저 위 그림과 같이 $$ \vec{O'P'} $$ 의 가로 성분은 $$ \cos{(\theta)} \cdot (\vec{u} - \vec{v}) $$ 와 같이 구할 수 있습니다.
+- 먼저 위 그림과 같이 $$ \vec{O'P'} $$ 의 가로 성분은 $$ \cos{(\theta)} (\vec{u} - \vec{v}) $$ 와 같이 구할 수 있습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/axis_angle_rotation/6.png" alt="Drawing" style="width: 600px;"/></center>
@@ -188,7 +188,7 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
-- $$ \begin{align}\vec{O'P'} &= \cos{(\theta)} \cdot \vec{O'P} + \sin{(\theta)} \cdot \vec{O'Q} \\ &= \cos{(\theta)} \cdot (\vec{u} - \vec{v}) + \sin{(\theta)} \cdot (\hat{n} \times (\vec{u} - \vec{v})) \\ $= \cos{(\theta)} \cdot (\vec{u} - \vec{v}) + \sin{(\theta)} \cdot (\hat{n} \times \vec{u} - \hat{n} \times \vec{v}) \\ $= \cos{(\theta)} \cdot (\vec{u} - \vec{v}) + \sin{(\theta)} \cdot (\hat{n} \times \vec{u}) \end{align} \tag{4} $$
+- $$ \begin{align}\vec{O'P'} &= \cos{(\theta)} \vec{O'P} + \sin{(\theta)} \vec{O'Q} \\ &= \cos{(\theta)} (\vec{u} - \vec{v}) + \sin{(\theta)} (\hat{n} \times (\vec{u} - \vec{v})) \\ &= \cos{(\theta)} (\vec{u} - \vec{v}) + \sin{(\theta)} (\hat{n} \times \vec{u} - \hat{n} \times \vec{v}) \\ &= \cos{(\theta)} (\vec{u} - \vec{v}) + \sin{(\theta)} (\hat{n} \times \vec{u}) \end{align} \tag{4} $$
 
 <br>
 
@@ -197,7 +197,7 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
-- $$ \vec{O'P'} = \cos{(\theta)} \cdot (\vec{u} - \vec{v}) + \sin{(\theta)} \cdot (\hat{n} \times \vec{u}) \tag{5} $$
+- $$ \vec{O'P'} = \cos{(\theta)} (\vec{u} - \vec{v}) + \sin{(\theta)} (\hat{n} \times \vec{u}) \tag{5} $$
 
 <br>
 
@@ -211,18 +211,19 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
-- $$ \vec{OP'} = \vec{v} + \cos{(\theta)} \cdot (\vec{u} - \vec{v}) + \sin{(\theta)} \cdot (\hat{n} \times \vec{u}) \tag{6} $$
+- $$ \vec{OP'} = \vec{v} + \cos{(\theta)} (\vec{u} - \vec{v}) + \sin{(\theta)} (\hat{n} \times \vec{u}) \tag{6} $$
 
 <br>
 
-- 마지막으로 $$ \vec{v} = (\vec{u} \cdot \hat{n}) \cdot \hat{n} $$ 를 대입하면 최종적으로 다음과 같습니다.
+- 마지막으로 $$ \vec{v} = (\vec{u} \cdot \hat{n}) \hat{n} $$ 를 대입하면 최종적으로 다음과 같습니다.
 
 <br>
 
-- $$ \vec{OP'} = \vec{u'} = \cos{(\theta)} \cdot \vec{u} + (1 - \cos{(\theta)})(\vec{u} \cdot \hat{n}) \cdot \hat{n} + \sin{(\theta)} \cdot (\hat{n} \times \vec{u}) \tag{7} $$
+- $$ \vec{OP'} = \vec{u'} = \cos{(\theta)} \vec{u} + (1 - \cos{(\theta)})(\vec{u} \cdot \hat{n}) \hat{n} + \sin{(\theta)} (\hat{n} \times \vec{u}) \tag{7} $$
 
 <br>
 
+- 위 수식의 의미를 다시 살펴보면 입력으로 들어오는 벡터는 $$ \vec{u} $$ 이며 회전할 때 사용되는 값이 $$ \hat{n} $$ 과 $$ \theta $$ 입니다. 즉, $$ \hat{n} $$ 과 $$ \theta $$ 에 따라서 $$ \vec{u} \to \vec{u'} $$ 가 되는 식으로 이해할 수 있습니다.
 - 지금까지가 `Axis-Angle Rotation`을 수식적으로 살펴보았습니다. 이와 같은 회전 방식을 고안해 낸 로드리게스의 이름을 따서 로드리게스 회전 이라고도 부릅니다.
 
 <br>
@@ -234,6 +235,32 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 - 지금까지 살펴본 공식을 통하여 3차원 공간에서 어떻게 임의의 축을 회전하여 3차원 회전하는 지 살펴보았습니다.
 - 이번에는 `Axis-Angle Rotation`을 행렬로 나타내는 방법에 대하여 다루어 보도록 하겠습니다.
 
+<br>
+
+- `Axis-Angle Rotation`을 행렬로 나타내기 위해서는 앞에서 다룬 식 (7)을 조금 변형해야 합니다.
+
+<br>
+
+- $$ (\vec{u} \cdot \hat{n}) \hat{n} \to (\hat{n} \otimes \hat{n}^{T}) \cdot \vec{u}  \tag{8} $$
+
+<br>
+
+- 먼저 식 (7)의  $$ (\vec{u} \cdot \hat{n}) \hat{n} $$ 부분을 위 식과 같이 변형하여 $$ \vec{u} $$ 를 빼낼 수 있도록 만듭니다.
+- 식 (8)의 우변의 $$ \otimes $$ 는 `outer product`를 의미합니다. 좌/우변이 같음은 아래 결과를 참조하시면 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/axis_angle_rotation/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 따라서 식 (7)은 다음과 같이 다시 정리하여 쓸 수 있습니다.
+
+<br>
+
+- $$ \vec{u'} = \cos{(\theta)} \vec{u} + (1 - \cos{(\theta)})(\hat{n} \otimes \hat{n}^{T}) \cdot \vec{u} + \sin{(\theta)} (\hat{n} \times \vec{u}) \tag{9} $$
+
+<br>
+
+- `cross product` 또한 행렬식으로 나타낼 수 있습니다.
 
 <br>
 
