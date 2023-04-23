@@ -32,10 +32,11 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
-- ### Axis-Angle Rotation의 필요성
-- ### Axis-Angle Rotation 수식 설명
-- ### Axis-Angle Rotation의 Python code
-- ### Axis-Angle Rotation의 단점
+- ### [Axis-Angle Rotation의 필요성](#axis-angle-rotation의-필요성-1)
+- ### [Axis-Angle Rotation 수식 설명](#axis-angle-rotation-수식-설명-1)
+- ### [Axis-Angle Rotation의 행렬식 표현](#axis-angle-rotation의-행렬식-표현-1)
+- ### [Axis-Angle Rotation의 Python code](#axis-angle-rotation의-python-code-1)
+- ### [Axis-Angle Rotation의 단점](#axis-angle-rotation의-단점-1)
 
 <br>
 
@@ -99,6 +100,15 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
+- 지금부터 살펴볼 전개 방식은 위 그림에서 $$ \vec{OO'} + \vec{O'P'} = \vec{u'} $$ 가 되는 구조로 먼저 $$ \vec{OO'} = \vec{v} $$ 를 살펴보고 그 다음 $$ \vec{O'P'} $$ 를 살펴보도록 하겠습니다.
+- 이 과정을 통하여 최종적으로 구하고 싶은 $$ \vec{u'} $$ 를 구할 수 있습니다.
+
+<br>
+
+#### **OO' 벡터 구하기**
+
+<br>
+
 - 위 그림에서 점 $$ P $$ 의 좌표를 동차좌표계로 $$ P = (x, y, z, 1) $$ 로 나타내 보겠습니다.
 
 <br>
@@ -121,6 +131,103 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 <br>
 
 - 지금부터는 이 식의 유도 과정을 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/axis_angle_rotation/4.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 먼저 위 그림과 같이 $$ O \to P $$ 로 향하는 $$ \vec{u} $$ 를 $$ O \to O' $$ 로 향하는 $$ \vec{v} $$ 로 만들기 위하여 다음과 같이 수식을 이용하여 만듭니다.
+
+<br>
+
+- $$ \vec{OO'} = \vec{v} = (\vec{u} \cdot \hat{n}) \cdot \hat{n} \tag{2} $$
+
+<br>
+
+- 식 (2)와 같이 전개되는 이유는 아래 링크를 참조하시기 바랍니다.
+- [vector projection](https://gaussian37.github.io/math-la-projection/#scalar-projection--vector-projection-1)
+
+<br>
+
+- 따라서 $$ O' \to P $$ 로 향하는 벡터는 $$ \vec{u}, \vec{v} $$ 를 이용하여 $$ \vec{u} - \vec{v} $$ 와 같이 구할 수 있습니다.
+
+<br>
+
+#### **O'P' 벡터 구하기**
+
+<br>
+
+- 앞에서 다룬 회전 평면을 위에서 아래로 내려다 보면서 회전 동작을 살펴보겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/axis_angle_rotation/5.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 회전 평면에서 $$ \vec{O'P} $$ 를 $$ \theta $$ 만큼 회전 시킨 $$ \vec{O'P'} $$ 를 구하는 것이 첫번째 목표입니다.
+- 먼저 위 그림과 같이 $$ \vec{O'P'} $$ 의 가로 성분은 $$ \cos{(\theta)} \cdot (\vec{u} - \vec{v}) $$ 와 같이 구할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/axis_angle_rotation/6.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림에서 $$ \vec{n} $$ 과 $$ \vec{O'P'} $$ 의 `cross product`를 통해 $$ \vec{O'Q} $$ 를 구할 수 있습니다. 직교하는 성분이기 때문입니다.
+
+<br>
+
+- $$ \vec{O'Q} = \hat{n} \times (\vec{u} - \vec{v}) \tag{3} $$
+
+<br>
+
+- 지금 까지 확인한 내용을 이용하여 $$ \vec{O'Q} $$ 의 값을 확인해 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/axis_angle_rotation/7.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 수식을 전개하여 $$ \vec{O'P'} $$ 를 구하면 다음과 같습니다.
+
+<br>
+
+- $$ \begin{align}\vec{O'P'} &= \cos{(\theta)} \cdot \vec{O'P} + \sin{(\theta)} \cdot \vec{O'Q} \\ &= \cos{(\theta)} \cdot (\vec{u} - \vec{v}) + \sin{(\theta)} \cdot (\hat{n} \times (\vec{u} - \vec{v})) \\ $= \cos{(\theta)} \cdot (\vec{u} - \vec{v}) + \sin{(\theta)} \cdot (\hat{n} \times \vec{u} - \hat{n} \times \vec{v}) \\ $= \cos{(\theta)} \cdot (\vec{u} - \vec{v}) + \sin{(\theta)} \cdot (\hat{n} \times \vec{u}) \end{align} \tag{4} $$
+
+<br>
+
+- 위 식에서 마지막의 $$ \hat{n} \times \vec{u} $$ 가 소거된 이유는 두 벡터가 평행하기 때문에 cross product가 0이 되어서 소거하였습니다.
+- 따라서 식을 정리하면 다음과 같습니다.
+
+<br>
+
+- $$ \vec{O'P'} = \cos{(\theta)} \cdot (\vec{u} - \vec{v}) + \sin{(\theta)} \cdot (\hat{n} \times \vec{u}) \tag{5} $$
+
+<br>
+
+#### **OP' 벡터 구하기**
+
+<br>
+
+- 식 (2)의 벡터 $$ \vec{OO'} $$ 와 식 (5)의 벡터 $$ \vec{O'P'} $$ 를 더하면 최종적으로 구하고자 하는 벡터 $$ \vec{OP'} $$ 를 구할 수 있습니다.
+
+<br>
+
+- $$ \vec{OP'} = \vec{v} + \cos{(\theta)} \cdot (\vec{u} - \vec{v}) + \sin{(\theta)} \cdot (\hat{n} \times \vec{u}) \tag{6} $$
+
+<br>
+
+- 마지막으로 $$ \vec{v} = (\vec{u} \cdot \hat{n}) \cdot \hat{n} $$ 를 대입하면 최종적으로 다음과 같습니다.
+
+<br>
+
+- $$ \vec{OP'} = \vec{u'} = \cos{(\theta)} \cdot \vec{u} + (1 - \cos{(\theta)})(\vec{u} \cdot \hat{n}) \cdot \hat{n} + \sin{(\theta)} \cdot (\hat{n} \times \vec{u}) \tag{7} $$
+
+<br>
+
+- 지금까지가 `Axis-Angle Rotation`을 수식적으로 살펴보았습니다. 이와 같은 회전 방식을 고안해 낸 로드리게스의 이름을 따서 로드리게스 회전 이라고도 부릅니다.
+
+<br>
+
+## **Axis-Angle Rotation의 행렬식 표현**
+
+<br>
 
 
 
