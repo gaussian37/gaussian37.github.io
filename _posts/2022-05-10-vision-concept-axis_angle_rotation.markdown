@@ -105,7 +105,7 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
-#### **OO' 벡터 구하기**
+#### **① OO' 벡터 구하기**
 
 <br>
 
@@ -153,7 +153,7 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
-#### **O'P' 벡터 구하기**
+#### **② O'P' 벡터 구하기**
 
 <br>
 
@@ -201,8 +201,10 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
-#### **OP' 벡터 구하기**
+#### **③ OP' 벡터 구하기**
 
+<br>
+<center><img src="../assets/img/vision/concept/axis_angle_rotation/3.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 식 (2)의 벡터 $$ \vec{OO'} $$ 와 식 (5)의 벡터 $$ \vec{O'P'} $$ 를 더하면 최종적으로 구하고자 하는 벡터 $$ \vec{OP'} $$ 를 구할 수 있습니다.
@@ -229,7 +231,8 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
-
+- 지금까지 살펴본 공식을 통하여 3차원 공간에서 어떻게 임의의 축을 회전하여 3차원 회전하는 지 살펴보았습니다.
+- 이번에는 `Axis-Angle Rotation`을 행렬로 나타내는 방법에 대하여 다루어 보도록 하겠습니다.
 
 
 <br>
