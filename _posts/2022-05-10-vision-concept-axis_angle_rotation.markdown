@@ -18,9 +18,9 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
-- 사전 지식 : https://gaussian37.github.io/math-la-rotation_matrix/
-- 사전 지식 : https://gaussian37.github.io/math-la-projection/
-- 사전 지식 : https://gaussian37.github.io/math-la-cross_product/
+- 사전 지식 : [Euler Angle Rotation](https://gaussian37.github.io/math-la-rotation_matrix/)
+- 사전 지식 : [벡터의 내적과 정사영](https://gaussian37.github.io/math-la-projection/)
+- 사전 지식 : [벡터의 외적(cross product)](https://gaussian37.github.io/math-la-cross_product/)
 
 <br>
 
@@ -264,22 +264,110 @@ tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add
 
 <br>
 
+- $$ \hat{n} = \begin{bmatrix} \hat{n}_{x} & \hat{n}_{y} & \hat{n}_{z} \end{bmatrix} $$
+
+- $$ \vec{u} = \begin{bmatrix} u_{x} & u_{y} & u_{z} \end{bmatrix} $$
+
+<br>
+
+- 위 식과 같이 $$ \hat{n}, \vec{u} $$ 를 정의하면 다음과 같이 `cross product`를 위한 행렬 식을 설정할 수 있습니다.
+
+<br>
+
+- $$ \hat{n} \times \vec{u} = \begin{bmatrix} \hat{n}_{y}u_{z} - \hat{n}_{z}u_{y} \\  \hat{n}_{z}u_{x} - \hat{n}_{x}u_{z} \\ \hat{n}_{x}u_{y} - \hat{n}_{y}u_{x} \end{bmatrix} = \begin{bmatrix} 0 & -\hat{n}_{z} & \hat{n}_{y} \\ \hat{n}_{z} & 0 & -\hat{n}_{x} \\ -\hat{n}_{y} & \hat{n}_{x} & 0 \end{bmatrix} \begin{bmatrix} u_{x} \\ u_{y} \\ u_{z} \end{bmatrix} \tag{10} $$
+
+<br>
+
+- 식 (10) 에서 $$ \hat{n} $$ 으로 이루어진 행렬을 다음과 같이 $$ K $$ 로 정의해 보겠습니다.
+
+<br>
+
+- $$ K = \begin{bmatrix} 0 & -\hat{n}_{z} & \hat{n}_{y} \\ \hat{n}_{z} & 0 & -\hat{n}_{x} \\ -\hat{n}_{y} & \hat{n}_{x} & 0 \end{bmatrix} $$
+
+<br>
+
+- $$ \hat{n} \times \vec{u} = K\vec{u} \tag{11} $$
+
+<br>
+
+- 이 때, $$ K^{2} $$ 을 구해보면 다음과 같습니다.
+
+<br>
+
+- $$ K^{2} = \begin{bmatrix} 0 & -\hat{n}_{z} & \hat{n}_{y} \\ \hat{n}_{z} & 0 & -\hat{n}_{x} \\ -\hat{n}_{y} & \hat{n}_{x} & 0 \end{bmatrix} \begin{bmatrix} 0 & -\hat{n}_{z} & \hat{n}_{y} \\ \hat{n}_{z} & 0 & -\hat{n}_{x} \\ -\hat{n}_{y} & \hat{n}_{x} & 0 \end{bmatrix} = \begin{bmatrix} -\hat{n}_{z}^{2}-\hat{n}_{y}^{2} & \hat{n}_{x}\hat{n}_{y} & \hat{n}_{z}\hat{n}_{x} \\ \hat{n}_{x}\hat{n}_{y} & -\hat{n}_{z}^{2}-\hat{n}_{x}^{2} & \hat{n}_{y}\hat{n}_{z} \\ \hat{n}_{x}\hat{n}_{z} & \hat{n}_{y}\hat{n}_{z} & -\hat{n}_{x}^{2}-\hat{n}_{y}^{2} \end{bmatrix} \tag{12} $$
+
+<br>
+
+- 여기서 $$ \hat{n} $$ 의 `norm`의 정의에 따라 $$ \hat{n}_{x}^{2} + \hat{n}_{y}^{2} + \hat{n}_{z}^{2} = 1 $$ 을 만족하므로 식 (12)의 우변을 다음과 같이 정리할 수 있습니다.
+
+<br>
+
+- $$ \begin{bmatrix} -\hat{n}_{z}^{2}-\hat{n}_{y}^{2} & \hat{n}_{x}\hat{n}_{y} & \hat{n}_{z}\hat{n}_{x} \\ \hat{n}_{x}\hat{n}_{y} & -\hat{n}_{z}^{2}-\hat{n}_{x}^{2} & \hat{n}_{y}\hat{n}_{z} \\ \hat{n}_{x}\hat{n}_{z} & \hat{n}_{y}\hat{n}_{z} & -\hat{n}_{x}^{2}-\hat{n}_{y}^{2} \end{bmatrix} = \begin{bmatrix} \hat{n}_{x}^{2} - 1 & \hat{n}_{x}\hat{n}_{y} & \hat{n}_{z}\hat{n}_{x} \\ \hat{n}_{x}\hat{n}_{y} & \hat{n}_{y}^{2} - 1 & \hat{n}_{y}\hat{n}_{z} \\ \hat{n}_{x}\hat{n}_{z} & \hat{n}_{y}\hat{n}_{z} & \hat{n}_{z}^{2} - 1 \end{bmatrix} = \hat{n} \otimes \hat{n}^{T} - I \tag{13} $$
+
+<br>
+
+- $$ K^{2} = \hat{n} \otimes \hat{n}^{T} - I \tag{14} $$
+
+- $$ \hat{n} \otimes \hat{n}^{T} = K^{2} + I \tag{15} $$
+
+<br>
+
+- 식 (11)과 식 (15)를 이용하여 식 (9)를 전개해 보도록 하겠습니다.
+
+<br>
+
+- $$ \begin{align} \vec{u'} &= \cos{(\theta)} \vec{u} + (1 - \cos{(\theta)})(\hat{n} \otimes \hat{n}^{T}) \cdot \vec{u} + \sin{(\theta)} (\hat{n} \times \vec{u}) \\ &= \cos{(\theta)} \vec{u} + (1 - \cos{(\theta)})(K^{2} + I)\vec{u} + \sin{(\theta)}K\vec{u} \\ &= (\cos{(\theta)}I + (1 - \cos{(\theta)})(K^{2} + I) + \sin{(\theta)}K)\vec{u} \\ &= R \vec{u} \end{align} \tag{16} $$
+
+<br>
+
+- $$ \begin{align} R &= \cos{(\theta)}I + (1 - \cos{(\theta)})(K^{2} + I) + \sin{(\theta)}K \\ &= \cos{(\theta)}\begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix} + (1 - \cos{(\theta)})\begin{bmatrix} \hat{n}_{x}^{2} & \hat{n}_{x}\hat{n}_{y} & \hat{n}_{z}\hat{n}_{x} \\ \hat{n}_{x}\hat{n}_{y} & \hat{n}_{y}^{2} & \hat{n}_{y}\hat{n}_{z} \\ \hat{n}_{x}\hat{n}_{z} & \hat{n}_{y}\hat{n}_{z} & \hat{n}_{z}^{2} \end{bmatrix} + \sin{(\theta)}\begin{bmatrix} 0 & -\hat{n}_{z} & \hat{n}_{y} \\ \hat{n}_{z} & 0 & -\hat{n}_{x} \\ -\hat{n}_{y} & \hat{n}_{x} & 0 \end{bmatrix} \end{align} \tag{17} $$
+
+<br>
+
+- $$ c : \cos{(\theta)} $$
+
+- $$ s : \sin{(\theta)} $$
+
+- $$ t : 1 - \cos{(\theta)} $$
+
+<br>
+
+- $$ R = \begin{bmatrix} t\hat{n}_{x}^{2} + c & t\hat{n}_{x}\hat{n}_{y} -s\hat{n}_{z} & t\hat{n}_{z}\hat{n}_{x} + s\hat{n}_{y} \\ t\hat{n}_{x}\hat{n}_{y} + s\hat{n}_{z} & t\hat{n}_{y}^{2} + c & t\hat{n}_{y}\hat{n}_{z} - s\hat{n}_{x} \\ t\hat{n}_{x}\hat{n}_{z} -s\hat{n}_{y} & t\hat{n}_{y}\hat{n}_{z} + s\hat{n}_{x}& t\hat{n}_{z}^{2} + c \end{bmatrix} \tag{18} $$
+
+<br>
+
 ## **Axis-Angle Rotation의 Python code**
 
 <br>
 
-<br>
-
-
-## **Axis-Angle Rotation의 단점**
+- 앞에서 다룬 내용을 이용하여 `rotation` 행렬을 `axis-angle rotation`으로 구현 방법은 다음과 같습니다.
 
 <br>
 
-<br>
+```python
+def rot_from_axisangle(axis, theta):   
+    axis = axis/np.linalg.norm(axis)
+    c = np.cos(theta)
+    s = np.sin(theta)
+    t = 1 - c
 
+    x = axis[0]
+    y = axis[1]
+    z = axis[2]
 
-
-
+    rot = np.zeros((3, 3))
+    
+    rot[0, 0] = t * x * x + c
+    rot[0, 1] = t * x * y - s * z
+    rot[0, 2] = t * z * x + s * y
+    rot[1, 0] = t * x * y + s * z
+    rot[1, 1] = t * y * y + c
+    rot[1, 2] = t * y * z - s * x
+    rot[2, 0] = t * z * x - y * x
+    rot[2, 1] = t * y * z + y * x
+    rot[2, 2] = t * z * z + c
+    return rot
+```
 
 <br>
 

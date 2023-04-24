@@ -34,9 +34,17 @@ tags: [vision, depth estimation, 뎁스 추정] # add tag
 - [LocalBins: Improving Depth Estimation by Learning Local Distributions](https://gaussian37.github.io/vision-depth-localbins/)
 - [Unsupervised Scale-consistent Depth Learning from Video]()
 - [From Big to Small: Multi-Scale Local Planar Guidance for Monocular Depth Estimation](https://gaussian37.github.io/vision-depth-bts/)
-- [DEST, Depth Estimation with Simplified Transformer](https://gaussian37.github.io/vision-depth-dest/)
 - [How Do Neural Networks See Depth in Single Images?](https://gaussian37.github.io/vision-depth-how_nn_see_depth/)
 - [On the uncertainty of self-supervised monocular depth estimation](https://gaussian37.github.io/vision-depth-on_the_uncertainty_monodepth/)
+
+<br>
+
+## **Depth Completion**
+
+<br>
+
+- [NLSPN, Non-Local Spatial Propagation Network for Depth Completion](https://gaussian37.github.io/vision-depth-nlspn/)
+- [SemAttNet, Towards Attention-based Semantic Aware Guided Depth Completion](https://gaussian37.github.io/vision-depth-semattnet/)
 
 <br>
 
