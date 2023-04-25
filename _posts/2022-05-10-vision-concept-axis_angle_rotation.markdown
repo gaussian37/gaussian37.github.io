@@ -371,6 +371,42 @@ def rot_from_axisangle(axis, theta):
 
 <br>
 
+- 위 코드를 [3D Rotation Converter](https://www.andre-gaschler.com/rotationconverter/) 예제를 이용하여 살펴보면 다음과 같습니다.
+- 예를 들어 X, Y, Z 방향으로 각각 30도 회전한 경우를 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/axis_angle_rotation/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 우측 Output에서의 `Rotation matrix`가 그 결과임을 알 수 있으며 이 때, `Axis-Angle`의 값 또한 알 수 있습니다.
+- 위에 정의된 Python 코드를 이용하여 `Axis-Angle`을 구해보면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/axis_angle_rotation/10.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 코드의 `Rotation matrix`의 결과 또한 같은 값임을 알 수 있습니다. 즉, `Euler Angle Rotation`이나 `Axis-Angle Rotation`이나 표현 방식이 다를 뿐 3차원 공간 상의 회전은 같음을 알 수 있습니다.
+
+<br>
+
+## **Axis-Angle Rotation의 단점**
+
+<br>
+
+- `Axis-Angle Rotation`은 `Euler Angle Rotation`의 2가지 문제 (`Gimbal Lock`, `Rotaional Interpolation`)를 해결하는 좋은 방법입니다. 하지만 `Axis-Angle Rotation`에서도 나타나는 몇가지 약점들이 있습니다.
+- 먼저 `연산량`이 많다는 점입니다. 3D 회전이 많이 필요한 경우에 계속 누적된 `Axis-Angle Rotation`은 다른 Rotation 방법에 비해 상대적으로 연산량을 더 필요로 합니다.
+- 그리고 `Axis-Angle Rotation`에서 회전 $$ \theta $$ 가 0인 경우와 $$ 2\pi $$ 인 경우가 같다는 모호한 점도 있습니다.
+- 마지막으로 회전이 계속 중첩되는 `concatenation`에서는 위 코드에서 다룬 바와 같이 `Axis-Angle Rotation`을 다른 형태의 행렬로 변환해서 사용해야 합니다. 즉, 단순히 수식으로만 사용하기에는 어려움이 있습니다.
+
+<br>
+
+- `Euler Angle Rotation` 문제 뿐 아니라 `Axis-Angle Rotation` 문제도 해결하는 좋은 방법이 바로 `quaternion` 입니다.
+- `quaternion`은 다른 3차원 회전 방법에 대비하여 직관적이지 않다는 단점이 있지만 개념을 학습하고 익숙해져서 잘 사용하기만 하면 다른 회전 방법에서 발생하는 문제를 모두 개선할 수 있습니다.
+- 아래 링크에서 `quaternion`의 개념을 익혀보시는 것을 추천 드립니다.
+    - 링크 : [https://gaussian37.github.io/vision-concept-quaternion/](https://gaussian37.github.io/vision-concept-quaternion/)
+
+<br>
+
 [Vision 관련 글 목차](https://gaussian37.github.io/vision-concept-table/)
 
 <br>
