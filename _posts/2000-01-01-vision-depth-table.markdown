@@ -44,7 +44,7 @@ tags: [vision, depth estimation, 뎁스 추정] # add tag
 <br>
 
 - [NLSPN, Non-Local Spatial Propagation Network for Depth Completion](https://gaussian37.github.io/vision-depth-nlspn/)
-- [SemAttNet, Towards Attention-based Semantic Aware Guided Depth Completion](https://gaussian37.github.io/vision-depth-semattnet/)
+- [CompletionFormer, Depth Completion with Convolutions and Vision Transformers](https://gaussian37.github.io/vision-depth-completionformer/)
 
 <br>
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 사원수(quaternion)와 회전 
+title: 사원수(Quaternion)와 회전 
 date: 2022-05-10 00:00:00
 img: vision/concept/quaternion/0.png
 categories: [vision-concept] 
@@ -15,6 +15,11 @@ tags: [사원수, quaternion, 회전, rotation] # add tag
 
 - 참조 : 수학과 OpenGL 프로그래밍
 - 참조 : https://ghebook.blogspot.com/2010/07/quaternion.html
+
+<br>
+
+- 사전 지식 : [Euler Angle Rotation](https://gaussian37.github.io/math-la-rotation_matrix/)
+- 사전 지식 : [Axis-Angle Rotation](https://gaussian37.github.io/vision-concept-axis_angle_rotation/)
 
 <br>
 
