@@ -161,11 +161,11 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Robust homography 
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec5/2_10.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec5/2_11.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec5/2_11.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec5/2_11_1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 <br>
@@ -173,19 +173,15 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Robust homography 
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec5/2_12_1.png" alt="Drawing" style="width: 400px;"/></center>
-<br>
-
-<br>
 <center><img src="../assets/img/vision/mvg/nus_lec5/2_13.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec5/2_14.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec5/2_13_1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec5/2_14_1.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec5/2_14.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 <br>
