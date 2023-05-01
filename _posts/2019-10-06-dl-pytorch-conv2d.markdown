@@ -194,7 +194,16 @@ print(layer.weight.shape)
 
 <br>
 
-- 위 layer의 weight가 가지는 shape을 살펴보면 (3, 1, 3, 3)임을 확인할 수 있습니다. 이것은 차례대로 batch_size, channels, height, width의 크기를 가집니다.
+- 위 layer의 weight가 가지는 shape을 살펴보면 (3, 1, 3, 3)임을 확인할 수 있습니다. 이것은 차례대로 `(out_channels, in_channels, kernel_height, kernel_width)`의 크기를 가집니다.
+- 한 가지 예를 더 들면 다음과 같습니다.
+
+<br>
+
+```python
+layer = nn.Conv2d(in_channels = 10, out_channels = 20, kernel_size =(3, 5), stride = 1).to(device)
+print(layer.weight.shape)
+# torch.Size([20, 10, 3, 5])
+```
 
 <br>
 
