@@ -35,6 +35,7 @@ tags: [python, deep learning, dl] # add tag
 - [Bayesian Neural Network](https://gaussian37.github.io/dl-concept-bayesian_neural_network/)
 - [What Uncertainties Do We Need in Bayesian DeepLearning for Computer Vision](https://gaussian37.github.io/what_uncertainties_do_we_need/)
 - [Multi Task Deep Learning 개념 및 실습](https://gaussian37.github.io/dl-concept-mtl/)
+- [Deformable Convolution 정리](https://gaussian37.github.io/dl-concept-deformable_convolution/)
 
 <br>
 
