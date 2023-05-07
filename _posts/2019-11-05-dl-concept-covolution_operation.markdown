@@ -29,7 +29,8 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 - ### [Dilation 이란](#dilation-이란-1)
 - ### [Group 이란](#group-이란-1)
 - ### [Output Channel Size 란](#output-channel-size-란-1)
-- ### [Basic Convolution Operation](#basic-convolution-operation)
+- ### [Basic Convolution Operation](#basic-convolution-operation-1)
+- ### [Pytorch Convolution Operation](#pytorch-convolution-operation-1)
 
 <br>
 
@@ -393,43 +394,50 @@ tags: [convolution operation, 컨볼루션 연산] # add tag
 - 아래 애니메이션들도 보면 파란색의 인풋이 convolution 연산을 거치면서 청록색 아웃풋 처럼 사이즈가 작아지게 된 것을 볼 수 있습니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/conv/no_padding_no_strides.gif" alt="Drawing" style="width: 400px;"/></center>
-<br>
 
-- No padding, No strides
+#### **No padding, No strides**
 
 <br>
-<center><img src="../assets/img/dl/concept/conv/arbitrary_padding_no_strides.gif" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/conv/no_padding_no_strides.gif" alt="Drawing" style="width: 300px;"/></center>
 <br>
 
-- Arbitrary padding, No strides
+#### **Arbitrary padding, No strides**
 
 <br>
-<center><img src="../assets/img/dl/concept/conv/same_padding_no_strides.gif" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/conv/arbitrary_padding_no_strides.gif" alt="Drawing" style="width: 300px;"/></center>
 <br>
 
-- Half padding, no strides
+#### **Half padding, no strides**
 
 <br>
-<center><img src="../assets/img/dl/concept/conv/full_padding_no_strides.gif" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/conv/same_padding_no_strides.gif" alt="Drawing" style="width: 300px;"/></center>
 <br>
 
-- Full padding, No strides
+- 위 경우에는 입력과 출력의 크기가 같아지는 것을 확인할 수 있습니다. 이 방법이 입/출력의 크기를 동일하게 유지하기 위해 많이 사용하는 방법입니다.
 
 <br>
-<center><img src="../assets/img/dl/concept/conv/no_padding_strides.gif" alt="Drawing" style="width: 400px;"/></center>
-<br>
 
-- No padding, strides
+#### **Full padding, No strides**
 
 <br>
-<center><img src="../assets/img/dl/concept/conv/padding_strides.gif" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/conv/full_padding_no_strides.gif" alt="Drawing" style="width: 300px;"/></center>
 <br>
 
-- Padding, strides
+#### **No padding, strides**
 
 <br>
-<center><img src="../assets/img/dl/concept/conv/padding_strides_odd.gif" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/dl/concept/conv/no_padding_strides.gif" alt="Drawing" style="width: 300px;"/></center>
 <br>
 
-- Padding, strides (odd)
+#### **Padding, strides**
+
+<br>
+<center><img src="../assets/img/dl/concept/conv/padding_strides.gif" alt="Drawing" style="width: 300px;"/></center>
+<br>
+
+## **Pytorch Convolution Operation**
+
+<br>
+
+- 지금 까지 배운 내용을 `Pytorch` 함수를 통해 사용하려면 아래 링크를 참조하시면 됩니다.
+    - [Pytorch Conv2d 함수 다루기](https://gaussian37.github.io/dl-pytorch-conv2d/)
