@@ -187,7 +187,7 @@ tags: [edge detection, gradient, sobel, canny edge] # add tag
 - 반면 $$ T_{Low} $$ 이하의 `gradient`를 가지는 픽셀은 edge가 아닌 것으로 판별합니다.
 - 마지막으로 $$ T_{Low} $$ 와 $$ T_{High} $$ 사이 (hysterisis 구간)의 `gradient`를 가지는 픽셀들을 계속 이어 갔을 때, $$ T_{High} $$ 이상의 `gradient`의 값을 가지는 픽셀과 연결이 된다면hysterisis 구간의 픽셀을 모두 edge로 판별합니다. 이 값들을 `weak edge`라고 합니다.
 - 이와 같은 방식을 사용하는 이유는 앞에서 말한 예시와 같이 조명 등의 환경에 따라서 엣지의 검출 조건이 바뀔 수 있으며 엣지의 특성 상 **갑자기 나타나지 않고 엣지는 연결되어 있다는 것을 이용**하여 기존 문제를 개선하기 위한 아이디어 입니다.
-- 따라서 위 그림의 가장 왼쪽 예시는 hysterisis 구간의 픽셀들이 연속적으로 `strong edge`들과 연결되어 있으므로 `weak edge`로 판별합니다. 반면 가운데 예시에서는 hysterisis 구간의 픽셀들이 `string edge`들과 연결되지 못하므로 edge로 판별하지 않습니다. 가장 오른쪽 예시에서는 hysterisis 구간의 픽셀들이 양쪽 끝에 연결되어 `weak edge`로 판별이 났으나 hysterisis 구간을 벗어나 gradient가 작아진 부분은 edge가 아님을 확인할 수 있습니다.
+- 따라서 위 그림의 가장 왼쪽 예시는 hysterisis 구간의 픽셀들이 연속적으로 `strong edge`들과 연결되어 있으므로 `weak edge`로 판별합니다. 반면 가운데 예시에서는 hysterisis 구간의 픽셀들이 `strong edge`들과 연결되지 못하므로 edge로 판별하지 않습니다. 가장 오른쪽 예시에서는 hysterisis 구간의 픽셀들이 양쪽 끝에 연결되어 `weak edge`로 판별이 났으나 hysterisis 구간을 벗어나 gradient가 작아진 부분은 edge가 아님을 확인할 수 있습니다.
 
 <br> 
 <center><img src="../assets/img/vision/concept/edge_detection/10.png" alt="Drawing" style="width:1200px;"/></center>
