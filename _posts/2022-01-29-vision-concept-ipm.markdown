@@ -31,7 +31,7 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 <br>
 
 - ### [IPM의 사용 배경](#ipm의-사용-배경-1)
-- ### [IPM 적용 방법](#ipm의-적용-방법-1)
+- ### [IPM 적용 방법](#ipm-적용-방법-1)
 - ### [Python 코드](#python-코드-1)
 
 <br>
@@ -53,7 +53,7 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 - `IPM`의 이름을 살펴보면 `Inverse`, `Perspective Mapping` 2가지 의미로 나뉘게 됩니다. 
 - 먼저 `Perspective Mapping`은 `Perspective Projection`을 의미합니다. `Perspective Projection`은 3D Scene을 2D image plane으로 투영하는 작업 방식 중에 하나이며 `Perspective Projection`을 하면 일반적으로 보는 사진과 같이 **원근감이 있도록** 2D 이미지가 생성 됩니다. 같은 크기의 물체임에도 불구하고 가까우면 크게 보이고 멀리 있으면 작게 보이는 것이 `Perspective Projection`에 나타나는 왜곡의 형태 (`Perspective Distortion`) 입니다. 
 - `Inverse`는 `Perspective Projection`의 과정을 역으로 진행하면서 앞에서 설명한 `원근감 (Perspective)`에 의한 왜곡을 제거하는 것을 의미합니다. 따라서 `IPM`의 과정은 `Perspective Distortion`을 제거하여 전체 3D Scene에 대하여 카메라와의 거리에 상관 없이 일관성 있게 표현하는 것을 목표로 하며 표현 방식은 `BEV` 형식으로 표현하게 됩니다.
-- 여기서 `BEV`로 표현하는 이유는 `BEV`로 보았을 때, 카메라와의 원근에 상관 없이 동일한 크기로 표현할 수 있으며 3D 상의 실제 물체의 `Depth`는 알 수 없으므로 모든 물체는 높이가 없이 지면(ground)에 붙어 있는 것을 가정해야 하기 때문입니다. 2D 이미지의 정보를 3D 로 변환하기 위해서는 `Depth`를 통하여 물체의 높이 정보를 알 수 있는데 ([포인트 클라우드와 뎁스 맵의 변환 관계 정리](https://gaussian37.github.io/vision-depth-pcd_depthmap/) 참조) 이 정보를 알 수 없으니 모든 물체의 높이를 무시할 수 있는 방법인 `BEV`를 선택한 것입니다. 하늘에서 땅을 정면으로 바라보았을 때, 높이는 알 수 없는 형태의 시점으로 밖에 볼 수 없는데 그 점을 이용한 것입니다.
+- 여기서 `BEV`로 표현하는 이유는 `BEV`로 보았을 때, 카메라와의 원근에 상관 없이 동일한 크기로 표현할 수 있다는 점을 이용하는 것과 3D 상의 실제 물체의 `Depth`는 알 수 없으므로 모든 물체는 높이가 없이 지면(ground)에 붙어 있는 것을 가정해야 하기 때문입니다. 2D 이미지의 정보를 3D 로 변환하기 위해서는 `Depth`를 통하여 물체의 높이 정보를 알 수 있는데 ([포인트 클라우드와 뎁스 맵의 변환 관계 정리](https://gaussian37.github.io/vision-depth-pcd_depthmap/) 참조) 이 정보를 알 수 없으니 모든 물체의 높이를 무시할 수 있는 방법인 `BEV`를 선택한 것입니다. 하늘에서 땅을 정면으로 바라보았을 때, 높이는 알 수 없는 형태의 시점으로 밖에 볼 수 없는데 그 점을 이용한 것입니다.
 
 <br>
 
@@ -90,12 +90,12 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 
 <br>
 
-- 지금부터 살펴볼 방법은 front view 이미지를 `BEV` 이미지로 변경하는 방법입니다. `IPM`은 이러한 처리를 전방 카메라의 `원근 효과(perspective effect)`를 제거하고 top-view 기반의 2D 도메인 상에 다시 매핑하는 방법을 사용합니다. 즉, BEV 이미지는 원근 효과를 보정하여 거리와 평행선을 유지하는 성질을 가지고 있습니다.
+- 지금부터 살펴볼 방법은 front view 이미지를 `BEV` 이미지로 변경하는 방법입니다. `IPM`은 이러한 처리를 전방 카메라의 `원근 효과(perspective effect)`를 제거하고 top-view 기반의 2D 도메인 상에 다시 매핑하는 방법을 사용합니다. 즉, `BEV` 이미지는 원근 효과를 보정하여 거리와 평행선을 유지하는 성질을 가지고 있습니다.
 
 <br>
 
 - 다음 내용은 `homography` 기반의 `IPM`의 절차를 나타냅니다.
-- ① perspective view 이미지의 도로를 평평한 2차원 평면으로 가정합니다. 따라서 ( $$ X, Y, Z = 0 $$ ) 과 같이 모델링 하여 높이 정보가 없는 2차원 평면으로 간주합니다. 
+- ① 만들고자 하는 `BEV` 이미지는 `perspective view` 이미지의 도로를 평평한 2차원 평면으로 변환하여 생성합니다. 따라서 ( $$ X, Y, Z = 0 $$ ) 과 같이 모델링 하여 높이 정보가 없는 2차원 평면으로 간주합니다. 
 - ② `projection matrix` $$ P $$ 를 `extrinsic`, `intrinsic` 파라미터를 통해 구성합니다. 보통 이 값은 `calibration`을 통해 얻을 수 있습니다.
 - ③ $$ P $$ 행렬을 기존 이미지에 적용하여 이미지 변환을 합니다. 이 작업을 `perspective projection` 이라고 말하기도 합니다.
 
@@ -104,7 +104,7 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 <br>
 
 - 앞에서 설명한 ② 과정의 `extrinsic`, `intrinsic`에 관한 설명은 [카메라 캘리브레이션](https://gaussian37.github.io/vision-concept-calibration/) 내용을 참조해 주시기 바랍니다. `calibration`을 알고자 하는 목적은 실제 장착되어 있는 카메라와 도로 간의 위치 관계를 알기 위해서입니다.
-- 위 그림과 같이 어떤 좌표계를 사용하는 지에 따라서 같은 물체를 서로 다른 위치로 표현할 수 있습니다. 위 그림에서는 `Road`, `Vehicle`, `Camera` 3개의 다른 좌표계가 있고 카메라와 도로 간의 관계를 알아야 하기 때문에 두 좌표계를 변환할 수 있는 정보를 `calibration`을 통해 얻고 실제 `perspective projection` 할 때 사용합니다.
+- 위 그림과 같이 어떤 좌표계를 사용하는 지에 따라서 같은 물체를 서로 다른 위치로 표현할 수 있습니다. 위 그림에서는 `Road`, `Vehicle`, `Camera` 3개의 다른 좌표계가 있고 `Camera`와 `Vehicle` 간의 관계를 알아야 하기 때문에 두 좌표계를 변환할 수 있는 정보를 `calibration`을 통해 얻고 이 값을 통하여 `Vehicle` 좌표계의 3D Scene을 2D 이미지로 `perspective projection` 하게 됩니다. (참고로 `Road` 좌표계는 일반적으로 사용하진 않습니다.)
 
 <br>
 
@@ -125,7 +125,7 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 <br>
 
 - 위 그림의 왼쪽 그림은 차량의 윗부분에 위치하는 카메라를 통해 도로를 본 관점 (view) 이고 오른쪽 그림은 BEV로 본 주변 환경 입니다. `viewpoint` 가 perspective view로 보는 지 또는 bird eye view로 보는 지에 따라서 관측되는 장면이 달라집니다.
-- 두 view의 차이점 중 중요한 점은 왼쪽과 같이 `projective transformation`을 적용하게 되면 평행선이 더 이상 보존되지 않는 다는 점입니다. 반면 BEV의 경우 평행선이 그대로 유지되는 것을 볼 수 있습니다.
+- 두 view의 차이점 중 중요한 점은 왼쪽과 같이 `projective transformation`을 적용하게 되면 평행선이 더 이상 보존되지 않는 다는 점입니다. 반면 BEV의 경우 평행선이 그대로 유지되는 것을 볼 수 있습니다. 앞에서 설명한 `Perspective Distortion`이 제거된 것입니다.
 
 <br>
 
@@ -145,7 +145,7 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 
 - 카메라 모델은 3D scene 에서 2D 이미지로 `perspective projection` 을 하며 2D 이미지를 만들 때, `calibration`을 통해 구한 `intrinsic`과 `extrinsic` 값에 따라 원하는 2D 이미지가 만들어 집니다.
 - `extrinsic` $$ [R \vert t] $$ 는 `world`와 `camera` 간의 상태 위치 및 방향을 나타내어 `world coordinate`를 `camera coordinate`로 변환하는 역할을 합니다.
-- `intrinsic` $$ K $$ 는 `camera coordinate` 기준으로 3D scene 이 어떻게 2D 이미지 상의 `image coordinate`로 변환되는 지와 연관되어 있으며 $$ K $$ 는 카메라의 구성 성분인 `focal length`와 `camera center` 성분 값을 가집니다.  (가장 간단한 핀홀 카메라 케이스에 해당하며 `pixel skew`, `lens distortion` 등은 생략하였습니다.)
+- `intrinsic` $$ K $$ 는 `camera coordinate` 기준으로 3D scene이 어떻게 2D 이미지 상의 `image coordinate`로 변환되는 지와 연관되어 있으며 $$ K $$ 는 카메라의 구성 성분인 `focal length`와 `camera center` 성분 값을 가집니다.  (가장 간단한 핀홀 카메라 케이스에 해당하며 `pixel skew`, `lens distortion` 등은 생략하였습니다.)
 
 <br>
 <center><img src="../assets/img/vision/concept/ipm/6.png" alt="Drawing" style="width: 600px;"/></center>
@@ -160,8 +160,8 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 <br>
 
 - 아래 살펴볼 예정인 코드 중 `ipm_from_parameters` 라는 함수가 있습니다. 이 함수 부분이 전체 코드의 핵심이 되는데 처리 순서를 살펴보겠습니다.
-- ① `Defining the plane on the ground` : 먼저 `BEV` 평면에서 보려는 도로 영역을 잘라냅니다. 이 영역에 대해 픽셀 해상도, 픽셀당 절대 거리(스케일) 및 포즈(위치 및 방향)를 정의합니다.
-- ② ` Deriving and Applying Perspective projection` : 픽셀 좌표에 카메라 투영 모델을 사용하여 영역의 모든 3D 점(X, Y, Z=0)에 대한 `perspective projection`을 적용합니다.
+- ① `Defining the plane on the ground` : 먼저 `BEV` 평면에서 보려는 도로 영역을 잘라냅니다. 이 영역에 대해 픽셀 해상도, 픽셀 당 절대 거리(스케일) 및 포즈(위치 및 방향)를 정의합니다.
+- ② `Deriving and Applying Perspective projection` : 픽셀 좌표에 카메라 투영 모델을 사용하여 영역의 모든 3D 점( $$ X, Y, Z=0 $$ )에 대한 `perspective projection`을 적용합니다.
 - ③ `Resampling pixels` : front view 이미지에서 해당 픽셀을 다시 샘플링하고 image plane 2에 다시 매핑합니다. 매핑하였을 때, 발생한 hole과 aliasing 을 방지하기 위하 일부 형태의 `interpolation`이 필요합니다. 살펴볼 코드에서는 `bilinear interpolation`을 사용합니다.
 
 <br>
