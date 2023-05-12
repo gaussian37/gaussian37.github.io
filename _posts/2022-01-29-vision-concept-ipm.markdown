@@ -31,6 +31,7 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 <br>
 
 - ### [IPM의 사용 배경](#ipm의-사용-배경-1)
+- ### [IPM을 위한 배경 설명](#ipm을-위한-배경-설명-1)
 - ### [IPM 적용 방법](#ipm-적용-방법-1)
 - ### [Python 코드](#python-코드-1)
 
@@ -86,7 +87,7 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 
 <br>
 
-## **IPM 적용 방법**
+## **IPM을 위한 배경 설명**
 
 <br>
 
@@ -155,109 +156,50 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 
 <br>
 
-- 앞에서 언급 하였듯이, `IPM` 을 적용하기 위해서는 **도로가 지면에 평평하다고 가정**했습니다. 따라서 도로에 있는 모든 점에 대해 `Z = 0` 입니다. 이러한 문제 접근 방법은 `planar homography`를 사용하는 문제로 변환합니다. (이러한 방법은 OpenCV를 통해 간단하게 이미지 워핑을 수행할 수 있습니다.)
+- 앞에서 언급 하였듯이, `IPM` 을 적용하기 위해서는 **도로가 지면에 평평하다고 가정**했습니다. 따라서 도로에 있는 모든 점에 대해 `Z = 0` 입니다.
+- 따라서 만약 도로가 평지가 아니라면 `Z = 0`이라는 전제 조건을 만족하지 못하기 때문에 `IPM`의 결과가 왜곡이 되어 보일 것입니다. 예를 들어 도로가 휘어지거나, 차선이 직선이 아닌 형태로 나타나는 경우가 발생하는데 도로가 지면에 평평하지 않기 때문에 발생할 수 있습니다.
 
 <br>
 
-- 아래 살펴볼 예정인 코드 중 `ipm_from_parameters` 라는 함수가 있습니다. 이 함수 부분이 전체 코드의 핵심이 되는데 처리 순서를 살펴보겠습니다.
-- ① `Defining the plane on the ground` : 먼저 `BEV` 평면에서 보려는 도로 영역을 잘라냅니다. 이 영역에 대해 픽셀 해상도, 픽셀 당 절대 거리(스케일) 및 포즈(위치 및 방향)를 정의합니다.
-- ② `Deriving and Applying Perspective projection` : 픽셀 좌표에 카메라 투영 모델을 사용하여 영역의 모든 3D 점( $$ X, Y, Z=0 $$ )에 대한 `perspective projection`을 적용합니다.
-- ③ `Resampling pixels` : front view 이미지에서 해당 픽셀을 다시 샘플링하고 image plane 2에 다시 매핑합니다. 매핑하였을 때, 발생한 hole과 aliasing 을 방지하기 위하 일부 형태의 `interpolation`이 필요합니다. 살펴볼 코드에서는 `bilinear interpolation`을 사용합니다.
+## **IPM 적용 방법**
 
 <br>
 
-- 위 3가지 내용을 스텝 별로 상세하게 알아보도록 하겠습니다.
+- 지금까지는 `IPM` 적용을 위한 배경 지식을 살펴보았고 실제로 `IPM`을 적용하기 위한 프로세스를 살펴보겠습니다.
 
 <br>
 
-#### **Defining the plane on the ground**
-
-<br>
-<center><img src="../assets/img/vision/concept/ipm/7.png" alt="Drawing" style="width: 600px;"/></center>
-<br>
-
-- 차량이 이동하더라도 인식 가능한 영역이 일정하게 유지되기를 원하기 때문에 2D 평면은 차량의 상태에 맞춰서 정의되어야 합니다.
-- 먼저 평면의 원점은 왼쪽 상단 모서리로 정의되며 인식 가능한 영역은 위 그림에서 밝게 보이는 부분입니다. (위 그림에서 어두어진 부분은 인식 가능 영역이 아님) 이것은 카메라의 `FOV (Field Of View)`에 따라 영역이 달라지게 됩니다.
-- 카메라의 `FOV` 에 따라 보이지 않는 영역이 발생하기 때문에 `IPM` 이후 이미지에 관찰할 수 없는 픽셀(검은색)이 생기게 됩니다. 이런 점들을 고려하여 `plane`의 속성값들을 정해야 합니다. 예를 들면 다음과 같습니다.
-    - 픽셀 사이즈 : 500 x 500
-    - 해상도 : 픽셀 당 0.1 m
-    - 카메라는 평면의 y축 중간점에 위치하고 정렬됨
-    - ...
+- ① `calibraition` 정보 읽기 
+- ② `BEV` 이미지와 `world` 좌표간의 관계 정하기
+- ③ `BEV` 이미지와 `Image` 좌표간의 LUT (Look Up Table) 구하기
+- ④ `backward` 방식으로 `IPM` 처리하여 `BEV` 이미지 생성하기
 
 <br>
 
-#### **Deriving and Applying Perspective projection**
+#### **① `calibraition` 정보 읽기 **
 
 <br>
 
+<br>
 
-```python
-{
-    "baseline": 0.21409619719999115,
-    "roll": 0.0,
-    "pitch": 0.03842560000000292,
-    "yaw": -0.009726800000000934,
-    "x": 1.7,
-    "y": 0.026239999999999368,
-    "z": 1.212400000000026,
-    "fx": 2263.54773399985,
-    "fy": 2250.3728170599807,
-    "u0": 1079.0175620000632,
-    "v0": 515.0066006000195
-}
-```
+#### **② `BEV` 이미지와 `world` 좌표간의 관계 정하기**
 
 <br>
 
-```python
-def load_camera_params(file):
-    """
-    Get the intrinsic and extrinsic parameters
-    Returns:
-        Camera extrinsic and intrinsic matrices
-    """
-    with open(file, 'rt') as handle:
-        p = json.load(handle)
+<br>
 
-    fx, fy = p['fx'], p['fy']
-    u0, v0 = p['u0'], p['v0']
+#### **③ `BEV` 이미지와 `Image` 좌표간의 LUT (Look Up Table) 구하기**
 
-    pitch, roll, yaw = p['pitch'], p['roll'], p['yaw']
-    x, y, z = p['x'], p['y'], p['z']
+<br>
 
-    # Intrinsic
-    K = np.array([[fx, 0, u0, 0],
-                  [0, fy, v0, 0],
-                  [0, 0, 1, 0],
-                  [0, 0, 0, 1]])
+<br>
 
-    # Extrinsic
-    R_veh2cam = np.transpose(rotation_from_euler(roll, pitch, yaw))
-    T_veh2cam = translation_matrix((-x, -y, -z))
+#### **④ `backward` 방식으로 `IPM` 처리하여 `BEV` 이미지 생성하기**
 
-    # Rotate to camera coordinates
-    R = np.array([[0., -1., 0., 0.],
-                  [0., 0., -1., 0.],
-                  [1., 0., 0., 0.],
-                  [0., 0., 0., 1.]])
-
-    RT = R @ R_veh2cam @ T_veh2cam
-    return RT, K
-```
-
-
-
-- 
-
+<br>
 
 <br>
 
 ## **Python 코드**
 
 <br>
-
-<br>
-
-
-
-
