@@ -505,5 +505,164 @@ map_x, map_y = generate_direct_backward_mapping(world_x_min, world_x_max, world_
 
 <br>
 
-- 
+- 앞에서 생성한 `map_x`, `map_y`가 핵심이며 이제 `backward` 방식으로 `BEV` 이미지를 생성하면 됩니다. 
+- `backward` 방식이란 만들고자 하는 `target` 이미지의 픽셀에서 부터 거꾸로 `source` 이미지의 픽셀에 접근하여 원하는 RGB 값을 가져오는 방식을 의미합니다.
+- 이와 같은 방식을 사용하는 이유는 `source` 이미지에서 `target` 이미지로 값을 대응시켜 보낼 경우 모든 픽셀에 값을 대응시키기 어려워 `target` 이미지에서 픽셀이 대응되지 않아 `hole`이 발생하기 때문입니다. 예를 들어 앞에서 살펴본 바와 같이 카메라와 먼 영역에서는 한 픽셀에 대응되는 `BEV` 이미지의 픽셀이 여러개가 될 수 있습니다. 
 
+<br>
+<center><img src="../assets/img/vision/concept/ipm/13.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림에서 파란색 영역을 보면 점들이 겹치기 시작합니다. 원거리 영역에서 이런 경우가 더 많이 발생합니다. `src → target(BEV)` 으로 점을 한개씩 보내면 `BEV` 이미지에 대응되지 않는 점이 많아질 것입니다.
+- 따라서 `target → src` 방향으로 참조해야 할 픽셀의 관계를 정하는 것이 `BEV` 이미지를 모두 채울 수 있는 방법이며 이와 같은 방식을 `backward mapping` 이라고 합니다. 아래 코드에서는 `remap`으로 명명하겠습니다.
+
+<br>
+
+- 아래는 가장 간단한 `remap` 방식입니다. `map_x`, `map_y`가 `float` 값으로 되어 있기 때문에 `round`처리하여 가장 가까운 픽셀을 가져오도록 한 것입니다.
+
+<br>
+
+```python
+def remap_nearest(src, map_x, map_y):
+    src_height = src.shape[0]
+    src_width = src.shape[1]
+    
+    dst_height = map_x.shape[0]
+    dst_width = map_x.shape[1]
+    dst = np.zeros((dst_height, dst_width, 3)).astype(np.uint8)
+    for i in range(dst_height):
+        for j in range(dst_width):
+            src_y = int(np.round(map_y[i][j]))
+            src_x = int(np.round(map_x[i][j]))
+            if 0 <= src_y and src_y < src_height and 0 <= src_x and src_x < src_width:
+                dst[i][j] = src[src_y, src_x, :]
+    return dst 
+
+output_image_nearest = remap_nearest(image, map_x, map_y)
+output_image = cv2.remap(image, map_x, map_y, cv2.INTER_NEAREST, borderMode=cv2.BORDER_CONSTANT)
+
+mask = (output_image > [0, 0, 0])
+output_image = output_image.astype(np.float32)
+output_image_nearest = output_image_nearest.astype(np.float32)
+
+print("L1 Loss of opencv remap Vs. custom remap nearest : ", np.mean(np.abs(output_image[mask]-output_image_nearest[mask])))
+print("L2 Loss of opencv remap Vs. custom remap nearest : ", np.mean((output_image[mask]-output_image_nearest[mask])**2))
+
+# L1 Loss of opencv remap Vs. custom remap nearest :  0.0
+# L2 Loss of opencv remap Vs. custom remap nearest :  0.0
+```
+
+<br>
+
+- `remap_nearest`는 `round` 방식으로 `src` 이미지에 접근하여 `backward mapping`한 방식이며 편하게 사용하기 위해서는 `cv2.remap` 함수를 사용하면 됩니다. 대신에 옵션으로 `cv2.INTER_NEAREST`을 주면 같은 `round` 방식이 됩니다.
+- 마지막에 `remap_nearest`와 `cv2.remap`의 차이를 보면 차이가 없는 것을 확인할 수 있습니다.
+- 생성된 `BEV` 이미지를 보면 아래와 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ipm/14.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 하지만 이와 같은 `round` 연산은 카메라와 멀어질수록 참조하는 픽셀이 같아지도로고 만들면서 위 그림의 이미지 상단과 같이 해상도가 떨어져 보이는 `artifact`가 발생하게 됩니다.
+- 이와 같은 문제를 개선하기 위하여 일반적으로 `round` 연산으로 소수점을 처리하지 않고 `bilinear interpolation`을 많이 사용합니다.
+- 다음 링크를 참조하시면 됩니다. (https://en.wikipedia.org/wiki/Bilinear_interpolation). `round` 방식으로 값을 선택하지 않고 다음 그림과 같이 주변 4개의 점과 사용해야 할 `float` 점 값의 관계를 이용하여 `interpolation`을 하는 방법입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ipm/15.png" alt="Drawing" style="width: 300px;"/></center>
+<br>
+
+- 이와 같은 방법을 사용하려면 아래 코드를 사용하여 구현할 수 있습니다.
+
+<br>
+
+```python
+def bilinear_sampler(imgs, pix_coords):
+    """
+    Construct a new image by bilinear sampling from the input image.
+    Args:
+        imgs:                   [H, W, C]
+        pix_coords:             [h, w, 2]
+    :return:
+        sampled image           [h, w, c]
+    """
+    img_h, img_w, img_c = imgs.shape
+    pix_h, pix_w, pix_c = pix_coords.shape
+    out_shape = (pix_h, pix_w, img_c)
+
+    pix_x, pix_y = np.split(pix_coords, [1], axis=-1)  # [pix_h, pix_w, 1]
+    pix_x = pix_x.astype(np.float32)
+    pix_y = pix_y.astype(np.float32)
+
+    # Rounding
+    pix_x0 = np.floor(pix_x)
+    pix_x1 = pix_x0 + 1
+    pix_y0 = np.floor(pix_y)
+    pix_y1 = pix_y0 + 1
+
+    # Clip within image boundary
+    y_max = (img_h - 1)
+    x_max = (img_w - 1)
+    zero = np.zeros([1])
+
+    pix_x0 = np.clip(pix_x0, zero, x_max)
+    pix_y0 = np.clip(pix_y0, zero, y_max)
+    pix_x1 = np.clip(pix_x1, zero, x_max)
+    pix_y1 = np.clip(pix_y1, zero, y_max)
+
+    # Weights [pix_h, pix_w, 1]
+    wt_x0 = pix_x1 - pix_x
+    wt_x1 = pix_x - pix_x0
+    wt_y0 = pix_y1 - pix_y
+    wt_y1 = pix_y - pix_y0
+
+    # indices in the image to sample from
+    dim = img_w
+
+    # Apply the lower and upper bound pix coord
+    base_y0 = pix_y0 * dim
+    base_y1 = pix_y1 * dim
+
+    # 4 corner vertices
+    idx00 = (pix_x0 + base_y0).flatten().astype(np.int32)
+    idx01 = (pix_x0 + base_y1).astype(np.int32)
+    idx10 = (pix_x1 + base_y0).astype(np.int32)
+    idx11 = (pix_x1 + base_y1).astype(np.int32)
+
+    # Gather pixels from image using vertices
+    imgs_flat = imgs.reshape([-1, img_c]).astype(np.float32)
+    im00 = imgs_flat[idx00].reshape(out_shape)
+    im01 = imgs_flat[idx01].reshape(out_shape)
+    im10 = imgs_flat[idx10].reshape(out_shape)
+    im11 = imgs_flat[idx11].reshape(out_shape)
+
+    # Apply weights [pix_h, pix_w, 1]
+    w00 = wt_x0 * wt_y0
+    w01 = wt_x0 * wt_y1
+    w10 = wt_x1 * wt_y0
+    w11 = wt_x1 * wt_y1
+    output = w00 * im00 + w01 * im01 + w10 * im10 + w11 * im11
+    return output
+
+def remap_bilinear(image, map_x, map_y):
+    pix_coords = np.concatenate([np.expand_dims(map_x, -1), np.expand_dims(map_y, -1)], axis=-1)
+    bilinear_output = bilinear_sampler(image, pix_coords)
+    output = np.round(bilinear_output).astype(np.int32)
+    return output    
+
+output_image_bilinear = remap_bilinear(image, map_x, map_y)
+output_image = cv2.remap(image, map_x, map_y, cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+
+mask = (output_image > [0, 0, 0])
+output_image = output_image.astype(np.float32)
+output_image_bilinear = output_image_bilinear.astype(np.float32)
+print("L1 Loss of opencv remap Vs. custom remap bilinear : ", np.mean(np.abs(output_image[mask]-output_image_bilinear[mask])))
+print("L2 Loss of opencv remap Vs. custom remap bilinear : ", np.mean((output_image[mask]-output_image_bilinear[mask])**2))
+
+# L1 Loss of opencv remap Vs. custom remap bilinear :  0.045081623
+# L2 Loss of opencv remap Vs. custom remap bilinear :  0.66912574
+```
+
+<br>
+
+<br>
+<center><img src="../assets/img/vision/concept/ipm/16.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
