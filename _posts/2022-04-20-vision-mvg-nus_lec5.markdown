@@ -260,6 +260,57 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Robust homography 
 <br>
 
 <br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/77kpTQUfIBg" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/3_1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/3_2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/3_3.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/3_4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/3_5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/3_6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/3_7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/3_8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/3_9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/3_10.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec5/3_11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
+<br>
 
 [Multiple View Geometry 글 목차](https://gaussian37.github.io/vision-mvg-table/)
 
