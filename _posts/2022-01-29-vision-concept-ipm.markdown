@@ -345,14 +345,14 @@ def load_camera_params():
 ```python
 world_x_max = 50
 world_x_min = 7
-world_y_max = -10
-world_y_min = 10
+world_y_max = 10
+world_y_min = -10
 
 world_x_interval = 0.05
 world_y_interval = 0.025
 
 # Calculate the number of rows and columns in the output image
-output_width = int(np.ceil((world_y_min - world_y_max) / world_y_interval))
+output_width = int(np.ceil((world_y_max - world_y_min) / world_y_interval))
 output_height = int(np.ceil((world_x_max - world_x_min) / world_x_interval))
 
 print("(width, height) :", "(", output_width, ",",  output_height, ")")
@@ -416,9 +416,10 @@ uv = image_coords[:2, :]
 <center><img src="../assets/img/vision/concept/ipm/11.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
-
-
-
+- ① 위 코드에서 2, 3번째 행의 `world 좌표계`의 점은 노란색 점선에 해당하는 위치의 원본 이미지 좌표에 해당합니다.
+- ② 4, 5번째 행의 `world 좌표계`의 점은 실제 원본 이미지에 대응되지 않는 점입니다. 즉, 이미지에서 보이지 않는 영역으로 이해할 수 있습니다.
+- ③ 6, 7번째 행의 `world 좌표계`의 점은 근거리 영역의 점입니다. 2, 3번째 행의 좌표와 비교해 보면 `world 좌표계`에서의 좌표값은 종방향, 횡방향 모두 많은 차이가 있는 반면에 이미지에서는 횡방향에서 큰 차이가 없는 것 처럼 보입니다. 이러한 점들이 원근감이 반영된 `perspective distortion`의 영향이며 위치를 짐작하는 데 왜곡을 발생시킵니다.
+- ④ 8번째 행부터 끝까지는 6 m에서 25 m 까지 `world 좌표계`의 $$ X $$ 축으로 1 m 씩 증가시키면서 점들의 위치를 이미지에서 확인해 본 것입니다. 몇가지 내용을 확인할 수 있는데, 첫째, 6 m 부터 이미지 상에서 점들이 확인이 가능했다는 점입니다. 즉 6m 이내의 점들은 이미지 상에 들어오지 않았습니다. 둘째, `world 좌표계`가 차량의 중심에 있는 것으로 유추할 수 있는점입니다. $$ Y $$ 축이 이미지의 한가운데 근처에 있는 것으로 보입니다. 마지막으로 원근감에 의하여 `world 좌표계`의 원점과 멀리 떨어져 있는 점들은 비슷한 픽셀에 모여 있을 가능성이 높아집니다. 즉, 멀리 있는 픽셀 하나가 넓은 공간을 모두 대변하고 있으며 그만큼 해상도가 줄어들 것입니다.
 
 <br>
 
@@ -426,9 +427,83 @@ uv = image_coords[:2, :]
 
 <br>
 
+- 지금까지 내용을 살펴보면 `world 좌표계`의 임의의 점 $$ (X, Y, Z=0) $$ 가 이미지 좌표계의 어떤 픽셀에 해당하는 지 관계만 알 수 있으면 `BEV` 이미지를 생성할 수 있음을 확인하였습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ipm/12.png" alt="Drawing" style="width: 1200px;"/></center>
+<br>
+
+- 예를 들어 위 그림의 예시와 같이 `world 좌표계`의 정보를 이용하여 설정한 `BEV` 이미지에서 임의의 픽셀을 `extrinsic`과 `intrinsic`을 이용하여 원본 이미지의 픽셀 어디와 대응되는 지 알 수 있습니다.
+- 모든 `BEV` 이미지의 모든 픽셀에 대하여 이 대응되는 정보를 가지고 있을 수 있다면 매번 `BEV` 이미지를 만들어 낼 수 있으므로 이 대응되는 정보를 구하는 것이 `BEV` 이미지를 만드는 핵심입니다. 이 대응 관계를 나타내는 `LUT(Look Up Table)`를 구하는 방법을 살펴보겠습니다.
+
+<br>
+
+- 아래 코드를 이용하면 원하는 `world_x_max`, `world_x_min`, `world_y_max`, `world_y_min`, `world_x_interval`, `world_y_interval`을 만족하는 `LUT`인 `map_x`, `map_y`를 구할 수 있습니다.
+- `BEV` 이미지의 `(u, v)` 좌표의 값은 `dst[v][u] = src[ map_y[v][u] ][ map_x[v][u] ]` 와 같은 방법으로 인덱스 참조하여 구할 수 있는 것이 `map_x`, `map_y`의 정보 입니다.
+
+<br>
+
+```python
+def generate_direct_backward_mapping(
+    world_x_min, world_x_max, world_x_interval, 
+    world_y_min, world_y_max, world_y_interval, extrinsic, intrinsic):
+    
+    print("world_x_min : ", world_x_min)
+    print("world_x_max : ", world_x_max)
+    print("world_x_interval (m) : ", world_x_interval)
+    print()
+    
+    print("world_y_min : ", world_y_min)
+    print("world_y_max : ", world_y_max)
+    print("world_y_interval (m) : ", world_y_interval)
+    
+    world_x_coords = np.arange(world_x_max, world_x_min, -world_x_interval)
+    world_y_coords = np.arange(world_y_max, world_y_min, -world_y_interval)
+    
+    output_height = len(world_x_coords)
+    output_width = len(world_y_coords)
+    
+    map_x = np.zeros((output_height, output_width)).astype(np.float32)
+    map_y = np.zeros((output_height, output_width)).astype(np.float32)
+    
+    for i, world_x in enumerate(world_x_coords):
+        for j, world_y in enumerate(world_y_coords):
+            # world_coord : [world_x, world_y, 0, 1]
+            # uv_coord : [u, v, 1]
+            
+            world_coord = [world_x, world_y, 0, 1]
+            camera_coord = extrinsic[:3, :] @ world_coord
+            uv_coord = intrinsic[:3, :3] @ camera_coord
+            uv_coord /= uv_coord[2]
+
+            # map_x : (H, W)
+            # map_y : (H, W)
+            # dst[i][j] = src[ map_y[i][j] ][ map_x[i][j] ]
+            map_x[i][j] = uv_coord[0]
+            map_y[i][j] = uv_coord[1]
+            
+    return map_x, map_y
+
+map_x, map_y = generate_direct_backward_mapping(world_x_min, world_x_max, world_x_interval, world_y_min, world_y_max, world_y_interval, extrinsic, intrinsic)
+
+# world_x_min :  7
+# world_x_max :  50
+# world_x_interval (m) :  0.05
+
+# world_y_min :  -10
+# world_y_max :  10
+# world_y_interval (m) :  0.025
+```
+
+<br>
+
+- 생성된 `map_x`, `map_y`의 크기는 `BEV` 이미지의 크기와 동일합니다. 따라서 위 예제에서는 (w=800, h=860) 크기의 `map_x`, `map_y`를 가지게 되므로 모든 인덱스에 `dst[v][u] = src[ map_y[v][u] ][ map_x[v][u] ]`를 적용할 수 있습니다.
+
 <br>
 
 #### **④ `backward` 방식으로 `IPM` 처리하여 `BEV` 이미지 생성하기**
 
 <br>
+
+- 
 
