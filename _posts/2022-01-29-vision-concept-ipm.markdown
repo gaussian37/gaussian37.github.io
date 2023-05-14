@@ -9,6 +9,10 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 
 <br>
 
+[Vision 관련 글 목차](https://gaussian37.github.io/vision-concept-table/)
+
+<br>
+
 - 참조 : https://towardsdatascience.com/a-hands-on-application-of-homography-ipm-18d9e47c152f
 - 참조 : https://github.com/darylclimb/cvml_project
 - 참조 : https://csyhhu.github.io/2015/07/09/IPM/
@@ -33,6 +37,8 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 - ### [IPM의 사용 배경](#ipm의-사용-배경-1)
 - ### [IPM을 위한 배경 설명](#ipm을-위한-배경-설명-1)
 - ### [IPM 적용 방법](#ipm-적용-방법-1)
+- ### [Cityscapes 데이터셋 IPM 적용 예시](#cityscapes-데이터셋-ipm-적용-예시-1)
+- ### [IPM 적용 application 사례](#ipm-적용-application-사례-1)
 
 <br>
 
@@ -662,7 +668,103 @@ print("L2 Loss of opencv remap Vs. custom remap bilinear : ", np.mean((output_im
 ```
 
 <br>
+<center><img src="../assets/img/vision/concept/ipm/16.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림과 같이 `bilinear interpolation`을 적용하면 `artifact` 현상이 개선된 것을 볼 수 있습니다. 따라서 연산은 추가되지만 `artifact`가 사라지는 `bilinear interpolation`을 사용하는 것을 권장 드립니다.
+- 위 코드의 결과와 같이 `bilinear interpolation`은 구현 방법에 따라 값의 차이가 발생하는 것을 볼 수 있습니다. `nearest` 케이스와는 다르게 `remap_bilinear`와 `cv2.remap`의 결과가 완전 동일하지는 않습니다. (차이 수준은 무시할만한 수준입니다.)
 
 <br>
-<center><img src="../assets/img/vision/concept/ipm/16.png" alt="Drawing" style="width: 600px;"/></center>
+
+## **Cityscapes 데이터셋 IPM 적용 예시**
+
+<br>
+
+- 아래 영상은 `Cityscapes` 데이터에 `IPM`을 적용한 예시입니다. `BEV` 이미지를 생성한 방법은 다음과 같습니다.
+
+<br>
+
+```python
+world_x_max = 50
+world_x_min = 7
+world_y_max = 10
+world_y_min = -10
+
+world_x_interval = 0.05
+world_y_interval = 0.025
+```
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/M-3zoLX3d6Y" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
+- 다음은 2번째 예시 입니다. 좁은 영역을 조금 더 자세하게 보기 위한 예시입니다.
+
+<br>
+
+```python
+world_x_max = 30
+world_x_min = 7
+world_y_max = 5
+world_y_min = -5
+
+world_x_interval = 0.02
+world_y_interval = 0.01
+```
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/8AVvFIMjfJc" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
+
+<br>
+
+## **IPM 적용 application 사례**
+
+<br>
+
+- 아래 영상은 `RidgeRun`이라는 곳에서 `IPM`을 이용하여 application을 적용한 사례를 보여줍니다.
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/uygu9DWiz8g" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
+- 영상을 살펴보면 4개의 `fisheye camera`를 이용하여 전방/좌측/우측/후방을 잘 조합하여 하나의 `BEV` 이미지를 만들어 냅니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ipm/18.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 4개의 `fisheye camera`에서 동시에 취득한 이미지에 모두 `IPM`을 적용하여 360도를 `BEV` 이미지에 mapping 하여 볼 수 있도록 하였습니다.
+    - 상세 내용 링크 : https://developer.ridgerun.com/wiki/index.php/Birds_Eye_View
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/jRkyIuZ2PyA" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
+- 앞에서 설명하였듯이 `flat ground` 조건을 만족하기 위해서는 실제 ground가 flat 해야 하기도 하지만 `extrinsic`이 정확히 잘 맞아야 합니다. 4개의 카메라가 모두 정확한 `extrinsic`을 구할 수 있도록 위 영상과 같이 `calibration` 환경을 구성하였다는 점을 참조할 수 있습니다. 전/후/좌/우 4개의 선이 어긋남 없이 연결되는 것을 영상을 통해 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ipm/17.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `IPM`을 적용하여 `BEV` 이미지를 만드는 전체 프로세스를 위 flow와 같이 제시하였습니다. 
+    - 상세 내용 링크 : https://developer.ridgerun.com/wiki/index.php?title=Birds_Eye_View/Introduction/Research
+- 위 flow와 같이 `perspective mapping`을 이용하여도 구현할 수 있으며 본 글에서 제시한 방식과 유사합니다.
+- 다만 위 flow와 같이 진행하려면 `Remove lens distortion` 작업이 반드시 필요하나 본 글에서 제시한 방식으로 할 경우 이 과정이 필요 없습니다.
+- 또한 이미지가 생성되지 않는 검은색 영역을 제거하기 위하여 필요한 영역만 `crop`한 것은 실제 application을 사용할 때 필요한 작업임을 확인하는 것도 도움이 됩니다.
+- 위 링크를 통하여 `fisheye camera`에서 어떻게 `IPM`을 적용하는 지 쉽게 설명이 되어있으니 참조하기 좋아 정리해 두었습니다.
+
+<br>
+
+[Vision 관련 글 목차](https://gaussian37.github.io/vision-concept-table/)
+
 <br>
