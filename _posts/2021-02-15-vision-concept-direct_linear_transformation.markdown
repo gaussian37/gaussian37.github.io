@@ -14,6 +14,10 @@ tags: [direct linear transformation, DLT] # add tag
 
 <br>
 
+- 사전 지식 : [특이값 분해 (Singular Value Decomposition)](https://gaussian37.github.io/math-la-svd/)
+
+<br>
+
 - 이번 글에서는 `Homography` 적용 시 4개의 점을 이용하여 3 X 3 Homography 행렬을 만드는 방법에 대하여 다루어 보도록 하겠습니다.
 
 <br>
@@ -92,10 +96,14 @@ tags: [direct linear transformation, DLT] # add tag
 
 <br>
 
-- 행렬 A를 SVD를 이용하여 분해하여 이 때, $$ V $$에서읭 각 열은 $$ Ah = 0 $$의 해를 가집니다. 따라서 `eigenvalue`의 값이 최소가 되는 열을 선택하여 reprojection error를 줄이도록 하면 $$ h $$ 벡터를 구할 수 있습니다.
+- 행렬 A를 `SVD`를 이용하여 분해하였을 때, `Singular Value`가 최소가 되는 `Singular Vector`를 $$ V $$ 행렬에서 선택하면 $$ Ah = 0 $$ 에 가장 근사하는 $$ h $$ 를 구할 수 있습니다.
+- `Singular Vector`는 행렬 $$ A $$ 가 선형 변환할 때, 어떤 `basis` 방향으로 얼만큼 늘리거나 줄여서 변환할 지 방향과 크기를 나타냅니다. 따라서 가장 작은 `Singular Value`는 행렬 $$ A $$ 에 의해 변환되는 가장 작은 변화량을 나타냅니다. 이 가장 작은 `Singular Value`에 해당하는 `Singular Vector`는 행렬 $$ A $$ 가 벡터를 0 또는 거의 0 에 가까운 길이로 압축하는 방향을 알려줍니다.
+따라서 $$ Ah = 0 $$ 의 해를 구할 때, 가장 작은 `Singular Value`에 해당하는 $$ V $$ 의 벡터가 좋은 후보군이 됩니다. 최대한 압축되어 A의 영공간에 가까워지는 방향이기 때문입니다.
+- 이러한 이유로 `Singular Value`가 가장 작은 `Singular Vector`를 구하면 $$ Ah = 0 $$ 을 만족하는 가장 근사한 값을 구할 수 있습니다.
+- 따라서 최종적으로 $$ h $$ 벡터를 구하면 기존에 원하는 모양인 행렬 $$ H $$ 로 모양을 맞춰주면 `Homography`를 구할 수 있습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/direct_linear_transformation/7.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- Direct Linear Transformation의 순서를 다시 정리하면 위 절차와 같습니다.
+- `Direct Linear Transformation`의 순서를 다시 정리하면 위 절차와 같습니다.
