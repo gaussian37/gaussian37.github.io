@@ -10,7 +10,7 @@ tags: [direct linear transformation, DLT] # add tag
 <br>
 
 - 참조 : http://www.cs.cmu.edu/~16385/s17/Slides/10.2_2D_Alignment__DLT.pdf
-- 참조 : https://gaussian37.github.io/vision-concept-geometric_transformation/
+- 참조 : https://gaussian37.github.io/vision-concept-image_transformation/
 
 <br>
 
