@@ -98,8 +98,16 @@ tags: [direct linear transformation, DLT] # add tag
 
 - 행렬 A를 `SVD`를 이용하여 분해하였을 때, `Singular Value`가 최소가 되는 `Singular Vector`를 $$ V $$ 행렬에서 선택하면 $$ Ah = 0 $$ 에 가장 근사하는 $$ h $$ 를 구할 수 있습니다.
 - `Singular Vector`는 행렬 $$ A $$ 가 선형 변환할 때, 어떤 `basis` 방향으로 얼만큼 늘리거나 줄여서 변환할 지 방향과 크기를 나타냅니다. 따라서 가장 작은 `Singular Value`는 행렬 $$ A $$ 에 의해 변환되는 가장 작은 변화량을 나타냅니다. 이 가장 작은 `Singular Value`에 해당하는 `Singular Vector`는 행렬 $$ A $$ 가 벡터를 0 또는 거의 0 에 가까운 길이로 압축하는 방향을 알려줍니다.
-따라서 $$ Ah = 0 $$ 의 해를 구할 때, 가장 작은 `Singular Value`에 해당하는 $$ V $$ 의 벡터가 좋은 후보군이 됩니다. 최대한 압축되어 A의 영공간에 가까워지는 방향이기 때문입니다.
-- 이러한 이유로 `Singular Value`가 가장 작은 `Singular Vector`를 구하면 $$ Ah = 0 $$ 을 만족하는 가장 근사한 값을 구할 수 있습니다.
+따라서 $$ Ah = 0 $$ 의 해를 구할 때, 가장 작은 `Singular Value`에 해당하는 $$ V $$ 의 벡터가 좋은 후보군이 됩니다. 최대한 압축되어 A의 영공간에 가까워지는 방향이기 때문입니다. 이러한 이유로 `Singular Value`가 가장 작은 `Singular Vector`를 구하면 $$ Ah = 0 $$ 을 만족하는 가장 근사한 값을 구할 수 있습니다.
+- 좀 더 직관적으로 설명하면 다음과 같습니다.
+
+<br>
+
+- $$ Ax = \lambda x $$
+
+<br>
+
+- 위 식에서 $$ \lambda $$ 는 고유값이고 $$ x $$ 는 고유벡터입니다. 만약 $$ \lambda = 0 $$ 이 된다면 $$ Ax = 0 $$ 을 만족합니다. 하지만 $$ \lambda $$ 가 0이 아니더라도 0에 가까운 값이된다면 $$ Ax = \lambda x = \approx 0 $$ 이 될 수 있습니다. 따라서 가장 작은 고유값 $$ \lambda $$ 에 해당하는 고유벡터 $$ x $$ 를 선택하여 $$ Ax \approx 0 $$ 을 이용하면 해를 구할 수 있습니다.
 - 따라서 최종적으로 $$ h $$ 벡터를 구하면 기존에 원하는 모양인 행렬 $$ H $$ 로 모양을 맞춰주면 `Homography`를 구할 수 있습니다.
 
 <br>
