@@ -124,6 +124,9 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 <br>
 
+<br>
+
+- 이와 같이 $$ A = U \Sigma V^{t} $$ 는 분해되며 `직교 행렬`이 되는 $$ U, V $$ 의 성질 또한 살펴보았습니다.
 - `SVD`를 구하는 근본적인 목적은 `선형 연립방정식`의 **해를 찾거나 근사화 해를 찾기 위함**입니다.
 - 일반적으로 $$ Ax = b $$ 의 식에서 $$ A $$ 는 m x n 크기의 행렬이고 $$ x, b $$ 는 열벡터일 때, 이 식을 만족하는 열벡터 $$ x $$ 를 찾는 것이 선형 대수학의 근본적인 질문입니다.
 - 이와 같은 문제를 풀 때, 크게 3가지 경우의 수가 발생합니다. `① 해가 1개 존재하는 경우`, `② 해가 여러개 존재하는 경우`, `③ 해가 존재하지 않아 근사화 하는 경우` ( $$ \text{min} \Vert Ax - b \Vert $$ ) 입니다.
@@ -143,7 +146,9 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 
 - $$ \text{singular value} = \sqrt{\text{eigen value}} $$
 
-- $$ \text{singular vector} = \text{eigen vector} $$
+- $$ \text{left singular vector} = \text{eigen vector of  } AA^{T} $$
+
+- $$ \text{right singular vector} = \text{eigen vector of  } A^{T}A $$
 
 <br>
 
@@ -1215,17 +1220,155 @@ print(np.matmul(B, get_inv(B)))
 
 <br>
 
-- 선형대수학에서 가장 중요한 문제 중 하나는 $$ Ax = b $$ 라는 선형 연립 방정식을 풀어내는 것입니다. 선형 연립 방정식을 푸는 다양한 방법이 있지만 이번 글에서는 `SVD`를 이용하여 선형 연립 방정식을 해결하는 방법을 아래 ⓐ, ⓑ 2가지 조건에 대하여 살펴보도록 하겠습니다.
+- 선형대수학에서 가장 중요한 문제 중 하나는 $$ Ax = b $$ 라는 선형 연립 방정식을 풀어내는 것입니다. 선형 연립 방정식을 풀 때 아래와 같은 4가지 경우가 발생합니다.
 
 <br>
 
-- ⓐ $$ Ax = b (b \ne 0) $$
-
-- ⓑ $$ Ax = 0 (\text{A is not invertible}) $$
+- `1` : $$ Ax = b (b \ne 0) $$
+    - `1.a` : $$ Ax = b (b \ne 0), \text{A is invertible} $$
+    - `1.b` : $$ Ax = b (b \ne 0), \text{A is not invertible} $$
 
 <br>
 
-- 
+- `2` : $$ Ax = 0 $$
+    - `2.a` : $$ Ax = 0 (\text{A is invertible}) $$
+    - `2.b` : $$ Ax = 0 (\text{A is not invertible}, x \ne 0 ) $$
+
+<br>
+
+- 먼저 문제가 생기지 않는 부분은 역행렬이 존재하는 케이스 입니다. 즉, `1.a`와 `2.a` 모두 역행렬이 존재하므로 모두 $$ A $$ 의 역행렬을 곱해주면 `1.a`의 경우 $$ x = A^{-1}b $$ 가 되고 `2.a`의 경우 $$ x = 0 $$ 이 됩니다. 역행렬이 존재하려면 정사각행렬이기 때문에 이번 글에서 다룬 `SVD`가 꼭 필요하진 않습니다.
+- 반면에 `1.b`와 `2.b`의 경우에는 역행렬이 없기 때문에 본 글에서 설명하는 `SVD`를 이용하여 풀 수 있습니다.
+
+<br>
+
+#### **$$ Ax = b (b \ne 0), \text{A is invertible} $$**
+
+<br>
+
+- 앞에서 배운 `pseudo-inverse`를 이용하면 $$ x = A^{-1}b $$ 로 변환할 수 있습니다.
+- 컴퓨터 비전에서 다루는 많은 문제들은 $$ A $$ 행렬의 크기가 $$ (m, n) $$ 일 때, $$ m $$ 의 크기가 큰 경우가 많습니다. 왜냐하면 행 ( $$ m $$ ) 방향으로 식을 늘려서 쌓고 열 ( $$ n $$ ) 방향으로는 변수를 쌓기 때문입니다. 추정하고자 하는 변수보다 추정하는데 사용되는 식들이 많은 것이 일반적입니다.
+- 따라서 행렬 $$ A $$ 는 보통 정사각행렬이 아닌 행의 크기가 더 큰 직사각행렬이므로 `pseudo-inverse`를 통해서 $$ Ax = b $$ 의 해를 구할 수 있습니다. 과정은 다음과 같습니다.
+
+<br>
+
+- $$ A^{-1} = (U \Sigma V^{T})^{-1} = (V \Sigma^{-1} U^{T}) $$
+
+- $$ x = A^{-1}b = (V \Sigma^{-1} U^{T}) b $$
+
+<br>
+
+#### **$$ Ax = 0 (\text{A is not invertible}, x \ne 0 ) $$**
+
+<br>
+
+- 이와 같은 형태에서는 $$ A $$ 를 `pseudo-inverse`를 적용하면 $$ x = 0 $$ 이 되기 때문에 원하는 해를 구할 수 없습니다. 
+- 따라서 새로운 방법을 사용하여 $$ Ax = 0 $$ 을 만족하는 $$ x $$ 를 구하거나 만족하는 해가 없다면 우변이 0이 아니지만 0에 가까운 $$ Ax = \delta $$ 가 될 수 있도록 만든 다음에 만족하는 $$ x $$ 를 구하도록 해야 합니다. 이 경우에도 `svd`를 사용할 수 있습니다.
+
+<br>
+
+- 방법은 $$ A = U \Sigma V^{T} $$ 에서 가장 작은 `Singular Value`에 대응되는 `Right Singular Vector`를 선택하는 것입니다. 예를 들어 가장 작은 `Singular Value`가 $$ n $$ 번째 값인 $$ \sigma_{n} $$ 이라면 행렬 $$ V $$ 의 $$ n $$ 번째 열벡터인 $$ v_{n} $$ 가 선택되고 문제는 다음과 같이 변형 됩니다.
+- 아래 $$ v_{n} $$ 과 $$ u_{m} $$ 은 가장 작은 `Singular Value`와 대응되는 열벡터입니다.
+
+<br>
+
+- $$ Ax = 0 \to $$ Ax = 0 \to Av_{n} = \sigma_{n}u_{m} $$
+
+<br>
+
+- 만약 `Singular Value` 중 가장 작은 값이 0이 된다면 $$ Ax = \sigma_{n} = 0 $$ 이 유지가 되며 이 식을 만족시키는 $$ x = v_{n} $$  또한 `Right Singular Vector`에서 찾을 수 있습니다. 
+- `Singular Value` 중 가장 작은 값이 0인데 0인 값이 여러개가 있다면 그 중 하나를 사용하여도 모두 $$ Ax = 0 $$ 을 만족하므로 상관없습니다.
+- 이와 같이 `Right Singular Vector`에서 해를 찾는 이유는 다음과 같습니다.
+
+<br>
+
+- $$ Ax = 0 $$
+
+- $$ Av_{n} = U \Sigma V^{T} v_{n} = U \Sigma (V^{T} v_{n}) $$
+
+<br>
+
+- 위 식에서 $$ A $$ 는 `(m, n)` 의 크기를 가지는 행렬입니다. $$ (V^{T} v_{n}) $$ 는 $$ n $$ 번째 값만 1이고 나머지는 모두 0인 열벡터가 됩니다. 왜냐하면 $$ V $$ 는 `정규 직교 행렬`이기 때문에 $$ v_{n} $$ 와 $$ v_{i} (n \ne i ) $$ 와의 `inner product` 연산은 0이고 $$ v_{n} $$ 와 $$ v_{n} $$ 의 연산은 1이 됩니다.
+- 아래 식의 $$ 0_{(1)} $$ 이나 $$ 1_{(n)} $$ 의 아래첨자는 이해를 돕기 위해 행의 순서를 나타내었습니다.
+
+<br>
+
+- $$ \begin{align} Av_{n} &= U \Sigma \begin{bmatrix} 0_{(1)} \\ 0_{(2)} \\ \vdots \\ 0_{(n-1)} \\ 1_{(n)} \end{bmatrix} \\ &= U \begin{bmatrix} \sigma_{1} &  &  & \\  & \sigma_{2} &  & \\ & & \ddots & \\ & & & \sigma_{r} \\ & & & & \sigma_{r+1} \\ & & & & &\ddots \\ & & & & && \sigma_{n} \end{bmatrix} \begin{bmatrix} 0_{(1)} \\ 0_{(2)} \\ \vdots \\ 0_{(n-1)} \\ 1_{(n)} \end{bmatrix} \\  &= U \begin{bmatrix} 0_{(1)} \\ 0_{(2)} \\ \vdots \\ 0_{(m-1)} \\  \sigma_{n} \end{bmatrix}  \\ &= \begin{bmatrix} u_{1} & u_{2} & \cdots & u_{m-1} & u_{m} \end{bmatrix} \begin{bmatrix} 0_{(1)} \\ 0_{(2)} \\ \vdots \\ 0_{(m-1)} \\  \sigma_{n} \end{bmatrix} = \sigma_{n}u_{m} \end{align} $$
+
+<br>
+
+- $$ \therefore Av_{n} = \sigma_{n}u_{m} $$
+
+<br>
+
+- 앞에서 언급한 바와 같이 $$ \sigma_{n} $$ 즉, 가장 작은 `Singular Value`가 0이라면 다음과 같이 식이 정리됩니다.
+
+<br>
+
+- $$ Av_{n} = \sigma_{n}u_{m} = 0 \cdot u_{m} = 0 $$
+
+<br>
+
+- 따라서 $$ Av_{n} = 0 $$ 이 되어 $$ v_{n} $$ 이 해가 됩니다.
+- 위의 식과 같이 $$ \sigma_{n} \ne 0 $$ 이면 문제는 다음과 같이 바뀌게 되며 만족하는 해는 $$ v_{n} $$ 이 됩니다.
+
+<br>
+
+- $$ Ax = 0 \to Av_{n} = \sigma_{n}u_{m} $$
+
+<br>
+
+- 추가적으로 위 식에서 양변에 `norm`을 적용하면 $$ u_{m} $$ 의 경우 `정규 직교 행렬`의 열벡터이므로 `norm`은 1이 되고 다음과 같이 정리 됩니다.
+
+<br>
+
+- $$ \Vert Av_{n} \Vert &= \Vert \sigma_{n}u_{m} \Vert = \signa_{n} $$
+
+<br>
+
+- 위 내용을 간략하게 파이썬으로 실습해보면 다음과 같습니다.
+
+<br>
+
+```python
+A = np.array([[1, 2, 4], [2, 6, 1], [3, 2, 4]])
+# [[1 2 4]
+#  [2 6 1]
+#  [3 2 4]]
+
+U, Sigma, V_T = np.linalg.svd(A)
+
+print(U)
+# [[ 0.48070787  0.44038034  0.75827772]
+#  [ 0.66025596 -0.75083694  0.01749173]
+#  [ 0.57704594  0.49224897 -0.65169697]]
+
+print(Sigma)
+# [8.56344207 4.00242988 1.28375037]
+
+print(V_T)
+# [[ 0.41249273  0.70964962  0.57118051]
+#  [ 0.10380029 -0.6595401   0.74446783]
+#  [-0.90502776  0.24779887  0.34571733]]
+
+x = V_T.T[:, -1]
+# [-0.90502776  0.24779887  0.34571733]
+
+
+###### A@x와 Sigma[-1] * U[:, -1] 가 같으므로 위 수식 설명과 같이 전개되었습니다.#####
+print(A@x)
+# [ 0.9734393   0.02245501 -0.83661622]
+
+print(Sigma[-1] * U[:, -1])
+# [ 0.9734393   0.02245501 -0.83661622]
+
+
+
+##### norm(A@x) 과 Sigma[-1] 가 같은 것을 확인할 수 있습니다. #####
+print(np.linalg.norm(A @ x))
+# 1.2837503655387381
+print(Sigma[-1])
+# 1.2837503655387383
+```
 
 <br>
 
