@@ -1271,7 +1271,7 @@ print(np.matmul(B, get_inv(B)))
 
 <br>
 
-- $$ Ax = 0 \to $$ Ax = 0 \to Av_{n} = \sigma_{n}u_{m} $$
+- $$ Ax = 0 \to Av_{n} = \sigma_{n}u_{m} $$
 
 <br>
 
@@ -1321,7 +1321,7 @@ print(np.matmul(B, get_inv(B)))
 
 <br>
 
-- $$ \Vert Av_{n} \Vert &= \Vert \sigma_{n}u_{m} \Vert = \signa_{n} $$
+- $$ \Vert Av_{n} \Vert = \Vert \sigma_{n}u_{m} \Vert = \sigma_{n} $$
 
 <br>
 
