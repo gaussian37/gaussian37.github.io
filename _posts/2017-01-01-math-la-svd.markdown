@@ -1275,7 +1275,7 @@ print(np.matmul(B, get_inv(B)))
 
 <br>
 
-- 만약 `Singular Value` 중 가장 작은 값이 0이 된다면 $$ Ax = \sigma_{n} = 0 $$ 이 유지가 되며 이 식을 만족시키는 $$ x = v_{n} $$  또한 `Right Singular Vector`에서 찾을 수 있습니다. 
+- 만약 `Singular Value` 중 가장 작은 값이 0이 된다면 $$ Ax = \sigma_{n}u_{m} = 0 \cdot u_{m} = 0 $$ 이 유지가 되며 이 식을 만족시키는 $$ x = v_{n} $$  또한 `Right Singular Vector`에서 찾을 수 있습니다. 
 - `Singular Value` 중 가장 작은 값이 0인데 0인 값이 여러개가 있다면 그 중 하나를 사용하여도 모두 $$ Ax = 0 $$ 을 만족하므로 상관없습니다.
 - 이와 같이 `Right Singular Vector`에서 해를 찾는 이유는 다음과 같습니다.
 
