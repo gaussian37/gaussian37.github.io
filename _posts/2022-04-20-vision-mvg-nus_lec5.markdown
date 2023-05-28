@@ -20,7 +20,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Robust homography 
 
 <br>
 
-- 이번 강의에어슨 카메라 모델과 카메라 캘리브레이션에 관한 내용을 다루어 보도록 하겠습니다.
+- 이번 강의에서는 카메라 모델과 카메라 캘리브레이션에 관한 내용을 다루어 보도록 하겠습니다.
 
 <br>
 <div style="text-align: center;">

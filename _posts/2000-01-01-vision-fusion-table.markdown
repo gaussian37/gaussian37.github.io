@@ -39,8 +39,7 @@ tags: [vision, multi camera fusion, fusion] # add tag
 
 <br>
 
-- [NEAT (Neural Attention Fields for End-to-End Autonomous Driving)]()
-- [Structured Bird's-Eye-View Traffic Scene Understanding from Onboard Images]()
+- [Vision-Centric BEV Perception (Survey)](https://gaussian37.github.io/vision-fusion-vision_centric_bev_perception/)
 - [DETR3D (3D Object Detection from Multi-view Images via 3D-to-2D Queries)]()
 - [Self-Supervised Surround-View Depth Estimation with Volumetric Feature Fusion](https://gaussian37.github.io/vision-fusion-volumetric_feature_fusion/)
 - [NVAutoNet, FAST AND ACCURATE 360◦ 3D VISUAL PERCEPTION FOR SELF DRIVING](https://gaussian37.github.io/vision-fusion-nvautonet/)

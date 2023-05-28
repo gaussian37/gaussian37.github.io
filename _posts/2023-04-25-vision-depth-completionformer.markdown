@@ -18,7 +18,7 @@ tags: [depth completion, depth estimation, completionformer] # add tag
 
 <br>
 
-- 이번 글에서 다룰 논문은 CVPR 2023 Paper로 등재된 논문이며 `NLSPN`에 Transformer를 적용한 논문으로 요약할 수 있습니다.
+- 이번 글에서 다룰 논문은 CVPR 2023 Paper로 등재된 논문이며 `Transformer`를 이용하여 `Depth Completion`을 적용한 뒤 `NLSPN`을 이용하여 `refinement`를 적용한 논문으로 요약할 수 있습니다.
 - `NLSPN` 논문만 이해하면 본 논문에서는 이해하기 어려운 부분은 없으니 쉽게 읽을 수 있을 것으로 생각됩니다. 본 글을 읽기 전에 사전 지식으로 `NLSPN`을 꼭 읽기를 추천드립니다.
 
 <br>
