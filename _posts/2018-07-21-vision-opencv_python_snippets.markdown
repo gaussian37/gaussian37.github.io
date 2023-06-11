@@ -31,6 +31,7 @@ tags: [opencv, python, snippets] # add tag
 - ### [픽셀의 하한, 상한 값 정하기](#픽셀의-하한-상한-값-정하기-1)
 - ### [Automatic Canny Edge Detection](#automatic-canny-edge-detection-1)
 - ### [erosion과 dilation](#erosion과-dilation-1)
+- ### [rvecs와 Rodrigues 함수](#rvecs와-rodrigues-함수-1)
 - ### [기타 참조 내용](#기타-참조-내용-1)
 
 <br>
@@ -511,6 +512,97 @@ kernel = np.ones((3, 3), np.uint8)
 erosion = cv2.erode(img, kernel, iterations=1)
 dilation = cv2.dilate(img, kernel, iterations=2)
 ```
+
+<br>
+
+## **rvecs와 Rodrigues 함수**
+
+<br>
+
+- 참조 : https://docs.opencv.org/2.4/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html?highlight=rodrigues#void%20Rodrigues(InputArray%20src,%20OutputArray%20dst,%20OutputArray%20jacobian)
+- 참조 : https://www.andre-gaschler.com/rotationconverter/
+
+- `opencv`에서 캘리브레이션이나 3D 관련 함수 사용 시 `rvecs`와 `tvecs`를 입/출력 값으로 사용하곤 합니다.
+- `rvecs`와 `tvecs`는 `opencv`함수에서 계산된 결과 또는 계산하고자 하는 $$ X, Y, Z $$ 축 순서의 `Rotation`과 `Translation`을 위한 정보입니다.
+
+<br>
+
+- `rvecs`와 `tvecs`의 타입은 `list`이며 각 원소는 3개의 값을 가지는 벡터입니다. `list`는 처리한 이미지의 갯수를 의미합니다. 예를 들어 어떤 작업 (ex. 캘리브레이션)을 10장의 이미지로 처리하였으면 `list`의 길이는 10이 되며 이미지 각 정보에 대한 `Rotation`, `Translation`이 구성되어 입/출력됩니다.
+- 만약 $$ i $$ 번째 이미지의 `Rotation`과 `Translation`을 구성한다고 하면 `rvces[i]`와 `tvecs[i]`가 대응이 되어 $$ X, Y, Z $$ 의 `Rotation`과 `Translation`을 구성할 수 있습니다. 관련 방법을 좀 더 자세하게 살펴보겠습니다.
+
+<br>
+
+- `rvecs[i] = rvec`는 3개의 값을 가지는 벡터입니다. 이 벡터 값은 `Rodrigues` 변환을 통해 $$ 3 \times 3 $$ 크기의 행렬로 만들 수 있습니다.
+- 먼저 `rvec`은 `로드리게스 회전 (또는 축각 회전)`으로 표현되어 있습니다. 이 방법은 3차원에서 회전하고자 하는 3차원 벡터 축(Axis)과 축을 기준으로 회전하고자 하는 회전량을 이용하는 방법입니다. 상세 내용은 아래 글을 참조하시기 바랍니다.
+    - [로드리게스 회전 (축각 회전) 설명](https://gaussian37.github.io/vision-concept-axis_angle_rotation/)
+- 따라서 `로드리게스 회전`을 위해서는 기본적으로는 회전축 `axis`를 표현하는 벡터값 3개와 회전각도 1개 총 4개의 값이 필요로 합니다. 하지만 `rvec`은 3개의 값만 가지고 있는데, 이 부분은 `opencv`에서 정보를 compact한 방식으로 압축하여 사용하기 때문이며 다음과 같이 4개의 값을 만들면 되는 것으로 소개됩니다.
+
+<br>
+
+- $$ \text{rvec} = (a, b, c) $$
+
+- $$ \text{Rotation Angle : } \theta = \sqrt{a^{2} + b^{2} + c^{2}} $$
+
+- $$ \text{Rotation Axis : } v = (\frac{a}{\theta}, \frac{b}{\theta}, \frac{c}{\theta}) $$
+
+<br>
+
+- 그러면 각각 3개의 원소를 가지는 `rvec`과 `tvec`을 이용하여 어떻게 $$ R \vert t $$ 행렬을 만드는 지 살펴보도록 하겠습니다.
+- 먼저 실제 사용하는 `OpenCV` 함수를 사용하여 로드리게스 회전을 구하려면 `cv2.Rodrigues`를 사용하면 됩니다.
+
+<br>
+
+```python
+rvec
+# array([[-0.18105588],
+#        [-0.12723858],
+#        [-1.53333626]])
+
+tvec
+# array([[-34.65648128],
+#        [  4.21510712],
+#        [215.64322146]])
+
+R, _ = cv2.Rodrigues(rvec)
+# [[ 0.03493564  0.99890668  0.0310637 ]
+#  [-0.98012378  0.02817188  0.1963765 ]
+#  [ 0.19528667 -0.03730682  0.98003639]]
+
+Rt = np.identity(4)
+Rt[:3, :3] = R
+Rt[:3, 3] = tvec.reshape(-1)
+# [[  0.03493564   0.99890668   0.0310637  -34.65648128]
+#  [ -0.98012378   0.02817188   0.1963765    4.21510712]
+#  [  0.19528667  -0.03730682   0.98003639 215.64322146]
+#  [  0.           0.           0.           1.        ]]
+```
+
+<br>
+
+- 위의 `cv2.Rodrigues()` 함수는 `opencv`에서 정의한 `rvec` 형식을 따릅니다. 그러면 실제 `opencv`의 값과 계산기를 통해 구한 값이 같은 지 살펴보도록 하겠습니다. 계산기는 [3D Rotation Converter](https://www.andre-gaschler.com/rotationconverter/)를 사용하였습니다.
+
+<br>
+
+```python
+rvec
+# array([[-0.18105588],
+#        [-0.12723858],
+#        [-1.53333626]])
+
+theta = np.linalg.norm(rvec)
+# 1.5492227001175765
+
+v = rvec / theta
+# [[-0.11686885]
+#  [-0.08213059]
+#  [-0.98974554]]
+```
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/16.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 이미지의 빨간색 박스 위주로 보면 앞에서 구한 `Axis`와 `Angle`을 통해 `Rotation Matrix`를 구한 것이 `cv2.Rodrigues` 함수와 같은 결과임을 알 수 있습니다.
 
 <br>
 
