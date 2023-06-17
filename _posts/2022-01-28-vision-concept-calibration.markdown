@@ -37,7 +37,7 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 - ### [이미지 형성과 핀홀 모델 카메라](#이미지-형성과-핀홀-모델-카메라-1)
 - ### [Camera Extrinsic Matrix with Example in Python](#camera-extrinsic-matrix-with-example-in-python-1)
 - ### [Camera Intrinsic Matrix with Example in Python](#camera-intrinsic-matrix-with-example-in-python-1)
-- ### [Zhang's Method (A Flexible New Technique for Camera Calibration)](#)
+- ### [Zhang's Method (A Flexible New Technique for Camera Calibration)](#zhangs-method-a-flexible-new-technique-for-camera-calibration-1)
 - ### [추가 내용 : 이미지 crop과 resize에 따른 intrinsic 수정 방법](#추가-내용--이미지-crop과-resize에-따른-intrinsic-수정-방법-1)
 
 <br>
@@ -933,6 +933,29 @@ def get_cropped_and_resized_intrinsic(
 <br>
 
 - `OpenCV`에 구현되어 있는 `Brown Camera Model`을 위한 `Zhang's Method`를 통해 카메라 캘리브레이션을 수행해 보고 앞에서 직접 구현하여 얻은 캘리브레이션 값과 비교해 보도록 하겠습니다.
+- 데이터 링크 : https://drive.google.com/drive/folders/1aMsGK-A6VgdtW2uTSOtV2aBexErZCYpn?usp=drive_link
+
+<br>
+
+```python
+import cv2
+import numpy as np
+import os
+import glob 
+
+folder_name = ".../path.../calibration_images"
+
+# 체커보드의 X, Y 축을 기준으로 
+CHECKERBOARD = (10, 7)
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/30.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+```python
+criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+```
 
 <br>
 
@@ -947,11 +970,15 @@ def get_cropped_and_resized_intrinsic(
 
 <br>
 
+- 구현 중 ....
+
 <br>
 
 #### **Zhang's Method OpenCV (Generic Camera Model)**
 
 <br>
+
+- 이번에는 `Generic Camera Model`을 이용하여 `Fisheye Camera`의 카메라 캘리브레이션을 하는 방법에 대하여 살펴보도록 하겠습니다.
 
 <br>
 
