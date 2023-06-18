@@ -30,7 +30,6 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - LU 분해
 - QR 분해
 - 그람 슈미트 과정
-- 선형연립방정식 풀이 
 
 <br>
 
@@ -186,3 +185,4 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [벡터의 정사영(projection)](https://gaussian37.github.io/math-la-projection/)
 - [sparse matrix(희소 행렬)](https://gaussian37.github.io/math-la-sparse_matrix/)
 - [블록 행렬 곱(block matrix multiplication)](https://gaussian37.github.io/math-la-block_matrix_multiplication/)
+- [Similar Matrix (닮은 행렬)](https://gaussian37.github.io/math-la-similar_matrix/)

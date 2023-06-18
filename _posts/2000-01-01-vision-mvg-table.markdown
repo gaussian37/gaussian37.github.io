@@ -10,7 +10,7 @@ tags: [vision, Multiple View Geometry] # add tag
 <br>
 
 - 아래는 `National University of Singapore`의 `Gim Hee Lee` 교수의 `Multiple View Geometry` 책을 정리한 강의 목록 입니다.
-- 아래 글 목록에서는 강의 진도를 기준으로 `Multiple View Geometry` 책 전체를 정리하고자 하며 책에서 제외된 내용은 각 글에서 강의 순서에 맞게 별도 추가하였습니다.
+- 아래 글 목록에서는 강의 진도를 기준으로 `Multiple View Geometry` 책 전체를 정리하고자 하며 책에서 제외된 내용은 해당 강의의 글에 작성하거나 강의 이외 란으로 별도 구성하였습니다.
 
 <br>
 
@@ -34,5 +34,5 @@ tags: [vision, Multiple View Geometry] # add tag
 
 <br>
 
-- 연습문제 솔루션 : https://blog.immenselyhappy.com/post/mvg-sol-index/
+- `연습문제 솔루션` : https://blog.immenselyhappy.com/post/mvg-sol-index/
 
