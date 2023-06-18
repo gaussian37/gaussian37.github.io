@@ -129,7 +129,7 @@ tags: [similar matrix, 닮은 행렬] # add tag
 
 <br>
 
-#### ****eigenvalue의 정의를 이용**
+#### **eigenvalue의 정의를 이용**
 
 <br>
 
