@@ -1,10 +1,10 @@
 ---
 layout: post
-title: 카메라 모델과 렌즈 왜곡 (lense distortion)
+title: 카메라 모델과 렌즈 왜곡 (lens distortion)
 date: 2022-03-29 00:00:00
-img: vision/concept/lense_distortion/0.png
+img: vision/concept/lens_distortion/0.png
 categories: [vision-concept] 
-tags: [lense distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, Brown Camera Model] # add tag
+tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, Brown Camera Model] # add tag
 ---
 
 <br>
@@ -64,7 +64,7 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, 
 - 따라서 렌즈를 이용하여 카메라에 다양한 영역의 빛이 많이 유입될 수 있도록 (사람의 수정체와 같습니다.) 조절할 수 있습니다. **렌즈의 형태에 따라 카메라가 빛을 유입할 수 있는 영역이 달라지기 때문에** 아래 그림과 같이 **렌즈에 따른 화각이 결정됩니다.**
 
 <br>
-<center><img src="../assets/img/vision/concept/lense_distortion/1.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/concept/lens_distortion/1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그림의 화각과 `초점 거리 (focal length)`는 설명을 위한 예시이며 절대적인 기준은 아닙니다.
@@ -80,7 +80,7 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, 
 - 카메라 렌즈로 인하여 발생하는 왜곡은 크게 `Radial Distotion`과 `Tangential Distortion`가 있습니다. 먼저 `Radial Distortion` 부터 살펴보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/lense_distortion/2.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/concept/lens_distortion/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그림은 `Radial Distortion`을 나타냅니다. `Radial Distortion`은 빛이 렌즈로 입사할 때, 균등하게 들어오지 않고 영역 별로 불균등하게 들어오기 때문에 발생합니다. 이와 같은 이유는 카메라 렌즈를 의도적으로 설계하여 특정 영역을 더 많이 볼 수 있도록 만들기 때문입니다.
@@ -96,7 +96,7 @@ tags: [lense distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, 
 - `Tangential Distortion`는 카메라 렌즈와 이미지 센서가 평행하게 장착되어 생산되지 못하였을 때 발생하는 왜곡입니다. `Tangential Distortion`이 발생하면 이미지는 비스듬히 기울어져 있습니다. 이러한 이유로 직선이 약간 굽어보이게 됩니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/lense_distortion/3.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/concept/lens_distortion/3.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 카메라 렌즈와 이미지 센서가 평행하지 않으면 위 그림과 같이 기울어지게 되며 왜곡이 발생하게 됩니다.
