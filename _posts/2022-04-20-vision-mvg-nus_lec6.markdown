@@ -187,6 +187,95 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Single view metrol
 
 
 <br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/XSflleJr4qM" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/29.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 이전 강의에서는 **카메라의 센터점이 동일**한 상태에서의 서로 다른 상태로 취득한 이미지에 대하여 `homography`를 이용하면 이론적으로 이미지들을 서로 복원할 수 있음을 확인하였습니다.
+- 이번 슬라이드에서 부터는 그 이론적인 내용을 이용하여 적용할 수 있는 대표적인 Application인 `Synthetic Views`와 `Planar Panoramic Mosaicing`입니다.
+
+<br>
+
+- 먼저 `Synthetic Views`는 위 그림과 같이 `source image`로 부터 `planar homography`를 이용하여 새로운 형태의 `target image`로 생성하는 것을 의미합니다. `planar homography`를 이용한 이미지 변환은 카메라읜 센터점은 고정한 체 카매라의 촬영 방향을 변화하는 효과를 줄 수 있도록 할 수 있습니다.
+- `planar homography`는 3 x 3 크기의 행렬로 어떤 이미지의 점들을 다른 이미지의 점들로 변환할 수 있도록 하며 3 x 3 행렬의 성분을 통하여 `rotation`, `translation`, `scale` 및 `perspective distortion`이 이미지 변환 시 어떻게 바뀌는 지 설명해 줄 수 있습니다.
+- `systhetic view`를 생성하기 위해서는 기본적으로 다음의 절차를 따릅니다.
+- ① `source image`와 `target image`에 서로 대응되는 (같은 위치를 가리키는) 점들을 확인합니다.
+- ② 이 점들 쌍을 이용하여 `homograpy matrix`를 계산합니다.
+- ③ `homography`를 적용하여 `source image`를 `target image`로 생성합니다. (`synthetic view`)
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/30.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 앞에서 설명한 바와 같이 `source image`에서 임의의 사각형을 지정하고 `target image`에서 이 사각형이 어디에 위치해 있는 지 알수 있으면 `homography`를 계산할 수 있습니다. `homography`를 계산하는 일반적인 방법은 `source image`와 `target image`에 대응되는 점들의 쌍을 선형 방정식의 해를 푸는 방식으로 구합니다. 자세한 내용은 아래 글을 참조하시면 됩니다.
+    - 참조 : [image transformation](https://gaussian37.github.io/vision-concept-image_transformation/)
+    - 참조 : [direct linear transformation](https://gaussian37.github.io/vision-concept-direct_linear_transformation/)
+
+<br>
+
+- 이와 같은 방법은 통해 $$ H $$ 를 구하면 `source image` 에서 $$ x $$ 점을 `target image`에서 $$ x' = Hx $$ 로 변환할 수 있으며 필요한 영역의 모든 점을 이와 같이 변환하면 필요한 영역의 이미지를 구할 수 있습니다. 이와 같은 작업은 `warping` 이라고 하기도 합니다.
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/31.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/32.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/33.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/34.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 이번에는 카메라 캘리브레이션이 우리에게 어떤 정보를 주는 지 살펴보도록 하겠습니다.
+- 이전 강의에서 다루었듯이 카메라 캘리브레이션을 통하여 카메라의 `intrinsic`와 `extrinsic` 파라미터를 얻을 수 있었고 `intrinsic` 파라미터를 통해 `focal length`, `optical center`, `lens distortion` 등을 구할 수 있으며 `extrinsic` 파라미터를 통하여 카메라와 world의 관계를 구할 수 있었습니다.
+- 이전 강의에서는 이와 같은 의미를 가지는 `intrinsic`과 `extrinsic` 파라미터를 이용하여 2D 이미지와 3D 공간 상의 정보를 변환하는 `projection matrix`를 구하여 사용하였고 이 행렬은 $$ 3 \times 4 $$ 크기를 가졌습니다. 또한 `projection matrix`를 역으로 분해를 하면 `intrinsic`과 `extrinsic`을 구할 수 있었습니다.
+
+<br>
+
+- 위 슬라이드에서의 $$ \tilde{X} = \lambda d $$ 는 카메라 좌표계 상의 3D 점을 의미하고 $$ d $$ 는 카메라 센터점으로 부터 뻗어나가는 방향 벡터에 해당하며 $$ \lambda $$ 는 그 방향의 `depth`를 의미합니다.
+- 위 슬라이드의 $$ x = K[I \vert 0] ( \lambda d^{T}, 1) ^{T} = Kd $$ 식은 카메라 좌표계의 3D 포인트가 어떻게 2D 이미지에 투영되는 지 나타냅니다. 여기서 $$ K $$ 는 카메라 `intrinsic` 파라미터이고 $$ [I \vert 0] $$ 은 `extrinsic` 파라미터를 나타내며 여기서는 world의 원점에서 간단히 `z` 축을 바라보는 카메라를 의미하도록 하여 간략하게 나타내었습니다.
+- 식 $$ d = K^{-1} x $$ 를 통하여 이미지의 점 $$ x $$ 는 다시 $$ d $$ 벡터로 나타낼 수 있으며 이와 관련된 내용은 앞선 강의에서 다루었습니다. `homogeneous` 좌표계로 나타내고 있기 때문에 $$ d $$ 는 반드시 `unit vector`일 필요는 없으며 scale은 달라질 수 있습니다.
+- 정리하면 카메라 캘리브레이션 정보는 2D 이미지와 3D 공간 상의 정보를 연결해 주는 역할을 하고 있으며 이 정보는 다양한 task에 사용될 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/35.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 2D 이미지의 두 점 $$ x_{1}, x_{2} $$ 는 $$ d_{1} = K^{-1}x_{1} $$ 과 $$ d_{2} = K^{-1}x_{2} $$ 로 변형하여 두 벡터 간의 사이각을 구할 수 있습니다. 다음과 같습니다.
+
+<br>
+
+- $$ \begin{align} \cos{\theta} &= \frac{d_{1}^{T} d_{2} }{ \sqrt{d_{1}^{T}d_{1}} \sqrt{d_{2}^{T}d_{2}} } \\ &= \frac{ (K^{-1}x_{1})^{T}(K^{-1}x_{2}) }{ \sqrt{ (K^{-1}x_{1})^{T}(K^{-1}x_{1}) }  \sqrt{ (K^{-1}x_{2})^{T}(K^{-1}x_{2}) } } \\ &= \frac{ x_{1}^{T} (K^{-T}K^{-1})x_{2} } { \sqrt{ x_{1}(K^{-T}K^{-1})x_{1} } \sqrt{ x_{2}^{T}(K^{-T}K^{-1})x_{2} } } \end{align} $$
+
+<br>
+
+- 이 방법은 두 카메라 간의 상대적인 `pose`를 구하거나 `multiple view`를 고려한 3D 점의 `triangulation`을 구할 때 사용되곤 합니다.
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/36.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 카메라 캘리브레이션을 통하여 카메라 `intrinsic` 파라미터 $$ K $$ 를 알게 되었다면 $$ K^{-T}K^{-1} $$ 또한 알 수 있습니다.
+- 이 값은 꽤 유용하게 사용될 수 있는데 이 값을 통하여 **이미지의 점**들을 3D 공간 상의 `ray`로 보낼 수 있으며 반대로도 적용할 수 있습니다.
+- 정리하면 파라미터 $$ K $$ 만 알 수 있으면 **이미지 상의 점들 만**으로도 3D 공간 상의 `ray`의 방향 또한 알 수 있고 이미지 점들 사이의 `각도` 또한 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/37.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
 
 [Multiple View Geometry 글 목차](https://gaussian37.github.io/vision-mvg-table/)
 
