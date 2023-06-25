@@ -275,6 +275,40 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Single view metrol
 <center><img src="../assets/img/vision/mvg/nus_lec6/37.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 위 슬라이드에서는 이미지 상의 선 $$ l $$ (카메라 센터 $$ c $$ 로 부터 나온 `ray`들과 이미지 plane을 통해 생성된 선) 과 직교한 방향의 벡터 $$ n $$ 은 $$ n = K^{T} l $$ 로 정의 됨을 보여줍니다.
+
+<br>
+
+- 먼저 앞에서 살펴본 바와 같이 이미지 상의 선 $$ l $$ 의 점을 $$ x $$ 는 다음과 같이 back-project 됩니다.
+
+<br>
+
+- $$ d = K^{-1}x $$
+
+<br>
+
+- `ray` $$ d $$ 는 위 그림과 같이 $$ n $$ 벡터에 직교하므로 다음과 같이 전개할 수 있습니다. 아래 식은 직교한 벡터의 `dot product`는 0임을 이용한 것입니다.
+
+<br>
+
+- $$ d^{T}n =  x^{T}K^{-T}n = 0 $$
+
+<br>
+
+- 선 $$ l $$ 상에 존재하는 점 $$ x $$ 에 대하여 $$ x^{T}l = 0 $$ 을 만족합니다. 따라서 식을 다음과 같이 전개할 수 있습니다.
+
+<br>
+
+- $$  x^{T}K^{-T}n = x^{T}l = 0  $$
+
+- $$ K^{-T}n = l $$
+
+- $$ \therefore n = K^{T}l $$
+
+<br>
+
+- 이와 같은 정보를 이용하면 `2D 이미지 상의 선`을 통해 3D 공간 상의 기하 정보를 추정할 수 있습니다.
+
 <br>
 
 [Multiple View Geometry 글 목차](https://gaussian37.github.io/vision-mvg-table/)
