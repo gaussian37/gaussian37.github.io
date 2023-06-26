@@ -275,11 +275,11 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Single view metrol
 <center><img src="../assets/img/vision/mvg/nus_lec6/37.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
-- 위 슬라이드에서는 이미지 상의 선 $$ l $$ (카메라 센터 $$ c $$ 로 부터 나온 `ray`들과 이미지 plane을 통해 생성된 선) 과 직교한 방향의 벡터 $$ n $$ 은 $$ n = K^{T} l $$ 로 정의 됨을 보여줍니다.
+- 위 슬라이드에서는 이미지 상의 선 $$ l $$ 을 구성하기 위해 카메라 센터 $$ c $$ 로 부터 나온 `ray`인 $$ d $$ 전체와 직교한 방향의 벡터 $$ n $$ 은 $$ n = K^{T} l $$ 로 정의 됨을 보여줍니다.
 
 <br>
 
-- 먼저 앞에서 살펴본 바와 같이 이미지 상의 선 $$ l $$ 의 점을 $$ x $$ 는 다음과 같이 back-project 됩니다.
+- 먼저 앞에서 살펴본 바와 같이 이미지 상의 선 $$ l $$ 의 점을 $$ x $$ 는 다음과 같이 `back-project` 됩니다.
 
 <br>
 
@@ -307,7 +307,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Single view metrol
 
 <br>
 
-- 이와 같은 정보를 이용하면 `2D 이미지 상의 선`을 통해 3D 공간 상의 기하 정보를 추정할 수 있습니다.
+- 따라서 2D 이미지에서 선을 찾았을 때, 그 선을 구성하는 ray 전체와 직교하는 3D 공간상의 `normal vector`를 찾는 데 $$ K $$ 를 사용할 수 있음을 확인하였습니다. 이와 같은 정보를 이용하면 `2D 이미지 상의 선`을 통해 3D 공간 상의 기하 정보를 추정할 수 있습니다.
 
 <br>
 
