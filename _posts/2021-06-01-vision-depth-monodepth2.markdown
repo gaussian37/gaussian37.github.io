@@ -311,8 +311,12 @@ tags: [depth estimation, monodepth2, 모노 뎁스 2, 모노뎁스, 모노뎁스
 <center><img src="../assets/img/vision/depth/monodepth2/13_1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 식 (3)에서는 `edge-aware smootheness` Loss를 추가적으로 도입합니다. `edge-aware smootheness`는 monodepth1에서도 사용이 되었으며 사용 목적은 `이미지 변화` ( $$ \partial_{x}I_{t}, \partial_{y}I_{t} $$ )가 낮은 곳에서 `깊이 변화`가 크면 Loss를 크게 반영합니다. 즉, **이미지 변화가 작으면 깊이의 변화도 작도록 학습합니다.** 이와 같은 Loss를 추가함으로써 깊이 추정에서의 문제점 중 하나인 물체의 경계면에서의 깊이 추정 정확도를 개선합니다.
-- 식 (3)에서는 $$ d^{*}_{t} = d_{t} / \bar{d_{t}} $$ 와 같은 `normalization` 형태를 사용함으로써 학습이 잘 되도록 하였습니다. $$ \bar{d_{t} $$ 는 $$ d_{t} $$ 의 전체 평균을 나타냅니다. $$ d_{t} $$ 의 shape은 (B, C=1, H, W)이므로 $$ \bar{d_{t}} $$ 는 (B, 1, 1, 1) 형태의 크기가 되도록 H, W의 차원 전체에서 평균을 구합니다.
+- 식 (3)에서는 `edge-aware smootheness` Loss를 추가적으로 도입합니다. `edge-aware smootheness`는 monodepth1에서도 사용이 되었으며 사용 목적은 **객체의 경계면에서 급격한 깊이 값의 변화를 방지**하기 위함입니다. 
+- 이와 같은 아이디어는 실제 세상에서는 객체의 경계가 급격하게 변하는 경우가 흔하지 않으며 어느 정도 연속적으로 점점 변화하기 때문입니다. 하지만 이미지에서는 경계가 급격하게 변하는 경우가 발생하기 때문에 현실 세계를 반영하여 `edge-aware smoothness` 즉, `edge` 부분을 smooth 하게 만드는 `Loss`를 추가합니다. 이 `Loss`는 일종의 `regularization term`과 같이 기존 Loss에 추가됩니다.
+- `edge`를 확인하기 위해서는 `depth value` 및 `rgb` 값을 이용하여 인접한 픽셀과의 변화량 (`derivative`)을 이용합니다. `rgb 이미지 변화` ( $$ \partial_{x}I_{t}, \partial_{y}I_{t} $$ )가 작은 곳에서는 `disparity` 변화가 작고 따라서 `depth`는 커지도록 하는 것이 일반적입니다. 반면 `깊이 변화`가 크면 Loss를 크게 반영합니다. 
+- 이와 같은 `Loss`를 추가함으로써 깊이 추정에서의 문제점 중 하나인 물체의 경계면에서의 깊이 추정 정확도를 개선합니다.
+- 하지만 `oversmooth`가 되면 실제 물체의 상세한 정보가 사라지기 때문에 적정 수준에서 `smoothness loss`의 가중치를 조정하여 사용할 수 있습니다.
+- 식 (3)에서는 $$ d^{*}_{t} = d_{t} / \bar{d_{t}} $$ 와 같은 `normalization` 형태를 사용함으로써 학습이 잘 되도록 하였습니다. $$ \bar{d_{t}} $$ 는 $$ d_{t} $$ 의 전체 평균을 나타냅니다. $$ d_{t} $$ 의 shape은 (B, C=1, H, W)이므로 $$ \bar{d_{t}} $$ 는 (B, 1, 1, 1) 형태의 크기가 되도록 H, W의 차원 전체에서 평균을 구합니다.
 - 최종적으로 $$ d^{*}_{t} $$ 와 이미지 간 smoothness loss는 아래 코드와 같이 구하게 됩니다.
 
 <br>
