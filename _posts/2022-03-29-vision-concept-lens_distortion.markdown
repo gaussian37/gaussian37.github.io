@@ -141,10 +141,6 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-- 참조 : https://docs.opencv.org/3.4/db/d58/group__calib3d__fisheye.html
-
-<br>
-
 - 지금부터 살펴볼 내용은 `Generic 카메라 모델`을 이용하여 임의의 `3D 포인트`를 `2D 이미지`에 투영하는 방법입니다. 
 
 <br>
@@ -154,29 +150,27 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 - 왼쪽 그림은 `Generic 카메라 모델` 논문에서 발췌한 이미지이며 반원 형태는 `카메라 렌즈`를 나타냅니다. 따라서 오른쪽 그림과 같이 카메라 렌즈가 위를 향하는 형태로 생각하시면 됩니다. 그러면 설명의 편의를 위하여 다음과 같이 그림을 일부 다시 표현하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/lens_distortion/5.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/lens_distortion/5.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그림에서 $$ X_{c}, Y_{c}, Z_{c} $$ 는 `카메라 좌표계`의 좌표축을 의미 합니다. 즉 원점이 카메라의 원점에 해당합니다. 따라서 3차원 공간의 점 $$ P $$ 는 `카메라 좌표계`에서의 임의의 점을 의미합니다.
-- 만약 카메라 렌즈 왜곡인 없는 `Pinhole 카메라 모델`에서는 점 $$ P $$ 가 초록색 선을 따라서 카메라 원점에 직선으로 입사하고 $$ p' $$ 의 normalized coordinate로 투영됩니다. (관련 내용은 `사전 지식` 참조 필요 합니다.)
+- 만약 카메라 렌즈 왜곡인 없는 `Pinhole 카메라 모델`에서는 점 $$ P $$ 가 초록색 선을 따라서 카메라 원점에 직선으로 입사하고 $$ p' $$ 의 `normalized coordinate`로 투영됩니다. (관련 내용은 `사전 지식` 링크를 참조하시면 됩니다.)
 - 하지만 카메라 렌즈의 `radial distortion`으로 인하여 직선 형태로 입사하여 $$ p' $$ 에 맺히지 못하고 휘어져서 $$ p $$ 에 입사하게 됩니다.
-- 이 때, 3D 공간 상의 점 $$ P $$ 가 입사하는 `입사각`을 $$ \theta $$ 라고 하고 본 글에서는 $$ \theta_{u} $$ 라고 표현하겠습니다. $$ \theta_{u} $$ 의 $$ u $$ 는 `undistortion`을 의미한 것으로 `distortion`과 구분하기 위하여 표기하였습니다.
-- 반면 휘어져서 입사하는 각도를 $$ \theta_{d} $$ 로 표현하도록 하겠습니다. 
+- 이 때, 3D 공간 상의 점 $$ P $$ 가 입사하는 `입사각`을 $$ \theta $$ 라고 합니다.
 
 <br>
 
-- 여기서 알고 싶은 점은 **$$ \theta_{u} $$ 를 이용하여 어떻게 $$ \theta_{d} $$ 를 계산할 수 있을까?** 입니다. 이것을 모델링 하는 것이 `Generic 카메라 모델`의 역할이 됩니다.
+- 여기서 알고 싶은 점은 **$$ \theta $$ 를 이용하여 어떻게 $$ r_{\text{d.n.}} $$ 를 계산할 수 있을까?** 입니다. 이것을 모델링 하는 것이 `Generic 카메라 모델`의 역할이 됩니다. ($$ \text{d.n.} $$ 는 `distorted normalied` 입니다.)
+- 본 글에서 살펴보는 카메라 모델은 `undistorted normalized 좌표계`와 `distorted normalized 좌표계`는 카메라 렌즈에 의한 왜곡 여부가 반영된 `normalized 좌표계`인 지를 나타냅니다. `undistorted normalized 좌표계`는 `pinhole 카메라 모델`과 같이 왜곡이 없는 `normalized 좌표계`이고 `distorted normalized 좌표계`는 위 그림과 같이 카메라 렌즈에 의한 왜곡이 발생한 `normalized 좌표계` 입니다.
 
 <br>
 
-- `3D → 2D 변환`의 전체 순서는 다음과 같습니다.
+- 따라서 `3D → 2D 변환`의 전체 순서는 다음과 같습니다.
 - ① `카메라 좌표계` → `undistorted normalized 좌표계`로 변환 
 - ② `undistorted normalized 좌표계` → `distorted normalized 좌표계`로 변환
 - ③ `distorted normalized 좌표계` → `이미지 좌표계`로 변환
-
-<br>
-
-- 위 그림으로 표현하면 한번에 $$ P $$ 에서 $$ p $$ 로 가는 것이 아니라 $$ P \to p' \to p $$ 로 변환하는 과정을 거치게 됩니다.
+- 즉, 3D 포인트를 먼저 `undistorted normalized 좌표계`로 변환한 후 렌즈 왜곡을 반영하여 `distorted normalized 좌표계`로 변환 후 최종적으로 이미지에 투영시키는 순서를 가집니다.
+- 따라서 위 그림으로 표현하면 한번에 $$ P $$ 에서 $$ p $$ 로 가는 것이 아니라 $$ P \to p' \to p $$ 로 변환하는 과정을 거치게 됩니다.
 
 <br>
 
@@ -206,47 +200,39 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 <center><img src="../assets/img/vision/concept/lens_distortion/6.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
-- 변환의 전체 과정은 $$ p' $$ 를 이용하여 `입사각` $$ \theta_{u} $$ 를 알아내고 $$ \theta_{u} $$ 를 통하여 $$ \theta_{d} $$ 를 추정 후 최종적으로 `distorted normalized 좌표계`로 변환하는 것입니다.
+- 변환의 전체 과정은 $$ p' $$ 를 이용하여 `입사각` $$ \theta $$ 를 알아내고 $$ \theta $$ 를 통하여 $$ r_{\text{d.n.}} $$ 를 추정 후 최종적으로 `distorted normalized 좌표계`로 변환하는 것입니다.
 
 <br>
 
-- 먼저 $$ \theta_{u} $$ 를 계산하는 방식은 다음과 같습니다. 삼각 함수를 이용하여 계산합니다.
+- 먼저 $$ \theta $$ 를 계산하는 방식은 다음과 같습니다. 삼각 함수를 이용하여 계산합니다.
+- 위 그림에서 $$ r_{\text{u.n.}} $$ 는 원점과 $$ p' $$ 의 거리이므로 다음과 같이 $$ x_{\text{u.n.}} $$ 과 $$ y_{\text{u.n.}} $$ 을 이용합니다.
 
 <br>
 
-- $$ r_{\text{u.n.}}^{2} = x_{\text{u.n.}} ^{2} + y_{\text{u.n.}}^{2} \tag{4} $$
+- $$ r_{\text{u.n.}}^{2} = x_{\text{u.n.}}^{2} + y_{\text{u.n.}}^{2} \tag{4} $$
 
 - $$ r_{\text{u.n.}} = \sqrt{x_{\text{u.n.}} ^{2} + y_{\text{u.n.}}^{2}} \tag{5} $$
 
-- $$ \theta_{u} = \tan^{-1}{(r_{\text{u.n.}})} \tag{6} $$
+- $$ \theta = \tan^{-1}{(r_{\text{u.n.}})} \tag{6} $$
 
 <br>
 
-- 이와 같은 방법으로 $$ \theta_{u} $$ 를 계산하면 다음 식 (7)을 이용하여 $$ \theta_{d} $$ 를 추정합니다.
+- 이와 같은 방법으로 $$ \theta $$ 를 계산하면 다음 식 (7)을 이용하여 $$ r_{\text{d.n.}} $$ 를 추정합니다.
 
 <br>
 
-- $$ \theta_{d} = \theta_{u} + k_{1}\theta_{u}^{3} + k_{2}\theta_{u}^{5} + k_{3}\theta_{u}^{7} + k_{5}\theta_{u}^{9} \tag{7} $$
+- $$ r_{\text{d.n.}} = k_{1}\theta + k_{2}\theta^{3} + k_{3}\theta^{5} + k_{4}\theta^{7} + k_{5}\theta^{9} \tag{7} $$
 
 <br>
 
-<br>
-<center><img src="../assets/img/vision/concept/lens_distortion/7.png" alt="Drawing" style="width: 1000px;"/></center>
-<br>
-
-
-- 위 식을 통하여 $$ \theta_{d} $$ 를 추정하는 모델링의 전제는 $$ \theta_{u} $$ 와 $$ \theta_{d} $$ 로 인해 만들어지는 점 $$ p' $$ 와 $$ p $$ 가 축과 이루는 각도가 $$ \phi $$ 로써 동일하다는 가정입니다. 즉, 방사형에서 같은 방위각에 존재하되 중심으로 대각선 방향으로 위치가 변경된다는 것을 가정으로 모델링 합니다. (위 그림의 $$ r_{\text{d.n.}} $$ 은 나중에 사용 됩니다.)
-- 따라서 식 (7) 에서 구한 $$ \theta_{d} $$ 와 삼각함수를 이용하여 다음과 같이 $$ x_{\text{d.n.}}, y_{\text{d.n.}} $$ 을 구할 수 있습니다.
+- 위 식을 통하여 $$ r_{\text{d.n.}} $$ 를 추정하는 모델링의 전제는 점 $$ p' $$ 와 $$ p $$ 가 축과 이루는 각도가 $$ \phi $$ 로써 동일하다는 가정입니다. 즉, 방사형에서 같은 방위각에 존재하되 같은 방위각에서의 위치가 변경된다는 것을 가정으로 모델링 합니다.
+- 따라서 식 (7) 에서 구한 $$ r_{\text{d.n.}} $$ 은 $$ r_{\text{u.n.}} $$ 과 겹치는 선이 됩니다. 따라서 같은 `방위각`을 가짐을 이용하면 삼각함수를 통해 $$ x_{\text{d.n.}}, y_{\text{d.n.}} $$ 을 구할 수 있습니다.
 
 <br>
 
-- 작성중.....
+- $$ x_{\text{d.n.}} = r_{\text{d.n.}} \cos{\phi} = r_{\text{d.n.}} \frac{x_{\text{u.n.}}}{r_{\text{u.n.}}} \tag{8} $$
 
-<br>
-
-- $$ x_{\text{d.n.}} = \theta_{d} \cos{\phi} = \theta_{d} \frac{x_{\text{u.n.}}}{r_{\text{u.n.}}} \tag{8} $$
-
-- $$ y_{\text{d.n.}} = \theta_{d} \sin{\phi} = \theta_{d} \frac{y_{\text{u.n.}}}{r_{\text{u.n.}}} \tag{9} $$
+- $$ y_{\text{d.n.}} = r_{\text{d.n.}} \sin{\phi} = r_{\text{d.n.}} \frac{y_{\text{u.n.}}}{r_{\text{u.n.}}} \tag{9} $$
 
 <br>
 
@@ -254,7 +240,8 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-- 앞의 방식으로 $$ x_{\text{d.n.}}, y_{\text{d.n.}} $$ 를 구하면 최종적으로 카메라 `intrinsic`을 이용하여 다음과 같이 $$ u, v $$ 좌표로 변환할 수 있습니다. 아래 식 (10), (11)에 사용된 파라미터 정보는 다음과 같습니다.
+- 앞의 방식으로 $$ x_{\text{d.n.}}, y_{\text{d.n.}} $$ 를 구하면 최종적으로 카메라 `intrinsic`을 이용하여 다음과 같이 $$ u, v $$ 좌표로 변환할 수 있습니다.
+- 앞에서 구한 $$ x_{\text{d.n.}}, y_{\text{d.n.}} $$ 는 $$ z = 1 $$ 인 `distorted normalzied 좌표계`에서 값을 구한 결과 이므로 아래 식의 파라미터 정보를 이용하여 식 (10), (11)과 같이 $$ u, v $$ 를 구할 수 있습니다.
 
 <br>
 
@@ -268,14 +255,15 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-
-
+- 따라서 `Generic 카메라 모델의 3D → 2D`로 변환하는 과정의 핵심은 $$ \theta \to r_{\text{d.n.}} $$ 으로 추정하는 것임을 알 수 있었습니다.
 
 <br>
 
 ## **Generic 카메라 모델의 2D → 3D**
 
 <br>
+
+- 
 
 <br>
 
