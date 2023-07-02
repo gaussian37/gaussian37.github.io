@@ -246,7 +246,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 - $$ x_{\text{d.n.}} = \theta_{d} \cos{\phi} = \theta_{d} \frac{x_{\text{u.n.}}}{r_{\text{u.n.}}} \tag{8} $$
 
-$$ y_{\text{d.n.}} = \theta_{d} \sin{\phi} = \theta_{d} \frac{y_{\text{u.n.}}}{r_{\text{u.n.}}} \tag{9} $$
+- $$ y_{\text{d.n.}} = \theta_{d} \sin{\phi} = \theta_{d} \frac{y_{\text{u.n.}}}{r_{\text{u.n.}}} \tag{9} $$
 
 <br>
 
@@ -258,15 +258,13 @@ $$ y_{\text{d.n.}} = \theta_{d} \sin{\phi} = \theta_{d} \frac{y_{\text{u.n.}}}{r
 
 <br>
 
- $$ \text{camera intrinsic : } = \begin{bmatrix} f_{x} & \alpha & c_{x} \\ 0 & f_{y} & c_{y} \\ 0 & 0 & 1 \end{bmatrix} $$
+- $$ \text{camera intrinsic : } = \begin{bmatrix} f_{x} & \alpha & c_{x} \\ 0 & f_{y} & c_{y} \\ 0 & 0 & 1 \end{bmatrix} $$
 
 <br>
 
-- $$ u = f_{x} (x_{\text{d.n.}} + \alpha\y_{\text{d.n.}}) + c_{x} \tag{10} $$
+- $$ u = f_{x} (x_{\text{d.n.}} + \alpha \cdot y_{\text{d.n.}}) + c_{x} \tag{10} $$
 
-- $$ v = f_{y} y_{\text{d.n.}} + c_{y} \tag{11} $$
-
-<br>
+- $$ v = f_{y} \cdot y_{\text{d.n.}} + c_{y} \tag{11} $$
 
 <br>
 
