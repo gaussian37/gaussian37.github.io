@@ -15,6 +15,8 @@ tags: [사원수, quaternion, 회전, rotation] # add tag
 
 - 참조 : 수학과 OpenGL 프로그래밍
 - 참조 : https://ghebook.blogspot.com/2010/07/quaternion.html
+- 참조 : https://youtu.be/JjtLYsOi4vU
+- 참조 : https://www.youtube.com/watch?v=zjMuIxRvygQ&t=226s
 
 <br>
 

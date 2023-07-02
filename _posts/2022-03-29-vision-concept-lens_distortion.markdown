@@ -13,6 +13,10 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
+- 사전 지식 : [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)
+
+<br>
+
 - 참조 : https://kr.mathworks.com/help/vision/ug/camera-calibration.html
 - 참조 : http://jinyongjeong.github.io/2020/06/19/SLAM-Opencv-Camera-model-%EC%A0%95%EB%A6%AC/
 - 참조 : http://jinyongjeong.github.io/2020/06/15/Camera_and_distortion_model/
@@ -25,7 +29,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 - 이번 글에서는 `카메라 모델의 특성`, `카메라 렌즈 왜곡 모델` 그리고 `렌즈 왜곡을 제거하는 방법` 등에 대하여 알아보도록 하겠습니다.
 - 특히 가장 많이 사용되는 카메라 모델인 `Generic Camera Model`을 기준으로 살펴볼 예정이며 좀 더 간단한 형태의 `Brown Camera Model`에 대한 내용은 간략하게 코드적으로 사용하는 방법에 대하여 확인해 볼 예정입니다.
-- 
+- 전체 내용을 이해하기 위해서는 `사전 지식`의 카메라 캘리브레이션 및 카메라 파라미터 내용을 먼저 이해하기를 권장 드립니다.
 
 <br>
 
@@ -68,8 +72,12 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 <br>
 
 - 위 그림의 화각과 `초점 거리 (focal length)`는 설명을 위한 예시이며 절대적인 기준은 아닙니다.
-- 이번 글에서는 `표준 렌즈`를 사용하는 `표준 카메라`와 `어안 렌즈`를 사용하는 `어안 카메라`에서 렌즈로 인한 물체의 휘어지는 `Distortion`이 발생하였을 때 처리하는 방법에 대하여 살펴보도록 하겠습니다.
-- 본 글에서는 크게 2가지의 카메라 모델을 사용할 예정이며 각 카메라 모델의 이름은 `Generic Camera Model`과 `Brown Camera Model`이며 이 모델의 간략한 내용은 글 아래에서 설명하겠습니다.
+- 이번 글에서는 `표준 렌즈`를 사용하는 `표준 카메라`와 `어안 렌즈`를 사용하는 `어안 카메라`에서 렌즈로 인한 물체의 휘어지는 `Distortion`이 발생하였을 때 처리하는 방법에 대하여 살펴볼 예정입니다.
+- 다양한 카메라 렌즈를 수학적으로 모델링 하기 위하여 수학적으로 정의한 `카메라 모델`을 사용할 것입니다. 본 글에서는 크게 2가지의 카메라 모델을 사용할 예정이며 각 카메라 모델의 이름은 `Generic Camera Model`과 `Brown Camera Model`이며 이 모델의 간략한 내용은 글 아래에서 설명하겠습니다.
+- 카메라 모델은 카메라 렌즈를 수학적으로 정확히 모방하기 보다는 **카메라 렌즈에 의한 왜곡을 임의의 수학적 모델링 식으로 표현할 수 있도록 문제를 정의한 후 최적화**하여 왜곡을 가장 잘 표현할 수 있는 수식을 찾는 방법을 이용합니다.
+- 이 때, 발생하는 왜곡은 대표적으로 `Radial Distortion`과 `Tangential Distortion`이 있습니다.
+- 본 글에서 살펴볼 `Generic Camera Model`은 `Radial Distortion`만을 고려하여 `다항식(polynomial)`으로 왜곡을 표현합니다. 반면 `Brown Camera Model`은 `Radial Distortion`과 `Tangential Distortion`을 모두 고려하여 `다항식(polynomial)`으로 모델링 합니다.
+- 그러면 먼저 `Radial Distortion`과 `Tangential Distortion`에 대하여 살펴보도록 하겠습니다.
 
 <br>
 
@@ -108,7 +116,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 <br>
 
 - `Generic Camera Model`은 이름 그대로 어안 렌즈부터 망원 렌즈 까지 모두 사용 가능한 `범용적인 카메라 모델`이며 특히 화각이 120도 이상의 광각 렌즈에서 효과를 발휘합니다. **결론적으로는 `Generic Camera Model` 하나만 잘 활용해도 180도 이하 화각의 카메라에서는 충분히 잘 사용할 수 있습니다.**
-- `Brown Camera Model`은 보통 화각이 100도 이하인 카메라 환경에서 주로 사용합니다. `Generic Camera Model`에 비해 계산도 간단한 장점도 있습니다. 다만 `Generic Camera Model`과 같이 넓은 화각에서는 이 카메라 모델을 사용할 수 없습니다. 사용 시, 정확성이 많이 떨어지게 됩니다. `Brown Camera Model`은 간단히 원거리 용도의 카메라에 주로 사용한다고 생각하면 되며 `Pinhole Camera Model`에 가깝습니다.
+- `Brown Camera Model`은 보통 화각이 100도 이하인 카메라 환경에서 주로 사용합니다. `Generic Camera Model`에 비해 계산도 간단한 장점도 있습니다. 다만 `Generic Camera Model`과 같이 넓은 화각에서는 이 카메라 모델을 사용할 수 없습니다. 사용 시, 정확성이 많이 떨어지게 됩니다. `Brown Camera Model`은 간단히 원거리 용도의 카메라에 주로 사용한다고 생각하면 되며 `Pinhole Camera Model` 모델링에 가깝습니다.
 
 <br>
 
@@ -117,18 +125,141 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-#### **Generic 카메라 모델**
+## **Generic 카메라 모델**
 
 <br>
 
-- 
-
-
-
+- `Generic 카메라 모델`은 **A Generic Camera Model and Calibration Method for Conventional, Wide-Angle, and Fish-Eye Lenses** 논문에서 제안한 카메라 모델입니다. 본 글에서는 이 글에서 다루는 핵심적인 방법론만 다루도록 하겠습니다. 논문의 자세한 리뷰는 아래 링크에서 확인하시면 됩니다.
+    - Generic 카메라 모델 논문 리뷰 : [https://gaussian37.github.io/vision-concept-generic_camera_model/](https://gaussian37.github.io/vision-concept-generic_camera_model/)
+- 본 글에서 사용되는 `intrinsic` 파라미터 $$ f_{x}, \alpha, c_{x}, f_{y}, c_{y} $$ 그리고 `Radial Distortion`을 모델링 하기 위한 방정식의 $$ k_{1}, k_{2}, k_{3}, k_{4} $$ 인 `coefficient`는 `Zhang's Method`를 이용한 `카메라 캘리브레이션` 방법을 통하여 찾을 수 있습니다.
+- 이 값의 정확한 의미와 파라미터 추정 방법은 아래 글에서 참조하시기 바랍니다.
+    - [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)
 
 <br>
 
 ## **Generic 카메라 모델의 3D → 2D**
+
+<br>
+
+- 참조 : https://docs.opencv.org/3.4/db/d58/group__calib3d__fisheye.html
+
+<br>
+
+- 지금부터 살펴볼 내용은 `Generic 카메라 모델`을 이용하여 임의의 `3D 포인트`를 `2D 이미지`에 투영하는 방법입니다. 
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/4.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 왼쪽 그림은 `Generic 카메라 모델` 논문에서 발췌한 이미지이며 반원 형태는 `카메라 렌즈`를 나타냅니다. 따라서 오른쪽 그림과 같이 카메라 렌즈가 위를 향하는 형태로 생각하시면 됩니다. 그러면 설명의 편의를 위하여 다음과 같이 그림을 일부 다시 표현하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림에서 $$ X_{c}, Y_{c}, Z_{c} $$ 는 `카메라 좌표계`의 좌표축을 의미 합니다. 즉 원점이 카메라의 원점에 해당합니다. 따라서 3차원 공간의 점 $$ P $$ 는 `카메라 좌표계`에서의 임의의 점을 의미합니다.
+- 만약 카메라 렌즈 왜곡인 없는 `Pinhole 카메라 모델`에서는 점 $$ P $$ 가 초록색 선을 따라서 카메라 원점에 직선으로 입사하고 $$ p' $$ 의 normalized coordinate로 투영됩니다. (관련 내용은 `사전 지식` 참조 필요 합니다.)
+- 하지만 카메라 렌즈의 `radial distortion`으로 인하여 직선 형태로 입사하여 $$ p' $$ 에 맺히지 못하고 휘어져서 $$ p $$ 에 입사하게 됩니다.
+- 이 때, 3D 공간 상의 점 $$ P $$ 가 입사하는 `입사각`을 $$ \theta $$ 라고 하고 본 글에서는 $$ \theta_{u} $$ 라고 표현하겠습니다. $$ \theta_{u} $$ 의 $$ u $$ 는 `undistortion`을 의미한 것으로 `distortion`과 구분하기 위하여 표기하였습니다.
+- 반면 휘어져서 입사하는 각도를 $$ \theta_{d} $$ 로 표현하도록 하겠습니다. 
+
+<br>
+
+- 여기서 알고 싶은 점은 **$$ \theta_{u} $$ 를 이용하여 어떻게 $$ \theta_{d} $$ 를 계산할 수 있을까?** 입니다. 이것을 모델링 하는 것이 `Generic 카메라 모델`의 역할이 됩니다.
+
+<br>
+
+- `3D → 2D 변환`의 전체 순서는 다음과 같습니다.
+- ① `카메라 좌표계` → `undistorted normalized 좌표계`로 변환 
+- ② `undistorted normalized 좌표계` → `distorted normalized 좌표계`로 변환
+- ③ `distorted normalized 좌표계` → `이미지 좌표계`로 변환
+
+<br>
+
+- 위 그림으로 표현하면 한번에 $$ P $$ 에서 $$ p $$ 로 가는 것이 아니라 $$ P \to p' \to p $$ 로 변환하는 과정을 거치게 됩니다.
+
+<br>
+
+#### **① `카메라 좌표계` → `undistorted normalized 좌표계`로 변환 **
+
+<br>
+
+- 임의의 점 $$ P $$ 의 좌표가 $$ X_{c}, Y_{c}, Z_{c} $$ 라고 가정하겠습니다. 그러면 `undistorted normalized 좌표계`로의 변환은 `pinhole 카메라 모델`로 가정하여 단순히 $$ Z_{c} $$ 로 나누어 $$ Z_{c} $$ 가 $$ 1 $$ 인 `normalized 좌표계`로 변환하면 됩니다. 따라서 식은 다음과 같습니다.
+
+<br>
+
+- $$ x_{\text{u.n.}} = X_{c} / Z_{c} \tag{1} $$
+
+- $$ y_{\text{u.n.}} = Y_{c} / Z_{c} \tag{2} $$
+
+- $$ z_{\text{u.n.}} = Z_{c} / Z_{c} = 1 \tag{3} $$
+
+<br>
+
+#### **② `undistorted normalized 좌표계` → `distorted normalized 좌표계`로 변환**
+
+<br>
+
+- 이번에는 `undistorted normalized 좌표계`에서 `distorted normalized 좌표계`로 변환하는 작업을 해보겠습니다. 설명의 편의 상 그림의 표기를 조금 변경하여 나타내었습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/6.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 변환의 전체 과정은 $$ p' $$ 를 이용하여 `입사각` $$ \theta_{u} $$ 를 알아내고 $$ \theta_{u} $$ 를 통하여 $$ \theta_{d} $$ 를 추정 후 최종적으로 `distorted normalized 좌표계`로 변환하는 것입니다.
+
+<br>
+
+- 먼저 $$ \theta_{u} $$ 를 계산하는 방식은 다음과 같습니다. 삼각 함수를 이용하여 계산합니다.
+
+<br>
+
+- $$ r_{\text{u.n.}}^{2} = x_{\text{u.n.}} ^{2} + y_{\text{u.n.}}^{2} \tag{4} $$
+
+- $$ r_{\text{u.n.}} = \sqrt{x_{\text{u.n.}} ^{2} + y_{\text{u.n.}}^{2}} \tag{5} $$
+
+- $$ \theta_{u} = \tan^{-1}{(r_{\text{u.n.}})} \tag{6} $$
+
+<br>
+
+- 이와 같은 방법으로 $$ \theta_{u} $$ 를 계산하면 다음 식 (7)을 이용하여 $$ \theta_{d} $$ 를 추정합니다.
+
+<br>
+
+- $$ \theta_{d} = \theta_{u} + k_{1}\theta_{u}^{3} + k_{2}\theta_{u}^{5} + k_{3}\theta_{u}^{7} + k_{5}\theta_{u}^{9} \tag{7} $$
+
+<br>
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/7.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+
+- 위 식을 통하여 $$ \theta_{d} $$ 를 추정하는 모델링의 전제는 $$ \theta_{u} $$ 와 $$ \theta_{d} $$ 로 인해 만들어지는 점 $$ p' $$ 와 $$ p $$ 가 축과 이루는 각도가 $$ \phi $$ 로써 동일하다는 가정입니다. 즉, 방사형에서 같은 방위각에 존재하되 중심으로 대각선 방향으로 위치가 변경된다는 것을 가정으로 모델링 합니다. (위 그림의 $$ r_{\text{d.n.}} $$ 은 나중에 사용 됩니다.)
+- 따라서 식 (7) 에서 구한 $$ \theta_{d} $$ 와 삼각함수를 이용하여 다음과 같이 $$ x_{\text{d.n.}}, y_{\text{d.n.}} $$ 을 구할 수 있습니다.
+
+<br>
+
+- $$ x_{\text{d.n.}} \tag{8} $$
+
+- $$ y_{\text{d.n.}} \tag{9} $$
+
+
+<br>
+
+#### **③ `distorted normalized 좌표계` → `이미지 좌표계`로 변환**
+
+<br>
+
+
+
+
+<br>
+
+<br>
+
+
+
 
 <br>
 
@@ -142,6 +273,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
+- 지금까지 살펴본 내용을 통해 
 - 실습을 위해 사용한 데이터는 아래 링크를 사용하였습니다.
     - 링크 : https://medium.com/@kennethjiang/calibrate-fisheye-lens-using-opencv-part-2-13990f1b157f
 - 본 글에서 사용한 이미지를 그대로 사용하시려면 아래 링크에서 다운 받으시면 됩니다.
@@ -158,6 +290,14 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 ## **Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상**
 
 <br>
+
+
+
+
+<br>
+
+- 지금까지 `Generic 카메라 모델`을 이용한 `2D → 3D`, `3D → 2D`, 그리고 `perspective view`생성을 위한 왜곡 보정 방법까지 살펴보았습니다.
+- 다음으로는 `Brown 카메라 모델`을 살펴보도록 하겠습니다. `Brown 카메라 모델`은 간략히 `opencv`를 이용한 사용 방법에 대해서만 다룰 예정입니다.
 
 <br>
 
