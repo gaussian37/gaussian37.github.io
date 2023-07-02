@@ -130,7 +130,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 <br>
 
 - `Generic 카메라 모델`은 **A Generic Camera Model and Calibration Method for Conventional, Wide-Angle, and Fish-Eye Lenses** 논문에서 제안한 카메라 모델입니다. 본 글에서는 이 글에서 다루는 핵심적인 방법론만 다루도록 하겠습니다. 논문의 자세한 리뷰는 아래 링크에서 확인하시면 됩니다.
-    - Generic 카메라 모델 논문 리뷰 : [https://gaussian37.github.io/vision-concept-generic_camera_model/](https://gaussian37.github.io/vision-concept-generic_camera_model/)
+    - [A Generic Camera Model and Calibration Method for Conventional, Wide-Angle, and Fish-Eye Lenses 리뷰](https://gaussian37.github.io/vision-concept-generic_camera_model/)
 - 본 글에서 사용되는 `intrinsic` 파라미터 $$ f_{x}, \alpha, c_{x}, f_{y}, c_{y} $$ 그리고 `Radial Distortion`을 모델링 하기 위한 방정식의 $$ k_{1}, k_{2}, k_{3}, k_{4} $$ 인 `coefficient`는 `Zhang's Method`를 이용한 `카메라 캘리브레이션` 방법을 통하여 찾을 수 있습니다.
 - 이 값의 정확한 의미와 파라미터 추정 방법은 아래 글에서 참조하시기 바랍니다.
     - [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)
@@ -174,7 +174,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-#### **① `카메라 좌표계` → `undistorted normalized 좌표계`로 변환 **
+#### **① `카메라 좌표계` → `undistorted normalized 좌표계`로 변환**
 
 <br>
 
@@ -221,12 +221,13 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-- $$ r_{\text{d.n.}} = k_{1}\theta + k_{2}\theta^{3} + k_{3}\theta^{5} + k_{4}\theta^{7} + k_{5}\theta^{9} \tag{7} $$
+- $$ r_{\text{d.n.}} = r(\theta) = k_{1}\theta + k_{2}\theta^{3} + k_{3}\theta^{5} + k_{4}\theta^{7} + k_{5}\theta^{9} \tag{7} $$
 
 <br>
 
 - 위 식을 통하여 $$ r_{\text{d.n.}} $$ 를 추정하는 모델링의 전제는 점 $$ p' $$ 와 $$ p $$ 가 축과 이루는 각도가 $$ \phi $$ 로써 동일하다는 가정입니다. 즉, 방사형에서 같은 방위각에 존재하되 같은 방위각에서의 위치가 변경된다는 것을 가정으로 모델링 합니다.
 - 따라서 식 (7) 에서 구한 $$ r_{\text{d.n.}} $$ 은 $$ r_{\text{u.n.}} $$ 과 겹치는 선이 됩니다. 따라서 같은 `방위각`을 가짐을 이용하면 삼각함수를 통해 $$ x_{\text{d.n.}}, y_{\text{d.n.}} $$ 을 구할 수 있습니다.
+- 식 (7)의 다항식 구성을 보면 홀수 차수의 항으로만 이루어 진 것을 알 수 있습니다. 이와 같이 짝수 차수의 항을 배제한 것은 우함수 (even function)의 특성상 $$ r(\theta) = r(-\theta) $$ 가 만족되면 부호가 다른 $$ \theta $$ 의 점이 한 곳으로 투영되는 문제가 발생할 수 있기 때문입니다. 따라서 기함수 (odd function)만 포함하여 다항식을 구성합니다.
 
 <br>
 
@@ -263,7 +264,64 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-- 
+- 이번에는 2D 이미지의 픽셀 좌표를 어떻게 3D로 변환하는 지 살펴보도록 하겠습니다. 방법은 앞에서 다룬 3D → 2D 로 변환하는 방법을 역으로 이용하면 됩니다. 따라서 다음과 같은 순서의 방법을 가집니다.
+
+<br>
+
+- ① `이미지 좌표계` → `distorted normalized 좌표계`로 변환
+- ② `distorted normalized 좌표계` → `undistorted normalized 좌표계`로 변환
+- ③ `undistorted normalized 좌표계`로 변환 → `카메라 좌표계`로 변환
+
+<br>
+
+#### **① `이미지 좌표계` → `distorted normalized 좌표계`로 변환**
+
+<br>
+
+- 앞에서 `distorted normalized 좌표계` → `이미지 좌표계`롸 변환을 할 때, 카메라 `intrinsic` 파라미터를 사용하여 변환하였었습니다. 이번에는 그 반대 과정을 그대로 적용하면 됩니다.
+- 아래 식 (12)는 식 (10)을 $$ x_{\text{d.n.}} $$ 기준으로 정리한 것이고 식 (13)은 식 (11)을 $$ y_{\text{d.n.}} $$ 기준으로 정리한 것입니다.
+
+<br>
+
+- $$ x_{\text{d.n.}} = \frac{u - c_{x}}{f_{x}} - \alpha y_{\text{d.n.}} \tag{12} $$
+
+- $$ y_{\text{d.n.}} = \frac{v - c_{y}}{f_{y}} \tag{13} $$
+
+<br>
+
+#### **② `distorted normalized 좌표계` → `undistorted normalized 좌표계`로 변환**
+
+<br>
+
+- 2D → 3D로 다시 역변환 하기 위한 핵심 부분은 바로 이 부분입니다. 왜냐하면 식 (7)의 역함수를 바로 찾을 수 없기 때문에 numeric한 방법으로 근사해를 구해야 하기 때문입니다.
+- 먼저 구하고자 하는 값은 식 (8), (9) 의 역방향 값입니다.
+
+<br>
+
+- $$ x_{\text{d.n.}} = r_{\text{d.n.}} \frac{x_{\text{u.n.}}}{r_{\text{u.n.}}}  $$
+
+- $$ \therefore x_{\text{u.n.}} = \frac{r_{\text{u.n.}}}{r_{\text{d.n.}}}x_{\text{d.n.}} \tag{14} $$
+
+<br>
+
+- $$ y_{\text{d.n.}} = r_{\text{d.n.}} \frac{y_{\text{u.n.}}}{r_{\text{u.n.}}}  $$
+
+- $$ \therefore y_{\text{u.n.}} = \frac{r_{\text{u.n.}}}{r_{\text{d.n.}}}y_{\text{d.n.}} \tag{15} $$
+
+
+<br>
+
+
+
+<br>
+
+#### **③ `undistorted normalized 좌표계`로 변환 → `카메라 좌표계`로 변환**
+
+<br>
+
+<br>
+
+
 
 <br>
 
@@ -271,7 +329,6 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-- 지금까지 살펴본 내용을 통해 
 - 실습을 위해 사용한 데이터는 아래 링크를 사용하였습니다.
     - 링크 : https://medium.com/@kennethjiang/calibrate-fisheye-lens-using-opencv-part-2-13990f1b157f
 - 본 글에서 사용한 이미지를 그대로 사용하시려면 아래 링크에서 다운 받으시면 됩니다.
