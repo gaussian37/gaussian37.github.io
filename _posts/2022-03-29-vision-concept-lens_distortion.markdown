@@ -240,10 +240,13 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-- $$ x_{\text{d.n.}} \tag{8} $$
+- 작성중.....
 
-- $$ y_{\text{d.n.}} \tag{9} $$
+<br>
 
+- $$ x_{\text{d.n.}} = \theta_{d} \cos{\phi} = \theta_{d} \frac{x_{\text{u.n.}}}{r_{\text{u.n.}}} \tag{8} $$
+
+$$ y_{\text{d.n.}} = \theta_{d} \sin{\phi} = \theta_{d} \frac{y_{\text{u.n.}}}{r_{\text{u.n.}}} \tag{9} $$
 
 <br>
 
@@ -251,8 +254,17 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
+- 앞의 방식으로 $$ x_{\text{d.n.}}, y_{\text{d.n.}} $$ 를 구하면 최종적으로 카메라 `intrinsic`을 이용하여 다음과 같이 $$ u, v $$ 좌표로 변환할 수 있습니다. 아래 식 (10), (11)에 사용된 파라미터 정보는 다음과 같습니다.
 
+<br>
 
+ $$ \text{camera intrinsic : } = \begin{bmatrix} f_{x} & \alpha & c_{x} \\ 0 & f_{y} & c_{y} \\ 0 & 0 & 1 \end{bmatrix} $$
+
+<br>
+
+- $$ u = f_{x} (x_{\text{d.n.}} + \alpha\y_{\text{d.n.}}) + c_{x} \tag{10} $$
+
+- $$ v = f_{y} y_{\text{d.n.}} + c_{y} \tag{11} $$
 
 <br>
 
