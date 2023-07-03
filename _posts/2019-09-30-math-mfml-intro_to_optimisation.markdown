@@ -21,9 +21,9 @@ tags: [calculus, multivariate chain rule, application] # add tag
 
 <br>
 
-- ### newton-raphson method
-- ### gradient descent
-- ### constrained optimisation method of lagrange multipliers
+- ### [newton-raphson method](#newton-raphson-method-1)
+- ### [gradient descent](#gradient-descent-1)
+- ### [constrained optimisation method of lagrange multipliers](#constrained-optimisation-method-of-lagrange-multipliers-1)
 
 <br>
 

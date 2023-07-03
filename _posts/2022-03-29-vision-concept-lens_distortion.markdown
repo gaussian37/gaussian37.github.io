@@ -308,9 +308,51 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 - $$ \therefore y_{\text{u.n.}} = \frac{r_{\text{u.n.}}}{r_{\text{d.n.}}}y_{\text{d.n.}} \tag{15} $$
 
+<br>
+
+- `distorthed normalized 좌표계`에서 식 (14), (15)의 우변의 항목 중 알 수 있는 것은 $$ {r_{\text{d.n.}}}, x_{\text{d.n.}}, y_{\text{d.n.}} $$ 입니다.
+- 반면 $$ r_{\text{u.n.}} $$ 은 직접적으로 알 수 없고 $$ \theta $$ 를 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/7.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림과 같이 $$ \theta $$ 를 알면 $$ \tan{(\theta)} = r_{\text{u.n.}} / 1 $$ 를 계산할 수 있습니다.
+- 즉, 식 (7)에서 $$ \theta $$ 를 통해 $$ r(\theta) $$ 를 추정한 것과 반대로 $$ r(\theta) $$ 를 통해 $$ \theta $$ 를 추정하는 것이 문제의 핵심이 됩니다. 이 문제를 다음과 같이 나태낼 수 있습니다.
 
 <br>
 
+- $$ r(\theta') = k_{1}\theta'^{1} + k_{2}\theta'^{3} + k_{3}\theta'^{5} + k_{4}\theta'^{7} + k_{5}\theta'^{9} = r_{\text{d.n.}} \tag{16} $$
+
+<br>
+
+- 식 (16) 에서 $$ r(\theta') = r_{\text{d.n.}} $$ 을 만족하는 $$ \theta' $$ 를 찾는 문제로 정의할 수 있고 closed-form 형태의 풀이법이 없이 때문에 numeric한 방식으로 $$ \theta' $$ 를 근사화 시켜야 합니다.
+- 이러한 문제를 풀 때, 가장 흔히 사용되는 방법이 `newton-raphson method` 줄여서 `newton-method` 방법을 사용합니다. 상세 내용은 다음 링크를 참조하시기 바랍니다.
+    - [newton-raphson method 내용 참조](https://gaussian37.github.io/math-mfml-intro_to_optimisation/#newton-raphson-method-1)
+
+<br>
+
+- `newton-method` 방법에 따라 $$ \theta' $$ 를 추정하면 다음 식과 같이 반복적인 방법으로 오차를 줄여가면서 구할 수 있습니다. 일반적으로 `newton-method`로 근을 추정할 때, 반복 횟수의 최대 값을 주거나 오차가 일정 임계값 보다 작아지면 반복을 멈추는 방법을 사용합니다.
+
+<br>
+
+- $$ \theta'_{i+1} = \theta'_{i} - \frac{r(\theta'_{i})}{\partial \ r(\theta'_{i})} \tag{17} $$
+
+<br>
+
+- 식 (17)의 $$ r(\theta'_{i}) $$ 는 앞에서 다룬 것과 같이 다음과 같습니다.
+
+<br>
+
+- $$ r(\theta'_{i}) = k_{1}\theta'^{1}_{i} + k_{2}\theta'^{3}_{i} + k_{3}\theta'^{5}_{i} + k_{4}\theta'^{7}_{i} + k_{5}\theta'^{9}_{i} \tag{18} $$
+
+<br>
+
+- 반면 $$ \partial \ r(\theta'_{i}) $$ 는 $$ r(\theta'_{i}) $$ 를 1차 미분한 값을 뜻합니다. 따라서 다음과 같이 정리할 수 있습니다.
+
+<br>
+
+- $$ r(\theta'_{i})
 
 
 <br>
