@@ -131,7 +131,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 - `Generic 카메라 모델`은 **A Generic Camera Model and Calibration Method for Conventional, Wide-Angle, and Fish-Eye Lenses** 논문에서 제안한 카메라 모델입니다. 본 글에서는 이 글에서 다루는 핵심적인 방법론만 다루도록 하겠습니다. 논문의 자세한 리뷰는 아래 링크에서 확인하시면 됩니다.
     - [A Generic Camera Model and Calibration Method for Conventional, Wide-Angle, and Fish-Eye Lenses 리뷰](https://gaussian37.github.io/vision-concept-generic_camera_model/)
-- 본 글에서 사용되는 `intrinsic` 파라미터 $$ f_{x}, \alpha, c_{x}, f_{y}, c_{y} $$ 그리고 `Radial Distortion`을 모델링 하기 위한 방정식의 $$ k_{1}, k_{2}, k_{3}, k_{4} $$ 인 `coefficient`는 `Zhang's Method`를 이용한 `카메라 캘리브레이션` 방법을 통하여 찾을 수 있습니다.
+- 본 글에서 사용되는 `intrinsic` 파라미터 $$ f_{x}, \alpha, c_{x}, f_{y}, c_{y} $$ 그리고 `Radial Distortion`을 모델링 하기 위한 방정식의 $$ k_{0}, k_{1}, k_{2}, k_{3}, k_{4} $$ 인 `coefficient`는 `Zhang's Method`를 이용한 `카메라 캘리브레이션` 방법을 통하여 찾을 수 있습니다.
 - 이 값의 정확한 의미와 파라미터 추정 방법은 아래 글에서 참조하시기 바랍니다.
     - [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)
 
@@ -221,7 +221,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-- $$ r_{\text{d.n.}} = r(\theta) = k_{1}\theta + k_{2}\theta^{3} + k_{3}\theta^{5} + k_{4}\theta^{7} + k_{5}\theta^{9} \tag{7} $$
+- $$ r_{\text{d.n.}} = r(\theta) = k_{0}\theta + k_{1}\theta^{3} + k_{2}\theta^{5} + k_{3}\theta^{7} + k_{4}\theta^{9} \tag{7} $$
 
 <br>
 
@@ -322,7 +322,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-- $$ r(\theta') = k_{1}\theta'^{1} + k_{2}\theta'^{3} + k_{3}\theta'^{5} + k_{4}\theta'^{7} + k_{5}\theta'^{9} = r_{\text{d.n.}} \tag{16} $$
+- $$ r(\theta') = k_{0}\theta'^{1} + k_{1}\theta'^{3} + k_{2}\theta'^{5} + k_{3}\theta'^{7} + k_{4}\theta'^{9} = r_{\text{d.n.}} \tag{16} $$
 
 <br>
 
@@ -344,15 +344,15 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-- $$ r(\theta'_{i}) = k_{1}\theta'^{1}_{i} + k_{2}\theta'^{3}_{i} + k_{3}\theta'^{5}_{i} + k_{4}\theta'^{7}_{i} + k_{5}\theta'^{9}_{i} \tag{18} $$
+- $$ r(\theta'_{i}) = k_{0}\theta'^{1}_{i} + k_{1}\theta'^{3}_{i} + k_{2}\theta'^{5}_{i} + k_{3}\theta'^{7}_{i} + k_{4}\theta'^{9}_{i} \tag{18} $$
 
 <br>
 
-- 반면 $$ \partial \ r(\theta'_{i}) $$ 는 $$ r(\theta'_{i}) $$ 를 1차 미분한 값을 뜻합니다. 따라서 다음과 같이 정리할 수 있습니다.
+- 반면 $$ \partial r(\theta'_{i}) $$ 는 $$ r(\theta'_{i}) $$ 를 1차 미분한 값을 뜻합니다. 따라서 다음과 같이 정리할 수 있습니다.
 
 <br>
 
-- $$ r(\theta'_{i})
+- $$ \partial r(\theta'_{i}) = k_{0} + 3k_{1}\theta'^{2}_{i} + 5k_{2}\theta'^{4}_{i} + 7k_{3}\theta'^{6}_{i} + 9k_{4}\theta'^{8}_{i} \tag{19} $$
 
 
 <br>
