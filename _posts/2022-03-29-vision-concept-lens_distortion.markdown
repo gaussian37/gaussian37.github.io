@@ -318,7 +318,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 <br>
 
 - 위 그림과 같이 $$ \theta $$ 를 알면 $$ \tan{(\theta)} = r_{\text{u.n.}} / 1 $$ 를 계산할 수 있습니다.
-- 즉, 식 (7)에서 $$ \theta $$ 를 통해 $$ r(\theta) $$ 를 추정한 것과 반대로 $$ r(\theta) $$ 를 통해 $$ \theta $$ 를 추정하는 것이 문제의 핵심이 됩니다. 이 문제를 다음과 같이 나태낼 수 있습니다.
+- 즉, 식 (7)에서 $$ \theta $$ 를 통해 $$ r(\theta) $$ 를 추정한 것과 반대로 $$ r(\theta) $$ 를 통해 $$ \theta $$ 를 추정하는 것이 문제의 핵심이 됩니다. 이 문제를 다음과 같이 나타낼 수 있습니다.
 
 <br>
 
@@ -326,7 +326,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-- 식 (16) 에서 $$ r(\theta') = r_{\text{d.n.}} $$ 을 만족하는 $$ \theta' $$ 를 찾는 문제로 정의할 수 있고 closed-form 형태의 풀이법이 없이 때문에 numeric한 방식으로 $$ \theta' $$ 를 근사화 시켜야 합니다.
+- 식 (16) 에서 $$ r(\theta') = r_{\text{d.n.}} $$ 을 만족하는 $$ \theta' $$ 를 찾는 문제로 정의할 수 있고 closed-form 형태의 풀이법이 없기 때문에 numeric한 방식으로 $$ \theta' $$ 를 근사화 시켜야 합니다.
 - 이러한 문제를 풀 때, 가장 흔히 사용되는 방법이 `newton-raphson method` 줄여서 `newton-method` 방법을 사용합니다. 상세 내용은 다음 링크를 참조하시기 바랍니다.
     - [newton-raphson method 내용 참조](https://gaussian37.github.io/math-mfml-intro_to_optimisation/#newton-raphson-method-1)
 
@@ -354,6 +354,31 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 - $$ \partial r(\theta'_{i}) = k_{0} + 3k_{1}\theta'^{2}_{i} + 5k_{2}\theta'^{4}_{i} + 7k_{3}\theta'^{6}_{i} + 9k_{4}\theta'^{8}_{i} \tag{19} $$
 
+<br>
+
+- 따라서 식 (17)을 이용하여 정리하면 다음과 같이 `newton-method` 방법을 적용할 수 있습니다.
+
+<br>
+
+- $$ \begin{align} \theta'_{i+1} &= \theta'_{i} - \frac{r(\theta'_{i})}{\partial \ r(\theta'_{i})} \\ &= \theta'_{i} - \frac{k_{0}\theta'^{1} + k_{1}\theta'^{3} + k_{2}\theta'^{5} + k_{3}\theta'^{7} + k_{4}\theta'^{9}}{k_{0} + 3k_{1}\theta'^{2}_{i} + 5k_{2}\theta'^{4}_{i} + 7k_{3}\theta'^{6}_{i} + 9k_{4}\theta'^{8}_{i}}  \end{align} \tag{20} $$ 
+
+
+<br>
+
+- 식 (20)의 최적화 종료 조건은 보통 다음 2가지 방식을 많이 사용 합니다.
+
+<br>
+
+- $$ \vert \theta'_{i+1} - \theta'_{i} \vert \lt \text{tolerance} \tag{21} $$
+
+- $$ i \gt \text{max iterations} \tag{22} $$
+
+<br>
+
+- 지금 까지 살펴본 방법은 $$ x_{\text{d.n.}}, y_{\text{d.n.}} $$ 을 알 때, $$ {r_{\text{d.n.}}} $$ 를 구하고 이 값을 이용하여 $$ \theta $$ 를 추정하는 것이었습니다.
+- 즉, 렌즈 왜곡이 반영된 어떤 이미지의 $$ (u, v) $$ 좌표에서 $$ K^{-1} $$ 을 적용하면 $$ x_{\text{d.n.}}, y_{\text{d.n.}} $$ 을 얻을 수 있는데 이 값에 대응되는 $$ {r_{\text{d.n.}}} $$ 은 픽셀 별로 조금씩 다를 수 있기 때문에 사전에 필요한 모든 픽셀에 대하여 관계를 구해놓으면 편하게 사용할 수 있습니다.
+- 예를 들어 $$ (u, v) $$ 는 $$ \theta $$ 에 대응된다. 라는 관계를 모든 유효한 $$ (u, v) $$ 에 대하여 미리 구해 놓습니다. (0, 0) ~ (100, 100) 의 모든 $$ (u, v) $$ 좌표에 대하여 대응되는 $$ \theta $$ 값을 필요로 하면 사전에 이 좌표들에 대해서 관계를 구해 놓을 수 있습니다. 
+- 이와 같은 관계를 나타내는 자료 구조를 `LUT (Look Up Table)` 이라고 하며 보통 테이블에서 $$ (u, v) $$ 의 인덱스를 접근하면 $$ \theta $$ 값을 읽어올 수 있도록 구성해 둡니다.
 
 <br>
 
