@@ -300,13 +300,13 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 - $$ x_{\text{d.n.}} = r_{\text{d.n.}} \frac{x_{\text{u.n.}}}{r_{\text{u.n.}}}  $$
 
-- $$ \therefore x_{\text{u.n.}} = \frac{r_{\text{u.n.}}}{r_{\text{d.n.}}}x_{\text{d.n.}} \tag{14} $$
+- $$ \therefore x_{\text{u.n.}} = r_{\text{u.n.}}\frac{x_{\text{d.n.}}}{r_{\text{d.n.}}} \tag{14} $$
 
 <br>
 
 - $$ y_{\text{d.n.}} = r_{\text{d.n.}} \frac{y_{\text{u.n.}}}{r_{\text{u.n.}}}  $$
 
-- $$ \therefore y_{\text{u.n.}} = \frac{r_{\text{u.n.}}}{r_{\text{d.n.}}}y_{\text{d.n.}} \tag{15} $$
+- $$ \therefore y_{\text{u.n.}} = r_{\text{u.n.}}\frac{y_{\text{d.n.}}}{r_{\text{d.n.}}} \tag{15} $$
 
 <br>
 
@@ -379,6 +379,71 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 - 즉, 렌즈 왜곡이 반영된 어떤 이미지의 $$ (u, v) $$ 좌표에서 $$ K^{-1} $$ 을 적용하면 $$ x_{\text{d.n.}}, y_{\text{d.n.}} $$ 을 얻을 수 있는데 이 값에 대응되는 $$ {r_{\text{d.n.}}} $$ 은 픽셀 별로 조금씩 다를 수 있기 때문에 사전에 필요한 모든 픽셀에 대하여 관계를 구해놓으면 편하게 사용할 수 있습니다.
 - 예를 들어 $$ (u, v) $$ 는 $$ \theta $$ 에 대응된다. 라는 관계를 모든 유효한 $$ (u, v) $$ 에 대하여 미리 구해 놓습니다. (0, 0) ~ (100, 100) 의 모든 $$ (u, v) $$ 좌표에 대하여 대응되는 $$ \theta $$ 값을 필요로 하면 사전에 이 좌표들에 대해서 관계를 구해 놓을 수 있습니다. 
 - 이와 같은 관계를 나타내는 자료 구조를 `LUT (Look Up Table)` 이라고 하며 보통 테이블에서 $$ (u, v) $$ 의 인덱스를 접근하면 $$ \theta $$ 값을 읽어올 수 있도록 구성해 둡니다.
+
+<br>
+
+- 식 (20), (21), (22)의 조건을 반영한 python 코드를 살펴보면 다음과 같습니다.
+- 먼저 아래는 식 (20)의 `newton-method`를 기본으로 구현한 함수 입니다.
+
+<br>
+
+```python
+def rdn2theta(x_dn, y_dn, k0, k1, k2, k3, k4, max_iter=300, tol=1e-10):
+    r_dn = np.sqrt(x_dn[0]**2 + y_dn[0]**2)
+    theta_init = np.arctan(r_dn)
+
+    # newton-method
+    theta_pred = theta_init
+    for _ in range(max_iter):        
+        prev_theta_pred = theta_pred
+        f_x = k0*theta_pred + k1*theta_pred**3 + k2*theta_pred**5 + k3*theta_pred**7 + k4*theta_pred**9
+        f_x_prime = k0 + 3*k1*theta_pred**2 + 5*k2*theta_pred**4 + 7*k3*theta_pred**6 + 9*k4*theta_pred**8
+        theta_pred = theta_pred - f_x/f_x_prime
+        if np.abs(theta_pred - prev_theta_pred) < tol:
+            break
+    
+    r_un = np.tan(theta_pred)
+    x_un = r_un * (x_dn / r_dn)
+    y_un = r_un * (y_dn / r_dn)
+    return x_un, y_un, r_dn, theta_pred
+```
+
+<br>
+
+- 아래는 `scipy`를 이용하여 구한 방법입니다. `scipy.optimize`의 `root_scalar`를 이용하면 더 안정적인 방법으로 구할 수 있습니다. 일반적인 상황에서는 앞에서 구현한 함수와 아래의 `root_scalar`를 이용한 값의 차이는 나지 않습니다.
+
+<br>
+
+```python
+from scipy.optimize import root_scalar
+
+def r_theta(theta_pred, r, k0, k1, k2, k3, k4):
+    return k0*theta_pred + k1*theta_pred**3 + k2*theta_pred**5 + k3*theta_pred**7 + k4*theta_pred**9 - r
+
+def r_theta_prime(theta_pred, r, k0, k1, k2, k3, k4):
+    return k0 + 3*k1*theta_pred**2 + 5*k2*theta_pred**4 + 7*k3*theta_pred**6 + 9*k4*theta_pred**8
+
+def rdn2theta_scipy(x_dn, y_dn, k0, k1, k2, k3, k4):
+    r_dn = np.sqrt(x_dn[0]**2 + y_dn[0]**2)
+    theta_init = np.arctan(r_dn)
+
+    # newton-method
+    result = root_scalar(
+        r_theta, 
+        args=(r_dn, k0, k1, k2, k3, k4), 
+        method='newton', 
+        x0=theta_init, 
+        fprime=r_theta_prime
+    )
+    
+    theta_pred = result.root    
+    r_un = np.tan(theta_pred)
+    x_un = r_un * (x_dn / r_dn)
+    y_un = r_un * (y_dn / r_dn)
+    return x_un, y_un, r_dn, theta_pred
+```
+
+
 
 <br>
 
