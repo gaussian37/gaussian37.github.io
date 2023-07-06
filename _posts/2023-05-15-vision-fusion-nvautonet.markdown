@@ -297,6 +297,8 @@ tags: [nvautonet, multi-camera fusion] # add tag
 <br>
 
 - `3D Freespace`의 인식 대상은 `vehicle`, `VRU (vulnerable road users)`, `Others(random hazard obstacels + static obstacles)`이며 인식 대상은 `RDM (Radial Distance Map)`에 나타냅니다.
+- `VRU`의 용어 정의는 **pedestrians, motorcycle riders, cyclists, children 7-years and under, the elderly and users of mobility devices**이며 상세 내용은 다음과 링크를 참조하시면 됩니다.
+    - 링크 : [https://www.roadsafety.gov.au/nrss/fact-sheets/vulnerable-road-users](https://www.roadsafety.gov.au/nrss/fact-sheets/vulnerable-road-users)
 
 <br>
 <center><img src="../assets/img/vision/fusion/nvautonet/28.png" alt="Drawing" style="width: 600px;"/></center>
@@ -328,6 +330,66 @@ tags: [nvautonet, multi-camera fusion] # add tag
 
 ## **6. Experimental Evaluation**
 
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/nvautonet/32.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/nvautonet/33.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/nvautonet/34.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/nvautonet/35.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/nvautonet/36.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/nvautonet/37.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/nvautonet/38.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/nvautonet/39.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/nvautonet/40.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/nvautonet/41.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/nvautonet/42.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/nvautonet/43.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/nvautonet/44.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/nvautonet/45.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/fusion/nvautonet/46.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 
