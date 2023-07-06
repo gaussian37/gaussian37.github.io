@@ -250,7 +250,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-- $$ u = f_{x} (x_{\text{d.n.}} + \alpha \cdot y_{\text{d.n.}}) + c_{x} \tag{10} $$
+- $$ u = f_{x} \cdot x_{\text{d.n.}} + \alpha \cdot y_{\text{d.n.}} + c_{x} \tag{10} $$
 
 - $$ v = f_{y} \cdot y_{\text{d.n.}} + c_{y} \tag{11} $$
 
@@ -283,7 +283,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-- $$ x_{\text{d.n.}} = \frac{u - c_{x}}{f_{x}} - \alpha y_{\text{d.n.}} \tag{12} $$
+- $$ x_{\text{d.n.}} = \frac{u - c_{x} \alpha y_{\text{d.n.}}}{f_{x}} \tag{12} $$
 
 - $$ y_{\text{d.n.}} = \frac{v - c_{y}}{f_{y}} \tag{13} $$
 
@@ -329,76 +329,87 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 - 식 (16) 에서 $$ r(\theta') = r_{\text{d.n.}} $$ 을 만족하는 $$ \theta' $$ 를 찾는 문제로 정의할 수 있고 closed-form 형태의 풀이법이 없기 때문에 numeric한 방식으로 $$ \theta' $$ 를 근사화 시켜야 합니다.
 - 이러한 문제를 풀 때, 가장 흔히 사용되는 방법이 `newton-raphson method` 줄여서 `newton-method` 방법을 사용합니다. 상세 내용은 다음 링크를 참조하시기 바랍니다.
     - [newton-raphson method 내용 참조](https://gaussian37.github.io/math-mfml-intro_to_optimisation/#newton-raphson-method-1)
+- `newton-method` 방법을 적용하기 위하여 식 (16)을 다음과 같이 변경합니다.
 
 <br>
 
-- `newton-method` 방법에 따라 $$ \theta' $$ 를 추정하면 다음 식과 같이 반복적인 방법으로 오차를 줄여가면서 구할 수 있습니다. 일반적으로 `newton-method`로 근을 추정할 때, 반복 횟수의 최대 값을 주거나 오차가 일정 임계값 보다 작아지면 반복을 멈추는 방법을 사용합니다.
+- $$ f(\theta') = k_{0}\theta'^{1} + k_{1}\theta'^{3} + k_{2}\theta'^{5} + k_{3}\theta'^{7} + k_{4}\theta'^{9} - r_{\text{d.n.}} = 0 \tag{17} $$
 
 <br>
 
-- $$ \theta'_{i+1} = \theta'_{i} - \frac{r(\theta'_{i})}{\partial \ r(\theta'_{i})} \tag{17} $$
+- 식 (17)과 같이 우변을 0으로 만드는 해 $$ \theta' $$ 를 찾는 문제로 변환한다면 `newton-method`를 통하여 해를 근사화 하여 찾을 수 있습니다. `newton-method` 방법에 따라 $$ \theta' $$ 를 추정하면 다음 식과 같이 반복적인 방법으로 오차를 줄여가면서 구할 수 있습니다. 일반적으로 `newton-method`로 근을 추정할 때, 반복 횟수의 최대 값을 주거나 오차가 일정 임계값 보다 작아지면 반복을 멈추는 방법을 사용합니다.
 
 <br>
 
-- 식 (17)의 $$ r(\theta'_{i}) $$ 는 앞에서 다룬 것과 같이 다음과 같습니다.
+- $$ \theta'_{i+1} = \theta'_{i} - \frac{f(\theta'_{i})}{\partial \ f(\theta'_{i})} \tag{18} $$
 
 <br>
 
-- $$ r(\theta'_{i}) = k_{0}\theta'^{1}_{i} + k_{1}\theta'^{3}_{i} + k_{2}\theta'^{5}_{i} + k_{3}\theta'^{7}_{i} + k_{4}\theta'^{9}_{i} \tag{18} $$
+- 식 (18)의 $$ f(\theta'_{i}) $$ 는 앞에서 다룬 것과 같이 다음과 같습니다.
 
 <br>
 
-- 반면 $$ \partial r(\theta'_{i}) $$ 는 $$ r(\theta'_{i}) $$ 를 1차 미분한 값을 뜻합니다. 따라서 다음과 같이 정리할 수 있습니다.
+- $$ f(\theta'_{i}) = k_{0}\theta'^{1}_{i} + k_{1}\theta'^{3}_{i} + k_{2}\theta'^{5}_{i} + k_{3}\theta'^{7}_{i} + k_{4}\theta'^{9}_{i} - r_{\text{d.n.}} = 0 \tag{19} $$
 
 <br>
 
-- $$ \partial r(\theta'_{i}) = k_{0} + 3k_{1}\theta'^{2}_{i} + 5k_{2}\theta'^{4}_{i} + 7k_{3}\theta'^{6}_{i} + 9k_{4}\theta'^{8}_{i} \tag{19} $$
+- 반면 $$ \partial \ f(\theta'_{i}) $$ 는 $$ f(\theta'_{i}) $$ 를 $$ \theta' $$ 에 대하여 1차 미분한 값을 뜻합니다. 따라서 다음과 같이 정리할 수 있습니다.
 
 <br>
 
-- 따라서 식 (17)을 이용하여 정리하면 다음과 같이 `newton-method` 방법을 적용할 수 있습니다.
+- $$ \partial f(\theta'_{i}) = k_{0} + 3k_{1}\theta'^{2}_{i} + 5k_{2}\theta'^{4}_{i} + 7k_{3}\theta'^{6}_{i} + 9k_{4}\theta'^{8}_{i} \tag{20} $$
 
 <br>
 
-- $$ \begin{align} \theta'_{i+1} &= \theta'_{i} - \frac{r(\theta'_{i})}{\partial \ r(\theta'_{i})} \\ &= \theta'_{i} - \frac{k_{0}\theta'^{1} + k_{1}\theta'^{3} + k_{2}\theta'^{5} + k_{3}\theta'^{7} + k_{4}\theta'^{9}}{k_{0} + 3k_{1}\theta'^{2}_{i} + 5k_{2}\theta'^{4}_{i} + 7k_{3}\theta'^{6}_{i} + 9k_{4}\theta'^{8}_{i}}  \end{align} \tag{20} $$ 
-
-
-<br>
-
-- 식 (20)의 최적화 종료 조건은 보통 다음 2가지 방식을 많이 사용 합니다.
+- 따라서 식 (18)을 이용하여 정리하면 다음과 같이 `newton-method` 방법을 적용할 수 있습니다.
 
 <br>
 
-- $$ \vert \theta'_{i+1} - \theta'_{i} \vert \lt \text{tolerance} \tag{21} $$
-
-- $$ i \gt \text{max iterations} \tag{22} $$
+- $$ \begin{align} \theta'_{i+1} &= \theta'_{i} - \frac{f(\theta'_{i})}{\partial \ f(\theta'_{i})} \\ &= \theta'_{i} - \frac{k_{0}\theta'^{1} + k_{1}\theta'^{3} + k_{2}\theta'^{5} + k_{3}\theta'^{7} + k_{4}\theta'^{9} - r_{\text{d.n.}}}{k_{0} + 3k_{1}\theta'^{2}_{i} + 5k_{2}\theta'^{4}_{i} + 7k_{3}\theta'^{6}_{i} + 9k_{4}\theta'^{8}_{i}}  \end{align} \tag{21} $$ 
 
 <br>
 
-- 지금 까지 살펴본 방법은 $$ x_{\text{d.n.}}, y_{\text{d.n.}} $$ 을 알 때, $$ {r_{\text{d.n.}}} $$ 를 구하고 이 값을 이용하여 $$ \theta $$ 를 추정하는 것이었습니다.
-- 즉, 렌즈 왜곡이 반영된 어떤 이미지의 $$ (u, v) $$ 좌표에서 $$ K^{-1} $$ 을 적용하면 $$ x_{\text{d.n.}}, y_{\text{d.n.}} $$ 을 얻을 수 있는데 이 값에 대응되는 $$ {r_{\text{d.n.}}} $$ 은 픽셀 별로 조금씩 다를 수 있기 때문에 사전에 필요한 모든 픽셀에 대하여 관계를 구해놓으면 편하게 사용할 수 있습니다.
-- 예를 들어 $$ (u, v) $$ 는 $$ \theta $$ 에 대응된다. 라는 관계를 모든 유효한 $$ (u, v) $$ 에 대하여 미리 구해 놓습니다. (0, 0) ~ (100, 100) 의 모든 $$ (u, v) $$ 좌표에 대하여 대응되는 $$ \theta $$ 값을 필요로 하면 사전에 이 좌표들에 대해서 관계를 구해 놓을 수 있습니다. 
-- 이와 같은 관계를 나타내는 자료 구조를 `LUT (Look Up Table)` 이라고 하며 보통 테이블에서 $$ (u, v) $$ 의 인덱스를 접근하면 $$ \theta $$ 값을 읽어올 수 있도록 구성해 둡니다.
+- 식 (21)의 최적화를 위한 반복 종료 조건은 보통 다음 2가지 방식을 많이 사용 합니다.
 
 <br>
 
-- 식 (20), (21), (22)의 조건을 반영한 python 코드를 살펴보면 다음과 같습니다.
-- 먼저 아래는 식 (20)의 `newton-method`를 기본으로 구현한 함수 입니다.
+- $$ \vert \theta'_{i+1} - \theta'_{i} \vert \lt \text{tolerance} \tag{22} $$
+
+- $$ i \gt \text{max iterations} \tag{23} $$
+
+<br>
+
+- 지금 까지 살펴본 방법은 $$ x_{\text{d.n.}}, y_{\text{d.n.}} $$ 을 알 때, $$ {r_{\text{d.n.}}} $$ 를 구하고 이 값을 이용하여 $$ \theta' $$ 를 추정하는 것이었습니다.
+- 즉, 렌즈 왜곡이 반영된 어떤 이미지의 $$ (u, v) $$ 좌표에서 $$ K^{-1} $$ 을 적용하면 $$ x_{\text{d.n.}}, y_{\text{d.n.}} $$ 을 얻을 수 있는데 이 값에 대응되는 $$ r_{\text{d.n.}} $$ 은 픽셀 별로 조금씩 다를 수 있기 때문에 사전에 필요한 모든 픽셀에 대하여 관계를 구해놓으면 편하게 사용할 수 있습니다.
+- 예를 들어 **$$ (u, v) $$ 는 $$ \theta' $$ 에 대응된다. 라는 관계**를 모든 유효한 $$ (u, v) $$ 에 대하여 미리 구해 놓습니다. (0, 0) ~ (100, 100) 의 모든 $$ (u, v) $$ 좌표에 대하여 대응되는 $$ \theta' $$ 값을 필요로 하면 사전에 이 좌표들에 대해서 관계를 구해 놓을 수 있습니다. 
+- 이와 같은 관계를 나타내는 자료 구조를 `LUT (Look Up Table)` 라고 하며 보통 테이블에서 $$ (u, v) $$ 의 인덱스를 접근하면 $$ \theta' $$ 값을 읽어올 수 있도록 구성해 둡니다. 더 나아가 추가적인 연산 없이 식 (14), (15)의 계산을 하기 위하여 $$ (u, v) $$ 의 인덱스를 접근하면 $$ r_{\text{d.n.}} $$ 과 $$ \tan{(\theta')} = r_{\text{u.n.}} $$ 을 얻을 수 있도록 구성해 놓을 수도 있습니다.
+
+<br>
+
+- 식 (21), (22), (23)의 조건을 반영한 python 코드를 살펴보면 다음과 같습니다.
+- 먼저 아래는 식 (21)의 `newton-method`를 구현한 함수 입니다.
 
 <br>
 
 ```python
+def f_theta_pred(theta_pred, r, k0, k1, k2, k3, k4):
+    return k0*theta_pred + k1*theta_pred**3 + k2*theta_pred**5 + k3*theta_pred**7 + k4*theta_pred**9 - r
+
+def f_theta_pred_prime(theta_pred, r, k0, k1, k2, k3, k4):
+    return k0 + 3*k1*theta_pred**2 + 5*k2*theta_pred**4 + 7*k3*theta_pred**6 + 9*k4*theta_pred**8
+
 def rdn2theta(x_dn, y_dn, k0, k1, k2, k3, k4, max_iter=300, tol=1e-10):
-    r_dn = np.sqrt(x_dn[0]**2 + y_dn[0]**2)
+    r_dn = np.sqrt(x_dn**2 + y_dn**2)
     theta_init = np.arctan(r_dn)
 
     # newton-method
     theta_pred = theta_init
     for _ in range(max_iter):        
         prev_theta_pred = theta_pred
-        f_x = k0*theta_pred + k1*theta_pred**3 + k2*theta_pred**5 + k3*theta_pred**7 + k4*theta_pred**9
-        f_x_prime = k0 + 3*k1*theta_pred**2 + 5*k2*theta_pred**4 + 7*k3*theta_pred**6 + 9*k4*theta_pred**8
-        theta_pred = theta_pred - f_x/f_x_prime
+        
+        f_theta_value = f_theta_pred(theta_pred, r_dn, 1, k1, k2, k3, k4)
+        f_theta_prime_value = f_theta_pred_prime(theta_pred, r_dn, 1, k1, k2, k3, k4)
+        theta_pred = theta_pred - f_theta_value/f_theta_prime_value
         if np.abs(theta_pred - prev_theta_pred) < tol:
             break
     
@@ -410,30 +421,30 @@ def rdn2theta(x_dn, y_dn, k0, k1, k2, k3, k4, max_iter=300, tol=1e-10):
 
 <br>
 
-- 아래는 `scipy`를 이용하여 구한 방법입니다. `scipy.optimize`의 `root_scalar`를 이용하면 더 안정적인 방법으로 구할 수 있습니다. 일반적인 상황에서는 앞에서 구현한 함수와 아래의 `root_scalar`를 이용한 값의 차이는 나지 않습니다.
+- 아래는 `scipy`를 이용하여 구한 방법입니다. `scipy.optimize`의 `root_scalar`를 이용하면 더 안정적인 방법으로 구할 수 있습니다. 일반적인 상황에서는 앞에서 구현한 함수와 아래의 `root_scalar`를 이용한 $$ \theta' $$ 추정 값은 같습니다.
 
 <br>
 
 ```python
 from scipy.optimize import root_scalar
 
-def r_theta(theta_pred, r, k0, k1, k2, k3, k4):
+def f_theta_pred(theta_pred, r, k0, k1, k2, k3, k4):
     return k0*theta_pred + k1*theta_pred**3 + k2*theta_pred**5 + k3*theta_pred**7 + k4*theta_pred**9 - r
 
-def r_theta_prime(theta_pred, r, k0, k1, k2, k3, k4):
+def f_theta_pred_prime(theta_pred, r, k0, k1, k2, k3, k4):
     return k0 + 3*k1*theta_pred**2 + 5*k2*theta_pred**4 + 7*k3*theta_pred**6 + 9*k4*theta_pred**8
 
-def rdn2theta_scipy(x_dn, y_dn, k0, k1, k2, k3, k4):
+def rdn2theta(x_dn, y_dn, k0, k1, k2, k3, k4):
     r_dn = np.sqrt(x_dn[0]**2 + y_dn[0]**2)
     theta_init = np.arctan(r_dn)
 
     # newton-method
     result = root_scalar(
-        r_theta, 
+        f_theta_pred, 
         args=(r_dn, k0, k1, k2, k3, k4), 
         method='newton', 
         x0=theta_init, 
-        fprime=r_theta_prime
+        fprime=f_theta_pred_prime
     )
     
     theta_pred = result.root    
@@ -443,7 +454,41 @@ def rdn2theta_scipy(x_dn, y_dn, k0, k1, k2, k3, k4):
     return x_un, y_un, r_dn, theta_pred
 ```
 
+<br>
 
+- 앞에서 언급한 `LUT`는 이미지 좌표계에서 $$ (u, v) $$ 에 해당하는 $$ \theta' $$ 및 $$ r_{\text{d.n.}}, r_{\text{u.n.}} $$ 을 직접적으로 접근하기 위한 자료 구조임을 설명하였습니다.
+- `LUT` 값을 채우기 위해서는 $$ (u, v) \to (x_{\text{d.n.}}, y_{\text{d.n.}}) \to \theta' (r_{\text{d.n.}}, r_{\text{u.n.}}) $$ 순서로 값을 추정해야 합니다. 따라서 다음과 같이 `LUT`를 만들 수 있습니다.
+- 아래 예제는 식 (14), (15) 바로 적용을 위하여 $$ r_{\text{d.n.}}, r_{\text{u.n.}} $$ 값을 할당합니다.
+
+<br>
+
+```python
+lut = np.zeros((img.shape[0], img.shape[1], 2)).astype(np.float32)
+for u in range(img.shape[1]):
+    for v in range(img.shape[0]):
+        y_dn = (v - cy)/fy
+        x_dn = (u - skew*y_dn - cx)/fx
+        _, _, r_dn, theta_pred = rdn2theta_scipy(x_dn, y_dn, 1, k1, k2, k3, k4)
+        
+        # (u, v) -> r_d.n.
+        lut[v][u][0] = r_dn
+        # (u, v) -> r_u.n.
+        lut[v][u][1] = np.tan(theta_pred)
+```
+
+<br>
+
+- 위 방법을 통하여 `LUT`를 마련하면 다음과 같이 $$ (u, v) \to (x_{\text{u.n.}}, y_{\text{u.n.}}) $$ 로 변환할 수 있습니다.
+
+<br>
+
+```python
+r_dn = lut[u][v][0]
+r_un = lut[u][v][1]
+
+x_un = r_un * (x_dn/r_dn)
+y_un = r_un * (y_dn/r_dn)
+```
 
 <br>
 
