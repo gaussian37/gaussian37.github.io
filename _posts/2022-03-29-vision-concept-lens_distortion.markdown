@@ -483,12 +483,22 @@ for u in range(img.shape[1]):
 <br>
 
 ```python
-r_dn = lut[u][v][0]
-r_un = lut[u][v][1]
+u = 100
+v = 50
 
-x_un = r_un * (x_dn/r_dn)
-y_un = r_un * (y_dn/r_dn)
+r_dn = lut[v][u][0]
+r_un = lut[v][u][1]
+
+y_dn = (v - cy)/fy
+x_dn = (u - skew*y_dn - cx)/fx
+
+x_un = r_un * x_dn/r_dn
+y_un = r_un * y_dn/r_dn
 ```
+
+<br>
+
+- 이번에는 polyfit........
 
 <br>
 
