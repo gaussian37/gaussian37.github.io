@@ -184,7 +184,7 @@ tags: [nvautonet, multi-camera fusion] # add tag
 
 <br>
 
-- $$ \text{shape of } F_{k} = \frac{H}{2^{k+1}} \times \frac{W}{2^{k+1}} times C $$
+- $$ \text{shape of } F_{k} = \frac{H}{2^{k+1}} \times \frac{W}{2^{k+1}} \times C $$
 
 <br>
 
