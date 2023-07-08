@@ -457,8 +457,15 @@ def rdn2theta(x_dn, y_dn, k0, k1, k2, k3, k4):
 <br>
 
 - 앞에서 언급한 `LUT`는 이미지 좌표계에서 $$ (u, v) $$ 에 해당하는 $$ \theta' $$ 및 $$ r_{\text{d.n.}}, r_{\text{u.n.}} $$ 을 직접적으로 접근하기 위한 자료 구조임을 설명하였습니다.
-- `LUT` 값을 채우기 위해서는 $$ (u, v) \to (x_{\text{d.n.}}, y_{\text{d.n.}}) \to \theta' (r_{\text{d.n.}}, r_{\text{u.n.}}) $$ 순서로 값을 추정해야 합니다. 따라서 다음과 같이 `LUT`를 만들 수 있습니다.
-- 아래 예제는 식 (14), (15) 바로 적용을 위하여 $$ r_{\text{d.n.}}, r_{\text{u.n.}} $$ 값을 할당합니다.
+- `LUT` 값을 채우기 위해서는 다음 식의 빨간색 부분의 순서대로 값을 추정해야 하며 최종적으로 $$ \theta' $$ 를 통하여 $$ (x_{\text{u.n.}}, y_{\text{u.n.}}) $$ 을 추정할 수 있습니다.
+
+<br>
+
+- $$ \color{red}{(u, v) \to (x_{\text{d.n.}}, y_{\text{d.n.}}) \to r_{\text{d.n.}} \to \theta' \to r_{\text{u.n.}}}  \to (x_{\text{u.n.}}, y_{\text{u.n.}}) \tag{24} $$
+
+<br>
+
+- 아래 예제는 식 (14), (15) 를 바로 적용하기 위하여 $$ r_{\text{d.n.}}, r_{\text{u.n.}} $$ 값을 `LUT`에 할당합니다.
 
 <br>
 
@@ -479,6 +486,7 @@ for u in range(img.shape[1]):
 <br>
 
 - 위 방법을 통하여 `LUT`를 마련하면 다음과 같이 $$ (u, v) \to (x_{\text{u.n.}}, y_{\text{u.n.}}) $$ 로 변환할 수 있습니다.
+- 아래 예시는 앞의 코드에서 생성한 `LUT`를 통하여 임의의 $$ (u, v) = (100, 50) $$ 에서의 $$ (x_{\text{u.n.}}, y_{\text{u.n.}}) $$ 값을 추정한 결과입니다.
 
 <br>
 
@@ -498,7 +506,7 @@ y_un = r_un * y_dn/r_dn
 
 <br>
 
-- 이번에는 polyfit........
+
 
 <br>
 
