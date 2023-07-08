@@ -45,6 +45,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 - ### [Generic 카메라 모델의 3D → 2D](#generic-카메라-모델의-3d--2d-1)
 - ### [Generic 카메라 모델의 2D → 3D](#generic-카메라-모델의-2d--3d-1)
+- ### [Generic 카메라 모델 3D → 2D 및 2D → 3D python 실습](#generic-카메라-모델의-3d--2d-및-2d--3d-python-실습-1)
 - ### [Generic 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기](#generic-카메라-모델-왜곡-보정을-위한-mapping-함수-구하기-1)
 - ### [Generic 카메라 모델 remap을 이용한 왜곡 영상 → 핀홀 모델 영상](#generic-카메라-모델-remap을-이용한-왜곡-영상--핀홀-모델-영상-1)
 - ### [Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상](#generic-카메라-모델-pytorch를-이용한-왜곡-영상--핀홀-모델-영상-1)
@@ -513,6 +514,10 @@ y_un = r_un * y_dn/r_dn
 #### **③ `undistorted normalized 좌표계`로 변환 → `카메라 좌표계`로 변환**
 
 <br>
+
+<br>
+
+## **Generic 카메라 모델 3D → 2D 및 2D → 3D python 실습**
 
 <br>
 
