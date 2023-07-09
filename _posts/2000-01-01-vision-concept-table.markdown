@@ -32,3 +32,4 @@ tags: [vision] # add tag
 - [카메라 모델과 렌즈 왜곡 (lense distortion)](https://gaussian37.github.io/vision-concept-lense_distortion/)
 - [A Generic Camera Model and Calibration Method for Conventional, Wide-Angle, and Fish-Eye Lenses](https://gaussian37.github.io/vision-concept-generic_camera_model/)
 - [Double Sphere 카메라 모델 및 다양한 카메라 모델의 종류 (Pinhole, UCM, EUCM, Kannala-Brandt Camera Model 등))](https://gaussian37.github.io/vision-concept-camera_models)
+- [Fisheye Camera (어안 카메라) 관련 정리](https://gaussian37.github.io/vision-concept-fisheye_camera/)

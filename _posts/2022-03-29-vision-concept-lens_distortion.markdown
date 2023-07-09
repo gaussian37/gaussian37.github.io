@@ -45,7 +45,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 - ### [Generic 카메라 모델의 3D → 2D](#generic-카메라-모델의-3d--2d-1)
 - ### [Generic 카메라 모델의 2D → 3D](#generic-카메라-모델의-2d--3d-1)
-- ### [Generic 카메라 모델 3D → 2D 및 2D → 3D python 실습](#generic-카메라-모델의-3d--2d-및-2d--3d-python-실습-1)
+- ### [Generic 카메라 모델 3D → 2D 및 2D → 3D python 실습](#generic-카메라-모델-3d--2d-및-2d--3d-python-실습-1)
 - ### [Generic 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기](#generic-카메라-모델-왜곡-보정을-위한-mapping-함수-구하기-1)
 - ### [Generic 카메라 모델 remap을 이용한 왜곡 영상 → 핀홀 모델 영상](#generic-카메라-모델-remap을-이용한-왜곡-영상--핀홀-모델-영상-1)
 - ### [Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상](#generic-카메라-모델-pytorch를-이용한-왜곡-영상--핀홀-모델-영상-1)
@@ -474,14 +474,16 @@ def rdn2theta(x_dn, y_dn, k0, k1, k2, k3, k4):
 lut = np.zeros((img.shape[0], img.shape[1], 2)).astype(np.float32)
 for u in range(img.shape[1]):
     for v in range(img.shape[0]):
-        y_dn = (v - cy)/fy
-        x_dn = (u - skew*y_dn - cx)/fx
-        _, _, r_dn, theta_pred = rdn2theta_scipy(x_dn, y_dn, 1, k1, k2, k3, k4)
-        
-        # (u, v) -> r_d.n.
-        lut[v][u][0] = r_dn
-        # (u, v) -> r_u.n.
-        lut[v][u][1] = np.tan(theta_pred)
+        # check (u, v) is valid image area (ex. checking vignetting area)
+        if mask_valid[v][u]:
+            y_dn = (v - cy)/fy
+            x_dn = (u - skew*y_dn - cx)/fx
+            _, _, r_dn, theta_pred = rdn2theta_scipy(x_dn, y_dn, 1, k1, k2, k3, k4)
+            
+            # (u, v) -> r_d.n.
+            lut[v][u][0] = r_dn
+            # (u, v) -> r_u.n.
+            lut[v][u][1] = np.tan(theta_pred)
 ```
 
 <br>
@@ -507,13 +509,102 @@ y_un = r_un * y_dn/r_dn
 
 <br>
 
+- 이와 같은 `LUT` 방식의 사용은 한번만 연산을 하면 별도 연산 없이 테이블만 접근하여 사용하면 되기 때문에 상당히 효율적입니다. 하지만 필요한 `LUT`의 사이즈가 커지게 된다면 이미지 별 `LUT`를 모두 가지고 있는 것은 메모리 차원에서 문제가 될 수도 있습니다.
+- 따라서 아래 방법과 같이 `LUT`의 값들을 다항식으로 표현한 후 `polynomial curve fitting`을 통하여 계수를 찾으면 정확도를 조금 낮추더라도 `LUT`를 항상 가지고 있어야 하는 점에서 자유로워 질 수 있습니다.
+- `polynomial curve fitting`을 통하여 `LUT`를 대체하려는 이유는 다음과 같습니다. `generic camera model`에서 식 (7)을 통하여 $$ \theta \to r_{\text{d.n.}} $$ 을 구하였는데, 이 때 기함수로 구성된 9차 방정식을 사용하였습니다. 이 함수의 역함수인 $$ r_{\text{d.n.}} \to \theta $$ 의 관계식을 찾는 것이 목적이 되겠으나 다차 방정식의 역함수를 바로 찾을 수 없기 때문에 `polynomial curve fitting`을 통해서 찾는 것입니다.
+- 간단한 예를 들면 $$ \theta \to r_{\text{d.n.}} $$ 의 과정이 $$ y = 2x $$ 라면 $$ r_{\text{d.n.}} \to \theta $$ 의 과정은 $$ y = \frac{1}{2}x $$ 인데, 이 과정을 `polynomial curve fitting`을 통해 근사화 한다는 것이 살펴볼 방법 입니다.
 
+<br>
+
+- `polynomial curve fitting`을 하기 위해서는 아래 식을 최적화 하기 위한 `src`와 `target` 데이터가 필요합니다.
+
+<br>
+
+- $$ \theta' = l_{0}r_{\text{d.n.}} + l_{1}r_{\text{d.n.}}^{3} + l_{2}r_{\text{d.n.}}^{5} + l_{3}r_{\text{d.n.}}^{7} + l_{4}r_{\text{d.n.}}^{9} \tag{25} $$
+
+<br>
+
+- 식 (25)의 `src`는 $$ r_{\text{d.n.}} $$ 이고 `target`은 $$ \theta' $$ 가 됩니다. 이 값은 `LUT`의 각 $$ (u, v) $$ 의 성분을 구하면서 확인할 수 있던 것으로 아래 코드를 통해 구할 수 있습니다.
+
+<br>
+
+```python
+src_r_dn = []
+target_theta_pred = []
+for u in range(img.shape[1]):
+    for v in range(img.shape[0]):
+        # check (u, v) is valid image area (ex. checking vignetting area)
+        if mask_valid[v][u]:
+            y_dn = (v - cy)/fy
+            x_dn = (u - skew*y_dn - cx)/fx
+            _, _, r_dn, theta_pred = rdn2theta_scipy(x_dn, y_dn, 1, k1, k2, k3, k4)
+            src_r_dn.append(r_dn)
+            target_theta_pred.append(theta_pred)
+
+src_r_dn = np.array(src_r_dn)
+target_theta_pred = np.array(target_theta_pred)
+
+from scipy.optimize import curve_fit
+
+def polyfit_func(x, l0, l1, l2, l3, l4):
+    return l0*x + l1*x**3 + l2*x**5 + l3*x**7 + l4*x**9
+
+coeffs, _ = curve_fit(polyfit_func, src_r_dn, target_theta_pred.reshape(-1))
+```
+
+<br>
+
+- 위 코드에서 `coeffs`가 식 (25)의 $$ l_{0}, l_{1}, l_{2}, l_{3}, l_{4} $$ 를 나타내고 아래 함수를 통하여 $$ r_{\text{d.n.}} \to \theta $$ 을 추정할 수 있습니다.
+
+<br>
+
+```python
+def get_polyfit_theta_pred(r_dn, l0, l1, l2, l3, l4):
+    return l0*r_dn + l1*r_dn**3 + l2*r_dn**5 + l3*r_dn**7 + l4*r_dn**9
+```
+
+<br>
+
+- 이와 같은 `polynomial curve fitting`을 통하여 $$ (u, v) \to (x_{\text{d.n.}}, y_{\text{d.n.}}) \to r_{\text{d.n.}} \to \theta' \to (x_{\text{u.n.}}, y_{\text{u.n.}}) $$ 을 구하면 다음과 같습니다.
+
+<br>
+
+```python
+u = 100
+v = 50 
+
+y_dn = (v - cy)/fy
+x_dn = (u - skew*y_dn - cx)/fx
+
+r_dn = np.sqrt(x_dn**2 + y_dn**2)
+theta_pred = get_polyfit_theta_pred(r_dn, coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4])
+r_un = np.tan(theta_pred)
+
+x_un = r_un * x_dn/r_dn
+y_un = r_un * y_dn/r_dn
+```
+
+<br>
+
+- 이와 같은 방법으로 `polynomial curve fitting`을 하면 $$ (u, v) $$ 의 $$ (x_{\text{u.n.}}, y_{\text{u.n.}}) $$ 을 알 수 있습니다.
 
 <br>
 
 #### **③ `undistorted normalized 좌표계`로 변환 → `카메라 좌표계`로 변환**
 
 <br>
+
+- 지금까지 `undistorted normalized 좌표계`로 좌표값을 옮기는 방법에 대하여 설명하였습니다. 이 좌표값을 카메라 좌표계로 옮기기 위해서는 $$ Z_{c} $$ 값을 필요로 합니다.
+- 일반적으로 $$ Z_{c} $$ 값은 알 수 없으나, `Depth Estimation`을 통해 $$ Z_{c} $$ 를 구하거나 이미 알고 있는 값이라면 다음과 같이 사용할 수 있습니다.
+
+<br>
+
+- $$ (X_{c}, Y_{c}, Z_{c}) = (x_{\text{u.n.}} \cdot Z_{c}, y_{\text{u.n.}} \cdot Z_{c}, Z_{c}) \tag{26} $$
+
+<br>
+
+- 지금까지 사용한 방법을 통하여 `generic camera` 모델을 사용 시, 어떻게 3D → 2D, 2D → 3D 로 변환하는 지 살펴보았습니다.
+- 지금부터는 앞에서 사용한 내용 및 코드를 활용하여 실제 `Fisheye Camera` 이미지를 통해 어떻게 적용하는 지 살펴보도록 하겠습니다.
 
 <br>
 
