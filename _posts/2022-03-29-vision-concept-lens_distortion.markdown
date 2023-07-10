@@ -467,6 +467,8 @@ def rdn2theta(x_dn, y_dn, k0, k1, k2, k3, k4):
 <br>
 
 - 아래 예제는 식 (14), (15) 를 바로 적용하기 위하여 $$ r_{\text{d.n.}}, r_{\text{u.n.}} $$ 값을 `LUT`에 할당합니다.
+- 아래 코드의 `mask_valid`는 `vignetting` 영역을 제외하기 위함이며 더 나아가 실제로 필요한 영역에 대한 `mask_valid`를 생성한 다음에 그 영역에서만 `LUT`를 구할 수도 있습니다. `vignetting` 영역을 제거하기 위한 `mask` 생성은 아래 링크를 참조하시기 바랍니다.
+    - Fisheye Camera의 Vignetting 영역 인식 방법 : https://gaussian37.github.io/vision-concept-fisheye_camera/#fisheye-camera%EC%9D%98-vignetting-%EC%98%81%EC%97%AD-%EC%9D%B8%EC%8B%9D-%EB%B0%A9%EB%B2%95-1
 
 <br>
 
@@ -480,10 +482,12 @@ for u in range(img.shape[1]):
             x_dn = (u - skew*y_dn - cx)/fx
             _, _, r_dn, theta_pred = rdn2theta_scipy(x_dn, y_dn, 1, k1, k2, k3, k4)
             
-            # (u, v) -> r_d.n.
+            # r_dn
             lut[v][u][0] = r_dn
-            # (u, v) -> r_u.n.
+            # r_un
             lut[v][u][1] = np.tan(theta_pred)
+            # theta_pred
+            lut[v][u][2] = theta_pred
 ```
 
 <br>
@@ -660,9 +664,94 @@ k1, k2, k3, k4 = D[0], D[1], D[2], D[3]
 
 <br>
 
+```python
+X_c = -0.56 
+Y_c = -0.37
+Z_c = 0.8
 
+#################### undistorted normalized coordinate ######################
+x_un = X_c / Z_c
+y_un = Y_c / Z_c
+print(x_un, y_un)
+# -0.7000000000000001 -0.46249999999999997
 
+#################### distorted normalized coordinate ########################
+r_un = np.sqrt(x_un**2 + y_un**2)
+theta = np.arctan(r_un)
+r_dn = 1*theta + k1*theta**3 + k2*theta**5 + k3*theta**7 + k4*theta**9
 
+x_dn = r_dn * (x_un/r_un)
+y_dn = r_dn * (y_un/r_un)
+print(x_dn, y_dn)
+# [-0.56263603] [-0.37174167]
+
+################################ image plane ###############################
+u = np.round(fx*x_dn + skew*y_dn + cx)
+v = np.round(fy*y_dn + cy)
+
+print(u, v)
+# [641.] [305.]
+```
+
+<br>
+
+- checkerboard에서 추정한 값은 `(640,  309)`인 반면 3D → 2D 로 투영하였을 때, 값은 `(641, 305)`가 됩니다. 차이는 존재하지만 유사하게 추정된 것을 확인할 수 있습니다.
+
+<br>
+
+- 앞에서 설명한 코드를 사용하여 2D → 3D 로 변환하는 내용을 확인해 보도록 하겠습니다.
+- 먼저 `LUT`를 사용하여 3D 포인트를 복원하는 방법입니다. `LUT`는 앞에서 설명한 코드에서 구한 것으로 가정하겠습니다.
+
+<br>
+
+```python
+u = 641
+v = 305
+r_dn = lut[v][u][0]
+r_un = lut[v][u][1]
+
+y_dn = (v - cy)/fy
+x_dn = (u - skew*y_dn - cx)/fx
+
+x_un = r_un * x_dn/r_dn
+y_un = r_un * y_dn/r_dn
+
+print(x_un * 0.8, y_un * 0.8, 0.8)
+# -0.5603736513270253 -0.37080293297387945 0.8
+```
+
+<br>
+
+- 원래 $$ (X_{c}, Y_{c}, Z_{c}) = (-0.56, -0.37, 0.8) $$ 인 것과 비교하면 유사하게 복원된 것을 확인할 수 있습니다.
+- 다음으로 ``polynomial curve fitting`을 사용하여 3D 포인트를 복원하는 방법입니다. `polyfit`은 앞에서 설명한 코드로 `fitting`한 것으로 가정하겠습니다.
+
+<br>
+
+```python
+u = 641
+v = 305
+
+y_dn = (v - cy)/fy
+x_dn = (u - skew*y_dn - cx)/fx
+
+r_dn = np.sqrt(x_dn**2 + y_dn**2)
+theta_pred = get_polyfit_theta_pred(r_dn, coeffs[0], coeffs[1], coeffs[2], coeffs[3], coeffs[4])
+r_un = np.tan(theta_pred)
+
+x_un = r_un * x_dn/r_dn
+y_un = r_un * y_dn/r_dn
+print(x_un * 0.8, y_un* 0.8, 0.8)
+# -0.5598187209024351 -0.3704357318598599 0.8
+```
+
+<br>
+
+- 이 값 또한 $$ (X_{c}, Y_{c}, Z_{c}) = (-0.56, -0.37, 0.8) $$ 와 유사한 것을 확인할 수 있습니다.
+
+<br>
+
+- 지금 까지 확인한 방법을 통하여 `Fisheye Camera`와 같은 렌즈 왜곡이 큰 영상에서도 `Generic Camera Model`을 이용하여 3D → 2D `Projection`과 2D → 3D `Unprojection` 사용이 가능함을 확인하였습니다.
+- 다음에 확인할 내용은 `intrinsic`과 `distortion coefficient`를 이용하여 카메라 렌즈 왜곡을 보정하여 `perspective view` 영상을 만드는 방법에 대하여 알아보도록 하겠습니다.
 
 <br>
 
