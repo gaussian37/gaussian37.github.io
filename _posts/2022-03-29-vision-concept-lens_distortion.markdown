@@ -436,7 +436,7 @@ def f_theta_pred_prime(theta_pred, r, k0, k1, k2, k3, k4):
     return k0 + 3*k1*theta_pred**2 + 5*k2*theta_pred**4 + 7*k3*theta_pred**6 + 9*k4*theta_pred**8
 
 def rdn2theta(x_dn, y_dn, k0, k1, k2, k3, k4):
-    r_dn = np.sqrt(x_dn[0]**2 + y_dn[0]**2)
+    r_dn = np.sqrt(x_dn**2 + y_dn**2)
     theta_init = np.arctan(r_dn)
 
     # newton-method
@@ -612,6 +612,30 @@ y_un = r_un * y_dn/r_dn
 
 <br>
 
+- 앞에서 배운 내용을 실제 데이터를 통해서 확인하기 위하여 다음 이미지와 카메라 파라미터를 사용하도록 하겠습니다. 카메라 파라미터는 `Zhang's method`를 통하여 사전에 구한 값입니다.
+- 이미지 링크 : https://drive.google.com/file/d/1pz0sMqCEXqVv_cL5eoYNLgJPJBcFwzoJ/view?usp=drive_link
+- `intrinsic`과 `distortion coefficient`
+
+<br>
+
+```python
+print(K) # intrinsic
+fx = K[0][0]
+skew = K[0][1]
+cx = K[0][2]
+fy = K[1][1]
+cy = K[1][2]
+# [[567.85821196   0.         960.58762478]
+#  [  0.         567.33818371 516.27957345]
+#  [  0.           0.           1.        ]]
+
+print(D) # distortion coefficient
+k1, k2, k3, k4 = D[0], D[1], D[2], D[3]
+# [[-0.07908567]
+#  [ 0.03639387]
+#  [-0.04227248]
+#  [ 0.01444498]]
+```
 
 
 <br>
