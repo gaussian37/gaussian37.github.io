@@ -58,6 +58,23 @@ tags: [fisheye camera, 어안 카메라, lens distortion, 카메라 모델, 렌�
 
 <br>
 
+## **Fisheye Camera의 특징과 Pinhole Camera와의 차이점**
+
+<br>
+
+<br>
+
+## **Fisheye Camera의 Vignetting 영역 인식 방법**
+
+<br>
+
+- 아래는 `Fisheye Camera`의 `vignetting` 영역을 인식하는 방법입니다.
+- `Vignetting` 영역은 상이 맺히지 않아 일반적으로 검은색으로 나타나며 `grayscale` 형태로 이미지를 나타냈을 때, 0에 가까운 값을 가지게 됩니다.
+- 아래 코드는 이미지의 상단부터 하단 까지 좌/우 양끝에서 `vignetting` 영역이 아닌 픽셀 까지 찾은 다음에 `least square`를 통하여 `circle`을 찾습니다. `circle`은 `center point`와 `radius`를 
+- 마지막으로 안전하게 `radius` 값을 `margin` 만큼 줄이면 안전하게 내부 영역을 찾을 수 있습니다.
+
+<br>
+
 ```python
 from scipy.optimize import leastsq
 
@@ -72,6 +89,9 @@ def calculate_residuals(c, x, y):
 x_coords = []
 y_coords = []
 
+non_vignetting_threshold = 20
+inner_circle_margin = 10
+
 img = cv2.imread("image.png")
 img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 # Scan each row of the image
@@ -79,14 +99,14 @@ for i in range(img_gray.shape[0]):
 
     # Scan from the left
     for j in range(img_gray.shape[1]):
-        if np.any(img_gray[i,j] > 20):
+        if np.any(img_gray[i,j] > non_vignetting_threshold):
             x_coords.append(j)
             y_coords.append(i)
             break
 
     # Scan from the right
     for j in range(img_gray.shape[1]-1, -1, -1):
-        if np.any(img_gray[i,j] > 20):
+        if np.any(img_gray[i,j] > non_vignetting_threshold):
             x_coords.append(j)
             y_coords.append(i)
             break
@@ -107,8 +127,22 @@ cv2.circle(img_color, (int(c[0]), int(c[1])), int(c[2])-10, (0, 255, 0), 2);
 
 # Fill in the inside of the circle
 mask_valid = np.zeros((img.shape[0], img.shape[1])).astype(np.uint8)
-cv2.circle(mask_valid, (int(c[0]), int(c[1])), int(c[2])-10, 1, -1);
+cv2.circle(mask_valid, (int(c[0]), int(c[1])), int(c[2])-inner_circle_margin, 1, -1);
 ```
+
+<br>
+<center><img src="../assets/img/vision/concept/fisheye_camera/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림과 같이 내부 `circle`을 찾을 수 있으며 `circle` 내부의 영역만 실제 유효한 `RGB` 값이 존재하는 영역임을 알 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/fisheye_camera/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `circle` 내부 영역을 표시하면 위 그림과 같습니다.
+
+<br>
 
 <br>
 
