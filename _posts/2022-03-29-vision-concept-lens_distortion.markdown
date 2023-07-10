@@ -723,7 +723,7 @@ print(x_un * 0.8, y_un * 0.8, 0.8)
 <br>
 
 - 원래 $$ (X_{c}, Y_{c}, Z_{c}) = (-0.56, -0.37, 0.8) $$ 인 것과 비교하면 유사하게 복원된 것을 확인할 수 있습니다.
-- 다음으로 ``polynomial curve fitting`을 사용하여 3D 포인트를 복원하는 방법입니다. `polyfit`은 앞에서 설명한 코드로 `fitting`한 것으로 가정하겠습니다.
+- 다음으로 `polynomial curve fitting`을 사용하여 3D 포인트를 복원하는 방법입니다. `polyfit`은 앞에서 설명한 코드로 fitting 한 것으로 가정하겠습니다.
 
 <br>
 

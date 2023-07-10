@@ -144,6 +144,51 @@ cv2.circle(mask_valid, (int(c[0]), int(c[1])), int(c[2])-inner_circle_margin, 1,
 
 <br>
 
+## **Generic Camera 모델의 Fisheye Camera의 유효 영역 확인 방법**
+
+<br>
+
+## **Surround-view Fisheye Camera Perception for Automated Driving 리뷰**
+
+<br>
+
+## **Abstract**
+
+<br>
+
+<br>
+
+## **1. Introduction**
+
+<br>
+
+<br>
+
+## **2. Fisheye Camera Models**
+
+<br>
+
+<br>
+
+## **3. Surround View Camera System**
+
+<br>
+
+<br>
+
+## **4. Perception Tasks**
+
+<br>
+
+<br>
+
+## **5. Public Datasets And Research Directions**
+
+<br>
+
+<br>
+
+
 <br>
 
 [Vision 관련 글 목차](https://gaussian37.github.io/vision-concept-table/)
