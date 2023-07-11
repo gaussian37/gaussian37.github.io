@@ -625,3 +625,26 @@ def grayscale_3ch(x):
     x = x.unsqueeze(0).expand(3, -1, -1)
     return x
 ```
+
+<br>
+
+- 따라서 실제 torch 코드에서 사용 중인 `tensor`는 위 함수를 사용하여 다음과 같이 시각화 할 수 있습니다.
+
+<br>
+
+```python
+from torch.utils.tensorboard import SummaryWriter
+# from tensorboardX import SummaryWriter
+writer = SummaryWriter()
+
+
+for i in range(100):
+  # rgb_tensors : (3, H, W) 100 tensors, normalized with torch transform.
+  rgb_tensor_visualize = rgb_inverse_normalize(rgb_tensors[i], mean, std)
+
+  # grayscale_tensors : (H, W) 100 tensors, normalized with torch transform.
+  grayscale_tensor_visualize = grayscale_3ch(grayscale_tensors[i], mean, std)
+
+  writer.add_image("visualize image", rgb_tensor_visualize, i)
+  writer.add_image("grayscale image", grayscale_tensor_visualize, i)
+```
