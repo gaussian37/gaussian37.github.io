@@ -111,6 +111,16 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 <center><img src="../assets/img/vision/mvg/nus_lec1/40.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- $$ x = \begin{bmatrix} x_{1} \\ x_{2} \\ x_{3} \end{bmatrix} $$
+
+- $$ y = \begin{bmatrix} y_{1} \\ y_{2} \\ y_{3} \end{bmatrix} $$
+
+- $$ xy^{T} = \begin{bmatrix} x_{1}y_{1} & x_{1}y^{2} & x_{1}y^{3} \\ x_{2}y_{1} & x_{2}y^{2} & x_{2}y^{3} \\ x_{3}y_{1} & x_{3}y^{2} & x_{3}y^{3}\end{bmatrix} $$
+
+- $$ \begin{align} C^{*} = xy^{T} + yx^{T} &= \begin{bmatrix} x_{1}y_{1} & x_{1}y_{2} & x_{1}y_{3} \\ x_{2}y_{1} & x_{2}y_{2} & x_{2}y_{3} \\ x_{3}y_{1} & x_{3}y_{2} & x_{3}y_{3}\end{bmatrix} + \begin{bmatrix} y_{1}x_{1} & y_{1}x_{2} & y_{1}x_{3} \\ y_{2}x_{1} & y_{2}x_{2} & y_{2}x_{3} \\ y_{3}x_{1} & y_{3}x_{2} & y_{3}x_{3}\end{bmatrix} \\ &= \begin{bmatrix} x_{1}y_{1} + y_{1}x_{1} & x_{1}y_{2} + y_{1}x_{2} & x_{1}y_{3} + y_{1}x_{3} \\ x_{2}y_{1} + y_{2}x_{1} & x_{2}y_{2} + y_{2}x_{2} & x_{2}y_{3} + y_{2}x_{3} \\ x_{3}y_{1} + y_{3}x_{1} & x_{3}y_{2} + y_{3}x_{2} & x_{3}y_{3} + y_{3}x_{3}\end{bmatrix} \end{align} $$
+
+<br>
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec1/41.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
