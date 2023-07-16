@@ -74,7 +74,14 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 
 - 위 슬라이드의 $$ C $$ 또한 3개의 차원이 구성하는 관계를 수치로 나타낸 것이며 위 식에서 $$ X^{T} C X = 0 $$ 을 만족하도록 $$ C $$ 를 구성한 것입니다.
 - 이와 같은 행렬 $$ C $$ 를 `homogeneouse representation of conic`이라고 합니다.
-- `homogeneouse representation of conic` $$ C $$ 는 **3개의 차원 경우의 수의 관계를 수치로 나타낸 것**이므로 그 관계에 따라서 다양한 기하 형태가 나타납니다.
+- `homogeneouse representation of conic` $$ C $$ 는 **3개 차원의 경우의 수의 관계를 수치로 나타낸 것**이므로 그 관계에 따라서 다양한 기하 형태가 나타납니다. 3개 차원의 경우의 수는 다음을 의미합니다. 아래 행렬에서 $$ x_{d} $$ 는 $$ x $$ 차원, $$ y_{d} $$ 는 $$ y $$ 차원, $$ h_{d} $$ 는 homogeneous 차원을 의미합니다. $$ \text{rel}(a, b) $$ 는 $$ a, b $$ 의 관계를 의미합니다.
+
+<br>
+
+- $$ \begin{align} C &= \begin{bmatrix} \text{rel}(x_{d}, x_{d}) & \text{rel}(x_{d}, y_{d}) & \text{rel}(x_{d}, h_{d}) \\ \text{rel}(y_{d}, x_{d}) & \text{rel}(y_{d}, y_{d}) & \text{rel}(y_{d}, h_{d}) \\ \text{rel}(h_{d}, x_{d}) & \text{rel}(h_{d}, y_{d}) & \text{rel}(h_{d}, h_{d}) \end{bmatrix} \\ &= \begin{bmatrix} a & b/2 & d/2 \\ b/2 & c & e/2 \\ d/2 & e/2 & f \end{bmatrix} \end{align} $$
+
+<br>
+
 - 그 중 $$ C $$ 의 $$ \text{rank}(C) = 3 $$ (`full rank`) 인 경우 `원`, `타원`, `포물선`, `쌍곡선` 형태가 나타나는 반면 $$ C $$ 의 $$ \text{rank}(C) \lt 3 $$ 인 경우 `교차선`, `평행선`, `단일선`, `점`과 같은 `degenerate conic` 형태가 나타나기도 합니다. 이 부분은 차례대로 설명할 예정입니다.
 
 <br>
@@ -133,7 +140,7 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 
 <br>
 
-- 2개의 선 $$ l, m $$ 의 관계 또한 3개의 차원 경우의 수인 9개로 나타내기 위해 `outer product`를 한 것이고 대칭 행렬로 나타내고자 $$ lm^{T} + ml^{T} $$ 형태로 나타내어 `conic` $$ C $$ 를 구성합니다.
+- 2개의 선 $$ l, m $$ 의 관계 또한 3개 차원의 경우의 수인 9개로 나타내기 위해 `outer product`를 한 것이고 대칭 행렬로 나타내고자 $$ lm^{T} + ml^{T} $$ 형태로 나타내어 `conic` $$ C $$ 를 구성합니다.
 - 위 식의 $$ C = lm^{T} + ml^{T} $$ 에서 $$ lm^{T} $$ 와 $$ ml^{T} $$ 각각의 `outer product`의 rank는 1이기 때문에 `outer product`의 결합으로 이루어진 $$ lm^{T} + ml^{T} $$ 은 항상 `degenerate conic` 임을 만족합니다.
 - 위 슬라이드에서는 $$ l $$ 과 $$ m $$ 이 `independent` 하여 $$ C = lm^{T} + ml^{T} $$ 의 $$ \text{rank}(C) = 2 $$ 가 만족하는 `degenerate conic` 상황으로 가정합니다. 따라서 위 예시와 같이 교차하는 2개의 선으로 나타낼 수 있습니다.
 - 슬라이드의 $$ C = lm^{T} + ml^{T} $$ 를 좀더 자세하게 풀어 쓰면 다음과 같습니다.
