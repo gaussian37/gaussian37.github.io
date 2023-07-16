@@ -155,6 +155,10 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 
 <br>
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec1/47.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
 
 <br>
 
