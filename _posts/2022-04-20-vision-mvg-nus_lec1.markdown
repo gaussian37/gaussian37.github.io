@@ -115,7 +115,7 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 
 - $$ y = \begin{bmatrix} y_{1} \\ y_{2} \\ y_{3} \end{bmatrix} $$
 
-- $$ xy^{T} = \begin{bmatrix} x_{1}y_{1} & x_{1}y^{2} & x_{1}y^{3} \\ x_{2}y_{1} & x_{2}y^{2} & x_{2}y^{3} \\ x_{3}y_{1} & x_{3}y^{2} & x_{3}y^{3}\end{bmatrix} $$
+- $$ xy^{T} = \begin{bmatrix} x_{1}y_{1} & x_{1}y_{2} & x_{1}y_{3} \\ x_{2}y_{1} & x_{2}y_{2} & x_{2}y_{3} \\ x_{3}y_{1} & x_{3}y_{2} & x_{3}y_{3}\end{bmatrix} $$
 
 - $$ \begin{align} C^{*} = xy^{T} + yx^{T} &= \begin{bmatrix} x_{1}y_{1} & x_{1}y_{2} & x_{1}y_{3} \\ x_{2}y_{1} & x_{2}y_{2} & x_{2}y_{3} \\ x_{3}y_{1} & x_{3}y_{2} & x_{3}y_{3}\end{bmatrix} + \begin{bmatrix} y_{1}x_{1} & y_{1}x_{2} & y_{1}x_{3} \\ y_{2}x_{1} & y_{2}x_{2} & y_{2}x_{3} \\ y_{3}x_{1} & y_{3}x_{2} & y_{3}x_{3}\end{bmatrix} \\ &= \begin{bmatrix} x_{1}y_{1} + y_{1}x_{1} & x_{1}y_{2} + y_{1}x_{2} & x_{1}y_{3} + y_{1}x_{3} \\ x_{2}y_{1} + y_{2}x_{1} & x_{2}y_{2} + y_{2}x_{2} & x_{2}y_{3} + y_{2}x_{3} \\ x_{3}y_{1} + y_{3}x_{1} & x_{3}y_{2} + y_{3}x_{2} & x_{3}y_{3} + y_{3}x_{3}\end{bmatrix} \end{align} $$
 
