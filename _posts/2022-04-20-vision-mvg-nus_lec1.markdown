@@ -63,6 +63,24 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 <center><img src="../assets/img/vision/mvg/nus_lec1/28.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 위 슬라이드의 $$ C $$ 는 `대칭 행렬` 형태를 가지며 의미는 3개의 차원이 구성하는 관계를 수치로 나타낸 것을 의미합니다.
+- 예를 들어 (1, 1) 위치는 $$ x_{1}, x_{1} $$ 의 관계를 수치로 나타낸 것이고 (1, 2) 는 $$ x_{1}, x_{2} $$ 의 관계를 수치로 나타낸 것입니다. 따라서 $$ (i, j) $$ 와 $$ (j, i) $$ 의 관계는 같기 때문에 `대칭 행렬` 형태를 가지게 됩니다.
+
+<br>
+
+- $$ a \cdot x_{1}^{2} + b \cdot x_{1}x_{2} + c \cdot x_{2}^{2} + d \cdot x_{1}x_{3} + e \cdot x_{2}x_{3} + f \cdot x_{3}^{2} = 0 $$
+
+<br>
+
+- 위 슬라이드의 $$ C $$ 또한 3개의 차원이 구성하는 관계를 수치로 나타낸 것이며 위 식에서 $$ X^{T} C X = 0 $$ 을 만족하도록 $$ C $$ 를 구성한 것입니다.
+- 이와 같은 행렬 $$ C $$ 를 `homogeneouse representation of conic`이라고 합니다.
+- `homogeneouse representation of conic` $$ C $$ 는 **3개의 차원 경우의 수의 관계를 수치로 나타낸 것**이므로 그 관계에 따라서 다양한 기하 형태가 나타납니다.
+- 그 중 $$ C $$ 의 $$ \text{rank}(C) = 3 $$ (`full rank`) 인 경우 `원`, `타원`, `포물선`, `쌍곡선` 형태가 나타나는 반면 $$ C $$ 의 $$ \text{rank}(C) \lt 3 $$ 인 경우 `교차선`, `평행선`, `단일선`, `점`과 같은 `degenerate conic` 형태가 나타나기도 합니다. 이 부분은 차례대로 설명할 예정입니다.
+
+<br>
+
+- 따라서 지금부터 다룰 `conic` $$ C $$ 는 가장 작은 형태인 `point`를 시작하여 `line`, `circle`, `ellipse`, `hyperbola`, `parabola` 등을 모두 포함하는 집합이기 때문에 `Multiple View Geometry`에서 가장 중요하게 다루는 개념 중 하나입니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec1/29.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
@@ -103,9 +121,42 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 <center><img src="../assets/img/vision/mvg/nus_lec1/38.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+ 
+
+- 위 슬라이드에서 $$ l $$ 과 $$ m $$ 은 `line`을 나타내므로 각각 다음과 같습니다.
+
+<br>
+
+- $$ l = \begin{bmatrix} l_{1} & l_{2} & l_{3} \end{bmatrix}^{T} $$
+
+- $$ m = \begin{bmatrix} m_{1} & m_{2} & m_{3} \end{bmatrix}^{T} $$
+
+<br>
+
+- 2개의 선 $$ l, m $$ 의 관계 또한 3개의 차원 경우의 수인 9개로 나타내기 위해 `outer product`를 한 것이고 대칭 행렬로 나타내고자 $$ lm^{T} + ml^{T} $$ 형태로 나타내어 `conic` $$ C $$ 를 구성합니다.
+- 위 식의 $$ C = lm^{T} + ml^{T} $$ 에서 $$ lm^{T} $$ 와 $$ ml^{T} $$ 각각의 `outer product`의 rank는 1이기 때문에 `outer product`의 결합으로 이루어진 $$ lm^{T} + ml^{T} $$ 은 항상 `degenerate conic` 임을 만족합니다.
+- 위 슬라이드에서는 $$ l $$ 과 $$ m $$ 이 `independent` 하여 $$ C = lm^{T} + ml^{T} $$ 의 $$ \text{rank}(C) = 2 $$ 가 만족하는 `degenerate conic` 상황으로 가정합니다. 따라서 위 예시와 같이 교차하는 2개의 선으로 나타낼 수 있습니다.
+- 슬라이드의 $$ C = lm^{T} + ml^{T} $$ 를 좀더 자세하게 풀어 쓰면 다음과 같습니다.
+
+<br>
+
+- $$ l = \begin{bmatrix} l_{1} \\ l_{2} \\ l_{3} \end{bmatrix} $$
+
+- $$ m = \begin{bmatrix} m_{1} \\ m_{2} \\ m_{3} \end{bmatrix} $$
+
+- $$ lm^{T} = \begin{bmatrix} l_{1}m_{1} & l_{1}m_{2} & l_{1}m_{3} \\ l_{2}m_{1} & l_{2}m_{2} & l_{2}m_{3} \\ l_{3}m_{1} & l_{3}m_{2} & l_{3}m_{3}\end{bmatrix} $$
+
+- $$ \begin{align} C = lm^{T} + ml^{T} &= \begin{bmatrix} l_{1}m_{1} & l_{1}m_{2} & l_{1}m_{3} \\ l_{2}m_{1} & l_{2}m_{2} & l_{2}m_{3} \\ l_{3}m_{1} & l_{3}m_{2} & l_{3}m_{3}\end{bmatrix} + \begin{bmatrix} m_{1}l_{1} & m_{1}l_{2} & m_{1}l_{3} \\ m_{2}l_{1} & m_{2}l_{2} & m_{2}l_{3} \\ m_{3}l_{1} & m_{3}l_{2} & m_{3}l_{3}\end{bmatrix} \\ &= \begin{bmatrix} l_{1}m_{1} + m_{1}l_{1} & l_{1}m_{2} + m_{1}l_{2} & l_{1}m_{3} + m_{1}l_{3} \\ l_{2}m_{1} + m_{2}l_{1} & l_{2}m_{2} + m_{2}l_{2} & l_{2}m_{3} + m_{2}l_{3} \\ l_{3}m_{1} + m_{3}l_{1} & l_{3}m_{2} + m_{3}l_{2} & l_{3}m_{3} + m_{3}l_{3}\end{bmatrix} \end{align} $$
+
+<br>
+
+- 위 식을 살펴 보면 $$ C = lm^{T} + ml^{T} $$ 는 대칭행렬이 됨을 알 수 있습니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec1/39.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
+- 반면 위 슬라이드에서는 $$ l = m $$ 으로 나타내었기 때문에 한 개의 선으로 표현합니다. 따라서 $$ \text{rank}(C) = 1 $$ 인 `degenerate conic` 상황으로 가정합니다. 따라서 위 예시와 같이 하나의 선으로 나타낼 수 있습니다.
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec1/40.png" alt="Drawing" style="width: 1000px;"/></center>
