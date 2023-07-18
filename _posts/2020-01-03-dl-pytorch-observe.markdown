@@ -643,7 +643,7 @@ for i in range(100):
   rgb_tensor_visualize = rgb_inverse_normalize(rgb_tensors[i], mean, std)
 
   # grayscale_tensors : (H, W) 100 tensors, normalized with torch transform.
-  grayscale_tensor_visualize = grayscale_3ch(grayscale_tensors[i], mean, std)
+  grayscale_tensor_visualize = grayscale_3ch(grayscale_tensors[i])
 
   writer.add_image("visualize image", rgb_tensor_visualize, i)
   writer.add_image("grayscale image", grayscale_tensor_visualize, i)

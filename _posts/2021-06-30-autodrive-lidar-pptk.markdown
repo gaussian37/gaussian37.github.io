@@ -37,6 +37,19 @@ tags: [라이다, pptk, 포인트 클라우드] # add tag
 
 - 먼저 `pptk`를 설치하려면 아래 링크를 참조하시면 됩니다. 일반적인 상황에서는 `pip install pptk`를 통해 설치 가능합니다.
     - 링크 : https://heremaps.github.io/pptk/install.html
+
+<br>
+
+- 만약 리눅스 환경에서 설치를 한다면 버그로 인하여 약간의 수정을 해주어야 합니다. 어느 시점에는 수정되길 바라며 다음 작업을 해주면 됩니다. 수정하지 않으면 `pptk` 창이 뜨지 않습니다.
+- 관련 이슈 내용 : https://github.com/heremaps/pptk/issues/3
+
+<br>
+
+- ① 기존 파이썬 설치된 위치 (ex. venv/lib/python3.6/site-packages/pptk/lins)에서 기존 `libz.so.1`을 삭제합니다. (`rm -rf libz.so.1`)
+- ② 실제 리눅스에서 사용 중인 `libz.so.1`과 같은 유사 버전의 값을 soft link로 링크 생성하여 링크를 붙어녛기 함 (`ln -s /lib/x86_64-linux-gnu/libz.so.1.2.11 /libz.so.1`)
+
+<br>
+
 - `pptk`는 기본적으로 numpy의 `(N, 3)` 형태를 입력으로 받습니다. 3D 정보를 표시해야 하므로 열 방향의 차원이 3이 아니면 입력이 되지 않습니다. 추가적으로 `numpy.asarray()`를 통해 numpy로 변환될 수 있는 모든 타입을 입력으로 받을 수 있습니다.
 
 <br>
