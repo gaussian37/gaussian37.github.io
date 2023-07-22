@@ -62,6 +62,44 @@ tags: [fisheye camera, 어안 카메라, lens distortion, 카메라 모델, 렌�
 
 <br>
 
+- `Pinhole Camera`는 렌즈의 왜곡이 없는 이상적인 `perspective view` 형태의 카메라를 의미합니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/fisheye_camera/3.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- `Pinhole Camera`는 위 그림과 같이 바늘 구멍으로 빛이 입사되어 실제 상에 해당하는 3D 공간 상의 점과 2D 이미지에 투영된 점이 직선으로 1대1 대응이 된 형태를 뜻합니다. 이와 같은 형태의 경우 **빛이 직진**하게 되므로 빛이 굴절되는 왜곡 현상은 나타나지 않고 **이미지 내에서 물체들이 선형적인 관계를 가지기 때문에 선형 변환 등을 적용하여 알고리즘을 설계하기 용이합니다.**
+- 하지만 카메라 렌즈가 없다면 빛을 효율적으로 모을 수 없기 때문에, 투영된 이미지가 매우 어둡고 볼 수 있는 영역도 매우 제한적이게 되어 사실상 사용할 수 없습니다.
+- 이와 같은 이유로 대부분의 카메라는 카메라 렌즈를 사용하게 되며 렌즈의 굴곡 정도에 따라서 원거리를 선명하게 볼 수 있으나 좁은 각도만 볼 수 있는 협각 카메라, 근거리만 선명하게 볼 수 있으나 넓은 영역을 볼 수 있는 광각 카메라와 같은 형태로 사용이 됩니다.
+- 본 글에서 다루는 카메라는 광각 카메라 중 180도 화각 정도를 다루는 `Fisheye Camera`에 대한 내용입니다.
+
+<br>
+
+#### **Pinhole Camera의 Perspective Projection**
+
+<br>
+
+- `Pinhoe Camera`의 가장 큰 특성은 `Perspective Projection`이라는 점입니다. `Perspective Projection`의 특징은 **입사각 그대로 투영된다는 점**입니다. 아래 그림을 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/fisheye_camera/4.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+
+
+<br>
+
+#### **Fisheye Camera의 Equidistance Projection**
+
+<br>
+
+- `Fisheye Camera`의 가장 큰 특성은 `Equidistance Projection`이라는 점입니다. `Equidistance Projection`의 특징은 **입사각과 Pinciple Axis와의 거리(Distance)가 비례 관계를 가진다는 점**입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/fisheye_camera/5.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+
 <br>
 
 ## **Fisheye Camera의 Vignetting 영역 인식 방법**
