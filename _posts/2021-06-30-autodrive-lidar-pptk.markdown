@@ -46,7 +46,7 @@ tags: [라이다, pptk, 포인트 클라우드] # add tag
 <br>
 
 - ① 기존 파이썬 설치된 위치 (ex. venv/lib/python3.6/site-packages/pptk/lins)에서 기존 `libz.so.1`을 삭제합니다. (`rm -rf libz.so.1`)
-- ② 실제 리눅스에서 사용 중인 `libz.so.1`과 같은 유사 버전의 값을 soft link로 링크 생성하여 링크를 붙어녛기 함 (`ln -s /lib/x86_64-linux-gnu/libz.so.1.2.11 /libz.so.1`)
+- ② 실제 리눅스에서 사용 중인 `libz.so.1`과 같은 유사 버전의 값을 soft link로 링크 생성하여 링크를 붙어녛기 함 (`ln -s /lib/x86_64-linux-gnu/libz.so.1.2.11 venv/lib/python3.6/site-packages/pptk/lins/libz.so.1`)
 
 <br>
 

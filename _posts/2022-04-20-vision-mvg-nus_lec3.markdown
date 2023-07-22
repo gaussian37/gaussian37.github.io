@@ -29,7 +29,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/1.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/1.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 이번 강의에서는 크게 위 3가지 내용을 배울 예정입니다.
@@ -38,37 +38,37 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 - ③ `absolute conic`과 `absolute dual quadrics`를 배우고 `similarity transformation`에서 불변한 성질에 대하여 배워보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/2.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/2.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/3.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/3.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/4.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/4.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/5.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/5.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 ## **Recovery of Affine Properties from Images**
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/6.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/6.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/7.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/7.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/8.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/8.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/9.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/9.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 위 슬라이드에서 $$ v_{1}, v_{2} $$ 2개의 점의 `cross product`를 이용하여 $$ l $$ 을 구하는 방법은 다음과 같습니다.
@@ -94,7 +94,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 - $$ l = v_{1} \times v_{2}  $$
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/10.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/10.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 ## **Computing a Vanishing Point from a Length Ratio**
@@ -104,20 +104,20 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 - 이번에는 `Vanishing Point`를 어떻게 계산하는 지 살펴보도록 하겠습니다. 
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/11.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/11.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - vanishing point를 계산하기 위하여 이미지 상에서 동일선(`collinear`) 상에 있는 점들 $$ a, b, c $$ 를 가정하겠습니다. 상세 내용은 다음 슬라이드에서 설명하겠습니다. 
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/12.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/12.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 위 그림과 같이 1차원 선 $$ \mathbb{P}^{1} $$ 상에서 $$ a = (0, 1)^{T}, b = (a, 1)^{T}, c = (a + b, 1)^{T} $$ 를 나타내며 그 사이의 거리는 각각 $$ a, b $$ 가 됩니다.
 - 이와 같은 방식으로 정한 점 $$ a, b, c $$ 를 `Perspective` 성질이 포함된 이미지 (실제 촬영된 이미지)와 `Perspective` 성질이 제거된 이미지 각각에서 점을 구해볼 수 있습니다.
  
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/13.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/13.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
@@ -152,7 +152,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
     - 링크 : [https://gaussian37.github.io/vision-mvg-nus_lec0/#affine-and-euclidean-geometry-1](https://gaussian37.github.io/vision-mvg-nus_lec0/#affine-and-euclidean-geometry-1)
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/14.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/14.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 어떤 두 개의 점이 $$ l_{\infty} $$ (`line at infinity`) 상에서 `similarity transformation`에 대하여 `fixed point` 라고 생각해 보겠습니다.
@@ -171,7 +171,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 - 위 표준 좌표인 두 점 $$ I, J $$ 는 $$ l_{\infty} $$ 상에 있으므로 마지막 차원은 0인 `ideal points` 형태를 만족합니다.
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/15.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/15.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 위 슬라이드에서는 `circular points`인 $$ I, J $$ 가 `fixed point` 일 때, projective transformation $$ H $$ 는 `similarity transformation`임이 `필요 충분 조건`임을 설명합니다.
@@ -221,7 +221,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 - 따라서 `circular points`가 `fixed points`이면 이 때 사용된 `transformation matrix`는 `similarity transformation`임을 확인할 수 있었습니다.
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/16.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/16.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 이번 슬라이드에서는 `circular points`의 의미에 대하여 설명합니다.
@@ -264,7 +264,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 - 따라서 `circular points`가 확인되면 `orthogonal`과 `metric` 속성이 결정됩니다.
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/17.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/17.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 일반적으로 `degenerate line conic` 은 $$ C^{*} = xy^{T} + yx^{T} $$ 와 같이 정의되며 `conic` 상의 2개의 점 `x`, `y`를 통하여 만들 수 있습니다. 
@@ -276,7 +276,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 - 마지막 부분의 계산에서 $$ IJ^{T} + JI^{T} $$ 계산 결과가 등호가 성립하는 이유는 **$$ l_{\infty} $$ 상에서는 스케일 변환이 허용되기 때문**입니다.
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/18.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/18.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 위 슬라이드에서는 앞선 슬라이드에서 보여준 것 처럼 $$ C^{*}_{\infty} $$ 에서 또한 `similarity transformation`을 적용하면 `fixed`가 됨을 보여줍니다.
@@ -323,7 +323,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 - 위 식의 최종 전개에서도 **$$ l_{\infty} $$ 상에서는 스케일 변환이 허용되기 때문**에 $$ s $$ 는 무시하여 등호가 성립하다고 말할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/19.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/19.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 위 슬라이드에서는 지금까지 살펴본 $$ C^{*}_{\infty} $$ 내용을 통해 2가지 특성에 대하여 설명합니다.
@@ -350,7 +350,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/23.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/23.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 두 벡터의 내적을 이용하여 두 벡터 사이의 각도 $$ \theta $$ 를 계산하는 방법을 익히 알고 있고 각 선의 식을 이용하여 각 선의 `normal vector`를 구할 수 있으므로 두 선의 각 `normal vector` 간의 사이각을 통해 두 선의 사이각을 구할 수 있습니다.
@@ -413,7 +413,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 - 이와 같은 방식으로 두 선 사이의 각을 구할 수 있으나 `affine/projective transformation`이 적용되었을 때에는 `angle`이 유지되지 않기 때문에 $$ l, m $$ `line`의 사이각을 $$ l'= H^{-T}l, m' = H^{-T}m $$ 에서 적용할 수 없습니다.
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/24.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/24.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 앞의 슬라이드와 유사한 수식 표현이 위 슬라이드에 나타나 있습니다. 위 슬라이드에서는 $$ C^{*}_{\infty} $$ 개념을 도입하여 `projective transformation`을 적용하더라도 사이 각을 구할 수 있는 방법을 제시합니다.
@@ -423,17 +423,17 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/25.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/25.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/26.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/26.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - $$ H = H_{P}H_{A}H_{S} = \begin{bmatrix} I & 0 \\ v^{T} & 1 \end{bmatrix} \begin{bmatrix} K & 0 \\ 0^{T} & 1  \end{bmatrix} \begin{bmatrix} sR & t \\ 0^{T} & 1 \end{bmatrix} $$
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/27.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/27.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
@@ -448,6 +448,94 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/k63Bi74Meyc" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/35.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/36.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/37.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/38.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/39.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/40.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/41.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/42.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/43.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/44.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/45.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/46.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/47.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/48.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/49.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/50.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/51.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/52.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/53.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/54.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/55.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/56.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 
