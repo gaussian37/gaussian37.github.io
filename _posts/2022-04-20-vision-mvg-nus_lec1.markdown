@@ -179,6 +179,17 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 
 <br>
 
+- 지금까지 배운 내용 종합하면 `Point`, `Line`, `Two Lines`, `Circle`, `Ellipse`, `Hyperbola`, `Parabola`을 `Conic`을 이용하여 표현할 수 있음을 확인하였습니다. 이번에는 각 항목을 실제 예시를 들어서 어떻게 표현하는 지 살펴보도록 하겠습니다.
+
+<br>
+
+- ① `Point` : 
+- ② `Line` : 
+- ③ `Two Lines` : 
+- ④ `Circle` : 
+- ⑤ `Ellipse` : 
+- ⑥ `Hyperbola` : 
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec1/41.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
