@@ -79,13 +79,22 @@ tags: [fisheye camera, 어안 카메라, lens distortion, 카메라 모델, 렌�
 
 <br>
 
-- `Pinhoe Camera`의 가장 큰 특성은 `Perspective Projection`이라는 점입니다. `Perspective Projection`의 특징은 **입사각 그대로 투영된다는 점**입니다. 아래 그림을 살펴보도록 하겠습니다.
+- `Pinhoe Camera`는 `Perspective Projection`이라는 성질을 따릅니다. `Perspective Projection`의 특징은 **입사각 그대로 투영된다는 점**입니다. 아래 그림을 살펴보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/fisheye_camera/4.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/concept/fisheye_camera/4.png" alt="Drawing" style="width: 500px;"/></center>
 <br>
 
+- `Pinhole Camera`의 경우 각 `Ray`는 `Pinhole`을 그대로 통과하여 `Image Coordinate`에 투영됩니다.
+- 위 그림에서 핵심은 `Pinhole`을 기점으로 $$ \theta $$ 가 그대로 유지된다는 점입니다. 따라서 `Ray`의 입사각이 결정되면 `Image Coordinate`에 투영되는 지점인 $$ r $$ 을 다음과 같이 계산할 수 있습니다.
 
+<br>
+
+- $$ r = f \cdot \tan{(\theta)} $$
+
+<br>
+
+- 이와 같은 성질을 `Perspective Projection`이라고 합니다. 결국 `Ray`가 입사되는 각도 $$ \theta $$ 와 $$ \tan{(\cdot)} $$ 에 의해 투영되는 위치가 `normalized`된 좌표에서 결정된 후 $$ f $$ 만큼 비례하여 투영되면 최종적으로 `Image Coordinate`에 투영되게 됩니다.
 
 <br>
 
@@ -93,11 +102,16 @@ tags: [fisheye camera, 어안 카메라, lens distortion, 카메라 모델, 렌�
 
 <br>
 
-- `Fisheye Camera`의 가장 큰 특성은 `Equidistance Projection`이라는 점입니다. `Equidistance Projection`의 특징은 **입사각과 Pinciple Axis와의 거리(Distance)가 비례 관계를 가진다는 점**입니다.
+- 반면 `Fisheye Camera`는 `Equidistance Projection`이라는 성질을 따르도록 카메라 모델링을 많이 합니다. `Pinhole Camera`의 경우 `Perspective Projection`을 따른다고 생각하면 되지만 `Fisheye Camera`는 `Equidistance Projection`을 따른다고 가정하고 모델링 합니다. 따라서 다른 `Projection` 모델을 사용할 수 도 있습니다. 하지만 대부분의 `Fisheye Camera`는 `Equidistance Projection`을 따라 모델링하므로 이 글에서도 `Equidistance Projection`만 다루고자 합니다.
+- `Equidistance Projection`의 특징은 **`Ray`에 대하여 입사각 $$ \theta $$ 와 `Image Coordinate`에서의 Pinciple Axis와 투영된 점의 거리(Distance)가 같은 비율을 가진다는 점**입니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/fisheye_camera/5.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
+- 앞에서 설명한 `Pinhole` 모델과 다르게 `Fisheye Camera`에서는 `Ray`가 입사하면 `Image Coordinate` 에 그대로 입사각이 유지된 상태로 투영되는 것이 아니라 위 그림처럼 왜곡이 발생되어 `Image Coordinate`로 투영되게 됩니다. 왜곡이 되었기 때문에 `Distorted` 라는 단어를 추가하여 표현하기도 합니다.
+- `Equidistance Projection`에서의 가정은 $$ \theta / r $$ 의 비율이 일정하다는 것을 이용합니다. 따라서 $$ \theta $$ 가 정해지면 **어떤 모델링된 식**에 따라서  $$ \theta / r $$ 을 만족하도록 $$ r $$ 이 정해지게 됩니다. 이와 같은 가정을 `Equidistance Projection` 이라고 합니다.
+- 위 오른쪽 그림을 살펴보면 $$ p $$ 와 $$ p' $$ 가 하나의 `ray` 상에 존재하되 $$ r $$ 값이 조정되어 투영된 것으로 나타납니다. 기존에 `Perspective Projection`에서 $$ r = f \cdot \tan{(\theta)} $$ 을 만족하기 위해서는 $$ p' $$ 에 투영되는 것이 맞지만 $$ \theta / r $$ 을 만족하기 위해서는 $$ r $$ 값이 조정되어 $$ p $$ 에 투영되어야 한다는 것이 핵심입니다. 이러한 이유로 Projection의 이름이 `Equidistance`가 됩니다.
 
 
 <br>
