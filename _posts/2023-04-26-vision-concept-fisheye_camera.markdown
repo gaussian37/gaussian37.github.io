@@ -49,12 +49,12 @@ tags: [fisheye camera, 어안 카메라, lens distortion, 카메라 모델, 렌�
 - ### [Fisheye Camera의 Vignetting 영역 인식 방법](#fisheye-camera의-vignetting-영역-인식-방법-1)
 - ### [Generic Camera 모델의 Fisheye Camera의 유효 영역 확인 방법](#)
 - ### [Surround-view Fisheye Camera Perception for Automated Driving 리뷰](#)
-    - ### Abstract
-    - ### 1. Introduction
-    - ### 2. Fisheye Camera Models
-    - ### 3. Surround View Camera System
-    - ### 4. Perception Tasks
-    - ### 5. Public Datasets And Research Directions
+    - ### [Abstract](#abstract-1)
+    - ### [1. Introduction](#1-introduction-1)
+    - ### [2. Fisheye Camera Models](#2-fisheye-camera-models-1)
+    - ### [3. Surround View Camera System](#3-surround-view-camera-system-1)
+    - ### [4. Perception Tasks](#4-perception-tasks-1)
+    - ### [5. Public Datasets And Research Directions](#5-public-datasets-and-research-directions-1)
 
 <br>
 
@@ -110,9 +110,16 @@ tags: [fisheye camera, 어안 카메라, lens distortion, 카메라 모델, 렌�
 <br>
 
 - 앞에서 설명한 `Pinhole` 모델과 다르게 `Fisheye Camera`에서는 `Ray`가 입사하면 `Image Coordinate` 에 그대로 입사각이 유지된 상태로 투영되는 것이 아니라 위 그림처럼 왜곡이 발생되어 `Image Coordinate`로 투영되게 됩니다. 왜곡이 되었기 때문에 `Distorted` 라는 단어를 추가하여 표현하기도 합니다.
-- `Equidistance Projection`에서의 가정은 $$ \theta / r $$ 의 비율이 일정하다는 것을 이용합니다. 따라서 $$ \theta $$ 가 정해지면 **어떤 모델링된 식**에 따라서  $$ \theta / r $$ 을 만족하도록 $$ r $$ 이 정해지게 됩니다. 이와 같은 가정을 `Equidistance Projection` 이라고 합니다.
+- `Equidistance Projection`에서의 가정은 $$ \theta / r $$ 의 비율이 일정하다는 것을 이용합니다. 따라서 $$ \theta $$ 가 정해지면 **어떤 모델링된 식**에 따라서  $$ \theta / r $$ 을 만족하도록 $$ r $$ 이 정해지게 됩니다. 이와 같은 가정을 `Equidistance Projection` 이라고 합니다. `Equidistance Projection`을 사용하는 모델링 식 중 보편적으로 사용 카메라 모델링 `Generic Camera Model`이며 아래 링크에서 내용을 참조할 수 있습니다.
+    - 링크 : [카메라 모델과 렌즈 왜곡 (lens distortion)](https://gaussian37.github.io/vision-concept-lens_distortion/)
+    - 링크 : [A Generic Camera Model and Calibration Method for Conventional, Wide-Angle, and Fish-Eye Lenses](https://gaussian37.github.io/vision-concept-generic_camera_model/)
 - 위 오른쪽 그림을 살펴보면 $$ p $$ 와 $$ p' $$ 가 하나의 `ray` 상에 존재하되 $$ r $$ 값이 조정되어 투영된 것으로 나타납니다. 기존에 `Perspective Projection`에서 $$ r = f \cdot \tan{(\theta)} $$ 을 만족하기 위해서는 $$ p' $$ 에 투영되는 것이 맞지만 $$ \theta / r $$ 을 만족하기 위해서는 $$ r $$ 값이 조정되어 $$ p $$ 에 투영되어야 한다는 것이 핵심입니다. 이러한 이유로 Projection의 이름이 `Equidistance`가 됩니다.
 
+<br>
+<center><img src="../assets/img/vision/concept/fisheye_camera/6.png" alt="Drawing" style="width: 500px;"/></center>
+<br>
+
+- 따라서 위 그림과 같이 입사각 $$ \theta $$ 에 의해 $$ r $$ 이 결정되고 각 방향에서 같은 입사각 $$ \theta $$ 에 대하여 같은 $$ r $$ 을 가지므로 위 그림과 같이 동심원을 그리는 형태로 $$ r $$ 이 형성됨을 알 수 있습니다. 이와 같은 형태의 렌즈 왜곡을 `Barrel Distortion`이라고 합니다.
 
 <br>
 
