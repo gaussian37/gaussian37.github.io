@@ -183,12 +183,50 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 
 <br>
 
-- ① `Point` : 
-- ② `Line` : 
-- ③ `Two Lines` : 
-- ④ `Circle` : 
-- ⑤ `Ellipse` : 
-- ⑥ `Hyperbola` : 
+- ① `Point`
+    - `Point`는 $$ 3 \times 1 $$ 크기의 벡터로 표현이 가능합니다. 예를 들어 `inhomogeneous coordinate`의 $$ (2, 3) $$ Point는 `homogeneous coordinate`에서 $$ (2, 3, 1) $$ 로 표현됩니다. `conic`을 이용하여 `Point`를 표현하려면 `degenerate dual conic` 형태를 이용해야 합니다. 왜냐하면 점을 표현하려면 2개의 선 (Two Lines)이 한 점을 통과하는 형태를 나타내어야 하기 때문입니다.
+    - 따라서 $$ (2, 3, 1) $$ 을 지나는 두 개의 선 $$ l = (1, 0, -2)^{T} $$ 와 $$ m = (0, 1, -3)^{T} $$ 를 이용하여 `degenerate dual conic`을 나타내면 다음과 같습니다.
+
+    <br>
+
+    - $$ \begin{align} C &= lm^{T} + ml^{T} \\ &= \begin{bmatrix} 1 \\ 0 \\ -2 \end{bmatrix} \begin{bmatrix} 0 & 1 & -3 \end{bmatrix} + \begin{bmatrix} 0 \\ 1 \\ -3 \end{bmatrix} \begin{bmatrix} 1 & 0 & -2 \end{bmatrix} \\ &= \begin{bmatrix} 0 & 1 & -3 \\ 1 & 0 & -2 \\ -3 & -2 & 12 \end{bmatrix} \end{align} $$
+
+    <br>
+
+    - 위 식의 $$ C $$ 는 두 선의 교점을 나타내므로 두 선의 교점인 `Point` $$ x = (2, 3, 1) $$ 는 다음식을 만족하여 $$ C $$ 가 `Point`를 나타냄을 알 수 있습니다.
+
+    <br>
+
+    - $$ x^{T} C x = \begin{bmatrix} 2 \\ 3 \\ 1 \end{bmatrix} \begin{bmatrix} 0 & 1 & -3 \\ 1 & 0 & -2 \\ -3 & -2 & 12 \end{bmatrix} \begin{bmatrix} 2 & 3 & 1 \end{bmatrix} = 0 $$
+
+    <br>
+
+- ② `Line`
+    - `Line`은 2개의 점을 이용하여 생성할 수 있습니다.  따라서 `homogeneous coordiate`의 2개의 점을 이용하여 $$ C $$ 를 구성하면 `degenerate conic`으로 선을 표현할 수 있습니다.
+    - 아래 예제는 $$ l = x + 2y - 3 \to (1, 2, -3) $$ 이라는 식을 표현하기 위하여 2개의 점 $$ a = (3, 0, 1) $$ 과 $$ b = (0, 1.5, 1) $$ 을 이용해 보겠습니다. 두 점은 $$ l $$ 상에 존재합니다.
+
+    <br>
+
+    - $$ \begin{align} C &= ab^{T} + ba^{T} \\ &= \begin{bmatrix} 3 \\ 0 \\ 1 \end{bmatrix} \begin{bmatrix} 0 & 1.5 & 1 \end{bmatrix} + \begin{bmatrix} 0 \\ 1.5 \\ 1 \end{bmatrix} \begin{bmatrix} 3 & 0 & 1 \end{bmatrix} \\ &= \begin{bmatrix} 0 & 4.5 & 3 \\ 4.5 & 0 & 1.5 \\ 3 & 1.5 & 2 \end{bmatrix} \end{align} $$
+
+    <br>
+
+    - 위 식의 $$ C $$ 는 `Line`을 나타내므로 다음과 같이 확인해 볼 수 있습니다.
+
+    <br> 
+
+    - $$ l^{T} C l = \begin{bmatrix} 1 \\ 2 \\ -3 \end{bmatrix} \begin{bmatrix} 0 & 4.5 & 3 \\ 4.5 & 0 & 1.5 \\ 3 & 1.5 & 2 \end{bmatrix} \begin{bmatrix} 1 & 2 & -3 \end{bmatrix} = 0 $$
+
+    <br>
+
+- ③ `Two Lines`
+    - 작성중...
+- ④ `Circle`
+    - 작성중...
+- ⑤ `Ellipse`
+    - 작성중...
+- ⑥ `Hyperbola`
+    - 작성중...
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec1/41.png" alt="Drawing" style="width: 1000px;"/></center>
