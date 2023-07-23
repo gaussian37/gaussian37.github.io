@@ -184,20 +184,20 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 <br>
 
 - ① `Point`
-    - `Point`는 $$ 3 \times 1 $$ 크기의 벡터로 표현이 가능합니다. 예를 들어 `inhomogeneous coordinate`의 $$ (2, 3) $$ Point는 `homogeneous coordinate`에서 $$ (2, 3, 1) $$ 로 표현됩니다. `conic`을 이용하여 `Point`를 표현하려면 `degenerate dual conic` 형태를 이용해야 합니다. 왜냐하면 점을 표현하려면 2개의 선 (Two Lines)이 한 점을 통과하는 형태를 나타내어야 하기 때문입니다.
+    - `Point`는 $$ 3 \times 1 $$ 크기의 벡터로 표현이 가능합니다. 예를 들어 `inhomogeneous coordinate`의 $$ (2, 3) $$ Point는 `homogeneous coordinate`에서 $$ (2, 3, 1) $$ 로 표현됩니다. 만약 `conic`을 이용하여 `Point`를 표현하려면 `degenerate dual conic` 형태를 이용해야 합니다. 왜냐하면 점을 표현하려면 2개의 선 (Two Lines)이 한 점을 통과하는 형태를 나타내어야 하기 때문입니다.
     - 따라서 $$ (2, 3, 1) $$ 을 지나는 두 개의 선 $$ l = (1, 0, -2)^{T} $$ 와 $$ m = (0, 1, -3)^{T} $$ 를 이용하여 `degenerate dual conic`을 나타내면 다음과 같습니다.
 
     <br>
 
-    - $$ \begin{align} C &= lm^{T} + ml^{T} \\ &= \begin{bmatrix} 1 \\ 0 \\ -2 \end{bmatrix} \begin{bmatrix} 0 & 1 & -3 \end{bmatrix} + \begin{bmatrix} 0 \\ 1 \\ -3 \end{bmatrix} \begin{bmatrix} 1 & 0 & -2 \end{bmatrix} \\ &= \begin{bmatrix} 0 & 1 & -3 \\ 1 & 0 & -2 \\ -3 & -2 & 12 \end{bmatrix} \end{align} $$
+    - $$ \begin{align} C^{*} &= lm^{T} + ml^{T} \\ &= \begin{bmatrix} 1 \\ 0 \\ -2 \end{bmatrix} \begin{bmatrix} 0 & 1 & -3 \end{bmatrix} + \begin{bmatrix} 0 \\ 1 \\ -3 \end{bmatrix} \begin{bmatrix} 1 & 0 & -2 \end{bmatrix} \\ &= \begin{bmatrix} 0 & 1 & -3 \\ 1 & 0 & -2 \\ -3 & -2 & 12 \end{bmatrix} \end{align} $$
 
     <br>
 
-    - 위 식의 $$ C $$ 는 두 선의 교점을 나타내므로 두 선의 교점인 `Point` $$ x = (2, 3, 1) $$ 는 다음식을 만족하여 $$ C $$ 가 `Point`를 나타냄을 알 수 있습니다.
+    - 위 식의 $$ C^{*} $$ 는 두 선의 교점을 나타내므로 두 선의 교점인 `Point` $$ x = (2, 3, 1) $$ 는 다음식을 만족하여 $$ C^{*} $$ 가 `Point`를 나타냄을 알 수 있습니다.
 
     <br>
 
-    - $$ x^{T} C x = \begin{bmatrix} 2 \\ 3 \\ 1 \end{bmatrix} \begin{bmatrix} 0 & 1 & -3 \\ 1 & 0 & -2 \\ -3 & -2 & 12 \end{bmatrix} \begin{bmatrix} 2 & 3 & 1 \end{bmatrix} = 0 $$
+    - $$ x^{T} C^{*} x = \begin{bmatrix} 2 \\ 3 \\ 1 \end{bmatrix} \begin{bmatrix} 0 & 1 & -3 \\ 1 & 0 & -2 \\ -3 & -2 & 12 \end{bmatrix} \begin{bmatrix} 2 & 3 & 1 \end{bmatrix} = 0 $$
 
     <br>
 
@@ -220,13 +220,93 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
     <br>
 
 - ③ `Two Lines`
-    - 작성중...
+    - `Two Lines`를 나타내는 `Conic`은 앞에서 `Point`를 나타내는 `Conic`을 통해 다루었습니다. $$ l = (1, 2, -3) $$ , $$ m = (2, -1, 4) $$ 가 있을 때, 이 두 선을 나타내는 `degenerate dual conic`은 다음과 같습니다.
+
+    <br>
+
+    - $$ \begin{align} C^{*} &= lm^{T} + ml^{T} \\ &= \begin{bmatrix} 1 \\ 2 \\ -3 \end{bmatrix} \begin{bmatrix} 2 & -1 & 4 \end{bmatrix} + \begin{bmatrix} 2 \\ -1 \\ 4 \end{bmatrix} \begin{bmatrix} 1 & 2 & -3 \end{bmatrix} \\ &= \begin{bmatrix} 4 & 3 & -2 \\ 3 & -4 & 11 \\ -2 & 11 & -24 \end{bmatrix} \end{align} $$
+
+    <br>
+
+    - 선 $$ l $$ 상의 점 $$ x_{1} = (-1, 2, 1) $$ 과 $$ m $$ 상의 점 $$ x_{2} = (-2, 0, 1) $$ 모두 다음과 같이 계산하면 $$ C^{*} $$ 이 두 선을 나타냄을 알 수 있습니다.
+
+    <br>
+
+    -  $$ x_{1}^{T} C^{*} x_{1} = \begin{bmatrix} -1 \\ 2 \\ 1 \end{bmatrix} \begin{bmatrix} 4 & 3 & -2 \\ 3 & -4 & 11 \\ -2 & 11 & -24 \end{bmatrix} \begin{bmatrix} -1 & 2 & 1 \end{bmatrix} = 0 $$
+
+    -  $$ x_{2}^{T} C^{*} x_{2} = \begin{bmatrix} -2 \\ 0 \\ 1 \end{bmatrix} \begin{bmatrix} 4 & 3 & -2 \\ 3 & -4 & 11 \\ -2 & 11 & -24 \end{bmatrix} \begin{bmatrix} -2 & 0 & 1 \end{bmatrix} = 0 $$
+
+    <br>
+
 - ④ `Circle`
-    - 작성중...
+    - 앞에서 다룬 `Conic` 유도식의 $$ a \cdot x_{1}^{2} + b \cdot x_{1}x_{2} + c \cdot x_{2}^{2} + d \cdot x_{1}x_{3} + e \cdot x_{2}x_{3} + f \cdot x_{3}^{2} = 0 $$ 을 통하여 $$ (h, k) $$ 를 원의 중심으로 가지는 반지름 $$ r $$ 인 원은 다음과 같은 형태를 가짐을 알 수 있습니다.
+
+    <br>
+
+    - $$ C = \begin{bmatrix} 1 & 0 & -h \\ 0 & 1 & -k \\ -h & -k & h^{2} + k^{2} -r^{2} \end{bmatrix} $$
+
+    <br>
+
+    - 예를 들어 원의 중심이 $$ (0, 0) $$ 이고 반지름이 $$ 1 $$ 인 원이라면 다음과 같이 표현할 수 있습니다.
+
+    <br>
+
+    - $$ C = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & -1 \end{bmatrix} $$
+
+    <br>
+
 - ⑤ `Ellipse`
-    - 작성중...
+    - 타원 또한 위 식을 통하여 `Conic`을 유도하면 타원의 중심은 $$ (h, k) $$ 이고 장축의 길이는 $$ a $$ , 단축의 길이는 $$ b $$ 일 경우 다음과 같이 정의할 수 있습니다. 
+    
+    <br>
+
+    - $$ \frac{(x - h)^{2}}{a^{2}} + \frac{(y-k)^{2}}{b^{2}} = 1 $$
+
+    - $$ C = \begin{bmatrix} 1/a^{2} & 0 & -h/a^{2} \\ 0 & 1/b^{2} & -k/b^{2} \\ -h/a^{2} & -k/b^{2} & h^{2}/a^{2} + k^{2}/b^{2} - 1 \end{bmatrix} $$
+
+    <br>
+
+    - 예를 들어 타원의 중심이 $$ (2, 3) $$ 이고 장축의 길이가 $$ 4 $$ , 단축의 길이가 $$ 2 $$ 라면 `Conic`은 다음과 같이 정의 됩니다.
+
+    <br>
+
+    - $$ C = \begin{bmatrix} 1/16 & 0 & -1/8 \\ 0 & 1/4 & -3/4 \\ -1/8 & -3/4 & 7/16 \end{bmatrix} $$
+
+    <br>
+
 - ⑥ `Hyperbola`
-    - 작성중...
+    - 쌍곡선도 타원의 예시와 유사하게 다음과 같이 정의할 수 있습니다.
+
+    <br>
+
+    - $$ \frac{(x - h)^{2}}{a^{2}} - \frac{(y-k)^{2}}{b^{2}} = 1 $$
+
+    - $$ C = \begin{bmatrix} 1/a^{2} & 0 & -h/a^{2} \\ 0 & -1/b^{2} & k/b^{2} \\ -h/a^{2} & k/b^{2} & h^{2}/a^{2} - k^{2}/b^{2} - 1 \end{bmatrix} $$
+
+    <br>
+
+- ⑦ `Parabola`
+    - 마지막으로 포물선의 경우 포물선의 꼭지점이 $$ (h, k) $$ 이고 width $$ a $$ 는 다음과 같이 정의 할 수 있습니다.
+
+    <br>
+
+    - $$ (y - k) = a(x - h)^{2} $$
+
+    - $$ y - k - a(x-h)^{2} = 0 $$
+
+    - $$ C = \begin{bmatrix} 0 & -a/2 & ah \\ -a/2 & 1 & -k \\ ah & -k & -h^{2} \end{bmatrix}
+
+    <br>
+
+    - 예를 들어 포물선의 꼭지점이 $$ (2, 3) $$ 이고 $$ a =  1 $$ 이라면 다음과 같이 `conic`을 구성할 수 있습니다.
+
+    <br>
+
+    - $$ C = \begin{bmatrix} 0 & -1/2 & 2 \\ -1/2 & 1 & -3 \\ 2 & -3 & -4 \end{bmatrix} $$
+
+    <br>
+
+- 지금까지 살펴본 방식으로 기하학에서 흔히 다루는 7 가지 경우에 대하여 모두 `conic`으로 나타낼 수 있음을 확인하였습니다.
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec1/41.png" alt="Drawing" style="width: 1000px;"/></center>
