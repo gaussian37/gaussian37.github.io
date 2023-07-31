@@ -201,7 +201,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Single view metrol
 
 <br>
 
-- 먼저 `Synthetic Views`는 위 그림과 같이 `source image`로 부터 `planar homography`를 이용하여 새로운 형태의 `target image`로 생성하는 것을 의미합니다. `planar homography`를 이용한 이미지 변환은 카메라읜 센터점은 고정한 체 카매라의 촬영 방향을 변화하는 효과를 줄 수 있도록 할 수 있습니다.
+- 먼저 `Synthetic Views`는 위 그림과 같이 `source image`로 부터 `planar homography`를 이용하여 새로운 형태의 `target image`로 생성하는 것을 의미합니다. `planar homography`를 이용한 이미지 변환은 카메라 센터점은 고정한 상태에서 카메라의 촬영 방향을 변화하는 효과를 줄 수 있도록 할 수 있습니다.
 - `planar homography`는 3 x 3 크기의 행렬로 어떤 이미지의 점들을 다른 이미지의 점들로 변환할 수 있도록 하며 3 x 3 행렬의 성분을 통하여 `rotation`, `translation`, `scale` 및 `perspective distortion`이 이미지 변환 시 어떻게 바뀌는 지 설명해 줄 수 있습니다.
 - `systhetic view`를 생성하기 위해서는 기본적으로 다음의 절차를 따릅니다.
 - ① `source image`와 `target image`에 서로 대응되는 (같은 위치를 가리키는) 점들을 확인합니다.
@@ -212,7 +212,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Single view metrol
 <center><img src="../assets/img/vision/mvg/nus_lec6/30.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
-- 앞에서 설명한 바와 같이 `source image`에서 임의의 사각형을 지정하고 `target image`에서 이 사각형이 어디에 위치해 있는 지 알수 있으면 `homography`를 계산할 수 있습니다. `homography`를 계산하는 일반적인 방법은 `source image`와 `target image`에 대응되는 점들의 쌍을 선형 방정식의 해를 푸는 방식으로 구합니다. 자세한 내용은 아래 글을 참조하시면 됩니다.
+- 앞에서 설명한 바와 같이 `source image`에서 임의의 사각형을 지정하고 `target image`에서 이 사각형이 어디에 위치해 있는 지 알 수 있으면 `homography`를 계산할 수 있습니다. `homography`를 계산하는 일반적인 방법은 `source image`와 `target image`에 대응되는 점들의 쌍을 선형 방정식의 해를 푸는 방식으로 구합니다. 자세한 내용은 아래 글을 참조하시면 됩니다.
     - 참조 : [image transformation](https://gaussian37.github.io/vision-concept-image_transformation/)
     - 참조 : [direct linear transformation](https://gaussian37.github.io/vision-concept-direct_linear_transformation/)
 
@@ -238,7 +238,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Single view metrol
 <center><img src="../assets/img/vision/mvg/nus_lec6/34.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
-- 이번에는 카메라 캘리브레이션이 우리에게 어떤 정보를 주는 지 살펴보도록 하겠습니다.
+- 이번에는 카메라 캘리브레이션을 통해 어떤 정보를 얻을 수 있는 지 살펴보도록 하겠습니다.
 - 이전 강의에서 다루었듯이 카메라 캘리브레이션을 통하여 카메라의 `intrinsic`와 `extrinsic` 파라미터를 얻을 수 있었고 `intrinsic` 파라미터를 통해 `focal length`, `optical center`, `lens distortion` 등을 구할 수 있으며 `extrinsic` 파라미터를 통하여 카메라와 world의 관계를 구할 수 있었습니다.
 - 이전 강의에서는 이와 같은 의미를 가지는 `intrinsic`과 `extrinsic` 파라미터를 이용하여 2D 이미지와 3D 공간 상의 정보를 변환하는 `projection matrix`를 구하여 사용하였고 이 행렬은 $$ 3 \times 4 $$ 크기를 가졌습니다. 또한 `projection matrix`를 역으로 분해를 하면 `intrinsic`과 `extrinsic`을 구할 수 있었습니다.
 
