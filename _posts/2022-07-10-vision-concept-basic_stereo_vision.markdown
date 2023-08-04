@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 3D 컴퓨터 비전의 기초
-date: 2022-05-10 00:00:00
-img: vision/concept/basic_3d_vision/0.png
+title: 스테레오 (Stereo) 비전의 기초
+date: 2022-07-10 00:00:00
+img: vision/concept/basic_stereo_vision/0.png
 categories: [vision-concept] 
 tags: [3d vision, streo, calibration, epipolar geometry] # add tag
 ---
@@ -19,7 +19,7 @@ tags: [3d vision, streo, calibration, epipolar geometry] # add tag
 
 <br>
 
-- 이번 글에서는 3D 컴퓨터 비전을 위한 기본적인 내용에 대하여 넓게 살펴보려고 합니다. 3D 컴퓨터 비전과 관련된 내용을 정리하면서 작성한 글이니 참고해 주시기 바랍니다.
+- 이번 글에서는 스테레오 비전에 대한 내용을 다루어 보도록 하겠습니다.
 
 <br>
 
