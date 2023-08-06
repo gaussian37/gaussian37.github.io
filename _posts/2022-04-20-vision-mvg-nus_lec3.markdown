@@ -494,7 +494,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 - 따라서 **카메라 위치에 변하지 않는 특성을 찾기 위해** ( $$ K $$ 에만 관련있는 ) `absolute conic` 개념이 필요합니다.
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec3/42_1.png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec3/42_1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - `absolute conic`은 $$ \pi_{\infty} $$ 에 존재하는 `conic`이고 카메라의 위치 이동에 상관 없이 고정값이 됩니다. 정확하지는 않지만 비유를 한다면 하늘에 있는 달이 `absolute conic`이 될 수 있습니다. 왜냐하면 나의 위치가 변하더라도 달의 크기와 위치는 변하지 않고 고정이기 때문입니다. 달의 크기와 위치가 변하지 않고 고정인 이유는 내가 바라보는 달의 위치가 $$ \pi_{\infty} $$ 에 존재한다고 가정할 수 있기 때문입니다. (물론 비유한 것이지 달은 유한한 거리에 있습니다.)
