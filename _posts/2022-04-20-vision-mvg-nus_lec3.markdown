@@ -501,7 +501,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 
 <br>
 
-- `absolute conic` 또한 `conic`의 한 종류 이므로 $$ 3 x 3 $$ 크기의 행렬을 가집니다. `absolue conic`은 아래 2가지 정의에 따라 결론적으로 항등 행렬 $$ I $$  와 같은 형태가 됩니다.
+- `absolute conic` 또한 `conic`의 한 종류 이므로 $$ 3 \times 3 $$ 크기의 행렬을 가집니다. `absolue conic`은 아래 2가지 정의에 따라 결론적으로 항등 행렬 $$ I $$  와 같은 형태가 됩니다.
 
 <br>
 
