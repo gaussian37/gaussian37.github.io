@@ -576,11 +576,6 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <center><img src="../assets/img/vision/mvg/nus_lec3/43.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
-
-2. absolute conic은 왜 Identity 인 것일까?
-   absolute conic의 정의에 따라서 x1^2 + x2^2 + x^3 = 0을 만족하는 conic을 의미하는 것이 Identity 이다.
-   이 값의 의미는 ...
-
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/44.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
