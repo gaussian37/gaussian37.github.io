@@ -43,6 +43,7 @@ tags: [vision, multi camera fusion, fusion] # add tag
 - [DETR3D (3D Object Detection from Multi-view Images via 3D-to-2D Queries)]()
 - [Self-Supervised Surround-View Depth Estimation with Volumetric Feature Fusion](https://gaussian37.github.io/vision-fusion-volumetric_feature_fusion/)
 - [NVAutoNet, FAST AND ACCURATE 360◦ 3D VISUAL PERCEPTION FOR SELF DRIVING](https://gaussian37.github.io/vision-fusion-nvautonet/)
+- [Translating Images Into Maps](https://gaussian37.github.io/vision-fusion-translating_images_into_maps/)
 
 <br>
 
