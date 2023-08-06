@@ -482,9 +482,104 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <center><img src="../assets/img/vision/mvg/nus_lec3/42.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 이번에는 `absolute conic`이라는 개념에 대하여 다루어 보도록 하겠습니다.
+- 앞에서 `line at infinity`와 `plane at infinity`를 다룬 것 처럼 `conic`의 경우에도 `infinity` 측면에서의 정의를 내릴 때 `absolute conic`이라는 개념을 사용합니다.
+- 위 슬라이드에서 정의한 바와 같이 `absolute coninc`은 $$ \Omega_{\infty} $$ 기호를 통해 나타내며 $$ \pi_{\infty} $$ (`plane at infinity`) 상의 `(point) conic`으로 정의 됩니다.
+
+<br>
+
+- `absolute conic`의 개념을 배우기 전에 이 개념이 중요한 이유를 살펴보도록 하겠습니다.
+- [Lecture 6. Single view metrology](https://gaussian37.github.io/vision-mvg-nus_lec6/) 에서 다룰 내용이지만 `absolute coninc`은 카메라의 위치에 상관 없이 카메라 파라미터 `intrinsic` $$ K $$ 에만 영향을 받습니다. 따라서 $$ K $$ 만 정해지면 카메라의 위치 이동 (`extrinsic`)과 무관하게 이미지 내에서 얻을 수 있는 정보를 추출할 수 있습니다.
+- 예를 들어 `point`의 경우 `vanishing point`, `line`의 경우 `vanishing line`과 같은 특성이 있는데 `conic`의 경우 `absolute conic`이 이와 같은 개념에 해당합니다.
+- 따라서 **카메라 위치에 변하지 않는 특성을 찾기 위해** ( $$ K $$ 에만 관련있는 ) `absolute conic` 개념이 필요합니다.
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec3/42_1.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- `absolute conic`은 $$ \pi_{\infty} $$ 에 존재하는 `conic`이고 카메라의 위치 이동에 상관 없이 고정값이 됩니다. 정확하지는 않지만 비유를 한다면 하늘에 있는 달이 `absolute conic`이 될 수 있습니다. 왜냐하면 나의 위치가 변하더라도 달의 크기와 위치는 변하지 않고 고정이기 때문입니다. 달의 크기와 위치가 변하지 않고 고정인 이유는 내가 바라보는 달의 위치가 $$ \pi_{\infty} $$ 에 존재한다고 가정할 수 있기 때문입니다. (물론 비유한 것이지 달은 유한한 거리에 있습니다.)
+
+<br>
+
+- `absolute conic` 또한 `conic`의 한 종류 이므로 $$ 3 x 3 $$ 크기의 행렬을 가집니다. `absolue conic`은 아래 2가지 정의에 따라 결론적으로 항등 행렬 $$ I $$  와 같은 형태가 됩니다.
+
+<br>
+
+- $$ X_{1}^{2} + X_{2}^{2} + X_{3}^{2} = 0 $$ 
+
+- $$ X_{4} = 0 $$
+
+<br>
+
+- 위 조건의 이유와 `absolute conic`이 $$ I $$ 형태인 이유를 앞에서 배운 `circular points`와 비교해서 설명하겠습니다.
+
+<br>
+
+- `circular points` : `line at infinity`가 통과하는 `circle`에서 생기는 점
+- `absolute conic` : `plane at infinity`에서 `sphere`가 만나서 생기는 선
+
+<br>
+
+- 먼저 앞에서 다룬 `circular points` 정의를 다시 정리하여 나열해 보겠습니다.
+
+<br>
+
+- $$ x_{1}^{2} + x_{2}^{2} = 0 $$
+
+- $$ x_{3} = 0 $$
+
+<br>
+
+- `circular points`에서 $$ x_{1}^{2} + x_{2}^{2} = 0 $$ 를 만족해야 하는 이유는 $$ x_{3} = 0 $$ 이기 때문에 `conic`을 표현하는 2차식에서 $$ x_{3} $$ 가 사용된 항은 모두 소거되기 때문이고 $$ x_{1}^{2}, x_{2}^{2} $$ 의 계수가 1인 이유는 `circle`을 가정했기 때문입니다.
+- 따라서 `circular points`를 정의하는 행렬은 다음과 같습니다. $$ (x_{1}, x_{2}, x_{3}) $$ 는 `homogeneous` 에서의 `point`를 의미합니다.
+
+<br>
+
+- $$ \begin{bmatrix} x_{1} & x_{2} & x_{3} \end{bmatrix} C \begin{bmatrix} x_{1} \\ x_{2} \\ x_{3} \end{bmatrix} = 0 $$
+
+- $$ \Rightarrow x_{1}^{2} + x_{2}^{2} = 0 $$
+
+- $$ \therefore C = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 0 \end{bmatrix} $$
+
+<br>
+
+- 따라서 $$ C $$ 가 위 식과 같이 정의될 때 $$ x_{1}^{2} + x_{2}^{2} = 0 $$, $$ x_{3} = 0 $$ 을 만족하는 $$ (x_{1}, x_{2}, x_{3}) $$ 는 `circle` 상에 있음을 알 수 있습니다.
+
+<br>
+
+- 이번에는 `absolute conic`의 정의에 대하여 유사한 방식으로 나열해 보겠습니다. `absolute conic`은 `circular points`에 비해 차원이 하나 추가된 것으로 이해하면 쉽게 이해할 수 있습니다.
+
+<br>
+
+- $$ x_{1}^{2} + x_{2}^{2} + x_{3}^{2} = 0 $$
+
+- $$ x_{4} = 0 $$
+
+<br>
+
+- `absolute coninc`에서 $$ x_{1}^{2} + x_{2}^{2} + x_{3}^{2} = 0 $$ 를 만족해야 하는 이유는 $$ x_{4} = 0 $$ 이기 때문에 `conic`을 표현하는 2차식에서 $$ x_{4} $$ 가 사용된 항은 모두 소거되기 때문이고 $$ x_{1}^{2}, x_{2}^{2}, x_{3}^{2} $$ 의 계수가 1인 이유는 `sphere`를 가정했기 때문입니다.
+- 따라서 `absolute coninc`를 정의하는 행렬은 다음과 같습니다. $$ (x_{1}, x_{2}, x_{3}) $$ 는 `homogeneous` 에서의 `point`를 의미합니다.
+
+<br>
+
+- $$ \begin{bmatrix} x_{1} & x_{2} & x_{3} \end{bmatrix} C \begin{bmatrix} x_{1} \\ x_{2} \\ x_{3} \end{bmatrix} = 0 $$
+
+- $$ \Rightarrow x_{1}^{2} + x_{2}^{2} + x_{3}^{2} = 0 $$
+
+- $$ \therefore C = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix} $$
+
+<br>
+
+- 따라서 $$ C $$ 가 위 식과 같이 정의될 때 $$ x_{1}^{2} + x_{2}^{2} + x_{3}^{2} = 0 $$, $$ x_{4} = 0 $$ 을 만족하는 $$ (x_{1}, x_{2}, x_{3}) $$ 는 `absolute conic` 상에 있음을 알 수 있습니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/43.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
+
+2. absolute conic은 왜 Identity 인 것일까?
+   absolute conic의 정의에 따라서 x1^2 + x2^2 + x^3 = 0을 만족하는 conic을 의미하는 것이 Identity 이다.
+   이 값의 의미는 ...
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/44.png" alt="Drawing" style="width: 1000px;"/></center>
