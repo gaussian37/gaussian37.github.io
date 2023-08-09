@@ -357,6 +357,8 @@ outlier_cloud = pcd.select_by_index(inliers, invert=True)
 inlier_cloud.paint_uniform_color([0.5, 0.5, 0.5])
 outlier_cloud.paint_uniform_color([1, 0, 0])
 o3d.visualization.draw_geometries([inlier_cloud, outlier_cloud])
+
+pcd = pcd.select_by_index(inliers)
 ```
 
 <br>
@@ -432,24 +434,76 @@ o3d.visualization.draw_geometries([inlier_cloud, outlier_cloud])
 
 <br>
 
-## **DBSCAN을 이용한 포인트 클라우드 클러스터링**
+- 위 코드에서는 `inlier`를 도로로 구분하였고 `outlier`를 도로이외의 포인트로 구분하였습니다. 본 글에서 다루는 방식은 객체를 찾아나아가는 과정이므로 도로는 제거해야 합니다 따라서 다음과 같이 포인트를 적용하면 도로를 제거할 수 있습니다.
 
 <br>
 
 ```python
+plane_model, road_inliers = pcd.segment_plane(distance_threshold=0.3, ransac_n=3, num_iterations=100)
+pcd = pcd.select_by_index(road_inliers, invert=True)
+```
+
+<br>
+
+## **DBSCAN을 이용한 포인트 클라우드 클러스터링**
+
+<br>
+
+- 지금까지 `downsampling`과 `outlier`제거 그리고 `road`제거 까지 적용하였습니다. 아직까지 생존한 포인트 클라우드들은 객체의 후보가 될 수 있는 포인트들입니다.
+- 객체의 후보가 될 수 있는 포인트들을 그룹화하여 묶은 다음에 마지막에는 bounding box화 하는 것이 목표입니다.
+- 그러면 먼저 그룹화하여 묶을 수 있는 대표적인 알고리즘인 `DBSCAN`과 `HDBSCAN`을 적용하는 방법을 살펴보도록 하겠습니다.
+
+<br>
+
+- 그룹화 방식은 `Unsupervised Learning` 방식을 이용하여 클러스터링하는 방식을 사용할 것입니다. 이와 같은 클러스터링 방식 중 어느 정도 성능이 괜찮은 방식이 `DBSCAN (Density-Based Spatial Clustering of Applications with Noise)`과 `HDBSCAN (Hierarchical Density-Based Spatial Clustering of Applications with Noise)`으로 알려져 있습니다.
+
+<br>
+
+- `Clustering`으로 유명한 알고리즘으로 [K-means](https://gaussian37.github.io/ml-concept-andrewng-kmeans/) 알고리즘이 있습니다. `K-means`는 $$ K $$ 개의 센터점을 기준으로 distance가 가까운 점들을 그룹화하는 방법입니다. 조금만 더 자세하게 설명하면 다음과 같습니다.
+    - ① $$ K $$ 개의 점을 랜덤으로 뽑습니다.
+    - ② 모든 점들에 대하여 랜덤으로 뽑은 $$ K $$ 개의 점과 군집화를 합니다. 이 때, 각각의 점들은 가장 가까운 $$ K $$ 개의 점의 클러스터에 할당됩니다.
+    - ③ 각 클러스터의 센터점은 각 클러스터의 중심점으로 변경됩니다.
+    - ④ 앞의 ②, ③ 과정을 특정 시점 또는 변경이 발생하지 않을 때 까지 반복하여 클러스터링을 완료합니다.
+- 이러한 `K-means` 클러스터링의 방식을 `Centroids` 기반 클러스터링 방식이라고도 합니다.
+- 작동 방식으로 판단할 때, $$ K-means $$ 의 경우 $$ K $$ 개의 클러스터할 그룹이 있다는 정보가 있을 때 유용하게 사용할 수 있습니다.
+
+<br>
+
+- 반면에 포인트 클라우드 속에서 클러스터링할 객체의 수는 알 수 없습니다. 따라서 `K-means`를 이용하여 클러스터링 하는 방식은 적합하지 않을 수 있습니다. 또한 `K-means`는 `Centroid` 방식이기 때문에 클러스터가 구(`sphere`) 형태로 나타날 수 있습니다. 하지만 임의의 객체의 형상은 알 수 없습니다.
+
+<br>
+
+- 반면에 3D world 상에서 의미있는 객체가 되려면 어느 정도의 포인트가 밀집해 있는 지 정도는 가늠할 수 있습니다. 이러한 밀집 정도를 `Density` 라고 하며 `Density`는 객체의 형태와도 무관하게 동작할 수 있습니다.
+- 따라서 앞으로 사용해 볼 `DBSCAN` 및 `HDBSCAN`은 `Density` 기반 클러스터링 방식이라고 합니다. 동작 방식은 간단히 다음과 같습니다.
+    - ① 임의의 한 점을 선택 합니다.
+    - ② 특정 `distance`인 $$ \epsilon $$ 이내에 속하는 점들을 `neighbor`로 정의할 수 있습니다. 만약 선택한 점이 최소한의 이웃 $$ n $$ 개를 가진다면 선택한 한 점과 `neighbor`를 그룹으로 묶습니다. ($$ \epsilon $$ : **radius of the neighborhood**, $$ n $$ : **minimum number of points in the neighborhood to form a dense region**)
+    - ③ 앞의 ② 과정을 recursive하게 계속 반복하여 `neighbor`가 추가되지 않을 때 까지 반복합니다.
+    - ④ 추가된 `neighbor`가 없으면 클러스터링을 끝내고 선택되지 않은 새로운 점에서 부터 ① ~ ③ 과정을 다시 시작합니다.
+- 이 과정을 `DBSCAN`이라고 하며 `DBSCAN`의 경우 `neighbor`인 지 판단하기 위한 `distance`인 $$ \epsilon $$ 와 최소한의 이웃 조건인 $$ n $$ 을 하이퍼파라미터로 가지게 됩니다.
+
+<br>
+
+- `open3d`의 함수를 이용하여 아래와 같이 구현할 수 있으며 `cluster_dbscan`의 파라미터인 `eps`가 m 단위의 거리인 $$ \epsilon $$ 이 되고 `min_points`가 최소한의 이웃 조건인 $$ n $$ 이 됩니다.
+
+
+<br>
+
+```python
+import matplotlib.pyplot as plt
+
 # CLUSTERING WITH DBSCAN
 t3 = time.time()
 with o3d.utility.VerbosityContextManager(o3d.utility.VerbosityLevel.Debug) as cm:
-    labels = np.array(outlier_cloud.cluster_dbscan(eps=0.60, min_points=50, print_progress=False))
+    labels = np.array(pcd.cluster_dbscan(eps=0.60, min_points=50, print_progress=False))
 
 max_label = labels.max()
 print(f'point cloud has {max_label + 1} clusters')
 colors = plt.get_cmap("tab20")(labels / max_label if max_label > 0 else 1)
 colors[labels < 0] = 0
-outlier_cloud.colors = o3d.utility.Vector3dVector(colors[:, :3])
+pcd.colors = o3d.utility.Vector3dVector(colors[:, :3])
 t4 = time.time()
 print(f'Time to cluster outliers using DBSCAN {t4 - t3}')
-o3d.visualization.draw_geometries([inlier_cloud, outlier_cloud])
+o3d.visualization.draw_geometries([pcd])
 ```
 
 <br>
@@ -458,30 +512,35 @@ o3d.visualization.draw_geometries([inlier_cloud, outlier_cloud])
 
 <br>
 
+- `DBSCAN` 알고리즘이 더 발전되어 $$ \epsilon $$ 을 고려하지 않고 `Density` 즉, `min_cluster_size`만 고려하는 방식을 `HDBSCAN`이라고 합니다. `min_cluster_size`는 말 그대로 클러스터로 묶기 위한 최소한의 포인트 갯수를 의미하며 이 값만 지정하면 하이퍼파라미터는 필요로 하지 않습니다.
+
+<br>
+
 ```python
 import hdbscan
+import matplotlib.pyplot as plt
 
 # CLUSTERING WITH HDBSCAN
 t3 = time.time()
 clusterer = hdbscan.HDBSCAN(min_cluster_size=50, gen_min_span_tree=True)
-clusterer.fit(np.array(outlier_cloud.points))
+clusterer.fit(np.array(pcd.points))
 labels = clusterer.labels_
 
 max_label = labels.max()
 print(f'point cloud has {max_label + 1} clusters')
 colors = plt.get_cmap("tab20")(labels / max_label if max_label > 0 else 1)
 colors[labels < 0] = 0
-outlier_cloud.colors = o3d.utility.Vector3dVector(colors[:, :3])
+pcd.colors = o3d.utility.Vector3dVector(colors[:, :3])
 t4 = time.time()
 print(f'Time to cluster outliers using HDBSCAN {t4 - t3}')
-o3d.visualization.draw_geometries([inlier_cloud, outlier_cloud])
+o3d.visualization.draw_geometries([pcd])
 ```
 
 <br>
+<center><img src="../assets/img/autodrive/lidar/intro/29.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
-- `min_cluster_size`: mutual reachability distance와 condensed tree 구성에 영향을 미치는 가장 직관적인 파라미터
-- `min_samples` : 높은 값을 줄수록 더 많은 점들이 noise로 분류된다. (최종 클러스터 선정시 constraint로 작용)
-- `cluster_selection_epsilon` : DBSCAN 알고리즘을 적용할 최대 거리 명시
+- 위 출력 결과는 `HDBSCAN`을 이용하여 클러스터링한 결과를 컬러값을 적용하여 시각화한 결과입니다. 검정색 포인트들은 클러스터링 되지 못한 포인트들입니다.
 
 <br>
 
