@@ -50,8 +50,10 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
 - ① `Sense` : 라이다 센서는 빛 (레이저)를 송신하고 주변 물체로 부터 반사되어 다시 수신하여 물체의 위치를 확인합니다. 하드웨어적인 상세 내용은 글 후반부의 `자율주행에서의 라이다 동향`에서 부터 살펴보시길 바랍니다.
 - ② `Generate a File` : 라이다 센서를 통하여 인식한 결과를 통해 raw data를 생성합니다. 공개된 라이다 데이터셋은 보통 가공이 되어 있는 데이터인 반면에 직접 라이다를 통해 얻은 데이터는 노이즈도 섞여있고 포인트가 필요 이상으로 많이 있기도 합니다. 
 - ③ `Process the File` : 라이다 데이터를 읽으면 포인트 클라우드 형태로 되어있습니다. 3D에서 포인트 클라우드 형태로 데이터를 읽기 위해서 `open3D` 라는 패키지를 사용할 예정입니다.
-- ④ `Process Point Cloud` : 라이다 데이터에서 의미 있는 정보를 찾기 위하여 포인트를 샘플링 하기도하고 추가적인 알고리즘을 이용하여 포인트 들을 클러스터링을 하기도 합니다. 이번 글에서는 bounding box를 적용하여 물체를 찾는 간단한 방법을 다루어 볼 예정입니다.
-- ⑤ `Visualize the results` : 포인트 클라우드 처리가 끝난 결과를 시각화해서 보는 단계를 의미합니다. 위 그림과 같이 포인트 클라우드 상에서 bounding box가 잘 생성되었는 지 살펴보도록 하겠습니다.
+- ④ `Process Point Cloud` : 라이다 데이터에서 의미 있는 정보를 찾기 위하여 포인트를 샘플링 하기도하고 추가적인 알고리즘을 이용하여 포인트들을 클러스터링을 하기도 합니다. 이번 글에서는 Unsupervised 방식으로 `bounding box`를 적용하여 물체를 찾는 간단한 방법을 다루어 볼 예정입니다.
+- ⑤ `Visualize the results` : 포인트 클라우드 처리가 끝난 결과를 시각화해서 보는 단계를 의미합니다. 위 그림과 같이 포인트 클라우드 상에서 `bounding box`가 잘 생성되었는 지 살펴보도록 하겠습니다.
+
+<br>
 
 ## **라이다와 포인트 클라우드**
 
@@ -63,13 +65,14 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
 
 - 포인트 클라우드는 대표적으로 위 그림과 같이 6개의 포맷으로 저장될 수 있습니다.
 - 공통적으로 가지고 있는 정보는 3차원 공간 상에서 `XYZ 좌표` 정보이며 추가적으로 `intensity` 정보를 많이 사용합니다. 
-- 라이다로 취득한 3차원 포인트 클라우드에서는 가까운 물체가 멀리 있는 물체에 비해 조밀하게 샘플링 되는 특징이 있습니다. 또한 멀리 있는 물체일수록 반사되어 돌아오는 신호의 강도가 약해지고 큰 노이즈를 포함하기 쉽습니다. 이러한 성질을 이용하여 라이다를 이용하여 얻은 포인트 클라우드에는 3차원 좌표와 함께 **반사되어 돌아온 신호의 강도**를 나타내는 반사도의 세기 정보가 포함되는데 이 정보를 `intensity` 라고 합니다.
+- 라이다로 취득한 3차원 포인트 클라우드에서는 가까운 물체가 멀리 있는 물체에 비해 조밀하게 샘플링 되는 특징이 있습니다. 또한 멀리 있는 물체일수록 반사되어 돌아오는 신호의 강도가 약해지고 큰 노이즈를 포함하기 쉽습니다. 이러한 성질을 이용하여 라이다를 통해 얻은 포인트 클라우드에는 3차원 좌표와 함께 **반사되어 돌아온 신호의 강도**를 나타내는 반사도의 세기 정보가 포함되는데 이 정보를 `intensity` 라고 합니다.
 
 <br>
 <center><img src="../assets/img/autodrive/lidar/intro/16.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 위 그림의 왼쪽에서는 포인트 클라우드의 색이 녹색과 파란색으로 비교적 반사도 세기가 낮고 자동차 번호판 부분은 붉은색으로 비교적 높은 세기를 가집니다. 반사도 세기에 영향을 미치는 요인들은 여러가지가 있는데 레이저 펄스가 통과하는 매질이나 물체의 표면과 펄스가 만나는 각도, 대상 물체 표면의 반사율에 따라서 돌아오는 신호의 세기가 결정됩니다.
+- 위 그림의 왼쪽에서는 포인트 클라우드의 색이 녹색과 파란색으로 비교적 반사도 세기가 낮고 자동차 번호판 부분은 붉은색으로 비교적 높은 세기를 가집니다. 반사도 세기에 영향을 미치는 요인들은 여러가지가 있는데 레이저 펄스가 통과하는 매질이나 물체의 표면과 펄스가 만나는 각도, 대상 물체 표면의 반사율에 따라서 돌아오는 신호의 세기가 결정됩니다. 같은 재질이더라도 물질의 색상에 따라서 반사도가 다를 수도 있습니다.
+- 이와 같은 특성은 빛이 어떤 물질 특성에 잘 반사되는 지 또는 잘 흡수되는 지를 생각하면 쉽게 이해하실 수 있습니다.
 - 앞의 비행기 포인트 클라우드에서도 이와 같은 intensity가 반영되어 색으로 표현되어 있음을 알 수 있습니다.
 
 <br>
@@ -85,14 +88,14 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
 
 - ① `Processing` : bin 파일을 읽으면 1번과 같은 형태의 많은 포인트 클라우드가 생성됩니다. 
 - ② `Downsampling` : 따라서 2번과 같이 Downsamping을 통하여 중복된 포인트 클라우드 수를 줄여줍니다.
-- ③ `Segmentation` : Downsampling된 포인트 들을 의미 단위로 나누는 작업을 합니다. 예를 들어 어떤 포인트는 바닥이고 어떤 포인트는 벽인지 등을 구분합니다.
+- ③ `Segmentation` : Downsampling된 포인트 들을 의미 단위로 나누는 작업을 합니다. 예를 들어 어떤 포인트는 바닥이고 어떤 포인트는 벽인지 등을 구분합니다. 본 글에서는 간단한 방식으로 Segmentation을 적용할 예정입니다.
 - ④ `Clustering` : Segmentation 작업을 통하여 클래스가 분류되면 거리를 기반으로 점들을 클러스터링 하여 필요한 객체 단위로 묶습니다.
 - ⑤ `Bounding Box` : Segmentation과 Clustering 과정을 통해 점들이 클래스와 거리 별로 구분이 되게 되면 Bounding Box를 사용하여 객체의 위치를 표시할 수 있습니다.
 - 이와 같은 ① ~ ⑤ 가 흔히 사용하는 `Obstacle Detection Process` 방법입니다. **이번 글에서도 이와 같은 방식을 이용하여 어떻게 라이다 포인트 클라우드를 처리하는 지 살펴보도록 하겠습니다.**
 
 <br>
 
-- 라이다 데이터를 다루기 위해서는 라이다를 다루기 위한 포인트 클라우드 라이브러리와  데이터셋이 필요합니다. 아래 링크를 통해 현재 많이 사용하는 라이다 포인트 클라우드 처리를 위한 라이브로리와 데이터셋을 확인할 수 있습니다.
+- 라이다 데이터를 다루기 위해서는 라이다를 다루기 위한 포인트 클라우드 라이브러리와  데이터셋이 필요합니다. 아래 링크를 통해 현재 많이 사용하는 라이다 포인트 클라우드 처리를 위한 라이브러리와 데이터셋을 확인할 수 있습니다.
 - `Point Cloud Libraries` : https://github.com/openMVG/awesome_3DReconstruction_list#mesh-storage-processing
 - `LiDAR Datasets` : https://boschresearch.github.io/multimodalperception/dataset.html
 
@@ -123,13 +126,19 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
 <center><img src="../assets/img/autodrive/lidar/intro/19.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 그림과 같이 `open3d`나 `pptk` 모두 라이다 포인트 클라우드를 읽는 데 문제는 없습니다. 다만 보시는 것과 같이 `pptk`가 좀 더 사용자 편하게 보여주는 점 참조하시면 도움이 됩니다.
+- 위 그림과 같이 `open3d`나 `pptk` 모두 라이다 포인트 클라우드를 읽는 데 문제는 없습니다. `pptk`의 장점은 라이다 포인트의 좌표를 직접 표시해준다는 장점이 있습니다.
 
 <br>
 
 - 이번 글에서 사용할 데이터는 `KITTI`에서 제공하는 `data_object_velodyne` 데이터로 약 29 GB 용량을 가지는 데이터 입니다.
 - [KITTI 사이트](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d)에 접속하시고 **Download Velodyne point clouds, if you want to use laser information (29 GB)** 항목을 클릭하셔서 다운받으시면 됩니다.
 - 위 데이터는 `bin` 형식의 파일이고 아래에 설명할 `convert` 파일을 통하여 `bin → PCD`로 포맷 변환이 가능합니다. `bin`은 효율적으로 데이터를 저장하고 읽기 위해 이와 같이 저장하고 실제 사용할 때에는 `PCD` 라는 확장자의 파일을 사용하는 것이 일반적입니다.
+- 본 글에서 주로 사용하는 `pcd` 파일은 `KITTI`의 샘플 데이터입니다. 아래 코드를 따라하려면 아래 링크를 통해 샘플 데이터를 다운받아서 사용하시면 됩니다.
+    - 링크 : https://drive.google.com/file/d/1txU0Ou5VluSgqqBTJTC6G64s-pfDlccR/view?usp=sharing
+
+<br>
+
+- 아래 코드는 `KITTI`의 `bin` 데이터를 `pcd` 형태로 바꾸는 코드입니다. 
 
 <br>
 
@@ -181,7 +190,7 @@ if __name__ == "__main__":
 
 <br>
 
-- 위 코드를 이용하면 폴더 내의 모든 `bin` 파일을 `pcd` 파일로 변경합니다. 파이썬 코드 사용은 다음과 같습니다. (위 코드를 `bin_to_pcd.py` 로 저장했다고 가정합니다.)
+- 위 코드를 `bin_to_pcd.py` 로 저장했다고 가정하였을 때, 파이썬 코드 사용은 다음과 같습니다.
 
 <br>
 
@@ -208,7 +217,7 @@ v = pptk.viewer(pcd.points)
 
 <br>
 
-- 파이썬에서 `open3d` 의 `open3d.cpu.pybind.geometry.PointCloud` 객체 형태로 파일을 읽게 된다면 이 값은 numpy로 변경할 수 있습니다. numpy로 변경하게 되면 파이썬에서 다양한 목적으로 쉽게 사용할 수 있습니다.
+- 파이썬에서 `open3d` 의 `open3d.cpu.pybind.geometry.PointCloud` 객체 형태로 파일을 읽게 된다면 이 값은 `numpy`로 변경할 수 있습니다. numpy로 변경하게 되면 파이썬에서 다양한 목적으로 쉽게 사용할 수 있습니다.
 - 다음 코드는 읽은 `pcd` 파일을 numpy로 변경하거나 임의의 numpy 파일을 다시 point cloud 객체로 변환하는 방법입니다.
 
 <br>
@@ -251,9 +260,9 @@ v = pptk.viewer(pcd.points)
 <br>
 
 - 앞에서 살펴본 포인트 클라우드의 수가 중복된 위치에 필요 이상으로 촘촘히 있는 것을 확인할 수 있습니다.
-- 흔히 센서를 통해 얻은 데이터는 원본 데이터를 사용하기보다 원본 데이터를 일정한 간격으로 줄이는 downsampling 방법을 통해 처리를 해서 사용합니다.
+- 흔히 센서를 통해 얻은 데이터는 원본 데이터를 사용하기보다 원본 데이터를 일정한 간격으로 줄이는 `downsampling` 방법을 통해 처리를 해서 사용합니다.
 - 이와 같이 사용하는 이유는 실제 포인트 클라우드를 처리할 때, 효율적으로 처리하기 위함입니다. 원본 데이터를 그대로 사용할 경우 정보는 많으나 데이터를 처리하는 데 시간이 너무 많이 필요하기 때문입니다.
-- 이미지에서도 이와 비슷하게 이미지를 downsampling 하여 실제 알고리즘을 처리할 때 필요한 시간을 줄이기도 하는데, 이와 같은 목적입니다.
+- 이미지에서도 이와 비슷하게 이미지를 `downsampling`하여 실제 알고리즘을 처리할 때 필요한 시간을 줄이기도 하는데, 이와 같은 목적입니다.
 
 <br>
 
@@ -304,6 +313,10 @@ v = pptk.viewer(pcd.points)
 
 <br>
 
+#### **statistical outlier removal**
+
+<br>
+
 - `statistical outlier removal`은 포인트 클라우드에서 `neighbor`라는 단위로 그룹을 묶은 다음 포인트들 간의 `distance` 기준 평균과 표준 편차를 구하고 `std_ratio` 라는 `threshold` 값을 설정하여 거리의 편차가 큰 포인트를 outlier로 정의합니다.
 - 따라서 정해야 할 파라미터로 `nb_neighbors` 즉, 그룹을 묶을 갯수와 `std_ratio` 라는 threshold 입니다.
 - 아래는 `statistical outlier removal`을 적용하는 코드이며 계산 효율을 위해 `down_sample`이 필요할 수 있습니다.
@@ -323,6 +336,10 @@ o3d.visualization.draw_geometries([inlier_cloud, outlier_cloud])
 <br>
 
 - `nb_neighbors`와 `std_ratio`의 크기 변화에 따라 어떻게 outlier가 검출이 되는 지 원하는 방향에 맞게 사용하면 됩니다.
+
+<br>
+
+#### **radius outlier removal**
 
 <br>
 
