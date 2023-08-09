@@ -97,3 +97,16 @@ tags: [tesla, 테슬라, camera, 카메라] # add tag
 - 아쉬운 점은 `Narrow Forward Camera`의 영상을 볼 수 없었다는 점입니다. 표현되지 않은 `Rear View Camera`는 실제 테슬라 차량에서 후진을 통해 확인할 수 있습니다.
 
 <br>
+
+## **HW3.0 Vs. HW4.0**
+
+<br>
+
+- 해외 테슬라 유저가 2018년 모델 S 차량과 2023년 모델 Y 차량으로 `HW3.0`을 사용하는 모델 S의 카메라 이미지와 `HW4.0`을 사용하는 모델 Y의 카메라 이미지를 비교한 유튜브 영상입니다.
+- 시간이 지남에 따라 카메라의 화질이 개선된 점이 보입니다. AI Day의 발표 영상에 따르면 테슬라 FSD의 입력 이미지는 Raw 영상 그대로를 사용하는 것으로 밝혀져서 카메라 이미지의 개선이 실제 사람이 보는 이미지의 개선 만큼 직접적이지는 않을 수 있습니다. 하지만 시간이 지난 만큼 카메라 해상도의 개선과 그것을 처리할 수 있는 칩의 개선도 있을 것으로 추정됩니다.
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/zcpfeMXM344" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
