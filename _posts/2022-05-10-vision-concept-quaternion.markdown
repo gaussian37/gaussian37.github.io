@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 사원수(Quaternion)와 회전 
+title: 사원수(Quaternion)와 회전 (Rotation) 
 date: 2022-05-10 00:00:00
 img: vision/concept/quaternion/0.png
 categories: [vision-concept] 
@@ -13,10 +13,10 @@ tags: [사원수, quaternion, 회전, rotation] # add tag
 
 <br>
 
+- 참조 : 이득우의 게임 수학
 - 참조 : 수학과 OpenGL 프로그래밍
-- 참조 : https://ghebook.blogspot.com/2010/07/quaternion.html
-- 참조 : https://youtu.be/JjtLYsOi4vU
 - 참조 : https://www.youtube.com/watch?v=zjMuIxRvygQ&t=226s
+- 참조 : https://ghebook.blogspot.com/2010/07/quaternion.html
 
 <br>
 
