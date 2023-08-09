@@ -31,6 +31,7 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
     - ### [DBSCAN을 이용한 포인트 클라우드 클러스터링](#dbscan을-이용한-포인트-클라우드-클러스터링-1)
     - ### [HDBSCAN을 이용한 포인트 클라우드 클러스터링](#hdbscan을-이용한-포인트-클라우드-클러스터링-1)
     - ### [PCA를 이용한 객체 Boundgin Box](#pca를-이용한-객체-boundgin-box-1)
+    - ### [객체 인식을 위한 전체 코드](#객체-인식을-위한-전체-코드-1)
 
 <br>
 
@@ -494,7 +495,7 @@ import matplotlib.pyplot as plt
 # CLUSTERING WITH DBSCAN
 t3 = time.time()
 with o3d.utility.VerbosityContextManager(o3d.utility.VerbosityLevel.Debug) as cm:
-    labels = np.array(pcd.cluster_dbscan(eps=0.60, min_points=50, print_progress=False))
+    labels = np.array(pcd.cluster_dbscan(eps=0.60, min_points=30, print_progress=False))
 
 max_label = labels.max()
 print(f'point cloud has {max_label + 1} clusters')
@@ -522,7 +523,7 @@ import matplotlib.pyplot as plt
 
 # CLUSTERING WITH HDBSCAN
 t3 = time.time()
-clusterer = hdbscan.HDBSCAN(min_cluster_size=50, gen_min_span_tree=True)
+clusterer = hdbscan.HDBSCAN(min_cluster_size=30, gen_min_span_tree=True)
 clusterer.fit(np.array(pcd.points))
 labels = clusterer.labels_
 
@@ -548,14 +549,124 @@ o3d.visualization.draw_geometries([pcd])
 
 <br>
 
+- 앞에서 `HDBSCAN`을 통하여 클러스터링 까지 완료하였습니다. 클러스터링된 포인트 정보를 이용하여 `open3d`의 `get_axis_aligned_bounding_box()` 함수를 통해 `bounding box` 정보를 추출할 수 있습니다. 코드는 다음과 같습니다.
 
 <br>
 
+```python
+import pandas as pd
+bbox_objects = []
+indexes = pd.Series(range(len(labels))).groupby(labels, sort=False).apply(list).tolist()
+
+MAX_POINTS = 300
+MIN_POINTS = 50
+
+for i in range(0, len(indexes)):
+    nb_points = len(pcd.select_by_index(indexes[i]).points)
+    if (nb_points > MIN_POINTS and nb_points < MAX_POINTS):
+        sub_cloud = pcd.select_by_index(indexes[i])
+        bbox_object = sub_cloud.get_axis_aligned_bounding_box()
+        bbox_object.color = (0, 0, 1)
+        bbox_objects.append(bbox_object)
+
+print("Number of Boundinb Box : ", len(bbox_objects))
+
+list_of_visuals = []
+list_of_visuals.append(pcd)
+list_of_visuals.extend(bbox_objects)
+
+o3d.visualization.draw_geometries(list_of_visuals)
+```
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/30.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+## **객체 인식을 위한 전체 코드**
 
 <br>
 
+- 지금까지 살펴본 내용을 모두 정리하면 아래 코드에서 확인할 수 있습니다. 전체 순서는 다음과 같습니다.
+- ① `downsampling`
+- ② `remove outliers`
+- ③ `segment plane with RANSAC`
+- ④ `clustering with HDBSCAN`
+- ⑤ `generate 3D Bounding Box`
+
 <br>
 
+```python
+import open3d as o3d
+import numpy as np
+import time
+
+pcd_path = "./000000.pcd"
+
+pcd = o3d.io.read_point_cloud(pcd_path)
+
+# downsampling
+pcd_1 = pcd.voxel_down_sample(voxel_size=0.1)
+# remove outliers
+pcd_2, inliers = pcd_1.remove_radius_outlier(nb_points=20, radius=0.3)
+# segment plane with RANSAC
+plane_model, road_inliers = pcd_2.segment_plane(distance_threshold=0.1, ransac_n=3, num_iterations=100)
+pcd_3 = pcd_2.select_by_index(road_inliers, invert=True)
+
+# CLUSTERING WITH HDBSCAN
+import matplotlib.pyplot as plt
+import hdbscan
+
+clusterer = hdbscan.HDBSCAN(min_cluster_size=30, gen_min_span_tree=True)
+clusterer.fit(np.array(pcd_3.points))
+labels = clusterer.labels_
+
+max_label = labels.max()
+print(f'point cloud has {max_label + 1} clusters')
+colors = plt.get_cmap("tab20")(labels / max_label if max_label > 0 else 1)
+colors[labels < 0] = 0
+pcd_3.colors = o3d.utility.Vector3dVector(colors[:, :3])
+
+# generate 3D Bounding Box
+import pandas as pd
+bbox_objects = []
+indexes = pd.Series(range(len(labels))).groupby(labels, sort=False).apply(list).tolist()
+
+MAX_POINTS = 300
+MIN_POINTS = 50
+
+for i in range(0, len(indexes)):
+    nb_points = len(pcd_3.select_by_index(indexes[i]).points)
+    if (nb_points > MIN_POINTS and nb_points < MAX_POINTS):
+        sub_cloud = pcd_3.select_by_index(indexes[i])
+        bbox_object = sub_cloud.get_axis_aligned_bounding_box()
+        bbox_object.color = (0, 0, 1)
+        bbox_objects.append(bbox_object)
+
+print("Number of Boundinb Box : ", len(bbox_objects))
+
+list_of_visuals = []
+list_of_visuals.append(pcd_3)
+list_of_visuals.extend(bbox_objects)
+# o3d.visualization.draw_geometries([pcd])
+o3d.visualization.draw_geometries(list_of_visuals)
+```
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/31.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 샘플 데이터를 한개 더 살펴보도록 하겠습니다. 코드는 동일하게 사용하였고 결과만 공유해보겠습니다.
+
+<br>
+
+- 샘플 데이터 : https://drive.google.com/file/d/18m5o8dwgCp-h75YW8Ej648bKBES-rb5v/view?usp=sharing
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/32.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 위 결과를 살펴보면 앞에서 사용한 알고리즘들의 파라미터 튜닝이 필요해 보이며 추가적인 보완 알고리즘 또한 필요할 수 있습니다. 
+- 지금까지 살펴본 내용은 일반적인 포인트 클라우드를 처리하는 방법 중 하나이며 이와 같은 방법을 통하여 전처리 및 Unsupervised 방식으로 클러스터링을 할 수 있음을 알 수 있었습니다.
 
 <br>
 
