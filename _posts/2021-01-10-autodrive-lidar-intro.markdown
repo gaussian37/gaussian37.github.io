@@ -30,7 +30,7 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
     - ### [RANSAC을 이용한 도로와 객체 구분](#ransac을-이용한-도로와-객체-구분-1)
     - ### [DBSCAN을 이용한 포인트 클라우드 클러스터링](#dbscan을-이용한-포인트-클라우드-클러스터링-1)
     - ### [HDBSCAN을 이용한 포인트 클라우드 클러스터링](#hdbscan을-이용한-포인트-클라우드-클러스터링-1)
-    - ### [PCA를 이용한 객체 Boundgin Box](#pca를-이용한-객체-boundgin-box-1)
+    - ### [3D Bounding Box 생성](#3d-bounding-box-생성-1)
     - ### [객체 인식을 위한 전체 코드](#객체-인식을-위한-전체-코드-1)
 
 <br>
@@ -545,7 +545,7 @@ o3d.visualization.draw_geometries([pcd])
 
 <br>
 
-## **PCA를 이용한 객체 Boundgin Box**
+## **3D Bounding Box 생성**
 
 <br>
 
