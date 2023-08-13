@@ -118,6 +118,7 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 - `world space`에서 부터 반사된 수많은 광선은 `center of projection` 또는 `camera center`라고 하는 지점으로 수렴됩니다.
 - 이러한 가정을 이용하면 `world space`에 있는 물체들이 `image plane`에 투영되고 최종적으로 `center of projection (camera center)`로 수렴되는 구조로 이해할 수 있습니다.
 - `image plane`은 XY plane과 평행하고 `center of projection`과 일정 거리 떨어져 있습니다. 이 거리를 `focal length`라고 하며 이후에 다룰 예정입니다.
+- 위 예시에서도 핀홀 카메라 모델로 가정하였기 때문에 빛이 직진으로 들어간 것으로 이해하시면 됩니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/5.png" alt="Drawing" style="width: 600px;"/></center>
@@ -135,7 +136,7 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 - 이 관계는 `world space` → `image plane`으로 변환하는 행렬을 구해야 하며 이 때 필요한 2가지 행렬을 `extrinsic`, `intrinsic` 이라고 합니다.
 - `extrinsic` : `world space`의 좌표계를 `world coordinate system`이라고 하고 앞에서 $$ X, Y, Z $$ 축으로 표현한 좌표계를 `camera coordinate system`이라고 합니다. 이 때, `world coordinate system` → `camera coordinate system`으로 좌표계를 변환할 때 사용하는 행렬을 `extrinsic`이라고 합니다. 이 행렬은 카메라가 실제 장착된 위치 등의 환경과 관련이 있습니다.
 - `intrinsic` : `camera coordinate system`의 점들을 `image plane`의 좌표로 변환하는 행렬을 `intrinsic`이라고 합니다. 이 행렬은 카메라 내부 환경과 관련이 있습니다.
-- `extrinsic`과 `intrinsic`을 확인하는 것을 카메라 캘리브레이션이라고 합니다.
+- 임의의 카메라에서 `extrinsic`과 `intrinsic`은 제공되는 경우도 있지만 대부분 직접 구해야 합니다. 이 값을 알아야 카메라와 3D 공간 상의 관계를 알 수 있기 때문입니다. 따라서 카메라의 `extrinsic`, `intrinsic` 정보를 구하는 것을 `카메라 캘리브레이션`이라고 합니다.
 
 <br>
 
@@ -144,16 +145,21 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 <br>
 
 - 카메라가 설치되는 위치와 방향에 따라 `world coordinate system`에서 `camera coordinate system`으로 변형하기 위하여 `extrinsic`이 필요하다고 앞에서 설명하였습니다.
-- `extrinsic`을 구하기 위해서는 world space 상에서 카메라의 방향과 위치를 알아야 하며 이것을 알기 위해서는 ① `rotation`과 ② `translation`에 대한 변환이 어떻게 되어있는 지 알아야 합니다. world space 상에서의 좌표 기준이 있고 그 좌표계에서 카메라가 얼만큼 회전(rotation)이 되었는 지를 알고 카메라가 얼만큼 이동(translation)하였는 지 알면 카메라 좌표계 상에서의 위치 변화를 알 수 있습니다.
+- 만약 물체 3D 좌표 기준이 `camera coordinate system`이라면 `extrinsic`은 필요하지 않으나 `world coordinate system` 상에서 물체의 3D 좌표가 형성되어 있다면 카메라 좌표계 기준으로 좌표값을 변경해야 합니다.
 
 <br>
 
-- 지금부터 살펴볼 내용은 `rotation`과 `translation` 각각에 대하여 기저 (basis) 변환을 어떻게 하는 지 살펴보려고 합니다. 기저 변환을 확인하기 위하여 먼저 ① 같은 기저 내에서 점 $$ P \to P' $$ 로 `rotation`과 `translation`을 하는 방법에 대하여 알아보고 ② 기저1의 점 $$ P $$ 가 기저2에서는 어떤 좌표값을 가지는 지 살펴도록하곘습니다.
-- 이와 같이 기저 변환을 통하여 좌표가 어떻게 바뀌는 지 알아보는 이유는 world space 상의 `world coordinate system`에서 `camera coordinate system`으로 기저 변환을 하기 위함입니다.
+- `extrinsic`은 `world coordinate system`와 `camera coordinate system` 간의 좌표 관계를 나타내기 때문에 `extrinsic`을 알기 위해서는 `world coordinate system` 대비 카메라의 방향과 위치를 알아야 합니다.
+- 이것을 알기 위해서는 `world coordinate system` 대비 카메라의 ① `rotation`과 ② `translation`에 대한 변환이 어떻게 되어있는 지 알아야 합니다. world space 상에서의 좌표 기준이 있고 그 좌표계에서 카메라가 얼만큼 회전(rotation)이 되었는 지를 알고 카메라가 얼만큼 이동(translation)하였는 지 알면 카메라 좌표계 상에서의 위치 변화를 알 수 있습니다.
 
 <br>
 
-#### **Change of coordinates by rotation**
+- 지금부터 살펴볼 내용은 `rotation`과 `translation` 각각에 대하여 좌표축 변환을 어떻게 하는 지 살펴보려고 합니다. 좌표축 변환을 확인하기 위하여 먼저 ① 같은 좌표축 내에서 점 $$ P \to P' $$ 로 `rotation`과 `translation`을 하는 방법에 대하여 알아보고 ② 좌표축1의 점 $$ P $$ 가 좌표축2에서는 어떤 좌표값을 가지는 지 살펴보도록 하겠습니다.
+- 이와 같이 좌표축 변환을 통하여 좌표가 어떻게 바뀌는 지 알아보는 이유는 world space 상의 `world coordinate system`에서 `camera coordinate system`으로 좌표축 변환을 하기 위함입니다.
+
+<br>
+
+#### **좌표 변환 (Change of coordinates) 을 이용한 회전 (Rotation)**
 
 <br>
 
@@ -256,12 +262,12 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 
 <br>
 
-#### **Change of basis by rotation**
+#### **좌표축 변환 (Change of basis) 을 이용한 회전 (Rotation)**
 
 <br>
 
 - 지금까지 살펴본 내용은 한 점 $$ P $$ 가 각 축의 방향으로 회전하였을 때 새로운 위치를 계산하는 방법에 대하여 알아보았습니다.
-- 앞으로 살펴볼 내용은 `basis`가 회전할 때 각 좌표들이 어떻게 변경되는 지 살펴보도록 하겠습니다. 앞의 좌표 변환과 유사하지만 다소 차이점이 있으니 그 점을 유의해서 살펴보시면 됩니다.
+- 앞으로 살펴볼 내용은 `좌표축`이 회전할 때 각 좌표들이 어떻게 변경되는 지 살펴보도록 하겠습니다. 앞의 좌표 변환과 유사하지만 다소 차이점이 있으니 그 점을 유의해서 살펴보시면 됩니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/7.png" alt="Drawing" style="width: 800px;"/></center>
@@ -331,11 +337,20 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 
 <br>
 
-- 지금까지 특정 점이 회전하는 경우와 기저(basis)가 회전하는 경우에 대하여 살펴보았습니다. 그러면 특정 점이나 기저가 이동 (translation)하는 경우에 대하여 살펴보도록 하겠습니다.
+- 지금까지 특정 점이 회전하는 경우와 좌표축이 회전하는 경우에 대하여 살펴보았습니다.
+- 변환을 바라보는 관점에 따라 좌표 변환이 적합한 지 좌표축 변환이 적합한 지는 차이가 있을 수 있습니다. 물론 역관계를 가지기 때문에 어떤 변환을 적용해도 알맞게 적용하면 사용하는 데 문제는 없습니다.
+- 보통 고정하고자 하는 지점이 어딘 지 따라서 어떤 변환을 적용하는 지 달라집니다.
+- 예를 들어 `camera coordinate system`을 고정으로 두고 싶으면 **좌표 변환**을 하는 것이 일반적입니다. 기준을 `camera coordinate system`으로 정하였으니 `world coordinate system`에 있는 점들을 좌표 변환하여 `camera coordinate system`으로 옮기는 방법을 사용합니다.
+- 반면 `world coordinate system`에 있는 점들을 고정으로 두고 싶으면 **좌표계 변환**을 사용하는 것이 일반적입니다. 왜냐하면 점들은 움직이지 않고 그대로 존재하기 때문에 좌표축을 바꾸어서 고정된 점들의 좌표를 새로운 좌표축 기준으로 생각해야 하기 때문입니다.
+- 따라서 좌표 변환인 지 좌표축 변환인 지는 풀고자 하는 문제에 유리한 방향으로 생각하는 것이 좋습니다.
 
 <br>
 
-#### **Change of coordinates by translation**
+- 이번에는 특정 점이나 좌표축이 이동 (translation)하는 경우에 대하여 살펴보도록 하겠습니다.
+
+<br>
+
+#### **좌표 변환 (Change of coordinates) 을 이용한 이동 (Translation)**
 
 <br>
 
@@ -376,11 +391,11 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 
 <br>
 
-#### **Change of coordinates by translation**
+#### **좌표축 변환 (Change of basis) 을 이용한 이동 (Translation)**
 
 <br>
 
-- 앞에서 다룬 것과 마찬가지로 XY 평면을 X'Y' 평면으로 translation 해보도록 하겠습니다. 두 기전 간의 관계는 점 $$ P $$ 를 고정으로 둔 다음에 좌표가 어떻게 바뀌는 지 확인하여 살펴보겠습니다.
+- 앞에서 다룬 것과 마찬가지로 XY 평면을 X'Y' 평면으로 `translation` 하여 점 $$ P $$ 를 고정으로 둔 다음에 좌표가 어떻게 바뀌는 지 확인하여 살펴보겠습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/9.png" alt="Drawing" style="width: 800px;"/></center>
@@ -453,7 +468,7 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 
 <br>
 
-- 식 (34)와 같이 extrinsic camera matrix $$ E $$ 를 이용하여 `world coordinate system`에서 `camera coordinate system`으로의 기저 변환을 할 수 있습니다.
+- 식 (34)와 같이 extrinsic camera matrix $$ E $$ 를 이용하여 `world coordinate system`에서 `camera coordinate system`으로의 좌표축 변환을 할 수 있습니다.
 
 <br>
 
@@ -474,7 +489,7 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 
 <br>
 
-- 앞에서 살펴본 내용을 파이썬으로 실습해 보도록 하겠습니다. 아래 링크의 예제는 world coordinate system → camera coordinate system으로 기저 변환이 되었을 때, $$ y $$ 축으로 45도 회전과 -8만큼 translation이 발생하였다고 가정하고 변환하였습니다.
+- 앞에서 살펴본 내용을 파이썬으로 실습해 보도록 하겠습니다. 아래 링크의 예제는 world coordinate system → camera coordinate system으로 좌표축 변환이 되었을 때, $$ y $$ 축으로 45도 회전과 -8만큼 translation이 발생하였다고 가정하고 변환하였습니다.
 - 그래프 출력 결과는 colab에서 생성이 안되어 local의 jupyter notebook에서 실행하시길 바랍니다.
 
 <br>
@@ -552,7 +567,7 @@ ax.set_zlabel("Z-axis")
 <center><img src="../assets/img/vision/concept/calibration/14.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 앞에서 설명한 바와 같이 rotation과 translation을 하나의 homogeneous 형태로 만든 `R_T_`의 역행렬이 기저 즉, 좌표계를 변환하는 행렬임을 확인하였습니다. 따라서 위 식의 `E = np.linalg.inv(R_ @ T_)`를 `world coordinate system`좌표계를 `camera coordinate system` 좌표계로 변환하는 extrinsic 행렬 `E`를 구할 수 있습니다.
+- 앞에서 설명한 바와 같이 rotation과 translation을 하나의 homogeneous 형태로 만든 `R_T_`의 역행렬이 좌표축 즉, 좌표계를 변환하는 행렬임을 확인하였습니다. 따라서 위 식의 `E = np.linalg.inv(R_ @ T_)`를 `world coordinate system`좌표계를 `camera coordinate system` 좌표계로 변환하는 extrinsic 행렬 `E`를 구할 수 있습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/15.png" alt="Drawing" style="width: 600px;"/></center>
@@ -624,7 +639,7 @@ ax.set_zlabel("Z-axis")
 <br>
 
 - 식 (38)을 이용하면 `camera coordinate system` → `image coordinate`로 변경할 수 있습니다. 하지만 현실적으로 `image plane`이 XY plane과 평행하지 않을 수 있고, `image plane`이 Z축과 많이 벗어날 수 있고 심지어 `image plane` 자체가 기울어져 있을 수도 있습니다. 카메라 제작 상황에 따라서 이 부분은 바뀔 수 있습니다.
-- 따라서 정확하게 `camera coordinate system` → `image coordinate`로 기저를 변경하기 위한 행렬을 `intrinsic` 이라고 합니다.
+- 따라서 정확하게 `camera coordinate system` → `image coordinate`로 좌표축을 변경하기 위한 행렬을 `intrinsic` 이라고 합니다.
 - `intrinsic`에는 크게 5가지 `DoF`가 있으며 이 값에 따라서 어떻게 `image coordinate`가 형성되는 지 달라집니다. 지금부터는 이 값을 이용하여 어떻게 `intrinsic matrix`를 만드는 지 살펴보도록 하겠습니다. 살펴볼 요소는 크게 4가지로 `Scale, Rectangular Pixels, Offset, Skew` 입니다.
 
 <br>
