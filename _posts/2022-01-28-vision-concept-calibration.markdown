@@ -53,35 +53,69 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 <center><img src="../assets/img/vision/concept/calibration/1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 그림을 살펴보면 object에서 부터 반사되어 나온 광선이 Medium의 같은 위치에서 수집될 수 있습니다. 이런 경우 object로 부터 반사되어 나온 위치의 형상을 정확히 알 수 없습니다. 
+- 위 그림을 살펴보면 object에서 부터 반사되어 나온 광선이 medium의 같은 위치에서 수집될 수 있습니다. 이런 경우 object로 부터 반사되어 나온 위치의 형상을 정확히 알 수 없습니다. 
+
+<br>
+
+#### **Pinhole camera**
+
+<br>
+
+- 반면 다음 그림과 같이 중간에 차단막이 생기고 차단막에 구멍을 만든 구조로 medium에 상을 맺히게 할 수 있습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/2.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 따라서 위 그림과 같이 `pin hole` 구조를 이용하여 object의 어떤 위치가 medium의 픽셀 간 일대일 대응이 될 수 있도록 만듭니다. 이와 같은 방법을 이용하여 medium의 한 픽셀에 object의 여러 부분이 겹치는 문제를 개선할 수 있습니다.
-- 하지만 위 그림에서 한가지 문제점이 있습니다. 광선이 medium에 맺히는 위치가 반전이 되어 있습니다. 예를 들어 나무 윗부분의 물체가 medium의 아랫 부분에 위치해 있는 것을 알 수 있습니다. 이것이 `pin hole` 카메라의 특성이며 이 성질을 이용하여 수학적으로 모델링을 해야 합니다.
+- 위 그림의 차단막에 생긱 구멍을 `pinhole`이라고 하며 `pinhole` 구조를 이용하면 object의 어떤 위치가 medium의 일대일 대응이 될 수 있도록 만들어 줄 수 있습니다. 이와 같은 방법을 이용하여 medium의 한 픽셀에 object의 여러 부분이 겹치는 문제를 개선할 수 있습니다.
+- 이와 같이 `pinhole`을 이용하여 상을 맺히게 하는 방식의 카메라를 `pinhole` 카메라라고 합니다. 다음 영상을 참조하시면 더 쉽게 이해가 되실 것입니다.
 
 <br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/hhWVJ4SmkF0" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
 
-#### **Pinhoe camera**
+- `pinhole` 카메라에 상이 맺히는 것을 보면 다음과 같이 상이 뒤집혀서 맺혀지는 것을 확인할 수 있습니다. (위 영상에도 동일한 현상이 발생합니다.)
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/4.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 앞에서 설명한 핀홀 카메라 모델은 대부분의 컴퓨터 비전 분야에서 기본적으로 사용됩니다. 하지만 핀홀 카메라 모델은 매우 이상적인 카메라 모델이며 실제로는 렌즈의 특성이 반영되어야 하므로 영상 왜곡 등도 같이 고려되어야 합니다.
+- 빛이 투영되는 원리를 이용하므로 이와 같은 현상이 발생하나 실제 이미지를 형성할 때에는 상하 반전되어 우리가 실제 보는 듯한 이미지로 만들어 주게 됩니다.
 
 <br>
 
-- 그러면 핀홀 카메라의 원리를 이용하여 수학적으로 모델링 하기 위하여 아래 2가지 가정을 전제로 두겠습니다.
-- ① 앞의 그림에서 광선을 캡쳐하는 medium 또는 필름 구조를 `image plane` 이라고 하며 촬영자 - `image plane` - 핀홀- 물체 순서로 위치해 있습니다. 편의상 핀홀 앞쪽이라고 말하겠습니다. 하지만 실제로는 `image plane`은 핀홀 뒤쪽에 위치해 있습니다. 이와 같은 구조로 설계하는 것이 물체로부터 반사된 광선을 image plane에 projection하기 쉽기 때문이며 앞서 언급한 반전된 이미지 문제도 해소할 수 있기 때문입니다. 자세한 구조는 생략하며 여기서 짚고 넘어갈 점은 촬영자 - 핀홀 - `image plane` - `world space` 순서로 위치한 점입니다.
-- ② world space에서 부터 반사된 수많은 광선은 핀홀로 수렴된다고 가정합니다. 이 지점을 `center of projection` 또는 `camera center`라고 합니다.
+- 핀홀 카메라 모델은 대부분의 컴퓨터 비전 분야에서 기본적으로 사용됩니다. 왜냐하면 빛이 직진하여 들어온다는 조건이 물체의 위치와 관련된 다양한 알고리즘을 적용할 때 단순한 조건을 만족시키기 때문입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/31.png" alt="Drawing" style="width: 500px;"/></center>
+<br>
+
+- 위 그림과 같이 빛이 들어오는 입사각 $$ \theta $$ 가 결정되면 빛이 이미지에 투영되는 위치 또한 $$ r = f \cdot \tan{(\theta)} $$ 로 결정이 됩니다. 
+- 여기서 $$ f $$ 는 `focal length`이고 $$ r $$ 은 `principal point`에서 부터 빛이 투영된 위치까지의 거리입니다. 이 내용은 뒷부분에서 살펴볼 예정입니다. 중요한 점은 $$ f $$ 는 상수이고 변수는 $$ \theta $$ 이므로 단순히 $$ theta $$ 만 결정되면 이미지에서의 위치가 정해지게 됩니다.
+
+<br>
+
+- 핀홀 카메라 모델은 이와 같은 간단한 원리로 구성이 되지만 빛의 양을 많이 모을 수 없어서 2가지 단점이 생기게 됩니다. ① 상이 흐리게 보이고 ② 넓은 영역을 (넓은 화각) 보기 어렵습니다.
+- 따라서 넓은 영역의 빛을 많이 모으기 위하여 `카메라 렌즈`를 사용하는 것이 일반적입니다. 이와 같은 경우에는 빛이 직진해서 투영되지 않고 굴절되기 때문에 앞선 예시만큼 단순하지 않습니다. 관련 내용은 아래 링크에서 확인할 수 있습니다.
+    - [카메라 모델과 렌즈 왜곡 (lens distortion)](https://gaussian37.github.io/vision-concept-lens_distortion/)
+
+<br>
+
+- 따라서 일반적으로 카메라 렌즈를 이용하여 넓은 화각의 선명한 영상을 확보하고 렌즈에 의해 발생한 왜곡을 보정하는 방법을 사용하여 핀홀 모델과 같이 만들어 줍니다. 이러한 방법을 왜곡 보정이라고 합니다. (이 부분은 본 글에서 다루고자 하는 범위를 넘기 때문에 다루지 않겠습니다.)
+
+<br>
+
+- 본 글의 내용을 다루기 이전에 몇 가지의 용어 정리를 하도록 하겠습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/3.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 위 그림의 `world space`는 실제 3D 공간을 의미하며 노란색 점들은 `world space`에 존재하는 물체를 의미합니다.
+- 노란색 점으로부터 `center of projection` 까지 이어진 선을 앞에서 다룬 `ray` 라고 합니다.
+- `world space`에서 부터 반사된 수많은 광선은 `center of projection` 또는 `camera center`라고 하는 지점으로 수렴됩니다.
 - 이러한 가정을 이용하면 `world space`에 있는 물체들이 `image plane`에 투영되고 최종적으로 `center of projection (camera center)`로 수렴되는 구조로 이해할 수 있습니다.
 - `image plane`은 XY plane과 평행하고 `center of projection`과 일정 거리 떨어져 있습니다. 이 거리를 `focal length`라고 하며 이후에 다룰 예정입니다.
 
