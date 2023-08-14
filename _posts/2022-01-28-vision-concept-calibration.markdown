@@ -36,7 +36,9 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 
 - ### [이미지 형성과 핀홀 모델 카메라](#이미지-형성과-핀홀-모델-카메라-1)
 - ### [Camera Extrinsic Matrix with Example in Python](#camera-extrinsic-matrix-with-example-in-python-1)
+- ### [Camera Extrinsic 변환 애니메이션](#camera-extrinsic-변환-애니메이션-1)
 - ### [Camera Intrinsic Matrix with Example in Python](#camera-intrinsic-matrix-with-example-in-python-1)
+- ### [Camera Intrinsic 변환 애니메이션](#camera-intrinsic-변환-애니메이션-1)
 - ### [Zhang's Method (A Flexible New Technique for Camera Calibration)](#zhangs-method-a-flexible-new-technique-for-camera-calibration-1)
 - ### [추가 내용 : 이미지 crop과 resize에 따른 intrinsic 수정 방법](#추가-내용--이미지-crop과-resize에-따른-intrinsic-수정-방법-1)
 
@@ -480,6 +482,35 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 
 <br>
 
+- 지금 까지 살펴본 `좌표 변환`과 `좌표계 변환`의 관계를 아래 notation으로 다시 한번 살펴보며 정리하겠습니다.
+- 아래 식의 기호의 의미는 다음과 같습니다.
+
+<br>
+
+- $$ R : \text{Rotation of Coordinate} $$
+
+- $$ t : \text{Translation of Coordinate} $$
+
+- $$ R_{c} : \text{Rotation of Coordinate System (Based on camera coordinate system)} $$
+
+- $$ C : \text{Translation of Coordinate System (Based on camera coordinate system)} $$
+
+<br>
+
+- 위 표기에서 $$ R_{c} $$ 는 `camera coordinate system`을 기준으로 바라본 `world coordinate system`과의 `rotation` 차이를 나타낸 좌표계 변환입니다. $$ C $$ 또한 `camera coordinate system`을 기준으로 바라본 `world coordinate system`과의 `translation` 차이를 나타낸 좌표계 변환입니다. 따라서 $$ R_{c}, C $$ 는 좌표계 변환을 나타내며 앞에서 다룬 것과 같이 좌표 변환과 역관계를 나타냅니다.
+
+<br>
+
+- $$ \begin{align} \left[ \begin{array}{c|c} R & \boldsymbol{t} \\ \hline \boldsymbol{0} & 1 \\ \end{array} \right] \tag{35} &= \left[\begin{array}{c|c} R_c & C \\ \hline \boldsymbol{0} & 1 \\ \end{array} \right]^{-1} \\ &= \left[ \left[ \begin{array}{c|c} I & C \\ \hline \boldsymbol{0} & 1 \\ \end{array} \right] \left[ \begin{array}{c|c} R_c & 0 \\ \hline \boldsymbol{0} & 1 \\ \end{array} \right] \right]^{-1} & \text{(decomposing rigid transform)} \tag{36} \\ &= \left[ \begin{array}{c|c} R_c & 0 \\ \hline \boldsymbol{0} & 1 \\ \end{array} \right]^{-1} \left[ \begin{array}{c|c} I & C \\ \hline \boldsymbol {0} & 1 \\ \end{array} \right]^{-1} & \text{(distributing the inverse)} \tag{37} \\ &= \left[ \begin{array}{c|c}R_c^T & 0 \\ \hline \boldsymbol{0} & 1 \\ \end{array} \right] \left[ \begin{array}{c|c} I & -C \\ \hline \boldsymbol{0} & 1 \\ \end{array} \right] & \text{(applying the inverse)} \tag{38} \\ &= \left[ \begin{array}{c|c} R_c^T & -R_c^TC \\ \hline \boldsymbol{0} & 1 \\ \end{array} \right] & \text{(matrix multiplication)} \tag{39} \end{align} $$
+
+<br>
+
+- $$ R = R_{c}^{T} \tag{40} $$
+
+- $$ t = -R_{c}^{T} C \tag{41} $$
+
+<br>
+
 #### **Degrees of Freedom**
 
 <br>
@@ -489,7 +520,7 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 
 <br>
 
-- 앞에서 살펴본 내용을 파이썬으로 실습해 보도록 하겠습니다. 아래 링크의 예제는 world coordinate system → camera coordinate system으로 좌표축 변환이 되었을 때, $$ y $$ 축으로 45도 회전과 -8만큼 translation이 발생하였다고 가정하고 변환하였습니다.
+- 앞에서 살펴본 내용을 파이썬으로 실습해 보도록 하겠습니다. 아래 링크의 예제는 `world coordinate system` → `camera coordinate system`으로 좌표축 변환이 되었을 때, $$ y $$ 축으로 45도 회전과 -8만큼 translation이 발생하였다고 가정하고 변환하였습니다.
 - 그래프 출력 결과는 colab에서 생성이 안되어 local의 jupyter notebook에서 실행하시길 바랍니다.
 
 <br>
@@ -590,6 +621,17 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
+## **Camera Extrinsic 변환 애니메이션**
+
+<br>
+
+
+
+
+
+
+<br>
+
 ## **Camera Intrinsic Matrix with Example in Python**
 
 <br>
@@ -617,28 +659,28 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- $$ \frac{x'}{x} = \frac{y'}{y} = \frac{f}{z} \tag{35} $$
+- $$ \frac{x'}{x} = \frac{y'}{y} = \frac{f}{z} \tag{42} $$
 
-- $$ x' = x \frac{f}{z} \tag{36} $$
+- $$ x' = x \frac{f}{z} \tag{43} $$
 
-- $$ y' = y \frac{f}{z} \tag{37} $$
-
-<br>
-
-- 식 (36), 식 (37)을 이용하여 $$ x', y' $$ 은 알 수 있으며 $$ z' = f $$ 로 고정됩니다. 
-- 만약 $$ P $$ 가 카메라로 부터 점점 더 멀어진다면 image plane에 projection 된 물체의 좌표값인 $$ P' $$ 는 점점 작아질 것입니다. 왜냐하면 물체가 카메라로부터 멀어지면 $$ f $$ 는 고정이나 $$ z $$ 값이 커져서 $$ x', y' $$ 는 작아지기 때문입니다. 따라서 멀리 있는 물체가 이미지의 상단에 위치하게 되는 것입니다.
+- $$ y' = y \frac{f}{z} \tag{44} $$
 
 <br>
 
-- projection 된 이미지 상의 좌표를 구하고 싶다면 식 (36), (37)을 이용하여 $$ x', y' $$ 좌표를 구하고 $$ z' $$ 좌표는 버리면 됩니다. 예를 들어 $$ P' = (xf/z, yf/z, f) $$ 에서 마지막 $$ z' = f $$ 제외하면 됩니다. 이렇게 구한 좌표를 `image coordinate` 라고 하며 $$ (u, v) $$ 로 표현합니다.
+- 식 (43), 식 (44)를 이용하여 $$ x', y' $$ 은 알 수 있으며 $$ z' = f $$ 로 고정됩니다. 
+- 만약 $$ P $$ 가 카메라로 부터 점점 더 멀어진다면 `image plane`에 `projection`된 물체의 좌표값인 $$ P' $$ 는 점점 작아질 것입니다. 왜냐하면 물체가 카메라로부터 멀어지면 $$ f $$ 는 고정이나 $$ z $$ 값이 커져서 $$ x', y' $$ 는 작아지기 때문입니다.
 
 <br>
 
-- $$ (u, v) = (\frac{xf}{z}, \frac{yf}{z}) \tag{38} $$
+- `projection` 된 이미지 상의 좌표를 구하고 싶다면 식 (43), (44)를 이용하여 $$ x', y' $$ 좌표를 구하고 $$ z' $$ 좌표는 버리면 됩니다. 예를 들어 $$ P' = (xf/z, yf/z, f) $$ 에서 마지막 $$ z' = f $$ 제외하면 됩니다. 이렇게 구한 좌표를 `image coordinate` 라고 하며 $$ (u, v) $$ 로 표현합니다.
 
 <br>
 
-- 식 (38)을 이용하면 `camera coordinate system` → `image coordinate`로 변경할 수 있습니다. 하지만 현실적으로 `image plane`이 XY plane과 평행하지 않을 수 있고, `image plane`이 Z축과 많이 벗어날 수 있고 심지어 `image plane` 자체가 기울어져 있을 수도 있습니다. 카메라 제작 상황에 따라서 이 부분은 바뀔 수 있습니다.
+- $$ (u, v) = (\frac{xf}{z}, \frac{yf}{z}) \tag{45} $$
+
+<br>
+
+- 식 (45)를 이용하면 `camera coordinate system` → `image coordinate`로 변경할 수 있습니다. 하지만 현실적으로 `image plane`이 XY plane과 평행하지 않을 수 있고, `image plane`이 Z축과 많이 벗어날 수 있고 심지어 `image plane` 자체가 기울어져 있을 수도 있습니다. 카메라 제작 상황에 따라서 이 부분은 바뀔 수 있습니다.
 - 따라서 정확하게 `camera coordinate system` → `image coordinate`로 좌표축을 변경하기 위한 행렬을 `intrinsic` 이라고 합니다.
 - `intrinsic`에는 크게 5가지 `DoF`가 있으며 이 값에 따라서 어떻게 `image coordinate`가 형성되는 지 달라집니다. 지금부터는 이 값을 이용하여 어떻게 `intrinsic matrix`를 만드는 지 살펴보도록 하겠습니다. 살펴볼 요소는 크게 4가지로 `Scale, Rectangular Pixels, Offset, Skew` 입니다.
 
@@ -652,43 +694,44 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- $$ (u, v) = (\alpha \frac{x}{z}, \alpha \frac{y}{z}) \tag{39} $$
+- $$ (u, v) = (\alpha \frac{x}{z}, \alpha \frac{y}{z}) \tag{46} $$
 
 <br>
 
-- 위 예시에서 $$ u, v $$ 를 구하기 위하여 동일한 $$ \alpha $$를 썻다는 것 또한 이상적인 환경입니다. 만약 image plane의 픽셀의 크기가 정사각형이 아니라 직사각형 형태이면 어떻게 될까요?
-- 이상적인 환경에서 픽셀의 크기는 정사각형이지만 실제로는 height와 width의 크기가 다른 직사각형 형태인 경우가 많습니다. 따라서 앞의 $$ u, v $$ 좌표를 다음과 같이 표현하도록 하겠습니다.
+- 위 예시에서 $$ u, v $$ 를 구하기 위하여 동일한 $$ \alpha $$ 를 썻다는 것 또한 이상적인 환경입니다. 만약 `image plane`의 픽셀의 크기가 정사각형이 아니라 직사각형 형태이면 어떻게 될까요?
+- 이상적인 환경에서 픽셀의 크기는 정사각형이지만 실제로는 `height`와 `width`의 크기가 다른 직사각형 형태인 경우가 많습니다. 따라서 앞의 $$ u, v $$ 좌표를 다음과 같이 표현하도록 하겠습니다.
 
 <br>
 
-- $$ (u, v) = (\alpha \frac{x}{z}, \beta \frac{y}{z}) \tag{40} $$
+- $$ (u, v) = (\alpha \frac{x}{z}, \beta \frac{y}{z}) \tag{47} $$
 
 <br>
 
-- 식 (40)에서 $$ \alpha $$는 width 방향으로의 scaling factor이고 $$ \beta $$ 는 height 방향으로의 scaling factor입니다.
+- 식 (47)에서 $$ \alpha $$는 width 방향으로의 scaling factor이고 $$ \beta $$ 는 height 방향으로의 scaling factor입니다.
 
 <br>
 
-- 식 (40) 에서 표현한 $$ (\alpha \frac{x}{z}, \beta \frac{y}{z}) $$ 에서는 근본적인 원리를 설명하기 위하여 모두 분해하여 나타내었습니다.
+- 식 (47) 에서 표현한 $$ (\alpha \frac{x}{z}, \beta \frac{y}{z}) $$ 에서는 근본적인 원리를 설명하기 위하여 모두 분해하여 나타내었습니다.
 - 하지만 앞에서 언급하였듯이, 실제로 카메라에 기입된 스펙에는 `focal length` 1개가 `mm` 단위로 나타내어져 있습니다. 이상적인 환경에서는 실제 픽셀에 해당하는 이미지 센서의 각 셀의 크기가 정사각형이어야 하지만 현실적으로 직사각형일 수 있으므로 $$ f_{x}, f_{y} $$ 표기법으로 나타내면 다음과 같습니다.
 
-<br>
+- $$ \alpha = f_{x} \propto \frac{\text{(focal length)} \text{(number of horizontal cells)} }{\text{(cell width size)}} \propto \text{(focal length)} \cdot  \text{(number of horizontal cells)} $$ 
 
-- $$ \text{f}_{\text{x}} = \text{f}*(\text{width_in_pixels}/\text{sensor_width}) $$
-
-- $$ \text{f}_{\text{y}} = \text{f}*(\text{height_in_pixels}/\text{sensor_height}) $$
+- $$ \beta = f_{y} \propto \frac{\text{(focal length)} \text{(number of vertical cells)} }{\text{(cell height size)}} \propto \text{(focal length)} \cdot  \text{(number of vertical cells)} $$
 
 <br>
 
-- 최근에는 기술이 발전하여 이미지 센서 셀이 정사각형에 가까우므로 아래와 같이 사용합니다.
+- 위 식에서 `cell width/height size`가 소거된 이유는 기술의 발전으로 이미지 센서 셀이 정사각형 크기에 가까워졌기 때문입니다. 따라서 각 항을 소거하였습니다.
+- 카메라 `intrinsic`에서 사용하는 $$ f_{x}, f_{y} $$ 는 실제 하드웨어적으로 고정되는 `focal length`에 비례하고 각 방향의 이미지 해상도 크기와 비례합니다. 따라서 이미지 해상도를 크게 표현할수록 $$ f_{x}, f_{y} $$ 는 커집니다.
+- 따라서 (`cell width/height size` 사이즈가 같고) `focal length`의 크기가 같은 두개의 이미지의 $$ f_{x}, f_{y} $$ 의 크기 차이가 난다면 $$ f_{x}, f_{y} $$ 크기가 더 큰 이미지의 해상도가 더 크다는 의미를 가지며 3D 공간의 정보를 좀 더 세세하게 표현하고 접근할 수 있다는 것을 의미합니다.
+- 반면 이미지의 해상도가 같은 두개의 이미지의 $$ f_{x}, f_{y} $$ 의 크기 차이가 난다면 `focal length`가 다르다고 해석할 수 있으며 `focal length`가 큰 이미지는 화각은 좁지만 멀리까지 선명하게 볼 수 있고 `focal length`가 작은 이미지는 넓은 영역을 볼 수 있지만 가까운 영역만 선명하게 볼 수 있다는 차이가 있습니다.
 
 <br>
-
-- $$ \text{f}_{\text{x}} \approx \text{f}_{\text{y}} = \text{f} * (\text{num_pixels_per_unit_distance}) $$
-
+<center><img src="../assets/img/vision/concept/calibration/32.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 따라서 `focal length`에 비례하여 이미지의 $$ f_{x}, f_{y} $$ 가 모두 비례하여 커지기 때문에 이미지에서 확인할 수 있는 3D 공간의 깊이가 깊어지게 되며 `width` 방향의 이미지 픽셀의 갯수가 많으면 횡방향으로 3D 공간의 정보를 더 자세하게 접근할 수 있고 `height` 방향의 이미지 픽셀의 갯수가 많으면 종방향으로 3D 공간의 정보를 더 자세하게 접글할 수 있습니다.
+- 위 그림을 살펴보면 같은 크기의 `image plane`을 사용한 것을 통해 이미지의 해상도는 같다는 설정을 확인할 수 있고 `focal length` $$ f $$ 의 길이를 2배 차이나도록 하였습니다.
+- 왼쪽 이미지는 `focal length` $$ f $$ 를 가지게 되고 고정된 이미지 해상도에 파란색 영역을 모두 투영시킬 수 있습니다. 반면 오른쪽 이미지는 `focal length` $$ 2f $$ 를 가지게 되고 파란색 영역보다 좁은 초록색 영역만 투영시킬 수 있습니다. 따라서 즉 $$ \theta_{f} \gt \theta_{2f} $$ 가 됩니다.
+- 반면 `image plane`의 크기가 같기 때문에 픽셀 별 대응해야 할 3D 공간의 크기는 동일해야 하므로 파란색 영역과 초록색 영역의 밀도는 같아져야 합니다. 따라서 초록색 영역은 화각 ( $$ \theta_{2f} $$ )이 좁기 때문에 더 먼 영역까지 픽셀 정보가 빽빽하게 존재할 수 있습니다. 이러한 이유로 $$ f $$ 가 클수록 화각은 좁지만 멀리까지 선명하게 볼 수 있습니다.
 
 <br>
 
@@ -704,11 +747,15 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- $$ (u, v) = (\alpha \frac{x}{z} + x_{0}, \beta *\frac{y}{z} + y_{0}) \tag{41} $$
+- $$ (u, v) = (\alpha \frac{x}{z} + x_{0}, \beta \frac{y}{z} + y_{0}) \tag{48} $$
 
 <br>
 
-- 따라서 식 (41)과 같이 $$ x_{0} , y_{0} $$ 를 통하여 $$ (u, v) $$ 를 보정하여 구합니다.
+- 따라서 식 (48)과 같이 $$ x_{0} , y_{0} $$ 를 통하여 $$ (u, v) $$ 를 보정하여 구합니다.
+
+<br>
+
+- 
 
 <br>
 
@@ -722,7 +769,7 @@ ax.set_zlabel("Z-axis")
 <center><img src="../assets/img/vision/concept/calibration/20.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 왼쪽 그림은 이상적인 image plane이고 X, Y 축은 직각 관계를 가집니다. 반면 오른쪽 그림은 기울어직 image plane입니다. 지금부터 왼쪽 image plane과 오른쪽 image plane 간의 관계를 파악하고 image plane을 변환하는 방법에 대하여 살펴보도록 하겠습니다.
+- 왼쪽 그림은 이상적인 `image plane`이고 X, Y 축은 직각 관계를 가집니다. 반면 오른쪽 그림은 기울어직 `image plane`입니다. 지금부터 왼쪽 `image plane`과 오른쪽 `image plane` 간의 관계를 파악하고 `image plane`을 변환하는 방법에 대하여 살펴보도록 하겠습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/21.png" alt="Drawing" style="width: 600px;"/></center>
@@ -732,37 +779,37 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- $$ \cos{(90 - \theta)} = \frac{y}{y'} \tag{42} $$
+- $$ \cos{(90 - \theta)} = \frac{y}{y'} \tag{49} $$
 
-- $$ \sin{(\theta)} = \frac{y}{y'} \tag{43} $$
+- $$ \sin{(\theta)} = \frac{y}{y'} \tag{50} $$
 
-- $$ y = y'\sin{(\theta)} \tag{44} $$
+- $$ y = y'\sin{(\theta)} \tag{51} $$
 
-- $$ \therefore y' = \frac{y}{\sin{(\theta)}} \tag{45} $$
-
-<br>
-
-- $$ \sin{(90 - \theta)} = \frac{(x - x')}{y'} \tag{44} $$
-
-- $$ y'\cos{(\theta)} = x - x' \tag{45} $$
-
-- $$ x' = x - y'\cos{\theta} \tag{46} $$
-
-- $$ y' = \frac{y}{\sin{(\theta)}} \tag{47} $$
-
-- $$ x' = x - \frac{y\cos{(\theta)}}{\sin{(\theta)}} \tag{48} $$
-
-- $$ \therefore x' = x - y\cot{(\theta)} \tag{49} $$
+- $$ \therefore y' = \frac{y}{\sin{(\theta)}} \tag{52} $$
 
 <br>
 
--  식(49)를 통하여 $$ x' $$의 관계식을 찾았고 식 (45)를 통하여 $$ y' $$의 관계식을 찾았습니다. 식 (45)와 식 (49)를 식 (41)에 대입하여 기울어진 평면 위의 좌표인 $$ (u, v) $$ 를 정의해 보겠습니다.
+- $$ \sin{(90 - \theta)} = \frac{(x - x')}{y'} \tag{53} $$
+
+- $$ y'\cos{(\theta)} = x - x' \tag{54} $$
+
+- $$ x' = x - y'\cos{\theta} \tag{55} $$
+
+- $$ y' = \frac{y}{\sin{(\theta)}} \tag{56} $$
+
+- $$ x' = x - \frac{y\cos{(\theta)}}{\sin{(\theta)}} \tag{57} $$
+
+- $$ \therefore x' = x - y\cot{(\theta)} \tag{58} $$
 
 <br>
 
-- $$ u = \alpha \frac{x'}{z} + x_{0} = \alpha \frac{x - y\cot{(\theta)}}{z} + x_{0} \tag{50} $$
+-  식(58)을 통하여 $$ x' $$ 의 관계식을 찾았고 식 (52)를 통하여 $$ y' $$ 의 관계식을 찾았습니다. 식 (58)과 식 (52)를 식 (48)에 대입하여 기울어진 평면 위의 좌표인 $$ (u, v) $$ 를 정의해 보겠습니다.
 
-- $$ v = \beta \frac{y'}{z} + y_{0} = \beta \frac{\frac{y}{\sin{(\theta)}}}{z} + y_{0} = \beta \frac{y}{z\sin{(\theta)}} + y_{0} \tag{51} $$
+<br>
+
+- $$ u = \alpha \frac{x'}{z} + x_{0} = \alpha \frac{x - y\cot{(\theta)}}{z} + x_{0} \tag{59} $$
+
+- $$ v = \beta \frac{y'}{z} + y_{0} = \beta \frac{\frac{y}{\sin{(\theta)}}}{z} + y_{0} = \beta \frac{y}{z\sin{(\theta)}} + y_{0} \tag{60} $$
 
 <br>
 
@@ -770,36 +817,36 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- 식 (50), (51)을 이용하여 image plane의 `scale`, `offset`, `skew`를 고려한 $$ u, v $$ 좌표를 구하는 방법에 대하여 알아보았습니다. 다시 좌표 형태로 표현하면 다음과 같습니다.
+- 식 (59), (60)을 이용하여 image plane의 `scale`, `offset`, `skew`를 고려한 $$ u, v $$ 좌표를 구하는 방법에 대하여 알아보았습니다. 다시 좌표 형태로 표현하면 다음과 같습니다.
 
 <br>
 
-- $$ (u, v) = (\frac{\alpha x}{z}x - \frac{\alpha\cot{(\theta)}} {z}y + x_{0}, \frac{\beta}{z\sin{(\theta)}}y + y_{0}) \tag{52} $$
+- $$ (u, v) = (\frac{\alpha x}{z}x - \frac{\alpha\cot{(\theta)}} {z}y + x_{0}, \frac{\beta}{z\sin{(\theta)}}y + y_{0}) \tag{61} $$
 
 <br>
 
 - 앞에서 `extrinsic`을 구할 때, `homogeneous coordinates` 형태의 행렬 곱으로 나타낸 것과 같이 `intrinsic`을 구할 때에도 이와 같은 형태를 사용해 보도록 하겠습니다.
-- 앞으로의 식 전개를 위해 식 (52)의 양변에 $$ z $$ 를 곱하면 다음과 같습니다. 아래 $$ x', y' $$ 는 앞에서 사용된 $$ x', y' $$ 와 무관하며 좌변과 우변의 관계를 나타내기 위하여 사용하였습니다.
+- 앞으로의 식 전개를 위해 식 (61)의 양변에 $$ z $$ 를 곱하면 다음과 같습니다. 아래 $$ x', y' $$ 는 앞에서 사용된 $$ x', y' $$ 와 무관하며 좌변과 우변의 관계를 나타내기 위하여 사용하였습니다.
 
 <br>
 
-- $$ (x', y') = (zu, zv) = (\alpha x - \alpha\cot{(\theta)}y + x_{0}, \frac{\beta}{\sin{(\theta)}}y + y_{0}) \tag{53} $$
+- $$ (x', y') = (zu, zv) = (\alpha x - \alpha\cot{(\theta)}y + x_{0}, \frac{\beta}{\sin{(\theta)}}y + y_{0}) \tag{62} $$
 
 <br>
 
-- 아래와 같은 행렬 연산식인 식(54)를 정의해 보겠습니다. 식(54)에 추가 연산을 통하여 최종 좌표를 구할 수 있습니다.
+- 아래와 같은 행렬 연산식인 식(63)을 정의해 보겠습니다. 식 (63)에 추가 연산을 통하여 최종 좌표를 구할 수 있습니다.
 
 <br>
 
-- $$ \begin{bmatrix} x' \\ y' \\ z' \end{bmatrix} = \begin{bmatrix} \alpha & -\alpha\cot{(\theta)} & x_{0} \\ 0 & \beta\sin^{-1}{(\theta)} & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} \tag{54} $$
+- $$ \begin{bmatrix} x' \\ y' \\ z' \end{bmatrix} = \begin{bmatrix} \alpha & -\alpha\cot{(\theta)} & x_{0} \\ 0 & \beta\sin^{-1}{(\theta)} & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} \tag{63} $$
 
 <br>
 
-- 식 (54)의 우변의 3 x 3 행렬을 `camera intrinsic matrix` 라고하며 $$ \kappa $$ 라고 나타냅니다. 따라서 $$ P_{c} $$ 인 `camera coordinate system`에서의 좌표가 $$ \kappa $$ 인 `camera intrinsic matrix`와 곱해지면 이미지 상의 좌표인 $$ P' $$ 로 구해집니다.
+- 식 (63)의 우변의 3 x 3 행렬을 `camera intrinsic matrix` 라고하며 $$ \kappa $$ 라고 나타냅니다. 따라서 $$ P_{c} $$ 인 `camera coordinate system`에서의 좌표가 $$ \kappa $$ 인 `camera intrinsic matrix`와 곱해지면 이미지 상의 좌표인 $$ P' $$ 로 구해집니다.
 
 <br>
 
-- $$ P' = \kappa P_{c} \tag{55} $$
+- $$ P' = \kappa P_{c} \tag{64} $$
 
 - $$ P' : \text{Homogeneous coordinates of the point in the image} $$
 
@@ -809,22 +856,29 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- homogeneous coordinates인 $$ P_{c} $$ 로부터 최종 구하고자 하는 좌표 $$ u, v $$를 구하면 다음 식과 같습니다.
+- `homogeneous coordinates`인 $$ P_{c} $$ 로부터 최종 구하고자 하는 좌표 $$ u, v $$를 구하면 다음 식과 같습니다.
 
 <br>
 
-- $$ \begin{bmatrix} x' \\ y' \\ z' \end{bmatrix} = \begin{bmatrix} x'/z' \\ y'/z' \\ 1 \end{bmatrix} \cong \begin{bmatrix} x'/z' \\ y'/z' \end{bmatrix} = \begin{bmatrix} u \\ v \end{bmatrix} \tag{56} $$
+- $$ \begin{bmatrix} x' \\ y' \\ z' \end{bmatrix} = \begin{bmatrix} x'/z' \\ y'/z' \\ 1 \end{bmatrix} \cong \begin{bmatrix} x'/z' \\ y'/z' \end{bmatrix} = \begin{bmatrix} u \\ v \end{bmatrix} \tag{65} $$
 
 <br>
 
-- 최종적으로 식 (56) 과정을 거치면 image plane 상의 pixel 위치인 $$ u, v $$ 를 구할 수 있습니다.
+- 최종적으로 식 (65) 과정을 거치면 image plane 상의 pixel 위치인 $$ u, v $$ 를 구할 수 있습니다.
 - 지금까지 알아본 내용을 통하여 `camera coordinate system`에서 `intrinsic`을 곱하여 `image plane`으로 좌표를 변환할 수 있었습니다.
 - 추가적으로 `intrinsic`을 나타내는 가장 많이 사용하는 기호와 기술의 발전으로 생략을 많이하는 부분을 언급하면서 `intrinsic`의 개념은 마무리하도록 하겠습니다.
 
 <br>
 
-- 먼저 식 (54) 에서 사용한 $$ \alpha $$ 와 $$ \beta $$ 는 $$ f_{x}, f_{y} $$ 라는 용어로 많이 사용됩니다. $$ \alpha, \beta $$ 는 image plane 에서의 각 pixel의 가로와 세로의 scale을 나타냅니다. 이 scale의 단위를 `focal length`와 연관지어 나타낸 것이 $$ f_{x}, f_{y} $$ 입니다.
-- 앞에서 focal length는 mm 와 같은 길이를 나타내는 수치를 사용한다고 하였습니다. 하지만 실제로는 픽셀 단위로 표현을 많이 합니다.
+- 먼저 식 (63) 에서 사용한 $$ \alpha $$ 와 $$ \beta $$ 는 $$ f_{x}, f_{y} $$ 라는 용어로 많이 사용됩니다. $$ \alpha, \beta $$ 는 `image plane` 에서의 가로 방향과 세로 방향의 `scale`을 나타냅니다. 이 `scale`의 단위를 `focal length`와 연관지어 나타낸 것이 $$ f_{x}, f_{y} $$ 입니다.
+- 앞에서 `focal length`는 `mm` 와 같은 길이를 나타내는 수치를 사용한다고 하였습니다. 하지만 `intrinsic`으로 나타낼 때에는 `픽셀 단위`로 표현합니다. 따라서 `intrinsic`에서 사용되는 $$ f_{x}, f_{y} $$ 는 이미지의 $$ x $$ 방향의 길이와 $$ y $$ 방향의 길이 그리고 `focal length`를 이용하여 표현되어 다음과 같은 관계식을 가지게 됩니다.
+
+<br>
+
+
+
+
+
 - 이미지의 픽셀은 이미지 센서 셀에 대응됩니다. 따라서 focal length와 이미지 센서 셀 크기의 상대적인 크기값을 scale로 나타낼 수 있습니다. 따라서 $$ f_{x} $$ 는 (focal length / 셀 가로 길이)로 나타낼 수 있고 $$ f_{y} $$ 는 (focal length / 셀 세로 길이)로 나타낼 수 있습니다. 이와 같이 픽셀 단위로 길이를 나타내면 이미지에서의 길이 단위가 통일 되기 때문에 사용이 편해집니다.
 
 <br>
@@ -836,7 +890,16 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- $$ \begin{bmatrix} \alpha & -\alpha\cot{(\theta)} & x_{0} \\ 0 & \beta\sin^{-1}{(\theta)} & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \Longrightarrow  \begin{bmatrix} f & 0 & x_{0} \\ 0 & f & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \tag{57} $$
+- $$ \begin{bmatrix} \alpha & -\alpha\cot{(\theta)} & x_{0} \\ 0 & \beta\sin^{-1}{(\theta)} & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \Longrightarrow  \begin{bmatrix} f & 0 & x_{0} \\ 0 & f & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \tag{66} $$
+
+<br>
+
+## **Camera Intrinsic 변환 애니메이션**
+
+<br>
+
+
+
 
 <br>
 
