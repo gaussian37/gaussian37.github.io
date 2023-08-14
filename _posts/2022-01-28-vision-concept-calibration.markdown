@@ -923,6 +923,17 @@ $$ y_{0} = \frac{\text{height}}{2} $$
 
 <br>
 
+- 저는 개인적으로 카메라 `intrinsic`을 망원경에 종종 비유합니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/34.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 3D 공간 상에 물체 및 배경은 존재하고 내가 어떻게 바라보는 지 따라서 보이는 형태가 다르기 때문입니다.
+- 내가 보고싶은 영역을 돋보기를 평행이동하면서 보는 것을 $$ x_{0}, y_{0} $$ 로 표현하고 돋보기의 배율을 $$ \alpha, \beta $$ 로 표현할 수 있기 때문입니다. 돋보기의 배율이 높아지면 멀리까지 볼 수 있지만 볼 수 있는 영역이 좁아지는 것도 앞에서 살펴본  $$ \alpha, \beta $$ 의 의미와 일맥상통합니다.
+
+<br>
+
 ## **Camera Intrinsic 변환 애니메이션**
 
 <br>
