@@ -39,6 +39,7 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 - ### [Camera Extrinsic 변환 애니메이션](#camera-extrinsic-변환-애니메이션-1)
 - ### [Camera Intrinsic Matrix with Example in Python](#camera-intrinsic-matrix-with-example-in-python-1)
 - ### [Camera Intrinsic 변환 애니메이션](#camera-intrinsic-변환-애니메이션-1)
+- ### [Transformation 관점의 Camera Extrinsic과 Intrinsic](#transformation-관점의-camera-extrinsic과-intrinsic-1)
 - ### [Zhang's Method (A Flexible New Technique for Camera Calibration)](#zhangs-method-a-flexible-new-technique-for-camera-calibration-1)
 - ### [추가 내용 : 이미지 crop과 resize에 따른 intrinsic 수정 방법](#추가-내용--이미지-crop과-resize에-따른-intrinsic-수정-방법-1)
 
@@ -827,16 +828,16 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- $$ (u, v) = (\frac{\alpha x}{z}x - \frac{\alpha\cot{(\theta)}} {z}y + x_{0}, \frac{\beta}{z\sin{(\theta)}}y + y_{0}) \tag{61} $$
+- $$ (u, v) = (\frac{\alpha}{z}x - \frac{\alpha\cot{(\theta)}} {z}y + x_{0}, \frac{\beta}{z\sin{(\theta)}}y + y_{0}) \tag{61} $$
 
 <br>
 
 - 앞에서 `extrinsic`을 구할 때, `homogeneous coordinates` 형태의 행렬 곱으로 나타낸 것과 같이 `intrinsic`을 구할 때에도 이와 같은 형태를 사용해 보도록 하겠습니다.
-- 앞으로의 식 전개를 위해 식 (61)의 양변에 $$ z $$ 를 곱하면 다음과 같습니다. 아래 $$ x', y' $$ 는 앞에서 사용된 $$ x', y' $$ 와 무관하며 좌변과 우변의 관계를 나타내기 위하여 사용하였습니다.
+- 앞으로의 식 전개를 위해 식 (61)의 $$ x /z $$ 와 $$ y / z $$ 는 $$ x_{n} $$ 과 $$ y_{n} $$  표기로 사용하겠습니다. $$ n $$ 은 `normalized`의 약자로 관련 내용은 뒷편에서 설명할 예정입니다.
 
 <br>
 
-- $$ (x', y') = (zu, zv) = (\alpha x - \alpha\cot{(\theta)}y + x_{0}, \frac{\beta}{\sin{(\theta)}}y + y_{0}) \tag{62} $$
+$$ (u, v) = (\alpha x_{n} -\alpha \cot{(\theta)}y_{n} + x_{0}, \frac{\beta}{\sin{(\theta)}}y_{n} + y_{0}) \tag{62} $$
 
 <br>
 
@@ -844,7 +845,7 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- $$ \begin{bmatrix} x' \\ y' \\ z' \end{bmatrix} = \begin{bmatrix} \alpha & -\alpha\cot{(\theta)} & x_{0} \\ 0 & \beta\sin^{-1}{(\theta)} & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} \tag{63} $$
+- $$ \begin{bmatrix} u \\ v \\ 1 \end{bmatrix} = \begin{bmatrix} \alpha & -\alpha\cot{(\theta)} & x_{0} \\ 0 & \frac{\beta}{\sin{(\theta)}} & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x_{n} \\ y_{n} \\ 1 \end{bmatrix} \tag{63} $$
 
 <br>
 
@@ -852,25 +853,27 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- $$ P' = K P_{c} \tag{64} $$
+- $$ P' = K \frac{1}{z}P_{c} \tag{64} $$
 
 - $$ P' : \text{Homogeneous coordinates of the point in the image} $$
 
 - $$ K : \text{Camera Intrinsic Matrix} $$
 
-- $$ P_{c} : \text{Homogeneous Coordinates of the point in the world w.r.t. camera} $$
+- $$ P_{c} : \text{Homogeneous Coordinates of the point in the camera coordinate system} $$
 
 <br>
 
-- `homogeneous coordinates`인 $$ P_{c} $$ 로부터 최종 구하고자 하는 좌표 $$ u, v $$를 구하면 다음 식과 같습니다.
+- 식 (64)를 풀어서 적으면 다음과 같습니다.
 
 <br>
 
-- $$ \begin{bmatrix} x' \\ y' \\ z' \end{bmatrix} = \begin{bmatrix} x'/z' \\ y'/z' \\ 1 \end{bmatrix} \cong \begin{bmatrix} x'/z' \\ y'/z' \end{bmatrix} = \begin{bmatrix} u \\ v \end{bmatrix} \tag{65} $$
+- $$ P' = K \frac{1}{z} P_{c} = K \frac{1}{z}\begin{bmatrix} x \\ y \\ z \\ \end{bmatrix}  = \begin{bmatrix} u \\ v \\ 1 \\ \end{bmatrix} \tag{65} $$
+
+- $$ K = \begin{bmatrix} \alpha & -\alpha\cot{(\theta)} & x_{0} \\ 0 & \frac{\beta}{\sin{(\theta)}} & y_{0} \\ 0 & 0 & 1 \end{bmatrix} $$
 
 <br>
 
-- 최종적으로 식 (65) 과정을 거치면 image plane 상의 pixel 위치인 $$ u, v $$ 를 구할 수 있습니다.
+- 최종적으로 식 (65) 과정을 거치면 `image plane` 상의 `pixel` 위치인 $$ u, v $$ 를 구할 수 있습니다.
 - 지금까지 알아본 내용을 통하여 `camera coordinate system`에서 `intrinsic`을 곱하여 `image plane`으로 좌표를 변환할 수 있었습니다.
 - 지금까지 내용을 바탕으로 실질적으로 사용하는 형태의 `intrinsic` 행렬을 정리하려면 다음 내용을 고려하여 정리할 수 있습니다.
 - ① 이미지 센서 셀 생산 기술의 발달로 이미지 센서가 기울어지지 않게 생산됩니다. 즉, `skew` 값의 $$ \theta = \frac{\pi}{2} $$ 로 둘 수 있습니다. 따라서 $$ \cot{(\frac{\pi}{2})} = 0, \sin^{-1}{(\frac{\pi}{2})} = 1 $$ 로 사용할 수 있습니다.
@@ -912,9 +915,9 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-$$ x_{0} = \frac{\text{width}}{2} $$
+- $$ x_{0} = \frac{\text{width}}{2} $$
 
-$$ y_{0} = \frac{\text{height}}{2} $$
+- $$ y_{0} = \frac{\text{height}}{2} $$
 
 <br>
 
@@ -938,6 +941,16 @@ $$ y_{0} = \frac{\text{height}}{2} $$
 
 <br>
 
+- 애니메이션 링크 : http://ksimek.github.io/2013/08/13/intrinsic/
+
+<br>
+
+
+<br>
+
+## **Transformation 관점의 Camera Extrinsic과 Intrinsic**
+
+<br>
 
 
 
