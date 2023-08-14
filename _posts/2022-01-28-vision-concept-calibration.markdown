@@ -820,6 +820,19 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
+- 위 식에서 `skew`가 전혀 없다면 $$ \theta = \pi / 2 $$ 가 됩니다. `skew` 값이 존재하더라도 미세한 값이므로 $$ \theta $$ 가 $$ \pi/4 \sim \pi/2 $$ 의 범위에서 $$ u $$ 에 영향을 끼치는 $$ -\cot{(\theta)} $$ 와 $$ v $$ 에 영향을 끼치는 $$ 1/\sin{(\theta)} $$ 의 변경 범위를 살펴보면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/35.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그래프와 같이 $$ \theta $$ 값이 증가할수록 $$ -\cot{(\theta)} $$ 값은 음의 방향으로 커지게 됩니다. 따라서 $$ u $$ 의 값은 작아지게 됩니다. (좌측 방향으로 이동)
+- 반면 $$ \theta $$ 값이 증가할수록 $$ 1/\sin{(\theta)} $$ 의 값은 양의 방향으로 커지게 되어 $$ v $$ 값은 커지게 됩니다. (아래 방향으로 이동)
+- 따라서 $$ \theta $$ 값이 증가할수록 전체 좌표값은 좌측 하단 방향으로 기울어진 형태를 가지게 됩니다. `shear transformation`을 생각하면 됩니다.
+- 위 그림의 $$ \theta $$ 기울기는 우측 상단 방향으로 `image plane`이 기울어진 반면 좌표 결과는 좌측 하단 방향으로 반대로 기울어진 이유는 `image plane`이 기울어진 것은 좌표계가 `shear transformation`이 적용된 것이므로 좌표는 반대로 적용되기 때문입니다.
+
+<br>
+
 #### **Camera Intrinsic Matrix**
 
 <br>
@@ -945,6 +958,26 @@ $$ (u, v) = (\alpha x_{n} -\alpha \cot{(\theta)}y_{n} + x_{0}, \frac{\beta}{\sin
 
 <br>
 
+- 앞에서 다룬 `focal length`와 $$ x_{0} $$, $$ y_{0} $$ 의 변화에 따라서 이미지가 어떻게 변화하는 지 살펴보도록 하겠습니다.
+- 먼저 `focal length`의 변화를 적용해 보면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/36.gif" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `focal length`가 커질수록 화각은 좁아지는 대신에 확대되어 보이는 것을 확인할 수 있습니다. 반대로 `focal length`가 작아질수록 화각은 넓어지면서 같은 물체의 크기가 작아지는 것을 볼 수 있습니다. 이와 관련된 내용은 `scale` 부분에서 설명하였습니다. 
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/37.gif" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림에서는 $$ x_{0} $$ 값 변경에 따라 물체가 이미지의 어느 위치에 형성되는 지 확인할 수 있습니다. $$ x_{0} $$ 의 크기 변화에 따라 카메라의 방향이 어떻게 바뀌는 지 살펴보는 것도 이해하는 데 도움이 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/38.gif" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림에서는 $$ y_{0} $$ 값 변경에 따라 물체가 이미지의 어느 위치에 형성되는 지 확인할 수 있습니다. 앞선 $$ x_{0} $$ 케이스와 동일한 원리로 적용되는 것을 확인할 수 있습니다.
 
 <br>
 
