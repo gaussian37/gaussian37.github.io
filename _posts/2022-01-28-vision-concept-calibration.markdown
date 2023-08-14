@@ -954,7 +954,7 @@ $$ (u, v) = (\alpha x_{n} -\alpha \cot{(\theta)}y_{n} + x_{0}, \frac{\beta}{\sin
 
 <br>
 
-- 애니메이션 링크 : http://ksimek.github.io/2013/08/13/intrinsic/
+- 애니메이션 링크 : http://ksimek.github.io/perspective_camera_toy.html
 
 <br>
 
@@ -985,7 +985,16 @@ $$ (u, v) = (\alpha x_{n} -\alpha \cot{(\theta)}y_{n} + x_{0}, \frac{\beta}{\sin
 
 <br>
 
+- 핀홀 카메라 모델에서는 `extrinsic`과 `intrinsic` 파라미터를 연속적인 행렬곱으로 나타낼 수 있습니다. 핀홀 카메라 모델에서는 비선형 관계가 없기 떄문에 단순히 선형 관계만으로도 `image coordinate`와 `world coordinate`의 관계를 나타낼 수 있습니다.
+- 앞에서 사용한 기호인 $$ \alpha, \beta $$ 는 $$ f_{x}, f_{y} $$ 로 바꿔서 표현하겠습니다. 그리고 `skew`는 간단히 $$ s $$ 로 표현하였습니다. `extrinsic`은 좌표 변환 관계를 이용하였습니다.
 
+<br>
+
+- $$ \begin{align} P &= \overbrace{K}^\text{Intrinsic Matrix} \times \overbrace{[R \mid  \mathbf{t}]}^\text{Extrinsic Matrix} \\[0.5em] &= \overbrace{ \underbrace{ \left ( \begin{array}{ c c c} 1  &  0  & x_0 \\ 0  &  1  & y_0 \\ 0  &  0  & 1 \end{array} \right )             }_\text{2D Translation} \times \underbrace{ \left ( \begin{array}{ c c c} f_x &  0  & 0 \\ 0  & f_y & 0 \\ 0  &  0  & 1 \end{array} \right ) }_\text{2D Scaling} \times \underbrace{ \left (                \begin{array}{ c c c} 1  &  s & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{array} \right ) }_\text{2D Shear}}^\text{Intrinsic Matrix} \times \overbrace{ \underbrace{ \left( \begin{array}{c | c} I & \mathbf{t} \end{array}\right)}_\text{3D Translation} \times \underbrace{ \left( \begin{array}{c | c} R & 0 \\ \hline 0 & 1 \end{array}\right)}_\text{3D Rotation} }^\text{Extrinsic Matrix} \end{align} \tag{70} $$
+
+<br>
+
+- 위 식을 살펴 보았을 때, `intrinsic`은 2D 상에서의 `Translation`, `Scaling`, `Shear` 관점으로 `Transformation`한 것이고 `extrinsic`은 3D 상에서의 `Rotation`과 `Translation` 관점의 `Transformation` 한 것을 확인할 수 있습니다.
 
 <br>
 
