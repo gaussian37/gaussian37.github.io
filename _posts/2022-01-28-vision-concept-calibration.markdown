@@ -618,7 +618,7 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- 지금까지 살펴본 예제가 Camera Extrinsic을 의미하며 이와 같은 원리로 사용됩니다.
+- 지금까지 살펴본 예제가 `Camera Extrinsic`을 의미하며 이와 같은 원리로 사용됩니다.
 
 <br>
 
@@ -626,10 +626,56 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
+- 애니메이션 링크 : http://ksimek.github.io/perspective_camera_toy.html
 
+<br>
 
+- 앞에서 살펴본 `extrinsic`의 좌표 변환과 좌표계 변환을 애니메이션을 통해 살펴보도록 하겠습니다.
 
+<br>
+<center><img src="../assets/img/vision/concept/calibration/36.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
+- 위 그림은 좌측의 카메라가 두 개의 공을 바라볼 때 형성되는 이미지를 캡쳐하여 우측에 표현한 것입니다.
+- 좌측 이미지의 축은 `camera coordinate system`에서의 좌표축을 나타내며 각 축의 방향이 양의 방향입니다. 좌측 이미지에서 공 방향으로 뻗은 초록색 선은 `Principal Axis`를 뜻합니다. (관련 내용은 본 글의 뒷부분에 설명되어 있습니다.)
+- 우측 이미지의 공은 `world coordinate system`을 따릅니다.
+
+<br>
+
+- 먼저 `world coordinate` 기준으로 `translation`을 적용해 보도록 하겠습니다. `world coordinate`에서 각 축의 양의 방향으로 공이 움직이면 `camera coordinate system` 기준에서는 반대로 음의 방향으로 카메라가 움직여야 합니다. 이 부분을 주의깊게 보시면 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/39.gif" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 애니메이션에서 $$ t_{x}, t_{y}, t_{z} $$ 의 슬라이더 바를 오른쪽으로 움직일수록 `world coordinate`의 각 축의 양의 방향으로 움직임을 나타냅니다. 
+- `world coordinate`에서 양의 방향으로 움직일 때, `camera coordinate`에서는 반대 방향으로 움직이게 되는 것을 볼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/40.gif" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 이번에는 `rotation`을 적용해 보도록 하겠습니다. 앞의 예시와 동일하게 `world coordinate`와 `camera coordinate` 간의 관계를 잘 살펴보시면 됩니다. 참고로 $$ Z $$ 축에 대한 회전은 반시계 방향이 양의 방향 회전이며 시계 방향 회전의 음의 방향 회전입니다.
+
+<br>
+
+- 이번에는 좌표계 변환 관점에서 `translation`과 `rotation`을 적용해 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/41.gif" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 애니메이션에서는 $$ C_{x}, C_{y}, C_{z} $$ 가 카메라의 `translation`과 관련되어 있습니다. 이번 예시에서는 카메라의 좌표축에 따라 `translation`이 발생한 것이고 공의 좌표는 이와 반대로 움직이는 것을 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/42.gif" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 앞선 예시와 동일하게 카메라 좌표축 기준으로 `rotation`이 적용되었습니다.
+
+<br>
+
+- 지금까지 살펴본 예시들을 통해 좌표 변환과 좌표축 변환 시 어떤 관계를 가지는 지 살펴볼 수 있었으며 이 관계를 `extrinsic` 행렬에 어떻게 표현하는 지 살펴보았습니다.
 
 <br>
 
