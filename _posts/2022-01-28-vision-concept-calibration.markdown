@@ -635,6 +635,12 @@ ax.set_zlabel("Z-axis")
 ## **Camera Intrinsic Matrix with Example in Python**
 
 <br>
+
+- 앞으로 살펴볼 내용은 카메라 `intrinsic` 파라미터 입니다. 일반적으로 카메라 파라미터로 사용하는 값들이 `extrinsic`, `intrinsic`, `distortion coefficient`입니다. 앞에서 `extrinsic`은 살펴보았고 `intrinsic`은 본 글에서 다룰 내용입니다. 단, `intrinsic`의 내용에 집중하기 위하여 본 글에서 다루는 카메라는 핀홀 카메라 모델을 사용할 예정이므로 `distortion coefficient`는 무시합니다.
+- `distortion coefficient`의 내용을 살펴보려면 다음 링크를 참조하시면 됩니다.
+    - [카메라 모델과 렌즈 왜곡 (lense distortion)](https://gaussian37.github.io/vision-concept-lense_distortion/)
+
+<br>
 <center><img src="../assets/img/vision/concept/calibration/17.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
@@ -755,7 +761,7 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- 
+- 실제 이미지를 사용할 때, 이미지 좌표계의 원점은 좌상단을 $$ (0, 0) $$ 원점으로 잡습니다. 식 (48)의 원리를 이용하면 `offset`을 이미지 좌상단이 원점이 되도록 만들 수 있습니다. 이 내용은 `intrinsic` 마지막 부분에서 다루도록 하겠습니다.
 
 <br>
 
@@ -842,17 +848,17 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-- 식 (63)의 우변의 3 x 3 행렬을 `camera intrinsic matrix` 라고하며 $$ \kappa $$ 라고 나타냅니다. 따라서 $$ P_{c} $$ 인 `camera coordinate system`에서의 좌표가 $$ \kappa $$ 인 `camera intrinsic matrix`와 곱해지면 이미지 상의 좌표인 $$ P' $$ 로 구해집니다.
+- 식 (63)의 우변의 3 x 3 행렬을 `camera intrinsic matrix` 라고하며 $$ K $$ 라고 나타냅니다. 따라서 $$ P_{c} $$ 인 `camera coordinate system`에서의 좌표가 $$ K $$ 인 `camera intrinsic matrix`와 곱해지면 이미지 상의 좌표인 $$ P' $$ 로 구해집니다.
 
 <br>
 
-- $$ P' = \kappa P_{c} \tag{64} $$
+- $$ P' = K P_{c} \tag{64} $$
 
 - $$ P' : \text{Homogeneous coordinates of the point in the image} $$
 
-- $$ \kappa : \text{Camera Intrinsic Matrix} $$
+- $$ K : \text{Camera Intrinsic Matrix} $$
 
-- $$ P_{c} : \text{Homogeneous Coordinates of the point in the world wrt camera} $$
+- $$ P_{c} : \text{Homogeneous Coordinates of the point in the world w.r.t. camera} $$
 
 <br>
 
@@ -866,31 +872,54 @@ ax.set_zlabel("Z-axis")
 
 - 최종적으로 식 (65) 과정을 거치면 image plane 상의 pixel 위치인 $$ u, v $$ 를 구할 수 있습니다.
 - 지금까지 알아본 내용을 통하여 `camera coordinate system`에서 `intrinsic`을 곱하여 `image plane`으로 좌표를 변환할 수 있었습니다.
-- 추가적으로 `intrinsic`을 나타내는 가장 많이 사용하는 기호와 기술의 발전으로 생략을 많이하는 부분을 언급하면서 `intrinsic`의 개념은 마무리하도록 하겠습니다.
+- 지금까지 내용을 바탕으로 실질적으로 사용하는 형태의 `intrinsic` 행렬을 정리하려면 다음 내용을 고려하여 정리할 수 있습니다.
+- ① 이미지 센서 셀 생산 기술의 발달로 이미지 센서가 기울어지지 않게 생산됩니다. 즉, `skew` 값의 $$ \theta = \frac{\pi}{2} $$ 로 둘 수 있습니다. 따라서 $$ \cot{(\frac{\pi}{2})} = 0, \sin^{-1}{(\frac{\pi}{2})} = 1 $$ 로 사용할 수 있습니다.
+- ② $$ x_{0}, y_{0} $$ 은 단순히 `offset`을 보상하는 개념 뿐 아니라 `image coordinate`에서 좌상단을 원점으로 만들어주는 역할을 합니다. 따라서 이상적인 환경에서는 $$ x_{0}, y_{0} $$ 각각이 이미지 `width/2`, `height/2`가 됩니다.
 
 <br>
 
-- 먼저 식 (63) 에서 사용한 $$ \alpha $$ 와 $$ \beta $$ 는 $$ f_{x}, f_{y} $$ 라는 용어로 많이 사용됩니다. $$ \alpha, \beta $$ 는 `image plane` 에서의 가로 방향과 세로 방향의 `scale`을 나타냅니다. 이 `scale`의 단위를 `focal length`와 연관지어 나타낸 것이 $$ f_{x}, f_{y} $$ 입니다.
-- 앞에서 `focal length`는 `mm` 와 같은 길이를 나타내는 수치를 사용한다고 하였습니다. 하지만 `intrinsic`으로 나타낼 때에는 `픽셀 단위`로 표현합니다. 따라서 `intrinsic`에서 사용되는 $$ f_{x}, f_{y} $$ 는 이미지의 $$ x $$ 방향의 길이와 $$ y $$ 방향의 길이 그리고 `focal length`를 이용하여 표현되어 다음과 같은 관계식을 가지게 됩니다.
+- 위 ①, ② 조건을 만족하도록 `intrinsic`을 다시 구성해보도록 하겠습니다.
 
 <br>
 
-
-
-
-
-- 이미지의 픽셀은 이미지 센서 셀에 대응됩니다. 따라서 focal length와 이미지 센서 셀 크기의 상대적인 크기값을 scale로 나타낼 수 있습니다. 따라서 $$ f_{x} $$ 는 (focal length / 셀 가로 길이)로 나타낼 수 있고 $$ f_{y} $$ 는 (focal length / 셀 세로 길이)로 나타낼 수 있습니다. 이와 같이 픽셀 단위로 길이를 나타내면 이미지에서의 길이 단위가 통일 되기 때문에 사용이 편해집니다.
+- $$ K = \begin{bmatrix} \alpha & -\alpha\cot{(\theta)} & x_{0} \\ 0 & \beta\sin^{-1}{(\theta)} & y_{0} \\ 0 & 0 & 1 \end{bmatrix} = \begin{bmatrix} \alpha & 0 & x_{0} \\ 0 & \beta & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \tag{66} $$
 
 <br>
 
-- 현재 기술의 발달로 앞에서 정의한 `camera intrinsic matrix`를 단순화 할 수 있습니다.
-- 먼저 $$ f_{x} = f_{y} = f $$ 로 단순화 할 수 있습니다. 앞에서 픽셀의 크기 (이미지 센서 셀 크기)가 가로와 세로가 다를 수 있기 때문에 $$ \alpha (f_{x}), \beta (\f_{y}) $$ 로 scale을 나타내었습니다. 하지만 현대 기술을 이용하면 정사각형 크기의 픽셀을 만드는 데 어려움이 없다고 알려져 있습니다. 따라서 $$ f_{x} = f_{y} = f $$ 로 많이 사용하고 있습니다.
-- 그리고 image plane 또한 기울어지지 않기 때문에 $$ \theta = \frac{\pi}{2} $$ 로 둘 수 있습니다. 따라서 $$ \cot{(\frac{\pi}{2})} = 0, \sin^{-1}{(\frac{\pi}{2})} = 1 $$ 을 사용할 수 있습니다.
-- 위 2가지 내용을 이용하여 `camera intrinsic matrix`를 단순화하면 다음과 같습니다.
+- 따라서 `camera coordinate system`의 임의의 점 $$ (X_{c}, Y_{c}, Z_{c}) $$ 는 다음과 같이 `image coordinate`의 $$ (u, v) $$ 좌표로 변환될 수 있습니다.
 
 <br>
 
-- $$ \begin{bmatrix} \alpha & -\alpha\cot{(\theta)} & x_{0} \\ 0 & \beta\sin^{-1}{(\theta)} & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \Longrightarrow  \begin{bmatrix} f & 0 & x_{0} \\ 0 & f & y_{0} \\ 0 & 0 & 1 \end{bmatrix} \tag{66} $$
+- $$ \begin{bmatrix} u \\ v \end{bmatrix} = \begin{bmatrix} \alpha & 0 & x_{0} \\ 0 & \beta & y_{0} \\ 0 & 0 & 1 \end{bmatrix}  \begin{bmatrix} X_{c} / Z_{c} \\ Y_{c} / Z_{c} \end{bmatrix} \tag{67} $$
+
+- $$ u = \alpha ( X_{c} / Z_{c} ) + x_{0} \tag{68} $$
+
+- $$ v = \beta ( Y_{c} / Z_{c} ) + y_{0} \tag{69} $$
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/33.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 식 (68), (69)에 사용된 $$ \alpha, \beta $$ 는 `focal length`의 크기와 이미지 해상도 등에 영향을 받으므로 값은 항상 0보다 큰 값입니다. 즉, $$ (X_{c} / Z_{c}), (Y_{c} / Z_{c}) $$ 값을 `scale` 조절하여 최종적으로 `image coordinate`에 대응 시키는 역할을 합니다. 
+- 위 그림에서 $$ x = X_{c}/Z_{c}, y = Y_{c}/Z_{c} $$ 에 해당하며 이 때 `focal length`는 1이 되는 것을 확인할 수 있습니다. $$ Z_{c} $$ 로 값을 나누어서 `scale=1`로 `normalize` 시켜주었기 때문에 $$ Z_{c} = 1 $$ 인 공간을 `normalized image plane`이라고 합니다.
+- `normalized image plane`의 값에 $$ \alpha, \beta $$ 를 곱해주면 `image plane`에 대응되는 `scale`의 값으로 투영됩니다.
+- 여기 까지가 $$ \alpha * X_{c}/Z_{c} $$, $$ \beta * Y_{c}/Z_{c} $$ 까지 연산한 것입니다.
+
+<br>
+
+- `scale`이 조정된 후 $$ x_{0}, y_{0} $$ 이 더해져서 값이 이동하게 됩니다. 이 때  $$ x_{0}, y_{0} $$ 의 역할이 `scale`이 조정된 값을 `image coordinate` 기준인 좌상단을 원점으로 좌표값을 이동시켜주는 역할을 한다고 보면 됩니다. 만약 `camera center`와 `image plane`의 수직선인 `optical axis`가 이미지의 정중앙에 위치한다면 $$ x_{0}, y_{0} $$ 가 `optical axis`를 보정하는 역할은 하지 않고 `image coordinate`로의 변환을 위한 이동의 의미만을 가지게 됩니다.
+- `optical axis`가 정중앙에 위치할 때, $$ x_{0}, y_{0} $$ 가 `image coordinate`로의 이동을 의미하려면 다음 값을 가져야 합니다.
+
+<br>
+
+$$ x_{0} = \frac{\text{width}}{2} $$
+
+$$ y_{0} = \frac{\text{height}}{2} $$
+
+<br>
+
+- 이러한 이유로 `intrinsic`의 값 중 $$ x_{0}, y_{0} $$ 은 각각 `width`, `height`의 중간값 부근에서 값을 가지게 됩니다. (완전히 중간값을 가지지 않는 경우는 그만큼 `optical axis`가 이동되어 보정 역할 까지 한 것으로 볼 수 있습니다.)
+- 따라서 `scale` 조정 이후에 `image plane`의 좌표축에 맞도록 좌표 이동을 해준 것이 식 (68), (69)가 됩니다.
 
 <br>
 
