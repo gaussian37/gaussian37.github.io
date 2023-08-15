@@ -896,7 +896,7 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-$$ (u, v) = (\alpha x_{n} -\alpha \cot{(\theta)}y_{n} + x_{0}, \frac{\beta}{\sin{(\theta)}}y_{n} + y_{0}) \tag{62} $$
+- $$ (u, v) = (\alpha x_{n} -\alpha \cot{(\theta)}y_{n} + x_{0}, \frac{\beta}{\sin{(\theta)}}y_{n} + y_{0}) \tag{62} $$
 
 <br>
 
