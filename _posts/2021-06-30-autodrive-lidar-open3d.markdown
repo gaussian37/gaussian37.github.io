@@ -13,8 +13,9 @@ tags: [라이다, open3d, 포인트 클라우드] # add tag
 
 <br>
 
-- ### **open3d로 point cloud 시각화 방법**
-- ### **open3d로 grid 생성하는 방법**
+- ### [open3d로 point cloud 시각화 방법](#jupyter-lab에서-open3d-시각화-방법-1)
+- ### [open3d로 grid 생성하는 방법](#open3d로-grid-생성하는-방법-1)
+- ### [jupyter lab에서 open3d 시각화 방법](#jupyter-lab에서-open3d-시각화-방법-1)
 
 <br>
 
@@ -193,5 +194,98 @@ show_open3d_pcd(pcd, origin_size=3, range_min_xyz=(-40, -40, -5), range_max_xyz=
 
 - `range_min_xyz=(-40, -40, -5)`, `range_max_xyz=(40, 40, 5)` 의 옵션에 따라 x, y, z 방향으로 포인트들을 필터링하고 남겨진 포인트들을 적당한 마진을 추가하여 XYZ 평면에 표시한 형태입니다.
 
+<br>
 
+## **jupyter lab에서 open3d 시각화 방법**
 
+<br>
+
+- `jupyter lab`에서 `open3d`의 포인트를 시각화하는 방법을 정리하였습니다.
+- 아래 코드에서 사용된 샘플 데이터인 `000000.pcd`는 `KITTI` 데이터 셋의 샘플 데이터이고 아래 링크에서 다운 받을 수 있습니다.
+    - 링크 : https://drive.google.com/file/d/1txU0Ou5VluSgqqBTJTC6G64s-pfDlccR/view?usp=sharing
+- 아래 코드를 이용하면 다음과 같이 시각화 할 수 있으며 장점은 다음과 같습니다.
+    - ① `jupyter lab`에서 `ndarray` 타입의 데이터를 바로 3D 환경에서 시각화 하여 볼 수 있습니다.
+    - ② 원하는 포인트의 좌표를 쉽게 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/open3d/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+```python
+def show_point_cloud(points, color_axis, width_size=1500, height_size=800, coordinate_frame=True):
+    '''
+    points : (N, 3) size of ndarray
+    color_axis : 0, 1, 2
+    '''
+    assert points.shape[1] == 3
+    assert color_axis==0 or color_axis==1 or color_axis==2   
+    
+    
+    # Create a scatter3d Plotly plot
+    plotly_fig = go.Figure(data=[go.Scatter3d(
+        x=points[:, 0],
+        y=points[:, 1],
+        z=points[:, 2],
+        mode='markers',
+        marker=dict(
+            size=1,
+            color=points[:, color_axis], # Set color based on Z-values
+            colorscale='jet', # Choose a color scale
+            colorbar=dict(title='value') # Add a color bar with a title
+        )
+    )])
+
+    x_range = points[:, 0].max()*0.9 - points[:, 0].min()*0.9
+    y_range = points[:, 1].max()*0.9 - points[:, 1].min()*0.9
+    z_range = points[:, 2].max()*0.9 - points[:, 2].min()*0.9
+
+    # Adjust the Z-axis scale
+    plotly_fig.update_layout(
+        scene=dict(
+            aspectmode='manual',
+            aspectratio=dict(x=x_range, y=y_range, z=z_range), # Here you can set the scale of the Z-axis     
+        ),
+        width=width_size, # Width of the figure in pixels
+        height=height_size, # Height of the figure in pixels
+        showlegend=False
+    )
+    
+    if coordinate_frame:
+        # Length of the axes
+        axis_length = 1
+
+        # Create lines for the axes
+        lines = [
+            go.Scatter3d(x=[0, axis_length], y=[0, 0], z=[0, 0], mode='lines', line=dict(color='red')),
+            go.Scatter3d(x=[0, 0], y=[0, axis_length], z=[0, 0], mode='lines', line=dict(color='green')),
+            go.Scatter3d(x=[0, 0], y=[0, 0], z=[0, axis_length], mode='lines', line=dict(color='blue'))
+        ]
+
+        # Create cones (arrows) for the axes
+        cones = [
+            go.Cone(x=[axis_length], y=[0], z=[0], u=[axis_length], v=[0], w=[0], sizemode='absolute', sizeref=0.1, anchor='tail', showscale=False),
+            go.Cone(x=[0], y=[axis_length], z=[0], u=[0], v=[axis_length], w=[0], sizemode='absolute', sizeref=0.1, anchor='tail', showscale=False),
+            go.Cone(x=[0], y=[0], z=[axis_length], u=[0], v=[0], w=[axis_length], sizemode='absolute', sizeref=0.1, anchor='tail', showscale=False)
+        ]
+
+        # Add lines and cones to the figure
+        for line in lines:
+            plotly_fig.add_trace(line)
+        for cone in cones:
+            plotly_fig.add_trace(cone)
+
+    # Show the plot
+    plotly_fig.show()
+```
+
+<br>
+
+```python
+# Extract the points as a NumPy array
+pcd_path = "./000000.pcd"
+pcd = o3d.io.read_point_cloud(pcd_path)
+points = np.asarray(pcd.points)
+show_point_cloud(points, 2)
+```
+
+<br>

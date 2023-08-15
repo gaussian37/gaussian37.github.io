@@ -24,7 +24,7 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
 
 - ## **라이다 포인트 클라우드 처리 방법**
     - ### [라이다와 포인트 클라우드](#라이다와-포인트-클라우드-1)
-    - ### [Processing : open3d를 이용한 포인트 클라우드 처리](#open3d를-이용한-포인트-클라우드-처리)
+    - ### [Processing : open3d를 이용한 포인트 클라우드 처리](#open3d를-이용한-포인트-클라우드-처리-1)
     - ### [Voxel Grid Downsampling](#voxel-grid-downsampling-1)
     - ### [Outlier 제거](#outlier-제거-1)
     - ### [RANSAC을 이용한 도로와 객체 구분](#ransac을-이용한-도로와-객체-구분-1)
@@ -32,6 +32,7 @@ tags: [autonomous drive, 자율 주행, 라이다, lidar, open3d, RANSAC, DBSCAN
     - ### [HDBSCAN을 이용한 포인트 클라우드 클러스터링](#hdbscan을-이용한-포인트-클라우드-클러스터링-1)
     - ### [3D Bounding Box 생성](#3d-bounding-box-생성-1)
     - ### [객체 인식을 위한 전체 코드](#객체-인식을-위한-전체-코드-1)
+    - ### [Point Cloud Alignment via Iterative Closest Point 실습](#point-cloud-alignment-via-iterative-closest-point-실습-1)
 
 <br>
 
@@ -667,6 +668,20 @@ o3d.visualization.draw_geometries(list_of_visuals)
 
 - 위 결과를 살펴보면 앞에서 사용한 알고리즘들의 파라미터 튜닝이 필요해 보이며 추가적인 보완 알고리즘 또한 필요할 수 있습니다. 
 - 지금까지 살펴본 내용은 일반적인 포인트 클라우드를 처리하는 방법 중 하나이며 이와 같은 방법을 통하여 전처리 및 Unsupervised 방식으로 클러스터링을 할 수 있음을 알 수 있었습니다.
+
+<br>
+
+## **Point Cloud Alignment via Iterative Closest Point 실습**
+
+<br>
+
+
+
+
+
+<br>
+
+---
 
 <br>
 
