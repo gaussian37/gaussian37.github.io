@@ -20,8 +20,11 @@ tags: [사원수, quaternion, 회전, rotation] # add tag
 
 <br>
 
-- 사전 지식 : [Euler Angle Rotation](https://gaussian37.github.io/math-la-rotation_matrix/)
-- 사전 지식 : [Axis-Angle Rotation](https://gaussian37.github.io/vision-concept-axis_angle_rotation/)
+- 사전 지식 ① : [Euler Angle Rotation](https://gaussian37.github.io/math-la-rotation_matrix/)
+- 사전 지식 ② : [Axis-Angle Rotation](https://gaussian37.github.io/vision-concept-axis_angle_rotation/)
+- 사전 지식 ③ : [복소수와 복소 평면](https://gaussian37.github.io/math-calculus-complex_plane/)
+- 사전 지식 ④ : [벡터의 내적](https://gaussian37.github.io/math-la-projection/)
+- 사전 지식 ⑤ : [벡터의 외적](https://gaussian37.github.io/math-la-cross_product/)
 
 <br>
 

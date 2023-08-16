@@ -20,6 +20,12 @@ tags: [선형대수학, 회전 변환, rotation, rotation matrix] # add tag
 
 <br>
 
+- 다른 방식의 회전 변환 개념은 아래 링크에서 확인하실 수 있습니다. 다음 내용은 본 글에서 다루는 `euler rotation`의 단점을 개선한 내용입니다.
+    - [축각 회전 (로드리게스 회전)](https://gaussian37.github.io/vision-concept-axis_angle_rotation/)
+    - [사원수를 이용한 회전 (quarternion)](https://gaussian37.github.io/vision-concept-quaternion/)
+
+<br>
+
 ## **목차**
 
 <br>
