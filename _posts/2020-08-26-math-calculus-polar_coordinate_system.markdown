@@ -22,7 +22,7 @@ tags: [극좌표계, Polar Coordinate] # add tag
 - 따라서 회전 동작을 편리하게 사용하기 위하여 고안된 좌표계가 본 글에서 소개하는 `극 좌표계 (Polar Coordinate System)` 입니다.
 
 <br>
-<center><img src="../assets/img/math/calculus/polar_coordinate/0.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/calculus/polar_coordinate_system/0.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 극 좌표계는 위 그림과 같이 원점으로부터의 거리 $$ r $$ 과 각 $$ \theta $$ 의 두 요소로 구성되며 극좌표계의 좌표는 $$ (r, \theta) $$ 로 표시됩니다.
@@ -34,7 +34,7 @@ tags: [극좌표계, Polar Coordinate] # add tag
 
 <br>
 
-- $$ r = \sqrt(x^{2} + y^{2}) \tag{1} $$
+- $$ r = \sqrt{(x^{2} + y^{2})} \tag{1} $$
 
 - $$ \theta = \text{atan2}{(y, x)} \tag{2} $$
 
