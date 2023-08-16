@@ -675,9 +675,141 @@ o3d.visualization.draw_geometries(list_of_visuals)
 
 <br>
 
+- `ICP (Iterative Closest Point)`는 2개의 포인트 클라우드 간의 차이를 최소화하는 알고리즘으로 3D 데이터를 다룰 때 많이 사용되는 알고리즘 입니다. `ICP`는 포인트 클라우드를 합칠 때 사용하는 방법이므로 기본적으로 필요한 전체 포인트 클라우드를 한번에 취득하지 못하는 한계 때문에 이와 같은 알고리즘을 필요로 합니다.
+- 예를 들어 `3D Scanning`을 한 이후 `Reconstruction`을 할 때, `ICP`는 개체 또는 장면의 여러 스캔을 정렬하여 완전한 3D 모델을 생성하는 데 사용됩니다. `ICP`는 이 때, 서로 다른 포인트 클라우드를 합치고 스캔 간의 불일치를 해결하는 데 도움이 됩니다.
+- `로보틱스` 분야에서는 `ICP`를 이용하여 로봇의 `Localization`을 할 때 사용할 수 있습니다. 현재 센서 판독값을 기존 map 또는 이전 판독값과 정렬하여 로봇의 현재 위치를 이해하는 데 사용할 수 있습니다.
+- `자율 주행 차량`에서도 `ICP`는 차량의 센서 데이터를 지도 또는 이전 판독값과 정렬하는 데 사용할 수 있습니다. 이와 같은 정렬은 Perception 및 Planning 등에 사용됩니다.
+
+<br>
+
+- 연속적인 포인트 클라우드가 형성될 때, 다른 센서값 또는 이전의 포인트 클라우드와 어떻게 잘 결합하여 사용할 지에 대한 알고리즘이 `ICP`가 됩니다.
+- 상세 내용은 다음 링크에서 확인 가능합니다.
+    - 링크 : https://gaussian37.github.io/autodrive-lidar-icp/
+
+<br>
+
+- 이번 글에서는 `open3d`의 API를 이용하여 2개의 포인트 클라우드를 어떻게 `ICP` 적용할 수 있는 지 방법을 살펴보도록 하겠습니다.
+- 대표적인 `ICP` 방법으로 `Point-to-Point` 방식과 `Point-to-Plane` 방식을 각각 사용해볼 예정입니다.
+- 먼저 `Point-to-Point ICP`는 다음과 같은 절차를 가집니다.
+    - ① `Correspondence Finding` : For each point in the source point cloud, find the closest point in the target point cloud.
+    - ② `Transformation Estimation` : Compute the rigid transformation (rotation and translation) that minimizes the mean squared error between the corresponding points.
+    - ③ `Transformation Application` : Apply the transformation to the source point cloud.
+    - ④ `Iteration` : Repeat steps 1-3 until convergence, i.e., the change in error is below a certain threshold.
+- `point-to-point ICP`를 위한 `loss function`은 `corresponding points` 간 `sum of squared Euclidean distances`를 기본적으로 사용합니다.
+
+<br>
+
+- 다음으로 `Point-to-Plane ICP`에 대하여 살펴보겠습니다.
+- `point-to-plane ICP`는 `surface normal`을 이용하는 `ICP`의 한 종류 입니다. 알고리즘의 절차는 다음과 같습니다.
+    - ① `Correspondence Finding` : For each point in the source point cloud, find the closest plane in the target point cloud. The plane is defined by a point in the target cloud and its normal vector.
+    - ② `Transformation Estimation` : Compute the rigid transformation that minimizes the sum of squared distances from each source point to its corresponding plane in the target cloud.
+    - ③ `Transformation Application` : Apply the transformation to the source point cloud.
+    - ④ `Iteration` : Repeat steps 1-3 until convergence.
+- `point-to-plane ICP`를 위한 `loss function`은 `source points`로 부터 대응되는 `target point cloud`에서의 대응되는 `planes` 까지 `sum of squared distances`를 기본적으로 사용합니다.
+
+<br>
+
+- 두 가지 대표적인 `ICP` 알고리즘을 살펴보면 `point-to-plane ICP`가 `geometric structure of the surface` 를 고려하므로 노이즈에 더 강건합니다. 하지만 `surface normal`을 사전에 필요로 하고 계산 복잡도도 더 높다는 단점도 있습니다. 따라서 `point-to-plane ICP`는 **데이터에 노이즈가 많거나 point cloud에 대한 정보가 없을 경우에 사용하는 것**이 좋습니다.
+- 반면에 `point-to-point ICP`는 단순히 `point` 간의 `euclidean distance`만을 고려하기 때문에 과정이 단순한 반면 노이즈에 민감할 수 있습니다. 따라서 `point-to-point ICP`는 **노이즈가 덜하고 초깃값이 어느 정도 잘 정렬되어 있는 데이터에 사용**하는 것이 좋습니다.
+
+<br>
+
+- 아래 코드의 `source` 파일 : https://drive.google.com/file/d/1ra4MRmDh74QWwrWxqcoQ2qUUG_8YXm2z/view?usp=sharing
+- 아래 코드의 `target` 파일 : https://drive.google.com/file/d/1J1FuTNPetYsftUOrckc3eNqxVwR74wOL/view?usp=sharing
+- 2개의 데이터는 **노이즈가 덜하고 초깃값이 어느 정도 잘 정렬되어 있습니다.** 따라서 `point-to-point ICP`만 사용하여도 충분한 것을 확인할 수 있습니다.
+
+<br>
+
+```python
+import numpy as np
+import time
+import open3d as o3d
+import pandas as pd
+import matplotlib.pyplot as plt
+import copy
+
+source = o3d.io.read_point_cloud("source.ply")
+target = o3d.io.read_point_cloud("target.ply")
+
+def draw_registration_result(source, target, transformation):
+    source_temp = copy.deepcopy(source)
+    target_temp = copy.deepcopy(target)
+    source_temp.paint_uniform_color([1, 0, 0])
+    target_temp.paint_uniform_color([0, 0, 1])
+    source_temp.transform(transformation)
+    o3d.visualization.draw_geometries([source_temp, target_temp])
+                                     
+                                      
+threshold = 1.0
+trans_init = np.identity(4)
+draw_registration_result(source, target, trans_init)
+
+print("Initial alignment")
+evaluation = o3d.pipelines.registration.evaluate_registration(
+    source, target, threshold, trans_init)
+print(evaluation)
+
+# Initial alignment
+# RegistrationResult with fitness=1.046892e-01, inlier_rmse=8.311949e-01, and correspondence_set size of 192
+# Access transformation to get result.
 
 
+########################## point-to-point ICP ##############################
+print("\n\nApply point-to-point ICP")
+reg_p2p = o3d.pipelines.registration.registration_icp(
+    source, target, threshold, trans_init,
+    o3d.pipelines.registration.TransformationEstimationPointToPoint())
+print(reg_p2p)
+print("Transformation is:")
+print(reg_p2p.transformation)
+draw_registration_result(source, target, reg_p2p.transformation)
 
+# Apply point-to-point ICP
+# RegistrationResult with fitness=9.411123e-01, inlier_rmse=2.790346e-01, and correspondence_set size of 1726
+# Access transformation to get result.
+# Transformation is:
+# [[ 0.98046308  0.07335189 -0.18251481  1.32404862]
+#  [-0.07317525  0.99728929  0.00771128 -0.11099725]
+#  [ 0.1825857   0.00579494  0.98317286 -1.42716579]
+#  [ 0.          0.          0.          1.        ]]
+
+############################################################################
+
+
+########################## point-to-plane ICP ##############################
+print("\n\nApply point-to-plane ICP")
+source.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=0.1, max_nn=30))
+target.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=0.1, max_nn=30))
+
+reg_p2l = o3d.pipelines.registration.registration_icp(
+    source, target, threshold, trans_init,
+    o3d.pipelines.registration.TransformationEstimationPointToPlane())
+print(reg_p2l)
+print("Transformation is:")
+print(reg_p2l.transformation)
+draw_registration_result(source, target, reg_p2l.transformation)
+
+# Apply point-to-plane ICP
+# RegistrationResult with fitness=9.323882e-01, inlier_rmse=2.793996e-01, and correspondence_set size of 1710
+# Access transformation to get result.
+# Transformation is:
+# [[ 9.66789671e-01  1.58338593e-01 -2.00615607e-01  1.36196330e+00]
+#  [-1.54972254e-01  9.87384826e-01  3.24777823e-02 -2.02984836e-01]
+#  [ 2.03227292e-01 -3.09331810e-04  9.79131540e-01 -1.36642907e+00]
+#  [ 0.00000000e+00  0.00000000e+00  0.00000000e+00  1.00000000e+00]]
+############################################################################
+```
+
+<br>
+
+- 위 코드를 수행한 결과 일치하지 않은 포인트 클라우드를 `Point-to-Point` 방식과 `Point-to-Plane` 방식으로 `ICP`를 적용하였고 유사한 수준에서 `inlier_rmse`를 얻을 수 있었습니다.
+- `source` → `target`으로 적용하기 위해 필요한 `transformation` 행렬 또한 유사한 수준에서 구할 수 있음도 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/intro/33.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 위 그림의 결과를 살펴보면 `ICP`를 적용하였을 때, 두 개의 포인트 클라우드가 겹치도록 위치 변환이 정상적으로 적용된 것을 확인할 수 있습니다.
 
 <br>
 
