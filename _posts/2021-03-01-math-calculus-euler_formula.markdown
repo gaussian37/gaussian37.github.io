@@ -13,6 +13,10 @@ tags: [오일러 공식, euler formula, 미분 방정식] # add tag
 
 <br>
 
+- 사전 지식 : [극좌표계](https://gaussian37.github.io/math-calculus-polar_coordinate_system/)
+
+<br>
+
 - 이번 글에서 다룰 오일러 공식은 다음 식과 같습니다.
 
 <br>

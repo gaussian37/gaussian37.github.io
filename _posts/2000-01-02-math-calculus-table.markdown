@@ -10,6 +10,7 @@ tags: [미분적분, calculus, 최적화, optimization] # add tag
 <br>
 
 - [Jacobian(자코비안) 이란?](https://gaussian37.github.io/math-calculus-jacobian/)
+- [극좌표계 (Polar Coordinate)](https://gaussian37.github.io/math-calculus-polar_coordinate_system/) 
 - [오일러 공식 (Euler formula)](https://gaussian37.github.io/math-calculus-euler_formula/)
 - [페이저 (Phasor)](https://gaussian37.github.io/math-calculus-phasor/)
 - [삼각함수 공식 모음](https://gaussian37.github.io/math-calculus-trigonometric_function/)
