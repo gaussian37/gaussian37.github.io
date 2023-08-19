@@ -13,12 +13,11 @@ tags: [Linear algebra, 선형 대수학] # add tag
 
 <br>
 
-## **선형 대수학 관련 주요 내용**
+## **선형 대수학 관련 주요 내용 정리**
 
 <br>
 
 - [A 2020 Vision of Linear Algebra, Gilbert Strang](https://gaussian37.github.io/math-la-vision_of_linear_algebra/)
-- 선형대수학 주요 용어
 - 역행렬과 행렬식
 - [벡터의 내적과 벡터의 정사영](https://gaussian37.github.io/math-la-projection/)
 - [벡터의 외적](https://gaussian37.github.io/math-la-cross_product/)
@@ -37,10 +36,10 @@ tags: [Linear algebra, 선형 대수학] # add tag
 
 <br>
 
-- [선형대수학 기본 개념 정리 모음]()
 - [연립방정식과 가우스 소거법]()
+- [벡터와 행렬 방정식 및 벡터 방정식]()
+- [일차 독립과 선형 변환]()
 - [행렬연산]()	
-- [행렬식]()	
 - [역행렬]()	
 - [LU분해]()	
 - [행렬식, 행렬식의 성질]()	
@@ -72,7 +71,25 @@ tags: [Linear algebra, 선형 대수학] # add tag
 
 <br>
 
-## **Gilbert Strang's Linear Algebra**
+## **[Gilbert Strang's Linear Algebra](https://www.amazon.com/Introduction-Linear-Algebra-Gilbert-Strang/dp/0980232775/ref=sr_1_3?keywords=gilbert+strang+linear+algebra&qid=1692433465&sprefix=gilbert+strang+l%2Caps%2C297&sr=8-3)**
+
+<br>
+
+<br>
+
+<br>
+
+## **[Gilbert Strang's Linear Algebra and Learning from Data](https://www.amazon.com/Linear-Algebra-Learning-Gilbert-Strang/dp/0692196382/ref=sr_1_1?crid=K403JIBQ32RQ&keywords=Linear+Algebra+and+Learning+from+Data&qid=1692433506&sprefix=linear+algebra+and+learning+from+data%2Caps%2C326&sr=8-1)**
+
+<br>
+
+- [선형대수학의 하이라이트]()
+- [큰 행렬의 계산]()
+- [낮은 랭크와 압축 센싱]()
+- [특별한 행렬들]()
+- [확률과 통계]()
+- [최적화]()
+- [데이터를 통한 학습]()
 
 <br>
 
@@ -133,6 +150,8 @@ tags: [Linear algebra, 선형 대수학] # add tag
 <br><br>
 
 ## **Fundamental of Matrix Computations**
+
+<br>
 
 <br>
 
