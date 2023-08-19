@@ -33,7 +33,7 @@ tags: [Linear algebra, 선형 대수학] # add tag
 
 <br>
 
-## **선형 대수학 내용 정리**
+## **[선형 대수학 내용 정리](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=311149787)**
 
 <br>
 
@@ -71,46 +71,6 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [복소 행렬]()
 
 <br>
-
-## **[Linear Algebra and Its Applications](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=58647912)**
-
-<br>
-
-- Systems of Linear Equations
-- Row Reduction and Echelon Forms
-- Vector Equations
-- The Matrix Equations Ax=b
-- Solution Sets of Linear Systems
-- Linear Independence
-- Introduction to Linear Transformation
-- The Matrix of a Linear Transformation
-- Matrix Operations
-- The inverse of a Matrix
-- Characterizations of Invertible Matrices
-- Partitioned Matrices
-- Matrix Factorization
-- Subspaces of Rn
-- Dimension and Rank
-- Introduction to Determinants
-- Properties of Determinants
-- Cramer's Rule, Volume, and Linear Transformations
-- Vector spaces
-- Eigenvectors and Eigenvalues
-- The Characteristic Equations
-- Diagonalization
-- Eigenvectors and Linear Transformations
-- Complex Eigenvalues
-- Inner Product, Length, and Orthogonality
-- Orthogonal Sets
-- Orthogonal Projections
-- The Gram-Schmidt Process
-- Least-Square Problems
-- Diagonalization of Symmetric Matrices
-- Quadratic Forms
-- Constrained Optimization
-- The Singular Value Decomposition
-
-<br><br>
 
 ## **Gilbert Strang's Linear Algebra**
 
