@@ -1,11 +1,39 @@
 ---
 layout: post
-title: Calculus 및 Optimization 글 목차 
+title: Calculus 관련 글 목차 
 date: 2000-01-01 00:00:00
 img: math/calculus/calculus.jpg
 categories: [math-calculus] 
-tags: [미분적분, calculus, 최적화, optimization] # add tag
+tags: [미분적분, calculus, 공학 수학, advanced egineering mathematics, vector calculus, differential geometry] # add tag
 ---
+
+<br>
+
+- 아래 내용은 대학 수학에 기본적으로 필요한 수학인 `Kreyszig 공업수학` 내용과 `Vector Calculus`, `Differential Geometry` 입니다.
+
+<br>
+
+## **Advanced Engineering Mathematics**
+
+<br>
+
+<br>
+
+## **Vector Calculus**
+
+<br>
+
+
+<br>
+
+## **Differential Geometry**
+
+<br>
+
+
+<br>
+
+## **Calculus 관련 기타 내용**
 
 <br>
 

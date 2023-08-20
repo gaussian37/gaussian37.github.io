@@ -310,6 +310,65 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Single view metrol
 - 따라서 2D 이미지에서 선을 찾았을 때, 그 선을 구성하는 ray 전체와 직교하는 3D 공간상의 `normal vector`를 찾는 데 $$ K $$ 를 사용할 수 있음을 확인하였습니다. 이와 같은 정보를 이용하면 `2D 이미지 상의 선`을 통해 3D 공간 상의 기하 정보를 추정할 수 있습니다.
 
 <br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/9TuPY67JBpo" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/46.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/47.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/48.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/49.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/50.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/51.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/52.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/53.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/54.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/55.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/56.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/57.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+
+
+
+
+
+<br>
 
 [Multiple View Geometry 글 목차](https://gaussian37.github.io/vision-mvg-table/)
 
