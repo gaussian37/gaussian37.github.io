@@ -351,16 +351,90 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Single view metrol
 <center><img src="../assets/img/vision/mvg/nus_lec6/54.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 지금부터는 `Vanishing Points`와 `Vanishing Lines`에 대하여 살펴보도록 하겠습니다.
+- 위 그림에서 $$ C $$ 는 카메라의 중심으로 $$ C $$ 의 위치는 움직이지 않고 카메라가 바라보는 방향만 위 아래로 움직이는 것을 나타냅니다.
+- 또한 위 그림에서 가로 방향의 $$ X $$ 축은 `world` 상의 3D 공간 좌표를 의미하고 $$ D $$ 축은 2D 공간 상의 무한 (`infinity`) 평면에 해당합니다.
+- `world` 상의 점 $$ X_{1}, X_{2}, X_{3}, X_{4} $$ 는 동일한 간격을 두고 점점 멀어지도록 표현되어 있습니다.
+- 위 그림에서 $$ X $$ 와 직교하는 실선의 세로 축과 비스듬한 점선의 세로 축 2개가 표현되어 있습니다. 카메라 중심 $$ C $$ 로부터 $$ X_{1}, X_{2}, X_{3}, X_{4} $$ 까지 뻗은 직선과 세로 축의 교점들이 **이미지에서의 $$ X_{1}, X_{2}, X_{3}, X_{4} $$ 의 위치**를 나타냅니다. `world` 상에서 $$ X_{1}, X_{2}, X_{3}, X_{4} $$ 는 등간격으로 나타내어진 반면에 이미지 상에서는 점점 간격이 좁아지게 되는데 이는 `원근법(Perspective View)`이 적용되었기 때문입니다. 따라서 `world` 상에서 멀리 존재하는 점들이 빽빽하게 모여있게 됩니다.
+- `vanishing point`는 `world` 상의 점 $$ X_{\infty} $$ 가 무한히 먼 곳에 존재할 때 이미지에 대응되는 점을 의미합니다. 위 그림에서는 $$ v $$ 와 $$ v' $$ 가 각각 `vanishing point`에 해당합니다.
+- 위 그림에서 주목할 점은 **같은 점이라도 카메라가 바라보는 방향에 따라 vanishing point의 위치가 다르다는 점**입니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec6/55.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
+- `vanishing point`는 위 그림과 같이 `direction of a line`에 의해 영향을 받는 것이지 `line`의 위치 (position)와는 무관합니다.
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/55_1.png" alt="Drawing" style="width: 500px;"/></center>
+<br>
+
+- 위 그림과 같이 `line`의 위치는 다르더라도 `line`이 `world` 상에서 모두 평행하다면 같은 `vanishing point`를 가지게 됨을 알 수 있습니다.
+- 54 페이지에서는 같은 `world` 상에서의 점에 대해서 카메라가 바라보는 위치가 달라지면 `vanishing point`의 위치가 바뀌는 것을 보여주었고 55 페이지에서는 평행한 선의 `vanishing point`가 모두 같은것을 보여주었습니다. 둘 다 같은 의미를 다른 방식으로 보여준 것이며 중요한 것은 `vanishing point`의 `direction of a line`에 의해 결정된다는 것입니다.
+- 55 페이지에서의 $$ l $$ 은 `vanishing line`을 의미합니다. 2개의 `vanishing point`를 구하면 그 점을 이용하여 `vanishing line`을 구할 수 있습니다.
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec6/56.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 이번 슬라이드에서는 대수적으로 `vanishing point`에 대한 정의를 내려 보도록 하겠습니다.
+- 위 그림에서 $$ C $$ 는 카메라의 중심이고 3D 공간상의 어떤 점 $$ X(\lambda) $$ 는 $$ X(\lambda) = A + \lambda D $$ 로 정의 됩니다. 임의의 점 $$ A $$ 에서 $$ D $$ 의 방향과 크기 만큼 이동하였을 때 생기는 점을 의미합니다.
+- 위 식에서 $$ D = (d^{T}, 0)^{T} $$ 에서 $$ d $$ 는 3D 벡터를 의미합니다. homogeneous coordinate에서 벡터를 나타내므로 마지막 차원의 값이 0이 되어 homogeneous 상의 벡터로 나타낼 수 있습니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec6/57.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/58.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/59.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/60.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/61.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/62.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/63.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/64.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/65.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/66.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/67.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/68.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/69.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/70.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 
