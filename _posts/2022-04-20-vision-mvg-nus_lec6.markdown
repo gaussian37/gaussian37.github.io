@@ -380,10 +380,14 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Single view metrol
 - 이번 슬라이드에서는 대수적으로 `vanishing point`에 대한 정의를 내려 보도록 하겠습니다.
 - 위 그림에서 $$ C $$ 는 카메라의 중심이고 3D 공간상의 어떤 점 $$ X(\lambda) $$ 는 $$ X(\lambda) = A + \lambda D $$ 로 정의 됩니다. 임의의 점 $$ A $$ 에서 $$ D $$ 의 방향과 크기 만큼 이동하였을 때 생기는 점을 의미합니다.
 - 위 식에서 $$ D = (d^{T}, 0)^{T} $$ 에서 $$ d $$ 는 3D 벡터를 의미합니다. homogeneous coordinate에서 벡터를 나타내므로 마지막 차원의 값이 0이 되어 homogeneous 상의 벡터로 나타낼 수 있습니다.
+- 따라서 임의의 3D 상의 점 $$ X(\lambda) = A + \lambda D $$ 로 나타낼 수 있습니다.
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec6/57.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
+- 앞에서 정의한 $$ X(\lambda) $$ 에 `Projection Matrix`인 $$ P $$ 를 적용해 보도록 하겠습니다.
+- 앞에서 다루온 바와 같이 $$ P = K[I \vert 0] $$ 
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec6/58.png" alt="Drawing" style="width: 1000px;"/></center>
@@ -392,6 +396,8 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Single view metrol
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec6/59.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
+회전행렬의 자유도는 3이므로 2개 이상의 `vanishing point` 쌍을 사용하면 회전행렬을 복원할 수 있습니다.
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec6/60.png" alt="Drawing" style="width: 1000px;"/></center>
@@ -425,6 +431,14 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Single view metrol
 <center><img src="../assets/img/vision/mvg/nus_lec6/67.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- `metric rectification`은 이미지에서 `perspective view`로 인하여 수직 성분이 왜곡되어 이미지 상에서 형성된 것을 다시 수직 형태로 복원하는 과정을 의미합니다.
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec6/67_1.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 앞에서 다룬 그림을 다시 살펴보겠습니다. 위 그림에서 (b), (c)가 (a)를 `metric rectification` 하여 수직 성분을 복원한 예시입니다. 그림에서도 (b), (c)를 `Front-Parallel`로 표현할 것을 확인할 수 있습니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec6/68.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
@@ -439,8 +453,14 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Single view metrol
 
 
 
+<br>
 
-
+- 지금까지 살펴본 `vanishing point`와 `vanishing line`에 대하여 정리해 보면 다음과 같습니다.
+- `vanishing point`와 `vanishing line` 3D 공간 상의 위치와는 무관하고 방향에만 관계가 있습니다.
+- `vanishing point`는 3D 공간 상의 평행한 선들 (`parallel scene lines`)을 알 수 있으면 이미지 상에서 구할 수 있습니다. `vanishing point`를 활용하는 대표적인 예시로 ① `intrinsic`이 같은 2개의 카메라의 `Rotation`을 구하는 것과 ② 2개의 `scene lines` 사이의 각을 구하는 것이 있었습니다.
+- `vanishing lines`은 2개의 `vanishing point`를 연결하여 구할 수 있고 ( $$ l = v_{1} \times v_{2} $$) 또는 3D 공간 상의 평면과 $$ \pi_{\infty} $$ 의 교차선을 통하여 구할 수도 있습니다. 
+- 특히 두번째 방법에서 3D 공간 상의 평면인 `scene plane`의 `normal vector`인 $$ n $$ 을 $$ n = K^{T}l $$ 으로 구할 수 있습니다. 이 때, 어떤 $$ n $$ 값을 가지는 `scene plane`들 중에서 카메라 센터를 통과하는 `scene plane`이 이미지와 교차하는 선이 `vanishing line`이 되는 것을 확인하였습니다.
+- `vanishing line`을 이용하면 ① `vanishing line`을 생성하는 `scene plane`의 `normal vector`를 알 수 있다는 것과 ② `metric rectification`을 하는 데 이용할 수 있다는 점, ③ 2개의 `scene plane` 사이의 각도를 확인할 때 사용할 수 있다는 것을 확인하였습니다.
 
 <br>
 
