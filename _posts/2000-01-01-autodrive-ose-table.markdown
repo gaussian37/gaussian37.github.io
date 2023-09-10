@@ -28,6 +28,7 @@ tags: [칼만 필터, kalman filter. bayes filter, particle filter, optimal stat
 - [Extended Kalman Filter (확장 칼만 필터)]()
 - [Unscented Kalman Filter (무향 칼만 필터)]()
 - [Particle Filter (파티클 필터)]()
+- [Vehicle Dynamics와 Bicycle Model](https://gaussian37.github.io/ad-ose-vehicle_dynamics_and_bicycle_model/)
 
 <br>
 

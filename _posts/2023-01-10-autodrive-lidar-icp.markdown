@@ -11,6 +11,12 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 - 이번 글은 이론적으로 `ICP`에 대한 내용을 다루는 `Cyrill Stachniss`의 강의를 정리하는 내용입니다.
 - 강의는 총 1시간 분량의 강의 3개로 구성되어 총 3시간 분량의 강의입니다.
+- 아래 참조 내용은 실제 코드 구현 시 도움 받은 내용입니다.
+
+<br>
+
+- 참조 : https://mr-waguwagu.tistory.com/36
+- 참조 : https://github.com/minsu1206/3D/tree/main
 
 <br>
 
