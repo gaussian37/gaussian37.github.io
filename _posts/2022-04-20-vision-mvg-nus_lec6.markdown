@@ -482,9 +482,39 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Single view metrol
 <center><img src="../assets/img/vision/mvg/nus_lec6/75.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 75p의 슬라이드 하단의 이미지를 아래 좀 더 선명하게 표현하도록 하였습니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec6/75_1.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
+- 위 슬라이드에서는 $$ H_{2 \times 2} $$ 를 이용하여 오른쪽의 `image`에 존재하는 $$ \tilde{t}_{1} $$ 와 $$ t_{2} $$ 를 왼쪽의 `스케일 변환된 3D space`에서의 $$ \tilde{T}_{1} $$ 와 $$ T_{2} $$ 로 대응 시키는 내용을 설명합니다.
+- 74p에서 정의된 $$ H_{2 \times 2} $$ 를 이용하면 이미지 상의 $$ 0 \approx v $$ 범위의 높이 값을 `3D space` 상에서 $$ 0 ~ 1 $$ 사이의 값으로 스케일 변환하여 대응시킬 수 있습니다. 즉 `image`의 지면 점 $$ b_{2} $$ 는 그대로 스케일 변환된 3D 공간 상에서 $$ 0 $$ 이 되고 `image` 상의 무한이 높이 있는 점 $$ v $$ 는 스케일 변환된 3D 공간 상에서 $$ 1 $$ 이 됩니다.
+- 따라서 `image` 상의 점 $$ \tilde{t}_{1} $$ 과 $$ H_{2 \times 2} $$ 를 통해 `스케일 변환된 3D space`에서의 $$ \tilde{T}_{1} $$ 의 값과 $$ t_{2} $$ 와 $$ H_{2 \times 2} $$ 를 통하여 `스케일 변환된 3D space`에서의 $$ T_{2} $$ 의 값을 구하면 다음과 같습니다.
+
+<br>
+
+- $$ \tilde{T}_{1} = \begin{bmatrix} 1 & 0 \\ 1 & -v \end{bmatrix} \begin{bmatrix} \tilde{t}_{1} \\ 1 \end{bmatrix} = \begin{bmatrix} \tilde{t}_{1} \\ \tilde{t}_{1} - v \end{bmatrix} $$
+
+- $$ T_{2} = \begin{bmatrix} 1 & 0 \\ 1 & -v \end{bmatrix} \begin{bmatrix} t_{2} \\ 1 \end{bmatrix} = \begin{bmatrix} t_{2} \\ t_{2} - v \end{bmatrix} $$
+
+<br>
+
+- 위 결과에서 $$ \tilde{T}_{1} $$ 과 $$ T_{2} $$ 는 지면에서 (스케일 변환된) 수직으로 뻗은 위치입니다. 따라서 `inhomogeneous`로 변환하면 (스케일 변환된) `distance`가 됩니다. 다음과 같습니다.
+
+- $$ d_{1} = \frac{\tilde{t}_{1}}{(\tilde{t}_{1} - v)} $$
+
+- $$ d_{2} = \frac{t_{2}}{(t_{2} - v)} $$
+
+<br>
+
+- 따라서 `distance ratio`를 구하면 다음과 같습니다.
+
+<br>
+
+- $$ d_{1} \text{ : } d_{2} = \frac{\tilde{t}_{1}}{(\tilde{t}_{1} - v)} \text{ : } \frac{t_{2}}{(t_{2} - v)} $$
+
+- $$ \therefore \frac{d_{1}}{d_{2}} = \frac{\tilde{t}_{1}(v - t_{2})}{t_{2}(v - \tilde{t}_{1})} $$
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec6/76.png" alt="Drawing" style="width: 1000px;"/></center>
