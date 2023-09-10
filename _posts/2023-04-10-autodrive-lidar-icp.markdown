@@ -1,7 +1,7 @@
 ---
 layout: post
 title: ICP (Iterative Closest Point) 와 Point Cloud Registration
-date: 2023-01-10 00:00:00
+date: 2023-04-10 00:00:00
 img: autodrive/lidar/icp/0.png
 categories: [autodrive-lidar] 
 tags: [icp, iterative closest point, point cloud registration, svd, known data association, ] # add tag
