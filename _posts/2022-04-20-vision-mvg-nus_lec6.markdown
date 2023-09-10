@@ -479,11 +479,11 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Single view metrol
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec6/75_1.png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec6/75.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec6/75.png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec6/75_1.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
