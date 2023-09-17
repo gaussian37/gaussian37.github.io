@@ -16,6 +16,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 - 참조 : https://youtu.be/eJnG1vwGJkE?list=PLxg0CGqViygP47ERvqHw_v7FVnUovJeaz
 - 참조 : https://youtu.be/mNThwULGR-g?list=PLxg0CGqViygP47ERvqHw_v7FVnUovJeaz
 - 참조 : https://youtu.be/7QYq7qNkmtg?list=PLxg0CGqViygP47ERvqHw_v7FVnUovJeaz
+- 참조 : https://youtu.be/WQvJICS3Ecc?list=PLxg0CGqViygP47ERvqHw_v7FVnUovJeaz
 - 참조 : Multiple View Geometry in Computer Vision
 
 <br>
@@ -134,6 +135,11 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 </div>
 <br>
 
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/WQvJICS3Ecc" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
 
 <br>
 
