@@ -56,6 +56,73 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 - `Essential Matrix` $$ E $$ 는 `normalized image plane` 에서의 매칭쌍들 사이의 기하학적 관계를 설명하는 행렬을 의미하고 `Fundamental Matrix` $$ F $$ 는 카메라 파라미터 까지 포함한 두 이미지의 실제 픽셀 좌표 사이의 기하학적 관계를 표현하는 행렬을 의미합니다. 따라서 $$ E $$ 는 $$ F $$ 의 특수한 형태라고 생각할 수 있습니다.
 
 <br>
+
+- 두 이미지 평면 간의 기하학적 관계가 $$ E, F $$ 가 주어지고 두 이미지 평면상의 매칭쌍 $$ p, p' $$ 가 주어질 때, 3D 공간 상의 좌표 $$ P $$ 를 결정할 수 있습니다. 따라서 스테레오 비전에서의 깊이 ('depth')를 구할 수 있습니다.
+
+<br>
+
+- 상세 내용은 본 강의 내용을 통하여 자세하게 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/3.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/5.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/6.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/7.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/8.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/9.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/10.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/11.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/12.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/13.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/14.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/15.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/16.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/17.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+
+
+<br>
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/mNThwULGR-g" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
