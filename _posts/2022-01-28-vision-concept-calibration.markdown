@@ -455,7 +455,7 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 
 <br>
 
-- $$ \begin{bmatrix} R & T \\ 0^{T} & 1 \end{bmatrix} = \begin{bmatrix} 1 & T \\ 0^{T} & 1  \end{bmatrix} \begin{bmatrix} R & 0 \\ 0^{T} & 1  \end{bmatrix} \tag{33} $$
+- $$ \begin{bmatrix} R & T \\ 0^{T} & 1 \end{bmatrix} = \begin{bmatrix} I & T \\ 0^{T} & 1  \end{bmatrix} \begin{bmatrix} R & 0 \\ 0^{T} & 1  \end{bmatrix} \tag{33} $$
 
 <br>
 
