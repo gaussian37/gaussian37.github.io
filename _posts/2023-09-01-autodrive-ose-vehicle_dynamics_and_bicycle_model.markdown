@@ -158,6 +158,54 @@ tags: [차량 동역학, vehicle dynamics, bicycle model, tire model, dynamic bi
 <center><img src="../assets/img/autodrive/ose/vehicle_dynamics_and_bicycle_model/19_2.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 아래는 19 페이지의 슬라이드를 기준으로 $$ \beta, \delta $$ 를 모두 이용하여 `Kinematic Bicycle Model`을 정의한 내용입니다. 
+- `initialize parameters`에서 `L`, `lr`, `dt`는 실제 차량 환경을 고려한 길이를 넣어주어야 합니다. 
+- 아래 코드의 `constant inputs`으로 정의한 `v` 와 `delta` 또한 실제 차량의 움직임의 센서값들을 넣어야 정상 동작합니다. 아래 코드는 고정된 `v`, `delta` 상수값을 예시로 작성한 결과입니다.
+
+<br>
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Initialize parameters
+L = 2.0  # Wheelbase length
+lr = 1.0  # Distance from center of mass to the rear axle
+dt = 0.1  # Time step (s)
+T = 10.0  # Total simulation time (s)
+N = int(T / dt)  # Number of time steps
+
+# Initialize state variables
+x = np.zeros(N)
+y = np.zeros(N)
+psi = np.zeros(N)
+
+# Initial conditions
+x[0] = 0.0
+y[0] = 0.0
+psi[0] = 0.0
+
+# Constant inputs for this example
+v = 1.0  # Velocity (m/s)
+delta = np.pi / 6  # Steering angle (rad)
+
+# Time-discretized equations of motion
+for t in range(N - 1):
+    beta = np.arctan((lr / L) * np.tan(delta))
+    x[t + 1] = x[t] + dt * v * np.cos(psi[t] + beta)
+    y[t + 1] = y[t] + dt * v * np.sin(psi[t] + beta)
+    psi[t + 1] = psi[t] + dt * (v / L) * np.cos(beta) * np.tan(delta)
+
+# Plotting the trajectory
+plt.figure()
+plt.plot(x, y)
+plt.xlabel('X Position (m)')
+plt.ylabel('Y Position (m)')
+plt.title('Vehicle Trajectory')
+plt.grid(True)
+plt.show()
+```
+
 <br>
 <center><img src="../assets/img/autodrive/ose/vehicle_dynamics_and_bicycle_model/20.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
@@ -259,7 +307,7 @@ tags: [차량 동역학, vehicle dynamics, bicycle model, tire model, dynamic bi
 <br>
 
 <br>
-<center><img src="../assets/img/autodrive/ose/vehicle_dynamics_and_bicycle_model/43.png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/autodrive/ose/vehicle_dynamics_and_bicycle_model/43 .png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 
