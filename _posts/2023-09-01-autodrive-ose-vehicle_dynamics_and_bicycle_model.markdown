@@ -160,7 +160,8 @@ tags: [차량 동역학, vehicle dynamics, bicycle model, tire model, dynamic bi
 
 - 아래는 19 페이지의 슬라이드를 기준으로 $$ \beta, \delta $$ 를 모두 이용하여 `Kinematic Bicycle Model`을 정의한 내용입니다. 
 - `initialize parameters`에서 `L`, `lr`, `dt`는 실제 차량 환경을 고려한 길이를 넣어주어야 합니다. 
-- 아래 코드의 `constant inputs`으로 정의한 `v` 와 `delta` 또한 실제 차량의 움직임의 센서값들을 넣어야 정상 동작합니다. 아래 코드는 고정된 `v`, `delta` 상수값을 예시로 작성한 결과입니다.
+- 아래 코드의 `constant inputs`으로 정의한 `v` 와 `delta` 또한 실제 차량의 움직임의 센서값들을 넣어야 정상 동작합니다. 아래 코드는 고정된 $$ v = 1 \text{ m/s} $$ 와 $$ \delta = 45 \text{ deg} $$ 를 사용하였을 때의 차량의 이동 궤적을 구한 결과입니다.
+- 차량의 위치 $$ x, y $$ 좌표는 차량의 무게 중심을 의미합니다.
 
 <br>
 
@@ -176,9 +177,9 @@ T = 10.0  # Total simulation time (s)
 N = int(T / dt)  # Number of time steps
 
 # Initialize state variables
-x = np.zeros(N)
-y = np.zeros(N)
-psi = np.zeros(N)
+x = np.zeros(N+1)
+y = np.zeros(N+1)
+psi = np.zeros(N+1)
 
 # Initial conditions
 x[0] = 0.0
@@ -186,25 +187,137 @@ y[0] = 0.0
 psi[0] = 0.0
 
 # Constant inputs for this example
-v = 1.0  # Velocity (m/s)
-delta = np.pi / 6  # Steering angle (rad)
+# Velocity (m/s)
+velocities = [1.0] * 100
+# Steering angle (rad)
+deltas = [np.pi / 4] * 100
 
 # Time-discretized equations of motion
-for t in range(N - 1):
+for t, (v, delta) in enumerate(zip(velocities, deltas)):
     beta = np.arctan((lr / L) * np.tan(delta))
     x[t + 1] = x[t] + dt * v * np.cos(psi[t] + beta)
     y[t + 1] = y[t] + dt * v * np.sin(psi[t] + beta)
     psi[t + 1] = psi[t] + dt * (v / L) * np.cos(beta) * np.tan(delta)
 
+```
+
+<br>
+
+- 다음은 `jet colormap`으로 차량의 이동 궤적을 표현한 결과입니다. 인덱스의 색을 참조하면 파란색 부근이 시작점이고 빨간색 부근이 도착지점입니다.
+
+<br>
+
+```python
 # Plotting the trajectory
-plt.figure()
-plt.plot(x, y)
+colors = np.arange(len(x))
+# Create scatter plot with color gradation
+plt.scatter(x, y, c=colors, cmap='jet')
+plt.grid(True)
+plt.colorbar(label='Index')
 plt.xlabel('X Position (m)')
 plt.ylabel('Y Position (m)')
 plt.title('Vehicle Trajectory')
+plt.show()
+```
+
+<br>
+<center><img src="../assets/img/autodrive/ose/vehicle_dynamics_and_bicycle_model/19_3.png" alt="Drawing" style="width: 500px;"/></center>
+<br>
+
+- 아래는 이동 경로의 회전을 표현하기 위하여 $$ \psi $$ 각도를 화살표로 시각화 하여 표현한 결과입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/ose/vehicle_dynamics_and_bicycle_model/19_4.png" alt="Drawing" style="width: 500px;"/></center>
+<br>
+
+- 이번에는 $$ v $$ 와 $$ \delta $$ 에 임의의 값을 지정하여 한번 그려보겠습니다.
+- $$ v $$ 는 5 m/s 이하의 속도의 랜덤값이고 $$ \delta $$ 는 18도 ~ 45도 각도의 랜덤 값입니다.
+
+<br>
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Initialize parameters
+L = 2.0  # Wheelbase length
+lr = 1.0  # Distance from center of mass to the rear axle
+dt = 0.1  # Time step (s)
+T = 10.0  # Total simulation time (s)
+N = int(T / dt)  # Number of time steps
+
+# Initialize state variables
+x = np.zeros(N+1)
+y = np.zeros(N+1)
+psi = np.zeros(N+1)
+
+# Initial conditions
+x[0] = 0.0
+y[0] = 0.0
+psi[0] = 0.0
+
+# Constant inputs for this example
+# Velocity (m/s)
+velocities = [random.random()*5 for _ in range(N)]
+# Steering angle (rad)
+deltas = [(-1)**(random.randint(0, 1))*(np.pi/random.randint(4, 10)) for _ in range(N)]
+
+# Time-discretized equations of motion
+for t, (v, delta) in enumerate(zip(velocities, deltas)):
+    beta = np.arctan((lr / L) * np.tan(delta))
+    x[t + 1] = x[t] + dt * v * np.cos(psi[t] + beta)
+    y[t + 1] = y[t] + dt * v * np.sin(psi[t] + beta)
+    psi[t + 1] = psi[t] + dt * (v / L) * np.cos(beta) * np.tan(delta)
+```
+
+<br>
+
+```python
+# Plotting the trajectory
+colors = np.arange(len(x))
+
+# Create scatter plot with color gradation
+plt.scatter(x, y, c=colors, cmap='jet')
+plt.grid(True)
+plt.colorbar(label='Index')
+plt.xlabel('X Position (m)')
+plt.ylabel('Y Position (m)')
+plt.title('Vehicle Trajectory')
+plt.show()
+```
+
+<br>
+<center><img src="../assets/img/autodrive/ose/vehicle_dynamics_and_bicycle_model/19_5.png" alt="Drawing" style="width: 500px;"/></center>
+<br>
+
+```python
+# Function to plot arrow
+def plot_arrow(x, y, yaw, length=0.7, width=0.2):
+    plt.arrow(x, y, length * np.cos(yaw), length * np.sin(yaw),
+              head_length=width, head_width=width, fc='r', ec='r')
+
+# Plotting the trajectory
+plt.figure()
+plt.plot(x, y)
+
+# Plot arrows to indicate psi (yaw angle)
+arrow_interval = 3
+for i in range(0, len(psi), arrow_interval):
+    plot_arrow(x[i], y[i], psi[i])
+
+
+plt.xlabel('X Position (m)')
+plt.ylabel('Y Position (m)')
+plt.title('Vehicle Trajectory with Yaw Angles')
 plt.grid(True)
 plt.show()
 ```
+
+<br>
+<center><img src="../assets/img/autodrive/ose/vehicle_dynamics_and_bicycle_model/19_6.png" alt="Drawing" style="width: 500px;"/></center>
+<br>
+
+- 따라서 위 그림과 같이 차속 $$ v $$ 와 앞 바퀴의 회전 각도 $$ \delta $$ 를 알 수 있으면 차량의 이동 궤적을 구할 수 있음을 확인할 수 있었습니다.
 
 <br>
 <center><img src="../assets/img/autodrive/ose/vehicle_dynamics_and_bicycle_model/20.png" alt="Drawing" style="width: 1000px;"/></center>
