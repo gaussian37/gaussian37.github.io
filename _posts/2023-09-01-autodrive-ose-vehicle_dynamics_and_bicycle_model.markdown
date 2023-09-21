@@ -320,6 +320,40 @@ plt.show()
 - 따라서 위 그림과 같이 차속 $$ v $$ 와 앞 바퀴의 회전 각도 $$ \delta $$ 를 알 수 있으면 차량의 이동 궤적을 구할 수 있음을 확인할 수 있었습니다.
 
 <br>
+
+- 만약 앞에서 구한 $$ x, y $$ 의 위치 이동과 $$ \psi $$ 를 이용하여 3차원 상의 `Rotation`과 `Translation`을 구한다면 다음과 같습니다.
+
+<br>
+
+```python
+def get_transformation_matrix(x, y, z, psi):
+    R = np.array([[np.cos(psi), -np.sin(psi), 0],
+                  [np.sin(psi), np.cos(psi), 0],
+                  [0, 0, 1]])
+    
+    t = np.array([x, y, z]).reshape(3, 1)
+    
+    T = np.hstack([R, t])
+    T = np.vstack([T, [0, 0, 0, 1]])
+    
+    return T
+
+# Example usage
+x, y, z = 1.0, 2.0, 0.0  # x, y, and z coordinates
+psi = np.pi / 4  # yaw angle in radians
+
+T = get_transformation_matrix(x, y, z, psi)
+print("3D Transformation Matrix:")
+print(T)
+
+# 3D Transformation Matrix:
+# [[ 0.70710678 -0.70710678  0.          1.        ]
+#  [ 0.70710678  0.70710678  0.          2.        ]
+#  [ 0.          0.          1.          0.        ]
+#  [ 0.          0.          0.          1.        ]]​
+```
+
+<br>
 <center><img src="../assets/img/autodrive/ose/vehicle_dynamics_and_bicycle_model/20.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
