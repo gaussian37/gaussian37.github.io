@@ -553,7 +553,7 @@ print(T)
 <br>
 
 <br>
-<center><img src="../assets/img/autodrive/ose/vehicle_dynamics_and_bicycle_model/43 .png" alt="Drawing" style="width: 1000px;"/></center>
+<center><img src="../assets/img/autodrive/ose/vehicle_dynamics_and_bicycle_model/43.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 
