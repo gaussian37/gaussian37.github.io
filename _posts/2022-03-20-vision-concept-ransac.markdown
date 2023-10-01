@@ -40,9 +40,9 @@ tags: [RANSAC, random sample consensus, 란삭, Lo-RANSAC] # add tag
 
 <br>
 
-- `RANSAC`은 `Random Sampling Consensus`의 줄임말로 **데이터를 랜덤하게 샘플링하여 사용하고자 하는 모델을 fitting한 다음 fitting 결과가 원하는 목표치 (합의점, Consensus)에 도달하였는 지 확인하는 과정**을 통해 모델을 데이터에 맞게 최적화하는 과정을 의미합니다.
+- `RANSAC`은 `Random Sample Consensus`의 줄임말로 **데이터를 랜덤하게 샘플링하여 사용하고자 하는 모델을 fitting한 다음 fitting 결과가 원하는 목표치 (합의점, Consensus)에 도달하였는 지 확인하는 과정**을 통해 모델을 데이터에 맞게 최적화하는 과정을 의미합니다.
 - 따라서 `RANSAC`은 특정 모델식이나 알고리즘을 의미하는 것은 아니며 `① 데이터 샘플링`, `② 모델 fitting`, `③ 목표치 도달 확인`이라는 3가지 과정을 반복적으로 수행하는 과정을 의미합니다.
-- 선형 함수 모델, 다항 함수 모델, 다양한 비선형 함수 모델 등 어떤 모델과 상관없이 `모델 fitting` 과정을 거치면 되므로 `RANSAC`은 모델을 fitting 하는 일종의 `Framework`라고 말하기도 합니다.
+- 선형 함수 모델, 다항 함수 모델, 다양한 비선형 함수 모델 등 어떤 모델과 상관없이 `모델 fitting` 과정을 적용하면 되므로 `RANSAC`은 모델을 fitting 하는 일종의 `Framework`라고 말하기도 합니다.
 
 <br>
 
@@ -50,7 +50,7 @@ tags: [RANSAC, random sample consensus, 란삭, Lo-RANSAC] # add tag
 
 <br>
 
-- 앞의 설명을 참조하면 `RANSAC`이란 `Framework`를 사용하지 않더라도 모델 fitting이라는 과정이 있기 때문에 굳이 `RANSAC`이란 절차를 사용하지 않아도 됩니다. 그럼에도 불구하고 `RANSAC`이 널리 사용되는 이유는 무엇일까요?
+- 앞의 설명을 참조하면 `RANSAC`이라는 방법론을 사용하지 않더라도 모델 fitting이라는 과정이 있기 때문에 굳이 `RANSAC` 절차를 거치지 않아도 됩니다. 그럼에도 불구하고 `RANSAC`이 널리 사용되는 이유는 무엇일까요?
 
 <br>
 
@@ -62,7 +62,7 @@ tags: [RANSAC, random sample consensus, 란삭, Lo-RANSAC] # add tag
 <br>
 
 - `RANSAC`은 간단한 절차에도 `outliers`에 강건한 모델 fitting을 할 수 있다는 이유로 널리 사용되고 있습니다.
-- 특히 컴퓨터 비전을 이용한 인식 관련 문제 해결 시, 다양한 이유로 발생하는 노이즈나 오인식이 발생하게 되고 이러한 문제에 강건한 모델 설계를 위하여 `RANSAC`은 현재까지 많이 사용되고 있습니다.
+- 특히 컴퓨터 비전 관련 문제 해결 시, 다양한 이유로 노이즈나 오인식이 발생하게 되고 이러한 문제에 강건한 모델 설계를 위하여 `RANSAC`은 현재까지 많이 사용되고 있습니다.
 
 <br>
 
@@ -70,7 +70,69 @@ tags: [RANSAC, random sample consensus, 란삭, Lo-RANSAC] # add tag
 
 <br>
 
-- 
+- 앞에서 언급한 바와 같이 `RANSAC`은 `① 데이터 샘플링`, `② 모델 fitting`, `③ 목표치 도달 확인` 과정을 거치며 최적의 모델 fitting을 하게 됩니다.
+- 가장 기본적인 `RANSAC`의 과정은 아래 flow-chart와 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/5.png" alt="Drawing" style="width: 500px;"/></center>
+<br>
+
+- ① `Pick n random points` : `inlier`와 `outlier`가 섞여 있는 전체 데이터셋에서 $$ n $$ 개의 데이터 (포인트)를 랜덤 샘플합니다. $$ n $$ 의 갯수를 정하는 내용은 본 글의 뒷부분에서 다룰 예정입니다.
+- ② `Estimate model parameters` : 랜덤 샘플 데이터를 이용하여 사용하고자 하는 모델을 fitting 합니다. 본 글에서는 다항함수(polynomial function)를 사용하므로 다항 함수의 파라미터를 fitting 하는 방법을 사용하여 랜덤 샘플 데이터에 맞춰서 fitting 합니다.
+- ③ `Calculate distance error` : ② 과정을 통해 fitting한 모델과 전체 데이터에 대하여 error를 구합니다. 
+- ④ `Count number of inliers` : ③ 과정에서 구한 error를 통해 각 데이터가 `inlier`인 지 `outlier`인 지 판단합니다. 이 때 판단하는 근거는 `threshold` 기준을 정하여 판단합니다. `threshold`가 크면 많은 실제 `outlier` 또한 `inlier`가 될 수 있으므로 적당한 수준으로 정해야하며 본 글에서는 실험적으로 `threshold`를 정하는 방법을 소개합니다.
+- ⑤ `Maximum Inliers ?` : `inlier` 목표치 또는 `inlier` 데이터 비율의 목표치가 있고 현재 fitting한 모델이 이 목표치를 달성하였다면 `iteration`을 끝낼 수 있습니다. 이와 같은 방법을 `early stop` 전략이라고 합니다. 만약 목표치를 달성하면 모델을 저장하고 전체 프로세스를 끝냅니다. 만약 목표치를 달성하지 못하였다면 `iteration`을 반복합니다.
+- ⑥ `N iterations ?` :  위 flow-chart를 통해 최대 $$ N $$ 번의 `iteration`을 반복하여 `RANSAC` 과정을 거치게 됩니다. $$ N $$ 이 커질수록 시도할 수 있는 횟수가 많아지기 때문에 좋은 모델을 선택할 수 있는 가능성이 커집니다. 하지만 그만큼 수행시간이 늘어나게 됩니다. 본 글의 뒷부분에서는 적당한 크기의 $$ N $$ 을 선택하는 방법을 소개하며 선택된 $$ N $$ 값을 `max iteration` 횟수로 지정하여 사용합니다.
+
+<br>
+
+- 이와 같은 전체 flow를 이용하여 기본적인 `RANSAC`이 동작하게 됩니다. 위 flow-chart를 구체적인 예시를 통해 한번 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/6.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림과 같은 데이터 셋이 있다고 가정하겠습니다. 가로축의 값 $$ X $$ 에 따른 $$ y $$ 값을 추정하는 모델링에 관한 데이터셋이며 파란색은 `inlier` 데이터, 빨간색은 `outlier` 데이터입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/7.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 예제에서 ④ `Count number of inliers` 과정을 위한 `threshold`는 1로 가정하며 `threshold 계산은 $$ \vert y - y_{\text{pred}} \vert $$ 로 계산합니다. 그래프 상으로는 세로축 방향 포인트와 선의 길이로 생각하셔도 됩니다.
+- 본 예제에서는 선형 모델을 사용할 예정이므로 매 iteration마다 샘플링할 데이터의 수는 2개를 사용합니다. 직선을 긋기 위해서는 최소 2개의 데이터가 필요로 하기 때문에 2개의 데이터를 랜덤 샘플링하며 `RANSAC`에서는 **모델링을 위한 최소 포인트를 샘플링 하는 것이 유리**하기 때문에 단 2개의 데이터만 샘플링 합니다. 이와 관련된 내용은 본 글 뒷부분에 자세히 설명되어 있습니다.
+
+<br>
+
+- 예제에서는 ⑤ `Maximum Inliers ?`의 기준을 `inlier` 데이터의 비율이 50 % 이상인 경우로 가정하겠습니다. 즉, fitting된 모델을 이용하여 `threshold = 1`을 기준으로 `inlier` 데이터의 비율을 계산하였을 때, 50 % 이상이면 `iteration`을 종료하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/8.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 먼저 첫번째 예제입니다. 위 그림에서 빨간색 점선 원으로 선택된 2개의 포인트가 랜덤 샘플링된 포인트 입니다. 이 2개의 점을 잇는 선이 fitting한 선형 모델이 됩니다. 이 선을 기준으로 `threshold`가 1인 범위를 검은색 점선으로 그렸습니다. 
+- 노란색 점들은 fitting한 모델을 기준으로 `threshold` 이내에 존재하여 `inlier`로 판단되는 점들입니다. 위 예제에서는 7개의 점이 `inlier`로 판된되었으며 전체 데이터에서의 비율은 29.2 % 입니다. 따라서 flow-chart의 종료 조건인 50 % 를 초과하지 못하였으므로 `RANSAC`을 종료하지 못하고 다시 `iteration`을 반복하게 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/9.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 두번째 예제에서도 동작 방식 및 확인해야 할 점은 첫번째 예제와 동일합니다. 여기서 주의 깊게 볼 점은 새롭게 fitting한 모델의 `inlier` 갯수가 첫번째 예제 경우보다 더 적다는 점입니다. 이와 같은 경우에는 fitting된 모델이 갱신되지 못합니다. 따라서 첫번째 예제의 fitting한 모델이 아직 까지는 최적의 모델이 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/10.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 세번째 예제에서는 첫번째 예제보다 `inlier` 갯수가 늘어났으므로 최적의 모델은 세번재 예제에서 구한 모델로 갱신이 됩니다. 하지만 `RANSAC` 종료 목표치인 `inlier` 데이터 비율 50 %를 만족하지 못하였으므로 `iteration`은 계속 반복합니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/11.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 네번째 예제에서는 세번째 예제보다 `inlier` 갯수가 늘어났고 `inlier` 데이터 비율도 66.7 %로 50%를 초과하였습니다. 따라서 `RANSAC` 종료조건을 만족하므로 전체 프로세스를 종료합니다. 네번째 예제에서 구한 모델이 최적의 모델이므로 이 모델의 결과가 최종 갱신됩니다.
+
+<br>
+
+- 이와 같은 과정을 거치는 방법이 기본적인 `RANSAC` 방법입니다. 지금부터는 예제를 설명하면서 언급한 파라미터들을 어떻게 설정하는 지 그 방법에 대하여 살펴보도록 하겠습니다.
 
 <br>
 
@@ -320,7 +382,7 @@ threshold = get_inlier_threshold(
 ```
 
 <br>
-<center><img src="../assets/img/vision/concept/ransac/1.png" alt="Drawing" style="width: 500px;"/></center>
+<center><img src="../assets/img/vision/concept/ransac/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 그림과 같이 `threshold=4`를 사용하는 것으로 구하였고 위 파라미터를 기준으로`RANSAC`을 수행하면 다음과 같습니다.
@@ -347,7 +409,7 @@ success, param = get_model_with_ransac(data, polynomial_degree=1, threshold=thre
 ```
 
 <br>
-<center><img src="../assets/img/vision/concept/ransac/2.png" alt="Drawing" style="width: 500px;"/></center>
+<center><img src="../assets/img/vision/concept/ransac/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 이번에는 동일한 함수를 이용하여 2차 함수를 모델링 해보겠습니다. 절차는 동일합니다.
@@ -385,7 +447,7 @@ threshold = get_inlier_threshold(
 ```
 
 <br>
-<center><img src="../assets/img/vision/concept/ransac/3.png" alt="Drawing" style="width: 500px;"/></center>
+<center><img src="../assets/img/vision/concept/ransac/3.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 그림과 같이 `threshold=16`을 사용하는 것으로 구하였고 위 파라미터를 기준으로`RANSAC`을 수행하면 다음과 같습니다.
@@ -413,16 +475,14 @@ success, param = get_model_with_ransac(data, polynomial_degree=2, threshold=thre
 ```
 
 <br>
-<center><img src="../assets/img/vision/concept/ransac/4.png" alt="Drawing" style="width: 500px;"/></center>
-<br>
-
-
-
+<center><img src="../assets/img/vision/concept/ransac/4.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 ## **Lo-RANSAC 개념**
 
 <br>
+
+- 지금까지 다룬 `RANSAC`의 아쉬운점은 좋은 모델을 찾았음에도 다음 iteration에서 완전히 랜덤 샘플을 추출하기 때문에 이전 시도와 상관없이 새로운 샘플 데이터로 `RANSAC`을 진행한다는 점입니다.
 
 <br>
 
