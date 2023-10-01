@@ -28,8 +28,8 @@ tags: [RANSAC, random sample consensus, 란삭, Lo-RANSAC] # add tag
 - ### [RANSAC의 필요성](#ransac의-필요성-1)
 - ### [RANSAC 개념](#ransac-개념-1)
 - ### [RANSAC의 파라미터 셋팅법](#ransac의-파라미터-셋팅법-1)
-- ### [RANSAC의 장단점](#ransac의-장단점-1)
 - ### [Early Stop 사용법](#early-stop-사용법-1)
+- ### [RANSAC의 장단점](#ransac의-장단점-1)
 - ### [RANSAC Python Code](#ransac-python-code-1)
 - ### [Lo-RANSAC 개념](#lo-ransac-개념-1)
 - ### [Lo-RANSAC Python Code](#lo-ransac-python-code-1)
@@ -119,6 +119,23 @@ tags: [RANSAC, random sample consensus, 란삭, Lo-RANSAC] # add tag
 - 위 식을 조건으로 살펴보았을 때, $$ m = 1 $$ 일 때, $$ N \approx 7 $$, $$ m = 2 $$ 일 때, $$ N \approx 16 $$ 등으로 $$ m = 3 $$ 일 때, $$ N \approx 34 $$, $$ m = 4 $$ 일 때, $$ N \approx 71 $$, ... 과 같이 급격하게 증가하는 것을 볼 수 있습니다. 
 - 즉, 모델의 복잡도가 커질수록 모델 fitting을 하기 위한 최소 필요한 샘플링 수가 많아지고 그만큼 반복 수행을 많이 해야 원하는 $$ p $$ 의 확률로 `inlier` 데이터를 뽑아낼 수 있습니다. 이러한 이유로 $$ N $$ 이 커지게 됩니다.
 
+<br>
+
+## **Early Stop 사용법**
+
+<br>
+
+- `RANSAC`을 통해 반복적으로 모델을 최적화 할 때, 적합한 모델을 찾았다면 더 이상 모델 fitting 작업을 할 필요가 없습니다. 따라서 다음과 같이 3가지 파라미터를 정하여 `RANSAC`을 일찍 끝내는 `Early Stop`을 사용하는 것이 좋습니다. 3가지 파라미터는 다음과 같습니다.
+
+<br>
+
+- ① `min iteration` : 모델 fitting을 위한 최소 반복 횟수를 의미합니다.
+- ② `max iteration` : 모델 fitting을 위한 최대 반복 횟수로 최대 반복 횟수 만큼 반복하면 모델 fitting이 실패하였음을 의미합니다.
+- ③ `stop inlier ratio` : 반복 작업을 끝내기 위한 최소 `inlier`의 비율을 의미합니다. 따라서 `inlier`의 비율이 `stop inlier ratio`를 초과하면 `RANSAC` 작업을 끝냅니다.
+
+<br>
+
+- 앞에서 다룬 $$ N $$ 을 구하는 방법을 통하여 $$ N $$ 값을 얻은 뒤 `max iteration`으로 설정하고 `stop inlier ratio`의 비율을 예상되는 `inlier`의 비율을 통하여 정하거나, 실험적으로 의미있는 비율을 정하여 설정하면 효과적으로 `Early Stop`을 적용할 수 있습니다.
 
 <br>
 
@@ -126,17 +143,279 @@ tags: [RANSAC, random sample consensus, 란삭, Lo-RANSAC] # add tag
 
 <br>
 
+- 지금까지 살펴본 내용으로 설명을 하면 ① `RANSAC`의 가장 큰 장점은 `outlier`에 강건한 모델이라는 점입니다. 이 장점이 `RANSAC`을 사용하는 가장 큰 이유이기도 합니다. 따라서 `outlier`가 어느 정도 섞여있어도 그것들을 무시하고 모델링 할 수 있습니다.
+- 그리고 ② `RANSAC`은 `outlier`에 강건한 모델을 설계하는 방법 중 가장 쉬운 방법입니다. `inlier`의 갯수만 세면 되기 때문에 구현도 쉽고 어떠한 모델이라도 적용하기도 쉽습니다.
+
 <br>
 
-## **Early Stop 사용법**
-
-<br>
+- 반면 ① `RANSAC`은 랜덤 샘플이라는 방법을 이용하므로 `Non-deterministic`하다는 단점이 있습니다. 즉, 같은 데이터 셋을 이용하여 모델링하더라도 매번 실행 결과가 다를 수 있다는 것입니다. 이 점은 관점에 따라서 `RANSAC`의 장점이 될 수도 있고 단점이 될 수도 있다고 생각합니다. 하지만 모델의 재현성 관점에서는 단점이라고 볼 수 있습니다.
+- 두번째 단점은 `RANSAC`의 가장 치명적인 단점입니다. 만약 `outlier`가 노이즈 처럼 생기지 않고 특정 분포를 가지게 되면 모델이 `outlier`를 fitting 할 수 있습니다. **따라서 데이터 셋을 미리 확인하고 `outlier`가 얼만큼 있는 지와 `outlier`가 특정 패턴 및 분포를 가지는 지 사전에 확인하는 것은 매우 중요합니다.** 만약 특정 분포를 가진다면 오히려 다른 방법으로 `outlier`를 사전에 제거하는 것도 좋은 접근이 될 수 있기 때문입니다.
+- 마지막으로 `RANSAC`은 `Loss`를 기반으로 동작하는 L1, L2 Loss와는 다르게 `Loss`를 기반으로 모델 fitting을 하지 않습니다. 이러한 동작 방식이 다른 알고리즘과 연계되어 한번에 `Loss`를 계산하는 `pipeline`에 연결시킬 수 없다는 점이 단점이 될 수 있습니다. 왜냐하면 다양한 알고리즘이 머신러닝, 딥러닝 방식의 학습 방식으로 이루어지기 때문에 같은 `pipeline`으로 연결할 수 있으면 한번에 전체 `pipeline`을 학습할 수 있어서 효율적이기 때문입니다. 
 
 <br>
 
 ## **RANSAC Python Code**
 
 <br>
+
+- 앞에서 다룬 내용을 파이썬 코드를 통하여 살펴보도록 하겠습니다. 살펴볼 내용은 다항함수를 이용하여 모델 fitting 하는 것이며 전체 데이터셋에서 80%는 약간의 노이즈만 추가하고 20%는 꽤 심한 변형을 주어 `outlier`가 되도록 하였습니다. 따라서 `early stop`의 `stop inlier ratio`는 0.8을 사용하고자 합니다.
+- 다항함수를 이용하는 것이므로 본 글에서는 `np.polyfit` 또는 `scipy.optimize.curve_fit`을 사용하여 모델 fitting 하는 방법을 사용하였습니다.
+
+<br>
+
+- 아래 코드의 전체적인 프로세스는 다음과 같습니다.
+- ① 노이즈가 섞인 데이터를 생성합니다. 노이즈 또한 랜덤하게 생성합니다.
+- ② $$ p = 0.99, e = 0.5 $$ 인 조건에서 `sampling number` $$ N $$ 을 구하고 이 값을 `max iteration`으로 사용합니다. 아래 코드의 `get_sampling_number` 함수가 이 내용에 해당합니다.
+- ③ `threshold` 후보군을 작은 값부터 사용하여 `early stop`을 만족하는 만족하는 `threshold`를 찾습니다. 아래 코드의 `get_inlier_threshold` 함수가 이 내용에 해당합니다.
+- ④ 새로운 데이터를 생성한 다음에 앞에서 사용한 `threshold`와 `early stop`을 이용하여 `RANSAC`이 유효하게 동작하는 지 확인합니다. 아래 코드의 `get_model_with_ransac` 함수가 이 내용에 해당합니다.
+
+<br>
+
+```python
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+
+def get_sampling_number(sample_size, p=0.99, e=0.5):
+    '''
+    sample size : Number of sample size per every iterations
+    p : Desired probability of choosing at least one sample free of outliers
+    e : Estimated probability that a point is an outlier
+    '''    
+    # Calculate the required number of iterations based on the formula
+    n_iterations_calculated = math.ceil(math.log(1 - p) / math.log(1 - (1 - e)**sample_size))
+    print(f"Calculated number of iterations: {n_iterations_calculated}")
+    return n_iterations_calculated
+
+def get_inlier_threshold(thresholds, data, polynomial_degree, sample_size,
+                         min_iteration, max_iteration, stop_inlier_ratio, verbose=False):
+
+    early_stop_flag = False
+    inlier_threshold = None
+    for threshold in thresholds:
+        best_fit = None
+        best_error = 0
+        for i in range(max_iteration):
+            # Randomly select sample points
+            subset = data[np.random.choice(len(data), sample_size, replace=False)]
+            x_sample, y_sample = subset[:, 0], subset[:, 1]
+
+            # Fit a line to the sample points
+            p = np.polyfit(x_sample, y_sample, polynomial_degree)
+
+            # Compute error
+            y_pred = np.polyval(p, X)
+            error = np.abs(y - y_pred)
+
+            # Count inliers
+            inliers = error < threshold
+            n_inliers = np.sum(inliers)
+
+            # Update best fit if the current model is better
+            if n_inliers > best_error:
+                print("threshold : {}, index : {}, n_inliers : {}".format(threshold, i, n_inliers))                
+                best_fit = p
+                best_error = n_inliers
+                
+                if (i > min_iteration) and (n_inliers/len(data)) >= stop_inlier_ratio:
+                    early_stop_flag = True
+                    inlier_threshold = threshold
+            
+            if early_stop_flag:
+                break
+        
+        if verbose:
+            # Best curve
+            y_best = np.polyval(best_fit, X)
+
+            # Plotting
+            plt.scatter(X, y, label='Data Points')
+            plt.plot(X, y_best, color='red', label='RANSAC Fit')
+            plt.legend()
+            plt.show()
+            
+        if early_stop_flag:
+            break
+    
+    return inlier_threshold
+
+def get_model_with_ransac(data, polynomial_degree, threshold, sample_size,
+                         min_iteration, max_iteration, stop_inlier_ratio, verbose=False):
+
+    early_stop_flag = False
+    inlier_threshold = None
+    best_fit = None
+    best_error = 0
+    for i in range(max_iteration):
+        # Randomly select sample points
+        subset = data[np.random.choice(len(data), sample_size, replace=False)]
+        x_sample, y_sample = subset[:, 0], subset[:, 1]
+
+        # Fit a line to the sample points
+        p = np.polyfit(x_sample, y_sample, polynomial_degree)
+
+        # Compute error
+        y_pred = np.polyval(p, X)
+        error = np.abs(y - y_pred)
+
+        # Count inliers
+        inliers = error < threshold
+        n_inliers = np.sum(inliers)
+
+        # Update best fit if the current model is better
+        if n_inliers > best_error:
+            best_fit = p
+            best_error = n_inliers
+
+            if (i > min_iteration) and (n_inliers/len(data)) >= stop_inlier_ratio:
+                early_stop_flag = True
+                inlier_threshold = threshold
+                print("index : {}, n_inliers : {}".format(i, n_inliers))
+
+        if early_stop_flag:
+            break
+
+    if verbose:
+        # Best curve
+        y_best = np.polyval(best_fit, X)
+
+        # Plotting
+        plt.scatter(X, y, label='Data Points')
+        plt.plot(X, y_best, color='red', label='RANSAC Fit')
+        plt.legend()
+        plt.show()
+        
+    return early_stop_flag, best_fit
+```
+
+<br>
+
+- 위에서 정의한 함수들을 이용하면 아래와 같이 실행할 수 있습니다.
+
+<br>
+
+```python
+# Generate synthetic data
+np.random.seed(0)
+n_points = 100
+X = np.linspace(0, 10, n_points)
+y = 3 * X + 10 + np.random.normal(0, 3, n_points)
+
+# Add outliers
+n_outliers = 20
+X[-n_outliers:] += int(30 * np.random.rand())
+y[-n_outliers:] -= int(50 * np.random.rand())
+X = np.expand_dims(X, -1)
+y = np.expand_dims(y, -1)
+data = np.hstack([X, y])
+
+threshold_cadidates = [1,2,4,8,16,32,64,128]
+threshold_cadidates.sort()
+
+sample_size = 2
+max_iteration = get_sampling_number(sample_size)
+threshold = get_inlier_threshold(
+    threshold_cadidates, data, polynomial_degree=1, sample_size=sample_size,
+    min_iteration=-1, max_iteration=max_iteration, stop_inlier_ratio=0.50, verbose=True)
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/1.png" alt="Drawing" style="width: 500px;"/></center>
+<br>
+
+- 위 그림과 같이 `threshold=4`를 사용하는 것으로 구하였고 위 파라미터를 기준으로`RANSAC`을 수행하면 다음과 같습니다.
+
+<br>
+
+```python
+# Generate synthetic data
+np.random.seed(np.random.seed())
+n_points = 100
+X = np.linspace(0, 10, n_points)
+y = 3 * X + 10 + np.random.normal(0, 3, n_points)
+
+# Add outliers
+n_outliers = 20
+X[-n_outliers:] += int(30 * np.random.rand())
+y[-n_outliers:] -= int(50 * np.random.rand())
+X = np.expand_dims(X, -1)
+y = np.expand_dims(y, -1)
+data = np.hstack([X, y])
+
+success, param = get_model_with_ransac(data, polynomial_degree=1, threshold=threshold, sample_size=sample_size,
+    min_iteration=-1, max_iteration=max_iteration, stop_inlier_ratio=0.75, verbose=True)
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/2.png" alt="Drawing" style="width: 500px;"/></center>
+<br>
+
+- 이번에는 동일한 함수를 이용하여 2차 함수를 모델링 해보겠습니다. 절차는 동일합니다.
+
+<br>
+
+```python
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+
+# Generate synthetic data
+np.random.seed(0)
+n_points = 100
+X = np.linspace(-10, 10, n_points)
+y = 2 * X**2 + 3 * X + 4 + np.random.normal(0, 10, n_points)
+
+# Add outliers
+n_outliers = 20
+X[-n_outliers:] += int(30 * np.random.rand())
+y[-n_outliers:] -= int(500 * np.random.rand())
+
+X = np.expand_dims(X, -1)
+y = np.expand_dims(y, -1)
+data = np.hstack([X, y])
+
+threshold_cadidates = [1,2,4,8,16,32,64,128]
+threshold_cadidates.sort()
+
+sample_size = 3
+max_iteration = get_sampling_number(sample_size)
+threshold = get_inlier_threshold(
+    threshold_cadidates, data, polynomial_degree=2, sample_size=sample_size,
+    min_iteration=-1, max_iteration=max_iteration, stop_inlier_ratio=0.50, verbose=True)
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/3.png" alt="Drawing" style="width: 500px;"/></center>
+<br>
+
+- 위 그림과 같이 `threshold=16`을 사용하는 것으로 구하였고 위 파라미터를 기준으로`RANSAC`을 수행하면 다음과 같습니다.
+
+<br>
+
+```python
+# Generate synthetic data
+np.random.seed(np.random.seed())
+n_points = 100
+X = np.linspace(-10, 10, n_points)
+y = 2 * X**2 + 3 * X + 4 + np.random.normal(0, 10, n_points)
+
+# Add outliers
+n_outliers = 20
+X[-n_outliers:] += int(30 * np.random.rand())
+y[-n_outliers:] -= int(500 * np.random.rand())
+
+X = np.expand_dims(X, -1)
+y = np.expand_dims(y, -1)
+data = np.hstack([X, y])
+
+success, param = get_model_with_ransac(data, polynomial_degree=2, threshold=threshold, sample_size=sample_size,
+    min_iteration=-1, max_iteration=max_iteration, stop_inlier_ratio=0.50, verbose=True)
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/4.png" alt="Drawing" style="width: 500px;"/></center>
+<br>
+
 
 
 <br>
