@@ -482,7 +482,20 @@ success, param = get_model_with_ransac(data, polynomial_degree=2, threshold=thre
 
 <br>
 
-- 지금까지 다룬 `RANSAC`의 아쉬운점은 좋은 모델을 찾았음에도 다음 iteration에서 완전히 랜덤 샘플을 추출하기 때문에 이전 시도와 상관없이 새로운 샘플 데이터로 `RANSAC`을 진행한다는 점입니다.
+- 지금까지 다룬 `RANSAC`의 아쉬운점은 좋은 모델을 찾았음에도 다음 iteration에서 완전히 다른 랜덤 샘플을 추출하기 때문에 이전 시도와 상관없이 새로운 샘플 데이터로 `RANSAC`을 진행한다는 점입니다.
+- `Lo-RANSAC`은 `Locally Optimized RANSAC`의 줄임말로 `inlier` 데이터는 `inlier`데이터 주변에 모인다는 특성을 이용하여 `RANSAC`의 결과에서 `inlier`들만을 이용하여 `local` 영역에서의 최적화를 더 진행하는 과정을 의미합니다.
+- `local` 영역에서 계속 최적화하기 때문에 최적화 결과 `inlier`가 더 늘어나면 추가된 `inlier`를 이용하여 다시 최적화하고 이 과정을 재귀적(recursive)으로 진행합니다.
+- 재귀적으로 진행되기 때문에 연산이 더 늘어나는 것으로 보일 수 있으나 `early stop` 전략과 잘 엮어서 쓰면 기본적인 `RANSAC`에 비해 짧은 연산 시간만으로도 높은 정확성을 가진 모델을 얻을 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/12.png" alt="Drawing" style="width: 500px;"/></center>
+<br>
+
+- 위 flow-chart에서 빨간색 부분이 `Lo-RANSAC`에 추가된 부분이며 풀어서 설명하면 다음과 같습니다.
+- ① $$ n $$ 개의 데이터를 랜덤 샘플링 합니다.
+- ② 랜덤 샘플한 데이터를 이용하여 모델 fitting을 합니다.
+- ③ fitting된 모델을 이용하여 전체 데이터의 `error`를 계산합니다.
+- ④ `error`와 `threshold`를 기준으로 `inlier`를 정의합니다.
 
 <br>
 
