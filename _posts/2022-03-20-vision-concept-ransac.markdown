@@ -488,14 +488,22 @@ success, param = get_model_with_ransac(data, polynomial_degree=2, threshold=thre
 - 재귀적으로 진행되기 때문에 연산이 더 늘어나는 것으로 보일 수 있으나 `early stop` 전략과 잘 엮어서 쓰면 기본적인 `RANSAC`에 비해 짧은 연산 시간만으로도 높은 정확성을 가진 모델을 얻을 수 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/ransac/12.png" alt="Drawing" style="width: 500px;"/></center>
+<center><img src="../assets/img/vision/concept/ransac/12.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 flow-chart에서 빨간색 부분이 `Lo-RANSAC`에 추가된 부분이며 풀어서 설명하면 다음과 같습니다.
 - ① $$ n $$ 개의 데이터를 랜덤 샘플링 합니다.
 - ② 랜덤 샘플한 데이터를 이용하여 모델 fitting을 합니다.
-- ③ fitting된 모델을 이용하여 전체 데이터의 `error`를 계산합니다.
-- ④ `error`와 `threshold`를 기준으로 `inlier`를 정의합니다.
+- ③ fitting된 모델을 이용하여 전체 데이터의 `error`를 계산하고 이 값과 `threshold`를 이용하여 `inlier`의 갯수를 카운트합니다.
+- ④ 기존에 기록된 최대 `inlier` 갯수를 초과하면 다음 스텝으로 넘어가고 초과하지 못하면 ① 작업으로 돌아갑니다.
+- ⑤, ⑥, ⑦ `inlier`를 기준으로 앞에서 수행한 ①, ②, ③ 작업을 그대로 수행합니다. ①, ②, ③의 경우 전체 데이터에서 랜덤 샘플링한 후 `RANSAC` 작업을 한 것에 반해 ⑤, ⑥, ⑦ 은 한번 모델을 fitting한 결과를 기준으로 `inlier`에서 랜덤 샘플링한 후 `RANSAC` 작업을 한 것에 차이가 있습니다.
+- ⑧ `inlier` 기준으로 `RANSAC`한 결과가 현재까지 기록된 최대 `inlier` 갯수를 초과하는 지 확인합니다. 초과한다면 다음 스텝으로 넘어가고 초과하지 못하면 ① 작업으로 돌아갑니다.
+- ⑨ 최대 `inlier`를 달성하였으므로 모델을 저장합니다.
+- ⑩ `inlier` 데이터 전체를 이용하여 `local optimization`을 합니다. `polynomial` 함수의 경우 `inlier` 데이터 전체를 이용하여 `curve fitting`을 해볼 수 있습니다. 또는 `Levenberg-Marquardt Optimization`과 같은 최적화 방법론을 이용하여 모델을 최적화할 수 있습니다.
+- ⑪ `local optimization`의 결과가 최대 `inlier`를 달성하였는 지 확인합니다.
+- ⑫ 최대 `inlier`를 달성하였으므로 모델을 저장합니다.
+- ⑬ 최대 N 번 `iteration`을 반복하였는 지 확인합니다. `iteration`을 더 반복해야 하면 ① 과정부터 다시 시작합니다. N번 모두 `iteration`이 끝났다면 `Lo-RANSAC` 과정을 끝냅니다.
+- ⑭ 최종적으로 선택된 모델을 저장합니다.
 
 <br>
 
