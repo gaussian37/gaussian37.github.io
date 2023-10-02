@@ -33,6 +33,7 @@ tags: [RANSAC, random sample consensus, 란삭, Lo-RANSAC] # add tag
 - ### [RANSAC Python Code](#ransac-python-code-1)
 - ### [Lo-RANSAC 개념](#lo-ransac-개념-1)
 - ### [Lo-RANSAC Python Code](#lo-ransac-python-code-1)
+- ### [Computer Vision에서의 RANSAC 활용](#computer-vision에서의-ransac-활용-1)
 
 <br>
 
@@ -162,11 +163,41 @@ tags: [RANSAC, random sample consensus, 란삭, Lo-RANSAC] # add tag
 
 <br>
 
+- 위 식이 정의된 배경은 다음과 같습니다.
+
+<br>
+
+- $$ p(\text{fail once}) = \text{ do not select only inliers} $$
+
+- $$ 1 - p \text{ : At least, one random sample set is free from outliers} $$ 
+
+- $$ 1 - p = 1 - (1 - e)^{m} $$
+
+<br>
+
+- $$ p(\text{fail N times}) = \text{ select at least one outlier in all N times} $$
+
+- $$ 1 - p \text{ : At least, one random sample set is free from outliers} $$ 
+
+- $$ 1 - p = (1 - (1 - e)^{m})^{N} $$
+
+- $$ \therefore \quad p = 1 - (1 - (1 - e)^m)^{N} $$
+
+
+<br>
+
 - 위 식에서 $$ p $$ 는 `inlier`로 이루어진 샘플을 얻을 확률이고 기대하는 값이기도 합니다. 따라서 $$ p = 0.99 $$ 와 같이 매우 큰 값으로 설정합니다. 따라서 $$ p $$ 는 상수와 비슷하게 사용할 수 있습니다.
-- 그 다음 $$ e $$ 는 실제 데이터 확인을 통하여 `outlier`의 비율을 확인해서 정할 수 있습니다. 만약 `outlier`의 비율을 알 수 없으면 보수적으로 0.5로 적용할 수도 있습니다. 실제로 `outlier`의 비율이 0.5 정도가 된다면 노이즈가 굉장히 많은 데이터이기 때문입니다.
+- 그 다음 $$ e $$ 는 실제 데이터 확인을 통하여 `outlier`의 비율을 확인해서 정할 수 있습니다. 만약 `outlier`의 비율을 알 수 없으면 보수적으로 0.5로 적용할 수도 있습니다. 실제로 `outlier`의 비율이 0.5 정도가 된다면 노이즈가 굉장히 많은 데이터이기 때문입니다. 단, 식을 이용하여 전체 경향을 살펴보면 `outlier`의 비율이 커질수록 시행 횟수가 늘어나게 됩니다. 아래 표의 각 셀은 확률 $$ p $$ 와 샘플링 횟수 $$ m $$ (도표에서는 $$ s $$ 로 표기함)에 따른 필요 시행횟수를 의미합니다. $$ p $$ 가 커질수록 $$ m $$ 이 커질수록 시행횟수가 늘어나야 하고 `outlier`의 비율이 커질수록 시행횟수 또한 커져야 합니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/14.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+
 - 실제 정해주어야 하는 값은 $$ m, N $$ 입니다. $$ m $$ 은 크기가 작을수록 $$ p $$ 의 값이 1에 가까워지고 $$ N $$ 은 크기가 클수록 $$ p $$ 의 값이 1에 가까워 집니다.
-- 예를 들어 $$ m $$ 이 클수록 샘플링 해야 하는 데이터의 수가 많아지기 때문에 `outlier`가 선택될 가능성이 더 커지게 됩니다. 즉 `inlier`로 이루어진 샘플을 얻을 확률이 낮아지므로 $$ p $$ 가 작아지게 됩니다. 간단하게 $$ e $$ 가 비율이므로 $$ 1 - e $$ 는 1보다 작은 값이고 $$ m $$ 만큼 거듭제곱이 되므로 $$ m $$ 이 커질수록 $$ (1 - e)^m $$ 은 작아지게 됩니다. 따라서 $$ p $$ 또한 작아지도록 반영됩니다. 
-- 이러한 이유로 모델링에 필요한 최소 갯수를 샘플링 하는 방법을 많이 사용합니다. 예를 들면 선형 모델을 모델링할 때에는 2개의 샘플만 있으면 되기 때문에 $$ m = 2 $$ 가 될 수 있습니다. 2차 모델의 경우 3개의 샘플이 필요하므로 $$ m = 3 $$ 이 됩니다. 따라서 `RANSAC`에 사용되는 모델에 따라서 $$ m $$ 은 자동으로 결정될 수 있습니다.
+- 예를 들어 $$ m $$ 이 클수록 샘플링 해야 하는 데이터의 수가 많아지기 때문에 `outlier`가 선택될 가능성이 더 커지게 됩니다. 즉 `inlier`로만 이루어진 샘플을 얻을 확률이 낮아지므로 $$ p $$ 가 작아지게 됩니다. 
+- 실제 값의 변화를 확인하여도 이유로 $$ m $$ 이 커질수록 $$ p $$ 가 작아지게 됩니다.$$ e $$ 가 비율이므로 $$ 1 - e $$ 는 1보다 작은 값이고 $$ m $$ 만큼 거듭제곱이 되므로 $$ m $$ 이 커질수록 $$ (1 - e)^m $$ 은 더욱 더 작아지게 됩니다. 따라서 $$ p $$ 또한 작아지도록 반영됩니다. 
+- 이러한 이유로 **모델링에 필요한 최소 갯수를 샘플링 하는 방법을 많이 사용**합니다. 예를 들면 선형 모델을 모델링할 때에는 2개의 샘플만 있으면 되기 때문에 $$ m = 2 $$ 가 될 수 있습니다. 2차 모델의 경우 3개의 샘플이 필요하므로 $$ m = 3 $$ 이 됩니다. 따라서 `RANSAC`에 사용되는 모델에 따라서 $$ m $$ 은 자동으로 결정될 수 있습니다.
 
 <br>
 
@@ -495,10 +526,10 @@ success, param = get_model_with_ransac(data, polynomial_degree=2, threshold=thre
 - ① $$ n $$ 개의 데이터를 랜덤 샘플링 합니다.
 - ② 랜덤 샘플한 데이터를 이용하여 모델 fitting을 합니다.
 - ③ fitting된 모델을 이용하여 전체 데이터의 `error`를 계산하고 이 값과 `threshold`를 이용하여 `inlier`의 갯수를 카운트합니다.
-- ④ 기존에 기록된 최대 `inlier` 갯수를 초과하면 다음 스텝으로 넘어가고 초과하지 못하면 ① 작업으로 돌아갑니다.
+- ④ 기존에 기록된 최대 `inlier` 갯수를 초과하면 다음 스텝으로 넘어가고 초과하지 못하면 ① 작업으로 돌아갑니다. 최대 `inlier` 갯수를 초과하였다는 뜻은 `local optimization`을 할 만큼 가치있는 랜덤 샘플링이 되었다는 것을 의미합니다.
 - ⑤, ⑥, ⑦ `inlier`를 기준으로 앞에서 수행한 ①, ②, ③ 작업을 그대로 수행합니다. ①, ②, ③의 경우 전체 데이터에서 랜덤 샘플링한 후 `RANSAC` 작업을 한 것에 반해 ⑤, ⑥, ⑦ 은 한번 모델을 fitting한 결과를 기준으로 `inlier`에서 랜덤 샘플링한 후 `RANSAC` 작업을 한 것에 차이가 있습니다.
 - ⑧ `inlier` 기준으로 `RANSAC`한 결과가 현재까지 기록된 최대 `inlier` 갯수를 초과하는 지 확인합니다. 초과한다면 다음 스텝으로 넘어가고 초과하지 못하면 ① 작업으로 돌아갑니다.
-- ⑨ 최대 `inlier`를 달성하였으므로 모델을 저장합니다.
+- ⑨ 최대 `inlier`를 달성하였으므로 모델을 저장합니다. 이 지점에서 최대 `inlier`를 달성한 것의 의미는 `inlier` 내에서 샘플링 하는 것이 의미가 있다는 뜻이며 `inlier`가 유효하다는 것을 의미합니다. 따라서 다음 스텝에서 `inlier` 데이터 전체를 이용한 `local optimization`을 시도해 볼 수 있는 상황이 됩니다.
 - ⑩ `inlier` 데이터 전체를 이용하여 `local optimization`을 합니다. `polynomial` 함수의 경우 `inlier` 데이터 전체를 이용하여 `curve fitting`을 해볼 수 있습니다. 또는 `Levenberg-Marquardt Optimization`과 같은 최적화 방법론을 이용하여 모델을 최적화할 수 있습니다.
 - ⑪ `local optimization`의 결과가 최대 `inlier`를 달성하였는 지 확인합니다.
 - ⑫ 최대 `inlier`를 달성하였으므로 모델을 저장합니다.
@@ -507,10 +538,155 @@ success, param = get_model_with_ransac(data, polynomial_degree=2, threshold=thre
 
 <br>
 
+- 위 flow-chart에서 ⑤ ~ ⑪ 과정이 기본적인 `RANSAC`과 대비하여 개선된 내용입니다. 다소 연산 과정이 늘어나 보일 수 있지만, `early stop`과 같이 쓸 경우 `iteration`을 몇 번 반복하지 않고 끝낼 수 있으므로 효과가 좋을 수 있습니다.
+
+<br>
+
 ## **Lo-RANSAC Python Code**
 
 <br>
 
+```python
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+
+def get_sampling_number(sample_size, p=0.99, e=0.5):
+    '''
+    sample size : Number of sample size per every iterations
+    p : Desired probability of choosing at least one sample free of outliers
+    e : Estimated probability that a point is an outlier
+    '''    
+    # Calculate the required number of iterations based on the formula
+    n_iterations_calculated = math.ceil(math.log(1 - p) / math.log(1 - (1 - e)**sample_size))
+    print(f"Calculated number of iterations: {n_iterations_calculated}")
+    return n_iterations_calculated
+
+def polynomial(x, *coeffs):
+    return np.polyval(coeffs, x)
+
+def fit_polynomial(subset, degree):
+    x, y = subset[:, 0], subset[:, 1]
+    params, _ = curve_fit(lambda x, *coeffs: polynomial(x, *coeffs), x, y, p0=[1]*(degree+1))
+    return params
+
+def count_inliers(model, data, threshold):
+    x, y = data[:, 0], data[:, 1]
+    y_pred = np.polyval(model, x)
+    return np.where(np.abs(y - y_pred) < threshold)[0]
+
+def local_optimization(model, inliers, degree):
+    return fit_polynomial(inliers, degree)
+
+def lo_ransac_polynomial(data, degree=2, min_iterations=-1, max_iterations=100, threshold=1.0, stop_inlier_ratio=0.9):
+    best_model = None
+    max_inliers = 0
+    total_data = len(data)
+    
+    for i in range(max_iterations):
+        # Step 1: Random Sampling
+        subset = data[np.random.choice(total_data, degree+1, replace=False)]
+        # Step 2: Fit Initial Model
+        model = fit_polynomial(subset, degree)
+        # Step 3: Count Inliers
+        inliers_idx = count_inliers(model, data, threshold)
+        inliers = data[inliers_idx]
+        # Step 4: Check Initial Model
+        if len(inliers) < max_inliers:
+            continue
+        
+        # Step 5: Random Sampling within inliers
+        inner_subset = inliers[np.random.choice(len(inliers), degree+1, replace=False)]
+        # Step 6: Fit Model within inliers
+        inner_model = fit_polynomial(inner_subset, degree)        
+        # Step 7: Count Inliers
+        inner_inliers_idx = count_inliers(inner_model, data, threshold)
+        inner_inliers = data[inner_inliers_idx]
+        # Step 8: Check Inner RANSAC Model and Save Best Model        
+        if len(inner_inliers) > max_inliers:            
+            best_model = inner_model
+            max_inliers = len(inner_inliers)
+        else:
+            continue
+        
+        # Step 9: Local Optimization with inliers
+        refined_model = fit_polynomial(inner_inliers, degree)
+        refined_inliers = count_inliers(refined_model, data, threshold)
+        
+        # Step 10: Check Local Optimization and Save Best Model
+        if len(refined_inliers) > max_inliers:            
+            best_model = refined_model
+            max_inliers = len(refined_inliers)
+        
+        # Step 11: Early stopping condition based on inlier ratio
+        inlier_ratio = max_inliers / total_data
+        if i >= min_iterations and inlier_ratio >= stop_inlier_ratio:
+            print(f"Early stopping at iteration {i}, inlier ratio: {inlier_ratio}")
+            break
+            
+    print(f"Result : iteration {i}, inlier ratio: {inlier_ratio}")
+            
+    return best_model
+
+# Generate example data
+np.random.seed(np.random.seed())
+n_points = 100
+X = np.linspace(-10, 10, n_points)
+y = (np.random.random()*10)*X**2 + (np.random.random()*10)*X + np.random.normal(0, 10, n_points)
+
+# Add outliers
+n_outliers = 20
+X[-n_outliers:] += int(10 * np.random.rand())
+y[-n_outliers:] -= int(20 * np.random.rand())
+X = np.expand_dims(X, -1)
+y = np.expand_dims(y, -1)
+data = np.hstack([X, y])
+sample_size = 3
+max_iteration = get_sampling_number(sample_size)
+
+# Run Lo-RANSAC
+best_model = lo_ransac_polynomial(data, degree=2, min_iterations=-1, max_iterations=max_iteration, threshold=16.0, stop_inlier_ratio=0.6)
+
+# Plot the data and the best model
+plt.scatter(data[:, 0], data[:, 1], label='Data Points')
+x_values = np.linspace(min(data[:, 0]), max(data[:, 0]), 400)
+y_values = np.polyval(best_model, x_values)
+plt.plot(x_values, y_values, color='r', label=f'Best Model')
+plt.legend()
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('Lo-RANSAC Polynomial Fitting with Early Stopping')
+plt.show()
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/13.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+## **Computer Vision에서의 RANSAC 활용**
+
+<br>
+
+- 참조 : https://www.ipb.uni-bonn.de/html/teaching/msr2-2020/sse2-11-ransac.pdf
+
+<br>
+
+- 컴퓨터 비전에서 `RANSAC`을 사용하는 대표적인 사례는 유사한 2개의 이미지에서 같은 위치를 나타내는 점들을 이용하여 `homography` $$ H $$ 행렬을 구하거나 `fundamental matrix` 등을 구하는 것에 많이 사용됩니다. 왜냐하면 각각의 이미지에서 같은 위치의 점인 `Feature point`를 찾고 어떤 점이 같은 점인 지 매칭을 해주는 `Feature matching` 단계까지 `outlier`들이 많이 발생하기 때문입니다.
+- 따라서 `outlier`에 강건한 `RANSAC`을 많이 사용합니다. 다음 2가지 예제를 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/15.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 예제에서는 2개의 이미지를 이어붙이는 이미지 스티칭을 위하여 연결해야 하는 지점을 찾은 후 오른쪽 이미지를 왼쪽 이미지에 이어 붙일 수 있도록 변환하는 `homography`를 찾는 과정으로 볼 수 있습니다.
+- 2번째 과정에서의 `feature matning` 결과를 보면 잘 연결이 된 점들도 있지만 연결이 잘못된 `outlier`들도 생긴것을 볼 수 있습니다. 이러한 점들을 제거한 후 `homography`를 구하고자 `RANSAC`을 사용합니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ransac/16.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 이번 예제도 앞의 예시와 유사합니다. 촬영 위치가 다른 2개의 이미지에서 같은 이미지 지점을 찾는 것이 목적이 됩니다. 따라서 `feature point`를 추출하여 이미지 상의 어떤 지점을 기준으로 같은 이미지 지점을 비교할 지 정합니다. 그 다음 `feature matching`을 이용하여 `feature`들을 연결한 것이 두번째 그림입니다. 이번 예시에서도 잘 연결된 feature들이 있지만 잘못 연결된 점들도 보입니다. 이러한 점들을 `inlier`, `outlier`로 구분하여 필요한 `inlier`를 사용하는 것이 `RANSAC`의 실제 사용 사례가 될 수 있습니다.
 
 <br>
 
