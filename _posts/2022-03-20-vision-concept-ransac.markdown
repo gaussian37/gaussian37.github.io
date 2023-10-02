@@ -243,6 +243,7 @@ tags: [RANSAC, random sample consensus, 란삭, Lo-RANSAC] # add tag
 
 - 반면 ① `RANSAC`은 랜덤 샘플이라는 방법을 이용하므로 `Non-deterministic`하다는 단점이 있습니다. 즉, 같은 데이터 셋을 이용하여 모델링하더라도 매번 실행 결과가 다를 수 있다는 것입니다. 이 점은 관점에 따라서 `RANSAC`의 장점이 될 수도 있고 단점이 될 수도 있다고 생각합니다. 하지만 모델의 재현성 관점에서는 단점이라고 볼 수 있습니다.
 - 두번째 단점은 `RANSAC`의 가장 치명적인 단점입니다. 만약 `outlier`가 노이즈 처럼 생기지 않고 특정 분포를 가지게 되면 모델이 `outlier`를 fitting 할 수 있습니다. **따라서 데이터 셋을 미리 확인하고 `outlier`가 얼만큼 있는 지와 `outlier`가 특정 패턴 및 분포를 가지는 지 사전에 확인하는 것은 매우 중요합니다.** 만약 특정 분포를 가진다면 오히려 다른 방법으로 `outlier`를 사전에 제거하는 것도 좋은 접근이 될 수 있기 때문입니다.
+- 또한 `RANSAC`은 `threshold` 파라미터에 큰 영향을 받는다는 단점이 있습니다. `threshold`를 너무 작게 설정하면 모델이 안정적으로 fitting이 되지 않을 수 있고 데이터의 변화에 민감하게 반응합니다. 반면 `threshold`를 크게 잡으면 `outlier`까지 `inlier`로 판단할 수 있으므로 모델이 정상적으로 fitting할 수 없게됩니다. 뿐만 아니라 `inlier`의 분포가 계속 변하게 된다면 `threshold` 기준 또한 adaptive하게 변해야 할 수 있습니다. 이러한 모든 것들을 반영하여 `threshold`를 정하는 것이 어렵다는 것이 `RANSAC`의 주요 단점 중의 하나입니다.
 - 마지막으로 `RANSAC`은 `Loss`를 기반으로 동작하는 L1, L2 Loss와는 다르게 `Loss`를 기반으로 모델 fitting을 하지 않습니다. 이러한 동작 방식이 다른 알고리즘과 연계되어 한번에 `Loss`를 계산하는 `pipeline`에 연결시킬 수 없다는 점이 단점이 될 수 있습니다. 왜냐하면 다양한 알고리즘이 머신러닝, 딥러닝 방식의 학습 방식으로 이루어지기 때문에 같은 `pipeline`으로 연결할 수 있으면 한번에 전체 `pipeline`을 학습할 수 있어서 효율적이기 때문입니다. 
 
 <br>
@@ -661,7 +662,7 @@ plt.show()
 ```
 
 <br>
-<center><img src="../assets/img/vision/concept/ransac/13.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/ransac/13.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 ## **Computer Vision에서의 RANSAC 활용**
@@ -676,7 +677,7 @@ plt.show()
 - 따라서 `outlier`에 강건한 `RANSAC`을 많이 사용합니다. 다음 2가지 예제를 살펴보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/ransac/15.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/ransac/15.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 위 예제에서는 2개의 이미지를 이어붙이는 이미지 스티칭을 위하여 연결해야 하는 지점을 찾은 후 오른쪽 이미지를 왼쪽 이미지에 이어 붙일 수 있도록 변환하는 `homography`를 찾는 과정으로 볼 수 있습니다.
