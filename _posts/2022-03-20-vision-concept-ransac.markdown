@@ -516,7 +516,7 @@ success, param = get_model_with_ransac(data, polynomial_degree=2, threshold=thre
 
 - 지금까지 다룬 `RANSAC`의 아쉬운점은 좋은 모델을 찾았음에도 다음 iteration에서 완전히 다른 랜덤 샘플을 추출하기 때문에 이전 시도와 상관없이 새로운 샘플 데이터로 `RANSAC`을 진행한다는 점입니다.
 - `Lo-RANSAC`은 `Locally Optimized RANSAC`의 줄임말로 **`inlier` 데이터는 `inlier`데이터 주변에 모인다는 특성을 이용**하여 `RANSAC`의 결과에서 `inlier`들만을 이용하여 `local` 영역에서의 최적화를 더 진행하는 과정을 의미합니다.
-- 핵심 방법론은 ① `RANSAC`을 수행한 후 ② `inlier`를 기준으로 한번 더 `RANSAC`을 수행하고 ③ `inlier`로 선별될 데이터를 이용하여 `local optimization`을 한다는 것입니다.
+- 핵심 방법론은 ① `RANSAC`을 수행한 후 ② `inlier`를 기준으로 한번 더 `RANSAC`을 수행하고 ③ `inlier`로 선별된 데이터를 이용하여 `local optimization`을 한다는 것입니다.
 - 연산 과정이 추가되기 때문에 전체 연산이 더 늘어나는 것으로 보일 수 있으나 `early stop` 전략과 잘 엮어서 쓰면 기본적인 `RANSAC`에 비해 짧은 `iteration` 만으로도 높은 정확성을 가진 모델을 얻을 수 있습니다.
 
 <br>
