@@ -684,7 +684,7 @@ plt.show()
 - 2번째 과정에서의 `feature matning` 결과를 보면 잘 연결이 된 점들도 있지만 연결이 잘못된 `outlier`들도 생긴것을 볼 수 있습니다. 이러한 점들을 제거한 후 `homography`를 구하고자 `RANSAC`을 사용합니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/ransac/16.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/ransac/16.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 이번 예제도 앞의 예시와 유사합니다. 촬영 위치가 다른 2개의 이미지에서 같은 이미지 지점을 찾는 것이 목적이 됩니다. 따라서 `feature point`를 추출하여 이미지 상의 어떤 지점을 기준으로 같은 이미지 지점을 비교할 지 정합니다. 그 다음 `feature matching`을 이용하여 `feature`들을 연결한 것이 두번째 그림입니다. 이번 예시에서도 잘 연결된 feature들이 있지만 잘못 연결된 점들도 보입니다. 이러한 점들을 `inlier`, `outlier`로 구분하여 필요한 `inlier`를 사용하는 것이 `RANSAC`의 실제 사용 사례가 될 수 있습니다.
