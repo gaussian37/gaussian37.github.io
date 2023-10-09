@@ -161,7 +161,6 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 <br>
 
 - 식 $$ x'^{T} F x = 0 $$ 은 `epipolar constraint` 라고도 불립니다. `epipolar constraint`는 첫번째 이미지에서의 임의의 점 $$ x $$ 와 $$ F $$ 가 두번째 이미지에서 만들어내는 `epipolar line` 상에 두번째 이미지에서 $$ x $$ 와 `corresponding point` 관계인 $$ x' $$ 가 존재한다는 조건입니다.
-- 본 글의 뒷부분에서 살펴볼 내용으로 만약 카메라가 캘리브레이션이 완료되었다면 $$ F $$ 는 $$ E $$ 즉, `essential matrix`로 변환하여 사용할 수 있습니다. 이와 같은 경우 $$ x'^{T} E x = 0 $$ 으로 표현할 수 있습니다.
 - `epipoelar constraint`는 `multiple view geometry`의 가장 기본적이면서도 중요한 개념입니다. `corresponding points`를 이용하여 `Stereo Matching`, `3D reconstruction`과 같은 분야를 접근할 수 있기 때문입니다.
 
 <br>
