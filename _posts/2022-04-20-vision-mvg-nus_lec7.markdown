@@ -236,6 +236,26 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 
 <br>
 
+- 먼저 `rank 2`가 가지는 기하학적인 의미입니다.
+- ① `Point-to-Line Mapping`
+- ② `Epipolar Constraint`
+
+<br> 
+
+- 다음으로 `rank 2`가 가지는 대수적인 의미입니다.
+- ① `Rank Deficiency`
+- ② `Null Vectors`
+- ③ `Non-Invertibility`
+
+<br>
+
+- 다음으로 `rank 1`을 가지면 `epipolar constraint`을 만족할 수 없는 이유를 설명하겠습니다.
+- ① `Rank Deficiency` : $$ 3 x 3 $$  행렬이 `rank-1`을 가지면 column (또는 row) 들 중 하나만 의미가 있으며 나머지는 linear combination을 통해 만들어 지는 것은 의미합니다. 따라서 단일 선 (`single line`) 만을 `span`할 수 있습니다.
+- ② `Point-to-Point Mapping` : 3차원에서 `rank-1` 행렬은 모든 포인트들을 단일 선에 매핑되도록 축소시킵니다. `Fundamental Matrix` 와 관련하여, `rank-1` 행렬의 의미는 한 이미지의 모든 점이 다른 이미지의 단일 점으로 매핑되는 것을 의미하므로 적합하지 않습니다.
+- ③ `Loss of Epipolar Constarint` : `rank-1` 행렬에서 `epipolar constraint` $$ x'^{T} F x  = 0 $$ 식은 만족하지만 기하학적인 의미는 만족하지 못합니다. 왜냐하면 이미지의 모든 점들에 대하여 고정된 `epipolar line`만 존재하기 때문에 실제 사용하고자 하는 3D 조건에 부합하지 못합니다.
+
+<br>
+
 - 지금까지 살펴본 `Fundamental Matrix`의 성질에 대하여 몇가지 살펴보도록 하겠습니다.
 
 <br>
