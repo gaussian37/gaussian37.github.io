@@ -182,9 +182,9 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 
 <br>
 
-- $$ x = \begin{matrix} u & v & 1 \end{bmatrix}^{T} $$
+- $$ x = \begin{bmatrix} u & v & 1 \end{bmatrix}^{T} $$
 
-- $$ x' = \begin{matrix} u' & v' & 1 \end{bmatrix}^{T} $$
+- $$ x' = \begin{bmatrix} u' & v' & 1 \end{bmatrix}^{T} $$
 
 - $$ F = \begin{bmatrix} f_{1} & f_{2} & f_{3} \\ f_{4} & f_{5} & f_{6} \\ f_{7} & f_{8} & f_{9} \end{bmatrix} $$
 
@@ -224,7 +224,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 
 - $$ F = \begin{bmatrix} f_{1} & f_{2} & f_{3} & f_{4} & f_{5} & f_{6} & f_{7} & f_{8} & f_{9} \end{bmatrix} $$
 
-- $$ \text{det}(F) = (f_{1}*f_{5}*f_{8})+(f_{2}*f_{6}*f_{7})+(f_{3}*f_{4}*f_{8})-(f_{3}*f_{5}*f_{7})-(f_{2}*f_{4}*f_{9})-(f_{1}*f_{6}*f_{8}) \quad \text{by determinant formula} = 0 $$
+- $$ \text{det}(F) = (f_{1}*f_{5}*f_{8})+(f_{2}*f_{6}*f_{7})+(f_{3}*f_{4}*f_{8})-(f_{3}*f_{5}*f_{7})-(f_{2}*f_{4}*f_{9})-(f_{1}*f_{6}*f_{8}) = 0 \quad \text{by determinant formula} $$
 
 <br>
 
