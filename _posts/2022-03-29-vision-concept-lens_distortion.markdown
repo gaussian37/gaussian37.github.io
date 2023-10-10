@@ -28,8 +28,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 <br>
 
 - 이번 글에서는 `카메라 모델의 특성`, `카메라 렌즈 왜곡 모델` 그리고 `렌즈 왜곡을 제거하는 방법` 등에 대하여 알아보도록 하겠습니다.
-- 특히 가장 많이 사용되는 카메라 모델인 `Generic Camera Model`을 기준으로 살펴볼 예정이며 좀 더 간단한 형태의 `Brown Camera Model`에 대한 내용은 간략하게 코드적으로 사용하는 방법에 대하여 확인해 볼 예정입니다.
-- 전체 내용을 이해하기 위해서는 `사전 지식`의 카메라 캘리브레이션 및 카메라 파라미터 내용을 먼저 이해하기를 권장 드립니다.
+- 특히 가장 많이 사용되는 카메라 모델인 `Generic Camera Model`을 기준으로 살펴볼 예정이며 전체 내용을 이해하기 위해서는 `사전 지식`의 카메라 캘리브레이션 및 카메라 파라미터 내용을 먼저 이해하기를 권장 드립니다.
 
 <br>
 
@@ -40,24 +39,12 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 - ### [화각에 따른 카메라의 종류](#화각에-따른-카메라의-종류-1)
 - ### [Radial Distotion과 Tangential Distortion](#radial-distotion과-tangential-distortion-1)
 - ### [Generic 카메라 모델과 Brown 카메라 모델](#generic-카메라-모델과-brown-카메라-모델-1)
-
-<br>
-
 - ### [Generic 카메라 모델의 3D → 2D](#generic-카메라-모델의-3d--2d-1)
 - ### [Generic 카메라 모델의 2D → 3D](#generic-카메라-모델의-2d--3d-1)
 - ### [Generic 카메라 모델 3D → 2D 및 2D → 3D python 실습](#generic-카메라-모델-3d--2d-및-2d--3d-python-실습-1)
 - ### [Generic 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기](#generic-카메라-모델-왜곡-보정을-위한-mapping-함수-구하기-1)
-- ### [Generic 카메라 모델 remap을 이용한 왜곡 영상 → 핀홀 모델 영상](#generic-카메라-모델-remap을-이용한-왜곡-영상--핀홀-모델-영상-1)
-- ### [Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상](#generic-카메라-모델-pytorch를-이용한-왜곡-영상--핀홀-모델-영상-1)
-
-<br>
-
-- ### [Brown 카메라 모델의 3D → 2D](#brown-카메라-모델의-3d--2d-1)
-- ### [Brown 카메라 모델의 2D → 3D](#brown-카메라-모델의-2d--3d-1)
-- ### [Brown 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기](#brown-카메라-모델-왜곡-보정을-위한-mapping-함수-구하기-1)
-- ### [Brown 카메라 모델 remap을 이용한 왜곡 영상 → 핀홀 모델 영상](#brown-카메라-모델-remap을-이용한-왜곡-영상--핀홀-모델-영상-1)
-- ### [Brown 카메라 모델 Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상](#brown-카메라-모델-pytorch를-이용한-왜곡-영상--핀홀-모델-영상-1)
-
+- ### [Generic 카메라 모델 remap을 이용한 왜곡 영상 → 왜곡 보정 영상](#generic-카메라-모델-remap을-이용한-왜곡-영상--왜곡-보정-영상-1)
+- ### [Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 왜곡 보정 영상](#generic-카메라-모델-pytorch를-이용한-왜곡-영상--왜곡-보정-영상-1)
 
 <br>
 
@@ -77,7 +64,11 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 - 다양한 카메라 렌즈를 수학적으로 모델링 하기 위하여 수학적으로 정의한 `카메라 모델`을 사용할 것입니다. 본 글에서는 크게 2가지의 카메라 모델을 사용할 예정이며 각 카메라 모델의 이름은 `Generic Camera Model`과 `Brown Camera Model`이며 이 모델의 간략한 내용은 글 아래에서 설명하겠습니다.
 - 카메라 모델은 카메라 렌즈를 수학적으로 정확히 모방하기 보다는 **카메라 렌즈에 의한 왜곡을 임의의 수학적 모델링 식으로 표현할 수 있도록 문제를 정의한 후 최적화**하여 왜곡을 가장 잘 표현할 수 있는 수식을 찾는 방법을 이용합니다.
 - 이 때, 발생하는 왜곡은 대표적으로 `Radial Distortion`과 `Tangential Distortion`이 있습니다.
-- 본 글에서 살펴볼 `Generic Camera Model`은 `Radial Distortion`만을 고려하여 `다항식(polynomial)`으로 왜곡을 표현합니다. 반면 `Brown Camera Model`은 `Radial Distortion`과 `Tangential Distortion`을 모두 고려하여 `다항식(polynomial)`으로 모델링 합니다.
+- 본 글에서 살펴볼 `Generic Camera Model`은 `Radial Distortion`만을 고려하여 `다항식(polynomial)`으로 왜곡을 표현합니다. `Radial Distortion`의 왜곡이 상대적으로 더 크기 때문에 그 부분을 잘 모델링 하는 것이 중요하기 때문입니다.
+- 반면 `Brown Camera Model`이라는 모델은 `Radial Distortion`과 `Tangential Distortion`을 모두 고려하여 `다항식(polynomial)`으로 모델링 합니다. 하지만 이 모델의 경우 작은 `Raidal Distortion`만을 고려하기 때문에 일반적으로 사용하는 데 한계가 있습니다.
+- 경험적으로 `Brown Camera Model`을 사용하여도 되는 영상에서는 `Generic Camera Model`을 사용할 수 있지만 렌즈 왜곡이 커서 `Generic Camera Model`을 사용해야 하는 경우에는 `Brown Camera Model`이 정상 동작 하지 않는 경우가 발생하기 때문에 가능한 `Generic Camera Model`을 사용하길 권장합니다.
+- 최신의 연구 동향을 위하여 `Unified Camera Model`, `Double Sphere Camera Model` 등을 살펴보는 것도 도움이 될 수 있으며 아래 링크를 참조해 보시기 바랍니다.
+    - 링크 : [Double Sphere 카메라 모델 및 다양한 카메라 모델의 종류 (Pinhole, UCM, EUCM, Kannala-Brandt Camera Model 등)](https://gaussian37.github.io/vision-concept-camera_models/)
 - 그러면 먼저 `Radial Distortion`과 `Tangential Distortion`에 대하여 살펴보도록 하겠습니다.
 
 <br>
@@ -766,13 +757,13 @@ print(x_un * 0.8, y_un* 0.8, 0.8)
 
 <br>
 
-## **Generic 카메라 모델 remap을 이용한 왜곡 영상 → 핀홀 모델 영상**
+## **Generic 카메라 모델 remap을 이용한 왜곡 영상 → 왜곡 보정 영상**
 
 <br>
 
 <br>
 
-## **Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상**
+## **Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 왜곡 보정 영상**
 
 <br>
 
@@ -815,7 +806,7 @@ print(x_un * 0.8, y_un* 0.8, 0.8)
 
 <br>
 
-## **Brown 카메라 모델 remap을 이용한 왜곡 영상 → 핀홀 모델 영상**
+## **Brown 카메라 모델 remap을 이용한 왜곡 영상 → 왜곡 보정 영상**
 
 <br>
 
@@ -845,7 +836,7 @@ dst = cv2.remap(src, map_x, map_y, cv2.INTER_LINEAR)
 
 <br>
 
-## **Brown 카메라 모델 Pytorch를 이용한 왜곡 영상 → 핀홀 모델 영상**
+## **Brown 카메라 모델 Pytorch를 이용한 왜곡 영상 → 왜곡 보정 영상**
 
 <br>
 
