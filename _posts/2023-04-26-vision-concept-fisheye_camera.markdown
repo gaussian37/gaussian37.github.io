@@ -209,6 +209,167 @@ cv2.circle(mask_valid, (int(c[0]), int(c[1])), int(c[2])-inner_circle_margin, 1,
 
 <br>
 
+- 이 부분을 이해하기 위해서는 아래 글을 먼저 읽으시는 것을 권장드립니다.
+
+<br>
+
+- [A Generic Camera Model and Calibration Method for Conventional, Wide-Angle, and Fish-Eye Lenses](https://gaussian37.github.io/vision-concept-generic_camera_model/)
+- [카메라 모델과 렌즈 왜곡 (lens distortion)](https://gaussian37.github.io/vision-concept-lens_distortion/)
+
+<br>
+
+- 앞에서 살펴본 내용은 Fisheye Camera의 `Vignetting` 영역을 기준으로 영상의 유효한 영역과 유효하지 않은 영역을 나눈 예시였습니다.
+- `Generic Camera Model`을 이용한 카메라 캘리브레이션을 하면 카메라에 대하여 빛의 `입사각(Angle of Incidence)`에 따른 `normalized camera coordinate`에서의 왜곡 정도를 모델링 할 수 있습니다. 이 때, `intrinsic` 파라미터와 `distortion coefficient`를 얻을 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/fisheye_camera/9.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `입사각`은 위 그림과 같이 카메라 렌즈의 가장 바깥쪽 끝부분으로 빛이 수직 입사하는 경우의 입사각을 $$ 0 \deg $$ 라고 하고 수평 입사하는 경우의 입사각을 $$ 90 \deg $$ 이라고 합니다. 수평을 넘어서는 경우 $$ 90 \deg $$ 를 넘게 됩니다.
+
+<br>
+
+- `distortion coefficient`을 이용하면 `입사각`에 따라서 어떻게 영상이 왜곡이 되는 지 알 수 있기 때문에 렌즈 왜곡에 의해 발생한 영상을 모델링 할 수 있습니다.
+- 반대로 `distortion coefficient`을 이용하면 영상의 좌표들을 이용하여 `입사각`을 역방향으로 구할 수 있습니다. 이와 같이 `입사각`을 구하고자 하는 이유는 렌즈 왜곡이 방사형으로 발생하고 `입사각`이 커질수록 렌즈 왜곡이 심해지기 때문입니다. 따라서 영상의 유효한 영역을 `입사각` 기준으로 구분하게 되면 사용하기 유리한 영역을 선택할 수 있습니다.
+
+<br>
+
+- 아래는 `Generic Camera Model`을 기준으로 카메라 캘리브레이션을 한 `intrinsic`과 `distortion coefficient` 계수 입니다.
+- 사용한 Fisheye 카메라는 `USBFHD01M-L180` 모델로 검색하면 상세한 스펙은 살펴볼 수 있습니다. 수평 화각 (`Horizontal HOV`)가 180도인 카메라이므로 스펙 상으로 최대 입사각 90도 까지 지원 가능한 카메라 입니다.
+
+<br>
+
+```python
+fx = 567.85821196
+skew = 0.
+cx = 960.58762478
+
+fy = 567.33818371
+cy = 516.27957345
+
+k0, k1, k2, k3, k4 = 1.0, -0.07908567, 0.03639387, -0.04227248, 0.01444498
+```
+
+<br>
+
+- `Generic Camera Model`에서는 위 계수 중 $$ k_{0}, k_{1}, k_{2}, k_{3}, k_{4} $$ 를 이용한 `9차 기함수(odd function)`를 이용하여 `입사각`에 따른 영상 왜곡을 모델링 합니다. 따라서 위 계수가 모델링 하는 비선형 식을 살펴보는 것이 중요합니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/fisheye_camera/7.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그래프는 $$ 0 ~ \pi $$ 까지 모델링 해본 것입니다. 렌즈 입사각 $$ 0 ~ \pi $$ 까지를 의미하므로 360도 전체를 모델링 한 것입니다.
+- 실제 카메라 캘리브레이션을 입사각 기준 $$ 0 ~ \frac{\pi}{2} $$ 영역까지 밖에 하지 못하기 때문에 (카메라 스펙이 수평 화각이 180도 인 상태입니다.) $$ \frac{\pi}{2} $$ 가 넘어가는 영역에서 심하게 발산하게 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/fisheye_camera/8.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 반면 $$ \frac{\pi}{2} $$ 영역 까지 그래프를 그려보면 꽤 안정적으로 $$ x, y $$ 축이 1:1 대응 관계로 모델링 된 것을 볼 수 있습니다. 1:1 대응 관계가 중요한 이유는 `이미지 좌표` 기준으로 `입사각`을 추정해야 하기 때문에 추정되는 `입사각`이 유일해야 하기 때문입니다.
+
+<br>
+
+- 그러면 이미지 좌표를 통해 입사각을 추정하고 최종적으로 입사각 기반의 FOV를 확인하는 방법을 살펴보도록 하겠습니다. 관련 내용은 [카메라 모델과 렌즈 왜곡 (lens distortion)](https://gaussian37.github.io/vision-concept-lens_distortion/)에 자세히 설명되어 있습니다.
+
+<br>
+
+```python
+def f_theta_pred(theta_pred, r, k0, k1, k2, k3, k4):
+    return k0*theta_pred + k1*theta_pred**3 + k2*theta_pred**5 + k3*theta_pred**7 + k4*theta_pred**9 - r
+
+def f_theta_pred_prime(theta_pred, r, k0, k1, k2, k3, k4):
+    return k0 + 3*k1*theta_pred**2 + 5*k2*theta_pred**4 + 7*k3*theta_pred**6 + 9*k4*theta_pred**8
+
+def rdn2theta(x_dn, y_dn, k0, k1, k2, k3, k4):
+    r_dn = np.sqrt(x_dn**2 + y_dn**2)
+    theta_init = np.arctan(r_dn)
+
+    # newton-method
+    result = root_scalar(
+        f_theta_pred, 
+        args=(r_dn, k0, k1, k2, k3, k4), 
+        method='newton', 
+        x0=theta_init, 
+        fprime=f_theta_pred_prime
+    )
+    
+    theta_pred = result.root    
+    r_un = np.tan(theta_pred)
+    x_un = r_un * (x_dn / r_dn)
+    y_un = r_un * (y_dn / r_dn)
+    return x_un, y_un, r_dn, theta_pred
+
+def get_fov_with_angle_of_incidience(
+    height, width, degree, 
+    fx, fy, skew, cx, cy, k0, k1, k2, k3, k4):
+    
+    board = np.zeros((height, width))
+    for h in range(height):
+        for w in range(width):
+            y_dn = (h - cy) / fy
+            x_dn = (w - cx - skew*y_dn) / fx
+            
+            _, _, _, theta_pred = rdn2theta(x_dn, y_dn, k0, k1, k2, k3, k4)
+            
+            if (theta_pred * 180 / np.pi) < degree:
+                board[h][w] = 1
+                
+    return board
+
+def bfs(board, h, w):
+    rows, cols = board.shape
+    visited = np.zeros(board.shape).astype(np.uint8)
+    components = []
+    
+    queue = deque([(h, w)])
+    
+    while queue:
+        y, x = queue.popleft()
+        y = int(y)
+        x = int(x)
+        
+        if y < 0 or y >= rows or x < 0 or x >= cols:
+            continue
+            
+        if visited[y][x] or board[y][x] == 0:
+            continue
+            
+        visited[y][x] = True
+        components.append((y, x))
+        
+        for dx in [-1, 0, 1]:
+            for dy in [-1, 0, 1]:
+                queue.append((y + dy, x + dx))
+                
+    return components, visited
+```
+
+<br>
+
+```python
+img = cv2.cvtColor(cv2.imread('./fisheye_camera_calibration_test_10cm_01.png'), cv2.COLOR_BGR2RGB)
+H, W = img.shape[:2]
+
+board_90 = get_fov_with_angle_of_incidience(H, W, 90, fx, fy, skew, cx, cy, k0, k1, k2, k3, k4)
+board_80 = get_fov_with_angle_of_incidience(H, W, 80, fx, fy, skew, cx, cy, k0, k1, k2, k3, k4)
+board_70 = get_fov_with_angle_of_incidience(H, W, 70, fx, fy, skew, cx, cy, k0, k1, k2, k3, k4)
+board_60 = get_fov_with_angle_of_incidience(H, W, 60, fx, fy, skew, cx, cy, k0, k1, k2, k3, k4)
+board_50 = get_fov_with_angle_of_incidience(H, W, 50, fx, fy, skew, cx, cy, k0, k1, k2, k3, k4)
+
+_, board_90_bfs = bfs(board_90, cy, cx)
+_, board_80_bfs = bfs(board_80, cy, cx)
+_, board_70_bfs = bfs(board_70, cy, cx)
+_, board_60_bfs = bfs(board_60, cy, cx)
+_, board_50_bfs = bfs(board_50, cy, cx)
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/fisheye_camera/10.png" alt="Drawing" style="width: 1200px;"/></center>
+<br>
+
+
+<br>
+
 ## **Fisheye Camera 왜곡 보정 방법 : Multiple rectifications**
 
 <br>
