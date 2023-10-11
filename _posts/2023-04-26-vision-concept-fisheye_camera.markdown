@@ -235,7 +235,7 @@ cv2.circle(mask_valid, (int(c[0]), int(c[1])), int(c[2])-inner_circle_margin, 1,
 <br>
 
 - 아래는 `Generic Camera Model`을 기준으로 카메라 캘리브레이션을 한 `intrinsic`과 `distortion coefficient` 계수 입니다.
-- 사용한 Fisheye 카메라는 `USBFHD01M-L180` 모델로 검색하면 상세한 스펙은 살펴볼 수 있습니다. 수평 화각 (`Horizontal HOV`)가 180도인 카메라이므로 스펙 상으로 최대 입사각 90도 까지 지원 가능한 카메라 입니다.
+- 사용한 Fisheye 카메라는 `USBFHD01M-L180` 모델로 검색하면 상세한 스펙은 살펴볼 수 있습니다. 수평 화각 (`Horizontal HOV`)가 180도인 카메라이므로 스펙 상으로 최대 입사각 90도 까지 지원 가능한 카메라 입니다. 수평으로 양쪽 입사각 90도이면 전체가 180도가 되기 때문입니다.
 
 <br>
 
@@ -346,6 +346,13 @@ def bfs(board, h, w):
 
 <br>
 
+- 위 코드는 다음 순서로 진행됩니다.
+- ① `get_fov_with_angle_of_incidience` 함수에서는 이미지 좌표계에서 모든 픽셀 좌표를 탐색하면서 픽셀 별 입사각을 역으로 계산합니다. 이 때, `rdn2theta` 함수를 이용하여 `distorted normalized coordinate`에서 `undistorted normalized coordinate`로 접근할 수 있도록 `newton method`를 이용하여 근사화합니다. 
+- ② 픽셀 별 입사각을 계산하였을 때, `degree` 값 범위 이내로 입사각이 구해진 픽셀들을 유효한 픽셀로 표시합니다. `degree` 값은 일종의 `threshold`로 사용됩니다.
+- ③ 최종적으로 구한 유효한 픽셀에서 $$ (c_{x}, c_{y}) $$ 를 시작점으로 `BFS`를 하여 이어진 모든 픽셀을 유효한 영역으로 연결합니다. 왜냐하면 카메라 캘리브레이션 오차등으로 인하여 유효한 영역이 아님에도 유효한 영역으로 구분되는 영역이 가끔씩 존재하기 때문입니다.
+
+<br>
+
 ```python
 img = cv2.cvtColor(cv2.imread('./fisheye_camera_calibration_test_10cm_01.png'), cv2.COLOR_BGR2RGB)
 H, W = img.shape[:2]
@@ -364,9 +371,14 @@ _, board_50_bfs = bfs(board_50, cy, cx)
 ```
 
 <br>
+
+- 위 코드를 차례 대로 실행하면 다음과 같습니다.
+
+<br>
 <center><img src="../assets/img/vision/concept/fisheye_camera/10.png" alt="Drawing" style="width: 1200px;"/></center>
 <br>
 
+- `입사각`이 90도에서 50도로 줄어들수록 $$ (c_{x}, c_{y}) $$ 중심점 방향으로 유효한 영역이 좁아지는 것을 확인할 수 있습니다. 
 
 <br>
 
