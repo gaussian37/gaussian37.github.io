@@ -42,6 +42,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 - ### [Generic 카메라 모델의 3D → 2D](#generic-카메라-모델의-3d--2d-1)
 - ### [Generic 카메라 모델의 2D → 3D](#generic-카메라-모델의-2d--3d-1)
 - ### [Generic 카메라 모델 3D → 2D 및 2D → 3D python 실습](#generic-카메라-모델-3d--2d-및-2d--3d-python-실습-1)
+- ### [왜곡된 영상의 왜곡 보정의 필요성과 단점](#왜곡된-영상의-왜곡-보정의-필요성과-단점-1)
 - ### [Generic 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기](#generic-카메라-모델-왜곡-보정을-위한-mapping-함수-구하기-1)
 - ### [Generic 카메라 모델 remap을 이용한 왜곡 영상 → 왜곡 보정 영상](#generic-카메라-모델-remap을-이용한-왜곡-영상--왜곡-보정-영상-1)
 - ### [Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 왜곡 보정 영상](#generic-카메라-모델-pytorch를-이용한-왜곡-영상--왜곡-보정-영상-1)
@@ -112,7 +113,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
-- 앞으로 살펴볼 식을 보면 `Generic Camera Model`은 `Tangential Distortion`을 무시하고 `Radial Distortion`에 집중하여 다항식으로 모델링 한 것을 살펴볼 수 있습니다. 반면 `Brown Camera Model`은 적당한 다항식 차수의 다항식으로 `Radial Distortion`을 모델링하고 2차 다항식으로 `Tangential Distortion`을 모델링합니다. `Generic Camera Model`에서 이와 같은 방식을 취하는 이유는 화각이 넓은 카메라에서는 `Radial Distortion`의 영향이 크기 때문에 `Tangential Distortion`을 무시할 수 있으며 생산 기술의 발전으로 카메라 렌즈와 이미지 센서가 평행에 가깝게 생산될 수 있어 `Tangential Distortion`를 실질적으로 무시할 정도가 되기 때문입니다. 따라서 `Brown Camera Model`에서도 `Tangential Distortion`을 무시하기도 하며 이와 같은 경우에는 `Generic Camera Model`과 유사해 집니다.
+- 앞으로 살펴볼 식을 보면 `Generic Camera Model`은 `Tangential Distortion`의 영향 보다 `Radial Distortion`에 집중하여 다항식으로 모델링 한 것을 살펴볼 수 있습니다. 반면 `Brown Camera Model`은 적당한 다항식 차수의 다항식으로 `Radial Distortion`을 모델링하고 2차 다항식으로 `Tangential Distortion`을 모델링합니다. `Generic Camera Model`에서 이와 같은 방식을 취하는 이유는 화각이 넓은 카메라에서는 `Radial Distortion`의 영향이 크기 때문에 `Tangential Distortion`을 무시할 수 있으며 생산 기술의 발전으로 카메라 렌즈와 이미지 센서가 평행에 가깝게 생산될 수 있어 `Tangential Distortion`를 실질적으로 무시할 정도가 되기 때문입니다. 따라서 `Brown Camera Model`에서도 `Tangential Distortion`을 무시하기도 하며 이와 같은 경우에는 `Generic Camera Model`과 유사해 집니다.
 - 어떤 카메라 모델을 사용해야 할 지 고민이 된다면 `Generic Camera Model`을 고민없이 사용하는 것이 좋은 방법일 수 있습니다.
 
 <br>
@@ -746,14 +747,45 @@ print(x_un * 0.8, y_un* 0.8, 0.8)
 
 <br>
 
+## 왜곡된 영상의 왜곡 보정의 필요성과 단점**
+
+<br>
+
+- 왜곡 보정은 카메라 렌즈 왜곡으로 앞에서 다룬 `Barrel Distortion` 이나 `Pincushion Distortion`과 같은 카메라 왜곡이 발생하여 생기는 영상 내 비선형성을 제거하거자 하는 목적으로 사용됩니다. 즉, 실제 직선 성분을 영상에서도 직선 성분으로 만들어 `Perspective View` 형태의 영상으로 만드는 작업을 의미합니다.
+- 핀홀 카메라 모델에서는 창문, 차선, 도로 경계, 건물 끝 부분과 같이 실제 직선 성분은 영상에서 또한 직선으로 표현됩니다. 반면 렌즈 왜곡이 발생한 이미지에서는 직선이 휘어져서 보이게 됩니다.
+- 이와 같은 왜곡이 발생하게 되면 컴퓨터 비전에서 사용하는 다양한 알고리즘이나 가정들을 사용할 수 없게 됩니다. 왜냐하면 `선형 변환`의 가정을 사용하기 어렵기 때문입니다. 특히 `Multiple View Geometry`와 같이 여러 카메라 간의 관계를 정의할 때, 선형 변환의 관계를 이용하는 데, 카메라 렌즈 왜곡이 발생하면 이 때 사용하는 알고리즘을 사용할 수 없습니다.
+- 뿐만 아니라 다양한 연구들 또한 렌즈 왜곡이 없는 영상에서 이루어지기 때문에 연구 결과를 이용하는 것에도 어려움이 발생합니다. (다양한 연구들 또한 이러한 왜곡을 없애기 위해 사전에 왜곡 보정 작업을 진행합니다.) 렌즈 왜곡이 없는 상황에서 연구가 진행되어야 알고리즘의 성능 평가가 용이해 지기 때문입니다.
+
+<br>
+
+- 정리하면 왜곡 보정을 하였을 때 얻을 수 있는 대표적인 장점은 다음과 같습니다.
+- ① 영상을 핀홀 카메라 모델의 `perspective view` 처럼 만들어서 선형 변환의 성질을 이용할 수 있습니다.
+- ② `perspective view` 기반에서는 렌즈 왜곡이 없다고 가정하기 때문에 사용하고자 하는 알고리즘이 간단해 질 수 있습니다. 
+- ③ `perspective view`를 기반으로 개발된 다양한 알고리즘과 최신 연구들을 이용할 수 있습니다.
+
+<br>
+
+- 반면 렌즈 왜곡을 하면 대표적으로 다음 3가지 문제가 발생할 수 있습니다.
+- ① 렌즈 왜곡에 필요한 카메라 `intrinsic`, `distortion coefficient`에 따라 왜곡 보정의 결과가 달라질 수 있습니다. 따라서 카메라 캘리브레이션 결과에 민감합니다.
+- ② 왜곡 보정을 하기 위한 추가적인 연산이 필요합니다. 실시간으로 동작해야 하는 기능에서는 이 부분이 고려되어야 합니다.
+- ③ 영상에서 정보가 손실되는 영역이 발생합니다. 손실 영역이라고 하면 크게 2종류가 발생합니다. 첫번째는 잘려가나가 하는 영역이 발생하는 것이고 두번째는 픽셀 해상도가 줄어드는 점입니다.
+
+<br>
+
+- 위 단점 중 ① 캘리브레이션 관련 문제와 ② 연산 문제는 현재 큰 문제가 되지 않습니다. 캘리브레이션 관련 문제 또한 많은 연구 및 개선이 되어 안정적으로 왜곡 보정을 적용할 수 있고 연산 문제는 하드웨어의 발전으로 실시간으로 처리하는 데 문제가 없습니다.
+- 하지만 ③ 정보 손실 문제는 왜곡 보정을 해야 하는 지 결정해야 할 만큼 중요한 문제로 남아있습니다. 앞에서 언급한 2가지 문제인 `영역 손실 문제`와 `해상도 손실 문제`에 대하여 살펴 보도록 하겠습니다.
+
+<br>
+
+<br>
+
 ## **Generic 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기**
 
 <br>
 
-- 실습을 위해 사용한 데이터는 아래 링크를 사용하였습니다.
-    - 링크 : https://medium.com/@kennethjiang/calibrate-fisheye-lens-using-opencv-part-2-13990f1b157f
-- 본 글에서 사용한 이미지를 그대로 사용하시려면 아래 링크에서 다운 받으시면 됩니다.
-    - 링크 : https://drive.google.com/file/d/1ApfPPwRIcTVdkZA3Mfwqqg17PlzLdBd2/view?usp=share_link
+- 실습에 사용한 데이터는 아래 링크에서 받을 수 있습니다.
+- `Fisheye Camera` : https://drive.google.com/drive/u/0/folders/1z7sp5Us95L_g7hVvcAvJ6Gn5V6bUOG12
+- `Standard Camera` : https://drive.google.com/drive/u/0/folders/1aMsGK-A6VgdtW2uTSOtV2aBexErZCYpn
 
 <br>
 
@@ -774,18 +806,6 @@ print(x_un * 0.8, y_un* 0.8, 0.8)
 
 - 지금까지 `Generic 카메라 모델`을 이용한 `2D → 3D`, `3D → 2D`, 그리고 `perspective view`생성을 위한 왜곡 보정 방법까지 살펴보았습니다.
 - 다음으로는 `Brown 카메라 모델`을 살펴보도록 하겠습니다. `Brown 카메라 모델`은 간략히 `opencv`를 이용한 사용 방법에 대해서만 다룰 예정입니다.
-
-<br>
-
-## **Brown 카메라 모델의 3D → 2D**
-
-<br>
-
-<br>
-
-## **Brown 카메라 모델의 2D → 3D**
-
-<br>
 
 <br>
 
