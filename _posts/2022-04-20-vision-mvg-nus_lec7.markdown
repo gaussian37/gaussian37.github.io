@@ -118,10 +118,11 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 <center><img src="../assets/img/vision/mvg/nus_lec7/16.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 이번 슬라이드에서는 `Fundamental Matrix`를 유도하기 위하여 필요한 각 요소 값들을 소개합니다. 필요한 값은 $$ P, P', P^{+}, C, x $$ 의 의미입니다. 3차원 좌표 $$ X(\lambda) $$ 를 $$ P, P', P^{+}, C, x $$ 값을 이용하여 표현함으로써 각 성분의 의미를 먼저 이해해 보도록 하겠습니다.
 - 위 식에서 `Projection Matrix` $$ P, P' $$ 는 각각 임의의 3D 포인트 $$ X $$ 를 이미지 $$ I, I' $$ 에 투영하는 $$ 3 \times 4 $$ 크기의 행렬을 의미합니다.
-- 반면 $$ P^{+} $$ 는 $$ P $$ 의 `Pseudo-Inverse` 행렬을 의미하며 $$ 3 \times 4 $$ 행렬의 역행렬을 구하기 위하여 `Pseudo-Inverse`를 이용하여 구합니다. 따라서 $$ P^{+} $$ 는 $$ 4 \times 3 $$ 크기의 행렬이며 $$ x $$ 를 역투영 (`back-project`) 하는 역할을 합니다.
+- 반면 $$ P^{+} $$ 는 $$ P $$ 의 `Pseudo-Inverse` 행렬을 의미하며 $$ 3 \times 4 $$ 행렬의 역행렬을 구하기 위하여 `Pseudo-Inverse`를 이용하여 구합니다. 따라서 $$ P^{+} $$ 는 $$ 4 \times 3 $$ 크기의 행렬이며 이미지 좌표 $$ x $$ 를 역투영 (`back-project`) 하는 역할을 합니다.
 - 3차원 상에서의 카메라 원점을 의미하는 $$ C $$ 는 $$ X(\lambda) $$ 를 표현할 때, 방향 벡터 형태로 사용됩니다. `homogeneous coordinate`에서 $$ (X_{C}, Y_{C}, Z_{C}, 1) $$ 형태로 `back-project` 시 방향 벡터로 사용되며 그 스케일은 $$ \lambda $$ 를 이용하여 조절합니다.
-- 정리하면 $$ P^{+}x $$ 점을 시작으로 하여 카메라 원점에서 뻣어나가는 방향의 `ray`를 $$ \lambda $$ 만큼 뻣어나간 것이 3D 포인트 점 $$ X(\lambda) $$ 가 됩니다.
+- 정리하면 $$ P^{+}x $$ 점을 시작 (origin) 으로 하여 카메라 원점에서 뻣어나가는 방향의 `ray` $$ C $$ 를 $$ \lambda $$ 만큼 뻣어나간 것이 3D 포인트 점 $$ X(\lambda) $$ 가 됩니다.
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/17.png" alt="Drawing" style="width: 1000px;"/></center>
