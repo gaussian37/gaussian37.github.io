@@ -335,21 +335,67 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 </div>
 <br>
 
+- 이번 강의에서는 앞의 강의에서 다룬 `Fundamental Matrix`를 이용하여 개념을 좀 더 확장해 보도록 하겠습니다.
+- 먼저 `Epipolar Line`의 관계를 정의하는 `Epipolar Line Homography` 부터 다루어 보도록 하겠습니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/28.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
+- `corresponding epipolar line`인 $$ l $$ 과 $$ l' $$ 가 있고 `epipole` $$ e $$ 를 통과하지 않는 임의의 선 $$ k $$ 가 있다고 가정하겠습니다. 이 때, $$ l' = F[k]_{\times}l $$ 을 만족하며 $$ F[k]_{\times} $$ 는 $$ l $$ 과 $$ l' $$ 사이의 관계를 정의하는 `homography` 역할을 합니다.
+- 대칭 관계를 이용하면 $$ l = F^{T}[k']_{\times} l' $$ 을 만족합니다.
+
+<br>
+
+- 이 관계가 성립하는 이유는 간단히 $$ [k]_{\times} l = k \times l = x $$ 가 성립하기 때문입니다. 즉 `epipolar line`과 임의의 선 $$ k $$ 의 `cross product`를 통해 교차점에서 $$ x $$ 를 도출해 낼 수 있습니다. (교차점이기 때문에 $$ x $$ 는 $$ l $$ 상에 존재합니다.)
+- 따라서 $$ F[k]_{\times}l = Fx = l' $$ 를 만족하며 그 결과 $$ x $$ 와 $$ l $$ 에 대응되는 `epipolar line` $$ l' $$ 가 됨을 알 수 있습니다. 
+
+<br>
+
+- 따라서 $$ l $$ 과 $$ l' $$ 간의 변환 관계인 `homography`는 $$ F[k]_{\times} $$ 와 $$ F^{T}[k']_{\times} $$ 가 됨을 알 수 있었습니다.
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/29.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+-  위 그림과 같이 $$ l_{i} $$ 는 $$ l'_{i} $$ 와 대응되는 관계입니다. 앞에서 이러한 관계를 `correspondence` 라고 언급하였었습니다. 대응되는 `epipolar lines`는 각각의 이미지에서 `epipole` $$ e $$ 와 $$ e' $$ 를 공통적인 교점으로 가지고 있습니다. 이와 같이 하나의 공통 요소를 가지고 있는 집합을 `pencil` 이라고 부릅니다. 따라서 위 그림은 `pencil of epipolar lines`를 나타냅니다.
+- `epipolar line` $$ l_{i} $$ 와 $$ l'_{i} $$ 그리고 `base line`을 통해 `plane`을 만들 수 있습니다. 각 대응되는 `epipolar line`을 통해 다양한 `plane`을 만들 수 있고 공통 요소인 `base line`을 가지므로 이렇게 만들어진 `plane`을 `pencil of planes`라고 합니다. 물론 공통 요소는 `base line`이 됩니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/30.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/31.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
+-  이번에는 `Pure Translation`이 발생하였을 때의 `Fundamental Matrix`를 살펴보도록 하겠습니다. `Pure Translation`이라고 하면 하나의 카메라를 이동시켰을 때, `Rotation`은 발생하지 않고 단순히 `Translation`만 발생한 경우를 의미합니다. 카메라 하나를 이용한 2개의 이미지 이므로 `intrinsic` $$ K $$ 는 하나입니다.
+- 20p 슬라이드 내용을 통하여 `Fundamental Matrix` $$ F $$ 를 다음과 같이 정의할 수 있었습니다.
+
+<br>
+
+- $$ F = [e']_{\times} K' R K^{-1} $$
+
+<br>
+
+- 여기서 $$ R = I $$ 가 되고 $$ K'=K $$ 이므로 식을 다음과 같이 정리할 수 있습니다.
+
+<br>
+
+- $$ F = [e']_{\times} K' R K^{-1} = [e']_{\times} K I K^{-1} = [e']_{\times} $$
+
+<br>
+
+- `skew-symmetric` 형태의 $$ [e']_{\times} $$ 는 `epipole`의 값에 의해 결정됩니다. `epipole` $$ e' $$ 는 $$ (x', y', 1) $$ 의 좌표값을 가지므로 `2-DOF`를 가지게 됩니다. 즉, $$ e' $$ 좌표값에 의해 `Fundamental Matrix`가 결정됩니다.
+
+<br>
+
+- $$ F = [e']_{\times} = \begin{bmatrix} 0 & -1 & y' \\ 1 & 0 & -x' \\ -y' & x' & 0 \end{bmatrix} $$
+
+<br>
+
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/32.png" alt="Drawing" style="width: 1000px;"/></center>
