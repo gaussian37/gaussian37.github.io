@@ -118,6 +118,11 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 <center><img src="../assets/img/vision/mvg/nus_lec7/16.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 위 식에서 `Projection Matrix` $$ P, P' $$ 는 각각 임의의 3D 포인트 $$ X $$ 를 이미지 $$ I, I' $$ 에 투영하는 $$ 3 \times 4 $$ 크기의 행렬을 의미합니다.
+- 반면 $$ P^{+} $$ 는 $$ P $$ 의 `Pseudo-Inverse` 행렬을 의미하며 $$ 3 \times 4 $$ 행렬의 역행렬을 구하기 위하여 `Pseudo-Inverse`를 이용하여 구합니다. 따라서 $$ P^{+} $$ 는 $$ 4 \times 3 $$ 크기의 행렬이며 $$ x $$ 를 역투영 (`back-project`) 하는 역할을 합니다.
+- 3차원 상에서의 카메라 원점을 의미하는 $$ C $$ 는 $$ X(\lambda) $$ 를 표현할 때, 방향 벡터 형태로 사용됩니다. `homogeneous coordinate`에서 $$ (X_{C}, Y_{C}, Z_{C}, 1) $$ 형태로 `back-project` 시 방향 벡터로 사용되며 그 스케일은 $$ \lambda $$ 를 이용하여 조절합니다.
+- 정리하면 $$ P^{+}x $$ 점을 시작으로 하여 카메라 원점에서 뻣어나가는 방향의 `ray`를 $$ \lambda $$ 만큼 뻣어나간 것이 3D 포인트 점 $$ X(\lambda) $$ 가 됩니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/17.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
@@ -424,7 +429,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 
 - $$ \text{det}(A) = \text{det}(-A^{T}) = (-1)^{n}\text{det}(A) $$
 
-- $$ \text{det}(A) = -\text{det}(A) \quad (\becuase n \text{ is odd (3)}) $$
+- $$ \text{det}(A) = -\text{det}(A) \quad (\because n = 3 \text{ is odd.}) $$
 
 - $$ \therefore \text{det}(A) = 0 $$
 
@@ -455,11 +460,23 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 - 위 식을 해석하면 $$ x' $$ 와 $$ e' $$ 는 같은 선상에 있고 (`epipolar line`) 심지어 $$ x $$ 또한 같은 선상에 있으므로 $$ x, x', e=e' $$ 가 같은 선상에 있는 것으로 이해할 수 있습니다. 따라서 `collinear` 관계임을 확인할 수 있습니다.
 
 <br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/32_1.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 참조 : https://www.geeksforgeeks.org/python-opencv-epipolar-geometry/
+
+<br>
+
+- 현재 다루고 있는 `Pure Translation`의 경우 위 그림과 같이 2개의 이미지가 평행한 상태입니다.
+- 위 그림과 같이 두 이미지 평면이 평행할 때 두 카메라 중심을 연결하는 기준선이 이미지 평면과 평행하므로 `epipole` $$ e $$ 와 $$ e' $$ 는 무한대에 위치하고 `epipolar line`은 각 이미지 평면의 $$ u $$ 축과 평행합니다.
+- 이전 강의에서 무한대에 존재하는 점을 `point at infinity`라고 하였으며 `vanishing point`라는 이름으로 다루기도 하였습니다. 즉, 평행하는 두 이미지의 `epipole`은 `vanishing point`가 됩니다.
+
+<br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/33.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 위 예시는 `Pure Translation`을 가정한 예시입니다. 카메라는 고정인 상태로 세상만 $$ -t $$ 만큼 `translation` 하였다는 가정입니다.
-- 앞의 슬라이드에서 다루었듯이 `Pure Translation` 상태에서는 $$ x, x', e $$ 가 모두 `collinear` 함을 확인하였습니다. 따라서 두 직육면체의 대응되는 점들을 이어서 선을 만들었을 때, 그 선이 모이는 지점의 `vanishing point`가 `epipole` $$ e $$ 가 됩니다. $$ e $$ 에서 `pencil of epipolar lines`가 형성되기 때문입니다.
+- 앞의 슬라이드에서 다루었듯이 `Pure Translation` 상태에서는 $$ x, x', e $$ 가 모두 `collinear` 함을 확인하였습니다. 따라서 두 직육면체의 대응되는 점들을 이어서 선을 만들었을 때, 그 선이 모이는 지점의 `vanishing point`가 `epipole` $$ e $$ 가 됩니다. $$ e $$ 에서 `pencil of epipolar lines`가 형성되는 것을 볼 수 있습니다.
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/34.png" alt="Drawing" style="width: 1000px;"/></center>

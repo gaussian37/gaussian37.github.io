@@ -796,8 +796,8 @@ print(x_un * 0.8, y_un* 0.8, 0.8)
 <br>
 
 - 실습에 사용한 데이터는 아래 링크에서 받을 수 있습니다.
-- `Fisheye Camera` : https://drive.google.com/drive/u/0/folders/1z7sp5Us95L_g7hVvcAvJ6Gn5V6bUOG12
-- `Standard Camera` : https://drive.google.com/drive/u/0/folders/1aMsGK-A6VgdtW2uTSOtV2aBexErZCYpn
+- `Fisheye Camera` : https://drive.google.com/drive/folders/1z7sp5Us95L_g7hVvcAvJ6Gn5V6bUOG12?usp=drive_link
+- `Standard Camera` : https://drive.google.com/drive/folders/1_mvJNmO_6ZaA2dyRedgt8uwcRonDG89Z?usp=drive_link
 
 <br>
 
