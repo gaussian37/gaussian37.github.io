@@ -365,13 +365,31 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 <center><img src="../assets/img/vision/mvg/nus_lec7/30.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
-- 
+- `base line` 상의 임의의 점 $$ p $$ 를 중심으로 두 이미지 $$ I, I' $$ 에 대하여 선을 긋는 상황을 살펴보도록 하겠습니다.
+- `pencil of epipolar lines`과 `epipole` $$ e $$ 를 통과하지 않는 임의의 선 $$ k $$ 와 교차하는 점을 이미지 $$ I, I' $$ 에 검은 점으로 표현하였습니다. 점 $$ p $$ 에서 부터 $$ I, I' $$ 의 검은 점을 연결하는 직선을 그엇다고 가정하겠습니다. 
+- 두 이미지 $$ I, I' $$ 간의 점들이 `homography (Perspective Transform)` 변환 관계이므로 점들 간의 [cross-ratio](https://en.wikipedia.org/wiki/Cross-ratio)는 만족함을 알 수 있습니다.
+
+<br>
+
+- 슬라이드에서 `1D homography`는 다음을 만족하는 `homography`를 의미합니다.
+
+<br>
+
+- $$ l' = H_{ll'} l $$
+
+- $$ l = [a, b, c]^{T} = e + td $$
+
+- $$ l' = [a', b', c']^{T} = e' + t'd' $$
+
+- $$ t \text{ : scale parameter} $$
+
+- $$ d \text{ : direction vector} $$
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/31.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
--  이번에는 `Pure Translation`이 발생하였을 때의 `Fundamental Matrix`를 살펴보도록 하겠습니다. `Pure Translation`이라고 하면 하나의 카메라를 이동시켰을 때, `Rotation`은 발생하지 않고 단순히 `Translation`만 발생한 경우를 의미합니다. 카메라 하나를 이용한 2개의 이미지 이므로 `intrinsic` $$ K $$ 는 하나입니다.
+- 이번에는 `Pure Translation`이 발생하였을 때의 `Fundamental Matrix`를 살펴보도록 하겠습니다. `Pure Translation`이라고 하면 하나의 카메라를 이동시켰을 때, `Rotation`은 발생하지 않고 단순히 `Translation`만 발생한 경우를 의미합니다. 카메라 하나를 이용한 2개의 이미지 이므로 `intrinsic` $$ K $$ 는 하나입니다.
 - 20p 슬라이드 내용을 통하여 `Fundamental Matrix` $$ F $$ 를 다음과 같이 정의할 수 있었습니다.
 
 <br>
@@ -395,19 +413,60 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 - $$ F = [e']_{\times} = \begin{bmatrix} 0 & -1 & y' \\ 1 & 0 & -x' \\ -y' & x' & 0 \end{bmatrix} $$
 
 <br>
+ 
+- `skew-symmetric` $$ n \times n $$ 행렬에서 $$ n $$ 의 크기가 홀수이면 최대 `rank`는 $$ n-1 $$ 임이 알려져 있습니다.
+- `skew-symmetric` 행렬의 정의는 다음과 같습니다.
+    - ① $$ A = -A^{T} $$
+    - ② $$ \text{All diagonal elements are zero.} $$
+- 따라서 행렬 $$ A $$ 는 다음과 같이 `determinant`를 적용할 수 있습니다.
 
+<br>
+
+- $$ \text{det}(A) = \text{det}(-A^{T}) = (-1)^{n}\text{det}(A) $$
+
+- $$ \text{det}(A) = -\text{det}(A) \quad (\becuase n \text{ is odd (3)}) $$
+
+- $$ \therefore \text{det}(A) = 0 $$
+
+<br>
+
+- 위 식과 같이 $$ \text{det}(A) = 0 $$ 를 만족하므로 최대 `rank`는 $$ n - 1 $$ 이 되고 앞에서 다룬 바와 같이 `Fundamental Matrix`의 `rank` $$ 3 - 1 = 2 $$ 를 만족하게 됩니다.
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/32.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- `Pure Translation` 조건에서 다음 조건이 만족함을 확인할 수 있습니다.
+
+<br>
+
+- $$ l' = Fx = [e']_{\times}x $$
+
+<br>
+
+- 그리고 $$ x' $$ 는 $$ l' $$ 상에 존재하므로 다음과 같이 식을 적을 수 있습니다.
+
+<br>
+
+- $$ x'^{T}[e']_{\times}x = 0 $$
+
+<br>
+
+- 위 식을 해석하면 $$ x' $$ 와 $$ e' $$ 는 같은 선상에 있고 (`epipolar line`) 심지어 $$ x $$ 또한 같은 선상에 있으므로 $$ x, x', e=e' $$ 가 같은 선상에 있는 것으로 이해할 수 있습니다. 따라서 `collinear` 관계임을 확인할 수 있습니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/33.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 위 예시는 `Pure Translation`을 가정한 예시입니다. 카메라는 고정인 상태로 세상만 $$ -t $$ 만큼 `translation` 하였다는 가정입니다.
+- 앞의 슬라이드에서 다루었듯이 `Pure Translation` 상태에서는 $$ x, x', e $$ 가 모두 `collinear` 함을 확인하였습니다. 따라서 두 직육면체의 대응되는 점들을 이어서 선을 만들었을 때, 그 선이 모이는 지점의 `vanishing point`가 `epipole` $$ e $$ 가 됩니다. $$ e $$ 에서 `pencil of epipolar lines`가 형성되기 때문입니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/34.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
+- 두번째 예시에서도 `Pure Translation`임을 가정합니다. 따라서 카메라 이동 발생 시 카메라 중점 $$ C $$ 의 위치는 `collinear` 한 상태로 이동하게 됩니다. 따라서 $$ e = e' $$ 를 만족합니다.
+- `Pure Translation`이 발생하였으므로 `epipolar line` 또한 그대로 유지됩니다. 하지만 $$ x, x' $$ 는 카메라의 움직임 때문에 실제 이미지 상의 위치는 옮겨질 것입니다. 따라서 `correspondent point`인 $$ x, x' $$ 는 `Pure Translation` 시 이미지 상의 위치 이동은 발생하되 `epipolar line`을 따라서 움직이게 되어 `epipolar line`은 그대로 유지됩니다.
 
 <br>
 <div style="text-align: center;">
