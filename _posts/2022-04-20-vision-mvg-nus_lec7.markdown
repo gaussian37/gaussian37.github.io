@@ -487,6 +487,42 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 - `Pure Translation`이 발생하였으므로 `epipolar line` 또한 그대로 유지됩니다. 하지만 $$ x, x' $$ 는 카메라의 움직임 때문에 실제 이미지 상의 위치는 옮겨질 것입니다. 따라서 `correspondent point`인 $$ x, x' $$ 는 `Pure Translation` 시 이미지 상의 위치 이동은 발생하되 `epipolar line`을 따라서 움직이게 되어 `epipolar line`은 그대로 유지됩니다.
 
 <br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/35.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/36.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/37.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/38.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/39.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/40.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/41.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/42.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/43.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/7QYq7qNkmtg" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
