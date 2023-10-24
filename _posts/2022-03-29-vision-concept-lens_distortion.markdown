@@ -47,6 +47,7 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 - ### [Generic 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기](#generic-카메라-모델-왜곡-보정을-위한-mapping-함수-구하기-1)
 - ### [Generic 카메라 모델 remap을 이용한 왜곡 영상 → 왜곡 보정 영상](#generic-카메라-모델-remap을-이용한-왜곡-영상--왜곡-보정-영상-1)
 - ### [Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 왜곡 보정 영상](#generic-카메라-모델-pytorch를-이용한-왜곡-영상--왜곡-보정-영상-1)
+- ### [Generic 카메라 모델의 왜곡 보정 시 변환 좌표 구하기](#generic-카메라-모델의-왜곡-보정-시-변환-좌표-구하기-1)
 
 <br>
 
@@ -801,6 +802,56 @@ print(x_un * 0.8, y_un* 0.8, 0.8)
 
 <br>
 
+```python
+import cv2
+import numpy as np
+
+def get_map_xy(I_d, fx, fy, cx, cy, skew, k1, k2, k3, k4, k5):   
+    
+    h, w = I_d.shape[:2]
+    I_u = np.zeros_like(I_d)
+    map_x = np.zeros((h, w), dtype=np.float32)
+    map_y = np.zeros((h, w), dtype=np.float32)
+    
+    for v_u in range(h):
+        for u_u in range(w):
+            y_un = (v_u - cy)/fy
+            x_un = (u_u - skew*y_un - cx)/fx 
+            
+            r_un = np.sqrt(x_un**2 + y_un**2)
+            theta = np.arctan(r_un)
+            r_dn = k1*theta + k2*theta**3 + k3*theta**5 + k4*theta**7 + k5*theta**9
+            
+            x_dn = r_dn * (x_un/r_un)
+            y_dn = r_dn * (y_un/r_un)
+            
+            u_d = np.round(fx*x_dn + skew*y_dn + cx)
+            v_d = np.round(fy*y_dn + cy)
+            
+            if 0 <= u_d < w and 0 <= v_d < h:
+                I_u[int(v_u), int(u_u), :] = I_d[int(v_d), int(u_d), :]
+            
+            map_x[v_u, u_u] = u_d
+            map_y[v_u, u_u] = v_d
+            
+    return I_u, map_x, map_y
+
+# Sample Code to Test the Function
+I_d = cv2.cvtColor(cv2.imread('./fisheye_camera_checkboard_10cm/fisheye_camera_calibration_test_10cm_01.png'), cv2.COLOR_BGR2RGB)
+
+fx = K[0][0]
+skew = K[0][1]
+cx = K[0][2]
+
+fy = K[1][1]
+cy = K[1][2]
+
+k1, k2, k3, k4, k5 = 1, D[0], D[1], D[2], D[3]
+I_u, map_x, map_y = get_map_xy(I_d, fx, fy, cx, cy, skew, k1, k2, k3, k4, k5)
+```
+
+<br>
+
 ## **Generic 카메라 모델 remap을 이용한 왜곡 영상 → 왜곡 보정 영상**
 
 <br>
@@ -813,6 +864,64 @@ print(x_un * 0.8, y_un* 0.8, 0.8)
 
 
 
+<br>
+
+## **Generic 카메라 모델의 왜곡 보정 시 변환 좌표 구하기**
+
+<br>
+
+```python
+from scipy.optimize import root_scalar
+
+def f_theta_pred(theta_pred, r, k0, k1, k2, k3, k4):
+    return k0*theta_pred + k1*theta_pred**3 + k2*theta_pred**5 + k3*theta_pred**7 + k4*theta_pred**9 - r
+
+def f_theta_pred_prime(theta_pred, r, k0, k1, k2, k3, k4):
+    return k0 + 3*k1*theta_pred**2 + 5*k2*theta_pred**4 + 7*k3*theta_pred**6 + 9*k4*theta_pred**8
+
+def rdn2theta(x_dn, y_dn, k0, k1, k2, k3, k4):
+    r_dn = np.sqrt(x_dn**2 + y_dn**2)
+    theta_init = np.arctan(r_dn)
+
+    # newton-method
+    result = root_scalar(
+        f_theta_pred, 
+        args=(r_dn, k0, k1, k2, k3, k4), 
+        method='newton', 
+        x0=theta_init, 
+        fprime=f_theta_pred_prime
+    )
+    
+    theta_pred = result.root    
+    r_un = np.tan(theta_pred)
+    x_un = r_un * (x_dn / r_dn)
+    y_un = r_un * (y_dn / r_dn)
+    return x_un, y_un, r_dn, theta_pred
+
+lut = np.zeros((img.shape[0], img.shape[1], 2)).astype(np.float32)
+for u in range(img.shape[1]):
+    for v in range(img.shape[0]):
+        y_dn = (v - cy)/fy
+        x_dn = (u - skew*y_dn - cx)/fx
+        x_un, y_un, r_dn, theta_pred = rdn2theta(x_dn, y_dn, k1, k2, k3, k4, k5)
+
+        u_un = np.round(fx*x_un + skew*y_un + cx)
+        v_un = np.round(fy*y_un + cy)
+
+        lut[v][u][0] = u_un
+        lut[v][u][1] = v_un
+
+
+undistorted_image = np.zeros((img.shape[0], img.shape[1], 3)).astype(np.uint8)
+for u_d in range(img.shape[1]):
+    for v_d in range(img.shape[0]):
+        u_u = int(lut[v_d][u_d][0])
+        v_u = int(lut[v_d][u_d][1])
+        if (0 <= u_u)  and (u_u < img.shape[1]) and (0 <= v_u) and (v_u < img.shape[0]):
+            undistorted_image[v_u, u_u] = img[v_d, u_d]
+```
+
+<br>
 
 <br>
 
