@@ -802,6 +802,11 @@ print(x_un * 0.8, y_un* 0.8, 0.8)
 
 <br>
 
+- 앞에서 다룬 영상의 왜곡 보정 방법을 구현하면 다음과 같습니다. 왜곡 보정이 된 좌표를 기준으로 왜곡된 영상의 어떤 좌표와 대응되는 지 확인한 다음 그 좌표의 컬러 값을 가져와서 할당하면 왜곡 보정된 영상을 만들 수 있습니다.
+- 아래 코드의 `map_x`와 `map_y`는 왜곡 보정된 영상의 특정 좌표 $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 가 왜곡된 영상의 어떤 좌표값을 사용해야 하는 지, 대응시켜 놓은 `LUT(Look Up Table)`입니다. 예를 들어 `map_x[u_undist][v_undist]`는 왜곡 영상에서의 대응되는 $$ u_{\text{dist}} $$ 좌표를 의미하고 `map_y[u_undist][v_undist]`는 왜곡 영상에서의 대응되는 $$ v_{\text{dist}} $$ 좌표를 의미합니다. 따라서 `(u_dist, v_dist) = (map_x[u_undist][v_undist], map_y[u_undist][v_undist])`가 됩니다.
+
+<br>
+
 ```python
 import cv2
 import numpy as np
@@ -867,6 +872,13 @@ I_u, map_x, map_y = get_map_xy(I_d, fx, fy, cx, cy, skew, k1, k2, k3, k4, k5)
 <br>
 
 ## **Generic 카메라 모델의 왜곡 보정 시 변환 좌표 구하기**
+
+<br>
+
+- 만약 왜곡 영상에서의 임의의 좌표 $$ (u_{\text{dist}}, v_{\text{dist}}) $$ 를 왜곡 보정하였을 때, 어떤 점으로 변환되는 지 알고 싶다면 어떻게 할 수 있을까요? 이 방법에 대하여 살펴보도록 하겠습니다.
+- 앞에서 살펴본 방식은 왜곡 보정된 영상의 공간을 마련해 놓고 왜곡 영상의 좌표를 끌어와서 채우는 방법을 사용하였습니다. 이와 같은 방식으로 왜곡 보정 영상을 만들면 구멍이 생기지 않도록 깔끔하게 왜곡 보정 영상을 만들 수 있습니다.
+- 관점을 전환하여 왜곡 영상의 임의의 좌표 $$ (u_{\text{dist}}, v_{\text{dist}}) $$ 가 왜곡 보정되었을 때 어느 좌표로 변환되는 지 직접적으로 알 수 있도록 `LUT`를 구성해 놓는다면 모든 픽셀을 왜곡 보정하지 않고 특정 원하는 픽셀들만 왜곡 보정한 위치로 옮겨서 사용할 수 있습니다. 만약 왜곡 영상에서 이미지의 feature를 추출하고 사용할 때, `perspective view`와 같은 선형 변환의 성질을 이용하기 위해 feature들을 왜곡 보정한 영역에 두고 사용한다면 이와 같은 방법이 적합할 수 있습니다.
+- `LUT`를 만드는 순서는 왜곡 영상의 $$ (u_{\text{dist}}, v_{\text{dist}}) $$ 좌표를 `distorted normalized coordinate`로 변환한 후 `distorted normalized coordinate → undistorted normalized coordinate`로 변환합니다. 마지막으로 `undistorted normalized coordinate`를 왜곡 보정된 영상의 $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 좌표로 변환한 후 `LUT`로 만들면 왜곡 영상의 좌표를 왜곡 보정 영상의 좌표로 옮길 수 있습니다.
 
 <br>
 
