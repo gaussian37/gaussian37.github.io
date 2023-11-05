@@ -532,6 +532,39 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 <center><img src="../assets/img/vision/mvg/nus_lec7/44.png" alt="Drawing" style="width: 1000px;"/></center>
 <br> 
 
+- 40p에서 보여준 바와 같이 `canonical form` 형태의 행렬 $$ P $$ 와 그에 대응되는 행렬 $$ P' $$ 를 이용할 때, $$ F = [a]_{\times} A $$ 가 됨을 확인하였습니다. 같은 논리로 $$ F = [\tilde{a}]_{\times} \tilde{A} $$ 또한 만족합니다.
+- 그리고 벡터 $$ a $$ 의 `cross product` $$ a \times a = 0 $$ 이기 때문에 다음과 같이 식이 유도될 수 있습니다.
+
+<br>
+
+- $$ a^{T}F = a^{T}[a]_{\times}A = 0 $$
+
+- $$ \tilde{a}^{T}F = \tilde{a}^{T}[\tilde{a}]_{\times}\tilde{A} = 0 $$
+
+<br>
+
+- `Fundamental Matrix` $$ F $$ 는 앞에서 살펴본 바와 같이 `rank`가 2이므로 `null-space`를 가집니다.
+- 따라서 $$ a^{T}F = \tilde{a}^{T}F = 0 $$ 에서 $$ a, \tilde{a} $$ 각각은 같은 $$ F $$ 에 대한 `null-space`를 가지므로 $$ \tilde{a} = ka $$ 와 같이 `dependent`하게 표현할 수 있습니다.
+- 또는 $$ \tilde{a}^{T}F = \tilde{a}^{T}[a]_{\times}A = 0 $$ 을 항상 만족하기 위해서는 $$ \tilde{a}^{T}[a]_{\times} $$ 가 항상 $$ 0 $$ 을 만족해야 하므로 이 조건을 만족하기 위해서는 `cross proudct`가 0이 되는 $$ \tilde{a} = ka $$ 조건을 만족해야 하는 것으로도 해석할 수 있습니다.
+- 따라서 $$ \tilde{a} = ka $$ 를 이용하면 다음과 같이 식을 전개할 수 있습니다.
+
+<br>
+
+- $$ [a]_{\times}A = [\tilde{a}]_{\times}\tilde{A} $$
+
+- $$ [a]_{\times}(k\tilde{A} - A) = 0 $$
+
+<br>
+
+- 위 식을 만족하려면 $$ [a]_{\times} $$ 와 $$ a $$ 의 `cross product` 연산을 통해 항상 0 벡터가 만들어 질 수 있도록 구성해야 합니다. 따라서 $$ k\tilde{A} - A = av^{T} $$ 로 정의할 수 있습니다. 이 때, $$ v $$ 는 임의의 벡터입니다. 정리하면 $$ \tilde{A} $$ 는 다음과 같습니다.
+
+<br>
+
+- $$ \tilde{A} = k^{-1}(A + av^{T}) $$
+
+<br>
+
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/45.png" alt="Drawing" style="width: 1000px;"/></center>
 <br> 
