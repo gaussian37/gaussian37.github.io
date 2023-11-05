@@ -488,7 +488,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/35.png" alt="Drawing" style="width: 1000px;"/></center>
-<br>
+<br> 
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/36.png" alt="Drawing" style="width: 1000px;"/></center>
@@ -527,6 +527,26 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
     <iframe src="https://www.youtube.com/embed/7QYq7qNkmtg" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
 <br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/44.png" alt="Drawing" style="width: 1000px;"/></center>
+<br> 
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/45.png" alt="Drawing" style="width: 1000px;"/></center>
+<br> 
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/46.png" alt="Drawing" style="width: 1000px;"/></center>
+<br> 
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/47.png" alt="Drawing" style="width: 1000px;"/></center>
+<br> 
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/48.png" alt="Drawing" style="width: 1000px;"/></center>
+<br> 
 
 <br>
 <div style="text-align: center;">
