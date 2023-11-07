@@ -790,6 +790,28 @@ print(x_un * 0.8, y_un* 0.8, 0.8)
 
 <br>
 
+- 왜곡 보정영상은 다음 그림과 같이 `Barrel Distortion`이나 `Pincushion Distortion`에서 나타나는 왜곡을 보정하여 직선이 영상에서도 그대로 직선으로 보일 수 있도록 합니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/0.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 왜곡 보정하는 방법은 앞의 글을 이해하면 굉장히 간단합니다. 다음 절차를 통해 왜곡 보정을 진행할 수 있습니다.
+- ① 왜곡 보정 영상의 사이즈를 임의로 정의합니다. 왜곡 보정 영상의 좌표를 $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 로 가정하겠습니다.
+- ② $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 의 좌표를 `intrinsic`을 이용 ($$ K^{-1} $$)하여 $$ (x_{\text{undist norm}}, y_{\text{undist norm}}) $$ 으로 변환합니다.
+- ③ $$ (x_{\text{undist norm}}, y_{\text{undist norm}}) $$ 을 `Distortion Coefficient`를 이용하여 $$ (x_{\text{dist norm}}, y_{\text{dist norm}}) $$ 으로 변환합니다.
+- ④ $$ (x_{\text{dist norm}}, y_{\text{dist norm}}) $$ 에 `intrinsic`을 반영하여 $$ (u_{\text{dist}}, v_{\text{dist}}) $$ 를 구합니다. $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 는 왜곡된 영상의 좌표이므로 이 좌표의 `RGB`값을 접근합니다.
+- ⑤ $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 의 `RGB` 값을 왜곡 보정 영상의 $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 좌표의 `RGB`로 대응하면 왜곡 보정된 영상을 구할 수 있습니다.
+
+<br>
+
+- 왜곡 보정의 방법은 위 5가지 스텝으로 나눌 수 있습니다. 왜곡 보정의 결과 가장 큰 특이점은 실제 공간 상의 직선이 영상에서도 직선으로 보인다는 점입니다.
+- 아래 영상을 살펴보면 왼쪽의 왜곡이 적용된 영상과 위 5가지 스텝으로 왜곡 보정한 영상의 예시를 살펴볼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/9.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
 <br>
 
 ## **Generic 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기**

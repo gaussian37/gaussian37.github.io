@@ -312,7 +312,7 @@ tags: [depth estimation, monodepth2, 모노 뎁스 2, 모노뎁스, 모노뎁스
 <br>
 
 - 식 (3)에서는 `edge-aware smootheness` Loss를 추가적으로 도입합니다. `edge-aware smootheness`는 monodepth1에서도 사용이 되었으며 사용 목적은 **객체의 경계면에서 급격한 깊이 값의 변화를 방지**하기 위함입니다. 
-- 이와 같은 아이디어는 실제 세상에서는 객체의 경계가 급격하게 변하는 경우가 흔하지 않으며 어느 정도 연속적으로 점점 변화하기 때문입니다. 하지만 이미지에서는 경계가 급격하게 변하는 경우가 발생하기 때문에 현실 세계를 반영하여 `edge-aware smoothness` 즉, `edge` 부분을 smooth 하게 만드는 `Loss`를 추가합니다. 이 `Loss`는 일종의 `regularization term`과 같이 기존 Loss에 추가됩니다.
+- 이와 같은 아이디어는 실제 세상에서는 객체의 경계가 급격하게 변하는 경우가 흔하지 않으며 어느 정도 연속적으로 점점 변화하기 때문입니다. 하지만 이미지에서는 경계가 급격하게 변하는 경우가 발생하기 때문에 현실 세계를 반영하여 `edge-aware smoothness` 즉, `edge` 부분을 `smooth` 하게 만드는 `Loss`를 추가합니다. 이 `Loss`는 일종의 `regularization term`과 같이 기존 Loss에 추가됩니다.
 - `edge`를 확인하기 위해서는 `depth(disparity)` 및 `rgb` 값을 이용하여 인접한 픽셀과의 변화량 (`derivative`)을 이용합니다. `rgb 이미지 변화` ( $$ \partial_{x}I_{t}, \partial_{y}I_{t} $$ )가 크면 위 식의 $$ e^{-\vert \partial_{x}I_{t}\vert} $$ 와 $$ e^{-\vert \partial_{y}I_{t}\vert} $$ 가 작아지므로 `disparity 변화`도 작아집니다. 물론 `disparity 변화`가 **작아지면** `depth의 변화`도 **작아집니다.** 여기서 중요한 것은 disparity나 depth의 값이 아니라 **인접 픽셀 간의 disparity나 depth의 `변화량`을 의미**합니다.
 - 반면 $$ e^{-\vert \partial_{x}I_{t}\vert} $$ 와 $$ e^{-\vert \partial_{y}I_{t}\vert} $$ 식을 통해 확인할 수 있듯이 `rgb 이미지 변화량`이 작아지더라도 $$ \vert \vert $$ 절대값으로 인하여 $$ e^{-\vert \partial_{x}I_{t}\vert} $$ 와 $$ e^{-\vert \partial_{y}I_{t}\vert} $$ 각각은 최대 1의 값을 가지게 되므로 오히려 disparity(depth)의 변화가 커지는 경우는 발생하지 않습니다. 따라서 `smoothness loss`에서는 `rgb 이미지 변화`가 큰 경우에 대해서 `disparity(depth) 변화`가 작아진다는 점이 핵심입니다.
 - 이와 같은 `Loss`를 추가함으로써 깊이 추정에서의 문제점 중 하나인 물체의 경계면에서의 깊이 추정이 급격하게 변화하여 부정확해지는 문제를 개선합니다.
