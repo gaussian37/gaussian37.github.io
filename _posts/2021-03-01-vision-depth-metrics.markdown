@@ -77,7 +77,7 @@ tags: [depth estimation, metrics, rel, rmse] # add tag
 
 <br>
 
-- $$ \sqrt{\frac{1}{T}\sum_{p}(\log{(d_{p})} - \log{( \hat{d}_{p} )^{2}})} \tag{4} $$
+- $$ \sqrt{\frac{1}{T}\sum_{p}(\log{(d_{p})} - \log{( \hat{d}_{p} )})^{2}} \tag{4} $$
 
 <br>
 
