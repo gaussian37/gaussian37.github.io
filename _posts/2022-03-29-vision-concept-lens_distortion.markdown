@@ -797,11 +797,11 @@ print(x_un * 0.8, y_un* 0.8, 0.8)
 <br>
 
 - 왜곡 보정하는 방법은 앞의 글을 이해하면 굉장히 간단합니다. 다음 절차를 통해 왜곡 보정을 진행할 수 있습니다.
-- ① 왜곡 보정 영상의 사이즈를 임의로 정의합니다. 왜곡 보정 영상의 좌표를 $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 로 가정하겠습니다.
+- ① 왜곡 보정 영상의 사이즈 $$ (W, H) $$ 를 임의로 정의합니다. $$ (W, H) $$ 사이즈의 이미지에서 왜곡 보정 영상의 좌표를 $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 로 가정하겠습니다.
 - ② $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 의 좌표를 `intrinsic`을 이용 ($$ K^{-1} $$)하여 $$ (x_{\text{undist norm}}, y_{\text{undist norm}}) $$ 으로 변환합니다.
 - ③ $$ (x_{\text{undist norm}}, y_{\text{undist norm}}) $$ 을 `Distortion Coefficient`를 이용하여 $$ (x_{\text{dist norm}}, y_{\text{dist norm}}) $$ 으로 변환합니다.
-- ④ $$ (x_{\text{dist norm}}, y_{\text{dist norm}}) $$ 에 `intrinsic`을 반영하여 $$ (u_{\text{dist}}, v_{\text{dist}}) $$ 를 구합니다. $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 는 왜곡된 영상의 좌표이므로 이 좌표의 `RGB`값을 접근합니다.
-- ⑤ $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 의 `RGB` 값을 왜곡 보정 영상의 $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 좌표의 `RGB`로 대응하면 왜곡 보정된 영상을 구할 수 있습니다.
+- ④ $$ (x_{\text{dist norm}}, y_{\text{dist norm}}) $$ 에 `intrinsic`을 반영하여 $$ (u_{\text{dist}}, v_{\text{dist}}) $$ 를 구합니다. $$ (u_{\text{dist}}, v_{\text{dist}}) $$ 는 왜곡된 영상의 좌표이므로 이 좌표의 `RGB`값을 접근합니다.
+- ⑤ $$ (u_{\text{dist}}, v_{\text{dist}}) $$ 의 `RGB` 값을 왜곡 보정 영상의 $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 좌표의 `RGB`로 대응하면 왜곡 보정된 영상을 구할 수 있습니다.
 
 <br>
 
@@ -811,6 +811,8 @@ print(x_un * 0.8, y_un* 0.8, 0.8)
 <br>
 <center><img src="../assets/img/vision/concept/lens_distortion/9.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
+- 앞의 ① ~ ⑤ 순서에 맞게 왜곡 보정을 하는 방법을 코드를 통하여 살펴보도록 하겠습니다.
 
 <br>
 
@@ -824,7 +826,7 @@ print(x_un * 0.8, y_un* 0.8, 0.8)
 
 <br>
 
-- 앞에서 다룬 영상의 왜곡 보정 방법을 구현하면 다음과 같습니다. 왜곡 보정이 된 좌표를 기준으로 왜곡된 영상의 어떤 좌표와 대응되는 지 확인한 다음 그 좌표의 컬러 값을 가져와서 할당하면 왜곡 보정된 영상을 만들 수 있습니다.
+- 앞에서 다룬 영상의 왜곡 보정 방법을 구현하면 다음과 같습니다. 앞의 설명과 같이 왜곡 보정이 된 좌표가 왜곡된 영상의 어떤 좌표와 대응되는 지 확인한 다음 그 좌표의 컬러 값을 가져와서 할당하면 왜곡 보정된 영상을 만들 수 있습니다.
 - 아래 코드의 `map_x`와 `map_y`는 왜곡 보정된 영상의 특정 좌표 $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 가 왜곡된 영상의 어떤 좌표값을 사용해야 하는 지, 대응시켜 놓은 `LUT(Look Up Table)`입니다. 예를 들어 `map_x[u_undist][v_undist]`는 왜곡 영상에서의 대응되는 $$ u_{\text{dist}} $$ 좌표를 의미하고 `map_y[u_undist][v_undist]`는 왜곡 영상에서의 대응되는 $$ v_{\text{dist}} $$ 좌표를 의미합니다. 따라서 `(u_dist, v_dist) = (map_x[u_undist][v_undist], map_y[u_undist][v_undist])`가 됩니다.
 
 <br>
@@ -842,9 +844,13 @@ def get_map_xy(I_d, fx, fy, cx, cy, skew, k1, k2, k3, k4, k5):
     
     for v_u in range(h):
         for u_u in range(w):
+            # ① 왜곡 보정 영상의 좌표인 (u_u, v_u)를 정의 합니다.
+
+            # ② (u_u, v_u)의 좌표를 intrinsic을 이용하여 (x_un, y_un)으로 변환합니다.
             y_un = (v_u - cy)/fy
             x_un = (u_u - skew*y_un - cx)/fx 
             
+            # ③ (x_un, y_un)의 좌표를 Distortion Coefficient를 이용하여 (x_dn, y_dn)으로 변환합니다.
             r_un = np.sqrt(x_un**2 + y_un**2)
             theta = np.arctan(r_un)
             r_dn = k1*theta + k2*theta**3 + k3*theta**5 + k4*theta**7 + k5*theta**9
@@ -852,12 +858,15 @@ def get_map_xy(I_d, fx, fy, cx, cy, skew, k1, k2, k3, k4, k5):
             x_dn = r_dn * (x_un/r_un)
             y_dn = r_dn * (y_un/r_un)
             
+            # ④ (x_dn, y_dn)에 intrinsic을 반영하여 (u_d, v_d)를 구합니다.
             u_d = np.round(fx*x_dn + skew*y_dn + cx)
             v_d = np.round(fy*y_dn + cy)
             
+            # ⑤ (u_d, v_d)의 RGB 값을 왜곡 보정 영상의 좌표 (u_ud, v_ud) 좌표의 RGB로 대응하면 왜곡 보정된 영상 I_u를 구할 수 있습니다.
             if 0 <= u_d < w and 0 <= v_d < h:
                 I_u[int(v_u), int(u_u), :] = I_d[int(v_d), int(u_d), :]
             
+            # ※ (u_u, v_u) 좌표를 이용하여 (u_d, u_v) 좌표를 구하고 싶을 때, Look Up Table인 map_x, map_y를 구하는 과정입니다.
             map_x[v_u, u_u] = u_d
             map_y[v_u, u_u] = v_d
             
