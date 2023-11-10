@@ -892,6 +892,9 @@ I_u, map_x, map_y = get_map_xy(I_d, fx, fy, cx, cy, skew, k1, k2, k3, k4, k5)
 
 <br>
 
+- 앞에서 생성한 `map_x`, `map_y`를 `opencv`의 `remap` 함수와 같이 사용하면 쉽게 왜곡 보정 영상을 생성할 수 있습니다.
+- [OpenCV remap 함수 사용 방법](https://gaussian37.github.io/vision-concept-image_transformation/#remap-%ED%95%A8%EC%88%98%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-remapping-1)
+
 <br>
 
 ## **Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 왜곡 보정 영상**
