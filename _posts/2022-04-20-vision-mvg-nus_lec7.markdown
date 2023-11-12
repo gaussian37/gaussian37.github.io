@@ -589,6 +589,14 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 <center><img src="../assets/img/vision/mvg/nus_lec7/50.png" alt="Drawing" style="width: 1000px;"/></center>
 <br> 
 
+- 앞의 21p 슬라이드를 살펴보면 $$ F = [e']_{\times}P'P^{+} = K'^{-T} [t]_{\times} R K^{-1} $$ 을 전개하는 방법에 대하여 다루었습니다. 따라서 49p의 슬라이드에 해당하는 내용을 다음과 같이 전개할 수 있습니다.
+
+<br>
+
+- $$ F = K'^{-T} E K^{-1} = K'^{-T} [t]_{\times} R K^{-1} $$
+
+- $$ E = [t]_{\times} R $$
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/51.png" alt="Drawing" style="width: 1000px;"/></center>
 <br> 
@@ -596,6 +604,34 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/52.png" alt="Drawing" style="width: 1000px;"/></center>
 <br> 
+
+- 위 식에서 $$ E = [t]_{\times} R $$ 의 각 성분을 `SVD`를 적용하면 다음과 같습니다.
+
+<br>
+
+- $$ [t]_{\times} = UZ^U^{T} $$
+
+- $$ R = UXV^{T} $$
+
+<br>
+
+- `Skew-symmetric matrix`인 $$ [t]_{\times} $$ 인 경우 다음과 같은 이유로 `SVD` 시 같은 `orthogonal matrix`( $$ U $$ ) 로 분해 됩니다.
+
+<br>
+
+- $$ A = U \Lambda V^{T} $$
+
+- $$ A^{T}A = V \Lambda U^{T}U \Lambda V^{T} = V \Lambda^{2} V^{T} $$
+
+<br>
+
+- 따라서 `Skew-symmetric matrix`를 `SVD` 하였을 때, $$ U, V $$ 는 같은 값으로 분해됩니다.
+
+<br>
+
+- 반면 $$ R $$ 을 `SVD` 하였을 때, $$ [t]_{\times} $$ 에서 분해된 $$ U $$ 가 $$ R $$ 에도 사용되었습니다. 이와 같이 $$ U $$ 가 같이 사용됨으로 인하여 $$ E = [t]_{\times} R $$ 로 묶일 수 있도록 수식이 전개됩니다.
+- 기하적으로는 동일한 $$ U $$ 를 사용하면 `Translation` 및 `Rotation`이 동일한 좌표계에 표시됩니다. `SVD`의 $$ U\Lambda V^{T} $$ 에서 $$ U, V $$ 는 `basis`의 회전으로 나타내고 $$ \Lambda $$ 는 `basis`의 스케일 변화를 나타냅니다. (참조 : [SVD 의미 해석](https://gaussian37.github.io/math-la-svd/#svd-%EC%9D%98%EB%AF%B8-%ED%95%B4%EC%84%9D-1))
+- 따라서 최종 $$ R $$ 을 적용하였을 때, `basis`가 $$ U $$ 에 의해 회전되고 $$ t $$ 또한 `basis`가 $$ U $$ 에 의해 회전되도록 구성되어야 기하학적으로 일관성이 있기 때문에 $$ [t]_{\times} R $$ 값이 의미를 가지게 됩니다.
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/53.png" alt="Drawing" style="width: 1000px;"/></center>
