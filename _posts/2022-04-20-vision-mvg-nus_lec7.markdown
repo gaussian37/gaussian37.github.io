@@ -609,7 +609,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 
 <br>
 
-- $$ [t]_{\times} = UZ^U^{T} $$
+- $$ [t]_{\times} = U Z U^{T} $$
 
 - $$ R = UXV^{T} $$
 
@@ -656,6 +656,28 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/58.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/59.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/60.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/61.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/62.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec7/63.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+
 
 
 <br>
