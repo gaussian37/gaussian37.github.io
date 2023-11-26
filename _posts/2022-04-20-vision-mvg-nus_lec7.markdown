@@ -184,7 +184,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 
 - `Fundamental Matrix` $$ F $$ 는 $$ 3 \times 3 $$ 크기를 가지는 행렬이므로 9 개의 값을 가집니다. 따라서 9개의 자유도를 가지기 때문에 9 개의 `corresponding points`가 필요한 것으로 보이지만 `Fundamental Matrix`는 7개의 자유도인 `7-DOF`를 가지므로 7개의 `corresponding points`를 필요로 합니다.
 - 7개의 자유도를 가지는 이유는 `Fundamental Matrix`의 `scale ambiguity`와 `rank-2 constraint`와 연관되어 있습니다.
-- `scale ambiguity`는 스케일 값에 무관함을 나타내며 $$ F $$ 와 $$ \alpha F (\alpha \ne 0 ) $$ 가 같은 의미를 가지는 행렬이므로 이러한 `ambiguity`가 발생합니다. 이 컨셉은 `homogeneous coordinate`에서 충분히 많이 다룬 개념입니다. 수식으로 좀 더 자세히 살펴보면 다음과 같습니다.
+- `scale ambiguity`는 스케일 값에 무관함을 나타내며 $$ F $$ 와 $$ \alpha F (\alpha \ne 0 ) $$ 가 같은 의미를 가지는 행렬이므로 이러한 `scale ambiguity`가 발생합니다. 이 컨셉은 `homogeneous coordinate`에서 충분히 많이 다룬 개념입니다. 수식으로 좀 더 자세히 살펴보면 다음과 같습니다.
 
 <br>
 
@@ -218,7 +218,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 
 <br>
 
-- 행렬 $$ A $$ 를 살펴보면 8개의 미지수가 있고 위 예시에서는 1이라는 상수가 한개 있습니다. 이 값이 1이기 때문에 이미 미지수를 풀 수 있는 하나의 정보는 주어졌고 이 정보가 `scale`에 관한 정보입니다.
+- 행렬 $$ A $$ 를 살펴보면 8개의 미지수가 있고 위 예시에서는 1이라는 상수가 한개 있습니다. 이 값이 1이기 때문에 이미 미지수를 풀 수 있는 하나의 정보는 주어졌고 이 정보가 `scale`에 관한 정보입니다. 1은 $$ f_{9} $$ 와 곱해지고 $$ f_{9} $$ 가 `scale`에 해당합니다.
 - 만약 1이 아니라 $$ \alpha $$ 라는 값이 적용 된다면 $$ A $$ 의 모든 원소에 $$ \alpha $$ 를 곱하여 $$ AF = 0 $$ 을 만족시킬 수 있습니다. 따라서 이 값을 통해 `scale ambiguity`의 성질을 만족시킬 수 있습니다.
 
 <br>
@@ -235,6 +235,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 <br>
 
 - 식 $$ \text{det}(F) = 0 $$ 에서 단 하나의 미지수를 제외하고 다른 미지수의 해를 구하면 나머지 하나의 미지수는 자동으로 결정되기 때문에 자유도가 하나 줄어들게 됩니다.
+- 따라서 `scale ambiguity`로 인하여 $$ f_{9} $$ 의 결정이 필요 없어져서 자유도가 1 감소되는 것과 $$ \text{det}(F) = 0 $$ 조건으로 인한 자유도 1 감소로 `Fundamental Matrix`는 `7 DoF`를 가지게 됩니다.
 
 <br>
 
@@ -600,6 +601,18 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/51.png" alt="Drawing" style="width: 1000px;"/></center>
 <br> 
+
+- 앞에서 살펴본 바와 같이 `Essential Matrix`를 결정하기 위해서는 $$ R $$ 과 $$ t $$ 만 결정되면 됩니다. $$ R $$ 의 경우 `scale`이 없으며 각 축의 방향으로의 회전량이 정해지면 되기 때문에 3개의 자유도를 가집니다.
+- 반면 $$ t $$ 의 경우 움직임에 해당하는 `Translation`이므로 `scale`과 연관되어 있습니다. 하지만 `scale`이 정해질 수 없는 `scale ambiguity` 상황에서는 자유도가 1개 빠지게 되어 2개의 자유도만을 가질 수 있습니다. $$ t $$ 의 경우 $$ s \cdot \hat^{t} $$ 으로 표현할 수 있습니다. 여기서 $$ s $$ 는 `scale`로 임의의 상수로 가정한 것이고 $$ \hat{t} $$ 는 `normalized vector`를 의미합니다. 즉, 방향값만 가지고 있는 벡터라고 보면 됩니다. 식으로 나타내면 다음과 같습니다.
+
+<br>
+
+- $$ \hat{t} = (\hat{t}_{x}, \hat{t}_{y}, \hat{t}_{z}) = \frac{(t_{x}, t_{y}, t_{z})}{\sqrt(t_{x}^{2} + t_{y}^{2} + t_{z}^{2})} $$
+
+<br>
+
+이 때, `normalized vector`는 $$ \hat{t}_{x}^{2} + \hat{t}_{y}^{2} + \hat{t}_{z}^{2} = 1 $$ 의 조건을 만족해야 하므로 $$ (\hat{t}_{x}, \hat{t}_{y}, \hat{t}_{z}) $$ 중 2개만 만족하면 나머지 하나는 결정됩니다. 따라서 $$ s \cdot \hat^{t} $$ 에서 결정되어야 하는 것은 2개이므로 $$ t $$ 를 구할 때 DoF는 2개가 됩니다.
+- 따라서 $$ R $$ 을 구할 때 `3 DoF`와 $$ t $$ 를 구할 때 `2 DoF`로 `Essential Matrix`는 `5 DoF`를 가집니다.
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/52.png" alt="Drawing" style="width: 1000px;"/></center>
