@@ -665,6 +665,34 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 <center><img src="../assets/img/vision/mvg/nus_lec7/60.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 위 슬라이드에서 설명하는 `Frobenius norm`은 행렬의 크기 및 사이즈 등을 측정하는 척도이며 벡터의 크기를 측정하는 방법과 유사합니다. 대표적으로 사용하는 `Frobenius norm`의 수학적인 정의는 다음과 같습니다.
+
+<br>
+
+- $$ \Vert A \Vert_{F} = \sqrt{\sum_{i}\sum_{j} \vert a_{ij} \vert^{2} } $$
+
+<br>
+
+- 위 식은 행렬 $$ A $$ 에 대하여 `square root of sum of absolute squares`를 나타냅니다. 
+- 이와 같은 방법으로 크기를 정하는 것은 벡터의 `Euclidean (L2) norm`을 구하는 방식과 같으며 단지 행렬에 적용한 것으로 보면 됩니다.
+- 반면에 `Singular Value`를 이용하는 방법도 존재합니다. `singular value`가 $$ \sigma_{1}, \sigma_{2}, ... , \sigma_{n} $$ 일 때, `Frobenius norm`은 다음과 같습니다.
+
+<br>
+
+- $$ \Vert A \Vert_{F} = \sqrt{\sigma_{1}^{2} + \sigma_{2}^{2} + ... + \sigma_{n}^{2}} $$
+
+<br>
+
+- 이와 같이 `Frobenius norm`을 계산하는 방법은 여러가지가 있고 다음과 같은 조건을 만족하면 `Frobenius norm`이라고 합니다.
+- ① `Frobenius norm`은 항상 0 또는 양수이어야 합니다. (`non-negative`)
+- ② `Frobenius norm`이 0이면 행렬은 항상 영행렬 이어야 하며 그 역도 성립합니다.
+- ③ `triangle inequality`가 성립합니다. $$ \Vert A + B \Vert_{F} \le \Vert A \Vert_{F} + \Vert B \Vert_{F} $$
+- ④ `orthogonal transformation`에 대하여 불변해야 합니다. $$ \Vert Q A U \Vert_{F} = \Vert A \Vert_{F} \quad (Q, U \text{ are orthogonal matrices.}) $$
+
+<br>
+
+- 본 슬라이드에서는 `Frobenius norm`이 가장 가까운 행렬을 찾는 방법을 이용하여 `Fundamental Matrix`를 구하는 방법을 사용합니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/61.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
