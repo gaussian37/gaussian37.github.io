@@ -1,10 +1,10 @@
 ---
 layout: post
-title: 축-각 회전 (Axis-Angle rotation) 또는 로드리게스 회전 (Rodrigues rotation)
+title: 축각 회전 (Axis-Angle Rotation) 또는 로드리게스 회전 (Rodrigues Rotation)
 date: 2022-05-10 00:00:00
 img: vision/concept/axis_angle_rotation/0.png
 categories: [vision-concept] 
-tags: [로드리게스 회전 공식, 축 각 회전, axis-angle rotation] # add tag
+tags: [로드리게스 회전, 축각 회전, axis-angle rotation] # add tag
 ---
 
 <br>
