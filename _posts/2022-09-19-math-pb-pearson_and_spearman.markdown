@@ -33,7 +33,7 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 <br>
 
-## **Pearson Correlation과 Spearman's Correlation의 비교**
+## **Pearson Correlation과 Spearman Correlation의 비교**
 
 <br>
 
@@ -51,7 +51,7 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 <br>
 
-## **Pearson Correlation과 Spearman's Correlation의 수치 비교**
+## **Pearson Correlation과 Spearman Correlation의 수치 비교**
 
 <br>
 
