@@ -15,16 +15,14 @@ tags: [nvautonet, multi-camera fusion] # add tag
 
 - 논문 : https://arxiv.org/abs/2110.00966
 - 깃헙 : https://github.com/avishkarsaha/translating-images-into-maps
+- 페이지 : https://cvssp.org/Personal/OscarMendez/videos.html
 
 <br>
-<center><video src="../assets/img/vision/fusion/translating_images_into_maps/1.mp4" alt="Drawing" style="width: 800px;"/></center>
-<br>
-
 <video width="800" controls>
   <source src="../assets/img/vision/fusion/translating_images_into_maps/1.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-
+<br>
 
 
 <br>

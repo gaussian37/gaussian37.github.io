@@ -26,10 +26,10 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 <br>
 
-- ### Pearson Correlation과 Spearman Correlation의 비교
-- ### Pearson Correlation의 정의와 예제
-- ### Spearman Correlation의 정의와 예제
-- ### Pearson Correlation과 Spearman Correlation의 수치 비교
+- ### [Pearson Correlation과 Spearman Correlation의 비교](#pearson-correlation과-spearman-correlation의-비교-1)
+- ### [Pearson Correlation의 정의와 예제](#pearson-correlation의-정의와-예제-1)
+- ### [Spearman Correlation의 정의와 예제](#spearman-correlation의-정의와-예제-1)
+- ### [Pearson Correlation과 Spearman Correlation의 수치 비교](#pearson-correlation과-spearman-correlation의-수치-비교-1)
 
 <br>
 
