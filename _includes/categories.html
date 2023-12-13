@@ -76,7 +76,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown
-            {% if page.url == '/vision/concept/' or page.url == '/vision/segmentation/' or page.url == '/vision/depth/' or  page.url == '/vision/mvg/' or page.url == '/vision/of/' or page.url == '/vision/cs231n/' or page.url == '/vision/opencv/' or page.url == '/vision/fusion/' or page.url == '/vision/signal/' or page.url == '/vision/dataset/ or page.url == '/vision/detection/ or page.url == '/vision/fpcv/ or page.url == '/vision/etc/'%} active {% endif %}">
+            {% if page.url == '/vision/concept/' or page.url == '/vision/segmentation/' or page.url == '/vision/depth/' or  page.url == '/vision/mvg/' or page.url == '/vision/of/' or page.url == '/vision/cs231n/' or page.url == '/vision/opencv/' or page.url == '/vision/fusion/' or page.url == '/vision/signal/' or page.url == '/vision/dataset/ or page.url == '/vision/detection/ or page.url == '/vision/fpcv/ or page.url == '/vision/vamr/' or page.url == '/vision/etc/'%} active {% endif %}">
                 <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('vision-dropdown')"
                    role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -96,6 +96,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/vision/cs231n" | prepend: site.baseurl }}">CS231n</a>
                     <a class="dropdown-item" href="{{ "/vision/fpcv" | prepend: site.baseurl }}">First Principles of Computer Vision (Coursera)</a>
+                    <a class="dropdown-item" href="{{ "/vision/vamr" | prepend: site.baseurl }}">Vision Algorithms for Mobile Robotics (University of Zurich)</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ "/vision/signal" | prepend: site.baseurl }}">Signal and System</a>
                     <a class="dropdown-item" href="{{ "/vision/etc" | prepend: site.baseurl }}">ETC</a>
