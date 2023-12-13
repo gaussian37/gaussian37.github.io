@@ -141,7 +141,7 @@ tags: [edge detection, gradient, sobel, canny edge] # add tag
 
 <br>
 
-- $$ G_{\sigma}(x, y) = \frac{1}{2\pi \sigma^{2}} \ext{(-\frac{x^{2} + y^{2}}{2\sigma})} $$
+- $$ G_{\sigma}(x, y) = \frac{1}{2\pi \sigma^{2}} \exp{(-\frac{x^{2} + y^{2}}{2\sigma})} $$
 
 <br>
 
