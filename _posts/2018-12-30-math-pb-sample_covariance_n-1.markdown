@@ -14,7 +14,7 @@ tags: [interview, datascience, sample covariance, n-1] # add tag
 <center><img src="../assets/img/math/pb/sample_covariance_n-1/1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 데이터는 정규 분포에서 $$ N(50, 15^{2}) $$를 따르는 분포에서 샘플링 한 것입니다.
+- 위 데이터는 정규 분포에서 $$ N(50, 15^{2}) $$ 를 따르는 분포에서 샘플링 한 것입니다.
 - 크기가 30인 표본을 임의로 추출을 하여 이 표본의 분산을 구할 때, 30으로 나눈 것과 29로 나눈것을 비교하였습니다.
 - 모분산이 225이므로 30으로 나눈 것 보다 29로 나누어서 분산이 더 커지도록 하는 것이 더 적합해 보입니다. 왜 그럴까요?
 
