@@ -50,11 +50,11 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 <br>
 
-- $$ \begin{align} \frac{\text{COV}(X, Y)}{\sqrt{\text{VAR}(X)}\sqrt{\text{VAR}(Y)}} &= \frac{\frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\mu_{x})(y_{i}-\mu_{y})}{\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\mu_{x})^{2}}\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\mu_{x})^{2}}} \\ &= \frac{\frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\mu_{x})(y_{i}-\mu_{y})}{\s_{x}\s_{y}} \\ &= \frac{1}{n-1}\sum_{i=1}^{n} \frac{(x_{i}-\mu_{x})}{\s_{x}}\frac{(y_{i}-\mu_{y})}{\s_{y}} \\ &= \frac{1}{n-1}\sum_{i=1}^{n} z_{x_{i}}z_{y_{i}} \end{align} $$
+- $$ \begin{align} \frac{\text{COV}(X, Y)}{\sqrt{\text{VAR}(X)}\sqrt{\text{VAR}(Y)}} &= \frac{\frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\mu_{x})(y_{i}-\mu_{y})}{\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\mu_{x})^{2}}\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\mu_{x})^{2}}} \\ &= \frac{\frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\mu_{x})(y_{i}-\mu_{y})}{s_{x}s_{y}} \\ &= \frac{1}{n-1}\sum_{i=1}^{n} \frac{(x_{i}-\mu_{x})}{s_{x}}\frac{(y_{i}-\mu_{y})}{s_{y}} \\ &= \frac{1}{n-1}\sum_{i=1}^{n} z_{x_{i}}z_{y_{i}} \end{align} $$
 
 <br>
 
-- 위 식에서 $$ z_{x_{i}}, z_{y_{i}} $$ 각각은 `Standardization`이 적용된 상태의 변량이 됩니다. 각 변량은 표준 정규 분포를 따르도록 `Standardization`가 적용된 것이기 때문에 각 변량의 스케일에 상관없이 모두 평균이 0, 표준편차는 $$ \s_{x}, \s_{y} $$ 를 따르도록 형성됩니다.
+- 위 식에서 $$ z_{x_{i}}, z_{y_{i}} $$ 각각은 `Standardization`이 적용된 상태의 변량이 됩니다. 각 변량은 표준 정규 분포를 따르도록 `Standardization`가 적용된 것이기 때문에 각 변량의 스케일에 상관없이 모두 평균이 0, 표준편차는 $$ s_{x}, s_{y} $$ 를 따르도록 형성됩니다.
 - 이 때, $$ z_{x_{i}}, z_{y_{i}} $$ 가 같이 양의 값 방향으로 증가하거나 음의값 방향으로 감소해야 두 값을 곱하였을 때, 큰 양수 값이 되며 평균을 내었을 때, 1에 가까운 값이 됩니다.
 - 반면 $$ z_{x_{i}}, z_{y_{i}} $$ 값 중 한 값이 증가할 때, 나머지 값은 감소하게 되면 두 값을 곱하였을 때, 큰 음수 값이 되며 평균을 내었을 때, -1에 가까운 값이 됩니다.
 - 만약 한 값이 증가하더라도 나머지 한 값이 뚜렷한 증감 없이 평균에 가까운 0에 머물게 되는 경우가 많이 생기게 된다면 평균을 내었을 때, 0에 가까운 값이 됩니다. 이러한 이유로 `Pearson Correlation`에서는 두 변수의 증감에 대한 상관관계가 없으면 0에 가까운 값을 얻게 됩니다.
