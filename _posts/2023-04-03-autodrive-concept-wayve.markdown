@@ -93,6 +93,31 @@ tags: [자율주행, 자율주행 자동차, autodrive, self-driving] # add tag
 
 <br>
 
+___
+
+<br>
+
+- 런던에 방문하면서 Wayve 본사가 어떤 곳인 지 궁금하여 입구 까지 한번 가 보았습니다. (23년 12월 10일, 오후 4시 30분)
+- 런던의 겨울에는 밤이 굉장히 길어서 오후 4시만 되어도 해가 지기 시작합니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/wayve/11.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/autodrive/concept/wayve/10.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 회사는 산업 단지가 약간 밀집 되어 있는 곳에 위치하였습니다. 주말이라서 회사내에 차고 처럼 생긴 곳에 대부분의 차량이 주차되어 있는 것 같았고 일부 차량들만 밖에 세워져 있었습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/concept/wayve/12.jpg" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- Wayve 홈페이지에 별도 설명되어 있진 않지만 야외 주차장에 있는 차량을 보면 라이다가 달려있는 것을 볼 수 있습니다. Wayve 또한 다른 회사와 마찬가지로 라이다 데이터를 취득하여 개발에 활용하는 것으로 추정됩니다.
+
+<br>
+
 [자율주행 관련 글 목록](https://gaussian37.github.io/autodrive-concept-table/)
 
 <br>
