@@ -72,7 +72,7 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 <br>
 
-- $$ \begin{align} \frac{\text{COV}(X, Y)}{\sqrt{\text{VAR}(X)}\sqrt{\text{VAR}(Y)}} &= \frac{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})(Y_{i}-\overline{Y})}{\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})^{2}}\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})^{2}}} \\ &= \frac{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})(Y_{i}-\overline{Y})}{s_{x}s_{y}} \\ &= \frac{1}{n-1}\sum_{i=1}^{n} \frac{(X_{i}-\overline{X})}{s_{x}}\frac{(Y_{i}-\overline{Y})}{s_{y}} \\ &= \frac{1}{n-1}\sum_{i=1}^{n} Z_{X_{i}}Z_{Y_{i}} \end{align} $$
+- $$ \begin{align} \rho_{(X, Y)} = \frac{\text{COV}(X, Y)}{\sqrt{\text{VAR}(X)}\sqrt{\text{VAR}(Y)}} &= \frac{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})(Y_{i}-\overline{Y})}{\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})^{2}}\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})^{2}}} \\ &= \frac{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})(Y_{i}-\overline{Y})}{s_{x}s_{y}} \\ &= \frac{1}{n-1}\sum_{i=1}^{n} \frac{(X_{i}-\overline{X})}{s_{x}}\frac{(Y_{i}-\overline{Y})}{s_{y}} \\ &= \frac{1}{n-1}\sum_{i=1}^{n} Z_{X_{i}}Z_{Y_{i}} \end{align} $$
 
 <br>
 
@@ -101,9 +101,38 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 <br>
 
-- 앞에서 살펴본 `Pearson Correlation`의 경우 두 변량의 선형 관계 정도를 -1에서 1 사이의 범위로 나타냄을 확인할 수 있었습니다. 그리고 `Pearson Correlation`의 정의에 따라서 오직 선형 관계만 설명할 수 있다는 단점과 소수의 노이즈 데이터 쌍에도 상관계수가 영향을 받을 수 있음을 확인하였습니다.
+- 앞에서 살펴본 `Pearson Correlation`의 경우 두 변량의 `선형 관계 정도`를 -1에서 1 사이의 범위로 나타냄을 확인할 수 있었습니다. 그리고 `Pearson Correlation`의 정의에 따라서 오직 선형 관계만 설명할 수 있다는 단점과 소수의 노이즈 데이터 쌍에도 상관계수가 영향을 받을 수 있음을 확인하였습니다.
 - 이러한 문제점을 개선하기 위하여 데이터의 분산을 이용하는 방법이 아닌 `rank`를 이용하는 방법에 대하여 살펴보도록 하겠습니다.
 
+<br>
+
+#### **Spearman Correlation의 정의**
+
+<br>
+
+- 먼저 `Spearman Correlation`의 정의는 다음과 같습니다. 
+
+<br>
+
+- $$ r_{(X, Y)} = 1 - \frac{6 \sum_{i=1}^{n}(d_{i}^{2})}{n(n^{2}-1)} $$
+
+- $$ d_{i} = R(X_{i}) - R(Y_{i}) $$
+
+- $$ R(X_{i}) : \text{Ranking order of X_i among all X data} $$
+
+- $$ R(Y_{i}) : \text{Ranking order of Y_i among all Y data} $$
+
+<br>
+
+- 위 식에서  $$ r_{(X, Y)} $$ 의 값의 범위는 `Pearson Correlation`과 동일하게 -1 에서 1의 범위를 가지게 되고 그 의미 또한 1에 가까울 수록 양의 상관관계가 높고 -1에 가까울수록 음의 상관관계가 높습니다.
+- `Pearson Correlation`과의 차이점에 대하여 살펴보면 $$ d_{i} = R(X_{i}) - R(Y_{i}) $$ 에 있습니다. `Pearson Correlation`은 `Standardization` 과정으로 전처리한 값을 사용하는 반면에 `Spearman Correlation`은 `ranking`을 이용합니다. 즉, 가지고 있는 데이터 셋에서 크기 순서의 인덱스 번호를 값으로 대체합니다. 예를 들어 $$ X_{1} = 100, X_{2} = -10, X_{3} = 3 $$ 이면 $$ R(X_{1}) = 1, R(X_{2}) = 3, R(X_{3}) = 2 $$ 가 됩니다.
+- 이와 같은 방법으로 `ranking`을 이용하면 `Pearson Correlation`에서 발생한 노이즈에 대한 영향을 줄일 수 있습니다. 뿐만 아니라 `Pearson Correlation`에서는 `선형 관계`만 설명 가능하였지만 `Spearman Correlation`는 `ranking`으로 표현 가능한 단조 증가 관계 (`monotonic relationship`)는 모두 설명 가능합니다.
+
+<br>
+
+#### **Spearman Correlation 식 유도 과정**
+
+<br>
 
 
 <br>

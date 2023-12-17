@@ -98,11 +98,13 @@ ___
 <br>
 
 - 런던에 방문하면서 Wayve 본사가 어떤 곳인 지 궁금하여 입구 까지 한번 가 보았습니다. (23년 12월 10일, 오후 4시 30분)
-- 런던의 겨울에는 밤이 굉장히 길어서 오후 4시만 되어도 해가 지기 시작합니다.
+- 런던의 겨울은 밤이 굉장히 길어서 오후 4시만 되어도 해가 지기 시작합니다.
 
 <br>
 <center><img src="../assets/img/autodrive/concept/wayve/11.jpg" alt="Drawing" style="width: 800px;"/></center>
 <br>
+
+- 위 사진은 Wayve 본사 앞에서 촬영한 사진 입니다. 런던에서 꽤 성과를 내고 있는 회사이지만 본사의 건물 규모는 크지 않았습니다. CEO인 Alex Kendall이 최근 공개하는 다양한 영상 및 과제들을 보면 그의 학문적인 역량 뿐 아니라 사업가적인 역량도 뛰어난 것을 볼 수 있었습니다.
 
 <br>
 <center><img src="../assets/img/autodrive/concept/wayve/10.jpg" alt="Drawing" style="width: 800px;"/></center>
