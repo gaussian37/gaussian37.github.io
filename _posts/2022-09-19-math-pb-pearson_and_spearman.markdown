@@ -45,7 +45,8 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 <br>
 
 - 위 도표와 같이 `Spearman Correlation`이 아웃라이어에 좀 더 강건할 뿐 아니라 단조 증가 관계만 가지면 사용할 수 있기 때문에 처음 시도하기에 좀 더 용이합니다.
-- 
+- 반면 두 변량이 선형 관계를 가지는 지 여부에 좀 더 초점을 두고자 한다면 `Pearson Correlation`을 사용할 수 있습니다.
+- 따라서 본 글의 내용을 살펴 보기 전에 어떤 상관 관계를 사용해야 하는 지 위 도표를 보고 먼저 접근하는 과정이 필요합니다.
 
 <br>
 
@@ -61,8 +62,26 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 <br>
 
+- 먼저 `Pearson Correlation`의 정의는 다음과 같습니다.
 
+<br>
 
+- $$ \rho_{(X, Y)} = \frac{\text{COV}(X, Y)}{\sqrt{\text{VAR}(X)}\sqrt{\text{VAR}(Y)}} = \frac{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})(Y_{i}-\overline{Y})}{\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})^{2}}\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})^{2}}} $$
+
+<br>
+
+- 위 식에서 분자는 변수 $$ X, Y $$ 의 표본의 공분산을 의미하고 분모는 $$ X, Y $$ 각각의 표본 표준 편차를 의미합니다. 이와 같이 `Pearson Correlation`의 정의에는 정규 분포를 가정하는 요소인 표본의 공분산과 표준편차가 존재하기 때문에 도표와 같이 정규 분포를 가정하는 데이터 셋에서 잘 동작합니다.
+- 위 식에서 $$ \text{COV}(X, Y) = \frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})(Y_{i}-\overline{Y}) $$ 는 두 변수의 공분산을 나타내며 **공분산이 양수**이면 두 확률변수는 **서로 양의 관계**가 있음을 의미하고 **공분산이 음수**이면 두 확률변수는 **서로 음의 관계**가 있음을 의미합니다.
+- 하지만 공분산의 크기값이 상관관계의 강한 정도를 나타내는 것은 아닙니다. 왜냐하면 $$ X, Y $$ 값 각각의 스케일이 있기 때문에 이 스케일을 통일시켜 주지 않으면 상관관계의 강한 정도를 비교할 수 없기 때문입니다.
+- 따라서 공분산이 가장 크게 나타날 수 있는 경우를 분모로 나누어 주는 `Normalization` 과정을 통해 값의 스케일을 1 이하로 조정할 수 있습니다. 이 때, 공분산이 가장 크게 나타날 수 있는 경우가 $$ \sqrt{\text{VAR}(X)}\sqrt{\text{VAR}(Y)} $$ 입니다. 즉, 다음 조건을 만족합니다.
+
+<br>
+
+- $$ \vert \text{COV}(X, Y) \vert \le \sqrt{\text{VAR}(X)}\sqrt{\text{VAR}(Y)} $$
+
+<br>
+
+- 이 식이 성립하는 조건은 `Cauchy-Schwarz Inequality`를 통해 증명이 가능합니다. 바로 아래 내용에서 왜 $$ \sqrt{\text{VAR}(X)}\sqrt{\text{VAR}(Y)} $$ 가 공분산의 최댓값인 지와 `Pearson Correlation`의 범위가 왜 -1과 1 사이인 지 살펴보도록 하겠습니다.
 
 <br>
 
