@@ -38,6 +38,8 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 <br>
 
+- 먼저 상
+
 <br>
 
 ## **Pearson Correlation의 정의와 예제**
@@ -126,7 +128,7 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 - 위 식에서  $$ r_{(X, Y)} $$ 의 값의 범위는 `Pearson Correlation`과 동일하게 -1 에서 1의 범위를 가지게 되고 그 의미 또한 1에 가까울 수록 양의 상관관계가 높고 -1에 가까울수록 음의 상관관계가 높습니다.
 - `Pearson Correlation`과의 차이점에 대하여 살펴보면 $$ d_{i} = R(X_{i}) - R(Y_{i}) $$ 에 있습니다. `Pearson Correlation`은 `Standardization` 과정으로 전처리한 값을 사용하는 반면에 `Spearman Correlation`은 `ranking`을 이용합니다. 즉, 가지고 있는 데이터 셋에서 크기 순서의 인덱스 번호를 값으로 대체합니다. 예를 들어 $$ X_{1} = 100, X_{2} = -10, X_{3} = 3 $$ 이면 $$ R(X_{1}) = 1, R(X_{2}) = 3, R(X_{3}) = 2 $$ 가 됩니다.
-- 이와 같은 방법으로 `ranking`을 이용하면 `Pearson Correlation`에서 발생한 노이즈에 대한 영향을 줄일 수 있습니다. 뿐만 아니라 `Pearson Correlation`에서는 `선형 관계`만 설명 가능하였지만 `Spearman Correlation`는 `ranking`으로 표현 가능한 단조 증가 관계 (`monotonic relationship`)는 모두 설명 가능합니다.
+- 이와 같은 방법으로 `ranking`을 이용하면 `Pearson Correlation`에서 발생한 노이즈에 대한 영향을 줄일 수 있습니다. 뿐만 아니라 `Pearson Correlation`에서는 `선형 관계`만 설명 가능하였지만 `Spearman Correlation`는 `ranking`으로 표현 가능한 단조 증가 관계 (`monotonic relationship`)는 모두 설명 가능합니다. 단조 증가 관계는 
 
 <br>
 
@@ -134,6 +136,112 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 <br>
 
+- 아래와 같이 두 변수 $$ X, Y $$ 의 원소가 $$ n $$ 개라고 가정해 보겠습니다.
+
+<br>
+
+- $$ X = \{X_{1}, X_{2}, \cdots , X_{n}\} $$
+
+- $$ Y = \{Y_{1}, Y_{2}, \cdots , Y_{n}\} $$
+
+<br>
+
+- 만약 $$ X, Y $$ 에서 각 변수의 크기 순서를 $$ R(X_{i}), R(Y_{i}) $$ 라고 가정하겠습니다. 즉, 서수 (order)를 의미합니다. 이것을 랭킹으로 부르겠습니다.
+- 두 변수의 랭킹의 차이가 없을 수록 두 변수가 모두 단조 증가 관계를 가진다고 말할 수 있습니다. 따라서 **두 변수의 랭킹 차이가 없을수록 두 변수의 상관관계가 크다**라고 말할 수 있으며 이와 같은 상관관계가 정의될 수 있도록 식을 세을 필요가 있습니다.
+- 먼저 두 변수 간의 랭킹 차이를 `Sum of Square`방식으로 나타내 보겠습니다.
+
+<br>
+
+- $$ \sum_{i=1}^{n} d_{i}^{2} = \sum_{i=1}^{n}(R(X_{i}) - R(Y_{i}))^{2} $$
+
+<br>
+
+- 앞에서 다룬 `Pearson Correaltion`은 강한 양의 상관관계는 1, 강한 음의 상관관계는 -1, 그리고 상관관계가 없으면 0에 가까워 지도록 설계되었습니다.
+- `Spearman Correlation` 또한 같은 상관관계 지수를 가지도록 값을 설계해보도록 하겠습니다.
+- `Pearson Correlation`은 값의 범위는 `Cauchy–Schwarz inequality`로 인하여 -1 ~ 1 사이 값으로 `Normalization`된 것을 앞에서 확인하였습니다. `Spearman Correlation` 또한 `Normalization` 과정을 통하여 범위를 -1 ~ 1 사이 범위로 만들어 보겠습니다.
+- `Normalization`을 위해서 $$ \sum_{i=1}^{n} d_{i} $$ 가 가장 커지는 경우를 분모로 나누어 주어야 합니다. $$ \sum_{i=1}^{n} d_{i} $$ 값이 가장 커지는 경우는 두 변수의 랭킹 순서가 반대로 되어 있는 경우입니다.
+
+<br>
+
+- $$ R(X_{1}) = 1, R(X_{2}) = 2, R(X_{3}) = 3, ... , R(X_{n-1}) = n-1, R(X_{n}) = n $$
+
+- $$ R(Y_{n}) = n, R(Y_{n-1}) = n-1, R(Y_{n-2}) = n-2, ... , R(Y_{2}) = 2, R(Y_{1}) = 1 $$
+
+- $$ \begin{align} \sum_{i=1}^{n} d_{i} &= \sum_{i=1}^{n}(R(X_{i}) - R(Y_{i}))^{2} \\ &= (R(X_{1}) - R(Y_{1}))^{2} + (R(X_{2}) - R(Y_{2}))^{2} + (R(X_{3}) - R(Y_{3}))^{2} + ... + (R(X_{n-1}) - R(Y_{n-1}))^{2} + (R(X_{n}) - R(Y_{n}))^{2} \\ &= (n - 1)^{2} + (n - 3)^{2} + (n - 5)^{2} + ... + (3 - n)^{2} + (1 - n)^{2} \\ &= (n - 1)^{2} + (n - 3)^{2} + (n - 5)^{2} + ... + (n - 3)^{2} + (n - 1)^{2} = \frac{n(n^{2} - 1)}{3} \end{align} $$
+
+<br>
+
+- 위 식의 전개 과정을 `sympy`를 이용하여 풀면 다음과 같습니다.
+
+<br>
+
+```python
+from sympy import Sum
+from sympy import symbols, solve
+
+# Define symbols
+n, k = symbols('n k')
+
+# Calculate the number of terms for odd and even n
+# For odd n, solve n - (2k-1) = 1
+middle_term_odd = solve(n - (2*k - 1) - 1, k)
+
+# For even n, solve n - (2k-1) = 0
+middle_term_even = solve(n - (2*k - 1), k)
+
+# Total number of terms for odd and even n (since the series is symmetric)
+total_terms_odd = 2 * middle_term_odd[0] - 1
+total_terms_even = 2 * middle_term_even[0]
+
+total_terms_odd, total_terms_even
+
+# Define the general term of the series
+general_term = (n - (2*k - 1))**2
+
+# Summation for odd n (from k=1 to (n-1)/2, double it, and add the middle term 0)
+sum_odd_n = 2 * Sum(general_term, (k, 1, (n - 1)/2)).doit()
+
+# Summation for even n (from k=1 to n/2, double it)
+sum_even_n = 2 * Sum(general_term, (k, 1, n/2)).doit()
+
+print(sum_odd_n.simplify())
+# n*(n**2 - 1)/3
+print(sum_even_n.simplify())
+# n*(n**2 - 1)/3
+```
+
+<br>
+
+- 따라서 $$ \sum_{i=1}^{n} d_{i}^{2} $$ 을 `Normalize` 하면 다음과 같습니다.
+
+<br>
+
+- $$ 0 \le \frac{\sum_{i=1}^{n} d_{i}^{2}}{\frac{n(n^{2}-1)}{3}} \le 1 $$
+
+<br>
+
+- 위 식은 0일 때, 가장 큰 양의 상관관계를 가지고 1일 때 가장 큰 음의 상관관계를 가집니다. `Pearson Correlation`과 같이 -1 ~ 1 사이의 범위를 가지고 -1을 가질 때, 가장 큰 음의 상관관계, 1일 때 가장 큰 양의 상관관계를 가지도록 식을 수정해 보도록 하겠습니다.
+
+<br>
+
+- $$ 0 \le \frac{\sum_{i=1}^{n} d_{i}^{2}}{\frac{n(n^{2}-1)}{3}} \le 1 $$
+
+- $$ 0 \le \frac{3\sum_{i=1}^{n} d_{i}^{2}}{n(n^{2}-1)} \le 1 $$
+
+- $$ 0 \le \frac{6\sum_{i=1}^{n} d_{i}^{2}}{n(n^{2}-1)} \le 2 $$
+
+- $$ -2 \le -\frac{6\sum_{i=1}^{n} d_{i}^{2}}{n(n^{2}-1)} \le 0 $$
+
+- $$ -1 \le 1 -\frac{6\sum_{i=1}^{n} d_{i}^{2}}{n(n^{2}-1)} \le 1 $$
+
+<br>
+
+- 따라서 처음에 정의한 `Spearman correlation`의 식인 $$ r_{(X, Y)} = 1 - \frac{6 \sum_{i=1}^{n}(d_{i}^{2})}{n(n^{2}-1)} $$ 를 유도할 수 있습니다.
+- 위 식의 결과 $$ \sum d_{i}^{2} $$ 이 작아질수록 양의 상관관계가 커지게 되고 $$ \sum d_{i}^{2} $$ 이 커질수록 음의 상관관계가 커지게 됩니다. 반면 $$ \sum d_{i}^{2} $$ 가 $$ n(n^{2}-1)/6 $$ 에 가까워질수록 상관관계가 없어짐을 알 수 있습니다.
+
+<br>
+
+- `Spearman Correlation` 식 유도 과정을 통해 `Spearman Correlation`의 의미와 값의 범위 그리고 단조 증가를 가지는 다양한 관계를 설명할 수 있다는 장점을 이해할 수 있었습니다.
 
 <br>
 
