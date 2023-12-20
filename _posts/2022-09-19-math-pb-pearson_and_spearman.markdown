@@ -38,7 +38,14 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 <br>
 
-- 먼저 상
+- 먼저 본 글에서 살펴 볼 `Pearson Correlation`과 `Spearman Correlation`의 특성에 대하여 먼저 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/math/pb/pearson_and_spearman/1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 도표와 같이 `Spearman Correlation`이 아웃라이어에 좀 더 강건할 뿐 아니라 단조 증가 관계만 가지면 사용할 수 있기 때문에 처음 시도하기에 좀 더 용이합니다.
+- 
 
 <br>
 
@@ -53,6 +60,8 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 #### **Pearson Correlation의 정의**
 
 <br>
+
+
 
 
 <br>
@@ -165,7 +174,7 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 - $$ R(X_{1}) = 1, R(X_{2}) = 2, R(X_{3}) = 3, ... , R(X_{n-1}) = n-1, R(X_{n}) = n $$
 
-- $$ R(Y_{n}) = n, R(Y_{n-1}) = n-1, R(Y_{n-2}) = n-2, ... , R(Y_{2}) = 2, R(Y_{1}) = 1 $$
+- $$ R(Y_{1}) = n, R(Y_{2}) = n-1, R(Y_{3}) = n-2, ... , R(Y_{n-1}) = 2, R(Y_{n}) = 1 $$
 
 - $$ \begin{align} \sum_{i=1}^{n} d_{i} &= \sum_{i=1}^{n}(R(X_{i}) - R(Y_{i}))^{2} \\ &= (R(X_{1}) - R(Y_{1}))^{2} + (R(X_{2}) - R(Y_{2}))^{2} + (R(X_{3}) - R(Y_{3}))^{2} + ... + (R(X_{n-1}) - R(Y_{n-1}))^{2} + (R(X_{n}) - R(Y_{n}))^{2} \\ &= (n - 1)^{2} + (n - 3)^{2} + (n - 5)^{2} + ... + (3 - n)^{2} + (1 - n)^{2} \\ &= (n - 1)^{2} + (n - 3)^{2} + (n - 5)^{2} + ... + (n - 3)^{2} + (n - 1)^{2} = \frac{n(n^{2} - 1)}{3} \end{align} $$
 
