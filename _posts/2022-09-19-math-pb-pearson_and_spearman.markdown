@@ -30,7 +30,6 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 - ### [Pearson Correlation과 Spearman Correlation의 비교](#pearson-correlation과-spearman-correlation의-비교-1)
 - ### [Pearson Correlation의 정의와 예제](#pearson-correlation의-정의와-예제-1)
 - ### [Spearman Correlation의 정의와 예제](#spearman-correlation의-정의와-예제-1)
-- ### [Pearson Correlation과 Spearman Correlation의 수치 비교](#pearson-correlation과-spearman-correlation의-수치-비교-1)
 
 <br>
 
@@ -66,7 +65,7 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 <br>
 
-- $$ \rho_{(X, Y)} = \frac{\text{COV}(X, Y)}{\sqrt{\text{VAR}(X)}\sqrt{\text{VAR}(Y)}} = \frac{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})(Y_{i}-\overline{Y})}{\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})^{2}}\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})^{2}}} $$
+- $$ \rho_{(X, Y)} = \frac{\text{COV}(X, Y)}{\sqrt{\text{VAR}(X)}\sqrt{\text{VAR}(Y)}} = \frac{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})(Y_{i}-\overline{Y})}{\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})^{2}}\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\overline{X})^{2}}} = \frac{\sum_{i=1}^{n}(X_{i}-\overline{X})(Y_{i}-\overline{Y})}{\sqrt{\sum_{i=1}^{n}(X_{i}-\overline{X})^{2}}\sqrt{\sum_{i=1}^{n}(X_{i}-\overline{X})^{2}}} $$
 
 <br>
 
@@ -95,7 +94,7 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 - $$ \vert \langle a, b \rangle \vert \le \Vert a \Vert \cdot \Vert b \Vert $$
 
-- $$ \langle a, b \rangle \quad \text{ : inner product of vectors a and b.}
+- $$ \langle a, b \rangle \quad \text{ : inner product of vectors a and b.} $$
 
 - $$ \Vert a \Vert \quad \text{ : norm of vector a.} $$
 
@@ -187,11 +186,47 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 <br>
 
+- 아래는 강한 선형 관계를 가지는 표본의 갯수가 10개인 데이터 셋 입니다.
+
+<br>
+<center><img src="../assets/img/math/pb/pearson_and_spearman/2.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
 
+<br>
 
+```python
+import numpy as np
 
+# Given data for X and Y
+X = np.array([2, 4, 5, 6, 8, 7, 9, 10, 11, 12])
+Y = np.array([3, 4, 6, 5, 7, 8, 9, 10, 12, 11])
 
+# Calculate means of X and Y
+mean_X = np.mean(X)
+mean_Y = np.mean(Y)
+
+# Calculate Pearson Correlation Coefficient
+numerator = np.sum((X - mean_X) * (Y - mean_Y))
+denominator = np.sqrt(np.sum((X - mean_X)**2) * np.sum((Y - mean_Y)**2))
+r = numerator / denominator
+print(r)
+# 0.9620913858416693
+```
+
+<br>
+
+- 계산 결과 0.96의 매우 강한 선형 관계임을 확인할 수 있습니다.
+
+<br>
+
+- 이번에는 아래와 같이 선형 관계가 없는 데이터 셋으로 상관 관계를 구해보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/math/pb/pearson_and_spearman/3.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 코드를 이용하여 동일한 방식으로 구하면 0.078 이라는 매우 낮은 값을 얻을 수 있습니다.
 
 <br>
 
@@ -341,20 +376,100 @@ print(sum_even_n.simplify())
 
 <br>
 
-## **Pearson Correlation과 Spearman Correlation의 수치 비교**
+#### **Spearman Correlation의 예시**
 
 <br>
 
-
-
-
-
-
-
-
-
+- 이번에는 앞의 `Pearson Correlation` 예시를 살펴본 바와 동일하게 `Spearman Correlation`에 대하여 살펴보도록 하겠습니다.
+- 살펴볼 예시는 2가지 입니다. ① 선형 관계가 아니지만 단조 증가하는 관계와 ② 노이즈가 섞여있는 예제입니다.
 
 <br>
+
+- 먼저 아래는 ① 선형 관계가 아니지만 단조 증가하는 관계 예시입니다. 데이터는 9차 방정식을 가정하였습니다.
+
+<br>
+
+```python
+# Function to calculate ranks
+def rank_data(data):
+    sorted_data = sorted(enumerate(data), key=lambda x: x[1])
+    ranks = [0] * len(data)
+    for rank, (index, _) in enumerate(sorted_data, start=1):
+        ranks[index] = rank
+    return ranks
+
+# Define the data for the 9th-degree polynomial relationship
+X_data = np.array(range(1, 21))
+Y_data = X_data ** 9  # 9th-degree relationship
+n = len(X_data)
+
+# Calculate ranks for X and Y
+X_ranks = rank_data(X_data)
+Y_ranks = rank_data(Y_data)
+
+# Calculate Spearman's rank correlation coefficient manually
+differences = [x - y for x, y in zip(X_ranks, Y_ranks)]
+squared_differences = [d**2 for d in differences]
+rho_spearman = 1 - (6 * sum(squared_differences)) / (n * (n**2 - 1))
+
+# Calculate Pearson correlation coefficient manually
+mean_Y_data = np.mean(Y_data)
+covariance_data = np.sum((X_data - mean_X_data_cubic) * (Y_data - mean_Y_data))
+variance_Y_data = np.sum((Y_data - mean_Y_data)**2)
+r_pearson = covariance_data / np.sqrt(variance_X_data_cubic * variance_Y_data)
+
+print(rho_spearman)
+# 1.0,
+
+print(r_pearson)
+# 0.6976735795972945
+```
+
+<br>
+
+- `Spearman Correlation`은 1.0인 반면에 `Pearson Correlation`은 0.69인 것을 확인할 수 있습니다.
+
+<br>
+
+- 이번에는 ② 노이즈가 섞여있는 예제를 살펴보도록 하겠습니다.
+
+```python
+# Set up the base linear relationship with noise
+np.random.seed(0)
+X_data = np.linspace(-10, 10, 47)
+Y_data = 2 * X_data + np.random.normal(0, 3, 47)
+
+# Adding outliers that disrupt the ranks but not the overall linear trend
+x_outliers = np.array([-9, 0, 9])
+y_outliers = np.array([-30, 100, -25])
+X_data = np.append(X_data, x_outliers)
+Y_data = np.append(Y_data, y_outliers)
+
+# Calculate Spearman's rank correlation coefficient manually
+x_ranks = rank_data(X_data)
+y_ranks = rank_data(Y_data)
+differences = [x - y for x, y in zip(x_ranks, y_ranks)]
+squared_differences = [d**2 for d in differences]
+rho_spearman = 1 - (6 * sum(squared_differences)) / (len(X_data) * (len(X_data)**2 - 1))
+
+# Calculate Pearson correlation coefficient manually
+mean_x = np.mean(X_data)
+mean_y = np.mean(Y_data)
+covariance = np.sum((X_data - mean_x) * (Y_data - mean_y))
+variance_x = np.sum((X_data - mean_x)**2)
+variance_y = np.sum((Y_data - mean_y)**2)
+rho_pearson = covariance / np.sqrt(variance_x * variance_y)
+
+print(rho_spearman)
+# 0.8436494597839136
+
+print(rho_pearson)
+# 0.5354899275518871
+```
+
+<br>
+
+- 이번 예제에서는 꽤 큰 차이를 확인할 수 있습니다. `Spearman Correlation`을 이용 시, 약 0.84의 상관관계를 얻을 수 있는 반면에 `Pearson Correlation`은 0.53으로 상대적으로 낮은 상관관계를 얻은 것을 볼 수 있습니다.
 
 <br>
 
