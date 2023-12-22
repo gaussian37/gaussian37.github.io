@@ -26,7 +26,7 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [고유값과 고유벡터](https://gaussian37.github.io/math-la-eigenthings/)
 - [고유값 분해]()
 - [특이값 분해(SVD)](https://gaussian37.github.io/math-la-svd/)
-- LU 분해
+- [LU 분해와 Cholesky 분해](https://gaussian37.github.io/math-la-lu_and_cholesky_decomposition/)
 - QR 분해
 - 그람 슈미트 과정
 

@@ -89,6 +89,68 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 
 <br>
 
+- `Pearson Correlation`에서 `값의 범위`와 `Normalization`은 다음과 같은 `Cauchy-Schwarz Inequality`에 의하여 결정됩니다. `Cauchy-Schwarz Inequality`의 정의는 다음과 같습니다.
+
+<br>
+
+- $$ \vert \langle a, b \rangle \vert \le \Vert a \Vert \cdot \Vert b \Vert $$
+
+- $$ \langle a, b \rangle \quad \text{ : inner product of vectors a and b.}
+
+- $$ \Vert a \Vert \quad \text{ : norm of vector a.} $$
+
+<br>
+
+- 위 식이 `Cauchy-Schwarz Inequality`의 정의이며 **좌변의 값은 두 벡터 내적의 절대값**을 의미하고 **우변의 각 값은 벡터의 `norm`**을 의미합니다.
+- `Pearson Correlation`을 구할 때, 분자에 해당하는 `Covariance`의 정의는 다음과 같습니다.
+
+<br>
+
+- $$ \vert \text{COV}(X, Y) \vert = \vert E[(X - \overline{X})(Y - \overline{Y})] \vert = \vert E[(X - \overline{X})]E[(Y - \overline{Y})] \vert $$
+
+<br>
+
+- 위 식에서 $$ (X - \overline{X}) $$ 와 $$ (Y - \overline{Y}) $$ 각각은 벡터를 의미하고 $$ (X - \overline{X})(Y - \overline{Y}) $$ 는 내적을 의미합니다.
+- 따라서 위 내적과 관련된 식은 `Pearson Correlation`에서의 분자 요소에 해당하고 `Cauchy-Schwarz Inequality`에서는 좌변의 요소에 해당합니다.
+
+<br>
+
+- `Pearson Correlation`을 구할 때, 분모에 해당하는 식은 다음과 같습니다.
+
+<br>
+
+- $$ \sqrt{\text{VAR}(X)}\sqrt{\text{VAR}(Y)} = \sqrt{E[(X - \overline{X})^{2}]}\sqrt{E[(Y - \overline{Y})^{2}]} $$
+
+<br>
+
+- 어떤 벡터 $$ a $$ 의 `norm`의 정의는 다음과 같습니다.
+
+<br>
+
+- $$ \sqrt{a \cdot a} = \sqrt{a_{1}^{2} + a_{2}^{2} + ... + a_{n}^{2}} $$
+
+<br>
+
+- 이 정의를 `표본 분산`을 구하는 데 사용해 보겠습니다.
+
+<br>
+
+- $$ \sqrt{E[(X - \overline{X})^{2}]} $$ = $$ \sqrt{\frac{1}{n-1}\sum_{i=1}^{n-1}(X_{i} - \overline{X})^{2}} = \sqrt{\text{VAR}(X)} $$
+
+<br>
+
+- 따라서 `Pearson Correlation`의 분모는 $$ \sqrt{\text{VAR}(X)}\sqrt{\text{VAR}(Y)} $$ 로 정의되 `Cauchy-Schwarz Inequality`에서는 우변의 요소로 정의될 수 있습니다.
+- 앞에서 다룬 `Cauchy-Schwarz Inequality`에 따른 식을 전개해 보도록 하겠습니다.
+
+<br>
+
+- $$ \vert \langle a, b \rangle \vert \le \Vert a \Vert \cdot \Vert b \Vert  $$
+
+- $$ \Rightarrow \vert \text{COV}(X, Y) \vert \le \sqrt{\text{VAR}(X)}\sqrt{\text{VAR}(Y)} $$
+
+- $$ \frac{\vert \text{COV}(X, Y) \vert}{\sqrt{\text{VAR}(X)}\sqrt{\text{VAR}(Y)}} \le 1 $$
+
+- $$ -1 \le \frac{\text{COV}(X, Y)}{\sqrt{\text{VAR}(X)}\sqrt{\text{VAR}(Y)}} \le 1 $$
 
 <br>
 
@@ -124,6 +186,12 @@ tags: [pearson correltation coefficient, spearman correlation coefficient] # add
 #### **Pearson Correlation의 예시**
 
 <br>
+
+
+
+
+
+
 
 <br>
 
@@ -276,6 +344,15 @@ print(sum_even_n.simplify())
 ## **Pearson Correlation과 Spearman Correlation의 수치 비교**
 
 <br>
+
+
+
+
+
+
+
+
+
 
 <br>
 
