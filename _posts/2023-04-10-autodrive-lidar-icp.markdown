@@ -175,7 +175,120 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- 
+
+- ... 작성중 ...
+
+<br>
+
+- 따라서 최종적으로 $$ R^{*} = UV^{T} $$ 을 통해서 구할 수 있습니다.
+
+<br>
+
+- ② 과정으로 $$ t^{*} = p_{c} - R^{*}p'_{c} $$ 를 통해 간단하게 $$ t^{*} $$ 또한 구할 수 있습니다.
+
+<br>
+
+- 지금부터 살펴볼 내용은 임의의 `Rotation`과 `Translation` 그리고 점군 $$ P $$ 를 생성한 다음 생성한 `Rotation`과 `Translation`을 이용하여 $$ P' = R*P + t $$ 를 통해 $$ P' $$ 를 만들어 보겠습니다.
+- 그 다음 $$ P, P' $$ 를 이용하여 `ICP`를 하였을 때, 생성한 `Rotation`과 `Translation`을 그대로 구할 수 있는 지 확인해 보도록 하겠습니다.
+
+<br>
+
+```python
+import numpy as np
+from scipy.stats import special_ortho_group
+
+def icp_svd(p_src, p_dst):
+    """
+    Calculate the optimal rotation (R) and translation (t) that aligns
+    two sets of matched 3D points P and P_prime using Singular Value Decomposition (SVD).
+
+    Parameters:
+    - p_src: np.array of shape (3, n) -- the first set of points.
+    - p_dst: np.array of shape (3, n) -- the second set of points.
+
+    Returns:
+    - R: Rotation matrix
+    - t: Translation vector
+    """
+    # Step 1: Calculate the centroids of P and P_prime
+    centroid_p_src = np.mean(p_src, axis=1, keepdims=True)  # Centroid of P    
+    centroid_p_dst = np.mean(p_dst, axis=1, keepdims=True)  # Centroid of P'   
+
+    # Step 2: Subtract centroids
+    q_src = p_src - centroid_p_src    
+    q_dst = p_dst - centroid_p_dst
+
+    # Step 3: Construct the cross-covariance matrix H
+    H = q_dst @ q_src.T
+
+    # Step 4: Perform Singular Value Decomposition
+    U, _, Vt = np.linalg.svd(H)
+    V = Vt.T
+
+    # Step 5: Calculate rotation matrix R    
+    R_est = U @ V.T
+
+    # Step 6: Ensure R is a proper rotation matrix
+    if np.linalg.det(R_est) < 0:
+        V[:,-1] *= -1  # Flip the sign of the last column of V
+        R_est = U @ V.T
+
+    # Step 7: Calculate translation vector t        
+    t_est = centroid_p_src - R_est @ centroid_p_dst
+    t_est = t.reshape(3, 1)
+
+    return R_est, t_est
+
+# Example usage with dummy data
+# Define the set of points P
+P = np.random.rand(3, 30) * 100
+
+# Set a random Rotation matrix R (ensuring it's a valid rotation matrix)
+R = special_ortho_group.rvs(3)
+
+# Set a random Translation vector t
+t = np.random.rand(3, 1) * 10
+
+# Apply the rotation and translation to P to create P_prime
+P_prime = R @ P + t
+
+################################### Calculate R and t using ICP with SVD
+R_est, t_est = icp_svd(P, P_prime)
+
+print("R : \n", R)
+print("R_est : \n", R_est)
+print("R and R_est are same : ", np.allclose(R,R_est))
+print("\n")
+
+# R : 
+#  [[-0.65800821  0.75067865 -0.05921784]
+#  [-0.56577368 -0.54475838 -0.61898179]
+#  [-0.49691583 -0.3737912   0.78316971]]
+# R_est : 
+#  [[-0.65800821  0.75067865 -0.05921784]
+#  [-0.56577368 -0.54475838 -0.61898179]
+#  [-0.49691583 -0.3737912   0.78316971]]
+# R and R_est are same :  True
+
+print("t : \n", t)
+print("t_est : \n", t_est)
+print("t and t_est are same : ", np.allclose(t, t_est))
+print("\n")
+
+# t : 
+#  [[7.19317157]
+#  [5.15828552]
+#  [2.92487954]]
+# t_est : 
+#  [[7.19317157]
+#  [5.15828552]
+#  [2.92487954]]
+# t and t_est are same :  True
+```
+
+<br>
+
+- 위 코드의 결과와 같이 정상적으로 $$ R, t $$ 를 구할 수 있음을 확인하였습니다.
 
 <br>
 
@@ -187,14 +300,195 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-
-
-
-
+- `RANSAC`을 이용할 때에는 `추출할 샘플 갯수`, `반복 시험 횟수`, `inlier threshold`를 파라미터로 필요로 합니다. 그 부분은 추가적인 실험이나 위에서 공유한 `RANSAC` 개념 링크의 글을 통해 어떻게 파라미터를 셋팅하는 지 참조할 수 있습니다.
+- 아래 코드는 앞선 예제 코드에서 `outlier` 데이터를 추가한 뒤 `RANSAC` 과정을 거쳐서 좀 더 강건하게 `Rotation`과 `Translation`을 구하는 예제입니다.
 
 <br>
 
-- 지금까지 살펴본 내용은 두 점군의 쌍을 매칭할 수 있을 때, 
+```python
+import numpy as np
+from scipy.stats import special_ortho_group
+
+def icp_svd(p_src, p_dst):
+    """
+    Calculate the optimal rotation (R) and translation (t) that aligns
+    two sets of matched 3D points P and P_prime using Singular Value Decomposition (SVD).
+
+    Parameters:
+    - p_src: np.array of shape (3, n) -- the first set of points.
+    - p_dst: np.array of shape (3, n) -- the second set of points.
+
+    Returns:
+    - R: Rotation matrix
+    - t: Translation vector
+    """
+    # Step 1: Calculate the centroids of P and P_prime
+    centroid_p_src = np.mean(p_src, axis=1, keepdims=True)  # Centroid of P    
+    centroid_p_dst = np.mean(p_dst, axis=1, keepdims=True)  # Centroid of P'   
+
+    # Step 2: Subtract centroids
+    q_src = p_src - centroid_p_src    
+    q_dst = p_dst - centroid_p_dst
+
+    # Step 3: Construct the cross-covariance matrix H
+    H = q_dst @ q_src.T
+
+    # Step 4: Perform Singular Value Decomposition
+    U, _, Vt = np.linalg.svd(H)
+    V = Vt.T
+
+    # Step 5: Calculate rotation matrix R    
+    R_est = U @ V.T
+
+    # Step 6: Ensure R is a proper rotation matrix
+    if np.linalg.det(R_est) < 0:
+        V[:,-1] *= -1  # Flip the sign of the last column of V
+        R_est = U @ V.T
+
+    # Step 7: Calculate translation vector t        
+    t_est = centroid_p_src - R_est @ centroid_p_dst
+    t_est = t.reshape(3, 1)
+
+    return R_est, t_est
+
+def icp_svd_ransac(points_source, points_destination, n=3, num_iterations=20, inlier_threshold=0.1):
+    # n = 3  # Number of points to estimate the model, for affine 3D at least 4 points
+    # num_iterations = 20  # Number of iterations
+    # inlier_threshold = 0.1  # Inlier threshold, this might be a count or a percentage based on your needs
+    best_inliers = -1
+    best_R = None
+    best_t = None
+
+    for _ in range(num_iterations):
+        # Step 1: Randomly select a subset of matching points
+        indices = np.random.choice(points_source.shape[1], n, replace=False)
+        points_src_sample = points_source[:, indices]        
+        points_dst_sample = points_destination[:, indices]
+
+        # Step 2: Estimate rotation and translation using SVD based ICP
+        R, t = icp_svd(points_src_sample, points_dst_sample)
+
+        # Step 3 and 4: Calculate error and inliers
+        points_src_transformed = R @ points_source + t
+        errors = np.linalg.norm(points_destination - points_src_transformed, axis=0)
+        inliers = np.sum(errors < inlier_threshold)
+
+        # Step 5: Check if current iteration has the best model
+        if inliers > best_inliers:            
+            best_inliers = inliers
+            best_R = R
+            best_t = t
+
+        # Step 6: Check terminating condition
+        if best_inliers > inlier_threshold or _ == num_iterations - 1:
+            break
+
+    return best_R, best_t, best_inliers
+
+# Example usage with dummy data
+# Define the set of points P
+P = np.random.rand(3, 30) * 100
+
+# Set a random Rotation matrix R (ensuring it's a valid rotation matrix)
+R = special_ortho_group.rvs(3)
+
+# Set a random Translation vector t
+t = np.random.rand(3, 1) * 10
+
+# Apply the rotation and translation to P to create P_prime
+P_prime = R @ P + t
+
+# Add outliers to P_prime to create P_prime2
+num_outliers = 10
+P_prime2 = P_prime.copy()
+P_prime2[:, -num_outliers:] = np.random.rand(3, num_outliers) * 100
+
+################################## Calculate R and t using ICP with SVD, plus RANSAC
+R_est, t_est = icp_svd(P, P_prime2)
+
+print("ICP without RANSAC : \n")
+print("R : \n", R)
+print("R_est : \n", R_est)
+print("R and R_est are same : ", np.allclose(R,R_est))
+print("\n")
+
+# R : 
+#  [[-0.65800821  0.75067865 -0.05921784]
+#  [-0.56577368 -0.54475838 -0.61898179]
+#  [-0.49691583 -0.3737912   0.78316971]]
+# R_est : 
+#  [[-0.33635851  0.94169333 -0.00875314]
+#  [-0.70013826 -0.25627327 -0.66643111]
+#  [-0.62981693 -0.21803137  0.74551523]]
+# R and R_est are same :  False
+
+print("t : \n", t)
+print("t_est : \n", t_est)
+print("t and t_est are same : ", np.allclose(t, t_est))
+print("\n")
+
+# t : 
+#  [[7.19317157]
+#  [5.15828552]
+#  [2.92487954]]
+# t_est : 
+#  [[7.19317157]
+#  [5.15828552]
+#  [2.92487954]]
+# t and t_est are same :  True
+
+print("diff R and R_est : \n", np.linalg.norm(np.abs(R - R_est)))
+print("\n")
+
+# diff R and R_est : 
+#  0.5379242095232378
+
+R_est, t_est, inliers = icp_svd_ransac(P, P_prime2)
+print("ICP with RANSAC : \n")
+print("R : \n", R)
+print("R_est : \n", R_est)
+print("R and R_est are same : ", np.allclose(R,R_est))
+print("\n")
+
+# R : 
+#  [[-0.65800821  0.75067865 -0.05921784]
+#  [-0.56577368 -0.54475838 -0.61898179]
+#  [-0.49691583 -0.3737912   0.78316971]]
+# R_est : 
+#  [[-0.65800821  0.75067865 -0.05921784]
+#  [-0.56577368 -0.54475838 -0.61898179]
+#  [-0.49691583 -0.3737912   0.78316971]]
+# R and R_est are same :  True
+
+print("t : \n", t)
+print("t_est : \n", t_est)
+print("t and t_est are same : ", np.allclose(t, t_est))
+print("\n")
+
+# t : 
+#  [[7.19317157]
+#  [5.15828552]
+#  [2.92487954]]
+# t_est : 
+#  [[7.19317157]
+#  [5.15828552]
+#  [2.92487954]]
+# t and t_est are same :  True
+
+print("diff R and R_est : \n", np.linalg.norm(np.abs(R - R_est)))
+print("\n")
+
+# diff R and R_est : 
+#  1.7603605962323948e-15
+
+print("num inliers : ", inliers)
+# num inliers :  20
+```
+
+<br>
+
+- `icp_svd_ransac`을 통하여 `outlier`의 비율이 꽤 큰 경우에도 정상적인 `Rotation`, `Translation`을 추정할 수 있음을 확인하였습니다.
+- 지금까지 살펴본 내용은 두 점군의 쌍을 매칭할 수 있을 때, `analytic solution`을 이용하여 최적해를 구하는 방법에 대하여 알아보았습니다.
 
 <br>
 
