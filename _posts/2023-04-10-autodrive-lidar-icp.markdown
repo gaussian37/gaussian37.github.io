@@ -9,7 +9,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- 이번 글은 이론적으로 `ICP (Iterative Closest Point)`에 대한 내용을 다루는 `Cyrill Stachniss`의 강의를 정리하는 내용입니다.
+- 이번 글에서는 이론적으로 `ICP (Iterative Closest Point)`에 대한 내용과 `Cyrill Stachniss`의 `ICP` 강의 내용을 정리해 보도록 하겠습니다..
 - 강의는 총 1시간 분량의 강의 3개로 구성되어 총 3시간 분량의 강의입니다.
 - 아래 참조 내용은 실제 코드 구현 시 도움 받은 내용입니다.
 
@@ -24,14 +24,14 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- ### [3D-3D ICP의 기본 내용](#3d-3d-icp의-기본-내용-1)
+- ### [Matched Points의 Point-to-Point ICP](#matched-points의-point-to-point-icp-1)
 - ### [Part 1: Known Data Association & SVD](#part-1-known-data-association--svd-1)
 - ### [Part 2: Unknown Data Association](#part-2-unknown-data-association-1)
 - ### [Part 3: Non-linear Least Squares](#part-3-non-linear-least-squares-1)
 
 <br>
 
-## **3D-3D ICP의 기본 내용**
+## **Matched Points의 Point-to-Point ICP**
 
 <br>
 
@@ -102,7 +102,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ \sum_{i=1}^{n} (p_{i} - p_{c} - R(p'_{i} - p'_{c})) $$
+- $$ \sum_{i=1}^{n} (p_{i} - p_{c} - R(p'_{i} - p'_{c})) = 0 $$
 
 <br>
 
@@ -111,9 +111,71 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ \frac{1}{2}\sum_{i=1}^{n} (\Vert p_{i} - p_{c} - R(p'_{i} - p'_{c}) \Vert^{2} + \Vert p_{c} - Rp'_{c} - t \Vert^{2} + 2(p_{i} - p_{c} - R(p'_{i} - p'_{c}))^{T}(p_{c} - Rp'_{c} - t)) = \frac{1}{2}\sum_{i=1}^{n} (\Vert p_{i} - p_{c} - R(p'_{i} - p'_{c}) \Vert^{2} + \Vert p_{c} - Rp'_{c} - t \Vert^{2}) $$
+- $$ \frac{1}{2}\sum_{i=1}^{n} (\Vert p_{i} - p_{c} - R(p'_{i} - p'_{c}) \Vert^{2} + \Vert p_{c} - Rp'_{c} - t \Vert^{2} + 2(p_{i} - p_{c} - R(p'_{i} - p'_{c}))^{T}(p_{c} - Rp'_{c} - t))  $$
 
-- $$ \therefore \min_{R, t} J = \frac{1}{2}\sum_{i=1}^{n} (\Vert p_{i} - p_{c} - R(p'_{i} - p'_{c}) \Vert^{2} + \Vert p_{c} - Rp'_{c} - t \Vert^{2}) $$ 
+$$ \frac{1}{2}\sum_{i=1}^{n} (\Vert p_{i} - p_{c} - R(p'_{i} - p'_{c}) \Vert^{2} + \Vert p_{c} - Rp'_{c} - t \Vert^{2}) $$
+
+- $$ \therefore \min_{R, t} J = \frac{1}{2}\sum_{i=1}^{n} ( \color{red}{\Vert p_{i} - p_{c} - R(p'_{i} - p'_{c}) \Vert^{2}} + \color{blue}{\Vert p_{c} - Rp'_{c} - t \Vert^{2}}) $$ 
+
+<br>
+
+- 위 식의 빨간색 부분에 해당하는 항은 `Rotation`만 관련되어 있고 파란색 부분에 해당하는 항은 `Rotation`과 `Translation` 모두 관련되어 있지만 추가적으로 $$ p_{c}, p'_{c} $$ 만 연관되어 있습니다.
+- 따라서 파란색 항은 `Rotation`만 구할 수 있으면 나머지  $$ p_{c}, p'_{c} $$ 는 주어진 점들을 통해 계산할 수 있으므로 $$ \Vert p_{c} - Rp'_{c} - t \Vert^{2} = 0 $$ 으로 식을 두면 $$ t $$ 를 구할 수 있습니다.
+
+<br>
+
+- 빨간색 항 또한 조금 더 간단하게 만들기 위하여 다음과 같이 치환합니다.
+
+<br>
+
+- $$ q_{i} = p_{i} - p_{c} $$
+
+- $$ q'_{i} = p'_{i} - p'_{c} $$
+
+<br>
+
+- 위 치환식의 정의에 따라서 $$ q_{i}, q'_{i} $$ 각각은 각 점 $$ p_{i}, p'_{i} $$ 가 점들의 중앙인 $$ p_{c}, p'_{c} $$ 로 부터 얼만큼 떨어져 있는 지 나타냅니다.
+- 치환식을 이용하여 다음과 같은 2가지 스텝으로 `Rotation`과 `Translation`을 구해보도록 하겠습니다.
+
+<br>
+
+- ① `Rotation` $$ R^{*} $$ (예측값)를 다음 최적화 식을 통하여 구해보도록 하겠습니다.
+
+<br>
+
+- $$ R^{*} = \text{argmin}_{R} \frac{1}{2} \sum_{i=1}^{n} \Vert q_{i} - R q'_{i} \Vert^{2} $$
+
+<br>
+
+- ② 앞에서 구한 $$ R^{*} $$ 을 이용하여 $$ t^{*} $$ 을 구합니다.
+
+<br>
+
+- $$ t^{*} = p_{c} - R^{*}p'_{c} $$
+
+<br>
+
+- 먼저 ① 에 해당하는 $$ R^{*} $$ 을 구하는 방법에 대하여 살펴보도록 하겠습니다.
+
+<br>
+
+- $$ \frac{1}{2} \sum_{i=1}^{n} \Vert q_{i} - R q'_{i} \Vert^{2} = \frac{1}{2} \sum_{i=1}^{n} ( q_{i}^{T}q_{i} + q'_{i}R^{T}R q'_{i} - 2q_{i}^{T} R q'_{i} ) $$
+
+<br>
+
+- 위 식에서 첫번째 항은 $$ R $$ 과 관련이 없고 두번째 항의 $$ R^{T}R = I $$ 이므로 $$ R $$ 과 관련이 없습니다. 따라서 실제 최적화를 위한 함수는 다음과 같이 변경될 수 있습니다.
+
+<br>
+
+- $$ \frac{1}{2} \sum_{i=1}^{n} ( q_{i}^{T}q_{i} + q'_{i}R^{T}R q'_{i} - 2q_{i}^{T} R q'_{i} ) \Rightarrow \frac{1}{2}\sum_{i=1}^{n} -2q_{i}^{T} R q'_{i} = \sum_{i=1}^{n} -q_{i}^{T} R q'_{i} $$
+
+<br>
+
+- 마지막으로 정리된 식을 살펴보면 $$ q_{i}, q'_{i} $$ 는 벡터이고 $$ R $$ 은 3 x 3  크기의 행렬이므로 최종적으로 하나의 스칼라 값을 가지게 됩니다.
+
+<br>
+
+- 
 
 <br>
 
