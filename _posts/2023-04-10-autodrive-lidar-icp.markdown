@@ -49,7 +49,8 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- 이 때, $$ p_{i}, p'_{i} $$ 의 관계를 알기 위해서는 `Rotation`을 위한 행렬 $$ R $$ 과 `Translation`을 위한 행렬 $$ t $$ 가 필요합니다. 
+- 위 점군에서 $$ P $$ 는 `source`에 해당하고 $$ P' $$ 는 `destination`에 해당합니다. 즉, $$ P \to P' $$ 로 변환하기 위한 관계를 알고자 하는 것이 핵심입니다.
+- 따라서 $$ P, P' $$ 의 각 원소인 $$ p_{i}, p'_{i} $$ 의 관계를 알기 위해서는 `Rotation`을 위한 행렬 $$ R $$ 과 `Translation`을 위한 벡터 $$ t $$ 가 필요합니다.
 
 <br>
 
@@ -83,25 +84,48 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ p = \frac{1}{n} \sum_{i=1}^{n}(p_{i}) $$
+- $$ p_{c} = \frac{1}{n} \sum_{i=1}^{n}(p_{i}) $$
 
-- $$ p' = \frac{1}{n} \sum_{i=1}^{n}(p'_{i}) $$
+- $$ p'_{c} = \frac{1}{n} \sum_{i=1}^{n}(p'_{i}) $$
 
 <br>
 
+- 앞에서 정의한 목적 함수에 ① $$ -p_{c} + Rp'_{c} + p_{c} -Rp'_{c} = 0 $$ 을 추가한 뒤 ② `제곱식을 전개`해 보도록 하겠습니다.
 
+<br>
 
+- $$ \begin{align} \frac{1}{2}\sum_{i=1}^{n} \Vert p_{i} - (Rp'_{i} + t) \Vert^{2} &= \frac{1}{2}\sum_{i=1}^{n} \Vert p_{i} - Rp'_{i} - t - p_{c} + Rp'_{c} + p_{c} - Rp'_{c} \Vert^{2} \\ &= \frac{1}{2}\sum_{i=1}^{n} \Vert (p_{i} - p_{c} - R(p'_{i} - p'_{c})) + (p_{c} - Rp'_{c} - t) \Vert^{2} \\ &= \frac{1}{2}\sum_{i=1}^{n} (\Vert p_{i} - p_{c} - R(p'_{i} - p'_{c}) \Vert^{2} + \Vert p_{c} - Rp'_{c} - t \Vert^{2} + 2(p_{i} - p_{c} - R(p'_{i} - p'_{c}))^{T}(p_{c} - Rp'_{c} - t)) \end{align} $$
 
+<br>
+
+- 위 식에서 다음 부분은 0이 됩니다.
+
+<br>
+
+- $$ \sum_{i=1}^{n} (p_{i} - p_{c} - R(p'_{i} - p'_{c})) $$
+
+<br>
+
+- 왜냐하면 모든 $$ p_{i} $$ 의 총합과 $$ p_{c} $$ 를 $$ n $$ 번 더한 것과 값이 같고 모든 $$ p'_{i} $$ 의 총합과 $$ p'_{c} $$ 를 $$ n $$ 번 더한 것과 값이 같기 때문입니다.
+- 따라서 앞에서 전개한 식에서 $$ \sum_{i=1}^{n} (p_{i} - p_{c} - R(p'_{i} - p'_{c})) $$ 부분을 소거하면 다음과 같이 정리 가능합니다.
+
+<br>
+
+- $$ \frac{1}{2}\sum_{i=1}^{n} (\Vert p_{i} - p_{c} - R(p'_{i} - p'_{c}) \Vert^{2} + \Vert p_{c} - Rp'_{c} - t \Vert^{2} + 2(p_{i} - p_{c} - R(p'_{i} - p'_{c}))^{T}(p_{c} - Rp'_{c} - t)) = \frac{1}{2}\sum_{i=1}^{n} (\Vert p_{i} - p_{c} - R(p'_{i} - p'_{c}) \Vert^{2} + \Vert p_{c} - Rp'_{c} - t \Vert^{2}) $$
+
+- $$ \therefore \min_{R, t} J = \frac{1}{2}\sum_{i=1}^{n} (\Vert p_{i} - p_{c} - R(p'_{i} - p'_{c}) \Vert^{2} + \Vert p_{c} - Rp'_{c} - t \Vert^{2}) $$ 
 
 <br>
 
 - 지금까지 살펴본 방법은 매칭이 주어질 때, $$ R, t $$ 를 추정하는 문제에 해당합니다.
 - 매칭을 알고있는 경우에는 최소 제곱 문제를 해결하기 위한 `analytic solution`이 존재하기 때문에 `numerical solution`을 이용한 최적화가 반드시 필요하진 않습니다.
-- 하지만 Feature 매칭에 오류가 있거나 추출한 Feature의 $$ X, Y, Z $$ 값이 부정확한 경우 별도의 노이즈를 제거해야 좋은 $$ R, t $$ 값을 구할 수 있으므로 이 부분은 고려해야 합니다.
+- 하지만 점들의 매칭에 오류가 있거나 점들의 $$ X, Y, Z $$ 값이 부정확한 `outlier`가 포함되면 `ICP`를 진행하는 데 방해가 될 수 있습니다. 따라서 별도의 `outlier`를 제거해야 좋은 $$ R, t $$ 값을 구할 수 있으므로 `outlier` 제거 알고리즘인 `RANSAC`을 적용하여 정상적인 $$ R, t $$ 를 구하는 방법에 대하여 알아보도록 하겠습니다.
+- `RANSAC`과 관련된 내용은 아래 링크를 참조하시기 바랍니다.
+    - `RANSAC` : https://gaussian37.github.io/vision-concept-ransac/
 
 <br>
 
-- 따라서 간단하면서도 효율적인 `RANSAC`을 적용하여 
+
 
 
 
