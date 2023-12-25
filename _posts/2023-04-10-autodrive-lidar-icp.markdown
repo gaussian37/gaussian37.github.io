@@ -167,14 +167,75 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ \frac{1}{2} \sum_{i=1}^{n} ( q_{i}^{T}q_{i} + q'_{i}R^{T}R q'_{i} - 2q_{i}^{T} R q'_{i} ) \Rightarrow \frac{1}{2}\sum_{i=1}^{n} -2q_{i}^{T} R q'_{i} = \sum_{i=1}^{n} -q_{i}^{T} R q'_{i} $$
+- $$ \frac{1}{2} \sum_{i=1}^{n} ( q_{i}^{T}q_{i} + q'_{i}R^{T}R q'_{i} - 2q_{i}^{T} R q'_{i} ) \Rightarrow \frac{1}{2}\sum_{i=1}^{n} -2q_{i}^{T} R q'_{i} = -\sum_{i=1}^{n} q_{i}^{T} R q'_{i} $$
 
 <br>
 
-- 마지막으로 정리된 식을 살펴보면 $$ q_{i}, q'_{i} $$ 는 벡터이고 $$ R $$ 은 3 x 3  크기의 행렬이므로 최종적으로 하나의 스칼라 값을 가지게 됩니다.
+- 따라서 $$ \min_{R, t} J $$ 인 **목적 함수를 최소화** 하기 위해서는 $$ \sum_{i=1}^{n} q_{i}^{T} R q'_{i} $$ 를 `최대화`하여  목적함수를 최소화 할 수 있도록 설계해야 합니다. 즉, $$ \text{Maximize : } \sum_{i=1}^{n} q_{i}^{T} R q'_{i} $$ 를 만드는 것이 **실제 풀어야할 최적화 문제**가 됩니다.
 
 <br>
 
+- 그러면 $$ \sum_{i=1}^{n} q_{i}^{T} R q'_{i} $$ 를 **최대화 하기 위한 조건**을 살펴보도록 하겠습니다.
+- 식을 살펴보면 $$ q_{i}, q'_{i} $$ 는 벡터이고 $$ R $$ 은 3 x 3 크기의 행렬이므로 최종적으로 하나의 스칼라 값을 가지게 됩니다.
+- `summation` 내부의 결과가 스칼라 값이므로 `trace` 연산( $$ tr() $$ )의 성질을 이용할 수 있습니다.
+- `trace`는 행렬의 대각 성분을 모두 더하는 연산입니다. 만약 최종 결과가 스칼라 값 (1 x 1 행렬)이고 이 값에 `trace` 연산을 적용하면 그 값 그대로 이기 때문에 값에 영향을 주지 않습니다. 따라서 `trace` 연산이 성질들을 이용할 수 있습니다.
+- `trace` 연산의 `Cyclic Permutation` 성질은 다음을 만족합니다. 아래 기호 $$ A, B, C $$ 각각은 행렬입니다.
+
+<br>
+
+- $$ tr(ABC) = tr(CAB) = tr(BCA) $$
+
+<br>
+
+- 이 성질을 이용하여 앞에서 전개하였던 $$ \sum_{i=1}^{n} -q_{i}^{T} R q'_{i} $$ 의 식을 변경해 보도록 하겠습니다.
+
+<br>
+
+- $$ \begin{align} \sum_{i=1}^{n} q_{i}^{T} R q'_{i} &= \sum_{i=1}^{n} tr(q_{i}^{T} R q'_{i}) \\ &= \sum_{i=1}^{n} tr(q'_{i} q_{i}^{T} R ) \\ &= \sum_{i=1}^{n} tr(R q'_{i} q_{i}^{T} ) \\ &= tr(R \sum_{i=1}^{n} q'_{i} q_{i}^{T}) \end{align} $$
+
+<br>
+
+- 위 식에서 $$ q_{i} : \text{ (3 x 1) column vector} $$ 이고 $$ q'_{i}^{T} : \text{ (1 x 3) row vector} $$ 이므로 $$ \sum_{i=1}^{n} q'_{i} q_{i}^{T} $$ 는 3 x 3 행렬입니다. 따라서 `SVD (Singular Value Decomposition)`을 이용하여 행렬 분해를 할 수 있습니다. 특이값 분해 관련 내용은 아래 링크에 자세하게 설명되어 있습니다.
+    - `특이값 분해` : https://gaussian37.github.io/math-la-svd/
+
+<br>
+
+- 따라서 특이값 분해를 하면 다음과 같이 분해할 수 있습니다.
+
+<br>
+
+$$ W = \sum_{i=1}^{n} q'_{i} q_{i}^{T} = U \Sigma V^{T} $$
+
+<br>
+
+- 여기서 $$ U, V $$ 는 `orthogonal matrix`이고 $$ \Sigma $$ 는 대각행렬이며 대각 성분은 특이값을 가집니다.
+- `SVD`를 이용하여 분해한 값과 앞의 식을 이용하여 식을 좀 더 전개해 보도록 하겠습니다.
+
+<br>
+
+- $$ \tr(R \sum_{i=1}^{n} q'_{i} q_{i}^{T}) = tr(R W) = tr(R U \Sigma V^{T}) $$
+
+<br>
+
+- 이 때, $$ R = UV^{T} $$ 로 가정해 보도록 하겠습니다. 이와 같이 가정하는 이유는 다음 소정리(`Lemma`)를 이용하기 위함입니다. 다음 소정리는 글 아랫부분에서 증명해보도록 하겠습니다.
+
+<br>
+
+- $$ tr(AA^{T}) \ge tr(R'AA^{T} $$
+
+- $$ AA^{T} : \text{positive difinite matrix} $$
+
+- $$ B : \text{orthonormal matrix} $$
+
+<br>
+
+- 위 소정리를 이용하는 이유는 $$ R = UV^{T} $$ 일 때, $$ \sum_{i=1}^{n} q_{i}^{T} R q'_{i} $$ 가 **최대화가 되는 조건임을 보이기 위함**입니다. 그러면 식을 다시 전개해 보도록 하겠습니다.
+
+<br>
+
+- $$ \begin{align} tr(R U \Sigma V^{T}) &= tr(UV^{T} U \Sigma V^{T})\ \  (\because \ R = UV^{T} ) \\ &= tr(V^{T}U V^{T}U \Sigma ) \\ &= tr((V^{T}U)(V^{T}U)\Sigma) \\ &= tr(AA\Sigma)\ \  (\because \ A = (V^{T}U)) \end{align} $$
+
+<br>
 
 - ... 작성중 ...
 
