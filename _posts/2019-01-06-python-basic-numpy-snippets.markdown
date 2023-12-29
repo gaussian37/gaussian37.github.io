@@ -780,6 +780,37 @@ Build cuda_11.1.relgpu_drvr455TC455_06.29069683_0
 <br>
 
 - `cuda111`은 제 PC의 환경 cuda 버전이 11.1이기 때문이며 다른 버전의 경우 다른 버전을 사용해서 설치하시면 됩니다.
+- 참고로 아래 `pip install cupy-cuda11x`에서 명령어 `x`는 실제로 알파벳 `x`를 입력하시면 됩니다.
+
+<br>
+
+```python
+# For CUDA 10.2
+pip install cupy-cuda102
+
+# For CUDA 11.0
+pip install cupy-cuda110
+
+# For CUDA 11.1
+pip install cupy-cuda111
+
+# For CUDA 11.2 ~ 11.x
+pip install cupy-cuda11x
+
+# For CUDA 12.x
+pip install cupy-cuda12x
+
+# For AMD ROCm 4.3
+pip install cupy-rocm-4-3
+
+# For AMD ROCm 5.0
+pip install cupy-rocm-5-0
+```
+
+<br>
+
+- 상세 설치 가이드는 다음 페이지를 참조하시기 바랍니다.
+    - 링크 : https://cupy.dev/
 
 <br>
 
