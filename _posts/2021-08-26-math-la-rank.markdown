@@ -1,10 +1,10 @@
 ---
 layout: post
-title: rank (행렬의 계수)
+title: 행렬의 랭크 (rank)
 date: 2021-08-26 00:00:00
 img: math/la/linear_algebra.jpg
 categories: [math-la] 
-tags: [rank, 행렬의 계수] # add tag
+tags: [rank, 행렬의 계수, 랭크] # add tag
 ---
 
 <br>

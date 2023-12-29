@@ -18,17 +18,19 @@ tags: [Linear algebra, 선형 대수학] # add tag
 <br>
 
 - [A 2020 Vision of Linear Algebra, Gilbert Strang](https://gaussian37.github.io/math-la-vision_of_linear_algebra/)
-- 역행렬과 행렬식
+- [행렬식 (determinant)]()
 - [벡터의 내적과 벡터의 정사영](https://gaussian37.github.io/math-la-projection/)
 - [벡터의 외적](https://gaussian37.github.io/math-la-cross_product/)
-- [rank (행렬의 계수)](https://gaussian37.github.io/math-la-rank/)
-- [최소 자승법 (least squares)](https://gaussian37.github.io/math-la-least_squares/)
+- [행렬의 랭크 (rank)](https://gaussian37.github.io/math-la-rank/)
+- [최소 제곱법 (least squares)](https://gaussian37.github.io/math-la-least_squares/)
 - [고유값과 고유벡터](https://gaussian37.github.io/math-la-eigenthings/)
+- [행렬의 대각화]()
 - [고유값 분해]()
 - [특이값 분해(SVD)](https://gaussian37.github.io/math-la-svd/)
-- [LU 분해와 Cholesky 분해](https://gaussian37.github.io/math-la-lu_and_cholesky_decomposition/)
+- [LU 분해, LDU 분해 및 Cholesky 분해](https://gaussian37.github.io/math-la-lu_and_cholesky_decomposition/)
+- [행렬의 제곱근]()
 - QR 분해
-- 그람 슈미트 과정
+- [직교 행렬과 그람 슈미트 과정]()
 
 <br>
 
@@ -147,7 +149,7 @@ tags: [Linear algebra, 선형 대수학] # add tag
         + 기저 열과 축열 사이의 관계
         + 후보 기저의 A의 열공간 생성
     
-<br><br>
+<br>
 
 ## **Fundamental of Matrix Computations**
 
