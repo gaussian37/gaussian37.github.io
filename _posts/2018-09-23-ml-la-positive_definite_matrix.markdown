@@ -31,7 +31,7 @@ tags: [Linear algebra, 선형대수학, 양의 정부호 행렬, positive defini
 <br>
 
 - ① 임의의 행렬 (앞에서 가정한 대칭행렬과 상관 없음) $$ A $$ 에 대하여 $$ A^{T}A, AA^{T} $$ 는 `PSDM`입니다.
-
+- ② $$ n \times n $$ 대칭 행렬 $$ A $$ 에 대하여, $$ A $$ 가 `PDM`일 **필요충분 조건**은 $$ A $$ 의 모든 `고유값`이 양수인 경우입니다.
 
 
 <br>
@@ -70,7 +70,39 @@ tags: [Linear algebra, 선형대수학, 양의 정부호 행렬, positive defini
 
 <br>
 
-- ② $$ n \times n $$ 대칭 행렬 $$ A $$ 
+- ② $$ n \times n $$ 대칭 행렬 $$ A $$ 에 대하여, $$ A $$ 가 `PDM`일 **필요충분 조건**은 $$ A $$ 의 모든 `고유값`이 양수인 경우입니다.
+- ② 내용의 증명은 다음과 같습니다. 먼저 충분 조건 (→) 부터 살펴보도록 하겠습니다.
+
+<br>
+
+- (→) 행렬 $$ A $$ 가 `PDM`이고 $$ Av = \lambda v $$ 라고 가정하겠습니다. 이 때, 다음 식을 만족합니다.
+
+<br>
+
+- $$ v^{t} A v = \lambda v^{t} v > 0 $$
+
+<br>
+
+- 이 때, $$ v $$ 는 0이 아니고 (`PDM`을 만족해야 함) 같은 벡터를 이용한 내적의 결과는 항상 0 이상의 양수이므로 $$ v^{t} v > 0 $$ 을 만족합니다. 따라서 $$ \lambda > 0 $$ 을 만족해야 합니다.
+
+<br>
+
+- (←) 고유값, 고유벡터를 이용한 식 $$ Av_{1} = \lambda_{1}v_{1} $$, ~ , $$ Av_{n} = \lambda_{n}v_{n} $$ 에서 $$  \lambda_{i} > 0, \ i=1, ... , n $$ 이고 $$ v_{1}, v_{2}, ... , v_{n} $$ 이 `orthonormal basis`라고 가정하겠습니다. 이와 같이 가정하면 임의의 벡터 $$ v $$ 는 `orthonormal basis`인 고유벡터와 고유값을 이용하여 다음과 같이 표현할 수 있습니다.
+
+<br>
+
+- $$ v = \lambda_{1}v_{1} + \lambda_{2}v_{2} + \cdots + \lambda_{n}v_{n} $$
+
+- $$ Av = A(\lambda_{1}v_{1} + \cdots + \lambda_{n}v_{n}) $$
+
+<br>
+
+- $$ \begin{align} v^{T}Av &= (\lambda_{1}v_{1} + \cdots + \lambda_{n}v_{n})^{T}A(\lambda_{1}v_{1} + \cdots + \lambda_{n}v_{n}) \\ &= (\lambda_{1}v_{1} + \cdots + \lambda_{n}v_{n})^{T}(\lambda_{1}Av_{1} + \cdots \lambda_{n}Av_{n}) \\ &= (\lambda_{1}v_{1} + \cdots + \lambda_{n}v_{n})^{T}(\lambda_{1}\lambda_{1}v_{1} + \cdots \lambda_{n}\lambda_{n}v_{n}) \\ &= (\lambda_{1}v_{1} + \cdots + \lambda_{n}v_{n})^{T}(\lambda_{1}^{2}v_{1} + \cdots + \lambda_{n}^{2}v_{n}) \\ &= (v_{1}^{3} + v_{2}^{3} + \cdots + v_{n}^{3}) > 0 \ (\because v_{i}^{T}v_{j} = 1 \text{, if} \ i = j \text{ and } v_{i}^{T}v_{j} = 0, \text{ if } i \ne j) \end{align} $$
+
+<br>
+
+- 따라서 위 식의 전개와 같이 $$ v^{T}Av > 0 $$ 임을 확인할 수 있었습니다.
+- 최종적으로 대칭행렬 $$ A $$ 에 대하여 $$ A $$ 가 `PDM`인 것과 모든 고유값이 0보다 크다는 것은 필요충분조건임을 확인할 수 있었습니다.
 
 <br>
 
