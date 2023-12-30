@@ -994,3 +994,32 @@ cp.asarray(x_cpu) + x_gpu
 <br>
 
 - 위 코드와 같이 같은 타입으로 변경하여 연산해야 사용 가능합니다.
+
+<br>
+
+- 다음은 `Numpy`, `Tensor`, `Cupy` 간의 변환 방법 및 변환 시 소요되는 시간 테스트를 기록한 것입니다.
+- 결과적으로 `Cupy`와 `Tensor`는 같은 `cuda` 메모리에 변수가 있으므로 변환 시간이 상대적으로 짧습니다. 따라서 가능하면 `Tensor`와 `Cupy`를 비교하여 사용해 보는 것을 권장드립니다.
+- 테스트 방법은 다음과 같습니다.
+
+<br>
+
+```python
+src_data = np.random.rand(1000, 1000) # numpy → cupy/tensor
+src_data = cp.random.rand(1000, 1000) # cupy → numpy/tensor
+src_data = torch.randn(1000, 1000, device="cuda") # tensor → numpy/cupy
+
+total_time = 0
+for i in range(10):
+    start_time = time.time()
+    for _ in range(1000):
+        # dest_data = cp.array(src_data)
+        # dest_data = src_data.get()
+        # dest_data = torch.as_tensor(src_data, device="cuda")
+        # dest_data = src_data.cpu().numpy()
+    total_time += (time.time() - start_time)
+print(total_time / 10)
+```
+
+<br>
+<center><img src="../assets/img/python/basic/numpy/2.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
