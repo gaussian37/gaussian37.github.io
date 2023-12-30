@@ -36,9 +36,9 @@ tags: [Numpy, 넘파이] # add tag
 <br>
 
 - ### [cupy의 필요성](#cupy의-필요성-1)
+- ### [numpy, torch와 cupy의 비교](#numpy-torch와-cupy의-비교-1)
 - ### [cupy 설치 방법](#cupy-설치-방법-1)
 - ### [cupy 기본 사용법](#cupy-기본-사용법-1)
-
 
 <br>
 
@@ -691,6 +691,10 @@ np.cov(x)
 
 <br>
 
+---
+
+<br>
+
 ## **cupy의 필요성**
 
 <br>
@@ -744,6 +748,71 @@ print(time.time() - start)
 
 - 위 결과를 살펴보면 1개의 행렬곱 연산을 하였을 때, (0.19546985626220703 / 0.0009732246398925781) = 약 200배의 연산 속도 차이가 났으며 100개의 행렬곱 연산을 하였을 때, (19.48985266685486 / 0.006982564926147461) = 약 2800 배의 연산 속도가 차이가 났습니다.
 - `cuda`를 이용하여 GPU로 병렬 연산을 하면 이와 같이 빠르게 연산할 수 있습니다.
+
+<br>
+
+## **numpy, torch와 cupy의 비교**
+
+<br>
+
+- 이번에는 `numpy`와 `torch` 그리고 `cupy`의 연산 시간에 대하여 비교해 보도록 하겠습니다.
+- 먼저 `numpy`를 이용하여 랜덤 변수를 만들고 `tensor (cuda)`로 변환하였을 때 소요되는 시간을 확인해 보겠습니다. 시간 측정을 위해 1,000번 반복하였습니다.
+
+<br>
+
+```python
+start_time = time.time()
+for _ in range(1000):
+    np_mat = np.random.rand(1000, 1000)
+    tensor_mat = torch.as_tensor(np_mat).cuda()
+print(time.time() - start_time)
+# 8.527007102966309
+```
+
+<br>
+
+```python
+start_time = time.time()
+for _ in range(1000):
+    cp_mat = cp.random.rand(1000, 1000)
+    tensor_mat = torch.as_tensor(a, device="cuda")
+print(time.time() - start_time)
+# 0.28897643089294434
+```
+
+<br>
+
+- `cupy`를 이용하였을 때, 수십배 빨라진 것을 볼 수 있습니다. `cupy`로 배열을 생성하면 `cuda` 메모리에 변수를 생성하고 같은 메모리의 값을 사용하여 `tensor (cuda)`를 생성합니다. 이러한 이유로 `numpy`로 생성하여 `cpu → gpu`로 메모리 복사가 발생하는 시간을 줄일 수 있기 때문에 `cupy`를 이용하여 바로 변수를 생성하는 것이 빠릅니다.
+
+<br>
+
+- 이번에는 앞에서 생성한 `numpy` 행렬, `cupy` 행렬, `tensor`를 이용하여 간단한 행렬 연산을 한 뒤 시간 측정을 해보도록 하겠습니다.
+
+<br>
+
+```python
+start_time = time.time()
+for _ in range(1000):
+    np_mat2 = np_mat @ np_mat
+print(time.time() - start_time)
+# 12.938754320144653
+
+start_time = time.time()
+for _ in range(1000):
+    cp_mat2 = cp_mat @ cp_mat
+print(time.time() - start_time)
+# 0.03754234313964844
+
+start_time = time.time()
+for _ in range(1000):
+    tensor_mat2 = tensor_mat @ tensor_mat
+print(time.time() - start_time)
+# 7.614563703536987
+```
+
+<br>
+
+- `cupy`를 사용하였을 때, 가장 빠르고 그 다음 `tensor (cuda)`, 마지막이 `numpy` 입니다. `cupy`가 가벼우면서 `cuda`를 이용하기 때문에 위 코드와 같이 간단한 연산은 가장 빠르게 동작할 수 있는 것으로 추정됩니다.
 
 <br>
 

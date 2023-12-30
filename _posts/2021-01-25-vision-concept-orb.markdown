@@ -13,8 +13,12 @@ tags: [vision, concept, feature extraction, ORB] # add tag
 
 <br>
 
-- 논문 : https://ieeexplore.ieee.org/document/6126544
+- 논문 : https://www.gwylab.com/download/ORB_2012.pdf
 - 참조 : https://medium.com/data-breach/introduction-to-orb-oriented-fast-and-rotated-brief-4220e8ec40cf
+
+<br>
+
+- 
 
 
 <br>
