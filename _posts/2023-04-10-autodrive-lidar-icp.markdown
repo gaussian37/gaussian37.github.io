@@ -195,7 +195,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- 위 식에서 $$ q_{i} : \text{ (3 x 1) column vector} $$ 이고 $$ q'_{i}^{T} : \text{ (1 x 3) row vector} $$ 이므로 $$ \sum_{i=1}^{n} q'_{i} q_{i}^{T} $$ 는 3 x 3 행렬입니다. 따라서 `SVD (Singular Value Decomposition)`을 이용하여 행렬 분해를 할 수 있습니다. 특이값 분해 관련 내용은 아래 링크에 자세하게 설명되어 있습니다.
+- 위 식에서 $$ q_{i}^{T} : (3 \times 1) \text{ vector} $$ 이고 $$ q_{i}^{T} : (1 \times 3) \text{ vector} $$ 이므로 $$ \sum_{i=1}^{n} q'_{i} q_{i}^{T} $$ 는 3 x 3 행렬입니다. 따라서 `SVD (Singular Value Decomposition)`을 이용하여 행렬 분해를 할 수 있습니다. 특이값 분해 관련 내용은 아래 링크에 자세하게 설명되어 있습니다.
     - `특이값 분해` : https://gaussian37.github.io/math-la-svd/
 
 <br>
@@ -204,7 +204,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-$$ W = \sum_{i=1}^{n} q'_{i} q_{i}^{T} = U \Sigma V^{T} $$
+- $$ W = \sum_{i=1}^{n} q'_{i} q_{i}^{T} = U \Sigma V^{T} $$
 
 <br>
 
@@ -213,7 +213,7 @@ $$ W = \sum_{i=1}^{n} q'_{i} q_{i}^{T} = U \Sigma V^{T} $$
 
 <br>
 
-- $$ \tr(R \sum_{i=1}^{n} q'_{i} q_{i}^{T}) = tr(R W) = tr(R U \Sigma V^{T}) $$
+- $$ \text{tr}(R \sum_{i=1}^{n} q'_{i} q_{i}^{T}) = tr(R W) = tr(R U \Sigma V^{T}) $$
 
 <br>
 
@@ -221,7 +221,7 @@ $$ W = \sum_{i=1}^{n} q'_{i} q_{i}^{T} = U \Sigma V^{T} $$
 
 <br>
 
-- $$ tr(AA^{T}) \ge tr(R'AA^{T} $$
+- $$ tr(AA^{T}) \ge tr(R'AA^{T}) $$
 
 - $$ AA^{T} : \text{positive difinite matrix} $$
 
