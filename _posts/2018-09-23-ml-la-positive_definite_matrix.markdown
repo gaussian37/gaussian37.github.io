@@ -30,8 +30,8 @@ tags: [Linear algebra, 선형대수학, 양의 정부호 행렬, positive defini
 
 <br>
 
-- ① 임의의 행렬 (앞에서 가정한 대칭행렬과 상관 없음) $$ A $$ 에 대하여 $$ A^{T}A, AA^{T} $$ 는 `PSDM`입니다.
-- ② $$ n \times n $$ 대칭 행렬 $$ A $$ 에 대하여, $$ A $$ 가 `PDM`일 **필요충분 조건**은 $$ A $$ 의 모든 `eigenvalue`가 양수인 경우입니다.
+- ① 임의의 행렬 $$ A $$ 에 대하여 $$ A^{T}A, AA^{T} $$ 는 `PSDM`입니다.
+- ② $$ n \times n $$ `대칭 행렬` $$ A $$ 에 대하여, $$ A $$ 가 `PDM`일 **필요충분 조건**은 $$ A $$ 의 모든 `eigenvalue`가 양수인 경우입니다.
 - ③ $$ n \times n $$ `대칭 행렬` $$ A $$ 에 대하여 다음 네가지 명제는 동치입니다. 즉, 하나를 만족하면 나머지 3개도 모두 만족한다는 뜻입니다.
     - ③-1 : 행렬 $$ A $$ 가 `PDM` 입니다.
     - ③-2 : $$ A $$ 의 모든 `eigenvalue`가 양의 실수 입니다.
@@ -308,6 +308,64 @@ tags: [Linear algebra, 선형대수학, 양의 정부호 행렬, positive defini
     - ⑤-2 : $$ A $$ 의 모든 `eigenvalue`가 음의 실수가 아닙니다.
     - ⑤-3 : $$ A = U^{T}U $$ 를 만족하는 `regular matrix` (역행렬이 존재하는 행렬) $$ U $$ 가 존재합니다.
     - ⑤-4 : $$ A $$ 의 모든 `sub-determinant`가 음의 실수가 아닙니다.
+
+<br>
+
+---
+
+<br>
+
+- 아래는 추가적으로 `PDM`, `PSDM`과 관련된 내용을 추가하였습니다.
+
+<br>
+
+- [skew-symmetric matrix](https://en.wikipedia.org/wiki/Skew-symmetric_matrix)은 다음과 같은 행렬을 의미합니다.
+
+<br>
+
+- $$ A = -A^{T} $$
+
+- $$ A = \begin{bmatrix} 0 & -a & -b \\ a & 0 & -c \\ b & c & 0 \\ \end{bmatrix} $$
+
+<br>
+
+- `skew-symmetric matrix`는 `PSDM`과 관련이 있으며 다음 명제를 만족합니다. 아래 명제는 수식 전개 시 많이 사용됩니다.
+
+<br>
+
+- $$ A \text{ is skew-symmetric } \leftrightarrow x^{T}Ax = 0 $$
+
+<br>
+
+- 먼저 $$ \rightarrow $$ 부터 증명해 보도록 하겠습니다.
+
+<br>
+
+- $$ \begin{align} x^{T}Ax &= (x^{T}Ax)^{T} \quad (\because x^{T}Ax \text{ = scalar}) \\ &= x^{t}A^{T}x \\ &= -x^{T}Ax \quad (\because A = -A^{T}) \end{align} $$
+
+- $$ \therefore \ x^{T}Ax = -x^{T}Ax $$
+
+- $$ \Rightarrow 2x^{T}Ax = 0 $$
+
+- $$ \therefore \ x^{T}Ax = 0 $$
+
+<br>
+
+- 다음으로 $$ \leftarrow $$ 를 증명해 보도록 하겠습니다.
+
+<br>
+
+- $$ x^{T}A x = 0 \all x $$
+
+- $$ \Rightarrow \sum_{i}\sum_{j} x_{j}a_{ij}x_{i} = 0 \all x $$
+
+- $$ \Rightarrow x_{1}^{2}a_{11} + x_{1}a_{1}a_{12}x_{2} + \cdots = 0 $$
+
+<br>
+
+- 위 식을 항상 만족하기 위해서는 $$ x_{i}x_{j} $$ 와 $$ x_{j}x_{i} $$ 가 소거가 되어야 합니다. 따라서 $$ a_{ij} = -a_{ji} $$ 가 되어야 소거가 됩니다.
+- 남은 항은 $$ x_{i}^{2}a_{ii} + \cdots $$ 가 됩니다. 이 항은 $$ a_{ii} = 0 $$ 을 만족해야 모두 소거 될 수 있습니다.
+- 따라서 다음 두 조건인 $$ a_{ij} = -a_{ji} $$ 와 $$ a_{ii} = 0 $$ 조건을 모두 만족해야 전제 조건인 $$ x^{T}Ax = 0 $$ 을 만족할 수 있음을 확인하였습니다. 그리고 $$ a_{ij} = -a_{ji} $$ 와 $$ a_{ii} = 0 $$ 조건은 바로 `skew-symmetric matrix`의 정의입니다.
     
 <br>
 

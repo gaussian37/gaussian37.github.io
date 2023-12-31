@@ -43,3 +43,4 @@ tags: [미분적분, calculus, 공학 수학, advanced egineering mathematics, v
 - [복소 평면 (complex plane)](https://gaussian37.github.io/math-calculus-complex_plane/)
 - [페이저 (Phasor)](https://gaussian37.github.io/math-calculus-phasor/)
 - [삼각함수 공식 모음](https://gaussian37.github.io/math-calculus-trigonometric_function/)
+- [atan과 atan2 비교](https://gaussian37.github.io/math-calculus-atan/)
