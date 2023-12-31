@@ -133,7 +133,7 @@ tags: [Linear algebra, 선형대수학, 양의 정부호 행렬, positive defini
 
 - $$ A = Q^{T} D Q \quad (\text{Q : Orthogonal Matrix, D : Diagonal Matrix}) $$ 
 
-- $$ D = $$ \begin{bmatrix} \lambda_{1} & 0 & \cdots & 0 \\ 0 & \lambda_{2} & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \cdots & \lambda_{n} \end{bmatrix} $$ $$
+- $$ D = \begin{bmatrix} \lambda_{1} & 0 & \cdots & 0 \\ 0 & \lambda_{2} & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \cdots & \lambda_{n} \end{bmatrix} $$
 
 <br>
 
@@ -187,9 +187,9 @@ tags: [Linear algebra, 선형대수학, 양의 정부호 행렬, positive defini
 
 - $$ \begin{bmatrix} a_{11} \end{bmatrix}, \begin{bmatrix} a_{22} \end{bmatrix}, \begin{bmatrix} a_{33} \end{bmatrix} $$
 
-- $$ \begin{bmatrix} a_{11} & b \\ b & a_{22} $$
+- $$ \begin{bmatrix} a_{11} & b \\ b & a_{22} \end{bmatrix} $$
 
-- $$ \begin{bmatrix} a_{22} & d \\ d & a_{33} $$
+- $$ \begin{bmatrix} a_{22} & d \\ d & a_{33} \end{bmatrix} $$
 
 <br>
 
@@ -223,7 +223,7 @@ tags: [Linear algebra, 선형대수학, 양의 정부호 행렬, positive defini
 
 <br>
 
-$$ A = U^{T} \begin{bmatrix} \lambda_{1} & \ & \ \\ \ & \lambda_{2} & \ \\ \ & \ & \lambda_{3} \end{bmatrix} U $$
+- $$ A = U^{T} \begin{bmatrix} \lambda_{1} & \ & \ \\ \ & \lambda_{2} & \ \\ \ & \ & \lambda_{3} \end{bmatrix} U $$
 
 - $$ \text{det}(A) = \text{det}(U^{T})\text{det}\left(\begin{bmatrix} \lambda_{1} & \ & \ \\ \ & \lambda_{2} & \ \\ \ & \ & \lambda_{3} \end{bmatrix}\right) \text{det}(U) = \lambda_{1}\lambda_{2}\lambda_{3} > 0 $$
 
@@ -238,11 +238,42 @@ $$ A = U^{T} \begin{bmatrix} \lambda_{1} & \ & \ \\ \ & \lambda_{2} & \ \\ \ & \
 
 <br>
 
+- 지금까지 살펴본 내용으로 `PDM`이면 `eigenvalue`가 양의 실수임을 계속 확인하였습니다.
+- `eigenvector`는 `basis`의 역할을 하는 반면 `eigenvalue`는 `eigenvector`의 스케일 및 방향을 결정하는 역할을 합니다.
+- **`PDM`에서는 `eigenvalue`가 모두 양수이기 때문에 `eigenvector`의 크기만 바뀔 뿐 방향이 바뀌지 않습니다.** `PDM`인 행렬 $$ A $$ 의 기하학적인 의미는 이와 같이 `basis`의 방향을 바꾸지 않는 행렬로 이해하면 좀 더 쉽게 이해하실 수 있습니다.
+
+<br>
+
+- 다음으로 `PDM`의 추가적인 성질에 대하여 알아보도록 하겠습니다.
+
+<br>
+
 - ④ $$ n \times n $$ 크기의 행렬 $$ A, B $$ 가 각각 `PDM`이면 다음을 만족합니다.
     - ④-1 : $$ A^{T}, sA + tB $$ 모두 `PDM`을 만족합니다. 단, $$ s, t \gt 0 $$
     - ④-2 : $$ A^{-1} $$ 또한 `PDM`을 만족합니다.
     - ④-3 : $$ U $$ 가 `regular matrix`이면 $$ U^{T} A U $$ 또한 `PDM`을 만족합니다.
 
+<br>
+
+- 먼저 **④-1** 부터 살펴보도록 하겠습니다. $$ x^{T}A^{T} x $$ 와 $$ (x^{T}A^{T}x)^{T} $$ 모두 실수 스칼라 값만을 가지므로 다음과 같이 식을 적용할 수 있습니다.
+
+<br>
+
+- $$ x^{T}A^{T}x = (x^{T}A^{T}x)^{T} $$
+
+- $$ \therefore x^{T}A^{T}x = (x^{T}A^{T}x)^{T} = x^{T}Ax \gt 0 $$
+
+<br>
+
+- 따라서 $$ A $$ 가 `PDM`이면 $$ A^{T} $$ 또한 `PDM`을 만족합니다.
+
+<br>
+
+- $$ x^{T}(sA + tB)x = x^{T}(sAx + tBx) = sx^{T}Ax + tx^{T}Bx > 0 $$
+
+<br>
+
+- 따라서 $$ A, B $$ 가 `PDM`이면 $$ sA + tB \ (s, t \gt 0) $$ 또한 `PDM`임을 만족합니다.
 
 <br>
 
