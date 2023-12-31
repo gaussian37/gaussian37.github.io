@@ -277,6 +277,40 @@ tags: [Linear algebra, 선형대수학, 양의 정부호 행렬, positive defini
 
 <br>
 
+- 다음으로 먼저 **④-2** 내용을 살펴보도록 하겠습니다. 이 내용을 증명하기 위해서는 $$ x^{T} A^{-1} x \gt 0 $$ 임을 보이면 됩니다.
+
+<br>
+
+- $$ \text{Assume } \color{blue}{A^{-1}x} = y $$
+
+- $$ \Rightarrow x = Ay $$
+
+- $$ \Rightarrow \color{red}{x^{T}} = y^{T}A^{T} $$
+
+- $$ \therefore \ x^{T}\color{blue}{A^{-1}x} = \color{red}{x^{T}}y = y^{T}A^{T}y \gt 0 $$
+
+<br>
+
+- 마지막으로 **④-3** 내용을 살펴보도록 하겠습니다. 매우 간단합니다.
+
+<br>
+
+- $$ x^{T} U^{T} A U x = (Ux)^{T} A (Ux) \gt 0 $$
+
+<br>
+
+- 지금까지 내용은 `PDM`에 대하여 다루었습니다. `PSDM`의 경우 $$ x^{T}Ax \ge 0 $$ 을 만족하면 되고 `PDM`과 비교하였을 때, 0을 포함한다는 차이점이 있습니다. 따라서 다음과 같은 표현의 차이가 있으며 증명 과정은 동일합니다.
+
+<br>
+
+- ⑤ $$ n \times n $$ 행렬 $$ A $$ 에 대하여 다음 네가지 명제는 동치입니다. 즉, 하나를 만족하면 나머지 3개도 모두 만족한다는 뜻입니다.
+    - ⑤-1 : 행렬 $$ A $$ 가 `PSDM` 입니다.
+    - ⑤-2 : $$ A $$ 의 모든 `eigenvalue`가 음의 실수가 아닙니다.
+    - ⑤-3 : $$ A = U^{T}U $$ 를 만족하는 `regular matrix` (역행렬이 존재하는 행렬) $$ U $$ 가 존재합니다.
+    - ⑤-4 : $$ A $$ 의 모든 `sub-determinant`가 음의 실수가 아닙니다.
+    
+<br>
+
 [선형대수학 글 목차](https://gaussian37.github.io/math-la-table/)
 
 <br>
