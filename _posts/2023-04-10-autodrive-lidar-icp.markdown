@@ -178,7 +178,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 - 그러면 $$ \sum_{i=1}^{n} q_{i}^{T} R q'_{i} $$ 를 **최대화 하기 위한 조건**을 살펴보도록 하겠습니다.
 - 식을 살펴보면 $$ q_{i}, q'_{i} $$ 는 벡터이고 $$ R $$ 은 3 x 3 크기의 행렬이므로 최종적으로 하나의 스칼라 값을 가지게 됩니다.
 - `summation` 내부의 결과가 스칼라 값이므로 `trace` 연산( $$ \text{tr}() $$ )의 성질을 이용할 수 있습니다.
-- `trace`는 행렬의 대각 성분을 모두 더하는 연산입니다. 만약 최종 결과가 스칼라 값 (1 x 1 행렬)이고 이 값에 `trace` 연산을 적용하면 그 값 그대로 이기 때문에 값에 영향을 주지 않습니다. 따라서 `trace` 연산이 성질들을 이용할 수 있습니다.
+- `trace`는 행렬의 대각 성분을 모두 더하는 연산입니다. 만약 최종 결과가 스칼라 값 (1 x 1 행렬)이고 이 값에 `trace` 연산을 적용하면 그 값 그대로 이기 때문에 값에 영향을 주지 않습니다. 따라서 결과값에 영향을 주지 않으면서 `trace` 연산의 성질들을 이용할 수 있습니다.
 - `trace` 연산의 `Cyclic Permutation` 성질은 다음을 만족합니다. 아래 기호 $$ A, B, C $$ 각각은 행렬입니다.
 
 <br>
@@ -195,7 +195,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- 위 식에서 $$ q_{i}^{T} : (3 \times 1) \text{ vector} $$ 이고 $$ q_{i}^{T} : (1 \times 3) \text{ vector} $$ 이므로 $$ \sum_{i=1}^{n} q'_{i} q_{i}^{T} $$ 는 3 x 3 행렬입니다. 따라서 `SVD (Singular Value Decomposition)`을 이용하여 행렬 분해를 할 수 있습니다. 특이값 분해 관련 내용은 아래 링크에 자세하게 설명되어 있습니다.
+- 위 식에서 $$ q'_{i} : (3 \times 1) \text{ vector} $$ 이고 $$ q_{i}^{T} : (1 \times 3) \text{ vector} $$ 이므로 $$ \sum_{i=1}^{n} q'_{i} q_{i}^{T} $$ 는 3 x 3 행렬입니다. 따라서 `SVD (Singular Value Decomposition)`을 이용하여 행렬 분해를 할 수 있습니다. 특이값 분해 관련 내용은 아래 링크에 자세하게 설명되어 있습니다.
     - `특이값 분해` : https://gaussian37.github.io/math-la-svd/
 
 <br>
@@ -204,11 +204,18 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ W = \sum_{i=1}^{n} q'_{i} q_{i}^{T} = U \Sigma V^{T} $$
+- $$ \sum_{i=1}^{n} q'_{i} q_{i}^{T} = U \Sigma V^{T} = W $$
 
 <br>
 
-- 여기서 $$ U, V $$ 는 `orthogonal matrix`이고 $$ \Sigma $$ 는 대각행렬이며 대각 성분은 특이값을 가집니다.
+- 여기서 $$ U, V $$ 는 `orthogonal matrix`이고 $$ \Sigma $$ 는 대각행렬이며 대각 성분은 `특이값`을 가집니다. `특이값`과 `고유값`은 다음의 관계를 가집니다.
+
+<br>
+
+- $$ \text{singular value} = \sqrt{\text{eigen value}} $$
+
+<br>
+
 - `SVD`를 이용하여 분해한 값과 앞의 식을 이용하여 식을 좀 더 전개해 보도록 하겠습니다.
 
 <br>
@@ -221,7 +228,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ \text{tr}(AA^{T}) \ge \text{tr}(R'AA^{T}) $$
+- $$ \text{tr}(AA^{T}) \ge \text{tr}(B AA^{T}) $$
 
 - $$ AA^{T} : \text{positive difinite matrix} $$
 
