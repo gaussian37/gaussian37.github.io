@@ -355,9 +355,9 @@ tags: [Linear algebra, 선형대수학, 양의 정부호 행렬, positive defini
 
 <br>
 
-- $$ x^{T}A x = 0 \all x $$
+- $$ x^{T}A x = 0 \forall x $$
 
-- $$ \Rightarrow \sum_{i}\sum_{j} x_{j}a_{ij}x_{i} = 0 \all x $$
+- $$ \Rightarrow \sum_{i}\sum_{j} x_{j}a_{ij}x_{i} = 0 \forall x $$
 
 - $$ \Rightarrow x_{1}^{2}a_{11} + x_{1}a_{1}a_{12}x_{2} + \cdots = 0 $$
 

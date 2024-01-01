@@ -177,21 +177,21 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 - 그러면 $$ \sum_{i=1}^{n} q_{i}^{T} R q'_{i} $$ 를 **최대화 하기 위한 조건**을 살펴보도록 하겠습니다.
 - 식을 살펴보면 $$ q_{i}, q'_{i} $$ 는 벡터이고 $$ R $$ 은 3 x 3 크기의 행렬이므로 최종적으로 하나의 스칼라 값을 가지게 됩니다.
-- `summation` 내부의 결과가 스칼라 값이므로 `trace` 연산( $$ tr() $$ )의 성질을 이용할 수 있습니다.
+- `summation` 내부의 결과가 스칼라 값이므로 `trace` 연산( $$ \text{tr}() $$ )의 성질을 이용할 수 있습니다.
 - `trace`는 행렬의 대각 성분을 모두 더하는 연산입니다. 만약 최종 결과가 스칼라 값 (1 x 1 행렬)이고 이 값에 `trace` 연산을 적용하면 그 값 그대로 이기 때문에 값에 영향을 주지 않습니다. 따라서 `trace` 연산이 성질들을 이용할 수 있습니다.
 - `trace` 연산의 `Cyclic Permutation` 성질은 다음을 만족합니다. 아래 기호 $$ A, B, C $$ 각각은 행렬입니다.
 
 <br>
 
-- $$ tr(ABC) = tr(CAB) = tr(BCA) $$
+- $$ \text{tr}(ABC) = \text{tr}(CAB) = \text{tr}(BCA) $$
 
 <br>
 
-- 이 성질을 이용하여 앞에서 전개하였던 $$ \sum_{i=1}^{n} -q_{i}^{T} R q'_{i} $$ 의 식을 변경해 보도록 하겠습니다.
+- 이 성질을 이용하여 앞에서 전개하였던 $$ \sum_{i=1}^{n} q_{i}^{T} R q'_{i} $$ 의 식을 변경해 보도록 하겠습니다.
 
 <br>
 
-- $$ \begin{align} \sum_{i=1}^{n} q_{i}^{T} R q'_{i} &= \sum_{i=1}^{n} tr(q_{i}^{T} R q'_{i}) \\ &= \sum_{i=1}^{n} tr(q'_{i} q_{i}^{T} R ) \\ &= \sum_{i=1}^{n} tr(R q'_{i} q_{i}^{T} ) \\ &= tr(R \sum_{i=1}^{n} q'_{i} q_{i}^{T}) \end{align} $$
+- $$ \begin{align} \sum_{i=1}^{n} q_{i}^{T} R q'_{i} &= \sum_{i=1}^{n} \text{tr}(q_{i}^{T} R q'_{i}) \\ &= \sum_{i=1}^{n} \text{tr}(q'_{i} q_{i}^{T} R ) \\ &= \sum_{i=1}^{n} \text{tr}(R q'_{i} q_{i}^{T} ) \\ &= \text{tr}(R \sum_{i=1}^{n} q'_{i} q_{i}^{T}) \end{align} $$
 
 <br>
 
@@ -213,7 +213,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ \text{tr}(R \sum_{i=1}^{n} q'_{i} q_{i}^{T}) = tr(R W) = tr(R U \Sigma V^{T}) $$
+- $$ \text{tr}(R \sum_{i=1}^{n} q'_{i} q_{i}^{T}) = \text{tr}(R W) = \text{tr}(R U \Sigma V^{T}) $$
 
 <br>
 
@@ -221,7 +221,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ tr(AA^{T}) \ge tr(R'AA^{T}) $$
+- $$ \text{tr}(AA^{T}) \ge \text{tr}(R'AA^{T}) $$
 
 - $$ AA^{T} : \text{positive difinite matrix} $$
 
@@ -233,7 +233,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ \begin{align} tr(R U \Sigma V^{T}) &= tr(UV^{T} U \Sigma V^{T})\ \  (\because \ R = UV^{T} ) \\ &= tr(V^{T}U V^{T}U \Sigma ) \\ &= tr((V^{T}U)(V^{T}U)\Sigma) \\ &= tr(AA\Sigma)\ \  (\because \ A = (V^{T}U)) \end{align} $$
+- $$ \begin{align} \text{tr}(R U \Sigma V^{T}) &= \text{tr}(UV^{T} U \Sigma V^{T})\ \  (\because \ R = UV^{T} ) \\ &= \text{tr}(V^{T}U V^{T}U \Sigma ) \\ &= \text{tr}((V^{T}U)(V^{T}U)\Sigma) \\ &= \text{tr}(AA\Sigma)\ \  (\because \ A = (V^{T}U)) \end{align} $$
 
 <br>
 
