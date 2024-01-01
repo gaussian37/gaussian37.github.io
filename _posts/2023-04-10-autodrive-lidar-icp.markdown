@@ -24,14 +24,15 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- ### [Matched Points의 Point-to-Point ICP](#matched-points의-point-to-point-icp-1)
+- ### [Matched Points의 Point-to-Point ICP 개념](#matched-points의-point-to-point-icp-1)
+- ### [Matched Points의 Point-to-Point ICP Python Code](#matched-points의-point-to-point-icp-python-code-1)
 - ### [Part 1: Known Data Association & SVD](#part-1-known-data-association--svd-1)
 - ### [Part 2: Unknown Data Association](#part-2-unknown-data-association-1)
 - ### [Part 3: Non-linear Least Squares](#part-3-non-linear-least-squares-1)
 
 <br>
 
-## **Matched Points의 Point-to-Point ICP**
+## **Matched Points의 Point-to-Point ICP 개념**
 
 <br>
 
@@ -315,10 +316,34 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 <br>
 
 - 즉, $$ \text{Trace}(RH) $$ 에서 $$ R = VU^{T} $$ 일 때, 모든 경우의 수에서 `상한값`을 가질 수 있으므로 최대화를 만족하기 위한 $$ R^{*} $$ 은 $$ R^{*} = VU^{T} $$ 을 통해서 구할 수 있습니다.
+- 이 때, 구한 $$ R $$ 의 $$ \text{det}() $$ (`determinant`) 값은 `+1`이어야 합니다. 왜냐하면 $$ R $$ 은 `orthonormal matrix`이기 때문에 `determinant`가 `+1`을 만족하기 때문입니다. 하지만 `-1`이 도출되는 경우가 발생할 수 있습니다. 이 경우는 `reflection`이 발생한 경우이고 예외 케이스 입니다. 이 케이스를 처리하는 방법은 바로 뒤에서 살펴보도록 하겠습니다.
 
 <br>
 
 - 다음으로 ② 과정의 $$ t^{*} = p'_{c} - R^{*}p_{c} $$ 를 통해 간단하게 $$ t^{*} $$ 또한 구할 수 있습니다.
+
+<br>
+
+- 지금까지 살펴본 과정을 통해서 일반적인 상황에서의 `Matched Points` 쌍에 대한 `Rotation`과 `Translation`을 구할 수 있었습니다. 그리고 도출 과정을 보면 `Rotation`이 정상적으로 계산되면 `Translation`은 부가적으로 얻을 수 있기 때문에 `Rotation`을 잘 구하는 것이 핵심이 되는 것을 확인하였습니다.
+- 그러면 `Rotation`을 정상적으로 구할 수 있는 경우와 그렇지 않은 경우를 구분하여 어떤 케이스가 존재하는 지 살펴보도록 하겠습니다.
+
+<br>
+
+- ① $$ q_{i} $$ 가 `coplanar`가 아닌 경우 :
+
+<br>
+
+- ② $$ q_{i} $$ 가 `coplanar`이지만 `colinear`가 아닌 경우 : 
+
+<br>
+
+- ③ $$ q_{i} $$ 가 `colinear`인 경우 : 
+
+<br>
+
+<br>
+
+## **Matched Points의 Point-to-Point ICP Python Code**
 
 <br>
 
