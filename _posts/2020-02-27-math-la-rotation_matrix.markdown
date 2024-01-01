@@ -35,6 +35,7 @@ tags: [선형대수학, 회전 변환, rotation, rotation matrix] # add tag
 - ### [임의의 점을 중심으로 회전 변환](#임의의-점을-중심으로-회전-변환-1)
 - ### [3D에서의 회전 변환](#3d에서의-회전-변환-1)
 - ### [회전 변환 행렬의 직교성](#회전-변환-행렬의-직교성-1)
+- ### [Roll, Pitch, Yaw와 Rotation 행렬의 변환](#roll-pitch-yaw와-rotation-행렬의-변환-1)
 
 <br>
 
@@ -282,6 +283,74 @@ tags: [선형대수학, 회전 변환, rotation, rotation matrix] # add tag
 <br>
 <center><img src="../assets/img/math/la/rotation_matrix/10.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
+
+## **Roll, Pitch, Yaw와 Rotation 행렬의 변환**
+
+<br>
+
+- `Roll, Pitch, Yaw`를 이용하여 `Rotation` 행렬을 구하는 방법과 그 반대 방향의 방법을 이용하기 위해서는 아래 코드를 사용할 수 있습니다.
+- `Roll, Pitch, Yaw` → `Rotation` 행렬을 구하는 방법은 앞에서 배운 방법과 동일합니다.
+- 그 반대 방법은 `np.arctan2`를 이용하여 필요한 각도를 구할 수 있습니다.
+    - [atan과 atan2 비교](https://gaussian37.github.io/math-calculus-atan/) 참조
+
+<br>
+
+```python
+import numpy as np
+
+def euler_to_rotation_matrix(roll, pitch, yaw):
+    # Convert angles to radians
+    roll = np.radians(roll)
+    pitch = np.radians(pitch)
+    yaw = np.radians(yaw)
+
+    # Define individual rotation matrices
+    Rx = np.array([[1, 0, 0],
+                   [0, np.cos(roll), -np.sin(roll)],
+                   [0, np.sin(roll), np.cos(roll)]])
+    
+    Ry = np.array([[np.cos(pitch), 0, np.sin(pitch)],
+                   [0, 1, 0],
+                   [-np.sin(pitch), 0, np.cos(pitch)]])
+    
+    Rz = np.array([[np.cos(yaw), -np.sin(yaw), 0],
+                   [np.sin(yaw), np.cos(yaw), 0],
+                   [0, 0, 1]])
+
+    # Combine the rotations
+    R = np.dot(Rz, np.dot(Ry, Rx))
+    return R
+
+def rotation_matrix_to_euler_angles(R, degree=True):
+    assert(R.shape == (3, 3))
+
+    pitch = np.arctan2(-R[2][0], np.sqrt(R[2][1]**2 + R[2][2]**2))
+
+    if abs(R[2][0]) != 1:  # Avoid gimbal lock
+        roll = np.arctan2(R[2][1], R[2][2])
+        yaw = np.arctan2(R[1][0], R[0][0])
+    else:  # Gimbal lock occurs
+        roll = 0  # Arbitrarily set
+        yaw = np.arctan2(-R[0][2], R[1][1])
+        
+    if degree:
+        roll *= (180/np.pi)
+        pitch *= (180/np.pi)
+        yaw *= (180/np.pi)
+        
+    return roll, pitch, yaw
+
+# Example usage:
+roll = 30  # Roll angle in degrees
+pitch = 45  # Pitch angle in degrees
+yaw = 60  # Yaw angle in degrees
+
+rotation_matrix = euler_to_rotation_matrix(roll, pitch, yaw)
+print("Rotation Matrix:\n", rotation_matrix)
+
+roll_prime, pitch_prime, yaw_prime = rotation_matrix_to_euler_angles(rotation_matrix)
+print("Roll, Pitch, Yaw:\n", roll_prime, pitch_prime, yaw_prime)
+```
 
 
 <br>

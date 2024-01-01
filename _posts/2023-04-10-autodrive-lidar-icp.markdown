@@ -35,6 +35,10 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
+- 관련 논문 : [Least-Squares Fitting of Two 3-D Point Sets](https://www.math.pku.edu.cn/teachers/yaoy/Fall2011/arun.pdf)
+
+<br>
+
 - 먼저 이번 글에서 다룰 강의 내용에 앞서서 간략하게 다룰 내용은 아래 강의 내용 중 `Part 1: Known Data Association & SVD`에 해당하는 내용입니다. 뒤의 강의 내용의 이해를 돕기 위하여 아래와 같이 먼저 정리하였습니다.
 
 <br>
@@ -54,11 +58,11 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ \forall_{i} \ \ p_{i} = Rp'_{i} + t $$
+- $$ \forall_{i} \ \ p'_{i} = Rp_{i} + t $$
 
 <br>
 
-- 이상적인 환경에서는 모든 $$ i $$ 에 대하여 $$ p_{i} = Rp'_{i} + t $$ 를 만족해야 하지만 현실적으로 오차가 포함되기 때문에 **전체의 오차가 최소화 되는 방향으로 근사화** 시키는 최적해를 구하는 방법을 이용하여 `ICP`를 적용합니다.
+- 이상적인 환경에서는 모든 $$ i $$ 에 대하여 $$ p'_{i} = Rp_{i} + t $$ 를 만족해야 하지만 현실적으로 오차가 포함되기 때문에 **전체의 오차가 최소화 되는 방향으로 근사화** 시키는 최적해를 구하는 방법을 이용하여 `ICP`를 적용합니다.
 - `RGB-D 카메라`를 이용하거나 이미지에서 `Feature Extraction 및 Matching`을 하여 점들끼리 쌍을 매칭한 점 군 $$ P, P' $$ 를 구한 경우에 지금부터 설명할 방법을 사용할 수 있습니다.
 
 <br>
@@ -67,7 +71,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ e_{i} = p_{i} - (Rp'_{i} + t) $$
+- $$ e_{i} = p'_{i} - (Rp_{i} + t) $$
 
 <br>
 
@@ -75,7 +79,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ \min_{R,t} \frac{1}{2} \sum_{i=1}^{n} \Vert (p_{i} - (Rp'_{i} + t)) \Vert^{2} $$
+- $$ \min_{R,t} \frac{1}{2} \sum_{i=1}^{n} \Vert (p'_{i} - (Rp_{i} + t)) \Vert^{2} $$
 
 <br>
 
@@ -90,11 +94,11 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- 앞에서 정의한 목적 함수에 ① $$ -p_{c} + Rp'_{c} + p_{c} -Rp'_{c} = 0 $$ 을 추가한 뒤 ② `제곱식을 전개`해 보도록 하겠습니다.
+- 앞에서 정의한 목적 함수에 ① $$ -p'_{c} + Rp_{c} + p'_{c} -Rp_{c} = 0 $$ 을 추가한 뒤 ② `제곱식을 전개`해 보도록 하겠습니다.
 
 <br>
 
-- $$ \begin{align} \frac{1}{2}\sum_{i=1}^{n} \Vert p_{i} - (Rp'_{i} + t) \Vert^{2} &= \frac{1}{2}\sum_{i=1}^{n} \Vert p_{i} - Rp'_{i} - t - p_{c} + Rp'_{c} + p_{c} - Rp'_{c} \Vert^{2} \\ &= \frac{1}{2}\sum_{i=1}^{n} \Vert (p_{i} - p_{c} - R(p'_{i} - p'_{c})) + (p_{c} - Rp'_{c} - t) \Vert^{2} \\ &= \frac{1}{2}\sum_{i=1}^{n} (\Vert p_{i} - p_{c} - R(p'_{i} - p'_{c}) \Vert^{2} + \Vert p_{c} - Rp'_{c} - t \Vert^{2} + 2(p_{i} - p_{c} - R(p'_{i} - p'_{c}))^{T}(p_{c} - Rp'_{c} - t)) \end{align} $$
+- $$ \begin{align} \frac{1}{2}\sum_{i=1}^{n} \Vert p'_{i} - (Rp_{i} + t) \Vert^{2} &= \frac{1}{2}\sum_{i=1}^{n} \Vert p'_{i} - Rp_{i} - t - p'_{c} + Rp_{c} + p'_{c} - Rp_{c} \Vert^{2} \\ &= \frac{1}{2}\sum_{i=1}^{n} \Vert (p'_{i} - p'_{c} - R(p_{i} - p_{c})) + (p'_{c} - Rp_{c} - t) \Vert^{2} \\ &= \frac{1}{2}\sum_{i=1}^{n} (\Vert p'_{i} - p'_{c} - R(p_{i} - p_{c}) \Vert^{2} + \Vert p'_{c} - Rp_{c} - t \Vert^{2} + 2(p'_{i} - p'_{c} - R(p_{i} - p_{c}))^{T}(p'_{c} - Rp_{c} - t)) \end{align} $$
 
 <br>
 
@@ -102,25 +106,25 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ \sum_{i=1}^{n} (p_{i} - p_{c} - R(p'_{i} - p'_{c})) = 0 $$
+- $$ \sum_{i=1}^{n} (p'_{i} - p'_{c} - R(p_{i} - p_{c})) = 0 $$
 
 <br>
 
-- 왜냐하면 모든 $$ p_{i} $$ 의 총합과 $$ p_{c} $$ 를 $$ n $$ 번 더한 것과 값이 같고 모든 $$ p'_{i} $$ 의 총합과 $$ p'_{c} $$ 를 $$ n $$ 번 더한 것과 값이 같기 때문입니다.
-- 따라서 앞에서 전개한 식에서 $$ \sum_{i=1}^{n} (p_{i} - p_{c} - R(p'_{i} - p'_{c})) $$ 부분을 소거하면 다음과 같이 정리 가능합니다.
+- 왜냐하면 모든 $$ p'_{i} $$ 의 총합과 $$ p'_{c} $$ 를 $$ n $$ 번 더한 것과 값이 같고 모든 $$ p_{i} $$ 의 총합과 $$ p_{c} $$ 를 $$ n $$ 번 더한 것과 값이 같기 때문입니다.
+- 따라서 앞에서 전개한 식에서 $$ \sum_{i=1}^{n} (p'_{i} - p'_{c} - R(p_{i} - p_{c})) $$ 부분을 소거하면 다음과 같이 정리 가능합니다.
 
 <br>
 
-- $$ \frac{1}{2}\sum_{i=1}^{n} (\Vert p_{i} - p_{c} - R(p'_{i} - p'_{c}) \Vert^{2} + \Vert p_{c} - Rp'_{c} - t \Vert^{2} + 2(p_{i} - p_{c} - R(p'_{i} - p'_{c}))^{T}(p_{c} - Rp'_{c} - t))  $$
+- $$ \frac{1}{2}\sum_{i=1}^{n} (\Vert p'_{i} - p'_{c} - R(p_{i} - p_{c}) \Vert^{2} + \Vert p'_{c} - Rp_{c} - t \Vert^{2} + 2(p'_{i} - p'_{c} - R(p_{i} - p_{c}))^{T}(p'_{c} - Rp_{c} - t))  $$
 
-- $$ \frac{1}{2}\sum_{i=1}^{n} (\Vert p_{i} - p_{c} - R(p'_{i} - p'_{c}) \Vert^{2} + \Vert p_{c} - Rp'_{c} - t \Vert^{2}) $$
+- $$ \frac{1}{2}\sum_{i=1}^{n} (\Vert p'_{i} - p'_{c} - R(p_{i} - p_{c}) \Vert^{2} + \Vert p'_{c} - Rp_{c} - t \Vert^{2}) $$
 
-- $$ \therefore \min_{R, t} J = \frac{1}{2}\sum_{i=1}^{n} ( \color{red}{\Vert p_{i} - p_{c} - R(p'_{i} - p'_{c}) \Vert^{2}} + \color{blue}{\Vert p_{c} - Rp'_{c} - t \Vert^{2}}) $$ 
+- $$ \therefore \min_{R, t} J = \frac{1}{2}\sum_{i=1}^{n} ( \color{red}{\Vert p'_{i} - p'_{c} - R(p_{i} - p_{c}) \Vert^{2}} + \color{blue}{\Vert p'_{c} - Rp_{c} - t \Vert^{2}}) $$ 
 
 <br>
 
 - 위 식의 빨간색 부분에 해당하는 항은 `Rotation`만 관련되어 있고 파란색 부분에 해당하는 항은 `Rotation`과 `Translation` 모두 관련되어 있지만 추가적으로 $$ p_{c}, p'_{c} $$ 만 연관되어 있습니다.
-- 따라서 파란색 항은 `Rotation`만 구할 수 있으면 나머지  $$ p_{c}, p'_{c} $$ 는 주어진 점들을 통해 계산할 수 있으므로 $$ \Vert p_{c} - Rp'_{c} - t \Vert^{2} = 0 $$ 으로 식을 두면 $$ t $$ 를 구할 수 있습니다.
+- 따라서 파란색 항은 `Rotation`만 구할 수 있으면 나머지 $$ p_{c}, p'_{c} $$ 는 주어진 점들을 통해 계산할 수 있으므로 $$ \Vert p'_{c} - Rp_{c} - t \Vert^{2} = 0 $$ 으로 식을 두면 $$ t $$ 를 구할 수 있습니다.
 
 <br>
 
@@ -143,7 +147,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ R^{*} = \text{argmin}_{R} \frac{1}{2} \sum_{i=1}^{n} \Vert q_{i} - R q'_{i} \Vert^{2} $$
+- $$ R^{*} = \text{argmin}_{R} \frac{1}{2} \sum_{i=1}^{n} \Vert q'_{i} - R q_{i} \Vert^{2} $$
 
 <br>
 
@@ -151,7 +155,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ t^{*} = p_{c} - R^{*}p'_{c} $$
+- $$ t^{*} = p'_{c} - R^{*}p_{c} $$
 
 <br>
 
@@ -159,31 +163,31 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ \frac{1}{2} \sum_{i=1}^{n} \Vert q_{i} - R q'_{i} \Vert^{2} = \frac{1}{2} \sum_{i=1}^{n} ( q_{i}^{T}q_{i} + q'_{i}R^{T}R q'_{i} - 2q_{i}^{T} R q'_{i} ) $$
+- $$ \begin{align} \frac{1}{2} \sum_{i=1}^{n} \Vert q'_{i} - R q_{i} \Vert^{2} &= \frac{1}{2} \sum_{i=1}^{n}(q'_{i} - R q_{i} )^{T}(q'_{i} - R q_{i} ) \\ &= \frac{1}{2} \sum_{i=1}^{n}(q{'}_{i}^{t}q{'}_{i} + q_{i}^{t}R^{t}Rq_{i} - q{'}_{i}^{t}Rq_{i} - q_{i}^{t}R^{t}q'_{i}) \\ &=\frac{1}{2} \sum_{i=1}^{n}(q{'}_{i}^{t}q{'}_{i} + q_{i}^{t}q_{i} - q{'}_{i}^{t}Rq_{i} - (q_{i}^{t}R^{t}q'_{i})^{t}) \quad (\because q_{i}^{t}R^{t}q'_{i} \text{ : scalar} ) \\ &= \frac{1}{2} \sum_{i=1}^{n}(q{'}_{i}^{t}q{'}_{i} + q_{i}^{t}q_{i} -q{'}_{i}^{t}Rq_{i} -q{'}_{i}^{t}Rq_{i}) \\ &= \frac{1}{2} \sum_{i=1}^{n}(q{'}_{i}^{t}q{'}_{i} + q_{i}^{t}q_{i} -2q{'}_{i}^{t}Rq_{i}) \end{align} $$
 
 <br>
 
-- 위 식에서 첫번째 항은 $$ R $$ 과 관련이 없고 두번째 항의 $$ R^{T}R = I $$ 이므로 $$ R $$ 과 관련이 없습니다. 따라서 실제 최적화를 위한 함수는 다음과 같이 변경될 수 있습니다.
+- 위 식에서 첫번째 항과 두번째 항은 $$ R $$ 과 관련이 없습니다. 따라서 실제 최적화를 위한 함수는 다음과 같이 변경될 수 있습니다.
 
 <br>
 
-- $$ \frac{1}{2} \sum_{i=1}^{n} ( q_{i}^{T}q_{i} + q'_{i}R^{T}R q'_{i} - 2q_{i}^{T} R q'_{i} ) \Rightarrow \frac{1}{2}\sum_{i=1}^{n} -2q_{i}^{T} R q'_{i} = -\sum_{i=1}^{n} q_{i}^{T} R q'_{i} $$
+- $$ \frac{1}{2} \sum_{i=1}^{n}(q{'}_{i}^{t}q{'}_{i} + q_{i}^{t}q_{i} -2q{'}_{i}^{t}Rq_{i}) \Rightarrow \frac{1}{2}\sum_{i=1}^{n} -2q{'}_{i}^{t}Rq_{i} = -\sum_{i=1}^{n}q{'}_{i}^{t}Rq_{i} $$
 
 <br>
 
-- 따라서 $$ \min_{R, t} J $$ 인 **목적 함수를 최소화** 하기 위해서는 $$ \sum_{i=1}^{n} q_{i}^{T} R q'_{i} $$ 를 `최대화`하여  목적함수를 최소화 할 수 있도록 설계해야 합니다. 즉, $$ \text{Maximize : } \sum_{i=1}^{n} q_{i}^{T} R q'_{i} $$ 를 만드는 것이 **실제 풀어야할 최적화 문제**가 됩니다.
+- 따라서 $$ \min_{R, t} J $$ 인 **목적 함수를 최소화** 하기 위해서는 $$ \sum_{i=1}^{n}q{'}_{i}^{t}Rq_{i} $$ 를 `최대화`하여  목적함수를 최소화 할 수 있도록 설계해야 합니다. 즉, $$ \text{Maximize : } \sum_{i=1}^{n}q{'}_{i}^{t}Rq_{i} $$ 를 만드는 것이 **실제 풀어야할 최적화 문제**가 됩니다.
 
 <br>
 
-- 그러면 $$ \sum_{i=1}^{n} q_{i}^{T} R q'_{i} $$ 를 **최대화 하기 위한 조건**을 살펴보도록 하겠습니다.
+- 그러면 $$ \sum_{i=1}^{n}q{'}_{i}^{t}Rq_{i} $$ 를 **최대화 하기 위한 조건**을 살펴보도록 하겠습니다.
 - 식을 살펴보면 $$ q_{i}, q'_{i} $$ 는 벡터이고 $$ R $$ 은 3 x 3 크기의 행렬이므로 최종적으로 하나의 스칼라 값을 가지게 됩니다.
-- `summation` 내부의 결과가 스칼라 값이므로 `trace` 연산( $$ \text{tr}() $$ )의 성질을 이용할 수 있습니다.
+- `summation` 내부의 결과가 스칼라 값이므로 `trace` 연산( $$ \text{Trace}() $$ )의 성질을 이용할 수 있습니다.
 - `trace`는 행렬의 대각 성분을 모두 더하는 연산입니다. 만약 최종 결과가 스칼라 값 (1 x 1 행렬)이고 이 값에 `trace` 연산을 적용하면 그 값 그대로 이기 때문에 값에 영향을 주지 않습니다. 따라서 결과값에 영향을 주지 않으면서 `trace` 연산의 성질들을 이용할 수 있습니다.
 - `trace` 연산의 `Cyclic Permutation` 성질은 다음을 만족합니다. 아래 기호 $$ A, B, C $$ 각각은 행렬입니다.
 
 <br>
 
-- $$ \text{tr}(ABC) = \text{tr}(CAB) = \text{tr}(BCA) $$
+- $$ \text{Trace}(ABC) = \text{Trace}(CAB) = \text{Trace}(BCA) $$
 
 <br>
 
@@ -191,11 +195,11 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ \begin{align} \sum_{i=1}^{n} q_{i}^{T} R q'_{i} &= \sum_{i=1}^{n} \text{tr}(q_{i}^{T} R q'_{i}) \\ &= \sum_{i=1}^{n} \text{tr}(q'_{i} q_{i}^{T} R ) \\ &= \sum_{i=1}^{n} \text{tr}(R q'_{i} q_{i}^{T} ) \\ &= \text{tr}(R \sum_{i=1}^{n} q'_{i} q_{i}^{T}) \end{align} $$
+- $$ \begin{align} \sum_{i=1}^{n}q{'}_{i}^{t}Rq_{i} &= \text{Trace}\left(\sum_{i=1}^{n} q{'}_{i}^{t}Rq_{i} \right) \\ &= \text{Trace}\left(\sum_{i=1}^{n} q_{i}q{'}_{i}^{t}R  \right) \\ &= \text{Trace}\left(\sum_{i=1}^{n} Rq_{i}q{'}_{i}^{t}\right) \\ &= \text{Trace}\left(R\sum_{i=1}^{n} q_{i}q{'}_{i}^{t}\right) \\ &= \text{Trace}(RH) \text{, where } \left(H = \sum_{i=1}^{n} q_{i}q{'}_{i}^{t}\right) \end{align} $$
 
 <br>
 
-- 위 식에서 $$ q'_{i} : (3 \times 1) \text{ vector} $$ 이고 $$ q_{i}^{T} : (1 \times 3) \text{ vector} $$ 이므로 $$ \sum_{i=1}^{n} q'_{i} q_{i}^{T} $$ 는 3 x 3 행렬입니다. 따라서 `SVD (Singular Value Decomposition)`을 이용하여 행렬 분해를 할 수 있습니다. 특이값 분해 관련 내용은 아래 링크에 자세하게 설명되어 있습니다.
+- 위 식에서 $$ q_{i} : (3 \times 1) \text{column vector} $$ 이고 $$ q{'}_{i}^{t} : (1 \times 3) \text{row vector} $$ 이므로 $$ \sum_{i=1}^{n} q_{i}q{'}_{i}^{t} $$ 는 $$ 3 \times 3 $$ 행렬입니다. 따라서 `SVD (Singular Value Decomposition)`을 이용하여 행렬 분해를 할 수 있습니다. 특이값 분해 관련 내용은 아래 링크에 자세하게 설명되어 있습니다.
     - `특이값 분해` : https://gaussian37.github.io/math-la-svd/
 
 <br>
@@ -204,15 +208,15 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ \sum_{i=1}^{n} q'_{i} q_{i}^{T} = U \Sigma V^{T} = W $$
+- $$ H = \sum_{i=1}^{n} q'_{i} q_{i}^{T} = U \Sigma V^{T}$$
 
 <br>
 
-- 여기서 $$ U, V $$ 는 `orthogonal matrix`이고 $$ \Sigma $$ 는 대각행렬이며 대각 성분은 `특이값`을 가집니다. `특이값`과 `고유값`은 다음의 관계를 가집니다.
+- 여기서 $$ U, V $$ 는 `orthonormal matrix`이고 $$ \Sigma $$ 는 `diagonal matrix`이며 대각 성분은 `특이값`을 가집니다. `특이값`과 `고유값`은 다음의 관계를 가집니다.
 
 <br>
 
-- $$ \text{singular value} = \sqrt{\text{eigen value}} $$
+- $$ \text{singular value} = \sqrt{\text{eigen value}} > 0 $$
 
 <br>
 
@@ -220,39 +224,101 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- $$ \text{tr}(R \sum_{i=1}^{n} q'_{i} q_{i}^{T}) = \text{tr}(R W) = \text{tr}(R U \Sigma V^{T}) $$
+- $$ \text{Trace}(RH) = \text{Trace}(R \sum_{i=1}^{n} q'_{i} q_{i}^{T}) = \text{Trace}(R U \Sigma V^{t}) $$
 
 <br>
 
-- 이 때, $$ R = UV^{T} $$ 로 가정해 보도록 하겠습니다. 이와 같이 가정하는 이유는 다음 소정리(`Lemma`)를 이용하기 위함입니다. 다음 소정리는 글 아랫부분에서 증명해보도록 하겠습니다.
+- 위 식에서 최종적으로 구해야 하는 값은 $$ R $$ 이며 $$ \text{Trace}(RH) $$ 가 최대화 되도록 $$ R $$ 을 잘 설정하면 문제를 해결할 수 있습니다.
+- 결론적으로 **$$ R = VU^{T} $$**이 최적해의 솔루션이 됩니다. 최적해를 찾는 과정을 이해하기 위하여 다음 소정리(`Lemma`)를 이용하도록 하겠습니다.
+- 소정리를 이해하기 위하여 `Positive Difinite Matrix`의 이해가 필요합니다. 관련 정의는 아래 링크에서 참조하시기 바랍니다.
+    - [양의 정부호 행렬 (Positive Definite Matrix)](https://gaussian37.github.io/ml-la-positive_definite_matrix/)
 
 <br>
 
-- $$ \text{tr}(AA^{T}) \ge \text{tr}(B AA^{T}) $$
-
-- $$ AA^{T} : \text{positive difinite matrix} $$
-
-- $$ B : \text{orthonormal matrix} $$
+- 먼저 `Positive Definite Matrix`를 만족하는 $$ AA^{t} $$ 행렬과 `orthonormal matrix` $$ B $$ 가 있다고 가정하겠습니다. 이 때, 다음 식을 만족하는 것이 소정리 입니다.
 
 <br>
 
-- 위 소정리를 이용하는 이유는 $$ R = UV^{T} $$ 일 때, $$ \sum_{i=1}^{n} q_{i}^{T} R q'_{i} $$ 가 **최대화가 되는 조건임을 보이기 위함**입니다. 그러면 식을 다시 전개해 보도록 하겠습니다.
+- $$ \text{Trace}(AA^{t}) \ge \text{Trace}(BAA^{t}) $$
 
 <br>
 
-- $$ \begin{align} \text{tr}(R U \Sigma V^{T}) &= \text{tr}(UV^{T} U \Sigma V^{T})\ \  (\because \ R = UV^{T} ) \\ &= \text{tr}(V^{T}U V^{T}U \Sigma ) \\ &= \text{tr}((V^{T}U)(V^{T}U)\Sigma) \\ &= \text{tr}(AA\Sigma)\ \  (\because \ A = (V^{T}U)) \end{align} $$
+- 행렬 $$ A $$ 의 $$ i $$ 번째 열벡터를 $$ a_{i} $$ 로 가정하겠습니다. 이 때, `Trace`의 `Cycle Permutation` 성질과 `Trace`의 정의를 이용하면 다음과 같이 식을 전개할 수 있습니다.
 
 <br>
 
-- ... 작성중 ...
+- $$ \begin{align} \text{Trace}(BAA^{t}) &= \text{Trace}(A^{t}BA) \\ &= \sum_{i}a_{i}^{t}(Ba_{i}) \end{align} $$
 
 <br>
 
-- 따라서 최종적으로 $$ R^{*} = UV^{T} $$ 을 통해서 구할 수 있습니다.
+- `(Cauchy)Schwarz inequality`를 이용하면 다음과 같이 식을 전개할 수 있습니다. `(Cauchy)Schwarz inequality` 정의는 다음과 같습니다.
 
 <br>
 
-- ② 과정으로 $$ t^{*} = p_{c} - R^{*}p'_{c} $$ 를 통해 간단하게 $$ t^{*} $$ 또한 구할 수 있습니다.
+- $$ \vert \langle u, v \rangle \vert \le \sqrt{\langle u, u \rangle} \cdot  \sqrt{\langle v, v \rangle}  $$
+
+- $$ u, v \text{ : vector} $$
+
+- $$ \langle u, v \rangle \text{ : inner product} $$
+
+<br>
+
+- `(Cauchy)Schwarz inequality` 의 정의에 따라 아래 식을 전개해 보도록 하겠습니다.
+
+<br>
+
+- $$ a_{i}^{t}(Ba_{i}) \le \sqrt{(a_{i}^{t}a_{i})(a_{i}^{t}B^{t}Ba_{i})} = a_{i}^{t}a_{i} \quad (\because B \text{ : orthonormal matrix}) $$
+
+- $$ \therefore \ \text{Trace}(BAA^{t}) \le \sum_{i} a_{i}^{t}a_{i} = \text{Trace}({AA^{t}}) $$
+
+<br>
+
+- 위 성질을 이용하여 앞에서 증명하던 내용을 이어서 증명해 보도록 하겠습니다.
+
+<br>
+
+- $$ H = U \Sigma V^{t} $$
+
+- $$ U, V \text{ : orthonormal matrix} $$
+
+- $$ \Sigma \text{ : diagonal matrix with singular value} $$
+
+- $$ \text{Let } X = VU^{t} $$
+
+<br>
+
+- 위 식에서 $$ X $$ 는 `orthonormal matrix` 입니다. 왜냐하면 $$ U, V $$ 가 모두 `orthonormal matrix`이기 때문에 그 곱또한 `orthonormal matrix`를 만족하기 때문입니다.
+
+<br>
+
+- $$ X = VU^{t} $$
+
+- $$ XH = VU^{t}U \Sigma V^{t} = V \Sigma V^{t} $$
+
+<br>
+
+- `Singular Value`는 모두 0보다 크기 때문에 `eigenvalue`는 `Singular Value`의 제곱이므로 모든 `eigenvalue`는 양수임을 알 수 있습니다. `eigenvlaue`가 모두 양수이면 `Positive Definite Matrix` 조건을 만족하기 때문에 ([양의 정부호 행렬 (Positive Definite Matrix)](https://gaussian37.github.io/ml-la-positive_definite_matrix/) 참조) $$ XH $$ 는 `Positive Definite Matrix` 입니다.
+- 따라서 앞에서 정리한 소정리를 이용할 수 있습니다. 
+
+<br>
+
+- $$ \text{Trace}(XH) \ge \text{Trace}(BXH) \quad (\forall \text{ orthonormal matrix } B ) $$
+
+<br>
+
+- 이 내용을 앞에서 정리한 식과 연결해서 설명해 보도록 하겠습니다.
+
+<br>
+
+- $$ \text{Trace}(RH) = \text{Trace}(VU^{T}H) \ge \text{Trace}(BRH) $$
+
+<br>
+
+- 즉, $$ \text{Trace}(RH) $$ 에서 $$ R = VU^{T} $$ 일 때, 모든 경우의 수에서 `상한값`을 가질 수 있으므로 최대화를 만족하기 위한 $$ R^{*} $$ 은 $$ R^{*} = VU^{T} $$ 을 통해서 구할 수 있습니다.
+
+<br>
+
+- 다음으로 ② 과정의 $$ t^{*} = p'_{c} - R^{*}p_{c} $$ 를 통해 간단하게 $$ t^{*} $$ 또한 구할 수 있습니다.
 
 <br>
 
@@ -287,19 +353,19 @@ def icp_svd(p_src, p_dst):
     q_dst = p_dst - centroid_p_dst
 
     # Step 3: Construct the cross-covariance matrix H
-    H = q_dst @ q_src.T
+    H = q_src @ q_dst.T
 
     # Step 4: Perform Singular Value Decomposition
     U, _, Vt = np.linalg.svd(H)
     V = Vt.T
 
     # Step 5: Calculate rotation matrix R    
-    R_est = U @ V.T
+    R_est = V @ U.T
 
     # Step 6: Ensure R is a proper rotation matrix
     if np.linalg.det(R_est) < 0:
         V[:,-1] *= -1  # Flip the sign of the last column of V
-        R_est = U @ V.T
+        R_est = V @ U.T
 
     # Step 7: Calculate translation vector t        
     t_est = centroid_p_src - R_est @ centroid_p_dst
@@ -399,19 +465,19 @@ def icp_svd(p_src, p_dst):
     q_dst = p_dst - centroid_p_dst
 
     # Step 3: Construct the cross-covariance matrix H
-    H = q_dst @ q_src.T
+    H = q_src @ q_dst.T
 
     # Step 4: Perform Singular Value Decomposition
     U, _, Vt = np.linalg.svd(H)
     V = Vt.T
 
     # Step 5: Calculate rotation matrix R    
-    R_est = U @ V.T
+    R_est = V @ U.T
 
     # Step 6: Ensure R is a proper rotation matrix
     if np.linalg.det(R_est) < 0:
         V[:,-1] *= -1  # Flip the sign of the last column of V
-        R_est = U @ V.T
+        R_est = V @ U.T
 
     # Step 7: Calculate translation vector t        
     t_est = centroid_p_src - R_est @ centroid_p_dst
@@ -419,7 +485,7 @@ def icp_svd(p_src, p_dst):
 
     return R_est, t_est
 
-def icp_svd_ransac(points_source, points_destination, n=3, num_iterations=20, inlier_threshold=0.1):
+def icp_svd_ransac(points_source, points_destination, n=3, num_iterations=20, inlier_threshold=0.01):
     # n = 3  # Number of points to estimate the model, for affine 3D at least 4 points
     # num_iterations = 20  # Number of iterations
     # inlier_threshold = 0.1  # Inlier threshold, this might be a count or a percentage based on your needs
