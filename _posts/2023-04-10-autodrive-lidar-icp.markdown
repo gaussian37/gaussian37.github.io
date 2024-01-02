@@ -328,18 +328,64 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 - 그러면 `Rotation`을 정상적으로 구할 수 있는 경우와 그렇지 않은 경우를 구분하여 어떤 케이스가 존재하는 지 살펴보도록 하겠습니다.
 
 <br>
+<center><img src="../assets/img/autodrive/lidar/icp/2.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
-- ① $$ q_{i} $$ 가 `coplanar`가 아닌 경우 :
+- ① $$ q_{i} $$ 가 `coplanar`가 아닌 경우 : 먼저 위 그림과 같이 점들이 하나의 평면에 있지 않는 경우가 가장 일반적인 상황입니다. 하나의 평면에 점들이 존재하는 상황을 `coplanar`라고 하며 위 그림과 같은 상황은 `coplanar`한 상황이 아닌 것으로 이해할 수 있습니다. 이 상황에서는 `Rotation`의 솔루션이 유일하게 존재하므로 `SVD`를 이용하여 구한 해를 정상적으로 사용할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/icp/1.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- ② $$ q_{i} $$ 가 `colinear`인 경우 : 두번째 케이스는 위 그림의 왼쪽과 같이 점들이 `coplanar`이면서  `colinear`인 경우 입니다. 이 경우에는 무한히 많은 `rotation`의 경우의 수를 만들어 낼 수 있습니다. 따라서 이와 같은 경우에는 유일한 해를 구할 수 없습니다. 따라서 사전에 모든 점들이 `colinear`인 지 확인해 보는 것이 중요합니다. 하지만 현실 데이터에서는 발생할 가능성이 매우 희박합니다.
 
 <br>
 
-- ② $$ q_{i} $$ 가 `coplanar`이지만 `colinear`가 아닌 경우 : 
+- ③ $$ q_{i} $$ 가 `coplanar`이지만 `colinear`가 아닌 경우 : 마지막 케이스는 위 그림에서 오른쪽에 해당합니다. 점들이 `coplanar`이지만 `colinear`가 아닌 경우입니다. 이 경우에도 ①과 마찬가지 방법으로 해를 구할 수 있습니다.
 
 <br>
 
-- ③ $$ q_{i} $$ 가 `colinear`인 경우 : 
+- 최종적으로 구한 `Rotation`이 정말 `Rotation`으로써 의미를 가지려면 `orthonormal matrix`이고 `determinant` 또한 +1을 가져야 합니다.
+- 하지만 경우에 따라서 `determinant`가 -1인 경우의 해를 얻을 수도 있습니다. 이와 같은 경우는 `Rotation`이 아니라 `Reflection`이 구해진 경우입니다. 
+- `determinant`가 -1인 경우 2가지로 해석할 수 있습니다. 
+    - ① `coplanar`인 상태에서 `Reflection`이 발생한 경우 $$ V = [v_{1}, v_{2}, v_{3}] \to V = [v_{1}, v_{2}, -v_{3}] $$ 로 변경하여 `Rotation`을 구할 수 있습니다. 이 때, $$ \lambda_{3} = 0 $$ 을 만족해야 합니다.
+    - ② `determinant`가 -1임에도 불구하고 $$ \lambda_{3} \nq 0 $$ 인 경우에는 해를 구할 수 없습니다. 이 경우에는 `coplanar`도 아니면서 `Rotation`을 구하는 최적화를 하는 데 실패한 경우에 해당합니다. 이와 같은 상황은 `Noise`가 많아서 `Rotation`을 구하기 어려우므로 `Noise`를 다루는 `RANSAC`과 같은 방법을 사용하는 작업이 필요합니다.
 
 <br>
+
+- 그러면 바로 위의 ①에 해당하는 상황을 살펴보도록 하겠습니다. `coplanar`에서는 모든 점들이 같은 평면에 있기 때문에, 차원이 하나 줄어든 것처럼 생각할 수 있습니다. 이 때, `Rotation`이 아닌 `Reflection`이 발생하더라도 만족할 수 있습니다.
+- 모든 점들이 `coplanar`이면 앞에서 구한 $$ H $$ 의 `Singular Value` 하나가 0이 됩니다. 차원이 하나 소멸하기 때문에 발생한 문제이고 이와 같은 현상을 `degeneracy`라고 합니다.
+
+<br>
+
+- $$ H = \lambda_{1}u_{1}v'_{1} + \lambda_{2}u_{2}v'_{2} + 0 \cdot u_{3}v'_{3} $$
+
+- $$ u_{i}, v_{i} \text{ : column vector of } U, V $$
+
+- $$ \lambda_{1} > \lambda_{2} > \lambda_{3} = 0 $$
+
+<br>
+
+- 따라서 위 케이스와 같이 행렬 분해가 된 경우 $$ u_{3} $$ 또는 $$ v_{3} $$ 의 부호를 바꾸더라도 $$ H $$ 에 영향을 주지 않습니다. 따라서 다음과 같이 $$ V $$ 를 변경합니다.
+
+<br>
+
+- $$ V = [v_{1}, v_{2}, v_{3}] \to V' = [v_{1}, v_{2}, -v_{3}] $$
+
+<br>
+
+- 최종적으로 $$ R = V'U^{T} $$ 를 이용하여 $$ R $$ 을 구함으로써 `Rotation` 을 정상적으로 구할 수 있습니다.
+
+<br>
+
+- 위 과정을 정리하면 다음과 같습니다.
+- ① 행렬 $$ H $$ 를 구합니다.
+- ② 행렬 $$ H $$ 의 `SVD` 적용을 한 후 $$ H = U \Sigma V^{T} $$ 로 분해합니다.
+- ③ $$ R = VU^{T} $$ 를 이용하여 구합니다.
+- ④ 만약 $$ \text{det}(R) = 1 $$ 이면 정상적으로 `Rotation`이 구해진 상황입니다.
+- ⑤ 만약 $$ \text{det}(R) = -1 $$ 이면 다음 2가지로 해석할 수 있습니다.
+    - ⑤-1 $$ \lambda_{3} = 0 $$ 이면 `coplanar`이므로 $$ R = V'U^{T} $$ 로 구할 수 있습니다.
+    - ⑤-2 $$ \lambda_{3} \ne 0 $$ 이면 노이즈가 많아서 해를 구할 수 없는 상황입니다.
 
 <br>
 
@@ -381,22 +427,29 @@ def icp_svd(p_src, p_dst):
     H = q_src @ q_dst.T
 
     # Step 4: Perform Singular Value Decomposition
-    U, _, Vt = np.linalg.svd(H)
+    U, Sigma, Vt = np.linalg.svd(H)
     V = Vt.T
 
     # Step 5: Calculate rotation matrix R    
     R_est = V @ U.T
 
+    result = True
     # Step 6: Ensure R is a proper rotation matrix
-    if np.linalg.det(R_est) < 0:
-        V[:,-1] *= -1  # Flip the sign of the last column of V
-        R_est = V @ U.T
+    det_R_est = np.linalg.det(R_est)
+    if np.abs(det_R_est - (-1)) < 0.0001: # check detminant
+        if np.abs(Sigma[-1]) < 0.00001 == 0: # check reflection
+            # Reflection in coplanar cse
+            V[:,-1] *= -1  # Flip the sign of the last column of V
+            R_est = V @ U.T
+        else:
+            # can't get rotation matrix
+            result = False
 
     # Step 7: Calculate translation vector t        
     t_est = centroid_p_src - R_est @ centroid_p_dst
     t_est = t.reshape(3, 1)
 
-    return R_est, t_est
+    return R_est, t_est, result
 
 # Example usage with dummy data
 # Define the set of points P
@@ -412,7 +465,7 @@ t = np.random.rand(3, 1) * 10
 P_prime = R @ P + t
 
 ################################### Calculate R and t using ICP with SVD
-R_est, t_est = icp_svd(P, P_prime)
+R_est, t_est, _ = icp_svd(P, P_prime)
 
 print("R : \n", R)
 print("R_est : \n", R_est)
@@ -493,22 +546,29 @@ def icp_svd(p_src, p_dst):
     H = q_src @ q_dst.T
 
     # Step 4: Perform Singular Value Decomposition
-    U, _, Vt = np.linalg.svd(H)
+    U, Sigma, Vt = np.linalg.svd(H)
     V = Vt.T
 
     # Step 5: Calculate rotation matrix R    
     R_est = V @ U.T
 
+    result = True
     # Step 6: Ensure R is a proper rotation matrix
-    if np.linalg.det(R_est) < 0:
-        V[:,-1] *= -1  # Flip the sign of the last column of V
-        R_est = V @ U.T
+    det_R_est = np.linalg.det(R_est)
+    if np.abs(det_R_est - (-1)) < 0.0001: # check detminant
+        if np.abs(Sigma[-1]) < 0.00001 == 0: # check reflection
+            # Reflection in coplanar cse
+            V[:,-1] *= -1  # Flip the sign of the last column of V
+            R_est = V @ U.T
+        else:
+            # can't get rotation matrix
+            result = False
 
     # Step 7: Calculate translation vector t        
     t_est = centroid_p_src - R_est @ centroid_p_dst
     t_est = t.reshape(3, 1)
 
-    return R_est, t_est
+    return R_est, t_est, result
 
 def icp_svd_ransac(points_source, points_destination, n=3, num_iterations=20, inlier_threshold=0.01):
     # n = 3  # Number of points to estimate the model, for affine 3D at least 4 points
@@ -525,8 +585,8 @@ def icp_svd_ransac(points_source, points_destination, n=3, num_iterations=20, in
         points_dst_sample = points_destination[:, indices]
 
         # Step 2: Estimate rotation and translation using SVD based ICP
-        R, t = icp_svd(points_src_sample, points_dst_sample)
-
+        R, t, result = icp_svd(points_src_sample, points_dst_sample)
+        
         # Step 3 and 4: Calculate error and inliers
         points_src_transformed = R @ points_source + t
         errors = np.linalg.norm(points_destination - points_src_transformed, axis=0)
@@ -563,7 +623,7 @@ P_prime2 = P_prime.copy()
 P_prime2[:, -num_outliers:] = np.random.rand(3, num_outliers) * 100
 
 ################################## Calculate R and t using ICP with SVD, plus RANSAC
-R_est, t_est = icp_svd(P, P_prime2)
+R_est, t_est, _ = icp_svd(P, P_prime2)
 
 print("ICP without RANSAC : \n")
 print("R : \n", R)
