@@ -36,6 +36,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 - ### [SVD 관련 성질](#svd-관련-성질-1)
 - ### [SVD with Python](#svd-with-python-1)
 - ### [SVD의 활용](#svd의-활용-1)
+- ### [SVD 연산 가속화](#svd-연산-가속화-1)
 
 <br>
 
@@ -1369,6 +1370,58 @@ print(np.linalg.norm(A @ x))
 print(Sigma[-1])
 # 1.2837503655387383
 ```
+
+<br>
+
+## **SVD 연산 가속화**
+
+<br>
+
+- 큰 크기의 행렬을 여러개 처리한다면 `SVD` 연산도 꽤 큰 연산 시간을 필요로 합니다.
+- 행렬 연산과 같은 경우 `cupy`를 이용하여 `cuda` 연산을 사용하면 연산 시간을 줄일 수 있습니다. `cupy` 관련 내용은 아래 글을 참조해 주시기 바랍니다.
+    - [cupy 설치 및 사용 방법](https://gaussian37.github.io/python-basic-numpy-snippets/#cupy%EC%9D%98-%ED%95%84%EC%9A%94%EC%84%B1-1)
+
+<br>
+
+- `numpy`와 `cupy`의 문법은 완전 동일하므로 아래 예제 코드를 통하여 실행 결과를 살펴보도록 하겠습니다.
+
+<br>
+
+```python
+import numpy as np
+import cupy as cp
+import time
+
+start_time = time.time()
+for _ in range(20):    
+    A = np.random.randint(0, 255, (300, 500, 3)).astype(np.float32)
+    U, Sigma, V = np.linalg.svd(A)
+print(time.time() - start_time)
+# 13.495264768600464
+
+start_time = time.time()
+A = np.random.randint(0, 255, (300, 500, 3*20)).astype(np.float32)
+U, Sigma, V = np.linalg.svd(A)
+print(time.time() - start_time)
+# 10.183464288711548
+
+start_time = time.time()
+for _ in range(20):    
+    A = cp.random.randint(0, 255, (300, 500, 3)).astype(cp.float32)
+    U, Sigma, V = cp.linalg.svd(A)
+print(time.time() - start_time)
+# 4.324589967727661
+
+start_time = time.time()
+A = cp.random.randint(0, 255, (300, 500, 3*20)).astype(cp.float32)
+U, Sigma, V = cp.linalg.svd(A)
+print(time.time() - start_time)
+# 3.8288321495056152
+```
+
+<br>
+
+- 같은 행렬 연산을 `cuda`를 이용하면 시간을 절약할 수 있으므로 `cupy` 사용을 권장합니다.
 
 <br>
 
