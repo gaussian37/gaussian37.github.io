@@ -727,6 +727,8 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 </div>
 <br>
 
+- 참조 : https://www.cs.cmu.edu/~16385/s17/Slides/11.4_Triangulation.pdf
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec7/64.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>

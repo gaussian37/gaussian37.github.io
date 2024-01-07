@@ -30,8 +30,7 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [특이값 분해(SVD)](https://gaussian37.github.io/math-la-svd/)
 - [LU 분해, LDU 분해 및 Cholesky 분해](https://gaussian37.github.io/math-la-lu_and_cholesky_decomposition/)
 - [행렬의 제곱근]()
-- QR 분해
-- [직교 행렬과 그람 슈미트 과정]()
+- [직교 행렬, 그람 슈미트 과정 및 QR 분해](https://gaussian37.github.io/math-la-orthogonal_gram_shmidt_qr_decomposition/)
 
 <br>
 
