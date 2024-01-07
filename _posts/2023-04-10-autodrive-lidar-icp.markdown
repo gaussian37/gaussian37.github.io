@@ -349,7 +349,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 - 하지만 경우에 따라서 `determinant`가 -1인 경우의 해를 얻을 수도 있습니다. 이와 같은 경우는 `Rotation`이 아니라 `Reflection`이 구해진 경우입니다. 
 - `determinant`가 -1인 경우 2가지로 해석할 수 있습니다. 
     - ① `coplanar`인 상태에서 `Reflection`이 발생한 경우 $$ V = [v_{1}, v_{2}, v_{3}] \to V = [v_{1}, v_{2}, -v_{3}] $$ 로 변경하여 `Rotation`을 구할 수 있습니다. 이 때, $$ \lambda_{3} = 0 $$ 을 만족해야 합니다.
-    - ② `determinant`가 -1임에도 불구하고 $$ \lambda_{3} \nq 0 $$ 인 경우에는 해를 구할 수 없습니다. 이 경우에는 `coplanar`도 아니면서 `Rotation`을 구하는 최적화를 하는 데 실패한 경우에 해당합니다. 이와 같은 상황은 `Noise`가 많아서 `Rotation`을 구하기 어려우므로 `Noise`를 다루는 `RANSAC`과 같은 방법을 사용하는 작업이 필요합니다.
+    - ② `determinant`가 -1임에도 불구하고 $$ \lambda_{3} \ne 0 $$ 인 경우에는 해를 구할 수 없습니다. 이 경우에는 `coplanar`도 아니면서 `Rotation`을 구하는 최적화를 하는 데 실패한 경우에 해당합니다. 이와 같은 상황은 `Noise`가 많아서 `Rotation`을 구하기 어려우므로 `Noise`를 다루는 `RANSAC`과 같은 방법을 사용하는 작업이 필요합니다.
 
 <br>
 
