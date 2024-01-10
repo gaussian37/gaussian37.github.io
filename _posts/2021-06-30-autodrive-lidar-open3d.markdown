@@ -16,6 +16,7 @@ tags: [라이다, open3d, 포인트 클라우드] # add tag
 - ### [open3d로 point cloud 시각화 방법](#jupyter-lab에서-open3d-시각화-방법-1)
 - ### [open3d로 grid 생성하는 방법](#open3d로-grid-생성하는-방법-1)
 - ### [jupyter lab에서 open3d 시각화 방법](#jupyter-lab에서-open3d-시각화-방법-1)
+- ### [연속된 point cloud 시각화 방법](#연속된-point-cloud-시각화-방법-1)
 
 <br>
 
@@ -289,3 +290,69 @@ show_point_cloud(points, 2)
 ```
 
 <br>
+
+## **연속된 point cloud 시각화 방법**
+
+<br>
+
+- 아래 방법은 연속된 포인트 클라우드를 이어서 보는 방법입니다. 아래 코드의 `point_clouds`와 같이 전체 포인트 클라우드를 등록하고 `index`를 변경해 가면서 시각화하는 컨셉입니다.
+
+<br>
+
+```python
+import open3d as o3d
+import glob
+
+def load_point_cloud(file_path):
+    return o3d.io.read_point_cloud(file_path)
+
+# Initialize visualizer with key callbacks
+vis = o3d.visualization.VisualizerWithKeyCallback()
+vis.create_window()
+
+# Load point clouds
+file_paths = glob.glob("./*.pcd")
+file_paths.sort()
+point_clouds = [load_point_cloud(fp) for fp in file_paths]
+current_index = 0  # Start from the first point cloud
+
+# Add the first point cloud to visualizer
+vis.add_geometry(point_clouds[current_index])
+
+# Get view control and capture initial viewpoint
+view_ctl = vis.get_view_control()
+viewpoint_params = view_ctl.convert_to_pinhole_camera_parameters()
+
+def update_visualization(vis, point_cloud, view_ctl, viewpoint_params):
+    vis.clear_geometries()  # Clear existing geometries
+    vis.add_geometry(point_cloud)  # Add new geometry
+    view_ctl.convert_from_pinhole_camera_parameters(viewpoint_params)
+
+def next_callback(vis):
+    global current_index, viewpoint_params
+    if current_index < len(point_clouds) - 1:
+        # Capture current viewpoint before moving to next
+        viewpoint_params = view_ctl.convert_to_pinhole_camera_parameters()
+        current_index += 1
+        update_visualization(vis, point_clouds[current_index], view_ctl, viewpoint_params)
+
+def previous_callback(vis):
+    global current_index, viewpoint_params
+    if current_index > 0:
+        # Capture current viewpoint before moving to previous
+        viewpoint_params = view_ctl.convert_to_pinhole_camera_parameters()
+        current_index -= 1
+        update_visualization(vis, point_clouds[current_index], view_ctl, viewpoint_params)
+
+def quit_callback(vis):
+    vis.close()  # Close the visualizer
+
+# Register key callbacks
+vis.register_key_callback(ord('N'), next_callback)
+vis.register_key_callback(ord('P'), previous_callback)
+vis.register_key_callback(ord('Q'), quit_callback)
+
+# Run the visualizer
+vis.run()
+vis.destroy_window()
+```
