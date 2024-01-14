@@ -22,7 +22,7 @@ tags: [Linear algebra, 선형대수학, 양의 정부호 행렬, positive defini
 <br>
 
 - `Positive Definite Matrix` : 대칭행렬 $$ A (A = A^{T}) $$ 가 모든 $$ n $$ 차원 벡터 $$ x \ne 0 $$ 에 대하여 $$ x^{T} A x \gt 0 $$ 이면, $$ A $$ 를 `PDM` 이라고 합니다.
-- `Positive Semi-Definite Matrix` : `PDM`의 조건에서 $$ x^{t} A x \ge 0 $$ 이면 $$ A $$ 를 `PSDM`이라고 합니다.
+- `Positive Semi-Definite Matrix` : `PDM`의 조건에서 $$ x^{T} A x \ge 0 $$ 이면 $$ A $$ 를 `PSDM`이라고 합니다.
 
 <br>
 
@@ -41,6 +41,12 @@ tags: [Linear algebra, 선형대수학, 양의 정부호 행렬, positive defini
     - ④-1 : $$ A^{T}, sA + tB $$ 모두 `PDM`을 만족합니다. 단, $$ s, t \gt 0 $$
     - ④-2 : $$ A^{-1} $$ 또한 `PDM`을 만족합니다.
     - ④-3 : $$ U $$ 가 `regular matrix`이면 $$ U^{T} A U $$ 또한 `PDM`을 만족합니다.
+- ⑤ $$ n \times n $$ 행렬 $$ A $$ 에 대하여 다음 네가지 명제는 동치입니다. 즉, 하나를 만족하면 나머지 3개도 모두 만족한다는 뜻입니다.
+    - ⑤-1 : 행렬 $$ A $$ 가 `PSDM` 입니다.
+    - ⑤-2 : $$ A $$ 의 모든 `eigenvalue`가 음의 실수가 아닙니다.
+    - ⑤-3 : $$ A = U^{T}U $$ 를 만족하는 `regular matrix` (역행렬이 존재하는 행렬) $$ U $$ 가 존재합니다.
+    - ⑤-4 : $$ A $$ 의 모든 `sub-determinant`가 음의 실수가 아닙니다.
+- $$ A \text{ is skew-symmetric } \leftrightarrow x^{T}Ax = 0 $$
 
 <br>
 
