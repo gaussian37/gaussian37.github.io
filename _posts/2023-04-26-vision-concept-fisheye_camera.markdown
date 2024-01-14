@@ -48,7 +48,6 @@ tags: [fisheye camera, 어안 카메라, lens distortion, 카메라 모델, 렌�
 - ### [Fisheye Camera의 특징과 Pinhole Camera와의 차이점](#fisheye-camera의-특징과-pinhole-camera와의-차이점-1)
 - ### [Fisheye Camera의 Vignetting 영역 인식 방법](#fisheye-camera의-vignetting-영역-인식-방법-1)
 - ### [Generic Camera 모델의 Fisheye Camera의 유효 영역 확인 방법](#generic-camera-모델의-fisheye-camera의-유효-영역-확인-방법-1)
-- ### [Fisheye Camera 왜곡 보정 방법 : Multiple rectifications](#fisheye-camera-왜곡-보정-방법--multiple-rectifications-1)
 - ### [Fisheye Camera 왜곡 보정 방법 : Cylindrical Images](#fisheye-camera-왜곡-보정-방법--cylindrical-images-1)
 - ### [Surround-view Fisheye Camera Perception for Automated Driving 리뷰](#surround-view-fisheye-camera-perception-for-automated-driving-리뷰-1)
     - ### [Abstract](#abstract-1)
@@ -379,12 +378,6 @@ _, board_50_bfs = bfs(board_50, cy, cx)
 <br>
 
 - `입사각`이 90도에서 50도로 줄어들수록 $$ (c_{x}, c_{y}) $$ 중심점 방향으로 유효한 영역이 좁아지는 것을 확인할 수 있습니다. 
-
-<br>
-
-## **Fisheye Camera 왜곡 보정 방법 : Multiple rectifications**
-
-<br>
 
 <br>
 

@@ -28,9 +28,22 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [양의 정부호 행렬 (Positive Definite Matrix)](https://gaussian37.github.io/math-la-positive_definite_matrix/)
 - [고유값 분해]()
 - [특이값 분해(SVD)](https://gaussian37.github.io/math-la-svd/)
+- [직교 행렬, 그람 슈미트 과정 및 QR 분해](https://gaussian37.github.io/math-la-orthogonal_gram_shmidt_qr_decomposition/)
 - [LU 분해, LDU 분해 및 Cholesky 분해](https://gaussian37.github.io/math-la-lu_and_cholesky_decomposition/)
 - [행렬의 제곱근]()
-- [직교 행렬, 그람 슈미트 과정 및 QR 분해](https://gaussian37.github.io/math-la-orthogonal_gram_shmidt_qr_decomposition/)
+
+<br>
+
+## **선형 대수학 관련 기타 글들**
+
+<br>
+
+- [2x2 행렬의 고유값과 고유벡터 공식](https://gaussian37.github.io/math-la-2_by_2_eigen/)
+- [회전 변환 행렬 (2D, 3D)](https://gaussian37.github.io/math-la-rotation_matrix/)
+- [벡터의 정사영(projection)](https://gaussian37.github.io/math-la-projection/)
+- [sparse matrix(희소 행렬)](https://gaussian37.github.io/math-la-sparse_matrix/)
+- [블록 행렬 곱(block matrix multiplication)](https://gaussian37.github.io/math-la-block_matrix_multiplication/)
+- [Similar Matrix (닮은 행렬)](https://gaussian37.github.io/math-la-similar_matrix/)
 
 <br>
 
@@ -76,6 +89,12 @@ tags: [Linear algebra, 선형 대수학] # add tag
 ## **[Gilbert Strang's Linear Algebra](https://www.amazon.com/Introduction-Linear-Algebra-Gilbert-Strang/dp/0980232775/ref=sr_1_3?keywords=gilbert+strang+linear+algebra&qid=1692433465&sprefix=gilbert+strang+l%2Caps%2C297&sr=8-3)**
 
 <br>
+
+- 강의 내용 : https://www.youtube.com/playlist?list=PL9k2wIz8VsfMn-03Oe7Hmf1ZSTzvFDikk
+
+<br>
+
+- 
 
 <br>
 
@@ -156,14 +175,3 @@ tags: [Linear algebra, 선형 대수학] # add tag
 <br>
 
 <br>
-
-## **선형 대수학 관련 기타 글들**
-
-<br>
-
-- [2x2 행렬의 고유값과 고유벡터 공식](https://gaussian37.github.io/math-la-2_by_2_eigen/)
-- [회전 변환 행렬 (2D, 3D)](https://gaussian37.github.io/math-la-rotation_matrix/)
-- [벡터의 정사영(projection)](https://gaussian37.github.io/math-la-projection/)
-- [sparse matrix(희소 행렬)](https://gaussian37.github.io/math-la-sparse_matrix/)
-- [블록 행렬 곱(block matrix multiplication)](https://gaussian37.github.io/math-la-block_matrix_multiplication/)
-- [Similar Matrix (닮은 행렬)](https://gaussian37.github.io/math-la-similar_matrix/)
