@@ -29,31 +29,31 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec8/3.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec8/3.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec8/5.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec8/5.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec8/6.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec8/6.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec8/7.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec8/7.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec8/8.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec8/8.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec8/9.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec8/9.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec8/10.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec8/10.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 
