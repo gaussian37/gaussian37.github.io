@@ -20,7 +20,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 
 <br>
 
-- Lecture 7에서는 `fundamental matrix`와 `essential matrix` 내용을 다룹니다. 이 개념들을 통하여 카메라 간의 관계를 정의하기 위한 기본적인 개념을 익힐 수 있습니다.
+- Lecture 8에서는 `Camera Pose Estimation` 문제를 풀기 위한 `PnP(Perspective-n-point)` 문제를 정의하고 카메라의 `calibration` 정보를 사용하는 경우와 그렇지 않은 경우에 대하여 `Pose Estimation`을 하는 방법에 대하여 알아보도록 하겠습니다.
 
 <br>
 <div style="text-align: center;">
