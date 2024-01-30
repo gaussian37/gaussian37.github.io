@@ -16,6 +16,8 @@ tags: [ML, machine learning, 머신 러닝, t-SNE, PCA] # add tag
 - 참조 : https://youtu.be/MNfcUxmnRkQ
 - 참조 : https://youtu.be/INHwh8k4XhM
 - 참조 : 머신러닝 도감
+- 참조 : https://learnopencv.com/t-sne-for-feature-visualization/
+- 참조 : https://nextjournal.com/ml4a/image-t-sne
 
 <br>
 

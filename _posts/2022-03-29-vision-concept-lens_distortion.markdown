@@ -897,6 +897,58 @@ I_u, map_x, map_y = get_map_xy(I_d, fx, fy, cx, cy, skew, k1, k2, k3, k4, k5)
 
 <br>
 
+- 먼저 앞의 코드에서 다룬 `map_x`, `map_y` 값을 `opencv`를 이용하여 구하는 방법에 대하여 알아보도록 하겠습니다.
+- `opencv` 라이브러리의 `fisheye` 패키지(`cv2.fisheye`)를 이용하면 앞에서 다룬 `generic camera model`을 이용할 수 있습니다.
+
+<br>
+
+```python
+new_K = cv2.fisheye.estimateNewCameraMatrixForUndistortRectify(K, D, DIM, np.eye(3), balance=1.0)
+
+
+
+```
+
+<br>
+
+- 최종적으로 아래 코드를 이용하여 원하는 이미지의 해상도와 영역을 설정하여 왜곡 보정할 수 있습니다.
+- 앞의 설명과 같이 ① `resize_ratio` 를 이용하여 왜곡 보정된 이미지의 사이즈를 결정하고 ② `x_translation`, `y_translation`을 이용하여 리사이즈된 이미지의 좌상단 원점의 시작점을 결정 후 ③ 최종적으로 필요없다고 판단되는 아랫 부분과 우측 부분 영역을 `bottom_crop`과 `right_crop` 만큼 잘라내어 원하는 크기와 영역의 왜곡 보정 영상을 얻을 수 있습니다.
+
+<br>
+
+```python
+img = cv2.cvtColor(cv2.imread('./fisheye_camera_checkboard_10cm/fisheye_camera_calibration_test_10cm_01.png'), cv2.COLOR_BGR2RGB)
+height, width = img.shape[:2]
+DIM = (width, height)
+new_K = cv2.fisheye.estimateNewCameraMatrixForUndistortRectify(K, D, DIM, np.eye(3), balance=0.0)
+
+# ① set image resolution ratio
+# ② set window starting point
+# ③ crop unnecessary areas
+
+resize_ratio = 1.0 # ① height/width resize ratio
+x_translation = 0 # ② select top position in resized image
+y_translation = 0 # ② select left start position in resized image
+bottom_crop = 0 # ③ crop bottom area in resized image
+right_crop = 0 # ③ crop right area in resize image
+
+# resize window size
+new_K[0, :] *= resize_ratio
+new_K[1, :] *= resize_ratio
+
+# translation with resized window
+new_K[0][2] -= x_translation    
+new_K[1][2] -= y_translation    
+
+# crop bottom & right in resized window
+new_DIM = (int(width*resize_ratio)-right_crop, int(height*resize_ratio)-bottom_crop)
+map_x, map_y = cv2.fisheye.initUndistortRectifyMap(K, D, np.eye(3), new_K, new_DIM, cv2.CV_16SC2)
+
+undistorted_img = cv2.remap(img, map_x, map_y, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=(255, 255, 255))
+```
+
+<br>
+
 ## **Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 왜곡 보정 영상**
 
 <br>
