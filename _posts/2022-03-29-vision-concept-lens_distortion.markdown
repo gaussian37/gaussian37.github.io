@@ -899,15 +899,74 @@ I_u, map_x, map_y = get_map_xy(I_d, fx, fy, cx, cy, skew, k1, k2, k3, k4, k5)
 
 - 먼저 앞의 코드에서 다룬 `map_x`, `map_y` 값을 `opencv`를 이용하여 구하는 방법에 대하여 알아보도록 하겠습니다.
 - `opencv` 라이브러리의 `fisheye` 패키지(`cv2.fisheye`)를 이용하면 앞에서 다룬 `generic camera model`을 이용할 수 있습니다.
+- 먼저 아래와 같이 `estimateNewCameraMatrixForUndistortRectify` 함수를 통해 현재 `K`, `D`, `DIM` 조건에서 `balance` 옵션에 따라 왜곡 보정을 하였을 때 대응되는 `intrinsic matrix`인 `new_K`를 추정할 수 있습니다. `new_K`는 궁극적으로 구하고자 하는 `map_x`, `map_y`를 구하기 위해 필요한 값이므로 먼저 이 값을 구해야 합니다.
 
 <br>
 
 ```python
-new_K = cv2.fisheye.estimateNewCameraMatrixForUndistortRectify(K, D, DIM, np.eye(3), balance=1.0)
-
-
-
+DIM = (width, height)
+new_K = cv2.fisheye.estimateNewCameraMatrixForUndistortRectify(K, D, DIM, np.eye(3), balance=0.0)
 ```
+
+<br>
+
+- 위 식에서 `K`와 `D`는 실제 캘리브레이션을 통해 얻은 값이며 `DIM`은 입력 이미지의 해상도를 의미합니다. 따라서 `K`, `D`, `DIM`은 주어진 값을 그대로 사용한다고 생각하면 됩니다.
+- `np.eye(3)`은 영상을 생성할 때, `Rotation`에 해당하며 위 코드와 같이 `Identity`를 입력하면 `Rotation`을 고려하지 않습니다. `Rotation`을 사용하는 이유는 카메라의 방향(`orientation`)을 고려하여 왜곡 보정을 할 수 있기 때문입니다. 예를 들면 카메라의 방향이 바닥으로 치우쳐 있고 카메라의 방향이 지면과 비교하였을 때, 얼만큼 치우쳐(회전되어) 있는 지 알 수 있으면 그 만큼 `Rotation`을 반영하여 카메라의 방향 또한 보정된 왜곡 보정 영상을 얻을 수 있기 때문입니다. 즉, **일관된 카메라 방향의 왜곡 보정된 영상을 얻기 위함**입니다. 이 값을 적용하기 위해서는 `extrinsic parameter`가 필요하므로 본 글에서는 무시하고 `Identity`를 사용하도록 하겠습니다.
+- 마지막으로 `balance`는 영상의 왜곡 보정 정도를 결정하는 역할을 하며 범위는 0 ~ 1의 값을 가집니다. 만약 `balance`가 0이면 왜곡 보정 시 발생하는 불필요한 영역을 모두 제거할 수 있도록 **유효한 영역만 확대**하여 왜곡 보정된 영상을 가질 수 있도록 합니다. 반면 `balance`가 1이면 왜곡 보정 이전의 모든 픽셀을 유지한 형태로 왜곡 보정을 하게 됩니다. 그 결과 유효하지 않은 영역 또한 모두 포함되도록 왜곡 보정된 영상을 얻게 됩니다.
+
+<br>
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/10.png" alt="Drawing" style="width: 1200px;"/></center>
+<br>
+
+- `balance = 0.0`인 왜곡 보정 영상은 영상의 왜곡 보정된 부분만 확대되어 표시되며 영상에 불필요한 영역은 없습니다. 다만, 필요 이상으로 영역이 제거된 것은 볼 수 있습니다.
+- `balance = 1.0`인 왜곡 보정 영상은 원본 `Fisheye Camera` 영상의 모든 픽셀을 유지한 상태로 왜곡 보정이 된 것을 볼 수 있습니다. 그 결과 왜곡 보정 중 발생한 유효하지 않은 영역도 모두 포함된 것을 확인할 수 있습니다.
+- `balance = 0.5`인 경우 유효하지 않은 영역을 조금 포함하면서 적당한 이미지 영역을 포함한 것을 볼 수 있습니다.
+- 실제로 `balance = 0.0`인 경우는 `balance = 1.0`인 경우에서 필요한 영역만 `crop`한 후 `resize`하여 확대한 것과 동일합니다. 예를 들면 다음과 같습니다. (이미지가 약간 흐린 것은 이미지 편집 중 발생한 것일 뿐입니다.)
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/11.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 즉, `balance`는 내가 어떤 영역을 사용할 지에 대한 옵션이며 `balance`가 큰 값을 사용한 상태에서 유효한 영역만 crop한 후 resize 하면 `balance`가 작은 값을 생성해 낼 수 있습니다.
+- `balance`가 작은 값을 사용하였을 때, 유효 영역만 **확대하여 보여주는 것**이므로 `new_K`인 `intrinsic matrix`는 `balance`가 작을 때 더 큰 `fx, fy` 값을 가지게 됩니다. 다음 예시를 참조해 보면 됩니다.
+
+<br>
+
+```python
+# K (origin intrinsic)
+[[567.85821196   0.         960.58762478]
+ [  0.         567.33818371 516.27957345]
+ [  0.           0.           1.        ]]
+
+# new K (balance = 0.0)
+[[406.80006567   0.         957.83223697]
+ [  0.         406.42752985 600.24992824]
+ [  0.           0.           1.        ]]
+
+# new K (balance = 1.0)
+[[ 47.0625702    0.         959.74921218]
+ [  0.          47.01947165 546.97029503]
+ [  0.           0.           1.        ]]
+```
+
+<br>
+
+- [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)에서 소개한 바와 같이 `intrinsic matrix`는 마치 창 (`window`)과 같습니다. 실제 존재하는 값들에서 어떤 영역에 창을 만들어서 실제 이미지로 보는 지 결정하기 때문입니다. 즉, `balance = 0.0`으로 설정하여 유효한 영역 및 특정 크기의 창이 생성되도록 `new_K`가 도출되었다 하더라도 `new_K` 값을 임의로 조정하면 **원하는 영역 또는 원하는 크기의 왜곡 보정 영상을 생성**하여 볼 수 있습니다. 즉, 최종적으로 `opencv`함수를 통해 구하고자 하는 `map_x`, `map_y`를 구할 때, `new_K` 값을 조절하여 원하는 크기의 이미지를 원하는 영역 만큼만 구체적으로 정하여 왜곡 보정을 할 수 있습니다.
+
+<br>
+
+- 그러면 원하는 `크기`와 `ROI`를 고려하여 `map_x`, `map_y`를 만드는 방법을 살펴보도록 하겠습니다.
+
+
+
+
+
 
 <br>
 
