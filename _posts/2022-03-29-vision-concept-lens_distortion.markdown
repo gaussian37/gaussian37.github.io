@@ -888,15 +888,6 @@ I_u, map_x, map_y = get_map_xy(I_d, fx, fy, cx, cy, skew, k1, k2, k3, k4, k5)
 
 <br>
 
-## **Generic 카메라 모델 remap을 이용한 왜곡 영상 → 왜곡 보정 영상**
-
-<br>
-
-- 앞에서 생성한 `map_x`, `map_y`를 `opencv`의 `remap` 함수와 같이 사용하면 쉽게 왜곡 보정 영상을 생성할 수 있습니다.
-- [OpenCV remap 함수 사용 방법](https://gaussian37.github.io/vision-concept-image_transformation/#remap-%ED%95%A8%EC%88%98%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-remapping-1)
-
-<br>
-
 - 먼저 앞의 코드에서 다룬 `map_x`, `map_y` 값을 `opencv`를 이용하여 구하는 방법에 대하여 알아보도록 하겠습니다.
 - `opencv` 라이브러리의 `fisheye` 패키지(`cv2.fisheye`)를 이용하면 앞에서 다룬 `generic camera model`을 이용할 수 있습니다.
 - 먼저 아래와 같이 `estimateNewCameraMatrixForUndistortRectify` 함수를 통해 현재 `K`, `D`, `DIM` 조건에서 `balance` 옵션에 따라 왜곡 보정을 하였을 때 대응되는 `intrinsic matrix`인 `new_K`를 추정할 수 있습니다. `new_K`는 궁극적으로 구하고자 하는 `map_x`, `map_y`를 구하기 위해 필요한 값이므로 먼저 이 값을 구해야 합니다.
@@ -957,20 +948,146 @@ new_K = cv2.fisheye.estimateNewCameraMatrixForUndistortRectify(K, D, DIM, np.eye
 
 <br>
 
-- [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)에서 소개한 바와 같이 `intrinsic matrix`는 마치 창 (`window`)과 같습니다. 실제 존재하는 값들에서 어떤 영역에 창을 만들어서 실제 이미지로 보는 지 결정하기 때문입니다. 즉, `balance = 0.0`으로 설정하여 유효한 영역 및 특정 크기의 창이 생성되도록 `new_K`가 도출되었다 하더라도 `new_K` 값을 임의로 조정하면 **원하는 영역 또는 원하는 크기의 왜곡 보정 영상을 생성**하여 볼 수 있습니다. 즉, 최종적으로 `opencv`함수를 통해 구하고자 하는 `map_x`, `map_y`를 구할 때, `new_K` 값을 조절하여 원하는 크기의 이미지를 원하는 영역 만큼만 구체적으로 정하여 왜곡 보정을 할 수 있습니다.
+- 위에서 구한 `new_K`는 **왜곡 보정을 위한 초깃값** 정도로 생각하시면 됩니다. 이 값을 기준으로 원하는 크기, 영역을 추가적으로 구할 수 있기 때문입니다.
+- [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)에서 소개한 바와 같이 `intrinsic matrix`는 마치 창 (`window`)과 같습니다. 창 밖에 실제 존재하는 값들이 존재하고 어떤 영역에 창을 만들어서 존재하는 값들을 이미지로 형상화 하여 볼 지 결정만 하면 되기 때문입니다. 즉, `balance = 0.0`으로 설정하여 유효한 영역 및 특정 크기의 창이 생성되도록 `new_K`가 도출되었다 하더라도 `new_K` 값을 임의로 조정하면 **원하는 영역 또는 원하는 크기의 왜곡 보정 영상을 생성**하여 볼 수 있습니다. 즉, 최종적으로 `opencv`함수를 이용하여 `map_x`, `map_y`를 구할 때, `new_K` 값을 조절하여 원하는 크기의 이미지를 원하는 영역 만큼만 구체적으로 정하여 왜곡 보정을 할 수 있습니다.
 
 <br>
 
-- 그러면 원하는 `크기`와 `ROI`를 고려하여 `map_x`, `map_y`를 만드는 방법을 살펴보도록 하겠습니다.
-
-
-
-
-
+- 따라서 `cv2.fisheye.estimateNewCameraMatrixForUndistortRectify` 함수를 사용할 때에는 다음과 같은 옵션 조건을 기본값으로 사용하고 추가적으로 원하는 `크기`와 `ROI`를 조정하는 방식을 사용하면 
 
 <br>
 
-- 최종적으로 아래 코드를 이용하여 원하는 이미지의 해상도와 영역을 설정하여 왜곡 보정할 수 있습니다.
+```python
+K # 카메라 calibration을 통해 구한 intrinsic
+D # 카메라 calibration을 통해 구한 distortion
+DIM # 원본 이미지의 해상도
+balance = 0.0
+
+DIM = (width, height)
+new_K = cv2.fisheye.estimateNewCameraMatrixForUndistortRectify(K, D, DIM, np.eye(3), balance=0.0)
+```
+
+<br>
+
+- 그러면 원하는 `크기`와 `ROI`를 고려하여 `map_x`, `map_y`를 만드는 방법을 살펴보도록 하겠습니다. 살펴볼 순서는 다음과 같습니다.
+- `① resize ratio` : `resize ratio`를 이용하면 왜곡 보정된 영상의 크기를 조정할 수 있습니다. 기본값으로 원본과 동일한 크기의 영상을 만드는 `new_K`를 생성하였기 때문에 영상의 가로/세로 각각의 크기를 원본과 다르게 만들고 싶으면 `resize ratio`를 통하여 조정할 수 있습니다. 앞의 비유를 이용하면 `resize ratio`를 통하여 창문의 크기를 정한것이라고 볼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/14.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `② x/y translation` : 영상의 좌상단인 원점의 위치를 조정할 수 있습니다. 영상의 크기는 정해져 있기 때문에 영상의 좌상단의 위치를 정하면 그 위치부터 원하는 영역을 볼 수 있습니다. 비유를 하면 창문의 시작 위치를 정한다는 것으로 볼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/15.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- `③ bottom/right crop` : 영상의 좌상단 부분은 원하는 위치를 정한 상태입니다. 반면 영상의 하단과 우측 부분에서 불필요한 영역이 있다면 제거를 해야 합니다. 비유를 하면 창문의 하단 부분과 우측 끝 부분 중 필요 없다고 판단되는 부분을 자르는 것입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/16.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 비유를 통하여 `new_K`를 조작하는 방법에 대하여 살펴보도록 하겠습니다.
+
+<br>
+
+#### **① resize ratio**
+
+<br>
+
+- 앞의 함수를 통해 구한 `new_K` 값은 다음과 같습니다.
+
+<br>
+
+```python
+[[406.80006567   0.         957.83223697]
+ [  0.         406.42752985 600.24992824]
+ [  0.           0.           1.        ]]
+```
+
+<br>
+
+- 1행에 `resize_ratio`만큼 곱하면 이미지의 가로 길이가 조정되고 2행에 `resize_ratio`만큼 곱하면 이미지의 세로 길이가 조정 됩니다. 이와 관련된 내용은 [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)에서 확인할 수 있습니다. 방법은 다음과 같습니다.
+
+<br>
+
+```python
+resize_ratio = 0.5
+
+# resize window size
+new_K[0, :] *= resize_ratio
+new_K[1, :] *= resize_ratio
+
+# [[203.40003283   0.         478.91611849]
+#  [  0.         203.21376492 300.12496412]
+#  [  0.           0.           1.        ]]
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림의 결과와 같이 왜곡 보정 결과는 같지만 해상도가 다른 두 이미지를 얻을 수 있습니다. 즉 가로, 세로 이미지의 크기를 조절하여 `new_K`에 적용하면 원하는 크기의 왜곡 보정 영상을 얻을 수 있습니다.
+
+<br>
+
+#### **② x/y translation**
+
+<br>
+
+- 이번에는 `x/y translation`을 적용해 보도록 하겠습니다.
+
+<br>
+
+```python
+# translation with resized window
+x_translation = 150
+y_translation = 200
+
+new_K[0][2] -= x_translation
+new_K[1][2] -= y_translation
+
+# [[203.40003283   0.         328.91611849]
+#  [  0.         203.21376492 100.12496412]
+#  [  0.           0.           1.        ]]
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/17.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+#### **③ bottom/right crop**
+
+<br>
+
+- 마지막으로 우측과 하단에 불필요한 영역을 제거해 보도록 하겠습니다. 아래와 같이 최종 `DIM` 크기를 정해주면 됩니다.
+
+<br>
+
+```python
+bottom_crop = 200 # ③ crop bottom area in resized image
+right_crop = 100 # ③ crop right area in resize image
+
+# crop bottom & right in resized window
+new_DIM = (int(width*resize_ratio)-right_crop, int(height*resize_ratio)-bottom_crop)
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/18.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 지금까지 살펴본 내용을 통하여 `new_K`와 `new_DIM`을 정의하였고 다음 함수식을 통하여 `map_x`, `map_y`를 생성할 수 있습니다.
+
+<br>
+
+```python
+map_x, map_y = cv2.fisheye.initUndistortRectifyMap(K, D, np.eye(3), new_K, new_DIM, cv2.CV_16SC2)
+```
+
+<br>
+
+- 지금까지 살펴본 내용을 모두 집합해 보도록 하겠습니다. 최종적으로 아래 코드를 이용하여 원하는 이미지의 해상도와 영역을 설정하여 왜곡 보정할 수 있습니다.
 - 앞의 설명과 같이 ① `resize_ratio` 를 이용하여 왜곡 보정된 이미지의 사이즈를 결정하고 ② `x_translation`, `y_translation`을 이용하여 리사이즈된 이미지의 좌상단 원점의 시작점을 결정 후 ③ 최종적으로 필요없다고 판단되는 아랫 부분과 우측 부분 영역을 `bottom_crop`과 `right_crop` 만큼 잘라내어 원하는 크기와 영역의 왜곡 보정 영상을 얻을 수 있습니다.
 
 <br>
@@ -1003,8 +1120,30 @@ new_K[1][2] -= y_translation
 new_DIM = (int(width*resize_ratio)-right_crop, int(height*resize_ratio)-bottom_crop)
 map_x, map_y = cv2.fisheye.initUndistortRectifyMap(K, D, np.eye(3), new_K, new_DIM, cv2.CV_16SC2)
 
+# remap 함수는 아래 글에서 설명 예정
 undistorted_img = cv2.remap(img, map_x, map_y, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=(255, 255, 255))
 ```
+
+<br>
+
+## **Generic 카메라 모델 remap을 이용한 왜곡 영상 → 왜곡 보정 영상**
+
+<br>
+
+- 앞에서 살펴본 바와 같이 `map_x`, `map_y`는 왜곡 보정된 영상의 특정 좌표 $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 가 왜곡된 영상의 어떤 좌표값을 사용해야 하는 지, 대응시켜 놓은 `LUT(Look Up Table)`입니다.
+- `map_x`, `map_y`를 `opencv`의 `remap` 함수와 같이 사용하면 `mapping`을 쉽게 할 수 있으므로 왜곡 보정 영상을 생성할 수 있습니다.
+    - [OpenCV remap 함수 사용 방법](https://gaussian37.github.io/vision-concept-image_transformation/#remap-%ED%95%A8%EC%88%98%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-remapping-1)
+
+<br>
+
+```python
+undistorted_img = cv2.remap(img, map_x, map_y, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=(255, 255, 255))
+```
+
+<br>
+
+- 위 코드에서 `interpolation`을 사용하는 이유는 `mapping` 되지 않는 픽셀을 근처 값들을 이용하여 채우기 위함입니다. 일반적으로 `bilinear interpolation`을 사용합니다. 생성되는 영상의 품질도 나쁘지 않으면서 연산 효율이 좋기 때문입니다.
+- `borderMode`와 `borderValue`는 왜곡 보정 이후 값이 완전히 없는 영역은 특정 상수 값으로 채우거나 다른 특수한 방식으로 채우기 위함입니다. 일반적으로 상수값을 넣어서 왜곡 보정 시 생성될 수 없는 영역임을 명시적으로 표현합니다.
 
 <br>
 
