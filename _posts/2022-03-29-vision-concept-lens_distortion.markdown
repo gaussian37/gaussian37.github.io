@@ -888,8 +888,7 @@ I_u, map_x, map_y = get_map_xy(I_d, fx, fy, cx, cy, skew, k1, k2, k3, k4, k5)
 
 <br>
 
-- 먼저 앞의 코드에서 다룬 `map_x`, `map_y` 값을 `opencv`를 이용하여 구하는 방법에 대하여 알아보도록 하겠습니다.
-- `opencv` 라이브러리의 `fisheye` 패키지(`cv2.fisheye`)를 이용하면 앞에서 다룬 `generic camera model`을 이용할 수 있습니다.
+- 다음으로 앞의 코드에서 다룬 `map_x`, `map_y` 값을 `opencv`를 이용하여 구하는 방법에 대하여 알아보도록 하겠습니다. `opencv` 라이브러리의 `fisheye` 패키지(`cv2.fisheye`)를 이용하면 앞에서 다룬 `generic camera model`을 이용할 수 있습니다.
 - 먼저 아래와 같이 `estimateNewCameraMatrixForUndistortRectify` 함수를 통해 현재 `K`, `D`, `DIM` 조건에서 `balance` 옵션에 따라 왜곡 보정을 하였을 때 대응되는 `intrinsic matrix`인 `new_K`를 추정할 수 있습니다. `new_K`는 궁극적으로 구하고자 하는 `map_x`, `map_y`를 구하기 위해 필요한 값이므로 먼저 이 값을 구해야 합니다.
 
 <br>
@@ -1082,7 +1081,9 @@ new_DIM = (int(width*resize_ratio)-right_crop, int(height*resize_ratio)-bottom_c
 <br>
 
 ```python
-map_x, map_y = cv2.fisheye.initUndistortRectifyMap(K, D, np.eye(3), new_K, new_DIM, cv2.CV_16SC2)
+map_x, map_y = cv2.fisheye.initUndistortRectifyMap(K, D, np.eye(3), new_K, new_DIM, cv2.CV_32FC1)
+# map_x.shape : (result_height, result_width)
+# map_y.shape : (result_height, result_width)
 ```
 
 <br>
@@ -1147,11 +1148,97 @@ undistorted_img = cv2.remap(img, map_x, map_y, interpolation=cv2.INTER_LINEAR, b
 
 <br>
 
+- 만약 `opencv`의 `remap` 함수를 사용하지 않고 별도 구현해서 사용하려면 아래 코드를 이용할 수 있습니다.
+- 실제 `opencv`의 `remap`과는 결과가 완전 동일하지 않습니다. 하지만 `biliear interpolation`의 개념에 맞게 구현한 것으로 시각적인 차이는 없음을 확인하였습니다.
+
+<br>
+
+```python
+def bilinear_sampler(imgs, pix_coords):
+    """
+    Construct a new image by bilinear sampling from the input image.
+    Args:
+        imgs:                   [H, W, C]
+        pix_coords:             [h, w, 2]
+    :return:
+        sampled image           [h, w, c]
+    """
+    img_h, img_w, img_c = imgs.shape
+    pix_h, pix_w, pix_c = pix_coords.shape
+    out_shape = (pix_h, pix_w, img_c)
+
+    pix_x, pix_y = np.split(pix_coords, [1], axis=-1)  # [pix_h, pix_w, 1]
+    pix_x = pix_x.astype(np.float32)
+    pix_y = pix_y.astype(np.float32)
+
+    # Rounding
+    pix_x0 = np.floor(pix_x)
+    pix_x1 = pix_x0 + 1
+    pix_y0 = np.floor(pix_y)
+    pix_y1 = pix_y0 + 1
+
+    # Clip within image boundary
+    y_max = (img_h - 1)
+    x_max = (img_w - 1)
+    zero = np.zeros([1])
+
+    pix_x0 = np.clip(pix_x0, zero, x_max)
+    pix_y0 = np.clip(pix_y0, zero, y_max)
+    pix_x1 = np.clip(pix_x1, zero, x_max)
+    pix_y1 = np.clip(pix_y1, zero, y_max)
+
+    # Weights [pix_h, pix_w, 1]
+    wt_x0 = pix_x1 - pix_x
+    wt_x1 = pix_x - pix_x0
+    wt_y0 = pix_y1 - pix_y
+    wt_y1 = pix_y - pix_y0
+
+    # indices in the image to sample from
+    dim = img_w
+
+    # Apply the lower and upper bound pix coord
+    base_y0 = pix_y0 * dim
+    base_y1 = pix_y1 * dim
+
+    # 4 corner vertices
+    idx00 = (pix_x0 + base_y0).flatten().astype(np.int32)
+    idx01 = (pix_x0 + base_y1).astype(np.int32)
+    idx10 = (pix_x1 + base_y0).astype(np.int32)
+    idx11 = (pix_x1 + base_y1).astype(np.int32)
+
+    # Gather pixels from image using vertices
+    imgs_flat = imgs.reshape([-1, img_c]).astype(np.float32)
+    im00 = imgs_flat[idx00].reshape(out_shape)
+    im01 = imgs_flat[idx01].reshape(out_shape)
+    im10 = imgs_flat[idx10].reshape(out_shape)
+    im11 = imgs_flat[idx11].reshape(out_shape)
+
+    # Apply weights [pix_h, pix_w, 1]
+    w00 = wt_x0 * wt_y0
+    w01 = wt_x0 * wt_y1
+    w10 = wt_x1 * wt_y0
+    w11 = wt_x1 * wt_y1
+    output = w00 * im00 + w01 * im01 + w10 * im10 + w11 * im11
+    return output
+
+def remap_bilinear(image, map_x, map_y):
+    pix_coords = np.concatenate([np.expand_dims(map_x, -1), np.expand_dims(map_y, -1)], axis=-1)
+    bilinear_output = bilinear_sampler(image, pix_coords)
+    output = np.round(bilinear_output).astype(np.int32)
+    return output   
+```
+
+<br>
+
+- 이와 같은 방법을 통하여 사전에 필요한 영역의 왜곡 보정 영상을 구하기 위한 `map_x`, `map_y`를 구한 후 `remap`을 이용하여 실시간으로 왜곡 보정된 영상을 구할 수 있습니다. 연산 관점에서 `map_x`, `map_y`를 구하는 과정에서 연산이 소요될 뿐 `remap`은 빠르게 연산할 수 있기 때문입니다.
+
+<br>
+
 ## **Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 왜곡 보정 영상**
 
 <br>
 
-
+- 딥러닝 모델 학습에 카메라 왜곡 보정의 개념이 사용되어야 한다면 `pytorch`를 이용하여 카메라 왜곡 보정을 해야 합니다. 이와 같은 경우에는 `map_x`, `map_y`는 `opencv` 함수를 이용하여 사전에 구하고 `pytorch`에서는 `remap`함수의 역할을 하는 `grid_sample`을 이용하여 왜곡 보정 영상을 구할 수 있습니다.
 
 <br>
 
