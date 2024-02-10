@@ -3888,7 +3888,7 @@ torch.nan_to_num(x, nan = 0.0, posinf=1e10, neginf=-1e10)
 <br>
 
 - `grid_sample`은 `torch.nn.functional.grid_sample(input, grid, mode='bilinear', padding_mode='zeros', align_corners=None)` 와 같은 형태로 쓰이는 `sampling` 방법이며 torch에서 제공하는 bilinear interpolation과 유사한 역할을 하지만 좀 더 유연하게 sampling 할 수 있는 방법을 제공합니다.
-- pytorch의 document에서 제공하는 용어로 `grid`fmf `flow-field` 라고도 하며 `input`과 `grid`가 주어졌을 때, `grid`의 입력 값과 픽셀 위치를 사용하여 `output`을 계산하는 것으로 설명합니다.
+- pytorch의 document에서 제공하는 용어로 `grid`를 `flow-field` 라고도 하며 `input`과 `grid`가 주어졌을 때, `grid`의 입력 값과 픽셀 위치를 사용하여 `output`을 계산하는 것으로 설명합니다.
 - `input`은 4D 또는 5D 의 차원으로 입력 받습니다. 이미지의 경우 4D가 되는데 각 인자의 크기 형태는 다음과 같습니다.
     - `input` : $$ (N, C, H_{\text{in}}, W_{\text{in}}) $$
     - `grid` : $$ (N, H_{\text{out}}, W_{\text{out}}, 2) $$
