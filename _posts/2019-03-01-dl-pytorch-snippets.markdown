@@ -4090,18 +4090,18 @@ print(output2)
 <br>
 
 - 정리하면 `grid_sample`을 사용할 때, 인풋을 다음과 같이 정의하여 사용하면 됩니다.
-    - `input` : $$ (N, C, H_{text{in}}, W_{text{in}}) $$
-    - `grid` : $$ (N, H_{text{out}}, W_{text{out}}, 2) $$
+    - `input` : $$ (N, C, H_{\text{in}}, W_{\text{in}}) $$
+    - `grid` : $$ (N, H_{\text{out}}, W_{\text{out}}, 2) $$
         - `grid` 범위 : $$ [-1, -1] \sim [1, 1] $$ 이며 $$ [-1, -1] $$ 은 `upper-left corner`를 의미하고 $$ [1, 1] $$ 은 `bottom-right corner`를 의미합니다.
         - `grid` 의 채널(`C`)의 좌표 순서 : $$ x, y (,z) $$
-    - `output` : $$ (N, C, H_{text{out}}, W_{text{out}}) $$
+    - `output` : $$ (N, C, H_{\text{out}}, W_{\text{out}}) $$
 
 <br>
 
 - `grid_sample`은 이미지 복원을 할 때, 종종 사용되기도 하며 특히 `opencv`의 `cv2.remap` 함수와 같은 용도로 pytorch에서 사용할 수 있습니다.
 - 카메라의 렌즈 왜곡과 같은 문제를 효율적으로 접근하기 위하여 `cv2.remap` 함수를 사용하는데 이 역할이 학습에 추가된다면 `F.grid_sample`을 사용할 수 있습니다.
 - 렌즈 왜곡 문제를 다루기 위하여 `F.grid_sample` 사용방법은 아래 링크를 참조하시기 바랍니다.
-    - 링크 : [https://gaussian37.github.io/vision-concept-lense_distortion/](https://gaussian37.github.io/vision-concept-lense_distortion/)
+    - 링크 : [https://gaussian37.github.io/vision-concept-lens_distortion/](https://gaussian37.github.io/vision-concept-lens_distortion/)
 
 <br>
 
