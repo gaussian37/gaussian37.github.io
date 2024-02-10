@@ -1239,6 +1239,48 @@ def remap_bilinear(image, map_x, map_y):
 <br>
 
 - 딥러닝 모델 학습에 카메라 왜곡 보정의 개념이 사용되어야 한다면 `pytorch`를 이용하여 카메라 왜곡 보정을 해야 합니다. 이와 같은 경우에는 `map_x`, `map_y`는 `opencv` 함수를 이용하여 사전에 구하고 `pytorch`에서는 `remap`함수의 역할을 하는 `grid_sample`을 이용하여 왜곡 보정 영상을 구할 수 있습니다.
+    - [F.grid_sample 사용 방법 참조](https://gaussian37.github.io/dl-pytorch-snippets/#fgrid_sample-%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C-1)
+
+<br>
+
+- 앞의 링크를 통해 `grid_sample`의 동작 방식을 이해하면 다음과 같이 코드를 사용해야 함을 이해할 수 있습니다.
+
+<br>
+
+```python
+import torch
+import torch.nn.functional as F
+
+print(img.shape)
+# (1080, 1920, 3)
+img_tensor = torch.from_numpy(img).to(dtype=torch.float32)
+img_tensor = img_tensor.permute(2, 0, 1)
+img_tensor = img_tensor.unsqueeze(0)
+print(img_tensor.shape)
+# torch.Size([1, 3, 1080, 1920])
+
+map_x_tensor = torch.from_numpy(map_x) # (H, W)
+map_y_tensor = torch.from_numpy(map_y) # (H, W)
+
+print(map_x_tensor.max(), map_y_tensor.max())
+# (tensor(1573.9301), tensor(981.9427))
+
+grid = torch.stack((map_x_tensor, map_y_tensor), 2) # (H, W, 2)
+grid = grid.unsqueeze(0) # (B=1, H, W, 2)
+grid[:, :, :, 0] *= 2/(width-1)
+grid[:, :, :, 0] -= 1
+grid[:, :, :, 1] *= 2/(height-1)
+grid[:, :, :, 1] -= 1
+
+undist_img_tensor = F.grid_sample(img_tensor, grid, mode='bilinear', padding_mode='zeros', align_corners=True)
+# (B=1, C, H, W) -> (C, H, W) -> (H, W, C)
+undist_img_tensor = undist_img_tensor.squeeze().permute(1, 2, 0)
+undist_img = undist_img_tensor.detach().cpu().numpy().astype(np.uint8)
+```
+
+<br>
+
+- 위 코드에서 `grid = torch.stack((map_x_tensor, map_y_tensor), 2)`와 같이 `grid`를 구성한 이유는 링크의 설명과 같이 `map_x_tensor`가 $$ x $$ 좌표를 의미하고 `map_y_tensor`가 $$ y $$ 좌표를 의미하기 때문입니다. 따라서 샘플링할 좌표의 순서를 $$ x, y $$ 순서로 구성한 다음 `F.grid_sample`을 사용하면 되므로 위 코드와 같이 사용할 수 있습니다.
 
 <br>
 
