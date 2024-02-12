@@ -4056,8 +4056,19 @@ print(grid)
 <br>
 
 ```python
-output1 = torch.nn.functional.grid_sample(in_data, grid)
-print(output1)
+output_align_corner_true = torch.nn.functional.grid_sample(in_data, grid, align_corners=True)
+print(output_align_corner_true)
+# tensor([[[[ 0.0000,  0.4286,  0.8571,  1.2857,  1.7143,  2.1429,  2.5714,  3.0000],
+#           [ 1.7143,  2.1429,  2.5714,  3.0000,  3.4286,  3.8571,  4.2857,  4.7143],
+#           [ 3.4286,  3.8571,  4.2857,  4.7143,  5.1429,  5.5714,  6.0000,  6.4286],
+#           [ 5.1429,  5.5714,  6.0000,  6.4286,  6.8571,  7.2857,  7.7143,  8.1429],
+#           [ 6.8571,  7.2857,  7.7143,  8.1429,  8.5714,  9.0000,  9.4286,  9.8571],
+#           [ 8.5714,  9.0000,  9.4286,  9.8571, 10.2857, 10.7143, 11.1429, 11.5714],
+#           [10.2857, 10.7143, 11.1429, 11.5714, 12.0000, 12.4286, 12.8571, 13.2857],
+#           [12.0000, 12.4286, 12.8571, 13.2857, 13.7143, 14.1429, 14.5714, 15.0000]]]])
+
+output_align_corner_false = torch.nn.functional.grid_sample(in_data, grid)
+print(output_align_corner_false)
 # tensor([[[[ 0.0000,  0.0357,  0.3214,  0.6071,  0.8929,  1.1786,  1.4643,  0.7500],
 #           [ 0.1429,  0.3571,  0.9286,  1.5000,  2.0714,  2.6429,  3.2143,  1.6429],
 #           [ 1.2857,  2.6429,  3.2143,  3.7857,  4.3571,  4.9286,  5.5000,  2.7857],
@@ -4067,25 +4078,61 @@ print(output1)
 #           [ 5.8571, 11.7857, 12.3571, 12.9286, 13.5000, 14.0714, 14.6429,  7.3571],
 #           [ 3.0000,  6.0357,  6.3214,  6.6071,  6.8929,  7.1786,  7.4643,  3.7500]]]])
 
-output2 = torch.nn.functional.grid_sample(in_data, grid, align_corners=True)
-print(output2)
-# tensor([[[[ 0.0000,  0.4286,  0.8571,  1.2857,  1.7143,  2.1429,  2.5714,  3.0000],
-#           [ 1.7143,  2.1429,  2.5714,  3.0000,  3.4286,  3.8571,  4.2857,  4.7143],
-#           [ 3.4286,  3.8571,  4.2857,  4.7143,  5.1429,  5.5714,  6.0000,  6.4286],
-#           [ 5.1429,  5.5714,  6.0000,  6.4286,  6.8571,  7.2857,  7.7143,  8.1429],
-#           [ 6.8571,  7.2857,  7.7143,  8.1429,  8.5714,  9.0000,  9.4286,  9.8571],
-#           [ 8.5714,  9.0000,  9.4286,  9.8571, 10.2857, 10.7143, 11.1429, 11.5714],
-#           [10.2857, 10.7143, 11.1429, 11.5714, 12.0000, 12.4286, 12.8571, 13.2857],
-#           [12.0000, 12.4286, 12.8571, 13.2857, 13.7143, 14.1429, 14.5714, 15.0000]]]])
 ```
 
 <br>
 
-- `align corner`가 True인 경우에는 `input`의 크기에 딱 맞게 sampling이 되는 것을 볼 수 있습니다. 반면 `align corner`가 False인 경우에는 약간 값이 이상하게 sampling이 되는데 그 이유에 대하여 살펴보겠습니다.
+- `align_corners`가 True인 경우에는 `input`의 크기에 딱 맞게 sampling이 되는 것을 볼 수 있습니다. 반면 `align_corners`가 False인 경우에는 약간 값이 이상하게 sampling이 되는데 그 이유에 대하여 살펴보겠습니다.
 
 <br>
 
+- 먼저 `align_corners = True`인 경우 부터 살펴보도록 하겠습니다. `align_corner`가 의미하는 것은 앞에서 정의한 좌표값의 위치를 코너에 맞출 지, 아닐 지 결정하는 것에 해당합니다.
+- 아래 예제는 위 코드를 통해 실행한 예제에서 `in_data`에서 `(-0.7143, -0.7143)`에 해당하는 값을 샘플링 하였을 때 (grid는 $$ x, y $$ 각각의 범위가 `-1 ~ 1`이었음) 어떤 값이 샘플링 되는 지 살펴보는 내용입니다. 위 예제에서는 `align_corners = True`에서 샘플링 위치가 `(-0.7143, -0.7143)`일 때, `2.1429`가 얻어졌음을 알 수 있습니다.
+- 먼저 `align_corners = True`일 때, 동작 방식에 대하여 살펴보도록 하겠습니다.
 
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/19.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림과 같이 `align_corners = True`의 경우 샘플링할 `in_data`를 `corner`에 붙혀서 `bilinear interpolation` 연산을 하게 됩니다. 
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/21.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 위 식과 같이 `bilinear interpolation` 연산 시에는 연산할 영역에서 면적의 상대적인 크기가 `weight`로 사용됩니다. 따라서 각 점의 좌표와 면적의 비율을 이용하면 `bilinear interpolation` 계산을 할 수 있습니다. 점과 면적의 비율이 곱해지는 것의 관계를 살펴보면 됩니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/20.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- `pytorch`에서 얻은 값과 약간의 차이는 있지만 거의 같은 값을 구할 수 있었습니다. (`biliear interpolation`에서의 약간의 차이가 있는 것으로 추정됩니다.)
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/22.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 이와 같은 방법으로 `align_corners=True`일 때의 동작 방식을 이해할 수 있습니다.
+
+<br>
+
+- 이번에는 `align_corners=False`일 때의 동작 방식에 대하여 알아보도록 하겠습니다. `align_corners=False` 일 때에는 `in_data`의 값이 `corner`에 정렬되는 것이 아니라 아래 그림과 같이 `grid`의 중앙에 위치하게 됩니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/23.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 따라서 위 그림과 같이 `bilinear interpolation` 시 샘플링 되는 값과 위치가 바뀌게 되는 것을 알 수 있습니다. 앞의 `align_corners=True`인 경우와 비교하였을 때, 면적이 생성되는 위치가 다름을 알 수 있습니다. 그러면 위 예제의 `output(0.7143, -0.7143) = 3.2143`이 어떻게 계산되는 지 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/24.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/dl/pytorch/snippets/25.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 따라서 위 계산과 같이 `align_corners=False`인 경우의 동작 방식과 계산 결과를 확인할 수 있습니다.
 
 <br>
 

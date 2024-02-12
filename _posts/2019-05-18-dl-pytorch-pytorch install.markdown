@@ -18,6 +18,7 @@ tags: [pytorch, pytorch 설치, colab] # add tag
 <br>
 
 - `RTX 3070`을 이용하여 로컬 컴퓨터에 설치하였을 때, `CUDA 11.1`, `cuDNN 8.2.0`, `Python 3.7.9`에서 정상적으로 동작함을 확인하였습니다.
+- `python 3.8`을 사용할 때에는 `CUDA 11.7`과 `cuDNN 8.5.0`에서 정상 동작함을 확인하였습니다.
 
 <br>
 
