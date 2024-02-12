@@ -4089,6 +4089,8 @@ print(output_align_corner_false)
 - 먼저 `align_corners = True`인 경우 부터 살펴보도록 하겠습니다. `align_corner`가 의미하는 것은 앞에서 정의한 좌표값의 위치를 코너에 맞출 지, 아닐 지 결정하는 것에 해당합니다.
 - 아래 예제는 위 코드를 통해 실행한 예제에서 `in_data`에서 `(-0.7143, -0.7143)`에 해당하는 값을 샘플링 하였을 때 (grid는 $$ x, y $$ 각각의 범위가 `-1 ~ 1`이었음) 어떤 값이 샘플링 되는 지 살펴보는 내용입니다. 위 예제에서는 `align_corners = True`에서 샘플링 위치가 `(-0.7143, -0.7143)`일 때, `2.1429`가 얻어졌음을 알 수 있습니다.
 - 먼저 `align_corners = True`일 때, 동작 방식에 대하여 살펴보도록 하겠습니다.
+- 아래 그림의 좌표와 색 영역을 나타낸 그림은 위키피디아의 `bilinear interpolation` 개념 설명에 해당하는 것이며 아래 링크에서 참조할 수 있습니다.
+    - https://en.wikipedia.org/wiki/Bilinear_interpolation
 
 <br>
 <center><img src="../assets/img/dl/pytorch/snippets/19.png" alt="Drawing" style="width: 800px;"/></center>
