@@ -4109,7 +4109,7 @@ print(output_align_corner_false)
 <br>
 
 - `pytorch`에서 얻은 값과 약간의 차이는 있지만 거의 같은 값을 구할 수 있었습니다. (`biliear interpolation`에서의 약간의 차이가 있는 것으로 추정됩니다.) 위 계산된 엑셀표는 다음 링크에서 참조할 수 있습니다.
-    - 링크 : [algign_corners 계산 엑셀 시트](https://docs.google.com/spreadsheets/d/10_VXGIk8AZqME2bG9rkGn9ufMRTrJ1xz/edit?usp=sharing&ouid=111594611615416511552&rtpof=true&)sd=true
+    - 링크 : [algign_corners 계산 엑셀 시트](https://docs.google.com/spreadsheets/d/10_VXGIk8AZqME2bG9rkGn9ufMRTrJ1xz/edit?usp=sharing&ouid=111594611615416511552&rtpof=true&sd=true)
 
 <br>
 <center><img src="../assets/img/dl/pytorch/snippets/22.png" alt="Drawing" style="width: 600px;"/></center>
@@ -4131,7 +4131,7 @@ print(output_align_corner_false)
 <center><img src="../assets/img/dl/pytorch/snippets/24.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
-- 링크 : [algign_corners 계산 엑셀 시트](https://docs.google.com/spreadsheets/d/10_VXGIk8AZqME2bG9rkGn9ufMRTrJ1xz/edit?usp=sharing&ouid=111594611615416511552&rtpof=true&)sd=true
+- 링크 : [algign_corners 계산 엑셀 시트](https://docs.google.com/spreadsheets/d/10_VXGIk8AZqME2bG9rkGn9ufMRTrJ1xz/edit?usp=sharing&ouid=111594611615416511552&rtpof=true&sd=true)
 
 <br>
 <center><img src="../assets/img/dl/pytorch/snippets/25.png" alt="Drawing" style="width: 600px;"/></center>
