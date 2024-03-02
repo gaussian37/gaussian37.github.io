@@ -233,6 +233,40 @@ tags: [선형대수학, 회전 변환, rotation, rotation matrix] # add tag
 
 <br>
 
+- 위 식을 파이썬 코드로 나타내면 다음과 같습니다.
+
+<br>
+
+```python
+import numpy as np
+
+def euler_to_rotation_matrix(roll, pitch, yaw):
+    # Convert angles to radians
+    roll = np.radians(roll)
+    pitch = np.radians(pitch)
+    yaw = np.radians(yaw)
+
+    # Define individual rotation matrices
+    Rx = np.array([[1, 0, 0],
+                   [0, np.cos(roll), -np.sin(roll)],
+                   [0, np.sin(roll), np.cos(roll)]])
+    
+    Ry = np.array([[np.cos(pitch), 0, np.sin(pitch)],
+                   [0, 1, 0],
+                   [-np.sin(pitch), 0, np.cos(pitch)]])
+    
+    Rz = np.array([[np.cos(yaw), -np.sin(yaw), 0],
+                   [np.sin(yaw), np.cos(yaw), 0],
+                   [0, 0, 1]])
+
+    # Combine the rotations
+    R = np.dot(Rz, np.dot(Ry, Rx))
+    return R
+```
+
+
+<br>
+
 ## **회전 변환 행렬의 직교성**
 
 <br>
@@ -288,70 +322,81 @@ tags: [선형대수학, 회전 변환, rotation, rotation matrix] # add tag
 
 <br>
 
-- `Roll, Pitch, Yaw`를 이용하여 `Rotation` 행렬을 구하는 방법과 그 반대 방향의 방법을 이용하기 위해서는 아래 코드를 사용할 수 있습니다.
-- `Roll, Pitch, Yaw` → `Rotation` 행렬을 구하는 방법은 앞에서 배운 방법과 동일합니다.
-- 그 반대 방법은 `np.arctan2`를 이용하여 필요한 각도를 구할 수 있습니다.
-    - [atan과 atan2 비교](https://gaussian37.github.io/math-calculus-atan/) 참조
+- 참조 : https://eecs.qmul.ac.uk/~gslabaugh/publications/euler.pdf
+- 참조 : [atan과 atan2 비교](https://gaussian37.github.io/math-calculus-atan/)
 
 <br>
 
-```python
-import numpy as np
+- 지금까지 살펴본 방식은 `Roll`, `Pitch`, `Yaw`를 이용하여 `Rotation` 행렬을 구하는 방법에 대하여 살펴보았습니다.
+- 이번에는 임의의 `Rotation` 행렬이 주어졌을 때, 이 행렬을 `Roll`, `Pitch`, `Yaw`로 분해하는 방법을 알아보도록 하겠습니다.
 
-def euler_to_rotation_matrix(roll, pitch, yaw):
-    # Convert angles to radians
-    roll = np.radians(roll)
-    pitch = np.radians(pitch)
-    yaw = np.radians(yaw)
+<br>
 
-    # Define individual rotation matrices
-    Rx = np.array([[1, 0, 0],
-                   [0, np.cos(roll), -np.sin(roll)],
-                   [0, np.sin(roll), np.cos(roll)]])
-    
-    Ry = np.array([[np.cos(pitch), 0, np.sin(pitch)],
-                   [0, 1, 0],
-                   [-np.sin(pitch), 0, np.cos(pitch)]])
-    
-    Rz = np.array([[np.cos(yaw), -np.sin(yaw), 0],
-                   [np.sin(yaw), np.cos(yaw), 0],
-                   [0, 0, 1]])
+- 앞에서 `Roll`, `Pitch`, `Yaw` 각각은 다음과 같은 형태로 표현할 수 있었습니다. 아래 식에서 $$ \psi $$ 는 $$ x $$ 축의 회전인 `Roll` 의 각도를 의미하며 $$ \theta $$ 는 $$ y $$ 축의 회전인 `Pitch`의 각도를 의미하고 마지막으로 $$ \phi $$ 는 $$ z $$ 축의 회전인 `Yaw`의 각도를 의미합니다.
 
-    # Combine the rotations
-    R = np.dot(Rz, np.dot(Ry, Rx))
-    return R
+<br>
 
-def rotation_matrix_to_euler_angles(R, degree=True):
-    assert(R.shape == (3, 3))
+- $$ R_{x}(\psi) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & \cos{\psi} & -\sin{\psi} \\ 0 & \sin{\psi} & \cos{\psi} \end{bmatrix} $$
 
-    pitch = np.arctan2(-R[2][0], np.sqrt(R[2][1]**2 + R[2][2]**2))
+- $$ R_{y}(\theta) = \begin{bmatrix} \cos{\theta} & 0 & \sin{\theta} \\ 0 & 1 & 0 \\ -\sin{\theta} & 0 & \cos{\theta} \end{bmatrix} $$
 
-    if abs(R[2][0]) != 1:  # Avoid gimbal lock
-        roll = np.arctan2(R[2][1], R[2][2])
-        yaw = np.arctan2(R[1][0], R[0][0])
-    else:  # Gimbal lock occurs
-        roll = 0  # Arbitrarily set
-        yaw = np.arctan2(-R[0][2], R[1][1])
-        
-    if degree:
-        roll *= (180/np.pi)
-        pitch *= (180/np.pi)
-        yaw *= (180/np.pi)
-        
-    return roll, pitch, yaw
+- $$ R_{z}(\phi) = \begin{bmatrix} \cos{\phi} & -\sin{\phi} & 0 \\ \sin{\phi} & \cos{\phi} & 0 \\ 0 & 0 & 1 \end{bmatrix} $$
 
-# Example usage:
-roll = 30  # Roll angle in degrees
-pitch = 45  # Pitch angle in degrees
-yaw = 60  # Yaw angle in degrees
+<br>
 
-rotation_matrix = euler_to_rotation_matrix(roll, pitch, yaw)
-print("Rotation Matrix:\n", rotation_matrix)
+- 앞에서 다룬 바와 같이 `Rotation` 행렬은 다음과 같이 `Roll`, `Pitch`, `Yaw`를 이용하여 표현할 수 있었습니다. 회전 순서는 $$ Rx $$ 로 곱해지기 때문에 `Roll`, `Pitch`, `Yaw` 순서로 회전 됩니다.
 
-roll_prime, pitch_prime, yaw_prime = rotation_matrix_to_euler_angles(rotation_matrix)
-print("Roll, Pitch, Yaw:\n", roll_prime, pitch_prime, yaw_prime)
-```
+- $$ \begin{align} R &= R_{z}(\phi)R_{y}(\theta)R_{x}(\psi) \\ &= \begin{bmatrix} \cos{\theta}\cos{\phi} & \sin{\psi}\sin{\theta}\cos{\phi}-\cos{\psi}\sin{\phi} & \cos{\psi}\sin{\theta}\cos{\phi} + \sin{\psi}\sin{\phi} \\ \cos{\theta}\sin{\phi} & \sin{\psi}\sin{\theta}\sin{\phi} + \cos{\psi}\cos{\phi} & \cos{\psi}\sin{\theta}\sin{\phi}-\sin{\psi}\cos{\phi} \\ -\sin{\theta} & \sin{\psi}\cos{\theta} & \cos{\psi}\cos{\theta} \end{bmatrix} \\ &= \bmatrix{begin} R_{11} & R_{12} & R_{13} \\ R_{21} & R_{22} & R_{23} \\ R_{31} & R_{32} & R_{33}\end{bmatrix} \end{align} $$
 
+<br>
+
+- 현재 알고 싶은 정보는 위 `Rotation` 행렬 $$ R $$ 을 이용하여 $$ \psi, \theta, \phi $$ 를 구하고 싶은 것입니다.
+
+<br>
+
+- #### **2개의 $$ \theta $$ 구하기** ####
+
+<br>
+
+- 앞에서 $$ R $$ 을 구하였을 때, $$ R_{31} $$ 은 다음과 같습니다.
+
+<br>
+
+- $$ R_{31} = -\sin{\theta} $$
+
+<br>
+
+- 따라서 $$ \theta $$ 를 쉽게 구할 수 있습니다.
+
+<br>
+
+- $$ \theta = \sin^{-1}{-R_{31}} = -\sin^{-1}{R_{31}} $$
+
+<br>
+
+- 추가적으로 $$ \sin{\pi - \theta} = \sin{\theta} $$ 를 만족하므로 다음과 같이 2개의 식을 만족하는 $$ \theta $$ 를 구할 수 있습니다. 단, $$ R_{31} \ne \pm 1 $$ 인 경우를 가정하며 이유는 글의 뒷부분에서 이어서 설명하도록 하겠습니다.
+
+<br>
+
+- $$ \theta_{1} = -\sin^{-1}{(R_{31})} $$
+
+- $$ \theta_{2} = \pi - \theta_{1} = \pi + \sin^{-1}{(R_{31})} $$
+
+<br>
+
+- 위 식의 전개와 같이 $$ \theta $$ 가 2 종류가 나오기 때문에 최종 해 또한 2 종류로 도출됩니다.
+
+<br>
+
+- #### **대응되는 $$\psi $$ 구하기** ####
+
+<br>
+
+- 위 식에서 $$ R_{32}, R_{33} $$ 을 이용하면 $$ \psi $$ 를 구할 수 있습니다.
+
+<br>
+
+- $$ \frac{R_{32}}{R_{33}} = \frac{\sin{(\psi)}\cos{(\theta)}}{\cos{(\psi)}\cos{(\theta)}} = \frac{\sin{(\psi)}}{\cos{(\psi)}} = \tan{} $$
 
 <br>
 
