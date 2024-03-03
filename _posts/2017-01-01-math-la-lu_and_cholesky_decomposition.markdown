@@ -339,8 +339,17 @@ tags: [Linear algebra, 선형대수학, LU 분해, Cholesky 분해] # add tag
 
 <br>
 
-- `양의 정부호 행렬 (Positive Difinite Matrix)`이면 `대칭 행렬`임을 만족합니다. (역은 성립하지 않음)
-- 즉 `양의 정부호 행렬` $$ A $$ 는 (대칭 행렬이므로) $$ A = LDL^{T} $$ 로 분해 가능합니다.
+- 참조 : [양의 정부호 행렬 (Positive Definite Matrix)](https://gaussian37.github.io/math-la-positive_definite_matrix/)
+
+<br>
+
+- `Cholesky` 분해는 행렬 $$ A $$ 가 `양의 정부호 행렬 (Positive Difinite Matrix)` 임을 가정한 상태에서 `LU` 분해를 하는 방법입니다. $$ A $$ 가 `양의 정부호 행렬 (Positive Difinite Matrix)`이면 `대칭 행렬`임을 만족합니다. (역은 성립하지 않음)
+- 즉 `양의 정부호 행렬` $$ A $$ 는 대칭 행렬이므로 $$ A = LDL^{T} $$ 로 분해 가능한데, `양의 정부호 행렬`이라는 특성으로 인하여 **유일하게** $$ A = LL^{T} $$ 로 분해된다는 특성을 가집니다.
+- **유일하게 분해된다는 성질**을 이용하여 `Cholesky` 분해는 식의 전개나 해를 구할 때, 자주 사용됩니다. 그러면 `Cholesky` 분해에 대하여 알아보도록 하겠습니다.
+
+<br>
+
+
 
 
 

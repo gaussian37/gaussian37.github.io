@@ -298,7 +298,7 @@ tags: [icp, iterative closest point, point cloud registration, svd, known data a
 
 <br>
 
-- `Singular Value`는 모두 0보다 크기 때문에 `eigenvalue`는 `Singular Value`의 제곱이므로 모든 `eigenvalue`는 양수임을 알 수 있습니다. `eigenvlaue`가 모두 양수이면 `Positive Definite Matrix` 조건을 만족하기 때문에 ([양의 정부호 행렬 (Positive Definite Matrix)](https://gaussian37.github.io/ml-la-positive_definite_matrix/) 참조) $$ XH $$ 는 `Positive Definite Matrix` 입니다.
+- `Singular Value`는 모두 0보다 크기 때문에 `eigenvalue`는 `Singular Value`의 제곱이므로 모든 `eigenvalue`는 양수임을 알 수 있습니다. `eigenvlaue`가 모두 양수이면 `Positive Definite Matrix` 조건을 만족하기 때문에 ([양의 정부호 행렬 (Positive Definite Matrix)](https://gaussian37.github.io/math-la-positive_definite_matrix/) 참조) $$ XH $$ 는 `Positive Definite Matrix` 입니다.
 - 따라서 앞에서 정리한 소정리를 이용할 수 있습니다. 
 
 <br>
