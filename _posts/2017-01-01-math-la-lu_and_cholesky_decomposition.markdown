@@ -349,9 +349,103 @@ tags: [Linear algebra, 선형대수학, LU 분해, Cholesky 분해] # add tag
 
 <br>
 
+- 행렬 $$ A $$ 가 `양의 정부호 행렬`이면 `대칭행렬`이므로 $$ A = LDL^{T} $$ 로 분해가 가능함은 앞에서 다루었습니다. 이 때, $$ D = L^{T}AL $$ 또한 `양의 정부호 행렬`임을 만족합니다. 따라서 $$ D $$ 의 모든 대각원소는 `양수`입니다. **따라서 $$ D $$ 는 제곱근으로 분해될 수 있습니다.** 이 성질을 이용하면 $$ A = LL^{T} $$ 로 분해 가능합니다.
 
+<br>
 
+- $$ D = \begin{bmatrix} d_{1} & \cdots & 0 \\ \vdots & \ddots & \vdots \\ 0 & \cdots & d_{n} \end{bmatrix} $$
 
+- $$ \sqrt{D} = \begin{bmatrix} \sqrt{d_{1}} & \cdots & 0 \\ \vdots & \ddots & \vdots \\ 0 & \cdots & \sqrt{d_{n}} \end{bmatrix} $$
+
+- $$ (\sqrt{D})^{2} = D $$
+
+<br>
+
+- $$ L_{1} = L\sqrt{D} $$
+
+- $$ L_{1}L_{1}^{T} = L\sqrt{D}\sqrt{D}^{T}L^{T} = LDL^{T} = A $$
+
+<br>
+
+- 따라서 $$ A $$ 가 `양의 정부호 행렬`이면 $$ L $$ 이 존재하여 $$ A = LL^{T} $$ 로 분해됩니다.
+- 아래는 예제를 통하여 $$ A = LL^{T} $$ 로 분해되는 과정을 살펴본 결과입니다.
+
+<br>
+
+- $$ \begin{align} A &= \begin{bmatrix} 2 & 4 & 4 \\ 4 & 14 & 8 \\ 4 & 8 & 14 \\ \end{bmatrix} \\ &= \begin{bmatrix} 1 & 0 & 0 \\ 2 & 1 & 0 \\ 2 & 0 & 1 \\ \end{bmatrix} \begin{bmatrix} 2 & 4 & 4 \\ 0 & 6 & 0 \\ 0 & 0 & 6 \end{bmatrix} \\ &= \begin{bmatrix}  1 & 0 & 0 \\ 2 & 1 & 0 \\ 2 & 0 & 1 \end{bmatrix} \begin{bmatrix} 2 & 0 & 0 \\ 0 & 6 & 0 \\ 0 & 0 & 6 \end{bmatrix} \begin{bmatrix} 1 & 2 & 2 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix} \\ &=\begin{bmatrix}  1 & 0 & 0 \\ 2 & 1 & 0 \\ 2 & 0 & 1 \end{bmatrix} \begin{bmatrix} \sqrt{2}^{2} & 0 & 0 \\ 0 & \sqrt{6}^{2} & 0 \\ 0 & 0 & \sqrt{6}^{2} \end{bmatrix} \begin{bmatrix} 1 & 2 & 2 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix} \\ &= \begin{bmatrix} 1 & 0 & 0 \\ 2 & 1 & 0 \\ 2 & 0 & 1 \\ \end{bmatrix} \begin{bmatrix} \sqrt{2} & 0 & 0 \\ 0 & \sqrt{6} & 0 \\ 0 & 0 & \sqrt{6} \\ \end{bmatrix} \begin{bmatrix} \sqrt{2} & 0 & 0 \\ 0 & \sqrt{6} & 0 \\
+0 & 0 & \sqrt{6} \\ \end{bmatrix} \begin{bmatrix} 1 & 2 & 2 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \\ \end{bmatrix} \\ &= \begin{bmatrix} \sqrt{2} & 0 & 0 \\ 2\sqrt{2} & \sqrt{6} & 0 \\ 2\sqrt{2} & 0 & \sqrt{6} \\ \end{bmatrix} \begin{bmatrix} \sqrt{2} & 2\sqrt{2} & 2\sqrt{2} \\ 0 & \sqrt{6} & 0 \\ 0 & 0 & \sqrt{6} \\ \end{bmatrix} \\ &= LL^T \end{align} $$
+
+<br>
+
+- 앞에서 언급한 바와 같이 `양의 정부호 행렬` $$ A $$ 는 `Cholesky` 분해가 **유일한 값으로 분해**된다는 점을 이용하여 사용된다고 하였습니다. 이 내용을 살펴보면 다음과 같습니다.
+
+<br>
+
+- $$ A = LDL^{T} $$
+
+- $$ A = L_{1}L_{1}^{T} \quad (L_{1} = L\sqrt{D}) $$
+
+- $$ L \text{ : Lower triangular matrix with all diagonal elements being 1} $$
+
+- $$ D \text{ : Diagonal matrix. All diagonal matrix elements are positive numbers} $$
+
+- $$ L \text{ : Lower triangular matrix with all diagonal elements being positive numbers} $$
+
+- $$ L_{1}L_{1}^{T} = L(\sqrt{D})(\sqrt{D})^{T}L_{T} = LDL^{T} = A $$
+
+<br>
+
+- 마지막으로 $$ 3 \times 3 $$ 행렬과 같이 `Cholesky` 분해가 많이 사용되는 행렬의 형태에서는 아래와 같이 정형화 하여 사용할 수도 있습니다.
+
+<br>
+
+- $$ A = LL^{T} $$
+
+- $$ \begin{align} \begin{bmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{bmatrix} &= \begin{bmatrix} l_{11} & 0 & 0 \\ l_{21} & l_{22} & 0 \\ l_{31} & l_{32} & l_{33} \end{bmatrix} \begin{bmatrix} l_{11} & l_{21} & l_{31} \\ 0 & l_{22} & l_{32} \\ 0 & 0 & l_{33} \end{bmatrix} \\ &= \begin{bmatrix} l_{11}^{2} & l_{11}l_{21} & l_{11}l_{31} \\ l_{11}l_{21} & l_{21}^{2} + l_{22}^{2} & l_{21}l_{31} + l_{22}l_{32} \\ l_{11}l_{31} & l_{21}l_{31} + l_{22}l_{32} & l_{31}^{2} + l_{32}^{2} + l_{33}^{2} \end{bmatrix} \end{align} $$
+
+<br>
+
+- 위 식을 정리하면 다음 값들을 순차적으로 구할 수 있습니다.
+
+<br>
+
+- $$ l_{11} = \sqrt{a_{11}} $$
+
+- $$ l_{21} = a_{21} / l_{11} $$
+
+- $$ l_{22} = \sqrt{a_{22} - l_{21}^{2}} $$
+
+- $$ l_{31} = a_{31} / l_{11} $$
+
+- $$ l_{32} = (a_{32} - l_{31}l_{21}) / l_{22} $$
+
+- $$ l_{33} = \sqrt{a_{33} - l_{31}^{2} - l{32}^{2}} $$
+
+<br>
+
+- 앞에서 다룬 예제를 다시 위 식을 통해 구하면 다음과 같습니다.
+
+<br>
+
+- $$ A = \begin{bmatrix} 2 & 4 & 4 \\ 4 & 14 & 8 \\ 4 & 8 & 14 \\ \end{bmatrix} $$
+
+- $$ l_{11} = \sqrt{a_{11}} = \sqrt{2} $$
+
+- $$ l_{21} = a_{21} / l_{11} = 4 / \sqrt{2} = 2\sqrt{2} $$
+
+- $$ l_{22} = \sqrt{a_{22} - l_{21}^{2}} = \sqrt{14 - 8} = \sqrt{6} $$
+
+- $$ l_{31} = a_{31} / l_{11} = 4 / \sqrt{2} = 2\sqrt{2} $$
+
+- $$ l_{32} = (a_{32} - l_{31}l_{21}) / l_{22} = (8 - 2\sqrt{2}2\sqrt{2}) / \sqrt{6} = 0 $$
+
+- $$ l_{33} = \sqrt{a_{33} - l_{31}^{2} - l{32}^{2}} = \sqrt{14 - 8 - 0} = \sqrt{6} $$
+
+- $$ \therefore \quad L = \begin{bmatrix} \sqrt{2} & 0 & 0 \\ 2\sqrt{2} & \sqrt{6} & 0 \\ 2\sqrt{2} & 0 & \sqrt{6} \\ \end{bmatrix} $$
+
+<br>
+
+- 이와 같이 앞에서 다룬 결과와 동일한 값을 얻을 수 있습니다.
 
 <br>
 
