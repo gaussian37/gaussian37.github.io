@@ -95,10 +95,6 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec8/18.png" alt="Drawing" style="width: 1000px;"/></center>
-<br>
-
-<br>
 <center><img src="../assets/img/vision/mvg/nus_lec8/19.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
