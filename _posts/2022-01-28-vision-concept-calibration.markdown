@@ -767,14 +767,28 @@ ax.set_zlabel("Z-axis")
 - 식 (47) 에서 표현한 $$ (\alpha \frac{x}{z}, \beta \frac{y}{z}) $$ 에서는 근본적인 원리를 설명하기 위하여 모두 분해하여 나타내었습니다.
 - 하지만 앞에서 언급하였듯이, 실제로 카메라에 기입된 스펙에는 `focal length` 1개가 `mm` 단위로 나타내어져 있습니다. 이상적인 환경에서는 실제 픽셀에 해당하는 이미지 센서의 각 셀의 크기가 정사각형이어야 하지만 현실적으로 직사각형일 수 있으므로 $$ f_{x}, f_{y} $$ 표기법으로 나타내면 다음과 같습니다.
 
-- $$ \alpha = f_{x} \propto \frac{\text{(focal length)} \text{(number of horizontal cells)} }{\text{(cell width size)}} \propto \text{(focal length)} \cdot  \text{(number of horizontal cells)} $$ 
+- $$ \alpha = f_{x} \propto \frac{f}{\text{sensor cell width (e.g. mm)}} \times \text{ image width (in pixels)} $$
 
-- $$ \beta = f_{y} \propto \frac{\text{(focal length)} \text{(number of vertical cells)} }{\text{(cell height size)}} \propto \text{(focal length)} \cdot  \text{(number of vertical cells)} $$
+- $$ \beta = f_{y} \propto \frac{f}{\text{sensor cell height (e.g. mm)}} \times \text{ image height (in pixels)} $$
 
 <br>
 
-- 위 식에서 `cell width/height size`가 소거된 이유는 기술의 발전으로 이미지 센서 셀이 정사각형 크기에 가까워졌기 때문입니다. 따라서 각 항을 소거하였습니다.
-- 카메라 `intrinsic`에서 사용하는 $$ f_{x}, f_{y} $$ 는 실제 하드웨어적으로 고정되는 `focal length`에 비례하고 각 방향의 이미지 해상도 크기와 비례합니다. 따라서 이미지 해상도를 크게 표현할수록 $$ f_{x}, f_{y} $$ 는 커집니다.
+- 카메라 `intrinsic`에서 사용하는 $$ f_{x}, f_{y} $$ 는 실제 하드웨어 값인 `focal length`에 비례하고 각 방향의 이미지 해상도 크기에 비례합니다. 따라서 이미지 해상도를 크게 표현할수록 $$ f_{x}, f_{y} $$ 는 커집니다.
+
+<br>
+
+- 정리하면 $$ fx, fy $$ 를 결정하는 데 영향을 주는 값은 `focal length`인 $$ f $$, `센서셀의 가로/세로 크기` 그리고 `이미지 해상도` 임을 확인할 수 있습니다.
+- 여기서 센서셀의 가로/세로 크기는 완전히 고정된 상수값이므로 $$ fx, fy $$ 의 값을 조정할 때, 무시할 수 있습니다. 반면 원하는 $$ fx, fy $$ 를 결정하는 데 `focal length` $$ f $$ 와 `이미지 해상도`는 변경할 수 있습니다.
+- 먼저 `focal length` $$ f $$ 는 사용하는 렌즈에 따라 조절이 가능한 값입니다. 하나의 카메라에 대하여 `focal length`를 큰 카메라 렌즈 환경을 구성할 수 있고 `focal length`가 작은 카메라 렌즈 환경도 구성할 수 있기 때문입니다. 이 값에 따라 보고자 하는 영역이 달라집니다. 대표적으로 원거리 영상을 확대해서 촬영하는 대포카메라 같은 경우에 `focal length`가 큰 렌즈 환경입니다.
+- 그리고 `이미지 해상도`를 크게 할수록 이미지 width/height 방향의 픽셀 갯수가 많아지기 때문에 이 공간을 표현하기 위해서 $$ fx, fy $$ 값 또한 커져야 함을 알 수 있습니다.
+- 따라서 $$ fx, fy $$ 와 연관된 값을 정리하면 다음과 같습니다.
+    - ① `Focal Length` ( $$ f $$ ) : `Variable`. 렌즈 셋팅 환경에 따라 변경될 수 있습니다.
+    - ② `Sensor Cell Size` : `Constant`. 센서의 물리적인 값으로 고정된 값입니다.
+    - ③ `Image Size` : `Variable`. 카메라 환경이나 Post-Processing 측면에서 변경될 수 있습니다.
+    - ④ $$ fx, fy $$ : `Variable`. `focal length`와 `image size/resolution`에 의하여 결정되는 값입니다.
+
+<br>
+
 - 따라서 (`cell width/height size` 사이즈가 같고) `focal length`의 크기가 같은 두개의 이미지의 $$ f_{x}, f_{y} $$ 의 크기 차이가 난다면 $$ f_{x}, f_{y} $$ 크기가 더 큰 이미지의 해상도가 더 크다는 의미를 가지며 3D 공간의 정보를 좀 더 세세하게 표현하고 접근할 수 있다는 것을 의미합니다.
 - 반면 이미지의 해상도가 같은 두개의 이미지의 $$ f_{x}, f_{y} $$ 의 크기 차이가 난다면 `focal length`가 다르다고 해석할 수 있으며 `focal length`가 큰 이미지는 화각은 좁지만 멀리까지 선명하게 볼 수 있고 `focal length`가 작은 이미지는 넓은 영역을 볼 수 있지만 가까운 영역만 선명하게 볼 수 있다는 차이가 있습니다.
 

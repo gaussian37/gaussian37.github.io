@@ -44,6 +44,8 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [sparse matrix(희소 행렬)](https://gaussian37.github.io/math-la-sparse_matrix/)
 - [블록 행렬 곱(block matrix multiplication)](https://gaussian37.github.io/math-la-block_matrix_multiplication/)
 - [Similar Matrix (닮은 행렬)](https://gaussian37.github.io/math-la-similar_matrix/)
+- [Skew Symmetric Matrix](https://gaussian37.github.io/math-la-skew_symmetric_matrix/)
+- [Comapanion Matrix](https://gaussian37.github.io/math-la-companion_matrix/)
 
 <br>
 
