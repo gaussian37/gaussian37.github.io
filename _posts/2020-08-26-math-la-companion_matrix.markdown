@@ -30,7 +30,7 @@ tags: [Linear algebra, vector, companion matrix] # add tag
 
 <br>
 
-- $$ p(x) = c_{0} + c_{1}x + \cdits + c_{n-1}x^{n-1} + x^{n} $$
+- $$ p(x) = c_{0} + c_{1}x + \cdots + c_{n-1}x^{n-1} + x^{n} $$
 
 <br>
 
