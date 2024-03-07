@@ -130,6 +130,8 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 <center><img src="../assets/img/vision/mvg/nus_lec8/27.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- [Companion Matrix의 정의](https://gaussian37.github.io/math-la-companion_matrix/)
+
 
 <br>
 
