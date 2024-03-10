@@ -447,6 +447,64 @@ pcd = pcd.select_by_index(road_inliers, invert=True)
 
 <br>
 
+- 위 코드에서 구한 `plane_model`은 찾은 평면의 식을 나타냅니다. 평면이기 때문에 식은 다음과 같습니다.
+
+<br>
+
+- $$ ax + by + cz + d = 0 $$
+
+<br>
+
+- 위 식에서 $$ a, b, c, d $$ 계수가 차례대로 `plane_model`에 저장됩니다.
+
+<br>
+
+
+- 만약 도로가 평지가 아니라 약간의 오르막/내리막이 존재한다면 위 식과 같은 평면으로는 지면을 모델링 할 수 없습니다. 대신에 곡면을 이용해야 합니다.
+- 다음 코드는 1차식 즉, 평면과 2차식 즉, 2차 곡면을 동일한 `RANSAC` 방식으로 추정하는 코드입니다. 어떤 면을 선택해야 하는 지는 다양한 기준을 실험해 보면서 선택할 수 있습니다. 아래는 단순히 `inlier` 갯수를 이용하여 모델링한 것입니다.
+- `min_samples`의 갯수는 1차 평면의 경우 최소 점 3개를 선택해야 하므로 3개를 지정하였고 2차 곡면의 경우 6개의 점을 선택해야 하므로 6개를 지정하였습니다.
+
+<br>
+
+```python
+import numpy as np
+from sklearn.linear_model import RANSACRegressor
+from sklearn.preprocessing import PolynomialFeatures
+
+degress = [1, 2]
+max_inliers = []
+max_inliers_degree = None
+    
+for degree in degress:    
+    pcd = pcd.voxel_down_sample(voxel_size=0.5)
+    pcd_points = np.array(pcd.points)
+    X = pcd_points[:, :2]
+    Z = pcd_points[:, 2]
+    
+    # Polynomial features for quadratic model
+    poly_features = PolynomialFeatures(degree=degree, include_bias=True)
+    X_poly = poly_features.fit_transform(X)
+    
+    # Apply RANSAC
+    ransac = RANSACRegressor(min_samples=3*degree, residual_threshold=0.3, max_trials=500)
+    ransac.fit(X_poly, Z)
+    
+    # Retrieve the inlier mask, then find the indices of inliers
+    inlier_mask = ransac.inlier_mask_
+    inliers = np.nonzero(inlier_mask)[0]
+
+    if len(max_inliers) < len(inliers):
+        diff = len(inliers) - len(max_inliers)
+        max_inliers = inliers
+        max_inliers_degree = degree
+        # Print the coefficients and intercept
+        coefficients = ransac.estimator_.coef_
+        intercept = ransac.estimator_.intercept_
+
+```
+
+<br>
+
 ## **DBSCAN을 이용한 포인트 클라우드 클러스터링**
 
 <br>
