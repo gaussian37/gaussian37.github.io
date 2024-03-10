@@ -396,7 +396,119 @@ def euler_to_rotation_matrix(roll, pitch, yaw):
 
 <br>
 
-- $$ \frac{R_{32}}{R_{33}} = \frac{\sin{(\psi)}\cos{(\theta)}}{\cos{(\psi)}\cos{(\theta)}} = \frac{\sin{(\psi)}}{\cos{(\psi)}} = \tan{} $$
+- $$ \frac{R_{32}}{R_{33}} = \frac{\sin{(\psi)}\cos{(\theta)}}{\cos{(\psi)}\cos{(\theta)}} = \frac{\sin{(\psi)}}{\cos{(\psi)}} = \tan{(\psi)} $$
+
+- $$ \psi = \text{atan2}(R_{32}, R_{33}) $$
+
+<br>
+
+- 작성중 ...
+
+<br>
+
+#### **python code**
+
+<br>
+<center><img src="../assets/img/math/la/rotation_matrix/11.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 먼저 앞에서 설명한 기호를 이용하여 코드를 작성하면 다음과 같습니다.
+
+<br>
+
+```python
+import numpy as np
+
+# Define the conversion function
+def rotation_matrix_to_euler_angles(R):
+    assert(R.shape == (3, 3))
+
+    if R[2, 0] != 1 and R[2, 0] != -1:
+        theta1 = -np.arcsin(R[2, 0])
+        theta2 = np.pi - theta1
+        psi1 = np.arctan2(R[2, 1] / np.cos(theta1), R[2, 2] / np.cos(theta1))
+        psi2 = np.arctan2(R[2, 1] / np.cos(theta2), R[2, 2] / np.cos(theta2))
+        phi1 = np.arctan2(R[1, 0] / np.cos(theta1), R[0, 0] / np.cos(theta1))
+        phi2 = np.arctan2(R[1, 0] / np.cos(theta2), R[0, 0] / np.cos(theta2))
+        return (theta1, psi1, phi1), (theta2, psi2, phi2)
+    else:
+        phi = 0  # can set to anything, it's the gimbal lock case
+        if R[2, 0] == -1:
+            theta = np.pi / 2
+            psi = phi + np.arctan2(R[0, 1], R[0, 2])
+        else:
+            theta = -np.pi / 2
+            psi = -phi + np.arctan2(-R[0, 1], -R[0, 2])
+        return (theta, psi, phi), (None, None, None)
+
+# Example rotation matrix
+R_example = np.array([
+    [0.5, -0.5, 0.707],
+    [0.5, 0.5, -0.707],
+    [-0.707, 0.707, 0]
+])
+
+# Get the Euler angles
+euler_angles_set_1, euler_angles_set_2 = rotation_matrix_to_euler_angles(R_example)
+euler_angles_set_1, euler_angles_set_2
+```
+
+<br>
+
+- 먼저 첫번째 셋의 결과는 다음과 같습니다.
+    - `roll` = 0.7854 radians (45 degrees)
+    - `pitch` = 0.7852 radians (45 degrees)
+    - `yaw` = 1.5708 radians (90 degrees)
+- 두번째 셋의 결과는 다음과 같습니다.
+    - `roll` = -2.3562 radians (-135 degrees)
+    - `pitch` = 2.3563 radians (135 degrees)
+    - `yaw` = -1.5708 radians (-90 degrees).
+<br>
+
+- 일반적으로 첫번째 셋의 결과를 사용하면 됩니다.
+
+<br>
+
+- 다음으로 많이 사용하는 `roll`, `pitch`, `yaw`로 바꾸어서 표현하면 다음과 같습니다. 구현 방법 및 결과는 동일합니다.
+
+<br>
+
+```python
+import numpy as np
+
+# Redefine the conversion function using roll, pitch, and yaw after the code state reset
+def rotation_matrix_to_euler_angles(R):
+    assert(R.shape == (3, 3))
+
+    if R[2, 0] != 1 and R[2, 0] != -1:
+        pitch1 = -np.arcsin(R[2, 0])
+        pitch2 = np.pi - pitch1
+        yaw1 = np.arctan2(R[2, 1] / np.cos(pitch1), R[2, 2] / np.cos(pitch1))
+        yaw2 = np.arctan2(R[2, 1] / np.cos(pitch2), R[2, 2] / np.cos(pitch2))
+        roll1 = np.arctan2(R[1, 0] / np.cos(pitch1), R[0, 0] / np.cos(pitch1))
+        roll2 = np.arctan2(R[1, 0] / np.cos(pitch2), R[0, 0] / np.cos(pitch2))
+        return (roll1, pitch1, yaw1), (roll2, pitch2, yaw2)
+    else:
+        roll = 0  # can set to anything, it's the gimbal lock case
+        if R[2, 0] == -1:
+            pitch = np.pi / 2
+            yaw = roll + np.arctan2(R[0, 1], R[0, 2])
+        else:
+            pitch = -np.pi / 2
+            yaw = -roll + np.arctan2(-R[0, 1], -R[0, 2])
+        return (roll, pitch, yaw), (None, None, None)
+
+# Example rotation matrix (redefined as it was lost during code state reset)
+R_example = np.array([
+    [0.5, -0.5, 0.707],
+    [0.5, 0.5, -0.707],
+    [-0.707, 0.707, 0]
+])
+
+# Get the Euler angles
+euler_angles_set_1, euler_angles_set_2 = rotation_matrix_to_euler_angles(R_example)
+euler_angles_set_1, euler_angles_set_2
+```
 
 <br>
 
