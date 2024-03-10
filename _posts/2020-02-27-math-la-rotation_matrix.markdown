@@ -346,7 +346,7 @@ def euler_to_rotation_matrix(roll, pitch, yaw):
 
 - 앞에서 다룬 바와 같이 `Rotation` 행렬은 다음과 같이 `Roll`, `Pitch`, `Yaw`를 이용하여 표현할 수 있었습니다. 회전 순서는 $$ Rx $$ 로 곱해지기 때문에 `Roll`, `Pitch`, `Yaw` 순서로 회전 됩니다.
 
-- $$ \begin{align} R &= R_{z}(\phi)R_{y}(\theta)R_{x}(\psi) \\ &= \begin{bmatrix} \cos{\theta}\cos{\phi} & \sin{\psi}\sin{\theta}\cos{\phi}-\cos{\psi}\sin{\phi} & \cos{\psi}\sin{\theta}\cos{\phi} + \sin{\psi}\sin{\phi} \\ \cos{\theta}\sin{\phi} & \sin{\psi}\sin{\theta}\sin{\phi} + \cos{\psi}\cos{\phi} & \cos{\psi}\sin{\theta}\sin{\phi}-\sin{\psi}\cos{\phi} \\ -\sin{\theta} & \sin{\psi}\cos{\theta} & \cos{\psi}\cos{\theta} \end{bmatrix} \\ &= \bmatrix{begin} R_{11} & R_{12} & R_{13} \\ R_{21} & R_{22} & R_{23} \\ R_{31} & R_{32} & R_{33}\end{bmatrix} \end{align} $$
+- $$ \begin{align} R &= R_{z}(\phi)R_{y}(\theta)R_{x}(\psi) \\ &= \begin{bmatrix} \cos{\theta}\cos{\phi} & \sin{\psi}\sin{\theta}\cos{\phi}-\cos{\psi}\sin{\phi} & \cos{\psi}\sin{\theta}\cos{\phi} + \sin{\psi}\sin{\phi} \\ \cos{\theta}\sin{\phi} & \sin{\psi}\sin{\theta}\sin{\phi} + \cos{\psi}\cos{\phi} & \cos{\psi}\sin{\theta}\sin{\phi}-\sin{\psi}\cos{\phi} \\ -\sin{\theta} & \sin{\psi}\cos{\theta} & \cos{\psi}\cos{\theta} \end{bmatrix} \\ &= \begin{bmatrix} R_{11} & R_{12} & R_{13} \\ R_{21} & R_{22} & R_{23} \\ R_{31} & R_{32} & R_{33}\end{bmatrix} \end{align} $$
 
 <br>
 
