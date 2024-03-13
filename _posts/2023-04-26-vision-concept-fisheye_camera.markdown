@@ -51,6 +51,7 @@ tags: [fisheye camera, 어안 카메라, lens distortion, 카메라 모델, 렌�
 - ### [Fisheye Camera 왜곡 보정 방법 : Perspective Images](#fisheye-camera-왜곡-보정-방법--perspective-images)
 - ### [Fisheye Camera 왜곡 보정 방법 : Cylindrical Images](#fisheye-camera-왜곡-보정-방법--cylindrical-images-1)
 - ### [Fisheye Camera 왜곡 보정 방법 : Spherical Images](#fisheye-camera-왜곡-보정-방법--spherical-images-1)
+- ### [Fisheye Camera 왜곡 보정 방법 : Cube Images](#fisheye-camera-왜곡-보정-방법--cube-images-1)
 - ### [Surround-view Fisheye Camera Perception for Automated Driving 리뷰](#surround-view-fisheye-camera-perception-for-automated-driving-리뷰-1)
     - ### [Abstract](#abstract-1)
     - ### [1. Introduction](#1-introduction-1)
@@ -379,7 +380,13 @@ _, board_50_bfs = bfs(board_50, cy, cx)
 <center><img src="../assets/img/vision/concept/fisheye_camera/10.png" alt="Drawing" style="width: 1200px;"/></center>
 <br>
 
-- `입사각`이 90도에서 50도로 줄어들수록 $$ (c_{x}, c_{y}) $$ 중심점 방향으로 유효한 영역이 좁아지는 것을 확인할 수 있습니다. 
+- `입사각`이 90도에서 50도로 줄어들수록 $$ (c_{x}, c_{y}) $$ 중심점 방향으로 유효한 영역이 좁아지는 것을 확인할 수 있습니다.
+
+<br>
+
+## **Fisheye Camera 왜곡 보정 방법 : Perspective Images**
+
+<br>
 
 <br>
 
@@ -387,10 +394,23 @@ _, board_50_bfs = bfs(board_50, cy, cx)
 
 <br>
 
+- 참조 : https://plaut.github.io/fisheye_tutorial
+- 참조 : https://arxiv.org/pdf/2003.03759.pdf
+
+<br>
+
 ## **Fisheye Camera 왜곡 보정 방법 : Spherical Images**
 
 <br>
 
+- 참조 : https://paulbourke.net/dome/fish2/
+- 참조 : https://paulbourke.net/dome/dualfish2sphere/
+
+<br>
+
+## **Fisheye Camera 왜곡 보정 방법 : Cube Images**
+
+<br>
 
 <br>
 
