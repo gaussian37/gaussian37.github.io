@@ -148,6 +148,24 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 <center><img src="../assets/img/vision/mvg/nus_lec8/31.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- $$ R^T R = (M Q^{(-1/2)})^T (M Q^{(-1/2)}) = (Q^{(-1/2)})^T M^T M Q^{(-1/2)} = (Q^{(-1/2)})^T Q Q^{(-1/2)} = (Q^{(-1/2)})^T Q^{(1/2)} Q^{(1/2)} Q^{(-1/2)} $$
+
+- $$ Q^{(-1/2)} = V Λ^{(-1/2)} V^T, \text{where } Λ^{(-1/2)} \text{ is a diagonal matrix with the square roots of the eigenvalues.} $$
+
+- $$ Q^{(1/2)} = V Λ^{(1/2)} V^T, \text{where } Λ^{(1/2)} \text{ is a diagonal matrix with the square roots of the eigenvalues.} $$
+
+- $$ (Q^{(-1/2)})^T Q^{(1/2)} Q^{(1/2)} Q^{(-1/2)} = (V Λ^{(-1/2)} V^T)^T (V Λ^{(1/2)} V^T) (V Λ^{(1/2)} V^T) (V Λ^{(-1/2)} V^T) = V Λ^{(-1/2)} V^T V Λ^{(1/2)} V^T V Λ^{(1/2)} V^T V Λ^{(-1/2)} V^T $$
+
+- $$ Λ^{(-1/2)} Λ^{(1/2)} = Λ^{(1/2)} Λ^{(-1/2)} = I $$
+
+- $$ \because Λ^{(-1/2)} ,Λ^{(1/2)} \text{ are reciprocals of each other.} $$
+
+- $$ V^T V = V V^T = I $$
+
+- $$ (Q^{(-1/2)})^T Q^{(1/2)} Q^{(1/2)} Q^{(-1/2)} = V Λ^{(-1/2)} Λ^{(1/2)} Λ^{(1/2)} Λ^{(-1/2)} V^T = V I I V^T = V V^T = I $$
+
+- $$ \text{det}(R) = \text{det}(M Q^{(-1/2)}) = \text{det}(M) \text{det}(Q^{(-1/2)}) = \text{det}(M) \text{det}(V Λ^{(-1/2)} V^T) = \text{det}(M) \text{det}(V) \text{det}(Λ^{(-1/2)}) \text{det}(V^T) = \text{det}(M) / \text{sqrt}(\text{det}(Q)) = \text{det}(M) / |\text{det}(M)| = \text{sign}(\text{det}(M))$$
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec8/32.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
