@@ -132,6 +132,50 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 
 - [Companion Matrix의 정의](https://gaussian37.github.io/math-la-companion_matrix/)
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec8/28.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec8/29.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec8/30.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec8/31.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec8/32.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec8/33.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec8/34.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec8/35.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec8/36.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec8/37.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec8/38.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
 
 <br>
 
