@@ -184,7 +184,9 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 
 <br>
 
-- 행렬 $$ M $$ 에 의해 정의된 상관 정보는 위 슬라이드의 행렬 $$ Q $$ 를 통하여 `normalized` 하여 두 점 군을 가장 잘 정렬하는 회전 행렬 $$ R $$ 을 유도하는 데 사용 됩니다.
+- 행렬 $$ M $$ 에 의해 정의된 `correlation` 정보는 위 슬라이드의 행렬 $$ Q $$ 를 통하여 `normalized` 하여 두 점 군을 가장 잘 정렬하는 회전 행렬 $$ R $$ 을 유도하는 데 사용 됩니다.
+- 아래 내용 전개 시, 특이값 분해 내용이 사용되므로 관련 내용은 아래 링크를 참조하시면 됩니다.
+    - [특잇값 분해](https://gaussian37.github.io/math-la-svd/)
 
 <br>
 
@@ -201,6 +203,11 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 - 마지막으로 구한 $$ UV^{T} $$ 는 `orthogonal matrix`이며 행렬 $$ M $$ 의 `rotation`을 의미합니다. 위 식에서 $$ M $$ 에 $$ Q^{-1/2} $$ 를 곱함으로써 `scaling` 및 `shearing` 요소들을 제거하여 순수하게 `rotation` 정보만을 얻을 수 있었습니다.
 - 행렬 $$ Q = (M^{T}M)^{-1/2} $$ 이기 때문에 `normzalization`을 위한 스케일 값만을 제거해주는 역할을 하는 것을 식을 통해서도 알 수 있습니다.
 
+<br>
+
+- 다음과 같이 특이값 분해의 본연의 성질을 시각화한 것을 살펴보면 앞의 설명을 이해하실 수 있을 것입니다.
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec8/30_1.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 따라서 지금까지 식의 전개 내용을 살펴보면 다음과 같습니다.
