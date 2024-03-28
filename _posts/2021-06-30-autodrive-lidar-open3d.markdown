@@ -17,6 +17,7 @@ tags: [라이다, open3d, 포인트 클라우드] # add tag
 - ### [open3d로 grid 생성하는 방법](#open3d로-grid-생성하는-방법-1)
 - ### [jupyter lab에서 open3d 시각화 방법](#jupyter-lab에서-open3d-시각화-방법-1)
 - ### [연속된 point cloud 시각화 방법](#연속된-point-cloud-시각화-방법-1)
+- ### [open3d에서 점 선택하는 방법](#open3d에서-점-선택하는-방법-1)
 
 <br>
 
@@ -356,3 +357,42 @@ vis.register_key_callback(ord('Q'), quit_callback)
 vis.run()
 vis.destroy_window()
 ```
+
+<br>
+
+## **open3d에서 점 선택하는 방법**
+
+<br>
+
+- 아래 코드의 `vis.get_picked_points()`를 이용하면 선택된 점을 구 형태로 표시를 해줍니다.
+- 구를 선택할 때에는 `shift + left mouse click`으로 선택하면 되고 선택된 구를 해제할 때에는 `shift + right mouse click`으로 해제할 수 있습니다. 선택된 구의 크기는 `shift +/-`를 통하여 크기를 조절할 수 있습니다.
+- 구를 선택하였을 때, 터미널에 선택된 구의 좌표가 임시적으로 출력됩니다.
+- 모든 점들을 선택한 다음 창을 끄면 선택된 구의 정보를 확인할 수 있습니다.
+
+<br>
+
+```python
+import glob
+import open3d as o3d
+import numpy as np
+
+file_paths = glob.glob("./*.pcd")
+file_paths.sort()
+point_clouds = [o3d.io.read_point_cloud(file_path) for file_path in file_paths]
+
+pcd = point_clouds[0]
+for i, pcd in enumerate(point_clouds):
+    vis = o3d.visualization.VisualizerWithEditing()
+    vis.create_window()
+    vis.add_geometry(pcd)
+    vis.run()  # user picks points
+    vis.destroy_window()
+    indices = vis.get_picked_points()
+    pcd_points = np.array(pcd.points)
+
+    print("\n{}th point cloud".format(i))
+    for index in indices:
+        print(index, pcd_points[index])
+```
+
+<br>
