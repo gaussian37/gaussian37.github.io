@@ -133,6 +133,14 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, The fundamental an
 - [Companion Matrix의 정의](https://gaussian37.github.io/math-la-companion_matrix/)
 
 <br>
+<center><img src="../assets/img/vision/mvg/nus_lec8/27_1.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 참조 : https://youtu.be/N1aCvzFll6Q?t=1769
+- 앞에서 설명한 `Companion Matrix` 또는 다차 방정식의 해를 구하는 방법을 통하여 4차 방정식을 풀면 4가지의 해를 구할 수 있습니다. 따라서 4가지의 해 중 실제 해에 해당하는 값을 구할 수 있어야 합니다. 
+- 예를 들면 위 그림과 같이 4가지 경우의 해를 구할 수 있기 때문에 추가적인 정보를 이용하여 특정 상황을 결정해 주어야 합니다. 이 경우 4번째 점인 $$ X_{4} $$ 에 대한 정보를 추가적으로 이용하여 `depth`를 구하였을 때에도 동일한 값이 나오는 경우를 선택하면 실제 해를 구할 수 있습니다. (또는 다른 추가적인 센서 값을 이용할 수도 있습니다.)
+
+<br>
 <center><img src="../assets/img/vision/mvg/nus_lec8/28.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
