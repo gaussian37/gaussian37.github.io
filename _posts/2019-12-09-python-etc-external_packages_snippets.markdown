@@ -17,6 +17,7 @@ tags: [python, external packages, snippets, tqdm, pygame, pyautogui, sourcedefen
 - ### pyautogui 으로 화면 해상도 출력
 - ### sourcedefender를 이용한 소스코드 암호화
 - ### moviepy를 이용한 동영상 붙이기
+- ### geopy를 이용한 위도, 경도로 주소 읽기
 
 <br>
 
@@ -176,3 +177,42 @@ final_clip.write_videofile("final.mp4")
 ```
 
 <br>
+
+## **geopy를 이용한 위도, 경도로 주소 읽기**
+
+<br>
+
+- 아래 코드와 같이 `from geopy.geocoders import Nominatim`를 이용하면 위도/경도 값을 이용하여 주소를 읽어올 수 있습니다.
+- 다른 네이버, 카카오 지도 API를 사용해도 되지만 간단하게 사용하려면 아래 코드만 이용하여도 충분히 주소 정보를 얻을 수 있습니다.
+- 실제 사용할 때에는 `lng`, `lat` 값만 실제 값을 적용하여 사용하면 됩니다.
+
+<br>
+
+```python
+from geopy.geocoders import Nominatim
+
+geolocoder = Nominatim(user_agent='South Korea', timeout=None)
+
+lng = "37.517648"
+lat = "127.112757"
+
+address = geolocoder.reverse(lng + "," + lat)
+if address is None:
+    print("adress is None")
+else:
+    locations = address.address.split(",")[::-1]
+    locations = [location.strip() for location in locations]
+
+    if locations[0] == "대한민국":
+        start_index = 1        
+        end_index = len(locations)
+        if locations[1].isdigit():
+            start_index += 1
+        if locations[-1].isdigit():
+            end_index -= 1
+        index_range = list(range(start_index, end_index))
+        adress_result = " ".join([locations[i].strip() for i in index_range])
+        print("Address: ", adress_result)
+    else:
+        print("Non-Korea : ", address.address)
+```
