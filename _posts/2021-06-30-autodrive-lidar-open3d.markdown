@@ -397,6 +397,12 @@ vis.destroy_window()
 <center><img src="../assets/img/autodrive/lidar/open3d/5.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 아래는 실시간으로 데이터를 읽어왔을 때, 순간 순간의 데이터가 어떻게 표현되는 지 나타낸 결과입니다.
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/open3d/5.gif" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
 ## **연속된 point cloud 파일 읽어서 시각화**
 
 <br>
