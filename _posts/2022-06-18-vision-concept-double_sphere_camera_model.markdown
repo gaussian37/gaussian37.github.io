@@ -2,7 +2,7 @@
 layout: post
 title: Double Sphere 카메라 모델 및 다양한 카메라 모델의 종류 (Pinhole, UCM, EUCM, Kannala-Brandt Camera Model 등)
 date: 2022-06-18 00:00:00
-img: vision/concept/camera_models/0.png
+img: vision/concept/double_sphere_camera_model/0.png
 categories: [vision-concept] 
 tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala-Brandt Camera Model] # add tag
 ---
@@ -18,7 +18,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 - 이번 글에서는 최종적으로 `Double Sphere`라는 카메라 모델을 소개하고자 하며 `Double Sphere` 카메라 모델은 `UCM` 및 `EUCM` 카메라 모델 등의 `Generic Camera Model`을 발전시킨 카메라 모델입니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/1.gif" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/1.gif" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - `Double Sphere` 카메라 모델은 위 그림과 같이 2개의 `Sphere`를 기준으로 모델링 되었기 때문에 `Double Sphere`라는 이름으로 지어졌으며 이는 단일 `Spehere`를 가지는 `UCM, EUCM`과의 차이점입니다.
@@ -49,7 +49,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 ## **Abstract**
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/2.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 비전 기반의 다양한 어플리케이션을 개발하기 위하여 넓은 영역의 FOV (Field Of View)를 가지는 카메라가 많이 사용되고 있습니다. 본 논문에서 사용하는 카메라 렌즈는 `fisheye` 카메라 렌즈로 저렴한 가격과 넓은 시야의 장점으로 많이 사용되고 있습니다. 따라서 본 논문에서는 `fisheye` 카메라 렌즈의 다양한 카메라를 이용하여 실험을 진행하였습니다.
@@ -63,7 +63,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 <br>
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/4.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/4.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - `Visual Odometry` 또는 `SLAM` 등의 어플리케이션이 중요해 지고 있으며 이러한 어플리케이션의 성능을 향상시키기 위하여 하드웨어와 소프트웨어의 개선이 필요해지고 있습니다. `large field-of-view` 카메라는 이와 같은 어플리케이션에서 몇가지 개선점을 제공합니다.
@@ -72,7 +72,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 - 이러한 장점들이 `motion estimation`에 큰 도움을 주므로 `large FOV`의 대표적인 카메라 렌즈인 `fisheye lense`가 실생활에 많이 새용되고 있습니다. 따라서 본 논문에서는 `large FOV` 카메라 렌즈 중 `fisheye lense`를 기준으로 실험 및 기술이 될 예정입니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/5.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/5.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 앞으로 다룰 내용은 다양한 카메라 모델을 `fisheye` 카메라 렌즈를 사용하는 다양한 카메라에 대하여 성능을 검토하였으며 카메라 모델 별 `projection`, `unprojection` 함수 등을 제공합니다.
@@ -88,7 +88,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 - 앞으로 사용할 기호에 대하여 먼저 정리하도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/6.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/6.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - ① $$ \text{scalars}, u, v, ... $$ : 소문자로 나타낸 값을 스칼라 값으로 표현합니다.
@@ -112,7 +112,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 - `unit sphere`는 구의 모든 점이 중심에서 하나의 거리에 있도록 하는 구입니다. 휘어져 있기 때문에 3차원 공간에 내장되어 표현되는 경우가 많습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/15.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/15.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 그림과 같이 2차원 표면을 `sphere`라고 하며 3차원으로 확장하면 `ball` 이라고 합니다. 
@@ -141,7 +141,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 - `Pinhole` 카메라 모델에서는 3D 포인트를 2D 이미지 좌표계로 변형하려면 다음과 같습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/14.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/14.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 카메라 렌즈의 왜곡이 없기 때문에 단순히 $$ z $$ 로 나누기만 하면 `undistorted normalized image plane`으로 사영됩니다.
@@ -161,7 +161,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 - `Pinhole` 카메라 모델의 `unprojection` 식은 다음 식과 같습니다. $$ \pi^{-1} : \Theta \to \mathbb{S}^{2} $$ 이기 때문에 최종 변환 지점은 `unit sphere`입니다. 즉, 일반적으로 사용하는 `normalized image plane`이 아니므로 식이 조금 다릅니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/16.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/16.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 일반적으로 위 식의 $$ [m_{x}, m_{y}, 1]^{T} $$ 가 `2D image plane`에서 `normalized image plane`으로 변환하는 식에 해당합니다.
@@ -169,7 +169,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 - 위 식에서는 $$ 1 / \sqrt{m_{x}^{2} + m_{y}^{2} + 1} $$ 이 추가로 곱해집니다. 이 값은 $$ \sqrt{(m_{x} - 0)^{2} + (m_{y} - 0)^{2} + (1 - 0)^{2}} $$ 인 `distance` 값을 나누어 준 값으로 `unit sphere` 형태로 만들어 주기 위해 곱해집니다. 즉, `normalized image plane`에서의 모든 `distance`를 각 픽셀 별로 나누어 줌으로써 모든 거리가 동일한 `unit sphere`로 변환됩니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/17.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/17.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - `unit sphere`는 위 그림처럼 `distance`가 1이 되도록 만든 `sphere` 입니다.
@@ -178,11 +178,11 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 - 반면 `unit sphere` → `normalized image plane` 까지는 `unit sphere` 표면에서 한번 굴절되며 이 굴절되는 정도는 카메라 모델에 따라서 바뀌게 됩니다. 따라서 다음의 형태를 가집니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/18.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/18.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/19.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/19.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그림은 카메라 원점으로 부터 `distance`가 1인 지점 까지의 `unit sphere`가 `depth`가 1인 지점인 `normalized image plane`으로 변환되어야 하는 것을 나타낸 것입니다. 개념적으로 나타내면 위 그림과 같이 곡면이 평면으로 펴지게 됩니다.
@@ -197,7 +197,14 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 ## **Unified Camera Model**
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/20.png" alt="Drawing" style="width: 400px;"/></center>
+
+- `Unified Camera Model`에 대한 상세 내용은 아래 링크에서 확인할 수 있습니다.
+    - 참조 : [https://gaussian37.github.io/vision-concept-unified_camera_model/](https://gaussian37.github.io/vision-concept-unified_camera_model/)
+
+<br>
+
+<br>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/20.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 
@@ -214,6 +221,11 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 
 <br>
 
+- `Kannala-Brandt Camera Model`에 대한 상세 내용은 아래 링크에서 확인할 수 있습니다.
+    - 참조 : [https://gaussian37.github.io/vision-concept-generic_camera_model/](https://gaussian37.github.io/vision-concept-generic_camera_model/)
+
+<br>
+
 <br>
 
 ## **Field-of-View Camera Model**
@@ -225,13 +237,13 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 ## **Double Sphere Camera Model**
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/7.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/7.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 논문에서 제시하는 `Double Sphere` 카메라 모델에 대하여 설명해 보도록 하곘습니다. 글 서두에 말씀드린 바와 같이 `Double Sphere` 카메라 모델은 화각이 넓은 `fisheye lense`와 같은 환경에서도 잘 동작하며 `unprojection`을 위한 `closed-form` 형태의 식이 존재하고 그 계산량도 적다는 것을 확인하였었습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/8.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/8.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - `Double Sphere` 카메라 모델은 위 그림과 같이 이름 그대로 3D 포인트가 2개의 단위 구에 투영되는 형태를 가집니다.
@@ -239,14 +251,14 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 - 가장 아래 부분의 검은색 가로 실선인 `normalized image plane`과 빨간색 구의 중심 간의 거리가 $$ \frac{\alpha}{1 - \alpha} $$ 로 결정됩니다. 따라서 $$ \xi $$ 와 $$ \frac{\alpha}{1 - \alpha} $$ 가 같이 결합되어 변수가 동작하도록 되어 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/9.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/9.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 그림과 같이 Double Sphere 모델에서 구에 의해 꺽이는 양을 표현하면 위 그림과 같습니다. 다만 Double Sphere 카메라 모델 에서는 앞의 다른 카메라 모델과 같이 실제 꺽이는 양을 모델링 하지 않고 $$ \alpha, \xi $$ 값을 이용하여 normalized image plane에 어떻게 투영되는 지 모델링 하는 방법을 사용하였습니다.
 - 즉, `UCM`과 비교하였을 때, $$ \frac{\alpha}{1 - \alpha} $$ 만큼 `shift`가 시작되는 시점이 $$ \xi $$ 만큼 이동되는 것이고 그 첫번째 구와 두번째 구의 복합적인 꺽임 양은 $$ \xi, \alpha $$의 결합으로 이루어짐을 알 수 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/10.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/10.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 그림을 기준으로 $$ \xi = 0, \alpha = 0 $$ 이 되면 핀홀 모델이 됩니다. 즉, 빨간색 구의 중심이 초록색 구의 중심으로 이동되면서 구의 중심이 하나가 되고 구로 인해 꺽이는 양도 사라져서 normalized image plane이 초록색 및 빨간색 구의 중심선에 생기게 되는 경우입니다.
@@ -266,7 +278,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 - 위 파라미터 $$ i $$ 를 이용하여 3D 포인트를 2D로 `projection` 하는 함수 $$ \pi $$ 를 정의하면 다음과 같습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/11.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/11.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 앞에서 살펴본 `UCM` 계열과 같이 분모의 $$ \alpha d_{2} + (1-\alpha)(\xi d_{1} + z) $$ 를 통하여 단번에 `undistorted normalized plane` 으로 접근합니다.
@@ -276,14 +288,14 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 - 다음은 `UCM`과 마찬가지로 $$ \alpha $$ 값의 크기에 따라 `undistorted normalized plane`의 위치가 바뀌므로 $$ \alpha $$ 와 다른 파라미터 값에 따라서 3D 포인트가 2D 이미지의 FOV에 유효한 지 확인하는 함수 식입니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/12.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/12.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 다음으로 `unprojection`하는 `closed-form` 형태의 식이며 `unprojection` 결과 2D 이미지 좌표계에서 `distorted normalized plane`으로 변환하는 역할을 합니다.
 - 만약 `z`값을 복원할 수 있으면 $$ z \pi^{-1}(u, i) = \mathbf{x} $$ 로 3D 포인트를 구할 수 있습니다. `unprojection` 식은 다음과 같습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/13.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/13.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 <br>
@@ -305,7 +317,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 <br>
 
 <br>
-<center><img src="../assets/img/vision/concept/camera_models/3.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/double_sphere_camera_model/3.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 본 논문에서는 16개의 카메라 데이터셋과 6개의 카메라 모델을 통하여 실험을 진행하였고 `Double Sphere` 카메라 모델의 타당함을 보여주었습니다.

@@ -16,7 +16,8 @@ tags: [라이다, open3d, 포인트 클라우드] # add tag
 - ### [open3d로 point cloud 시각화 방법](#jupyter-lab에서-open3d-시각화-방법-1)
 - ### [open3d로 grid 생성하는 방법](#open3d로-grid-생성하는-방법-1)
 - ### [jupyter lab에서 open3d 시각화 방법](#jupyter-lab에서-open3d-시각화-방법-1)
-- ### [연속된 point cloud 시각화 방법](#연속된-point-cloud-시각화-방법-1)
+- ### [실시간 데이터 시각화](#실시간-데이터-시각화-1)
+- ### [연속된 point cloud 파일 읽어서 시각화](#연속된-point-cloud-파일-읽어서-시각화-1)
 - ### [open3d에서 점 선택하는 방법](#open3d에서-점-선택하는-방법-1)
 
 <br>
@@ -59,7 +60,11 @@ def show_open3d_pcd(pcd, show_origin=True, origin_size=3, show_grid=True):
 import open3d as o3d
 import numpy as np
 
-def get_grid_lineset(h_min_val, h_max_val, w_min_val, w_max_val, ignore_axis, grid_length, color):
+import open3d as o3d
+import numpy as np
+
+def get_grid_lineset(h_min_val, h_max_val, w_min_val, w_max_val, ignore_axis, grid_length=1, nth_line=5):
+    assert (h_min_val%2==0) and (h_max_val%2==0) and (w_min_val%2==0) and (w_max_val%2==0)
     
     num_h_grid = int(np.round((h_max_val - h_min_val) // grid_length, -1))
     num_w_grid = int(np.round((w_max_val - w_min_val) // grid_length, -1))
@@ -84,20 +89,28 @@ def get_grid_lineset(h_min_val, h_max_val, w_min_val, w_max_val, ignore_axis, gr
                 pass                
             vertex_order_index += 1       
             
-    next_h = [-1, 0, 0, 1]
-    next_w = [0, -1, 1, 0]
+    next_h = [0, 1]
+    next_w = [1, 0]
     grid_lines = []
+    grid_nth_lines = []
     for h in range(num_h_grid):
         for w in range(num_w_grid):
             here_h = h
             here_w = w
-            for i in range(4):
+            for i in range(2):
                 there_h = h + next_h[i]
-                there_w = w +  next_w[i]            
+                there_w = w +  next_w[i]   
                 if (0 <= there_h and there_h < num_h_grid) and (0 <= there_w and there_w < num_w_grid):
-                    grid_lines.append([grid_vertexes_order[here_h][here_w], grid_vertexes_order[there_h][there_w]])
-                    
-                    
+                    if ((here_h % nth_line) == 0) and ((here_w % nth_line) == 0):
+                        grid_nth_lines.append([grid_vertexes_order[here_h][here_w], grid_vertexes_order[there_h][there_w]])
+                    elif ((here_h % nth_line) != 0) and ((here_w % nth_line) == 0) and i == 1:
+                        grid_nth_lines.append([grid_vertexes_order[here_h][here_w], grid_vertexes_order[there_h][there_w]])
+                    elif ((here_h % nth_line) == 0) and ((here_w % nth_line) != 0) and i == 0:
+                        grid_nth_lines.append([grid_vertexes_order[here_h][here_w], grid_vertexes_order[there_h][there_w]])
+                    else:
+                        grid_lines.append([grid_vertexes_order[here_h][here_w], grid_vertexes_order[there_h][there_w]])
+
+    color = (0.8, 0.8, 0.8)
     colors = [color for i in range(len(grid_lines))]
     line_set = o3d.geometry.LineSet(
         points=o3d.utility.Vector3dVector(grid_vertexes),
@@ -105,7 +118,15 @@ def get_grid_lineset(h_min_val, h_max_val, w_min_val, w_max_val, ignore_axis, gr
     )
     line_set.colors = o3d.utility.Vector3dVector(colors)
     
-    return line_set   
+    color = (255, 0, 0)
+    colors = [color for i in range(len(grid_nth_lines))]
+    line_nth_set = o3d.geometry.LineSet(
+        points=o3d.utility.Vector3dVector(grid_vertexes),
+        lines=o3d.utility.Vector2iVector(grid_nth_lines),
+    )
+    line_nth_set.colors = o3d.utility.Vector3dVector(colors)
+    
+    return line_set, line_nth_set
 
 def show_open3d_pcd(raw, show_origin=True, origin_size=3, 
                     show_grid=True, grid_len=1, 
@@ -147,19 +168,15 @@ def show_open3d_pcd(raw, show_origin=True, origin_size=3,
     
     coord = o3d.geometry.TriangleMesh().create_coordinate_frame(size=origin_size, origin=np.array([0.0, 0.0, 0.0]))
     
-    R, G, B = 0.8, 0.8, 0.8
-    lineset_yz = get_grid_lineset(z_min_val, z_max_val, y_min_val, y_max_val, 0, grid_len, [R, G, B])
-    lineset_zx = get_grid_lineset(x_min_val, x_max_val, z_min_val, z_max_val, 1, grid_len, [R, G, B])
-    lineset_xy = get_grid_lineset(y_min_val, y_max_val, x_min_val, x_max_val, 2, grid_len, [R, G, B]) 
-    
-    R, G, B = 1, 0, 0
-    lineset_yz_5 = get_grid_lineset(z_min_val, z_max_val, y_min_val, y_max_val, 0, grid_len*5, [R, G, B])
-    lineset_zx_5 = get_grid_lineset(x_min_val, x_max_val, z_min_val, z_max_val, 1, grid_len*5, [R, G, B])
-    lineset_xy_5 = get_grid_lineset(y_min_val, y_max_val, x_min_val, x_max_val, 2, grid_len*5, [R, G, B]) 
+    ##################################### grid 생성 코드 ######################################
+    lineset_yz, lineset_nth_yz = get_grid_lineset(z_min_val, z_max_val, y_min_val, y_max_val, 0, grid_len)
+    lineset_zx, lineset_nth_zx = get_grid_lineset(x_min_val, x_max_val, z_min_val, z_max_val, 1, grid_len)
+    lineset_xy, lineset_nth_xy = get_grid_lineset(y_min_val, y_max_val, x_min_val, x_max_val, 2, grid_len) 
+    ###########################################################################################
     
     # set front, lookat, up, zoom to change initial view
     o3d.visualization.draw_geometries([pcd, coord,
-                                       lineset_yz_5, lineset_zx_5, lineset_xy_5,
+                                       lineset_nth_yz, lineset_nth_zx, lineset_nth_xy,
                                        lineset_xy, lineset_yz, lineset_zx
                                       ])  
 ```
@@ -292,18 +309,118 @@ show_point_cloud(points, 2)
 
 <br>
 
-## **연속된 point cloud 시각화 방법**
+## **실시간 데이터 시각화**
 
 <br>
 
-- 아래 방법은 연속된 포인트 클라우드를 이어서 보는 방법입니다. 아래 코드의 `point_clouds`와 같이 전체 포인트 클라우드를 등록하고 `index`를 변경해 가면서 시각화하는 컨셉입니다.
+- 다음 코드는 3D 포인트 데이터를 실시간으로 입력 받은 다음 실시간으로 데이터를 보여주어야 할 때 사용할 수 있습니다. 다음 코드에서는 실시간 데이터를 가정하기 위하여 임의의 랜덤 데이터를 입력으로 계속 받는 코드를 사용하였습니다.
+- `grid`를 그리는 코드는 앞에서 정의한 `grid`를 그리는 코드를 그대로 이용하였습니다.
+- 아래 코드를 사용할 때에는 `get_data()` 함수 부분을 실제 데이터를 읽어오는 부분으로 교체하고 `dt`의 값을 변경하여 데이터를 읽어오는 주기를 조절해 줍니다. `t_total` 값은 얼마나 오래 코드를 실행할 지와 연관되어 있습니다.
+- 중간에 코드를 멈추고 싶으면 `Q`를 눌러서 코드를 종료할 수 있도록 Callback 함수를 추가하였습니다.
 
 <br>
 
 ```python
 import open3d as o3d
+import numpy as np
+import time
 import glob
 
+# random data
+def get_data(): 
+    normalized_points = np.random.rand(1000, 3) * 2 - 1.0 # range : -1 ~ 1
+    normalized_points[:, 0] = normalized_points[:, 0] * 50
+    normalized_points[:, 1] = normalized_points[:, 1] * 30
+    normalized_points[:, 2] = normalized_points[:, 2] * 5
+    return normalized_points
+
+def quit_callback(vis):
+    global exit_flag
+    vis.close()
+    exit_flag = True
+
+# Global settings.
+dt = 50/1000 # to add new points each dt secs.
+t_total = 100 # total time to run this script.
+exit_flag = False
+
+# create visualizer and window.
+vis = o3d.visualization.VisualizerWithKeyCallback()
+vis.create_window()
+vis.register_key_callback(ord('Q'), quit_callback)
+
+# initialize pointcloud instance.
+pcd = o3d.geometry.PointCloud()
+points = np.array([
+    [x_range[0], y_range[0], z_range[0]],
+    [x_range[0], y_range[0], z_range[1]],
+    [x_range[0], y_range[1], z_range[0]],
+    [x_range[0], y_range[1], z_range[1]],
+    [x_range[1], y_range[0], z_range[0]],
+    [x_range[1], y_range[0], z_range[1]],
+    [x_range[1], y_range[1], z_range[0]],
+    [x_range[1], y_range[1], z_range[1]],
+])
+
+pcd.points = o3d.utility.Vector3dVector(points)
+coord = o3d.geometry.TriangleMesh().create_coordinate_frame(size=3, origin=np.array([0.0, 0.0, 0.0]))
+vis.add_geometry(pcd)
+vis.add_geometry(coord)
+vis.add_geometry(lineset_yz)
+vis.add_geometry(lineset_zx)
+vis.add_geometry(lineset_xy)
+vis.add_geometry(lineset_nth_yz)
+vis.add_geometry(lineset_nth_zx)
+vis.add_geometry(lineset_nth_xy)
+
+exec_times = []
+current_t = time.time()
+t0 = current_t
+
+while current_t - t0 < t_total:
+    previous_t = time.time()
+    while current_t - previous_t < dt:                
+        current_t = time.time()
+
+    vis.poll_events()
+    vis.update_renderer()
+    pcd.points = o3d.utility.Vector3dVector()
+    pcd.points.extend(get_data())
+    vis.update_geometry(pcd)
+    if exit_flag == True:
+        break
+
+vis.destroy_window()
+```
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/open3d/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+## **연속된 point cloud 파일 읽어서 시각화**
+
+<br>
+
+- 아래 방법은 연속된 포인트 클라우드를 이어서 보는 방법입니다. 아래 코드의 `point_clouds`와 같이 전체 포인트 클라우드를 등록하고 `index`를 변경해 가면서 시각화하는 컨셉입니다. `index` 변경은 `N (Next), P(Previous)`를 눌러서 앞 또는 뒤의 index 데이터를 불러오게 됩니다. `Q`를 입력하면 코드는 종료됩니다.
+- `grid`를 그리는 코드는 앞에서 정의한 `grid`를 그리는 코드를 그대로 이용하였습니다.
+
+<br>
+
+```python
+import open3d as o3d
+import numpy as np
+import time
+import os
+import glob
+
+def get_local_pcd(path):
+    # List of file paths for the .pcd files
+    file_paths = glob.glob(path + os.sep + "*.pcd")
+    file_paths.sort()
+    
+    # Read the point clouds and store them
+    point_clouds = [np.array(o3d.io.read_point_cloud(file_path).points) for file_path in file_paths]
+    return point_clouds
 def load_point_cloud(file_path):
     return o3d.io.read_point_cloud(file_path)
 
@@ -312,21 +429,33 @@ vis = o3d.visualization.VisualizerWithKeyCallback()
 vis.create_window()
 
 # Load point clouds
-file_paths = glob.glob("./*.pcd")
-file_paths.sort()
-point_clouds = [load_point_cloud(fp) for fp in file_paths]
-current_index = 0  # Start from the first point cloud
+point_clouds = get_local_pcd("./")
 
-# Add the first point cloud to visualizer
-vis.add_geometry(point_clouds[current_index])
+current_index = 0
+pcd = o3d.geometry.PointCloud()
+pcd.points = o3d.utility.Vector3dVector(point_clouds[current_index])
+
+coord = o3d.geometry.TriangleMesh().create_coordinate_frame(size=3, origin=np.array([0.0, 0.0, 0.0]))
+
+vis.add_geometry(pcd)
+vis.add_geometry(coord)
+vis.add_geometry(lineset_yz)
+vis.add_geometry(lineset_zx)
+vis.add_geometry(lineset_xy)
+vis.add_geometry(lineset_nth_yz)
+vis.add_geometry(lineset_nth_zx)
+vis.add_geometry(lineset_nth_xy)
 
 # Get view control and capture initial viewpoint
 view_ctl = vis.get_view_control()
 viewpoint_params = view_ctl.convert_to_pinhole_camera_parameters()
 
-def update_visualization(vis, point_cloud, view_ctl, viewpoint_params):
-    vis.clear_geometries()  # Clear existing geometries
-    vis.add_geometry(point_cloud)  # Add new geometry
+def update_visualization(vis, index, view_ctl, viewpoint_params):
+    global pcd
+    pcd.points = o3d.utility.Vector3dVector()
+    pcd.points.extend(point_clouds[index])
+    vis.update_geometry(pcd)
+
     view_ctl.convert_from_pinhole_camera_parameters(viewpoint_params)
 
 def next_callback(vis):
@@ -335,15 +464,15 @@ def next_callback(vis):
         # Capture current viewpoint before moving to next
         viewpoint_params = view_ctl.convert_to_pinhole_camera_parameters()
         current_index += 1
-        update_visualization(vis, point_clouds[current_index], view_ctl, viewpoint_params)
+        update_visualization(vis, current_index, view_ctl, viewpoint_params)
 
 def previous_callback(vis):
     global current_index, viewpoint_params
     if current_index > 0:
-        # Capture current viewpoint before moving to previous
+        # Capture current viewpoint before moving to next
         viewpoint_params = view_ctl.convert_to_pinhole_camera_parameters()
         current_index -= 1
-        update_visualization(vis, point_clouds[current_index], view_ctl, viewpoint_params)
+        update_visualization(vis, current_index, view_ctl, viewpoint_params)
 
 def quit_callback(vis):
     vis.close()  # Close the visualizer
@@ -357,6 +486,10 @@ vis.register_key_callback(ord('Q'), quit_callback)
 vis.run()
 vis.destroy_window()
 ```
+
+<br>
+<center><img src="../assets/img/autodrive/lidar/open3d/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 <br>
 
