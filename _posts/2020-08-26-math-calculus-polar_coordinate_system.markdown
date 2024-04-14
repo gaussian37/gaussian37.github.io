@@ -66,7 +66,14 @@ tags: [극좌표계, Polar Coordinate] # add tag
 
 <br>
 
-- 위 식들을 이용하면 $$ (x, y) $$ 와 $$ (r, \theta) $$ 간의 변환을 자유롭게 할 수 있습니다.
+- 위 식들을 이용하면 $$ (x, y) $$ 와 $$ (r, \theta) $$ 간의 변환을 자유롭게 할 수 있으며 그림으로 나타내면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/polar_coordinate/2.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 
+
 
 <br>
 
