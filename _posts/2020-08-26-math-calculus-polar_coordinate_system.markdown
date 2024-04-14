@@ -17,8 +17,8 @@ tags: [극좌표계, Polar Coordinate] # add tag
 
 <br>
 
-- ### 극 좌표계의 정의
-- ### 극 좌표계 활용 예시
+- ### [극 좌표계의 정의](#극-좌표계의-정의-1)
+- ### [극 좌표계 활용 예시](#극-좌표계-활용-예시-1)
 
 <br>
 
@@ -119,7 +119,7 @@ tags: [극좌표계, Polar Coordinate] # add tag
 
 - $$ ds = dr \cdot (r \cdot d\theta) = r \cdot dr \cdot d\theta $$
 
-- $$ \text{compared to } dx dy \text{in cartesian coordinate.} $$
+- $$ \text{compared to } dx \cdot dy \text{ in cartesian coordinate.} $$
 
 <br>
 
