@@ -33,6 +33,24 @@ tags: [cpp, c++, 객체 지향, oop, object oriented] # add tag
 
 - `C++`에서는 간단한 `json` 파일을 읽는 것도 파이썬과 다르게 다소 까다롭습니다. 이번 글에서는 C++을 사용할 때 `nlohmann-json`을 이용하여 `json` 파일을 읽어서 간단히 다루는 예제를 살펴보도록 하겠습니다.
 - `nlohmann-json`을 이용하여 `json` 파일을 읽으면 `python`의 `json.load()`를 하여 데이터를 `dictionary`로 읽은 구조와 거의 유사하게 사용할 수 있습니다.
+- 아래 `nlohmann-json`을 사용하는 예제에서는 
+
+<br>
+
+- dkfo
+
+```python
+# filename.json 
+
+{
+    "A" : {
+        "A1" : [1, 2, 3],
+        "A2" : [4, 5, 6]
+    },
+    "B" : [7, 8, 9],
+    "C" : 10
+}
+```
 
 <br>
 
@@ -60,19 +78,6 @@ nlohmann::json read_json_file(const string& file_name){
     }
     return json_object;
 }
-
-'''
-filename.json 
-
-{
-    "A" : {
-        "A1" : [1, 2, 3],
-        "A2" : [4, 5, 6]
-    },
-    "B" : [7, 8, 9],
-    "C" : 10
-}
-'''
 
 int main(){
     const string json_path = "PATH/TO/THE/filename.json";

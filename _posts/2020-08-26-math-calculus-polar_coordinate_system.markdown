@@ -41,12 +41,8 @@ tags: [극좌표계, Polar Coordinate] # add tag
 <br>
 
 - 참고로 $$ \text{atan2}{(y, x)} $$ 는 1사분면에서의 $$ \text{atan}{(y/x)} $$ 와 같습니다. 하지만 다른 사분면에서는 부호에 따라 값이 달라질 수 있습니다.
-    - 참고 : [두 점 사이의 절대각도를 재는 atan2](https://spiralmoon.tistory.com/entry/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%9D%B4%EB%A1%A0-%EB%91%90-%EC%A0%90-%EC%82%AC%EC%9D%B4%EC%9D%98-%EC%A0%88%EB%8C%80%EA%B0%81%EB%8F%84%EB%A5%BC-%EC%9E%AC%EB%8A%94-atan2)
+    - 참고 : [atan과 atan2 비교](https://gaussian37.github.io/math-calculus-atan/)
 - `atan`은 두 점 사이의 **탄젠트 값**을 받아 $$ -\pi/2 $$ ~ $$ \pi/2 $$ 범위의 라디안 값 (-90도 ~ 90도)을 반환하는 반면 `atan2`는 **두 점 사이의 상대좌표 $$ (x, y) $$** 를 받아 $$ -\pi $$ ~ $$ \pi $$ 범위의 라디안 값 (-180도 ~ 180도)의 라디안 값을 반환합니다.
-
-<br>
-
-- 출처 : [두 점 사이의 절대각도를 재는 atan2](https://spiralmoon.tistory.com/entry/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%9D%B4%EB%A1%A0-%EB%91%90-%EC%A0%90-%EC%82%AC%EC%9D%B4%EC%9D%98-%EC%A0%88%EB%8C%80%EA%B0%81%EB%8F%84%EB%A5%BC-%EC%9E%AC%EB%8A%94-atan2)
 
 <br>
 <center><img src="../assets/img/math/calculus/polar_coordinate/1.png" alt="Drawing" style="width: 800px;"/></center>
@@ -63,6 +59,14 @@ tags: [극좌표계, Polar Coordinate] # add tag
 - $$ x = r \cdot \cos{(\theta)} \tag{3} $$
 
 - $$ y = r \cdot \sin{(\theta)} \tag{4} $$
+
+- $$ r^{2} = x^{2} + y^{2} \tag{5} $$
+
+- $$ \tan{(\theta)} = \frac{y}{x} \tag{6} $$
+
+<br>
+
+- 위 식들을 이용하면 $$ (x, y) $$ 와 $$ (r, \theta) $$ 간의 변환을 자유롭게 할 수 있습니다.
 
 <br>
 
