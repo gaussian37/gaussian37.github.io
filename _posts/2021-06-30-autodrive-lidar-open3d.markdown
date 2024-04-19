@@ -64,10 +64,17 @@ import open3d as o3d
 import numpy as np
 
 def get_grid_lineset(h_min_val, h_max_val, w_min_val, w_max_val, ignore_axis, grid_length=1, nth_line=5):
-    assert (h_min_val%2==0) and (h_max_val%2==0) and (w_min_val%2==0) and (w_max_val%2==0)
+    if (h_min_val%2!=0):
+        h_min_val -= 1
+    if (h_max_val%2!=0):
+        h_max_val += 1
+    if (w_min_val%2!=0):
+        w_min_val -= 1
+    if (w_max_val%2!=0):
+        w_max_val += 1
     
-    num_h_grid = int(np.round((h_max_val - h_min_val) // grid_length, -1))
-    num_w_grid = int(np.round((w_max_val - w_min_val) // grid_length, -1))
+    num_h_grid = int(np.ceil((h_max_val - h_min_val) / grid_length))
+    num_w_grid = int(np.ceil((w_max_val - w_min_val) / grid_length))
     
     num_h_grid_mid = num_h_grid // 2
     num_w_grid_mid = num_w_grid // 2
