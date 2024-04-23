@@ -9,6 +9,10 @@ tags: [라이다, open3d, 포인트 클라우드] # add tag
 
 <br>
 
+- 참조 : https://www.open3d.org/docs/latest/tutorial/t_geometry/pointcloud.html
+
+<br>
+
 ## **목차**
 
 <br>
@@ -19,6 +23,9 @@ tags: [라이다, open3d, 포인트 클라우드] # add tag
 - ### [실시간 데이터 시각화](#실시간-데이터-시각화-1)
 - ### [연속된 point cloud 파일 읽어서 시각화](#연속된-point-cloud-파일-읽어서-시각화-1)
 - ### [open3d에서 점 선택하는 방법](#open3d에서-점-선택하는-방법-1)
+- ### [open3d tensor 데이터 저장](#open3d-tensor-데이터-저장-1)
+- ### [numpy to tensor 변환](#numpy-to-tensor-변환-1)
+- ### [Multi Scale ICP with Tensor](#multi-scale-icp-with-tensor-1)
 
 <br>
 
@@ -542,3 +549,159 @@ for i, pcd in enumerate(point_clouds):
 ```
 
 <br>
+
+## **open3d tensor 데이터 저장**
+
+<br>
+
+```python
+print("source data type : ", type(source))
+# source data type :  <class 'open3d.cpu.pybind.t.geometry.PointCloud'>
+
+source_pcd = source.to_legacy()
+
+# Convert o3d.geometry.PointCloud to NumPy array
+source_points = np.asarray(source_pcd.points).astype(dtype=np.float32)
+
+# save source file
+source_points.tofile("source.bin")
+```
+
+<br>
+
+## **numpy to tensor 변환**
+
+<br>
+
+```python
+# source_np = np.fromfile("source.bin", dtype=np.float32).reshape(-1, 3)
+
+# Create an o3d.geometry.PointCloud object from the NumPy array
+source_pcd = o3d.geometry.PointCloud()
+source_pcd.points = o3d.utility.Vector3dVector(source_np)
+
+# Convert o3d.geometry.PointCloud to o3d.t.geometry.PointCloud
+source_tensor = o3d.t.geometry.PointCloud.from_legacy(source_pcd)
+
+# The resulting 'source_tensor' is an o3d.t.geometry.PointCloud object
+print(type(source_tensor))
+```
+
+<br>
+
+## **Multi Scale ICP with Tensor**
+
+<br>
+
+- 참조 : https://www.open3d.org/docs/latest/tutorial/t_pipelines/t_icp_registration.html
+- 참조 : https://www.open3d.org/docs/latest/tutorial/t_pipelines/t_robust_kernel.html
+
+<br>
+
+```python
+
+'''
+hyper parameters
+- normal estimation
+    - max_nn
+    - radius
+- voxel_size
+- criteria_list
+- RobustKernel
+'''
+
+import time
+import open3d as o3d
+treg = o3d.t.pipelines.registration
+
+def draw_registration_result(source, target, transformation):
+    source_temp = source.clone()
+    target_temp = target.clone()
+
+    source_temp.transform(transformation)
+
+    # This is patched version for tutorial rendering.
+    # Use `draw` function for you application.
+    o3d.visualization.draw_geometries(
+        [source_temp.to_legacy(),
+         target_temp.to_legacy()],
+        zoom=0.4459,
+        front=[0.9288, -0.2951, -0.2242],
+        lookat=[1.6784, 2.0612, 1.4451],
+        up=[-0.3402, -0.9189, -0.1996])
+
+source_np = np.fromfile("source.bin", dtype=np.float32).reshape(-1, 3)
+target_np = np.fromfile("target.bin", dtype=np.float32).reshape(-1, 3)
+
+# Create an o3d.geometry.PointCloud object from the NumPy array
+source_pcd = o3d.geometry.PointCloud()
+source_pcd.points = o3d.utility.Vector3dVector(source_np)
+
+# Convert o3d.geometry.PointCloud to o3d.t.geometry.PointCloud
+source = o3d.t.geometry.PointCloud.from_legacy(source_pcd)
+
+# Create an o3d.geometry.PointCloud object from the NumPy array
+target_pcd = o3d.geometry.PointCloud()
+target_pcd.points = o3d.utility.Vector3dVector(target_np)
+
+# Convert o3d.geometry.PointCloud to o3d.t.geometry.PointCloud
+target = o3d.t.geometry.PointCloud.from_legacy(target_pcd)
+
+if o3d.core.cuda.is_available():
+    source = source.cuda(0)
+    target = target.cuda(0)
+
+# https://www.open3d.org/docs/latest/tutorial/t_geometry/pointcloud.html#Vertex-normal-estimation
+source.estimate_normals(max_nn=30, radius=0.1)
+target.estimate_normals(max_nn=30, radius=0.1)
+
+voxel_sizes = o3d.utility.DoubleVector([0.1, 0.05, 0.025])
+
+# List of Convergence-Criteria for Multi-Scale ICP:
+criteria_list = [
+    treg.ICPConvergenceCriteria(relative_fitness=0.0001,
+                                relative_rmse=0.0001,
+                                max_iteration=20),
+    treg.ICPConvergenceCriteria(0.00001, 0.00001, 15),
+    treg.ICPConvergenceCriteria(0.000001, 0.000001, 10)
+]
+
+# `max_correspondence_distances` for Multi-Scale ICP (o3d.utility.DoubleVector):
+max_correspondence_distances = o3d.utility.DoubleVector([0.3, 0.14, 0.07])
+
+# Initial alignment or source to target transform.
+init_source_to_target = o3d.core.Tensor.eye(4, o3d.core.Dtype.Float32)
+sigma = 0.1
+
+# Select the `Estimation Method`, and `Robust Kernel` (for outlier-rejection).
+estimation = treg.TransformationEstimationPointToPlane()
+# estimation = treg.TransformationEstimationPointToPlane(
+#     treg.robust_kernel.RobustKernel(
+#         treg.robust_kernel.RobustKernelMethod.L1Loss, sigma))
+
+# Save iteration wise `fitness`, `inlier_rmse`, etc. to analyse and tune result.
+callback_after_iteration = lambda loss_log_map : print("Iteration Index: {}, Scale Index: {}, Scale Iteration Index: {}, Fitness: {}, Inlier RMSE: {},".format(
+    loss_log_map["iteration_index"].item(),
+    loss_log_map["scale_index"].item(),
+    loss_log_map["scale_iteration_index"].item(),
+    loss_log_map["fitness"].item(),
+    loss_log_map["inlier_rmse"].item()))
+
+# Setting Verbosity to Debug, helps in fine-tuning the performance.
+# o3d.utility.set_verbosity_level(o3d.utility.VerbosityLevel.Debug)
+
+s = time.time()
+registration_ms_icp = treg.multi_scale_icp(source, target, voxel_sizes,
+                                           criteria_list,
+                                           max_correspondence_distances,
+                                           init_source_to_target, estimation,
+                                           callback_after_iteration)
+# rt_matrix = registration_ms_icp.transformation.numpy()
+
+ms_icp_time = time.time() - s
+print("Time taken by Multi-Scale ICP: ", ms_icp_time)
+print("Inlier Fitness: ", registration_ms_icp.fitness)
+print("Inlier RMSE: ", registration_ms_icp.inlier_rmse)
+
+draw_registration_result(source, target, registration_ms_icp.transformation)
+```
