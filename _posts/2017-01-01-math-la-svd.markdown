@@ -33,6 +33,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 - ### [SVD 계산 방법](#svd-계산-방법-1)
 - ### [SVD 간단 예제](#svd-간단-예제-1)
 - ### [SVD 의미 해석](#svd-의미-해석-1)
+- ### [고유값과 특이값](#고유값과 특이값-1)
 - ### [SVD 관련 성질](#svd-관련-성질-1)
 - ### [SVD with Python](#svd-with-python-1)
 - ### [SVD의 활용](#svd의-활용-1)
@@ -515,6 +516,76 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 - `SVD`는 정방 행렬 뿐 아니라 직사각형 행렬에서도 사용할 수 있음을 확인하였습니다. 선형 변환의 관점을 $$ m \times n $$ 크기의 직사각형 행렬에서도 살펴보겠습니다.
 - 만약 $$ m \times n $$ 크기의 행렬에서 $$ m \gt n $$ 이라면 $$ \Sigma $$ 에서 0을 덧붙여서 차원을 확장한 후 $$ U $$ 로 회전 변환을 하는 것입니다. ( $$ Ax = U (\Sigma V^{T} x) $$ ) 반면  $$ m \lt n $$ 이라면 투영을 통해 차원을 없애고 회전 변환을 하는 것입니다.
 - `형태적인 변환`은 $$ \Sigma $$ 의 값에 따라 달라지게 되고 `차원의 변화`는 $$ U, V $$ 를 따르게 됩니다.
+
+<br>
+
+## **고유값과 특이값**
+
+<br>
+
+- 지금까지 살펴본 내용을 통해 다시 한번 고유값(`eigen value`)과 특이값(`singular value`)를 비교해 보도록 하겠습니다. 두 값 모두 매우 중요한 의미를 가지기 때문에 다시 한번 정리하고자 합니다.
+
+<br>
+
+#### **eigen value**
+
+<br>
+
+- 행렬 $$ A \in \mathbb{M}^{n \times n} $$ 가 $$ n \times n $$ 크기의 정사각행렬이고 벡터 $$ v \in \mathbb{R}^{n} $$ 가 $$ n $$ 개의 원소를 가진 열벡터라고 가정하겠습니다. 이 때, 고유값, 고유벡터의 정의에 따라 다음과 같이 식을 정의할 수 있습니다.
+
+<br>
+
+- $$ Av = \lambda v $$
+
+<br>
+
+- 위 식에서 고유벡터 $$ v $$ 에 대응되는 고유값은 $$ \lambda $$ 가 되어 하나의 쌍을 이루게 됩니다.
+- 고유값과 고유벡터는 행렬 $$ A $$ 가 `정사각행렬`일 때에만 존재합니다. 만약 행렬 $$ A \in \mathbb{M}^{m \times n} $$ 가 정사각행렬이 아니라고 가정해 보도록 하겠습니다. 행렬 연산에 따라서 $$ v $$ 는 $$ n $$ 개의 원소를 가지는 벡터이어야 합니다. 따라서 $$ Av $$ 는 $$ m \times 1 $$ 의 크기를 가지는 열벡터의 결과를 얻습니다. 하지만 열벡터 $$ v $$ 의 크기가 $$ n $$ 임을 가정하였기 때문에 $$ \lambda v $$ 는 $$ m \times 1 $$ 의 크기는 반드시 $$ m = n $$ 인 경우만 만족합니다. 따라서 행렬 $$ A $$ 가 정사각행렬인 경우에만 고유값, 고유벡터가 존재합니다.
+
+<br>
+
+#### **singular value**
+
+<br>
+
+- `singular value`는 앞에서 다룬 바와 같이 행렬 $$ A^{T}A $$ 의 `eigen value`를 찾는 것에서 시작합니다. $$ A^{T}A $$ 에서 행렬 $$ A \in \mathbb{M}^{m \times n} $$ 인 경우에 $$ A^{T}A $$ 는 항상 $$ n \times n $$ 크기의 정사각행렬이되며 $$ A^{T}A $$ 는 항상 `symmetric` 행렬을 만족합니다.
+- 또한 $$ A^{T}A $$ 는 정사각행렬이기 때문에 항상 `eigen value`를 가지며 $$ A^{T}A $$ 는 `Positive Semi-Definite Matrix`이기 때문에 음수가 아닌 (0 또는 양수) `eigen value`를 가집니다. 따라서 `singular value`의 값은 다음과 같습니다.
+
+<br>
+
+- $$ \sigma_{1} = \sqrt{\lambda_{1}}, \sigma_{2} = \sqrt{\lambda_{2}}, \cdots \sigma_{n} = \sqrt{\lambda_{n}} $$
+
+<br>
+
+- 간단히 정리하면 `eigen value`는 정사각행렬 $$ A $$ 의 고유값이고 `singular value`는 $$ A^{T}A $$ 의 고유값과 연관되어 있습니다. 행렬 $$ A^{T}A $$ 는 행렬 $$ A $$ 의 제곱 형태이기 때문에 `square root`를 적용하면 `singular value`를 구할 수 있습니다.
+
+<br>
+
+#### **condition of eigen value = singular value**
+
+<br>
+
+- `eigen value`와 `singular value`가 연관되어 있기 때문에 특정 조건에서는 두 값이 같아질 수 있습니다. 그 조건은 행렬 $$ A $$ 가 `symmetric matrix` ( $$ A = A^{T} $$ ) 인 경우입니다.
+
+<br>
+
+- $$ Av = \lambda v $$
+
+- $$ A^{T}Av = A^{T}\lambda v = \lambda A^{T} v = \lambda (Av) (\because A=A^{T}) = \lambda^{2} v $$
+
+<br>
+
+- 즉, $$ A^{T}A $$ 의 고유값은 $$ \lambda^{2} $$ 임을 알 수 있습니다. 따라서 `singular value`는 $$ \sqrt{\lambda^{2}} = \lambda $$ 가 됩니다. (`Positive Semi-Definite Matrix` 조건 이용)
+
+<br>
+
+#### **usage of eigen value = singular value**
+
+<br>
+
+- `symmetric matrix`에서 `eigen value`와 `singular value`가 같아짐을 확인할 수 있었습니다. 대표적인 `symmetric matrix`는 `covariance matrix`입니다. 즉, `covariance matrix`의 `eigen value/vector`를 이용할 때, `singular value`를 구하는 방법을 이용할 수 있습니다.
+- `covariance matrix`의 `eigen vector`는 데이터의 `principal direction`을 의미하고 대응되는 `eigen valuee`는 데이터가 얼만큼 퍼져있는 지 (`spread`) 정도를 나타냅니다. 따라서 `eigen value`를 통하여 각 `eigen vector` 방향으로의 `variance`를 구할 수 있습니다. 따라서 `eigen value`가 가장 큰 `eigen vector`가 `principal axis(direction)`의 의미를 가지게 됩니다. 이와 같은 접근 방식이 `PCA (Principal Component Analysis)`의 개념입니다.
+- 정리하면 `symmetric matrix`일 때, `eigen value`와 `singular value`가 같은 값을 가지고 대표적인 경우가 `covariance matrix`입니다. 이 때, `eigen value/vector`가 의미 있게 사용되므로 `SVD`를 이용하여 이 값들을 구할 수도 있습니다.
 
 <br>
 
