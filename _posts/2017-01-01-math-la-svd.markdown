@@ -33,7 +33,7 @@ tags: [Linear algebra, 선형대수학, SVD, singular vector decomposition] # ad
 - ### [SVD 계산 방법](#svd-계산-방법-1)
 - ### [SVD 간단 예제](#svd-간단-예제-1)
 - ### [SVD 의미 해석](#svd-의미-해석-1)
-- ### [고유값과 특이값](#고유값과 특이값-1)
+- ### [고유값과 특이값](#고유값과-특이값-1)
 - ### [SVD 관련 성질](#svd-관련-성질-1)
 - ### [SVD with Python](#svd-with-python-1)
 - ### [SVD의 활용](#svd의-활용-1)
