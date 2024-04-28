@@ -43,6 +43,7 @@ tags: [vision, multi camera fusion, fusion] # add tag
 - [Self-Supervised Surround-View Depth Estimation with Volumetric Feature Fusion](https://gaussian37.github.io/vision-fusion-volumetric_feature_fusion/)
 - [NVAutoNet, FAST AND ACCURATE 360◦ 3D VISUAL PERCEPTION FOR SELF DRIVING](https://gaussian37.github.io/vision-fusion-nvautonet/)
 - [Translating Images Into Maps](https://gaussian37.github.io/vision-fusion-translating_images_into_maps/)
+- [Simple BEV](https://gaussian37.github.io/vision-fusion-simple_bev/)
 
 <br>
 

@@ -38,3 +38,5 @@ tags: [vision] # add tag
 - [Fisheye Camera (어안 카메라) 관련 정리](https://gaussian37.github.io/vision-concept-fisheye_camera/)
 - [스테레오 (Stereo) 비전의 기초](https://gaussian37.github.io/vision-concept-basic_stereo_vision/)
 - [컴퓨터 비전을 이용한 3D Reconstruction 기초](https://gaussian37.github.io/vision-concept-basic_3d_reconstruction/)
+- [Linear N-Point Camera Pose Determination](https://gaussian37.github.io/vision-concept-linear_n_point_camera_pose_determination/)
+- [EPnP](https://gaussian37.github.io/vision-concept-epnp/)
