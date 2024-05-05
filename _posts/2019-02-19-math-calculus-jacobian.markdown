@@ -9,6 +9,12 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
 
+[Calculus 관련 글 목차](https://gaussian37.github.io/math-calculus-table/)
+
+<br>
+
+<br>
+
 - 참조 : http://t-robotics.blogspot.com/2013/12/jacobian.html#.XGlnkegzaUk
 - 참조 : https://suhak.tistory.com/944
 
@@ -181,3 +187,114 @@ print(np.array(jacobian_result))
 
 - 위 코드의 2가지 결과 모두 동일함을 알 수 있습니다. 첫번째 `jacobian_func`는 `lambdify`라는 모듈을 이용하여 자코비안 행렬을 별도 변환 없이 바로 사용한 경우입니다. 반면 `jacobian_func_np`는 직접 `numpy` 배열로 변환하여 사용한 것으로 `jacobian_func`를 확인하기 위한 용도로 별도 정의하였습니다.
 - 따라서 실제 사용할 때에는 `jacobian_func`를 사용하여 `jacobian`을 구하고 계산된 결과만 `numpy`로 받아서 사용하는 것을 권장드립니다.
+
+<br>
+
+- 다음은 원의 방정식에 대한 자코비안을 구하는 형태의 예제를 살펴보도록 하겠습니다. 
+- 원의 방정식 $$ (x - a)^{2} + (y - b)^{2} = r^{2} $$ 에서 $$ a, b, r $$ 에 대한 편미분을 통해 자코비안을 계산합니다. 
+- 첫번째 예제로 복수 개의 식을 나열하기 위하여 직접 $$ (x, y) $$ 를 대입하여 $$ n $$ 개의 식을 만들어 자코비안을 구하는 방법과 $$ (x, y) $$ 또한 변수화 하여 대수적으로 자코비안을 구하는 방식을 차례대로 확인해 보겠습니다.
+
+<br>
+
+- $$ (x - a)^{2} + (y - b)^{2} = r^{2} $$
+
+- $$ (a, b) \text{: center coordinates of the circle} $$
+
+- $$ r \text{: radius} $$
+
+- $$ \text{Jacobian with respect to the circle parameters (a, b, r)} $$
+
+<br>
+
+- $$ \text{residual function: } r_{i} = \sqrt{(x_{i} - a)^{2} + (y_{i} - b)^{2}} - r $$
+
+<br>
+
+```python
+from sympy import symbols, Matrix, sqrt, lambdify
+import numpy as np
+
+# Define symbolic variables for the circle parameters and points
+a, b, r = symbols('a b r')
+
+# Example data points
+points = np.array([[1, 7], [5, 8], [9, 8]])
+
+# Example circle parameters (a, b, r)
+params = [5.0, 5.0, 3.0]
+
+# Define the residual function for a single point
+residuals = Matrix([])
+for x, y in points:
+    residuals = residuals.row_insert(residuals.shape[0], Matrix([sqrt((x - a)**2 + (y - b)**2) - r]))
+
+# Compute the Jacobian matrix of the residual function
+jacobian = residuals.jacobian([a, b, r])
+
+# Convert the Jacobian to a numerical function using lambdify
+jacobian_func = lambdify([a, b], jacobian, 'numpy')
+
+# Print the Jacobian matrix
+print("Jacobian matrix (3x3):")
+jacobian_result = jacobian_func(0, 0)
+print(jacobian_result)
+```
+
+<br>
+<center><img src="../assets/img/math/calculus/jacobian/4.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 식에서 $$ F $$ 로 정의한 `residuals`와 $$ J $$ 인 `jacobian`을 구한 결과는 위 식과 같습니다.
+
+<br>
+
+- 이번에는 약간 $$ (x, y) $$ 또한 변수화 하여 자코비안 행렬을 생성해 보도록 하겠습니다. 코드의 편의상 사용한 것이며 개념적으로 달라진 것은 없습니다.
+
+<br>
+
+```python
+from sympy import symbols, Matrix, sqrt, lambdify
+import numpy as np
+
+# Define symbolic variables for the circle parameters and points
+a, b, r = symbols('a b r')
+x, y = symbols('x y')
+
+# Define the residual function for a single point
+residuals = Matrix([sqrt((x - a)**2 + (y - b)**2) - r])
+
+# Compute the Jacobian matrix of the residual function
+jacobian = residuals.jacobian([a, b, r])
+
+# Convert the Jacobian to a numerical function using lambdify
+jacobian_func = lambdify([a, b, r, x, y], jacobian, 'numpy')
+
+# Function to compute the Jacobian matrix for multiple points
+def get_jacobian_results(params, points):
+    a, b, r = params
+    return np.array([jacobian_func(a, b, r, x, y) for x, y in points])
+
+# Example data points
+points = np.array([[1.0, 7.0], [4.0, 8.0], [9.0, 8.0]])
+
+# Example circle parameters (a, b, r)
+params = [5.0, 5.0, 3.0]
+
+# Compute the 3x3 Jacobian matrix
+jacobian_result = get_jacobian_results(params, points)
+
+# Print the Jacobian matrix
+jacobian_result_matrix = np.vstack(jacobian_result)
+print("Jacobian matrix (3x3):")
+print(jacobian_result_matrix)
+```
+
+<br>
+<center><img src="../assets/img/math/calculus/jacobian/5.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+
+[Calculus 관련 글 목차](https://gaussian37.github.io/math-calculus-table/)
+
+<br>
