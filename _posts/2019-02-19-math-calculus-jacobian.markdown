@@ -14,6 +14,19 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
 
+## **목차**
+
+<br> 
+
+- ### [자코비안의 정의 및 예시](#자코비안의-정의-및-예시-1)
+- ### [Python을 이용한 자코비안 계산](#python을-이용한-자코비안-계산-1)
+
+<br>
+
+## **자코비안의 정의 및 예시**
+
+<br>
+
 - 자코비안은 다양한 문제에서 `approximation` 접근법을 사용할 때 자주 사용 되는 방법입니다.
 - 예를 들어 비선형 칼만필터를 사용할 때, 비선형 식을 선형으로 근사시켜서 모델링 할 때 사용하는 **Extended Kalman Filter**가 대표적인 예가 될 수 있습니다.
 - 자코비안은 정말 많이 쓰기 때문에 익혀두면 상당히 좋습니다. 이 글에서 자코비안에 대하여 다루어 보도록 하겠습니다.
@@ -66,3 +79,105 @@ tags: [Jacobian, 자코비안] # add tag
 - $$ \begin{split}\int_{0}^{1} \sqrt{1-x^2} d x  &=\int_{0}^{\pi/2} \sqrt{1-\sin^2 \theta} \cos \theta d \theta \quad (x=\sin \theta\; \iff \;dx=\cos \theta d \theta) \\ &=\int_{0}^{\pi/2} \cos^2 \theta d \theta =\int_{0}^{\pi/2} \frac{1}{2} (1+\cos 2 \theta) d \theta \\ &= \frac{1}{2} \left[ \theta + \frac{1}{2} \sin 2 \theta \right]_0^{\pi/2}=\frac{\pi}{4} \end{split} $$
 
 - $$ \cos{2\theta} = 2\cos{\alpha}^{2} - 1 $$
+
+<br>
+
+## **Python을 이용한 자코비안 계산**
+
+<br>
+
+- 자코비안은 $$ n \times m $$ 크기의 행렬이며 $$ n $$ 개의 함수식과 $$ m $$ 개의 변수를 이용하여 다음과 같이 구해짐을 확인하였습니다. 편의상 변수는 $$ x_{i} $$ 로 나타내겠습니다.
+
+<br>
+
+- $$ J = \begin{bmatrix} \frac{\partial f_{1}}{\partial x_{1}} & \frac{\partial f_{1}}{\partial x_{2}} & \cdots & \frac{\partial f_{1}}{\partial x_{m-1}} & \frac{\partial f_{1}}{\partial x_{m}} \\ \frac{\partial f_{2}}{\partial x_{1}} & \frac{\partial f_{2}}{\partial x_{2}} & \cdots & \frac{\partial f_{2}}{\partial x_{m-1}} & \frac{\partial f_{2}}{\partial x_{m}} \\ \vdots & \vdots & \ddots & \vdots & \vdots& \\ \frac{\partial f_{n-1}}{\partial x_{1}} & \frac{\partial f_{n-1}}{\partial x_{2}} & \cdots & \frac{\partial f_{n-1}}{\partial x_{m-1}} & \frac{\partial f_{n-1}}{\partial x_{m}} \\ \frac{\partial f_{n}}{\partial x_{1}} & \frac{\partial f_{n}}{\partial x_{2}} & \cdots & \frac{\partial f_{n}}{\partial x_{m-1}} & \frac{\partial f_{n}}{\partial x_{m}} \end{bmatrix} $$
+
+<br>
+
+- 위 식에서 자코비안을 구하기 위한 편미분 계산은 파이썬의 `sympy`를 이용하면 간단하게 처리할 수 있습니다. (울프람 알파 등을 이용하여도 됩니다.)
+- 이번 글에서는 자코비안을 `sympy`를 이용하여 구하는 방법에 대하여 알아보도록 하겠습니다.
+
+<br>
+
+- 먼저 $$ f_{i} $$ 를 각각 정의해야 하고 편미분할 변수를 정의해야 합니다. 다루어볼 예제는 다음과 같습니다.
+
+<br>
+
+- $$ F = \begin{bmatrix} x_{1}^{2} + x_{2}^{2} + x_{3} \\ \sin{(x_{1})} + \cos{(x_{2})} \end{bmatrix} $$
+
+- $$ X = \begin{bmatrix} x_{1} & x_{2} & x_{3} \end{bmatrix}^{T} $$
+
+<br>
+
+- 자코비안의 정의에 맞게 각 행렬의 성분을 편미분 하면 다음 결과를 얻을 수 있습니다.
+
+<br>
+
+- $$ J = \begin{bmatrix} \frac{f_{1}}{x_{1}} & \frac{f_{1}}{x_{2}} & \frac{f_{1}}{x_{3}} \\ \frac{f_{2}}{x_{1}} & \frac{f_{2}}{x_{2}} & \frac{f_{2}}{x_{3}} \end{bmatrix} = \begin{bmatrix} 2x_{1} & 2x_{2} & 1 \\ \cos{(x_{1})} & -\sin{(x_{2})} & 0 \end{bmatrix} $$
+
+<br>
+
+- 위 연산을 다음과 같이 계산할 수 있습니다.
+
+<br>
+
+```python
+from sympy import symbols, Matrix, sin, cos, lambdify
+import numpy as np
+
+# Step 1: Define the symbolic variables
+x1, x2, x3 = symbols('x1 x2 x3')
+
+# Step 2: Define the function vector
+f = Matrix([x1**2 + x2**2 + x3, sin(x1) + cos(x2)])
+
+# Step 3: Define the variable vector
+x = Matrix([x1, x2, x3])
+
+# Step 4: Compute the Jacobian matrix
+J = f.jacobian(x)
+```
+
+<br>
+<center><img src="../assets/img/math/calculus/jacobian/3.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 따라서 코드를 이용해서도 동일한 결과를 얻을 수 있음을 확인하였습니다.
+- 다음으로 임의의 입력에 대하여 자코비안 행렬 연산 방법을 확인해 보겠습니다. 연산은 `numpy`를 사용하도록 코드를 작성하였습니다.
+
+<br>
+
+```python
+# Step 5: Convert the Jacobian to a NumPy function
+jacobian_func = lambdify([x1, x2, x3], J, modules='numpy')
+
+def jacobian_func_np(x1, x2, x3):
+    matrix = np.array([
+        [2*x1,        2*x2,       1],
+        [np.cos(x1), -np.sin(x2), 0]
+    ])
+    return matrix 
+
+# Step 6: Example usage with NumPy
+input_vector = np.array([1.0, 2.0, 3.0])
+jacobian_result = jacobian_func(*input_vector)
+
+print("Jacobian matrix with lambdify at", input_vector, "is:")
+print(np.array(jacobian_result))
+print()
+# Jacobian matrix with lambdify at [1. 2. 3.] is:
+# [[ 2.          4.          1.        ]
+#  [ 0.54030231 -0.90929743  0.        ]]
+
+print("Jacobian matrix with numpy at", input_vector, "is:")
+jacobian_result = jacobian_func_np(*input_vector)
+print(np.array(jacobian_result))
+# Jacobian matrix with numpy at [1. 2. 3.] is:
+# [[ 2.          4.          1.        ]
+#  [ 0.54030231 -0.90929743  0.        ]]
+```
+
+<br>
+
+- 위 코드의 2가지 결과 모두 동일함을 알 수 있습니다. 첫번째 `jacobian_func`는 `lambdify`라는 모듈을 이용하여 자코비안 행렬을 별도 변환 없이 바로 사용한 경우입니다. 반면 `jacobian_func_np`는 직접 `numpy` 배열로 변환하여 사용한 것으로 `jacobian_func`를 확인하기 위한 용도로 별도 정의하였습니다.
+- 따라서 실제 사용할 때에는 `jacobian_func`를 사용하여 `jacobian`을 구하고 계산된 결과만 `numpy`로 받아서 사용하는 것을 권장드립니다.
