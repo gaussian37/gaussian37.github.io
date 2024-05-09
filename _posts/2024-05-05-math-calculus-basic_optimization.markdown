@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 최적화 이론 기초 정리 (Gradient Descent, Newton Method, Gauss-Newton, LM 등)
+title: 최적화 이론 기초 정리 (Gradient Descent, Newton Method, Gauss-Newton, Levenberg-Marquardt 등)
 date: 2024-05-05 00:00:00
 img: math/calculus/jacobian/jacobian.png
 categories: [math-calculus] 
@@ -13,8 +13,24 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
 
+- 사전 지식 필요 : https://gaussian37.github.io/math-calculus-jacobian/
 
+<br>
 
+## **목차**
+
+<br>
+
+- ### Gradient Descent
+- ### SGD
+- ### Momentum
+- ### RMSProp
+- ### Adam
+- ### Newton Method
+- ### Gauss-Newton Method
+- ### Levenberg-Marquardt Method
+- ### Quasi Newton Method
+- ### Lagrange Multiplier
 
 <br>
 

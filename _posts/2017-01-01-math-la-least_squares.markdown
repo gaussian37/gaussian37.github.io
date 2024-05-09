@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 최소 자승법 (Least Squares)
+title: Least Squares (최소 제곱법/자승법)
 date: 2016-12-01 01:00:00
 img: math/la/linear_algebra.jpg
 categories: [math-la] 
