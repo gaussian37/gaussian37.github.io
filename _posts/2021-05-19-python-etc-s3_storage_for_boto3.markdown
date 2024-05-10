@@ -19,6 +19,21 @@ tags: [python, amazon, aws, s3 storage, boto3, s3 upload download, bot3 사용�
 
 <br>
 
+## **목차**
+
+<br>
+
+- ### [S3 storage에서 폴더 다운 받기](#s3-storage에서-폴더-다운-받기-1)
+- ### [S3 storage에 데이터 업로드](#s3-storage에-데이터-업로드-1)
+- ### [S3 storage에 폴더 업로드](#s3-storage에-폴더-업로드-1)
+- ### [S3 storage에 데이터가 있는 지 확인](#s3-storage에-데이터가-있는-지-확인-1)
+- ### [multipart 업/다운로드를 이용한 동시성 작업 (concurrency)](#multipart-업다운로드를-이용한-동시성-작업-concurrency-1)
+- ### [S3 storage 파일 크기 확인](#s3-storage-파일-크기-확인-1)
+- ### [원하는 위치의 폴더 경로 읽기](#원하는-위치의-폴더-경로-읽기-1)
+- ### [S3 storage의 json 파일 읽기](#s3-storage의-json-파일-읽기-1)
+
+<br>
+
 ## **S3 storage에서 폴더 다운 받기**
 
 <br>
@@ -28,8 +43,11 @@ import boto3
 import os 
 
 # set aws credentials 
-s3r = boto3.resource('s3', aws_access_key_id='xxxxxxxxxxxxxxxxx',
-    aws_secret_access_key='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+s3r = boto3.resource(
+    's3', 
+    aws_access_key_id='xxxxxxxxxxxxxxxxx',
+    aws_secret_access_key='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+)
 bucket = s3r.Bucket('bucket_name')
 
 # downloading folder 
@@ -54,7 +72,7 @@ s3.meta.client.upload_file('/tmp/hello.txt', 'mybucket', 'hello.txt')
 
 <br>
 
-## **s3 storage에 폴더 업로드**
+## **S3 storage에 폴더 업로드**
 
 <br>
 
@@ -98,6 +116,109 @@ config = TransferConfig(multipart_threshold=5*GB, max_concurrency=5)
 # Perform the transfer
 s3 = boto3.client('s3')
 s3.upload_file('FILE_NAME', 'BUCKET_NAME', 'OBJECT_NAME', Config=config)
+```
+
+<br>
+
+## **S3 storage 파일 크기 확인**
+
+<br>
+
+```python
+import boto3
+
+# Create an S3 client
+s3_client = boto3.client(
+    's3',
+    # + options of access_key, secret_key, ...
+)
+
+# Specify your bucket name
+bucket_name = 'your-bucket-name'
+
+# Specify the object path
+object_path = 'path/to/your/object'
+
+# Get object metadata
+response = s3_client.head_object(Bucket=bucket_name, Key=object_path)
+
+# Extract the file size
+file_size = response['ContentLength']
+
+print(f"The file size is {file_size} bytes.")
+```
+
+<br>
+
+## **원하는 위치의 폴더 경로 읽기**
+
+```python
+import boto3
+
+# Initialize S3 client
+s3_client = boto3.client(
+    's3',
+    # + options of access_key, secret_key, ...
+)
+
+# Specify the S3 bucket and the "directory" path (prefix)
+bucket_name = 'your-bucket-name'
+prefixes = [
+    'path/to/your/directory1/',  # Make sure to include trailing slash
+    'path/to/your/directory2/',  # Make sure to include trailing slash
+    ...
+] 
+
+# Initialize paginator
+paginator = s3_client.get_paginator('list_objects_v2')
+
+# Create pagination object
+page_iterator = paginator.paginate(Bucket=bucket_name, Prefix=prefix)
+
+# Iterate through pages and list all objects
+all_objects = []
+for prefix in prefixes:
+    for page in page_iterator:
+        if 'Contents' in page:
+            all_objects.extend([obj['Key'] for obj in page['Contents'] if obj['Key'] != prefix])
+
+# Print all objects
+print(f"Contents of {prefix} in {bucket_name}:")
+for obj in all_objects:
+    print(obj)
+```
+
+<br>
+
+## **S3 storage의 json 파일 읽기**
+
+<br>
+
+```python
+import boto3
+import json
+
+# Initialize S3 client
+s3_client = boto3.client(
+    's3',
+    # + options of access_key, secret_key, ...
+)
+
+# Specify the bucket and the JSON file path
+bucket_name = 'your-bucket-name'
+json_file_key = 'path/to/your/file.json'
+
+# Get the JSON file object from S3
+s3_object = s3_client.get_object(Bucket=bucket_name, Key=json_file_key)
+
+# Read the contents of the JSON file
+json_content = s3_object['Body'].read().decode('utf-8')
+
+# Load the JSON content into a Python dictionary
+json_data = json.loads(json_content)
+
+# Print or manipulate the JSON data
+print(json_data)
 ```
 
 <br>

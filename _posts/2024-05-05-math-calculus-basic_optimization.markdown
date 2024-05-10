@@ -13,6 +13,7 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
 
+- 사전 지식 필요 : https://gaussian37.github.io/math-la-least_squares/
 - 사전 지식 필요 : https://gaussian37.github.io/math-calculus-jacobian/
 
 <br>
