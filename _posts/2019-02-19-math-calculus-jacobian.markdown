@@ -162,7 +162,7 @@ print("LaTex of gradient of f", latex_code)
 ```
 
 <br> 
-<center><img src="../assets/img/math/calculus/jacobian/11.png" alt="Drawing" style="width:300px;"/></center>
+<center><img src="../assets/img/math/calculus/jacobian/11.png" alt="Drawing" style="width:200px;"/></center>
 <br>
 
 - `vector field`를 구하는 코드는 다음과 같습니다.
@@ -249,58 +249,71 @@ elif num_variable == 3:
 
 <br>
 
-- Jacobian은 다양한 문제에서 `approximation` 접근법을 사용할 때 자주 사용 되는 방법입니다.
-- 예를 들어 비선형 칼만필터를 사용할 때, 비선형 식을 선형으로 근사시켜서 모델링 할 때 사용하는 **Extended Kalman Filter**가 대표적인 예가 될 수 있습니다.
-- Jacobian은 정말 많이 쓰기 때문에 익혀두면 상당히 좋습니다. 이 글에서 Jacobian에 대하여 다루어 보도록 하겠습니다.
+- 위키피디아의 `Jacobian`의 정의를 찾아보면 **"The Jacobian matrix is the matrix of all first-order partial derivatives of a vector-valued function"** 으로 나옵니다. 즉, `Jacobian`은 모든 벡터들의 `1차 편미분값`으로 구성된 행렬이고 각 행렬의 값은 **vector-valued multivariable function일 때의 미분값**으로 정의됩니다. 관련 용어 및 내용은 아래 내용을 천천히 읽어보시면 충분히 이해할 수 있도록 설명하였습니다.
 
 <br>
+
+- `Jacobian`은 다양한 문제에서 `approximation` 접근법을 사용할 때 자주 사용 되는 방법입니다.
+- 예를 들어 비선형 칼만필터를 사용할 때, 비선형 식을 선형으로 근사시켜서 모델링 할 때 사용하는 **Extended Kalman Filter**가 대표적인 예가 될 수 있습니다. Jacobian은 정말 많이 쓰기 때문에 익혀두면 상당히 좋습니다. 
+- 먼저 `Jacobian`의 형태에 대하여 먼저 살펴보고 그 다음 `Jacobian`을 어떤 용도로 주로 사용하는 지 확인해 보도록 하겠습니다.
+
+<br>
+
+- 앞에서 `Gradient`는 다음과 같이 구하였었습니다.
+
+<br>
+
+- $$ \nabla f(x, y, ...) = \begin{bmatrix} \frac{\partial f}{\partial x} \\ \frac{\partial f}{\partial y} \\ \vdots \end{bmatrix} $$
+
+<br>
+
+- 위 식에서 출력 형태는 `vector`입니다. `Jacobian`은 위 식의 출력 형태에서 부터 편미분을 시작합니다. 따라서 `Jacobian`은 `vector-valued multivariable function`을 편미분하는 것이라고 말할 수 있습니다.
+
+<br>
+
+- $$ f(x, y, ...) = \begin{bmatrix} f_{1}(x, y, ...) \\ f_{2}(x, y, ...) \\ \vdots \end{bmatrix} $$
+
+<br>
+
+- 위 식에서 각 행의 함수에 대한 편미분의 결과는 `Gradient` 예제에서 살펴보았듯이 벡터가 됩니다. 따라서 `vector-valued multivariable function` $$ f $$ 의 `Jacobian`인 $$ J_{f} $$ 는 다음과 같은 행렬 결과를 가지게 됩니다.
+
+<br>
+
+- $$ J_{f}(x, y, ...) = \begin{bmatrix} \frac{\partial f_{1}}{\partial x}(x, y, ...) & \frac{\partial f_{1}}{\partial y}(x, y, ...) & \cdots \\ \frac{\partial f_{2}}{\partial x}(x, y, ...) & \frac{\partial f_{2}}{\partial y}(x, y, ...) & \cdots \\ \vdots & \vdots & \ddots \end{bmatrix} $$
+
+<br>
+
+- 정리하면 `Jacobian`은 1개의 함수만을 이용하여 `Gradient`를 구하는 것에서 시작하여 N개 함수의 `Gradient`를 구하여 행렬로 만드는 것으로 이해할 수 있습니다. 이 때, 각 함수의 `Gradient`는 행벡터로 나열한 다음에 행방향으로 쌓아 행렬을 만듭니다.
+
+<br>
+
+- `Jacobian`은 다양한 용도로 사용될 수 있으나 가장 기본적으로 `approximation`을 할 때 주로 사용됩니다.
 
 <br>
 <center><img src="../assets/img/math/calculus/jacobian/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 앞에서 말했듯이 `Jacobian의 목적`은 복잡하게 얽혀있는 식을 미분을 통하여 `linear approximation` 시킴으로써 간단한 `근사 선형식`을 만들어 주는 것입니다.
+- 앞에서 말했듯이 `Jacobian의 목적`은 복잡하게 얽혀있는 식을 미분을 통하여 `linear approximation` 시킴으로써 간단한 `근사 선형식`을 만들어 주는 것입니다. 관련 내용은 `테일러 급수`와 연관되어 있으며 아래 내용에서 참조할 수 있습니다.
+    - 참조 : https://gaussian37.github.io/math-mfml-taylor_series_and_linearisation/
+    - 참조 : https://gaussian37.github.io/math-mfml-multivariate_calculus_and_jacobian/
 - 위 그래프에서 미분 기울기를 통하여 $$ \Delta x $$ 후의 y값을 `선형 근사`하여 예측하는 것과 비슷한 원리 입니다.
-- 그런데 위 그래프에서 가장 알고 싶은 것은 $$ f'(x_{1}) $$ 에서의 함수 입니다.  
-- 물론 $$ y = f(x) $$와 같은 `1변수 함수`에서는 미분값도 스칼라 값이 나오기도 합니다. 
-- 하지만 $$ x = (x_{1}, x_{2}, ...), y = (y_{1}, y_{2}, ...) $$와 같이 일반화한 경우 미분값이 스칼라 값이 아니라 `행렬`형태로 나오게 됩니다.
-
-<br>
-<center><img src="../assets/img/math/calculus/jacobian/2.png" alt="Drawing" style="width: 300px;"/></center>
-<br>
-    
-- 여기서 `J`가 앞의 그래프 예시에 있는 함수 $$ f'(x) $$ 입니다.
-
-<br>
- 
-- 위키피디아의 Jacobian 행렬 정의를 찾아보면 **"The Jacobian matrix is the matrix of all first-order partial derivatives of a vector-valued function"** 으로 나옵니다. 
-- 즉, Jacobian 행렬은 모든 벡터들의 `1차 편미분값`으로된 행렬로 각 행렬의 값은 **다변수 함수일 때의 미분값**입니다.
-
-<br>
-    
-- 첫 그래프를 보고 `Jacobian을 구한 이유`에 대해서 다시 생각해 보면, $$ q = f^{-1}(x) $$를 구하기 어렵기 때문에 선형화 하여 근사값을 구한 것입니다. 따라서 이 문제를 Jacobian의 역행렬을 이용하여 푼다면 근사해를 구할 수 있습니다.
-
-<br>
-    
-- $$ dx = Jdq $$
-
-- $$ dq = J^{-1}dx $$
-
-- $$ \therefore q_{2} = q_{1} + J^{-1}dx  $$
-    
-<br>
-
-- 이번에는 다른 방법을 통하여 Jacobian의 사용 예시를 설명드리겠습니다.
+- 그런데 위 그래프에서 알고 싶은 것은 $$ f'(x_{1}) $$ 에서의 함수 입니다. 위 그래프에서 $$ f'(x_{1}) $$ 이 기울기이기 때문에, $$ f'(x_{1}) \times \Delta x \approx y_{2} - y_{1} $$ 으로 근사화할 수 있기 때문입니다.
 
 <br>
 
-- $$ \int_{a}^{b}f(g(x))g^{\prime}(x)dx=\int_{g(a)}^{g(b)}f(u)du \quad\quad( u=g(x)\; \iff \;du=g^{\prime}(x)dx) $$
+- 다시 한번 `Jacobian`을 행렬로 표현하면 다음과 같습니다.
 
 <br>
 
-- $$ \begin{split}\int_{0}^{1} \sqrt{1-x^2} d x  &=\int_{0}^{\pi/2} \sqrt{1-\sin^2 \theta} \cos \theta d \theta \quad (x=\sin \theta\; \iff \;dx=\cos \theta d \theta) \\ &=\int_{0}^{\pi/2} \cos^2 \theta d \theta =\int_{0}^{\pi/2} \frac{1}{2} (1+\cos 2 \theta) d \theta \\ &= \frac{1}{2} \left[ \theta + \frac{1}{2} \sin 2 \theta \right]_0^{\pi/2}=\frac{\pi}{4} \end{split} $$
+- $$ J = \frac{\partial y}{\partial x} = \frac{\partial f(x)}{\partial x} = \begin{bmatrix} \frac{\partial f_{1}}{\partial x_{1}} & \cdots & \frac{\partial f_{1}}{\partial x_{m}} \\ \vdots & \ddots & \vdots \\ \frac{\partial f_{n}}{\partial x_{1}} & \cdots & \frac{\partial f_{n}}{\partial x_{m}} \end{bmatrix} $$
 
-- $$ \cos{2\theta} = 2\cos{\alpha}^{2} - 1 $$
+<br>
+
+- 여기서 `J`가 앞의 그래프 예시에 있는 함수 $$ f'(x) $$ 입니다. 따라서 다음과 같이 식을 정리할 수 있습니다.
+
+<br>
+
+- $$ y_{i+1} = f(x_{i+1}) \approx y_{i} + \frac{\partial f(x_{i})}{\partial x_{i}} \Delta x = y_{i} + J \Delta x $$
 
 <br>
 
@@ -361,7 +374,7 @@ J = f.jacobian(x)
 ```
 
 <br>
-<center><img src="../assets/img/math/calculus/jacobian/3.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/calculus/jacobian/3.png" alt="Drawing" style="width: 200px;"/></center>
 <br>
 
 - 따라서 코드를 이용해서도 동일한 결과를 얻을 수 있음을 확인하였습니다.
@@ -512,6 +525,8 @@ print(jacobian_result_matrix)
 ## **Hessian의 정의 및 예시**
 
 <br>
+
+
 
 <br>
 

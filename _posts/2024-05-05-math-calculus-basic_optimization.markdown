@@ -13,8 +13,8 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
 
-- 사전 지식 필요 : https://gaussian37.github.io/math-la-least_squares/
-- 사전 지식 필요 : https://gaussian37.github.io/math-calculus-jacobian/
+- 사전 지식 필요 : [최소제곱법](https://gaussian37.github.io/math-la-least_squares/)
+- 사전 지식 필요 : [Gradient, Jacobian, Hessian 개념](https://gaussian37.github.io/math-calculus-jacobian/)
 
 <br>
 
