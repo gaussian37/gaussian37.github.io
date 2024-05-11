@@ -37,9 +37,9 @@ tags: [미분적분, calculus, 공학 수학, advanced egineering mathematics, v
 
 <br>
 
-- [Jacobian(자코비안) 이란?](https://gaussian37.github.io/math-calculus-jacobian/)
+- [Gradient (그래디언트), Jacobian (자코비안) 및 Hessian (헤시안)](https://gaussian37.github.io/math-calculus-jacobian/)
 - [극좌표계 (Polar Coordinate)](https://gaussian37.github.io/math-calculus-polar_coordinate_system/) 
-- [원통 좌표계와 구면 좌표계](https://gaussian37.github.io/math-calculus-cylindrical_spherical_coordineta_system/) 
+- [원통 좌표계와 구면 좌표계](https://gaussian37.github.io/math-calculus-cylindrical_spherical_coordinate_system/) 
 - [오일러 공식 (Euler formula)](https://gaussian37.github.io/math-calculus-euler_formula/)
 - [복소 평면 (complex plane)](https://gaussian37.github.io/math-calculus-complex_plane/)
 - [페이저 (Phasor)](https://gaussian37.github.io/math-calculus-phasor/)
