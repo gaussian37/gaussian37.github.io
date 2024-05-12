@@ -317,6 +317,14 @@ elif num_variable == 3:
 
 <br>
 
+- 또는 함수 $$ f $$ 에서 $$ p $$ 지점에서의 `linear approximation`을 나타내기 위해 다음과 같이 수식을 써서 표현하기도 합니다.
+
+<br>
+
+- $$ f(x) \approx f(p) + J_{f}(p)(x - p) $$
+
+<br>
+
 ## **Python을 이용한 Jacobian 계산**
 
 <br>
@@ -526,7 +534,77 @@ print(jacobian_result_matrix)
 
 <br>
 
+- `Hessian`은 앞에서 간략히 정리한 바와 같이 `scalar-valued function` (1개의 함수)에 대하여 2차 편미분을 적용한 결과를 행렬로 나타낸 것을 의미하며 다음과 같이 정의됩니다.
+- 먼저 2차 편미분은 다음과 같은 방식으로 표현합니다.
 
+<br>
+
+- $$ \frac{\partial}{\partial \color{blue}{x}}\left( \frac{\partial f}{\partial \color{blue}{x}} \right) = \frac{\partial^{2} f}{\partial \color{blue}{x}^{2}} $$
+
+- $$ \frac{\partial}{\partial \color{blue}{x}}\left( \frac{\partial f}{\partial \color{red}{y}} \right) = \frac{\partial^{2} f}{\partial \color{blue}{x} \partial \color{red}{y}} $$
+
+- $$ \frac{\partial}{\partial \color{red}{y}}\left( \frac{\partial f}{\partial \color{blue}{x}} \right) = \frac{\partial^{2} f}{\partial \color{red}{y} \partial \color{blue}{x}} $$
+
+- $$ \frac{\partial}{\partial \color{red}{y}}\left( \frac{\partial f}{\partial \color{red}{y}} \right) = \frac{\partial^{2} f}{\partial \color{red}{y}^{2}} $$
+
+- $$ \text{Symmetry of second derivatives: } \frac{\partial^{2} f}{\partial \color{blue}{x} \partial \color{red}{y}} = \frac{\partial^{2} f}{\partial \color{red}{y} \partial \color{blue}{x}} $$
+
+<br>
+
+- $$ H_{f} = \begin{bmatrix} \frac{\partial^{2} f}{\partial x^{2}} & \frac{\partial^{2} f}{\partial x \partial y} & \frac{\partial^{2} f}{\partial x \partial z} & \cdots \\ \frac{\partial^{2} f}{\partial y \partial x} & \frac{\partial^{2} f}{\partial y^{2}} & \frac{\partial^{2} f}{\partial y \partial z} & \cdots \\ \frac{\partial^{2} f}{\partial z \partial x} & \frac{\partial^{2} f}{\partial z \partial y} & \frac{\partial^{2} f}{\partial z^{2}} & \cdots \\ \vdots & \vdots & \vdots & \ddots \end{bmatrix} $$
+
+<br>
+
+- 위 `Hessian`은 `scalar-valued function` $$ f $$ 에 대하여 2차 편미분을 계산한 것을 확인할 수 있습니다. 또한 `Hessian`의 결과를 보면 `Symmetry of second derivatives` 성질로 인하여 `Symmetric Matrix`가 됨을 알 수 있습니다.
+- 다음 예제를 살펴보도록 하겠습니다.
+
+<br>
+
+- $$ \text{Hessian of } f(x, y) = x^{3} - 2xy - y^{6} \text{ at the point } (1, 2) $$
+
+<br>
+
+- $$ f_{x}(x, y) = \frac{\partial}{\partial x}(x^{3} - 2xy - y^{6}) = 3x^{2} - 2y $$
+
+- $$ f_{y}(x, y) = \frac{\partial}{\partial y}(x^{3} - 2xy - y^{6}) = -2x -6y^{5} $$
+
+- $$ f_{xx}(x, y) = \frac{\partial}{\partial x}(3x^{2} - 2y) = 6x $$
+
+- $$ f_{xy}(x, y) = \frac{\partial}{\partial y}(3x^{2} - 2y) = -2 $$
+
+- $$ f_{yx}(x, y) = \frac{\partial}{\partial x}(-2x -6y^{5}) = -2 $$
+
+- $$ f_{yy}(x, y) = \frac{\partial}{\partial y}(-2x -6y^{5}) = -30y^{4} $$
+
+<br>
+
+- $$ H_{f(x, y)} = \begin{bmatrix} f_{xx}(x, y) & f_{xy}(x, y) \\ f_{yx}(x, y) & f_{yy}(x, y) \end{bmatrix} = \begin{bmatrix} 6x & -2 \\ -2 & -30y^{4} \end{bmatrix} $$
+
+- $$ H_{f(1, 2)} = \begin{bmatrix} 6(1) & -2 \\ -2 & -30(2)^{4} \end{bmatrix}= \begin{bmatrix} 6 & -2 \\ -2 & -480 \end{bmatrix} $$
+
+<br>
+
+- `Hessian`은 각 성분이 2차 편미분의 결과를 저장하고 있습니다. 2차 편미분은 `curvature` (곡률, 변화율)을 의미합니다.
+- 따라서 `Hessian`의 `Eigenvalue`와 `Eigenvector`는 `curvature`의 `Principle Component`가 됩니다.
+- 만약 모든 `Eigenvalue`의 곱이 양수이면 `Eigenvalue` 각각이 모두 양수이거나 모두 음수인 경우가 됩니다. 즉, 곡률의 방향이 모두 같은 방향이 되어 `convex`한 형태를 가지게 되고 `global optimization`을 구할 수 있는 형태가 됩니다. 반면 모든 `Eigenvalue`의 곱이 음수이면 곡률의 방향이 다른 성분이 있으므로 `saddle point` 형태가 되어 `global optimization`을 구할 수 없습니다.
+    - 링크 그림 참조 : https://gaussian37.github.io/math-mfml-multivariate_calculus_and_jacobian/#hessian-1
+- 만약 `global optimization`이 있는 상태라면 `Hessian` 행렬의 가장 왼쪽 상단의 값 하나만 추가적으로 확인하면 됩니다. 만약 좌상단의 값이 양수라면 `curvature`가 양수이므로 아래로 볼록한 `convexity` 형태를 가지게 되어 `global minimum`을 가지고 반대로 좌상단의 값이 음수라면 위로 볼록한 `concavity` 형태를 가지므로 `global maximum`을 가지게 됩니다.
+- 모든 `eigenvalue`의 곱은 `determinant`를 의미하기 때문에 `determinant`가 양수인 지 음수인 지를 통하여 `global optimization` 유무를 구할 수 있습니다.
+
+<br>
+
+- `eigenvalue`는 `Positive/Negative (Semi) Definite Matrix`와도 연관이 있습니다. 따라서 다음과 같이 정리할 수 있으며 앞에서 다룬 내용과 동일한 의미를 가집니다.
+    - 참조 : https://gaussian37.github.io/math-la-positive_definite_matrix/
+
+<br>
+
+- $$ H_{f} \text{: convex on set A if, and only if, its Hessian matrix is positive semidefinite at all points on the set. } $$
+
+- $$ H_{f} \text{: strictly convex on set A if, and only if, its Hessian matrix is positive definite at all points on the set. } $$
+
+- $$ H_{f} \text{: concave on set A if, and only if, its Hessian matrix is negative semi-definite at all points on the set. } $$
+
+- $$ H_{f} \text{: strictly concave on set A if, and only if, its Hessian matrix is negative definite at all points on the set. } $$
 
 <br>
 
@@ -534,8 +612,45 @@ print(jacobian_result_matrix)
 
 <br>
 
+- `Hessian` 또한 앞에서 사용한 `sympy`를 이용하여 구할 수 있습니다. 아래 예제는 앞에서 사용한 예시를 이용하였습니다.
+
 <br>
 
+```python
+import sympy as sp
+
+# Step 1: Define symbolic variables
+x, y = sp.symbols('x y')
+
+# Step 2: Define the function f(x, y)
+f = x**3-2*x*y-y**6
+
+# Step 3: Compute the gradient of f
+grad_f = [sp.diff(f, var) for var in (x, y)]
+
+# Step 4: Compute the Hessian matrix
+hessian = sp.Matrix([[sp.diff(g, var) for var in (x, y)] for g in grad_f])
+hessian_func = sp.lambdify((x, y), hessian, 'numpy')
+
+# Evaluate the function with numpy arrays (or numbers)
+result = hessian_func(1, 2)  # Evaluating at x=1, y=2, z=3
+
+# Display the Hessian matrix
+print("Hessian Matrix: \n")
+sp.pprint(Hessian)
+# ⎡6⋅x    -2  ⎤
+# ⎢           ⎥
+# ⎢          4⎥
+# ⎣-2   -30⋅y ⎦
+print("Result: \n", result)
+# Result: 
+#  [[   6   -2]
+#  [  -2 -480]]
+```
+
+<br>
+<center><img src="../assets/img/math/calculus/jacobian/12.png" alt="Drawing" style="width: 200px;"/></center>
+<br>
 
 <br>
 
