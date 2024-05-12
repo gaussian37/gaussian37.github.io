@@ -608,6 +608,22 @@ print(jacobian_result_matrix)
 
 <br>
 
+- `Hessian`이 사용되는 대표적인 케이스는 `multivariable function`의 `Taylor Series`에서 2차 도함수를 구하는 데 사용됩니다. 가장 기본적인 `single variable function`의 `Taylor Series`는 다음과 같이 전개됩니다. 다음은 점 $$ a $$ 에서의 근사화 방법입니다.
+
+<br>
+
+- $$ T(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x - a)^{n} = f(a) + f'(a)(x-a) + \frac{1}{2}f''(a)(x-a)^{2} + \frac{1}{6}f'''(a)(x-a)^{3} + \cdots $$
+
+<br>
+
+- 위 식을 `multivariable function`의 `Taylor Series`로 나타내면 다음과 같습니다.
+
+<br>
+
+- $$ T(x) = f(a) + (x-a)^{T}\nabla f(a) + \frac{1}{2}(x - a)^{T} H_{f}(x-a) + \cdots $$
+
+<br>
+
 ## **Python을 이용한 Hessian 계산**
 
 <br>
