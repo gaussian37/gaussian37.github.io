@@ -34,7 +34,7 @@ tags: [Jacobian, 자코비안] # add tag
 - ### [RMSProp](#rmsprop-1)
 - ### [Adam](#adam-1)
 - ### [Newton Method](#newton-method-1)
-- ### [Newton Method for Non-Linear Least Squares](#newton-method-1)
+- ### [Newton Method for Optimization](#newton-method-for-optimization-1)
 - ### [Gauss-Newton Method for Non-Linear Least Squares](#gauss-newton-method-for-non-linear-least-squares-1)
 - ### [Levenberg-Marquardt Method for Non-Linear Least Squares](#levenberg-marquardt-method-for-non-linear-least-squares-1)
 - ### [Quasi Newton Method for Non-Linear Least Squares](#quasi-newton-method-for-non-linear-least-squares-1)
@@ -80,7 +80,7 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
 
-## **Newton Method for Non-Linear Least Squares**
+## **Newton Method for Optimization**
 
 <br>
 
@@ -148,7 +148,7 @@ tags: [Jacobian, 자코비안] # add tag
 
 - $$ k_{\text{new}} = k_{\text{old}} - \frac{f'(k_{\text{old}})}{f''(k_{\text{old}})} $$
 
-- $$ \begin{bmatrix}k_{{0(\text{new})}} \\ k_{{1(\text{new})}} \end{bmatrix} = \begin{bmatrix} k_{{0(\text{old})}} \\ k_{{1(\text{old})}} \end{bmatrix} - H^{-1}G $$
+- $$ \begin{bmatrix}k_{0(\text{new})} \\ k_{1(\text{new})} \end{bmatrix} = \begin{bmatrix} k_{0(\text{old})} \\ k_{1(\text{old})} \end{bmatrix} - H^{-1}G $$
 
 - $$ H (\text{Hessian}) = \begin{bmatrix} \frac{\partial^{2}f}{\partial k_{0}^{2}} & \frac{\partial^{2}f}{\partial k_{0} \partial k_{1}} \\ \frac{\partial^{2}f}{\partial k_{1} \partial k_{0}} & \frac{\partial^{2}f}{\partial k_{1}^{2}} \end{bmatrix} $$
 
@@ -166,7 +166,7 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
 
-- 작성중 ... 
+- 따라서 `newton method`를 이용하여 `Objective Function`을 최적화 할 때, 위 식을 통하여 점진적으로 
 
 <br>
 
