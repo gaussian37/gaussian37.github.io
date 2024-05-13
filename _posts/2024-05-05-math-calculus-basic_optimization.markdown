@@ -150,9 +150,9 @@ tags: [Jacobian, 자코비안] # add tag
 
 - $$ \begin{bmatrix}k_{0(\text{new})} \\ k_{1(\text{new})} \end{bmatrix} = \begin{bmatrix} k_{0(\text{old})} \\ k_{1(\text{old})} \end{bmatrix} - H^{-1}G $$
 
-- $$ H (\text{Hessian}) = \begin{bmatrix} \frac{\partial^{2}f}{\partial k_{0}^{2}} & \frac{\partial^{2}f}{\partial k_{0} \partial k_{1}} \\ \frac{\partial^{2}f}{\partial k_{1} \partial k_{0}} & \frac{\partial^{2}f}{\partial k_{1}^{2}} \end{bmatrix} $$
+- $$ G (\text{Gradient}) = \begin{bmatrix} \frac{\partial f}{\partial k_{0}} \\ \frac{\partial f}{\partial k_{1}} \end{bmatrix} = \begin{bmatrix} e^{-k_{1}t} \\ -k_{0}te^{-k_{1}t} \end{bmatrix} $$
 
-- $$ G (\text{Gradient}) = \begin{bmatrix} \frac{\partial f}{\partial k_{0}} \\ \frac{\partial f}{\partial k_{1}} \end{bmatrix} $$
+- $$ H (\text{Hessian}) = \begin{bmatrix} \frac{\partial^{2}f}{\partial k_{0}^{2}} & \frac{\partial^{2}f}{\partial k_{0} \partial k_{1}} \\ \frac{\partial^{2}f}{\partial k_{1} \partial k_{0}} & \frac{\partial^{2}f}{\partial k_{1}^{2}} \end{bmatrix} = \begin{bmatrix} 0 & -t e^{-k_{1}t} \\ -t e^{-k_{1}t} & k_{0}t^{2}e^{-k_{1}t} \end{bmatrix} $$
 
 <br>
 
@@ -166,7 +166,43 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
 
-- 따라서 `newton method`를 이용하여 `Objective Function`을 최적화 할 때, 위 식을 통하여 점진적으로 
+- 따라서 `newton method`를 이용하여 `Objective Function`을 최적화 할 때, 위 식을 통하여 점진적으로 해를 구할 수 있습니다.
+- 위 식을 통하여 아래 데이터에 대하여 $$ k_{0}, k_{1} $$ 을 최적화 해보려고 합니다.
+
+<br>
+
+```python
+t = [0, 20, 40, 60, 80, 100, 120, 140]
+y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
+```
+
+<br>
+
+- 위 데이터는 총 8개의 쌍으로 다음과 같이 기호로 적을 수 있습니다.
+
+<br>
+
+- $$ \begin{bmatrix} x_{0} & y_{0} \\ x_{1} & y_{1} \\ x_{2} & y_{2} \\ x_{3} & y_{3} \\ x_{4} & y_{4} \\ x_{5} & y_{5} \\ x_{6} & y_{6} \\ x_{7} & y_{7} \end{bmatrix}  = \begin{bmatrix} 0 & 147.8 \\ 20 & 78.3 \\ 40 & 44.7 \\ 60 & 29.5 \\ 80 & 15.2 \\ 100 & 7.8 \\ 120 & 3.2 \\ 140 &3.9 \end{bmatrix} $$
+
+<br>
+
+- 그런데 `newton method`를 이용하여 최적화 하려고 하면 각 데이터에 대하여 `Hessian`을 구해야 하는 복잡함이 발생합니다. 따라서 각 행마다 다음과 같이 `Hessian`을 구하여 표현해 주어야 합니다.
+
+<br>
+
+- $$ H_{0} = \begin{bmatrix} 0 & -(0) e^{-k_{1}(0)} \\ -(0) e^{-k_{1}(0)} & k_{0}(0)^{2}e^{-k_{1}(0)} \end{bmatrix} $$
+
+- $$ H_{1} = \begin{bmatrix} 0 & -(20) e^{-k_{1}(20)} \\ -(20) e^{-k_{1}(20)} & k_{0}(20)^{2}e^{-k_{1}(20)} \end{bmatrix} $$
+
+- $$ \vdots $$
+
+- $$ H_{7} = \begin{bmatrix} 0 & -(140) e^{-k_{1}(140)} \\ -(140) e^{-k_{1}(140)} & k_{0}(140)^{2}e^{-k_{1}(140)} \end{bmatrix} $$
+
+<br>
+
+- 예를 들어 `least squares`와 같은 경우에는 $$ Ax = b $$ 에서 $$ x = (A^{T}A)^{-1}A^{T} b $$ 와 같이 해를 구할 때, 모든 데이터 성분을 2차원 행렬 ( $$ (n, m) $$ ) $$ A $$ 와 벡터 $$ b $$ 에 표현합니다.
+- 하지만 `newton method`를 이용하여 최적해를 구할 때에는 `Hessian`으로 인하여 하나의 식으로 표현한다면 2차원 행렬인 `Hessian`을 행의 요소로 가지는 3차원 텐서로 표현해주어야 하는 복잡함이 발생합니다. 실제 계산도 복잡합니다.
+- 따라서 `newton method`를 `least squares`와 같이 표현하여 계산 복잡도를 줄이는 방법이 필요하고 이 방법을 `Gauss-Newton Method`라고 합니다.
 
 <br>
 
@@ -174,7 +210,6 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
 
-- 
 
 <br>
 
