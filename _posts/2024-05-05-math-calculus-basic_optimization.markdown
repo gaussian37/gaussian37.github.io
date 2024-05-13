@@ -166,6 +166,10 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
 
+- 작성중 ... 
+
+<br>
+
 ## **Gauss-Newton Method for Non-Linear Least Squares**
 
 <br>
