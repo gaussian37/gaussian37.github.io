@@ -668,6 +668,8 @@ print("Result: \n", result)
 <center><img src="../assets/img/math/calculus/jacobian/12.png" alt="Drawing" style="width: 200px;"/></center>
 <br>
 
+- 위 결과와 같이 원하는 `Hessian` 값을 코드를 통하여 구할 수 있습니다.
+
 <br>
 
 [Calculus 관련 글 목차](https://gaussian37.github.io/math-calculus-table/)

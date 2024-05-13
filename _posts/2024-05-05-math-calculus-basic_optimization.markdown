@@ -148,7 +148,7 @@ tags: [Jacobian, 자코비안] # add tag
 
 - $$ k_{\text{new}} = k_{\text{old}} - \frac{f'(k_{\text{old}})}{f''(k_{\text{old}})} $$
 
-- $$ \begin{bmatrix}k_{{0}_{\text{new}}} \\ k_{{1}_{\text{new}}} \end{bmatrix} = \begin{bmatrix} k_{{0}_{\text{old}}} \\ k_{{1}_{\text{old}}} \end{bmatrix} - H^{-1}G $$
+- $$ \begin{bmatrix}k_{{0(\text{new})}} \\ k_{{1(\text{new})}} \end{bmatrix} = \begin{bmatrix} k_{{0(\text{old})}} \\ k_{{1(\text{old})}} \end{bmatrix} - H^{-1}G $$
 
 - $$ H (\text{Hessian}) = \begin{bmatrix} \frac{\partial^{2}f}{\partial k_{0}^{2}} & \frac{\partial^{2}f}{\partial k_{0} \partial k_{1}} \\ \frac{\partial^{2}f}{\partial k_{1} \partial k_{0}} & \frac{\partial^{2}f}{\partial k_{1}^{2}} \end{bmatrix} $$
 
