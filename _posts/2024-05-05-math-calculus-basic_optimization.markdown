@@ -201,8 +201,8 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 <br>
 
 - 예를 들어 `least squares`와 같은 경우에는 $$ Ax = b $$ 에서 $$ x = (A^{T}A)^{-1}A^{T} b $$ 와 같이 해를 구할 때, 모든 데이터 성분을 2차원 행렬 ( $$ (n, m) $$ ) $$ A $$ 와 벡터 $$ b $$ 에 표현합니다.
-- 하지만 `newton method`를 이용하여 최적해를 구할 때에는 `Hessian`으로 인하여 하나의 식으로 표현한다면 2차원 행렬인 `Hessian`을 행의 요소로 가지는 3차원 텐서로 표현해주어야 하는 복잡함이 발생합니다. 실제 계산도 복잡합니다.
-- 따라서 `newton method`를 `least squares`와 같이 표현하여 계산 복잡도를 줄이는 방법이 필요하고 이 방법을 `Gauss-Newton Method`라고 합니다.
+- 하지만 `newton method`를 이용하여 최적해를 구할 때에는 `Hessian`으로 인하여 하나의 식으로 표현한다면 2차원 행렬인 `Hessian`을 행의 요소로 가지는 3차원 텐서로 표현해주어야 하는 복잡함이 발생합니다. (`Hessian`을 이용한 `newton method`의 출력은 `matrix-valued multivariable function`이 됩니다.) 그리고 2차 편미분에 대한 실제 계산도 복잡합니다. 
+- 따라서 `newton method`를 `least squares`와 같이 표현하여 계산 복잡도를 줄이는 방법이 필요합니다.
 
 <br>
 
@@ -210,6 +210,14 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 <br>
 
+- `gauss-newton method`는 `optimization` 문제를 풀 때, 2차 미분을 사용하는 `Hessian` 대신에 1차 미분을 사용하는 `Gradient`를 이용하여 근사해를 구하는 방식입니다. 이 때, `Gradient`를 $$ n $$ 개의 `function`에 대하여 (`vector-valued multivariable function`) 적용하므로 `Jacobian`을 이용하게 됩니다.
+- `Jacobian`을 이용하여 `gauss-newton method`에서 표현하고자 하는 것은 `least squares`([최소제곱법](https://gaussian37.github.io/math-la-least_squares/))를 반복적(`iterative`)으로 적용하는 것입니다. 
+- 이 방식을 통해 `linear function`의 해를 구하는 `least squares`를 `non-linear function`의 해를 구하는 `non-linear least squares`로 표현하는 것이 `gauss-newton method`의 핵심이라고 말할 수 있습니다.
+- `linear function`의 해는 `least squares`를 한번 적용하여 해 또는 근사해를 구할 수 있습니다. 반면 `non-linear function`의 해는 `linear function`에 사용되는 `least suqares`를 단 한번 적용해서 근사해를 바로 구하기 어렵기 때문에 반복적으로 적용하며 점근적으로 근사해를 찾아갑니다.
+
+<br>
+
+... 작성중 ...
 
 <br>
 
