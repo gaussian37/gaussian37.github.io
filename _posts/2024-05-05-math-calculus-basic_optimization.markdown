@@ -34,6 +34,7 @@ tags: [Jacobian, 자코비안] # add tag
 - ### [RMSProp](#rmsprop-1)
 - ### [Adam](#adam-1)
 - ### [Newton Method](#newton-method-1)
+- ### [Quadratic approximation](#quadratic-approximation-1)
 - ### [Newton Method for Optimization](#newton-method-for-optimization-1)
 - ### [Gauss-Newton Method for Non-Linear Least Squares](#gauss-newton-method-for-non-linear-least-squares-1)
 - ### [Levenberg-Marquardt Method for Non-Linear Least Squares](#levenberg-marquardt-method-for-non-linear-least-squares-1)
@@ -77,6 +78,12 @@ tags: [Jacobian, 자코비안] # add tag
 <br>
 
 - 참조 : https://gaussian37.github.io/math-mfml-intro_to_optimisation/#newton-raphson-method-1
+
+<br>
+
+## **Quadratic approximation**
+
+<br>
 
 <br>
 
@@ -218,6 +225,10 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 <br>
 
 ... 작성중 ...
+
+- $$ r(x) = f(x)g(x) $$
+
+- $$ r'(x) = f'(x)g(x) + f(x)g'(x) $$
 
 <br>
 
