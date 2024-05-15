@@ -2,9 +2,9 @@
 layout: post
 title: 최적화 이론 기초 정리 (Gradient Descent, Newton Method, Gauss-Newton, Levenberg-Marquardt 등)
 date: 2024-05-05 00:00:00
-img: math/calculus/jacobian/jacobian.png
+img: math/calculus/basic_optimization/0.png
 categories: [math-calculus] 
-tags: [Jacobian, 자코비안] # add tag
+tags: [Gradient Descent, SGD, Momentum, RMSProp, Adam, Newton, Gauss Newton, Levenberg-Marquardt, Quasi Newton, Lagrange Multiplier, Jacobian, 자코비안] # add tag
 ---
 
 <br>
@@ -15,6 +15,8 @@ tags: [Jacobian, 자코비안] # add tag
 
 - 사전 지식 필요 : [최소제곱법](https://gaussian37.github.io/math-la-least_squares/)
 - 사전 지식 필요 : [Gradient, Jacobian, Hessian 개념](https://gaussian37.github.io/math-calculus-jacobian/)
+- 참조 : https://people.duke.edu/~hpgavin/ExperimentalSystems/lm.pdf
+- 참조 : https://towardsdatascience.com/bfgs-in-a-nutshell-an-introduction-to-quasi-newton-methods-21b0e13ee504
 - 참조 : https://youtu.be/C6DCtQjKkdY
 
 <br>
@@ -38,6 +40,7 @@ tags: [Jacobian, 자코비안] # add tag
 - ### [Newton Method for Optimization](#newton-method-for-optimization-1)
 - ### [Gauss-Newton Method for Non-Linear Least Squares](#gauss-newton-method-for-non-linear-least-squares-1)
 - ### [Levenberg-Marquardt Method for Non-Linear Least Squares](#levenberg-marquardt-method-for-non-linear-least-squares-1)
+- ### [Weighted Residuals](#weighted-residuals-1)
 - ### [Quasi Newton Method for Non-Linear Least Squares](#quasi-newton-method-for-non-linear-least-squares-1)
 - ### [Lagrange Multiplier](#lagrange-multiplier-1)
 
@@ -104,16 +107,16 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
 
-- $$ y = a \cdot e^{-kt} $$
+- $$ y = a \cdot e^{-wt} $$
 
 <br>
 
-- 위 식에서 $$ a $$ 는 상수이고 구하고자 하는 파라미터는 $$ k $$ 입니다. $$ t $$ 가 입력값이고 $$ y $$ 가 출력값입니다.
+- 위 식에서 $$ a $$ 는 상수이고 구하고자 하는 파라미터는 $$ w $$ 입니다. $$ t $$ 가 입력값이고 $$ y $$ 가 출력값입니다.
 - 위 함수식을 이용하여 `Objective Function`을 `SSE(Sum of Square Error)` 형태로 아래와 같이 정의하겠습니다. 사용되는 데이터의 갯수는 $$ n $$ 개로 이번 글에서는 8개의 데이터 샘플을 사용할 예정입니다.
 
 <br>
 
-- $$ \text{SSE} = \sum_{i=1}^{n}(y_{i} - \hat{y}_{i})^{2} = \sum_{i=1}^{n}(y_{i} - a e^{-kt_{i}}) $$
+- $$ \text{SSE} = \sum_{i=1}^{n}(y_{i} - \hat{y}_{i})^{2} = \sum_{i=1}^{n}(y_{i} - a e^{-wt_{i}}) $$
 
 <br>
 
@@ -122,13 +125,13 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
 
-- $$ k_{\text{new}} = k_{\text{old}} - \frac{f'(k_{\text{old}})}{f''(k_{\text{old}})} $$
+- $$ w_{\text{new}} = w_{\text{old}} - \frac{f'(w_{\text{old}})}{f''(w_{\text{old}})} $$
 
-- $$ \text{SSE} = \sum_{i} (y_{i} - a e^{-kt_{i}}) $$
+- $$ \text{SSE} = \sum_{i} (y_{i} - a e^{-wt_{i}}) $$
 
-- $$ \frac{\partial \text{SSE}}{\partial k} = \sum_{i=1}^{n}2(y_{i} - ae^{-kt_{i}}) \cdot t_{i}ae^{-kt_{i}} $$
+- $$ \frac{\partial \text{SSE}}{\partial w} = \sum_{i=1}^{n}2(y_{i} - ae^{-wt_{i}}) \cdot t_{i}ae^{-wt_{i}} $$
 
-- $$ \frac{\partial^{2} \text{SSE}}{\partial k^{2}} = \sum_{i=1}^{n} -2y_{i}t_{i}t_{i}a e^{-kt_{i}} - ((2ae^{-kt_{i}})(-t_{i}t_{i}ae^{-kt_{i}}) + (-2t_{i}ae^{-kt_{i}})(t_{i}ae^{-kt_{i}})) $$
+- $$ \frac{\partial^{2} \text{SSE}}{\partial w^{2}} = \sum_{i=1}^{n} -2y_{i}t_{i}t_{i}a e^{-wt_{i}} - ((2ae^{-wt_{i}})(-t_{i}t_{i}ae^{-wt_{i}}) + (-2t_{i}ae^{-wt_{i}})(t_{i}ae^{-wt_{i}})) $$
 
 <br>
 
@@ -136,30 +139,28 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
 
-- $$ k_{\text{new}} = k_{\text{old}} - \frac{\left(\frac{\partial \text{SSE}}{\partial k}\right)}{\left(\frac{\partial^{2}\text{SSE}}{\partial k^{2}}\right)} $$
+- $$ w_{\text{new}} = w_{\text{old}} - \frac{\left(\frac{\partial \text{SSE}}{\partial w}\right)}{\left(\frac{\partial^{2}\text{SSE}}{\partial w^{2}}\right)} $$
 
 <br>
 
-- 단순히 1차 미분과 2차 미분을 이용하여 $$ k_{\text{old}} \to k_{\text{new}} $$ 로 업데이트 한다는 것에서 앞에서 살펴본 다차 방정식의 해를 구하는 것과 큰 차이는 없습니다.
+- 단순히 1차 미분과 2차 미분을 이용하여 $$ w_{\text{old}} \to w_{\text{new}} $$ 로 업데이트 한다는 것에서 앞에서 살펴본 다차 방정식의 해를 구하는 것과 큰 차이는 없습니다.
 
 <br>
 
-- 이번에는 위 함수에서 상수 $$ a $$ 를 파라미터로 변경하여 다음과 같이 2개의 변수 $$ k = (k_{1}, k_{2}) $$ 를 가지는 `multivariable function`으로 변경해 보도록 하겠습니다. 
+- 이번에는 위 함수에서 상수 $$ a $$ 를 파라미터로 변경하여 다음과 같이 2개의 변수 $$ w = (w_{1}, w_{2}) $$ 를 가지는 `multivariable function`으로 변경해 보도록 하겠습니다. 
 - 최종적으로 구하고자 하는 형태가 `vector-valued multivariable function`에서의 최적화이기 때문입니다.
 
 <br>
 
-- $$ y = k_{1} \cdot e^{-k_{2}t} $$
+- $$ y = w_{1} \cdot e^{-w_{2}t} $$
 
-<br>
+- $$ w_{\text{new}} = w_{\text{old}} - \frac{f'(w_{\text{old}})}{f''(w_{\text{old}})} $$
 
-- $$ k_{\text{new}} = k_{\text{old}} - \frac{f'(k_{\text{old}})}{f''(k_{\text{old}})} $$
+- $$ \begin{bmatrix}w_{0(\text{new})} \\ w_{1(\text{new})} \end{bmatrix} = \begin{bmatrix} w_{0(\text{old})} \\ w_{1(\text{old})} \end{bmatrix} - H^{-1}G $$
 
-- $$ \begin{bmatrix}k_{0(\text{new})} \\ k_{1(\text{new})} \end{bmatrix} = \begin{bmatrix} k_{0(\text{old})} \\ k_{1(\text{old})} \end{bmatrix} - H^{-1}G $$
+- $$ G (\text{Gradient}) = \begin{bmatrix} \frac{\partial f}{\partial w_{1}} \\ \frac{\partial f}{\partial w_{2}} \end{bmatrix} = \begin{bmatrix} e^{-w_{2}t} \\ -w_{1}te^{-w_{2}t} \end{bmatrix} $$
 
-- $$ G (\text{Gradient}) = \begin{bmatrix} \frac{\partial f}{\partial k_{1}} \\ \frac{\partial f}{\partial k_{2}} \end{bmatrix} = \begin{bmatrix} e^{-k_{2}t} \\ -k_{1}te^{-k_{2}t} \end{bmatrix} $$
-
-- $$ H (\text{Hessian}) = \begin{bmatrix} \frac{\partial^{2}f}{\partial k_{1}^{2}} & \frac{\partial^{2}f}{\partial k_{1} \partial k_{2}} \\ \frac{\partial^{2}f}{\partial k_{2} \partial k_{1}} & \frac{\partial^{2}f}{\partial k_{2}^{2}} \end{bmatrix} = \begin{bmatrix} 0 & -t e^{-k_{2}t} \\ -t e^{-k_{2}t} & k_{1}t^{2}e^{-k_{2}t} \end{bmatrix} $$
+- $$ H (\text{Hessian}) = \begin{bmatrix} \frac{\partial^{2}f}{\partial w_{1}^{2}} & \frac{\partial^{2}f}{\partial w_{1} \partial w_{2}} \\ \frac{\partial^{2}f}{\partial w_{2} \partial w_{1}} & \frac{\partial^{2}f}{\partial w_{2}^{2}} \end{bmatrix} = \begin{bmatrix} 0 & -t e^{-w_{2}t} \\ -t e^{-w_{2}t} & w_{1}t^{2}e^{-w_{2}t} \end{bmatrix} $$
 
 <br>
 
@@ -167,14 +168,14 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
 
-- $$ f'(k) = G $$
+- $$ f'(w) = G $$
 
-- $$ \frac{1}{f''(k)} = H^{-1} $$
+- $$ \frac{1}{f''(w)} = H^{-1} $$
 
 <br>
 
 - 따라서 `newton method`를 이용하여 `Objective Function`을 최적화 할 때, 위 식을 통하여 점진적으로 해를 구할 수 있습니다.
-- 위 식을 통하여 아래 데이터에 대하여 $$ k_{1}, k_{2} $$ 을 최적화 해보려고 합니다.
+- 위 식을 통하여 아래 데이터에 대하여 $$ w_{1}, w_{2} $$ 을 최적화 해보려고 합니다.
 
 <br>
 
@@ -197,13 +198,13 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 <br>
 
-- $$ H_{0} = \begin{bmatrix} 0 & -(0) e^{-k_{2}(0)} \\ -(0) e^{-k_{2}(0)} & k_{1}(0)^{2}e^{-k_{2}(0)} \end{bmatrix} $$
+- $$ H_{0} = \begin{bmatrix} 0 & -(0) e^{-w_{2}(0)} \\ -(0) e^{-w_{2}(0)} & w_{1}(0)^{2}e^{-w_{2}(0)} \end{bmatrix} $$
 
-- $$ H_{1} = \begin{bmatrix} 0 & -(20) e^{-k_{2}(20)} \\ -(20) e^{-k_{2}(20)} & k_{1}(20)^{2}e^{-k_{2}(20)} \end{bmatrix} $$
+- $$ H_{1} = \begin{bmatrix} 0 & -(20) e^{-w_{2}(20)} \\ -(20) e^{-w_{2}(20)} & w_{1}(20)^{2}e^{-w_{2}(20)} \end{bmatrix} $$
 
 - $$ \vdots $$
 
-- $$ H_{7} = \begin{bmatrix} 0 & -(140) e^{-k_{2}(140)} \\ -(140) e^{-k_{2}(140)} & k_{1}(140)^{2}e^{-k_{2}(140)} \end{bmatrix} $$
+- $$ H_{7} = \begin{bmatrix} 0 & -(140) e^{-w_{2}(140)} \\ -(140) e^{-w_{2}(140)} & w_{1}(140)^{2}e^{-w_{2}(140)} \end{bmatrix} $$
 
 <br>
 
@@ -228,11 +229,11 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 <br>
 
-- $$ y = k_{1} \cdot e^{-k_{2}t} $$
+- $$ y = w_{1} \cdot e^{-w_{2}t} $$
 
-- $$ \text{SSE} = \sum_{i}^{n} (y_{i} - k_{1} \cdot e^{-k_{2}t})^{2} $$
+- $$ \text{SSE} = \sum_{i}^{n} (y_{i} - w_{1} \cdot e^{-w_{2}t})^{2} $$
 
-- $$ \text{Let } r_{i} = (y_{i} - k_{1} \cdot e^{-k_{2}t}). \ \ r \text{: residual} $$
+- $$ \text{Let } r_{i} = (y_{i} - w_{1} \cdot e^{-w_{2}t}). \ \ r \text{: residual} $$
 
 - $$ \text{SSE} = \sum_{i=1}^{n} r_{i}^{2} = r^{t} r $$
 
@@ -242,19 +243,14 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 <br>
 
-- $$ \frac{\partial \text{SSE}}{\partial k_{j}} = 2 \sum_{i}^{n} r_{i} \cdot \frac{\partial r_{i}}{k_{j}} \to \sum_{i}^{n} r_{i} \cdot \frac{\partial r_{i}}{k_{j}} $$
+- $$ \frac{\partial \text{SSE}}{\partial w_{j}} = 2 \sum_{i}^{n} r_{i} \cdot \frac{\partial r_{i}}{w_{j}} \to \sum_{i}^{n} r_{i} \cdot \frac{\partial r_{i}}{w_{j}} $$
 
 - $$ \because \text{Constant(2) are deleted. It does not affect parameter estimation.} $$
 
 <br>
 
-- $$ \frac{\partial^{2} \text{SSE}}{\partial k_{j} \partial k_{k}} = \sum_{i}^{n} \left( \frac{\partial r_{i}}{\partial k_{j}}{\partial r_{i}}{\partial k_{k}} + r_{i}{\partial^{2} r_{i}}{\partial k_{j}\partial k_{k}} \right) $$
+- 아래와 같이 함수의 곱의 미분법에 따라  $$ \frac{\partial^{2} \text{SSE}}{\partial w_{j} \partial w_{k}} $$ 를 정의할 수 있습니다.
 
-- $$ J_{r} = \begin{bmatrix} \frac{\partial r_{1}}{\partial k_{1}} & \frac{\partial r_{1}}{\partial k_{2}} \\ \frac{\partial r_{2}}{\partial k_{1}} & \frac{\partial r_{2}}{\partial k_{2}} \\ \vdots & \vdots \\ \frac{\partial r_{n}}{\partial k_{1}} & \frac{\partial r_{n}}{\partial k_{2}} \end{bmatrix} $$
-
-<br>
-
-... 작성중 ...
 
 - $$ r(x) = f(x)g(x) $$
 
@@ -262,7 +258,65 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 <br>
 
+- $$ \frac{\partial^{2} \text{SSE}}{\partial w_{j} \partial w_{k}} = \sum_{i}^{n} \left( \frac{\partial r_{i}}{\partial w_{j}}\frac{\partial r_{i}}{\partial w_{k}} + r_{i}\frac{\partial^{2} r_{i}}{\partial w_{j}\partial w_{k}} \right) $$
+
+<br>
+
+- 여기까지는 앞에서 다룬 `newton method`와 동일합니다. 앞에서 제기한 `newton method`의 문제점인 표현 및 계산의 복잡성을 단순화하고 `least squares`의 구조를 가질 수 있도록 식을 변경하기 위해서는 $$ \frac{\partial^{2} \text{SSE}}{\partial w_{j} \partial w_{k}} $$ 를 아래와 같이 단순화 해야 합니다.
+
+<br>
+
+- $$ \begin{align} \frac{\partial^{2} \text{SSE}}{\partial w_{j} \partial w_{k}} &= \sum_{i}^{n} \left( \frac{\partial r_{i}}{\partial w_{j}}\frac{\partial r_{i}}{\partial w_{k}} + \color{red}{r_{i}\frac{\partial^{2} r_{i}}{\partial w_{j}\partial w_{k}}} \right) \\ &\approx \sum_{i}^{n} \left( \frac{\partial r_{i}}{\partial w_{j}}\frac{\partial r_{i}}{\partial w_{k}} \right) \end{align} $$
+
+<br>
+
+- 현재 예제에서는 `Jacobian`이 다음과 같이 정의 됩니다.
+
+<br>
+
+- $$ J_{r} = \begin{bmatrix} \frac{\partial r_{1}}{\partial w_{1}} & \frac{\partial r_{1}}{\partial w_{2}} \\ \frac{\partial r_{2}}{\partial w_{1}} & \frac{\partial r_{2}}{\partial w_{2}} \\ \vdots & \vdots \\ \frac{\partial r_{n}}{\partial w_{1}} & \frac{\partial r_{n}}{\partial w_{2}} \end{bmatrix} $$
+
+<br>
+
+따라서 `SSE`의 1차 미분과 2차 미분의 결과는 다음과 같이 `Jacobian`으로 표현할 수 있습니다.
+
+<br>
+
+- $$ \frac{\partial \text{SSE}}{\partial w_{j}} \approx \sum_{i}^{n} r_{i} \cdot \frac{\partial r_{i}}{w_{j}} = J_{r}^{T} r $$
+
+- $$ \frac{\partial^{2} \text{SSE}}{\partial w_{j} \partial w_{k}} \approx \sum_{i}^{n} \left( \frac{\partial r_{i}}{\partial w_{j}}\frac{\partial r_{i}}{\partial w_{k}} \right) = J_{r}^{T} J_{r} $$
+
+<br>
+
+- 위 결과값을 이용하면 `newton method`에서 사용하였던 $$ G $$ 와 $$ H $$ 는 다음과 같이 정의 됩니다.
+
+<br>
+
+- $$ G = \frac{\partial \text{SSE}}{\partial w_{j}} \approx J_{r}^{T} r $$
+
+- $$ H = \frac{\partial^{2} \text{SSE}}{\partial w_{j} \partial w_{k}} \approx J_{r}^{T} J_{r} $$
+
+<br>
+
+- 따라서 `newton method`에서 사용하였던 파라미터 업데이트 수식을 다음과 같이 변경할 수 있습니다.
+
+<br>
+
+- $$ \begin{align} \begin{bmatrix}w_{0(\text{new})} \\ w_{1(\text{new})} \end{bmatrix} &= \begin{bmatrix} w_{0(\text{old})} \\ w_{1(\text{old})} \end{bmatrix} - H^{-1}G \\ &= \begin{bmatrix} w_{0(\text{old})} \\ w_{1(\text{old})} \end{bmatrix} - (J_{r}^{T} J_{r})^{-1}J_{r}^{T} r  \end{align} $$
+
+<br>
+
+- ... 작성 중 ...
+
+<br>
+
 ## **Levenberg-Marquardt Method for Non-Linear Least Squares**
+
+<br>
+
+<br>
+
+## **Weighted Residuals**
 
 <br>
 
