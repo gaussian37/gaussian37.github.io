@@ -144,12 +144,12 @@ tags: [Jacobian, 자코비안] # add tag
 
 <br>
 
-- 이번에는 위 함수에서 상수 $$ a $$ 를 파라미터로 변경하여 다음과 같이 2개의 변수 $$ k = (k_{0}, k_{1}) $$ 를 가지는 `multivariable function`으로 변경해 보도록 하겠습니다. 
+- 이번에는 위 함수에서 상수 $$ a $$ 를 파라미터로 변경하여 다음과 같이 2개의 변수 $$ k = (k_{1}, k_{2}) $$ 를 가지는 `multivariable function`으로 변경해 보도록 하겠습니다. 
 - 최종적으로 구하고자 하는 형태가 `vector-valued multivariable function`에서의 최적화이기 때문입니다.
 
 <br>
 
-- $$ y = k_{0} \cdot e^{-k_{1}t} $$
+- $$ y = k_{1} \cdot e^{-k_{2}t} $$
 
 <br>
 
@@ -157,9 +157,9 @@ tags: [Jacobian, 자코비안] # add tag
 
 - $$ \begin{bmatrix}k_{0(\text{new})} \\ k_{1(\text{new})} \end{bmatrix} = \begin{bmatrix} k_{0(\text{old})} \\ k_{1(\text{old})} \end{bmatrix} - H^{-1}G $$
 
-- $$ G (\text{Gradient}) = \begin{bmatrix} \frac{\partial f}{\partial k_{0}} \\ \frac{\partial f}{\partial k_{1}} \end{bmatrix} = \begin{bmatrix} e^{-k_{1}t} \\ -k_{0}te^{-k_{1}t} \end{bmatrix} $$
+- $$ G (\text{Gradient}) = \begin{bmatrix} \frac{\partial f}{\partial k_{1}} \\ \frac{\partial f}{\partial k_{2}} \end{bmatrix} = \begin{bmatrix} e^{-k_{2}t} \\ -k_{1}te^{-k_{2}t} \end{bmatrix} $$
 
-- $$ H (\text{Hessian}) = \begin{bmatrix} \frac{\partial^{2}f}{\partial k_{0}^{2}} & \frac{\partial^{2}f}{\partial k_{0} \partial k_{1}} \\ \frac{\partial^{2}f}{\partial k_{1} \partial k_{0}} & \frac{\partial^{2}f}{\partial k_{1}^{2}} \end{bmatrix} = \begin{bmatrix} 0 & -t e^{-k_{1}t} \\ -t e^{-k_{1}t} & k_{0}t^{2}e^{-k_{1}t} \end{bmatrix} $$
+- $$ H (\text{Hessian}) = \begin{bmatrix} \frac{\partial^{2}f}{\partial k_{1}^{2}} & \frac{\partial^{2}f}{\partial k_{1} \partial k_{2}} \\ \frac{\partial^{2}f}{\partial k_{2} \partial k_{1}} & \frac{\partial^{2}f}{\partial k_{2}^{2}} \end{bmatrix} = \begin{bmatrix} 0 & -t e^{-k_{2}t} \\ -t e^{-k_{2}t} & k_{1}t^{2}e^{-k_{2}t} \end{bmatrix} $$
 
 <br>
 
@@ -174,7 +174,7 @@ tags: [Jacobian, 자코비안] # add tag
 <br>
 
 - 따라서 `newton method`를 이용하여 `Objective Function`을 최적화 할 때, 위 식을 통하여 점진적으로 해를 구할 수 있습니다.
-- 위 식을 통하여 아래 데이터에 대하여 $$ k_{0}, k_{1} $$ 을 최적화 해보려고 합니다.
+- 위 식을 통하여 아래 데이터에 대하여 $$ k_{1}, k_{2} $$ 을 최적화 해보려고 합니다.
 
 <br>
 
@@ -197,13 +197,13 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 <br>
 
-- $$ H_{0} = \begin{bmatrix} 0 & -(0) e^{-k_{1}(0)} \\ -(0) e^{-k_{1}(0)} & k_{0}(0)^{2}e^{-k_{1}(0)} \end{bmatrix} $$
+- $$ H_{0} = \begin{bmatrix} 0 & -(0) e^{-k_{2}(0)} \\ -(0) e^{-k_{2}(0)} & k_{1}(0)^{2}e^{-k_{2}(0)} \end{bmatrix} $$
 
-- $$ H_{1} = \begin{bmatrix} 0 & -(20) e^{-k_{1}(20)} \\ -(20) e^{-k_{1}(20)} & k_{0}(20)^{2}e^{-k_{1}(20)} \end{bmatrix} $$
+- $$ H_{1} = \begin{bmatrix} 0 & -(20) e^{-k_{2}(20)} \\ -(20) e^{-k_{2}(20)} & k_{1}(20)^{2}e^{-k_{2}(20)} \end{bmatrix} $$
 
 - $$ \vdots $$
 
-- $$ H_{7} = \begin{bmatrix} 0 & -(140) e^{-k_{1}(140)} \\ -(140) e^{-k_{1}(140)} & k_{0}(140)^{2}e^{-k_{1}(140)} \end{bmatrix} $$
+- $$ H_{7} = \begin{bmatrix} 0 & -(140) e^{-k_{2}(140)} \\ -(140) e^{-k_{2}(140)} & k_{1}(140)^{2}e^{-k_{2}(140)} \end{bmatrix} $$
 
 <br>
 
@@ -221,6 +221,36 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 - `Jacobian`을 이용하여 `gauss-newton method`에서 표현하고자 하는 것은 `least squares`([최소제곱법](https://gaussian37.github.io/math-la-least_squares/))를 반복적(`iterative`)으로 적용하는 것입니다. 
 - 이 방식을 통해 `linear function`의 해를 구하는 `least squares`를 `non-linear function`의 해를 구하는 `non-linear least squares`로 표현하는 것이 `gauss-newton method`의 핵심이라고 말할 수 있습니다.
 - `linear function`의 해는 `least squares`를 한번 적용하여 해 또는 근사해를 구할 수 있습니다. 반면 `non-linear function`의 해는 `linear function`에 사용되는 `least suqares`를 단 한번 적용해서 근사해를 바로 구하기 어렵기 때문에 반복적으로 적용하며 점근적으로 근사해를 찾아갑니다.
+
+<br>
+
+- 이번에는 `newton method for optimization` 부분에서 다룬 내용을 이어서 어떻게 `gauss-newton method`를 통해 `non-linear least squares`를 해결하는 지 살펴보도록 하겠습니다.
+
+<br>
+
+- $$ y = k_{1} \cdot e^{-k_{2}t} $$
+
+- $$ \text{SSE} = \sum_{i}^{n} (y_{i} - k_{1} \cdot e^{-k_{2}t})^{2} $$
+
+- $$ \text{Let } r_{i} = (y_{i} - k_{1} \cdot e^{-k_{2}t}). \ \ r \text{: residual} $$
+
+- $$ \text{SSE} = \sum_{i=1}^{n} r_{i}^{2} = r^{t} r $$
+
+<br>
+
+- `chain rule`을 이용하여 편미분을 적용해 보도록 하겠습니다.
+
+<br>
+
+- $$ \frac{\partial \text{SSE}}{\partial k_{j}} = 2 \sum_{i}^{n} r_{i} \cdot \frac{\partial r_{i}}{k_{j}} \to \sum_{i}^{n} r_{i} \cdot \frac{\partial r_{i}}{k_{j}} $$
+
+- $$ \because \text{Constant(2) are deleted. It does not affect parameter estimation.} $$
+
+<br>
+
+- $$ \frac{\partial^{2} \text{SSE}}{\partial k_{j} \partial k_{k}} = \sum_{i}^{n} \left( \frac{\partial r_{i}}{\partial k_{j}}{\partial r_{i}}{\partial k_{k}} + r_{i}{\partial^{2} r_{i}}{\partial k_{j}\partial k_{k}} \right) $$
+
+- $$ J_{r} = \begin{bmatrix} \frac{\partial r_{1}}{\partial k_{1}} & \frac{\partial r_{1}}{\partial k_{2}} \\ \frac{\partial r_{2}}{\partial k_{1}} & \frac{\partial r_{2}}{\partial k_{2}} \\ \vdots & \vdots \\ \frac{\partial r_{n}}{\partial k_{1}} & \frac{\partial r_{n}}{\partial k_{2}} \end{bmatrix} $$
 
 <br>
 
