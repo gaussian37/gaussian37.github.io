@@ -185,6 +185,10 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 ```
 
 <br>
+<center><img src="../assets/img/math/calculus/basic_optimization/1.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
 
 - 위 데이터는 총 8개의 쌍으로 다음과 같이 기호로 적을 수 있습니다.
 
@@ -266,15 +270,7 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 <br>
 
-- $$ \begin{align} \frac{\partial^{2} \text{SSE}}{\partial w_{j} \partial w_{k}} &= \sum_{i}^{n} \left( \frac{\partial r_{i}}{\partial w_{j}}\frac{\partial r_{i}}{\partial w_{k}} + \color{red}{r_{i}\frac{\partial^{2} r_{i}}{\partial w_{j}\partial w_{k}}} \right) \\ &\approx \sum_{i}^{n} \left( \frac{\partial r_{i}}{\partial w_{j}}\frac{\partial r_{i}}{\partial w_{k}} \right) \end{align} $$
-
-<br>
-
-- 현재 예제에서는 파라미터가 $$ w_{1}, w_{2} $$ 2개이므로 `Jacobian`이 다음과 같이 정의 됩니다.
-
-<br>
-
-- $$ J_{r} = \begin{bmatrix} \frac{\partial r_{1}}{\partial w_{1}} & \frac{\partial r_{1}}{\partial w_{2}} \\ \frac{\partial r_{2}}{\partial w_{1}} & \frac{\partial r_{2}}{\partial w_{2}} \\ \vdots & \vdots \\ \frac{\partial r_{n}}{\partial w_{1}} & \frac{\partial r_{n}}{\partial w_{2}} \end{bmatrix} $$
+- $$ \begin{align} \frac{\partial^{2} \text{SSE}}{\partial w_{j} \partial w_{k}} &= \sum_{i}^{n} \left( \frac{\partial r_{i}}{\partial w_{j}}\frac{\partial r_{i}}{\partial w_{k}} + \color{red}{r_{i}\frac{\partial^{2} r_{i}}{\partial w_{j}\partial w_{k}}} \right) \\ &\approx \sum_{i}^{n} \left( \frac{\partial r_{i}}{\partial w_{j}}\frac{\partial r_{i}}{\partial w_{k}} \right) = J_{r}^{T}J_{r} \end{align} $$
 
 <br>
 
@@ -306,7 +302,31 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 <br>
 
-- ... 작성 중 ...
+- 현재 예제에서는 파라미터가 $$ w_{1}, w_{2} $$ 2개이므로 `Jacobian`이 다음과 같이 정의 됩니다.
+
+<br>
+
+- $$ \frac{\partial r_{i}}{\partial w_{1}} = -e^{-w_{2} t_{i}} $$
+
+- $$ \frac{\partial r_{i}}{\partial w_{2}} = t_{i}w_{1}e^{-w_{2} t_{i}} $$
+
+- $$ J_{r} = \begin{bmatrix} \frac{\partial r_{1}}{\partial w_{1}} & \frac{\partial r_{1}}{\partial w_{2}} \\ \frac{\partial r_{2}}{\partial w_{1}} & \frac{\partial r_{2}}{\partial w_{2}} \\ \vdots & \vdots \\ \frac{\partial r_{n}}{\partial w_{1}} & \frac{\partial r_{n}}{\partial w_{2}} \end{bmatrix} = \begin{bmatrix} -e^{-w_{2} t_{1}} & t_{1}w_{1}e^{-w_{2} t_{1}} \\ -e^{-w_{2} t_{2}} & t_{2}w_{1}e^{-w_{2} t_{2}} \\ \vdots & \vdots \\-e^{-w_{2} t_{3}} & t_{3}w_{1}e^{-w_{2} t_{3}} \end{bmatrix} $$
+
+<br>
+
+- 앞에서 이번 예제의 실제 데이터로 다음 데이터를 사용하기로 하였습니다. 따라서 아래 값을 대입해 줍니다. (`Jacobian`에서 $$ y $$ 는 제거되어 $$ t $$ 만 대입됩니다.)
+
+<br>
+
+```python
+t = [0, 20, 40, 60, 80, 100, 120, 140]
+y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
+```
+
+<br>
+
+- $$ J_{r} = \begin{bmatrix} -e^{-w_{2} t_{1}} & t_{1}w_{1}e^{-w_{2} t_{1}} \\ -e^{-w_{2} t_{2}} & t_{2}w_{1}e^{-w_{2} t_{2}} \\ \vdots & \vdots \\-e^{-w_{2} t_{3}} & t_{3}w_{1}e^{-w_{2} t_{3}} \end{bmatrix} = \begin{bmatrix} -e^{-w_{2}(0)}=-1 & (0)w_{1}e^{-w_{2}(0)}=0 \\ -e^{-20 w_{2}} & 20 w_{1}e^{-20 w_{2}} \\ \vdots & \vdots \\ -e^{-140 w_{2}} & 140 w_{1}e^{-140 w_{2}} \end{bmatrix} $$
+
 
 <br>
 
