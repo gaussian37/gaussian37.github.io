@@ -188,8 +188,6 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 <center><img src="../assets/img/math/calculus/basic_optimization/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-<br>
-
 - 위 데이터는 총 8개의 쌍으로 다음과 같이 기호로 적을 수 있습니다.
 
 <br>
@@ -274,7 +272,8 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 <br>
 
-따라서 `SSE`의 1차 미분과 2차 미분의 결과는 다음과 같이 `Jacobian`으로 표현할 수 있습니다.
+- 위 식의 빨간색 부분은 2차 미분으로 값이 매우 작아지기 때문에 생략하여도 결과에 큰 영향이 없다는 점과 빨간색 부분을 생략함으로써 파라미터 업데이트 부분을 `least squares` 형태로 나타낼 수 있다는 특징이 있습니다. 이 부분은 바로 뒤에서 살펴보도록 하겠습니다.
+- 이와 같이 식을 정리함으로써 `SSE`의 1차 미분과 2차 미분의 결과는 다음과 같이 `Jacobian`으로 표현할 수 있습니다.
 
 <br>
 
@@ -302,7 +301,50 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 <br>
 
-- 현재 예제에서는 파라미터가 $$ w_{1}, w_{2} $$ 2개이므로 `Jacobian`이 다음과 같이 정의 됩니다.
+- 앞에서 빨간색 식 부분을 생략하는 방식을 통해 `Hessian`을 근사화하여 위 식과 같이 나타내는 이유는 **파라미터 업데이트를 least squares(최소제곱법) 방식을 이용하여 업데이트하기 위함**입니다.
+- 먼저 파라미터를 업데이트하는 $$ (J_{r}^{T} J_{r})^{-1}J_{r}^{T} r $$ 부분은 [최소제곱법](https://gaussian37.github.io/math-la-least_squares/)에서 사용한 수식과 같습니다. 최소제곱법에서는 $$ Ax = b $$ 에서 $$ x $$ 의 해를 구할 때, $$ x = (A^{T}A)^{-1}A^{T}b $$ 와 같은 형식을 이용하여 해 또는 근사해를 구하였습니다. 
+
+<br>
+
+- $$ (A^{T}A)^{-1}A^{T}b \quad \text{ Vs. } \quad (J_{r}^{T} J_{r})^{-1}J_{r}^{T} r $$
+
+<br>
+
+- 앞에서 `residual`은 정답값과 파라미터를 통해 추정한 값 간의 오차인데 이 오차는 파라미터가 아직 업데이트가 완전히 되지 않아서 생긴 오차입니다. 따라서 `residual`은 업데이트해야 할 $$ \Delta w $$ 와 `gradient`의 **곱으로 생긴 크기** 만큼 발생합니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/4.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림은 `Jacobian`을 설명하기 위한 참조 그림입니다. $$ y_{2} $$ 와 $$ y_{1} $$ 의 차이는 $$ f'(x) \Delta x $$ 만큼 차이가 나는 것으로 표현하였습니다. 
+- 이 때, $$ \Delta x $$ 는 앞에서 표현한 $$ \Delta w $$ 에 대응되고 $$ f'(x) $$ 는 `gradient`에 대응됩니다.
+- 즉, $$ y_{1} $$ 을 추정값, $$ y_{2} $$ 를 정답값이라고 가정한다면 $$ y_{1} \to y_{2} $$ 로 근사화해 나아가는 것이 `residual`을 줄이는 것과 동일하게 생각할 수 있으므로 최적화 문제를 푸는 것이 됩니다.
+
+<br>
+
+- 이 때, 함수가 여러개이므로 `residual`의 `gradient` 대신에 `Jacobian`을 적용합니다. 따라서 $$ J_{r} \Delta w = r $$ 로 `residual`을 표현할 수 있습니다.
+- 실제 구하고자 하는 값은 `residual`을 최소화하는 $$ w $$ 를 구하고 싶으므로 최적의 $$ w $$ 를 구하기 위한 $$ w $$ 의 변경량인 $$ \Delta w $$ 를 구하기 위하여 다음과 같이 `least squares`를 적용할 수 있습니다.
+
+<br>
+
+- $$ J_{r} \Delta w = r $$
+
+- $$ \Delta w = (J_{r}^{T} J_{r})^{-1}J^{T} r $$
+
+<br>
+
+- 따라서 업데이트해야 할 $$ \Delta w $$ 를 구해서 $$ w $$ 에 반영하여 다음과 같이 $$ w_{\text{old}} \to w_{\text{new}} $$ 로 업데이트 하는 것이 문제를 해결하는 방법이 됩니다.
+
+- $$ w_{\text{new}} = w_{\text{old}} - (J_{r}^{T} J_{r})^{-1}J_{r}^{T} r $$
+
+<br>
+
+- 업데이트해야 할 $$ \Delta w $$ 를 `least squares`를 이용하여 구한 후 $$ w $$ 를 업데이트 하는데, 이 과정에서 한번의 `least squares`만을 이용하여 해를 구하지 않고 종료 조건이 만족될 때 까지 `least squares`를 반복하여 해 또는 근사해를 구하게 됩니다.
+- 이와 같이 반복적인 근사화를 거치는 이유는 `non-linear function`에 `least squares`를 사용하기 때문입니다. (만약 `linear function`에서 `least squares`를 사용한다면 한번의 `least squares`를 적용할 수 있어서 별도 반복적인 근사화를 처지기 않습니다.)
+
+<br>
+
+- 지금까지 살펴본 예제는 파라미터가 $$ w_{1}, w_{2} $$ 2개이므로 `Jacobian`이 다음과 같이 정의 됩니다.
 
 <br>
 
@@ -314,7 +356,7 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 <br>
 
-- 앞에서 이번 예제의 실제 데이터로 다음 데이터를 사용하기로 하였습니다. 따라서 아래 값을 대입해 줍니다. (`Jacobian`에서 $$ y $$ 는 제거되어 $$ t $$ 만 대입됩니다.)
+- 앞에서 이번 예제의 실제 데이터로 다음 데이터를 사용하기로 하였습니다. 따라서 아래 값을 대입해 줍니다. 
 
 <br>
 
@@ -327,12 +369,150 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 - $$ J_{r} = \begin{bmatrix} -e^{-w_{2} t_{1}} & t_{1}w_{1}e^{-w_{2} t_{1}} \\ -e^{-w_{2} t_{2}} & t_{2}w_{1}e^{-w_{2} t_{2}} \\ \vdots & \vdots \\-e^{-w_{2} t_{3}} & t_{3}w_{1}e^{-w_{2} t_{3}} \end{bmatrix} = \begin{bmatrix} -e^{-w_{2}(0)}=-1 & (0)w_{1}e^{-w_{2}(0)}=0 \\ -e^{-20 w_{2}} & 20 w_{1}e^{-20 w_{2}} \\ \vdots & \vdots \\ -e^{-140 w_{2}} & 140 w_{1}e^{-140 w_{2}} \end{bmatrix} $$
 
+<br>
+
+- 파이썬 코드를 통하여 `Jacobian`을 구하면 다음과 같습니다.
+
+<br>
+
+```python
+from sympy import symbols, Matrix, lambdify
+import sympy as sp
+import numpy as np
+np.set_printoptions(suppress=True)
+
+# Initial values (0, 0)
+params = np.array([0, 0]).reshape(2, 1)
+# Define symbolic variables for the parameters and points
+w1, w2 = symbols('w1 w2')
+
+t = [0, 20, 40, 60, 80, 100, 120, 140]
+y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
+
+# Define the residual function for a single point
+residuals = Matrix([])
+for t_i, y_i in zip(t, y):
+    residuals = residuals.row_insert(residuals.shape[0], Matrix([y_i - w1 * sp.exp(-w2 * t_i)]))
+
+residuals_func = lambdify([w1, w2], residuals, 'numpy')
+r = residuals_func(params[0][0], params[1][0]) 
+
+# Compute the Jacobian matrix of the residual function
+jacobian = residuals.jacobian([w1, w2])
+
+# Convert the Jacobian to a numerical function using lambdify
+jacobian_func = lambdify([w1, w2], jacobian, 'numpy')
+
+# Print the Jacobian matrix
+Jr = jacobian_func(params[0][0], params[1][0])
+```
+
+<br>
+
+- 위 코드에서 정의된 `residuals`의 결과는 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/2.png" alt="Drawing" style="width: 300px;"/></center>
+<br>
+
+- 위 코드에서 정의된 `jacobian`의 결과는 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/3.png" alt="Drawing" style="width: 300px;"/></center>
+<br>
+
+- `residual_func`와 `jacobian_func`를 이용하여 `gauss-newton method`를 다음과 같이 적용할 수 있습니다.
+- `max_iteration`최대 반복 횟수이고 `threshold`는 이전 파라미터와 현재 업데이트한 파라미터 간의 차이가 있는 지 확인하기 위한 값입니다. 따라서 `max_iteration`을 초과하거나 `threshold` 이하의 업데이트 양이 발생하면 `gauss-newton method`를 종료합니다.
+
+<br>
+
+```python
+max_iteration = 30
+threshold = 1e-7
+prev_params = None
+for i in range(max_iteration):
+    # update parameters
+    r = residuals_func(params[0][0], params[1][0])
+    Jr = jacobian_func(params[0][0], params[1][0])
+    update = np.linalg.pinv(Jr.T @ Jr) @ Jr.T @ r
+    params -= update
+
+    #### print out changes of parameters ###
+    print("index:{}".format(i))
+    if i > 0:
+        print("prev_params: {}".format(prev_params.reshape(-1)))
+    print("params:{}".format(params.reshape(-1)))
+    print("update:{}\n".format(update.reshape(-1)))
+    
+    # check if updates are effective
+    if i > 0:
+        if np.sqrt(np.sum((prev_params - params)**2)) < threshold:
+            break
+            
+    prev_params = params.copy()
+
+# index:0
+# params:[41.3  0. ]
+# update:[-41.3   0. ]
+
+# index:1
+# prev_params: [41.3  0. ]
+# params:[104.125        0.02173123]
+# update:[-62.825       -0.02173123]
+
+# index:2
+# prev_params: [104.125        0.02173123]
+# params:[145.08506266   0.02968753]
+# update:[-40.96006266  -0.00795629]
+
+# index:3
+# prev_params: [145.08506266   0.02968753]
+# params:[146.4444568    0.02918536]
+# update:[-1.35939414  0.00050216]
+
+# index:4
+# prev_params: [146.4444568    0.02918536]
+# params:[146.42476133   0.0291796 ]
+# update:[0.01969547 0.00000577]
+
+# index:5
+# prev_params: [146.42476133   0.0291796 ]
+# params:[146.42450411   0.0291794 ]
+# update:[0.00025722 0.00000019]
+
+# index:6
+# prev_params: [146.42450411   0.0291794 ]
+# params:[146.42449541   0.02917939]
+# update:[0.0000087  0.00000001]
+
+# index:7
+# prev_params: [146.42449541   0.02917939]
+# params:[146.42449511   0.02917939]
+# update:[0.00000029 0.        ]
+
+# index:8
+# prev_params: [146.42449511   0.02917939]
+# params:[146.4244951    0.02917939]
+# update:[0.00000001 0.        ]
+```
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/5.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 따라서 위 그래프와 같이 샘플 데이터를 잘 표현하는 함수 파라미터를 구할 수 있음을 확인하였습니다.
+
+<br>
+
+- 
 
 <br>
 
 ## **Levenberg-Marquardt Method for Non-Linear Least Squares**
 
 <br>
+
+- 앞에서 다룬 `gauss-newton method`를 이용하여 `non-linear least squares` 문제를 해결하는 방법에서 다음 2가지 문제를 개선한 방법을 `Levenberg-Marquardt Method`라고 합니다.
 
 <br>
 
