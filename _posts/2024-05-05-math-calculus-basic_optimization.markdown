@@ -648,7 +648,11 @@ for i in range(100):
 
 <br>
 
-- 앞에서 다룬 `gauss-newton method`를 이용하여 `non-linear least squares` 문제를 해결하는 방법에서 다음 2가지 문제를 개선한 방법을 `Levenberg-Marquardt Method`라고 합니다.
+- 앞에서 `gauss-newton method`를 이용하여 `non-linear least squares` 문제를 해결하는 방법을 다루었습니다.
+- `gauss-newton method` 또한 `newton method`에서 출발한 알고리즘인 만큼 다음 2가지 문제가 발생할 수 있습니다.
+    - ① 초깃값 설정에 따라서 근사해 찾기가 어려워 질 수 있습니다.
+    - ② 계산 과정 중 $$ (J_{r}^{T} J_{r})^{-1} $$ 이라는 역행렬이 있어 역행렬이 없을 경우 수치적으로 불안정해질 수 있습니다.
+- 따라서 이 2가지 문제를 개선한 방법 중 유명한 방법인 `Levenberg-Marquardt Method`에 대하여 살펴보도록 하겠습니다.
 
 <br>
 
