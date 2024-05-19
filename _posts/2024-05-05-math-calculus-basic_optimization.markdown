@@ -497,6 +497,14 @@ for i in range(max_iteration):
 ```
 
 <br>
+
+- 파라미터 추정 결과 식은 다음과 같습니다.
+
+<br>
+
+- $$ 146.4245 e^{-0.0292 t} $$
+
+<br>
 <center><img src="../assets/img/math/calculus/basic_optimization/5.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
@@ -504,7 +512,135 @@ for i in range(max_iteration):
 
 <br>
 
-- 
+- 새로운 문제에 접근할 때에는 ① `residual`의 식 정의, ② 데이터 입력, ③ `gauss-newton method` 부분 일부 수정을 통하여 새로운 문제를 해결할 수 있습니다.
+- 그 다음으로 원의 방정식에서 필요한 파라미터를 찾는 예제를 살펴보도록 하겠습니다.
+
+<br>
+
+```python
+x = [15.0, 14.31, 12.5, 9.76, 6.55, 3.45, 0.24, -2.5, -4.31, -5.0, -4.31, -2.5, 0.24, 3.45, 6.55, 9.76, 12.5, 14.31, 15.0, 14.31]
+y = [5.0, 8.25, 10.88, 12.5, 12.94, 12.94, 12.5, 10.88, 8.25, 5.0, 1.75, -0.88, -2.5, -2.94, -2.94, -2.5, -0.88, 1.75, 5.0, 8.25]
+```
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/6.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 원의 방정식은 다음과 같이 파라미터가 3개 입니다. 앞선 예제의 표현 방식과 동일하게 표현하기 위해 $$ w_{i} $$ 로 표현하겠습니다.
+
+<br>
+
+- $$ (x - a)^{2} + (y - b)^{2} = r^{2} $$
+
+- $$ \to (x - w_{1})^{2} + (y - w_{2})^{2} = w_{3}^{2} $$
+
+<br>
+
+- 원의 방정식에 맞게 파라미터 추정을 할 수 있도록 일부 코드를 수정하였습니다. 다음과 같습니다.
+
+<br>
+
+```python
+from sympy import symbols, Matrix, sqrt, lambdify
+import sympy as sp
+import numpy as np
+np.set_printoptions(suppress=True)
+
+params = np.array([0.0, 0.0, 0.0]).reshape(3, 1)
+
+# Define symbolic variables for the circle parameters and points
+w1, w2, w3 = symbols('w1 w2 w3') 
+
+# Define the residual function for a single point
+residuals = Matrix([])
+for x_i, y_i in zip(x, y):
+    residuals = residuals.row_insert(residuals.shape[0], Matrix([sqrt((x_i - w1)**2 + (y_i - w2)**2) - w3]))
+
+residuals_func = lambdify([w1, w2, w3], residuals, 'numpy')
+r = residuals_func(params[0][0], params[1][0], params[2][0]) 
+# print(r)
+
+# Compute the Jacobian matrix of the residual function
+jacobian = residuals.jacobian([w1, w2, w3])
+
+# Convert the Jacobian to a numerical function using lambdify
+jacobian_func = lambdify([w1, w2, w3], jacobian, 'numpy')
+
+jacobian_result = jacobian_func(params[0][0], params[1][0], params[2][0])
+# print(jacobian_result)
+
+max_iteration = 30
+threshold = 1e-7
+prev_params = None
+for i in range(100):
+    r = residuals_func(params[0][0], params[1][0], params[2][0])
+    Jr = jacobian_func(params[0][0], params[1][0], params[2][0])
+    update = np.linalg.pinv(Jr.T @ Jr) @ Jr.T @ r
+    params -= update
+
+    print("index:{}".format(i))
+    if i > 0:
+        print("prev_params: {}".format(prev_params.reshape(-1)))
+    print("params:{}".format(params.reshape(-1)))
+    print("update:{}\n".format(update.reshape(-1)))
+    
+    if i > 0:
+        if np.sqrt(np.sum((prev_params - params)**2)) < threshold:
+            break
+            
+    prev_params = params.copy()
+
+# index:0
+# params:[5.45288523 6.14610515 7.28317812]
+# update:[-5.45288523 -6.14610515 -7.28317812]
+
+# index:1
+# prev_params: [5.45288523 6.14610515 7.28317812]
+# params:[5.13924744 4.95227765 9.20964762]
+# update:[ 0.31363778  1.19382749 -1.9264695 ]
+
+# index:2
+# prev_params: [5.13924744 4.95227765 9.20964762]
+# params:[5.12422646 5.02125385 9.25367991]
+# update:[ 0.01502098 -0.0689762  -0.0440323 ]
+
+# index:3
+# prev_params: [5.12422646 5.02125385 9.25367991]
+# params:[5.1236288  5.01748587 9.25393801]
+# update:[ 0.00059767  0.00376798 -0.0002581 ]
+
+# index:4
+# prev_params: [5.1236288  5.01748587 9.25393801]
+# params:[5.123586   5.01769188 9.2539391 ]
+# update:[ 0.0000428  -0.000206   -0.00000108]
+
+# index:5
+# prev_params: [5.123586   5.01769188 9.2539391 ]
+# params:[5.12358427 5.01768061 9.25393944]
+# update:[ 0.00000173  0.00001126 -0.00000034]
+
+# index:6
+# prev_params: [5.12358427 5.01768061 9.25393944]
+# params:[5.12358414 5.01768123 9.25393944]
+# update:[ 0.00000013 -0.00000062 -0.        ]
+
+# index:7
+# prev_params: [5.12358414 5.01768123 9.25393944]
+# params:[5.12358414 5.0176812  9.25393944]
+# update:[ 0.00000001  0.00000003 -0.        ]
+```
+
+<br>
+
+- 파라미터 추정 결과는 다음과 같습니다. (파라미터 값은 반올림 하였습니다.)
+
+<br>
+
+- $$ (x - 5.12)^{2} + (y - 5.02)^{2} = 9.25^{2} $$
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/6.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
 <br>
 
