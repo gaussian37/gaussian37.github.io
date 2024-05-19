@@ -36,7 +36,6 @@ tags: [Gradient Descent, SGD, Momentum, RMSProp, Adam, Newton, Gauss Newton, Lev
 - ### [RMSProp](#rmsprop-1)
 - ### [Adam](#adam-1)
 - ### [Newton Method](#newton-method-1)
-- ### [Quadratic approximation](#quadratic-approximation-1)
 - ### [Newton Method for Optimization](#newton-method-for-optimization-1)
 - ### [Gauss-Newton Method for Non-Linear Least Squares](#gauss-newton-method-for-non-linear-least-squares-1)
 - ### [Levenberg-Marquardt Method for Non-Linear Least Squares](#levenberg-marquardt-method-for-non-linear-least-squares-1)
@@ -81,12 +80,6 @@ tags: [Gradient Descent, SGD, Momentum, RMSProp, Adam, Newton, Gauss Newton, Lev
 <br>
 
 - 참조 : https://gaussian37.github.io/math-mfml-intro_to_optimisation/#newton-raphson-method-1
-
-<br>
-
-## **Quadratic approximation**
-
-<br>
 
 <br>
 
