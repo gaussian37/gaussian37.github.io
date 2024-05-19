@@ -639,7 +639,7 @@ for i in range(100):
 - $$ (x - 5.12)^{2} + (y - 5.02)^{2} = 9.25^{2} $$
 
 <br>
-<center><img src="../assets/img/math/calculus/basic_optimization/6.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/calculus/basic_optimization/7.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 <br>
