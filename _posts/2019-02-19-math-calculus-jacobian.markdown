@@ -17,6 +17,7 @@ tags: [Gradient, 그래디언트, Jacobian, 자코비안, Hessian, 헤시안] # 
 - 참조 : http://t-robotics.blogspot.com/2013/12/jacobian.html#.XGlnkegzaUk
 - 참조 : https://suhak.tistory.com/944
 - 참조 : https://gaussian37.github.io/math-mfml-multivariate_calculus_and_jacobian/
+- 참조 : https://www.khanacademy.org/math/multivariable-calculus/applications-of-multivariable-derivatives/quadratic-approximations/a/quadratic-approximation
 
 <br>
 
@@ -677,9 +678,58 @@ print("Result: \n", result)
 
 <br>
 
+- `Taylor Series`를 통하여 임의의 함수를 $$ n $$ 차 ( $$ \infty $$ 차 ) 미분을 통하여 근사화 할 수 있음이 알려져 있습니다.
+    - 참조 : https://gaussian37.github.io/math-mfml-taylor_series_and_linearisation/
+- 하지만 어떤 함수를 근사화 할 때에는 계산 효율화를 위하여 무한 차수의 미분을 사용하지 않고 1차 미분만을 이용하여 선형 근사화(`linear approximation`)를 하거나 2차 미분 까지 이용하는 것(`quadratic approximation`)이 일반적입니다.
 - 지금까지 살펴본 내용 중 `Gradient`와 `Hessian`은 `scalar-valued function`에 대한 1차 미분, 2차 미분의 결과임을 확인하였습니다.
-- 이 내용을 바탕으로 `Quadratic approximation`을 적용하는 방법에 대하여 알아보면서 이 글을 마치도록 하겠습니다.
+- 이 내용을 바탕으로  `Gradient`와 `Hessian`을 모두 사용하는 `Quadratic approximation`을 적용하는 방법에 대하여 알아보면서 이 글을 마치도록 하겠습니다.
 
+<br>
+
+- 만약 $$ f $$ 가 2개의 변수를 가지는 함수라고 가정해 보겠습니다. 그러면 특정 점 $$ (x_{0}, y_{0}) $$ 부근에서 근사화를 진행해야 합니다. 이 때, `Quadratic approximation`을 위한 식은 다음과 같습니다.
+
+<br>
+
+- $$ \begin{align} Q_{f}(x, y) &= \color{red}{f(x_{0}, y_{0})} \\ &+\color{green}{f_{x}(x_{0}, y_{0})(x - x_{0}) + f_{y}(x_{0}, y_{0})(y - y_{0})} \\ &+ \color{blue}{\frac{1}{2}f_{xx}(x_{0}, y_{0})(x - x_{0})^{2} + f_{xy}(x_{0}, y_{0})(x - x_{0})(y - y_{0}) + \frac{1}{2}f_{yy}(x_{0}, y_{0})(y - y_{0})^{2}} \end{align} $$
+
+<br>
+
+- 위 식에서 빨간색은 `Constant`, 초록색은 `Linear Term` 그리고 파란색은 `Quadratic Term` 입니다. 따라서 `Vector`형태로 수식을 표현한다면 다음과 같이 표현할 수 있습니다.
+- 아래 수식에서 $$ \textbf{x}, \textbf{x_{0}} $$ 는 `vector`를 나타내며 $$ \textbf{x} = (x, y) $$, $$ \textbf{x} = (x_{0}, y_{0}) $$ 로 생각할 수 있습니다.
+
+<br>
+
+- $$ \begin{align} Q_{f}(\textbf{x}) &= \color{red}{f(\textbf{x}_{0})} \\ &+ \color{green}{\nabla f(\textbf{x}_{0}) \cdot (\textbf{x} - \textbf{x}_{0}) } \\ &+ \color{blue}{\frac{1}{2}(\textbf{x} - \textbf{x}_{0})^{T}\textbf{H}_{f}(\textbf{x}_{0})(\textbf{x} - \textbf{x}_{0})} \end{align} $$
+
+- $$ f \text{: function with multi-dimensional input and a scalar output} $$
+
+- $$ \nabla f(\textbf{x}_{0}) \text{: gradient of } f \text{ evaluated at } \textbf{x}_{0} $$
+
+- $$ \textbf{H}_{f}(\textbf{x}_{0}) \text{: Hessian matrix of } f \text{ evaluated at } \textbf{x}_{0} $$
+
+- $$ \textbf{x}_{0} \text{: input we are approximating near.} $$
+
+- $$ \textbf{x} \text{: variable input} $$
+
+<br>
+
+- `Gradient`와 `Hessian`을 이용하여 벡터 형태로 표현한 식과 함수 별로 풀어서 쓴 식을 대응하면 다음과 같습니다. 벡터 형태로 표현한 식을 풀어서 써보겠습니다.
+
+<br>
+
+- $$ \begin{align} \nabla f(\textbf{x}_{0}) \cdot (\textbf{x} - \textbf{x}_{0}) &= \begin{bmatrix} f_{x}(x_{0}, y_{0}) \\ f_{y}(x_{0}, y_{0}) \end{bmatrix} \cdot \left(\begin{bmatrix} x \\ y \end{bmatrix} - \begin{bmatrix} x_{0} \\ y_{0} \end{bmatrix} \right) \\ &= \begin{bmatrix} f_{x}(x_{0}, y_{0}) \\ f_{y}(x_{0}, y_{0}) \end{bmatrix} \cdot \begin{bmatrix} x - x_{0} \\ y - y_{0} \end{bmatrix} \\ &= f_{x}(x_{0}, y_{0})(x - x_{0}) + f_{y}(x_{0}, y_{0})(y - y_{0}) \end{align} $$
+
+- $$ \therefore \nabla f(\textbf{x}_{0}) \cdot (\textbf{x} - \textbf{x}_{0}) = \color{green}{f_{x}(x_{0}, y_{0})(x - x_{0}) + f_{y}(x_{0}, y_{0})(y - y_{0})} $$
+
+<br>
+
+- $$ \begin{align} (\textbf{x} - \textbf{x}_{0})^{T}\textbf{H}_{f}(\textbf{x}_{0})(\textbf{x} - \textbf{x}_{0}) &= \begin{bmatrix} x - x_{0} \\ y - y_{0} \end{bmatrix}^{T} \begin{bmatrix}f_{xx}(x_{0}, y_{0}) & f_{xy}(x_{0}, y_{0}) \\ f_{yx}(x_{0}, y_{0}) & f_{yy}(x_{0}, y_{0}) \end{bmatrix} \begin{bmatrix} x - x_{0} \\ y - y_{0} \end{bmatrix} \\ &= \begin{bmatrix} (x - x_{0}) & (y - y_{0}) \end{bmatrix} \begin{bmatrix}f_{xx}(x_{0}, y_{0}) & f_{xy}(x_{0}, y_{0}) \\ f_{yx}(x_{0}, y_{0}) & f_{yy}(x_{0}, y_{0}) \end{bmatrix} \begin{bmatrix} x - x_{0} \\ y - y_{0} \end{bmatrix} \\ &= \begin{bmatrix} (x - x_{0}) & (y - y_{0}) \end{bmatrix} \begin{bmatrix}f_{xx}(x_{0}, y_{0})(x - x_{0}) + f_{xy}(x_{0}, y_{0})(y - y_{0}) \\ f_{yx}(x_{0}, y_{0})(x - x_{0}) + f_{yy}(x_{0}, y_{0})(y - y_{0}) \end{bmatrix} \\ &= f_{xx}(x_{0}, y_{0})(x - x_{0})^{2} + f_{xy}(x_{0}, y_{0})(y - y_{0})(x - x_{0}) + f_{yx}(x_{0}, y_{0})(x - x_{0})(y - y_{0}) + f_{yy}(x_{0}, y_{0})(y - y_{0})^{2} \\ &= f_{xx}(x_{0},y_{0})(x - x_{0})^{2} + 2f_{xy}(x_{0},y_{0})(y - y_{0})(x - x_{0}) + f_{yy}(x_{0},y_{0})(y - y_{0})^{2} \end{align} $$
+
+- $$ \therefore \frac{1}{2} (\textbf{x} - \textbf{x}_{0})^{T}\textbf{H}_{f}(\textbf{x}_{0})(\textbf{x} - \textbf{x}_{0}) \\ = \color{blue}{\frac{1}{2}f_{xx}(x_{0}, y_{0})(x - x_{0})^{2} + f_{xy}(x_{0}, y_{0})(x - x_{0})(y - y_{0}) + \frac{1}{2}f_{yy}(x_{0}, y_{0})(y - y_{0})^{2}} $$
+
+<br>
+
+- 벡터 형태로 표현한 식은 2개의 입력값이 아니라 $$ n $$ 개의 입력값이 사용되더라도 동일하게 적용가능하다는 장점이 있습니다. 따라서 이와 같이 `Quadratic approximation`을 표현할 수 있습니다.
 
 <br>
 
