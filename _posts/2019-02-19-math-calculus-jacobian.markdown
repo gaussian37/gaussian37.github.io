@@ -31,6 +31,7 @@ tags: [Gradient, 그래디언트, Jacobian, 자코비안, Hessian, 헤시안] # 
 - ### [Python을 이용한 Jacobian 계산](#python을-이용한-jacobian-계산-1)
 - ### [Hessian의 정의 및 예시](#hessian의-정의-및-예시-1)
 - ### [Python을 이용한 Hessian 계산](#python을-이용한-hessian-계산-1)
+- ### [Quadratic approximation](#quadratic-approximation-1)
 
 <br>
 
@@ -669,6 +670,16 @@ print("Result: \n", result)
 <br>
 
 - 위 결과와 같이 원하는 `Hessian` 값을 코드를 통하여 구할 수 있습니다.
+
+<br>
+
+## **Quadratic approximation**
+
+<br>
+
+- 지금까지 살펴본 내용 중 `Gradient`와 `Hessian`은 `scalar-valued function`에 대한 1차 미분, 2차 미분의 결과임을 확인하였습니다.
+- 이 내용을 바탕으로 `Quadratic approximation`을 적용하는 방법에 대하여 알아보면서 이 글을 마치도록 하겠습니다.
+
 
 <br>
 

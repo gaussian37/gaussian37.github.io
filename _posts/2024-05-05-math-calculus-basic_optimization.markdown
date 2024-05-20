@@ -31,45 +31,23 @@ tags: [Gradient Descent, SGD, Momentum, RMSProp, Adam, Newton, Gauss Newton, Lev
 <br>
 
 - ### [Gradient Descent](#gradient-descent-1)
-- ### [SGD](#sgd-1)
-- ### [Momentum](#momentum-1)
-- ### [RMSProp](#rmsprop-1)
-- ### [Adam](#adam-1)
 - ### [Newton Method](#newton-method-1)
-- ### [Newton Method for Optimization](#newton-method-for-optimization-1)
+- ### [Gradient Descent for Non-Linear Least Squares](#gradient-descent-for-non-linear-least-squares-1)
+- ### [Newton Method for Non-Linear Least Squares](#newton-method-for-non-linear-least-squares-1)
 - ### [Gauss-Newton Method for Non-Linear Least Squares](#gauss-newton-method-for-non-linear-least-squares-1)
 - ### [Levenberg-Marquardt Method for Non-Linear Least Squares](#levenberg-marquardt-method-for-non-linear-least-squares-1)
 - ### [Weighted Residuals](#weighted-residuals-1)
 - ### [Quasi Newton Method for Non-Linear Least Squares](#quasi-newton-method-for-non-linear-least-squares-1)
 - ### [Lagrange Multiplier](#lagrange-multiplier-1)
+- ### [SGD](#sgd-1)
+- ### [Mini-Batch Gradient Descent](#mini-batch-gradient-descent-1)
+- ### [Momentum](#momentum-1)
+- ### [RMSProp](#rmsprop-1)
+- ### [Adam](#adam-1)
 
 <br>
 
 ## **Gradient Descent**
-
-<br>
-
-<br>
-
-## **SGD**
-
-<br>
-
-<br>
-
-## **Momentum**
-
-<br>
-
-<br>
-
-## **RMSProp**
-
-<br>
-
-<br>
-
-## **Adam**
 
 <br>
 
@@ -83,7 +61,15 @@ tags: [Gradient Descent, SGD, Momentum, RMSProp, Adam, Newton, Gauss Newton, Lev
 
 <br>
 
-## **Newton Method for Optimization**
+## **Gradient Descent for Non-Linear Least Squares**
+
+<br>
+
+- $$ w_{\text{new}} = w_{\text{old}} - \lambda J_{r}^{T} r $$
+
+<br>
+
+## **Newton Method for Non-Linear Least Squares**
 
 <br>
 
@@ -205,7 +191,7 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 - 예를 들어 `least squares`와 같은 경우에는 $$ Ax = b $$ 에서 $$ x = (A^{T}A)^{-1}A^{T} b $$ 와 같이 해를 구할 때, 모든 데이터 성분을 2차원 행렬 ( $$ (n, m) $$ ) $$ A $$ 와 벡터 $$ b $$ 에 표현합니다.
 - 하지만 `newton method`를 이용하여 최적해를 구할 때에는 `Hessian`으로 인하여 하나의 식으로 표현한다면 2차원 행렬인 `Hessian`을 행의 요소로 가지는 3차원 텐서로 표현해주어야 하는 복잡함이 발생합니다. (`Hessian`을 이용한 `newton method`의 출력은 `matrix-valued multivariable function`이 됩니다.) 그리고 2차 편미분에 대한 실제 계산도 복잡합니다. 
-- 따라서 `newton method`를 `least squares`와 같이 표현하여 계산 복잡도를 줄이는 방법이 필요합니다.
+- 따라서 `newton method`를 `least squares`와 같이 표현하여 계산 복잡도를 줄이는 방법이 필요합니다. 이러한 문제를 개선한 알고리즘이 `Gauss-Newton Method`입니다. (따라서 `Newton Method`를 `non-linear least squares` 문제를 풀기 위해 직접적으로 사용하는 경우는 다루지 않습니다.)
 
 <br>
 
@@ -213,14 +199,14 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 <br>
 
-- `gauss-newton method`는 `optimization` 문제를 풀 때, 2차 미분을 사용하는 `Hessian` 대신에 1차 미분을 사용하는 `Gradient`를 이용하여 근사해를 구하는 방식입니다. 이 때, `Gradient`를 $$ n $$ 개의 `function`에 대하여 (`vector-valued multivariable function`) 적용하므로 `Jacobian`을 이용하게 됩니다.
-- `Jacobian`을 이용하여 `gauss-newton method`에서 표현하고자 하는 것은 `least squares`([최소제곱법](https://gaussian37.github.io/math-la-least_squares/))를 반복적(`iterative`)으로 적용하는 것입니다. 
-- 이 방식을 통해 `linear function`의 해를 구하는 `least squares`를 `non-linear function`의 해를 구하는 `non-linear least squares`로 표현하는 것이 `gauss-newton method`의 핵심이라고 말할 수 있습니다.
+- `Gauss-Newton Method`는 `optimization` 문제를 풀 때, 2차 미분을 사용하는 `Hessian` 대신에 1차 미분을 사용하는 `Gradient`를 이용하여 근사해를 구하는 방식입니다. 이 때, `Gradient`를 $$ n $$ 개의 `function`에 대하여 (`vector-valued multivariable function`) 적용하므로 `Jacobian`을 이용하게 됩니다.
+- `Jacobian`을 이용하여 `Gauss-Newton Method`에서 표현하고자 하는 것은 `least squares`([최소제곱법](https://gaussian37.github.io/math-la-least_squares/))를 반복적(`iterative`)으로 적용하는 것입니다. 
+- 이 방식을 통해 `linear function`의 해를 구하는 `least squares`를 `non-linear function`의 해를 구하는 `non-linear least squares`로 표현하는 것이 `Gauss-Newton Method`의 핵심이라고 말할 수 있습니다.
 - `linear function`의 해는 `least squares`를 한번 적용하여 해 또는 근사해를 구할 수 있습니다. 반면 `non-linear function`의 해는 `linear function`에 사용되는 `least suqares`를 단 한번 적용해서 근사해를 바로 구하기 어렵기 때문에 반복적으로 적용하며 점근적으로 근사해를 찾아갑니다.
 
 <br>
 
-- 이번에는 `newton method for optimization` 부분에서 다룬 내용을 이어서 어떻게 `gauss-newton method`를 통해 `non-linear least squares`를 해결하는 지 살펴보도록 하겠습니다.
+- 이번에는 `newton method for optimization` 부분에서 다룬 내용을 이어서 어떻게 `Gauss-Newton Method`를 통해 `non-linear least squares`를 해결하는 지 살펴보도록 하겠습니다.
 
 <br>
 
@@ -332,8 +318,9 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 <br>
 
-- 업데이트해야 할 $$ \Delta w $$ 를 `least squares`를 이용하여 구한 후 $$ w $$ 를 업데이트 하는데, 이 과정에서 한번의 `least squares`만을 이용하여 해를 구하지 않고 종료 조건이 만족될 때 까지 `least squares`를 반복하여 해 또는 근사해를 구하게 됩니다.
-- 이와 같이 반복적인 근사화를 거치는 이유는 `non-linear function`에 `least squares`를 사용하기 때문입니다. (만약 `linear function`에서 `least squares`를 사용한다면 한번의 `least squares`를 적용할 수 있어서 별도 반복적인 근사화를 처지기 않습니다.)
+- 업데이트 해야 할 $$ \Delta w $$ 를 `least squares`를 이용하여 구한 후 $$ w $$ 를 업데이트 하는데, 이 과정에서 한번의 `least squares`만을 이용하여 해를 구하지 않고 종료 조건이 만족될 때 까지 `least squares`를 반복하여 해 또는 근사해를 구하게 됩니다.
+- 이와 같이 **반복적인 근사화를 거치는 이유**는 `non-linear function`에 `least squares`를 사용하기 때문입니다. 만약 `linear function`에서 `least squares`를 사용한다면 한번의 `least squares`를 적용하여 최적해를 찾을 수 있기 때문에 반복적인 근사화를 거치지 않습니다. 
+- 대표적으로 `linear regression`의 경우 `residual`의 기울기가 0이 되는 지점에서 유일한 최솟값을 가지기 때문에 한번의 `least squares`를 통하여 최솟값을 구할 수 있지만 지금까지 다룬 비선형 예제에서는 기울기가 0이되는 지점이 유일하지 않기 때문에 `local minimum`을 선형 함수로 근사화하여 해를 구한 것입니다. 따라서 `gauss newton method`는 `global minimum`을 찾아가기 위하여 반복적으로 해를 찾아가는 과정을 거칩니다.
 
 <br>
 
@@ -414,8 +401,8 @@ Jr = jacobian_func(params[0][0], params[1][0])
 <center><img src="../assets/img/math/calculus/basic_optimization/3.png" alt="Drawing" style="width: 300px;"/></center>
 <br>
 
-- `residual_func`와 `jacobian_func`를 이용하여 `gauss-newton method`를 다음과 같이 적용할 수 있습니다.
-- `max_iteration`최대 반복 횟수이고 `threshold`는 이전 파라미터와 현재 업데이트한 파라미터 간의 차이가 있는 지 확인하기 위한 값입니다. 따라서 `max_iteration`을 초과하거나 `threshold` 이하의 업데이트 양이 발생하면 `gauss-newton method`를 종료합니다.
+- `residual_func`와 `jacobian_func`를 이용하여 `Gauss-Newton Method`를 다음과 같이 적용할 수 있습니다.
+- `max_iteration`최대 반복 횟수이고 `threshold`는 이전 파라미터와 현재 업데이트한 파라미터 간의 차이가 있는 지 확인하기 위한 값입니다. 따라서 `max_iteration`을 초과하거나 `threshold` 이하의 업데이트 양이 발생하면 `Gauss-Newton Method`를 종료합니다.
 
 <br>
 
@@ -495,7 +482,7 @@ for i in range(max_iteration):
 
 <br>
 
-- $$ 146.4245 e^{-0.0292 t} $$
+- $$ 146.4245 \cdot e^{-0.0292 t} $$
 
 <br>
 <center><img src="../assets/img/math/calculus/basic_optimization/5.png" alt="Drawing" style="width: 400px;"/></center>
@@ -505,7 +492,7 @@ for i in range(max_iteration):
 
 <br>
 
-- 새로운 문제에 접근할 때에는 ① `residual`의 식 정의, ② 데이터 입력, ③ `gauss-newton method` 부분 일부 수정을 통하여 새로운 문제를 해결할 수 있습니다.
+- 새로운 문제에 접근할 때에는 ① `residual`의 식 정의, ② 데이터 입력, ③ `Gauss-Newton Method` 부분 일부 수정을 통하여 새로운 문제를 해결할 수 있습니다.
 - 그 다음으로 원의 방정식에서 필요한 파라미터를 찾는 예제를 살펴보도록 하겠습니다.
 
 <br>
@@ -641,11 +628,16 @@ for i in range(100):
 
 <br>
 
-- 앞에서 `gauss-newton method`를 이용하여 `non-linear least squares` 문제를 해결하는 방법을 다루었습니다.
-- `gauss-newton method` 또한 `newton method`에서 출발한 알고리즘인 만큼 다음 2가지 문제가 발생할 수 있습니다.
+- 앞에서 `Gauss-Newton Method`를 이용하여 `non-linear least squares` 문제를 해결하는 방법을 다루었습니다.
+- `Gauss-Newton Method` 또한 `newton method`에서 출발한 알고리즘인 만큼 다음 2가지 문제가 발생할 수 있습니다.
     - ① 초깃값 설정에 따라서 근사해 찾기가 어려워 질 수 있습니다.
     - ② 계산 과정 중 $$ (J_{r}^{T} J_{r})^{-1} $$ 이라는 역행렬이 있어 역행렬이 없을 경우 수치적으로 불안정해질 수 있습니다.
-- 따라서 이 2가지 문제를 개선한 방법 중 유명한 방법인 `Levenberg-Marquardt Method`에 대하여 살펴보도록 하겠습니다.
+- 따라서 이 2가지 문제를 개선한 방법 중 유명한 방법인 `Levenberg-Marquardt Method`에 대하여 살펴보도록 하겠습니다. 
+- 먼저 앞에서 다룬 `Gradient Descent`와 `Gauss-Newton Method`의 차이점에 대하여 다시 확인해 보도록 하겠습니다. 왜냐하면 `Levenberg-Marquardt Method`는 `Gradient Descent`와 `Gauss-Newton Method`의 조합으로 이루어졌기 때문입니다.
+
+<br>
+
+
 
 <br>
 
@@ -665,6 +657,42 @@ for i in range(100):
 <br>
 
 ## **Lagrange Multiplier**
+
+<br>
+
+<br>
+
+- 지금부터는 `Deep Learning`에서 많이 사용하는 `Gradient Descent`를 응용한 최적화 방법등을 다루어 보도록 하겠습니다.
+- 앞에서 다룬 `Newton Method` 기반의 최적화 방법은 최적화에 강건하고 수렴 속도가 빠르다는 장점이 있지만 $$ (J_{r}^{T} J_{r})^{-1} $$ 와 같은 역행렬 연산이 필요하고 **대량의 데이터를 모두 이용하여 최적화 할 때 메모리에 비효율적인 측면**이 있어 파라미터 최적화에 어려움이 있습니다. (GPU 메모리 초과 및 학습 시간 증가 문제)
+- 따라서 `Deep Learning` 이외의 `small dataset`을 이용한 최적화 알고리즘을 사용할 때에는 `Newton Method` 기반의 최적화 알고리즘이 주요한 방법으로 사용되는 반면에 `Deep Learning`과 같이 `large dataset`을 이용한 최적화 알고리즘은 주로 `Gradient Descent` 기반의 최적화 알고리즘을 사용합니다.
+
+<br>
+
+## **SGD**
+
+<br>
+
+<br>
+
+## **Mini-Batch Gradient Descent**
+
+<br>
+
+<br>
+
+## **Momentum**
+
+<br>
+
+<br>
+
+## **RMSProp**
+
+<br>
+
+<br>
+
+## **Adam**
 
 <br>
 
