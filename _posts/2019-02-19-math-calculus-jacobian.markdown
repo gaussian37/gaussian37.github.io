@@ -771,19 +771,19 @@ print("Result: \n", result)
 
 <br>
 
-- $$ f_{xx}(x, y) = \frac{\partial}{\parital x}\frac{\partial}{\partial x}(\sin{(x)}\cos{(y)}) = \frac{\partial}{\partial x}\cos{(x)}\cos{(y)} = -\sin{(x)}\cos{(y)} $$
+- $$ f_{xx}(x, y) = \frac{\partial}{\partial x}\frac{\partial}{\partial x}(\sin{(x)}\cos{(y)}) = \frac{\partial}{\partial x}\cos{(x)}\cos{(y)} = -\sin{(x)}\cos{(y)} $$
 
 - $$ \therefore f_{xx}(\frac{\pi}{3}, \frac{\pi}{6}) = -\sin{(\frac{\pi}{3})}\cos{(\frac{\pi}{6})} = -\frac{\sqrt{3}}{2}\frac{\sqrt{3}}{2} = -\frac{3}{4} $$
 
 <br>
 
-- $$ f_{xy}(x, y) = \frac{\partial}{\parital x}\frac{\partial}{\partial y}(\sin{(x)}\cos{(y)}) = \frac{\partial}{\partial x}\sin{(x)}(-\sin{(y)}) = -\cos{(x)}\sin{(y)} $$
+- $$ f_{xy}(x, y) = \frac{\partial}{\partial x}\frac{\partial}{\partial y}(\sin{(x)}\cos{(y)}) = \frac{\partial}{\partial x}\sin{(x)}(-\sin{(y)}) = -\cos{(x)}\sin{(y)} $$
 
 - $$ \therefore f_{xy}(\frac{\pi}{3}, \frac{\pi}{6}) = -\cos{(\frac{\pi}{3})}\sin{(\frac{\pi}{6})} = -\frac{1}{2}\frac{1}{2} = -\frac{1}{4} $$
 
 <br>
 
-- $$ f_{yy}(x, y) = \frac{\partial}{\parital y}\frac{\partial}{\partial y}(\sin{(x)}\cos{(y)}) = \frac{\partial}{\partial y}-\sin{(x)}\sin{(y)} = -\sin{(x)}\cos{(y)} $$
+- $$ f_{yy}(x, y) = \frac{\partial}{\partial y}\frac{\partial}{\partial y}(\sin{(x)}\cos{(y)}) = \frac{\partial}{\partial y}-\sin{(x)}\sin{(y)} = -\sin{(x)}\cos{(y)} $$
 
 - $$ \therefore f_{yy}(\frac{\pi}{3}, \frac{\pi}{6}) = -\sin{(\frac{\pi}{3})}\cos{(\frac{\pi}{6})} = -\frac{\sqrt{3}}{2}\frac{\sqrt{3}}{2} = -\frac{3}{4} $$
 
