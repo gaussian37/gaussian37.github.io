@@ -733,6 +733,84 @@ print("Result: \n", result)
 
 <br>
 
+- 지금까지 `Quadratic approximation`에 대하여 알아보았습니다. 그러면 실제 `Quadratic approximation` 예제를 하나 다루어 보도록 하겠습니다.
+
+<br>
+
+- $$ f(x, y) = \sin{(x)}\cos{(y)}, \text{ approximating near } (x, y) = (\frac{\pi}{3}, \frac{\pi}{6}) $$ 
+
+- $$ \begin{align} Q_{f}(x, y) &= f(x_{0}, y_{0}) \\ &+f_{x}(x_{0}, y_{0})(x - x_{0}) + f_{y}(x_{0}, y_{0})(y - y_{0}) \\ &+ \frac{1}{2}f_{xx}(x_{0}, y_{0})(x - x_{0})^{2} + f_{xy}(x_{0}, y_{0})(x - x_{0})(y - y_{0}) + \frac{1}{2}f_{yy}(x_{0}, y_{0})(y - y_{0})^{2} \end{align} $$
+
+<br>
+
+- `Constant Term` 부분은 다음과 같습니다.
+
+<br>
+
+- $$ \begin{align} f(\frac{\pi}{3}, \frac{\pi}{6}) &= \sin{(\frac{\pi}{3})}\cos{(\frac{\pi}{6})} \\ &= \frac{\sqrt{3}}{2}\frac{\sqrt{3}}{2} \\ &= \frac{3}{4} \end{align} $$
+
+<br>
+
+- `Linear Term` 부분은 다음과 같습니다.
+
+<br>
+
+- $$ f_{x}(x, y) = \frac{\partial}{\partial x}\sin{(x)}\cos{(y)} = \cos{(x)}\cos{(y)} $$
+
+- $$ \therefore f_{x}(\frac{\pi}{3}, \frac{\pi}{6}) = \cos{(\frac{\pi}{3})}\cos{(\frac{\pi}{6})} = \frac{1}{2}\frac{\sqrt{3}}{2} = \frac{\sqrt{3}}{4} $$
+
+<br>
+
+- $$ f_{y}(x, y) = \frac{\partial}{\partial y}\sin{(x)}\cos{(y)} = -\sin{(x)}\cos{(y)} $$
+
+- $$ \therefore f_{y}(\frac{\pi}{3}, \frac{\pi}{6}) = -\sin{(\frac{\pi}{3})}\sin{(\frac{\pi}{6})} = -\frac{\sqrt{3}}{2}\frac{1}{2} = -\frac{\sqrt{3}}{4} $$
+
+<br>
+
+- `Quadratic Term` 부분은 다음과 같습니다.
+
+<br>
+
+- $$ f_{xx}(x, y) = \frac{\partial}{\parital x}\frac{\partial}{\partial x}(\sin{(x)}\cos{(y)}) = \frac{\partial}{\partial x}\cos{(x)}\cos{(y)} = -\sin{(x)}\cos{(y)} $$
+
+- $$ \therefore f_{xx}(\frac{\pi}{3}, \frac{\pi}{6}) = -\sin{(\frac{\pi}{3})}\cos{(\frac{\pi}{6})} = -\frac{\sqrt{3}}{2}\frac{\sqrt{3}}{2} = -\frac{3}{4} $$
+
+<br>
+
+- $$ f_{xy}(x, y) = \frac{\partial}{\parital x}\frac{\partial}{\partial y}(\sin{(x)}\cos{(y)}) = \frac{\partial}{\partial x}\sin{(x)}(-\sin{(y)}) = -\cos{(x)}\sin{(y)} $$
+
+- $$ \therefore f_{xy}(\frac{\pi}{3}, \frac{\pi}{6}) = -\cos{(\frac{\pi}{3})}\sin{(\frac{\pi}{6})} = -\frac{1}{2}\frac{1}{2} = -\frac{1}{4} $$
+
+<br>
+
+- $$ f_{yy}(x, y) = \frac{\partial}{\parital y}\frac{\partial}{\partial y}(\sin{(x)}\cos{(y)}) = \frac{\partial}{\partial y}-\sin{(x)}\sin{(y)} = -\sin{(x)}\cos{(y)} $$
+
+- $$ \therefore f_{yy}(\frac{\pi}{3}, \frac{\pi}{6}) = -\sin{(\frac{\pi}{3})}\cos{(\frac{\pi}{6})} = -\frac{\sqrt{3}}{2}\frac{\sqrt{3}}{2} = -\frac{3}{4} $$
+
+<br>
+
+- 따라서 `Quadratic approximation` 식은 다음과 같이 쓸 수 있습니다.
+
+<br>
+
+- $$ \begin{align} Q_{f}(x, y) &= f(x_{0}, y_{0}) \\ &+f_{x}(x_{0}, y_{0})(x - x_{0}) + f_{y}(x_{0}, y_{0})(y - y_{0}) \\ &+ \frac{1}{2}f_{xx}(x_{0}, y_{0})(x - x_{0})^{2} + f_{xy}(x_{0}, y_{0})(x - x_{0})(y - y_{0}) + \frac{1}{2}f_{yy}(x_{0}, y_{0})(y - y_{0})^{2} \\ \\ &=\frac{3}{4} \\ &+ \frac{\sqrt{3}}{4}(x - \frac{\pi}{3}) + \frac{-\sqrt{3}}{4}(y - \frac{\pi}{6}) \\ &+ \frac{1}{2} \cdot \frac{-\sqrt{3}}{4}(x - \frac{\pi}{3})^{2} + \frac{-1}{4}(x - \frac{\pi}{3})(y - \frac{\pi}{6}) + \frac{1}{2} \cdot \frac{-3}{4}(y - \frac{\pi}{6})^{2} \end{align} $$
+
+<br>
+
+- 아래는 $$ f(x, y) = \sin{(x)}\cos{(y)} $$ 의 그래프 입니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/jacobian/13.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 아래는 $$ (x_{0}, y_{0}) = (\frac{\pi}{3}, \frac{\pi}{6}) $$ 에서 `Quadratic approximation`을 구한 $$ Q_{f}(x, y) $$ 의 그래프 입니다. 
+
+<br>
+<center><img src="../assets/img/math/calculus/jacobian/14.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+
 [Calculus 관련 글 목차](https://gaussian37.github.io/math-calculus-table/)
 
 <br>
