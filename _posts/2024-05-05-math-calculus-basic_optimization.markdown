@@ -320,7 +320,12 @@ y = [147.8, 78.3, 44.7, 29.5, 15.2, 7.8, 3.2, 3.9]
 
 - 업데이트 해야 할 $$ \Delta w $$ 를 `least squares`를 이용하여 구한 후 $$ w $$ 를 업데이트 하는데, 이 과정에서 한번의 `least squares`만을 이용하여 해를 구하지 않고 종료 조건이 만족될 때 까지 `least squares`를 반복하여 해 또는 근사해를 구하게 됩니다.
 - 이와 같이 **반복적인 근사화를 거치는 이유**는 `non-linear function`에 `least squares`를 사용하기 때문입니다. 만약 `linear function`에서 `least squares`를 사용한다면 한번의 `least squares`를 적용하여 최적해를 찾을 수 있기 때문에 반복적인 근사화를 거치지 않습니다. 
-- 대표적으로 `linear regression`의 경우 `residual`의 기울기가 0이 되는 지점에서 유일한 최솟값을 가지기 때문에 한번의 `least squares`를 통하여 최솟값을 구할 수 있지만 지금까지 다룬 비선형 예제에서는 기울기가 0이되는 지점이 유일하지 않기 때문에 `local minimum`을 선형 함수로 근사화하여 해를 구한 것입니다. 따라서 `gauss newton method`는 `global minimum`을 찾아가기 위하여 반복적으로 해를 찾아가는 과정을 거칩니다.
+- 대표적으로 `linear regression`의 경우 `residual`의 기울기가 0이 되는 지점에서 유일한 최솟값을 가지기 때문에 한번의 `least squares`를 통하여 최솟값을 구할 수 있지만 지금까지 다룬 비선형 예제에서는 기울기가 0이되는 지점이 유일하지 않기 때문에 `local minimum`을 선형 함수로 근사화하여 해를 구한 것입니다. 따라서 `Gauss-Newton method`는 `global minimum`을 찾아가기 위하여 반복적으로 해를 찾아가는 과정을 거칩니다.
+
+<br>
+
+- `Gauss-Newton Method`의 파라미터 업데이트 식을 살펴보면 $$ J_{r}^{T} r $$ 에 $$ (J_{r}^{T}J_{r})^{-1} $$ 가 곱해져서 파라미터를 업데이트 합니다. 이 값은 `Hessian` 근사값의 역행렬이므로 `Gradient`가 곡률(`curvature`)에 반비례한 만큼 업데이트 됩니다. **`Gradient`의 변화가 크면 (즉, 곡률이 크면) 파라미터 업데이트 크기를 줄이고 `Gradient`의 변화가 작으면 (곡률이 작으면) 파라미터 업데이트 크기를 키워서 해를 찾아갑니다.**
+- 따라서 `Gauss-Newton Method`의 경우 주변 곡률 상황을 살펴보면서 `Gradient`의 크기를 조절하기 때문에 좀 더 빠르게 해를 찾을 수 있다는 장점이 있습니다.
 
 <br>
 
@@ -633,11 +638,22 @@ for i in range(100):
     - ① 초깃값 설정에 따라서 근사해 찾기가 어려워 질 수 있습니다.
     - ② 계산 과정 중 $$ (J_{r}^{T} J_{r})^{-1} $$ 이라는 역행렬이 있어 역행렬이 없을 경우 수치적으로 불안정해질 수 있습니다.
 - 따라서 이 2가지 문제를 개선한 방법 중 유명한 방법인 `Levenberg-Marquardt Method`에 대하여 살펴보도록 하겠습니다. 
-- 먼저 앞에서 다룬 `Gradient Descent`와 `Gauss-Newton Method`의 차이점에 대하여 다시 확인해 보도록 하겠습니다. 왜냐하면 `Levenberg-Marquardt Method`는 `Gradient Descent`와 `Gauss-Newton Method`의 조합으로 이루어졌기 때문입니다.
+- 먼저 앞에서 다룬 `Gradient Descent`와 `Gauss-Newton Method`의 차이점에 대하여 다시 확인해 보도록 하겠습니다. 왜냐하면 `non-linear least squares` 문제를 푸는 `Levenberg-Marquardt Method`는 `Gradient Descent`와 `Gauss-Newton Method`의 조합으로 이루어졌기 때문입니다.
 
 <br>
 
+- `Gradient Descent for Non-Linear Least Squares` : $$ w_{\text{new}} = w_{\text{old}} - \lambda J_{r}^{T} r $$
 
+<br>
+
+- `Gauss-Newton Method for Non-Linear Least Squares` : $$ w_{\text{new}} = w_{\text{old}} - (J_{r}^{T}J_{r})^{-1}J_{r}^{T} r $$
+
+<br>
+
+- 두 방법론의 공통점은 $$ J_{r}^{T} r $$ 로 `residual`과 `residual`의 변화량(미분)을 이용하여 파라미터를 업데이트 한다는 점입니다.
+- 반면 차이점은 `Gradient Descent`의 경우 $$ J_{r}^{T} r $$ 에 $$ \lambda $$ 라는 `learning rate`가 곱해져서 파라미터 업데이트가 되기 때문에 `Gradient`의 크기에 비례한 만큼 파라미터를 업데이트하게 됩니다. 
+- 하지만 `Gauss-Newton Method`의 경우 $$ J_{r}^{T} r $$ 에 $$ (J_{r}^{T}J_{r})^{-1} $$ 가 곱해져서 파라미터 업데이트하게 됩니다. 이 값은 `Hessian` 근사값의 역행렬이므로 `Gradient`가 곡률(`curvature`)에 반비례한만큼 업데이트 됩니다. `Gradient`의 변화가 크면 (즉, 곡률이 크면) 파라미터 업데이트 크기를 줄이고 `Gradient`의 변화가 작으면 (곡률이 작으면) 파라미터 업데이트 크기를 키워서 해를 찾아갑니다.
+- `Gauss-Newton Method`의 경우 주변 곡률 상황을 살펴보면서 `Gradient`의 크기를 조절하기 때문에 좀 더 빠르게 해를 찾을 수 있다는 장점이 있습니다. 하지만 $$ (J_{r}^{T}J_{r})^{-1} $$ 에 대한 수치 불안정성이 있어 발산의 위험성이 있습니다.
 
 <br>
 
