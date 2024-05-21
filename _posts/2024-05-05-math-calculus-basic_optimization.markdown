@@ -634,10 +634,7 @@ for i in range(100):
 <br>
 
 - 앞에서 `Gauss-Newton Method`를 이용하여 `non-linear least squares` 문제를 해결하는 방법을 다루었습니다.
-- `Gauss-Newton Method` 또한 `newton method`에서 출발한 알고리즘인 만큼 다음 2가지 문제가 발생할 수 있습니다.
-    - ① 초깃값 설정에 따라서 근사해 찾기가 어려워 질 수 있습니다.
-    - ② 계산 과정 중 $$ (J_{r}^{T} J_{r})^{-1} $$ 이라는 역행렬이 있어 역행렬이 없을 경우 수치적으로 불안정해질 수 있습니다.
-- 따라서 이 2가지 문제를 개선한 방법 중 유명한 방법인 `Levenberg-Marquardt Method`에 대하여 살펴보도록 하겠습니다. 
+- `Gauss-Newton Method`의 단점 중 하나는 **계산 과정 중 $$ (J_{r}^{T} J_{r})^{-1} $$ 이라는 역행렬이 있어 역행렬이 없을 경우 수치적으로 불안정해질 수 있다**라는 점입니다. 따라서 이 문제를 개선한 방법 중 유명한 방법인 `Levenberg-Marquardt Method`에 대하여 살펴보도록 하겠습니다. 
 - 먼저 앞에서 다룬 `Gradient Descent`와 `Gauss-Newton Method`의 차이점에 대하여 다시 확인해 보도록 하겠습니다. 왜냐하면 `non-linear least squares` 문제를 푸는 `Levenberg-Marquardt Method`는 `Gradient Descent`와 `Gauss-Newton Method`의 조합으로 이루어졌기 때문입니다.
 
 <br>
@@ -650,10 +647,43 @@ for i in range(100):
 
 <br>
 
-- 두 방법론의 공통점은 $$ J_{r}^{T} r $$ 로 `residual`과 `residual`의 변화량(미분)을 이용하여 파라미터를 업데이트 한다는 점입니다.
+- 두 방법론의 공통점은 업데이트 크기를 결정하는 부분이 $$ J_{r}^{T} r $$ 로 `residual`과 `residual`의 변화량(미분)인 `Jacobian`을 이용하여 파라미터를 업데이트 한다는 점입니다.
+
+<br>
+
 - 반면 차이점은 `Gradient Descent`의 경우 $$ J_{r}^{T} r $$ 에 $$ \lambda $$ 라는 `learning rate`가 곱해져서 파라미터 업데이트가 되기 때문에 `Gradient`의 크기에 비례한 만큼 파라미터를 업데이트하게 됩니다. 
-- 하지만 `Gauss-Newton Method`의 경우 $$ J_{r}^{T} r $$ 에 $$ (J_{r}^{T}J_{r})^{-1} $$ 가 곱해져서 파라미터 업데이트하게 됩니다. 이 값은 `Hessian` 근사값의 역행렬이므로 `Gradient`가 곡률(`curvature`)에 반비례한만큼 업데이트 됩니다. `Gradient`의 변화가 크면 (즉, 곡률이 크면) 파라미터 업데이트 크기를 줄이고 `Gradient`의 변화가 작으면 (곡률이 작으면) 파라미터 업데이트 크기를 키워서 해를 찾아갑니다.
-- `Gauss-Newton Method`의 경우 주변 곡률 상황을 살펴보면서 `Gradient`의 크기를 조절하기 때문에 좀 더 빠르게 해를 찾을 수 있다는 장점이 있습니다. 하지만 $$ (J_{r}^{T}J_{r})^{-1} $$ 에 대한 수치 불안정성이 있어 발산의 위험성이 있습니다.
+- 하지만 `Gauss-Newton Method`의 경우 $$ J_{r}^{T} r $$ 에 $$ (J_{r}^{T}J_{r})^{-1} $$ 가 곱해져서 파라미터를 업데이트 합니다. 이 값은 `Hessian` 근사값의 역행렬이므로 `Gradient`가 곡률(`curvature`)에 반비례한 만큼 업데이트 됩니다. 따라서 `Gradient`의 변화가 크면 (즉, 곡률이 크면) 파라미터 업데이트 크기를 줄이고 `Gradient`의 변화가 작으면 (곡률이 작으면) 파라미터 업데이트 크기를 키워서 해를 찾아갑니다.
+- `Gauss-Newton Method`의 경우 주변 곡률 상황을 살펴보면서 `Gradient`의 크기를 조절하기 때문에 **좀 더 빠르게 해를 찾을 수 있다는 장점**이 있습니다. 하지만 $$ (J_{r}^{T}J_{r})^{-1} $$ 에 대한 수치 불안정성이 있어 발산의 위험성이 있습니다.
+
+<br>
+
+- 일반적으로 `Gauss-Newton Method`의 수렴 속도가 `Gradient Descent`보다 빠릅니다. 앞에서 설명한 곡률에 따른 비율 조정으로 좀 더 빠르게 해를 찾아갈 수 있다는 점이 `Gauss-Newton Method`의 장점이 됩니다.
+- 일반적으로 `Gradient Descnet`의 `Learning Rate`인 $$ \lambda $$ 를 $$ 0.001 $$ 과 같이 정한다는 가정이라면 `Gauss-Newton Method` 에서 사용하는 $$ (J_{r}^{T}J_{r})^{-1} $$ 의 값이 곡률이 작은 경우에는  $$ \lambda $$ 보다 커지고 곡률이 큰 경우에는 $$ \lambda $$ 보다 작아집니다. 즉, 동적으로 `Learning Rate`를 조절할 수 있어 수렴 속도가 빠른 것입니다.
+
+<br>
+
+- 따라서 일반적으로는 `Gauss-Newton Method`를 사용하여 빠르게 수렴하는 방법을 취하는 대신에 수렴이 정상적으로 되지 않는 상황에서는 `Gradient Descent`를 이용하여 안정적으로 수렴시키는 방식을 취하는 것이 대안이 될 수 있습니다. 이 컨셉이 `Levenberg-Marquardt Method`의 핵심입니다.
+
+<br>
+
+- 수렴이 정상적으로 되지 않는 상황은 `residual`의 변화를 통해 확인할 수 있습니다. 일반적으로 `Gauss-Newton Method`를 이용하여 정상적으로 수렴해 나아간다면 `residual`의 크기가 점점 줄어들어야 합니다. 반면 `residual`의 크기가 줄어들지 않는 상황은 수렴하지 않는 상황이라고 생각할 수 있습니다. 이와 같은 경우에 `Gradient Descent`의 방법의 비중을 높여 안정적으로 수렴하도록 유도합니다.
+
+<br>
+
+- $$ w_{\text{new}} = w_{\text{old}} - (J_{r}^{T}J_{r} + \mu \cdot \text{diag}(J_{r}^{T}J_{r}))^{-1}J_{r}^{T} r $$
+
+- $$ \mu \text{: damping factor} $$
+
+- $$ \text{As the damping factor gets larger, it gets closer to Gradient Descent.} $$
+
+- $$ \text{As the damping factor gets smaller, it gets closer to Gauss Newton Method.} $$
+
+<br>
+
+
+<br>
+
+- 비교 예제 : [Damped Oscillation Formula](https://www.geeksforgeeks.org/damped-oscillation-definition-equation-types-examples/)
 
 <br>
 
