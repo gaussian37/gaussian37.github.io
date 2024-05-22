@@ -680,6 +680,12 @@ for i in range(100):
 
 <br>
 
+- 전체적인 알고리즘은 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
 
 <br>
 
