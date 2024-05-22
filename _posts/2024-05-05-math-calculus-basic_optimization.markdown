@@ -680,16 +680,43 @@ for i in range(100):
 
 <br>
 
-- 전체적인 알고리즘은 다음과 같습니다.
+- 위 수식에서 $$ \mu > 0 $$ 는 `damping factor`라고 부르며 이 값에 따라서 파라미터 업데이트 방식이 `Gradient Descent`에 가까워질 지 또는 `Gauss-Newton Method`에 가까워질 지 결정됩니다.
+
+<br>
+
+- 만약 극단적으로 $$ \mu $$ 가 0이 된다면 식은 다음과 같이 변경되어 `Gauss-Newton Method`와 동일해 집니다.
+
+<br>
+
+- $$ w_{\text{new}} = w_{\text{old}} - (J_{r}^{T}J_{r} + 0 \cdot \text{diag}(J_{r}^{T}J_{r}))^{-1}J_{r}^{T} r =  w_{\text{old}} - (J_{r}^{T}J_{r})^{-1}J_{r}^{T} r $$
+
+<br>
+
+- 반면 $$ \mu $$ 가 극단적으로 커지면 식은 다음과 같이 변경될 수 있습니다. 즉, `Gradient Descent` 방식과 유사해 집니다.
+
+<br>
+
+- $$ w_{\text{new}} = w_{\text{old}} - (J_{r}^{T}J_{r} + 0 \cdot \text{diag}(J_{r}^{T}J_{r}))^{-1}J_{r}^{T} r \approx w_{\text{old}} - \mu J_{r}^{T} r $$
+
+<br>
+
+- 이와 같이 `damping factor` $$ \mu $$ 에 따라서 알고리즘의 성격이 바뀌기 때문에 상황에 따라서 `damping factor`를 조절할 수 있어야 합니다.
+- 가장 기본적으로 많이 사용하는 방식이 `Residual`의 크기가 점점 작아지면 정상 수렴이라 가정하고 $$ \mu $$ 값을 줄여서 `Gauss-Newton Method`에 가깝도록 반영하는 것입니다.
+- 반면 `Residual`의 크기가 작아지지 않으면 발산 또는 발산할 가능성이 있다라고 가정합니다. 이 경우 파라미터 업데이트를 보류하고 $$ \mu $$ 값을 증가시켜 안정적인 `Gradient Descent`에 가깝도록 반영합니다.
+- 기본적으로 $$ \mu $$ 값을 증감 시키는 factor를 $$ \nu = 10 > 0 $$ 을 많이 사용합니다. $$ \mu $$ 감소 시 $$ \mu = \mu / \nu $$ 로 적용하고 $$ \mu $$ 증가 시 $$ \mu = \mu \cdot \nu $$ 로 적용합니다.
+
+<br>
+
+- 따라서 `Levenberg-Marquardth Method`의 전체적인 알고리즘을 `flow-chart`로 나타내면 다음과 같습니다.
 
 <br>
 <center><img src="../assets/img/math/calculus/basic_optimization/8.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
+- 지금까지는 `Levenberg-Marquardt Method`의 이론적 배경에 대하여 살펴보았습니다.
+- 이번에는 앞에서 살펴본 예제보다 약간 복잡도가 있는 [Damped Oscillation Formula](https://www.geeksforgeeks.org/damped-oscillation-definition-equation-types-examples/)예제를 이용하여 `Levenberg Marquardt Method`를 사용하였을 때, `Gauss-Newton Method`를 사용하였을 때보다 안정적으로 수렴하는 것을 살펴보도록 하겠습니다.
 
 <br>
-
-- 비교 예제 : [Damped Oscillation Formula](https://www.geeksforgeeks.org/damped-oscillation-definition-equation-types-examples/)
 
 <br>
 
