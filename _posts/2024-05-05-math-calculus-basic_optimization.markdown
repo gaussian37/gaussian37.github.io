@@ -710,13 +710,377 @@ for i in range(100):
 - 따라서 `Levenberg-Marquardth Method`의 전체적인 알고리즘을 `flow-chart`로 나타내면 다음과 같습니다.
 
 <br>
-<center><img src="../assets/img/math/calculus/basic_optimization/8.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/math/calculus/basic_optimization/8.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 지금까지는 `Levenberg-Marquardt Method`의 이론적 배경에 대하여 살펴보았습니다.
 - 이번에는 앞에서 살펴본 예제보다 약간 복잡도가 있는 [Damped Oscillation Formula](https://www.geeksforgeeks.org/damped-oscillation-definition-equation-types-examples/)예제를 이용하여 `Levenberg Marquardt Method`를 사용하였을 때, `Gauss-Newton Method`를 사용하였을 때보다 안정적으로 수렴하는 것을 살펴보도록 하겠습니다.
 
 <br>
+
+- 아래 예제에서는 `Damped Oscillation Formula`에 따라 다음과 같이 식을 정의 하였습니다.
+
+<br>
+
+- $$ y = A \cdot e^{-\lambda \cdot x} \cos{(\omega \cdot x + \phi)} + C $$
+
+- $$ A \text{ : amplitude} $$
+
+- $$ \lambda \text{ : damping coefficient} $$
+
+- $$ \omega \text{ : angular frequency} $$
+
+- $$ \phi \text{ : phase shift} $$
+
+- $$ C \text{ :  vertical shift} $$
+
+<br>
+
+- 위 식을 앞에서 다룬 예제들과 같이 파라미터를 다음과 같이 $$ w_{i} $$ 로 간소화하여 사용하겠습니다.
+
+<br>
+
+- $$ \to y = w_{0} \cdot e^{-w_{1} \cdot x} \cos{(w_{2} \cdot x + w_{3})} + w_{4} $$
+
+<br>
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sympy import symbols, Matrix, sqrt, lambdify
+import sympy as sp
+import numpy as np
+np.set_printoptions(suppress=True)
+
+# True parameters
+A_true = 2
+lambda_true = 0.1
+omega_true = 2 * np.pi / 5
+phi_true = 0.5
+C_true = 1
+
+# Generate data points
+x = np.linspace(0, 20, 30)
+y = A_true * np.exp(-lambda_true * x) * np.cos(omega_true * x + phi_true) + C_true
+
+# Round the points to 2 decimal places
+x = np.round(x, 2).tolist()
+y = np.round(y, 2).tolist()
+
+# Print the points
+print("x =", x)
+# x = [0.0, 0.69, 1.38, 2.07, 2.76, 3.45, 4.14, 4.83, 5.52, 6.21, 6.9, 7.59, 8.28, 8.97, 9.66, 10.34, 11.03, 11.72, 12.41, 13.1, 13.79, 14.48, 15.17, 15.86, 16.55, 17.24, 17.93, 18.62, 19.31, 20.0]
+print("y =", y)
+# y = [2.76, 1.38, -0.07, -0.62, -0.03, 1.17, 2.1, 2.18, 1.47, 0.54, 0.03, 0.23, 0.92, 1.57, 1.76, 1.42, 0.85, 0.45, 0.47, 0.83, 1.26, 1.46, 1.33, 0.99, 0.71, 0.65, 0.83, 1.1, 1.27, 1.24]
+```
+
+<br>
+
+- 위 코드를 통하여 $$ (x, y) $$ 데이터를 $$ A = 2, \lambda = 0.1, \omega= \frac{2\pi}{5}, \phi = 0.5, C = 1 $$ 파라미터를 이용하여 생성하였습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/9.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림이 [Damped Oscillation Formula](https://www.geeksforgeeks.org/damped-oscillation-definition-equation-types-examples/) 에서 참조한 `Damped Oscillation Formula`의 예시입니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/10.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림이 코드를 통해 생성한 예제입니다. 좌상단부터 점들을 이어서 그리면 `Oscillation`을 관측할 수 있습니다.
+
+<br>
+
+#### **Gauss-Newton Method**
+
+<br>
+
+- 먼저 `Gauss-Newton Method`를 이용하여 파라미터 추정을 하면 다음과 같습니다.
+
+<br>
+
+```python
+num_params = 5
+params = np.random.rand(num_params).reshape(num_params, 1)
+
+# Define symbolic variables for the circle parameters and points
+w0, w1, w2, w3, w4 = symbols('w0 w1 w2 w3, w4') 
+
+# Define the residual function for a single point
+residuals = Matrix([])
+for x_i, y_i in zip(x, y):
+    residuals = residuals.row_insert(residuals.shape[0], Matrix([w0 * sp.exp(-w1 * x_i) * sp.cos(w2 * x_i + w3) + w4 - y_i]))
+
+residuals_func = lambdify([w0, w1, w2, w3, w4], residuals, 'numpy')
+r = residuals_func(params[0][0], params[1][0], params[2][0], params[3][0], params[4][0]) 
+# print(r)
+
+# Compute the Jacobian matrix of the residual function
+jacobian = residuals.jacobian([w0, w1, w2, w3, w4])
+
+# Convert the Jacobian to a numerical function using lambdify
+jacobian_func = lambdify([w0, w1, w2, w3, w4], jacobian, 'numpy')
+
+jacobian_result = jacobian_func(params[0][0], params[1][0], params[2][0], params[3][0], params[4][0]) 
+# print(jacobian_result)
+
+max_iteration = 50
+threshold = 1e-5
+prev_params = None
+for i in range(max_iteration):
+    r = residuals_func(params[0][0], params[1][0], params[2][0], params[3][0], params[4][0]) 
+    Jr = jacobian_func(params[0][0], params[1][0], params[2][0], params[3][0], params[4][0]) 
+    update = np.linalg.pinv(Jr.T @ Jr) @ Jr.T @ r
+    params -= update
+
+    print("index:{}".format(i))
+    if i > 0:
+        print("prev_params: {}".format(prev_params.reshape(-1)))
+    print("params:{}".format(params.reshape(-1)))
+    print("update:{}\n".format(update.reshape(-1)))
+    
+    if i > 0:
+        if np.sqrt(np.sum((prev_params - params)**2)) < threshold:
+            break
+            
+    prev_params = params.copy()
+
+# index:0
+# params:[-0.624676    2.30179744 -2.30671177 37.76048577  5.24782737]
+# update:[  0.39962068  -2.26936801   2.12682433 -38.11397284  -6.63437497]
+
+# index:1
+# prev_params: [-0.624676    2.30179744 -2.30671177 37.76048577  5.24782737]
+# params:[  -3.9341092    36.43396877 -219.96593882  185.79090885    1.01711128]
+# update:[   3.3094332   -34.13217134  217.65922705 -148.03042308    4.23071609]
+
+# index:2
+# prev_params: [  -3.9341092    36.43396877 -219.96593882  185.79090885    1.01711128]
+# params:[  -3.49213454   36.43396877 -219.96593882  186.60300529    0.94793103]
+# update:[-0.44197466  0.         -0.         -0.81209644  0.06918025]
+
+# index:3
+# prev_params: [  -3.49213454   36.43396877 -219.96593882  186.60300529    0.94793103]
+# params:[  -3.51234232   36.43396877 -219.96593882  186.39130536    0.94793103]
+# update:[ 0.02020778 -0.         -0.          0.21169993 -0.        ]
+
+# index:4
+# prev_params: [  -3.51234232   36.43396877 -219.96593882  186.39130536    0.94793103]
+# params:[  -3.51374785   36.43396877 -219.96593882  186.38294619    0.94793103]
+# update:[ 0.00140552 -0.         -0.          0.00835917 -0.        ]
+
+# index:5
+# prev_params: [  -3.51374785   36.43396877 -219.96593882  186.38294619    0.94793103]
+# params:[  -3.51375076   36.43396877 -219.96593882  186.38292922    0.94793103]
+# update:[ 0.00000291 -0.         -0.          0.00001698 -0.        ]
+
+# index:6
+# prev_params: [  -3.51375076   36.43396877 -219.96593882  186.38292922    0.94793103]
+# params:[  -3.51375076   36.43396877 -219.96593882  186.38292922    0.94793103]
+# update:[ 0. -0. -0.  0.  0.]    
+```
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/11.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 앞선 쉬운 예제와는 다르게 `Gauss-Newton Method`는 수렴에 실패한 것을 확인할 수 있습니다. 다양하게 실험을 해 보아도 수렴이 잘 되지 않았습니다.
+
+<br>
+
+#### **Levenberg-Marquardth Method**
+
+<br>
+
+```python
+num_params = 5
+params = np.random.rand(num_params).reshape(num_params, 1)
+
+# Define symbolic variables for the circle parameters and points
+w0, w1, w2, w3, w4 = symbols('w0 w1 w2 w3, w4') 
+
+# Define the residual function for a single point
+residuals = Matrix([])
+for x_i, y_i in zip(x, y):
+    residuals = residuals.row_insert(residuals.shape[0], Matrix([w0 * sp.exp(-w1 * x_i) * sp.cos(w2 * x_i + w3) + w4 - y_i]))
+
+residuals_func = lambdify([w0, w1, w2, w3, w4], residuals, 'numpy')
+r = residuals_func(params[0][0], params[1][0], params[2][0], params[3][0], params[4][0]) 
+# print(r)
+
+# Compute the Jacobian matrix of the residual function
+jacobian = residuals.jacobian([w0, w1, w2, w3, w4])
+
+# Convert the Jacobian to a numerical function using lambdify
+jacobian_func = lambdify([w0, w1, w2, w3, w4], jacobian, 'numpy')
+
+jacobian_result = jacobian_func(params[0][0], params[1][0], params[2][0], params[3][0], params[4][0]) 
+# print(jacobian_result)
+
+max_iteration = 50
+converge_threshold = 1e-5
+mu = 0.01
+nu = 10
+prev_params = None
+for i in range(max_iteration):
+    r = residuals_func(params[0][0], params[1][0], params[2][0], params[3][0], params[4][0]) 
+    Jr = jacobian_func(params[0][0], params[1][0], params[2][0], params[3][0], params[4][0]) 
+    update = np.linalg.pinv(Jr.T @ Jr + mu * np.diag(np.diag(Jr.T @ Jr))) @ Jr.T @ r
+    params -= update
+
+    print("index:{}".format(i))
+    if i > 0:
+        print("prev_params: {}".format(prev_params.reshape(-1)))
+    print("params:{}".format(params.reshape(-1)))
+    print("update:{}\n".format(update.reshape(-1)))
+    
+    if i > 0:
+        E_old = np.sum(residuals_func(prev_params[0][0], prev_params[1][0], prev_params[2][0], prev_params[3][0], prev_params[4][0])**2)
+        E_new = np.sum(residuals_func(params[0][0], params[1][0], params[2][0], params[3][0], params[4][0])**2)
+        if E_new < E_old:                   
+            if np.sqrt(np.sum((prev_params - params)**2)) < converge_threshold:
+                break
+            else:
+                # params = params.copy() 
+                mu = mu / nu
+        else:
+            params = prev_params.copy()
+            mu = mu * nu
+                
+    prev_params = params.copy()
+
+# index:0
+# params:[0.21561101 0.03815262 0.52028444 0.75913489 1.0330242 ]
+# update:[ 0.53048438 -0.0217913   0.0354741  -0.50188437 -0.97090691]
+
+# index:1
+# prev_params: [0.21561101 0.03815262 0.52028444 0.75913489 1.0330242 ]
+# params:[0.48145848 0.23137313 0.44070408 1.92344109 1.03481424]
+# update:[-0.26584746 -0.1932205   0.07958036 -1.1643062  -0.00179004]
+
+# index:2
+# prev_params: [0.48145848 0.23137313 0.44070408 1.92344109 1.03481424]
+# params:[ 3.34563941  1.67963651  1.51289747 -3.40649195  1.10638248]
+# update:[-2.86418093 -1.44826339 -1.07219339  5.32993304 -0.07156824]
+
+# index:3
+# prev_params: [0.48145848 0.23137313 0.44070408 1.92344109 1.03481424]
+# params:[ 2.99602874  1.49429187  1.45609879 -2.98284361  1.09178319]
+# update:[-2.51457026 -1.26291875 -1.01539471  4.9062847  -0.05696896]
+
+# index:4
+# prev_params: [0.48145848 0.23137313 0.44070408 1.92344109 1.03481424]
+# params:[ 1.5515032   0.7385205   1.15843826 -1.06641895  1.03992956]
+# update:[-1.07004472 -0.50714738 -0.71773418  2.98986004 -0.00511533]
+
+# index:5
+# prev_params: [0.48145848 0.23137313 0.44070408 1.92344109 1.03481424]
+# params:[0.56973222 0.27352667 0.66217322 1.06682624 1.03515181]
+# update:[-0.08827374 -0.04215354 -0.22146914  0.85661485 -0.00033757]
+
+# index:6
+# prev_params: [0.56973222 0.27352667 0.66217322 1.06682624 1.03515181]
+# params:[3.0361065  1.46571155 1.08745117 1.15998956 1.0446089 ]
+# update:[-2.46637428 -1.19218489 -0.42527795 -0.09316332 -0.0094571 ]
+
+# index:7
+# prev_params: [3.0361065  1.46571155 1.08745117 1.15998956 1.0446089 ]
+# params:[ 5.55727051 -1.7297719  -1.92954508  1.35314065  1.0563117 ]
+# update:[-2.52116401  3.19548345  3.01699625 -0.19315109 -0.01170279]
+
+# index:8
+# prev_params: [3.0361065  1.46571155 1.08745117 1.15998956 1.0446089 ]
+# params:[ 3.58683484 -1.47769456 -0.91237645  1.06082046  1.0406161 ]
+# update:[-0.55072834  2.94340612  1.99982762  0.0991691   0.00399281]
+
+# index:9
+# prev_params: [3.0361065  1.46571155 1.08745117 1.15998956 1.0446089 ]
+# params:[3.4660669  0.30664545 0.38938217 1.07100239 1.02678768]
+# update:[-0.4299604   1.15906611  0.698069    0.08898716  0.01782122]
+
+# index:10
+# prev_params: [3.0361065  1.46571155 1.08745117 1.15998956 1.0446089 ]
+# params:[3.16073625 1.28841224 0.99934359 1.13972713 1.04040783]
+# update:[-0.12462975  0.17729931  0.08810758  0.02026243  0.00420108]
+
+# index:11
+# prev_params: [3.16073625 1.28841224 0.99934359 1.13972713 1.04040783]
+# params:[3.54054199 0.2981638  0.59369456 1.06714411 1.03079901]
+# update:[-0.37980573  0.99024845  0.40564904  0.07258302  0.00960882]
+
+# index:12
+# prev_params: [3.16073625 1.28841224 0.99934359 1.13972713 1.04040783]
+# params:[3.2830077  1.12637264 0.95449985 1.12371751 1.03695783]
+# update:[-0.12227144  0.1620396   0.04484375  0.01600961  0.00344999]
+
+# index:13
+# prev_params: [3.2830077  1.12637264 0.95449985 1.12371751 1.03695783]
+# params:[3.6059018  0.38720362 0.73189652 1.06299197 1.03409695]
+# update:[-0.32289411  0.73916903  0.22260333  0.06072554  0.00286088]
+
+# index:14
+# prev_params: [3.6059018  0.38720362 0.73189652 1.06299197 1.03409695]
+# params:[3.85181006 0.62858648 0.9256691  1.02625056 1.01944087]
+# update:[-0.24590825 -0.24138286 -0.19377259  0.03674141  0.01465608]
+
+# index:15
+# prev_params: [3.85181006 0.62858648 0.9256691  1.02625056 1.01944087]
+# params:[-1.37902822 -0.16718117  1.78463539  0.25449422  0.97457419]
+# update:[ 5.23083828  0.79576764 -0.85896628  0.77175635  0.04486668]
+
+# index:16
+# prev_params: [3.85181006 0.62858648 0.9256691  1.02625056 1.01944087]
+# params:[1.78462325 0.23174113 1.32710087 0.72385664 1.02507586]
+# update:[ 2.0671868   0.39684534 -0.40143176  0.30239392 -0.00563499]
+
+# index:17
+# prev_params: [1.78462325 0.23174113 1.32710087 0.72385664 1.02507586]
+# params:[2.11171638 0.11780901 1.05758052 0.64719203 1.01838931]
+# update:[-0.32709313  0.11393213  0.26952035  0.0766646   0.00668655]
+
+# index:18
+# prev_params: [1.78462325 0.23174113 1.32710087 0.72385664 1.02507586]
+# params:[2.08506549 0.12385813 1.08981003 0.60015344 1.01527049]
+# update:[-0.30044224  0.107883    0.23729083  0.1237032   0.00980537]
+
+# index:19
+# prev_params: [1.78462325 0.23174113 1.32710087 0.72385664 1.02507586]
+# params:[2.01179547 0.16773663 1.20181669 0.55763924 1.01661476]
+# update:[-0.22717222  0.0640045   0.12528418  0.1662174   0.0084611 ]
+
+# index:20
+# prev_params: [2.01179547 0.16773663 1.20181669 0.55763924 1.01661476]
+# params:[2.04728648 0.10644408 1.28533076 0.49148971 1.00407426]
+# update:[-0.03549101  0.06129255 -0.08351408  0.06614953  0.01254051]
+
+# index:21
+# prev_params: [2.04728648 0.10644408 1.28533076 0.49148971 1.00407426]
+# params:[2.01981994 0.10592184 1.25623604 0.4985477  0.99851154]
+# update:[ 0.02746654  0.00052223  0.02909472 -0.00705799  0.00556272]
+
+# index:22
+# prev_params: [2.01981994 0.10592184 1.25623604 0.4985477  0.99851154]
+# params:[1.99855017 0.10011056 1.25688454 0.49666997 0.99931829]
+# update:[ 0.02126977  0.00581129 -0.0006485   0.00187773 -0.00080675]
+
+# index:23
+# prev_params: [1.99855017 0.10011056 1.25688454 0.49666997 0.99931829]
+# params:[1.99920146 0.10026304 1.25684614 0.49679209 0.99929372]
+# update:[-0.00065129 -0.00015248  0.0000384  -0.00012212  0.00002458]
+
+# index:24
+# prev_params: [1.99920146 0.10026304 1.25684614 0.49679209 0.99929372]
+# params:[1.99920345 0.1002633  1.25684608 0.49679235 0.99929372]
+# update:[-0.00000199 -0.00000026  0.00000006 -0.00000026 -0.        ]
+```
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/12.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 반면 `Levenberg-Marquardth Method`를 이용하였을 때에는 위 결과와 같이 수렴이 되었습니다. 하지만 `Newton Method`의 약점인 초깃값이 많이 다르면 수렴하기 어렵다는 점으로 인하여 초깃값에 영향을 많이 받는 한계점 등을 확인하였습니다. (초깃값에 따라 가끔씩 수렴을 하지 않습니다.)
+- 따라서 `Levenberg-Marquardth Method`를 사용할 때에도 각 문제에 맞는 적절한 초깃값 설정은 중요한 것으로 보입니다.
 
 <br>
 
