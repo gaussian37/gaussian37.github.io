@@ -707,7 +707,7 @@ for i in range(100):
 
 <br>
 
-- 따라서 `Levenberg-Marquardth Method`의 전체적인 알고리즘을 `flow-chart`로 나타내면 다음과 같습니다.
+- 따라서 `Levenberg-Marquardt Method`의 전체적인 알고리즘을 `flow-chart`로 나타내면 다음과 같습니다.
 
 <br>
 <center><img src="../assets/img/math/calculus/basic_optimization/8.png" alt="Drawing" style="width: 600px;"/></center>
@@ -889,7 +889,7 @@ for i in range(max_iteration):
 
 <br>
 
-#### **Levenberg-Marquardth Method**
+#### **Levenberg-Marquardt Method**
 
 <br>
 
@@ -1079,8 +1079,8 @@ for i in range(max_iteration):
 <center><img src="../assets/img/math/calculus/basic_optimization/12.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 반면 `Levenberg-Marquardth Method`를 이용하였을 때에는 위 결과와 같이 수렴이 되었습니다. 하지만 `Newton Method`의 약점인 초깃값이 많이 다르면 수렴하기 어렵다는 점으로 인하여 초깃값에 영향을 많이 받는 한계점 등을 확인하였습니다. (초깃값에 따라 가끔씩 수렴을 하지 않습니다.)
-- 따라서 `Levenberg-Marquardth Method`를 사용할 때에도 각 문제에 맞는 적절한 초깃값 설정은 중요한 것으로 보입니다.
+- 반면 `Levenberg-Marquardt Method`를 이용하였을 때에는 위 결과와 같이 수렴이 되었습니다. 하지만 `Newton Method`계열의 알고리즘이 초깃값을 잘못 설정하면 수렴이 잘 되지 않는다는 점은 `Levenberg-Marquardt Method`에서도 나타남을 확인하였습니다.  (초깃값에 따라 가끔씩 수렴을 하지 않습니다.)
+- 따라서 `Levenberg-Marquardt Method`를 사용할 때에도 각 문제에 맞는 적절한 초깃값 설정은 중요한 것으로 보입니다.
 
 <br>
 
