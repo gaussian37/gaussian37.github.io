@@ -635,7 +635,7 @@ for i in range(100):
 
 <br>
 
-- 수렴이 정상적으로 되지 않는 상황은 `residual`의 변화를 통해 확인할 수 있습니다. 일반적으로 `Gauss-Newton Method`를 이용하여 정상적으로 수렴해 나아간다면 `residual`의 크기가 점점 줄어들어야 합니다. 반면 `residual`의 크기가 줄어들지 않는 상황은 수렴하지 않는 상황이라고 생각할 수 있습니다. 이와 같은 경우에 `Gradient Descent`의 방법의 비중을 높여 안정적으로 수렴하도록 유도합니다.
+- 수렴이 정상적으로 되지 않는 상황은 `residual`의 변화를 통해 확인할 수 있습니다. 일반적으로 `Gauss-Newton Method`를 이용하여 정상적으로 수렴해 나아간다면 `residual`의 크기가 점점 줄어들어야 합니다. 반면 `residual`의 크기가 줄어들지 않는 상황은 수렴하지 않는 상황이라고 생각할 수 있습니다. 이와 같은 경우에 `Gradient Descent` 방법의 비중을 높여 안정적으로 수렴하도록 유도합니다.
 
 <br>
 
@@ -669,14 +669,20 @@ for i in range(100):
 
 <br>
 
-- 이와 같이 `damping factor` $$ \mu $$ 에 따라서 알고리즘의 성격이 바뀌기 때문에 상황에 따라서 `damping factor`를 조절할 수 있어야 합니다.
-- 가장 기본적으로 많이 사용하는 방식이 `Residual`의 크기가 점점 작아지면 정상 수렴이라 가정하고 $$ \mu $$ 값을 줄여서 `Gauss-Newton Method`에 가깝도록 반영하는 것입니다.
-- 반면 `Residual`의 크기가 작아지지 않으면 발산 또는 발산할 가능성이 있다라고 가정합니다. 이 경우 파라미터 업데이트를 보류하고 $$ \mu $$ 값을 증가시켜 안정적인 `Gradient Descent`에 가깝도록 반영합니다.
+- 이와 같이 `damping factor` $$ \mu $$ 에 따라서 알고리즘의 성격이 바뀌기 때문에 상황에 따라서 `damping factor`를 조절할 수 있어야 합니다. `damping factor`를 조절하는 방식 중 `Residual`의 크기가 점점 작아지면 정상 수렴이라 가정하고 $$ \mu $$ 값을 줄여서 `Gauss-Newton Method`에 가깝도록 반영하는 방법이 사용 됩니다.
+- 반면 `Residual`의 크기가 작아지지 않으면 발산할 가능성이 있다라고 가정합니다. (이와 같은 경우 선택적으로  파라미터 업데이트를 보류하고 $$ \mu $$ 값을 증가시켜 안정적인 `Gradient Descent`에 가깝도록 반영할 수 있습니다. 아래 flow-chart에는 이 부분이 반영되어 있습니다.)
 - 기본적으로 $$ \mu $$ 값을 증감 시키는 factor를 $$ \nu = 10 > 0 $$ 을 많이 사용합니다. $$ \mu $$ 감소 시 $$ \mu = \mu / \nu $$ 로 적용하고 $$ \mu $$ 증가 시 $$ \mu = \mu \cdot \nu $$ 로 적용합니다.
 
 <br>
 
-- 따라서 `Levenberg-Marquardt Method`의 전체적인 알고리즘을 `flow-chart`로 나타내면 다음과 같습니다.
+- 추가적으로 `damping factor`가 커지면 수치적으로 안정적인 이유에 대하여 설명하면 다음과 같습니다.
+    - ① 행렬의 대각 성분의 크기가 커지면 `invertible` 해지는 경향이 있습니다. 예를 들어 대각 행렬은 항상 invertible 합니다.
+    - ② 추가적으로 `Hessian`의 `Determinant`로 `Global Optimization`의 여부를 알 수 있는데, `Hessian`의 `Determinant`가 양수이면 `Global Optimization`이 가능한 형태가 됩니다. `damping factor`가 속한 행렬 전체는 `Hessian`을 근사한 행렬입니다. 행렬의 대각 성분이 큰 양수가 될수록 [Positive Definite Matrix](https://gaussian37.github.io/math-la-positive_definite_matrix/)가 될 가능성이 높아지는데 `Positive Definite Matrix`는 **양의 고유값**들만 가지게 됩니다. 이 때, 고유값의 곱이 `Determinant`가 되므로 행렬의 대각 성분이 큰 양수가 될수록 `Determinant`가 양수가 될 가능성이 커집니다. 뿐만 아니라 `Determinant`가 양수가 될 가능성이 커지고 대각 성분 또한 실제 양수가 될 가능성이 커지므로 `Global Optimization`이 될 가능성 또한 커집니다.
+- 이와 같은 이유로 $$ \mu $$ 값이 커지면 **① 역행렬을 가지는 경향이 커진다는 것**과 **② `Global Optimization`을 만족하는 경향이 커진다는 이유**로 수치적으로 안정화 됩니다.
+
+<br>
+
+- `Levenberg-Marquardt Method`의 전체적인 알고리즘을 `flow-chart`로 나타내면 다음과 같습니다.
 
 <br>
 <center><img src="../assets/img/math/calculus/basic_optimization/8.png" alt="Drawing" style="width: 600px;"/></center>
@@ -834,15 +840,7 @@ for i in range(max_iteration):
 # params:[  -3.51234232   36.43396877 -219.96593882  186.39130536    0.94793103]
 # update:[ 0.02020778 -0.         -0.          0.21169993 -0.        ]
 
-# index:4
-# prev_params: [  -3.51234232   36.43396877 -219.96593882  186.39130536    0.94793103]
-# params:[  -3.51374785   36.43396877 -219.96593882  186.38294619    0.94793103]
-# update:[ 0.00140552 -0.         -0.          0.00835917 -0.        ]
-
-# index:5
-# prev_params: [  -3.51374785   36.43396877 -219.96593882  186.38294619    0.94793103]
-# params:[  -3.51375076   36.43396877 -219.96593882  186.38292922    0.94793103]
-# update:[ 0.00000291 -0.         -0.          0.00001698 -0.        ]
+# ...
 
 # index:6
 # prev_params: [  -3.51375076   36.43396877 -219.96593882  186.38292922    0.94793103]
@@ -958,13 +956,571 @@ for i in range(max_iteration):
 
 - 이번에는 몇가지 최적화 예제를 통하여 `Levenberg-Marquardt Method`를 이용한 방법을 다루어 보도록 하겠습니다. 
 - 앞에서 설명한 순서도에서 알고리즘의 강건성 향상 및 해를 구하기 쉽게 몇가지 셋팅을 변경하였습니다.
+- 특히, 초깃값 설정이 잘못되었을 때, 초깃값을 다시 구하는 과정을 추가하여 수렴 가능성을 높였습니다. 초깃값을 실제 구할 수 있는 환경에서는 다시 예측을 하여 초깃값을 구할 수 있으며 그렇지 않은 경우에는 다시 랜덤값으로 초깃값을 셋팅합니다. 이와 같이 여러 번의 초깃값 셋팅을 시도한다는 점에서 `Trial`이라고 붙였습니다.
 
 <br>
 <center><img src="../assets/img/math/calculus/basic_optimization/13.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 
+<br>
 
+#### **example 1. double gaussian**
+
+<br>
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sympy import symbols, Matrix, sqrt, lambdify
+import sympy as sp
+import numpy as np
+np.set_printoptions(suppress=True)
+
+# True parameters
+A1_true = 3
+mu11_true = 2
+mu12_true = 3
+sigma1_true = 8.0
+
+A2_true = 2
+mu21_true = -10
+mu22_true = -20
+sigma2_true = 10
+
+C_true = 0.5
+
+# Generate data points
+np.random.seed(0)  # For reproducibility
+x1 = np.linspace(-30, 30, 20)
+x2 = np.linspace(-30, 30, 20)
+x1, x2 = np.meshgrid(x1, x2)
+x1 = x1.flatten()
+x2 = x2.flatten()
+y = (A1_true * np.exp(-((x1 - mu11_true)**2 + (x2 - mu12_true)**2) / (2 * sigma1_true**2)) +
+     A2_true * np.exp(-((x1 - mu21_true)**2 + (x2 - mu22_true)**2) / (2 * sigma2_true**2)) +
+     C_true)
+```
+
+<br>
+
+- 위 코드를 통해 생성된 데이터의 분포는 다음과 같습니다. 2개의 가우시안 분포를 사용하여 `peak` 점이 2개인 것을 확인할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/14.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+```python
+num_params = 9
+
+# Define symbolic variables for the circle parameters and points
+A1, mu11, mu12, sigma1, A2, mu21, mu22, sigma2, C = symbols('A1 mu11 mu12 sigma1 A2 mu21 mu22 sigma2 C') 
+
+# Define the residual function for a single point
+residuals = Matrix([])
+for x1_i, x2_i, y_i in zip(x1, x2, y):
+    residuals = residuals.row_insert(residuals.shape[0], Matrix([
+        A1 * sp.exp(-((x1_i - mu11)**2 + (x2_i - mu12)**2) / (2 * sigma1**2)) +
+        A2 * sp.exp(-((x1_i - mu21)**2 + (x2_i - mu22)**2) / (2 * sigma2**2)) +
+        C - y_i
+    ]))
+
+residuals_func = lambdify([A1, mu11, mu12, sigma1, A2, mu21, mu22, sigma2, C], residuals, 'numpy')
+r = residuals_func(
+    params[0][0], params[1][0], params[2][0], params[3][0], params[4][0], params[5][0], params[6][0], params[7][0], params[8][0]
+) 
+
+# Compute the Jacobian matrix of the residual function
+jacobian = residuals.jacobian([A1, mu11, mu12, sigma1, A2, mu21, mu22, sigma2, C])
+
+# Convert the Jacobian to a numerical function using lambdify
+jacobian_func = lambdify([A1, mu11, mu12, sigma1, A2, mu21, mu22, sigma2, C], jacobian, 'numpy')
+
+jacobian_result = jacobian_func(
+    params[0][0], params[1][0], params[2][0], params[3][0], params[4][0], params[5][0], params[6][0], params[7][0], params[8][0]
+) 
+
+
+max_try = 100
+max_iterations = 50
+converge_threshold = 1e-5
+
+nu = 10
+max_mu = 1000
+
+is_converged = False
+
+min_error = 1e10
+best_params = None
+
+for try_index in range(max_try):    
+    sample_range = np.random.randint(0, 50) * 1.0
+    params = np.random.normal(0.0, 1.0, num_params).reshape(num_params, 1) * sample_range - (sample_range//2)
+                       
+    mu = 0.01
+    prev_params = None    
+    
+    for i in range(max_iterations):
+        r = residuals_func(
+            params[0][0], params[1][0], params[2][0], params[3][0], params[4][0], 
+            params[5][0], params[6][0], params[7][0], params[8][0]
+        )
+        Jr = jacobian_func(
+            params[0][0], params[1][0], params[2][0], params[3][0], params[4][0], 
+            params[5][0], params[6][0], params[7][0], params[8][0]
+        ) 
+
+        try:
+            update = np.linalg.pinv(Jr.T @ Jr + mu * np.diag(np.diag(Jr.T @ Jr))) @ Jr.T @ r
+        except:
+            continue
+            
+        params -= update
+        
+        if i > 0:
+            E_old = np.sum(residuals_func(
+                prev_params[0][0], prev_params[1][0], prev_params[2][0], prev_params[3][0], prev_params[4][0], 
+                prev_params[5][0], prev_params[6][0], prev_params[7][0], prev_params[8][0]
+            )**2)
+            
+            E_new = np.sum(residuals_func(
+                params[0][0], params[1][0], params[2][0], params[3][0], params[4][0], 
+                params[5][0], params[6][0], params[7][0], params[8][0]
+            )**2)
+
+            if E_new < E_old:
+                # params = params.copy() 
+                mu = mu / nu
+
+                if E_new < error_minimized_threshold:
+                    is_converged = True
+                    print("try_index: {}, iter:{}, mu: {}, E: {}, Delta E Ratio: {}, best:{}".format(try_index, i, mu, E_new,(abs(E_new - E_old) / E_new), E_new < min_error))
+                    break
+            else:
+                params = prev_params.copy()
+                mu = mu * nu
+
+        prev_params = params.copy()
+        
+        # initial parameters are not good.
+        if mu > max_mu:            
+            break
+
+    if E_new < min_error:
+        min_error = E_new
+        best_params = params.copy()       
+    
+    if is_converged:
+        break
+    print("try_index: {}, iter:{}, mu: {}, E: {}, Delta E Ratio: {}, best:{}".format(try_index, i, mu, E_new,(abs(E_new - E_old) / E_new), E_new < min_error))
+
+print("----------------------------------------------------")
+print("is_converged:{}".format(is_converged))
+print("min_error:{}".format(min_error))
+print("best_params:{}".format(best_params))
+
+# try_index: 0, iter:49, mu: 0.001, E: 37.59036006390082, Delta E Ratio: 0.0009055930280118061, best:False
+# try_index: 1, iter:17, mu: 1000.0000000000001, E: 206.97039034172724, Delta E Ratio: 0.0, best:False
+# try_index: 2, iter:16, mu: 10000.0, E: 206.97039034172724, Delta E Ratio: 0.0, best:False
+# try_index: 3, iter:49, mu: 0.001, E: 253.55132760813837, Delta E Ratio: 0.20343546505090918, best:False
+# try_index: 4, iter:49, mu: 0.001, E: 123.05221503956174, Delta E Ratio: 0.001298832607611588, best:False
+# try_index: 5, iter:49, mu: 1.0000000000000004e-29, E: 69.68654315711306, Delta E Ratio: 0.0, best:False
+# try_index: 6, iter:22, mu: 10000.0, E: 206.97039034172425, Delta E Ratio: 0.0, best:False
+# try_index: 7, iter:49, mu: 1.0000000000000003e-05, E: 188.08049497093316, Delta E Ratio: 1.8382487061751123e-11, best:False
+# try_index: 8, iter:26, mu: 10000.0, E: 206.9703903417273, Delta E Ratio: 2.7464517396403543e-16, best:False
+# try_index: 9, iter:49, mu: 1e-05, E: 66.5634463887767, Delta E Ratio: 0.020826578787656726, best:False
+# try_index: 10, iter:9, mu: 1.0000000000000002e-07, E: 6.692776332216131e-06, Delta E Ratio: 7494.505843092161, best:True
+# ----------------------------------------------------
+# is_converged:True
+# min_error:6.692776332216131e-06
+# best_params:[[  2.99990612]
+#  [  2.0002813 ]
+#  [  3.00050697]
+#  [ -7.9997588 ]
+#  [  1.99953022]
+#  [ -9.99761198]
+#  [-20.00092243]
+#  [ 10.00184881]
+#  [  0.50001135]]
+```
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/15.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그래프를 보면 생성된 데이터와 fitting된 결과가 유사한 것을 확인할 수 있습니다. 전체 에러는 `6.692776332216131e-06`로 수렴하였습니다.
+
+<br>
+
+- 앞으로 살펴볼 2개의 예제는 [Test functions for optimization](https://en.wikipedia.org/wiki/Test_functions_for_optimization)에서 선정하였습니다.
+
+<br>
+
+#### **example 2. Beale function**
+
+<br>
+
+- $$ f(x_{1}, x_{2}) = (1.5 - x_{1} + x_{1}x_{2})^{2} + (2.25 - x_{1} + x_{1}x_{2}^{2})^{2} + (2.625 - x_{1} + x_{1}x_{2}^{3})^{2} $$
+
+- $$ -4.5 \le x_{1}, x_{2} \le 4.5 $$
+
+- $$ \to f(x_{1}, x_{2}) = (w_{0} + w_{1}x_{1} + w_{2}x_{1}x_{2})^{2} + (w_{3} + w_{4}x_{1} + w_{5}x_{1}x_{2}^{2})^{2} + (w_{6} + w_{7}x_{1} + w_{8}x_{1}x_{2}^{3})^{2} $$
+
+<br>
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sympy import symbols, Matrix, sqrt, lambdify
+import sympy as sp
+import numpy as np
+np.set_printoptions(suppress=True)
+
+# Generate data points
+x1 = np.linspace(-4.5, 4.5, 20)
+x2 = np.linspace(-4.5, 4.5, 20)
+x1, x2 = np.meshgrid(x1, x2)
+x1 = x1.flatten()
+x2 = x2.flatten()
+
+w0_true = 1.5
+w1_true = -1
+w2_true = 1
+w3_true = 2.25
+w4_true = -1
+w5_true = 1
+w6_true = 2.625
+w7_true = -1
+w8_true = 1
+
+y = (w0_true + w1_true*x1 + w2_true*x1*x2)**2 + (w3_true + w4_true*x1 + w5_true*x1*(x2**2))**2 + (w6_true + w7_true*x1 + w8_true*x1*(x2**3))**2
+```
+
+<br>
+
+- 위 코드를 통해 생성된 데이터의 분포는 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/16.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+```python
+num_params = 9
+
+# Define symbolic variables for the circle parameters and points
+w0, w1, w2, w3, w4, w5, w6, w7, w8= symbols('w0, w1, w2, w3, w4, w5, w6, w7, w8') 
+
+# Define the residual function for a single point
+residuals = Matrix([])
+for x1_i, x2_i, y_i in zip(x1, x2, y):
+    residuals = residuals.row_insert(residuals.shape[0], Matrix([
+        (w0 + w1*x1_i + w2*x1_i*x2_i)**2 + (w3 + w4*x1_i + w5*x1_i*(x2_i**2))**2 + (w6 + w7*x1_i + w8*x1_i*(x2_i**3))**2 - y_i
+    ]))
+
+residuals_func = lambdify([w0, w1, w2, w3, w4, w5, w6, w7, w8], residuals, 'numpy')
+
+# Compute the Jacobian matrix of the residual function
+jacobian = residuals.jacobian([w0, w1, w2, w3, w4, w5, w6, w7, w8])
+
+# Convert the Jacobian to a numerical function using lambdify
+jacobian_func = lambdify([w0, w1, w2, w3, w4, w5, w6, w7, w8], jacobian, 'numpy')
+
+max_try = 100
+max_iterations = 50
+converge_threshold = 1e-5
+
+nu = 10
+max_mu = 1000
+
+is_converged = False
+
+min_error = 1e10
+best_params = None
+
+for try_index in range(max_try):    
+    sample_range = np.random.randint(0, 10) * 1.0
+    params = np.random.normal(0.0, 1.0, num_params).reshape(num_params, 1) * sample_range - (sample_range//2)
+                       
+    mu = 0.01
+    prev_params = None    
+    
+    for i in range(max_iterations):
+        r = residuals_func(
+            params[0][0], params[1][0], params[2][0], params[3][0], params[4][0], 
+            params[5][0], params[6][0], params[7][0], params[8][0]
+        )
+        Jr = jacobian_func(
+            params[0][0], params[1][0], params[2][0], params[3][0], params[4][0], 
+            params[5][0], params[6][0], params[7][0], params[8][0]
+        ) 
+
+        try:
+            update = np.linalg.pinv(Jr.T @ Jr + mu * np.diag(np.diag(Jr.T @ Jr))) @ Jr.T @ r
+        except:
+            continue
+            
+        params -= update
+        
+        if i > 0:
+            E_old = np.sum(residuals_func(
+                prev_params[0][0], prev_params[1][0], prev_params[2][0], prev_params[3][0], prev_params[4][0], 
+                prev_params[5][0], prev_params[6][0], prev_params[7][0], prev_params[8][0]
+            )**2)
+            
+            E_new = np.sum(residuals_func(
+                params[0][0], params[1][0], params[2][0], params[3][0], params[4][0], 
+                params[5][0], params[6][0], params[7][0], params[8][0]
+            )**2)
+
+            if E_new < E_old:
+                # params = params.copy() 
+                mu = mu / nu
+
+                if E_new < error_minimized_threshold:
+                    is_converged = True
+                    print("try_index: {}, iter:{}, mu: {}, E: {}, Delta E Ratio: {}, best:{}".format(try_index, i, mu, E_new,(abs(E_new - E_old) / E_new), E_new < min_error))
+                    break
+            else:
+                params = prev_params.copy()
+                mu = mu * nu
+
+        prev_params = params.copy()
+        
+        # initial parameters are not good.
+        if mu > max_mu:            
+            break
+
+    if E_new < min_error:
+        min_error = E_new
+        best_params = params.copy()       
+    
+    if is_converged:
+        break
+    print("try_index: {}, iter:{}, mu: {}, E: {}, Delta E Ratio: {}, best:{}".format(try_index, i, mu, E_new,(abs(E_new - E_old) / E_new), E_new < min_error))
+
+print("----------------------------------------------------")
+print("is_converged:{}".format(is_converged))
+print("min_error:{}".format(min_error))
+print("best_params:{}".format(best_params))
+
+# try_index: 0, iter:20, mu: 1.0000000000000002e-14, E: 2.0731271064710485e-06, Delta E Ratio: 42580.35465329452, best:True
+# ----------------------------------------------------
+# is_converged:True
+# min_error:2.0731271064710485e-06
+# best_params:[[ 1.50000433]
+#  [-1.00000307]
+#  [ 0.99999666]
+#  [-2.25      ]
+#  [ 0.99999621]
+#  [-0.99999999]
+#  [ 2.625     ]
+#  [-0.99999998]
+#  [ 1.        ]]
+```
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/17.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그래프를 보면 생성된 데이터와 fitting된 결과가 유사한 것을 확인할 수 있습니다. 전체 에러는 `2.0731271064710485e-06`로 수렴하였습니다.
+
+<br>
+
+#### **Goldstein-Price function**
+
+<br>
+
+- $$ f(x_1, x_2) = \left[1 + (x_1 + x_2 + 1)^2 \left(19 - 14x_1 + 3x_1^2 - 14x_2 + 6x_1 x_2 + 3x_2^2\right) \right] \left[30 + (2x_1 - 3x_2)^2 \left(18 - 32x_1 + 12x_1^2 + 48x_2 - 36x_1 x_2 + 27x_2^2 \right) \right] $$
+
+- $$ -2 \le x_{1}, x_{2} \le 2 $$
+
+- $$ \to f(x_1, x_2) = \left[1 + (x_1 + x_2 + 1)^2 \left(w_{0} + w_{1}x_1 + w_{2}x_1^2 + w_{3}x_2 + w_{4}x_1 x_2 + w_{5}x_2^2\right) \right] \left[w_{6} + (w_{7}x_1 + w_{8}x_2)^2 \left(w_{9} + w_{10}x_1 + w_{11}x_1^2 + w_{12}x_2 + w_{13}x_1 x_2 + w_{14}x_2^2 \right) \right] $$
+
+<br>
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sympy import symbols, Matrix, sqrt, lambdify
+import sympy as sp
+import numpy as np
+np.set_printoptions(suppress=True)
+
+# Generate data points
+x1 = np.linspace(-2, 2, 20)
+x2 = np.linspace(-2, 2, 20)
+x1, x2 = np.meshgrid(x1, x2)
+x1 = x1.flatten()
+x2 = x2.flatten()
+
+w0_true = 19
+w1_true = -14
+w2_true = 3
+w3_true = -14
+w4_true = 6
+w5_true = 3
+w6_true = 30
+w7_true = 2
+w8_true = -3
+w9_true = 18
+w10_true = -32
+w11_true = 12
+w12_true = 48
+w13_true = -36
+w14_true = 27
+
+y = ( (1 + (x1 + x2 + 1)**2) * \
+       (w0_true + w1_true*x1 + w2_true*x1**2 + w3_true*x2 + w4_true*x1*x2 + w5_true*x2**2) ) * \
+    ( (w6_true + (w7_true*x1 + w8_true*x2)**2) * \
+       (w9_true + w10_true*x1 + w11_true*x2**2 + w12_true*x2 + w13_true*x1*x2 + w14_true*x2**2) )
+```
+
+<br>
+
+- 위 코드를 통해 생성된 데이터의 분포는 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/18.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+```python
+num_params = 15
+
+# Define symbolic variables for the circle parameters and points
+w0, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13, w14 = symbols('w0, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13, w14') 
+
+# Define the residual function for a single point
+residuals = Matrix([])
+for x1_i, x2_i, y_i in zip(x1, x2, y):
+    residuals = residuals.row_insert(residuals.shape[0], Matrix([
+        ((1 + (x1_i + x2_i + 1)**2)*(w0 + w1*x1_i + w2*x1_i**2 + w3*x2_i + w4*x1_i*x2_i + w5*x2_i**2))*
+        ((w6 + (w7*x1_i + w8*x2_i)**2)*(w9 + w10*x1_i + w11*x2_i**2 + w12*x2_i + w13*x1_i*x2_i + w14*x2_i**2)) - y_i
+    ]))
+
+residuals_func = lambdify([w0, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13, w14], residuals, 'numpy')
+
+# Compute the Jacobian matrix of the residual function
+jacobian = residuals.jacobian([w0, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13, w14])
+
+# Convert the Jacobian to a numerical function using lambdify
+jacobian_func = lambdify([w0, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13, w14], jacobian, 'numpy')
+
+max_try = 100
+max_iterations = 50
+converge_threshold = 1e-5
+
+nu = 10
+max_mu = 1000
+
+is_converged = False
+
+min_error = 1e10
+best_params = None
+
+for try_index in range(max_try):    
+    sample_range = np.random.randint(0, 100) * 1.0
+    params = np.random.normal(0.0, 1.0, num_params).reshape(num_params, 1) * sample_range - (sample_range//2)
+                       
+    mu = 0.01
+    prev_params = None    
+    
+    for i in range(max_iterations):
+        r = residuals_func(
+            params[0][0], params[1][0], params[2][0], params[3][0], params[4][0], 
+            params[5][0], params[6][0], params[7][0], params[8][0], params[9][0], 
+            params[10][0], params[11][0], params[12][0], params[13][0], params[14][0]          
+        )
+        Jr = jacobian_func(
+            params[0][0], params[1][0], params[2][0], params[3][0], params[4][0], 
+            params[5][0], params[6][0], params[7][0], params[8][0], params[9][0], 
+            params[10][0], params[11][0], params[12][0], params[13][0], params[14][0]             
+        ) 
+
+        try:
+            # print("gradient_clipping : ", max_gradient_norm, gradient_norm)
+            update = np.linalg.pinv(Jr.T @ Jr + mu * np.diag(np.diag(Jr.T @ Jr))) @ Jr.T @ r
+        except:
+            print("?????")
+            continue
+            
+        params -= update
+        
+        if i > 0:
+            E_old = np.sum(residuals_func(
+                prev_params[0][0], prev_params[1][0], prev_params[2][0], prev_params[3][0], prev_params[4][0], 
+                prev_params[5][0], prev_params[6][0], prev_params[7][0], prev_params[8][0], prev_params[9][0], 
+                prev_params[10][0], prev_params[11][0], prev_params[12][0], prev_params[13][0], prev_params[14][0]
+            )**2)
+            
+            E_new = np.sum(residuals_func(
+                params[0][0], params[1][0], params[2][0], params[3][0], params[4][0], 
+                params[5][0], params[6][0], params[7][0], params[8][0], params[9][0], 
+                params[10][0], params[11][0], params[12][0], params[13][0], params[14][0]                
+            )**2)
+
+            if E_new < E_old:
+                # params = params.copy() 
+                mu = mu / nu
+
+                if E_new < error_minimized_threshold:
+                    is_converged = True
+                    print("try_index: {}, iter:{}, mu: {}, E: {}, Delta E Ratio: {}, best:{}".format(try_index, i, mu, E_new,(abs(E_new - E_old) / E_new), E_new < min_error))
+                    break
+            else:
+                params = prev_params.copy()
+                mu = mu * nu
+
+        prev_params = params.copy()
+        
+        # initial parameters are not good.
+        if mu > max_mu:            
+            break
+
+    if E_new < min_error:
+        min_error = E_new
+        best_params = params.copy()       
+    
+    if is_converged:
+        break
+    print("try_index: {}, iter:{}, mu: {}, E: {}, Delta E Ratio: {}, best:{}".format(try_index, i, mu, E_new,(abs(E_new - E_old) / E_new), E_new < min_error))
+
+print("----------------------------------------------------")
+print("is_converged:{}".format(is_converged))
+print("min_error:{}".format(min_error))
+print("best_params:{}".format(best_params))
+
+# try_index: 0, iter:6, mu: 10000.0, E: 75523658650766.72, Delta E Ratio: 0.0, best:False
+# try_index: 1, iter:49, mu: 1e-15, E: 2130294165632.0605, Delta E Ratio: 6.405066488527749e-06, best:False
+# try_index: 2, iter:42, mu: 1.0000000000000004e-08, E: 7.61306899046107e-12, Delta E Ratio: 348427159246.9762, best:True
+# ----------------------------------------------------
+# is_converged:True
+# min_error:7.61306899046107e-12
+# best_params:[[-10.81778709]
+#  [  7.97100101]
+#  [ -1.70807165]
+#  [  7.97100101]
+#  [ -3.41614329]
+#  [ -1.70807165]
+#  [210.7857465 ]
+#  [  5.30139285]
+#  [ -7.95208928]
+#  [ -4.49953559]
+#  [  7.99917438]
+#  [-81.82790802]
+#  [-11.99876156]
+#  [  8.99907117]
+#  [ 72.07891425]]
+```
+
+<br>
+<center><img src="../assets/img/math/calculus/basic_optimization/19.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그래프를 보면 생성된 데이터와 fitting된 결과가 유사한 것을 확인할 수 있습니다. 전체 에러는 `7.61306899046107e-12`로 수렴하였습니다.
+
+<br>
+
+- [Test functions for optimization](https://en.wikipedia.org/wiki/Test_functions_for_optimization)에서 다른 예제 또한 테스트 해볼 수 있습니다. 이 때, 적절한 초깃값 범위를 잘 선정하는 것에 유의하시면 됩니다.
 
 <br>
 
