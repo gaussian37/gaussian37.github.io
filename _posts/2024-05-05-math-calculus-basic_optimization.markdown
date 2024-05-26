@@ -665,7 +665,7 @@ for i in range(100):
 
 <br>
 
-- $$ w_{\text{new}} = w_{\text{old}} - (J_{r}^{T}J_{r} + 0 \cdot \text{diag}(J_{r}^{T}J_{r}))^{-1}J_{r}^{T} r \approx w_{\text{old}} - \mu J_{r}^{T} r $$
+- $$ w_{\text{new}} = w_{\text{old}} - (J_{r}^{T}J_{r} + \alpha \cdot \text{diag}(J_{r}^{T}J_{r}))^{-1}J_{r}^{T} r \approx w_{\text{old}} - \mu J_{r}^{T} r \quad (\alpha \text{ : large number}) $$
 
 <br>
 
