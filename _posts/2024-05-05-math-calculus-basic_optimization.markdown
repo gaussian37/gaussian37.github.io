@@ -1330,11 +1330,11 @@ print("best_params:{}".format(best_params))
 
 <br>
 
-- $$ f(x_1, x_2) = \left[1 + (x_1 + x_2 + 1)^2 \left(19 - 14x_1 + 3x_1^2 - 14x_2 + 6x_1 x_2 + 3x_2^2\right) \right] \left[30 + (2x_1 - 3x_2)^2 \left(18 - 32x_1 + 12x_1^2 + 48x_2 - 36x_1 x_2 + 27x_2^2 \right) \right] $$
+- $$ \begin{align} f(x_1, x_2) &= \left[1 + (x_1 + x_2 + 1)^2 \left(19 - 14x_1 + 3x_1^2 - 14x_2 + 6x_1 x_2 + 3x_2^2\right) \right] \\ &\cdot \left[30 + (2x_1 - 3x_2)^2 \left(18 - 32x_1 + 12x_1^2 + 48x_2 - 36x_1 x_2 + 27x_2^2 \right) \right] \end{align} $$
 
 - $$ -2 \le x_{1}, x_{2} \le 2 $$
 
-- $$ \to f(x_1, x_2) = \left[1 + (x_1 + x_2 + 1)^2 \left(w_{0} + w_{1}x_1 + w_{2}x_1^2 + w_{3}x_2 + w_{4}x_1 x_2 + w_{5}x_2^2\right) \right] \left[w_{6} + (w_{7}x_1 + w_{8}x_2)^2 \left(w_{9} + w_{10}x_1 + w_{11}x_1^2 + w_{12}x_2 + w_{13}x_1 x_2 + w_{14}x_2^2 \right) \right] $$
+- $$ \begin{align} \to f(x_1, x_2) &= \left[1 + (x_1 + x_2 + 1)^2 \left(w_{0} + w_{1}x_1 + w_{2}x_1^2 + w_{3}x_2 + w_{4}x_1 x_2 + w_{5}x_2^2\right) \right] \\ &\cdot\left[w_{6} + (w_{7}x_1 + w_{8}x_2)^2 \left(w_{9} + w_{10}x_1 + w_{11}x_1^2 + w_{12}x_2 + w_{13}x_1 x_2 + w_{14}x_2^2 \right) \right] \end{align} $$
 
 <br>
 
