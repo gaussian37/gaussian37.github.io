@@ -4,7 +4,7 @@ title: 최적화 이론 기초 정리 (Gradient Descent, Newton Method, Gauss-Ne
 date: 2024-05-05 00:00:00
 img: math/calculus/basic_optimization/0.png
 categories: [math-calculus] 
-tags: [Gradient Descent, SGD, Momentum, RMSProp, Adam, Newton, Gauss Newton, Levenberg-Marquardt, Quasi Newton, Lagrange Multiplier, Jacobian, 자코비안] # add tag
+tags: [Gradient Descent, SGD, Momentum, RMSProp, Adam, Newton, Gauss Newton, Levenberg-Marquardt, Quasi Newton, Lagrange Multiplier, Jacobian, 자코비안, 가우스 뉴턴, 르벤버그 마쿼트] # add tag
 ---
 
 <br>
@@ -22,6 +22,7 @@ tags: [Gradient Descent, SGD, Momentum, RMSProp, Adam, Newton, Gauss Newton, Lev
 <br>
 
 - 이번 글에서는 최적화 기법을 이용할 때, 가장 기본적으로 사용되는 기법들에 대하여 다루어 보려고 합니다. 본 글에서 다룬 내용은 최적화 기법의 가장 기초적인 내용이며 풀고자 하는 문제에 맞게 각 기법들을 적용하여 사용하시면 됩니다.
+- 다루는 알고리즘으로는 `Gradient Descent(그래디언트 디센트)`, `Newton Method(뉴턴 방법)`, `Gauss-Newton Method(가우스 뉴턴 방법)`, `Levenberg-Marquardt Method(르벤버그 마쿼트 방법)`, `Quasi Newton Method(쿼시 뉴턴 방법)`, `Lagrange Multiplier(라그랑주 승수법)`이며 추가적으로 딥러닝에서 사용되는 `Gradient Descent`의 개선 알고리즘인 `SGD`, `Mini-Batch Gradient Descent`, `Momentum`, `RMSProp`, `Adam`을 다룹니다.
 - 본 글을 읽기 전에 위에 명시되어 있는 [최소제곱법](https://gaussian37.github.io/math-la-least_squares/)과 [Gradient, Jacobian, Hessian 개념](https://gaussian37.github.io/math-calculus-jacobian/) 개념 숙지가 필요한 점 참조 부탁 드립니다.
 
 <br>
