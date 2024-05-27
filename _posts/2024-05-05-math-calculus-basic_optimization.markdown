@@ -1326,7 +1326,7 @@ print("best_params:{}".format(best_params))
 
 <br>
 
-#### **Goldstein-Price function**
+#### **example 3. Goldstein-Price function**
 
 <br>
 

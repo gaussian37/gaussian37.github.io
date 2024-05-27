@@ -50,11 +50,19 @@ tags: [autonomous drive, 자율 주행, 레이더, radar] # add tag
 ## **FMCW Radar for Autonomous Vehicles**
 
 <br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/-N7A5CIi0sg" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
 
 <br>
 
 ## **Measuring Angles with FMCW Radar**
 
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/GpXF4wVQ-L4" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
 <br>
 
 <br>
@@ -62,11 +70,21 @@ tags: [autonomous drive, 자율 주행, 레이더, radar] # add tag
 ## **The Radar Equation**
 
 <br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/W97f0vhpRo4" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
+
 
 <br>
 
 ## **Pulse-Doppler Radar**
 
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/NtyU6aKZ-cY" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
 <br>
 
 <br>
@@ -74,11 +92,19 @@ tags: [autonomous drive, 자율 주행, 레이더, radar] # add tag
 ## **What Are Phased Arrays?**
 
 <br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/9WxWun0E-PM" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
 
 <br>
 
 ## **An introduction to Beamforming**
 
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/VOGjHxlisyo" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
 <br>
 
 <br>
@@ -86,11 +112,19 @@ tags: [autonomous drive, 자율 주행, 레이더, radar] # add tag
 ## **Why Digital Beamforming Is Useful for Radar**
 
 <br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/Hb6BhqOgmAI" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
 
 <br>
 
 ## **Pulse waveform basics: Visualizing radar performance with the ambiguity function**
 
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/UCir6mOW2OU" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
 <br>
 
 <br>
