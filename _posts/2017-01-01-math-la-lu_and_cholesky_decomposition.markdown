@@ -1,10 +1,10 @@
 ---
 layout: post
-title: LU 분해와 Cholesky 분해
+title: LU 분해와 Cholesky (촐레스키) 분해
 date: 2017-01-01 00:00:00
 img: math/la/linear_algebra.jpg
 categories: [math-la] 
-tags: [Linear algebra, 선형대수학, LU 분해, Cholesky 분해] # add tag
+tags: [Linear algebra, 선형대수학, LU 분해, Cholesky 분해, 촐레스키, 숄레스키] # add tag
 ---
 
 <br>
