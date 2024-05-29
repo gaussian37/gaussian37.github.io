@@ -9,7 +9,7 @@ tags: [signal and system, 신호와 시스템] # add tag
 
 <br>
 
-- [신호와 시스템](https://gaussian37.github.io/vision-signal-signal_and_system/)
+- [신호와 시스템](https://gaussian37.github.io/ee-signal-signal_and_system/)
 - [선형 시불변 시스템]()
 - [주기 신호의 푸리에 급수 표현]()
 - [연속 시간 푸리에 변환]()
