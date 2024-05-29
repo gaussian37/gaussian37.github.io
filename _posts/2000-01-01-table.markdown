@@ -89,7 +89,6 @@ tags: [table] # add tag
 <br>
 
 - [Vision Concept](https://gaussian37.github.io/vision-concept-table/)
-- [Signal and System](https://gaussian37.github.io/vision-signal-table/)
 - [Segmentation](https://gaussian37.github.io/vision-segmentation-table/)
 - [Detection](https://gaussian37.github.io/vision-detection-table/)
 - [Opencv](https://gaussian37.github.io/vision-opencv-table/)

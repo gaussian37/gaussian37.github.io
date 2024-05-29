@@ -2,8 +2,8 @@
 layout: post
 title: Signal and System 목차
 date: 2000-01-01 00:00:00
-img: vision/signal/0.png
-categories: [vision-signal] 
+img: ee/signal/0.png
+categories: [ee-signal] 
 tags: [signal and system, 신호와 시스템] # add tag
 ---
 

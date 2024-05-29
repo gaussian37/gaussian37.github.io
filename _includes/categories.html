@@ -97,8 +97,20 @@
                     <a class="dropdown-item" href="{{ "/vision/fpcv" | prepend: site.baseurl }}">First Principles of Computer Vision (Coursera)</a>
                     <a class="dropdown-item" href="{{ "/vision/vamr" | prepend: site.baseurl }}">Vision Algorithms for Mobile Robotics (University of Zurich)</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ "/vision/signal" | prepend: site.baseurl }}">Signal and System</a>
                     <a class="dropdown-item" href="{{ "/vision/etc" | prepend: site.baseurl }}">ETC</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown
+            {% if page.url == '/ee/signal/' or page.url == '/ee/etc/' %} active {% endif %}">
+                <a class="nav-link dropdown-toggle cursor" onclick="clickDropdown('etc-dropdown')"
+                   role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    EE
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="etc-dropdown">
+                    <a class="dropdown-item" href="{{ "/ee/signal" | prepend: site.baseurl }}">Signal and System</a>
+                    <a class="dropdown-item" href="{{ "/etc/etc" | prepend: site.baseurl }}">ETC</a>
                 </div>
             </li>
 

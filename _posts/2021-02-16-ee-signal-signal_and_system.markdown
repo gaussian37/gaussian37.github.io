@@ -2,14 +2,14 @@
 layout: post
 title: 신호와 시스템 (Signal and System)
 date: 2021-02-16 00:00:00
-img: vision/signal/0.png
-categories: [vision-signal] 
+img: ee/signal/0.png
+categories: [ee-signal] 
 tags: [신호와 시스템, signal, system] # add tag
 ---
 
 <br>
 
-- [Signal and System 목차](https://gaussian37.github.io/vision-signal-table/)
+- [Signal and System 목차](https://gaussian37.github.io/ee-signal-table/)
 
 <br>
 
@@ -50,7 +50,7 @@ tags: [신호와 시스템, signal, system] # add tag
 - 신호를 나타낼 때, 가로축은 시간(t)을 나타내고 세로축은 시간에 따른 신호의 진폭을 나타냅니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/1.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/1.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 먼저 연속 시간 신호에서는 시간과 진폭이 모두 연속적인 값을 가집니다. 흔히 말하는 아날로그 신호를 뜻합니다.
@@ -58,7 +58,7 @@ tags: [신호와 시스템, signal, system] # add tag
 - 이러한 아날로그 신호를 표현할 때, 가로 축 시간은 $$ t $$로 표현하고 세로축 진폭은 $$ x(t) $$로 표현하도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/2.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 반면 이산 시간 신호는 시간 축이 불연속적인 값을 가집니다. 위 그래프와 같이 가로축의 값이 정수 단위로 끊어져 있습니다.
@@ -198,7 +198,7 @@ tags: [신호와 시스템, signal, system] # add tag
     - 만약 $$ t_{0} < 0 $$ 이면, $$ x(t - t_{0}) $$은 $$ x(t) $$의 **앞선 신호 (또는 미래 신호)** 입니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/3.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/3.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그래프를 보면 $$ n_{0} $$만큼 시간 변위가 발생한 것을 확인할 수 있습니다. 이 때, $$ n_{0} $$을 `지연 시간` 이라고 합니다. 왜냐하면 기존에 시간 0에서 나타났던 신호가 $$ n_{0} $$ 만큼 **지연되어서 신호가 나타났기 때문**입니다. 이미 나타난 신호가 지연되어서 나타났기 때문에 `과거 신호`라고도 부릅니다.
@@ -211,7 +211,7 @@ tags: [신호와 시스템, signal, system] # add tag
     - 　$$ x[-n] $$는 $$ x[n] $$의 $$ n = 0 $$ (y축) 대칭
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/4.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/4.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - `시간 배율(time scaling)` : $$ x(t) \to x(a * t) $$
@@ -219,37 +219,37 @@ tags: [신호와 시스템, signal, system] # add tag
     - 　$$ a > 1 $$ 일 때, $$ x(a*t) $$의 $$ t $$ 축의 폭이 감소
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/5.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/5.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위의 3가지 독립 변수 $$ t $$의 변환을 이용하여 아래 예제를 한번 살펴보겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/6.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/6.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 먼저 위 신호와 같은 $$ x(t) $$가 있을 때, $$ t $$의 변화에 따라 어떻게 신호가 바뀌는 지 살펴보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/7.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/7.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 예제는 $$ x(t + 1) $$ 입니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/8.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/8.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 예제는 $$ x(-t +1) = x(-(t - 1)) $$ 입니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/9.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/9.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 예제는 $$ x(\frac{3}{2}t) $$ 입니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/10.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/10.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 예제는 $$ x(\frac{3}{2}t + 1) $$ 입니다.
@@ -259,11 +259,11 @@ tags: [신호와 시스템, signal, system] # add tag
 - `주기 신호(periodic signal)` : $$ x(t) = x(t + T) $$ (주기 $$ T $$), $$ x[n] = x[n + N] $$ (주기 $$ N $$)
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/11.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/11.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/12.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/12.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 마지막으로 시간 축 $$ t $$에 대하여 `우함수(even function) 신호`와 `기함수(odd function) 신호`에 대하여 알아보도록 하겠습니다.
@@ -287,7 +287,7 @@ tags: [신호와 시스템, signal, system] # add tag
 - 위 식을 통하여 알 수 있는 점은 **임의의 함수는 우함수와 기함수의 합으로 표현할 수 있다**라는 점입니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/13.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/13.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 첫번째 신호가 원 함수의 신호이고 두번째 신호는 `우함수` ($$ x(t) = x_{e}(t) + x_{o}(t) $$) 형태로 나타낸 것입니다. 세번째신호는 `기함수` ($$ x(-t) = x_{e}(t) - x_{o}(t) $$)의 형태로 나타내었습니다.
@@ -302,19 +302,19 @@ tags: [신호와 시스템, signal, system] # add tag
 - 앞에서 신호의 정의에 대하여 살펴 보았습니다. 이번에는 신호의 기본이 되는 `sin`, `cos` 정현파 신호와 이를 지수 형태로 나타내는 지수 신호에 대하여 다루어 보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/15.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/15.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 식의 `Re`는 실수값을 의미하고 `Im`는 허수값을 의미합니다. 즉, 지수 형식으로 표현된 값을 실수값을 취하면 `cos`가 되고 허수값을 취하면 `sin`이 됨을 뜻합니다. 왜냐하면 지수함수가 `sin`, `cos`으로 분해가 되는 `오일러 공식`을 따르기 때문입니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/16.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/16.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 오일러 공식에 따라 지수 함수 $$ e^{\pm j\theta} = \cos{\theta} \pm j\sin{\theta} $$ 와 같이 전개되므로 이 원리를 이용하여 $$ A\cos{w_{0}t + \phi} = A \ Re\{e^{j(w_{0}t + \phi)} \} $$와 $$ A\sin{w_{0}t + \phi} = A \ Im\{e^{j(w_{0}t + \phi)} \} $$를 유도할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/18.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/18.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 오일러 공식에 의한 주기 함수와 cos, sin 함수의 관계와 더불어 `복소 평면` 상에서의 cos, sin 함수의 관계를 살펴 보겠습니다.
@@ -339,7 +339,7 @@ tags: [신호와 시스템, signal, system] # add tag
 - 다음으로 정현파 신호에 대한 성질을 살펴보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/14.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/14.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - `주기(period)`, 1 사이클 시간 (단위 : sec) : $$ T_{0} = \frac{2 \pi}{w_{0}} $$
@@ -349,7 +349,7 @@ tags: [신호와 시스템, signal, system] # add tag
 - `위상(phase)` (단위 : radian) : $$ \phi $$
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/17.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/17.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 위 그래프를 살펴보면 $$ T_{1} \lt T_{2} \le T_{3} $$이므로 주기는 점점 늘어나고 $$ w_{1} \gt w_{2} \gt w_{3} $$ 이므로 주파수는 점점 감소하는 것을 확인할 수 있습니다.
@@ -372,7 +372,7 @@ tags: [신호와 시스템, signal, system] # add tag
 - $$ \delta[n] = \begin{cases} 0, \ n \neq 0 \\ 1, \ n = 0 \end{cases} $$
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/19.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/19.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 단위 임펄스 함수의 기본형은 위 식을 따르고 앞에서 다룬 독립 변수 시간의 변화에 따라서 다양하게 변형할 수 있습니다.
@@ -387,20 +387,20 @@ tags: [신호와 시스템, signal, system] # add tag
 - $$ u[n] = \begin{cases} 0, \ \ n \lt 0 \\ 1, \ \ n \ge 0 \end{cases} $$
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/20.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/20.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 함수는 단위 임펄스 함수의 확장이라고 볼 수 있습니다. 따라서 두 함수는 다음 식과 같은 관계를 가집니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/21.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/21.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 먼저 위 식은 단위 계단 함수를 이용하여 단위 임펄스 함수를 표현한 예시 입니다. $$ u[n] $$과 $$ u[n-1] $$을 이용하면 단위 임펄스 함수를 만들 수 있습니다.
 - 이후에 이와 관련된 식을 다룰 예정이며 이를 `차분 방정식`이라고 합니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/22.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/22.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 두번째 식은 단위 임펄스 함수의 성질을 이용한 것입니다. 즉, 하나의 값 이외에는 모두 0으로 만들어 버리는 성질을 이용한 것입니다.
@@ -412,7 +412,7 @@ tags: [신호와 시스템, signal, system] # add tag
 - 먼저 `임펄스 함수`는 다음과 같은 식을 가집니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/24.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/24.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 이산 시간 케이스와 다르게 $$ t = 0 $$ 지점에서의 값은 무한대를 가지고 전체 범위에서 적분을 하였을 때, 면적의 넓이가 1이 되도록 위 식을 따릅니다.
@@ -422,47 +422,47 @@ tags: [신호와 시스템, signal, system] # add tag
 - 반면 `계단 함수`의 경우 $$ t > 0 $$ 인 경우에는 함수값이 1이 됩니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/23.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/23.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 이산 시간의 임펄스 함수와 계단 함수는 차분 방정식을 이용하여 두 신호의 관계를 나타내었습니다. 연속 시간에서의 두 함수는 미분 방정식을 이용하여 두 신호의 관계를 나타낼 수 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/25.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/25.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 이 관계는 이산 시간 신호의 경우와 비교하면서 살펴보면 이해하기 수월합니다. 임펄스 함수는 계단 함수를 $$ dt $$로 미분한 관계를 가지고 반대로 계단 함수는 임펄스 함수를 적분한 관계를 가집니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/26.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/26.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 관계식 또한 임펄스 함수가 특정 시간 이외에는 모든 값이 0이 되는 점을 이용하여 정의되었습니다.
 - 연속 시간 신호의 함수를 다른 관점에서 다시 한번 살펴보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/27.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/27.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 왼쪽 그림은 앞에서 살펴본 계단 함수에서 선형적으로 값을 증가하는 부분을 추가한 형태입니다.
 - 이와 같은 계단 함수를 임펄스 함수에 대응하면 오른쪽 그림과 같이 나타나게 됩니다. 이 이유를 살펴보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/28.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/28.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 앞의 그림의 계단 함수를 구간 별 수식으로 나타내면 위 수식과 같습니다. 계단 함수 → 임펄스 함수로 변환하려면 미분을 이용하여 나타내었습니다. 이번에도 같은 방법으로 계단 함수를 임펄스 함수로 변환해 보도록 하겠습니다. 먼저 $$ t < 0 $$ 때와 $$ t > \Delta $$인 경우 상수값이므로 미분을 하면 0이 되고 $$ 0 < t < \Delta $$ 범위의 값 $$ \frac{1}{\Delta}t $$를 미분하면 $$ \frac{1}{\Delta} $$가 됩니다. 이를 이용하면 임펄스 함수는 다음과 같습니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/29.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/29.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/30.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/30.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/31.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/31.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 앞의 설명에 따라 임펄스 함수 $$ \delta_{\Delta}(t) $$는 위 식과 같이 정의할 수 있습니다.
@@ -472,17 +472,17 @@ tags: [신호와 시스템, signal, system] # add tag
 - 이번에는 반대로 임펄스 함수 → 계단 함수로 변환해 보도록 하겠습니다. 이산 시간 케이스에서 다룬 바와 같이 이번에는 적분을 통하여 변환하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/32.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/32.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 이번에 살펴 본 $$ \Delta $$를 추가한 계단 및 임펄스 함수에서 $$ \Delta $$를 0으로 수렴시키면 어떻게 될까요?
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/34.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/34.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/33.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/33.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그림과 수식같이 $$ \Delta = 0$$이 되면서 처음 다룬 연속 시간 신호의 임펄스 함수와 계단 함수와 같은 형태로 변경됩니다.
@@ -496,32 +496,32 @@ tags: [신호와 시스템, signal, system] # add tag
 - 앞에서 `시스템`이란 신호를 처리하는 소프트웨어나 하드웨어를 뜻한다고 설명하였습니다. 
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/35.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/35.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 시스템의 가장 큰 범주로는 연속 시간 시스템 (Continuous Time System)과 이산 시간 시스템 (Discrete Time System)이 존재합니다.
 - 그리고 각각의 시스템들을 연결하는 다양한 종류의 연결이 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/36.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/36.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 연결은 직렬 연결이라고 하며 시스템이 연속적으로 연달아 연결되어 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/37.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/37.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 연결은 병렬 연결 입니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/38.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/38.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 연결은 직렬과 병렬이 혼합되어 있는 방식입니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/39.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/39.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 연결 방식은 피드백 방식으로 출력이 다시 입력으로 연결되는 방식입니다.
@@ -536,19 +536,19 @@ tags: [신호와 시스템, signal, system] # add tag
 - 먼저 `메모리 없는 (memoryless)시스템`은 어떤 시간의 출력이 동일한 그 시간의 입력에 의해서만 결정되는 시스템을 뜻합니다. 이를 `항등 시스템` 이라고도 합니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/40.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/40.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 반면 `메모리가 있는 시스템`은 어떤 시간의 출력이 그 시간이나 과거 시간의 입력과 시스템 상태에 의해서 결정되는 시스템을 뜻합니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/41.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/41.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 예를 들어 위 식과 같은 `지연기`가 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/signal/signal_and_system/42.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/ee/signal/signal_and_system/42.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 또는 위 식과 같은 `누산기`가 있습니다.
