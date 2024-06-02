@@ -25,7 +25,7 @@ tags: [미분적분, calculus, 공학 수학, advanced egineering mathematics, v
 
 <br>
 
-- ### **Chapter 1 First-Order ODEs**
+### **Chapter 1 First-Order ODEs**
 
 <br>
 
@@ -386,7 +386,7 @@ tags: [미분적분, calculus, 공학 수학, advanced egineering mathematics, v
 
 <br>
 
-- [미분, 적분 계산 기초](#)
+- [적분 기초 계산 정리 (치환 적분, 부분 적분, 삼각함수 적분, 분수함수 적분)](#)
 - [Gradient (그래디언트), Jacobian (자코비안) 및 Hessian (헤시안)](https://gaussian37.github.io/math-calculus-jacobian/)
 - [극좌표계 (Polar Coordinate)](https://gaussian37.github.io/math-calculus-polar_coordinate_system/) 
 - [원통 좌표계와 구면 좌표계](https://gaussian37.github.io/math-calculus-cylindrical_spherical_coordinate_system/) 
