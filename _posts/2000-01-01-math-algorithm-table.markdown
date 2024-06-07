@@ -34,6 +34,7 @@ tags: [algorithm, 알고리즘] # add tag
 - 이분법
 - 트리
     - [트리 순회](https://gaussian37.github.io/math-algorithm-tree_traverse/)
+    - [KD-Tree](https://gaussian37.github.io/math-algorithm-kdtree/)
 - 기하
     - [CCW(counter clockwise)](https://gaussian37.github.io/math-algorithm-ccw/)
     - [n차원 다각형의 넓이 계산](https://gaussian37.github.io/math-algorithm-polygon_area/)
