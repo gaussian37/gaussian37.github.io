@@ -719,6 +719,10 @@ print("num inliers : ", inliers)
 </div>
 <br>
 
+- 위 내용은 앞에서 다룬 `Matched Points의 Point-to-Point ICP 개념`과 일치합니다.
+
+<br>
+
 ## **Part 2: Unknown Data Association**
 
 <br>
