@@ -41,12 +41,12 @@ tags: [Linear algebra, vector, skew symmetric] # add tag
 
 <br>
 
-- ① $$ (A + B)^{T} = -(A + B) $$
-- ② 실수 값으로 이루어진 `Real Skew Symmetric Matrix` $$ A $$ 의 모든 대각 성분은 0 입니다. ( $$ a_{ii} = -a_{ii} $$ )
-- ③ `Real Skew Symmetric Matrix` $$ A $$ 의 `Eigenvalue` 중 실수값은 오직 0입니다. 즉, 0이 아닌 `Skew Symmetric Matrix`의 `Eigenvalue`는 허수를 가집니다.
-- ④ `Skew Symmetric Matrix`에 실수배를 해도 `Skew Symmetric Matrix` 성질은 유지 됩니다. $$ (kA)^{T} = -kA $$ ( $$ k \text{ is real number} $$ )
-- ⑤ `Real Skew Symmetric Matrix` $$ A $$ 에 대하여 $$ I + A $$ 는 항상 `invertible` 합니다. ( $$ I \text{ is identity} $$ )
-- ⑥ `Real Skew Symmetric Matrix` $$ A $$ 에 대하여 $$ A^{2} $$ 은 `Symmetric Negative Semi-Definite Matrix`를 만족합니다.
+- **① $$ (A + B)^{T} = -(A + B) $$**
+- **② 실수 값으로 이루어진 `Real Skew Symmetric Matrix` $$ A $$ 의 모든 대각 성분은 0 입니다. ( $$ a_{ii} = -a_{ii} $$ )**
+- **③ `Real Skew Symmetric Matrix` $$ A $$ 의 `Eigenvalue` 중 실수값은 오직 0입니다. 즉, 0이 아닌 `Skew Symmetric Matrix`의 `Eigenvalue`는 허수를 가집니다.**
+- **④ `Skew Symmetric Matrix`에 실수배를 해도 `Skew Symmetric Matrix` 성질은 유지 됩니다. $$ (kA)^{T} = -kA $$ ( $$ k \text{ is real number} $$ )**
+- **⑤ `Real Skew Symmetric Matrix` $$ A $$ 에 대하여 $$ I + A $$ 는 항상 `invertible` 합니다. ( $$ I \text{ is identity} $$ )**
+- **⑥ `Real Skew Symmetric Matrix` $$ A $$ 에 대하여 $$ A^{2} $$ 은 `Symmetric Negative Semi-Definite Matrix`를 만족합니다.**
 
 <br>
 
@@ -72,15 +72,15 @@ tags: [Linear algebra, vector, skew symmetric] # add tag
 
 - $$ \Rightarrow -x^{T}A\bar{x} = -x^{T}\bar{\lambda}\bar{x} = -\bar{\lambda} \Vert x \Vert^{2} $$
 
-- $$ -\bar{\lambda} \Vert x \Vert^{2} = \lambda \Vert x \Vert^{2} (\because -x^{T}A\bar{x} = x^{T}A^{T}\bar{x} = \bar{x}^{T} A x) $$
+- $$ -\bar{\lambda} \Vert x \Vert^{2} = \lambda \Vert x \Vert^{2} \ \ (\because -x^{T}A\bar{x} = x^{T}A^{T}\bar{x} = \bar{x}^{T} A x = \lambda \Vert x \Vert^{2}) $$
 
 - $$ (\lambda + \bar{\lambda}) \Vert x \Vert^{2} = 0 $$
 
-- $$ \lambda + \bar{\lambda} = 0 (\because \Vert x \Vert^{2} \ge 0) $$
+- $$ \lambda + \bar{\lambda} = 0 \ \ (\because \Vert x \Vert^{2} \ge 0) $$
 
 <br>
 
-- 위 식에서 $$ \bar{\lambda} $$ 와 $$ \lambda $$ 는 `conjugate` 관계로 정의하였기 때문에 $$ \lambda $$ 2가지 경우의 값을 가집니다.
+- 위 식에서 $$ \bar{\lambda} $$ 와 $$ \lambda $$ 는 `conjugate` 관계로 정의하였기 때문에 $$ \lambda $$ 는 2가지 경우의 값을 가집니다.
 
 <br>
 
@@ -90,11 +90,15 @@ tags: [Linear algebra, vector, skew symmetric] # add tag
 
 <br>
 
+- 따라서 $$ \lambda $$ 가 실수이면 항상 0을 가지게 되며 만약 $$ \lambda $$ 가 허수라면 순허수 (`pure imaginary number`)인 $$ bi $$ 와 같은 형태를 가지게 됩니다.
+
+<br>
+
 - `Skew Symmetric Matrix`와 관련하여 아래 2가지 정리 또한 많이 사용 됩니다.
 
 <br>
 
-- ⓐ `Real Skew Symmetric Matrix` $$ A $$ 에 대하여 $$ A + A^{T} $$ 는 `Symmetric Matrix`이며 $$ A - A^{T} $$ 는 `Skew Symmetric Matrix`입니다.
+- **ⓐ 임의의 정사각행렬 $$ A $$ 에 대하여 $$ A + A^{T} $$ 는 `Symmetric Matrix`이며 $$ A - A^{T} $$ 는 `Skew Symmetric Matrix`입니다.**
 
 <br>
 
@@ -118,15 +122,11 @@ tags: [Linear algebra, vector, skew symmetric] # add tag
 
 <br>
 
-- ⓑ 임의의 정사각행렬 $$ A $$ 에 대하여 다음 성질을 만족합니다.
-
-- $$ A + A^{T} \text{ is a symmetric matrix.} $$
-
-- $$ A - A^{T} \text{ is a skew-symmetric matrix.} $$
+- **ⓑ 임의의 정사각행렬 $$ A $$ 는 `symmetric matrix`와 `skew-symmetric matrix`의 합으로 나타낼 수 있습니다. (④ 성질과 ⓐ 정리를 이용)**
 
 <br>
 
-- ⓒ 임의의 정사각행렬은 `symmetric matrix`와 `skew-symmetric matrix`의 합인 $$ A = \frac{1}{2} (A + A^{T}) + \frac{1}{2} (A - A^{T}) $$ 으로 나타낼 수 있습니다. (④ 성질과 ⓑ 정리를 이용)
+- $$ A = \frac{1}{2} (A + A^{T}) + \frac{1}{2}(A - A^{T}) $$
 
 <br>
 
@@ -138,7 +138,7 @@ tags: [Linear algebra, vector, skew symmetric] # add tag
 
 <br>
 
-- ⒜ 행렬의 차원이 홀수 차수인 경우: $$ \text{det}(A) = 0 $$
+- **⒜ 행렬의 차원이 홀수 차수인 경우: $$ \text{det}(A) = 0 $$**
 
 <br>
 
@@ -155,13 +155,13 @@ tags: [Linear algebra, vector, skew symmetric] # add tag
 
 <br>
 
-- $$ \text{det}(A) = \text{det}(-A^{T}) = (-1)^{n}\text{A^{T}} = (-1)^{2k-1} \text{det}(A^{T}) = -\text{det}(A) $$
+- $$ \text{det}(A) = \text{det}(-A^{T}) = (-1)^{n}\text{det}(A^{T}) = (-1)^{2k-1} \text{det}(A^{T}) = -\text{det}(A) $$
 
 - $$ \therefore \text{det}(A) = 0 $$
 
 <br>
 
-- ⒝ 행렬의 차원이 짝수 차수인 경우: $$ \text{det}(A) \ge 0 $$
+- **⒝ 행렬의 차원이 짝수 차수인 경우: $$ \text{det}(A) \ge 0 $$**
 
 <br>
 
@@ -175,7 +175,7 @@ tags: [Linear algebra, vector, skew symmetric] # add tag
 
 <br>
 
-- 먼저 $$ \lambda, \bar{\lambda} $$ 가 실수이면 0이어야 하므로 $$ \text{det}(A) = 0 $$ 이 되어 만족합니다. 모든 `Eigenvalue`의 곱이 `determinant`가 되기 때문입니다.
+- 먼저 $$ \lambda, \bar{\lambda} $$ 가 실수이면 0이어야 하므로 $$ \text{det}(A) = 0 $$ 이 되어 만족합니다. 왜냐하면 모든 `Eigenvalue`의 곱이 `determinant`가 되기 때문입니다.
 
 <br>
 
