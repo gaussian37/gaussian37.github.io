@@ -1,7 +1,7 @@
 ---
 layout: post
 title: KD-Tree
-date: 2020-03-02 00:00:00
+date: 2023-03-02 00:00:00
 img: math/algorithm/kdtree/0.png
 categories: [math-algorithm] 
 tags: [kdtree, normal estimation] # add tag
@@ -21,13 +21,15 @@ tags: [kdtree, normal estimation] # add tag
 - ### [KD-Tree의 차원 확장](#kd-tree의-차원-확장-1)
 - ### [KNN Search KD-Tree](#knn-search-kd-tree-1)
 - ### [Radius Search KD-Tree](#radius-search-kd-tree-1)
-- ### [Hybrid Search KD-Tree](#hybrid-search-kd-tree-1)
+- ### [Hybrid KNN and Radius Search KD-Tree](#hybrid-knn-and-radius-search-kd-tree)
 
 <br>
 
 ## **KD-Tree의 정의**
 
 <br>
+
+- 이번 글에서 다룰 `KD-Tree`는 $$ K $$ 개의 `Dimension`을 이용하여 `Binary Tree`를 만드는 자료 구조를 의미합니다. 데이터셋에 대하여 `Binary Tree` 자료 구조를 적용하면
 
 <br>
 
@@ -49,7 +51,7 @@ tags: [kdtree, normal estimation] # add tag
 
 <br>
 
-## **Hybrid Search KD-Tree**
+## **Hybrid KNN and Radius Search KD-Tree**
 
 <br>
 
