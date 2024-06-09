@@ -336,6 +336,14 @@ tags: [로드리게스 회전, 축각 회전, axis-angle rotation] # add tag
 
 <br>
 
+- 풀어서 식을 쓰면 다음 식과 같습니다.
+
+<br>
+
+- $$ R = \begin{bmatrix} (1 - \cos{(\theta)})\hat{n}_{x}^{2} + \cos{(\theta)} & (1 - \cos{(\theta)})\hat{n}_{x}\hat{n}_{y} -\sin{(\theta)}\hat{n}_{z} & (1 - \cos{(\theta)})\hat{n}_{z}\hat{n}_{x} + \sin{(\theta)}\hat{n}_{y} \\ (1 - \cos{(\theta)})\hat{n}_{x}\hat{n}_{y} + \sin{(\theta)}\hat{n}_{z} & (1 - \cos{(\theta)})\hat{n}_{y}^{2} + \cos{(\theta)} & (1 - \cos{(\theta)})\hat{n}_{y}\hat{n}_{z} - \sin{(\theta)}\hat{n}_{x} \\ (1 - \cos{(\theta)})\hat{n}_{x}\hat{n}_{z} -\sin{(\theta)}\hat{n}_{y} & (1 - \cos{(\theta)})\hat{n}_{y}\hat{n}_{z} + \sin{(\theta)}\hat{n}_{x}& (1 - \cos{(\theta)})\hat{n}_{z}^{2} + \cos{(\theta)} \end{bmatrix} \tag{19} $$
+
+<br>
+
 ## **Axis-Angle Rotation의 Python code**
 
 <br>
