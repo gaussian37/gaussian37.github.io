@@ -13,7 +13,21 @@ tags: [pytorch, conv2d] # add tag
 
 <br>
 
+- 참조 : https://gaussian37.github.io/dl-concept-covolution_operation/
 - 참조 : https://pytorch.org/docs/stable/index.html
+
+<br>
+
+## **목차**
+
+<br>
+
+- ### [Pytorch의 Conv2D 연산 정리](#pytorch의-conv2d-연산-정리-1)
+- ### [Conv2D를 이용한 산술 연산](#conv2d를-이용한-산술-연산-1)
+
+<br>
+
+## **Pytorch의 Conv2D 연산 정리**
 
 <br>
 
@@ -228,8 +242,139 @@ plt.show()
 <center><img src="../assets/img/dl/pytorch/conv2d/1.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
+<br>
 
+## **Conv2D를 이용한 산술 연산**
 
+<br>
+
+- 앞에서 설명한 `nn.Conv2d`를 이용하면 기본적인 산술 연산 ( `+, -, *, / ` )을 할 수 있습니다. 편의상 산술 연산을 (`+, *`)로 정의하겠습니다. 설명드리는 내용은 [convolution 연산 정리](https://gaussian37.github.io/dl-concept-covolution_operation/) 를 바탕으로 진행해 보겠습니다.
+- 아래 내용은 입력 데이터 `X`에 대하여 채널 별로 특정값을 곱셈과 덧셈을 하는 연산입니다. `convolution`이 아닌 일반적인 산술 연산으로 표현하면 다음과 같습니다.
+
+<br>
+
+```python
+import torch
+import torch.nn.functional as F
+
+X = torch.rand(2, 5, 16, 16)
+B, C, H, W = X.shape
+
+mul_vals = [1.0, 2.0, 3.0, 4.0, 5.0]
+add_vals = [5.0, 4.0, 3.0, 2.0, 1.0]
+
+result1 = X * torch.Tensor(mul_vals).reshape(1, C, 1, 1) + torch.Tensor(add_vals).reshape(1, C, 1, 1)
+```
+
+<br>
+
+- 위 코드에서는 첫번째 채널에는 1.0을 곱한 뒤 5.0을 더합니다. 두번째 채널은 2.0을 곱한 뒤 4.0을 더합니다.
+
+<br>
+
+- 위 연산을 `convolution`으로 적용하려면 `1x1 kernel`을 이용한 `1x1 convolution`을 적용하면 각 데이터 별 연산이 가능합니다. 
+- `1x1 convolution`의 `weight` 값에 곱하고자 하는 `scalar` 값을 대입하고 `bias` 값에 더하고자 하는 `scalar` 값을 대입하면 `1x1 convolution` 연산 과정에서 곱셈과 덧셈을 적용할 수 있습니다. 
+- 이 때, 채널 별 다른 값으로 연산하려면 `convolution`의 `group` 갯수를 입력 채널의 갯수와 동일하게 지정하면 채널의 갯수가 그룹의 갯수만큼 분할되어 채널 별로 곱셈과 덧셈을 적용할 수 있습니다. 해당 내용은 [convolution 연산 정리](https://gaussian37.github.io/dl-concept-covolution_operation/)의 `group`에서 확인할 수 있습니다.
+
+<br>
+
+- 이 내용을 통하여 `convolution` 연산을 구현하면 다음과 같습니다.
+
+<br>
+
+```python
+import torch
+import torch.nn as nn
+
+X = torch.rand(2, 5, 16, 16)
+B, C, H, W = X.shape
+
+mul_vals = [1.0, 2.0, 3.0, 4.0, 5.0]
+add_vals = [5.0, 4.0, 3.0, 2.0, 1.0]
+
+result1 = X * torch.Tensor(mul_vals).reshape(1, C, 1, 1) + torch.Tensor(add_vals).reshape(1, C, 1, 1)
+
+conv_arithmetic = nn.Conv2d(in_channels=C, out_channels=C, kernel_size=1, stride=1, padding=0, groups=C, bias=True)
+conv_arithmetic.weight.data[:] = torch.Tensor(mul_vals).reshape(conv_arithmetic.weight.data.shape)
+conv_arithmetic.bias.data[:] = torch.Tensor(add_vals).reshape(conv_arithmetic.bias.data.shape)
+
+result2 = conv_arithmetic(X)
+torch.allclose(result1, result2)
+```
+
+<br>
+
+- 두 결과 값이 같은 것을 확인할 수 있습니다.
+
+<br>
+
+- 위 `convolution` 연산을 함수화 한다면 `F.conv2d`를 이용할 수 있습니다. 다음과 같습니다.
+
+<br>
+
+```python
+import torch
+import torch.nn as nn
+
+X = torch.rand(2, 5, 16, 16)
+B, C, H, W = X.shape
+
+mul_vals = [1.0, 2.0, 3.0, 4.0, 5.0]
+add_vals = [5.0, 4.0, 3.0, 2.0, 1.0]
+
+result1 = X * torch.Tensor(mul_vals).reshape(1, C, 1, 1) + torch.Tensor(add_vals).reshape(1, C, 1, 1)
+
+def conv_arithmetic_operation(X, mul_vals, add_vals):
+    B, C, H, W = X.shape
+    assert len(mul_vals) == C, "The number of multiplication values must be same with input channels"
+    assert len(add_vals) == C, "The number of add values must be same with input channels"
+
+    _weight = torch.zeros(C, 1, 1, 1)
+    _weight[:, 0, 0, 0] = torch.Tensor(mul_vals)
+    
+    _bias = torch.zeros(C)
+    _bias[:] = torch.Tensor(add_vals)
+
+    return F.conv2d(X, weight=_weight, bias=_bias, groups=C)
+
+result3 = conv_arithmetic_operation(X, mul_vals, add_vals)
+torch.allclose(result1, result3)
+```
+
+<br>
+
+- 만약 모든 채널에 2.0을 곱한 뒤 -1.0을 더하고 싶으면 다음과 같이 응용할 수 있습니다.
+
+<br>
+
+```python
+import torch
+import torch.nn as nn
+
+X = torch.rand(2, 5, 16, 16)
+B, C, H, W = X.shape
+
+mul_vals = [2.0] * C
+add_vals = [-1.0] * C
+
+result1 = X * 2.0 - 1.0
+
+def conv_arithmetic_operation(X, mul_vals, add_vals):
+    B, C, H, W = X.shape
+    assert len(mul_vals) == C, "The number of multiplication values must be same with input channels"
+    assert len(add_vals) == C, "The number of add values must be same with input channels"
+
+    _weight = torch.zeros(C, 1, 1, 1)
+    _weight[:, 0, 0, 0] = torch.Tensor(mul_vals)
+    
+    _bias = torch.zeros(C)
+    _bias[:] = torch.Tensor(add_vals)
+
+    return F.conv2d(X, weight=_weight, bias=_bias, groups=C)
+
+result3 = conv_arithmetic_operation(X, mul_vals, add_vals)
+torch.allclose(result1, result3)
+```
 
 <br>
 

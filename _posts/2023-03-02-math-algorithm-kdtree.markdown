@@ -1,6 +1,6 @@
 ---
 layout: post
-title: KD-Tree
+title: KD-Tree 정리
 date: 2023-03-02 00:00:00
 img: math/algorithm/kdtree/0.png
 categories: [math-algorithm] 
@@ -29,7 +29,7 @@ tags: [kdtree, normal estimation] # add tag
 
 <br>
 
-- 이번 글에서 다룰 `KD-Tree`는 $$ K $$ 개의 `Dimension`을 이용하여 `Binary Tree`를 만드는 자료 구조를 의미합니다. 데이터셋에 대하여 `Binary Tree` 자료 구조를 적용하면
+- 이번 글에서 다룰 `KD-Tree`는 $$ K $$ 개의 `Dimension`을 이용하여 `Binary Tree`를 만드는 자료 구조를 의미합니다. 데이터셋에 대하여 `Binary Tree` 자료 구조를 적용하면 $$ \text{O}(\log{n}) $$ 
 
 <br>
 
