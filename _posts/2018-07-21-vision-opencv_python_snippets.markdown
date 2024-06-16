@@ -535,6 +535,11 @@ dilation = cv2.dilate(img, kernel, iterations=2)
 - `rvecs[i] = rvec`는 3개의 값을 가지는 벡터입니다. 이 벡터 값은 `Rodrigues` 변환을 통해 $$ 3 \times 3 $$ 크기의 행렬로 만들 수 있습니다.
 - 먼저 `rvec`은 `로드리게스 회전 (또는 축각 회전)`으로 표현되어 있습니다. 이 방법은 3차원에서 회전하고자 하는 3차원 벡터 축(Axis)과 축을 기준으로 회전하고자 하는 회전량을 이용하는 방법입니다. 상세 내용은 아래 글을 참조하시기 바랍니다.
     - [로드리게스 회전 (축각 회전) 설명](https://gaussian37.github.io/vision-concept-axis_angle_rotation/)
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/17.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
 - 따라서 `로드리게스 회전`을 위해서는 기본적으로는 회전축 `axis`를 표현하는 벡터값 3개와 회전각도 1개 총 4개의 값이 필요로 합니다. 하지만 `rvec`은 3개의 값만 가지고 있는데, 이 부분은 `opencv`에서 정보를 compact한 방식으로 압축하여 사용하기 때문이며 다음과 같이 4개의 값을 만들면 되는 것으로 소개됩니다.
 
 <br>
