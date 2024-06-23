@@ -29,7 +29,7 @@ tags: [kdtree, normal estimation] # add tag
 
 <br>
 
-- 이번 글에서 다룰 `KD-Tree`는 $$ K $$ 개의 `Dimension`을 이용하여 `Binary Tree`를 만드는 자료 구조를 의미합니다. 데이터셋에 대하여 `Binary Tree` 자료 구조를 적용하면 $$ \text{O}(\log{n}) $$ 
+- 이번 글에서 다룰 `KD-Tree`는 $$ K $$ 개의 `Dimension`을 이용하여 `Binary Tree`를 만드는 자료 구조를 의미합니다. 즉, $$ K $$ 개 차원의 `Binary Search Tree`의 자료구조를 의미합니다. `KD-Tree`를 이용하면 데이터셋에 대하여 평균적으로 $$ \text{O}(\log{n}) $$ 만에 탐색이 가능하므로 효율적으로 탐색이 가능해 집니다.
 
 <br>
 
