@@ -61,7 +61,7 @@ tags: [kdtree, normal estimation] # add tag
 
 <br>
 
-#### **2차원 KD-Tree 만들기**
+#### **2차원 KD-Tree 생성**
 
 <br>
 
@@ -147,6 +147,40 @@ tags: [kdtree, normal estimation] # add tag
 <center><img src="../assets/img/math/algorithm/kdtree/3.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- 아래는 트리를 구성하면서 각 노드가 어떻게 공간을 분할하는 지 나타냅니다. 초록색 체크가 현재 선택된 노드로 공간을 분할하는 기준이 됩니다.
+- 노란색 음영이 노드 기준으로 `Left`로 분류된 공간이고 초록색 음영이 노드 기준으로 `Right`로 분류된 공간입니다.
+
+<br>
+<center><img src="../assets/img/math/algorithm/kdtree/4.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/math/algorithm/kdtree/5.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/math/algorithm/kdtree/6.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/math/algorithm/kdtree/7.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/math/algorithm/kdtree/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/math/algorithm/kdtree/9.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 과정을 통해 `KD-Tree`가 어떻게 공간을 구분하여 트리를 생성하는 지 알 수 있습니다.
+
+<br>
+
+#### **2차원 KD-Tree의 검색**
+
+<br>
 
 <br>
 
