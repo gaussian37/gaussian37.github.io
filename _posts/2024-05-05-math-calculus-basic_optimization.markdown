@@ -34,6 +34,7 @@ tags: [Gradient Descent, SGD, Momentum, RMSProp, Adam, Newton, Gauss Newton, Lev
 - ### [Gradient Descent](#gradient-descent-1)
 - ### [Newton Method](#newton-method-1)
 - ### [Gradient Descent for Non-Linear Least Squares](#gradient-descent-for-non-linear-least-squares-1)
+- ### [Weighted Residuals](#weighted-residuals-1)
 - ### [Newton Method for Non-Linear Least Squares](#newton-method-for-non-linear-least-squares-1)
 - ### [Gauss-Newton Method for Non-Linear Least Squares](#gauss-newton-method-for-non-linear-least-squares-1)
 - ### [Levenberg-Marquardt Method for Non-Linear Least Squares](#levenberg-marquardt-method-for-non-linear-least-squares-1)
@@ -67,6 +68,76 @@ tags: [Gradient Descent, SGD, Momentum, RMSProp, Adam, Newton, Gauss Newton, Lev
 <br>
 
 - $$ w_{\text{new}} = w_{\text{old}} - \lambda J_{r}^{T} r $$
+
+<br>
+
+## **Weighted Residuals**
+
+<br>
+
+- `Gradient Descent`에서 업데이트 해야 할 변화량 $$ \Delta $$ 는 $$ J_{r}^{T} r $$ 과 $$ \lambda $$ 에 의하여 정의 되었습니다.
+- 이 때, `Residual`의 값에 대하여 단순히 $$ J_{r} r $$ 로 연산하는 것이 아닌 업데이트 할 파라미터에 **가중치를 부여하는 방법**을 사용할 수 있습니다. 예를 들어 가중치를 부여하는 행렬을 $$ W $$ 라고 명하였을 때, $$ J_{r} W r $$ 과 같이 사용할 수 있습니다.
+- 여기서 사용하는 가중치 행렬 $$ W $$ 는 파라미터를 업데이트할 때, **어떤 파라미터에 좀 더 큰 업데이트를 적용할 지 업데이트 양을 조절하는 역할**을 합니다. $$ W $$ 행렬을 구성하는 별도의 방법이 있으면 사전 지식을 이용하여 확용해 볼 수 있지만 추가적인 정보가 없는 상태라면 `Residual`을 이용하여 $$ W $$ 를 구성해 볼 수도 있습니다.
+
+<br>
+
+- `Residual`은 에러값이므로 다음과 같이 표현할 수 있습니다.
+
+<br>
+
+- $$ y = f(\hat{x}) + \epsilon \quad (\epsilon \text{= Residual})$$
+
+- $$ \epsilon = y - f(\hat{x}) $$
+
+<br>
+
+- 통계 분석시에 `Residual`을 $$ \epsilon $$ 으로 많이 표현하기 때문에 위 식과 같이 적어보았습니다. 중요한 것은 `Residual`은 정답값과 예측값의 차이인 에러를 나타내는 것이며 흔히 확률 분포를 생각 할 때, `노이즈`로 간주되기도 합니다.
+- 통계적 추정을 할 때, 자주 차용되는 가정 중 하나는 `노이즈`가 정규 분포를 따른 다는 것입니다. 이와 같은 가정을 통하여 문제를 단순화 시킬 수 있습니다.
+- 만약 에러값인 `Residual`이 `정규분포`를 따른다고 가정하면 **에러값의 평균이 0**이고 **표준 편차는 $$ \sqrt{\text{Residual}^{2}} $$ , 분산은 $$ \text{Residual}^{2} $$**이 됩니다.
+- 이 때, $$ \text{Residual}^{2} $$ 이 클수록 분산이 큰 것이고, 분산이 큰 것은 데이터의 분포가 넓게 퍼져서 상대적으로 중요도가 낮아지게 됩니다. 따라서 $$ \text{Residual}^{2} $$ 의 값이 큰 축은 파라미터 업데이트 시, 가중치를 낮추는 방향으로 업데이트를 하는 방법을 적용해 볼 수 있습니다. 
+- 이와 같은 방법을 적용하기 위해 $$ W $$ 는 단순히 $$ 1 / \text{Residual}^{2} $$ 를 통해 구한 벡터를 $$ W $$ 의 대각 성분으로 채우고 나머지 값은 0인 대각 행렬을 만들어서 적용해 볼 수 있습니다. 코드로 나타내면 다음과 같습니다.
+
+<br>
+
+```python
+# Estimate variances from residuals 
+residuals = y - predict(x)
+estimated_variances = residuals**2
+
+weights = 1 / estimated_variances
+W = np.diag(weights)
+```
+
+<br>
+
+- 위 식을 통해 구한 $$ W $$ 는 다음과 같이 파라미터 업데이트 시 사용될 수 있습니다.
+
+<br>
+
+- $$ w_{\text{new}} = w_{\text{old}} - \lambda J_{r}^{T} \color{red}{W} r $$
+
+<br>
+
+```python
+# python code style
+J.T @ W @ r
+```
+
+<br>
+
+- 가중치 행렬은 [Least Squares](https://gaussian37.github.io/math-la-least_squares/)의 기본적인 구조에서 같은 접근 방식으로 `Weighted Least Squares`라는 키워드로 널리 사용됩니다. 즉, 다음과 같이 `Least Squares`식이 변경됩니다. (`Least Squares`의 상세 내용은 위 링크를 참조하시면 됩니다.)
+
+<br>
+
+- $$ (A^{T}A)^{-1}A^{T}b \quad \Rightarrow \quad (A^{T}WA)^{-1}A^{T}Wb $$
+
+<br>
+
+- 따라서 이번 글에서 다룰 `Newton Method`, `Gauss-Newton Method`, `Levenberg-Marquardt Method`들은 비선형 `Least Squares` 방법론이므로 동일한 방식으로 $$ W $$ 를 적용할 수 있습니다.
+
+<br>
+
+- 가중치 행렬을 구성하는 방법은 모두 같으므로 앞으로 다룰 최적화 방법론에서 $$ W $$ 는 생략한 상태로 식 및 코드를 진행하도록 하겠습니다. 실제 문제를 접근할 때에는 앞에서 소개한 바와 같이 `Residual`을 이용하여 $$ W $$ 를 구한 다음 파라미터 업데이트 시 적용해 볼 수 있습니다.
 
 <br>
 
