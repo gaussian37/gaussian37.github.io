@@ -38,6 +38,7 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 - ### [IPM을 위한 배경 설명](#ipm을-위한-배경-설명-1)
 - ### [IPM 적용 방법](#ipm-적용-방법-1)
 - ### [Cityscapes 데이터셋 IPM 적용 예시](#cityscapes-데이터셋-ipm-적용-예시-1)
+- ### [렌즈 왜곡을 반영한 IPM 적용 방법](#렌즈-왜곡을-반영한-ipm-적용-방법-1)
 - ### [IPM 적용 application 사례](#ipm-적용-application-사례-1)
 
 <br>
@@ -720,6 +721,97 @@ world_y_interval = 0.01
 </div>
 <br>
 
+<br>
+
+## **렌즈 왜곡을 반영한 IPM 적용 방법**
+
+<br>
+
+- 참조 : [카메라 모델과 렌즈 왜곡 (lens distortion)](https://gaussian37.github.io/vision-concept-lens_distortion/)
+
+<br>
+
+- 지금까지 살펴본 `Cityscapes`의 예제는 왜곡이 보정된 영상입니다. 영상을 참조하였을 때에도 영상에 왜곡이 없는 것을 확인할 수 있으며 위 코드의 `load_camera_params()` 함수를 이용하여 카메라 파라미터를 불러올 때에도 왜곡 계수가 없는 것을 알 수 있습니다.
+- 실제 카메라를 사용할 때에는 카메라 렌즈 왜곡을 이용하여 왜곡 보정을 하여 사용하거나 아니면 영상에 왜곡이 존재하는 상태로 사용해야 합니다. 왜곡 보정이나 카메라 렌즈 왜곡과 관련된 내용은 [카메라 모델과 렌즈 왜곡 (lens distortion)](https://gaussian37.github.io/vision-concept-lens_distortion/)을 참조하면 알 수 있습니다.
+- 만약 실제 사용하는 영상을 왜곡 보정하여 사용한다면 본 글에서 다룬 `Cityscapes`의 예제와 같이 동일한 방식으로 사용할 수 있습니다. 하지만 왜곡 보정을 하지 않고 원래 영상에서 그대로 사용한다면 `렌즈 왜곡`을 반영하여 사용해야 합니다.
+
+<br>
+
+- [카메라 모델과 렌즈 왜곡](https://gaussian37.github.io/vision-concept-lens_distortion/)과 [Generic Camera Model](https://gaussian37.github.io/vision-concept-generic_camera_model/)을 참조하면 `Distortion Coefficient`를 어떻게 이용해야 하는 지 확인할 수 있습니다. 이번 글에서도 `Generic Camera Model`을 이용하여 영상의 왜곡을 반영하는 함수를 간략히 소개하겠습니다.
+
+<br>
+
+```python
+def generate_direct_backward_mapping(
+    world_x_min, world_x_max, world_x_interval, 
+    world_y_min, world_y_max, world_y_interval, extrinsic, intrinsic, distortion):
+    
+    print("world_x_min : ", world_x_min)
+    print("world_x_max : ", world_x_max)
+    print("world_x_interval (m) : ", world_x_interval)
+    print()
+    
+    print("world_y_min : ", world_y_min)
+    print("world_y_max : ", world_y_max)
+    print("world_y_interval (m) : ", world_y_interval)
+    
+    world_x_coords = np.arange(world_x_max, world_x_min, -world_x_interval)
+    world_y_coords = np.arange(world_y_max, world_y_min, -world_y_interval)
+    
+    output_height = len(world_x_coords)
+    output_width = len(world_y_coords)
+    
+    map_x = np.zeros((output_height, output_width)).astype(np.float32)
+    map_y = np.zeros((output_height, output_width)).astype(np.float32)
+    
+    if len(D) == 5:
+        k1, k2, k3, k4 = distortion[1:]
+    elif len(D) == 4:
+        k1, k2, k3, k4 = distortion
+    else:
+        print("Wrong Distortion.")
+        exit()
+
+    fx = intrinsic[0][0]
+    fy = intrinsic[1][1]
+    skew = intrinsic[0][1]
+    cx = intrinsic[0][2]
+    cy = intrinsic[1][2]
+        
+    for i, world_x in enumerate(world_x_coords):
+        for j, world_y in enumerate(world_y_coords):
+            # world_coord : [world_x, world_y, 0, 1]
+            world_coord = [world_x, world_y, 0, 1]
+            camera_coord = extrinsic[:3, :] @ world_coord
+
+            #################### undistorted normalized coordinate ######################
+            x_un = camera_coord[0] / camera_coord[2]
+            y_un = camera_coord[1] / camera_coord[2]
+            #################### distorted normalized coordinate ########################
+            r_un = np.sqrt(x_un**2 + y_un**2)
+            theta = np.arctan(r_un)
+            r_dn = 1*theta + k1*theta**3 + k2*theta**5 + k3*theta**7 + k4*theta**9
+            
+            x_dn = r_dn * (x_un/r_un)
+            y_dn = r_dn * (y_un/r_un)
+            ################################ image plane ###############################
+            u = np.round(fx*x_dn + skew*y_dn + cx)
+            v = np.round(fy*y_dn + cy)
+            #############################################################################
+
+            # map_x : (H, W)
+            # map_y : (H, W)
+            # dst[i][j] = src[ map_y[i][j] ][ map_x[i][j] ]
+            map_x[i][j] = u
+            map_y[i][j] = v
+            
+    return map_x, map_y
+```
+
+<br>
+
+- 변경된 `generate_direct_backward_mapping` 함수를 살펴보면 함수의 인자로 `distortion`이라는 것을 받습니다. `Generic Camera Model`의 정의에 의하여 9차 기함수(odd function)를 이용하여 렌즈 왜곡을 추정하기 때문에 `distortion`은 9차 방정식의 홀수 차수의 계수를 저장합니다. `distortion`의 값이 4개이면 3, 5, 7, 9차 항의 계수를 의미하고 `distortion`이 5개이면 1차 항의 계수 까지 포함합니다. (opencv의 캘리브레이션 함수에서 1차 항의 계수는 1로 고정하기 때문에 이와 같은 표현법이 사용됩니다.)
+- `undistorted normalized coordinate` → `distorted normalized coordinate` → `image plane` 변환의 의미는 [카메라 모델과 렌즈 왜곡](https://gaussian37.github.io/vision-concept-lens_distortion/)에 자세하게 설명되어 있으니 참조 부탁드립니다.
 
 <br>
 
