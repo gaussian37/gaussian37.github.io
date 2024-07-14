@@ -27,6 +27,7 @@ tags: [opencv, python, snippets] # add tag
 - ### [OpenCV 한글 쓰기](#opencv-한글-쓰기-1)
 - ### [90도 이미지 회전](#90도-이미지-회전-1)
 - ### [gif 만들기 with imageio](#gif-만들기-with-imageio-1)
+- ### [jupyter notebook에 numpy image 동영상 재생](#jupyter-notebook에-numpy-image-동영상-재생-1)
 - ### [두 이미지를 오버레이 하기](#두-이미지를-오버레이-하기-1)
 - ### [픽셀의 하한, 상한 값 정하기](#픽셀의-하한-상한-값-정하기-1)
 - ### [Automatic Canny Edge Detection](#automatic-canny-edge-detection-1)
@@ -433,6 +434,43 @@ for filename in filenames:
 imageio.mimsave('/path/to/movie.gif', images)
 # imageio.mimsave('/path/to/movie.gif', images, duration=0.1)
 ```
+
+<br>
+
+## **jupyter notebook에 numpy image 동영상 재생**
+
+<br>
+
+- jupyter notebook에서 연속적인 이미지를 읽은 다음 동영상 처럼 재생할 때 아래 코드를 사용하여 시각화할 수 있습니다. jupyter notebook에 표시할 때, 동영상을 보여주고 지우고 보여주고 지우는 것을 반복하는 작업입니다.
+
+<br>
+
+```python
+import cv2
+import os
+import glob
+import IPython
+
+path = "/path/to/the/images
+image_paths = glob.glob(path + os.sep + "*.png")
+image_paths.sort()
+
+for image_path in image_paths:
+    image = cv2.imread(image_path, -1)
+    image = cv2.resize(image, (image.shape[1]//4, image.shape[0]//4))
+    _, ret = cv2.imencode('.jpg', image)
+    display_image = IPython.display.Image(data=ret)
+    IPython.display.clear_output(wait=True)
+    IPython.display.display(display_image)
+```
+
+<br>
+
+- 실행 결과는 다음과 같습니다. 아래 데이터는 `A2D2` 데이터의 영상입니다.
+
+<br>
+<center><img src="../assets/img/vision/opencv/snippets/18.gif" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 <br>
 
