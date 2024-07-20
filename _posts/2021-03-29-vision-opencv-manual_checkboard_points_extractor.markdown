@@ -51,13 +51,13 @@ python manual_checkboard_points_extractor.py --image_path=checkboard.png --save_
 - 저장된 결과는 `save_path`로 지정된 위치에 이미지 파일과 csv 파일이 저장된 것을 확인할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/opencv/manual_checkboard_points_extractor/2.gif" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/opencv/manual_checkboard_points_extractor/2.gif" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 아래는 재미로 작업을 해본 것입니다. 아래와 같이 체크보드 패턴이 어려운 상황에서는 본 글의 코드를 이용하여 좌표 위치를 추출해 낼 수 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/opencv/manual_checkboard_points_extractor/3.gif" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/vision/opencv/manual_checkboard_points_extractor/3.gif" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
 - 실행할 코드는 다음과 같습니다.
