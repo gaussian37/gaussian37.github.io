@@ -4,7 +4,7 @@ title: 카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실
 date: 2022-01-28 00:00:00
 img: vision/concept/calibration/0.png
 categories: [vision-concept] 
-tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pinhole, 왜곡 보정] # add tag
+tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pinhole, 왜곡 보정, A Flexible New Technique for Camera Calibration, Zhang's Method] # add tag
 ---
 
 <br>
@@ -40,8 +40,8 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 - ### [Camera Intrinsic Matrix with Example in Python](#camera-intrinsic-matrix-with-example-in-python-1)
 - ### [Camera Intrinsic 변환 애니메이션](#camera-intrinsic-변환-애니메이션-1)
 - ### [Transformation 관점의 Camera Extrinsic과 Intrinsic](#transformation-관점의-camera-extrinsic과-intrinsic-1)
+- ### [이미지 crop과 resize에 따른 intrinsic 수정 방법](#이미지-crop과-resize에-따른-intrinsic-수정-방법-1)
 - ### [Zhang's Method (A Flexible New Technique for Camera Calibration)](#zhangs-method-a-flexible-new-technique-for-camera-calibration-1)
-- ### [추가 내용 : 이미지 crop과 resize에 따른 intrinsic 수정 방법](#추가-내용--이미지-crop과-resize에-따른-intrinsic-수정-방법-1)
 
 <br>
 
@@ -685,7 +685,7 @@ ax.set_zlabel("Z-axis")
 
 - 앞으로 살펴볼 내용은 카메라 `intrinsic` 파라미터 입니다. 일반적으로 카메라 파라미터로 사용하는 값들이 `extrinsic`, `intrinsic`, `distortion coefficient`입니다. 앞에서 `extrinsic`은 살펴보았고 `intrinsic`은 본 글에서 다룰 내용입니다. 단, `intrinsic`의 내용에 집중하기 위하여 본 글에서 다루는 카메라는 핀홀 카메라 모델을 사용할 예정이므로 `distortion coefficient`는 무시합니다.
 - `distortion coefficient`의 내용을 살펴보려면 다음 링크를 참조하시면 됩니다.
-    - [카메라 모델과 렌즈 왜곡 (lense distortion)](https://gaussian37.github.io/vision-concept-lense_distortion/)
+    - [카메라 모델과 렌즈 왜곡 (lens distortion)](https://gaussian37.github.io/vision-concept-lens_distortion/)
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/17.png" alt="Drawing" style="width: 600px;"/></center>
@@ -1058,7 +1058,7 @@ ax.set_zlabel("Z-axis")
 
 <br>
 
-## **추가 내용 : 이미지 crop과 resize에 따른 intrinsic 수정 방법**
+## **이미지 crop과 resize에 따른 intrinsic 수정 방법**
 
 <br>
 
@@ -1163,27 +1163,46 @@ def get_cropped_and_resized_intrinsic(
     return fx, fy, cx, cy
 ```
 
-<br>
-
 ## **Zhang's Method (A Flexible New Technique for Camera Calibration)**
 
 <br>
 
 - 이번에는 카메라 캘리브레이션에 대하여 알아보도록 하겠습니다. 이번글에서 최종적으로 알고 싶은 내용에 해당하며 앞에서 설명한 `intrinsic`과 `extrinsic` 파라미터에 대한 이해 또한 카메라 캘리브레이션을 이해하기 위함입니다.
 - 앞으로 살펴볼 내용은 `Zhang's Method`라고 불리는 카메라 캘리브레이션 방법으로 실제 논문의 제목은 `A Flexible New Technique for Camera Calibration`입니다.
-- 이론적인 내용을 먼저 살펴본 다음 파이썬으로 구현하는 방법을 살펴보고 마지막으로 파이썬으로 구현한 방법과 opencv의 결과를 비교하여 구현의 타당성을 살펴보도록 하겠습니다.
+- 이론적인 내용을 먼저 살펴본 다음 파이썬으로 구현하는 방법을 살펴보고 마지막으로 실제 사용할 때에는 최적화가 잘 적용되어 있는 `OpenCV`에서의 사용법에 대하여 다루어 보도록 하겠습니다.
 
 <br>
 
-#### **Zhang's Method 이론 설명**
 
 <br>
 
-- 아래 선형대수학 관련 사전 지식이 있으면 이해하기 편리합니다.
-- [고유값과 고유벡터](https://gaussian37.github.io/math-la-eigenthings/)
-- [대칭행렬의 대각화]()
-- [이차형식과 원추곡선]()
-- [특이값 분해](https://gaussian37.github.io/math-la-svd/)
+#### **Zhang's Method 구현 (Generic Camera Model)**
+
+<br>
+
+- 앞에서 다룬 `Brown Camera Model`은 일반적으로 카메라 화각이 100도 이하인 경우에서만 사용합니다. 왜냐하면 넓은 화각의 렌즈 왜곡을 위 카메라 모델에서 다룬 다차항 식으로 모델링 하기에는 한계가 발생하기 때문입니다. 이와 같은 경우 `Generic Camera Model`을 사용하며 이 경우에는 고차항 식으로 렌즈 왜곡을 모델링 하기 때문에 더 넓은 화각에 대해서도 표현할 수 있습니다.
+- `Generic Camera Model`은 `Kannala-Brandt (KB) Camera Model`이라고도 하며 상세한 내용을 이해하려면 아래 글을 참조하시면 됩니다. 이번 글에서는 상세한 개념은 생략하고 진행하도록 하겠습니다.
+    - 참조1 : [카메라 모델과 렌즈 왜곡 (lens distortion)](https://gaussian37.github.io/vision-concept-lens_distortion/)
+    - 참조2 : [A Generic Camera Model and Calibration Method for Conventional, Wide-Angle, and Fish-Eye Lenses](https://gaussian37.github.io/vision-concept-generic_camera_model/)
+
+<br>
+
+- 구현 중 ....
+
+<br>
+
+#### **Zhang's Method OpenCV (Generic Camera Model)**
+
+<br>
+
+- `OpenCV`를 이용하여 `Fisheye Camera`의 카메라 캘리브레이션을 진행해 보도록 하겠습니다. `Fisheye Camera`를 사용하므로 `Generic Camera Model`을 사용하겠습니다.
+
+<br>
+
+
+
+
+
 
 <br>
 
@@ -1223,31 +1242,6 @@ CHECKERBOARD = (10, 7)
 ```python
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 ```
-
-<br>
-
-#### **Zhang's Method 구현 (Generic Camera Model)**
-
-<br>
-
-- 앞에서 다룬 `Brown Camera Model`은 일반적으로 카메라 화각이 100도 이하인 경우에서만 사용합니다. 왜냐하면 넓은 화각의 렌즈 왜곡을 위 카메라 모델에서 다룬 다차항 식으로 모델링 하기에는 한계가 발생하기 때문입니다. 이와 같은 경우 `Generic Camera Model`을 사용하며 이 경우에는 고차항 식으로 렌즈 왜곡을 모델링 하기 때문에 더 넓은 화각에 대해서도 표현할 수 있습니다.
-- `Generic Camera Model`은 `Kannala-Brandt (KB) Camera Model`이라고도 하며 상세한 내용을 이해하려면 아래 글을 참조하시면 됩니다. 이번 글에서는 상세한 개념은 생략하고 진행하도록 하겠습니다.
-    - 참조1 : [카메라 모델과 렌즈 왜곡 (lense distortion)](https://gaussian37.github.io/vision-concept-lense_distortion/)
-    - 참조2 : [A Generic Camera Model and Calibration Method for Conventional, Wide-Angle, and Fish-Eye Lenses](https://gaussian37.github.io/vision-concept-generic_camera_model/)
-
-<br>
-
-- 구현 중 ....
-
-<br>
-
-#### **Zhang's Method OpenCV (Generic Camera Model)**
-
-<br>
-
-- 이번에는 `Generic Camera Model`을 이용하여 `Fisheye Camera`의 카메라 캘리브레이션을 하는 방법에 대하여 살펴보도록 하겠습니다.
-
-<br>
 
 <br>
 
