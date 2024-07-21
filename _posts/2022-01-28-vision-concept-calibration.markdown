@@ -23,10 +23,14 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 - 참조 : https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0165487
 - 참조 : https://blog.immenselyhappy.com/post/camera-axis-skew/
 - 참조 : https://youtu.be/-9He7Nu3u8s
+- 참조 : [캘리브레이션 판 제작 샘플](https://markhedleyjones.com/projects/calibration-checkerboard-collection)
 
 <br>
 
 - 이번 글에서는 컴퓨터 비전을 위한 카메라 내용 및 카메라 캘리브레이션 관련 내용과 파이썬을 이용하여 실습을 해보도록 하겠습니다.
+- 먼저 카메라 캘리브레이션에서 사용되는 `Intrinsic`과 `Extrinsic`의 개념에 대하여 알아보고 마지막으로 [A Flexible New Technique for Camera Calibration](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr98-71.pdf) 또는 `Zhang's Method`라고 불리는 카메라 캘리브레이션 방법론에 대하여 살펴보도록 하겠습니다.
+- 본 글에서는 `Intrinsic`, `Extrinsic` 설명의 편의를 위하여 `Pinhole Camera`를 가정하고 설명하였으나 실제 카메라 캘리브레이션을 다룰 때에는 `Distortion`까지 구해야 합니다. 따라서 카메라 캘리브레이션 내용을 읽기 이전에는 다음 글에서 렌즈 왜곡에 대한 개념을 먼저 숙지하시기 바랍니다.
+    - [카메라 모델과 렌즈 왜곡 (lens distortion)](https://gaussian37.github.io/vision-concept-lens_distortion/)
 
 <br>
 
@@ -1163,6 +1167,8 @@ def get_cropped_and_resized_intrinsic(
     return fx, fy, cx, cy
 ```
 
+<br>
+
 ## **Zhang's Method (A Flexible New Technique for Camera Calibration)**
 
 <br>
@@ -1173,10 +1179,14 @@ def get_cropped_and_resized_intrinsic(
 
 <br>
 
+#### **Zhang's Method 구현**
 
 <br>
 
-#### **Zhang's Method 구현 (Generic Camera Model)**
+
+
+
+
 
 <br>
 
@@ -1191,7 +1201,7 @@ def get_cropped_and_resized_intrinsic(
 
 <br>
 
-#### **Zhang's Method OpenCV (Generic Camera Model)**
+#### **Zhang's Method OpenCV**
 
 <br>
 
@@ -1206,42 +1216,12 @@ def get_cropped_and_resized_intrinsic(
 
 <br>
 
-#### **Zhang's Method 구현 (Brown Camera Model)**
-
-<br>
-
-- 앞에 이론 설명에서 사용한 `Brown Camera Model`을 이용하여 `Zhang's Method`를 구현해 보도록 하겠습니다.
-
-<br>
-
 #### **Zhang's Method OpenCV (Brown Camera Model)**
 
 <br>
 
 - `OpenCV`에 구현되어 있는 `Brown Camera Model`을 위한 `Zhang's Method`를 통해 카메라 캘리브레이션을 수행해 보고 앞에서 직접 구현하여 얻은 캘리브레이션 값과 비교해 보도록 하겠습니다.
 - 데이터 링크 : https://drive.google.com/drive/folders/1aMsGK-A6VgdtW2uTSOtV2aBexErZCYpn?usp=drive_link
-
-<br>
-
-```python
-import cv2
-import numpy as np
-import os
-import glob 
-
-folder_name = ".../path.../calibration_images"
-
-# 체커보드의 X, Y 축을 기준으로 
-CHECKERBOARD = (10, 7)
-```
-
-<br>
-<center><img src="../assets/img/vision/concept/calibration/30.png" alt="Drawing" style="width: 800px;"/></center>
-<br>
-
-```python
-criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
-```
 
 <br>
 

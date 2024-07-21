@@ -255,6 +255,32 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 
 <br>
 
+- 지금까지 내용을 코드로 나타내면 다음과 같습니다.
+
+<br>
+
+```python
+X_c, Y_c, Z_c # given data
+
+#################### undistorted normalized coordinate ######################
+x_un = X_c / Z_c
+y_un = Y_c / Z_c
+
+#################### distorted normalized coordinate ########################
+r_un = np.sqrt(x_un**2 + y_un**2)
+theta = np.arctan(r_un)
+r_dn = 1*theta + k1*theta**3 + k2*theta**5 + k3*theta**7 + k4*theta**9
+
+x_dn = r_dn * (x_un/r_un)
+y_dn = r_dn * (y_un/r_un)
+
+################################ image plane ###############################
+u = np.round(fx*x_dn + skew*y_dn + cx)
+v = np.round(fy*y_dn + cy)
+```
+
+<br>
+
 ## **Generic 카메라 모델의 2D → 3D**
 
 <br>
