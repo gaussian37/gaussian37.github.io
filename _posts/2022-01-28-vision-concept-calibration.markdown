@@ -1173,27 +1173,35 @@ def get_cropped_and_resized_intrinsic(
 
 <br>
 
-- 이번에는 카메라 캘리브레이션에 대하여 알아보도록 하겠습니다. 이번글에서 최종적으로 알고 싶은 내용에 해당하며 앞에서 설명한 `intrinsic`과 `extrinsic` 파라미터에 대한 이해 또한 카메라 캘리브레이션을 이해하기 위함입니다.
+- 이번에는 카메라 캘리브레이션에 대하여 알아보도록 하겠습니다. 이번글에서 최종적으로 알고 싶은 내용에 해당하며 앞에서 설명한 `intrinsic`과 `extrinsic` 파라미터에 대한 이해 또한 `카메라 캘리브레이션`을 이해하기 위함입니다.
 - 앞으로 살펴볼 내용은 `Zhang's Method`라고 불리는 카메라 캘리브레이션 방법으로 실제 논문의 제목은 `A Flexible New Technique for Camera Calibration`입니다.
 - 이론적인 내용을 먼저 살펴본 다음 파이썬으로 구현하는 방법을 살펴보고 마지막으로 실제 사용할 때에는 최적화가 잘 적용되어 있는 `OpenCV`에서의 사용법에 대하여 다루어 보도록 하겠습니다.
 
 <br>
 
+#### **실습 데이터**
+
+<br>
+
+- 실습에 사용될 카메라 모델과 체커보드 패턴은 다음과 같습니다.
+
+<br>
+
+- `카메라 모델` : [ELP-USB16MP01-BL180](https://ko.aliexpress.com/item/1005006609082779.html)을 이용하여 `width=2048, height=1536`으로 취득하였습니다.
+- `체커보드 패턴` : 각 정사각형의 크기가 5cm이고 교점의 갯수가 가로 15개 세로 10개인 체커보드 패턴을 이용하였습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/37.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+
+<br>
+
+- `Intrinsic` 파라미터를 구하기 위한 체커보드 패턴의 이미지셋과 `Extrinsic` 파라미터를 구하기 위한 데이터 셋은 다음 링크에서 확인할 수 있습니다.
+
+<br>
+
 #### **Zhang's Method 구현**
-
-<br>
-
-
-
-
-
-
-<br>
-
-- 앞에서 다룬 `Brown Camera Model`은 일반적으로 카메라 화각이 100도 이하인 경우에서만 사용합니다. 왜냐하면 넓은 화각의 렌즈 왜곡을 위 카메라 모델에서 다룬 다차항 식으로 모델링 하기에는 한계가 발생하기 때문입니다. 이와 같은 경우 `Generic Camera Model`을 사용하며 이 경우에는 고차항 식으로 렌즈 왜곡을 모델링 하기 때문에 더 넓은 화각에 대해서도 표현할 수 있습니다.
-- `Generic Camera Model`은 `Kannala-Brandt (KB) Camera Model`이라고도 하며 상세한 내용을 이해하려면 아래 글을 참조하시면 됩니다. 이번 글에서는 상세한 개념은 생략하고 진행하도록 하겠습니다.
-    - 참조1 : [카메라 모델과 렌즈 왜곡 (lens distortion)](https://gaussian37.github.io/vision-concept-lens_distortion/)
-    - 참조2 : [A Generic Camera Model and Calibration Method for Conventional, Wide-Angle, and Fish-Eye Lenses](https://gaussian37.github.io/vision-concept-generic_camera_model/)
 
 <br>
 
@@ -1205,23 +1213,12 @@ def get_cropped_and_resized_intrinsic(
 
 <br>
 
-- `OpenCV`를 이용하여 `Fisheye Camera`의 카메라 캘리브레이션을 진행해 보도록 하겠습니다. `Fisheye Camera`를 사용하므로 `Generic Camera Model`을 사용하겠습니다.
+- `OpenCV`를 이용하여 `Fisheye Camera`의 카메라 캘리브레이션을 진행해 보도록 하겠습니다. `Fisheye Camera`를 사용하므로 [Generic Camera Model](https://gaussian37.github.io/vision-concept-generic_camera_model/)을 사용합니다.
 
 <br>
 
 
 
-
-
-
-<br>
-
-#### **Zhang's Method OpenCV (Brown Camera Model)**
-
-<br>
-
-- `OpenCV`에 구현되어 있는 `Brown Camera Model`을 위한 `Zhang's Method`를 통해 카메라 캘리브레이션을 수행해 보고 앞에서 직접 구현하여 얻은 캘리브레이션 값과 비교해 보도록 하겠습니다.
-- 데이터 링크 : https://drive.google.com/drive/folders/1aMsGK-A6VgdtW2uTSOtV2aBexErZCYpn?usp=drive_link
 
 <br>
 
