@@ -473,12 +473,13 @@ def generate_direct_backward_mapping(
     map_x = np.zeros((output_height, output_width)).astype(np.float32)
     map_y = np.zeros((output_height, output_width)).astype(np.float32)
     
+    world_z = 0
     for i, world_x in enumerate(world_x_coords):
         for j, world_y in enumerate(world_y_coords):
             # world_coord : [world_x, world_y, 0, 1]
             # uv_coord : [u, v, 1]
             
-            world_coord = [world_x, world_y, 0, 1]
+            world_coord = [world_x, world_y, world_z, 1]
             camera_coord = extrinsic[:3, :] @ world_coord
             uv_coord = intrinsic[:3, :3] @ camera_coord
             uv_coord /= uv_coord[2]
@@ -778,10 +779,10 @@ def generate_direct_backward_mapping(
     cx = intrinsic[0][2]
     cy = intrinsic[1][2]
         
+    world_z = 0
     for i, world_x in enumerate(world_x_coords):
         for j, world_y in enumerate(world_y_coords):
-            # world_coord : [world_x, world_y, 0, 1]
-            world_coord = [world_x, world_y, 0, 1]
+            world_coord = [world_x, world_y, world_z, 1]
             camera_coord = extrinsic[:3, :] @ world_coord
 
             #################### undistorted normalized coordinate ######################

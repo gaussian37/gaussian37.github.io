@@ -1191,13 +1191,69 @@ def get_cropped_and_resized_intrinsic(
 - `체커보드 패턴` : 각 정사각형의 크기가 5cm이고 교점의 갯수가 가로 15개 세로 10개인 체커보드 패턴을 이용하였습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/calibration/37.png" alt="Drawing" style="width: 600px;"/></center>
-<br>
-
-
+<center><img src="../assets/img/vision/concept/calibration/43.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - `Intrinsic` 파라미터를 구하기 위한 체커보드 패턴의 이미지셋과 `Extrinsic` 파라미터를 구하기 위한 데이터 셋은 다음 링크에서 확인할 수 있습니다.
+    - 데이터셋 링크 : https://drive.google.com/file/d/17uYKKyF4rfY98FXlj34-pFIeS7QoEjSv/view?usp=sharing
+- 위 데이터셋의 파일명은 `ELP-USB16MP01-BL180-2048x1536.zip`이고 `ELP-USB16MP01-BL180`은 카메라 모델명이고 `2048 x 1536`은 영상의 해상도를 의미합니다.
+- 파일의 압축을 풀면 `Intrinsic`과 `Extrinsic` 폴더가 있으며 폴더 구조는 다음과 같습니다.
+
+<br>
+
+- `Intrinsic`
+    - `000.png`
+    - `001.png`
+    - ...
+- `Extrinsic`
+    - `카메라 모델명_EXTRINSIC.png`
+    - `카메라 모델명`
+        - `points.csv`
+        - `points.png`
+
+<br>
+
+- `Intrinsic` 폴더 내부의 각 파일은 위에서 설명한 체커보드 패턴을 들고 찍은 사진들이며 영상에서 체커보드 패턴이 다양한 위치 또는 다양한 크기로 나타날 수 있도록 다양한 이미지 (약 250여장)을 구성하였습니다. 아래는 대표 사진 예시입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/44.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `Extrinsic`의 `points.csv`는 카메라를 아래와 같이 설치해 놓고 원점 (0, 0, 0)을 정한 뒤 `World 좌표계`로 정하고 이미지 좌표계의 `(u, v)` 좌표와 그 좌표에 해당하는 `World 좌표계`의 `(X, Y, Z)` 좌표를 대응시켜 놓은 파일입니다. 이 때, `(u, v)` 좌표와 `(X, Y, Z)`를 대응시키기 위하여 체크보드 패턴을 사용하였으며 원본 이미지 파일 `카메라 모델명_EXTRINSIC.png`을 통하여 `points.csv`를 구하고 이 결과를 다시 검증한 것이 `points.png`가 됩니다.
+- `World 좌표계`를 설정한 방식은 다음과 같습니다.
+
+<br>
+
+
+<br>
+
+- `카메라 모델명_EXTRINSIC.png` 이미지를 이용하여 `points.csv`와 `points.png`를 추출하는 코드는 아래 코드를 이용하였습니다. 아래 코드를 이용하면 체크보드가 있는 이미지에서 `(u, v)` 좌표를 쉽게 추출할 수 있습니다. 물론 각 `(u, v)` 좌표에 해당하는 `(X, Y, Z)` 좌표는 사전에 알고 있어야 합니다. 데이터셋의 `(u, v)`는 아래 코드를 이용하여 구하였고 `(X, Y, Z)` 좌표는 사전에 그 위치에 해당하는 체크보드 패턴의 크기를 이용하여 구해 놓았습니다.
+    - 코드: https://github.com/gaussian37/generic_camera_calibration/blob/main/manual_checkboard_points_extractor.py
+    - 코드 설명: https://gaussian37.github.io/vision-opencv-manual_checkboard_points_extractor/
+
+- `카메라 모델명_EXTRINSIC.png`과 위 코드를 통해 구한 `points.csv`의 파일 형식과 `points.png`의 결과물은 다음과 같습니다.
+
+<br>
+
+- `카메라 모델명_EXTRINSIC.png`:
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/45.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `points.csv`:
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/46.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `points.png`:
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/47.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+
 
 <br>
 
@@ -1213,9 +1269,11 @@ def get_cropped_and_resized_intrinsic(
 
 <br>
 
-- `OpenCV`를 이용하여 `Fisheye Camera`의 카메라 캘리브레이션을 진행해 보도록 하겠습니다. `Fisheye Camera`를 사용하므로 [Generic Camera Model](https://gaussian37.github.io/vision-concept-generic_camera_model/)을 사용합니다.
+- `OpenCV`를 이용하여 `Fisheye Camera`의 카메라 캘리브레이션을 진행해 보도록 하겠습니다. 카메라 모델은 [Generic Camera Model](https://gaussian37.github.io/vision-concept-generic_camera_model/)을 사용합니다.
 
 <br>
+
+
 
 
 
