@@ -1175,7 +1175,7 @@ def get_cropped_and_resized_intrinsic(
 
 - 이번에는 앞에서 다룬 `Intrinsic`, `Extrinsic` 파라미터를 직접 구하는 방법을 다루어 보도록 하겠습니다.
 - 카메라 캘리브레이션을 하기 위해서는 일반적으로 `Zhang's Method`라고 불리는 카메라 캘리브레이션 방법을 사용합니다. 논문의 제목은 `A Flexible New Technique for Camera Calibration`이며 아래 링크에서 상세 내용 및 구현 방법을 확인할 수 있습니다.
-    - 링크: [A Flexible New Technique for Camera Calibration (Zhang’s Method)]()
+    - 링크: [A Flexible New Technique for Camera Calibration (Zhang’s Method)](https://gaussian37.github.io/vision-concept-zhangs_method/)
 - 본 글에서는 실습 데이터와 `Zhang's Method`를 구현한 `OpenCV` 함수들을 이용하여 카메라 캘리브레이션을 하는 방법에 대하여 살펴보겠습니다. 카메라 캘리브레이션 관련 코드는 아래 링크를 통해 참조할 수 있습니다.
     - 링크: https://github.com/gaussian37/generic_camera_calibration
 
@@ -1225,7 +1225,8 @@ def get_cropped_and_resized_intrinsic(
 - `World 좌표계`를 설정한 방식은 다음과 같습니다.
 
 <br>
-
+<center><img src="../assets/img/vision/concept/calibration/49.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
 <br>
 
@@ -1244,6 +1245,8 @@ def get_cropped_and_resized_intrinsic(
 <br>
 
 - `points.csv`:
+- 아래 표에서 `Z` 가 0.04인 이유는 패턴 아래에 손잡이가 있어서 0.04m 만큼 바닥에서 떨어져 있기 때문입니다.
+- 아래 표의 한 행을 해석하면 다음과 같습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/46.png" alt="Drawing" style="width: 600px;"/></center>
@@ -1255,19 +1258,17 @@ def get_cropped_and_resized_intrinsic(
 <center><img src="../assets/img/vision/concept/calibration/47.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- 조금 더 확대해 보면 아래 노란색 점이 `(X, Y, Z) = (0, 0, 0.04)`인 원점이 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/48.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
 
 
 <br>
 
-#### **Zhang's Method 구현**
-
-<br>
-
-- 구현 중 ....
-
-<br>
-
-#### **Zhang's Method OpenCV**
+#### **OpenCV를 이용한 Zhang's Method 실습**
 
 <br>
 
