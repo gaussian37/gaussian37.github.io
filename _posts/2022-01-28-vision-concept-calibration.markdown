@@ -45,7 +45,7 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 - ### [Camera Intrinsic 변환 애니메이션](#camera-intrinsic-변환-애니메이션-1)
 - ### [Transformation 관점의 Camera Extrinsic과 Intrinsic](#transformation-관점의-camera-extrinsic과-intrinsic-1)
 - ### [이미지 crop과 resize에 따른 intrinsic 수정 방법](#이미지-crop과-resize에-따른-intrinsic-수정-방법-1)
-- ### [Zhang's Method (A Flexible New Technique for Camera Calibration)](#zhangs-method-a-flexible-new-technique-for-camera-calibration-1)
+- ### [OpenCV의 Zhang's Method를 이용한 카메라 캘리브레이션 실습](#opencv의-zhangs-method를-이용한-카메라-캘리브레이션-실습-1)
 
 <br>
 
@@ -1169,13 +1169,15 @@ def get_cropped_and_resized_intrinsic(
 
 <br>
 
-## **Zhang's Method (A Flexible New Technique for Camera Calibration)**
+## **OpenCV의 Zhang's Method를 이용한 카메라 캘리브레이션 실습**
 
 <br>
 
-- 이번에는 카메라 캘리브레이션에 대하여 알아보도록 하겠습니다. 이번글에서 최종적으로 알고 싶은 내용에 해당하며 앞에서 설명한 `intrinsic`과 `extrinsic` 파라미터에 대한 이해 또한 `카메라 캘리브레이션`을 이해하기 위함입니다.
-- 앞으로 살펴볼 내용은 `Zhang's Method`라고 불리는 카메라 캘리브레이션 방법으로 실제 논문의 제목은 `A Flexible New Technique for Camera Calibration`입니다.
-- 이론적인 내용을 먼저 살펴본 다음 파이썬으로 구현하는 방법을 살펴보고 마지막으로 실제 사용할 때에는 최적화가 잘 적용되어 있는 `OpenCV`에서의 사용법에 대하여 다루어 보도록 하겠습니다.
+- 이번에는 앞에서 다룬 `Intrinsic`, `Extrinsic` 파라미터를 직접 구하는 방법을 다루어 보도록 하겠습니다.
+- 카메라 캘리브레이션을 하기 위해서는 일반적으로 `Zhang's Method`라고 불리는 카메라 캘리브레이션 방법을 사용합니다. 논문의 제목은 `A Flexible New Technique for Camera Calibration`이며 아래 링크에서 상세 내용 및 구현 방법을 확인할 수 있습니다.
+    - 링크: [A Flexible New Technique for Camera Calibration (Zhang’s Method)]()
+- 본 글에서는 실습 데이터와 `Zhang's Method`를 구현한 `OpenCV` 함수들을 이용하여 카메라 캘리브레이션을 하는 방법에 대하여 살펴보겠습니다. 카메라 캘리브레이션 관련 코드는 아래 링크를 통해 참조할 수 있습니다.
+    - 링크: https://github.com/gaussian37/generic_camera_calibration
 
 <br>
 
