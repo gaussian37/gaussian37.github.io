@@ -1213,7 +1213,7 @@ def get_cropped_and_resized_intrinsic(
 
 <br>
 
-- `Intrinsic` 폴더 내부의 각 파일은 위에서 설명한 체커보드 패턴을 들고 찍은 사진들이며 영상에서 체커보드 패턴이 다양한 위치 또는 다양한 크기로 나타날 수 있도록 다양한 이미지 (약 250여장)을 구성하였습니다. 아래는 대표 사진 예시입니다.
+- `Intrinsic` 폴더 내부의 각 파일은 위에서 설명한 체커보드 패턴을 들고 찍은 사진들이며 영상에서 체커보드 패턴이 다양한 위치 또는 다양한 크기로 나타날 수 있도록 다양한 이미지 (약 250여장)를 구성하였습니다. 아래는 대표 사진 예시입니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/44.png" alt="Drawing" style="width: 600px;"/></center>
