@@ -1311,11 +1311,19 @@ base_path
 <center><img src="../assets/img/vision/concept/calibration/48.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 마지막으로 `Intrinsic`과 `Extrinsic`의 모든 캘리브레이션 작업을 마치면 최종 `카메라 모델명_calibration.json` 파일이 생성됩니다.
+- 마지막으로 `Intrinsic`과 `Extrinsic`의 모든 캘리브레이션 작업을 마치면 최종 `카메라 모델명_calibration.json` 파일이 생성됩니다. `calibration` 값을 읽어보면 다음과 같은 `Key` 값들을 확인할 수 있습니다.
+    - `Position` : `World 좌표계` 상의 카메라의 위치를 나타냅니다. 각 좌표값은 `World 좌표계` 상의 `X, Y, Z` 값을 순서대로 나타냅니다.
+    - `Intrinsic`:
+        - `K` : `Intrinsic`을 의미합니다.
+        - `D` : `Radial Distortion`을 의미합니다.
+        - `ReprojectionError` : 캘리브레이션에 사용된 모든 이미지의 평균 `Reprojection Error`를 의미합니다.
+    - `Extrinsic`
+        - `From` (ex. `World`)
+            - `To` (ex. `Camera`)
+                - `R` : `From` → `To` 로의 **Active Transform** 변환을 위한 `Rotation`을 의미합니다.
+                - `t` : `From` → `To` 로의 **Active Transform** 변환을 위한 `translation`을 의미합니다.
 
 <br>
-
-
 
 #### **OpenCV를 이용한 Zhang's Method 실습**
 
