@@ -1197,31 +1197,76 @@ def get_cropped_and_resized_intrinsic(
 <br>
 
 - `Intrinsic` 파라미터를 구하기 위한 체커보드 패턴의 이미지셋과 `Extrinsic` 파라미터를 구하기 위한 데이터 셋은 다음 링크에서 확인할 수 있습니다.
-    - 데이터셋 링크 : https://drive.google.com/file/d/17uYKKyF4rfY98FXlj34-pFIeS7QoEjSv/view?usp=sharing
+    - 데이터셋 링크 : https://drive.google.com/file/d/1ri4Go75UWQ3JHmRZwWVW35ms3xYosmgf/view?usp=sharing
 - 위 데이터셋의 파일명은 `ELP-USB16MP01-BL180-2048x1536.zip`이고 `ELP-USB16MP01-BL180`은 카메라 모델명이고 `2048 x 1536`은 영상의 해상도를 의미합니다.
 - 파일의 압축을 풀면 `Intrinsic`과 `Extrinsic` 폴더가 있으며 폴더 구조는 다음과 같습니다.
 
 <br>
 
 - `Intrinsic`
-    - `000.png`
-    - `001.png`
-    - ...
+    - `ORIGIN`
+        - `000.png`
+        - `001.png`
+        - ...
+    - `REPROJECTION` (**출력물**)
+        - `000_reprojection_error.png`
+        - `001_reprojection_error.png`
+        - ...
+    - `intrinsic.json` (**출력물**)
 - `Extrinsic`
     - `카메라 모델명_EXTRINSIC.png`
     - `카메라 모델명`
         - `points.csv`
         - `points.png`
+- `카메라 모델명_calibration.json` (**출력물**)
 
 <br>
 
-- `Intrinsic` 폴더 내부의 각 파일은 위에서 설명한 체커보드 패턴을 들고 찍은 사진들이며 영상에서 체커보드 패턴이 다양한 위치 또는 다양한 크기로 나타날 수 있도록 다양한 이미지 (약 250여장)를 구성하였습니다. 아래는 대표 사진 예시입니다.
+```python
+# Example of Dataset
+
+base_path
+├─ELP-USB16MP01-BL180-2048x1536_calibration.json
+├─Extrinsic
+│  │  ELP-USB16MP01-BL180-2048x1536_EXTRINSIC.png
+│  │
+│  └─ELP-USB16MP01-BL180-2048x1536
+│          points.csv
+│          points.png
+│
+└─Intrinsic
+    │  intrinsic.json
+    │
+    ├─ORIGIN
+    │      000.png
+    │      001.png
+    │      002.png
+    │      003.png
+    │	   ...
+    │
+    └─REPROJECTION
+            000_0.0678.png
+            001_0.0568.png
+            002_0.0576.png
+            003_0.0553.png
+            ...
+```
+
+<br>
+
+- `Intrinsic` 폴더 내부의 `ORIGIN` 폴더의 각 파일은 위에서 설명한 체커보드 패턴을 들고 찍은 사진들이며 영상에서 체커보드 패턴이 다양한 위치 또는 다양한 크기로 나타날 수 있도록 다양한 이미지 (약 250여장)를 구성하였습니다. 아래는 대표 사진 예시입니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/44.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- `Extrinsic`의 `points.csv`는 카메라를 아래와 같이 설치해 놓고 원점 (0, 0, 0)을 정한 뒤 `World 좌표계`로 정하고 이미지 좌표계의 `(u, v)` 좌표와 그 좌표에 해당하는 `World 좌표계`의 `(X, Y, Z)` 좌표를 대응시켜 놓은 파일입니다. 이 때, `(u, v)` 좌표와 `(X, Y, Z)`를 대응시키기 위하여 체크보드 패턴을 사용하였으며 원본 이미지 파일 `카메라 모델명_EXTRINSIC.png`을 통하여 `points.csv`를 구하고 이 결과를 다시 검증한 것이 `points.png`가 됩니다.
+- `Intrinsic` 폴더 내부의 `REPROJECTION` 폴더의 각 파일은 `ORIGIN` 폴더의 각 이미지를 캘리브레이션하여 `R(Rotation)`, `t(Translation)`, `K(Intrinsic)`, `D(Distortion)`을 구한 뒤 패턴의 좌표를 `Reprojection`한 결과를 저장하였습니다. 아래는 대표 사진 예시입니다. 저장된 파일명의 접미사로 각 이미지의 `Reprojection Error`를 같이 기입하였습니다. `Reprojection Error`가 클수록 캘리브레이션 결과에 이상이 있음을 나타냅니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/50.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `Extrinsic`의 `points.csv`는 카메라를 아래와 같이 설치해 놓고 `World 좌표계`의 원점 (0, 0, 0)을 정한 뒤 ① 이미지 좌표계의 `(u, v)` 좌표와 그 좌표에 해당하는 ② `World 좌표계`의 `(X, Y, Z)` 좌표를 대응시켜 놓은 파일입니다. 이 때, `(u, v)` 좌표와 `(X, Y, Z)`를 대응시키기 위하여 체크보드 패턴을 사용하였으며 원본 이미지 파일 `카메라 모델명_EXTRINSIC.png`을 통하여 `points.csv`를 구하고 이 결과를 다시 검증한 것이 `points.png`가 됩니다.
 - `World 좌표계`를 설정한 방식은 다음과 같습니다.
 
 <br>
@@ -1233,6 +1278,8 @@ def get_cropped_and_resized_intrinsic(
 - `카메라 모델명_EXTRINSIC.png` 이미지를 이용하여 `points.csv`와 `points.png`를 추출하는 코드는 아래 코드를 이용하였습니다. 아래 코드를 이용하면 체크보드가 있는 이미지에서 `(u, v)` 좌표를 쉽게 추출할 수 있습니다. 물론 각 `(u, v)` 좌표에 해당하는 `(X, Y, Z)` 좌표는 사전에 알고 있어야 합니다. 데이터셋의 `(u, v)`는 아래 코드를 이용하여 구하였고 `(X, Y, Z)` 좌표는 사전에 그 위치에 해당하는 체크보드 패턴의 크기를 이용하여 구해 놓았습니다.
     - 코드: https://github.com/gaussian37/generic_camera_calibration/blob/main/manual_checkboard_points_extractor.py
     - 코드 설명: https://gaussian37.github.io/vision-opencv-manual_checkboard_points_extractor/
+
+<br>
 
 - `카메라 모델명_EXTRINSIC.png`과 위 코드를 통해 구한 `points.csv`의 파일 형식과 `points.png`의 결과물은 다음과 같습니다.
 
@@ -1258,15 +1305,17 @@ def get_cropped_and_resized_intrinsic(
 <center><img src="../assets/img/vision/concept/calibration/47.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 조금 더 확대해 보면 아래 노란색 점이 `(X, Y, Z) = (0, 0, 0.04)`인 원점이 됩니다.
+- 조금 더 확대해 보면 아래 노란색 점의 좌표는 `(X, Y, Z) = (0, 0, 0.04)`이 됩니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/48.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-
+- 마지막으로 `Intrinsic`과 `Extrinsic`의 모든 캘리브레이션 작업을 마치면 최종 `카메라 모델명_calibration.json` 파일이 생성됩니다.
 
 <br>
+
+
 
 #### **OpenCV를 이용한 Zhang's Method 실습**
 
