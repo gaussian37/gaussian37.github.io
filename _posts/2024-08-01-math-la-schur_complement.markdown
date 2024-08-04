@@ -20,6 +20,7 @@ tags: [Schur Complement, 슈어 보상행렬] # add tag
 <br>
 
 - 이번 글에서는 행렬 연산의 효율성을 향상시키는 방법인 `Schur Complement (슈어 보상행렬)`에 대하여 알아보도록 하겠습니다.
+- `Schur Complement (슈어 보상행렬)`은 행렬 $$ A $$ 가 4개의 블록 행렬의 $$ 2 \times 2 $$ 형태 조합으로 구성되었을 때, 행렬 $$ A $$ 의 역행렬을 분할된 블록 행렬들을 이용하여 구할 때 사용됩니다. 분할된 행렬을 이용하므로 **효율적인 연산**에 장점이 있습니다. 추가적으로 이 행렬이 `Positive Definite Matrix` 또는 `Positive Semi-Definite Matrix` 일 때, 가지는 성질들을 이용하는 방법까지 다루어 보도록 하겠습니다.
 
 <br>
 
