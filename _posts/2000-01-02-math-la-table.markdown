@@ -46,6 +46,7 @@ tags: [Linear algebra, 선형 대수학] # add tag
 - [Similar Matrix (닮은 행렬)](https://gaussian37.github.io/math-la-similar_matrix/)
 - [Skew Symmetric Matrix](https://gaussian37.github.io/math-la-skew_symmetric_matrix/)
 - [Comapanion Matrix](https://gaussian37.github.io/math-la-companion_matrix/)
+- [Schur Complement (슈어 보상행렬)](https://gaussian37.github.io/math-la-schur_complement/)
 
 <br>
 
