@@ -96,7 +96,7 @@ tags: [Schur Complement, 슈어 보상행렬] # add tag
 
 <br>
 
-- $$ \begin{cases} x = (A - BD^{-1}C)^{-1}\color{red}{c} - (A - BD^{-1}C)^{-1}BD^{-1}\color{blue}{d} \\ y =  -D^{-1}C(A - BD^{-1}C)^{-1}\color{red}{c} + (D^{-1} + D^{-1}C(A - BD^{-1}C)^{-1}BD^{-1})\color{blue}{d} \tag{8} $$
+- $$ \begin{cases} x = (A - BD^{-1}C)^{-1}\color{red}{c} - (A - BD^{-1}C)^{-1}BD^{-1}\color{blue}{d} \\ y =  -D^{-1}C(A - BD^{-1}C)^{-1}\color{red}{c} + (D^{-1} + D^{-1}C(A - BD^{-1}C)^{-1}BD^{-1})\color{blue}{d} \end{cases} \tag{8} $$
 
 <br>
 
