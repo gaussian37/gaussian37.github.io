@@ -233,7 +233,20 @@ tags: [Schur Complement, 슈어 보상행렬] # add tag
 
 <br>
 
-- 
+- 행렬 $$ M $$ 이 대칭 행렬 (`Symmetric`)이라면 $$ A, D $$ 블록 행렬 각각이 대칭 행렬이고 $$ C =  B^{T} $$ 가 성립하니다. 따라서 $$ M $$ 을 다음과 같이 표현할 수 있습니다.
+
+<br>
+
+- $$ \begin{align} M &= \begin{bmatrix} A & B \\ C & D \end{bmatrix} = \begin{bmatrix} A & B \\ B^{T} & D \\ \end{bmatrix} \\&= \begin{bmatrix} I & BD^{-1} \\ 0 & I \end{bmatrix} \begin{bmatrix} A - BD^{-1}B^{T} & 0 \\ 0 & D \end{bmatrix} \begin{bmatrix} I & BD^{-1} \\ 0 & I \end{bmatrix} \end{align} \tag{28} $$
+
+<br>
+
+- 식 (28) 에서 행렬 $$ M $$ 은 `block-diagonal matrix`가 됩니다. $$ A - BD^{-1}B^{T} $$ 가 `Schur Complement`이고 대칭 행렬의 성질을 가집니다.
+- 추가적으로 행렬 $$ M $$ 이 `Positive Definite Matrix`의 성질을 가지기 위한 몇가지 조건들에 대하여 알아보도록 하겠습니다.
+
+<br>
+
+- 작성중...
 
 <br>
 
