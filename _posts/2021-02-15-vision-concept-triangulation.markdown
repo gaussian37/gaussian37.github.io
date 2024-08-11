@@ -46,11 +46,11 @@ tags: [triangluation, stereo, multiple view] # add tag
 
 <br>
 
-- $$ \text{Given a set of (noisy) matched points: } x, x' \tag{1} $$
+- $$ \text{Given a set of (noisy) matched points: } x = (u, v), x' = (u', v') \tag{1} $$
 
 - $$ \text{Camera projection matrices: } P, P' \tag{2} $$
 
-- $$ \text{Estimated 3D points: } \mathbf{X}^{T} = \begin{bmatrix} X & Y & Z \end{bmatrix} \tag{3} $
+- $$ \text{Estimated 3D points: } \mathbf{X}^{T} = \begin{bmatrix} X & Y & Z \end{bmatrix} \tag{3} $$
 
 <br>
 
@@ -91,25 +91,23 @@ tags: [triangluation, stereo, multiple view] # add tag
 
 <br>
 
-- 식을 구하기 위하여 **2개의 `Ray` $$ x $$ 와 $$ \alpha P\mathbf{X} $$ 가 서로 평행하다는 조건을 이용**하도록 하겠습니다. 2개의 `Ray`가 평행하다면 `cross product`가 0이 되기 때문에 이 값을 이용하면 식을 구할 수 있습니다.
+- 식을 구하기 위하여 **2개의 `Ray` $$ \alpha x $$ 와 $$ P\mathbf{X} $$ 가 서로 평행하다는 조건을 이용**하도록 하겠습니다. 2개의 `Ray`가 평행하다면 `cross product`가 0이 되기 때문에 이 값을 이용하면 식을 구할 수 있습니다.
 
 <br>
 
-- 먼저 아래와 같이 $$ x = \alpha P \mathbf{X} $$ 를 전개해 보도록 하겠습니다.
+- 먼저 아래와 같이 $$ \alpha x =  P \mathbf{X} $$ 를 전개해 보도록 하겠습니다.
 
 <br>
 
-- $$ x = P\mathbf{X} \quad \text{(homogeneous coordinate)} $$
+- $$ x = P\mathbf{X} \tag{6} $$
 
-- $$ \Rightarrow x = \alpha P\mathbf{X} \quad \text{(inhomogeneous coordinate)} \tag{6} $$
-
-- $$ \Rightarrow \begin{align} \begin{bmatrix} x \\ y \\ z \end{bmatrix} &= \alpha \begin{bmatrix} p_{11} & p_{12} & p_{13} & p_{14} \\ p_{21} & p_{22} & p_{23} & p_{24} \\ p_{31} & p_{32} & p_{33} & p_{34} \end{bmatrix} \begin{bmatrix} X \\ Y \\ Z \\ 1 \end{bmatrix} \\ &= \alpha \begin{bmatrix} P_{1}^{T} \\ P_{2}^{T} \\ P_{3}^{T}\end{bmatrix} \begin{bmatrix} X \\ Y \\ Z \\ 1 \end{bmatrix} \end{align} \tag{7} $$
+- $$ \Rightarrow \begin{align} \alpha \begin{bmatrix} u \\ v \\ 1 \end{bmatrix} &= \begin{bmatrix} p_{11} & p_{12} & p_{13} & p_{14} \\ p_{21} & p_{22} & p_{23} & p_{24} \\ p_{31} & p_{32} & p_{33} & p_{34} \end{bmatrix} \begin{bmatrix} X \\ Y \\ Z \\ 1 \end{bmatrix} \\ &= \begin{bmatrix} P_{1}^{T} \\ P_{2}^{T} \\ P_{3}^{T}\end{bmatrix} \begin{bmatrix} X \\ Y \\ Z \\ 1 \end{bmatrix} \end{align} \tag{7} $$
 
 - $$ \begin{cases} P_{1}^{T} = \begin{bmatrix} p_{11} & p_{12} & p_{13} & p_{14} \\ \end{bmatrix} \\ P_{2}^{T} = \begin{bmatrix} p_{21} & p_{22} & p_{23} & p_{24} \\ \end{bmatrix} \\ P_{3}^{T} = \begin{bmatrix} p_{31} & p_{32} & p_{33} & p_{34} \\ \end{bmatrix}\end{cases} \tag{8}  $$
 
 <br>
 
-- 2개의 `Ray` $$ x $$ 와 $$ \alpha P\mathbf{X} $$ 가 평행하기 때문에 다음 식을 만족합니다. `scale factor` $$ \alpha $$ 는 아래 식에 영향이 없으므로 제거 하였습니다.
+- 2개의 `Ray` $$ \alpha x $$ 와 $$ P\mathbf{X} $$ 가 평행하기 때문에 다음 식을 만족합니다. `scale factor` $$ \alpha $$ 는 아래 식에 영향이 없으므로 제거 할 수 있습니다.
 
 <br>
 
@@ -125,7 +123,7 @@ tags: [triangluation, stereo, multiple view] # add tag
 
 - $$ a \times b = \begin{bmatrix} a_{2}b_{3} - a_{3}b_{2} \\ a_{3}b_{1} - a_{1}b_{3} \\ a_{1}b_{2} - a_{2}b_{1} \end{bmatrix} \tag{12} $$
 
-- $$ \text{Cross product of two vectors in the same direction is zero: } a \times a = 0 \tag{13} $$
+- $$ \text{Cross product of two vectors in the same direction is zero: } a \times a = 0 $$
 
 <br>
 
@@ -133,17 +131,17 @@ tags: [triangluation, stereo, multiple view] # add tag
 
 <br>
 
-- $$ \begin{bmatrix} x \\ y \\ z \end{bmatrix} = \alpha \begin{bmatrix} P_{1}^{T} \\ P_{2}^{T} \\ P_{3}^{T}\end{bmatrix} \begin{bmatrix} X \\ Y \\ Z \\ 1 \end{bmatrix} = \alpha \begin{bmatrix} P_{1}^{T}\mathbf{X} \\ P_{2}^{T}\mathbf{X} \\ P_{3}^{T}\mathbf{X} \end{bmatrix} \tag{13} $$
+- $$ \alpha \begin{bmatrix} u \\ v \\ 1 \end{bmatrix} = \begin{bmatrix} P_{1}^{T} \\ P_{2}^{T} \\ P_{3}^{T}\end{bmatrix} \begin{bmatrix} X \\ Y \\ Z \\ 1 \end{bmatrix} = \begin{bmatrix} P_{1}^{T}\mathbf{X} \\ P_{2}^{T}\mathbf{X} \\ P_{3}^{T}\mathbf{X} \end{bmatrix} \tag{13} $$
 
-- $$ \begin{bmatrix} x \\ y \\ z \end{bmatrix} = \alpha \begin{bmatrix} P_{1}^{T}\mathbf{X} \\ P_{2}^{T}\mathbf{X} \\ P_{3}^{T}\mathbf{X} \end{bmatrix} \tag{14} $$
-
-<br>
-
-- 식 (14)에서 좌변의 $$ z $$ 는 `scale`에 해당하므로 `cross proudct` 식을 적용할 때, `normalized scale`인 $$ z = 1 $$ 로 두고 $$ \alpha $$ 는 소거해도 `cross product` 식 전개에는 영향이 없습니다. 따라서 다음과 같이 식을 전개할 수 있습니다.
+- $$ \alpha \begin{bmatrix} u \\ v \\ 1 \end{bmatrix} = \begin{bmatrix} P_{1}^{T}\mathbf{X} \\ P_{2}^{T}\mathbf{X} \\ P_{3}^{T}\mathbf{X} \end{bmatrix} \tag{14} $$
 
 <br>
 
-- $$ \begin{bmatrix} x \\ y \\ 1 \end{bmatrix} = \begin{bmatrix} P_{1}^{T}\mathbf{X} \\ P_{2}^{T}\mathbf{X} \\ P_{3}^{T}\mathbf{X} \end{bmatrix} = \begin{bmatrix} y P_{3}^{T}\mathbf{X} - P_{2}^{T}\mathbf{X} \\ P_{1}^{T}\mathbf{X} - x P_{3}^{T}\mathbf{X} \\ xP_{2}^{T}\mathbf{X} - yP_{1}^{T}\mathbf{X}\end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} \tag{15} $$
+- 앞에서 설명한 바와 같이 $$ \alpha $$ 를 제거하겠습니다. 식 (14)에서 좌변의 $$ \alpha $$ 는 `scale`에 해당하므로 `cross proudct` 식을 적용할 때, `normalized scale`인 1 로 두어도 `cross product` 식 전개에는 영향이 없습니다. 따라서 다음과 같이 식을 전개할 수 있습니다.
+
+<br>
+
+- $$ \begin{bmatrix} u \\ v \\ 1 \end{bmatrix} \times \begin{bmatrix} P_{1}^{T}\mathbf{X} \\ P_{2}^{T}\mathbf{X} \\ P_{3}^{T}\mathbf{X} \end{bmatrix} = \begin{bmatrix} v P_{3}^{T}\mathbf{X} - P_{2}^{T}\mathbf{X} \\ P_{1}^{T}\mathbf{X} - u P_{3}^{T}\mathbf{X} \\ uP_{2}^{T}\mathbf{X} - vP_{1}^{T}\mathbf{X}\end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} \tag{15} $$
 
 <br>
 
@@ -151,9 +149,9 @@ tags: [triangluation, stereo, multiple view] # add tag
 
 <br>
 
-- $$ \begin{bmatrix} y P_{3}^{T}\mathbf{X} - P_{2}^{T}\mathbf{X} \\ P_{1}^{T}\mathbf{X} - x P_{3}^{T}\mathbf{X} \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \tag{16} $$
+- $$ \begin{bmatrix} v P_{3}^{T}\mathbf{X} - P_{2}^{T}\mathbf{X} \\ P_{1}^{T}\mathbf{X} - u P_{3}^{T}\mathbf{X} \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \tag{16} $$
 
-- $$ \begin{bmatrix} y P_{3}^{T} - P_{2}^{T} \\ P_{1}^{T} - x P_{3}^{T} \end{bmatrix} \mathbf{X} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \tag{17} $$
+- $$ \begin{bmatrix} v P_{3}^{T} - P_{2}^{T} \\ P_{1}^{T} - u P_{3}^{T} \end{bmatrix} \mathbf{X} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \tag{17} $$
 
 <br>
 
@@ -161,7 +159,7 @@ tags: [triangluation, stereo, multiple view] # add tag
 
 <br>
 
-- $$ \begin{bmatrix} y P_{3}^{T} - P_{2}^{T} \\ P_{1}^{T} - x P_{3}^{T} \\ y' P_{3}^{'T} - P_{2}^{'T} \\ P_{1}^{'T} - x' P_{3}^{'T}\end{bmatrix} \mathbf{X} = \begin{bmatrix} 0 \\ 0 \\0 \\ 0 \end{bmatrix} \tag{18} $$
+- $$ \begin{bmatrix} v P_{3}^{T} - P_{2}^{T} \\ P_{1}^{T} - u P_{3}^{T} \\ v' P_{3}^{'T} - P_{2}^{'T} \\ P_{1}^{'T} - u' P_{3}^{'T}\end{bmatrix} \mathbf{X} = \begin{bmatrix} 0 \\ 0 \\0 \\ 0 \end{bmatrix} \tag{18} $$
 
 <br>
 
@@ -182,3 +180,72 @@ tags: [triangluation, stereo, multiple view] # add tag
 
 <br>
 
+- 아래 예제에서는 앞에서 배운 내용을 바탕으로 `Triangulation`을 적용하는 코드를 다루었습니다. `Triangulated 3D point`와 `X_true`의 값이 동일한 것을 통해 개념에서 배운 내용이 유효한 것을 확인할 수 있습니다.
+
+<br>
+
+```python
+import numpy as np
+
+def triangulate_point(x, P, x_prime, P_prime):
+    u, v, _ = x
+    u_prime, v_prime, _ = x_prime
+    P_1 = P[0, :]
+    P_2 = P[1, :]
+    P_3 = P[2, :]
+
+    P_prime_1 = P_prime[0, :]
+    P_prime_2 = P_prime[1, :]
+    P_prime_3 = P_prime[2, :]
+
+    A = np.array([
+        v * P_3 - P_2,
+        P_1 - u * P_3,
+        v_prime * P_prime_3 - P_prime_2,
+        P_prime_1 - u_prime * P_prime_3
+    ])
+
+    # Perform SVD on matrix A
+    _, _, Vt = np.linalg.svd(A)
+    X = Vt[-1]
+
+    # Convert from homogeneous to inhomogeneous coordinates
+    X = X / X[-1]
+    return X
+
+# Define the true 3D point in homogeneous coordinates
+X_true = np.array([45, -35, 150, 1])
+
+# Define the camera matrices
+P1 = np.array([[700, 120, 320, 80],
+               [60, 650, 230, -50],
+               [0.5, 0.3, 1, 0.1]])
+
+P2 = np.array([[650, -100, 310, -140],
+               [-80, 700, 240, 90],
+               [0.4, -0.2, 1, 0.2]])
+
+# Project the 3D point onto the image planes to get x and x'
+x = P1 @ X_true
+x = x / x[-1]  # Normalize to get inhomogeneous coordinates
+
+x_prime = P2 @ X_true
+x_prime = x_prime / x_prime[-1]  # Normalize to get inhomogeneous coordinates
+
+print("Original x:", x)
+print("Original x_prime:", x_prime)
+
+# Triangulate the 3D point using the projections
+X_triangulated = triangulate_point(x, P1, x_prime, P2)
+print("Triangulated 3D point:", X_triangulated)
+
+# Reproject the 3D point back to 2D to check
+x_reprojected = P1 @ X_triangulated
+x_reprojected = x_reprojected / x_reprojected[-1]
+
+x_prime_reprojected = P2 @ X_triangulated
+x_prime_reprojected = x_prime_reprojected / x_prime_reprojected[-1]
+
+print("Reprojected x:", x_reprojected)
+print("Reprojected x_prime:", x_prime_reprojected)
+```
