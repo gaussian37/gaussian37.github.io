@@ -232,12 +232,10 @@ x = x / x[-1]  # Normalize to get inhomogeneous coordinates
 x_prime = P2 @ X_true
 x_prime = x_prime / x_prime[-1]  # Normalize to get inhomogeneous coordinates
 
-print("Original x:", x)
-print("Original x_prime:", x_prime)
-
 # Triangulate the 3D point using the projections
 X_triangulated = triangulate_point(x, P1, x_prime, P2)
-print("Triangulated 3D point:", X_triangulated)
+print(f"Triangulated 3D point: {X_triangulated} Vs. X true: {X_true}.")
+# Triangulated 3D point: [ 45. -35. 150.   1.] Vs. X true: [ 45 -35 150   1].
 
 # Reproject the 3D point back to 2D to check
 x_reprojected = P1 @ X_triangulated
@@ -246,6 +244,10 @@ x_reprojected = x_reprojected / x_reprojected[-1]
 x_prime_reprojected = P2 @ X_triangulated
 x_prime_reprojected = x_prime_reprojected / x_prime_reprojected[-1]
 
-print("Reprojected x:", x_reprojected)
-print("Reprojected x_prime:", x_prime_reprojected)
+print(f"Original x: {x} Vs. Reprojected x: {x_reprojected}.")
+print(f"Original x_prime: {x_prime} Vs. Reprojected x_prime: {x_prime_reprojected}.")
+# Original x: [465.02159161  88.83405305   1.        ] Vs. Reprojected x: [465.02159161  88.83405305   1.        ].
+# Original x_prime: [451.54109589  45.60502283   1.        ] Vs. Reprojected x_prime: [451.54109589  45.60502283   1.        ].
 ```
+
+<br>

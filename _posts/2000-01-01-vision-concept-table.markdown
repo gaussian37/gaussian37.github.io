@@ -27,6 +27,7 @@ tags: [vision] # add tag
 - [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)
 - [Fourier transform (푸리에 변환)](https://gaussian37.github.io/vision-concept-fourier_transform/)
 - [Direct Linear Transformation](https://gaussian37.github.io/vision-concept-direct_linear_transformation/)
+- [Triangulation](https://gaussian37.github.io/vision-concept-triangulation/)
 - [VOT(Visual Object Tracking)와 MOT(Multiple Object Tracking)](https://gaussian37.github.io/vision-concept-vot_mot/)
 - [옵티컬 플로우 (Optical Flow) 알아보기 (Luckas-Kanade w/ Pyramid, Horn-Schunck, FlowNet 등)](https://gaussian37.github.io/vision-concept-optical_flow/)
 - [SSIM (Structural Similarity Index)](https://gaussian37.github.io/vision-concept-ssim/)
