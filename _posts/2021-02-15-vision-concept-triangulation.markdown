@@ -50,7 +50,7 @@ tags: [triangluation, stereo, multiple view] # add tag
 
 - $$ \text{Camera projection matrices: } P, P' \tag{2} $$
 
-- $$ \text{Estimated 3D points: } \mathbf{X} = \{X, Y, Z \} \tag{3} $
+- $$ \text{Estimated 3D points: } \mathbf{X}^{T} = \begin{bmatrix} X & Y & Z \end{bmatrix} \tag{3} $
 
 <br>
 
