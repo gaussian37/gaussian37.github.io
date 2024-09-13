@@ -472,9 +472,9 @@ def euler_to_rotation_matrix(roll, pitch, yaw):
 
 <br>
 
-- $$ \psi = \text{atan2}(\frac{0}{0}, frac{0}{0}) $$
+- $$ \psi = \text{atan2}(\frac{0}{0}, \frac{0}{0}) $$
 
-- $$ \phi = \text{atan2}(\frac{0}{0}, frac{0}{0}) $$
+- $$ \phi = \text{atan2}(\frac{0}{0}, \frac{0}{0}) $$
 
 <br>
 
