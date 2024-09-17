@@ -1353,7 +1353,7 @@ base_path
 import numpy as np
 import json
 
-calib = json.load(open("codes/ELP-USB16MP01-BL180-2048x1536/ELP-USB16MP01-BL180-2048x1536_calibration.json", "r"))
+calib = json.load(open("path/to/the/../ELP-USB16MP01-BL180-2048x1536_calibration.json", "r"))
 R = np.array(calib["ELP-USB16MP01-BL180-2048x1536"]["Extrinsic"]["World"]["Camera"]["R"]).reshape(3, 3)
 t = np.array(calib["ELP-USB16MP01-BL180-2048x1536"]["Extrinsic"]["World"]["Camera"]["t"]).reshape(3, 1)
 
