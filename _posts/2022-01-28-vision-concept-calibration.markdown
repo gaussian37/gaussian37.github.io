@@ -1345,7 +1345,7 @@ base_path
 
 <br>
 
-- 결과 확인을 위하여 [캘리브레이션 결과 파일](https://drive.google.com/file/d/1ri4Go75UWQ3JHmRZwWVW35ms3xYosmgf/view?usp=sharing)을 이용하겠습니다.
+- 결과 확인을 위하여 [캘리브레이션 결과 파일](https://drive.google.com/file/d/1CoQttN7RR683ff_-tIT3uLHoR_u2uFWv/view?usp=sharing)을 이용하겠습니다.
 
 <br>
 
