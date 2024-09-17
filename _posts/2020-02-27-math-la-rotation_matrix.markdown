@@ -213,14 +213,14 @@ tags: [선형대수학, 회전 변환, rotation, rotation matrix] # add tag
 <center><img src="../assets/img/math/la/rotation_matrix/2.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 일반적으로 `roll`은 x축을 기준으로 회전한 양을 뜻하고 `pitch`는 y축을 기준으로 회전한 양 그리고 `yaw`는 z축을 기준으로 회전한 양을 뜻합니다. 위 그림처럼 생각하시면 됩니다.
+- 위 회전축 기준으로 `roll`은 x축을 기준으로 회전한 양을 뜻하고 `pitch`는 y축을 기준으로 회전한 양 그리고 `yaw`는 z축을 기준으로 회전한 양을 뜻합니다. 위 그림처럼 생각하시면 됩니다.
     - 예를 들어 자동차가 좌회전 또는 우회전을 한다면 z축을 기준으로 회전을 하는 것이므로 `yaw`의 변화가 있게 됩니다.
 - 그러면 $$ R_{x}(\theta) $$, $$ R_{y}(\theta) $$ 그리고 $$ R_{z}(\theta) $$ 각각 x축, y축, z축을 기준으로 회전하는 회전 변환 행렬이 됩니다.
-- x축을 기준으로 회전한 `roll angle`을 $$ \gamma $$, y축을 기준으로 회전한 `pitch angle`을 $$ \beta $$ 마지막으로 z축을 기준으로 회전한 `yaw angle`을 $$ \alpha $$로 두겠습니다.
+- x축을 기준으로 회전한 `roll angle`을 $$ \alpha $$, y축을 기준으로 회전한 `pitch angle`을 $$ \beta $$ 마지막으로 z축을 기준으로 회전한 `yaw angle`을 $$ \gamma $$로 두겠습니다.
 
 <br>
 
-- $$ R = R_{z}(\alpha)R_{y}(\beta)R_{x}(\gamma) = \begin{bmatrix} \text{cos}\alpha & -\text{sin}\alpha & 0 \\ \text{sin}\alpha & \text{cos}\alpha & 0 \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} \text{cos}\beta & 0 & \text{sin}\beta \\ 0 & 1 & 0 \\  -\text{sin}\beta & 0 & \text{cos}\beta \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\ 0 & \text{cos}\gamma & -\text{sin}\gamma \\ 0 & \text{sin}\gamma & \text{cos}\gamma \end{bmatrix} $$
+- $$ R = R_{z}(\gamma)R_{y}(\beta)R_{x}(\alpha) = \begin{bmatrix} \text{cos}\gamma & -\text{sin}\gamma & 0 \\ \text{sin}\gamma & \text{cos}\gamma & 0 \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} \text{cos}\beta & 0 & \text{sin}\beta \\ 0 & 1 & 0 \\  -\text{sin}\beta & 0 & \text{cos}\beta \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\ 0 & \text{cos}\alpha & -\text{sin}\alpha \\ 0 & \text{sin}\alpha & \text{cos}\alpha \end{bmatrix} $$
 
 <br>
 
@@ -229,7 +229,7 @@ tags: [선형대수학, 회전 변환, rotation, rotation matrix] # add tag
 
 <br>
 
-- $$ R = \begin{bmatrix} \text{cos}\alpha \ \text{cos}\beta & \text{cos}\alpha \ \text{sin}\beta \ \text{sin}\gamma - \text{sin}\alpha \ \text{cos}\gamma & \text{cos}\alpha \ \text{sin}\beta \ \text{cos}\gamma + \text{sin}\alpha \ \text{sin}\gamma \\ \text{sin}\alpha \ \text{cos}\beta & \text{sin}\alpha \ \text{sin}\beta \ \text{sin}\gamma + \text{cos}\alpha \ \text{cos}\gamma & \text{sin}\alpha \ \text{sin}\beta \ \text{cos}\gamma - \text{cos}\alpha \ \text{sin}\gamma \\ -\text{sin}\beta & \text{cos}\beta \ \text{sin} \gamma & \text{cos}\beta \ \text{cos} \gamma \\ \end{bmatrix} $$
+- $$ R = \begin{bmatrix} \text{cos}\gamma \ \text{cos}\beta & \text{cos}\gamma \ \text{sin}\beta \ \text{sin}\alpha - \text{sin}\gamma \ \text{cos}\alpha & \text{cos}\gamma \ \text{sin}\beta \ \text{cos}\alpha + \text{sin}\gamma \ \text{sin}\alpha \\ \text{sin}\gamma \ \text{cos}\beta & \text{sin}\gamma \ \text{sin}\beta \ \text{sin}\alpha + \text{cos}\gamma \ \text{cos}\alpha & \text{sin}\gamma \ \text{sin}\beta \ \text{cos}\alpha - \text{cos}\gamma \ \text{sin}\alpha \\ -\text{sin}\beta & \text{cos}\beta \ \text{sin} \alpha & \text{cos}\beta \ \text{cos} \alpha \\ \end{bmatrix} $$
 
 <br>
 
@@ -344,7 +344,7 @@ def euler_to_rotation_matrix(roll, pitch, yaw):
 
 <br>
 
-- 앞에서 다룬 바와 같이 `Rotation` 행렬은 다음과 같이 `Roll`, `Pitch`, `Yaw`를 이용하여 표현할 수 있었습니다. 회전 순서는 $$ Rx $$ 로 곱해지기 때문에 `Roll`, `Pitch`, `Yaw` 순서로 회전 됩니다.
+- 앞에서 다룬 바와 같이 `Rotation` 행렬은 다음과 같이 `Roll`, `Pitch`, `Yaw`를 이용하여 표현할 수 있었습니다. 회전 순서는 $$ R_{x}, R_{y}, R_{z} $$ 순서로 곱해지기 때문에 `Roll`, `Pitch`, `Yaw` 순서로 회전 됩니다.
 
 - $$ \begin{align} R &= R_{z}(\phi)R_{y}(\theta)R_{x}(\psi) \\ &= \begin{bmatrix} \cos{\theta}\cos{\phi} & \sin{\psi}\sin{\theta}\cos{\phi}-\cos{\psi}\sin{\phi} & \cos{\psi}\sin{\theta}\cos{\phi} + \sin{\psi}\sin{\phi} \\ \cos{\theta}\sin{\phi} & \sin{\psi}\sin{\theta}\sin{\phi} + \cos{\psi}\cos{\phi} & \cos{\psi}\sin{\theta}\sin{\phi}-\sin{\psi}\cos{\phi} \\ -\sin{\theta} & \sin{\psi}\cos{\theta} & \cos{\psi}\cos{\theta} \end{bmatrix} \\ &= \begin{bmatrix} R_{11} & R_{12} & R_{13} \\ R_{21} & R_{22} & R_{23} \\ R_{31} & R_{32} & R_{33}\end{bmatrix} \end{align} $$
 
