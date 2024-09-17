@@ -46,6 +46,7 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 - ### [Transformation 관점의 Camera Extrinsic과 Intrinsic](#transformation-관점의-camera-extrinsic과-intrinsic-1)
 - ### [이미지 crop과 resize에 따른 intrinsic 수정 방법](#이미지-crop과-resize에-따른-intrinsic-수정-방법-1)
 - ### [OpenCV의 Zhang's Method를 이용한 카메라 캘리브레이션 실습](#opencv의-zhangs-method를-이용한-카메라-캘리브레이션-실습-1)
+- ### [Rotation, Translation을 이용한 카메라 위치 확인](#rotation-translation을-이용한-카메라-위치-확인-1)
 
 <br>
 
@@ -1176,6 +1177,7 @@ def get_cropped_and_resized_intrinsic(
 - 이번에는 앞에서 다룬 `Intrinsic`, `Extrinsic` 파라미터를 직접 구하는 방법을 다루어 보도록 하겠습니다.
 - 카메라 캘리브레이션을 하기 위해서는 일반적으로 `Zhang's Method`라고 불리는 카메라 캘리브레이션 방법을 사용합니다. 논문의 제목은 `A Flexible New Technique for Camera Calibration`이며 아래 링크에서 상세 내용 및 구현 방법을 확인할 수 있습니다.
     - 링크: [A Flexible New Technique for Camera Calibration (Zhang’s Method)](https://gaussian37.github.io/vision-concept-zhangs_method/)
+- 사용한 카메라 모델은 [Generic Camera Model](https://gaussian37.github.io/vision-concept-generic_camera_model/)입니다.
 - 본 글에서는 실습 데이터와 `Zhang's Method`를 구현한 `OpenCV` 함수들을 이용하여 카메라 캘리브레이션을 하는 방법에 대하여 살펴보겠습니다. 카메라 캘리브레이션 관련 코드는 아래 링크를 통해 참조할 수 있습니다.
     - 링크: https://github.com/gaussian37/generic_camera_calibration
 
@@ -1198,6 +1200,7 @@ def get_cropped_and_resized_intrinsic(
 
 - `Intrinsic` 파라미터를 구하기 위한 체커보드 패턴의 이미지셋과 `Extrinsic` 파라미터를 구하기 위한 데이터 셋은 다음 링크에서 확인할 수 있습니다.
     - 데이터셋 링크 : https://drive.google.com/file/d/1ri4Go75UWQ3JHmRZwWVW35ms3xYosmgf/view?usp=sharing
+    - 캘리브레이션 결과 파일 : https://drive.google.com/file/d/1ri4Go75UWQ3JHmRZwWVW35ms3xYosmgf/view?usp=sharing
 - 위 데이터셋의 파일명은 `ELP-USB16MP01-BL180-2048x1536.zip`이고 `ELP-USB16MP01-BL180`은 카메라 모델명이고 `2048 x 1536`은 영상의 해상도를 의미합니다.
 - 파일의 압축을 풀면 `Intrinsic`과 `Extrinsic` 폴더가 있으며 폴더 구조는 다음과 같습니다.
 
@@ -1325,18 +1328,47 @@ base_path
 
 <br>
 
-#### **OpenCV를 이용한 Zhang's Method 실습**
+## **Rotation, Translation을 이용한 카메라 위치 확인**
 
 <br>
 
-- `OpenCV`를 이용하여 `Fisheye Camera`의 카메라 캘리브레이션을 진행해 보도록 하겠습니다. 카메라 모델은 [Generic Camera Model](https://gaussian37.github.io/vision-concept-generic_camera_model/)을 사용합니다.
+- 앞에서 구한 카메라 캘리브레이션 결과 값을 이용하면 `World` 좌표 기준으로 카메라의 위치를 추정할 수 있습니다. 추정하고자 하는 `World` 좌표에서의 카메라 위치를 $$ \mathbf{X} = [x, y, z]^{T} $$ 라고 가정해 보겠습니다.
+- `Extrinsic` 파라미터를 이용하여 $$ \mathbf{X} $$ 의 위치를 `World` → `Camera`로 변환하면 `Camera` 좌표에서는 원점이 됩니다. $$ \mathbf{X} $$ 가 카메라 위치로 가정하였기 때문입니다. 아래 식과 같습니다. (아래 식의 $$ R, t $$ 는 `Active Transformation`입니다.)
 
 <br>
 
+- $$ R_{\text{world } \to \text{ Camera}} \mathbf{X} + t_{\text{world } \to \text{ Camera}} = 0 $$
 
+- $$ \Rightarrow R_{\text{world } \to \text{ Camera}} \mathbf{X} = -t_{\text{world } \to \text{ Camera}} $$
 
+- $$ \Rightarrow \mathbf{X} = -R_{\text{world } \to \text{ Camera}}^{T}t_{\text{world } \to \text{ Camera}} $$
 
+<br>
 
+- 결과 확인을 위하여 [캘리브레이션 결과 파일](https://drive.google.com/file/d/1ri4Go75UWQ3JHmRZwWVW35ms3xYosmgf/view?usp=sharing)을 이용하겠습니다.
+
+<br>
+
+```python
+import numpy as np
+import json
+
+calib = json.load(open("codes/ELP-USB16MP01-BL180-2048x1536/ELP-USB16MP01-BL180-2048x1536_calibration.json", "r"))
+R = np.array(calib["ELP-USB16MP01-BL180-2048x1536"]["Extrinsic"]["World"]["Camera"]["R"]).reshape(3, 3)
+t = np.array(calib["ELP-USB16MP01-BL180-2048x1536"]["Extrinsic"]["World"]["Camera"]["t"]).reshape(3, 1)
+
+camera_position = -R.T @ t
+print(f"X:{camera_position[0]}, Y: {camera_position[1]}, Z: {camera_position[2]}")
+# X:[-0.23686769], Y: [-0.00676988], Z: [0.52936941]
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/49.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 캘리브레이션 값을 통해 추정한 값과 캘리브레이션 환경에서 실제 측정한 값을 비교해 보도록 하겠습니다.
+- 먼저 $$ X $$ 의 경우 `실측`은 `-0.25m` 인 반면 `추정값`은 약 `-0.236m` 입니다. 약 1.4 cm 정도의 오차를 가지는 것을 알 수 있습니다. 다음으로 $$ Y $$ 의 경우 `실측`과 `추정값` 모두 `0m`에 가까운 값으로 1cm 이하의 오차를 가지는 것을 확인할 수 있습니다. 마지막으로 $$ Z $$ 의 경우 `실측`은 `0.53m`이고 `추정값`은 약 `0.529m`로 1cm 이하의 오차를 가지는 것을 확인할 수 있습니다.
+- 이와 같이 카메라의 위치를 캘리브레이션 결과를 이용하여 역으로 추정해 볼 수 있으며 캘리브레이션 결과가 정확한 지 확인하는 방법으로도 이용해 볼 수 있습니다.
 
 <br>
 
