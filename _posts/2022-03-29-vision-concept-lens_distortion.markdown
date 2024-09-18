@@ -48,6 +48,8 @@ tags: [lens distortion, 카메라 모델, 렌즈 왜곡, Generic Camera Model, B
 - ### [Generic 카메라 모델 remap을 이용한 왜곡 영상 → 왜곡 보정 영상](#generic-카메라-모델-remap을-이용한-왜곡-영상--왜곡-보정-영상-1)
 - ### [Generic 카메라 모델 Pytorch를 이용한 왜곡 영상 → 왜곡 보정 영상](#generic-카메라-모델-pytorch를-이용한-왜곡-영상--왜곡-보정-영상-1)
 - ### [Generic 카메라 모델의 왜곡 보정 시 변환 좌표 구하기](#generic-카메라-모델의-왜곡-보정-시-변환-좌표-구하기-1)
+- ### [World-to-Image 방법](#world-to-image-방법-1)
+- ### [Image-to-World 방법](#image-to-world-방법-1)
 
 <br>
 
@@ -786,14 +788,14 @@ print(x_un * 0.8, y_un* 0.8, 0.8)
 
 <br>
 
-- 정리하면 왜곡 보정을 하였을 때 얻을 수 있는 대표적인 장점은 다음과 같습니다.
+- 정리하면 왜곡 보정을 하였을 때 얻을 수 있는 **대표적인 장점**은 다음과 같습니다.
 - ① 영상을 핀홀 카메라 모델의 `perspective view` 처럼 만들어서 선형 변환의 성질을 이용할 수 있습니다.
 - ② `perspective view` 기반에서는 렌즈 왜곡이 없다고 가정하기 때문에 사용하고자 하는 알고리즘이 간단해 질 수 있습니다. 
 - ③ `perspective view`를 기반으로 개발된 다양한 알고리즘과 최신 연구들을 이용할 수 있습니다.
 
 <br>
 
-- 반면 렌즈 왜곡을 하면 대표적으로 다음 3가지 문제가 발생할 수 있습니다.
+- 반면 렌즈 왜곡을 하면 대표적으로 **다음 3가지 문제가 발생**할 수 있습니다.
 - ① 렌즈 왜곡에 필요한 카메라 `intrinsic`, `distortion coefficient`에 따라 왜곡 보정의 결과가 달라질 수 있습니다. 따라서 카메라 캘리브레이션 결과에 민감합니다.
 - ② 왜곡 보정을 하기 위한 추가적인 연산이 필요합니다. 실시간으로 동작해야 하는 기능에서는 이 부분이 고려되어야 합니다.
 - ③ 영상에서 정보가 손실되는 영역이 발생합니다. 손실 영역이라고 하면 크게 2종류가 발생합니다. 첫번째는 잘려가나가 하는 영역이 발생하는 것이고 두번째는 픽셀 해상도가 줄어드는 점입니다.
@@ -1316,8 +1318,13 @@ undist_img = undist_img_tensor.detach().cpu().numpy().astype(np.uint8)
 
 - 만약 왜곡 영상에서의 임의의 좌표 $$ (u_{\text{dist}}, v_{\text{dist}}) $$ 를 왜곡 보정하였을 때, 어떤 점으로 변환되는 지 알고 싶다면 어떻게 할 수 있을까요? 이 방법에 대하여 살펴보도록 하겠습니다.
 - 앞에서 살펴본 방식은 왜곡 보정된 영상의 공간을 마련해 놓고 왜곡 영상의 좌표를 끌어와서 채우는 방법을 사용하였습니다. 이와 같은 방식으로 왜곡 보정 영상을 만들면 구멍이 생기지 않도록 깔끔하게 왜곡 보정 영상을 만들 수 있습니다.
-- 관점을 전환하여 왜곡 영상의 임의의 좌표 $$ (u_{\text{dist}}, v_{\text{dist}}) $$ 가 왜곡 보정되었을 때 어느 좌표로 변환되는 지 직접적으로 알 수 있도록 `LUT`를 구성해 놓는다면 모든 픽셀을 왜곡 보정하지 않고 특정 원하는 픽셀들만 왜곡 보정한 위치로 옮겨서 사용할 수 있습니다. 만약 왜곡 영상에서 이미지의 feature를 추출하고 사용할 때, `perspective view`와 같은 선형 변환의 성질을 이용하기 위해 feature들을 왜곡 보정한 영역에 두고 사용한다면 이와 같은 방법이 적합할 수 있습니다.
-- `LUT`를 만드는 순서는 왜곡 영상의 $$ (u_{\text{dist}}, v_{\text{dist}}) $$ 좌표를 `distorted normalized coordinate`로 변환한 후 `distorted normalized coordinate → undistorted normalized coordinate`로 변환합니다. 마지막으로 `undistorted normalized coordinate`를 왜곡 보정된 영상의 $$ (u_{\text{undist}}, v_{\text{undist}}) $$ 좌표로 변환한 후 `LUT`로 만들면 왜곡 영상의 좌표를 왜곡 보정 영상의 좌표로 옮길 수 있습니다.
+- 관점을 전환하여 왜곡 영상의 임의의 좌표 $$ (u_{\text{dist}}, v_{\text{dist}}) $$ 가 왜곡 보정되었을 때 어느 좌표로 변환되는 지 직접적으로 알 수 있도록 `LUT (Look Up Table)`를 구성해 놓는다면 모든 픽셀을 왜곡 보정하지 않고 특정 원하는 픽셀들만 왜곡 보정한 위치로 옮겨서 사용할 수 있습니다. 만약 왜곡 영상에서 이미지의 feature를 추출하고 사용할 때, `perspective view`와 같은 선형 변환의 성질을 이용하기 위해 feature들을 왜곡 보정한 영역에 두고 사용한다면 이와 같은 방법이 적합할 수 있습니다.
+- `LUT`를 만들기 위해 좌표 변환을 진행하는 순서는 다음과 같습니다.
+    - ① $$ (u_{\text{dist}}, v_{\text{dist}}) $$
+    - ② `distorted normalized coordinate`
+    - ③ `undistorted normalized coordinate`
+    - ④ $$ (u_{\text{undist}}, v_{\text{undist}}) $$
+- 위 좌표에서 ① 과 ④의 관계를 대응시키는 `LUT`를 생성하면 좌표가 어떻게 변하는 지 한번에 알 수 있습니다. 만약 원본 이미지의 `RGB`값을 바로 대응시키면 왜곡 보정된 이미지를 얻을 수 있습니다.
 
 <br>
 
@@ -1349,28 +1356,69 @@ def rdn2theta(x_dn, y_dn, k0, k1, k2, k3, k4):
     y_un = r_un * (y_dn / r_dn)
     return x_un, y_un, r_dn, theta_pred
 
+# ① (u_dist, v_idst)와 ④ (u_undist, v_undist) 관계를 대응시킨 LUT
 lut = np.zeros((img.shape[0], img.shape[1], 2)).astype(np.float32)
-for u in range(img.shape[1]):
-    for v in range(img.shape[0]):
-        y_dn = (v - cy)/fy
-        x_dn = (u - skew*y_dn - cx)/fx
+for u_d in range(img.shape[1]):
+    for v_d in range(img.shape[0]):
+        y_dn = (v_d - cy)/fy
+        x_dn = (u_d - skew*y_dn - cx)/fx
         x_un, y_un, r_dn, theta_pred = rdn2theta(x_dn, y_dn, k1, k2, k3, k4, k5)
 
-        u_un = np.round(fx*x_un + skew*y_un + cx)
-        v_un = np.round(fy*y_un + cy)
+        u_u = np.round(fx*x_un + skew*y_un + cx)
+        v_u = np.round(fy*y_un + cy)
 
-        lut[v][u][0] = u_un
-        lut[v][u][1] = v_un
+        lut[v_d][u_d][0] = u_u
+        lut[v_d][u_d][1] = v_u
 
-
+# LUT를 이용하여 왜곡 보정 이미지를 구하는 과정
 undistorted_image = np.zeros((img.shape[0], img.shape[1], 3)).astype(np.uint8)
 for u_d in range(img.shape[1]):
     for v_d in range(img.shape[0]):
         u_u = int(lut[v_d][u_d][0])
         v_u = int(lut[v_d][u_d][1])
-        if (0 <= u_u)  and (u_u < img.shape[1]) and (0 <= v_u) and (v_u < img.shape[0]):
+        if (0 <= u_u) and (u_u < img.shape[1]) and (0 <= v_u) and (v_u < img.shape[0]):
             undistorted_image[v_u, u_u] = img[v_d, u_d]
 ```
+
+<br>
+
+- 지금부터는 `World-to-Image`, `Image-to-World` 방법에 대하여 알아보도록 하겠습니다. 아래 내용을 이해하기 위해서는 카메라 `Extrinsic` 캘리브레이션에 대한 개념을 명확히 이해하고 있어야 합니다.
+    - [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)
+- 아래 내용은 카메라 외부에 원점을 정하고 이 원점 기준의 좌표계를 `World` 좌표계라고 정하였을 때, `World` 좌표계의 임의의 3차원 점을 `Image`에 투영하는 방법과 `Image`의 특정 좌표를 다시 `World` 좌표계의 3차원 점으로 변환하는 방법에 대하여 다룹니다. (물론 3차원 좌표를 모두 복원하는 것은 불가능하여 좌표 하나는 고정시킵니다.)
+- 본 글의 앞부분에서 다룬 [Generic 카메라 모델 3D → 2D 및 2D → 3D python 실습](https://gaussian37.github.io/vision-concept-lens_distortion/#generic-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EB%AA%A8%EB%8D%B8-3d--2d-%EB%B0%8F-2d--3d-python-%EC%8B%A4%EC%8A%B5-1) 내용은 `카메라 좌표 → 이미지 좌표` 또는 `이미지 좌표 → 카메라 좌표`로의 2D, 3D 변환인것에 반해 이번에 사용하는 `World-to-Image`, `Image-to-World`는 카메라 외부 환경과의 2D, 3D 변환인 것에 차이점이 있습니다.
+
+<br>
+
+## **World-to-Image, Image-to-World 실습 환경**
+
+<br>
+
+- 이번 실습에 사용할 환경은 다음과 같습니다. [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)에서 다룬 실험 데이터 입니다. 자세한 내용은 링크를 참조해 보시면 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/19.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 데이터에서 빨간/파란/초록색 축이 이 각각 $$ X, Y, Z $$ 축을 의미하며 `World` 좌표에서의 원점이 됩니다.
+- 실제 카메라는 상자 위에 설치하였으며 카메라의 `World` 좌표 상 위치가 $$ (X, Y, Z) = (-0.25, 0, 0.53) $$ 가 됩니다.
+
+<br>
+
+- 실습에 사용할 캘리브레이션 값은 다음 링크의 파일을 사용할 예정입니다.
+    - [캘리브레이션 파일 링크](https://drive.google.com/file/d/1CoQttN7RR683ff_-tIT3uLHoR_u2uFWv/view?usp=sharing)
+    - [캘리브레이션 파일 내용 설명](https://gaussian37.github.io/vision-concept-calibration/#opencv%EC%9D%98-zhangs-method%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%BA%98%EB%A6%AC%EB%B8%8C%EB%A0%88%EC%9D%B4%EC%85%98-%EC%8B%A4%EC%8A%B5-1)
+
+<br>
+
+## **World-to-Image 방법**
+
+<br>
+
+<br>
+
+## **Image-to-World 방법**
+
+<br>
 
 <br>
 
@@ -1380,6 +1428,7 @@ for u_d in range(img.shape[1]):
 - 다음으로는 `Brown 카메라 모델`을 살펴보도록 하겠습니다. `Brown 카메라 모델`은 간략히 `opencv`를 이용한 사용 방법에 대해서만 다룰 예정입니다.
 
 <br>
+
 
 ## **Brown 카메라 모델 왜곡 보정을 위한 mapping 함수 구하기**
 
