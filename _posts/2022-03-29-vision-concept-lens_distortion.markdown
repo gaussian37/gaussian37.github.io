@@ -1414,11 +1414,15 @@ for u_d in range(img.shape[1]):
 
 <br>
 
+- `World-to-Image`는 `World` 좌표의 임의의 점을 `Image`에 투영하였을 때, 어떤 좌표에 투영되는 지 확인하는 방법입니다.
+
 <br>
 
 ## **Image-to-World 방법**
 
 <br>
+
+- `Image-to-World`는 `Image` 좌표의 임의의 점을 `World`에 역투영 하였을 떄, 어떤 좌표가 되는 지 확인하는 방법입니다.
 
 <br>
 
