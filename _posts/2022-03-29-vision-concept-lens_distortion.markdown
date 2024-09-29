@@ -1422,7 +1422,7 @@ for u_d in range(img.shape[1]):
 
 <br>
 
-- `Image-to-World`는 `Image` 좌표의 임의의 점을 `World`에 역투영 하였을 떄, 어떤 좌표가 되는 지 확인하는 방법입니다.
+- `Image-to-World`는 `Image` 좌표의 임의의 점을 `World`에 역투영 하였을 떄, 어떤 좌표가 되는 지 확인하는 방법입니다. `Image` 좌표는 2D 좌표인 반면
 
 <br>
 
