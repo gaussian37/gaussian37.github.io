@@ -1382,6 +1382,10 @@ for u_d in range(img.shape[1]):
 
 <br>
 
+---
+
+<br>
+
 - 지금부터는 `World-to-Image`, `Image-to-World` 방법에 대하여 알아보도록 하겠습니다. 아래 내용을 이해하기 위해서는 카메라 `Extrinsic` 캘리브레이션에 대한 개념을 명확히 이해하고 있어야 합니다.
     - [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)
 - 아래 내용은 카메라 외부에 원점을 정하고 이 원점 기준의 좌표계를 `World` 좌표계라고 정하였을 때, `World` 좌표계의 임의의 3차원 점을 `Image`에 투영하는 방법과 `Image`의 특정 좌표를 다시 `World` 좌표계의 3차원 점으로 변환하는 방법에 대하여 다룹니다. (물론 3차원 좌표를 모두 복원하는 것은 불가능하여 좌표 하나는 고정시킵니다.)
