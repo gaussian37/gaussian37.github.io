@@ -1601,10 +1601,61 @@ plt.imshow(image)
 <br>
 
 - 임의의 $$ (u, v) $$ 좌표를 $$ (u, v) \to (x_{\text{d.n.}}, y_{\text{d.n.}}) \to (x_{\text{u.n.}}, y_{\text{u.n.}}) $$ 으로 변환하는 방법은 [Generic 카메라 모델의 2D → 3D](https://gaussian37.github.io/vision-concept-lens_distortion/#generic-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EB%AA%A8%EB%8D%B8%EC%9D%98-2d--3d-1)에서 다루었습니다. 이 부분에서의 핵심은 $$ r_{\text{d.n}} $$ 을 이용하여 $$ \theta $$ 을 구하는 점이었습니다.
+- 아래 코드의 `rdn2theta` 함수를 이용하여 $$ x_{\text{u.n.}}, y_{\text{u.n.}} $$ 을 구하고 이 값을 통하여 `Camera 좌표계`의 좌표값을 구해보도록 하겠습니다.
 
 <br>
 
+```python
+def f_theta_pred(theta_pred, r, k0, k1, k2, k3, k4):
+    return k0*theta_pred + k1*theta_pred**3 + k2*theta_pred**5 + k3*theta_pred**7 + k4*theta_pred**9 - r
 
+def f_theta_pred_prime(theta_pred, r, k0, k1, k2, k3, k4):
+    return k0 + 3*k1*theta_pred**2 + 5*k2*theta_pred**4 + 7*k3*theta_pred**6 + 9*k4*theta_pred**8
+
+def rdn2theta(x_dn, y_dn, k0, k1, k2, k3, k4, max_iter=300, tol=1e-10):
+    r_dn = np.sqrt(x_dn**2 + y_dn**2)
+    theta_init = np.arctan(r_dn)
+
+    # newton-method
+    theta_pred = theta_init
+    for _ in range(max_iter):        
+        prev_theta_pred = theta_pred
+        
+        f_theta_value = f_theta_pred(theta_pred, r_dn, 1, k1, k2, k3, k4)
+        f_theta_prime_value = f_theta_pred_prime(theta_pred, r_dn, 1, k1, k2, k3, k4)
+        theta_pred = theta_pred - f_theta_value/f_theta_prime_value
+        if np.abs(theta_pred - prev_theta_pred) < tol:
+            break
+    
+    r_un = np.tan(theta_pred)
+    x_un = r_un * (x_dn / r_dn)
+    y_un = r_un * (y_dn / r_dn)
+    return x_un, y_un, r_dn, theta_pred
+
+def undist_norm2camera_coord(x_un, y_un, R, t, Z_w=0):
+    Z_c = (Z_w + R[0, 2]*t[0] + R[1, 2]*t[1] + R[2, 2]*t[2]) / (R[0, 2]*x_un + R[1,2]*y_un + R[2, 2])
+    X_c = Z_c * x_un
+    Y_c = Z_c * y_un
+    return X_c, Y_c, Z_c
+
+Z_w = 0.04
+u = 1032
+v = 1507
+
+y_dn = (v - cy)/fy
+x_dn = (u - skew*y_dn - cx)/fx
+x_un, y_un, r_dn, theta_pred = rdn2theta(x_dn, y_dn, 1, k1, k2, k3, k4)
+X_c, Y_c, Z_c = undist_norm2camera_coord(x_un, y_un, R, t, Z_w)
+P_c = np.array([X_c, Y_c, Z_c]).reshape(3, 1)
+P_w = np.round(R.T@(P_c - t), 2)
+print(f"X_w:{float(P_w[0])}, Y_w:{float(P_w[1])}, Z_w:{float(P_w[2])}")
+# X_w:0.0, Y_w:0.0, Z_w:0.04
+```
+
+<br>
+
+- 위 이미지 좌표 $$ (u, v) =  (1032, 1507) $$ 은 `World 좌표계`에서 $$ (X_{w}, Y_{w}, Z_{w}) = (0.0, 0.0, 0.04) $$ 에 해당하는 위치의 이미지 좌표입니다. 이 이미지 좌표값과 $$ Z_{w} = 0.04 $$ 라는 값을 이용하여 `Image-to-World`를 하면 위 코드 예시와 같이 $$ (X_{w}, Y_{w}, Z_{w}) = (0.0, 0.0, 0.04) $$ 임을 구할 수 있습니다.
+- 이와 같은 방법으로 임의의 $$ Z_{w} $$ 를 상수로 고정한 상태에서 원하는 $$ (u, v) $$ 의  `World 좌표계`에서의 좌표값을 구할 수 있습니다.
 
 <br>
 
