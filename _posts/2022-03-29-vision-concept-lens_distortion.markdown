@@ -1544,7 +1544,64 @@ plt.imshow(image)
 
 <br>
 
-- `Image-to-World`는 `Image` 좌표의 임의의 점을 `World`에 역투영 하였을 떄, 어떤 좌표가 되는 지 확인하는 방법입니다. `Image` 좌표는 2D 좌표인 반면
+- `Image-to-World`는 `Image 좌표`의 임의의 점을 `World`에 역투영 하였을 떄, 어떤 좌표가 되는 지 확인하는 방법입니다. 앞에서 설명하였듯이 `Image 좌표`는 2D 좌표인 반면 `Camera 좌표`와 `World 좌표`는 3D 좌표입니다. 따라서 `Image 좌표`를 3D 좌표로 변환할 때에는 좌표값 하나를 고정해야 합니다.
+- 이번 글에서는 `World 좌표` 중 `Z_w`를 고정하여 `Image-to-World`를 해보도록 하겠습니다. 반드시 `Z_w`를 고정할 필요는 없지만 `Z_w`의 값의 범위가 `X_w`, `Y_w`에 비하여 비교적 제한적이기 때문이고 `Z_w`를 상수값으로 고정한 후 `X_w, Y_w`를 이용하여 2D 좌표 평면을 그리면 `Bird Eye View`를 만들 수 있기 때문입니다. 이러한 이유로 `Z_w`를 고정하여 많이 사용합니다.
+- 그러면 `Z_w`가 상수라는 가정하에 `Image-to-World`를 접근하는 방법의 수식을 살펴보도록 하겠습니다.
+
+<br>
+
+- $$ R \cdot P_{\text{world}} + t = P_{\text{camera}} $$
+
+- $$ R \test{: Active Rotation From World to Camera.} $$
+
+- $$ t \test{: Active translation From World to Camera.} $$
+
+- $$ P_{w} = \begin{bmatrix} X_{w} & Y_{w} & Z_{w} \end{bmatrix}^{T} \text{: A Point in World Coordinate System.} $$
+
+- $$ P_{c} \begin{bmatrix} X_{c} & Y_{c} & Z_{c} \end{bmatrix}^{T} text{: A Point in Camera Coordinate System.} $$
+
+<br>
+
+- $$ \begin{align} P_{\text{world}} = \begin{bmatrix} X_{w} \\ Y_{w} \\ Z_{w} \end{bmatrix} &= R^{-1}(P_{\text{camera}} - t) = R^{T}(P_{\text{camera}} - t) \\ &= \begin{bmatrix} R_{11} & R_{12} & R_{13} \\ R_{21} & R_{22} & R_{23} \\ R_{31} & R_{32} & R_{33} \end{bmatrix}^{T} \begin{bmatrix} X_{c} - t_{1} \\ Y_{c} - t_{2} \\ Z_{c} - t_{3} \end{bmatrix} \\ &= \begin{bmatrix} R_{11} & R_{21} & R_{31} \\ R_{12} & R_{22} & R_{32} \\ R_{13} & R_{23} & R_{33} \end{bmatrix} \begin{bmatrix} X_{c} - t_{1} \\ Y_{c} - t_{2} \\ Z_{c} - t_{3} \end{bmatrix} \end{align} $$
+
+- $$ \Rightarrow \begin{bmatrix} R_{13} & R_{23} & R_{33} \end{bmatrix} \begin{bmatrix} X_{c} - t_{1} \\ Y_{c} - t_{2} \\ Z_{c} - t_{3} \end{bmatrix} = Z_{w} \quad \text{(Used Thrid Row)} $$
+
+- $$ \Rightarrow R_{13}(X_{c} - t_{1}) + R_{23}(Y_{c} - t_{2}) + R_{33}(Z_{c} - t_{3}) =  Z_{w} $$
+
+<br>
+
+- $$ Z_{w} \text{: constant.} $$
+
+- $$ X_{c} = Z_{c} \cdot x_{\text{u.n.}} \quad \text{(u.n.: undistorted normalized.)} $$
+
+- $$ Y_{c} = Z_{c} \cdot y_{\text{u.n.}} \quad \text{(u.n.: undistorted normalized.)} $$
+
+<br>
+
+- 위 식에서 $$ X_{c}, Z_{c} $$ 를 구할 때, $$ Z_{c} $$ 는 `depth` 값이며 [Generic 카메라 모델 3D → 2D 및 2D → 3D python 실습](https://gaussian37.github.io/vision-concept-lens_distortion/#generic-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EB%AA%A8%EB%8D%B8-3d--2d-%EB%B0%8F-2d--3d-python-%EC%8B%A4%EC%8A%B5-1)에서 관련 내용을 다루었습니다.
+
+<br>
+
+- $$ \therefore R_{13}(X_{c} - t_{1}) + R_{23}(Y_{c} - t_{2}) + R_{33}(Z_{c} - t_{3}) =  Z_{w} $$
+
+- $$ \Rightarrow R_{13}(Z_{c} \cdot x_{\text{u.n.}} - t_{1}) + R_{23}(Z_{c} \cdot y_{\text{u.n.}} - t_{2}) + R_{33}(Z_{c} - t_{3}) = Z_{w} $$
+
+- $$ \Rightarrow Z_{c}(R_{13} \cdot x_{\text{u.n.}} + R_{23} \cdot y_{\text{u.n.}} + R_{33}) = (Z_{w} + R_{13} \cdot t_{1} + R_{23} \cdot t_{2} + R_{33} \cdot t_{3}) $$
+
+- $$ \therefore Z_{c} = \frac{Z_{w} + R_{13} \cdot t_{1} + R_{23} \cdot t_{2} + R_{33} \cdot t_{3}}{R_{13} \cdot x_{\text{u.n.}} + R_{23} \cdot y_{\text{u.n.}} + R_{33}} $$
+
+<br>
+
+- 위 식과 같이 $$ Z_{w} $$ 를 특정 상수 값으로 고정하면 $$ X_{c}, Y_{c}, Z_{c} $$ 는 다음과 같이 구할 수 있습니다.
+
+<br>
+
+- $$ \begin{bmatrix} X_{c} \\ Y_{c} \\ Z_{c} \end{bmatrix} = \begin{bmatrix} Z_{c} \cdot x_{\text{u.n.}} \\ Z_{c} \cdot y_{\text{u.n.}} \\ \frac{Z_{w} + R_{13} \cdot t_{1} + R_{23} \cdot t_{2} + R_{33} \cdot t_{3}}{R_{13} \cdot x_{\text{u.n.}} + R_{23} \cdot y_{\text{u.n.}} + R_{33}} \end{bmatrix} $$
+
+<br>
+
+- 임의의 $$ (u, v) $$ 좌표를 $$ (u, v) \to (x_{\text{d.n.}}, y_{\text{d.n.}}) \to (x_{\text{u.n.}}, y_{\text{u.n.}}) $$ 으로 변환하는 방법은 [Generic 카메라 모델의 2D → 3D](https://gaussian37.github.io/vision-concept-lens_distortion/#generic-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EB%AA%A8%EB%8D%B8%EC%9D%98-2d--3d-1)에서 다루었습니다. 이 부분에서의 핵심은 $$ r_{\text{d.n}} $$ 을 이용하여 $$ \theta $$ 을 구하는 점이었습니다.
+
 
 <br>
 
