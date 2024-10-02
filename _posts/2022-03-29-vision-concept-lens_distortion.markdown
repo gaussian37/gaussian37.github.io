@@ -1414,11 +1414,129 @@ for u_d in range(img.shape[1]):
 
 <br>
 
+```python
+calib = {'ELP-USB16MP01-BL180-2048x1536': 
+    {
+        'Extrinsic': 
+            {'Camera': 
+                {'World': 
+                    {
+                        'R': [0.00463, -0.01405, 0.99989, -0.99998, -0.00391, 0.00457, 0.00385, -0.99989, -0.01407],
+                        't': [-0.23687, -0.00677, 0.52937]}
+                },
+            'World': 
+                {'Camera': 
+                    {
+                        'R': [0.00463, -0.99998, 0.00385, -0.01405, -0.00391, -0.99989, 0.99989, 0.00457, -0.01407],
+                        't': [-0.00771, 0.52596, 0.24432]}}
+            },
+        'Intrinsic': 
+            {
+                'D': [1.0, -0.03688, -0.00783, 0.00217, -0.00079],
+                'K': [631.65112, 0.0, 1042.45127, 0.0, 631.16614, 847.332, 0.0, 0.0, 1.0],
+                'ReprojectionError': 0.08894
+            },
+        'Position': [-0.23687, -0.00677, 0.52937]
+    }
+}
+
+# Active Rotation of World → Camera
+R = np.array(calib['ELP-USB16MP01-BL180-2048x1536']['Extrinsic']['World']['Camera']['R']).reshape(3, 3)
+# Active Translation of World → Camera
+t = np.array(calib['ELP-USB16MP01-BL180-2048x1536']['Extrinsic']['World']['Camera']['t']).reshape(3, 1)
+
+# Camera Intrinsic Parameter
+K = np.array(calib['ELP-USB16MP01-BL180-2048x1536']['Intrinsic']['K']).reshape(3, 3)
+# Distortion Coefficient of Generic Camera Model
+D = np.array(calib['ELP-USB16MP01-BL180-2048x1536']['Intrinsic']['D'])
+```
+
+<br>
+
 ## **World-to-Image 방법**
 
 <br>
 
-- `World-to-Image`는 `World` 좌표의 임의의 점을 `Image`에 투영하였을 때, 어떤 좌표에 투영되는 지 확인하는 방법입니다.
+- `World-to-Image`는 `World` 좌표의 임의의 점을 `Image`에 투영하였을 때, 어떤 좌표에 투영되는 지 확인하는 방법입니다. 즉, `World` 좌표계에서의 어떤 점이 좌표 변환을 통하여 `World 좌표계` → `카메라 좌표계` → `이미지 좌표계`로 좌표를 변환하면 최종적으로 이미지 좌표계에서 좌표값을 확인할 수 있습니다.
+- `World 좌표계` → `카메라 좌표계`로 좌표 변환을 할 때에는 `Extrinsic` 파라미터인 `Rotation`, `Translation` 이 사용되고 `카메라 좌표계` → `이미지 좌표계`로 좌표 변환을 할 때에는 앞에서 다룬 것과 같이 `Intrinsic`과 `Distortion` 계수가 사용됩니다.
+- 이 때, `World 좌표계` → `카메라 좌표계`로 좌표 변환은 `3D → 3D` 좌표 변환인 반면에 `카메라 좌표계` → `이미지 좌표계`는 `3D → 2D` 좌표 변환으로 깊이 방향의 `Dimension`이 사라지는 것을 확인할 수 있었습니다. 이러한 이유로 아래 글에서 다룰 `Image-to-World` 즉, `이미지 좌표계`에서 `World 좌표계`로 변환하는 과정에서는 1개의 Dimension의 값을 상수로 고정하는 방법을 사용합니다.
+
+<br>
+
+- 아래 코드를 통하여 `World 좌표계`의 점들을 이미지에 투영한 후 영상에 표시해 보도록 하겠습니다. 사용한 이미지는 다음과 같습니다.
+    - 링크: https://drive.google.com/file/d/1vPtXlWT4mj6Qcz9QOa45-kOzMzTOKXi2/view?usp=sharing
+- `World 좌표계`는 [ISO 8855-2011](https://gaussian37.github.io/autodrive-concept-iso_vehicle_axis_system/)에 따라 다음과 같습니다. 카메라 좌표계와 비교해서 보시기 바랍니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/21.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+
+```python
+R = np.array(calib['ELP-USB16MP01-BL180-2048x1536']['Extrinsic']['World']['Camera']['R']).reshape(3, 3)
+t = np.array(calib['ELP-USB16MP01-BL180-2048x1536']['Extrinsic']['World']['Camera']['t']).reshape(3, 1)
+
+K = np.array(calib['ELP-USB16MP01-BL180-2048x1536']['Intrinsic']['K']).reshape(3, 3)
+D = np.array(calib['ELP-USB16MP01-BL180-2048x1536']['Intrinsic']['D'])
+
+fx = K[0][0]
+skew = K[0][1]
+cx = K[0][2]
+fy = K[1][1]
+cy = K[1][2]
+
+k0, k1, k2, k3, k4 = D
+
+image = cv2.cvtColor(cv2.imread("world2image_image2_world_sample.png", -1), cv2.COLOR_BGR2RGB)
+for i in range(10):
+    # world 좌표계 기준의 점 (X_w, Y_w, Z_w)
+    X_w = 0.0 + (i * 0.05)
+    Y_w = 0.0
+    Z_w = 0.04
+    
+    # Camera 좌표계 기준의 점 (X_c, Y_c, Z_c)
+    X_c, Y_c, Z_c = R @ np.array([X_w, Y_w, Z_w]).reshape(3, 1) + t
+    #################### undistorted normalized coordinate ######################
+    x_un = X_c / Z_c
+    y_un = Y_c / Z_c
+    
+    #################### distorted normalized coordinate ########################
+    r_un = np.sqrt(x_un**2 + y_un**2)
+    theta = np.arctan(r_un)
+    r_dn = 1*theta + k1*theta**3 + k2*theta**5 + k3*theta**7 + k4*theta**9
+    
+    x_dn = r_dn * (x_un/r_un)
+    y_dn = r_dn * (y_un/r_un)
+    
+    ################################ image plane ###############################
+    # Image 좌표계 기준의 점 (u, v)
+    u = np.round(fx*x_dn + skew*y_dn + cx).astype(np.uint32)[0]
+    v = np.round(fy*y_dn + cy).astype(np.uint32)[0]
+
+    if i % 2 == 0:
+        cv2.circle(image, (u, v), 4,  (0, 255, 0), -1);
+        cv2.putText(image, f"({round(X_w, 2)}, {round(Y_w, 2)}, {round(Z_w, 2)})", (u + 10, v + 20), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1.0, (0, 255, 0))
+    else:
+        cv2.circle(image, (u, v), 4, (255, 0, 255), -1);
+        cv2.putText(image, f"({round(X_w, 2)}, {round(Y_w, 2)}, {round(Z_w, 2)})", (u - 150, v - 20), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1.0, (255, 0, 255))
+
+plt.figure(figsize=(15, 20))
+plt.imshow(image)
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/20.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 체커보드의 간격은 0.05m이고 `X_w`의 좌표값을 0.05m 증가, `Y_w`의 좌표값을 0.05m 감소하면서 이미지에 투영해본 결과입니다.
+- 카메라 캘리브레이션이 정상적으로 수행되었기 때문에, `World-to-Image` 가 정상적으로 진행된 것을 볼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/lens_distortion/22.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 체커보드 왼쪽에 높이 약 13cm 크기의 모형이 놓여있습니다. `X_w`, `Y_w` 값은 고정한 상태로 높이 값만 조절하면서 투영하였을 때에도 정상적으로 모형에 투영되는 것을 확인할 수 있습니다.
 
 <br>
 
