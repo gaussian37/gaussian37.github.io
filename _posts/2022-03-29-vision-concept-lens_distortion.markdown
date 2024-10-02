@@ -1552,9 +1552,9 @@ plt.imshow(image)
 
 - $$ R \cdot P_{\text{world}} + t = P_{\text{camera}} $$
 
-- $$ R \test{: Active Rotation From World to Camera.} $$
+- $$ R \text{: Active Rotation From World to Camera.} $$
 
-- $$ t \test{: Active translation From World to Camera.} $$
+- $$ t \text{: Active translation From World to Camera.} $$
 
 - $$ P_{w} = \begin{bmatrix} X_{w} & Y_{w} & Z_{w} \end{bmatrix}^{T} \text{: A Point in World Coordinate System.} $$
 
@@ -1602,8 +1602,9 @@ plt.imshow(image)
 
 - 임의의 $$ (u, v) $$ 좌표를 $$ (u, v) \to (x_{\text{d.n.}}, y_{\text{d.n.}}) \to (x_{\text{u.n.}}, y_{\text{u.n.}}) $$ 으로 변환하는 방법은 [Generic 카메라 모델의 2D → 3D](https://gaussian37.github.io/vision-concept-lens_distortion/#generic-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EB%AA%A8%EB%8D%B8%EC%9D%98-2d--3d-1)에서 다루었습니다. 이 부분에서의 핵심은 $$ r_{\text{d.n}} $$ 을 이용하여 $$ \theta $$ 을 구하는 점이었습니다.
 
-
 <br>
+
+
 
 <br>
 
