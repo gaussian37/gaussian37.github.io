@@ -41,3 +41,4 @@ tags: [vision] # add tag
 - [컴퓨터 비전을 이용한 3D Reconstruction 기초](https://gaussian37.github.io/vision-concept-basic_3d_reconstruction/)
 - [Linear N-Point Camera Pose Determination](https://gaussian37.github.io/vision-concept-linear_n_point_camera_pose_determination/)
 - [EPnP](https://gaussian37.github.io/vision-concept-epnp/)
+- [2차원 도형 그리기](https://gaussian37.github.io/vision-concept-draw_2d_shapes/)
