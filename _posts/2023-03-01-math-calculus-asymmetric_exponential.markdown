@@ -81,7 +81,11 @@ def asymmetric_exponential_sampling(num_samples, center, low, high, rate=3):
     return sequences
 ```
 
+<br>
+
 - 먼저 기본적인 샘플링 방식입니다. -20 ~ 0, 0 ~ 20 범위에서 50개의 샘플을 추출하는 예시입니다.
+
+<br>
 
 ```python
 # Example usage
