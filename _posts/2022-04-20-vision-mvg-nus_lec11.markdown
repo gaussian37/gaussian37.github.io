@@ -230,6 +230,30 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, SfM, Structure Fro
 <br>
 
 <br>
+<center><img src="../assets/img/vision/mvg/nus_lec11/48.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec11/49.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec11/50.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec11/51.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec11/52.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec11/53.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/YgOC9DjHyJs" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
