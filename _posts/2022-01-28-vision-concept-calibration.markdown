@@ -1372,6 +1372,212 @@ print(f"X:{camera_position[0]}, Y: {camera_position[1]}, Z: {camera_position[2]}
 
 <br>
 
+- 다음은 `A2D2` 데이터셋을 이용하여 센서 장착 위치를 살펴보도록 하겠습니다. `A2D2` 데이터는 아우디에서 공개한 자율주행 인식 관련 데이터셋입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/51.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- `A2D2` 데이터셋은 위 그림과 같이 아우디 차량에 6개의 카메라를 장착하고 뒷바퀴 중심을 원점으로 잡아서 카메라 캘리브레이션을 진행하였습니다.
+- 아래 링크에서 캘리브레이션 결과를 확인할 수 있으며 캘리브레이션 값을 어떻게 사용하는 지 확인할 수 있습니다.
+    - https://www.a2d2.audi/a2d2/en/download.html
+    - https://aev-autonomous-driving-dataset.s3.eu-central-1.amazonaws.com/cams_lidars.json
+    - https://aev-autonomous-driving-dataset.s3.eu-central-1.amazonaws.com/tutorial.ipynb
+
+<br>
+
+- 아래 코드는 `A2D2` 데이터셋의 캘리브레이션 값을 `Vehicle → Camera`의 `Rotation`과 `Translation`으로 정리하는 코드입니다.
+
+<br>
+
+```python
+import json
+import cv2
+import numpy as np
+import numpy.linalg as la
+import matplotlib.pyplot as plt
+
+EPSILON = 1.0e-10 # norm should not be small
+
+def get_origin_of_a_view(view):
+    return view['origin']
+
+def get_axes_of_a_view(view):
+    x_axis = view['x-axis']
+    y_axis = view['y-axis']
+     
+    x_axis_norm = la.norm(x_axis)
+    y_axis_norm = la.norm(y_axis)
+    
+    if (x_axis_norm < EPSILON or y_axis_norm < EPSILON):
+        raise ValueError("Norm of input vector(s) too small.")
+        
+    # normalize the axes
+    x_axis = x_axis / x_axis_norm
+    y_axis = y_axis / y_axis_norm
+    
+    # make a new y-axis which lies in the original x-y plane, but is orthogonal to x-axis
+    y_axis = y_axis - x_axis * np.dot(y_axis, x_axis)
+ 
+    # create orthogonal z-axis
+    z_axis = np.cross(x_axis, y_axis)
+    
+    # calculate and check y-axis and z-axis norms
+    y_axis_norm = la.norm(y_axis)
+    z_axis_norm = la.norm(z_axis)
+    
+    if (y_axis_norm < EPSILON) or (z_axis_norm < EPSILON):
+        raise ValueError("Norm of view axis vector(s) too small.")
+        
+    # make x/y/z-axes orthonormal
+    y_axis = y_axis / y_axis_norm
+    z_axis = z_axis / z_axis_norm
+    
+    return x_axis, y_axis, z_axis
+
+def get_transform_to_global(view):
+    # get axes
+    x_axis, y_axis, z_axis = get_axes_of_a_view(view)
+    
+    # get origin 
+    origin = get_origin_of_a_view(view)
+    transform_to_global = np.eye(4)
+    
+    # rotation
+    transform_to_global[0:3, 0] = x_axis
+    transform_to_global[0:3, 1] = y_axis
+    transform_to_global[0:3, 2] = z_axis
+    
+    # origin
+    transform_to_global[0:3, 3] = origin
+    
+    return transform_to_global
+
+def get_transform_from_global(view):
+   # get transform to global
+   transform_to_global = get_transform_to_global(view)
+   trans = np.eye(4)
+   rot = np.transpose(transform_to_global[0:3, 0:3])
+   trans[0:3, 0:3] = rot
+   trans[0:3, 3] = np.dot(rot, -transform_to_global[0:3, 3])
+    
+   return trans
+
+def transform_from_to(src, target):
+    transform = np.dot(get_transform_from_global(target), \
+                       get_transform_to_global(src))
+    
+    return transform
+
+with open ('cams_lidars.json', 'r') as f:
+    config = json.load(f)
+    
+vehicle_to_camera_dict = {}
+src_view = config['vehicle']['view']
+for camera_name in config['cameras'].keys():
+    target_view = config['cameras'][camera_name]['view']
+    trans = transform_from_to(src_view, target_view)
+    
+    R = trans[:3, :3]
+    t = trans[:3, -1]
+
+    vehicle_to_camera_dict[camera_name] = {}
+    vehicle_to_camera_dict[camera_name]["R"] = R
+    vehicle_to_camera_dict[camera_name]["t"] = t
+```
+
+<br>
+
+- 앞에서 확인한 `-R.T @ t`를 이용하여 `Vehicle (World)`에서의 카메라 위치를 추정해 보면 다음과 같습니다. 아래 코드에서는 `BEV` 형태로 $$ X, Y $$ 축으로 나타낸 결과 입니다.
+
+<br>
+
+```python
+# Parameters
+vehicle_x_max = 3
+vehicle_x_min = -1
+vehicle_y_max = 2
+vehicle_y_min = -2
+
+vehicle_x_interval = 0.01  # meters per pixel
+vehicle_y_interval = 0.01  # meters per pixel
+
+# Calculate the output image size in pixels
+output_width = int(np.ceil((vehicle_y_max - vehicle_y_min) / vehicle_y_interval))
+output_height = int(np.ceil((vehicle_x_max - vehicle_x_min) / vehicle_x_interval))
+
+def vehicle_coord_to_bev_coord(x, y):
+    """
+    Convert vehicle coordinates (x, y) to BEV image coordinates (u, v).
+    
+    x, y : Vehicle coordinates in meters
+    Returns:
+    u, v : BEV image coordinates in pixels
+    """
+    # u = (y - vehicle_y_min) / vehicle_y_interval
+    # v = (x - vehicle_x_min) / vehicle_x_interval
+    u = (vehicle_y_max - y) / vehicle_y_interval
+    v = (vehicle_x_max - x) / vehicle_x_interval
+    return int(np.round(u)), int(np.round(v))
+
+def bev_coord_to_vehicle_coord(u, v):
+    """
+    Convert BEV image coordinates (u, v) to vehicle coordinates (x, y).
+    Adjust to the center of the grid.
+    
+    u, v : BEV image coordinates in pixels
+    Returns:
+    x, y : Vehicle coordinates in meters
+    """
+    x = u * vehicle_x_interval + vehicle_x_min + vehicle_x_interval / 2
+    y = v * vehicle_y_interval + vehicle_y_min + vehicle_y_interval / 2
+    return x, y
+
+topview_image = np.zeros((output_height, output_width, 3)).astype(np.uint8)
+u_bev, v_bev = vehicle_coord_to_bev_coord(0, 0)
+cv2.circle(topview_image, (u_bev, v_bev), radius=3, color=(255, 255, 0))
+cv2.putText(topview_image, "origin", (u_bev - 10, v_bev + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.3, (255, 255, 255))        
+
+for camera_name in vehicle_to_camera_dict.keys():
+    R = vehicle_to_camera_dict[camera_name]["R"]
+    t = vehicle_to_camera_dict[camera_name]["t"]
+    camera_position = -R.T @ t
+
+    x_veh, y_veh = np.round(camera_position[0], 4), np.round(camera_position[1], 4)
+    u_bev, v_bev = vehicle_coord_to_bev_coord(x_veh, y_veh)
+
+    print(f"{camera_name}: (x_veh={x_veh}, y_veh={y_veh}), (u_bev={u_bev}, v_bev={v_bev})")
+    
+    cv2.circle(topview_image, (u_bev, v_bev), radius=3, color=(255, 0, 0))
+    if camera_name == 'front_center':
+        cv2.putText(topview_image, camera_name, (u_bev - 20, v_bev - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.3, (255, 255, 255))
+    else:
+        cv2.putText(topview_image, camera_name, (u_bev - 20, v_bev + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.3, (255, 255, 255))       
+
+plt.figure(figsize=(10, 8))
+plt.imshow(topview_image)
+
+# >> front_left: (x_veh=1.711, y_veh=0.58, z_veh=0.9431), (u_bev=142, v_bev=129)
+# >> front_right: (x_veh=1.711, y_veh=-0.58, z_veh=0.9431), (u_bev=258, v_bev=129)
+# >> front_center: (x_veh=1.711, y_veh=-0.0, z_veh=0.9431), (u_bev=200, v_bev=129)
+# >> side_left: (x_veh=0.651, y_veh=0.58, z_veh=0.9431), (u_bev=142, v_bev=235)
+# >> side_right: (x_veh=0.651, y_veh=-0.58, z_veh=0.9431), (u_bev=258, v_bev=235)
+# >> rear_center: (x_veh=-0.409, y_veh=0.0, z_veh=0.9431), (u_bev=200, v_bev=341)
+```
+
+<br>
+
+- 뒷 바퀴 축의 중심이 원점이었을 때, 각 카메라의 장착 위치를 캘리브레이션 결과를 통해 살펴보면 위 주석 처리된 출력과 같습니다.
+- `Z` 값이 모두 동일한 것으로 보아 의도적으로 카메라들을 같은 높이로 장착한 것으로 보입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/52.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- `BEV` 형태로 나타내보면 위 그림과 같습니다. 원점의 위치와 6개의 카메라의 위치를 확인할 수 있습니다.
+
+<br>
+
 [Vision 관련 글 목차](https://gaussian37.github.io/vision-concept-table/)
 
 <br>
