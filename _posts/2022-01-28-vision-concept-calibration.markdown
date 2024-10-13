@@ -1577,6 +1577,12 @@ plt.imshow(topview_image)
 - `BEV` 형태로 나타내보면 위 그림과 같습니다. 원점의 위치와 6개의 카메라의 위치를 확인할 수 있습니다.
 
 <br>
+<center><img src="../assets/img/vision/concept/calibration/53.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 홈페이지에 실제 장착된 위치를 살펴보면 같은 결과를 얻은 것을 확인할 수 있습니다.
+
+<br>
 
 [Vision 관련 글 목차](https://gaussian37.github.io/vision-concept-table/)
 
