@@ -364,8 +364,9 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, SfM, Structure Fro
 
 - 즉, $$ x_{\text{ref}} $$ 를 $$ x_{k} $$ 로 변환하는 `Homography`인 $$ H_{\Pi_m, P_k} $$ 는 위 파란색 식으로 정의될 수 있습니다.
 
+<br>
 
-
+- $$ H_{\Pi_m, P_k} = K_{k}\left( R_{k}^{T} + \frac{R_{k}^{T}C_{k}n_{m}}{d_{m}} \right)K_{\text{ref}}^{-1} $$
 
 
 <br>
