@@ -58,6 +58,30 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 <center><img src="../assets/img/vision/mvg/nus_lec12/10.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/11.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/12.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/13.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/14.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/15.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/16.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
 
 <br>
 <div style="text-align: center;">
