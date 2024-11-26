@@ -96,11 +96,13 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 <br>
 
+<br>
+
 - 한 쌍의 선이 교차할 때의 필요 충분 조건에 대하여 다루어 보도록 하겠습니다. 필요 충분 조건에 대한 수식 증명을 위해서는 아래 식을 증명해야 합니다.
 
 <br>
 
-- $$ q_{b}^{T}q'_{a} + q'_{b}^{T}q_{a} = 0 $$
+- $$ q_{b}^{T}q'_{a} + q_{b}'^{T}q_{a} = 0 $$
 
 <br>
 
@@ -108,9 +110,9 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 <br>
 
-- $$ L_{a} = p_{a} + t_{a}q_{a} \quad (\t_{a} \text{ is scalar.}) $$
+- $$ L_{a} = p_{a} + t_{a}q_{a} \quad (t_{a} \text{ is scalar.}) $$
 
-- $$ L_{b} = p_{b} + t_{b}q_{b} \quad (\t_{b} \text{ is scalar.}) $$
+- $$ L_{b} = p_{b} + t_{b}q_{b} \quad (t_{b} \text{ is scalar.}) $$
 
 <br>
 
@@ -126,7 +128,7 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 <br>
 
-- 지금부터 $$ q_{b}^{T}q'_{a} + q'_{b}^{T}q_{a} = q_{a}q'_{b} + q_{b}^{T}q'_{a} = 0 $$ 식에 대한 유도를 진행해 보도록 하겠습니다.
+- 지금부터 $$ q_{b}^{T}q'_{a} + q_{b}'^{T}q_{a} = q_{a}q'_{b} + q_{b}^{T}q'_{a} = 0 $$ 식에 대한 유도를 진행해 보도록 하겠습니다.
 
 <br>
 
@@ -142,7 +144,7 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 <br>
 
-$$ \begin{align} q_{a}q'_{b} + q_{b}^{T}q'_{a} &=q_{a} \cdot (p_{b} \times q_{b}) + q_{b} \cdot (p_{a} \times q_{a}) \\ &= p_{b} \cdot  (q_{b} \times q_{a}) + p_{a} \cdot (q_{a} \times q_{b}) \\ &= p_{b} \cdot (q_{b} \times q_{a}) - p_{a} \cdot (q_{b} \times q_{a}) \\ &= (p_{b} - p_{a}) \cdot (q_{b} \times q_{a}) \end{align} $$
+- $$ \begin{align} q_{a}q'_{b} + q_{b}^{T}q'_{a} &=q_{a} \cdot (p_{b} \times q_{b}) + q_{b} \cdot (p_{a} \times q_{a}) \\ &= p_{b} \cdot  (q_{b} \times q_{a}) + p_{a} \cdot (q_{a} \times q_{b}) \\ &= p_{b} \cdot (q_{b} \times q_{a}) - p_{a} \cdot (q_{b} \times q_{a}) \\ &= (p_{b} - p_{a}) \cdot (q_{b} \times q_{a}) \end{align} $$
 
 <br>
 
