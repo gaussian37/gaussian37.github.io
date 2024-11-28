@@ -136,7 +136,7 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 <br>
 
-- 지금부터 $$ q_{b}^{T}q'_{a} + q_{b}'^{T}q_{a} = q_{a}q'_{b}^{T} + q_{b}^{T}q'_{a} = 0 $$ 식에 대한 유도를 진행해 보도록 하겠습니다.
+- 지금부터 $$ q_{b}^{T}q'_{a} + q_{b}'^{T}q_{a} = q_{a}(q'_{b})^{T} + q_{b}^{T}q'_{a} = 0 $$ 식에 대한 유도를 진행해 보도록 하겠습니다.
 
 <br>
 
@@ -144,7 +144,7 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 - $$ q'_{b} = p_{b} \times q_{b} $$
 
-- $$ q_{a}q'_{b}^{T} + q_{b}^{T}q'_{a} = q_{a} \cdot (p_{b} \times q_{b}) + q_{b} \cdot (p_{a} \times q_{a}) $$
+- $$ q_{a}(q'_{b})^{T} + q_{b}^{T}q'_{a} = q_{a} \cdot (p_{b} \times q_{b}) + q_{b} \cdot (p_{a} \times q_{a}) $$
 
 <br>
 
@@ -152,7 +152,7 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 <br>
 
-- $$ \begin{align} q_{a}q'_{b}^{T} + q_{b}^{T}q'_{a} &=q_{a} \cdot (p_{b} \times q_{b}) + q_{b} \cdot (p_{a} \times q_{a}) \\ &= p_{b} \cdot  (q_{b} \times q_{a}) + p_{a} \cdot (q_{a} \times q_{b}) \\ &= p_{b} \cdot (q_{b} \times q_{a}) - p_{a} \cdot (q_{b} \times q_{a}) \\ &= (p_{b} - p_{a}) \cdot (q_{b} \times q_{a}) \end{align} $$
+- $$ \begin{align} q_{a}(q'_{b})^{T} + q_{b}^{T}q'_{a} &=q_{a} \cdot (p_{b} \times q_{b}) + q_{b} \cdot (p_{a} \times q_{a}) \\ &= p_{b} \cdot  (q_{b} \times q_{a}) + p_{a} \cdot (q_{a} \times q_{b}) \\ &= p_{b} \cdot (q_{b} \times q_{a}) - p_{a} \cdot (q_{b} \times q_{a}) \\ &= (p_{b} - p_{a}) \cdot (q_{b} \times q_{a}) \end{align} $$
 
 <br>
 
@@ -161,11 +161,11 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 <br>
 
-- $$ q_{a}q'_{b}^{T} + q_{b}^{T}q'_{a} = (p_{b} - p_{a}) \cdot (q_{b} \times q_{a}) = 0 $$
+- $$ q_{a}(q'_{b})^{T} + q_{b}^{T}q'_{a} = (p_{b} - p_{a}) \cdot (q_{b} \times q_{a}) = 0 $$
 
 <br>
 
-- 앞에서 두 선이 교차한다는 조건인 $$ p_{a} - p_{b} = t_{b}q_{b} - t_{a}q_{a} $$ 식을 사용하였으므로 두 선이 교차할 때, $$ q_{a}q'_{b}^{T} + q_{b}^{T}q'_{a} = 0 $$ 이 만족함을 확인할 수 있습니다.
+- 앞에서 두 선이 교차한다는 조건인 $$ p_{a} - p_{b} = t_{b}q_{b} - t_{a}q_{a} $$ 식을 사용하였으므로 두 선이 교차할 때, $$ q_{a}(q'_{b})^{T} + q_{b}^{T}q'_{a} = 0 $$ 이 만족함을 확인할 수 있습니다.
 
 <br>
 
@@ -179,13 +179,13 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 <br>
 
-- $$ q_{a}q'_{b}^{T} + q_{b}^{T}q'_{a} = 0 $$
+- $$ q_{a}(q'_{b})^{T} + q_{b}^{T}q'_{a} = q_{b}^{T}q'_{a} + q_{a}(q'_{b})^{T} \Rightarrow  q_{2}^{T}q'_{1} + q_{1}(q'_{2})^{T} = 0 $$
 
-- $$ \Rightarrow q_{b}^{T}q'_{a} + q_{a}q'_{b}^{T} = q_{2}^{T}q'_{1} + q_{1}q'_{2}^{T} = 0 $$
+- $$ \Rightarrow q_{b}^{T}q'_{a} + q_{a}(q'_{b})^{T} = q_{2}^{T}q'_{1} + q_{1}(q'_{2})^{T} = 0 $$
 
-- $$ \Rightarrow q_{2}^{T}([t]_{\times} Rq_{1} + Rq'_{1}) + q'_{2}^{T}q_{1} = 0 \quad (\because q'_{1} = [t]_{\times} Rq_{1} + Rq'_{1}) $$
+- $$ \Rightarrow q_{2}^{T}([t]_{\times} Rq_{1} + Rq'_{1}) +(q'_{2})^{T}q_{1} = 0 \quad (\because q'_{1} = [t]_{\times} Rq_{1} + Rq'_{1}) $$
 
-- $$ \therefore \quad q_{2}^{T}[t]_{\times} Rq_{1} + q_{2}^{T}Rq'_{1} q'_{2}^{T}q_{1} = 0 $$
+- $$ \therefore \quad q_{2}^{T}[t]_{\times} Rq_{1} + q_{2}^{T}Rq'_{1}(q'_{2})^{T}q_{1} = 0 $$
 
 <br>
 
