@@ -54,6 +54,14 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 <center><img src="../assets/img/vision/mvg/nus_lec12/9.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- `plucker vector` 설명: https://en.wikipedia.org/wiki/Pl%C3%BCcker_coordinates
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/9_1.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림에서 $$ d $$ 는 `direction vector`이고 $$ m $$ 은 `moment vector`를 의미합니다.
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec12/10.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
@@ -86,7 +94,7 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 - $$ q_{\text{transformed}} = Rq $$
 
-- $$ \begin{align} q'_{\text{transformed}} &= p' \times q_{\text{transformed}} \\ &= (Rp + t) \times (Rq) \\ &= (Rp) \times (Rq) + t \times (Rq) \\ &= R(P \times q) + t \times (Rq) = Rq' + t \times Rq \\ &= Rq' + [t]_{\times} Rq \end{align} $$
+- $$ \begin{align} q'_{\text{transformed}} &= p' \times q_{\text{transformed}} \\ &= (Rp + t) \times (Rq) \\ &= (Rp) \times (Rq) + t \times (Rq) \\ &= R(p \times q) + t \times (Rq) = Rq' + t \times Rq \\ &= Rq' + [t]_{\times} Rq \end{align} $$
 
 <br>
 
@@ -128,7 +136,7 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 <br>
 
-- 지금부터 $$ q_{b}^{T}q'_{a} + q_{b}'^{T}q_{a} = q_{a}q'_{b} + q_{b}^{T}q'_{a} = 0 $$ 식에 대한 유도를 진행해 보도록 하겠습니다.
+- 지금부터 $$ q_{b}^{T}q'_{a} + q_{b}'^{T}q_{a} = q_{a}q'_{b}^{T} + q_{b}^{T}q'_{a} = 0 $$ 식에 대한 유도를 진행해 보도록 하겠습니다.
 
 <br>
 
@@ -136,7 +144,7 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 - $$ q'_{b} = p_{b} \times q_{b} $$
 
-- $$ q_{a}q'_{b} + q_{b}^{T}q'_{a} = q_{a} \cdot (p_{b} \times q_{b}) + q_{b} \cdot (p_{a} \times q_{a}) $$
+- $$ q_{a}q'_{b}^{T} + q_{b}^{T}q'_{a} = q_{a} \cdot (p_{b} \times q_{b}) + q_{b} \cdot (p_{a} \times q_{a}) $$
 
 <br>
 
@@ -144,7 +152,7 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 <br>
 
-- $$ \begin{align} q_{a}q'_{b} + q_{b}^{T}q'_{a} &=q_{a} \cdot (p_{b} \times q_{b}) + q_{b} \cdot (p_{a} \times q_{a}) \\ &= p_{b} \cdot  (q_{b} \times q_{a}) + p_{a} \cdot (q_{a} \times q_{b}) \\ &= p_{b} \cdot (q_{b} \times q_{a}) - p_{a} \cdot (q_{b} \times q_{a}) \\ &= (p_{b} - p_{a}) \cdot (q_{b} \times q_{a}) \end{align} $$
+- $$ \begin{align} q_{a}q'_{b}^{T} + q_{b}^{T}q'_{a} &=q_{a} \cdot (p_{b} \times q_{b}) + q_{b} \cdot (p_{a} \times q_{a}) \\ &= p_{b} \cdot  (q_{b} \times q_{a}) + p_{a} \cdot (q_{a} \times q_{b}) \\ &= p_{b} \cdot (q_{b} \times q_{a}) - p_{a} \cdot (q_{b} \times q_{a}) \\ &= (p_{b} - p_{a}) \cdot (q_{b} \times q_{a}) \end{align} $$
 
 <br>
 
@@ -153,16 +161,39 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 <br>
 
-- $$ q_{a}q'_{b} + q_{b}^{T}q'_{a} = (p_{b} - p_{a}) \cdot (q_{b} \times q_{a}) = 0 $$
+- $$ q_{a}q'_{b}^{T} + q_{b}^{T}q'_{a} = (p_{b} - p_{a}) \cdot (q_{b} \times q_{a}) = 0 $$
 
 <br>
 
-- 앞에서 두 선이 교차한다는 조건인 $$ p_{a} - p_{b} = t_{b}q_{b} - t_{a}q_{a} $$ 식을 사용하였으므로 두 선이 교차할 때, $$ q_{a}q'_{b} + q_{b}^{T}q'_{a} = 0 $$ 이 만족함을 확인할 수 있습니다.
+- 앞에서 두 선이 교차한다는 조건인 $$ p_{a} - p_{b} = t_{b}q_{b} - t_{a}q_{a} $$ 식을 사용하였으므로 두 선이 교차할 때, $$ q_{a}q'_{b}^{T} + q_{b}^{T}q'_{a} = 0 $$ 이 만족함을 확인할 수 있습니다.
+
+<br>
+
+- 선들이 교차하는 경우, 선 위의 점들 사이의 벡터는 `direction vector`에 의해 형성되는 평면에 있기 때문에 스칼라 삼중곱은 0이 되어야 합니다. 따라서 필요 조건을 만족함을 확인하였습니다. 반대로 $$ q_{a}q'_{b} + q_{b}^{T}q'_{a} = 0 $$ 인 경우에 앞에서 보인 바와 같이 선들이 교차하므로 충분 조건을 만족합니다. 따라서 필요 충분 조건을 만족함을 알 수 있습니다.
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec12/16.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 앞에서 유도한 식을 이용하여 위 슬라이드의 식을 전개해 보도록 하겠습니다.
+
+<br>
+
+- $$ q_{a}q'_{b}^{T} + q_{b}^{T}q'_{a} = 0 $$
+
+- $$ \Rightarrow q_{b}^{T}q'_{a} + q_{a}q'_{b}^{T} = q_{2}^{T}q'_{1} + q_{1}q'_{2}^{T} = 0 $$
+
+- $$ \Rightarrow q_{2}^{T}([t]_{\times} Rq_{1} + Rq'_{1}) + q'_{2}^{T}q_{1} = 0 \quad (\because q'_{1} = [t]_{\times} Rq_{1} + Rq'_{1}) $$
+
+- $$ \therefore \quad q_{2}^{T}[t]_{\times} Rq_{1} + q_{2}^{T}Rq'_{1} q'_{2}^{T}q_{1} = 0 $$
+
+<br>
+
+- 따라서 행렬로 표현하면 다음과 같이 표현할 수 있습니다.
+
+<br>
+
+- $$ \begin{bmatrix}q_{2} \\ q'_{2} \end{bmatrix}^{T} \begin{bmatrix} E & R \\ R & 0 \end{bmatrix} \begin{bmatrix} q_{1} \\ q'_{1} \end{bmatrix} = 0 $$
 
 <br>
 <div style="text-align: center;">
