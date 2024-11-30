@@ -181,8 +181,6 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 - $$ q_{a}(q'_{b})^{T} + q_{b}^{T}q'_{a} = q_{b}^{T}q'_{a} + q_{a}(q'_{b})^{T} \Rightarrow  q_{2}^{T}q'_{1} + q_{1}(q'_{2})^{T} = 0 $$
 
-- $$ \Rightarrow q_{b}^{T}q'_{a} + q_{a}(q'_{b})^{T} = q_{2}^{T}q'_{1} + q_{1}(q'_{2})^{T} = 0 $$
-
 - $$ \Rightarrow q_{2}^{T}([t]_{\times} Rq_{1} + Rq'_{1}) +(q'_{2})^{T}q_{1} = 0 \quad (\because q'_{1} = [t]_{\times} Rq_{1} + Rq'_{1}) $$
 
 - $$ \therefore \quad q_{2}^{T}[t]_{\times} Rq_{1} + q_{2}^{T}Rq'_{1}(q'_{2})^{T}q_{1} = 0 $$
@@ -194,6 +192,38 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 <br>
 
 - $$ \begin{bmatrix}q_{2} \\ q'_{2} \end{bmatrix}^{T} \begin{bmatrix} E & R \\ R & 0 \end{bmatrix} \begin{bmatrix} q_{1} \\ q'_{1} \end{bmatrix} = 0 $$
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/17.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/18.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/19.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/20.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/21.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/22.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/23.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/24.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
 
 <br>
 <div style="text-align: center;">
