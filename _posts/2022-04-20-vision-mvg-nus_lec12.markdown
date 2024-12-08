@@ -300,7 +300,7 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 <br>
 
-$$ \begin{align} x_{i}^{T} (v_{i} \times x'_{i}) + (v_{i} \times x_{i})^{T} x'_{i} &= (x'_{i})^{T}(x_{i} \times v_{i}) + (v_{i} + x_{i})^{T}x'_{i} \quad (\because a \cdot (b \times c) = c \cdot (a \times b)) \\ &= -(x'_{i})^{T} (v_{i} \times x_{i}) + (v_{i} \times x_{i})^{T} x'_{i} \quad (\because a \times b = -b \times a) \\ &= 0 \end{align} $$
+- $$ \begin{align} x_{i}^{T} (v_{i} \times x'_{i}) + (v_{i} \times x_{i})^{T} x'_{i} &= (x'_{i})^{T}(x_{i} \times v_{i}) + (v_{i} + x_{i})^{T}x'_{i} \quad (\because a \cdot (b \times c) = c \cdot (a \times b)) \\ &= -(x'_{i})^{T} (v_{i} \times x_{i}) + (v_{i} \times x_{i})^{T} x'_{i} \quad (\because a \times b = -b \times a) \\ &= 0 \end{align} $$
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec12/31.png" alt="Drawing" style="width: 1000px;"/></center>
