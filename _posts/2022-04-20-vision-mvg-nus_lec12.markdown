@@ -266,6 +266,52 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 </div>
 <br>
 
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/25.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/26.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/27.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/28.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/29.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/30.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+- 만약 $$ E = 0, R = I $$ 라면 다음과 같이 `GEC`의 해를 만족합니다.
+
+<br>
+
+$$ \begin{align} x_{i}^{T} (v_{i} \times x'_{i}) + (v_{i} \times x_{i})^{T} x'_{i} &= (x'_{i})^{T}(x_{i} \times v_{i}) + (v_{i} + x_{i})^{T}x'_{i} \quad (\because a \cdot (b \times c) = c \cdot (a \times b)) \\ &= -(x'_{i})^{T} (v_{i} \times x_{i}) + (v_{i} \times x_{i})^{T} x'_{i} \quad (\because a \times b = -b \times a) \\ &= 0 \end{align} $$
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/31.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/32.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+
 <br>
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/E-YXFI5xzNM" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>

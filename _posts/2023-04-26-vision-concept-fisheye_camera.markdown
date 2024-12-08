@@ -51,7 +51,6 @@ tags: [fisheye camera, 어안 카메라, lens distortion, 카메라 모델, 렌�
 - ### [Fisheye Camera 왜곡 보정 방법 : Perspective Images](#fisheye-camera-왜곡-보정-방법--perspective-images-1)
 - ### [Fisheye Camera 왜곡 보정 방법 : Cylindrical Images](#fisheye-camera-왜곡-보정-방법--cylindrical-images-1)
 - ### [Fisheye Camera 왜곡 보정 방법 : Spherical Images](#fisheye-camera-왜곡-보정-방법--spherical-images-1)
-- ### [Fisheye Camera 왜곡 보정 방법 : Cube Images](#fisheye-camera-왜곡-보정-방법--cube-images-1)
 - ### [Surround-view Fisheye Camera Perception for Automated Driving 리뷰](#surround-view-fisheye-camera-perception-for-automated-driving-리뷰-1)
     - ### [Abstract](#abstract-1)
     - ### [1. Introduction](#1-introduction-1)
@@ -388,6 +387,16 @@ _, board_50_bfs = bfs(board_50, cy, cx)
 
 <br>
 
+### **Perspective Image 왜곡 보정 방법**
+
+<br>
+
+### **World to Perspective Image**
+
+<br>
+
+### **Perspective Image to World**
+
 <br>
 
 ## **Fisheye Camera 왜곡 보정 방법 : Cylindrical Images**
@@ -396,6 +405,20 @@ _, board_50_bfs = bfs(board_50, cy, cx)
 
 - 참조 : https://plaut.github.io/fisheye_tutorial
 - 참조 : https://arxiv.org/pdf/2003.03759.pdf
+
+<br>
+
+### **Cylindrical Image 왜곡 보정 방법**
+
+<br>
+
+### **World to Cylindrical Image**
+
+<br>
+
+### **Cylindrical Image to World**
+
+<br>
 
 <br>
 
@@ -408,7 +431,17 @@ _, board_50_bfs = bfs(board_50, cy, cx)
 
 <br>
 
-## **Fisheye Camera 왜곡 보정 방법 : Cube Images**
+### **Spherical Image 왜곡 보정 방법**
+
+<br>
+
+### **World to Spherical Image**
+
+<br>
+
+### **Spherical Image to World**
+
+<br>
 
 <br>
 
