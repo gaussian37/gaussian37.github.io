@@ -183,7 +183,7 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 
 - $$ \Rightarrow q_{2}^{T}([t]_{\times} Rq_{1} + Rq'_{1}) +(q'_{2})^{T}q_{1} = 0 \quad (\because q'_{1} = [t]_{\times} Rq_{1} + Rq'_{1}) $$
 
-- $$ \therefore \quad q_{2}^{T}[t]_{\times} Rq_{1} + q_{2}^{T}Rq'_{1}(q'_{2})^{T}q_{1} = 0 $$
+- $$ \therefore \quad q_{2}^{T}[t]_{\times} Rq_{1} + q_{2}^{T}Rq'_{1} + (q'_{2})^{T}q_{1} = 0 $$
 
 <br>
 
@@ -271,6 +271,13 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 <center><img src="../assets/img/vision/mvg/nus_lec12/25.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 16 페이지의 식을 참조하면 위 슬라이드의 `GEC (Generalized Epipolar Geometry Contraints)`를 정의할 수 있습니다.
+
+- $$ q_{2}^{T}[t]_{\times} Rq_{1} + q_{2}^{T}Rq'_{1} + (q'_{2})^{T}q_{1} = 0 $$
+
+- $$ \Rightarrow q_{2}^{T} E q_{1} + q_{2}^{T}Rq'_{1}+ (q'_{2})^{T}q_{1} = 0 $$
+
+- $$ \Rightarrow x_{i}^{T} E x'_{i} + x_{i}^{T}R(v'_{i} \times x'_{i})+ (v_{i} \times x_{i})^{T}x'_{i} = 0 $$
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec12/26.png" alt="Drawing" style="width: 1000px;"/></center>
