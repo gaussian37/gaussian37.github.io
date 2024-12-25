@@ -57,13 +57,19 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 - 위 그림의 가장 오른쪽 좌표계는 구면 좌표계를 나타냅니다. 원통 좌표계와 비교하면 $$ r $$ 의 의미가 달라진 점과 $$ z $$ 대신에 $$ \theta $$ 를 사용하여 점 $$ P $$ 를 표현하였다는 점입니다.
 - 원통 좌표계에서는 $$ r = \sqrt{x^{2} + y^{2}} $$ 인 반면 구면 좌표계에서는 $$ r = \sqrt{x^{2} + y^{2} + z^{2} } $$ 으로 정의됩니다.
 - 구면 좌표계에서의 $$ \theta $$ 는 `elevation` 또는 `inclination` 이라고 하며 높이 축으로 부터 아래로 내려오는 각도를 의미합니다.
-- 이와 같이 $$ \phi, \theta, r $$ 을 이용하여 점 $$ P $$ 를 나타내면 $$ x, y, z $$ 를 사용하지 않고도 점의 위치를 표현할 수 있습니다.
+- 이와 같이 $$ \phi, \theta, r $$ 을 이용하여 점 $$ P $$ 를 나타내면 $$ x, y, z $$ 를 사용하지 않고도 점의 위치를 표현할 수 있으며 구 형태 표면에서의 좌표를 나타낼 때 용이합니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/5.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 추가적으로 참고 자료에 따라 표기 방법이 다른 경우가 발생하여 그 부분을 정하고 넘어가고자 합니다.
 
 <br>
 <center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/4.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 참고 자료에 따라서 표기 방법이 조금씩 다른 경우가 발생합니다. 위 내용은 위키피디아에서 발췌한 내용입니다. 왼쪽의 경우가 물리학이나 공학에서 많이 사용하는 표기법입니다. 즉, `azimuth angle`에 $$ \phi $$ 를 사용하고 `elevation angle`에 $$ \theta $$ 를 사용합니다. 본 글에서도 이 표기법을 따를 예정입니다.
+- 위 내용은 위키피디아에서 발췌한 내용입니다. 왼쪽의 경우가 물리학이나 공학에서 많이 사용하는 표기법입니다. 즉, `azimuth angle`에 $$ \phi $$ 를 사용하고 `elevation angle`에 $$ \theta $$ 를 사용합니다. 본 글에서도 이 표기법을 따를 예정입니다.
 - 반면에 오른쪽 표기 방법은 수학에서 많이 사용하는 방법이라고 합니다. 참조하시면 되겠습니다.
 
 <br>
