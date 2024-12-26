@@ -60,7 +60,7 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 - 이와 같이 $$ \phi, \theta, r $$ 을 이용하여 점 $$ P $$ 를 나타내면 $$ x, y, z $$ 를 사용하지 않고도 점의 위치를 표현할 수 있으며 구 형태 표면에서의 좌표를 나타낼 때 용이합니다.
 
 <br>
-<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/5.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/6.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 추가적으로 참고 자료에 따라 표기 방법이 다른 경우가 발생하여 그 부분을 정하고 넘어가고자 합니다.
