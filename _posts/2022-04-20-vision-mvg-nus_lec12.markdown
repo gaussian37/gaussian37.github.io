@@ -322,12 +322,57 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 <center><img src="../assets/img/vision/mvg/nus_lec12/33.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
-
-
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec12/34.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/35.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/36.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/37.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/38.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/39.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/40.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/41.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/42.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/43.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/44.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/45.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec12/46.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
 
 <br>
 <div style="text-align: center;">
