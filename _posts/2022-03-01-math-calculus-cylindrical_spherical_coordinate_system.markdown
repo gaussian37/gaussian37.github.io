@@ -91,6 +91,11 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 ### **직교 좌표계와 원통 좌표계 간의 좌표 변환**
 
 <br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/8.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 먼저 위 그림과 같이 `FLU` 좌표축에서의 직교 좌표계와 원통 좌표계 간의 변환에 대하여 살펴보도록 하겠습니다.
+
 
 <br>
 
@@ -122,7 +127,7 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 <br>
 
 - 위 그림과 같이 `RDU(Right-Down-Foward)` 좌표축은 카메라를 이용할 때 주로 사용되는 좌표 축입니다. 가로축이 $$ X $$, 세로축이 $$ Y $$ 이고 앞으로 향하는 방향이 $$ Z $$ 가 되며 이 방향의 값을 `Depth` 라고 부릅니다.
-- 직교 좌표계를 사용하는 카메라 영상의 값을 앞에서 다룬 원통 좌표계와 구면 좌표계를 이용하여 어떻게 다루는 지 살펴보도록 하겠습니다. 
+- 직교 좌표계를 사용하는 카메라 영상의 값을 앞에서 다룬 원통 좌표계와 구면 좌표계를 이용하여 어떻게 다루는 지 살펴보도록 하겠습니다.
 
 <br>
 
