@@ -102,12 +102,18 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 ### **직교 좌표계와 구면 좌표계 간의 좌표 변환**
 
 <br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/9.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
 
 <br>
 
 ### **원통 좌표계와 구면 좌표계 간의 좌표 변환**
 
 <br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/10.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
 
 <br>
 
