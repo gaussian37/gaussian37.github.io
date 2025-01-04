@@ -22,8 +22,8 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 <br>
 
 - ### [직교 좌표계, 원통 좌표계, 구면 좌표계](#직교-좌표계-원통-좌표계-구면-좌표계-1)
-- ### [Foward-Left-Up 좌표축에서의 좌표계 변환](#foward-left-up-좌표축에서의-좌표계-변환-1)
-- ### [Right-Down-Foward 좌표축에서의 좌표계 변환](#right-down-foward-좌표축에서의-좌표계-변환-1)
+- ### [Forward-Left-Up 좌표계에서의 좌표계 변환](#Forward-left-up-좌표계에서의-좌표계-변환-1)
+- ### [Right-Down-Forward 좌표계에서의 좌표계 변환](#right-down-Forward-좌표계에서의-좌표계-변환-1)
 
 <br>
 
@@ -37,17 +37,17 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 - 이번 글에서는 간단히 `직교 좌표계`, `원통 좌표계`, `구면 좌표계` 간의 어떤 관계가 있는 지 살펴보고자 합니다. 추가적으로 3차원 상에서 많이 사용하는 오른손 좌표계에서의 좌표 변환 뿐 아니라 카메라 좌표계에서의 좌표 변환도 다루어 보도록 하겠습니다.
 
 <br>
-
-- 이 글에서 다루는 오른손 좌표계는 다음과 같이 검지가 $$ X $$ 축, 중지가 $$ Y $$ 축, 엄지가 $$ Z $$ 축으로 표현되는 좌표계를 의미합니다.
-
-<br>
 <center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/14.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 반면 카메라 좌표계 (또는 왼손 좌표계)는 다음과 같이 엄지가 $$ X $$ 축, 중지가 $$ Y $$ 축, 검지가 $$ Z $$ 축으로 표현되는 좌표계를 의미합니다.
+- 이 글에서 다루는 오른손 좌표계는 위 그림과 같이 검지가 $$ X $$ 축, 중지가 $$ Y $$ 축, 엄지가 $$ Z $$ 축으로 표현되는 좌표계를 의미합니다. $$ X, Y, Z $$ 축 순서로 Forward, Left, Up 이므로 이 글에서는 줄여서 `FLU(Forward-Left-Up)` 좌표계 라고 표현하겠습니다.
 
 <br>
 <center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/15.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 반면 카메라 좌표계 (또는 왼손 좌표계)는 다음과 같이 엄지가 $$ X $$ 축, 중지가 $$ Y $$ 축, 검지가 $$ Z $$ 축으로 표현되는 좌표계를 의미합니다. $$ X, Y, Z $$ 축 순서로 Right, Down, Forward 이므로 이 글에서는 줄여서 `RDF(Right-Down-Forward)` 좌표계 라고 표현하겠습니다.
+
 <br>
 
 - 먼저 개념을 이해하기 위해 `원통 좌표계`와 `구면 좌표계`의 표현 방식에 대하여 살펴보도록 하겠습니다.
@@ -56,7 +56,7 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 <center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/2.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 위 그림의 가운데 좌표계가 `원통 좌표계`입니다. 위 좌표축과 같은 **오른손 좌표계**에서 $$ X $$ 축에서 $$ Y $$ 축 방향으로의 회전 각도를 $$ \phi $$ 로 나타내며 이 각도를 `azimuth angle`이라고 부릅니다. 점 $$ P $$ 를 $$ XY $$ 평면에 투영하였을 때, 원점과 점 $$ P $$ 의 `거리(distance)`를 $$ r $$ 로 나타냅니다. $$ z $$ 는 `직교 좌표계`와 동일하게 사용됩니다.
+- 위 그림의 가운데 좌표계가 `원통 좌표계`입니다. **FLU 좌표계**에서 $$ X $$ 축에서 $$ Y $$ 축 방향으로의 회전 각도를 $$ \phi $$ 로 나타내며 이 각도를 `azimuth angle`이라고 부릅니다. 점 $$ P $$ 를 $$ XY $$ 평면에 투영하였을 때, 원점과 점 $$ P $$ 의 `거리(distance)`를 $$ r $$ 로 나타냅니다. $$ z $$ 는 `직교 좌표계`와 동일하게 사용됩니다.
 - `원통 좌표계`는 기존에 사용하는 `직교 좌표계`의 $$ x, y $$ 좌표 표현을 사용하는 대신에 $$ \phi, r $$ 을 이용하여 좌표위 위치를 나타냅니다. 회전 각도와 원점으로 부터의 거리인 $$ \phi, r $$ 을 이용하여 점의 위치를 나타내기 때문에 원과 같은 곡면을 표현하기 유리해지며 높이는 그대로 $$ z $$ 를 사용하기 때문에 원기둥의 표면을 좌표로 나타내기 쉬운 장점이 있습니다.
 
 <br>
@@ -88,17 +88,17 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 
 <br>
 
-## **Foward-Left-Up 좌표축에서의 좌표계 변환**
+## **Forward-Left-Up 좌표계에서의 좌표계 변환**
 
 <br>
 
-- 지금 부터는 `FLU(Foward-Left-Up)` 좌표축에서 직교 좌표계, 원통 좌표계, 구면 좌표계의 변환 방법과 코드를 살펴보도록 하겠습니다.
+- 지금 부터는 `FLU 좌표계`에서 직교 좌표계, 원통 좌표계, 구면 좌표계의 변환 방법과 코드를 살펴보도록 하겠습니다.
 
 <br>
 <center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/5.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- `FLU`는 위 축의 방향과 같이 $$ X, Y, Z $$ 축이 정의된 형태를 의미합니다. 앞에서 계속 살펴본 것과 동일한 축 방향입니다. 글 아랫 부분에서는 `RDF(Right-Down-Foward)` 좌표축에서의 변환 방법을 다루어 볼 예정이므로 `FLU`와 비교해서 살펴보면 도움이 될 것 같습니다.
+- `FLU 좌표계`는 위 축의 방향과 같이 $$ X, Y, Z $$ 축이 정의된 형태를 의미합니다. 앞에서 계속 살펴본 것과 동일한 축 방향입니다. 글 아랫 부분에서는 `RDF 좌표계`에서의 변환 방법을 다루어 볼 예정이므로 `FLU 좌표계`와 비교해서 살펴보면 도움이 될 것 같습니다.
 
 <br>
 
@@ -108,7 +108,7 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 <center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/8.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 먼저 위 그림과 같이 `FLU` 좌표축에서의 직교 좌표계와 원통 좌표계 간의 변환에 대하여 살펴보도록 하겠습니다.
+- 먼저 위 그림과 같이 `FLU 좌표계`에서의 직교 좌표계와 원통 좌표계 간의 변환에 대하여 살펴보도록 하겠습니다.
 
 
 <br>
@@ -138,7 +138,7 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 <br>
 
 
-## **Right-Down-Foward 좌표축에서의 좌표계 변환**
+## **Right-Down-Forward 좌표계에서의 좌표계 변환**
 
 <br>
 
@@ -146,7 +146,7 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 <center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/7.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
-- 위 그림과 같이 `RDU(Right-Down-Foward)` 좌표축은 카메라를 이용할 때 주로 사용되는 좌표 축입니다. 가로축이 $$ X $$, 세로축이 $$ Y $$ 이고 앞으로 향하는 방향이 $$ Z $$ 가 되며 이 방향의 값을 `Depth` 라고 부릅니다.
+- 위 그림과 같이 `RDU 좌표계`는 카메라를 이용할 때 주로 사용되는 좌표 축입니다. 가로축이 $$ X $$, 세로축이 $$ Y $$ 이고 앞으로 향하는 방향이 $$ Z $$ 가 되며 이 방향의 값을 `Depth` 라고 부릅니다.
 - 직교 좌표계를 사용하는 카메라 영상의 값을 앞에서 다룬 원통 좌표계와 구면 좌표계를 이용하여 어떻게 다루는 지 살펴보도록 하겠습니다.
 
 <br>
