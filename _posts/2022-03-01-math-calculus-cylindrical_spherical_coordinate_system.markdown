@@ -111,7 +111,7 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 - 먼저 위 그림과 같이 `FLU 좌표계`에서의 직교 좌표계와 원통 좌표계 간의 변환에 대하여 살펴보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/16.png" alt="Drawing" style="width: 600px;"/></center>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/16.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 원통의 반지름인 $$ r $$ 은 위 그림에서 다음과 같이 쉽게 얻을 수 있습니다.
@@ -144,7 +144,7 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 
 <br>
 
-- 따라서 다음과 같이 직교 좌표계와 원통 좌표계 간의 변환 관계를 정의할 수 있습니다.
+- 따라서 다음과 같이 `직교 좌표계`와 `원통 좌표계` 간의 변환 관계를 정의할 수 있습니다.
 
 <br>
 <center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/17.png" alt="Drawing" style="width: 400px;"/></center>
@@ -158,6 +158,57 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 <center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/9.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- 이번에는 `직교 좌표계`와 `구면 좌표계` 간의 변환 관계를 정의해 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/18.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 3차원 상의 점 $$ P $$ 를 구하기 위해 필요한 값을 하나씩 구해보면 다음과 같습니다.
+
+<br>
+
+- $$ r = \sqrt{x^{2} + y^{2} + z^{2}} $$
+
+- $$ \phi = \tan^{-1} \frac{y}{x} $$
+
+<br>
+
+- 위 그림에서 $$ r $$ 은 원점과 $$ x, y, z $$ 의 직선 거리이므로 $$ \sqrt{x^{2} + y^{2} + z^{2}} $$ 로 구할 수 있으며 $$ \phi $$ 는 `원통 좌표계`와 동일한 방법으로 구할 수 있습니다.
+- 다음으로 $$ \theta $$ 를 구하기 위해서는 $$ \theta $$ 를 사이각으로 하고 밑변이 $$ z $$, 높이가 $$ \sqrt{x^{2} + y^{2}} $$ 인 삼각형을 이용하면 되며 다음과 같습니다.
+
+<br>
+
+- $$ \theta = \tan^{-1} \frac{\sqrt{x^{2} + y^{2}} }{z} $$
+
+<br>
+
+- 반대로 `구면 좌표계` 값인 $$ r, \theta, \phi $$ 를 알고 있을 때, `직교 좌표계` 값인 $$ x, y, z $$ 는 삼각함수를 이용하여 쉽게 구할 수 있습니다.
+
+<br>
+
+- $$ z = r \cos{(\theta)} $$
+
+<br>
+
+- 사잇각을 $$ \theta $$ 로 하는 삼각형에서 삼각비를 이용하면 $$ z $$ 를 쉽게 구할 수 있습니다.
+- 그 다음으로 원점과 주황색 점 사이의 거리는 방금 사용한 삼각형에서의 삼각비를 이용하여 $$ r \sin{(\theta)} $$ 로 구할 수 있으므로 (평행한 2개의 주황 점선을 참조하면 됩니다.) 다음과 같이 $$ x, y $$ 에 접근할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/19.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- $$ x = r \sin{(\theta)} \cos{(\phi)} $$
+
+- $$ y = r \sin{(\theta)} \sin{(\phi)} $$
+
+<br>
+
+- 따라서 다음과 같이 `직교 좌표계`와 `구면 좌표계` 간의 변환 관계를 정의할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/20.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
 <br>
 
