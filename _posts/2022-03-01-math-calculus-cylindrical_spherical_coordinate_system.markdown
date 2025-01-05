@@ -110,6 +110,45 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 
 - 먼저 위 그림과 같이 `FLU 좌표계`에서의 직교 좌표계와 원통 좌표계 간의 변환에 대하여 살펴보도록 하겠습니다.
 
+<br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/16.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 원통의 반지름인 $$ r $$ 은 위 그림에서 다음과 같이 쉽게 얻을 수 있습니다.
+
+<br>
+
+- $$ r = \sqrt{x^{2} + y^{2}} $$
+
+<br>
+
+- 그리고 $$ \phi $$ 는 직교 좌표계의 $$ x, y $$ 를 이용하여 다음과 같이 구할 수 있습니다.
+
+<br>
+
+- $$ \phi = \tan^{-1}\frac{y}{x} $$
+
+<br>
+
+- 위 내용과 같이 $$ x, y, z $$ 를 이용하여 $$ r, \phi, z $$ 를 쉽게 구할 수 있습니다.
+
+<br>
+
+- 반대로 $$ r, \phi $$ 를 알고있을 때, 삼각함수를 이용하면 직교 좌표계 $$ x, y $$ 로 변환할 수 있습니다.
+
+<br>
+
+- $$ x = r \cos{(\phi)} $$
+
+- $$ y = r \sin{(\phi)} $$
+
+<br>
+
+- 따라서 다음과 같이 직교 좌표계와 원통 좌표계 간의 변환 관계를 정의할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/17.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
 <br>
 
