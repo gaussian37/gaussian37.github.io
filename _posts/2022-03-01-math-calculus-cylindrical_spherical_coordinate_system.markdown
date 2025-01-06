@@ -218,12 +218,101 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 <center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/10.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- 마지막으로 `원통 좌표계`와 `구면 좌표계`간의 좌표 변환에 대하여 살펴보도록 하겠습니다. 두 좌표계 모두 $$ r $$ 이 사용되므로 `원통 좌표계`에서는 $$ r_{c} $$ 로 사용하고 `구면 좌표계`에서는 $$ r_{s} $$ 로 사용하도록 하겠습니다.
+- 먼저 두 좌표계 모두 `azimuth` 각도로 $$ \phi $$ 를 사용합니다. `원통 좌표계`에서 `구면 좌표계`의 $$ r_{s}, \theta $$ 를 구하기 위해서는 $$ r_{c}, z $$ 와 삼각비를 활용하면 쉽게 구할 수 있습니다.
 
+<br>
+
+- $$ r_{s} = \sqrt{r_{c}^{2} + z^{2}} $$
+
+- $$ \theta = \tan^{-1}\frac{r_{c}}{z} $$
+
+<br>
+
+- 반면 `구면 좌표계`에서 $$ r_{s}, \theta $$ 를 이용하여 $$ r_{c}, z $$ 를 구하는 방법 또한 삼각비를 활용하면 쉽게 구할 수 있습니다.
+
+<br>
+
+- $$ r_{c} = r_{s} \sin{(\theta)} $$
+
+- $$ z = r_{s} \cos{(\theta)} $$
+
+<br>
+
+- 정리하면 다음과 같이 `원통 좌표계`와 `구면 좌표계`를 변환할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/21.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 ### **Python Code**
 
 <br>
+
+- 지금까지 살펴본 내용을 파이썬 코드를 이용하여 정리하면 다음과 같습니다.
+
+<br>
+
+```python
+import numpy as np
+
+def cartesian_to_cylindrical(x, y, z):
+    r = np.sqrt(x**2 + y**2)
+    phi = np.arctan2(y, x)
+    return r, phi, z
+
+def cartesian_to_spherical(x, y, z):
+    r = np.sqrt(x**2 + y**2 + z**2)
+    phi = np.arccos(z / r)
+    theta = np.arctan2(y, x)
+    return r, theta, phi
+
+def cylindrical_to_cartesian(r, phi, z):
+    x = r * np.cos(phi)
+    y = r * np.sin(phi)
+    return x, y, z
+
+def cylindrical_to_spherical(r_c, phi, z):
+    r_s = np.sqrt(r_c**2 + z**2)
+    theta = np.arctan2(r_c, z)
+    return r_s, theta, phi
+
+def spherical_to_cartesian(r, theta, phi):
+    x = r * np.sin(phi) * np.cos(theta)
+    y = r * np.sin(phi) * np.sin(theta)
+    z = r * np.cos(phi)
+    return x, y, z
+
+def spherical_to_cylindrical(r_s, theta, phi):
+    r_c = r_s * np.sin(theta)
+    z = r_s * np.cos(theta)
+    return r_c, phi, z
+
+# Main Conversion Dispatcher Function
+
+def convert_coordinates(src_system, dst_system, coordinates):
+    if src_system == "cartesian" and dst_system == "cylindrical":
+        return cartesian_to_cylindrical(*coordinates)
+    elif src_system == "cartesian" and dst_system == "spherical":
+        return cartesian_to_spherical(*coordinates)
+    elif src_system == "cylindrical" and dst_system == "cartesian":
+        return cylindrical_to_cartesian(*coordinates)
+    elif src_system == "cylindrical" and dst_system == "spherical":
+        return cylindrical_to_spherical(*coordinates)
+    elif src_system == "spherical" and dst_system == "cartesian":
+        return spherical_to_cartesian(*coordinates)
+    elif src_system == "spherical" and dst_system == "cylindrical":
+        return spherical_to_cylindrical(*coordinates)
+    else:
+        raise ValueError("Invalid source or destination coordinate system.")
+
+# Example usage
+point = (1, 1, 1)  # Cartesian coordinates
+src_system = "cartesian"
+dst_system = "cylindrical"
+converted_point = convert_coordinates(src_system, dst_system, point)
+print(f"Converted from {src_system} to {dst_system}:", converted_point)
+```
 
 <br>
 
