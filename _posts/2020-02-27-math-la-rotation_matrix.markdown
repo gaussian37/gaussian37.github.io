@@ -794,7 +794,7 @@ print(f"Yaw: {euler_angles_set_2[2]} radian.({euler_angles_set_2[2] * 180 / np.p
 
 <br>
 
-- 만약 `Gimbal Lock`과 같은 상황을 고려하지 않고 간단하게 `Roll`, `Pitch`, `Yaw`를 구하고 싶다면 다음과 같이 구할 수 있습니다.
+- 만약 `Gimbal Lock`과 같은 상황을 고려하지 않고 간단하게 `Roll`, `Pitch`, `Yaw`를 구하고 싶다면 다음과 같이 간단하게 사용할 수 있습니다.
 
 <br>
 
