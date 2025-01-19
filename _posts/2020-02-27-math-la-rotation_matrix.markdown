@@ -397,7 +397,7 @@ print(basis_rotation)
 <br>
 
 - 지금까지 살펴본 방식은 `Roll`, `Pitch`, `Yaw`를 이용하여 `Rotation` 행렬을 구하는 방법에 대하여 살펴보았습니다.
-- 이번에는 임의의 `Rotation` 행렬이 주어졌을 때, 이 행렬을 `Roll`, `Pitch`, `Yaw`로 분해하는 방법을 알아보도록 하겠습니다.
+- 이번에는 임의의 `Rotation` 행렬이 주어졌을 때, 이 행렬을 `Roll`, `Pitch`, `Yaw`로 분해하는 방법을 알아보도록 하겠습니다. 3차원 좌표축의 기준은 앞에서 다룬바와 같이 $$ X $$ 축이 전방, $$ Y $$ 축이 왼쪽, $$ Z $$ 축이 위로 향하는 `Forward-Left-Up` 순서의 좌표축을 의미합니다. 만약 다른 좌표축 기준에서 `Roll`, `Pitch`, `Yaw` 성분을 분해하려면 아래 내용을 이해한 다음에 분해 순서 및 방식을 일부 수정하여 적용해야 합니다.
 
 <br>
 
@@ -791,6 +791,21 @@ print(f"Yaw: {euler_angles_set_2[2]} radian.({euler_angles_set_2[2] * 180 / np.p
 - $$ (\psi_{1}(\text{Roll}), \theta_{1}(\text{Pitch}), \phi_{1}(\text{Yaw})) = (\frac{\pi}{4}, \frac{\pi}{4}, \frac{\pi}{4}) $$
 
 - $$ (\psi_{2}(\text{Roll}), \theta_{2}(\text{Pitch}), \phi_{2}(\text{Yaw})) = (-\frac{3\pi}{4}, \frac{3\pi}{4}, -\frac{3\pi}{4}) $$
+
+<br>
+
+- 만약 `Gimbal Lock`과 같은 상황을 고려하지 않고 간단하게 `Roll`, `Pitch`, `Yaw`를 구하고 싶다면 다음과 같이 구할 수 있습니다.
+
+<br>
+
+```python
+def rotation_matrix_to_euler_angles(R):
+    assert(R.shape == (3, 3))
+    theta = -np.arcsin(R[2, 0])
+    psi = np.arctan2(R[2, 1] / np.cos(theta), R[2, 2] / np.cos(theta))
+    phi = np.arctan2(R[1, 0] / np.cos(theta), R[0, 0] / np.cos(theta))
+    return np.array([psi, theta, phi]) # Roll, Pitch, Yaw
+```
 
 <br>
 
