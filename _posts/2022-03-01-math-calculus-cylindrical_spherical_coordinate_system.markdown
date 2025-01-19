@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 원통 좌표계와 구면 좌표계
+title: 직교좌표계, 원통 좌표계 및 구면 좌표계
 date: 2022-03-01 00:00:00
 img: math/calculus/cylindrical_spherical_coordinate_system/0.png
 categories: [math-calculus] 
