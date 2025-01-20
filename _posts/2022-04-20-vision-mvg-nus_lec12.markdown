@@ -396,9 +396,17 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 <center><img src="../assets/img/vision/mvg/nus_lec12/58.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 위 슬라이드에서 $$ L_{C} = \tau_{W}^{C}L_{W} $$ 를 변환할 때, $$ \tau_{W}^{C} $$ 는 $$ L_{W} = [U_{W}^{T} V_{W}^{T}] $$ 를 $$ L_{C} = [U_{C}^{T} V_{C}^{T}] $$ 로 변환하기 위해 다음과 같이 정의 됩니다.
+
+<br>
+
 - $$ P_{C} = R_{W}^{C} P_{W} + t_{W}^{C} $$
 
-- $$ \begin{align} U_{C} &= P_{C} \times V_{C} \\ &= (R_{W}^{C} P_{W} + t_{W}^{C}) \times (R_{W}^{C}V_{W}) \\ &= (R_{W}^{C}P_{W}) \times (R_{W}^{C}V_{W}) + t_{W}^{C} \times (R_{W}^{C}V_{W}) \\ &= (R_{W}^{C})(P_{W} \times V_{W}) + t_{W}^{C} \times (R_{W}^{C}V_{W}) \\ &= R_{W}^{C} U_{W} + t_{W}^{C} \times (R_{W}^{C} V_{W}) \\ &= R_{W}^{C} U_{W} + (\lfloor t_{W}^{C} \rfloor_{\times}(R_{W}^{C})V_{W} \end{align} $$
+- $$ \begin{align} U_{C} &= P_{C} \times V_{C} \\ &= (R_{W}^{C} P_{W} + t_{W}^{C}) \times (R_{W}^{C}V_{W}) \\ &= (R_{W}^{C}P_{W}) \times (R_{W}^{C}V_{W}) + t_{W}^{C} \times (R_{W}^{C}V_{W}) \\ &= (R_{W}^{C})(P_{W} \times V_{W}) + t_{W}^{C} \times (R_{W}^{C}V_{W}) \\ &= R_{W}^{C} U_{W} + t_{W}^{C} \times (R_{W}^{C} V_{W}) \\ &= R_{W}^{C} U_{W} + (\lfloor t_{W}^{C} \rfloor_{\times}R_{W}^{C})V_{W} \end{align} $$
+
+- $$ V_{C} = R_{W}^{C}V_{W} $$
+
+- $$ \therefore L_{C} = \tau_{W}^{C}L_{W} = \begin{bmatrix} R_{W}^{C} & \lfloor t_{W}^{C} \rfloor_{\times}R_{W}^{C} \\ 0_{3 \times 3} & R_{W}^{C} \end{bmatrix} L_{W} $$
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec12/59.png" alt="Drawing" style="width: 1000px;"/></center>
