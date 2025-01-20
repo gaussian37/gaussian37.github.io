@@ -396,6 +396,10 @@ tags: [멀티플 뷰 지오메트리, Generalized cameras] # add tag
 <center><img src="../assets/img/vision/mvg/nus_lec12/58.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- $$ P_{C} = R_{W}^{C} P_{W} + t_{W}^{C} $$
+
+- $$ \begin{align} U_{C} &= P_{C} \times V_{C} \\ &= (R_{W}^{C} P_{W} + t_{W}^{C}) \times (R_{W}^{C}V_{W}) \\ &= (R_{W}^{C}P_{W}) \times (R_{W}^{C}V_{W}) + t_{W}^{C} \times (R_{W}^{C}V_{W}) \\ &= (R_{W}^{C})(P_{W} \times V_{W}) + t_{W}^{C} \times (R_{W}^{C}V_{W}) \\ &= R_{W}^{C} U_{W} + t_{W}^{C} \times (R_{W}^{C} V_{W}) \\ &= R_{W}^{C} U_{W} + (\lfloor t_{W}^{C} \rfloor_{\times}(R_{W}^{C})V_{W} \end{align} $$
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec12/59.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
