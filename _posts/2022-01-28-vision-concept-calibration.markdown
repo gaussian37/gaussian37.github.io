@@ -1589,6 +1589,65 @@ plt.imshow(topview_image)
 
 <br>
 
+- 이번 글에서 다루어 왔던 `Rotation` $$ R $$ 은 축 변환과 회전 변환이 동시에 발생하였습니다. 이 중 축 변환은 다음 그림과 같이 $$ X, Y, Z $$ 축이 각각 `Forward-Left-Up` 순서에서 `Right-Down-Forward`로 변환됩니다. 
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/54.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 만약 $$ R $$ 에서 회전 변환 성분만 고려하여 `Roll`, `Pitch`, `Yaw`가 얼만큼 변하였는 지 구하고 싶다면 축 변환을 제거한 상태로 `Roll`, `Pitch`, `Yaw`를 구해야 합니다. 따라서 기존 $$ R $$ 에서 축 변환을 제거하고 회전 변환만을 남기는 방법에 대하여 살펴보도록 하겠습니다.
+- 이 때, 추가적으로 고려해야 할 점은 **좌표축 간의 회전 변환을 고려**해야 하기 때문에 회전 변환 행렬을 `Passive Transformation` 임을 고려해야 합니다. `Active/Passive Transformation` 관련 내용은 앞에서 다룬 [좌표축 변환 (Change of basis) 을 이용한 이동 (Translation)](#좌표축-변환-change-of-basis-을-이용한-회전-rotation)을 참조하시면 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/55.png" alt="Drawing" style="width:600px;"/></center>
+<br>
+
+- 위 그림은 좌표축을 `Pitch`, `Yaw` 방향으로 각각 45도 회전한 예시입니다. 위 회전 변환과 같이 **축의 기준은 같은 상태**에서 (ex. FLU) **좌표축의 회전량**만 얼만큼 변화하였는 지 구하는 것이 이번 글을 통해 확인하고자 하는 점입니다. 따라서 축이 고정된 상태에서 점들의 회전 변환이 아닌 축 자체가 변하는 것이므로 `Passive Transformation`인 상태를 고려해야 합니다.
+
+<br>
+
+- 위 내용을 정리하면 다음과 같습니다.
+- ① 회전 행렬 $$ R $$ 을 좌표축 변환인 `Passive Transformation` 형태로 변환합니다.
+- ② 회전 행렬 $$ R $$ 에 축변환이 있다면 축변환을 제거해 줍니다.
+- ③ 회전 행렬 $$ R $$ 이 `Passive Transformation`이면서 축변환이 없다는 가정하에서 `Roll`, `Pitch`, `Yaw`를 분해합니다.
+
+<br>
+
+- 아래 기호의 의미를 참조하여 수식으로 표현하면 다음과 같습니다.
+
+- $$ \text{RPY: Rotation of Roll, Pitch, Yaw.} $$ 
+
+- $$ \text{Axes: Change of Axes.}
+
+- $$ \text{FLU} \to \text{RDF} \text{: Change FLU axes to RDF axes.} $$
+
+- $$ \text{Passive: Passive Transformation}  $$
+
+- $$ R_{\text{FLU} \to \text{RDF}}^{\text{Passive}} = \text{RPY}_{\text{FLU} \to \text{FLU}}^{text{Passive}} \cdot \text{Axes}_{\text{FLU} \to \text{RDF}}^{\text{Passive}} $$
+
+- $$ \begin{align} \text{RPY}_{\text{FLU} \to \text{FLU}}^{text{Passive}} &=  R_{\text{FLU} \to \text{RDF}}^{\text{Passive}} \cdot (\text{Axes}_{\text{FLU} \to \text{RDF}}^{\text{Passive}})^{-1} \\ &= R_{\text{FLU} \to \text{RDF}}^{\text{Passive}} \cdot \text{Axes}_{\text{RDF} \to \text{FLU}}^{\text{Passive}} \end{align} $$
+
+<br>
+
+- 위 예시에서 $$ \text{RPY}_{\text{FLU} \to \text{FLU}}^{text{Passive}} $$ 는 `FLU` → `FLU` 축 기준에서의 `Roll`, `Pitch`, `Yaw`의 변환만을 나타냅니다. 이 행렬에서 각 `Roll`, `Pitch`, `Yaw`의 회전 각도를 구하려면 다음 샘플 코드를 이용할 수 있습니다. 실제 수식은 아래 링크에서 상세하게 확인할 수 있습니다.
+    - [Roll, Pitch, Yaw와 Rotation 행렬의 변환](https://gaussian37.github.io/math-la-rotation_matrix/#roll-pitch-yaw%EC%99%80-rotation-%ED%96%89%EB%A0%AC%EC%9D%98-%EB%B3%80%ED%99%98-1)
+
+<br>
+
+```python 
+def rotation_matrix_to_euler_angles(R):
+    assert(R.shape == (3, 3))
+
+    theta = -np.arcsin(R[2, 0])
+    psi = np.arctan2(R[2, 1] / np.cos(theta), R[2, 2] / np.cos(theta))
+    phi = np.arctan2(R[1, 0] / np.cos(theta), R[0, 0] / np.cos(theta))
+    # (Roll, Pitch, Yaw)
+    return np.array([psi, theta, phi]) 
+```
+
+<br>
+
+
 
 
 <br>
