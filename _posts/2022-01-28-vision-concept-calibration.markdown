@@ -1615,13 +1615,17 @@ plt.imshow(topview_image)
 
 - 아래 기호의 의미를 참조하여 수식으로 표현하면 다음과 같습니다.
 
+<br>
+
 - $$ \text{RPY: Rotation of Roll, Pitch, Yaw.} $$ 
 
-- $$ \text{Axes: Change of Axes.}
+- $$ \text{Axes: Change of Axes.} $$
 
 - $$ \text{FLU} \to \text{RDF} \text{: Change FLU axes to RDF axes.} $$
 
 - $$ \text{Passive: Passive Transformation}  $$
+
+<br>
 
 - $$ R_{\text{FLU} \to \text{RDF}}^{\text{Passive}} = \text{RPY}_{\text{FLU} \to \text{FLU}}^{text{Passive}} \cdot \text{Axes}_{\text{FLU} \to \text{RDF}}^{\text{Passive}} $$
 
