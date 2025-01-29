@@ -1627,13 +1627,52 @@ plt.imshow(topview_image)
 
 <br>
 
-- $$ R_{\text{FLU} \to \text{RDF}}^{\text{Passive}} = \text{RPY}_{\text{FLU} \to \text{FLU}}^{text{Passive}} \cdot \text{Axes}_{\text{FLU} \to \text{RDF}}^{\text{Passive}} $$
+- $$ R_{\text{FLU} \to \text{RDF}}^{\text{Passive}} = \text{RPY}_{\text{FLU} \to \text{FLU}}^{\text{Passive}} \cdot \text{Axes}_{\text{FLU} \to \text{RDF}}^{\text{Passive}} $$
 
-- $$ \begin{align} \text{RPY}_{\text{FLU} \to \text{FLU}}^{text{Passive}} &=  R_{\text{FLU} \to \text{RDF}}^{\text{Passive}} \cdot (\text{Axes}_{\text{FLU} \to \text{RDF}}^{\text{Passive}})^{-1} \\ &= R_{\text{FLU} \to \text{RDF}}^{\text{Passive}} \cdot \text{Axes}_{\text{RDF} \to \text{FLU}}^{\text{Passive}} \end{align} $$
+- $$ \text{RPY}_{\text{FLU} \to \text{FLU}}^{\text{Passive}} = R_{\text{FLU} \to \text{RDF}}^{\text{Passive}} \cdot (\text{Axes}_{\text{FLU} \to \text{RDF}}^{\text{Passive}})^{-1} = R_{\text{FLU} \to \text{RDF}}^{\text{Passive}} \cdot \text{Axes}_{\text{RDF} \to \text{FLU}}^{\text{Passive}}  $$
 
 <br>
 
-- 위 예시에서 $$ \text{RPY}_{\text{FLU} \to \text{FLU}}^{text{Passive}} $$ 는 `FLU` → `FLU` 축 기준에서의 `Roll`, `Pitch`, `Yaw`의 변환만을 나타냅니다. 이 행렬에서 각 `Roll`, `Pitch`, `Yaw`의 회전 각도를 구하려면 다음 샘플 코드를 이용할 수 있습니다. 실제 수식은 아래 링크에서 상세하게 확인할 수 있습니다.
+- 위 식에서 $$ R_{\text{FLU} \to \text{RDF}}^{\text{Passive}} $$ 는 본 글에서 사용된 $$ R $$ 에 해당합니다. 따라서 축변환 $$ (\text{FLU} \to \text{RDF}) $$ 과 회전 변환이 동시에 반영되었습니다.
+- 두번째로 $$ \text{RPY}_{\text{FLU} \to \text{FLU}}^{\text{Passive}} $$ 는 `FLU` → `FLU` 축 기준에서의 `Roll`, `Pitch`, `Yaw`의 변환만을 나타냅니다. 기존의 $$ R $$ 과 구분하기 위하여 $$ \text{RPY} $$ 로 표현하였습니다.
+- 마지막으로 $$ \text{Axes}_{\text{FLU} \to \text{RDF}}^{\text{Passive}} $$ 는 $$ (\text{FLU} \to \text{RDF}) $$ 좌표축 변환을 의미합니다.
+- 위 식을 전개하기 위해서는 $$ \text{Axes}_{\text{FLU} \to \text{RDF}}^{\text{Passive}} $$ 에 대하여 살펴보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/54.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 위 그림과 같은 좌표축 변환 (`Passive Transformation`)에서 두 좌표축의 관계를 살펴보면 `RDF`에서의 $$ x $$ 축은 `FLU` 기준에서 $$ -y $$ 축과 같습니다. `RDF`에서의 $$ y $$ 축은 `FLU`에서의 $$ -z $$ 축과과 같습니다. 마지막으로 `RDF`에서의 $$ z $$ 축은 `FLU`에서의 $$ x $$ 축과 같습니다. 축과 방향을 잘 매칭해 보면 쉽게 이해할 수 있을 것입니다. 
+- `Passive Transformation`을 쉽게 나타내기 위한 방법은 `Active Transformation` 관점으로 먼저 표현한 다음에 역행렬 (또는 `Transpose`)를 적용해 주어 `Passive Transformation`으로 표현할 수 있습니다. 만약 임의의 점 $$ (x, y, z) $$ 를 $$ (-y, -z, x) $$ 로 표현하려면 다음과 같이 행렬로 나타낼 수 있습니다.
+
+<br>
+
+- $$ \begin{bmatrix}0 & -1 & 0 \\ 0 & 0 & -1 \\ 1 & 0 & 0 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} = \begin{bmatrix} -y \\ -z \\ x \end{bmatrix} $$
+
+<br>
+
+- 따라서 `Active Transformation` 인 $$ \begin{bmatrix}0 & -1 & 0 \\ 0 & 0 & -1 \\ 1 & 0 & 0 \end{bmatrix} $$ 의 역행렬을 적용해주면 `Passive Transformation`이 되고 최종적으로 다음 축 변환을 위한 축 변환 행렬이 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/calibration/54.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- $$ \text{Axes}_{\color{blue}{\text{FLU} \to \text{RDF}}}^{\text{Passive}} = \begin{bmatrix}0 & -1 & 0 \\ 0 & 0 & -1 \\ 1 & 0 & 0 \end{bmatrix}^{T} $$
+
+- $$ \Rightarrow \text{Axes}_{\color{red}{\text{RDF} \to \text{FLU}}}^{\text{Passive}} = \begin{bmatrix}0 & -1 & 0 \\ 0 & 0 & -1 \\ 1 & 0 & 0 \end{bmatrix} $$
+
+<br>
+
+- `FLU` → `RDF`와 `RDF` → `FLU` 또한 역행렬 관계이므로 위 수식과 같이 표현할 수 있습니다.
+- 따라서 앞에서 다룬 식을 행렬로 표현하면 아래와 같습니다.
+
+<br>
+
+- $$ \begin{align} \text{RPY}_{\text{FLU} \to \text{FLU}}^{\text{Passive}} &= R_{\text{FLU} \to \text{RDF}}^{\text{Passive}} \cdot \text{Axes}_{\text{RDF} \to \text{FLU}}^{\text{Passive}} \\ &= R_{\text{FLU} \to \text{RDF}}^{\text{Passive}} \begin{bmatrix}0 & -1 & 0 \\ 0 & 0 & -1 \\ 1 & 0 & 0 \end{bmatrix} \end{align} $$
+
+<br>
+
+- 최종적으로 구한 $$ \text{RPY}_{\text{FLU} \to \text{FLU}}^{\text{Passive}} $$ 행렬에서 각 `Roll`, `Pitch`, `Yaw`의 `radian` 회전 각도를 구하려면 다음 샘플 코드를 이용할 수 있습니다. 실제 수식은 아래 링크에서 상세하게 확인할 수 있습니다.
     - [Roll, Pitch, Yaw와 Rotation 행렬의 변환](https://gaussian37.github.io/math-la-rotation_matrix/#roll-pitch-yaw%EC%99%80-rotation-%ED%96%89%EB%A0%AC%EC%9D%98-%EB%B3%80%ED%99%98-1)
 
 <br>
