@@ -47,7 +47,7 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 - ### [이미지 crop과 resize에 따른 intrinsic 수정 방법](#이미지-crop과-resize에-따른-intrinsic-수정-방법-1)
 - ### [OpenCV의 Zhang's Method를 이용한 카메라 캘리브레이션 실습](#opencv의-zhangs-method를-이용한-카메라-캘리브레이션-실습-1)
 - ### [Rotation, Translation을 이용한 카메라 위치 확인](#rotation-translation을-이용한-카메라-위치-확인-1)
-- ### [Rotation의 Roll, Pitch, Yaw 회전량 구하기](#rotation의-roll-pitch-yaw-회전량-구하기-1)
+- ### [축변환 Rotation의 Roll, Pitch, Yaw 회전량 구하기](#축변환-rotation의-roll-pitch-yaw-회전량-구하기-1)
 
 <br>
 
@@ -1585,10 +1585,12 @@ plt.imshow(topview_image)
 
 <br>
 
-## **Rotation의 Roll, Pitch, Yaw 회전량 구하기**
+## **축변환 Rotation의 Roll, Pitch, Yaw 회전량 구하기**
 
 <br>
 
+- 기본적으로 회전 행렬에서 `Roll`, `Pitch`, `Yaw`를 구하는 방법은 아래 링크를 참조하시기 바랍니다.
+    - [https://gaussian37.github.io/math-la-rotation_matrix](https://gaussian37.github.io/math-la-rotation_matrix)
 - 이번 글에서 다루어 왔던 `Rotation` $$ R $$ 은 축 변환과 회전 변환이 동시에 발생하였습니다. 이 중 축 변환은 다음 그림과 같이 $$ X, Y, Z $$ 축이 각각 `Forward-Left-Up` 순서에서 `Right-Down-Forward`로 변환됩니다. 
 
 <br>
@@ -1602,7 +1604,7 @@ plt.imshow(topview_image)
 <center><img src="../assets/img/vision/concept/calibration/55.png" alt="Drawing" style="width:600px;"/></center>
 <br>
 
-- 위 그림은 좌표축을 `Pitch`, `Yaw` 방향으로 각각 45도 회전한 예시입니다. 위 회전 변환과 같이 **축의 기준은 같은 상태**에서 (ex. FLU) **좌표축의 회전량**만 얼만큼 변화하였는 지 구하는 것이 이번 글을 통해 확인하고자 하는 점입니다. 따라서 축이 고정된 상태에서 점들의 회전 변환이 아닌 축 자체가 변하는 것이므로 `Passive Transformation`인 상태를 고려해야 합니다.
+- 위 그림은 좌표축을 `Pitch`, `Yaw` 방향으로 각각 45도 회전한 예시입니다. 위 회전 변환과 같이 **축의 기준은 같은 상태**에서 (ex. FLU) **좌표축의 회전량**만 얼만큼 변화하였는 지 구하는 것이 이번 글을 통해 확인하고자 하는 점입니다. 따라서 축이 고정된 상태에서 점들의 회전 변환이 아닌 **축 자체가 변하는 것**이므로 `Passive Transformation`인 상태를 고려해야 합니다.
 
 <br>
 
@@ -1651,7 +1653,7 @@ plt.imshow(topview_image)
 
 <br>
 
-- 따라서 `Active Transformation` 인 $$ \begin{bmatrix}0 & -1 & 0 \\ 0 & 0 & -1 \\ 1 & 0 & 0 \end{bmatrix} $$ 의 역행렬을 적용해주면 `Passive Transformation`이 되고 최종적으로 다음 축 변환을 위한 축 변환 행렬이 됩니다.
+- 따라서 `Active Transformation` 인 $$ \begin{bmatrix}0 & -1 & 0 \\ 0 & 0 & -1 \\ 1 & 0 & 0 \end{bmatrix} $$ 의 역행렬을 적용해주면 `Passive Transformation`이 되고 이 행렬이 아래와 같은 축 변환을 위한 축 변환 행렬이 됩니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/calibration/54.png" alt="Drawing" style="width: 600px;"/></center>
@@ -1663,8 +1665,7 @@ plt.imshow(topview_image)
 
 <br>
 
-- `FLU` → `RDF`와 `RDF` → `FLU` 또한 역행렬 관계이므로 위 수식과 같이 표현할 수 있습니다.
-- 따라서 앞에서 다룬 식을 행렬로 표현하면 아래와 같습니다.
+- `FLU` → `RDF`와 `RDF` → `FLU` 또한 역행렬 관계이므로 위 수식과 같이 표현할 수 있습니다. 따라서 앞에서 다룬 식을 행렬로 표현하면 아래와 같습니다.
 
 <br>
 
@@ -1689,6 +1690,65 @@ def rotation_matrix_to_euler_angles(R):
 ```
 
 <br>
+
+- 지금 까지 확인한 내용을 이용하여 임의의 $$ R_{\text{FLU} \to \text{RDF}}^{\text{Active}} $$ 가 주어졌을 때, `Roll`, `Pitch`, `Yaw`를 구하는 코드는 다음과 같습니다. 주어진 $$ R $$ 의 축변환과 `Active/Passive`에 따라서 일부 코드를 수정하여 사용하시면 됩니다.
+
+```python
+def rotation_matrix_to_euler_angles(R):
+    assert(R.shape == (3, 3))
+
+    theta = -np.arcsin(R[2, 0])
+    psi = np.arctan2(R[2, 1] / np.cos(theta), R[2, 2] / np.cos(theta))
+    phi = np.arctan2(R[1, 0] / np.cos(theta), R[0, 0] / np.cos(theta))
+    # (Roll, Pitch, Yaw)
+    return np.array([psi, theta, phi]) 
+    
+def get_FLU_to_RDF_roll_pitch_yaw_in_degree(R):
+    # FLU: Forward-Left-Up
+    # RDF: Right-Down-Forward
+    # R : R_FLU_TO_RDF_ACTIVE 라고 가정함
+    # R_FLU_TO_RDF_ACTIVE -> R_FLU_TO_RDF_PASSIVE -> R_RDF_TO_FLU_PASSIVE
+    R_FLU_TO_RDF_ACTIVE = R.copy()
+    R_FLU_TO_RDF_PASSIVE = R_FLU_TO_RDF_ACTIVE.T
+    R_RDF_TO_FLU_PASSIVE = R_FLU_TO_RDF_PASSIVE.T
+
+    # FLU_TO_RDF_PASSIVE -> FLU_TO_RDF_PASSIVE
+    FLU_TO_RDF_PASSIVE = np.array(
+        [[0, -1, 0],
+        [0, 0, -1],
+        [1, 0, 0]], dtype=np.float32
+    ).T
+    FLU_TO_RDF_PASSIVE = FLU_TO_RDF_PASSIVE.T
+
+    RPY_FLU_TO_FLU_PASSIVE = R_FLU_TO_RDF_PASSIVE @ FLU_TO_RDF_PASSIVE
+    # FLU based Roll, Pitch, Yaw
+    roll_pitch_yaw_radian = rotation_matrix_to_euler_angles(RPY_FLU_TO_FLU_PASSIVE)
+    roll_pitch_yaw_degree = roll_pitch_yaw_radian * 180 / np.pi
+    return roll_pitch_yaw_degree
+```
+
+<br>
+
+- 임의의 `FLU` → `RDF` 로 축변환 및 `Active Transformation` $$ R $$ 예제를 이용하여 코드를 실행해 보면 다음과 같습니다.
+
+<br>
+
+```python
+R = np.array([
+    [0.8372, -0.5467, -0.0121],
+    [-0.0088, 0.0086, -0.9999],
+    [0.5468, 0.8372, 0.0023]
+])
+
+R = np.array([
+    [0.8372, -0.5467, -0.0121],
+    [-0.0088, 0.0086, -0.9999],
+    [0.5468, 0.8372, 0.0023]
+])
+roll, pitch, yaw = get_FLU_to_RDF_roll_pitch_yaw_in_degree(R) 
+print(f'roll: {roll:.4f}, pitch: {pitch:.4f}, yaw: {yaw:.4f}')
+# roll: 0.6933, pitch: -0.1318, yaw: 56.8503
+```
 
 
 
