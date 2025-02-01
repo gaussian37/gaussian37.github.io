@@ -126,7 +126,7 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 
 <br>
 
-- $$ \phi = \tan^{-1}\frac{y}{x} $$
+- $$ \phi = \tan^{-1}(\frac{y}{x}) $$
 
 <br>
 
@@ -175,11 +175,11 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 <br>
 
 - 위 그림에서 $$ r $$ 은 원점과 $$ x, y, z $$ 의 직선 거리이므로 $$ \sqrt{x^{2} + y^{2} + z^{2}} $$ 로 구할 수 있으며 $$ \phi $$ 는 `원통 좌표계`와 동일한 방법으로 구할 수 있습니다.
-- 다음으로 $$ \theta $$ 를 구하기 위해서는 $$ \theta $$ 를 사이각으로 하고 밑변이 $$ z $$, 높이가 $$ \sqrt{x^{2} + y^{2}} $$ 인 삼각형을 이용하면 되며 다음과 같습니다.
+- 다음으로 $$ \theta $$ 를 구하기 위해서는 $$ \theta $$ 를 사이각으로 하고 밑변이 $$ z $$, 높이가 $$ \sqrt{x^{2} + y^{2}} $$ 인 삼각형을 이용하면 다음과 같이 구할 수 있습니다.
 
 <br>
 
-- $$ \theta = \tan^{-1} \frac{\sqrt{x^{2} + y^{2}} }{z} $$
+- $$ \theta = \tan^{-1} \left(\frac{\sqrt{x^{2} + y^{2}} }{z}\right) $$
 
 <br>
 
@@ -316,17 +316,18 @@ print(f"Converted from {src_system} to {dst_system}:", converted_point)
 
 <br>
 
-
 ## **Right-Down-Forward 좌표계에서의 좌표계 변환**
 
 <br>
 
+- 카메라 데이터를 사용하지 않거나 카메라에서의 좌표축을 고려하지 않는다면 아래 글은 생략하여도 무관합니다.
+
 <br>
-<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/7.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/7.png" alt="Drawing" style="width: 300px;"/></center>
 <br>
 
-- 위 그림과 같이 `RDU 좌표계`는 카메라를 이용할 때 주로 사용되는 좌표 축입니다. 가로축이 $$ X $$, 세로축이 $$ Y $$ 이고 앞으로 향하는 방향이 $$ Z $$ 가 되며 이 방향의 값을 `Depth` 라고 부릅니다.
-- 직교 좌표계를 사용하는 카메라 영상의 값을 앞에서 다룬 원통 좌표계와 구면 좌표계를 이용하여 어떻게 다루는 지 살펴보도록 하겠습니다.
+- 위 그림과 같이 `RDF 좌표계`는 **카메라를 이용할 때 주로 사용되는 좌표 축**입니다. 가로축이 $$ X $$, 세로축이 $$ Y $$ 이고 앞으로 향하는 방향이 $$ Z $$ 가 되며 이 방향의 값을 `Depth` 라고 부릅니다.
+- 본 글을 통하여 `직교 좌표계`를 사용하는 카메라 영상의 값을 앞에서 다룬 `원통 좌표계`와 `구면 좌표계`를 이용하여 어떻게 다루는 지 살펴보도록 하겠습니다.
 
 <br>
 
@@ -336,6 +337,41 @@ print(f"Converted from {src_system} to {dst_system}:", converted_point)
 <center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/11.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- 위 그림은 `RDF 좌표계` 기준으로 `직교 좌표계`와 `원통 좌표계` 간의 변환 관계를 보여줍니다.
+- `FLU 좌표계`에서 $$ \phi $$ 는 전후방 축인 `Forward` 양의 방향축에서 좌우 수평축인 `Left` 양의 방향축으로의 회전 각도를 나타낸 것과 같이 `RDF 좌표계`에서도 $$ \phi $$ 는 전후방 축인 `Forward` 양의 방향축에서 좌우 수평축인 `Right` 양의 방향축으로의 회전 각도를 나타냅니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/22.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 앞에서 다룬 내용과 유사하게 $$ X $$ 축과 $$ Z $$ 축이 이루는 평면에서 $$ x, z $$ 좌표를 이용하면 위 그림과 같이 쉽게 $$ r, \phi $$ 를 구할 수 있습니다. $$ y $$ 값은 `직교 좌표계`와 `원통 좌표계` 같은 값을 사용합니다. 따라서 `직교 좌표계`의 $$ x, y, z $$ 값을 이용하면 `원통 좌표계`의 $$ r, \phi, y $$ 를 다음과 같이 구할 수 있습니다.
+
+<br>
+
+- $$ r = \sqrt{x^{2} + z^{2}} $$
+
+- $$ \phi = \tan^{-1}(\frac{x}{z}) $$
+
+- $$ y = y $$
+
+<br>
+
+- 반대로 `원통 좌표계`의 $$ r, \phi, y $$ 를 이용하여 `직교 좌표계`의 $$ x, y, z $$ 를 구하려면 삼각함수를 이용하여 변환할 수 있습니다.
+
+<br>
+
+- $$ x = r \sin{(\phi)} $$
+
+- $$ y = y $$
+
+- $$ z = r \cos{(\phi)} $$
+
+<br>
+
+- 따라서 다음과 같이 `직교 좌표계`와 `원통 좌표계` 간의 변환 관계를 정의할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/23.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 ### **직교 좌표계와 구면 좌표계 간의 좌표 변환**
@@ -344,6 +380,61 @@ print(f"Converted from {src_system} to {dst_system}:", converted_point)
 <center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/12.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- 이번에는 `직교 좌표계`와 `구면 좌표계` 간의 변환 관계를 정의해 보도록 하겠습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/24.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림과 같이 3차원 상의 점 $$ P $$ 를 구하기 위해 필요한 값을 하나씩 구해보면 다음과 같습니다.
+
+<br>
+
+- $$ r = \sqrt{x^{2} + y^{2} + z^{2}} $$
+
+- $$ \phi = \tan^{-1}(\frac{x}{z}) $$
+
+<br>
+
+- `구면 좌표계`에서도 $$ r, \phi $$ 는 `원통 좌표계`와 동일한 방식으로 구할 수 있습니다.
+- 반면 $$ \theta $$ 의 정의는 $$ X, Z $$ 축이 생성하는 평면을 시작으로 생성되는 각도가 됩니다. 이와 같이 정의 하는 이유는 카메라 좌표계에서 $$ Z $$ 축이 `Forward`로 향하는 원점을 `Principal Point`로 삼기 때문에 이 부분을 기준으로 $$ \theta $$ 의 회전각을 구하기 위함입니다. 
+- 즉, $$ Z $$ 축을 기준으로 수평 방향으로의 회전 각도를 $$ \phi $$, 수직 방향으로의 회전 각도를 $$ \theta $$ 로 정의하는 것이 `RDF 좌표계`에서 $$ \phi, \theta $$ 를 정의하는 방법입니다. `FLU 좌표계`와 다른 이유는 `RDF 좌표계`를 **전통적으로 사용하는 카메라 좌표계와 대응하여 사용하기 위함**입니다.
+
+<br>
+
+- 따라서 $$ \theta $$ 를 구하기 위해서는 $$ \theta $$ 를 사이각으로 하고 밑변이 $$ \sqrt{x^{2} + z^{2}} $$, 높이가 $$ y $$ 인 삼각형을 이용하면 다음과 같이 구할 수 있습니다.
+
+<br>
+
+- $$ \theta = \tan^{-1} \left(\frac{y}{\sqrt{x^{2} + z^{2}}}\right) $$
+
+<br>
+
+- 반대로 `구면 좌표계` 값인 $$ r, \theta, \phi $$ 를 알고 있으면, `직교 좌표계` 값인 $$ x, y, z $$ 는 삼각 함수를 이용하여 쉽게 구할 수 있습니다.
+- 먼저 사잇각을 $$ \theta $$ 로 하는 삼각형에서 삼각비를 이용하면 $$ y $$ 를 쉽게 구할 수 있습니다.
+
+<br>
+
+- $$ y = r \cdot \sin{(\theta)} $$
+
+<br>
+
+- 그 다음 위 그림에서 원점과 보라색 점 사이의 거리는 방금 사용한 삼각형에서의 삼각비를 이용하면 $$ r \cos{(\theta)} $$ 로 구할 수 있으므로 다음과 같이 $$ x, z $$ 에 접근할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/25.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- $$ x = r \cdot \cos{(\theta)} \cdot \sin{(\phi)} $$
+
+- $$ z = r \cdot \cos{(\theta)} \cdot \cos{(\phi)} $$
+
+<br>
+
+- 따라서 다음과 같이 `직교 좌표계`와 `구면 좌표계`간의 변환 관계를 정의할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/26.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 ### **원통 좌표계와 구면 좌표계 간의 좌표 변환**
