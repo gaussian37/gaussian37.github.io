@@ -225,7 +225,7 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 
 - $$ r_{s} = \sqrt{r_{c}^{2} + z^{2}} $$
 
-- $$ \theta = \tan^{-1}\frac{r_{c}}{z} $$
+- $$ \theta = \tan^{-1}{(\frac{r_{c}}{z})} $$
 
 <br>
 
@@ -441,6 +441,33 @@ print(f"Converted from {src_system} to {dst_system}:", converted_point)
 
 <br>
 <center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/13.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 마지막으로 `원통 좌표계`와 `구면 좌표계`간의 좌표 변환에 대하여 살펴보도록 하겠습니다. `FLU 좌표계` 예제와 마찬가지로 두 좌표계 모두 $$ r $$ 이 사용되므로 `원통 좌표계`에서는 $$ r_{c} $$ 로 사용하고 `구면 좌표계`에서는 $$ r_{s} $$ 로 사용하도록 하겠습니다.
+- 먼저 두 좌표계 모두 `azimuth` 각도로 $$ \phi $$ 를 사용합니다. `원통 좌표계`에서 `구면 좌표계`의 $$ r_{s}, \theta $$ 를 구하기 위해서는 $$ r_{c}, y $$ 와 삼각비를 활용하면 쉽게 구할 수 있습니다.
+
+<br>
+
+- $$ r_{s} = \sqrt{r_{c}^{2} + y^{2}} $$
+
+- $$ \theta = \tan^{-1}{(\frac{y}{r_{c}})} $$
+
+<br>
+
+- 반면 `구면 좌표계`에서 $$ r_{s}, \theta $$ 를 이용하여 $$ r_{c}, y $$ 를 구하는 방법 또한 삼각비를 활용하면 쉽게 구할 수 있습니다.
+
+<br>
+
+- $$ r_{c} = r_{s} \cos{(\theta)} $$
+
+- $$ y = r_{s} \sin{(\theta)} $$
+
+<br>
+
+- 정리하면 다음과 같이 `원통 좌표계`와 `구면 좌표계`를 변환할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/27.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 <br>
