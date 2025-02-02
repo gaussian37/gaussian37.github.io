@@ -175,11 +175,11 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 <br>
 
 - 위 그림에서 $$ r $$ 은 원점과 $$ x, y, z $$ 의 직선 거리이므로 $$ \sqrt{x^{2} + y^{2} + z^{2}} $$ 로 구할 수 있으며 $$ \phi $$ 는 `원통 좌표계`와 동일한 방법으로 구할 수 있습니다.
-- 다음으로 $$ \theta $$ 를 구하기 위해서는 $$ \theta $$ 를 사이각으로 하고 밑변이 $$ z $$, 높이가 $$ \sqrt{x^{2} + y^{2}} $$ 인 삼각형을 이용하면 다음과 같이 구할 수 있습니다.
+- 다음으로 $$ \theta $$ 를 구하기 위해서는 $$ \theta $$ 를 사이각으로 하고 빗변이 $$ r $$, 밑변이 $$ z $$ 인 삼각형을 이용하면 다음과 같이 구할 수 있습니다.
 
 <br>
 
-- $$ \theta = \tan^{-1} \left(\frac{\sqrt{x^{2} + y^{2}} }{z}\right) $$
+- $$ \theta = \cos^{-1} \left(\frac{z}{r} \right) $$
 
 <br>
 
@@ -402,11 +402,11 @@ print(f"Converted from {src_system} to {dst_system}:", converted_point)
 
 <br>
 
-- 따라서 $$ \theta $$ 를 구하기 위해서는 $$ \theta $$ 를 사이각으로 하고 밑변이 $$ \sqrt{x^{2} + z^{2}} $$, 높이가 $$ y $$ 인 삼각형을 이용하면 다음과 같이 구할 수 있습니다.
+- 따라서 $$ \theta $$ 를 구하기 위해서는 $$ \theta $$ 를 사이각으로 하고 빗변이 $$ r $$, 높이가 $$ y $$ 인 삼각형을 이용하면 다음과 같이 구할 수 있습니다. 
 
 <br>
 
-- $$ \theta = \tan^{-1} \left(\frac{y}{\sqrt{x^{2} + z^{2}}}\right) $$
+- $$ \theta = \sin^{-1}\left(\frac{y}{r} \right) $$
 
 <br>
 
