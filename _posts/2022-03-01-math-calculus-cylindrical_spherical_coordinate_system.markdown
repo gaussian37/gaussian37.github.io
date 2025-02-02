@@ -406,7 +406,7 @@ print(f"Converted from {src_system} to {dst_system}:", converted_point)
 
 <br>
 
-- $$ \theta = \sin^{-1}\left(\frac{y}{r} \right) $$
+- $$ \theta = \sin^{-1}{\left(\frac{y}{r} \right)} $$
 
 <br>
 
@@ -474,13 +474,73 @@ print(f"Converted from {src_system} to {dst_system}:", converted_point)
 
 ### **Python Code**
 
+<br>
+
+- 지금까지 살펴본 내용을 파이썬 코드를 이용하여 정리하면 다음과 같습니다.
 
 <br>
 
+```python
+import numpy as np
+
+def cartesian_to_cylindrical_RDF(x, y, z):
+    r = np.sqrt(x**2 + z**2)
+    phi = np.arctan2(x, z)
+    return r, phi, y
+
+def cylindrical_to_cartesian_RDF(r, phi, y):
+    x = r * np.sin(phi)
+    z = r * np.cos(phi)
+    return x, y, z
+
+def cartesian_to_spherical_RDF(x, y, z):
+    r = np.sqrt(x**2 + y**2 + z**2)
+    theta = np.arcsin(y / r)
+    phi = np.arctan2(x, z)
+    return r, theta, phi
+
+def spherical_to_cartesian_RDF(r, theta, phi):
+    x = r * np.cos(theta) * np.sin(phi)
+    y = r * np.sin(theta)
+    z = r * np.cos(theta) * np.cos(phi)
+    return x, y, z
+
+def spherical_to_cylindrical_RDF(r_s, theta, phi):
+    r_c = r_s * np.cos(theta)
+    y = r_s * np.sin(theta)
+    return r_c, phi, z
+
+def cylindrical_to_spherical_RDF(r_c, phi, z):
+    r_s = np.sqrt(r_c**2 + y**2)
+    theta = np.arctan2(y, r_c)
+    return r_s, theta, phi
+
+
+def convert_coordinates_RDF(src_system, dst_system, coordinates):
+    if src_system == "cartesian" and dst_system == "cylindrical":
+        return cartesian_to_cylindrical_RDF(*coordinates)
+    elif src_system == "cartesian" and dst_system == "spherical":
+        return cartesian_to_spherical_RDF(*coordinates)
+    elif src_system == "cylindrical" and dst_system == "cartesian":
+        return cylindrical_to_cartesian_RDF(*coordinates)
+    elif src_system == "cylindrical" and dst_system == "spherical":
+        return cylindrical_to_spherical_RDF(*coordinates)
+    elif src_system == "spherical" and dst_system == "cartesian":
+        return spherical_to_cartesian_RDF(*coordinates)
+    elif src_system == "spherical" and dst_system == "cylindrical":
+        return spherical_to_cylindrical_RDF(*coordinates)
+    else:
+        raise ValueError("Invalid source or destination coordinate system.")
+
+# Example usage
+point = (1, 1, 1)  # Cartesian coordinates
+src_system = "cartesian"
+dst_system = "cylindrical"
+converted_point = convert_coordinates_RDF(src_system, dst_system, point)
+print(f"Converted from {src_system} to {dst_system}:", converted_point)
+```
 
 <br>
-
-
 
 [Calculus 관련 글 목차](https://gaussian37.github.io/math-calculus-table/)
 
