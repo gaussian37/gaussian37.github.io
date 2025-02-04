@@ -111,6 +111,12 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 - 먼저 위 그림과 같이 `FLU 좌표계`에서의 직교 좌표계와 원통 좌표계 간의 변환에 대하여 살펴보도록 하겠습니다.
 
 <br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/FLU.gif" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 원통 좌표계에서 $$ X, Y $$ 평면 상에 회전 각도인 $$ \phi $$ 는 위 영상과 같이 오른손을 전/후 방향의 축 ($$ X $$ 축) 에서 좌/우 방향의 축 ($$ Y $$ 축)을 손으로 감쌋을 때, 감싸는 회전 방향인 `반시계 방향`과 같습니다. 이 내용을 바탕으로 아래 글을 읽으시면 됩니다.
+
+<br>
 <center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/16.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
@@ -338,7 +344,16 @@ print(f"Converted from {src_system} to {dst_system}:", converted_point)
 <br>
 
 - 위 그림은 `RDF 좌표계` 기준으로 `직교 좌표계`와 `원통 좌표계` 간의 변환 관계를 보여줍니다.
-- `FLU 좌표계`에서 $$ \phi $$ 는 전후방 축인 `Forward` 양의 방향축에서 좌우 수평축인 `Left` 양의 방향축으로의 회전 각도를 나타낸 것과 같이 `RDF 좌표계`에서도 $$ \phi $$ 는 전후방 축인 `Forward` 양의 방향축에서 좌우 수평축인 `Right` 양의 방향축으로의 회전 각도를 나타냅니다.
+
+<br>
+<center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/RDF.gif" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 원통 좌표계에서 $$ X, Z $$ 평면 상에 회전 각도인 $$ \phi $$ 는 위 영상과 같이 오른손을 전/후 방향의 축 ($$ Z $$ 축) 에서 좌/우 방향의 축 ($$ X $$ 축)을 손으로 감쌋을 때, 감싸는 회전 방향인 `시계 방향`과 같습니다. 이 내용을 바탕으로 아래 글을 읽으시면 됩니다.
+
+<br>
+
+- 위 설명과 같은 이유로 `FLU 좌표계`에서 $$ \phi $$ 는 전후방 축인 `Forward` 양의 방향축에서 좌우 수평축인 `Left` 양의 방향축으로의 회전 각도를 나타낸 것과 같이 `RDF 좌표계`에서도 $$ \phi $$ 는 전후방 축인 `Forward` 양의 방향축에서 좌우 수평축인 `Right` 양의 방향축으로의 회전 각도를 나타냅니다.
 
 <br>
 <center><img src="../assets/img/math/calculus/cylindrical_spherical_coordinate_system/22.png" alt="Drawing" style="width: 400px;"/></center>
