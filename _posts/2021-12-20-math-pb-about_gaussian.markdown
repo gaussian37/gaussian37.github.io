@@ -20,7 +20,8 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 - ### [가우스 함수](#가우스-함수-1)
 - ### [가우스 적분 증명](#가우스-적분-증명-1)
 - ### [가우시안 분포 공식 유도](#가우시안-분포-공식-유도-1)
-- ### [가우시안 PDF의 곱과 Convoltuion 연산](#)
+- ### [1D, 2D, 3D 가우시안 분포](#1d-2d-3d-가우시안-분포-1)
+- ### [가우시안 PDF의 곱과 Convoltuion 연산](#가우시안-pdf의-곱과-convoltuion-연산-1)
 - ### [covariance와 zero-mean gaussian의 covariance](#covariance와-zero-mean-gaussian의-covariance-1)
 - ### [가우시안 혼합 모델(Gaussian Mixture Model)과 EM 알고리즘](#)
 - ### [가우시안 프로세스](#가우시안-프로세스-1)
@@ -586,6 +587,217 @@ tags: [gaussian, 가우시안, 가우스 적분, 가우스 분포 공식, 가우
 <br>
 
 - $$ p(x) = \frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right) $$
+
+<br>
+
+## **1D, 2D, 3D 가우시안 분포**
+
+<br>
+
+- 앞에서 유도한 `가우시안 분포 공식`의 `PDF (Probability Density Function)`를 일반화 하면 다음과 같습니다.
+
+<br>
+
+- $$ (2\pi)^{-\text{d}/2} \text{det}(\Sigma)^{-1/2}\exp{\left(-\frac{1}{2}(x - \mu)^{T}\Sigma^{-1}(x - \mu) \right)} $$
+
+- $$ \text{d: dimension} $$
+
+- $$ \text{Exists only when } \Sigma \text{ is Positive-Definite.} $$
+
+<br>
+
+- 앞에서 다룬 내용은 1차원 가우시안 분포의 식을 유도한 것이며 2, 3차원 가우시안 분포도 같은 형태로 나타낼 수 있습니다. 위 함수를 코드로 나타내면 다음과 같습니다.
+
+<br>
+
+```python
+def generalized_gaussian_pdf(X, mu, Sigma):
+    """
+    Compute the probability density of a multivariate Gaussian for one or more points X.
+    
+    Parameters
+    ----------
+    X : ndarray of shape (n, d) or (d,)
+        Points at which to evaluate the pdf. Each row is a point in d dimensions.
+    mu : ndarray of shape (d,)
+        Mean vector of the Gaussian.
+    Sigma : ndarray of shape (d, d)
+        Covariance matrix (must be positive-definite).
+    
+    Returns
+    -------
+    pdf_vals : ndarray of shape (n,)
+        The pdf value for each input point.
+    """
+    X = np.atleast_2d(X)  # Ensure X is (n, d)
+    d = mu.shape[0]
+    mu = mu.reshape(1, d)  # Make mu broadcastable
+    Sigma_inv = np.linalg.inv(Sigma)
+    det_Sigma = np.linalg.det(Sigma)
+
+    # Normalization constant
+    denom = np.sqrt((2 * np.pi)**d * det_Sigma)
+
+    # Compute exponent for each row of X
+    diff = X - mu  # shape (n, d)
+    exponent = -0.5 * np.sum(diff @ Sigma_inv * diff, axis=1)
+    pdf_vals = np.exp(exponent) / denom
+    return pdf_vals
+```
+
+<br>
+
+- 위 함수를 이용하여 1D, 2D, 3D 가우시안 분포를 그려보도록 하겠습니다.
+
+<br>
+
+```python
+mu_1d = np.array([0.0])
+Sigma_1d = np.array([[1.0]])
+x_range=(-5,5)
+num_points=200
+
+x = np.linspace(*x_range, num_points)
+pdf_vals = generalized_gaussian_pdf(x.reshape(-1,1), np.array(mu_1d), np.array(Sigma_1d))
+
+plt.figure()
+plt.plot(x, pdf_vals, 'b-', label='1D Gaussian')
+plt.title(f'1D Gaussian (μ={mu_1d}, σ²={Sigma_1d})')
+plt.xlabel('x')
+plt.ylabel('pdf')
+plt.grid(True)
+plt.legend()
+plt.show()
+```
+
+<br>
+<center><img src="../assets/img/math/pb/about_gaussian/11.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그래프는 $$ \mu = 0, \sigma^{2} = 1.0 $$ 인 표준 정규 분포 그래프입니다.
+
+<br>
+
+- 다음으로 2D 가우시안 분포 그래프를 그려보도록 하겠습니다.
+
+<br>
+
+```python
+mu_2d = np.array([0.0, 0.0])
+Sigma_2d = np.array([[1.0, 0.6],
+                     [0.6, 2.0]])
+xy_range=(-3,3)
+num_points=100
+    
+
+x = np.linspace(*xy_range, num_points)
+y = np.linspace(*xy_range, num_points)
+X, Y = np.meshgrid(x, y)
+
+# Flatten grid and evaluate pdf
+XY = np.column_stack([X.ravel(), Y.ravel()])
+pdf_vals = generalized_gaussian_pdf(XY, mu_2d, Sigma_2d)
+pdf_vals = pdf_vals.reshape(X.shape)
+
+plt.figure()
+contour = plt.contourf(X, Y, pdf_vals, cmap='viridis')
+plt.title(f'2D Gaussian (μ={mu_2d})')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.colorbar(contour, label='pdf')
+plt.show()
+```
+
+<br>
+<center><img src="../assets/img/math/pb/about_gaussian/12.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그래프는 2D 가우시안이므로 $$ \mu, \Sigma $$ 는 다음과 같이 2차원 값을 가집니다.
+
+<br>
+
+- $$ \mu = \begin{bmatrix} 0.0 \\ 0.0 \end{bmatrix} $$
+
+- $$ \Sigma = \begin{bmatrix} 1.0 & 0.6 \\ 0.6 & 2.0 \end{bmatrix} $$
+
+<br>
+
+- 위 예제는 아래 링크의 위키피디아 예제를 이용하였습니다. 다음 그림을 보면 더 쉽게 이해할 수 있습니다.
+    - 링크: https://en.wikipedia.org/wiki/Multivariate_normal_distribution
+
+<br>
+<center><img src="../assets/img/math/pb/about_gaussian/13.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 앞에서 시각화한 내용과 $$ X, Y $$ 축을 매칭해서 보면 기울어진 타원형이 어떤 방식으로 생성되었는 지 이해할 수 있을 것입니다.
+
+<br>
+
+- 마지막으로 3D 가우시안 분포를 그려보도록 하겠습니다. 시인성을 위하여 `Probability Density`가 낮은 값은 필터를 적용하였습니다.
+
+```python
+mu_3d = np.array([0.0, 0.0, 0.0])
+Sigma_3d = np.array([[1.0, 0.0, 0.0],
+                     [0.0, 1.0, 0.0],
+                     [0.0, 0.0, 1.0]])  # Standard isotropic Gaussian
+
+# -----------------------------
+# Create a regular grid in 3D space
+# -----------------------------
+n_points = 20  # Grid resolution per axis
+grid_range = np.linspace(-3, 3, n_points)
+X_grid, Y_grid, Z_grid = np.meshgrid(grid_range, grid_range, grid_range)
+
+# Flatten grid to list of 3D points (n_points^3, 3)
+points_3d = np.column_stack([X_grid.ravel(), Y_grid.ravel(), Z_grid.ravel()])
+
+# Compute the pdf for each point using the generalized function
+pdf_values = generalized_gaussian_pdf(points_3d, mu_3d, Sigma_3d)
+
+# -----------------------------
+# Filter out low-density points
+# -----------------------------
+# Set a threshold: e.g., only keep points with density >= 5% of the maximum value.
+threshold = 0.05 * pdf_values.max()
+high_density_idx = pdf_values >= threshold
+points_filtered = points_3d[high_density_idx]
+pdf_filtered = pdf_values[high_density_idx]
+
+# -----------------------------
+# 3D Scatter Plot: visualize high density region
+# -----------------------------
+fig = plt.figure(figsize=(8, 6))
+ax = fig.add_subplot(111, projection='3d')
+
+sc = ax.scatter(points_filtered[:, 0],
+                points_filtered[:, 1],
+                points_filtered[:, 2],
+                c=pdf_filtered, cmap='viridis', marker='o', s=30)
+
+ax.set_title('3D Gaussian Density (High-Density Points Only)')
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+plt.colorbar(sc, label='pdf value')
+
+plt.show()
+```
+
+<br>
+<center><img src="../assets/img/math/pb/about_gaussian/14.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 예제의 $$ \mu, \Sigma $$ 는 다음과 같습니다.
+
+<br>
+
+- $$ \mu = \begin{bmatrix} 0.0 \\ 0.0 \\ 0.0 \end{bmatrix} $$
+
+- $$ \Sigma = \begin{bmatrix} 1.0 & 0.0 & 0.0 \\ 0.0 & 1.0 & 0.0 \\ 0.0 & 0.0 & 1.0 \end{bmatrix} $$
+
+<br>
+
+- 위 예제는 간단한 `Standard isotropic Gaussian` 형태입니다. $$ \mu, \Sigma $$ 를 변경하여 달라지는 형상을 관찰해 보면 3D 가우시안을 이해하는 데 도움이 될 것입니다.
 
 <br>
 
