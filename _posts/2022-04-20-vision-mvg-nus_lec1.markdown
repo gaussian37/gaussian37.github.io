@@ -100,12 +100,32 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec1/21.png" alt="Drawing" style="width: 1000px;"/></center>
-<br>
-
-<br>
 <center><img src="../assets/img/vision/mvg/nus_lec1/22.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
+
+- 위 슬라이드에서 `line`에 직교한 벡터 $$ (a, b) $$ 는 다음과 같은 방식으로 도출될 수 있습니다.
+
+<br>
+
+- $$ \text{line: } (a, b, c) =  ax + by + c = 0 $$
+
+- $$ P = (x_{1}, y_{1}), Q = (x_{2}, y_{2}) \text{ P and Q are on the line.} $$
+
+- $$ \text{direction vector: } d = Q - P = (x_{2} - x_{1}, y_{2} - y_{1})^{T} $$
+
+- $$ \text{line equation 1: } ax_{1} + by_{1} + c = 0 $$
+
+- $$ \text{line equation 2: } ax_{2} + by_{2} + c = 0 $$
+
+<br>
+
+- $$ \text{line equation 2 - line equation 1: } a(x_{2} - x_{1}) + b(y_{2} - y_{1}) = 0 $$
+
+- $$ (a, b) \cdot (x_{2} - x_{1}, y_{2} - y_{1}) = (a, b) \cdot d = 0 $$
+
+- $$ \therefore (a, b)^{T} \text{ is perpendicular to } d. $$
+
+
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec1/23.png" alt="Drawing" style="width: 1000px;"/></center>
