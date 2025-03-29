@@ -161,6 +161,12 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 <center><img src="../assets/img/vision/mvg/nus_lec1/26.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 일반적인 `conic`의 형태와 관련하여 아래 영상을 참조하시면 도움이 되실 것입니다.
+
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/48ZZy9X60X8" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec1/27.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
