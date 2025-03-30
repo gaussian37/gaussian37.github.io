@@ -472,7 +472,7 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 <br>
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec1/50.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec1/50.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - `Similarity Transformation`은 `isotropic scaling` 으로 구성되며 위 슬라이드의 식 처럼 표현됩니다.
