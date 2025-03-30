@@ -480,7 +480,7 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 - 위 식에서 $$ s $$ 는 `isotropic scaling`이라고 하며 Similarity Transformation 적용 시 변환의 크기를 조절합니다.
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec1/51.png" alt="Drawing" style="width: 8000px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec1/51.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - `Similarity Transformation`은 `shape`을 보존하기 때문에 `equi-form transformation`이라고도 합니다.
@@ -488,7 +488,7 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 - `shape`이 보존되기 때문에 `Angle`, `ratio of two lengths`, `ratio of areas`는 보존이되는 성질을 가집니다. **평행선은 평행선으로 유지되는 것 또한 중요한 성질**입니다.
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec1/52.png" alt="Drawing" style="width: 8000px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec1/52.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 그 다음으로 `Affinity`에 대하여 다루어 보도록 하겠습니다.
@@ -498,7 +498,7 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 - `Affine Transformation`을 적용하더라도 **평행선은 그대로 유지**되며 **평행 선분의 길이 비율과 면적 비율은 유지**됩니다. 반면 Similarity Transformation에서는 보존되었던 임의의 선의 길이 비율과 선 사이의 각도는 보존되지 않습니다. 그 이유에 대하여 `Affine Transformation Matrix`를 분해하여 살펴보도록 하겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec1/53.png" alt="Drawing" style="width: 8000px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec1/53.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 이번 슬라이드와 다음 슬라이드에서는 `Affine Transformation`을 `SVD` (Singular Value Decomposition)으로 분해하였을 때, 각 성분이 가지는 의미를 나타냅니다. 위 슬라이드에서는 먼저 어떻게 분해될 수 있는 지 설명합니다.
@@ -531,16 +531,16 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 - 따라서 $$ UV^{T} = R(\theta) $$, $$ V = R(-\phi) $$, $$ V^{T} = R(\phi) $$ 로 표현할 수 있어서 위 식과 같이 전개됩니다.
 
 <br>
-<center><img src="../assets/img/vision/mvg/nus_lec1/54.png" alt="Drawing" style="width: 8000px;"/></center>
+<center><img src="../assets/img/vision/mvg/nus_lec1/54.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
 - 따라서 식을 위 슬라이드와 같이 시각적으로 나타낼 수 있습니다. 위 슬라이드는 `affine transformation`인 $$ A $$ 를 바로 적용한 결과를 $$ R(\phi) $$ , $$ D $$ , $$ R(\theta)R(-\phi) $$ 순서로 나누어서 보여줍니다.
 - 즉 `affine transformation` $$ A $$ 에서의 연산 순서는
     - ① $$ \phi $$ 만큼 회전합니다.
-    - ② $$ x, y $$ 방향으로 각각 $$ \lambda_{1}, \lambda{2} $$ 만큼 `scaling`을 조정합니다. ($$ \lambda_{1}x_{1} + \lambda{2}x_{2} $$ )
+    - ② $$ x, y $$ 방향으로 각각 $$ \lambda_{1}, \lambda_{2} $$ 만큼 `scaling`을 조정합니다. ($$ \lambda_{1}x_{1} + \lambda_{2}x_{2} $$ )
     - ③ $$ -\phi $$ 만큼 역회전 합니다. 즉, $$ \phi $$ 만큼 회전한 영역에서 주성분 방향으로 `scaling`을 조정하고 다시 역회전하여 회전을 없앱니다.
     - ④ 마지막으로 $$ \theta $$ 만큼 회전합니다.
-- 이와 같은 순서로 연산을 살펴보았을 때, `similarity transformation`에 비하여 추가된 개념은 `non-isotropic scaling`입니다. 즉, `scaling` 조정 방향을 지정하는 각도 $$ \phi $$ 와 scaling 조정 비율인 $$ \lambda{1}, \lambda{2} $$ 가 이에 해당합니다.
+- 이와 같은 순서로 연산을 살펴보았을 때, `similarity transformation`에 비하여 추가된 개념은 `non-isotropic scaling`입니다. 즉, `scaling` 조정 방향을 지정하는 각도 $$ \phi $$ 와 scaling 조정 비율인 $$ \lambda{1}, \lambda_{2} $$ 가 이에 해당합니다.
 - 따라서 `affine transformation`에서는 **특정 각도에 대하여 직교하는 방향으로 scaling을 조정하는 것이 중요합니다.**
 
 <br>
@@ -549,7 +549,45 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 
 - 그림으로 나타내면 왼쪽 그림은 최종 $$ R(\theta) $$ 에 의한 회전을 나타내고 오른쪽 그림은 $$ R(-\phi)DR(\phi) $$ 에 의한 변형을 나타냅니다. `scaling` 방향으로 `orthogonal` 함을 유심히 살펴보면 이해하는 데 도움이 됩니다.
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec1/55.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec1/56.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec1/57.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec1/58.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec1/59.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec1/60.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec1/61.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec1/62.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec1/63.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec1/64.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
 
 <br>
 
