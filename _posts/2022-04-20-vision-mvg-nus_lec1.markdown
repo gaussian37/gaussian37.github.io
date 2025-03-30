@@ -517,7 +517,7 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 
 <br>
 
-- 위 식과 같이 분해되는 이유는 아래와 같습니다. `affine transformation matrix`를 Singular Value Decomposition을 하고 SVD 결과의 $$ U, V $$ 가 `orthogonal matrix`이므로 $$ U^{-1} = U^{T} $$ , $$ V^임을{-1} = V^{T} $$ 임을 이용하여 전개하였습니다.
+- 위 식과 같이 분해되는 이유는 아래와 같습니다. `affine transformation matrix`를 `Singular Value Decomposition`을 하고 SVD 결과의 $$ U, V $$ 가 `orthogonal matrix`이므로 $$ U^{-1} = U^{T} $$ , $$ V^{-1} = V^{T} $$ 임을 이용하여 전개하였습니다.
 
 <br>
 
@@ -527,13 +527,14 @@ tags: [(멀티플 뷰 지오메트리). Multiple View Geometry] # add tag
 
 <br>
 
-- [회전 행렬 관련 글](https://gaussian37.github.io/math-la-rotation_matrix)에서 다룬 바와 같이 `orthogonal matrix`는 rotation 임을 만족하기 때문에 $$ U = R(\theta) $$, $$ V = R(-\phi) $$, $$ V^{T} = R(\phi) $$ 로 표현할 수 있어서 위 식과 같이 전개됩니다.
+- [회전 행렬 관련 글](https://gaussian37.github.io/math-la-rotation_matrix)에서 다룬 바와 같이 `orthogonal matrix`는 `rotation` 임을 만족하며 `orthogonal matrix`의 곱 또한 `rotation`임을 만족함을 알 수 있습니다.
+- 따라서 $$ UV^{T} = R(\theta) $$, $$ V = R(-\phi) $$, $$ V^{T} = R(\phi) $$ 로 표현할 수 있어서 위 식과 같이 전개됩니다.
 
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec1/54.png" alt="Drawing" style="width: 8000px;"/></center>
 <br>
 
-- 따라서 식을 위 슬라이드와 같이 시각적으로 나타낼 수 있습니다. 위 슬라이드는 `affine transformation`인 $$ A $$ 를 바로 적용한 결과를 $$ R(\phi) $$ , $$ D $$ , $$ R(\theta)R(\-phi) $$ 순서로 나누어서 보여줍니다.
+- 따라서 식을 위 슬라이드와 같이 시각적으로 나타낼 수 있습니다. 위 슬라이드는 `affine transformation`인 $$ A $$ 를 바로 적용한 결과를 $$ R(\phi) $$ , $$ D $$ , $$ R(\theta)R(-\phi) $$ 순서로 나누어서 보여줍니다.
 - 즉 `affine transformation` $$ A $$ 에서의 연산 순서는
     - ① $$ \phi $$ 만큼 회전합니다.
     - ② $$ x, y $$ 방향으로 각각 $$ \lambda_{1}, \lambda{2} $$ 만큼 `scaling`을 조정합니다. ($$ \lambda_{1}x_{1} + \lambda{2}x_{2} $$ )
