@@ -29,6 +29,86 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry] # add tag
 </div>
 
 <br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/5.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/6.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/7.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/8.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/9.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/10.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/11.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/12.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/13.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/14.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/15.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/16.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/17.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/18.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/19.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/20.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/21.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/22.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/23.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec2/24.png" alt="Drawing" style="width: 1000px;"/></center>
+<br>
+
+<br>
 
 - 지금 부터는 **Rigid body motion and 3D projective geometry** 강의의 후반부로 3차원 공간 상에서의 geometry에 대한 내용을 살펴보도록 하겠습니다.
 
