@@ -47,7 +47,8 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 - ### [이미지 crop과 resize에 따른 intrinsic 수정 방법](#이미지-crop과-resize에-따른-intrinsic-수정-방법-1)
 - ### [OpenCV의 Zhang's Method를 이용한 카메라 캘리브레이션 실습](#opencv의-zhangs-method를-이용한-카메라-캘리브레이션-실습-1)
 - ### [Rotation, Translation을 이용한 카메라 위치 확인](#rotation-translation을-이용한-카메라-위치-확인-1)
-- ### [축변환 Rotation의 Roll, Pitch, Yaw 회전량 구하기](#축변환-rotation의-roll-pitch-yaw-회전량-구하기-1)
+- ### [FLU → RDF Rotation의 Roll, Pitch, Yaw 회전량 구하기](#flu--rdf-rotation의-roll-pitch-yaw-회전량-구하기-1)
+- ### [Extrinsic을 이용한 센서 장착 사양 확인](#extrinsic을-이용한-센서-장착-사양-확인-1)
 
 <br>
 
@@ -1585,7 +1586,7 @@ plt.imshow(topview_image)
 
 <br>
 
-## **축변환 Rotation의 Roll, Pitch, Yaw 회전량 구하기**
+## **FLU → RDF Rotation의 Roll, Pitch, Yaw 회전량 구하기**
 
 <br>
 
@@ -1701,7 +1702,7 @@ def rotation_matrix_to_euler_angles(R):
     psi = np.arctan2(R[2, 1] / np.cos(theta), R[2, 2] / np.cos(theta))
     phi = np.arctan2(R[1, 0] / np.cos(theta), R[0, 0] / np.cos(theta))
     # (Roll, Pitch, Yaw)
-    return np.array([psi, theta, phi]) 
+    return np.array([psi, theta, phi]) * 180 / np.pi
     
 def get_FLU_to_RDF_roll_pitch_yaw_in_degree(R):
     # FLU: Forward-Left-Up
@@ -1718,12 +1719,11 @@ def get_FLU_to_RDF_roll_pitch_yaw_in_degree(R):
         [0, 0, -1],
         [1, 0, 0]], dtype=np.float32
     ).T
-    FLU_TO_RDF_PASSIVE = FLU_TO_RDF_PASSIVE.T
+    RDF_TO_FLU_PASSIVE = FLU_TO_RDF_PASSIVE.T
 
-    RPY_FLU_TO_FLU_PASSIVE = R_FLU_TO_RDF_PASSIVE @ FLU_TO_RDF_PASSIVE
+    RPY_FLU_TO_FLU_PASSIVE = R_FLU_TO_RDF_PASSIVE @ RDF_TO_FLU_PASSIVE
     # FLU based Roll, Pitch, Yaw
-    roll_pitch_yaw_radian = rotation_matrix_to_euler_angles(RPY_FLU_TO_FLU_PASSIVE)
-    roll_pitch_yaw_degree = roll_pitch_yaw_radian * 180 / np.pi
+    roll_pitch_yaw_degree = rotation_matrix_to_euler_angles(RPY_FLU_TO_FLU_PASSIVE)
     return roll_pitch_yaw_degree
 ```
 
@@ -1750,8 +1750,74 @@ print(f'roll: {roll:.4f}, pitch: {pitch:.4f}, yaw: {yaw:.4f}')
 # roll: 0.6933, pitch: -0.1318, yaw: 56.8503
 ```
 
+<br>
 
+## **Extrinsic을 이용한 센서 장착 사양 확인**
 
+<br>
+
+- 앞에서 살펴본 내용을 바탕으로 `FLU → FLU` 좌표축 변환에 의한 Extrinsic과 `FLU → RDF` 좌표축 변환에 의한 Extrinsic 값을 이용하여 원점 기준으로 센서가 어떤 위치에 어떤 방향으로 장착되었는 지 확인해 보도록 하겠습니다.
+- 이 글에서 다루는 $$ R, t $$ 는 `Active Transformation` 이며 $$ R = R_{\text{world}\to\text{sensor}} $$, $$ t = t_{\text{world}\to\text{sensor}} $$ 를 의미합니다.
+- 먼저 `Translation`은 [Rotation, Translation을 이용한 카메라 위치 확인](#rotation-translation을-이용한-카메라-위치-확인-1)에서 다룬 바와 같이 `-R.T @ t`를 이용하여 구할 수 있습니다.
+- 반면 `Rotation`은  `FLU → FLU` 좌표축 변환의 경우와 `FLU → RDF` 좌표축 변환의 경우로 나누어서 생각해 볼 수 있습니다. 만약 `Rotation`은  `FLU → FLU` 좌표축 변환인 경우에는 위에서 다룬 `rotation_matrix_to_euler_angles()` 함수를 이용하여 구할 수 있습니다. 이 함수가 `FLU` 축 기준에서 `Roll`, `Pitch`, `Yaw`를 분해해하는 함수이기 때문입니다. 반면 `FLU → RDF` 좌표축 변환의 경우 `get_FLU_to_RDF_roll_pitch_yaw_in_degree()` 함수를 이용하여 `Roll`, `Pitch`, `Yaw`를 분해할 수 있습니다.
+- 따라서 다음 코드와 같이 `target_axis`가 `FLU`인 경우와 `RDF`인 경우를 고려하여 사용할 수 있습니다.
+
+<br>
+
+```python
+def rotation_matrix_to_euler_angles(R):
+    assert(R.shape == (3, 3))
+
+    theta = -np.arcsin(R[2, 0])
+    psi = np.arctan2(R[2, 1] / np.cos(theta), R[2, 2] / np.cos(theta))
+    phi = np.arctan2(R[1, 0] / np.cos(theta), R[0, 0] / np.cos(theta))
+    # (Roll, Pitch, Yaw)
+    return np.array([psi, theta, phi]) * 180 / np.pi
+    
+def get_FLU_to_RDF_roll_pitch_yaw_in_degree(R):
+    # FLU: Forward-Left-Up
+    # RDF: Right-Down-Forward
+    # R : R_FLU_TO_RDF_ACTIVE 라고 가정함
+    # R_FLU_TO_RDF_ACTIVE -> R_FLU_TO_RDF_PASSIVE -> R_RDF_TO_FLU_PASSIVE
+    R_FLU_TO_RDF_ACTIVE = R.copy()
+    R_FLU_TO_RDF_PASSIVE = R_FLU_TO_RDF_ACTIVE.T
+    R_RDF_TO_FLU_PASSIVE = R_FLU_TO_RDF_PASSIVE.T
+
+    # FLU_TO_RDF_PASSIVE -> FLU_TO_RDF_PASSIVE
+    FLU_TO_RDF_PASSIVE = np.array(
+        [[0, -1, 0],
+        [0, 0, -1],
+        [1, 0, 0]], dtype=np.float32
+    ).T
+    RDF_TO_FLU_PASSIVE = FLU_TO_RDF_PASSIVE.T
+
+    RPY_FLU_TO_FLU_PASSIVE = R_FLU_TO_RDF_PASSIVE @ RDF_TO_FLU_PASSIVE
+    # FLU based Roll, Pitch, Yaw
+    roll_pitch_yaw_degree = rotation_matrix_to_euler_angles(RPY_FLU_TO_FLU_PASSIVE)
+    return roll_pitch_yaw_degree
+
+def get_rpyxyz(R, t, target_axis='FLU'):
+    R = sensor_position[sensor_name]['R']
+    t = sensor_position[sensor_name]['t']
+
+    if target_axis == 'FLU':
+        R_FLU_TO_FLU_ACTIVE = R.copy()
+        R_FLU_TO_FLU_PASSIVE = R_FLU_TO_FLU_ACTIVE.T
+        roll, pitch, yaw = rotation_matrix_to_euler_angles(R_FLU_TO_FLU_PASSIVE) 
+    elif target_axis == 'RDF':
+        roll, pitch, yaw = get_FLU_to_RDF_roll_pitch_yaw_in_degree(R) 
+    
+    camera_position = -R.T @ t
+    x, y, z = camera_position[:, 0]
+    return roll, pitch, yaw, x, y, z    
+
+roll, pitch, yaw, x, y, z = get_rpyxyz(R, t, 'FLU')
+roll, pitch, yaw, x, y, z = get_rpyxyz(R, t, 'RDF')
+```
+
+<br>
+
+- 출력 결과의 `roll`, `pitch`, `yaw`는 회전 각도를 의미하고 `x`, `y`, `z` 각각은 각 축 방향으로의 `translation`을 의미합니다. 출력 결과들을 살펴보면 `roll`과 `pitch`는 `clockwise`, `yaw`는 `counter-clockwise` 방향으로 회전하는 것을 확인할 수 있습니다.
 
 <br>
 
