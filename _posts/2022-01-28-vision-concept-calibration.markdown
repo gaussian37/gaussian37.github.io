@@ -48,7 +48,7 @@ tags: [vision, concept, calibaration, 캘리브레이션, 카메라, 핀홀, pin
 - ### [OpenCV의 Zhang's Method를 이용한 카메라 캘리브레이션 실습](#opencv의-zhangs-method를-이용한-카메라-캘리브레이션-실습-1)
 - ### [Rotation, Translation을 이용한 카메라 위치 확인](#rotation-translation을-이용한-카메라-위치-확인-1)
 - ### [FLU → RDF Rotation의 Roll, Pitch, Yaw 회전량 구하기](#flu--rdf-rotation의-roll-pitch-yaw-회전량-구하기-1)
-- ### [Extrinsic을 이용한 센서 장착 사양 확인](#extrinsic을-이용한-센서-장착-사양-확인-1)
+- ### [Extrinsic을 이용한 센서 장착 위치 및 각도 확인](#extrinsic을-이용한-센서-장착-위치-및-각도-확인-1)
 
 <br>
 
@@ -1752,7 +1752,7 @@ print(f'roll: {roll:.4f}, pitch: {pitch:.4f}, yaw: {yaw:.4f}')
 
 <br>
 
-## **Extrinsic을 이용한 센서 장착 사양 확인**
+## **Extrinsic을 이용한 센서 장착 위치 및 각도 확인**
 
 <br>
 
