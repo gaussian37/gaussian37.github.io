@@ -72,8 +72,7 @@ tags: [원통 좌표계, 구면 좌표계, 원통 투영법, 구면 투영법, c
 
 <br>
 
-- 위 글에서 정리한 바와 같이 `원통 투영법`과 `구면 투영법`은 수평 화각을 360도 까지 나타낼 수 있으므로 
-
+- 위 글에서 정리한 바와 같이 `원통 투영법`과 `구면 투영법`은 수평 화각을 360도 까지 나타낼 수 있으므로 파노라마 뷰 형태로도 나타낼 수 있습니다. 
 
 <br>
 
@@ -133,12 +132,15 @@ tags: [원통 좌표계, 구면 좌표계, 원통 투영법, 구면 투영법, c
 <br>
 
 ```python
-def get_camera_cylindrical_spherical_lut(K, D, conversion_mode, target_width, target_height, roll_degree, pitch_degree, yaw_degree):
+def get_camera_cylindrical_spherical_lut(
+    K, D, conversion_mode, target_width, target_height, hfov_deg, vfov_deg, roll_degree, pitch_degree, yaw_degree):
     '''
     - K : (3, 3) intrinsic matrix
     - D : (5, ) distortion coefficient
     - conversion_mode: "cylindrical", "spherical"
     - target_width, target_height: output image size
+    - hfov_deg: 0 ~ 360
+    - vfov_deg: 0 ~ 180
     - roll_degree: 0 ~ 360
     - pitch_degree: 0 ~ 360
     - yaw_degree: 0 ~ 360
@@ -152,33 +154,45 @@ def get_camera_cylindrical_spherical_lut(K, D, conversion_mode, target_width, ta
     cy = K[1][2]
     
     k0, k1, k2, k3, k4 = D[0], D[1], D[2], D[3], D[4]
+
+    # 원통/구면 투영 시 생성할 azimuth/elevetion 각도 범위
+    # 원통/구면 투영 시, azimuth 사용
+    # 구면 투영 시, elevation 사용
+    hfov=np.deg2rad(hfov_deg)
+    vfov=np.deg2rad(vfov_deg)
     
     x_angle = pitch_degree
     y_angle = yaw_degree
     z_angle = roll_degree
     
+    # X 축 (Pitch) 회전 행렬 (좌표축 회전) 
     Rx_PASSIVE = np.array([
         [1, 0, 0],
         [0, np.cos(np.radians(x_angle)), -np.sin(np.radians(x_angle))],
         [0, np.sin(np.radians(x_angle)), np.cos(np.radians(x_angle))]])
     
+    # Y 축 (Yaw) 회전 행렬 (좌표축 회전)
     Ry_PASSIVE = np.array([
         [np.cos(np.radians(y_angle)), 0, np.sin(np.radians(y_angle))],
         [0, 1, 0],
         [-np.sin(np.radians(y_angle)), 0, np.cos(np.radians(y_angle))]])
     
+    # Z 축 (Roll) 회전 행렬 (좌표축 회전)
     Rz_PASSIVE = np.array([
         [np.cos(np.radians(z_angle)), -np.sin(np.radians(z_angle)), 0],
         [np.sin(np.radians(z_angle)), np.cos(np.radians(z_angle)), 0],
         [0, 0, 1]])
     
-    # Ry_PASSIVE: Yaw
-    # Rx_PASSIVE: Pitch
-    # Rz_PASSIVE: Roll
-    new_R_RDF_CAM_RDF_VEH_PASSIVE = Ry_PASSIVE @ Rx_PASSIVE @ Rz_PASSIVE
-    new_R_RDF_VEH_RDF_CAM_PASSIVE = new_R_RDF_CAM_RDF_VEH_PASSIVE.T
-    new_R_RDF_VEH_RDF_CAM_ACTIVE = new_R_RDF_VEH_RDF_CAM_PASSIVE.T
+    # X, Y, Z 축 전체 회전을 반영한 회전 행렬 (좌표축 회전)
+    # SRC: 어떤 회전이 반영되지 않은 카메라 좌표축
+    # TARGET: Roll/Pitch/Yaw 회전이 반영된 카메라 좌표축    
+    # new_R_RDF_SRC_RDF_TARGET_PASSIVE: SRC → TARGET의 좌표축 회전
+    new_R_RDF_SRC_RDF_TARGET_PASSIVE = Ry_PASSIVE @ Rx_PASSIVE @ Rz_PASSIVE
+    # new_R_RDF_SRC_RDF_TARGET_ACTIVE: SRC → TARGET의 좌표 회전
+    new_R_RDF_SRC_RDF_TARGET_ACTIVE = new_R_RDF_SRC_RDF_TARGET_PASSIVE.T
     ##############################################################################################################
+    
+    # 원통/구면 투영 시, normalized → image 로 적용하기 위한 intrinsic 행렬렬
     new_K = np.array([
         [target_width/hfov,       0,                     target_width/2],
         [0,                       target_height/vfov,    target_height/2],
@@ -236,8 +250,9 @@ def get_camera_cylindrical_spherical_lut(K, D, conversion_mode, target_width, ta
     RDF_cartesian[:,:,1,:]=y
     RDF_cartesian[:,:,2,:]=z    
     
-    # RDF_rotated_cartesian = Rz @ Ry @ Rx @ R_RDF @ RDF_cartesian    
-    RDF_rotated_cartesian = new_R_RDF_VEH_RDF_CAM_ACTIVE @ RDF_cartesian
+    # RDF_rotated_cartesian = Rz @ Ry @ Rx @ RDF_cartesian
+    # SRC → TARGET의 좌표 회전울 통하여 생성된 좌표들을 회전함
+    RDF_rotated_cartesian = new_R_RDF_SRC_RDF_TARGET_ACTIVE @ RDF_cartesian
             
     # compute incidence angle
     x_un = RDF_rotated_cartesian[:, :, [0], :]
@@ -282,7 +297,7 @@ intrinsic[0, :] *= (target_width/origin_width)
 intrinsic[1, :] *= (target_height/origin_height)
 distortion = np.array(calib['ELP-USB16MP01-BL180-2048x1536']['Intrinsic']['D'])
 
-map_x, map_y = get_camera_cylindrical_spherical_lut(intrinsic, distortion, "cylindrical", target_width, target_height, roll_degree=0, pitch_degree=0, yaw_degree=0)
+map_x, map_y = get_camera_cylindrical_spherical_lut(intrinsic, distortion, "cylindrical", target_width, target_height, hfov_deg=180, vfov_deg=180, roll_degree=0, pitch_degree=0, yaw_degree=0)
 new_image = cv2.remap(image, map_x, map_y, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0))
 plt.imshow(new_image)
 ```
