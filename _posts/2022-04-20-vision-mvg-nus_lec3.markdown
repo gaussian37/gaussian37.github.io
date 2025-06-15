@@ -33,7 +33,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <br>
 
 - 이번 강의에서는 크게 위 3가지 내용을 배울 예정입니다.
-- ① `line at infinity` 와 `circular points` 개념을 배우고 이 개념을 이용하여 `affine` 또는 `projective` distortion을 제거하는 방법에 대하여 배워보도록 하겠습니다.
+- ① `line at infinity` 와 `circular points` 개념을 배우고 이 개념을 이용하여 `affine` 또는 `projective distortion`을 제거하는 방법에 대하여 배워보도록 하겠습니다.
 - ② 개념을 확장하여 `plane at infinity`를 배우고 `affine transformation`에서 불변한 성질에 대하여 배워보도록 하곘습니다.
 - ③ `absolute conic`과 `absolute dual quadrics`를 배우고 `similarity transformation`에서 불변한 성질에 대하여 배워보도록 하겠습니다.
 
