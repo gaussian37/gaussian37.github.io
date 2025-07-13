@@ -335,7 +335,7 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 
 <br>
 
-$$ S = \begin{bmatrix} a & b \\ b & d \end{bmatrix} $$
+- $$ S = \begin{bmatrix} a & b \\ b & d \end{bmatrix} $$
 
 <br>
 
