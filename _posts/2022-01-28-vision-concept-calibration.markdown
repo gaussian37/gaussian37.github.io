@@ -1797,9 +1797,6 @@ def get_FLU_to_RDF_roll_pitch_yaw_in_degree(R):
     return roll_pitch_yaw_degree
 
 def get_rpyxyz(R, t, target_axis='FLU'):
-    R = sensor_position[sensor_name]['R']
-    t = sensor_position[sensor_name]['t']
-
     if target_axis == 'FLU':
         R_FLU_TO_FLU_ACTIVE = R.copy()
         R_FLU_TO_FLU_PASSIVE = R_FLU_TO_FLU_ACTIVE.T
