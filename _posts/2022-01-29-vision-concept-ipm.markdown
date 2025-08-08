@@ -39,6 +39,7 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 - ### [IPM 적용 방법](#ipm-적용-방법-1)
 - ### [Cityscapes 데이터셋 IPM 적용 예시](#cityscapes-데이터셋-ipm-적용-예시-1)
 - ### [렌즈 왜곡을 반영한 IPM 적용 방법](#렌즈-왜곡을-반영한-ipm-적용-방법-1)
+- ### [Custom 데이터를 이용한 IPM 적용 예시](#custom-데이터를-이용한-ipm-적용-예시-1)
 - ### [IPM 적용 application 사례](#ipm-적용-application-사례-1)
 
 <br>
@@ -745,16 +746,7 @@ world_y_interval = 0.01
 ```python
 def generate_direct_backward_mapping(
     world_x_min, world_x_max, world_x_interval, 
-    world_y_min, world_y_max, world_y_interval, extrinsic, intrinsic, distortion):
-    
-    print("world_x_min : ", world_x_min)
-    print("world_x_max : ", world_x_max)
-    print("world_x_interval (m) : ", world_x_interval)
-    print()
-    
-    print("world_y_min : ", world_y_min)
-    print("world_y_max : ", world_y_max)
-    print("world_y_interval (m) : ", world_y_interval)
+    world_y_min, world_y_max, world_y_interval, R, t, K, D, hfov=180):
     
     world_x_coords = np.arange(world_x_max, world_x_min, -world_x_interval)
     world_y_coords = np.arange(world_y_max, world_y_min, -world_y_interval)
@@ -762,28 +754,28 @@ def generate_direct_backward_mapping(
     output_height = len(world_x_coords)
     output_width = len(world_y_coords)
     
-    map_x = np.zeros((output_height, output_width)).astype(np.float32)
-    map_y = np.zeros((output_height, output_width)).astype(np.float32)
+    map_x = np.ones((output_height, output_width)).astype(np.float32) * -1
+    map_y = np.ones((output_height, output_width)).astype(np.float32) * -1
     
     if len(D) == 5:
-        k1, k2, k3, k4 = distortion[1:]
+        k1, k2, k3, k4 = D[1:]
     elif len(D) == 4:
-        k1, k2, k3, k4 = distortion
+        k1, k2, k3, k4 = D
     else:
         print("Wrong Distortion.")
         exit()
 
-    fx = intrinsic[0][0]
-    fy = intrinsic[1][1]
-    skew = intrinsic[0][1]
-    cx = intrinsic[0][2]
-    cy = intrinsic[1][2]
+    fx = K[0][0]
+    fy = K[1][1]
+    skew = K[0][1]
+    cx = K[0][2]
+    cy = K[1][2]
         
     world_z = 0
     for i, world_x in enumerate(world_x_coords):
         for j, world_y in enumerate(world_y_coords):
-            world_coord = [world_x, world_y, world_z, 1]
-            camera_coord = extrinsic[:3, :] @ world_coord
+            world_coord = [world_x, world_y, world_z]
+            camera_coord = R @ world_coord + t
 
             #################### undistorted normalized coordinate ######################
             x_un = camera_coord[0] / camera_coord[2]
@@ -799,12 +791,13 @@ def generate_direct_backward_mapping(
             u = np.round(fx*x_dn + skew*y_dn + cx)
             v = np.round(fy*y_dn + cy)
             #############################################################################
-
-            # map_x : (H, W)
-            # map_y : (H, W)
-            # dst[i][j] = src[ map_y[i][j] ][ map_x[i][j] ]
-            map_x[i][j] = u
-            map_y[i][j] = v
+            
+            if (np.rad2deg(theta) < (hfov/2)) and (camera_coord[2] > 0):
+                # map_x : (H, W)
+                # map_y : (H, W)
+                # dst[i][j] = src[ map_y[i][j] ][ map_x[i][j] ]
+                map_x[i][j] = u
+                map_y[i][j] = v
             
     return map_x, map_y
 ```
@@ -813,6 +806,197 @@ def generate_direct_backward_mapping(
 
 - 변경된 `generate_direct_backward_mapping` 함수를 살펴보면 함수의 인자로 `distortion`이라는 것을 받습니다. `Generic Camera Model`의 정의에 의하여 9차 기함수(odd function)를 이용하여 렌즈 왜곡을 추정하기 때문에 `distortion`은 9차 방정식의 홀수 차수의 계수를 저장합니다. `distortion`의 값이 4개이면 3, 5, 7, 9차 항의 계수를 의미하고 `distortion`이 5개이면 1차 항의 계수 까지 포함합니다. (opencv의 캘리브레이션 함수에서 1차 항의 계수는 1로 고정하기 때문에 이와 같은 표현법이 사용됩니다.)
 - `undistorted normalized coordinate` → `distorted normalized coordinate` → `image plane` 변환의 의미는 [카메라 모델과 렌즈 왜곡](https://gaussian37.github.io/vision-concept-lens_distortion/)에 자세하게 설명되어 있으니 참조 부탁드립니다.
+- 함수의 인자 중 `R`, `t`, `K`, `D`는 각각 `Rotation`, `translation`, `intrinsic`, `distortion`을 뜻합니다. 
+- `hfov`는 `IPM` 적용 시 사용할 카메라 화각을 의미합니다. 예를 들어 `hfov` = 150 으로 적용하면 카메라 수평 화각이 150도를 넘는다고 하더라도 렌즈 중심으로부터 좌우 75도만 사용하여 최대 150도 화각만 사용한다는 것을 의미합니다. 위 코드에서 `(np.rad2deg(theta) < (hfov/2))` 부분에 해당하며 이 조건을 통하여 원하는 화각 영역만 `IPM`을 적용할 수 있습니다.
+- 코드에서 `(camera_coord[2] > 0)` 조건은 카메라 기준 `depth`가 양수인 영역만 `IPM`을 적용한다는 뜻으로 카메라 뒤 영역은 `IPM` 적용에서 제외한다는 의미입니다.
+
+<br>
+
+## **Custom 데이터를 이용한 IPM 적용 예시**
+
+<br>
+
+- 이번 예제는 화각이 180도 이상인 `fisheye camera` 4대를 이용하여 카메라 캘리브레이션을 한 데이터를 이용하여 `IPM`을 적용해 보도록 하겠습니다.
+
+<br>
+
+- 사용한 카메라: [ELP-USB16MP01-BL180](https://ko.aliexpress.com/item/1005004655621786.html)
+- 데이터셋 링크: https://drive.google.com/drive/folders/15cnXNjEaztZl0CBT25oCaJ9-8qyfRYAw?usp=drive_link
+    - `camera_calibration.json`
+    - `front_fisheye_camera.png`
+    - `rear_fisheye_camera.png`
+    - `left_fisheye_camera.png`
+    - `right_fisheye_camera.png`
+
+- 캘리브레이션 환경은 아래 그림과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/ipm/19.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 4개의 카메라 이미지는 다음과 같습니다
+
+<br>
+<center><img src="../assets/img/vision/concept/ipm/20.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 원점과 X, Y, Z 축을 고려하여 각 카메라의 위치를 카메라 캘리브레이션 결과를 통해 확인하면 아래와 같습니다. 카메라 아랫면에서 렌즈부 까지의 길이는 약 0.02 ~ 0.03 m 정도입니다. 렌즈부가 돌출된 형태도 대략 0.02 ~ 0.03 m 정도입니다.
+    - `front_fisheye_camera`: (X = -0.06803, Y = -0.00688, Z = 0.53321)
+    - `rear_fisheye_camera`: (X = -0.62111, Y = -0.00121, Z = 0.55104)
+    - `left_fisheye_camera`: (X = -0.33217, Y = 0.26681, Z = 0.53275)
+    - `right_fisheye_camera`: (X = -0.34385, Y = -0.28677, Z = 0.54694)
+
+<br>
+
+- 아래 코드를 이용하여 4개의 이미지를 읽어서 `IPM`을 적용하여 시각화 해보겠습니다. 먼저 편의상 `front_fisheye_camera`와 `rear_fisheye_camera` 를 묶어서 `IPM` 결과를 시각화하고 `left_fisheye_camera`와 `right_fisheye_camera`를 묶어서 `IPM` 결과를 시각화 해보겠습니다.
+
+<br>
+
+```python
+import json
+import numpy as np
+import cv2
+import matplotlib.pyplot as plt
+import os
+
+def generate_direct_backward_mapping(
+    world_x_min, world_x_max, world_x_interval, 
+    world_y_min, world_y_max, world_y_interval, R, t, K, D, hfov=180):
+    
+    world_x_coords = np.arange(world_x_max, world_x_min, -world_x_interval)
+    world_y_coords = np.arange(world_y_max, world_y_min, -world_y_interval)
+    
+    output_height = len(world_x_coords)
+    output_width = len(world_y_coords)
+    
+    map_x = np.ones((output_height, output_width)).astype(np.float32) * -1
+    map_y = np.ones((output_height, output_width)).astype(np.float32) * -1
+    
+    if len(D) == 5:
+        k1, k2, k3, k4 = D[1:]
+    elif len(D) == 4:
+        k1, k2, k3, k4 = D
+    else:
+        print("Wrong Distortion.")
+        exit()
+
+    fx = K[0][0]
+    fy = K[1][1]
+    skew = K[0][1]
+    cx = K[0][2]
+    cy = K[1][2]
+        
+    world_z = 0
+    for i, world_x in enumerate(world_x_coords):
+        for j, world_y in enumerate(world_y_coords):
+            world_coord = [world_x, world_y, world_z]
+            camera_coord = R @ world_coord + t
+
+            #################### undistorted normalized coordinate ######################
+            x_un = camera_coord[0] / camera_coord[2]
+            y_un = camera_coord[1] / camera_coord[2]
+            #################### distorted normalized coordinate ########################
+            r_un = np.sqrt(x_un**2 + y_un**2)
+            theta = np.arctan(r_un)
+            r_dn = 1*theta + k1*theta**3 + k2*theta**5 + k3*theta**7 + k4*theta**9
+            
+            x_dn = r_dn * (x_un/r_un)
+            y_dn = r_dn * (y_un/r_un)
+            ################################ image plane ###############################
+            u = np.round(fx*x_dn + skew*y_dn + cx)
+            v = np.round(fy*y_dn + cy)
+            #############################################################################
+            
+            if (np.rad2deg(theta) < (hfov/2)) and (camera_coord[2] > 0):
+                # map_x : (H, W)
+                # map_y : (H, W)
+                # dst[i][j] = src[ map_y[i][j] ][ map_x[i][j] ]
+                map_x[i][j] = u
+                map_y[i][j] = v
+            
+    return map_x, map_y
+
+world_x_max = 2
+world_x_min = -2.5
+world_y_max = 2
+world_y_min = -2
+
+world_x_interval = 0.01
+world_y_interval = 0.01
+
+path = "path/to/the/calibration_and_image/
+camera_calib = json.load(open(path + os.sep + "camera_calibration.json", "r"))
+bev_image_dict = {}
+camera_names = ['front_fisheye_camera', 'rear_fisheye_camera', 'left_fisheye_camera', 'right_fisheye_camera']
+for camera_name in camera_names:
+    image_path = path + os.sep + camera_name + ".png"
+    image = cv2.cvtColor(cv2.imread(image_path), cv2.COLOR_BGR2RGB)
+
+    R = np.array(camera_calib[camera_name]['Extrinsic']['World']['Camera']['R']).reshape(3, 3)
+    t = np.array(camera_calib[camera_name]['Extrinsic']['World']['Camera']['t'])
+    K = np.array(camera_calib[camera_name]['Intrinsic']["K"]).reshape(3, 3)
+    D = np.array(camera_calib[camera_name]['Intrinsic']["D"])
+
+    map_x, map_y = generate_direct_backward_mapping(
+        world_x_min,
+        world_x_max,
+        world_x_interval,
+        world_y_min,
+        world_y_max,
+        world_y_interval,
+        R, t, K, D, 180
+    )   
+    
+    output_image = cv2.remap(image, map_x, map_y, cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+    bev_image_dict[camera_name] = output_image    
+
+plt.imshow(bev_image_dict['front_fisheye_camera'] + bev_image_dict['rear_fisheye_camera'])
+plt.imshow(bev_image_dict['left_fisheye_camera'] + bev_image_dict['right_fisheye_camera'])
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/ipm/21.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 아래 코드를 이용하여 4개의 이미지의 중첩 영역을 간단하게 오버랩하여 시각화 하면 아래와 같습니다.
+
+<br>
+
+```python
+imgs = [
+    bev_image_dict['front_fisheye_camera'],
+    bev_image_dict['rear_fisheye_camera'],
+    bev_image_dict['left_fisheye_camera'],
+    bev_image_dict['right_fisheye_camera']
+]
+
+# Stack into a single array of shape (4, H, W, 3)
+stack = np.stack(imgs, axis=0)  # dtype=uint8
+
+# Build a mask: True where any channel is nonzero
+# shape (4, H, W); dtype=float32 for later arithmetic
+mask = (stack != 0).any(axis=-1).astype(np.float32)
+
+# Multiply each pixel by its mask
+# shape broadcast to (4, H, W, 1) then multiplied
+masked = stack.astype(np.float32) * mask[..., None]
+
+# Sum the colors and sum the masks
+sum_colors = masked.sum(axis=0)            # shape (H, W, 3)
+count      = mask.sum(axis=0)[..., None]   # shape (H, W, 1)
+
+# Avoid division by zero: wherever count==0, set to 1
+count_safe = np.where(count==0, 1.0, count)
+
+# Compute the average and convert back to uint8
+ipm_result = (sum_colors / count_safe).astype(np.uint8)
+
+plt.imshow(ipm_result)
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/ipm/22.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
 
 <br>
 
