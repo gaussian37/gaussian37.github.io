@@ -37,7 +37,7 @@ tags: [vision] # add tag
 - [A Generic Camera Model and Calibration Method for Conventional, Wide-Angle, and Fish-Eye Lenses](https://gaussian37.github.io/vision-concept-generic_camera_model/)
 - [Double Sphere 카메라 모델 및 다양한 카메라 모델의 종류 (Pinhole, UCM, EUCM, Kannala-Brandt Camera Model 등))](https://gaussian37.github.io/vision-concept-camera_models)
 - [Fisheye Camera (어안 카메라) 관련 정리](https://gaussian37.github.io/vision-concept-fisheye_camera/)
-- [원통 투영법 (Cylindrical Projection) 및 구면 투영법 (Spherical Projection)](https://gaussian37.github.io/vision-concept-cylindrical_spherical_projection/)
+- [이미지의 구면 투영법 (Spherical Projection) 및 원통 투영볍 (cylindrical projection)](https://gaussian37.github.io/vision-concept-spherical_projection/)
 - [스테레오 (Stereo) 비전의 기초](https://gaussian37.github.io/vision-concept-basic_stereo_vision/)
 - [컴퓨터 비전을 이용한 3D Reconstruction 기초](https://gaussian37.github.io/vision-concept-basic_3d_reconstruction/)
 - [Linear N-Point Camera Pose Determination](https://gaussian37.github.io/vision-concept-linear_n_point_camera_pose_determination/)
