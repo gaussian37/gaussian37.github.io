@@ -13,6 +13,7 @@ tags: [구면 좌표계, 원통 좌표계, 구면 투영법, 원통 투영법, s
 
 <br>
 
+- 참조 : https://plaut.github.io/fisheye_tutorial/
 - 사전 지식 : [직교 좌표계, 원통 좌표계 및 구면 좌표계](https://gaussian37.github.io/math-calculus-cylindrical_spherical_coordinate_system/)
 - 사전 지식 : [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)
 - 사전 지식 : [카메라 모델과 렌즈 왜곡 (lens distortion)](https://gaussian37.github.io/vision-concept-lens_distortion/)
@@ -133,7 +134,7 @@ tags: [구면 좌표계, 원통 좌표계, 구면 투영법, 원통 투영법, s
 <center><img src="../assets/img/vision/concept/spherical_projection/4.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 그림의 왼쪽은  카메라 중심축 기준으로 표현한 이미지이고 오른쪽은 구면 좌표계 존재하는 구면을 표현한 것입니다.
+- 위 그림의 왼쪽은  카메라 중심축 기준으로 표현한 이미지이고 오른쪽은 구면 좌표계 상에 존재하는 구면을 표현한 것입니다.
 - 구면 투영을 위하여 필요한 정보는 **왼쪽의 오른쪽 이미지의 $$ (u, v) $$ 좌표와 오른쪽 구면에 존재하는 $$ (\phi, \theta) $$ 좌표를 대응 시키는 방법**입니다.
 - 구면 투영을 거치면 원본 이미지의 $$ (u, v) $$ 좌표가 구면 투영 이미지의 $$ (\phi, \theta) $$ 좌표에 대응되기 때문에 아래 그림과 같은 관계를 가집니다.
 
