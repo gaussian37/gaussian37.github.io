@@ -499,6 +499,10 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 
 <br>
 
+- 따라서 위 슬라이드의 $$ H_{A}^{-T} $$ 는 다음과 같이 정의 됩니다.
+
+<br>
+
 - $$ \therefore H_{A}^{-T} = \begin{bmatrix} A^{-T} & 0 \\ -t^{T}A^{-T} & 1 \end{bmatrix} $$
 
 <br>

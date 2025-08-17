@@ -198,13 +198,258 @@ tags: [구면 좌표계, 원통 좌표계, 구면 투영법, 원통 투영법, s
 
 <br>
 
-- https://colab.research.google.com/drive/118sQlforFfkE45SOxz16f__LdqQ8niQf?usp=sharing
-
-- ... 작성중 ...
+- 가상의 `구면 투영 이미지`의 픽셀 좌표는 다음과 같이 생성합니다.
 
 <br>
 
+```python
+# xv : (target_height, target_width), yv : (target_height, target_width)
+xv, yv = np.meshgrid(range(target_width), range(target_height), indexing='xy')
 
+# p.shape : (3, #target_height, #target_width)
+p = np.stack([xv, yv, np.ones_like(xv)])  # pixel homogeneous coordinates
+# p.shape : (#target_height, #target_width, 3, 1)
+p = p.transpose(1, 2, 0)[:, :, :, np.newaxis] # [u, v, 1]
+'''
+- p[:, : 0, :] : 0, 1, 2, ..., W-1
+- p[:, : 1, :] : 0, 1, 2, ..., H-1    
+- p[:, : 2, :] : 1, 1, 1, ..., 1
+'''
+```
+
+<br>
+
+- 위 과정을 통하여 ① `구면 투영 이미지`의 모든 좌표들을 생성합니다.
+
+<br>
+
+- 다음 과정을 통하여 ① `구면 투영 이미지` → ② `normalized 구면 투영 이미지`로 변경합니다.
+
+<br>
+
+```python
+# hfov_deg: 0 ~ 360
+# vfov_deg: 0 ~ 180
+# 구면 투영 시 생성할 azimuth/elevation 각도 범위
+# hfov: azimuth
+# vfov: elevation
+hfov=np.deg2rad(hfov_deg)
+vfov=np.deg2rad(vfov_deg)
+    
+# 구면 투영 시, normalized → image 로 적용하기 위한 intrinsic 행렬
+new_K = np.array([
+    [target_width/hfov,       0,                     target_width/2],
+    [0,                       target_height/vfov,    target_height/2],
+    [0,                       0,                     1]
+], dtype=np.float32)
+
+new_K_inv = np.linalg.inv(new_K)
+
+# p_norm.shape : (#target_height, #target_width, 3, 1)
+p_norm = new_K_inv @ p  # r is in normalized coordinate
+
+'''
+p_norm[:, :, 0, :]. phi (azimuthal angle. horizontal) : -hfov/2 ~ hov/2
+p_norm[:, :, 1, :]. theta (elevation angla. vertical) : -vfov/2 ~ vfov/2
+p_norm[:, :, 2, :]. 1.    
+'''
+```
+
+<br>
+
+- 다음으로 ② `normalized 구면 투영 이미지` → ③ `normalized 이미지` 으로 변경합니다. $$ \phi, \theta $$ 를 이용하여 $$ x, y, z $$ 의 직교 좌표계로 변경하는 과정에 해당합니다.
+- 다음 과정은 아래 링크의 내용을 사전에 이해해야 합니다.
+    - 사전 지식 : [직교 좌표계, 원통 좌표계 및 구면 좌표계](https://gaussian37.github.io/math-calculus-cylindrical_spherical_coordinate_system/)
+
+<br>
+
+```python
+# azimuthal angle
+phi = p_norm[:, :, 0]
+# elevation angle
+theta = p_norm[:, :, 1]   
+
+RDF_cartesian = np.zeros(p_norm.shape).astype(np.float32)
+
+# x, y, z : cartesian coordinate in camera coordinate system (RDF, Right-Down-Front)
+# hemisphere
+x =np.cos(theta)*np.sin(phi) # -1 ~ 1
+y =np.sin(theta) # -1 ~ 1
+z =np.cos(theta)*np.cos(phi) # 0 ~ 1
+
+RDF_cartesian[:,:,0,:]=x
+RDF_cartesian[:,:,1,:]=y
+RDF_cartesian[:,:,2,:]=z    
+
+# x_un, y_un, z_un: (target_height, target_width)
+x_un = RDF_cartesian[:, :, 0, 0]
+y_un = RDF_cartesian[:, :, 1, 0]
+z_un = RDF_cartesian[:, :, 2, 0]
+```
+
+<br>
+
+- 마지막으로 ③ `normalized 이미지` → ④ `이미지`로 변경하는 과정입니다. 이 과정을 통하여 ① 에서 정의한 `구면 투영 이미지`의 좌표를 원본 이미지와 대응시킬 수 있으므로 `LUT`를 생성할 수 있습니다. 여기서 사용하는 `LUT`는 `구면 투영 이미지`에서 원본 이미지의 색상 정보를 접근하기 위한 `backward` 매핑을 의미합니다.
+
+<br>
+
+```python
+theta = np.arccos(z_un / np.sqrt(x_un**2 + y_un**2 + z_un**2))
+mask = theta > np.pi/2
+
+# project the ray onto the fisheye image according to the fisheye model and intrinsic calibration
+r_dn = D[0]*theta + D[1]*theta**3 + D[2]*theta**5 + D[3]*theta**7 + D[4]*theta**9
+
+r_un = np.sqrt(x_un**2 + y_un**2)
+
+x_dn = r_dn * x_un / (r_un + 1e-6) # horizontal
+y_dn = r_dn * y_un / (r_un + 1e-6) # vertical    
+
+map_x_origin2new = K[0][0]*x_dn + K[0][1]*y_dn + K[0][2]
+map_y_origin2new = K[1][1]*y_dn + K[1][2]
+
+map_x_origin2new[mask] = DEFAULT_OUT_VALUE
+map_y_origin2new[mask] = DEFAULT_OUT_VALUE
+
+map_x_origin2new = map_x_origin2new.astype(np.float32)
+map_y_origin2new = map_y_origin2new.astype(np.float32)
+```
+
+<br>
+
+- 위 코드를 정리하여 표현하면 아래와 같습니다.
+    - 링크: https://colab.research.google.com/drive/118sQlforFfkE45SOxz16f__LdqQ8niQf?usp=sharing
+
+<br>
+
+```python
+import json
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+def get_camera_spherical_lut(
+    K, D, origin_width, origin_height, target_width, target_height, hfov_deg, vfov_deg, DEFAULT_OUT_VALUE=-1):
+    
+    '''
+    - K : (3, 3) intrinsic matrix
+    - D : (5, ) distortion coefficient
+    - origin_width, origin_height: input image size
+    - target_width, target_height: output image size
+    - hfov_deg: 0 ~ 360
+    - vfov_deg: 0 ~ 180
+    '''
+
+    # 구면 투영 시 생성할 azimuth/elevation 각도 범위
+    # hfov: azimuth
+    # vfov: elevation
+    hfov=np.deg2rad(hfov_deg)
+    vfov=np.deg2rad(vfov_deg)
+    
+    # 구면 투영 시, normalized → image 로 적용하기 위한 intrinsic 행렬
+    new_K = np.array([
+        [target_width/hfov,       0,                     target_width/2],
+        [0,                       target_height/vfov,    target_height/2],
+        [0,                       0,                     1]
+    ], dtype=np.float32)
+    
+    new_K_inv = np.linalg.inv(new_K)
+    
+    # Create pixel grid and compute a ray for every pixel
+    # xv : (target_height, target_width), yv : (target_height, target_width)
+    xv, yv = np.meshgrid(range(target_width), range(target_height), indexing='xy')
+    
+    # p.shape : (3, #target_height, #target_width)
+    p = np.stack([xv, yv, np.ones_like(xv)])  # pixel homogeneous coordinates    
+    # p.shape : (#target_height, #target_width, 3, 1)    
+    p = p.transpose(1, 2, 0)[:, :, :, np.newaxis] # [u, v, 1]
+    '''
+    p.shape : (H, W, 3, 1)
+    p[:, : 0, :] : 0, 1, 2, ..., W-1
+    p[:, : 1, :] : 0, 1, 2, ..., H-1    
+    p[:, : 2, :] : 1, 1, 1, ..., 1
+    '''
+    # p_norm.shape : (#target_height, #target_width, 3, 1)
+    p_norm = new_K_inv @ p  # r is in normalized coordinate
+    
+    '''
+    p_norm[:, :, 0, :]. phi (azimuthal angle. horizontal) : -hfov/2 ~ hov/2
+    p_norm[:, :, 1, :]. theta (elevation angla. vertical) : -vfov/2 ~ vfov/2
+    p_norm[:, :, 2, :]. 1.    
+    '''
+    # azimuthal angle
+    phi = p_norm[:, :, 0]
+    # elevation angle
+    theta = p_norm[:, :, 1]   
+    
+    RDF_cartesian = np.zeros(p_norm.shape).astype(np.float32)
+    
+    # x, y, z : cartesian coordinate in camera coordinate system (RDF, Right-Down-Front)
+    # hemisphere
+    x =np.cos(theta)*np.sin(phi) # -1 ~ 1
+    y =np.sin(theta) # -1 ~ 1
+    z =np.cos(theta)*np.cos(phi) # 0 ~ 1
+    
+    RDF_cartesian[:,:,0,:]=x
+    RDF_cartesian[:,:,1,:]=y
+    RDF_cartesian[:,:,2,:]=z    
+    
+    # x_un, y_un, z_un: (target_height, target_width)
+    x_un = RDF_cartesian[:, :, 0, 0]
+    y_un = RDF_cartesian[:, :, 1, 0]
+    z_un = RDF_cartesian[:, :, 2, 0]
+    
+    theta = np.arccos(z_un / np.sqrt(x_un**2 + y_un**2 + z_un**2))
+    
+    mask = theta > np.pi/2
+
+    # project the ray onto the fisheye image according to the fisheye model and intrinsic calibration
+    r_dn = D[0]*theta + D[1]*theta**3 + D[2]*theta**5 + D[3]*theta**7 + D[4]*theta**9
+    
+    r_un = np.sqrt(x_un**2 + y_un**2)
+    
+    x_dn = r_dn * x_un / (r_un + 1e-6) # horizontal
+    y_dn = r_dn * y_un / (r_un + 1e-6) # vertical    
+    
+    map_x_origin2new = K[0][0]*x_dn + K[0][1]*y_dn + K[0][2]
+    map_y_origin2new = K[1][1]*y_dn + K[1][2]
+    
+    map_x_origin2new[mask] = DEFAULT_OUT_VALUE
+    map_y_origin2new[mask] = DEFAULT_OUT_VALUE
+    
+    map_x_origin2new = map_x_origin2new.astype(np.float32)
+    map_y_origin2new = map_y_origin2new.astype(np.float32)
+    
+    return map_x_origin2new, map_y_origin2new, new_K
+
+calib = json.load(open("camera_calibration.json", "r"))
+image = cv2.cvtColor(cv2.imread("front_fisheye_camera.png", -1), cv2.COLOR_BGR2RGB)
+
+origin_height, origin_width, _ = image.shape
+target_height, target_width  = origin_height//2, origin_width//2
+hfov_deg = 180
+vfov_deg = 150
+
+K = np.array(calib['front_fisheye_camera']['Intrinsic']['K']).reshape(3, 3)
+D = np.array(calib['front_fisheye_camera']['Intrinsic']['D'])
+
+map_x, map_y, new_K = get_camera_spherical_lut(K, D, origin_width, origin_height, target_width, target_height, hfov_deg=hfov_deg, vfov_deg=vfov_deg)
+new_image = cv2.remap(image, map_x, map_y, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0))
+plt.imshow(new_image)
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/8.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 코드를 통하여 왼쪽의 원본 이미지를 오른쪽의 `구면 투영 이미지`와 같이 변경할 수 있습니다. 구면 투영 이미지는 원본 이미지의 절반 사이즈로 생성하였습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/9.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 앞에서 설명한 바와 같이 $$ \color{red}{X} $$ 가 증가하는 방향으로 $$ \phi $$ (`azimuth`)가 증가하고 $$ \color{blue}{Y} $$ 가 증가하는 방향으로 $$ \theta $$ (`elevation`)이 증가합니다.
+- `new_K`를 생성하였을 때, 정의한 $$ c_{x}, c_{y} $$ 로 인하여 $$ \phi, \theta $$ 가 좌/우, 상/하 대칭이 되도록 이미지를 생성하였습니다.
 
 <br>
 
