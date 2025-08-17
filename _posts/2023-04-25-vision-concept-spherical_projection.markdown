@@ -445,10 +445,11 @@ plt.imshow(new_image)
 - 위 코드를 통하여 왼쪽의 원본 이미지를 오른쪽의 `구면 투영 이미지`와 같이 변경할 수 있습니다. 구면 투영 이미지는 원본 이미지의 절반 사이즈로 생성하였습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/spherical_projection/9.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/spherical_projection/9.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 앞에서 설명한 바와 같이 $$ \color{red}{X} $$ 가 증가하는 방향으로 $$ \phi $$ (`azimuth`)가 증가하고 $$ \color{blue}{Y} $$ 가 증가하는 방향으로 $$ \theta $$ (`elevation`)이 증가합니다.
+- 앞에서 설명한 바와 같이 $$ \color{red}{X} $$ 가 증가하는 방향으로 $$ \phi $$ (`azimuth`)가 증가합니다. 이미지의 중점에서 $$ \phi $$ 는 0이고 우측 방향으로 최대 $$ \text{hfov} / 2 $$ 만큼 커지고 좌측 방향으로 최소 $$ -\text{hfov} / 2 $$ 만큼 작아집니다.
+- 마찬가지로 $$ \color{blue}{Y} $$ 가 증가하는 방향으로 $$ \theta $$ (`elevation`)이 증가합니다. 이미지의 중점에서 $$ \theta $$ 는 0이고 아래 방향으로 최대 $$ \text{vfov} / 2 $$ 만큼 커지고 윗 방향으로 최소 $$ -\text{vfov} / 2 $$ 만큼 작아집니다.
 - `new_K`를 생성하였을 때, 정의한 $$ c_{x}, c_{y} $$ 로 인하여 $$ \phi, \theta $$ 가 좌/우, 상/하 대칭이 되도록 이미지를 생성하였습니다.
 
 <br>
@@ -456,6 +457,9 @@ plt.imshow(new_image)
 ## **회전을 고려한 카메라 기준의 구면 투영법**
 
 <br>
+
+- 앞에서 살펴본 내용에서는 이미지의 중점을 구면 좌표 축과 동일하게 두어 이미지의 중점에 $$ \phi = 0, \theta = 0 $$ 인 상태로 `구면 투영 이미지`를 생성하였습니다.
+- 만약 `Roll`, `Pitch`, `Yaw` 각 방향에 `Rotation`을 적용하여 `구면 투영 이미지`를 생성한다면 어떻게 생성할 수 있을까요? 이와 같이 이미지를 생성한다면 카메라의 장착이 회전되었을 때를 고려하여 이미지를 생성할 수 있습니다. 이 방법에 대하여 살펴보도록 하겠습니다.
 
 <br>
 
