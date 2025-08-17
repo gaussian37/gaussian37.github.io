@@ -467,6 +467,40 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Circular points an
 <center><img src="../assets/img/vision/mvg/nus_lec3/36.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
 
+- 위 식에서 $$ H_{A} $$ 는 다음과 같이 블록으로 구성된 행렬로 정의 됩니다.
+
+<br>
+
+- $$ H_{A} = \begin{bmatrix} A & t \\ 0^{T} & 1 \end{bmatrix} $$
+
+- $$ A \in \mathbb{R}^{3 \times 3}, \quad t \in \mathbb{R}^{3 \times 1} $$
+
+- $$ H_{A}^{-1} = \begin{bmatrix} B & b \\ c^{t} & d \end{bmatrix} $$ 
+
+<br>
+
+- $$ H_{A}H_{A}^{-1} = I $$
+
+- $$ H_{A}H_{A}^{-1} = \begin{bmatrix} A & t \\ 0^{T} & 1 \end{bmatrix} \begin{bmatrix} B & b \\ c^{t} & d \end{bmatrix} = \begin{bmatrix} AB + tc^{T} & Ab + td \\ c^{T} & d \end{bmatrix} = \begin{bmatrix} I_{3} & 0 \\ 0^{T} & 1 \end{bmatrix} $$
+
+<br>
+
+- 따라서 다음 관계식을 만족합니다.
+
+<br>
+
+- $$ \begin{cases} c^\top = 0^\top, \\ d = 1, \\ AB + t c^\top = AB = I_3 \;\Rightarrow\; B = A^{-1}, \\ Ab + t d = Ab + t = 0 \;\Rightarrow\; b = -A^{-1}t. \end{cases} $$
+
+<br>
+
+- $$ \therefore H_{A}^{-1} = \begin{bmatrix} A^{-1} & -A^{-1}t \\ 0^{T} & 1 \end{bmatrix} $$
+
+- $$ (H_{A}^{-1})^{T} = \begin{bmatrix} (A^{-1})^{T} & 0 \\ (-A^{-1}t)^{T} & 1 \end{bmatrix} = \begin{bmatrix} A^{-T} & 0 \\ -t^{T}A^{-T} & 1 \end{bmatrix} $$
+
+<br>
+
+- $$ \therefore H_{A}^{-T} = \begin{bmatrix} A^{-T} & 0 \\ -t^{T}A^{-T} & 1 \end{bmatrix} $$
+
 <br>
 <center><img src="../assets/img/vision/mvg/nus_lec3/37.png" alt="Drawing" style="width: 1000px;"/></center>
 <br>
