@@ -189,11 +189,11 @@ tags: [구면 좌표계, 원통 좌표계, 구면 투영법, 원통 투영법, s
 
 <br>
 
-- $$ \text{new K} = \begin{bmatrix} \frac{\text{target width}}{\text{hfov}} & 0 & \frac{\text{target width}}{2} \\ 0 & \frac{\text{target height}}{\text{vfov}} & \frac{\text{target height}}{2} \\ 0 & 0 & 1 \end{bmatrix} $$
+- $$ \text{new K} = \begin{bmatrix} f_{x} & \text{skew} & c_{x} \\ 0 & f_{y} & c_{y} \\ 0 & 0 & 1 \end{bmatrix} = \begin{bmatrix} \frac{\text{target width}}{\text{hfov}} & 0 & \frac{\text{target width}}{2} \\ 0 & \frac{\text{target height}}{\text{vfov}} & \frac{\text{target height}}{2} \\ 0 & 0 & 1 \end{bmatrix} $$
 
 <br>
 
-- 각 픽셀 당 $$ \Delta \phi_{\text{pixel}}, \Delta \theta_{\text{pixel}} $$ 의 비율 만큼 증가하므로 `intrinsic`에서 사용되는 $$ fx = \Delta \phi_{\text{pixel}}, fy = \Delta \theta_{\text{pixel}} $$ 에 대응됩니다. 그리고 `principal point`은 $$ cx = \frac{\text{target width}}{2}, cy = \frac{\text{target height}}{2} $$ 에 대응됩니다. 즉, $$ cx = \frac{\text{target width}}{2}, cy = \frac{\text{target height}}{2} $$ 를 통해 생성하고자 하는 **가상 이미지의 중심**에 해당하는 $$ \phi, \theta $$ 가 정해지면 좌/우, 상/하 화각이 대칭이 되도록 배치합니다.
+- 각 픽셀 당 $$ \Delta \phi_{\text{pixel}}, \quad \Delta \theta_{\text{pixel}} $$ 의 비율 만큼 증가하므로 `intrinsic`에서 사용되는 $$ f_{x} = \Delta \phi_{\text{pixel}}, \quad f_{y} = \Delta \theta_{\text{pixel}} $$ 에 대응됩니다. 그리고 `principal point`은 $$ c_{x} = \frac{\text{target width}}{2}, \quad c_{y} = \frac{\text{target height}}{2} $$ 에 대응됩니다. 즉, $$ c_{x} = \frac{\text{target width}}{2}, \quad c_{y} = \frac{\text{target height}}{2} $$ 를 통해 생성하고자 하는 **가상 이미지의 중심**에 해당하는 $$ \phi, \theta $$ 가 정해지면 좌/우, 상/하 화각이 대칭이 되도록 배치합니다.
 - 새롭게 생성되는 `구면 투영 이미지`의 `intrinsic`인 $$ \text{new K} $$ 는 이와 같은 방법으로 생성됩니다.
 
 <br>
