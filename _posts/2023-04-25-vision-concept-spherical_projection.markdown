@@ -33,6 +33,8 @@ tags: [구면 좌표계, 원통 좌표계, 구면 투영법, 원통 투영법, s
 - ### [카메라 기준의 구면 투영법](#카메라-기준의-구면-투영법-1)
 - ### [회전을 고려한 카메라 기준의 구면 투영법](#회전을-고려한-카메라-기준의-구면-투영법-1)
 - ### [회전을 고려한 World 기준의 구면 투영법](#회전을-고려한-world-기준의-구면-투영법-1)
+- ### [회전을 고려한 World 기준의 구면 투영법의 World-to-Image](#회전을-고려한-world-기준의-구면-투영법의-world-to-image-1)
+- ### [회전을 고려한 World 기준의 구면 투영법의 Image-to-World](#회전을-고려한-world-기준의-구면-투영법의-image-to-world-1)
 - ### [회전을 고려한 World 기준의 구면 파노라마 투영법](#회전을-고려한-world-기준의-구면-파노라마-투영법-1)
 - ### [원통 투영법 적용 방법](#원통-투영법-적용-방법-1)
 
@@ -122,6 +124,12 @@ tags: [구면 좌표계, 원통 좌표계, 구면 투영법, 원통 투영법, s
 
 <br>
 
+- 본 글에서 사용할 샘플 데이터의 링크 및 설명은 아래를 참조하시면 됩니다.
+    - 데이터셋 링크: https://drive.google.com/drive/folders/15cnXNjEaztZl0CBT25oCaJ9-8qyfRYAw?usp=drive_link
+    - 데이터 관련 설명: [링크](https://gaussian37.github.io/vision-concept-ipm/#custom-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-ipm-%EC%A0%81%EC%9A%A9-%EC%98%88%EC%8B%9C-1)
+
+<br>
+
 - 카메라 기준의 구면 투영법은 이미지를 단순히 구면 좌표계로 투영하는 방법을 의미합니다. 따라서 `카메라 중심축`과 `구면좌표계의 중심축` 방향이 일치합니다. 아래 구면 좌표계를 참조하시면 됩니다.
 
 <br>
@@ -156,15 +164,47 @@ tags: [구면 좌표계, 원통 좌표계, 구면 투영법, 원통 투영법, s
 <br>
 
 - 따라서 `LUT`는 위 그림과 같이 모든 $$ (\phi_{n}, \theta_{m}) $$ 픽셀에 대하여 대응되는 원본 이미지의 좌표  $$ (u_{n}, v_{m}) $$ 의 값을 저장해야 합니다.
+- 즉, $$ (\phi_{n}, \theta_{m}) $$ 과 일대일 대응이 되는 $$ (u_{n}, v_{m}) $$ 을 찾아야 하므로 다음과 같은 순서로 접근을 해야 합니다.
+    - ① `구면 투영 이미지`: 최종적으로 생성하고자 하는 구면으로 정의된 이미지 공간 입니다.
+    - ② `normalized 구면 투영 이미지`: 구면 투영 이미지의 `normalized` 공간을 의미합니다. 원본 이미지에 접근 하기 위한 중간 과정입니다.
+    - ③ `normalized 이미지`: 원본 이미지의 `normalized` 공간을 의미합니다.
+    - ④ `이미지`: 원본 이미지를 의미하며 구면 투영 이미지에서 사용할 RGB 값을 가져올 때 사용 됩니다.
+- ① `구면 투영 이미지`에서 최종 생성해야 하는 이미지의 공간을 정의해 놓고 이 이미지의 $$ (\phi_{n}, \theta_{m}) $$ 와 대응되는 ④ `이미지`의 $$ (u_{n}, v_{m}) $$ 를 매핑 시키는 작업을 해야 합니다. ②, ③ 은 중간 과정으로 거쳐야 하는 공간입니다. 
+- `normalize` 공간에 대한 정의는 아래 글에서 확인해 보시기 바랍니다.
+    - 사전 지식 : [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)
+    - 사전 지식 : [카메라 모델과 렌즈 왜곡 (lens distortion)](https://gaussian37.github.io/vision-concept-lens_distortion/)
 
 <br>
+
+- `LUT`를 만들기 위한 시작은 가상의 이미지 공간 생성입니다. 위 그림과 같은 `LUT` 사이즈의 이미지를 생성한다고 가정해 보겠습니다.
+- 생성할 `구면 투영 이미지`의 가로 사이즈를 `target_width`, 세로 사이즈를 `target_height`로 정의하고 생성할 이미지의 라디안 단위의 가로 화각을 `hfov`, 세로 화각을 `vfov`라고 정의한다면 생성할 이미지의 각 픽셀 한 칸의 의미는 다음과 같습니다.
+
+- $$ \Delta \phi_{\text{pixel}} = \frac{\text{target width}}{\text{hfov}} $$
+
+- $$ \Delta \theta_{\text{pixel}} = \frac{\text{target height}}{\text{vfov}} $$
+
+<br>
+
+- ② `normalized 구면 투영 이미지` →  ① `구면 투영 이미지` 로 변환하기 위한 `intrinsic` 행렬은 다음과 같이 정의할 수 있습니다.
+
+<br>
+
+- $$ \text{new K} = \begin{bmatrix} \frac{\text{target width}}{\text{hfov}} & 0 & \frac{\text{target width}}{2} \\ 0 & \frac{\text{target height}}{\text{vfov}} & \frac{\text{target height}}{2} \\ 0 & 0 & 1 \end{bmatrix} $$
+
+<br>
+
+- 각 픽셀 당 $$ \Delta \phi_{\text{pixel}}, \Delta \theta_{\text{pixel}} $$ 의 비율 만큼 증가하므로 `intrinsic`에서 사용되는 $$ fx = \Delta \phi_{\text{pixel}}, fy = \Delta \theta_{\text{pixel}} $$ 에 대응됩니다. 그리고 `principal point`은 $$ cx = \frac{\text{target width}}{2}, cy = \frac{\text{target height}}{2} $$ 에 대응됩니다. 즉, $$ cx = \frac{\text{target width}}{2}, cy = \frac{\text{target height}}{2} $$ 를 통해 생성하고자 하는 **가상 이미지의 중심**에 해당하는 $$ \phi, \theta $$ 가 정해지면 좌/우, 상/하 화각이 대칭이 되도록 배치합니다.
+- 새롭게 생성되는 `구면 투영 이미지`의 `intrinsic`인 $$ \text{new K} $$ 는 이와 같은 방법으로 생성됩니다.
+
+<br>
+
+- https://colab.research.google.com/drive/118sQlforFfkE45SOxz16f__LdqQ8niQf?usp=sharing
 
 - ... 작성중 ...
 
 <br>
 
-- 데이터셋 링크: https://drive.google.com/drive/folders/15cnXNjEaztZl0CBT25oCaJ9-8qyfRYAw?usp=drive_link
-- 데이터 관련 설명: [링크](https://gaussian37.github.io/vision-concept-ipm/#custom-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-ipm-%EC%A0%81%EC%9A%A9-%EC%98%88%EC%8B%9C-1)
+
 
 <br>
 
@@ -175,6 +215,16 @@ tags: [구면 좌표계, 원통 좌표계, 구면 투영법, 원통 투영법, s
 <br>
 
 ## **회전을 고려한 World 기준의 구면 투영법**
+
+<br>
+
+## **회전을 고려한 World 기준의 구면 투영법의 World-to-Image**
+
+<br>
+
+<br>
+
+## **회전을 고려한 World 기준의 구면 투영법의 Image-to-World**
 
 <br>
 
