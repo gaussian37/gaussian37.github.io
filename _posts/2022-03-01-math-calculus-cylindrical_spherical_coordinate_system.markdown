@@ -22,8 +22,8 @@ tags: [원통 좌표계, 구면 좌표계, cylindrical, spherical] # add tag
 <br>
 
 - ### [직교 좌표계, 원통 좌표계, 구면 좌표계](#직교-좌표계-원통-좌표계-구면-좌표계-1)
-- ### [Forward-Left-Up 좌표계에서의 좌표계 변환](#Forward-left-up-좌표계에서의-좌표계-변환-1)
-- ### [Right-Down-Forward 좌표계에서의 좌표계 변환](#right-down-Forward-좌표계에서의-좌표계-변환-1)
+- ### [Forward-Left-Up 좌표계에서의 좌표계 변환](#forward-left-up-좌표계에서의-좌표계-변환-1)
+- ### [Right-Down-Forward 좌표계에서의 좌표계 변환](#forward-left-up-좌표계에서의-좌표계-변환-1)
 
 <br>
 
