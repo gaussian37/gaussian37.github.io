@@ -233,7 +233,21 @@ tags: [멀티플 뷰 지오메트리, Multiple View Geometry, Robust homography 
 
 - $$ \begin{align} f(a + h) &= f(a) + f'(a)h + \frac{f^{2}(a)}{2!}h^{2} + \frac{f^{3}(a)}{3!}h^{3} + \cdots + \frac{f^{n}(a)}{n!}h^{n} \\ &= \sum_{k=0}^{n} \frac{f^{k}(a)}{k!}h^{k} \end{align} $$
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/36.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/37.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/38.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/mvg/nus_lec4/39.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
 <br>
 
