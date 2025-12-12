@@ -471,15 +471,36 @@ plt.imshow(new_image)
 <br>
 
 - 먼저 카메라 좌표계 기준에서 `roll`, `pitch`, `yaw`를 변환하는 방법은 아래와 같습니다.
-- 카메라 좌표계 또는 `RDF` 좌표계에서는 $$ X $$ 축 회전이 `pitch` 회전에 대응되고, $$ Y $$ 축 회전이 `yaw` 회전, $$ Z $$ 축 회전이 `roll` 회전에 대응됩니다. 이 좌표계에서는 양의 방향으로 회전 시 **시계 방향**으로 회전합니다. (`FLU` 좌표계에서는 회전이 반시계 방향인 점과 대비됩니다.)
-    - ([링크 참조](https://gaussian37.github.io/math-calculus-cylindrical_spherical_coordinate_system/#right-down-forward-%EC%A2%8C%ED%91%9C%EA%B3%84%EC%97%90%EC%84%9C%EC%9D%98-%EC%A2%8C%ED%91%9C%EA%B3%84-%EB%B3%80%ED%99%98-1))
+- 카메라 좌표계 또는 `RDF` 좌표계에서는 $$ X $$ 축 회전이 `pitch` 회전에 대응되고, $$ Y $$ 축 회전이 `yaw` 회전, $$ Z $$ 축 회전이 `roll` 회전에 대응됩니다. 이 좌표계에서는 양의 방향으로 회전 시 **시계 방향**으로 회전합니다. (`FLU` 좌표계에서는 회전이 반시계 방향인 점과 대비됩니다.) [링크 참조](https://gaussian37.github.io/math-calculus-cylindrical_spherical_coordinate_system/#right-down-forward-%EC%A2%8C%ED%91%9C%EA%B3%84%EC%97%90%EC%84%9C%EC%9D%98-%EC%A2%8C%ED%91%9C%EA%B3%84-%EB%B3%80%ED%99%98-1)
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/11.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
 
 - 위 그림의 주황색 회전 방향과 같이 `RDF` 좌표계에서는 양의 방향으로 회전 시 시계 방향으로 회전합니다. 
-- 예를 들어 $$ X $$ 축 즉, `pitch` 방향으로 30도 회전하게 되면 카메라는 위쪽을 바라보도록 회전합니다. $$ Y $$ 축 즉, `yaw` 방향으로 30도 회전하게 되면 카메라는 오른쪽을 바라보도록 회전합니다. 마지막으로 $$ Z $$ 축 즉, `roll` 방향으로 30도 회전하게 되면 카메라는 광축을 기준으로 30도 시계방향으로 회전합니다.
+- 예를 들어 $$ X $$ 축 즉, `pitch` 방향으로 30도 회전하게 되면 카메라는 위쪽을 바라보도록 회전합니다. $$ Y $$ 축 즉, `yaw` 방향으로 30도 회전하게 되면 카메라는 오른쪽을 바라보도록 회전합니다. 마지막으로 $$ Z $$ 축 즉, `roll` 방향으로 30도 회전하게 되면 카메라는 광축을 기준으로 30도 시계방향으로 회전합니다. 이 내용을 그림으로 살펴보면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/12.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 먼저 `pitch` 기준의 회전을 살펴보면 위 그림과 같습니다. $$ X $$ 축을 기준으로 시계방향으로 회전한 것을 볼 수 있습니다. (위 그림에서는 그림 상 축 외부에서 회전을 표시할 수 밖에 없어서 반시계 방향으로 회전한 것처럼 보이지만 원점에서 바라보면 시계 방향으로 회전한 것을 알 수 있습니다.)
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/13.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 다음은 `yaw` 기준의 회전을 살펴보겠습니다. $$ Y $$ 축을 기준으로 시계방향으로 회전한 것을 볼 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/14.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 다음은 `roll` 기준의 회전을 살펴보겠습니다. $$ Z $$ 축을 기준으로 시계방향으로 회전한 것을 볼 수 있습니다.
+
+<br>
+
+- 이와 같이 `roll`, `pitch`, `yaw` 각 방향으로 회전을 하였을 때, 이 회전을 어떻게 반영하는 지 살펴보도록 하겠습니다.
 
 <br>
 
