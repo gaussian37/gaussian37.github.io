@@ -291,6 +291,8 @@ z_un = RDF_cartesian[:, :, 2, 0]
 <br>
 
 - 마지막으로 ③ `normalized 이미지` → ④ `이미지`로 변경하는 과정입니다. 이 과정을 통하여 ① 에서 정의한 `구면 투영 이미지`의 좌표를 원본 이미지와 대응시킬 수 있으므로 `LUT`를 생성할 수 있습니다. 여기서 사용하는 `LUT`는 `구면 투영 이미지`에서 원본 이미지의 색상 정보를 접근하기 위한 `backward` 매핑을 의미합니다.
+- 아래 코드에서 카메라 모델을 이용한 렌즈 왜곡을 반영한 부분은 아래 링크를 참조하시기 바랍니다.
+    - 링크: https://gaussian37.github.io/vision-concept-lens_distortion/
 
 <br>
 
@@ -471,7 +473,7 @@ plt.imshow(new_image)
 <br>
 
 - 먼저 카메라 좌표계 기준에서 `roll`, `pitch`, `yaw`를 변환하는 방법은 아래와 같습니다.
-- 카메라 좌표계 또는 `RDF` 좌표계에서는 $$ X $$ 축 회전이 `pitch` 회전에 대응되고, $$ Y $$ 축 회전이 `yaw` 회전, $$ Z $$ 축 회전이 `roll` 회전에 대응됩니다. 이 좌표계에서는 양의 방향으로 회전 시 **시계 방향**으로 회전합니다. (`FLU` 좌표계에서는 회전이 반시계 방향인 점과 대비됩니다.) [링크 참조](https://gaussian37.github.io/math-calculus-cylindrical_spherical_coordinate_system/#right-down-forward-%EC%A2%8C%ED%91%9C%EA%B3%84%EC%97%90%EC%84%9C%EC%9D%98-%EC%A2%8C%ED%91%9C%EA%B3%84-%EB%B3%80%ED%99%98-1)
+- 카메라 좌표계 또는 `RDF` 좌표계에서는 $$ X $$ 축 회전이 `pitch` 회전에 대응되고, $$ Y $$ 축 회전이 `yaw` 회전, $$ Z $$ 축 회전이 `roll` 회전에 대응됩니다. 각 좌표축에서 양의 방향으로 회전 시 **반시계 방향**으로 회전합니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/11.png" alt="Drawing" style="width: 400px;"/></center>
