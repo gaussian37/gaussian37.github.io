@@ -476,7 +476,7 @@ plt.imshow(new_image)
 - 카메라 좌표계 또는 `RDF` 좌표계에서는 $$ X $$ 축 회전이 `pitch` 회전에 대응되고, $$ Y $$ 축 회전이 `yaw` 회전, $$ Z $$ 축 회전이 `roll` 회전에 대응됩니다. 각 좌표축에서 양의 방향으로 회전 시 **반시계 방향**으로 회전합니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/spherical_projection/11.png" alt="Drawing" style="width: 400px;"/></center>
+<center><img src="../assets/img/vision/concept/spherical_projection/11.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 그림의 주황색 회전 방향과 같이 `RDF` 좌표계에서는 양의 방향으로 회전 시 **반시계 방향**으로 회전합니다.
