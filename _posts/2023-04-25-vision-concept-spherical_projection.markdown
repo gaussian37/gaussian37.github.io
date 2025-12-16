@@ -164,7 +164,7 @@ tags: [구면 좌표계, 구면 투영법, spherical] # add tag
 <center><img src="../assets/img/vision/concept/spherical_projection/7.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 따라서 `LUT`는 위 그림과 같이 모든 $$ (\phi_{n}, \theta_{m}) $$ 픽셀에 대하여 대응되는 원본 이미지의 좌표  $$ (u_{n}, v_{m}) $$ 의 값을 저장해야 합니다.
+- 따라서 `LUT`는 위 그림과 같이 모든 $$ (\phi_{n}, \theta_{m}) $$ 픽셀에 대하여 대응되는 원본 이미지의 좌표  $$ (u_{i}, v_{j}) $$ 의 값을 저장해야 합니다.
 - 즉, $$ (\phi_{n}, \theta_{m}) $$ 과 일대일 대응이 되는 $$ (u_{n}, v_{m}) $$ 을 찾아야 하므로 다음과 같은 순서로 접근을 해야 합니다.
     - ① `구면 투영 이미지`: 최종적으로 생성하고자 하는 구면으로 정의된 이미지 공간 입니다.
     - ② `normalized 구면 투영 이미지`: 구면 투영 이미지의 `normalized` 공간을 의미합니다. 원본 이미지에 접근 하기 위한 중간 과정입니다.
