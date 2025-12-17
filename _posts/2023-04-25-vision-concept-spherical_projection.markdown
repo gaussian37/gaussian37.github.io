@@ -514,12 +514,34 @@ plt.imshow(new_image)
 - 포인트 샘플을 회전하는 방법을 이용하는 이유는 ① 궁극적으로 회전을 해야 하는 것은 구면 좌표계에서 부터 정의되어 직교 좌표계로 변환된 `RDF_cartesian`이기 때문입니다. 그리고 ② 회전해야 할 포인트들을 직접 회전시키는 것이 더 이해하기도 쉽고 설명하기도 쉽기 때문입니다.
 - 카메라 축 회전과 포인트 자체를 회전하는 것을 각각 `Passive Transformtation`, `Active Transformation`이라고 합니다. 즉, 본 글에서는 `Active Transformation`을 사용하여 내용을 전개할 예정입니다. 이와 관련된 내용은 아래 링크를 참조해 보시기 바랍니다.
     - 링크: https://gaussian37.github.io/vision-concept-calibration/ (글 내부에서 Active/Passive Transformation을 확인)
+- 핵심적으로 이해해야 할 것은 `Active Transformation`과 `Passive Transformation`은 같은 회전을 다루는 것이지만 객체(ex. 포인트)를 중심으로 회전할 지, 좌표축을 기준으로 회전할 지에 따라 관점이 반대라는 것입니다. 이 부분이 아래 설명에 사용됩니다. 
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/15.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 앞에서 다룬 이 그림을 다시 한번 살펴보도록 하겠습니다.
+- 앞에서 다룬 이 그림을 다시 한번 살펴보도록 하겠습니다. 카메라의 회전을 반영하기 위하여 왼쪽 이미지의 각 픽셀 ($$ \phi_{i}, \theta_{j}) $$ 들을 `Active Transformation`을 적용하여 회전하도록 하겠습니다.
+- 카메라의 회전이 발생하면 각 축을 기준으로 반시계 방향으로 카메라의 자세가 회전한다고 앞에서 확인하였습니다. 이 때 형성되는 이미지는 카메라의 회전 방향과 반대 방향으로 이동하게 됩니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/16.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 그림 예시는 카메라를 `Yaw` 방향으로 +30도 회전한 결과 입니다. 카메라가 반시계 방향으로 회전하였으니 기존 영상에서 상이 맺히지 않은 영역을 바라보게 되어 위 그림과 같이 생성될 수 있습니다. 여기서 이해해야 할 점은 카메라가 `Yaw` 방향으로 반시계 방향으로 회전을 하였고 그에 따라 이미지가 어떻게 변하였는 가 입니다. 결론적으로 각 포인트 샘플들은 시계 방향으로 회전한 것 처럼 보이게 됩니다. 이것이 앞에서 말한 `Active Transformation`과 `Passive Transformation`의 관계 입니다. 좌표계 축은 반시계 방향으로 회전을 하였기 때문에 영상을 만들 때 사용하는 포인트 샘플($$ \phi_{i}, \theta_{j} $$)들은 반대 방향으로 회전된 것 처럼 보입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/17.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+ - 위 그림은
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/18.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+
+예를 들어 카메라가 우측
+
 
 <br>
 
