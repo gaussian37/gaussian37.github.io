@@ -143,9 +143,16 @@ tags: [구면 좌표계, 구면 투영법, spherical] # add tag
 <center><img src="../assets/img/vision/concept/spherical_projection/4.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 그림의 왼쪽은  카메라 중심축 기준으로 표현한 이미지이고 오른쪽은 구면 좌표계 상에 존재하는 구면을 표현한 것입니다.
+- 위 그림의 왼쪽은 카메라 중심축 기준으로 표현한 직교 좌표계 상의 이미지이고 오른쪽은 구면 좌표계 상에 존재하는 구면을 표현한 것입니다.
 - 구면 투영을 위하여 필요한 정보는 **왼쪽 이미지의 $$ (u, v) $$ 좌표와 오른쪽 구면에 존재하는 $$ (\phi, \theta) $$ 좌표를 대응 시키는 방법**입니다.
-- 구면 투영을 거치면 원본 이미지의 $$ (u, v) $$ 좌표가 구면 투영 이미지의 $$ (\phi, \theta) $$ 좌표에 대응되기 때문에 아래 그림과 같은 관계를 가집니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/15.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 실제 의미는 구면을 다루는 것이지만 이미지 데이터나 구면 좌표로 투영된 이미지를 다룰 때에는 행렬로 나타내어야 하기 때문에 평면 이미지를 다루게 됩니다. 따라서 앞으로 생성할 이미지는 비록 직사각형의 이미지이지만 의미론적으로는 구면을 생각해 주시면 됩니다.
+- 위 그림을 살펴보겠습니다. 왼쪽 그림의 이미지 각 픽셀은 구면 좌표계에서 `azimuth`와 `elevation`을 뜻하는 $$ (\phi_{i}, \theta_{j}) $$ 입니다. 따라서 의미적으로는 오른쪽 그림에서의 각 분할된 면과 대응될 수 있습니다. 위 그림에서 주황색으로 표시된 픽셀 및 작은 면적이 의미적으로 대응된다는 것을 이해하면 됩니다.
+- 따라서 구면 투영을 거쳐 원본 이미지의 $$ (u, v) $$ 좌표가 구면 투영 이미지의 $$ (\phi, \theta) $$ 좌표에 대응되면 아래 그림과 같은 관계를 가집니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/5.png" alt="Drawing" style="width: 800px;"/></center>
@@ -509,8 +516,10 @@ plt.imshow(new_image)
     - 링크: https://gaussian37.github.io/vision-concept-calibration/ (글 내부에서 Active/Passive Transformation을 확인)
 
 <br>
+<center><img src="../assets/img/vision/concept/spherical_projection/15.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
 
-- 점이 회전하는 그림 그리고 추가 설명하기
+- 앞에서 다룬 이 그림을 다시 한번 살펴보도록 하겠습니다.
 
 <br>
 
