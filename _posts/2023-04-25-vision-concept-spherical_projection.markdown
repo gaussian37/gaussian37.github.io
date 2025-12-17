@@ -533,15 +533,13 @@ plt.imshow(new_image)
 <center><img src="../assets/img/vision/concept/spherical_projection/17.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
- - 위 그림은
+ - 위 그림은 카메라를 `Pitch` 방향으로 +30도 회전한 결과입니다. $$ X $$ 축의 반시계 방향으로 회전하기 때문에 카메라는 아래를 바라보게 되고 각 포인트 샘플들은 위쪽으로 회전한 것 처럼 보이게 됩니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/18.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-
-예를 들어 카메라가 우측
-
+- 위 그림은 카메라를 `Roll` 방향으로 +30도 회전한 결과입니다. $$ Z $$ 축의 반시계 방향으로 회전하기 때문에 각 포인트 샘플들은 오른쪽으로 회전한 것 처럼 보이게 됩니다.
 
 <br>
 
