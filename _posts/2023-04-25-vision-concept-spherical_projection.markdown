@@ -543,70 +543,64 @@ plt.imshow(new_image)
 
 <br>
 
+- `Roll`, `Pitch`, `Yaw` 방향의 회전을 반영한 `Active Transformation` 행렬은 다음 코드를 통하여 만들 수 있습니다.
+
+<br>
+
 ```python
 x_angle = pitch_degree
 y_angle = yaw_degree
 z_angle = roll_degree
 
-# X 축 (Pitch) 회전 행렬 (좌표축 회전) 
-Rx_PASSIVE = np.array([
+# X축(Pitch) Active Transform 회전 행렬
+Rx_c2c_new = np.array([
     [1, 0, 0],
-    [0, np.cos(np.radians(x_angle)), -np.sin(np.radians(x_angle))],
-    [0, np.sin(np.radians(x_angle)), np.cos(np.radians(x_angle))]])
+    [0, np.cos(np.radians(x_angle)),  -np.sin(np.radians(x_angle))],   
+    [0, np.sin(np.radians(x_angle)), np.cos(np.radians(x_angle))]]).T
 
-# Y 축 (Yaw) 회전 행렬 (좌표축 회전)
-Ry_PASSIVE = np.array([
+# Y축(Yaw) Active Transform 회전 행렬
+Ry_c2c_new = np.array([
     [np.cos(np.radians(y_angle)), 0, np.sin(np.radians(y_angle))],
     [0, 1, 0],
-    [-np.sin(np.radians(y_angle)), 0, np.cos(np.radians(y_angle))]])
+    [-np.sin(np.radians(y_angle)), 0, np.cos(np.radians(y_angle))]]).T
 
-# Z 축 (Roll) 회전 행렬 (좌표축 회전)
-Rz_PASSIVE = np.array([
-    [np.cos(np.radians(z_angle)), -np.sin(np.radians(z_angle)), 0],
+# Z축(Roll) Active Transform 회전 행렬
+Rz_c2c_new = np.array([
+    [np.cos(np.radians(z_angle)),  -np.sin(np.radians(z_angle)), 0],
     [np.sin(np.radians(z_angle)), np.cos(np.radians(z_angle)), 0],
-    [0, 0, 1]])
+    [0, 0, 1]]).T
 
-# X, Y, Z 축 전체 회전을 반영한 회전 행렬 (좌표축 회전)
-# SRC: 어떤 회전이 반영되지 않은 카메라 좌표축
-# TARGET: Roll/Pitch/Yaw 회전이 반영된 카메라 좌표축    
-
-# new_R_RDF_SRC_RDF_TARGET_PASSIVE: SRC → TARGET의 좌표축 회전
-new_R_RDF_SRC_RDF_TARGET_PASSIVE = Ry_PASSIVE @ Rx_PASSIVE @ Rz_PASSIVE
-# new_R_RDF_SRC_RDF_TARGET_ACTIVE: SRC → TARGET의 좌표 회전
-new_R_RDF_SRC_RDF_TARGET_ACTIVE = new_R_RDF_SRC_RDF_TARGET_PASSIVE.T
+# Roll @ Pitch @ Yaw
+new_R = Rz_c2c_new @ Rx_c2c_new @ Ry_c2c_new
 ```
 
 <br>
 
-<br>
-
-## **회전을 고려한 World 기준 구면 투영법**
-
-<br>
-
+- 좌표축을 변환하는 3차원 회전 변환 행렬 (`Passive Transformation`)의 방법론은 다음 링크를 참조하시기 바랍니다.
+    - 링크: [좌표축을 변환하는 3차원 회전 변환 행렬](https://gaussian37.github.io/math-la-rotation_matrix/#3d%EC%97%90%EC%84%9C%EC%9D%98-%ED%9A%8C%EC%A0%84-%EB%B3%80%ED%99%98-1)
+- 위 코드에서 생성한 각 축의 회전 행렬의 마지막에 `.T`를 붙인 것도 위 링크에서 정의한 `Passive Transformation`의 좌표축 회전을 `Active Transformation`으로 바꾸기 위함입니다.
+- `new_R`을 통해 `Roll`, `Pitch`, `Yaw` 전체 회전을 반영한 회전 행렬을 이용할 수 있습니다.
 
 <br>
-
-## **회전을 고려한 World 기준 구면 투영법의 World-to-Image, Image-to-World**
-
-<br>
-
-<br>
-
-## **회전을 고려한 World 기준 구면 파노라마 투영법**
-
-<br>
-
-<br>
-
 
 ```python
-def get_camera_cylindrical_spherical_lut(
-    K, D, conversion_mode, target_width, target_height, hfov_deg, vfov_deg, roll_degree, pitch_degree, yaw_degree):
+RDF_rotated_cartesian = new_R @ RDF_cartesian
+```
+
+<br>
+
+- 앞에서 다룬 [카메라 기준 구면 투영법](#카메라-기준-구면-투영법-1)에서는 `RDF_cartesian`를 최종 샘플링된 포인트 $$ (\phi_{i}, \theta_{j}) $$ 로 사용한 반면 `회전을 고려한 카메라 기준 구면 투영법`에서는 회전 행렬인 `new_R`를 반영한 `RDF_rotated_cartesian`을 최종 샘플링된 포인트로 사용합니다.
+- 전체 코드는 다음과 같습니다.
+
+<br>
+
+```python
+def get_camera_rotation_spherical_lut(
+    K, D, origin_width, origin_height, target_width, target_height, hfov_deg, vfov_deg, roll_degree, pitch_degree, yaw_degree, DEFAULT_OUT_VALUE=-8):
     '''
     - K : (3, 3) intrinsic matrix
     - D : (5, ) distortion coefficient
-    - conversion_mode: "cylindrical", "spherical"
+    - origin_width, origin_height: input image size
     - target_width, target_height: output image size
     - hfov_deg: 0 ~ 360
     - vfov_deg: 0 ~ 180
@@ -615,18 +609,7 @@ def get_camera_cylindrical_spherical_lut(
     - yaw_degree: 0 ~ 360
     '''
 
-    fx = K[0][0]
-    skew = K[0][1]
-    cx = K[0][2]
-    
-    fy = K[1][1]        
-    cy = K[1][2]
-    
-    k0, k1, k2, k3, k4 = D[0], D[1], D[2], D[3], D[4]
-
-    # 원통/구면 투영 시 생성할 azimuth/elevetion 각도 범위
-    # 원통/구면 투영 시, azimuth 사용
-    # 구면 투영 시, elevation 사용
+    # 구면 투영 시 생성할 azimuth/elevetion 각도 범위
     hfov=np.deg2rad(hfov_deg)
     vfov=np.deg2rad(vfov_deg)
     
@@ -634,38 +617,35 @@ def get_camera_cylindrical_spherical_lut(
     y_angle = yaw_degree
     z_angle = roll_degree
     
-    # X 축 (Pitch) 회전 행렬 (좌표축 회전) 
-    Rx_PASSIVE = np.array([
+    # X축(Pitch) Active Transform 회전 행렬
+    Rx_c2c_new = np.array([
         [1, 0, 0],
-        [0, np.cos(np.radians(x_angle)), -np.sin(np.radians(x_angle))],
-        [0, np.sin(np.radians(x_angle)), np.cos(np.radians(x_angle))]])
+        [0, np.cos(np.radians(x_angle)),  -np.sin(np.radians(x_angle))],   
+        [0, np.sin(np.radians(x_angle)), np.cos(np.radians(x_angle))]]).T
     
-    # Y 축 (Yaw) 회전 행렬 (좌표축 회전)
-    Ry_PASSIVE = np.array([
+    # Y축(Yaw) Active Transform 회전 행렬
+    Ry_c2c_new = np.array([
         [np.cos(np.radians(y_angle)), 0, np.sin(np.radians(y_angle))],
         [0, 1, 0],
-        [-np.sin(np.radians(y_angle)), 0, np.cos(np.radians(y_angle))]])
+        [-np.sin(np.radians(y_angle)), 0, np.cos(np.radians(y_angle))]]).T
     
-    # Z 축 (Roll) 회전 행렬 (좌표축 회전)
-    Rz_PASSIVE = np.array([
-        [np.cos(np.radians(z_angle)), -np.sin(np.radians(z_angle)), 0],
+    # Z축(Roll) Active Transform 회전 행렬
+    Rz_c2c_new = np.array([
+        [np.cos(np.radians(z_angle)),  -np.sin(np.radians(z_angle)), 0],
         [np.sin(np.radians(z_angle)), np.cos(np.radians(z_angle)), 0],
-        [0, 0, 1]])
+        [0, 0, 1]]).T
     
-    # X, Y, Z 축 전체 회전을 반영한 회전 행렬 (좌표축 회전)
-    # SRC: 어떤 회전이 반영되지 않은 카메라 좌표축
-    # TARGET: Roll/Pitch/Yaw 회전이 반영된 카메라 좌표축    
-    # new_R_RDF_SRC_RDF_TARGET_PASSIVE: SRC → TARGET의 좌표축 회전
-    new_R_RDF_SRC_RDF_TARGET_PASSIVE = Ry_PASSIVE @ Rx_PASSIVE @ Rz_PASSIVE
-    # new_R_RDF_SRC_RDF_TARGET_ACTIVE: SRC → TARGET의 좌표 회전
-    new_R_RDF_SRC_RDF_TARGET_ACTIVE = new_R_RDF_SRC_RDF_TARGET_PASSIVE.T
+    # Roll @ Pitch @ Yaw
+    new_R = Rz_c2c_new @ Rx_c2c_new @ Ry_c2c_new
     ##############################################################################################################
     
-    # 원통/구면 투영 시, normalized → image 로 적용하기 위한 intrinsic 행렬렬
+    # 구면 투영 시, normalized → image 로 적용하기 위한 intrinsic 행렬
     new_K = np.array([
         [target_width/hfov,       0,                     target_width/2],
         [0,                       target_height/vfov,    target_height/2],
-        [0,                       0,                     1]], dtype=np.float32)
+        [0,                       0,                     1]
+    ], dtype=np.float32)
+    
     new_K_inv = np.linalg.inv(new_K)
     
     # Create pixel grid and compute a ray for every pixel
@@ -690,29 +670,15 @@ def get_camera_cylindrical_spherical_lut(
     p_norm[:, :, 1, :]. theta (elevation angla. vertical) : -vfov/2 ~ vfov/2
     p_norm[:, :, 2, :]. 1.    
     '''
-
     # x, y, z : cartesian coordinate in camera coordinate system (RDF, Right-Down-Front)
-    # hemisphere
-    if conversion_mode == "cylindrical":
-        # azimuthal angle
-        phi = p_norm[:, :, 0, :]
-        
-        x = np.sin(phi)
-        y = p_norm[:, :, 1, :]
-        z = np.cos(phi)
-        
-    elif conversion_mode == "spherical":
-        # azimuthal angle
-        phi = p_norm[:, :, 0, :]
-        # elevation angle
-        theta = p_norm[:, :, 1, :] 
-        
-        x =np.cos(theta)*np.sin(phi) # -1 ~ 1
-        y =np.sin(theta) # -1 ~ 1
-        z =np.cos(theta)*np.cos(phi) # 0 ~ 1
-    else:
-        print("wrong conversion_mode: ", conversion_mode)
-        exit()
+    # azimuthal angle
+    phi = p_norm[:, :, 0, :]
+    # elevation angle
+    theta = p_norm[:, :, 1, :] 
+    
+    x =np.cos(theta)*np.sin(phi) # -1 ~ 1
+    y =np.sin(theta) # -1 ~ 1
+    z =np.cos(theta)*np.cos(phi) # 0 ~ 1
     
     RDF_cartesian = np.zeros(p_norm.shape).astype(np.float32)
     RDF_cartesian[:,:,0,:]=x
@@ -721,103 +687,106 @@ def get_camera_cylindrical_spherical_lut(
     
     # RDF_rotated_cartesian = Rz @ Ry @ Rx @ RDF_cartesian
     # SRC → TARGET의 좌표 회전울 통하여 생성된 좌표들을 회전함
-    RDF_rotated_cartesian = new_R_RDF_SRC_RDF_TARGET_ACTIVE @ RDF_cartesian
+    RDF_rotated_cartesian = new_R @ RDF_cartesian
             
     # compute incidence angle
-    x_un = RDF_rotated_cartesian[:, :, [0], :]
-    y_un = RDF_rotated_cartesian[:, :, [1], :]
-    z_un = RDF_rotated_cartesian[:, :, [2], :]
+    # x_un, y_un, z_un: (target_height, target_width)
+    x_un = RDF_rotated_cartesian[:, :, 0, 0]
+    y_un = RDF_rotated_cartesian[:, :, 1, 0]
+    z_un = RDF_rotated_cartesian[:, :, 2, 0]
     # theta = np.arccos(RDF_rotated_cartesian[:, :, [2], :] / np.linalg.norm(RDF_rotated_cartesian, axis=2, keepdims=True))
     theta = np.arccos(z_un / np.sqrt(x_un**2 + y_un**2 + z_un**2))
     
     mask = theta > np.pi/2
-    mask = mask.squeeze(-1).squeeze(-1)
     # project the ray onto the fisheye image according to the fisheye model and intrinsic calibration
-    r_dn = k0*theta + k1*theta**3 + k2*theta**5 + k3*theta**7 + k4*theta**9
+    r_dn = D[0]*theta + D[1]*theta**3 + D[2]*theta**5 + D[3]*theta**7 + D[4]*theta**9
     
     r_un = np.sqrt(x_un**2 + y_un**2)
     
     x_dn = r_dn * x_un / (r_un + 1e-6) # horizontal
     y_dn = r_dn * y_un / (r_un + 1e-6) # vertical    
     
-    map_x_origin2new = fx*x_dn[:, :, 0, 0] + cx + skew*y_dn[:, :, 0, 0]
-    map_y_origin2new = fy*y_dn[:, :, 0, 0] + cy
+    map_x_origin2new = K[0][0]*x_dn + K[0][1]*y_dn + K[0][2]
+    map_y_origin2new = K[1][1]*y_dn + K[1][2]
     
-    DEFAULT_OUT_VALUE = -100
     map_x_origin2new[mask] = DEFAULT_OUT_VALUE
     map_y_origin2new[mask] = DEFAULT_OUT_VALUE
     
     map_x_origin2new = map_x_origin2new.astype(np.float32)
     map_y_origin2new = map_y_origin2new.astype(np.float32)
-    return map_x_origin2new, map_y_origin2new
-```
+    
+    return map_x_origin2new, map_y_origin2new, new_K, new_R
 
-<br>
-
-```python
-image = cv2.cvtColor(cv2.imread("ELP-USB16MP01-BL180-2048x1536_EXTRINSIC.png", -1), cv2.COLOR_BGR2RGB)
-calib = json.load(open("ELP-USB16MP01-BL180-2048x1536_calibration.json", "r"))
+camera_name = "front_fisheye_camera"
+calib = json.load(open("camera_calibration.json", "r"))
+image = cv2.cvtColor(cv2.imread(f"{camera_name}.png", -1), cv2.COLOR_BGR2RGB)
 
 origin_height, origin_width, _ = image.shape
-target_height, target_width  = origin_height, origin_width
+target_height, target_width  = origin_height//2, origin_width//2
+hfov_deg = 180
+vfov_deg = 150
 
-intrinsic = np.array(calib['ELP-USB16MP01-BL180-2048x1536']['Intrinsic']['K']).reshape(3, 3)
-intrinsic[0, :] *= (target_width/origin_width)
-intrinsic[1, :] *= (target_height/origin_height)
-distortion = np.array(calib['ELP-USB16MP01-BL180-2048x1536']['Intrinsic']['D'])
+K = np.array(calib[camera_name]['Intrinsic']['K']).reshape(3, 3)
+D = np.array(calib[camera_name]['Intrinsic']['D'])
 
-map_x, map_y = get_camera_cylindrical_spherical_lut(intrinsic, distortion, "cylindrical", target_width, target_height, hfov_deg=180, vfov_deg=180, roll_degree=0, pitch_degree=0, yaw_degree=0)
+roll_degree = 0 # roll 회전 행렬 입력
+pitch_degree = 0 # pitch 회전 행렬 입력
+yaw_degree = 0 # yaw 회전 행렬 입력
+map_x, map_y, new_K, new_R = get_camera_rotation_spherical_lut(
+    K, D, origin_width, origin_height, target_width, target_height, 
+    hfov_deg=hfov_deg, vfov_deg=vfov_deg, 
+    roll_degree=roll_degree, pitch_degree=pitch_degree, yaw_degree=yaw_degree
+)
 new_image = cv2.remap(image, map_x, map_y, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0))
 plt.imshow(new_image)
+
+print("new_K: \n", new_K)
+print("new_R: \n", new_R)
 ```
 
 <br>
 
+- 다음은 위 코드를 활용하여 `roll`, `pitch`, `yaw`를 각 360도 회전하였을 때, 어떻게 회전하는 지 살펴볼 수 있도록 만든 동영상 입니다.
+- 먼저 `yaw` 회전의 예시 입니다. 회전 각도가 증가함에 따라서 영상이 어떻게 변화하는 지 살펴보시면 됩니다.
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/YkfjGxAVY2w" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/LMC-7bsEp4Y" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
+<br>
+
+- 먼저 `pitch` 회전의 예시 입니다. 회전 각도가 증가함에 따라서 영상이 어떻게 변화하는 지 살펴보시면 됩니다.
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/LoP7H3K_wt4" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/E9ewyJFjm-E" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
+<br>
+
+- 먼저 `roll` 회전의 예시 입니다. 회전 각도가 증가함에 따라서 영상이 어떻게 변화하는 지 살펴보시면 됩니다.
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/If-p9DcBjAM" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/DM9WtbAZH0c" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
-
 <br>
 
-## **카메라 기준 구면 투영법**
-
-<br>
-
-
+- 다음은 `roll`, `pitch`, `yaw`를 동시에 변화하여 360도 회전하는 영상 샘플입니다.
 
 <br>
 <div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/oOhKlkkEL4c" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+    <iframe src="https://www.youtube.com/embed/k2LynWoES-s" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
-
 <br>
-<div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/2b9ennd6F_4" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
-</div>
 
-<br>
-<div style="text-align: center;">
-    <iframe src="https://www.youtube.com/embed/sMnwPiBMOAs" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
-</div>
-
+- 지금까지 특정 카메라 기준에서 회전을 고려한 구면 투영법에 대하여 알아보았습니다.
 
 <br>
 
 ## **회전을 고려한 World 기준 구면 투영법**
 
 <br>
+
 
 <br>
 
@@ -834,8 +803,6 @@ plt.imshow(new_image)
 <br>
 
 ## **회전을 고려한 World 기준 구면 파노라마 투영법**
-
-<br>
 
 <br>
 
