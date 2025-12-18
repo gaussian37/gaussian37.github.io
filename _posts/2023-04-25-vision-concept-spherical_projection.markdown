@@ -843,9 +843,9 @@ print("new_R: \n", new_R)
 
 <br>
 
-- $$ v_{c} = R_{w \to c}^{\text{active}}v_{w} \Rightarrow \color{red}(v_{w}) = (R_{w \to c}^{\text{active}})^{-1}v_{c} $$
+- $$ v_{c} = R_{w \to c}^{\text{active}}v_{w} \Rightarrow \color{red}((v_{w}) = (R_{w \to c}^{\text{active}})^{-1}v_{c}) $$
 
-- $$ v_{c_{\text{new}}} = R_{w \to c_{\text{new}}}^{\text{active}}\color{red}(v_{w}) = R_{w \to c_{\text{new}}}^{\text{active}} (R_{w \to c}^{\text{active}})^{-1} v_{c} $$
+- $$ v_{c_{\text{new}}} = R_{w \to c_{\text{new}}}^{\text{active}}\color{red}((v_{w})) = R_{w \to c_{\text{new}}}^{\text{active}} (R_{w \to c}^{\text{active}})^{-1} v_{c} $$
 
 - $$ \therefore R_{c \to c_{\text{new}}}^{\text{active}} = R_{w \to c_{\text{new}}}^{\text{active}} (R_{w \to c}^{\text{active}})^{-1} $$
 
