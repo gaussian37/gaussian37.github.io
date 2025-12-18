@@ -803,10 +803,21 @@ print("new_R: \n", new_R)
 <center><img src="../assets/img/vision/concept/spherical_projection/19.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 데이터 셋 설명을 기준으로 나타내면 `World 좌표계`는 원점으로 정의해 놓은 위치입니다. `World 좌표계`에서 관심있는 부분은 각 카메라와 `World 좌표계` 간의 `Rotation` 관계입니다. [회전을 고려한 카메라 기준 구면 투영법](#회전을-고려한-카메라-기준-구면-투영법-1)에서는 카메라의 회전 각도 사양을 정의할 때, 카메라 기준의 `Roll`, `Pitch`, `Yaw`를 정의하고 그 사양에 맞추어 `LUT`를 생성하였습니다. `World 기준 구면 투영법`에서는 `World 원점`을 기준으로 `Roll`, `Pitch`, `Yaw`를 정의하고 그 사양에 맞추어 `LUT`를 생성합니다.
+- 데이터 셋 설명을 기준으로 나타내면 `World 좌표계`는 원점으로 정의해 놓은 위치입니다. `World 좌표계`에서 관심있는 부분은 각 카메라와 `World 좌표계` 간의 `Rotation` 관계입니다. [회전을 고려한 카메라 기준 구면 투영법](#회전을-고려한-카메라-기준-구면-투영법-1)에서는 카메라의 회전 각도 사양을 정의할 때, 카메라 기준의 `Roll`, `Pitch`, `Yaw`를 정의하고 그 사양에 맞추어 `LUT`를 생성하였습니다. `World 기준 구면 투영법`에서는 `World 원점`을 기준으로 `Roll`, `Pitch`, `Yaw`를 정의하고 그 사양에 맞추어 `LUT`를 생성합니다. 코드 상으로는 `new_R`을 어떻게 만드는 지 차이가 있을 뿐 나머지는 모두 동일합니다.
 
+<br>
 
+- 전체 프로세스는 다음과 같습니다.
+- ① `World → Camera`로 회전해야 할 `Roll`, `Pitch`, `Yaw` 각도를 구합니다. 카메라 캘리브레이션 값을 이용하여 이 값을 얻을 수 있습니다.
+- ② 앞에서 구한 값을 이용하여 `World → Camera`로의 회전 행렬 (`Active Transform`)을 구합니다. (`R_w2c`)
+- ③ 정의된 사양에 맞추어 `World → New Camera`로의 회전 행렬 (`Active Transform`)을 구합니다. (`R_w2c_new`)
+- ④ 앞의 결과(②, ③)를 이용하여 `Camera → New Camera`로의 회전 행렬 (`Active Transform`)을 구합니다. (`new_R`)
+- ⑤ `new_R`을 이용하여 포인트 샘플들을 `New Camera`로 회전합니다. 이 포인트 샘플들은 `World` 기준으로 정의된 사양 만큼 회전되었음을 의미합니다.
+- 모든 계산은 `World` 기준으로 이루어지며 실제 포인트 샘플들이 이동해야 하는 회전량은 `Camera → New Camera` 만큼의 양을 계산해서 회전합니다.
 
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/20.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
 <br>
 
