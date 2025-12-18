@@ -819,6 +819,44 @@ print("new_R: \n", new_R)
 <center><img src="../assets/img/vision/concept/spherical_projection/20.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+- 설명을 위해 $$ Z $$ 축만 다루어 보겠습니다. 그리고 카메라의 회전을 설명하므로 첨자로 PASSIVE를 기입하였습니다. 위 그림에서 보라색이 `World 좌표축` $$ Z_{w} $$ 입니다. 실제 카메라의 좌표축 $$ Z_{c} $$ 와 $$ Z_{w} $$ 를 비교하면 $$ Z_{w} $$ 기준으로 노란색 각도인 ⓐ 만큼 회전이 발생하였습니다. 반면 변환하고자 하는 새로운 카메라 좌표축 $$ Z_{c_{w}} $$ 는 주황색 각도인 ⓑ 만큼 회전이 발생하였습니다. 따라서 최종적으로 회전해야 하는 각도는 검은색 각도인 ⓒ 만큼 회전입니다. 이 과정을 회전 행렬을 통하여 나타내 보면 다음과 같습니다.
+
+<br>
+
+- $$ R_{w \to c}^{\text{active}}: \text{Activation Transformation(Rotation) from World to Camera.} $$ 
+
+- $$ R_{w \to c_{\text{new}}}^{\text{active}}: \text{Activation Transformation(Rotation) from World to New Camera.} $$ 
+
+- $$ R_{c \to c_{\text{new}}}^{\text{active}}: \text{Activation Transformation(Rotation) from Camera to New Camera.} $$ 
+
+<br>
+
+- `Active Transformation`이므로 벡터 $$ v $$ 에 대하여 다음과 같은 관계를 가집니다.
+
+<br>
+
+- $$ v_{c} = R_{w \to c}^{\text{active}}v_{w} $$
+
+- $$ v_{c_{\text{new}}} = R_{w \to c_{\text{new}}}^{\text{active}}v_{w} $$
+
+- $$ v_{c_{\text{new}}} = R_{c \to c_{\text{new}}}^{\text{active}}v_{c} $$
+
+<br>
+
+- $$ v_{c} = R_{w \to c}^{\text{active}}v_{w} \Rightarrow \color{red}(v_{w}) = (R_{w \to c}^{\text{active}})^{-1}v_{c} $$
+
+- $$ v_{c_{\text{new}}} = R_{w \to c_{\text{new}}}^{\text{active}}\color{red}(v_{w}) = R_{w \to c_{\text{new}}}^{\text{active}} (R_{w \to c}^{\text{active}})^{-1} v_{c} $$
+
+- $$ \therefore R_{c \to c_{\text{new}}}^{\text{active}} = R_{w \to c_{\text{new}}}^{\text{active}} (R_{w \to c}^{\text{active}})^{-1} $$
+
+<br>
+
+- 회전 행렬이므로 역행렬은 `Transpose`를 취해줍니다.
+
+<br>
+
+- $$ \therefore R_{c \to c_{\text{new}}}^{\text{active}} = R_{w \to c_{\text{new}}}^{\text{active}} (R_{w \to c}^{\text{active}})^{T} $$
+
 <br>
 
 ## **회전을 고려한 World 기준 구면 투영법의 World-to-Image, Image-to-World**
