@@ -823,11 +823,11 @@ print("new_R: \n", new_R)
 
 <br>
 
-- $$ R_{w \to c}^{\text{active}}: \text{Activation Transformation(Rotation) from World to Camera.} $$ 
+- $$ R_{w \to c}^{\text{active}} = (R_{w \to c}^{\text{passive}})^{T}: \text{Activation Transformation(Rotation) from World to Camera.} $$ 
 
-- $$ R_{w \to c_{\text{new}}}^{\text{active}}: \text{Activation Transformation(Rotation) from World to New Camera.} $$ 
+- $$ R_{w \to c_{\text{new}}}^{\text{active}} = (R_{w \to c_{\text{new}}}^{\text{passive}})^{T}: \text{Activation Transformation(Rotation) from World to New Camera.} $$ 
 
-- $$ R_{c \to c_{\text{new}}}^{\text{active}}: \text{Activation Transformation(Rotation) from Camera to New Camera.} $$ 
+- $$ R_{c \to c_{\text{new}}}^{\text{active}} = (R_{c \to c_{\text{new}}}^{\text{passive}})^{T}: \text{Activation Transformation(Rotation) from Camera to New Camera.} $$ 
 
 <br>
 
@@ -843,7 +843,7 @@ print("new_R: \n", new_R)
 
 <br>
 
-- $$ v_{c} = R_{w \to c}^{\text{active}}v_{w} \Rightarrow \color{red}{(v_{w}) = (R_{w \to c}^{\text{active}})^{-1}v_{c}} $$
+- $$ v_{c} = R_{w \to c}^{\text{active}}v_{w} \Rightarrow \color{red}{v_{w} = (R_{w \to c}^{\text{active}})^{-1}v_{c}} $$
 
 - $$ v_{c_{\text{new}}} = R_{w \to c_{\text{new}}}^{\text{active}}\color{red}{(v_{w})} = R_{w \to c_{\text{new}}}^{\text{active}} (R_{w \to c}^{\text{active}})^{-1} v_{c} $$
 
@@ -856,6 +856,75 @@ print("new_R: \n", new_R)
 <br>
 
 - $$ \therefore R_{c \to c_{\text{new}}}^{\text{active}} = R_{w \to c_{\text{new}}}^{\text{active}} (R_{w \to c}^{\text{active}})^{T} $$
+
+<br>
+
+- 코드 상에서는 각도 관련 내용은 다음 변수를 통하여 정의할 예정입니다.
+    - `x_w2c_angle` : `World → Camera` $$ X $$ 축 회전 각도 (캘리브레이션 `Rotation`에서 추출해야 함)
+    - `y_w2c_angle` : `World → Camera` $$ Y $$ 축 회전 각도 (캘리브레이션 `Rotation`에서 추출해야 함)
+    - `z_w2c_angle` : `World → Camera` $$ Z $$ 축 회전 각도 (캘리브레이션 `Rotation`에서 추출해야 함)
+    - `x_w2c_new_angle` : `World → New Camera` $$ X $$ 축 회전 각도 (사용자가 사양을 정의해야 함)
+    - `y_w2c_new_angle` : `World → New Camera` $$ Y $$ 축 회전 각도 (사용자가 사양을 정의해야 함)
+    - `z_w2c_new_angle` : `World → New Camera` $$ Z $$ 축 회전 각도 (사용자가 사양을 정의해야 함)
+
+<br>
+
+- `x/y/z/_w2c_angle`의 경우 입력 받은 Extrinsic 파라미터 중 `Rotation`에서 `Roll`, `Pitch`, `Yaw`를 추출해야 합니다.
+- `x/yz/_w2c_new_angle`의 경우 사용자가 각도를 정의해 주어야 합니다.
+
+<br>
+
+```python
+# World → Camera 회전을 위한 회전 행렬 정의
+# X축(Pitch) Active Transform 회전 행렬
+Rx_w2c = np.array([
+    [1, 0, 0],
+    [0, np.cos(np.radians(x_w2c_angle)), -np.sin(np.radians(x_w2c_angle))],   
+    [0, np.sin(np.radians(x_w2c_angle)), np.cos(np.radians(x_w2c_angle))]]).T
+
+# Y축(Yaw) Active Transform 회전 행렬
+Ry_w2c = np.array([
+    [np.cos(np.radians(y_w2c_angle)), 0, np.sin(np.radians(y_w2c_angle))],
+    [0, 1, 0],
+    [-np.sin(np.radians(y_w2c_angle)), 0, np.cos(np.radians(y_w2c_angle))]]).T
+
+# Z축(Roll) Active Transform 회전 행렬
+Rz_w2c = np.array([
+    [np.cos(np.radians(z_w2c_angle)),  -np.sin(np.radians(z_w2c_angle)), 0],
+    [np.sin(np.radians(z_w2c_angle)), np.cos(np.radians(z_w2c_angle)), 0],
+    [0, 0, 1]]).T
+
+# World → New Camera 회전을 위한 회전 행렬 정의
+# X축(Pitch) Active Transform 회전 행렬
+Rx_w2c_new = np.array([
+    [1, 0, 0],
+    [0, np.cos(np.radians(x_w2c_new_angle)), -np.sin(np.radians(x_w2c_new_angle))],   
+    [0, np.sin(np.radians(x_w2c_new_angle)), np.cos(np.radians(x_w2c_new_angle))]]).T
+
+# Y축(Yaw) Active Transform 회전 행렬
+Ry_w2c_new = np.array([
+    [np.cos(np.radians(y_w2c_new_angle)), 0, np.sin(np.radians(y_w2c_new_angle))],
+    [0, 1, 0],
+    [-np.sin(np.radians(y_w2c_new_angle)), 0,  np.cos(np.radians(y_w2c_new_angle))]]).T
+
+# Z축(Roll) Active Transform 회전 행렬
+Rz_w2c_new = np.array([
+    [np.cos(np.radians(z_w2c_new_angle)), -np.sin(np.radians(z_w2c_new_angle)), 0],
+    [np.sin(np.radians(z_w2c_new_angle)), np.cos(np.radians(z_w2c_new_angle)), 0],
+    [0, 0, 1]]).T
+
+R_w2c = Rz_w2c @ Rx_w2c @ Ry_w2c
+R_w2c_new = Rz_w2c_new @ Rx_w2c_new @ Ry_w2c_new
+new_R = R_w2c_new @ R_w2c.T
+```
+
+<br>
+
+- 앞의 수식과 대응되도록 코드가 구성되었음을 확인할 수 있습니다.
+
+<br>
+
+- 그러면 위 코드에서 사용된 `x/y/z/_w2c_angle`의 값을 캘리브레이션에서 추출하는 방법을 알아보도록 하겠습니다.
 
 <br>
 
