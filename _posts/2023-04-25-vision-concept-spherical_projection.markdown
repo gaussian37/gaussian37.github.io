@@ -286,7 +286,7 @@ theta = p_norm[:, :, 1]
 
 RDF_cartesian = np.zeros(p_norm.shape).astype(np.float32)
 
-# x, y, z : cartesian coordinate in camera coordinate system (RDF, Right-Down-Front)
+# x, y, z : cartesian coordinate in camera coordinate system (RDF, Right-Down-Forward)
 # hemisphere
 x =np.cos(theta)*np.sin(phi) # -1 ~ 1
 y =np.sin(theta) # -1 ~ 1
@@ -401,7 +401,7 @@ def get_camera_spherical_lut(
     
     RDF_cartesian = np.zeros(p_norm.shape).astype(np.float32)
     
-    # x, y, z : cartesian coordinate in camera coordinate system (RDF, Right-Down-Front)
+    # x, y, z : cartesian coordinate in camera coordinate system (RDF, Right-Down-Forward)
     # hemisphere
     x =np.cos(theta)*np.sin(phi) # -1 ~ 1
     y =np.sin(theta) # -1 ~ 1
@@ -677,7 +677,7 @@ def get_camera_rotation_spherical_lut(
     p_norm[:, :, 1, :]. theta (elevation angla. vertical) : -vfov/2 ~ vfov/2
     p_norm[:, :, 2, :]. 1.    
     '''
-    # x, y, z : cartesian coordinate in camera coordinate system (RDF, Right-Down-Front)
+    # x, y, z : cartesian coordinate in camera coordinate system (RDF, Right-Down-Forward)
     # azimuthal angle
     phi = p_norm[:, :, 0, :]
     # elevation angle
@@ -860,12 +860,12 @@ print("new_R: \n", new_R)
 <br>
 
 - 코드 상에서는 각도 관련 내용은 다음 변수를 통하여 정의할 예정입니다.
-    - `x_w2c_angle` : `World → Camera` $$ X $$ 축 회전 각도 (캘리브레이션 `Rotation`에서 추출해야 함)
-    - `y_w2c_angle` : `World → Camera` $$ Y $$ 축 회전 각도 (캘리브레이션 `Rotation`에서 추출해야 함)
-    - `z_w2c_angle` : `World → Camera` $$ Z $$ 축 회전 각도 (캘리브레이션 `Rotation`에서 추출해야 함)
-    - `x_w2c_new_angle` : `World → New Camera` $$ X $$ 축 회전 각도 (사용자가 사양을 정의해야 함)
-    - `y_w2c_new_angle` : `World → New Camera` $$ Y $$ 축 회전 각도 (사용자가 사양을 정의해야 함)
-    - `z_w2c_new_angle` : `World → New Camera` $$ Z $$ 축 회전 각도 (사용자가 사양을 정의해야 함)
+    - `x_w2c_angle` : **World → Camera** $$ X $$ 축 회전 각도 (캘리브레이션 `Rotation`에서 추출해야 함)
+    - `y_w2c_angle` : **World → Camera** $$ Y $$ 축 회전 각도 (캘리브레이션 `Rotation`에서 추출해야 함)
+    - `z_w2c_angle` : **World → Camera** $$ Z $$ 축 회전 각도 (캘리브레이션 `Rotation`에서 추출해야 함)
+    - `x_w2c_new_angle` : **World → New Camera** $$ X $$ 축 회전 각도 (사용자가 사양을 정의해야 함)
+    - `y_w2c_new_angle` : **World → New Camera** $$ Y $$ 축 회전 각도 (사용자가 사양을 정의해야 함)
+    - `z_w2c_new_angle` : **World → New Camera** $$ Z $$ 축 회전 각도 (사용자가 사양을 정의해야 함)
 
 <br>
 
@@ -921,10 +921,305 @@ new_R = R_w2c_new @ R_w2c.T
 <br>
 
 - 앞의 수식과 대응되도록 코드가 구성되었음을 확인할 수 있습니다.
+- 그러면 위 코드에서 사용된 `x/y/z/_w2c_angle`의 값을 캘리브레이션에서 추출하는 방법을 알아보도록 하겠습니다.
 
 <br>
 
-- 그러면 위 코드에서 사용된 `x/y/z/_w2c_angle`의 값을 캘리브레이션에서 추출하는 방법을 알아보도록 하겠습니다.
+- 앞의 데이터셋 설명 [링크](https://gaussian37.github.io/vision-concept-ipm/#custom-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-ipm-%EC%A0%81%EC%9A%A9-%EC%98%88%EC%8B%9C-1)에 설명되어 있는 바와 같이 `World → Camera`의 `Rotation` 행렬은 `Active Transformation` 이고 `World`는 `FLU (Forward - Left - Up)` 좌표계를 사용하고 `Camera`는 `RDF (Right-Down_Forward)` 좌표계를 사용합니다. 즉, `Rotation` 행렬에 회전 변환과 축변환(`FLU` → `RDF`)이라는 2가지 변환이 동시에 존재합니다.
+- 여기서 알고 싶은 정보는 `Roll`, `Pitch`, `Yaw` 각 성분의 회전량입니다. 아래 순서에 따라서 주어진 회전 행렬의 `Roll`, `Pitch`, `Yaw` 성분을 분해 합니다.
+- ① 주어진 행렬 `R_FLU_TO_RDF_ACTIVE` 에서 시작 합니다.
+- ② 역행렬(또는 전치)을 적용하여 `R_FLU_TO_RDF_PASSIVE` 을 구합니다.
+- ③ 축 변환 행렬 `FLU_TO_RDF_PASSIVE`을 이용하여 `RPY_FLU_TO_FLU_PASSIVE`을 구합니다. 이 값은 축 변환을 제거하여 `World(FLU) → Camera(FLU)` 간의 회전 변환만 저장 됩니다.
+- ④ `rotation_matrix_to_euler_angles` 함수를 이용하여 `Roll`, `Pitch`, `Yaw` 회전 각도를 구합니다. 함수에 대한 상세 설명은 아래 링크를 참조하시면 됩니다.
+    - [roll, pitch, yaw와 rotation 행렬의 변환](https://gaussian37.github.io/math-la-rotation_matrix/#roll-pitch-yaw%EC%99%80-rotation-%ED%96%89%EB%A0%AC%EC%9D%98-%EB%B3%80%ED%99%98-1)
+- ⑤ 최종적으로 구한 `Roll`, `Pitch`, `Yaw`를 이용하여 `x/y/z_w2c_angle`을 구합니다.
+
+<br>
+
+- 이 과정을 코드로 나타내면 다음과 같습니다.
+
+<br>
+
+```python
+def rotation_matrix_to_euler_angles(R):
+    assert(R.shape == (3, 3))
+
+    theta = -np.arcsin(R[2, 0])
+    psi = np.arctan2(R[2, 1] / np.cos(theta), R[2, 2] / np.cos(theta))
+    phi = np.arctan2(R[1, 0] / np.cos(theta), R[0, 0] / np.cos(theta))
+    return np.array([psi, theta, phi])
+
+# FLU: Forward-Left-Up
+# RDF: Right-Down-Forward
+R_FLU_TO_RDF_ACTIVE = R.copy()
+R_FLU_TO_RDF_PASSIVE = R_FLU_TO_RDF_ACTIVE.T
+
+FLU_TO_RDF_PASSIVE = np.array(
+    [[0, -1, 0],
+    [0, 0, -1],
+    [1, 0, 0]], dtype=np.float32
+).T
+RDF_TO_FLU_PASSIVE = FLU_TO_RDF_PASSIVE.T
+
+RPY_FLU_TO_FLU_PASSIVE = R_FLU_TO_RDF_PASSIVE @ RDF_TO_FLU_PASSIVE
+ROLL_PITCH_YAW = rotation_matrix_to_euler_angles(RPY_FLU_TO_FLU_PASSIVE) # FLU based Roll, Pitch, Yaw
+
+calib_roll_radian = ROLL_PITCH_YAW[0]
+calib_pitch_radian = ROLL_PITCH_YAW[1] 
+calib_yaw_radian = ROLL_PITCH_YAW[2]
+
+# From here, all coordinate systems are based on RDF(Right-Down-Forward).
+# From here, all rotation matrices are active transformation.
+x_w2c_angle = np.degrees(calib_pitch_radian)
+y_w2c_angle = np.degrees(calib_yaw_radian)
+z_w2c_angle = np.degrees(calib_roll_radian)
+```
+
+<br>
+
+- 앞의 내용들을 모두 조합하면 다음과 같이 코드를 구성할 수 있습니다.
+
+<br>
+
+```python
+import json
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+def rotation_matrix_to_euler_angles(R):
+    assert(R.shape == (3, 3))
+
+    theta = -np.arcsin(R[2, 0])
+    psi = np.arctan2(R[2, 1] / np.cos(theta), R[2, 2] / np.cos(theta))
+    phi = np.arctan2(R[1, 0] / np.cos(theta), R[0, 0] / np.cos(theta))
+    return np.array([psi, theta, phi])
+
+def get_world_camera_rotation_spherical_lut(
+    R, K, D, origin_width, origin_height, target_width, target_height, hfov_deg, vfov_deg, roll_degree, pitch_degree, yaw_degree, DEFAULT_OUT_VALUE=-8):
+    '''
+    - R : (3, 3) rotation matrix (World → Camera, active transformation)
+    - K : (3, 3) intrinsic matrix
+    - D : (5, ) distortion coefficient
+    - origin_width, origin_height: input image size
+    - target_width, target_height: output image size
+    - hfov_deg: 0 ~ 360
+    - vfov_deg: 0 ~ 180
+    - roll_degree: 0 ~ 360
+    - pitch_degree: 0 ~ 360
+    - yaw_degree: 0 ~ 360
+    '''
+    
+    hfov=np.deg2rad(hfov_deg)
+    vfov=np.deg2rad(vfov_deg)
+    
+    # FLU: Forward-Left-Up
+    # RDF: Right-Down-Forward
+    R_FLU_TO_RDF_ACTIVE = R.copy()
+    R_FLU_TO_RDF_PASSIVE = R_FLU_TO_RDF_ACTIVE.T
+
+    FLU_TO_RDF_PASSIVE = np.array(
+        [[0, -1, 0],
+         [0, 0, -1],
+         [1, 0, 0]], dtype=np.float32
+    ).T
+    RDF_TO_FLU_PASSIVE = FLU_TO_RDF_PASSIVE.T
+
+    RPY_FLU_TO_FLU_PASSIVE = R_FLU_TO_RDF_PASSIVE @ RDF_TO_FLU_PASSIVE
+    ROLL_PITCH_YAW = rotation_matrix_to_euler_angles(RPY_FLU_TO_FLU_PASSIVE) # FLU based Roll, Pitch, Yaw
+
+    calib_roll_radian = ROLL_PITCH_YAW[0]
+    calib_pitch_radian = ROLL_PITCH_YAW[1] 
+    calib_yaw_radian = ROLL_PITCH_YAW[2]
+
+    # From here, all coordinate systems are based on RDF(Right-Down-Forward).
+    # From here, all rotation matrices are active transformation.
+    x_w2c_angle = np.degrees(calib_pitch_radian)
+    y_w2c_angle = np.degrees(calib_yaw_radian)
+    z_w2c_angle = np.degrees(calib_roll_radian)
+
+    # X축(Pitch) 회전 행렬
+    Rx_w2c = np.array([
+        [1, 0, 0],
+        [0, np.cos(np.radians(x_w2c_angle)), -np.sin(np.radians(x_w2c_angle))],   
+        [0, np.sin(np.radians(x_w2c_angle)), np.cos(np.radians(x_w2c_angle))]]).T
+
+    # Y축(Yaw) 회전 행렬
+    Ry_w2c = np.array([
+        [np.cos(np.radians(y_w2c_angle)), 0, np.sin(np.radians(y_w2c_angle))],
+        [0, 1, 0],
+        [-np.sin(np.radians(y_w2c_angle)), 0, np.cos(np.radians(y_w2c_angle))]]).T
+
+    # Z축(Roll) 회전 행렬
+    Rz_w2c = np.array([
+        [np.cos(np.radians(z_w2c_angle)),  -np.sin(np.radians(z_w2c_angle)), 0],
+        [np.sin(np.radians(z_w2c_angle)), np.cos(np.radians(z_w2c_angle)), 0],
+        [0, 0, 1]]).T
+
+
+    # 사양이 정해지지 않으면 캘리브레이션 값을 이용하여 카메라 장착 위치로 맞춤
+    if pitch_degree is None:
+        x_w2c_new_angle = x_w2c_angle
+    else:
+        x_w2c_new_angle = pitch_degree
+        
+    if yaw_degree is None:
+        y_w2c_new_angle = y_w2c_angle
+    else:
+        y_w2c_new_angle = yaw_degree
+        
+    if roll_degree is None:
+        z_w2c_new_angle = z_w2c_angle
+    else:
+        z_w2c_new_angle = roll_degree
+        
+    # X축(Pitch) 회전 행렬
+    Rx_w2c_new = np.array([
+        [1, 0, 0],
+        [0, np.cos(np.radians(x_w2c_new_angle)), -np.sin(np.radians(x_w2c_new_angle))],   
+        [0, np.sin(np.radians(x_w2c_new_angle)), np.cos(np.radians(x_w2c_new_angle))]]).T
+
+    # Y축(Yaw) 회전 행렬
+    Ry_w2c_new = np.array([
+        [np.cos(np.radians(y_w2c_new_angle)), 0, np.sin(np.radians(y_w2c_new_angle))],
+        [0, 1, 0],
+        [-np.sin(np.radians(y_w2c_new_angle)), 0,  np.cos(np.radians(y_w2c_new_angle))]]).T
+
+    # Z축(Roll) 회전 행렬
+    Rz_w2c_new = np.array([
+        [np.cos(np.radians(z_w2c_new_angle)), -np.sin(np.radians(z_w2c_new_angle)), 0],
+        [np.sin(np.radians(z_w2c_new_angle)), np.cos(np.radians(z_w2c_new_angle)), 0],
+        [0, 0, 1]]).T
+
+    # Roll @ Pitch @ Yaw
+    R_w2c = Rz_w2c @ Rx_w2c @ Ry_w2c
+    R_w2c_new = Rz_w2c_new @ Rx_w2c_new @ Ry_w2c_new
+    new_R = R_w2c_new @ R_w2c.T
+    ##############################################################################################################
+    new_K = np.array([
+        [target_width/hfov,       0,                     target_width/2],
+        [0,                       target_height/vfov,    target_height/2],
+        [0,                       0,                     1]], dtype=np.float32)
+    new_K_inv = np.linalg.inv(new_K)
+
+    # Create pixel grid and compute a ray for every pixel
+    # xv : (target_height, target_width), yv : (target_height, target_width)
+    xv, yv = np.meshgrid(range(target_width), range(target_height), indexing='xy')
+
+    # p.shape : (3, #target_height, #target_width)
+    p = np.stack([xv, yv, np.ones_like(xv)])  # pixel homogeneous coordinates    
+    # p.shape : (#target_height, #target_width, 3, 1)    
+    p = p.transpose(1, 2, 0)[:, :, :, np.newaxis] # [u, v, 1]
+    '''
+    p.shape : (H, W, 3, 1)
+    p[:, : 0, :] : 0, 1, 2, ..., W-1
+    p[:, : 1, :] : 0, 1, 2, ..., H-1    
+    p[:, : 2, :] : 1, 1, 1, ..., 1
+    '''
+    # p_norm.shape : (#target_height, #target_width, 3, 1)
+    p_norm = new_K_inv @ p  # r is in normalized coordinate
+
+    '''
+    p_norm[:, :, 0, :]. phi (azimuthal angle. horizontal) : -hfov/2 ~ hov/2
+    p_norm[:, :, 1, :]. theta (elevation angla. vertical) : -vfov/2 ~ vfov/2
+    p_norm[:, :, 2, :]. 1.    
+    '''
+    # azimuthal angle
+    phi = p_norm[:, :, 0, :]
+    # elevation angle
+    theta = p_norm[:, :, 1, :]   
+
+    RDF_cartesian = np.zeros(p_norm.shape).astype(np.float32)
+
+    # x, y, z : cartesian coordinate in camera coordinate system (RDF, Right-Down-Forward)
+    # hemisphere
+    x = np.cos(theta)*np.sin(phi) # -1 ~ 1
+    y = np.sin(theta) # -1 ~ 1
+    z = np.cos(theta)*np.cos(phi) # 0 ~ 1
+
+    RDF_cartesian[:,:,0,:]=x
+    RDF_cartesian[:,:,1,:]=y
+    RDF_cartesian[:,:,2,:]=z    
+
+    # RDF_rotated_cartesian = Rz @ Ry @ Rx @ R_RDF @ RDF_cartesian    
+    RDF_rotated_cartesian = new_R @ RDF_cartesian
+    # RDF_rotated_cartesian = new_R_RDF_CAMERA_2_RDF_WORLD_PASSIVE @ RDF_cartesian
+
+    # compute incidence angle
+    x_un = RDF_rotated_cartesian[:, :, [0], :]
+    y_un = RDF_rotated_cartesian[:, :, [1], :]
+    z_un = RDF_rotated_cartesian[:, :, [2], :]
+    # theta = np.arccos(RDF_rotated_cartesian[:, :, [2], :] / np.linalg.norm(RDF_rotated_cartesian, axis=2, keepdims=True))
+    theta = np.arccos(z_un / np.sqrt(x_un**2 + y_un**2 + z_un**2))
+
+    mask = theta > np.pi/2
+    # project the ray onto the fisheye image according to the fisheye model and intrinsic calibration
+    r_dn = D[0]*theta + D[1]*theta**3 + D[2]*theta**5 + D[3]*theta**7 + D[4]*theta**9
+
+    r_un = np.sqrt(x_un**2 + y_un**2)
+
+    x_dn = r_dn * x_un / (r_un + 1e-6) # horizontal
+    y_dn = r_dn * y_un / (r_un + 1e-6) # vertical    
+
+    map_x_origin2new = K[0][0]*x_dn + K[0][1]*y_dn + K[0][2]
+    map_y_origin2new = K[1][1]*y_dn + K[1][2]
+
+    map_x_origin2new[mask] = DEFAULT_OUT_VALUE
+    map_y_origin2new[mask] = DEFAULT_OUT_VALUE
+
+    map_x_origin2new = map_x_origin2new.astype(np.float32)
+    map_y_origin2new = map_y_origin2new.astype(np.float32)
+
+    return map_x_origin2new, map_y_origin2new, new_K, new_R
+
+camera_name = 'left_fisheye_camera'
+calib = json.load(open("camera_calibration.json", "r"))
+image = cv2.cvtColor(cv2.imread(f"{camera_name}.png", -1), cv2.COLOR_BGR2RGB)
+
+origin_height, origin_width, _ = image.shape
+target_height, target_width  = origin_height//2, origin_width//2
+
+# example case
+pitch_degree = 30
+yaw_degree = 90
+roll_degree = 0
+hfov_deg = 180
+vfov_deg = 150
+
+K = np.array(calib[camera_name]['Intrinsic']['K']).reshape(3, 3)
+D = np.array(calib[camera_name]['Intrinsic']['D'])
+R = np.array(calib[camera_name]['Extrinsic']['World']['Camera']['R']).reshape(3, 3)
+
+map_x, map_y, new_K, new_R = get_world_camera_rotation_spherical_lut(
+    R, K, D, 
+    origin_width, origin_height, target_width, target_height, 
+    hfov_deg=hfov_deg, vfov_deg=vfov_deg, 
+    roll_degree=roll_degree, pitch_degree=pitch_degree, yaw_degree=yaw_degree)
+new_image = cv2.remap(image, map_x, map_y, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0))
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/21.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 데이터 셋 설명을 보면 왼쪽 이미지는 대략 `Yaw`가 90도 회전되어 있는 상태입니다. 따라서 위 그림과 같이 회전 각도를 설정하였습니다. 추가적으로 `pitch`에 따라서 어떻게 달라지는 지 또한 확인하였습니다.
+
+<br>
+
+- 먼저 위 코드를 이용하여 `front`, `left`, `rear`, `right` 카메라의 이미지 순서로 `Yaw`는 고정한 상태로 `Roll`, `Pitch`를 변화하였을 때 어떻게 변화하는 지 살펴보도록 하겠습니다.
+
+<br>
+
+
+
+
+
+
+- 다음은 모든 카메라의 `Roll`과 `Pitch`는 고정한 상태로 `Yaw`만 변화하여 멀티 카메라 환경을 고려해 보겠습니다.
+
+
+
+
 
 <br>
 
@@ -932,11 +1227,15 @@ new_R = R_w2c_new @ R_w2c.T
 
 <br>
 
+- 지금까지 살펴본 내용을 이용하여 `World-to-Image`, `Image-to-World` 접근 방법을 살펴보도록 하겠습니다. 구면 투영법을 통해 `new_K`, `new_R`이 생성되었기 때문에 이 값들을 이용하여 이미지와 World 간의 대응이 이루어져야 합니다.
+
 <br>
 
 ## **회전을 고려한 World 기준 구면 투영 이미지의 Topview 이미지 생성**
 
 <br>
+
+- `World`와 `이미지` 간의 대응 방법을 앞에서 확인하였습니다. 추가적으로 `Topview` 또는 `Bird's Eye View`로 변환을 적용해 보도록 하겠습니다.
 
 <br>
 
