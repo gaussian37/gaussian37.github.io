@@ -1210,6 +1210,30 @@ new_image = cv2.remap(image, map_x, map_y, interpolation=cv2.INTER_LINEAR, borde
 
 <br>
 
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/678o5ZGQ7ic" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/7xncYJWw8O8" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/llvvwc529S0" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/r2eZH_R3Yl8" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
 
 
 
