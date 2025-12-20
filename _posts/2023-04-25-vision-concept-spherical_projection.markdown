@@ -1242,7 +1242,11 @@ new_image = cv2.remap(image, map_x, map_y, interpolation=cv2.INTER_LINEAR, borde
 
 <br>
 
-- 다음은 모든 카메라의 `Roll`과 `Pitch`는 고정한 상태로 `Yaw`만 변화하여 멀티 카메라 환경을 고려해 보겠습니다.
+- 다음은 모든 카메라의 `Roll`과 `Pitch`는 0으로 고정한 상태로 `Yaw`만 변화하여 멀티 카메라 환경을 고려해 보겠습니다. 이 방법을 통하여 `Yaw`의 회전에 따라서 멀티 카메라 환경에서 영상이 어떻게 형성되는 지 알 수 있습니다.
+
+<br>
+
+
 
 
 
