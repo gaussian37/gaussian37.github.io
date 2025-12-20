@@ -1209,12 +1209,12 @@ new_image = cv2.remap(image, map_x, map_y, interpolation=cv2.INTER_LINEAR, borde
 - 먼저 위 코드를 이용하여 `front`, `left`, `rear`, `right` 카메라의 이미지 순서로 `Yaw`는 고정한 상태로 `Roll`, `Pitch`를 변화하였을 때 어떻게 변화하는 지 살펴보도록 하겠습니다.
 
 <br>
-
-<br>
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/678o5ZGQ7ic" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
 <br>
+
+- 먼저 위 영상은 `front` 카메라 영상입니다. `pitch`와 `roll` 각각을 회전하였을 때, 어떻게 영상이 생성되는 지 확인해 보겠습니다. `Yaw` 값은 0도로 고정하였습니다.
 
 <br>
 <div style="text-align: center;">
@@ -1222,6 +1222,7 @@ new_image = cv2.remap(image, map_x, map_y, interpolation=cv2.INTER_LINEAR, borde
 </div>
 <br>
 
+- 다음으로 위 영상은 `left` 카메라 영상입니다. `Yaw` 값은 90도로 고정하였습니다. `Yaw` 값이 90도 부근일 때, 왼쪽 카메라 영상이 생성되는 것을 확인할 수 있습니다.
 
 <br>
 <div style="text-align: center;">
@@ -1229,15 +1230,17 @@ new_image = cv2.remap(image, map_x, map_y, interpolation=cv2.INTER_LINEAR, borde
 </div>
 <br>
 
+- 다음으로 위 영상은 `rear` 카메라 영상입니다. `Yaw` 값은 180도로 고정하였습니다.
+
 <br>
 <div style="text-align: center;">
     <iframe src="https://www.youtube.com/embed/r2eZH_R3Yl8" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
 </div>
 <br>
 
+- 마지막으로 위 영상은 `right` 카메라 영상입니다. `Yaw` 값은 270도로 고정하였습니다.
 
-
-
+<br>
 
 - 다음은 모든 카메라의 `Roll`과 `Pitch`는 고정한 상태로 `Yaw`만 변화하여 멀티 카메라 환경을 고려해 보겠습니다.
 
