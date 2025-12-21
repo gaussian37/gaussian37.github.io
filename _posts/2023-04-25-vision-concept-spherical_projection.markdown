@@ -1245,12 +1245,12 @@ new_image = cv2.remap(image, map_x, map_y, interpolation=cv2.INTER_LINEAR, borde
 - 다음은 모든 카메라의 `Roll`과 `Pitch`는 0으로 고정한 상태로 `Yaw`만 변화하여 멀티 카메라 환경을 고려해 보겠습니다. 이 방법을 통하여 `Yaw`의 회전에 따라서 멀티 카메라 환경에서 영상이 어떻게 형성되는 지 알 수 있습니다.
 
 <br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/26mtAAicwQE" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
 
-
-
-
-
-
+- 위 영상의 가운데 화살표는 현재 `Yaw`의 회전을 나타내면 카메라가 바라보는 방향입니다. 12시 방향 0도일 때 부터 시작하여 반시계 방향으로 한 바퀴 회전할 때, 멀티 카메라에서 보이는 영상을 확인할 수 있습니다.
 
 <br>
 
