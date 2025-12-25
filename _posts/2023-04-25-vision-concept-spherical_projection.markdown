@@ -487,14 +487,15 @@ plt.imshow(new_image)
 <br>
 
 - 먼저 카메라 좌표계 기준에서 `roll`, `pitch`, `yaw`를 변환하는 방법은 아래와 같습니다.
-- 카메라 좌표계 또는 `RDF` 좌표계에서는 $$ X $$ 축 회전이 `pitch` 회전에 대응되고, $$ Y $$ 축 회전이 `yaw` 회전, $$ Z $$ 축 회전이 `roll` 회전에 대응됩니다. 각 좌표축에서 양의 방향으로 회전 시 **반시계 방향**으로 회전합니다.
+- 카메라 좌표계 또는 `RDF` 좌표계에서는 $$ X $$ 축 회전이 `pitch` 회전에 대응되고, $$ Y $$ 축 회전이 `yaw` 회전, $$ Z $$ 축 회전이 `roll` 회전에 대응됩니다. 각 좌표축에서 양의 방향으로 회전 시 **반시계 방향**으로 회전하도록 설정하겠습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/11.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 위 그림의 주황색 회전 방향과 같이 `RDF` 좌표계에서는 양의 방향으로 회전 시 **반시계 방향**으로 회전합니다.
+- 따라서 위 그림의 주황색 회전 방향과 같이 `RDF` 좌표계에서는 양의 방향으로 회전 시 **반시계 방향**으로 회전하도록 회전을 설계해 볼 예정입니다. **모든 회전은 원점 기준에서 관측**하는 것을 전제로 합니다.
 - 예를 들어 $$ X $$ 축 즉, `pitch` 방향으로 +30도 회전하게 되면 카메라는 아래쪽을 바라보도록 회전합니다. $$ Y $$ 축 즉, `yaw` 방향으로 +30도 회전하게 되면 카메라는 왼쪽을 바라보도록 회전합니다. 마지막으로 $$ Z $$ 축 즉, `roll` 방향으로 +30도 회전하게 되면 카메라는 광축을 기준으로 +30도 반시계 방향으로 회전합니다. 이 내용을 그림으로 살펴보면 다음과 같습니다.
+
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/12.png" alt="Drawing" style="width: 800px;"/></center>
@@ -517,36 +518,35 @@ plt.imshow(new_image)
 <br>
 
 - 이와 같이 `roll`, `pitch`, `yaw` 각 방향으로 회전을 하였을 때, 카메라는 각 축을 기준으로 반시계 방향 회전을 하게 됩니다.
-- 카메라의 회전을 반영하는 방법은 2가지 방법이 있습니다. 첫번째로 카메라 축을 회전하는 방법이고 있고 두번째로 앞의 코드에서 `RDF_cartesian`인 포인트 샘플을 회전하는 방법이 있습니다. 이번 글에서는 두번째 방법인 **포인트 샘플을 회전하는 방법**을 기준으로 설명을 진행하려고 합니다.
-- 포인트 샘플을 회전하는 방법을 이용하는 이유는 ① 궁극적으로 회전을 해야 하는 것은 구면 좌표계에서 부터 정의되어 직교 좌표계로 변환된 `RDF_cartesian`이기 때문입니다. 그리고 ② 회전해야 할 포인트들을 직접 회전시키는 것이 더 이해하기도 쉽고 설명하기도 쉽기 때문입니다.
+- 카메라의 회전을 반영하는 방법은 2가지 방법이 있습니다. 첫번째로 카메라 축을 회전하는 방법이 있고 두번째로 앞의 코드에서 `RDF_cartesian`인 좌표값을 회전하는 방법이 있습니다. 이번 글에서는 두번째 방법인 **좌표값을 회전하는 방법**을 기준으로 설명을 진행하려고 합니다.
+- **좌표값 회전 방법**을 사용하는 이유는 ① 궁극적으로 회전을 해야 하는 것은 구면 좌표계에서부터 정의되어 직교 좌표계로 변환된 `RDF_cartesian`이기 때문입니다. 그리고 ② 회전해야 할 포인트들을 직접 회전시키는 것이 더 이해하기도 쉽고 설명하기도 쉽기 때문입니다.
 - 카메라 축 회전과 포인트 자체를 회전하는 것을 각각 `Passive Transformtation`, `Active Transformation`이라고 합니다. 즉, 본 글에서는 `Active Transformation`을 사용하여 내용을 전개할 예정입니다. 이와 관련된 내용은 아래 링크를 참조해 보시기 바랍니다.
     - 링크: https://gaussian37.github.io/vision-concept-calibration/ (글 내부에서 Active/Passive Transformation을 확인)
-- 핵심적으로 이해해야 할 것은 `Active Transformation`과 `Passive Transformation`은 같은 회전을 다루는 것이지만 객체(ex. 포인트)를 중심으로 회전할 지, 좌표축을 기준으로 회전할 지에 따라 관점이 반대라는 것입니다. 이 부분이 아래 설명에 사용됩니다. 
+- 핵심적으로 이해해야 할 것은 `Active Transformation`과 `Passive Transformation`은 같은 회전을 다루는 것이지만 객체(ex. 포인트)를 중심으로 회전할 지, 좌표축을 기준으로 회전할 지에 따라 관점이 반대라는 것입니다. 이 내용은 글 전체에 설명에 사용됩니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/15.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 앞에서 다룬 이 그림을 다시 한번 살펴보도록 하겠습니다. 카메라의 회전을 반영하기 위하여 왼쪽 이미지의 각 픽셀 ($$ \phi_{i}, \theta_{j}) $$ 들을 `Active Transformation`을 적용하여 회전하도록 하겠습니다.
-- 카메라의 회전이 발생하면 각 축을 기준으로 반시계 방향으로 카메라의 자세가 회전한다고 앞에서 확인하였습니다. 이 때 형성되는 이미지는 카메라의 회전 방향과 반대 방향으로 이동하게 됩니다.
+- 앞에서 다룬 이 그림을 다시 한번 살펴보도록 하겠습니다. 카메라의 회전을 반영하기 위하여 왼쪽 이미지의 각 픽셀 ($$ \phi_{i}, \theta_{j}) $$ 들을 `Active Transformation`을 적용하여 회전하도록 하겠습니다. 즉, 구면 투영 이미지의 각 픽셀들이 회전한다고 볼 수 있습니다. 위 그림에서 주황색이 픽셀을 의미하며 이 픽셀이 회전을 한다고 생각해야 합니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/16.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 그림 예시는 카메라를 `Yaw` 방향으로 +30도 회전한 결과 입니다. 카메라가 반시계 방향으로 회전하였으니 기존 영상에서 상이 맺히지 않은 영역을 바라보게 되어 위 그림과 같이 생성될 수 있습니다. 여기서 이해해야 할 점은 카메라가 `Yaw` 방향으로 반시계 방향으로 회전을 하였고 그에 따라 이미지가 어떻게 변하였는 가 입니다. 결론적으로 각 포인트 샘플들은 시계 방향으로 회전한 것 처럼 보이게 됩니다. 이것이 앞에서 말한 `Active Transformation`과 `Passive Transformation`의 관계 입니다. 좌표계 축은 반시계 방향으로 회전을 하였기 때문에 영상을 만들 때 사용하는 포인트 샘플($$ \phi_{i}, \theta_{j} $$)들은 반대 방향으로 회전된 것 처럼 보입니다.
+- 위 그림 예시는 카메라를 `Yaw` 방향으로 +30도 회전한 결과 입니다. 사용해야 할 **좌표값**이 반시계 방향으로 회전하였으니 기존 영상에서 상이 맺히지 않은 영역을 바라보게 되어 위 그림과 같이 생성될 수 있습니다. 여기서 중요한 것은 카메라가 `Yaw` 방향으로 회전하였을 때, **회전된 좌표값**들이 **기존 좌표값**과 어떻게 대응되는 지 이해하는 것입니다. 이 좌표값들은 ($$ \phi_{i}, \theta_{j} $$) 로 표기합니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/17.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
- - 위 그림은 카메라를 `Pitch` 방향으로 +30도 회전한 결과입니다. $$ X $$ 축의 반시계 방향으로 회전하기 때문에 카메라는 아래를 바라보게 되고 각 포인트 샘플들은 위쪽으로 회전한 것 처럼 보이게 됩니다.
+ - 위 그림은 카메라를 `Pitch` 방향으로 +30도 회전한 결과입니다. $$ X $$ 축의 반시계 방향으로 회전하기 때문에 카메라는 아래를 바라보게 되고 각 좌표값들은 위쪽으로 회전한 것 처럼 보이게 됩니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/18.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 그림은 카메라를 `Roll` 방향으로 +30도 회전한 결과입니다. $$ Z $$ 축의 반시계 방향으로 회전하기 때문에 각 포인트 샘플들은 오른쪽으로 회전한 것 처럼 보이게 됩니다.
+- 위 그림은 카메라를 `Roll` 방향으로 +30도 회전한 결과입니다. $$ Z $$ 축의 반시계 방향으로 회전하기 때문에 각 좌표값들은 오른쪽으로 회전한 것 처럼 보이게 됩니다.
 
 <br>
 
@@ -812,8 +812,8 @@ print("new_R: \n", new_R)
 - ② 앞에서 구한 값을 이용하여 `World → Camera`로의 회전 행렬 (`Active Transform`)을 구합니다. (`R_w2c`)
 - ③ 정의된 사양에 맞추어 `World → New Camera`로의 회전 행렬 (`Active Transform`)을 구합니다. (`R_w2c_new`)
 - ④ 앞의 결과(②, ③)를 이용하여 `Camera → New Camera`로의 회전 행렬 (`Active Transform`)을 구합니다. (`new_R`)
-- ⑤ `new_R`을 이용하여 포인트 샘플들을 `New Camera`로 회전합니다. 이 포인트 샘플들은 `World` 기준으로 정의된 사양 만큼 회전되었음을 의미합니다.
-- 모든 계산은 `World` 기준으로 이루어지며 실제 포인트 샘플들이 이동해야 하는 회전량은 `Camera → New Camera` 만큼의 양을 계산해서 회전합니다.
+- ⑤ `new_R`을 이용하여 좌표값들을 `New Camera`로 회전합니다. 이 좌표값들은 `World` 기준으로 정의된 사양 만큼 회전되었음을 의미합니다.
+- 모든 계산은 `World` 기준으로 이루어지며 실제 좌표값들이 이동해야 하는 회전량은 `Camera → New Camera` 만큼의 양을 계산해서 회전합니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/20.png" alt="Drawing" style="width: 600px;"/></center>
