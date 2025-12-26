@@ -194,14 +194,14 @@ tags: [구면 좌표계, 구면 투영법, spherical] # add tag
 - 따라서 `LUT`는 위 그림과 같이 모든 $$ (\phi_{i}, \theta_{j}) $$ 픽셀에 대하여 대응되는 원본 이미지의 좌표  $$ (u_{n}, v_{m}) $$ 의 값을 저장해야 합니다.
 - 즉, $$ (\phi_{i}, \theta_{j}) $$ 와 일대일 대응이 되는 $$ (u_{n}, v_{m}) $$ 을 찾아야 하므로 다음과 같은 순서로 접근을 해야 합니다. 전체적인 순서는 `backward mapping`으로 최종 생성하고자 하는 구면 좌표계의 정보인 $$ (\phi_{i}, \theta_{j}) $$ 에서 부터 원본 이미지의 좌표인 $$ (u_{n}, v_{m}) $$ 로 접근하는 과정을 아래에 차례대로 소개합니다.
     - ① `구면 투영 이미지`: 최종적으로 생성하고자 하는 구면으로 정의된 이미지 공간 입니다.
-    - ② `normalized 구면 투영 이미지`: 구면 투영 이미지의 `normalized` 공간을 의미합니다. 원본 이미지에 접근 하기 위한 중간 과정이며 구면 좌표계를 사용합니다.
-    - ③ `normalized 이미지`: 원본 이미지의 `normalized` 공간을 의미합니다. 직교 좌표계를 사용합니다.
-    - ④ `이미지`: 원본 이미지를 의미하며 구면 투영 이미지에서 사용할 RGB 값을 가져올 때 사용 됩니다.
+    - ② `normalized 구면 좌표계`: 구면 투영 이미지의 `normalized` 공간을 의미합니다. 원본 이미지에 접근 하기 위한 중간 과정이며 구면 좌표계를 사용합니다.
+    - ③ `normalized 직교 좌표계`: 원본 이미지의 `normalized` 공간을 의미합니다. 직교 좌표계를 사용합니다.
+    - ④ `원본 이미지`: 원본 이미지를 의미하며 구면 투영 이미지에서 사용할 RGB 값을 가져올 때 사용 됩니다.
 
 - 여기서 부터 다시 작성
 
 - ① `구면 투영 이미지`에서 최종 생성해야 하는 이미지의 공간을 정의해 놓고 이 이미지의 $$ (\phi_{i}, \theta_{j}) $$ 와 대응되는 ④ `이미지`의 $$ (u_{n}, v_{m}) $$ 를 매핑 시키는 작업을 해야 합니다. ②, ③ 은 중간 과정으로 거쳐야 하는 공간입니다. 
-- `normalize` 공간에 대한 정의는 아래 글에서 확인해 보시기 바랍니다.
+- `normalized` 공간에 대한 정의는 아래 글에서 확인해 보시기 바랍니다.
     - 사전 지식 : [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)
     - 사전 지식 : [카메라 모델과 렌즈 왜곡 (lens distortion)](https://gaussian37.github.io/vision-concept-lens_distortion/)
 
@@ -254,7 +254,7 @@ p = p.transpose(1, 2, 0)[:, :, :, np.newaxis] # [u, v, 1]
 
 <br>
 
-- 다음 과정을 통하여 ① `구면 투영 이미지` → ② `normalized 구면 투영 이미지`로 변경합니다.
+- 다음 과정을 통하여 ① `구면 투영 이미지`의 모든 좌표값들을 ② `normalized 구면 좌표계`로 변경합니다.
 
 <br>
 
@@ -288,7 +288,7 @@ p_norm[:, :, 2, :]. 1.
 
 <br>
 
-- 다음으로 ② `normalized 구면 투영 이미지` → ③ `normalized 이미지` 으로 변경합니다. $$ \phi, \theta $$ 를 이용하여 $$ x, y, z $$ 의 직교 좌표계로 변경하는 과정에 해당합니다.
+- 다음으로 ② `normalized 구면 좌표계` → ③ `normalized 직교 좌표계`로 변경합니다. $$ \phi, \theta $$ 를 이용하여 $$ x, y, z $$ 의 직교 좌표계로 변경하는 과정에 해당합니다.
 - 다음 과정은 아래 링크의 내용을 사전에 이해해야 합니다.
     - 사전 지식 : [직교 좌표계, 원통 좌표계 및 구면 좌표계](https://gaussian37.github.io/math-calculus-cylindrical_spherical_coordinate_system/)
 
@@ -320,7 +320,7 @@ z_un = RDF_cartesian[:, :, 2, 0]
 
 <br>
 
-- 마지막으로 ③ `normalized 이미지` → ④ `이미지`로 변경하는 과정입니다. 이 과정을 통하여 ① 에서 정의한 `구면 투영 이미지`의 좌표를 원본 이미지와 대응시킬 수 있으므로 `LUT`를 생성할 수 있습니다. 여기서 사용하는 `LUT`는 `구면 투영 이미지`에서 원본 이미지의 색상 정보를 접근하기 위한 `backward` 매핑을 의미합니다.
+- 마지막으로 ③ `normalized 직교 좌표계` → ④ `원본 이미지`로 변경하는 과정입니다. 이 과정을 통하여 ① 에서 정의한 `구면 투영 이미지`의 좌표를 `원본 이미지`의 좌표들과 대응시킬 수 있으므로 `LUT`를 생성할 수 있습니다. 여기서 사용하는 `LUT`는 `구면 투영 이미지`에서 원본 이미지의 색상 정보를 접근하기 위한 `backward` 매핑을 의미합니다.
 - 아래 코드에서 카메라 모델을 이용한 렌즈 왜곡을 반영한 부분은 아래 링크를 참조하시기 바랍니다.
     - 링크: https://gaussian37.github.io/vision-concept-lens_distortion/
 
@@ -347,11 +347,6 @@ map_y_origin2new[mask] = DEFAULT_OUT_VALUE
 map_x_origin2new = map_x_origin2new.astype(np.float32)
 map_y_origin2new = map_y_origin2new.astype(np.float32)
 ```
-
-<br>
-
-- 위 코드를 정리하여 표현하면 아래와 같습니다.
-    - 링크: https://colab.research.google.com/drive/118sQlforFfkE45SOxz16f__LdqQ8niQf?usp=sharing
 
 <br>
 
@@ -453,7 +448,7 @@ def get_camera_spherical_lut(
     map_x_origin2new = map_x_origin2new.astype(np.float32)
     map_y_origin2new = map_y_origin2new.astype(np.float32)
     
-    return map_x_origin2new, map_y_origin2new, new_K
+    return map_x_origin2new, map_y_origin2new
 
 calib = json.load(open("camera_calibration.json", "r"))
 image = cv2.cvtColor(cv2.imread("front_fisheye_camera.png", -1), cv2.COLOR_BGR2RGB)
@@ -466,7 +461,7 @@ vfov_deg = 150
 K = np.array(calib['front_fisheye_camera']['Intrinsic']['K']).reshape(3, 3)
 D = np.array(calib['front_fisheye_camera']['Intrinsic']['D'])
 
-map_x, map_y, new_K = get_camera_spherical_lut(K, D, origin_width, origin_height, target_width, target_height, hfov_deg=hfov_deg, vfov_deg=vfov_deg)
+map_x, map_y = get_camera_spherical_lut(K, D, origin_width, origin_height, target_width, target_height, hfov_deg=hfov_deg, vfov_deg=vfov_deg)
 new_image = cv2.remap(image, map_x, map_y, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0))
 plt.imshow(new_image)
 ```
@@ -475,21 +470,26 @@ plt.imshow(new_image)
 <center><img src="../assets/img/vision/concept/spherical_projection/8.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 코드를 통하여 왼쪽의 원본 이미지를 오른쪽의 `구면 투영 이미지`와 같이 변경할 수 있습니다. 구면 투영 이미지는 원본 이미지의 절반 사이즈로 생성하였습니다.
+- 위 코드를 통하여 왼쪽의 `원본 이미지`를 오른쪽의 `구면 투영 이미지`와 같이 변경할 수 있습니다. 구면 투영 이미지는 원본 이미지의 절반 사이즈로 생성하였습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/9.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
-- 앞에서 설명한 바와 같이 $$ \color{red}{X} $$ 가 증가하는 방향으로 $$ \phi $$ (`azimuth`)가 증가합니다. 이미지의 중점에서 $$ \phi $$ 는 0이고 우측 방향으로 최대 $$ \text{hfov} / 2 $$ 만큼 커지고 좌측 방향으로 최소 $$ -\text{hfov} / 2 $$ 만큼 작아집니다.
-- 마찬가지로 $$ \color{green}{Y} $$ 가 증가하는 방향으로 $$ \theta $$ (`elevation`)이 증가합니다. 이미지의 중점에서 $$ \theta $$ 는 0이고 아래 방향으로 최대 $$ \text{vfov} / 2 $$ 만큼 커지고 윗 방향으로 최소 $$ -\text{vfov} / 2 $$ 만큼 작아집니다.
-- `new_K`를 생성하였을 때, 정의한 $$ c_{x}, c_{y} $$ 로 인하여 $$ \phi, \theta $$ 가 좌/우, 상/하 대칭이 되도록 이미지를 생성하였습니다.
+- 앞에서 설명한 바와 같이 $$ \color{red}{X} $$ 가 증가하는 방향으로 $$ \phi $$ (`azimuth`)가 증가합니다. `normalized 구면 좌표계` 관점에서 생각하면 $$ \phi $$ 는 우측 방향으로 최대 $$ \text{hfov} / 2 $$ 만큼 커지고 좌측 방향으로 최소 $$ -\text{hfov} / 2 $$ 만큼 작아집니다.
+- 마찬가지로 $$ \color{green}{Y} $$ 가 증가하는 방향으로 $$ \theta $$ (`elevation`)이 증가합니다. `normalized 구면 좌표계` 관점에서 생각하면 아래 방향으로 최대 $$ \text{vfov} / 2 $$ 만큼 커지고 윗 방향으로 최소 $$ -\text{vfov} / 2 $$ 만큼 작아집니다.
+- `new_K`를 생성하였을 때, 정의한 $$ c_{x}, c_{y} $$ 로 인하여 $$ \phi, \theta $$ 에 대한 배치가 좌/우, 상/하 대칭이 되도록 이미지를 생성하였습니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/10.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 지금까지 확인한 내용을 정리하면 위 그림과 같습니다. 직교 좌표계에 정의된 원본 이미지를 구면 좌표계로 변환하기 위해서는 $$ \text{target height}, \text{target width}, \text{hfov}, \text{vfov} $$ 가 정의 되어야 합니다. 그리고 각 이미지 픽셀 $$ \phi_{i}, \theta{j} $$ 의 의미는 구면 좌표계에서 정의된 `azimuth`, `elevation`를 뜻합니다.
+- 내용을 정리하면 위 그림과 같습니다. 직교 좌표계에 정의된 원본 이미지를 구면 좌표계로 변환하기 위해서는 $$ \text{target height}, \text{target width}, \text{hfov}, \text{vfov} $$ 가 정의 되어야 합니다. 그리고 각 이미지 픽셀 $$ \phi_{i}, \theta{j} $$ 의 의미는 구면 좌표계에서 정의된 `azimuth`, `elevation`를 뜻합니다.
+- 지금까지 모든 과정을 다시 정리하면 ① 의 좌표에서 시작하여 ④ 까지 차례대로 변환하여 `LUT`를 만들었습니다.
+    - ① `구면 투영 이미지`
+    - ② `normalized 구면 좌표계`
+    - ③ `normalized 직교 좌표계`
+    - ④ `원본 이미지`
 
 <br>
 
@@ -497,7 +497,7 @@ plt.imshow(new_image)
 
 <br>
 
-- 앞에서 살펴본 내용에서는 이미지의 중점을 구면 좌표 축과 동일하게 두어 이미지의 중점에 $$ \phi = 0, \theta = 0 $$ 인 상태로 `구면 투영 이미지`를 생성하였습니다.
+- 앞에서 살펴본 내용에서는 구면 좌표 축에 회전이 없는 상태로 `구면 투영 이미지`를 생성하였습니다. 앞에서 살펴본 4가지 단계를 차례대로 보면 좌표계 변환만 있었을 뿐, 추가적인 회전을 적용하는 단계가 없었습니다.
 - 만약 `Roll`, `Pitch`, `Yaw` 축의 각 방향에 `Rotation`을 적용하여 `구면 투영 이미지`를 생성한다면 어떻게 생성할 수 있을까요? 이와 같이 이미지를 생성한다면 카메라의 장착이 회전되었을 때를 고려하여 이미지를 생성할 수 있습니다. 이 방법에 대하여 살펴보도록 하겠습니다.
 
 <br>
