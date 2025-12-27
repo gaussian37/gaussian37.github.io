@@ -565,72 +565,75 @@ plt.imshow(new_image)
 <center><img src="../assets/img/vision/concept/spherical_projection/16.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 그림 예시는 카메라를 `Yaw` 방향으로 +30도 회전한 결과 입니다. 사용해야 할 좌표축이 반시계 방향으로 회전(좌표값들은 시계 방향으로 회전)하였으니 기존 영상에서 상이 맺히지 않은 영역을 바라보게 되어 위 그림과 같이 생성될 수 있습니다. 여기서 중요한 것은 카메라가 `Yaw` 방향으로 회전하였을 때, **회전된 좌표값**들이 **기존 좌표값**과 어떻게 대응되는 지 이해하는 것입니다. 이 좌표값들은 ($$ \phi_{i}, \theta_{j} $$) 로 표기합니다.
-
-------- 여기서 부터 수정 -----------
+- 위 그림 예시는 카메라를 `Yaw` 방향으로 +30도 회전한 결과 입니다. 사용해야 할 좌표축이 반시계 방향으로 회전하였으니 기존 영상에서 상이 맺히지 않은 영역을 바라보게 되어 위 그림과 같이 빈 공간이 생성될 수 있습니다. 여기서 중요한 것은 카메라가 `Yaw` 방향으로 회전하였을 때, **회전된 좌표값**들이 **기존 좌표값**과 어떻게 대응되는 지 이해하는 것입니다. 이 좌표값들은 ($$ \phi_{i}, \theta_{j} $$) 로 표기합니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/17.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
- - 위 그림은 카메라를 `Pitch` 방향으로 +30도 회전한 결과입니다. $$ X $$ 축의 반시계 방향으로 회전하기 때문에 카메라는 아래를 바라보게 되고 각 좌표값들은 위쪽으로 회전한 것 처럼 보이게 됩니다.
+- 위 그림은 카메라를 `Pitch` 방향으로 +30도 회전한 결과입니다. 카메라가 $$ X $$ 축의 반시계 방향으로 회전하기 때문에 카메라는 아래를 바라보게 되고 각 좌표값들은 위쪽으로 회전한 것 처럼 보이게 됩니다.
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/18.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 위 그림은 카메라를 `Roll` 방향으로 +30도 회전한 결과입니다. $$ Z $$ 축의 반시계 방향으로 회전하기 때문에 각 좌표값들은 오른쪽으로 회전한 것 처럼 보이게 됩니다.
+- 위 그림은 카메라를 `Roll` 방향으로 +30도 회전한 결과입니다. 카메라가 $$ Z $$ 축의 반시계 방향으로 회전하기 때문에 각 좌표값들은 오른쪽으로 회전한 것 처럼 보이게 됩니다.
 
 <br>
 
-- `Roll`, `Pitch`, `Yaw` 방향의 회전을 반영한 `Active Transformation` 행렬은 다음 코드를 통하여 만들 수 있습니다.
+- 앞에서 설명한 것과 같이 카메라 회전과 좌표값 회전 중 `Active Transform`인 **좌표값 회전**을 통하여 회전을 나타내 보려고 합니다. `Roll`, `Pitch`, `Yaw` 방향의 회전을 반영한 `Active Transformation` 행렬은 다음 코드를 통하여 만들 수 있습니다.
+- 아래 코드는 ② `normalized 구면 좌표 (c_rotated)` → ③ `normalized 구면 좌표 (c)` 로 **좌표값 회전**을 적용하는 회전 행렬을 구하는 과정입니다.
 
 <br>
 
 ```python
-x_angle = pitch_degree
-y_angle = yaw_degree
-z_angle = roll_degree
+x_c_to_c_ratated_radian = np.radians(pitch_degree)
+y_c_to_c_ratated_radian = np.radians(yaw_degree)
+z_c_to_c_ratated_radian = np.radians(roll_degree)
 
 # X축(Pitch) Active Transform 회전 행렬
-Rx_c2c_new = np.array([
+Rx_c_to_c_rotated = np.array([
     [1, 0, 0],
-    [0, np.cos(np.radians(x_angle)),  -np.sin(np.radians(x_angle))],   
-    [0, np.sin(np.radians(x_angle)), np.cos(np.radians(x_angle))]]).T
+    [0, np.cos(x_c_to_c_ratated_radian),  -np.sin(x_c_to_c_ratated_radian)],   
+    [0, np.sin(x_c_to_c_ratated_radian), np.cos(x_c_to_c_ratated_radian)]])
 
 # Y축(Yaw) Active Transform 회전 행렬
-Ry_c2c_new = np.array([
-    [np.cos(np.radians(y_angle)), 0, np.sin(np.radians(y_angle))],
+Ry_c_to_c_rotated = np.array([
+    [np.cos(y_c_to_c_ratated_radian), 0, np.sin(y_c_to_c_ratated_radian)],
     [0, 1, 0],
-    [-np.sin(np.radians(y_angle)), 0, np.cos(np.radians(y_angle))]]).T
+    [-np.sin(y_c_to_c_ratated_radian), 0, np.cos(y_c_to_c_ratated_radian)]])
 
 # Z축(Roll) Active Transform 회전 행렬
-Rz_c2c_new = np.array([
-    [np.cos(np.radians(z_angle)),  -np.sin(np.radians(z_angle)), 0],
-    [np.sin(np.radians(z_angle)), np.cos(np.radians(z_angle)), 0],
-    [0, 0, 1]]).T
+Rz_c_to_c_rotated = np.array([
+    [np.cos(z_c_to_c_ratated_radian),  -np.sin(z_c_to_c_ratated_radian), 0],
+    [np.sin(z_c_to_c_ratated_radian), np.cos(z_c_to_c_ratated_radian), 0],
+    [0, 0, 1]])
 
 # Roll @ Pitch @ Yaw
-new_R = Rz_c2c_new @ Rx_c2c_new @ Ry_c2c_new
+R_c_to_c_rotated = Rz_c_to_c_rotated @ Rx_c_to_c_rotated @ Ry_c_to_c_rotated
+R_c_rotated_to_c = R_c_to_c_rotated.T
 ```
 
 <br>
 
-- 좌표축을 변환하는 3차원 회전 변환 행렬 (`Passive Transformation`)의 방법론은 다음 링크를 참조하시기 바랍니다.
-    - 링크: [좌표축을 변환하는 3차원 회전 변환 행렬](https://gaussian37.github.io/math-la-rotation_matrix/#3d%EC%97%90%EC%84%9C%EC%9D%98-%ED%9A%8C%EC%A0%84-%EB%B3%80%ED%99%98-1)
-- 위 코드에서 생성한 각 축의 회전 행렬의 마지막에 `.T`를 붙인 것도 위 링크에서 정의한 `Passive Transformation`의 좌표축 회전을 `Active Transformation`으로 바꾸기 위함입니다.
-- `new_R`을 통해 `Roll`, `Pitch`, `Yaw` 전체 회전을 반영한 회전 행렬을 이용할 수 있습니다.
+- `R_c_rotated_to_c` 행렬이 의미하는 것은 `회전이 적용된 좌표값` → `회전이 적용되지 않은 좌표값`으로 회전하기 위한 행렬을 의미합니다. 이 행렬을 이용하여 ② → ③ 과정으로 변환할 수 있습니다.
 
 <br>
 
 ```python
-RDF_rotated_cartesian = new_R @ RDF_cartesian
+RDF_rotated_cartesian = np.zeros(p_norm.shape).astype(np.float32)
+RDF_rotated_cartesian[:,:,0,:]=x
+RDF_rotated_cartesian[:,:,1,:]=y
+RDF_rotated_cartesian[:,:,2,:]=z
+
+RDF_cartesian = R_c_rotated_to_c @ RDF_rotated_cartesian
 ```
 
 <br>
 
-- 앞에서 다룬 [카메라 기준 구면 투영법](#카메라-기준-구면-투영법-1)에서는 `RDF_cartesian`를 최종 샘플링된 포인트 $$ (\phi_{i}, \theta_{j}) $$ 로 사용한 반면 `회전을 고려한 카메라 기준 구면 투영법`에서는 회전 행렬인 `new_R`를 반영한 `RDF_rotated_cartesian`을 최종 샘플링된 포인트로 사용합니다.
-- 전체 코드는 다음과 같습니다.
+- 앞에서 다룬 [카메라 기준 구면 투영법](#카메라-기준-구면-투영법-1)에서는 `RDF_cartesian`를 바로 구면 좌표계에서의 최종 좌표값으로 사용하였지만 이번 파트에서는 `RDF_rotated_cartesian`을 먼저 선언하고 이 좌표값을 `R_c_rotated_to_c`를 이용하여 `RDF_cartesian`으로 변환하여 사용합니다. 즉, 원본 이미지의 좌표값에 접근하기 위해 역회전을 적용한 것이라고 보면 됩니다.
+- 위 과정을 거치면 앞에서 다룬 것 처럼 ③ `normalized 구면 좌표 (c)` → ④ `normalized 직교 좌표` → ⑤ `원본 이미지` 로 차례대로 접근할 수 있습니다.
+- 추가된 `Rotation` 부분을 포함하여 전체 코드를 작성하면 다음과 같습니다.
 
 <br>
 
@@ -653,30 +656,31 @@ def get_camera_rotation_spherical_lut(
     hfov=np.deg2rad(hfov_deg)
     vfov=np.deg2rad(vfov_deg)
     
-    x_angle = pitch_degree
-    y_angle = yaw_degree
-    z_angle = roll_degree
+    x_c_to_c_ratated_radian = np.radians(pitch_degree)
+    y_c_to_c_ratated_radian = np.radians(yaw_degree)
+    z_c_to_c_ratated_radian = np.radians(roll_degree)
     
     # X축(Pitch) Active Transform 회전 행렬
-    Rx_c2c_new = np.array([
+    Rx_c_to_c_rotated = np.array([
         [1, 0, 0],
-        [0, np.cos(np.radians(x_angle)),  -np.sin(np.radians(x_angle))],   
-        [0, np.sin(np.radians(x_angle)), np.cos(np.radians(x_angle))]]).T
+        [0, np.cos(x_c_to_c_ratated_radian),  -np.sin(x_c_to_c_ratated_radian)],   
+        [0, np.sin(x_c_to_c_ratated_radian), np.cos(x_c_to_c_ratated_radian)]])
     
     # Y축(Yaw) Active Transform 회전 행렬
-    Ry_c2c_new = np.array([
-        [np.cos(np.radians(y_angle)), 0, np.sin(np.radians(y_angle))],
+    Ry_c_to_c_rotated = np.array([
+        [np.cos(y_c_to_c_ratated_radian), 0, np.sin(y_c_to_c_ratated_radian)],
         [0, 1, 0],
-        [-np.sin(np.radians(y_angle)), 0, np.cos(np.radians(y_angle))]]).T
+        [-np.sin(y_c_to_c_ratated_radian), 0, np.cos(y_c_to_c_ratated_radian)]])
     
     # Z축(Roll) Active Transform 회전 행렬
-    Rz_c2c_new = np.array([
-        [np.cos(np.radians(z_angle)),  -np.sin(np.radians(z_angle)), 0],
-        [np.sin(np.radians(z_angle)), np.cos(np.radians(z_angle)), 0],
-        [0, 0, 1]]).T
+    Rz_c_to_c_rotated = np.array([
+        [np.cos(z_c_to_c_ratated_radian),  -np.sin(z_c_to_c_ratated_radian), 0],
+        [np.sin(z_c_to_c_ratated_radian), np.cos(z_c_to_c_ratated_radian), 0],
+        [0, 0, 1]])
     
     # Roll @ Pitch @ Yaw
-    new_R = Rz_c2c_new @ Rx_c2c_new @ Ry_c2c_new
+    R_c_to_c_rotated = Rz_c_to_c_rotated @ Rx_c_to_c_rotated @ Ry_c_to_c_rotated
+    R_c_rotated_to_c = R_c_to_c_rotated.T
     ##############################################################################################################
     
     # 구면 투영 시, normalized → image 로 적용하기 위한 intrinsic 행렬
@@ -710,7 +714,7 @@ def get_camera_rotation_spherical_lut(
     p_norm[:, :, 1, :]. theta (elevation angla. vertical) : -vfov/2 ~ vfov/2
     p_norm[:, :, 2, :]. 1.    
     '''
-    # x, y, z : cartesian coordinate in camera coordinate system (RDF, Right-Down-Forward)
+    # x, y, z : cartesian coordinate in camera coordinate system (RDF, Right-Down-Front)
     # azimuthal angle
     phi = p_norm[:, :, 0, :]
     # elevation angle
@@ -720,21 +724,18 @@ def get_camera_rotation_spherical_lut(
     y =np.sin(theta) # -1 ~ 1
     z =np.cos(theta)*np.cos(phi) # 0 ~ 1
     
-    RDF_cartesian = np.zeros(p_norm.shape).astype(np.float32)
-    RDF_cartesian[:,:,0,:]=x
-    RDF_cartesian[:,:,1,:]=y
-    RDF_cartesian[:,:,2,:]=z    
+    RDF_rotated_cartesian = np.zeros(p_norm.shape).astype(np.float32)
+    RDF_rotated_cartesian[:,:,0,:]=x
+    RDF_rotated_cartesian[:,:,1,:]=y
+    RDF_rotated_cartesian[:,:,2,:]=z
     
-    # RDF_rotated_cartesian = Rz @ Ry @ Rx @ RDF_cartesian
-    # SRC → TARGET의 좌표 회전울 통하여 생성된 좌표들을 회전함
-    RDF_rotated_cartesian = new_R @ RDF_cartesian
+    RDF_cartesian = R_c_rotated_to_c @ RDF_rotated_cartesian
             
     # compute incidence angle
     # x_un, y_un, z_un: (target_height, target_width)
-    x_un = RDF_rotated_cartesian[:, :, 0, 0]
-    y_un = RDF_rotated_cartesian[:, :, 1, 0]
-    z_un = RDF_rotated_cartesian[:, :, 2, 0]
-    # theta = np.arccos(RDF_rotated_cartesian[:, :, [2], :] / np.linalg.norm(RDF_rotated_cartesian, axis=2, keepdims=True))
+    x_un = RDF_cartesian[:, :, 0, 0]
+    y_un = RDF_cartesian[:, :, 1, 0]
+    z_un = RDF_cartesian[:, :, 2, 0]
     theta = np.arccos(z_un / np.sqrt(x_un**2 + y_un**2 + z_un**2))
     
     mask = theta > np.pi/2
@@ -755,7 +756,7 @@ def get_camera_rotation_spherical_lut(
     map_x_origin2new = map_x_origin2new.astype(np.float32)
     map_y_origin2new = map_y_origin2new.astype(np.float32)
     
-    return map_x_origin2new, map_y_origin2new, new_K, new_R
+    return map_x_origin2new, map_y_origin2new
 
 camera_name = "front_fisheye_camera"
 calib = json.load(open("camera_calibration.json", "r"))
@@ -772,7 +773,7 @@ D = np.array(calib[camera_name]['Intrinsic']['D'])
 roll_degree = 0 # roll 회전 행렬 입력
 pitch_degree = 0 # pitch 회전 행렬 입력
 yaw_degree = 0 # yaw 회전 행렬 입력
-map_x, map_y, new_K, new_R = get_camera_rotation_spherical_lut(
+map_x, map_y = get_camera_rotation_spherical_lut(
     K, D, origin_width, origin_height, target_width, target_height, 
     hfov_deg=hfov_deg, vfov_deg=vfov_deg, 
     roll_degree=roll_degree, pitch_degree=pitch_degree, yaw_degree=yaw_degree
