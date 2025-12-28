@@ -845,17 +845,19 @@ print("new_R: \n", new_R)
 <center><img src="../assets/img/vision/concept/spherical_projection/19.png" alt="Drawing" style="width: 800px;"/></center>
 <br>
 
-- 데이터 셋 설명을 기준으로 나타내면 `World 좌표계`는 원점으로 정의해 놓은 위치입니다. `World 좌표계`에서 관심있는 부분은 각 카메라와 `World 좌표계` 간의 `Rotation` 관계입니다. [회전을 고려한 카메라 기준 구면 투영법](#회전을-고려한-카메라-기준-구면-투영법-1)에서는 카메라의 회전 각도 사양을 정의할 때, 카메라 기준의 `Roll`, `Pitch`, `Yaw`를 정의하고 그 사양에 맞추어 `LUT`를 생성하였습니다. `World 기준 구면 투영법`에서는 `World 원점`을 기준으로 `Roll`, `Pitch`, `Yaw`를 정의하고 그 사양에 맞추어 `LUT`를 생성합니다. 코드 상으로는 `new_R`을 어떻게 만드는 지 차이가 있을 뿐 나머지는 모두 동일합니다.
+- 데이터 셋 설명을 기준으로 나타내면 `World 좌표계`는 원점으로 정의해 놓은 위치입니다. `World 좌표계`에서 관심있는 부분은 각 카메라와 `World 좌표계` 간의 `Rotation` 관계입니다. [회전을 고려한 카메라 기준 구면 투영법](#회전을-고려한-카메라-기준-구면-투영법-1)에서는 카메라의 회전 각도 사양을 정의할 때, 카메라 기준의 `Roll`, `Pitch`, `Yaw`를 정의하고 그 사양에 맞추어 `LUT`를 생성하였습니다. `World 기준 구면 투영법`에서는 `World 원점`을 기준으로 `Roll`, `Pitch`, `Yaw`를 정의하고 그 사양에 맞추어 `LUT`를 생성합니다. 
 
 <br>
 
-- 전체 프로세스는 다음과 같습니다.
-- ① `World → Camera`로 회전해야 할 `Roll`, `Pitch`, `Yaw` 각도를 구합니다. 카메라 캘리브레이션 값을 이용하여 이 값을 얻을 수 있습니다.
-- ② 앞에서 구한 값을 이용하여 `World → Camera`로의 회전 행렬 (`Active Transform`)을 구합니다. (`R_w2c`)
-- ③ 정의된 사양에 맞추어 `World → New Camera`로의 회전 행렬 (`Active Transform`)을 구합니다. (`R_w2c_new`)
-- ④ 앞의 결과(②, ③)를 이용하여 `Camera → New Camera`로의 회전 행렬 (`Active Transform`)을 구합니다. (`new_R`)
-- ⑤ `new_R`을 이용하여 좌표값들을 `New Camera`로 회전합니다. 이 좌표값들은 `World` 기준으로 정의된 사양 만큼 회전되었음을 의미합니다.
-- 모든 계산은 `World` 기준으로 이루어지며 실제 좌표값들이 이동해야 하는 회전량은 `Camera → New Camera` 만큼의 양을 계산해서 회전합니다.
+- 먼저 앞에서 알아본 바와 마찬가지로 backward mapping의 접근 프로세스를 먼저 알아보도록 하겠습니다. `c_rotated`는 최종적으로 회전하고자 하는 카메라의 방향이며 `c_calib`는 캘리브레이션의 `Rotation`에 반영된 `Roll`, `Pitch`, `Yaw` 만큼 회전이 반영된 카메라의 방향을 의미합니다.
+    - ① `구면 투영 이미지`: 최종적으로 생성하고자 하는 구면으로 정의된 이미지 공간 입니다.
+    - ② `normalized 구면 좌표 (c_rotated)`: 회전이 반영된 `normalized` 구면 좌표계에서의 좌표값입니다. 이 단계에서 회전이 반영되었기 때문에 구면 투영 이미지 또한 회전이 반영된 상태로 이미지가 형성된 것입니다.
+    - ③ `normalized 구면 좌표 (world)` : `c_rotated` → `c_calib` 로 회전하기 위해 (의미상) 중간 단계로 거쳐가는 구간입니다. `World 좌표계`가 기준이 되기 때문에 `c_rotated` → `world`로 먼저 회전을 하여 `World 좌표계` 상에서는 회전이 없는 상태를 임시적으로 만듭니다. 따라서 이 단계에서는 `c_rotated`에서 회전된 양만큼 회전이 제거된 `normalized` 구면 좌표계에서의 좌표값을 가집니다.
+    - ④ `normalized 구면 좌표 (c_calib)`: `world` → `c_calib`로 회전을 반영합니다. 따라서 이 단계에서는 `World 좌표계` 기준으로 보았을 때, 캘리브레이션의 `Rotation`에 반영된 회전만큼 좌표값의 회전을 반영합니다. ② → ③ → ④ 과정을 통하여 `c_rotated` 카메라 방향 → `c_calib` 카메라 방향으로 회전을 할 수 있습니다. 다시 정리하면 `c_rotated`는 최종 회전이 반영된 카메라의 방향이고 `c_calib`는 원본 이미지가 취득된 카메라의 방향이므로 원본 이미지에 접근하기 위해 이와 같이 카메라 회전 방향을 변경합니다.
+    - ⑤ `normalized 직교 좌표`: 원본 이미지의 `normalized` 직교 좌표계에서의 좌표값입니다.
+    - ⑥ `원본 이미지`: 원본 이미지를 의미하며 구면 투영 이미지에서 사용할 RGB 값을 가져올 때 사용 됩니다.
+
+--- 여기서 부터 수정 ---
 
 <br>
 <center><img src="../assets/img/vision/concept/spherical_projection/20.png" alt="Drawing" style="width: 600px;"/></center>
