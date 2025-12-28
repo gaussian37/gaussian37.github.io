@@ -198,8 +198,16 @@ tags: [구면 좌표계, 구면 투영법, spherical] # add tag
     - ③ `normalized 직교 좌표`: 원본 이미지 각 픽셀 좌표값의 `normalized` 공간을 의미합니다. 직교 좌표계를 사용합니다.
     - ④ `원본 이미지`: 원본 이미지를 의미하며 구면 투영 이미지에서 사용할 RGB 값을 가져올 때 사용 됩니다.
 
-- 여기서 부터 다시 작성
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/24.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
 
+- 위 그림과 같이 `backward mapping` 방법은 최종 생성하고자 하는 `target` 공간을(위 예시에서는 `구면 투영 이미지`) 정의하고 `target` 공간에서 부터 역으로 참조하고자 하는 `source` 공간까지 차례대로 접근하여 `target`을 채우기 위해서 `source`의 어디를 접근하면 되는 지 매핑하는 과정을 의미합니다. 이와 같은 방법을 사용하면 `target` 공간을 빈틈없이 채울 수 있는 장점이 존재하여 이미지 생성 시 주로 사용하고 있습니다. 반대로 `forward mapping`을 이용하면 `source` 공간에서 시작하여 `target` 공간까지 접근하게 되므로 `target` 공간에 매핑이 되지 않는 좌표들이 발생할 수 있는 문제가 발생하므로 이미지 생성때에는 사용하지 않습니다.
+- 위 그림에서 `target`의 모든 좌표 위치에서 화살표가 `source`로 향하기 때문에 `target`의 모든 값은 `source`에 접근하여 매핑이 가능한 상태입니다. 어떤 `source`값은 중복되어 선택될 수도 있습니다. `target`과 `source`가 일대일 대응이 아닌 `target` → `source`로의 일대일 함수이기 때문에 `backward mapping`을 사용합니다.
+
+<br>
+
+- 각 단계 별로 더 자세하게 살펴보도록 하겠습니다.
 - ① `구면 투영 이미지`에서 최종 생성해야 하는 이미지의 공간을 정의해 놓고 이 이미지의 $$ (\phi_{i}, \theta_{j}) $$ 와 대응되는 ④ `이미지`의 $$ (u_{n}, v_{m}) $$ 를 매핑 시키는 작업을 해야 합니다. ②, ③ 은 중간 과정으로 거쳐야 하는 공간입니다. 
 - `normalized` 공간에 대한 정의는 아래 글에서 확인해 보시기 바랍니다.
     - 사전 지식 : [카메라 모델 및 카메라 캘리브레이션의 이해와 Python 실습](https://gaussian37.github.io/vision-concept-calibration/)
