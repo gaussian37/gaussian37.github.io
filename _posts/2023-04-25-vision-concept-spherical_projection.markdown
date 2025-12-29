@@ -937,15 +937,15 @@ R_w_rdf_to_c_calib_rdf = R_w_flu_to_c_calib_rdf @ R_rdf_to_flu
 
 <br>
 
-- 아래는 먼저 캘리브레이션 `Rotation`에서 `Roll`, `Pitch`, `Yaw`를 추출하는 방식 및 코드입니다. 데이터 셋에 맞춰서 사용하면 되며 현재 사용하는 데이터 셋이 $$ R_{w_{\text{FLU} \to c_{\text{RDF}}} $$ 이므로 다음 방법으로 `Roll`, `Pitch`, `Yaw`를 구하였습니다.
+- 아래는 먼저 캘리브레이션 `Rotation`에서 `Roll`, `Pitch`, `Yaw`를 추출하는 방식 및 코드입니다. 데이터 셋에 맞춰서 사용하면 되며 현재 사용하는 데이터 셋이 $$ R_{w_{\text{FLU}} \to c_{\text{RDF}}} $$ 이므로 다음 방법으로 `Roll`, `Pitch`, `Yaw`를 구하였습니다.
 
 <br>
 
-- $$ R_{w_{\text{FLU}} \to c_{\text{RDF}}}^{\text{passive}} R_{\text{RDF} \to \text{FLU}}^{\text{passive}} = R_{w_{\text{FLU} \to c_{\text{FLU}}}}^{\text{passive}} $$
+- $$ R_{w_{\text{FLU}} \to c_{\text{RDF}}}^{\text{passive}} R_{\text{RDF} \to \text{FLU}}^{\text{passive}} = R_{w_{\text{FLU}} \to c_{\text{FLU}}}^{\text{passive}} $$
 
 <br>
 
-- [Roll, Pitch, Yaw와 Rotation의 변환](http://xn--gaussian37-zh63b.github.io/math-la-rotation_matrix/#roll-pitch-yaw%EC%99%80-rotation-%ED%96%89%EB%A0%AC%EC%9D%98-%EB%B3%80%ED%99%98-1) 의 설명에 따라 $$ R_{w_{\text{FLU} \to c_{\text{FLU}}}}^{\text{passive}} $$ 를 `rotation_matrix_to_euler_angles` 함수에 넣으면 `Roll`, `Pitch`, `Yaw`로 분해할 수 있습니다. 코드는 다음과 같습니다.
+- [Roll, Pitch, Yaw와 Rotation의 변환](http://xn--gaussian37-zh63b.github.io/math-la-rotation_matrix/#roll-pitch-yaw%EC%99%80-rotation-%ED%96%89%EB%A0%AC%EC%9D%98-%EB%B3%80%ED%99%98-1) 의 설명에 따라 $$ R_{w_{\text{FLU}} \to c_{\text{FLU}}}^{\text{passive}} $$ 를 `rotation_matrix_to_euler_angles` 함수에 넣으면 `Roll`, `Pitch`, `Yaw`로 분해할 수 있습니다. 코드는 다음과 같습니다.
 
 <br>
 
