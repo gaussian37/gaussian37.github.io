@@ -865,109 +865,107 @@ print("new_R: \n", new_R)
 - 위 그림과 같이 $$ Z_{w} $$ 축 상의 빨간색 점 ①이 ②로 위치를 회전하였다가 ③으로 다시 회전할 수 있도록 회전 행렬을 만들어 보려고 합니다.
 - 점 ① 은 위치 상 최종 회전이 반영된 카메라 방향에 위치합니다. 따라서 이 점이 world 기준에서 어떻게 이동하는 지 살펴보도록 하겠습니다.
 
---- 여기서 부터 ---
+<br>
+
+- $$ R_{c_{rotated} \to w} = \text{Activation Transformation(Rotation) from rotated camera to world.} $$ 
+
+- $$ R_{w \to c_{calib}} = \text{Activation Transformation(Rotation) from world to calibrated camera.} $$ 
+
+- $$ R_{c_{rotated} \to c_{calib}} = \text{Activation Transformation(Rotation) from rotated camera to calibrated camera.} $$ 
 
 <br>
 
-- $$ R_{w \to c}^{\text{active}} = (R_{w \to c}^{\text{passive}})^{T}: \text{Activation Transformation(Rotation) from World to Camera.} $$ 
-
-- $$ R_{w \to c_{\text{new}}}^{\text{active}} = (R_{w \to c_{\text{new}}}^{\text{passive}})^{T}: \text{Activation Transformation(Rotation) from World to New Camera.} $$ 
-
-- $$ R_{c \to c_{\text{new}}}^{\text{active}} = (R_{c \to c_{\text{new}}}^{\text{passive}})^{T}: \text{Activation Transformation(Rotation) from Camera to New Camera.} $$ 
+- 위 그림과 같이 ① → ② → ③ 순서로 회전해야 하므로 다음과 같이 행렬을 구성할 수 있습니다.
 
 <br>
 
-- `Active Transformation`이므로 벡터 $$ v $$ 에 대하여 다음과 같은 관계를 가집니다.
+- $$ R_{c_{rotated} \to c_{calib}} = R_{w \to c_{calib}} R_{c_{rotated} \to w} $$
 
 <br>
 
-- $$ v_{c} = R_{w \to c}^{\text{active}}v_{w} $$
-
-- $$ v_{c_{\text{new}}} = R_{w \to c_{\text{new}}}^{\text{active}}v_{w} $$
-
-- $$ v_{c_{\text{new}}} = R_{c \to c_{\text{new}}}^{\text{active}}v_{c} $$
+- 위 행렬에서 회전의 방향을 $$ world \to $$ 로 일관성있게 정리하면 다음과 같습니다.
 
 <br>
 
-- $$ v_{c} = R_{w \to c}^{\text{active}}v_{w} \Rightarrow \color{red}{v_{w} = (R_{w \to c}^{\text{active}})^{-1}v_{c}} $$
+- $$ R_{c_{rotated} \to c_{calib}} = R_{w \to c_{calib}} R_{c_{rotated} \to w} = R_{w \to c_{calib}} R_{w\ to c_{rotated}}^{-1} = R_{w \to c_{calib}} R_{w\ to c_{rotated}}^{T} $$
 
-- $$ v_{c_{\text{new}}} = R_{w \to c_{\text{new}}}^{\text{active}}\color{red}{(v_{w})} = R_{w \to c_{\text{new}}}^{\text{active}} (R_{w \to c}^{\text{active}})^{-1} v_{c} $$
-
-- $$ \therefore R_{c \to c_{\text{new}}}^{\text{active}} = R_{w \to c_{\text{new}}}^{\text{active}} (R_{w \to c}^{\text{active}})^{-1} $$
+- $$ \therefore R_{c_{rotated} \to c_{calib}} = R_{w \to c_{calib}} R_{w \to c_{rotated}}^{T} $$
 
 <br>
 
-- 회전 행렬이므로 역행렬은 `Transpose`를 취해줍니다.
+- 코드 상에서는 $$ R_{w \to c_{calib}} $$ 는 캘리브레이션을 통해 얻은 `Rotation` 을 사용하고 $$ R_{w\ to c_{rotated}} $$ 는 사용자가 사양을 정의해서 사용할 예정입니다.
 
 <br>
 
-- $$ \therefore R_{c \to c_{\text{new}}}^{\text{active}} = R_{w \to c_{\text{new}}}^{\text{active}} (R_{w \to c}^{\text{active}})^{T} $$
+- 먼저 $$ R_{w \to c_{calib}} $$ 을 구하는 방법을 알아보도록 하겠습니다. 이 행렬은 현재 데이터셋의 `Rotation`에 따른 것이니 데이터셋의 정의에 맞게 적용해야 합니다.
+- 캘리브레이션에 정의된 `Rotation`은 $$ R_{w_{FLU} \to c_{calib, RDF}} $$ 로 **회전 변환 적용 전과 후의 축의 기준이 다릅니다.** 따라서 이번 글에서 주로 다루는 카메라 좌표계인 `RDF` 좌표계로 바꾸는 과정을 통해 $$ R_{w_{RDF} \to c_{calib, RDF}} $$ 행렬을 만들어야 합니다. 왜냐하면 $$ R_{w \to c_{calib}} $$ 행렬 변환 적용 전/후 모두 `RDF` 좌표값을 다루기 때문입니다.
 
 <br>
 
-- 코드 상에서는 각도 관련 내용은 다음 변수를 통하여 정의할 예정입니다.
-    - `x_w2c_angle` : **World → Camera** $$ X $$ 축 회전 각도 (캘리브레이션 `Rotation`에서 추출해야 함)
-    - `y_w2c_angle` : **World → Camera** $$ Y $$ 축 회전 각도 (캘리브레이션 `Rotation`에서 추출해야 함)
-    - `z_w2c_angle` : **World → Camera** $$ Z $$ 축 회전 각도 (캘리브레이션 `Rotation`에서 추출해야 함)
-    - `x_w2c_new_angle` : **World → New Camera** $$ X $$ 축 회전 각도 (사용자가 사양을 정의해야 함)
-    - `y_w2c_new_angle` : **World → New Camera** $$ Y $$ 축 회전 각도 (사용자가 사양을 정의해야 함)
-    - `z_w2c_new_angle` : **World → New Camera** $$ Z $$ 축 회전 각도 (사용자가 사양을 정의해야 함)
+- $$ R_{w \to c_{calib}} = R_{w_{RDF} \to c_{calib, RDF}} =  R_{w_{FLU} \to c_{calib, RDF}} R_{RDF \to FLU} $$
+
+- $$ R_{FLU \to RDF} = \begin{bmatrix} 0 & -1 & 0 \\ 0 & 0 & -1 \\ 1 & 0 & 0 \end{bmatrix} $$
+
+- $$ R_{RDF \to FLU} = R_{FLU \to RDF}^{T} = \begin{bmatrix} 0 & -1 & 0 \\ 0 & 0 & -1 \\ 1 & 0 & 0 \end{bmatrix}^{T} $$
 
 <br>
 
-- `x/y/z/_w2c_angle`의 경우 입력 받은 Extrinsic 파라미터 중 `Rotation`에서 `Roll`, `Pitch`, `Yaw`를 추출해야 합니다.
-- `x/yz/_w2c_new_angle`의 경우 사용자가 각도를 정의해 주어야 합니다.
+- 행렬 $$ R_{w \to c_{calib}} = R_{w_{FLU} \to c_{calib, RDF}} R_{RDF \to FLU} $$ 을 살펴보면 $$ R_{w \to c_{calib}} p_{RDF} $$ 와 같이 사용하였을 때 `RDF` 좌표계의 좌표값이 회전 되더라도 $$ R_{w \to c_{calib}} $$ 내부적으로는 `RDF → FLU`로 한번 변환합니다. 따라서 $$ R_{w \to c_{calib}} $$ 는 `RDF` 좌표계의 좌표값을 회전하여 결과도 `RDF` 좌표계의 좌표값을 만들어 냅니다.
+- 이 과정을 코드로 나타내면 다음과 같습니다.
 
 <br>
 
 ```python
-# World → Camera 회전을 위한 회전 행렬 정의
-# X축(Pitch) Active Transform 회전 행렬
-Rx_w2c = np.array([
-    [1, 0, 0],
-    [0, np.cos(np.radians(x_w2c_angle)), -np.sin(np.radians(x_w2c_angle))],   
-    [0, np.sin(np.radians(x_w2c_angle)), np.cos(np.radians(x_w2c_angle))]]).T
+R_flu_to_rdf = np.array(
+        [[0, -1, 0],
+         [0, 0, -1],
+         [1, 0, 0]], dtype=np.float32
+    )
 
-# Y축(Yaw) Active Transform 회전 행렬
-Ry_w2c = np.array([
-    [np.cos(np.radians(y_w2c_angle)), 0, np.sin(np.radians(y_w2c_angle))],
-    [0, 1, 0],
-    [-np.sin(np.radians(y_w2c_angle)), 0, np.cos(np.radians(y_w2c_angle))]]).T
-
-# Z축(Roll) Active Transform 회전 행렬
-Rz_w2c = np.array([
-    [np.cos(np.radians(z_w2c_angle)),  -np.sin(np.radians(z_w2c_angle)), 0],
-    [np.sin(np.radians(z_w2c_angle)), np.cos(np.radians(z_w2c_angle)), 0],
-    [0, 0, 1]]).T
-
-# World → New Camera 회전을 위한 회전 행렬 정의
-# X축(Pitch) Active Transform 회전 행렬
-Rx_w2c_new = np.array([
-    [1, 0, 0],
-    [0, np.cos(np.radians(x_w2c_new_angle)), -np.sin(np.radians(x_w2c_new_angle))],   
-    [0, np.sin(np.radians(x_w2c_new_angle)), np.cos(np.radians(x_w2c_new_angle))]]).T
-
-# Y축(Yaw) Active Transform 회전 행렬
-Ry_w2c_new = np.array([
-    [np.cos(np.radians(y_w2c_new_angle)), 0, np.sin(np.radians(y_w2c_new_angle))],
-    [0, 1, 0],
-    [-np.sin(np.radians(y_w2c_new_angle)), 0,  np.cos(np.radians(y_w2c_new_angle))]]).T
-
-# Z축(Roll) Active Transform 회전 행렬
-Rz_w2c_new = np.array([
-    [np.cos(np.radians(z_w2c_new_angle)), -np.sin(np.radians(z_w2c_new_angle)), 0],
-    [np.sin(np.radians(z_w2c_new_angle)), np.cos(np.radians(z_w2c_new_angle)), 0],
-    [0, 0, 1]]).T
-
-R_w2c = Rz_w2c @ Rx_w2c @ Ry_w2c
-R_w2c_new = Rz_w2c_new @ Rx_w2c_new @ Ry_w2c_new
-new_R = R_w2c_new @ R_w2c.T
+R_rdf_to_flu = R_flu_to_rdf.T
+R_w_rdf_to_c_calib_rdf = R_w_flu_to_c_calib_rdf @ R_rdf_to_flu
 ```
 
 <br>
 
-- 앞의 수식과 대응되도록 코드가 구성되었음을 확인할 수 있습니다.
-- 그러면 위 코드에서 사용된 `x/y/z/_w2c_angle`의 값을 캘리브레이션에서 추출하는 방법을 알아보도록 하겠습니다.
+--- 여기서 부터 작성 ---
+
+
+
+
+
+
+- 코드 상에서는 `x/y/z_w_to_c_rotated_degree`: **World → Rotated Camera** $$ X, Y, Z $$ 축 회전 각도 (사용자가 사양을 정의해야 함) 를 의미합니다.
+
+<br>
+
+```python
+x_w_to_c_rotated_radian = np.radians(x_w_to_c_rotated_degree)
+y_w_to_c_rotated_radian = np.radians(y_w_to_c_rotated_degree)
+z_w_to_c_rotated_radian = np.radians(z_w_to_c_rotated_degree)
+    
+# X축(Pitch) 회전 행렬
+Rx_w_to_c_rotated = np.array([
+    [1, 0, 0],
+    [0, np.cos(x_w_to_c_rotated_radian), -np.sin(x_w_to_c_rotated_radian)],   
+    [0, np.sin(x_w_to_c_rotated_radian), np.cos(x_w_to_c_rotated_radian)]])
+
+# Y축(Yaw) 회전 행렬
+Ry_w_to_c_rotated = np.array([
+    [np.cos(y_w_to_c_rotated_radian), 0, np.sin(y_w_to_c_rotated_radian)],
+    [0, 1, 0],
+    [-np.sin(y_w_to_c_rotated_radian), 0,  np.cos(y_w_to_c_rotated_radian)]])
+
+# Z축(Roll) 회전 행렬
+Rz_w_to_c_rotated = np.array([
+    [np.cos(z_w_to_c_rotated_radian), -np.sin(z_w_to_c_rotated_radian), 0],
+    [np.sin(z_w_to_c_rotated_radian), np.cos(z_w_to_c_rotated_radian), 0],
+    [0, 0, 1]])
+
+R_w_rdf_to_c_rotated_rdf = Rz_w_to_c_rotated @ Rx_w_to_c_rotated @ Ry_w_to_c_rotated
+```
+
+
 
 <br>
 
