@@ -1329,7 +1329,27 @@ plt.imshow(new_image)
 - 이 내용들을 이용하여 추가적으로 `World-to-Image`, `Image-to-World` 접근 방법을 살펴보도록 하겠습니다. 구면 투영법을 통해 `new_K`, `new_R`이 생성되었기 때문에 이 값들을 이용하여 이미지와 World 간의 대응이 이루어져야 합니다.
 - 원본 이미지에 대한 `World-to-Image`, `Image-to-World` 방법은 아래 링크를 참조해 주시기 바랍니다.
     - 링크: [World-to-Image](https://gaussian37.github.io/vision-concept-lens_distortion/#world-to-image-%EB%B0%A9%EB%B2%95-1), [Image-to-World](https://gaussian37.github.io/vision-concept-lens_distortion/#image-to-world-%EB%B0%A9%EB%B2%95-1)
-- 먼저 `new_R`과 `new_K`가 어떻게 생성되었는 지 살펴보도록 하겠습니다.
+- 먼저 `new_R`과 `new_K`가 어떻게 생성되었는 지 살펴보도록 하겠습니다. 앞의 코드에서 이 두 변수는 다음과 같이 정의되었습니다.
+
+<br>
+
+```python
+new_R = Rz_w_to_c_rotated @ Rx_w_to_c_rotated @ Ry_w_to_c_rotated @ R_flu_to_rdf
+new_t = new_R @ R.T @ t
+```
+
+<br>
+
+- 먼저 `Rotation`과 `Translation`은 `c_rotated` 기준으로 정의되어야 합니다. 구면 좌표 이미지로 생성된 영상이 `rotation`이 반영되어 있기 때문입니다.
+- 새롭게 정의된 `Rotation`인 `new_R`은 다음과 같습니다.
+
+<br>
+
+- $$ \text{new_R} = R_{w \to c_{\text{rotated}}} R_{\text{FLU} \to \text{RDF}} $$
+
+<br>
+
+- 앞에서 다룬 바와 같이 `World 좌표계`의 좌표축은 `FLU` 기준이기 때문에 행렬 내부적으로 `FLU` → `RDF` 축 변환 작업이 필요하여 위 식과 같이 행렬이 정의됩니다.
 
 <br>
 
