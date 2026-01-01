@@ -1340,7 +1340,16 @@ new_t = new_R @ R.T @ t
 
 <br>
 
-- 먼저 `Rotation`과 `Translation`은 `c_rotated` 기준으로 정의되어야 합니다. 구면 좌표 이미지로 생성된 영상이 `rotation`이 반영되어 있기 때문입니다.
+- 먼저 `Rotation`과 `Translation`은 `c_rotated` 기준으로 정의되어야 합니다. 구면 좌표 이미지로 생성된 영상이 $$ R_{w \to c_{\text{rotated}}} $$ 로 반영되어 있기 때문입니다. 다음과 같이 기존 `Rotation`, `Translation`을 분해해 보겠습니다.
+
+<br>
+
+- $$ \begin{align} P_{c} &= \color{blue}{R_{w \to c_{\text{calib}}}}P_{w} + t_{w \to c_{\text{calib}}} \\ &= \color{blue}{R_{w \to c_{\text{calib}}}}(P_{w} + \color{blue}{R_{w \to c_{\text{calib}}}}^{-1} t_{w \to c_{\text{calib}}}) \end{align} \\ \Rightarrow $$
+
+- $$ \begin{align} P'_{c} &= \color{red}{R_{w \to c_{\text{rotated}}}}(P_{w} + \color{blue}{R_{w \to c_{\text{calib}}}}^{-1} t_{w \to c_{\text{calib}}}) \\ &= \color{red}{R_{w \to c_{\text{rotated}}}}P_{w} + \color{red}{R_{w \to c_{\text{rotated}}}}\color{blue}{R_{w \to c_{\text{calib}}}}^{-1} t_{w \to c_{\text{calib}}} \end{align} $$
+
+<br>
+
 - 새롭게 정의된 `Rotation`인 `new_R`은 다음과 같습니다.
 
 <br>
@@ -1350,6 +1359,7 @@ new_t = new_R @ R.T @ t
 <br>
 
 - 앞에서 다룬 바와 같이 `World 좌표계`의 좌표축은 `FLU` 기준이기 때문에 행렬 내부적으로 `FLU` → `RDF` 축 변환 작업이 필요하여 위 식과 같이 행렬이 정의됩니다.
+
 
 <br>
 
