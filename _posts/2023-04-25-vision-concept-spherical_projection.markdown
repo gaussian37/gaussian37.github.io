@@ -1346,19 +1346,24 @@ new_t = new_R @ R.T @ t
 
 - $$ \begin{align} P_{c} &= \color{blue}{R_{w \to c_{\text{calib}}}}P_{w} + t_{w \to c_{\text{calib}}} \\ &= \color{blue}{R_{w \to c_{\text{calib}}}}(P_{w} + \color{blue}{R_{w \to c_{\text{calib}}}}^{-1} t_{w \to c_{\text{calib}}}) \end{align} \\ \Rightarrow $$
 
-- $$ \begin{align} P'_{c} &= \color{red}{R_{w \to c_{\text{rotated}}}}(P_{w} + \color{blue}{R_{w \to c_{\text{calib}}}}^{-1} t_{w \to c_{\text{calib}}}) \\ &= \color{red}{R_{w \to c_{\text{rotated}}}}P_{w} + \color{red}{R_{w \to c_{\text{rotated}}}}\color{blue}{R_{w \to c_{\text{calib}}}}^{-1} t_{w \to c_{\text{calib}}} \end{align} $$
+- $$ \begin{align} P'_{c} &= \color{red}{R_{w \to c_{\text{rotated}}}}(P_{w} + \color{blue}{R_{w \to c_{\text{calib}}}}^{-1} t_{w \to c_{\text{calib}}}) \\ &= \color{red}{R_{w \to c_{\text{rotated}}}}P_{w} + \color{red}{R_{w \to c_{\text{rotated}}}}\color{blue}{R_{w \to c_{\text{calib}}}}^{-1} t_{w \to c_{\text{calib}}} \\ &= \color{red}{R_{w \to c_{\text{rotated}}}}P_{w} + \color{red}{R_{w \to c_{\text{rotated}}}}\color{blue}{R_{w \to c_{\text{calib}}}}^{T} t_{w \to c_{\text{calib}}} \end{align} $$
 
 <br>
 
-- 새롭게 정의된 `Rotation`인 `new_R`은 다음과 같습니다.
+- 새롭게 정의된 `Rotation`인 `new_R`과 `Translation`인 `new_t`는 다음과 같습니다. 특히 `Rotation`의 경우 앞에서 다룬 바와 같이 `World 좌표계`의 좌표축은 `FLU` 기준이기 때문에 행렬 내부적으로 `FLU` → `RDF` 축 변환 작업이 필요하여 위 식과 같이 행렬이 정의됩니다. (위에 정의된 `R`, `t` 모두 `RDF → RDF` 축으로 정의됨)
 
 <br>
 
 - $$ \text{new_R} = R_{w \to c_{\text{rotated}}} R_{\text{FLU} \to \text{RDF}} $$
 
+- $$ \text{new_t} = R_{w \to c_{\text{rotated}}}R_{w \to c_{\text{calib}}}^{T}t_{w \to c_{\text{calib}}} $$
+
 <br>
 
-- 앞에서 다룬 바와 같이 `World 좌표계`의 좌표축은 `FLU` 기준이기 때문에 행렬 내부적으로 `FLU` → `RDF` 축 변환 작업이 필요하여 위 식과 같이 행렬이 정의됩니다.
+- `World-to-Image`를 구현할 때, 다음 순서를 통해 `World`에서 `Image`까지 접근하게 됩니다.
+    - ① `World 좌표` → `카메라 좌표`
+    - ② `카메라 좌표` → 
+    - ③ 
 
 
 <br>
