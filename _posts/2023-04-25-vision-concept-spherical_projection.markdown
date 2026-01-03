@@ -1362,9 +1362,66 @@ new_t = new_R @ R.T @ t
 
 - `World-to-Image`를 구현할 때, 다음 순서를 통해 `World`에서 `Image`까지 접근하게 됩니다.
     - ① `World 좌표` → `카메라 좌표`
-    - ② `카메라 좌표` → 
-    - ③ 
+    - ② `카메라 좌표` → $$ \phi, \theta $$
+    - ③ $$ \phi, \theta $$ → `구면 이미지 좌표`
 
+<br>
+
+- 먼저 ① `World 좌표` → `카메라 좌표` 과정은 다음과 같이 변환됩니다. 이 때 사용되는 `Rotation`, `Translation`은 앞에서 정의된 `new_R`, `new_t` 입니다.
+
+<br>
+
+```python
+world_data = np.array(world_data)
+cam_data = (new_R @ world_data.T) + new_t
+x_c, y_c, z_c = cam_data[0], cam_data[1], cam_data[2]
+```
+
+<br>
+
+- 다음으로 ② `카메라 좌표` → $$ \phi, \theta $$ 과정을 위해 직교 좌표계 → 구면 좌표계로의 변환이 필요합니다. 
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/26.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+- 위 그림에서 $$ r $$ 은 다음과 같이 쉽게 구해집니다.
+
+<br>
+
+- $$ r = \sqrt{x_{c}^{2} + y_{c}^{2} + z_{c}^{2}} $$
+
+<br>
+
+- 그 다음 $$ \theta $$ 는 다음과 같이 구할 수 있습니다. 위 그림에서 ⓐ가 $$ y_{c} $$ 에 해당합니다.
+
+<br>
+
+- $$ \frac{y_{c}}{r} = \sin{(\theta)} $$
+
+- $$ \therefore \theta = \sin^{-1}{\left(\frac{y_{c}}{r}\right)} $$
+
+<br>
+
+- 마지막으로 $$ \phi $$ 는 다음과 같이 구할 수 있습니다. 위 그림에서 ⓑ 가 $$ r \cos{(\theta)} $$ 에 해당합니다.
+
+<br>
+
+- $$ \sin{(\phi)} = \frac{x_{c}}{r\cos{(\theta)}} $$
+
+- $$ \therefore \phi = \sin^{-1}{\left(\frac{x_{c}}{r\cos{(\theta)}}\right)} $$
+
+<br>
+
+- 따라서 코드로 표현하면 다음과 같습니다.
+
+<br>
+
+```python
+r = np.sqrt(x_c**2 + y_c**2 + z_c**2)
+theta = np.arcsin(y_c/r)
+phi = np.arcsin(x_c/(r*np.cos(theta)))
+```
 
 <br>
 
