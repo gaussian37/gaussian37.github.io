@@ -1425,7 +1425,197 @@ phi = np.arcsin(x_c/(r*np.cos(theta)))
 
 <br>
 
-- 마지막으로 ③ $$ \phi, \theta $$ → `구면 이미지 좌표` 단계를 진행하면 아래와 같습니다.
+- 마지막으로 ③ $$ \phi, \theta $$ → `구면 이미지 좌표` 단계를 진행하면 아래와 같습니다. 앞에서 구한 `new_K`를 사용하여 이미지 좌표로 변경합니다.
+
+<br>
+
+```python
+phi_theta = np.stack([phi, theta, np.ones_like(theta)]) # (3, N)
+phi_theta_coord= new_K @ phi_theta
+phi_theta_coord = np.round(phi_theta_coord)
+```
+
+<br>
+
+- `World-to-Image`를 위한 전체 코드는 아래와 같습니다. 중간 중간에 존재하는 코드는 불필요한 영역에 대한 마스킹 처리 등을 한 것이므로 코드의 주석을 참조하시기 바랍니다.
+
+<br>
+
+```python
+world_data = [
+    ##### ① #####
+    [0.0, 0.0, 0.0],
+    [0.1, 0.0, 0.0],
+    [0.2, 0.0, 0.0],
+    [0.3, 0.0, 0.0],
+    [0.4, 0.0, 0.0],
+    [0.5, 0.0, 0.0],
+    
+    ##### ② #####
+    [0.0, 0.4, 0.0],
+    [0.1, 0.4, 0.0],
+    [0.2, 0.4, 0.0],
+    [0.3, 0.4, 0.0],
+    [0.4, 0.4, 0.0],
+    [0.5, 0.4, 0.0],
+
+    ##### ③ ##### 
+    [0.0, 0.45, 0.0],
+    [0.0, 0.55, 0.0],
+    [0.0, 0.65, 0.0],
+    [0.0, 0.75, 0.0],
+    [0.0, 0.85, 0.0],
+    [0.0, 0.95, 0.0],
+    
+    ##### ④ ##### 
+    [-0.35, 0.45, 0.0],
+    [-0.35, 0.55, 0.0],
+    [-0.35, 0.65, 0.0],
+    [-0.35, 0.75, 0.0],
+    [-0.35, 0.85, 0.0],
+    [-0.35, 0.95, 0.0],
+
+    ##### ⑤ #####
+    [-0.7, 0.45, 0.0],
+    [-0.7, 0.55, 0.0],
+    [-0.7, 0.65, 0.0],
+    [-0.7, 0.75, 0.0],
+    [-0.7, 0.85, 0.0],
+    [-0.7, 0.95, 0.0],
+
+    ##### ⑥ #####
+    [-0.7, 0.4, 0.0],
+    [-0.8, 0.4, 0.0],
+    [-0.9, 0.4, 0.0],
+    [-1.0, 0.4, 0.0],
+    [-1.1, 0.4, 0.0],
+    [-1.2, 0.4, 0.0],
+    
+    ##### ⑦ #####
+    [-0.7, 0.0, 0.0],
+    [-0.8, 0.0, 0.0],
+    [-0.9, 0.0, 0.0],
+    [-1.0, 0.0, 0.0],
+    [-1.1, 0.0, 0.0],
+    [-1.2, 0.0, 0.0],
+
+    ##### ⑧ #####
+    [-0.7, -0.4, 0.0],
+    [-0.8, -0.4, 0.0],
+    [-0.9, -0.4, 0.0],
+    [-1.0, -0.4, 0.0],
+    [-1.1, -0.4, 0.0],
+    [-1.2, -0.4, 0.0],
+
+    ##### ⑨ #####
+    [-0.7, -0.45, 0.0],
+    [-0.7, -0.55, 0.0],
+    [-0.7, -0.65, 0.0],
+    [-0.7, -0.75, 0.0],
+    [-0.7, -0.85, 0.0],
+    [-0.7, -0.95, 0.0],
+    
+    ##### ⑩ #####
+    [-0.35, -0.45, 0.0],
+    [-0.35, -0.55, 0.0],
+    [-0.35, -0.65, 0.0],
+    [-0.35, -0.75, 0.0],
+    [-0.35, -0.85, 0.0],
+    [-0.35, -0.95, 0.0],
+
+    ##### ⑪ #####
+    [0.0, -0.45, 0.0],
+    [0.0, -0.55, 0.0],
+    [0.0, -0.65, 0.0],
+    [0.0, -0.75, 0.0],
+    [0.0, -0.85, 0.0],
+    [0.0, -0.95, 0.0],
+
+    ##### ⑫ #####
+    [0.0, -0.4, 0.0],
+    [0.1, -0.4, 0.0],
+    [0.2, -0.4, 0.0],
+    [0.3, -0.4, 0.0],
+    [0.4, -0.4, 0.0],
+    [0.5, -0.4, 0.0],
+]
+
+camera_name = 'front_fisheye_camera'
+calib = json.load(open("camera_calibration.json", "r"))
+image = cv2.imread(f"{camera_name}.png", -1)
+
+origin_height, origin_width, _ = image.shape
+target_height, target_width  = origin_height//2, origin_width//2
+
+# example case
+roll_degree = None
+pitch_degree = None
+yaw_degree = None
+
+hfov_deg = 180
+vfov_deg = 150
+
+K = np.array(calib[camera_name]['Intrinsic']['K']).reshape(3, 3)
+D = np.array(calib[camera_name]['Intrinsic']['D'])
+R = np.array(calib[camera_name]['Extrinsic']['World']['Camera']['R']).reshape(3, 3)
+t = np.array(calib[camera_name]['Extrinsic']['World']['Camera']['t']).reshape(3, 1)
+
+map_x, map_y, new_K, new_R, new_t = get_world_camera_rotation_spherical_lut(
+    R, t, K, D, 
+    origin_width, origin_height, target_width, target_height, 
+    hfov_deg=hfov_deg, vfov_deg=vfov_deg, 
+    roll_degree=roll_degree, pitch_degree=pitch_degree, yaw_degree=yaw_degree)
+new_image = cv2.remap(image, map_x, map_y, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0))
+
+# ① World 좌표 → 카메라 좌표
+world_data = np.array(world_data)
+cam_data = (new_R @ world_data.T) + new_t
+x_c, y_c, z_c = cam_data[0], cam_data[1], cam_data[2]
+
+# ② `카메라 좌표` → phi, theta    
+r = np.sqrt(x_c**2 + y_c**2 + z_c**2)
+theta = np.arcsin(y_c/r)
+phi = np.arcsin(x_c/(r*np.cos(theta)))
+
+hfov = np.deg2rad(hfov_deg)
+vfov = np.deg2rad(vfov_deg)
+fov_mask = (-hfov/2 < phi) & (phi < hfov/2) & (-vfov/2 < theta) & (theta < vfov/2) & (cam_data[2] > 0)
+
+r = r[fov_mask]
+phi = phi[fov_mask]
+theta = theta[fov_mask]
+
+# phi, theta → 구면 이미지 좌표
+phi_theta = np.stack([phi, theta, np.ones_like(theta)]) # (3, N)
+phi_theta_coord= new_K @ phi_theta
+phi_theta_coord = np.round(phi_theta_coord)
+
+# phi_coord, theta_coord, r
+phi_theta_coord_r = np.concatenate([
+    np.expand_dims(phi_theta_coord[0], -1),
+    np.expand_dims(phi_theta_coord[1], -1),
+    np.expand_dims(r, -1)
+], axis=1) # (N, 3)
+
+phi_coord = np.clip(np.round(phi_theta_coord_r[:, 0]).astype(np.int32), 0, target_width-1)
+theta_coord = np.clip(np.round(phi_theta_coord_r[:, 1]).astype(np.int32), 0, target_height-1)
+
+for phi_i, theta_i in zip(phi_coord, theta_coord):    
+    cv2.circle(new_image, (phi_i, theta_i), 5, (0, 0, 255), -1)
+    
+mask = (map_x > 0) & (map_y > 0) & (map_x < origin_width) & (map_y < origin_height)
+new_image = new_image * np.expand_dims(mask, -1)
+```
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/27.png" alt="Drawing" style="width: 1200px;"/></center>
+<br>
+
+- 위 그림의 왼쪽 열은 일반적인 상황에서의 구면 투영 이미지 입니다. `Roll`, `Pitch`의 회전은 없고 `Yaw`는 카메라 장착 위치와 유사한 0/90/180/270으로 설정하였습니다. 반면 오른쪽 열은 임의의 회전을 모두 적용하였습니다. 위 예시를 통하여 `World-to-Image`로 원하는 좌표 투영 시, 회전을 반영하여 정확히 투영되는 것을 확인할 수 있습니다.
+
+
+
+
 
 <br>
 
