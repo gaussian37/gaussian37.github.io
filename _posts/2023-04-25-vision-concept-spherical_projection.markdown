@@ -1325,6 +1325,10 @@ plt.imshow(new_image)
 
 <br>
 
+### **World-to-Image**
+
+<br>
+
 - 지금까지 살펴본 내용은 World 좌표계 환경에서 멀티 카메라 기반 구면 투영 이미지를 생성하였을 때, 영상이 어떻게 형성되는 지 살펴보았습니다.
 - 이 내용들을 이용하여 추가적으로 `World-to-Image`, `Image-to-World` 접근 방법을 살펴보도록 하겠습니다. 구면 투영법을 통해 `new_K`, `new_R`이 생성되었기 때문에 이 값들을 이용하여 이미지와 World 간의 대응이 이루어져야 합니다.
 - 원본 이미지에 대한 `World-to-Image`, `Image-to-World` 방법은 아래 링크를 참조해 주시기 바랍니다.
@@ -1613,7 +1617,116 @@ new_image = new_image * np.expand_dims(mask, -1)
 
 - 위 그림의 왼쪽 열은 일반적인 상황에서의 구면 투영 이미지 입니다. `Roll`, `Pitch`의 회전은 없고 `Yaw`는 카메라 장착 위치와 유사한 0/90/180/270으로 설정하였습니다. 반면 오른쪽 열은 임의의 회전을 모두 적용하였습니다. 위 예시를 통하여 `World-to-Image`로 원하는 좌표 투영 시, 회전을 반영하여 정확히 투영되는 것을 확인할 수 있습니다.
 
+<br>
 
+### **Image-to-World**
+
+<br>
+
+- `Image-to-World`로 좌표를 변환하기 위해서는 다음 과정을 통해 변환을 해야 합니다. 앞의 `World-to-Image`의 변환 순서와 반대이나 추가 작업이 필요합니다. 왜냐하면 ② 과정에서 주어진 $$ Z_{w} $$ 를 이용하여 $$ r $$ 값을 복원하는 과정이 필요하기 때문입니다.
+    - ① `구면 이미지 좌표` → $$ \phi, \theta $$
+    - ② $$ \phi, \theta $$ → `카메라 좌표`
+    - ③ `카메라 좌표` → `World 좌표`
+
+<br>
+
+- 먼저 ① `구면 이미지 좌표` → $$ \phi, \theta $$ 의 변환은 다음과 같이 쉽게 변환할 수 있습니다.
+
+<br>
+
+```python
+phi_coord = 501 # 496
+theta_coord = 711 # 732
+p = np.array([phi_coord, theta_coord, 1]).reshape(3, 1)
+phi, theta, r_norm = new_K_inv @ p
+```
+
+<br>
+
+- 그 다음으로 ② $$ \phi, \theta $$ → `카메라 좌표계` 의 과정 또한 앞에서 다룬 바와 같이 변환할 수 있습니다. 다만 실제 $$ r $$ 값을 알아야 정확한 $$ x_{c}, y_{c}, z_{c} $$ 를 구할 수 있습니다.
+
+<br>
+
+- $$ X_{c} = r \sin{(\phi)}\cos{(\theta)} $$
+
+- $$ Y_{c} = r \sin{(\theta)} $$
+
+- $$ Z_{c} = r \cos{(\phi)}\cos{(\theta)} $$
+
+<br>
+
+- 위 식에서 $$ r $$ 값만 유추하는 방법을 확인해 보겠습니다. $$ r $$ 값을 유추하기 위해서는 변수를 줄여야 합니다. `World` 좌표에서 `Image`로 투영 시, $$ Z $$ 값이 사라졌기 때문에 사라진 $$ Z $$ 값을 복원할 수 없습니다. 따라서 $$ Z $$ 값을 상수로 고정해야 $$ r $$ 을 구할 수 있습니다. 예를 들어 $$ Z_{w} = 0 $$ 이라는 가정을 둔다면 $$ r $$ 을 복원할 수 있습니다. 이와 관련된 내용은 아래 링크를 참조해 보셔도 됩니다.
+    - 링크: [이미지의 Image-to-World 방법](https://gaussian37.github.io/vision-concept-lens_distortion/#image-to-world-%EB%B0%A9%EB%B2%95-1)
+- 이번 예제에서도 $$ Z_{w} = 0 $$ 이라는 가정을 통하여 $$ r $$ 을 복원하는 과정을 살펴보도록 하겠습니다. 즉, 이미지의 모든 픽셀에 대응되는 $$ Z_{w} = 0 $$ 이라는 가정을 통하여 $$ X_{w}, Y_{w} $$ 만 구하면 되는 상황입니다.
+
+<br>
+
+- $$ \begin{align} P_{\text{world}} = \begin{bmatrix} X_{w} \\ Y_{w} \\ Z_{w} \end{bmatrix} &= R^{-1}(P_{\text{camera}} - t) = R^{T}(P_{\text{camera}} - t) \\ &= \begin{bmatrix} R_{11} & R_{12} & R_{13} \\ R_{21} & R_{22} & R_{23} \\ R_{31} & R_{32} & R_{33} \end{bmatrix}^{T} \begin{bmatrix} X_{c} - t_{1} \\ Y_{c} - t_{2} \\ Z_{c} - t_{3} \end{bmatrix} \\ &= \begin{bmatrix} R_{11} & R_{21} & R_{31} \\ R_{12} & R_{22} & R_{32} \\ R_{13} & R_{23} & R_{33} \end{bmatrix} \begin{bmatrix} X_{c} - t_{1} \\ Y_{c} - t_{2} \\ Z_{c} - t_{3} \end{bmatrix} \end{align} $$
+
+- $$ \Rightarrow \begin{bmatrix} R_{13} & R_{23} & R_{33} \end{bmatrix} \begin{bmatrix} X_{c} - t_{1} \\ Y_{c} - t_{2} \\ Z_{c} - t_{3} \end{bmatrix} = Z_{w} \quad \text{(Used Thrid Row)} $$
+
+- $$ \Rightarrow R_{13}(X_{c} - t_{1}) + R_{23}(Y_{c} - t_{2}) + R_{33}(Z_{c} - t_{3}) =  Z_{w} $$
+
+<br>
+
+- 위 식에서 $$ X_{c}, Y_{c}, Z_{c} $$ 대신 다음 값으로 식을 대체해 보겠습니다.
+
+<br>
+
+- $$ x_{c} = r \sin{(\phi)}\cos{(\theta)} $$
+
+- $$ \Rightarrow x_{c, \text{norm}} = \sin{(\phi)}\cos{(\theta)} $$
+
+- $$ y_{c} = r \sin{(\theta)} $$
+
+- $$ \Rightarrow y_{c, \text{norm}} = \sin{(\theta)} $$
+
+- $$ z_{c} = r \cos{(\phi)}\cos{(\theta)} $$
+
+- $$ \Rightarrow z_{c, \text{norm}} = \cos{(\phi)}\cos{(\theta)} $$
+
+<br>
+
+- $$ R_{13}(X_{c} - t_{1}) + R_{23}(Y_{c} - t_{2}) + R_{33}(Z_{c} - t_{3}) =  Z_{w} $$
+
+- $$ R_{13}(r\cdot x_{c, \text{norm}} - t_{1}) + R_{23}(r \cdot y_{c, \text{norm}} - t_{2}) + R_{33}(r \cdot z_{c, \text{norm}} - t_{3}) =  Z_{w} $$
+
+- $$ r \left(R_{13}x_{c, \text{norm}} + R_{23}y_{c, \text{norm}} + R_{33}z_{c, \text{norm}} \right) = Z_{w} + R_{13}t_{1} + R_{23}t_{2} + R_{33}t_{3} $$
+
+- $$ \therefore r = \frac{Z_{w} + R_{13}t_{1} + R_{23}t_{2} + R_{33}t_{3}}{R_{13}x_{c, \text{norm}} + R_{23}y_{c, \text{norm}} + R_{33}z_{c, \text{norm}}} $$
+
+<br>
+
+- 따라서 위에서 구한 $$ r $$ 을 이용하여 $$ x_{c, \text{norm}}, y_{c, \text{norm}}, z_{c, \text{norm}} $$ 를 $$ X_{c}, Y_{c}, Z_{c} $$ 로 변환할 수 있습니다.
+- 코드로 나타내면 다음과 같습니다.
+
+<br>
+
+```python
+x_norm = np.cos(theta)*np.sin(phi) # -1 ~ 1
+y_norm = np.sin(theta) # -1 ~ 1
+z_norm = np.cos(theta)*np.cos(phi) # 0 ~ 1
+
+Z_w = 0
+new_r = (Z_w + new_R[0, 2]*new_t[0] + new_R[1, 2]*t[1] + new_R[2, 2]*new_t[2]) / (new_R[0, 2]*x_norm + new_R[1,2]*y_norm + new_R[2, 2]*z_norm)
+
+x_c = new_r*x_norm
+y_c = new_r*y_norm
+z_c = new_r*z_norm
+```
+
+<br>
+
+
+
+
+
+<br>
+
+- 
+
+
+<br>
 
 
 
