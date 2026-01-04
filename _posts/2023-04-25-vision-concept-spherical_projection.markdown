@@ -36,7 +36,6 @@ tags: [구면 좌표계, 구면 투영법, spherical] # add tag
 - ### [회전을 고려한 World 기준 구면 투영법](#회전을-고려한-world-기준-구면-투영법-1)
 - ### [회전을 고려한 World 기준 구면 투영법의 World-to-Image, Image-to-World](#회전을-고려한-world-기준-구면-투영법의-world-to-image-image-to-world-1)
 - ### [회전을 고려한 World 기준 구면 투영법의 기본적인 사용 방법](#회전을-고려한-world-기준-구면-투영법의-기본적인-사용-방법-1)
-- ### [회전을 고려한 World 기준 구면 투영 이미지의 Topview 이미지 생성](#회전을-고려한-world-기준-구면-투영-이미지의-topview-이미지-생성-1)
 - ### [회전을 고려한 World 기준 구면 파노라마 투영법](#회전을-고려한-world-기준-구면-파노라마-투영법-1)
 
 <br>
@@ -1635,8 +1634,8 @@ new_image = new_image * np.expand_dims(mask, -1)
 <br>
 
 ```python
-phi_coord = 501 # 496
-theta_coord = 711 # 732
+phi_coord = 501 # 임의의 값
+theta_coord = 711 # 임의의 값
 p = np.array([phi_coord, theta_coord, 1]).reshape(3, 1)
 phi, theta, r_norm = new_K_inv @ p
 ```
@@ -1673,31 +1672,35 @@ phi, theta, r_norm = new_K_inv @ p
 
 <br>
 
-- $$ x_{c} = r \sin{(\phi)}\cos{(\theta)} $$
+- $$ X_{c} = r \sin{(\phi)}\cos{(\theta)} $$
 
-- $$ \Rightarrow x_{c, \text{norm}} = \sin{(\phi)}\cos{(\theta)} $$
+- $$ \Rightarrow X_{c, \text{norm}} = \sin{(\phi)}\cos{(\theta)} $$
 
-- $$ y_{c} = r \sin{(\theta)} $$
+<br>
 
-- $$ \Rightarrow y_{c, \text{norm}} = \sin{(\theta)} $$
+- $$ Y_{c} = r \sin{(\theta)} $$
 
-- $$ z_{c} = r \cos{(\phi)}\cos{(\theta)} $$
+- $$ \Rightarrow Y_{c, \text{norm}} = \sin{(\theta)} $$
 
-- $$ \Rightarrow z_{c, \text{norm}} = \cos{(\phi)}\cos{(\theta)} $$
+<br>
+
+- $$ Z_{c} = r \cos{(\phi)}\cos{(\theta)} $$
+
+- $$ \Rightarrow Z_{c, \text{norm}} = \cos{(\phi)}\cos{(\theta)} $$
 
 <br>
 
 - $$ R_{13}(X_{c} - t_{1}) + R_{23}(Y_{c} - t_{2}) + R_{33}(Z_{c} - t_{3}) =  Z_{w} $$
 
-- $$ R_{13}(r\cdot x_{c, \text{norm}} - t_{1}) + R_{23}(r \cdot y_{c, \text{norm}} - t_{2}) + R_{33}(r \cdot z_{c, \text{norm}} - t_{3}) =  Z_{w} $$
+- $$ R_{13}(r\cdot X_{c, \text{norm}} - t_{1}) + R_{23}(r \cdot Y_{c, \text{norm}} - t_{2}) + R_{33}(r \cdot Z_{c, \text{norm}} - t_{3}) =  Z_{w} $$
 
-- $$ r \left(R_{13}x_{c, \text{norm}} + R_{23}y_{c, \text{norm}} + R_{33}z_{c, \text{norm}} \right) = Z_{w} + R_{13}t_{1} + R_{23}t_{2} + R_{33}t_{3} $$
+- $$ r \left(R_{13}X_{c, \text{norm}} + R_{23}Y_{c, \text{norm}} + R_{33}Z_{c, \text{norm}} \right) = Z_{w} + R_{13}t_{1} + R_{23}t_{2} + R_{33}t_{3} $$
 
-- $$ \therefore r = \frac{Z_{w} + R_{13}t_{1} + R_{23}t_{2} + R_{33}t_{3}}{R_{13}x_{c, \text{norm}} + R_{23}y_{c, \text{norm}} + R_{33}z_{c, \text{norm}}} $$
+- $$ \therefore r = \frac{Z_{w} + R_{13}t_{1} + R_{23}t_{2} + R_{33}t_{3}}{R_{13}X_{c, \text{norm}} + R_{23}Y_{c, \text{norm}} + R_{33}Z_{c, \text{norm}}} $$
 
 <br>
 
-- 따라서 위에서 구한 $$ r $$ 을 이용하여 $$ x_{c, \text{norm}}, y_{c, \text{norm}}, z_{c, \text{norm}} $$ 를 $$ X_{c}, Y_{c}, Z_{c} $$ 로 변환할 수 있습니다.
+- 따라서 위에서 구한 $$ r $$ 을 이용하여 $$ X_{c, \text{norm}}, Y_{c, \text{norm}}, Z_{c, \text{norm}} $$ 를 $$ X_{c}, Y_{c}, Z_{c} $$ 로 변환할 수 있습니다.
 - 코드로 나타내면 다음과 같습니다.
 
 <br>
@@ -1717,18 +1720,49 @@ z_c = new_r*z_norm
 
 <br>
 
-
-
-
+- 마지막으로 ③ `카메라 좌표` → `World 좌표` 변환은 다음과 같이 적용할 수 있습니다.
 
 <br>
 
-- 
-
+- $$ P_{w} = R^{T}(P_{c} - t) \quad (\because P_{c} = R P_{w} + t) $$
 
 <br>
 
+- 이 모든 과정을 코드로 정리하면 다음과 같습니다.
 
+<br>
+
+```python
+phi_coord = 504 # example
+theta_coord = 708 # example
+Z_w = 0
+
+p = np.array([phi_coord, theta_coord, 1]).reshape(3, 1)
+new_K_inv = np.linalg.inv(new_K)
+phi, theta, r_norm = new_K_inv @ p
+
+x_norm = np.cos(theta)*np.sin(phi) # -1 ~ 1
+y_norm = np.sin(theta) # -1 ~ 1
+z_norm = np.cos(theta)*np.cos(phi) # 0 ~ 1
+new_r = (Z_w + new_R[0, 2]*new_t[0] + new_R[1, 2]*new_t[1] + new_R[2, 2]*new_t[2]) / (new_R[0, 2]*x_norm + new_R[1,2]*y_norm + new_R[2, 2]*z_norm)
+x_c = new_r*x_norm
+y_c = new_r*y_norm
+z_c = new_r*z_norm
+
+P_c = np.array([x_c, y_c, z_c]).reshape(3, 1)
+P_w = np.round(new_R.T@(P_c - new_t), 2)
+```
+
+<br>
+
+- 아래는 $$ Z_{w} = 0 $$ 으로 가정하였을 때, `phi_coord`, `theta_coord`에 따른 `World 좌표` 추정 결과 예시입니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/27.png" alt="Drawing" style="width: 1200px;"/></center>
+<br>
+
+- 왼쪽 열은 `yaw`의 회전만 반영한 결과이고 오른쪽 열은 임의의 `roll`, `pitch`, `yaw` 회전을 모두 반영한 결과 입니다.
+- 임의의 회전을 적용하더라도 의미상 같은 위치의 픽셀을 `Image-to-World`를 하였을 때, 같은 `World 좌표`가 도출되는 것을 볼 수 있습니다.
 
 <br>
 
@@ -1736,16 +1770,14 @@ z_c = new_r*z_norm
 
 <br>
 
-- 
-
-
-<br>
-
-## **회전을 고려한 World 기준 구면 투영 이미지의 Topview 이미지 생성**
+- **회전을 고려한 World 기준 구면 투영법**을 사용하기 위한 가장 일반적인 방법은 `Roll = 0`, `Pitch = 0`, `YaW = 카메라 장착 위치` 입니다.
+- 멀티 카메라 환경에서 카메라들이 장착된 위치 및 자세에 따라 다양한 형태의 이미지가 형성이 될 수 있으나 위 방식을 따르면 `Roll`, `Pitch`가 모두 0으로 고정되어 카메라가 바라보는 방향을 평평한 바닥과 수평이 될 수 있도록 고정할 수 있기 때문입니다. `Roll`, `Pitch` 모두 0이면 이미지의 소실선 또한 이미지 세로 방향의 한 가운데에 생성할 수 있어서 카메라들의 자세를 통일 시킬 수 있습니다. `Yaw`의 경우 카메라의 장착 방향이 다양하기 때문에 실제 카메라가 장착된 방향을 그대로 사용하면 가로 방향의 이미지 한 가운데 기준으로 대칭으로 이미지를 만들 수 있습니다. (만약 특정 각도로만 `Yaw`를 지정하고 싶은 경우에 `Yaw`를 지정할 수도 있습니다.)
 
 <br>
+<center><img src="../assets/img/vision/concept/spherical_projection/29.png" alt="Drawing" style="width: 1200px;"/></center>
+<br>
 
-- `World`와 `이미지` 간의 대응 방법을 앞에서 확인하였습니다. 추가적으로 `Topview` 또는 `Bird's Eye View`로 변환을 적용해 보도록 하겠습니다.
+- 위 그림의 경우 `Roll = 0`, `Pitch = 0`, `YaW = 카메라 장착 위치`를 따라 이미지를 생성하였을 때, 결과를 보여줍니다. `Roll`, `Pitch`가 모두 0이므로 소실선은 한 가운데 생성됩니다. 실내에서 촬영한 영상이라 소실선이 보이지 않으나 가로 점선 기준으로 소실선이 형성됩니다. 각 이미지의 세로 점선이 각 카메라 장착 위치의 `Yaw`값에 해당합니다. 따라서 모든 이미지가 좌우 대칭하여 생성되고 검은색 빈 영역도 최소화 되는 것을 볼 수 있습니다.
 
 <br>
 
