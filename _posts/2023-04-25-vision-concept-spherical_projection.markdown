@@ -1758,7 +1758,7 @@ P_w = np.round(new_R.T@(P_c - new_t), 2)
 - 아래는 $$ Z_{w} = 0 $$ 으로 가정하였을 때, `phi_coord`, `theta_coord`에 따른 `World 좌표` 추정 결과 예시입니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/spherical_projection/27.png" alt="Drawing" style="width: 1200px;"/></center>
+<center><img src="../assets/img/vision/concept/spherical_projection/28.png" alt="Drawing" style="width: 1200px;"/></center>
 <br>
 
 - 왼쪽 열은 `yaw`의 회전만 반영한 결과이고 오른쪽 열은 임의의 `roll`, `pitch`, `yaw` 회전을 모두 반영한 결과 입니다.
