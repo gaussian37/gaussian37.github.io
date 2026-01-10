@@ -1723,6 +1723,11 @@ dst = cv2.remap(src, map_x, map_y, cv2.INTER_LINEAR)
 
 <br>
 
+- 이 글을 읽어 보고 다음 글을 읽어 보는 것을 추천 드립니다.
+    - [이미지의 구면 좌표계 투영법 (Spherical Projection)](https://gaussian37.github.io/vision-concept-spherical_projection)
+
+<br>
+
 [Vision 관련 글 목차](https://gaussian37.github.io/vision-concept-table/)
 
 <br>

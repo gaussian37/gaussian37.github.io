@@ -1818,6 +1818,11 @@ roll, pitch, yaw, x, y, z = get_rpyxyz(R, t, 'RDF')
 
 <br>
 
+- 다음으로 읽어볼 만한 글로 아래 글을 추천 드립니다.
+    - [카메라 모델과 렌즈 왜곡 (lens distortion)](https://gaussian37.github.io/vision-concept-lens_distortion/)
+
+<br>
+
 [Vision 관련 글 목차](https://gaussian37.github.io/vision-concept-table/)
 
 <br>
