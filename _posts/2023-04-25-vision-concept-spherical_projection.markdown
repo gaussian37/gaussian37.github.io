@@ -1790,7 +1790,7 @@ P_w = np.round(new_R.T@(P_c - new_t), 2)
 - 예를 들어 전방과 후방을 이용하여 파노라마 이미지를 만든다면 다음과 같은 영역을 커버할 수 있습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/spherical_projection/30.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/spherical_projection/30.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 이와 같은 영역을 통해 생기는 이미지를 보면 다음과 같습니다.
@@ -1802,7 +1802,7 @@ P_w = np.round(new_R.T@(P_c - new_t), 2)
 - 위 결과와 같이 360도 영역을 다 채울 수 있지만 비어 있는 영역은 사각지대가 되는 문제가 발생합니다. 따라서 왼쪽/오른쪽 영역의 이미지를 추가로 사용해 보겠습니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/spherical_projection/32.png" alt="Drawing" style="width: 800px;"/></center>
+<center><img src="../assets/img/vision/concept/spherical_projection/32.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
 - 위 영역에 대하여 이미지를 생성해 보겠습니다. 중첩 영역에 대해서는 알파 블렌딩을 적용하였습니다.
