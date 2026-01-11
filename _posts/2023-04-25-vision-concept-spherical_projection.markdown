@@ -1785,7 +1785,55 @@ P_w = np.round(new_R.T@(P_c - new_t), 2)
 
 <br>
 
-- 
+- 지금까지 각 이미지의 수평 화각을 최대 180도 까지만 사용하였습니다. 사용한 카메라가 카메라의 정면만 바라볼 수 있기 때문에 카메라 중앙으로부터 좌/우 90도 까지 총 180도만을 사용하였습니다.
+- 반면 `world 좌표계` 기준으로 수평 화각을 180도 이상을 사용하면 각 카메라는 볼 수 없는 영역이 많아져서 비어있는 공간이 많이 발생하게 됩니다. 따라서 여러개의 카메라를 이용하여 360도 전방위 공간을 채워 나아가면 마치 파노라마처럼 투영할 수 있습니다. 물론 실제 파노라마 이미지와는 다릅니다.
+- 예를 들어 전방과 후방을 이용하여 파노라마 이미지를 만든다면 다음과 같은 영역을 커버할 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/30.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 이와 같은 영역을 통해 생기는 이미지를 보면 다음과 같습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/31.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 결과와 같이 360도 영역을 다 채울 수 있지만 비어 있는 영역은 사각지대가 되는 문제가 발생합니다. 따라서 왼쪽/오른쪽 영역의 이미지를 추가로 사용해 보겠습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/32.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 위 영역에 대하여 이미지를 생성해 보겠습니다. 중첩 영역에 대해서는 알파 블렌딩을 적용하였습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/33.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+- 카메라 간 중첩 영역의 위치에 물체의 위치가 일치하지 않는 것을 볼 수 있습니다. 카메라의 장착 위치가 다르기 때문에 카메라에서 바라보는 물체의 뎁스가 달라서 발생한 문제 입니다.
+- 이와 같은 문제를 없애기 위하여 실제 파노라마 이미지를 만들 때에는 시중에 판매하는 360도 카메라를 사용하는 것이 좋습니다. 중요한 것은 **360도를 촬영하는 카메라 시점의 원점을 한곳으로 모아야 같은 위치의 물체가 서로 다른 이미지 간 일치하게 만들 수 있으므로** 이것을 고려한 카메라를 구매하거나 하나의 카메라를 기구를 이용하여 회전하도록 설치하여 영상을 촬영해야 합니다.
+- 예를 들어 360도 카메라를 사용한 예시 입니다. (출처: https://news.skhynix.co.kr/special-memories-360-camera/)
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/34.png" alt="Drawing" style="width: 400px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/35.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+- 다음 예시는 하나의 카메라를 기구를 이용하여 회전하여 촬영한 예시 입니다. (출처: https://www.canadiannaturephotographer.com/sphericalpans.html)
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/36.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/37.png" alt="Drawing" style="width: 600px;"/></center>
+<br>
+
+
 
 
 <br>
