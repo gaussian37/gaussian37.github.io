@@ -924,7 +924,7 @@ world_y_min = -2
 world_x_interval = 0.01
 world_y_interval = 0.01
 
-path = "path/to/the/calibration_and_image/
+path = "path/to/the/calibration_and_image/"
 camera_calib = json.load(open(path + os.sep + "camera_calibration.json", "r"))
 bev_image_dict = {}
 camera_names = ['front_fisheye_camera', 'rear_fisheye_camera', 'left_fisheye_camera', 'right_fisheye_camera']
