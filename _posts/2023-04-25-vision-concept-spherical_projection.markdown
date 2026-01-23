@@ -1961,6 +1961,14 @@ plt.imshow(bev_image_dict['left_fisheye_camera'] + bev_image_dict['right_fisheye
 
 <br>
 
+- 위 코드 실행 시 아래와 같은 결과를 얻을 수 있습니다.
+
+<br>
+<center><img src="../assets/img/vision/concept/spherical_projection/38.png" alt="Drawing" style="width: 800px;"/></center>
+<br>
+
+<br>
+
 [Vision 관련 글 목차](https://gaussian37.github.io/vision-concept-table/)
 
 <br>
