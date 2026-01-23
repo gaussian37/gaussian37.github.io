@@ -37,6 +37,7 @@ tags: [구면 좌표계, 구면 투영법, spherical] # add tag
 - ### [회전을 고려한 World 기준 구면 투영법의 World-to-Image, Image-to-World](#회전을-고려한-world-기준-구면-투영법의-world-to-image-image-to-world-1)
 - ### [회전을 고려한 World 기준 구면 투영법의 기본적인 사용 방법](#회전을-고려한-world-기준-구면-투영법의-기본적인-사용-방법-1)
 - ### [회전을 고려한 World 기준 구면 파노라마 투영법](#회전을-고려한-world-기준-구면-파노라마-투영법-1)
+- ### [구면 좌표 이미지의 Topview 생성법](#구면-좌표-이미지의-topview-생성법-1)
 
 <br>
 
@@ -1833,8 +1834,130 @@ P_w = np.round(new_R.T@(P_c - new_t), 2)
 <center><img src="../assets/img/vision/concept/spherical_projection/37.png" alt="Drawing" style="width: 600px;"/></center>
 <br>
 
+<br>
 
+## **구면 좌표 이미지의 Topview 생성법**
 
+<br>
+
+- 멀티 카메라 이미지를 사용할 때, 앞에서와 같이 파노라마 이미지를 만들 수도 있지만 모든 이미지를 하나의 공간에 표현하는 다른 방법은 `Topview` 또는 `BEV(Bird Eye View)`라고 불리는 방법이 있습니다. `IPM(Inverse Perspective Mapping)` 이라는 방법을 이용하는 것이며 상세 내용은 아래 링크를 참조하면 됩니다.
+    - [IPM(Inverse Perspective Mapping)을 이용한 BEV(Bird Eye View) 변환](https://gaussian37.github.io/vision-concept-ipm/)
+- 위 링크에서는 `generic camera model`을 기반으로 한 `Topview`생성인 반면 이번 코드에서는 구면 투영 이미지 기반의 `Topview` 생성인 것의 차이가 있습니다. 따라서 변경 고려해야 할 점을 몇가지 살펴보면 다음과 같습니다.
+    - ① `generate_spherical_backward_mapping` 함수 에서 사용하는 카메라 파라미터는 구면 투영 이미지 생성 시 재 생성된 `new_R`, `new_t`, `new_K`입니다.
+    - ② `generate_spherical_backward_mapping` 함수 에서 카메라 → 이미지로 접근 시 ⓐ 카메라 좌표계 → ⓑ $$ \phi, \theta $$, ⓒ 구면 투영 이미지 순으로 접근하는 부분이 반영되어 있습니다.
+    - ③ 전체적인 프로세스는 ⓐ 카메라 별 구면 투영 이미지 생성을 위한 LUT 및 캘리브레이션 생성, ⓑ 구면 투영 이미지 생성, ⓒ 구면 투영 이미지 기반 Topview LUT 생성, ⓓ 구면 투영 이미지 기반 Topview 생성 입니다.
+
+<br>
+
+```python
+import json
+import numpy as np
+import cv2
+import matplotlib.pyplot as plt
+import os
+
+def generate_spherical_backward_mapping(
+    world_x_min, world_x_max, world_x_interval, 
+    world_y_min, world_y_max, world_y_interval, R, t, K, hfov_deg=180, vfov_deg=90):
+    
+    world_x_coords = np.arange(world_x_max, world_x_min, -world_x_interval)
+    world_y_coords = np.arange(world_y_max, world_y_min, -world_y_interval)
+    
+    output_height = len(world_x_coords)
+    output_width = len(world_y_coords)
+    
+    map_x = np.ones((output_height, output_width)).astype(np.float32) * -1
+    map_y = np.ones((output_height, output_width)).astype(np.float32) * -1
+    
+    world_z = 0
+    for i, world_x in enumerate(world_x_coords):
+        for j, world_y in enumerate(world_y_coords):
+            world_coord = [world_x, world_y, world_z]
+            camera_coord = R @ world_coord + t
+
+            #################### camera coordinate → phi, theta ######################
+            x_c = camera_coord[0]
+            y_c = camera_coord[1]
+            z_c = camera_coord[2]
+
+            r = np.sqrt(x_c**2 + y_c**2 + z_c**2)
+            theta = np.arcsin(y_c/r)
+            phi = np.arcsin(x_c/(r*np.cos(theta)))
+
+            #################### phi, theta → 구면 이미지 좌표 ######################
+            hfov = np.deg2rad(hfov_deg)
+            vfov = np.deg2rad(vfov_deg)
+            fov_mask = (-hfov/2 < phi) & (phi < hfov/2) & (-vfov/2 < theta) & (theta < vfov/2) & (z_c > 0)
+            if fov_mask:                
+                phi_theta = np.stack([phi, theta, np.ones_like(theta)]) # (3, N)
+                phi_theta_coord= K @ phi_theta
+                phi_theta_coord = np.round(phi_theta_coord)
+                
+                # dst[i][j] = src[ map_y[i][j] ][ map_x[i][j] ]
+                map_x[i][j] = phi_theta_coord[0]
+                map_y[i][j] = phi_theta_coord[1]
+            
+    return map_x, map_y
+
+world_x_max = 2
+world_x_min = -2.5
+world_y_max = 2
+world_y_min = -2
+
+world_x_interval = 0.01
+world_y_interval = 0.01
+
+path = "./"
+camera_calib = json.load(open(path + os.sep + "camera_calibration.json", "r"))
+bev_image_dict = {}
+camera_names = ['front_fisheye_camera', 'rear_fisheye_camera', 'left_fisheye_camera', 'right_fisheye_camera']
+for camera_name in camera_names:
+    image_path = path + os.sep + camera_name + ".png"
+    image = cv2.cvtColor(cv2.imread(image_path), cv2.COLOR_BGR2RGB)
+
+    origin_height, origin_width, _ = image.shape
+    target_height, target_width  = origin_height//2, origin_width//2
+    roll_degree = 0
+    pitch_degree = 0
+    yaw_degree = None
+    
+    hfov_deg = 180
+    vfov_deg = 150
+
+    R = np.array(camera_calib[camera_name]['Extrinsic']['World']['Camera']['R']).reshape(3, 3)
+    t = np.array(camera_calib[camera_name]['Extrinsic']['World']['Camera']['t'])
+    K = np.array(camera_calib[camera_name]['Intrinsic']["K"]).reshape(3, 3)
+    D = np.array(camera_calib[camera_name]['Intrinsic']["D"])
+
+    # 구면 투영 이미지 생성을 위한 LUT와 캘리브레이션 파라미터를 재생성
+    map_x, map_y, new_K, new_R, new_t = get_world_camera_rotation_spherical_lut(        
+        R, t, K, D, 
+        origin_width, origin_height, target_width, target_height, 
+        hfov_deg=hfov_deg, vfov_deg=vfov_deg, 
+        roll_degree=roll_degree, pitch_degree=pitch_degree, yaw_degree=yaw_degree
+    )
+
+    # 구면 투영 이미지 생성
+    new_image = cv2.remap(image, map_x, map_y, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0))
+
+    # 구면 투영 이미지 기반의 Topview 생성을 위한 LUT 생성
+    map_x, map_y = generate_spherical_backward_mapping(
+        world_x_min,
+        world_x_max,
+        world_x_interval,
+        world_y_min,
+        world_y_max,
+        world_y_interval,
+        new_R, new_t, new_K, hfov_deg, vfov_deg
+    )   
+    
+    # Topview 생성
+    output_image = cv2.remap(new_image, map_x, map_y, cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+    bev_image_dict[camera_name] = output_image    
+
+plt.imshow(bev_image_dict['front_fisheye_camera'] + bev_image_dict['rear_fisheye_camera'])
+plt.imshow(bev_image_dict['left_fisheye_camera'] + bev_image_dict['right_fisheye_camera'])
+```
 
 <br>
 

@@ -40,6 +40,7 @@ tags: [IPM, Bird Eye View, BEV, Top-Down, Top View] # add tag
 - ### [Cityscapes 데이터셋 IPM 적용 예시](#cityscapes-데이터셋-ipm-적용-예시-1)
 - ### [렌즈 왜곡을 반영한 IPM 적용 방법](#렌즈-왜곡을-반영한-ipm-적용-방법-1)
 - ### [Custom 데이터를 이용한 IPM 적용 예시](#custom-데이터를-이용한-ipm-적용-예시-1)
+- ### [IPM을 이용한 3차원 공간 채우기](#ipm을-이용한-3차원-공간-채우기-1)
 - ### [IPM 적용 application 사례](#ipm-적용-application-사례-1)
 
 <br>
@@ -997,6 +998,14 @@ plt.imshow(ipm_result)
 <br>
 <center><img src="../assets/img/vision/concept/ipm/22.png" alt="Drawing" style="width: 400px;"/></center>
 <br>
+
+<br>
+
+## **IPM을 이용한 3차원 공간 채우기**
+
+<br>
+
+- 
 
 <br>
 
