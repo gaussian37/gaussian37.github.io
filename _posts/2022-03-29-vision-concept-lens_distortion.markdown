@@ -306,7 +306,7 @@ v = np.round(fy*y_dn + cy)
 
 <br>
 
-- $$ x_{\text{d.n.}} = \frac{u - c_{x} \alpha y_{\text{d.n.}}}{f_{x}} \tag{12} $$
+- $$ x_{\text{d.n.}} = \frac{u - c_{x} - \alpha y_{\text{d.n.}}}{f_{x}} \tag{12} $$
 
 - $$ y_{\text{d.n.}} = \frac{v - c_{y}}{f_{y}} \tag{13} $$
 
