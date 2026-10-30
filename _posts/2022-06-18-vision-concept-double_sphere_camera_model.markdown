@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Double Sphere 카메라 모델 및 다양한 카메라 모델의 종류 (Pinhole, UCM, EUCM, Kannala-Brandt Camera Model 등)
+title: 다양한 카메라 모델의 종류 (Pinhole, UCM, EUCM, Kannala-Brandt Camera Model 등) 와 Double Shpere Camera Model
 date: 2022-06-18 00:00:00
 img: vision/concept/double_sphere_camera_model/0.png
 categories: [vision-concept] 
@@ -11,6 +11,12 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 
 - 논문 : https://arxiv.org/abs/1807.08957
 - 참조 : https://vision.in.tum.de/research/vslam/double-sphere
+
+<br>
+<div style="text-align: center;">
+    <iframe src="https://www.youtube.com/embed/enwPToMqDEE" frameborder="0" allowfullscreen="true" width="800px" height="400px"> </iframe>
+</div>
+<br>
 
 <br>
 
@@ -198,8 +204,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 
 <br>
 
-- `Unified Camera Model`에 대한 상세 내용은 아래 링크에서 확인할 수 있습니다.
-    - 참조 : [https://gaussian37.github.io/vision-concept-unified_camera_model/](https://gaussian37.github.io/vision-concept-unified_camera_model/)
+- 앞에서 다룬 `Pinhole` 모델은 가장 근본이 되는 카메라 모델이기 때문에 친숙하지만 `Unified Camera Model` 부터는 개념을 익힐 필요가 있습니다. `UCM (Unified Camera Model)`에서 부터 시작하여 `EUCM`과 `Double Sphere`까지 확장되는 개념을 이해해 보도록 하겠습니다.    
 
 <br>
 
@@ -225,7 +230,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 
 <br>
 
-- `Kannala-Brandt Camera Model`에 대한 상세 내용은 아래 링크에서 확인할 수 있습니다.
+- `Kannala-Brandt Camera Model`에 대한 상세 내용은 아래 링크에서 확인할 수 있습니다. 많이 사용하는 카메라 모델이며 `fisheye camera`와 같은 화각이 넓은 카메라를 모델링 하기 위하여 사용하고 있습니다. 물론 좁은 화각의 카메라에도 사용할 수 있습니다. 대중적으로 사용하기 때문에 `opencv`에도 내장되어 있습니다. 자세한 내용은 아래 링크를 참조하시기 바랍니다.
     - 참조 : [https://gaussian37.github.io/vision-concept-generic_camera_model/](https://gaussian37.github.io/vision-concept-generic_camera_model/)
 
 <br>
