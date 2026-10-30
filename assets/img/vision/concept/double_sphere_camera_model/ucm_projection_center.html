@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UCM projection (Usenko et al. 2018 notation)</title>
+<style>
+:root{--bg:#ffffff;--card:#f5f5f2;--text:#1f1f1d;--sub:#5f5e5a;--muted:#9a998f;--line:#d3d1c7;--purple:#7F77DD;--purpleD:#534AB7;--teal:#1D9E75;--tealD:#0F6E56;--red:#E24B4A;--hl:#D85A30;}
+@media (prefers-color-scheme: dark){:root{--bg:#1e1e1c;--card:#2a2a28;--text:#ecebe6;--sub:#b4b2a9;--muted:#888780;--line:#555550;--purpleD:#AFA9EC;--tealD:#5DCAA5;}}
+*{box-sizing:border-box}
+body{margin:0;padding:12px;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;font-size:14px}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:8px;color:var(--sub)}
+button{font:inherit;font-size:13px;padding:5px 10px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--text);cursor:pointer}
+button:hover{background:var(--card)}
+input[type=range]{flex:1;min-width:160px;accent-color:var(--purpleD)}
+.val{min-width:150px;color:var(--text);font-variant-numeric:tabular-nums}
+svg{width:100%;height:auto;display:block}
+#cs{margin:6px 0 8px;color:var(--text)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.card{background:var(--card);border-radius:8px;padding:8px 12px}
+.card .k{font-size:12px;color:var(--sub)}
+.card .v{font-size:18px;font-weight:500;font-variant-numeric:tabular-nums}
+.note{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="row">
+<button data-a="0">핀홀 α=0</button>
+<button data-a="0.3">α=0.3</button>
+<button data-a="0.5">스테레오 α=0.5</button>
+<button data-a="0.6">α=0.6 (되접힘)</button>
+<button data-a="0.64">논문 BF2M2020S23 (195°) α=0.64</button>
+</div>
+<div class="row"><span>α</span><input type="range" id="al" min="0" max="0.75" step="0.01" value="0.44"><span class="val" id="ao"></span></div>
+<div class="row"><span>θ</span><input type="range" id="th" min="0" max="175" step="1" value="100"><span class="val" id="to"></span></div>
+<svg id="sv" viewBox="0 0 760 400" role="img" aria-label="UCM 투영 기하와 입사각-정규화 반경 곡선 (Usenko et al. 2018 표기)"></svg>
+<div id="cs"></div>
+<div class="cards" id="cards"></div>
+<div class="note">표기: Usenko et al., "The Double Sphere Camera Model" (3DV 2018) 2.2절. π(x, i) = [f<sub>x</sub> x/(αd+(1−α)z), f<sub>y</sub> y/(αd+(1−α)z)] + [c<sub>x</sub>, c<sub>y</sub>], d = √(x²+y²+z²), ξ = α/(1−α), Ω = {z &gt; −wd}. 그래프의 r은 (u−c<sub>x</sub>)/f<sub>x</sub> 기준 정규화 반경이며, 이 표기에서 정규화 평면은 단위 구의 북극에 접하는 z = 1 평면입니다.</div>
+<script>
+(function(){
+var sv=document.getElementById('sv'),NS='http://www.w3.org/2000/svg';
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+function el(t,a,txt){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(txt!==undefined)e.textContent=txt;sv.appendChild(e);return e;}
+function wOf(a){return a<=0.5?a/(1-a):(1-a)/a;}
+function den(t,a){return a+(1-a)*Math.cos(t);}
+function rOf(t,a){return Math.sin(t)/den(t,a);}
+function draw(){
+var a=+document.getElementById('al').value,xi=a/(1-a),w=wOf(a),thd=+document.getElementById('th').value,th=thd*Math.PI/180;
+var C={text:css('--text'),sub:css('--sub'),muted:css('--muted'),line:css('--line'),p:css('--purple'),pd:css('--purpleD'),t:css('--teal'),td:css('--tealD'),r:css('--red'),h:css('--hl')};
+sv.innerHTML='';
+var cx=170,cy=150,S=70,cpy=cy+xi*S,py=cy-S,XR=395;
+el('circle',{cx:cx,cy:cy,r:S,fill:'none',stroke:C.line,'stroke-width':1.2});
+el('line',{x1:cx,y1:395,x2:cx,y2:8,stroke:C.muted,'stroke-width':0.7});
+el('text',{x:cx+6,y:18,'font-size':12,fill:C.sub},'z (광축)');
+el('line',{x1:10,y1:py,x2:XR,y2:py,stroke:C.t,'stroke-width':1.5});
+el('text',{x:12,y:py-6,'font-size':12,fill:C.td},'정규화 평면 z = 1');
+function ray(t,col,lw,main){
+ var sx=cx+Math.sin(t)*S,sy=cy-Math.cos(t)*S,dn=den(t,a),ok=Math.cos(t)>-w+1e-6;
+ if(dn<=1e-6){el('circle',{cx:sx,cy:sy,r:main?5:3.5,fill:'none',stroke:C.r,'stroke-width':1.3});return {ok:false,def:false};}
+ var m=Math.sin(t)/dn,px=cx+m*S,pyy=py,inf=false;
+ if(px>XR){var k=(XR-cx)/(px-cx);pyy=cpy+k*(py-cpy);px=XR;inf=true;}
+ var lc=ok?col:C.r;
+ el('line',{x1:cx,y1:cpy,x2:sx,y2:sy,stroke:lc,'stroke-width':lw,opacity:ok?1:0.6});
+ el('line',{x1:sx,y1:sy,x2:px,y2:pyy,stroke:lc,'stroke-width':lw*0.7,'stroke-dasharray':'3 3',opacity:0.7});
+ if(ok)el('circle',{cx:sx,cy:sy,r:main?4.5:3,fill:col});else el('circle',{cx:sx,cy:sy,r:main?5:3.5,fill:'none',stroke:C.r,'stroke-width':1.3});
+ if(inf)el('text',{x:XR-4,y:pyy-4,'text-anchor':'end','font-size':13,fill:C.r},'∞');
+ else el('circle',{cx:px,cy:py,r:main?5:3.5,fill:ok?(main?col:C.t):'none',stroke:ok?'none':C.r,'stroke-width':1.3});
+ return {ok:ok,def:true,m:m};
+}
+[15,35,55,75,95,115,135,155].forEach(function(d){ray(d*Math.PI/180,C.p,1.1,false);});
+var R=ray(th,C.h,2.4,true);
+el('path',{d:'M'+cx+' '+(cy-26)+' A26 26 0 0 1 '+(cx+26*Math.sin(th)).toFixed(1)+' '+(cy-26*Math.cos(th)).toFixed(1),fill:'none',stroke:C.h,'stroke-width':1});
+if(xi>0.05){el('line',{x1:cx-18,y1:cy,x2:cx-18,y2:cpy,stroke:C.h,'stroke-width':0.8});el('text',{x:cx-24,y:(cy+cpy)/2+4,'text-anchor':'end','font-size':12,fill:C.h},'ξ = α/(1−α)');}
+el('circle',{cx:cx,cy:cy,r:3.5,fill:C.text});
+el('circle',{cx:cx,cy:cpy,r:5.5,fill:C.pd});
+el('text',{x:cx+10,y:cy+4,'font-size':12,fill:C.sub},'구 중심');
+el('text',{x:cx+10,y:cpy+16,'font-size':12,fill:C.pd},'핀홀 투영 중심');
+var X0=460,X1=745,Y0=360,Y1=30,rmax=4;
+function tx(v){return X0+(v/180)*(X1-X0);}function ty(r){return Y0-(r/rmax)*(Y0-Y1);}
+el('line',{x1:X0,y1:Y0,x2:X1,y2:Y0,stroke:C.muted,'stroke-width':0.8});
+el('line',{x1:X0,y1:Y0,x2:X0,y2:Y1,stroke:C.muted,'stroke-width':0.8});
+[0,45,90,135,180].forEach(function(v){el('text',{x:tx(v),y:Y0+16,'text-anchor':'middle','font-size':11,fill:C.muted},v+'°');});
+[0,1,2,3,4].forEach(function(r){el('text',{x:X0-6,y:ty(r)+4,'text-anchor':'end','font-size':11,fill:C.muted},r);});
+el('text',{x:X1,y:Y0+32,'text-anchor':'end','font-size':12,fill:C.sub},'입사각 θ');
+el('text',{x:X0+6,y:Y1-10,'font-size':12,fill:C.sub},'r = |u − c| / f');
+var p='';for(var b=0;b<89.5;b+=0.5){var rr=Math.tan(b*Math.PI/180);if(rr>rmax)break;p+=(p?'L':'M')+tx(b).toFixed(1)+' '+ty(rr).toFixed(1);}
+el('path',{d:p,fill:'none',stroke:C.muted,'stroke-width':1.2,'stroke-dasharray':'5 4'});
+var amax=Math.acos(Math.max(-1,-w))*180/Math.PI,pv='',pi='';
+for(var c=0;c<=180;c+=0.5){var t=c*Math.PI/180;if(den(t,a)<=1e-6)break;var r2=rOf(t,a);if(r2>rmax||r2<0)break;var pt=tx(c).toFixed(1)+' '+ty(r2).toFixed(1);
+ if(c<amax){pv+=(pv?'L':'M')+pt;}else{pi+=(pi?'L':'M')+pt;}}
+el('path',{d:pv,fill:'none',stroke:C.p,'stroke-width':2.2});
+if(pi)el('path',{d:pi,fill:'none',stroke:C.r,'stroke-width':1.5,'stroke-dasharray':'4 3'});
+if(amax<179.9){el('line',{x1:tx(amax),y1:Y0,x2:tx(amax),y2:Y1,stroke:C.r,'stroke-width':0.8,'stroke-dasharray':'3 3'});}
+if(R.def&&R.m>=0&&R.m<=rmax)el('circle',{cx:tx(thd),cy:ty(R.m),r:5,fill:R.ok?C.h:'none',stroke:R.ok?'none':C.r,'stroke-width':1.5});
+el('line',{x1:X1-150,y1:48,x2:X1-128,y2:48,stroke:C.p,'stroke-width':2.2});el('text',{x:X1-122,y:52,'font-size':12,fill:C.sub},'UCM');
+el('line',{x1:X1-78,y1:48,x2:X1-56,y2:48,stroke:C.muted,'stroke-width':1.2,'stroke-dasharray':'5 4'});el('text',{x:X1-50,y:52,'font-size':12,fill:C.sub},'핀홀');
+document.getElementById('ao').textContent='α = '+a.toFixed(2)+'  (ξ = '+xi.toFixed(2)+')';
+document.getElementById('to').textContent=thd+'°';
+var lab=a<0.005?'α = 0: 핀홀 모델로 축소. 90°에서 r → ∞':(a<=0.5?'α ≤ 0.5 (w = α/(1−α)): 투영 중심이 구 안에 있고, 큰 입사각이 유한한 반경으로 압축됨':'α > 0.5 (w = (1−α)/α): 투영 중심이 구 밖. 접점 이후 r(θ)가 되접혀 Ω 밖(빨간 구간)이 됨');
+document.getElementById('cs').textContent=lab;
+var st=!R.def?'Ω 밖 (분모 ≤ 0)':(R.ok?'Ω 안 (유효)':'Ω 밖 (되접힘)');
+var rv=!R.def?'—':(R.m>99?'≈ ∞':R.m.toFixed(3));
+var thb=a>0.5?('r ≤ '+(1/Math.sqrt(2*a-1)).toFixed(3)):'제한 없음 (ℝ²)';
+var cards=[['선택 θ의 r',rv],['선택 θ 상태',st],['w',w.toFixed(3)],['최대 유효 θ = arccos(−w)',amax.toFixed(1)+'°'],['유효 픽셀 Θ',thb]];
+document.getElementById('cards').innerHTML=cards.map(function(c){return '<div class="card"><div class="k">'+c[0]+'</div><div class="v">'+c[1]+'</div></div>';}).join('');
+}
+document.getElementById('al').addEventListener('input',draw);
+document.getElementById('th').addEventListener('input',draw);
+Array.prototype.forEach.call(document.querySelectorAll('button[data-a]'),function(b){b.addEventListener('click',function(){document.getElementById('al').value=b.getAttribute('data-a');draw();});});
+if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+draw();
+})();
+</script>
+</body>
+</html>
