@@ -208,7 +208,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 <br>
 
 
-<iframe src="/assets/html/vision/concept/double_sphere_camera_model/ucm_projection_center.html"
+<iframe src="../assets/html/vision/concept/double_sphere_camera_model/ucm_projection_center.html"
         width="100%" height="720" style="border:0" loading="lazy"></iframe>
 
 
