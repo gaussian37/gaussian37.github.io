@@ -218,7 +218,7 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 
 <br>
 
-$$ \mathbf{i}=[\gamma_x,\ \gamma_y,\ c_x,\ c_y,\ \xi]^T $$
+- $$ \mathbf{i}=[\gamma_x,\ \gamma_y,\ c_x,\ c_y,\ \xi]^T $$
 
 <br>
 
@@ -227,7 +227,7 @@ $$ \mathbf{i}=[\gamma_x,\ \gamma_y,\ c_x,\ c_y,\ \xi]^T $$
 
 <br>
 
-$$ \pi(\mathbf{x},\mathbf{i})=\begin{bmatrix}\gamma_x\dfrac{x}{\xi d+z}\\[2mm]\gamma_y\dfrac{y}{\xi d+z}\end{bmatrix}+\begin{bmatrix}c_x\\c_y\end{bmatrix},\qquad d=\sqrt{x^2+y^2+z^2} $$
+- $$ \pi(\mathbf{x},\mathbf{i})=\begin{bmatrix}\gamma_x\dfrac{x}{\xi d+z}\\[2mm]\gamma_y\dfrac{y}{\xi d+z}\end{bmatrix} + \begin{bmatrix}c_x\\c_y\end{bmatrix},\qquad d=\sqrt{x^2+y^2+z^2} $$
 
 <br>
 
@@ -300,6 +300,7 @@ $$ \pi(\mathbf{x},\mathbf{i})=\begin{bmatrix}\gamma_x\dfrac{x}{\xi d+z}\\[2mm]\g
 
 - $$ \xi  = 0 $$ 이면 $$ C_p $$ 가 $$ C $$ 와 겹쳐 큰 삼각형이 $$ \sin\theta $$ 대 $$ \cos\theta $$가 되고, $$ r=\tan\theta $$ 인 핀홀이 됩니다.
 - $$ \xi $$ 가 커지면 큰 삼각형의 세로만 길어지고 가로는 그대로라서 직선이 더 서고, 같은 θ가 더 작은 r에 맺힙니다. 이것이 압축입니다.
+- 
 
 <br>
 <center><iframe src="../assets/img/vision/concept/double_sphere_camera_model/ucm_projection_center.html" width="100%" height="720" style="border:0" loading="lazy"></iframe></center>
