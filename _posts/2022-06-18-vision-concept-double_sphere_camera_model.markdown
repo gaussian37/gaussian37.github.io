@@ -335,6 +335,61 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 <center><iframe src="../assets/img/vision/concept/double_sphere_camera_model/ucm_projection_center.html" width="100%" height="720" style="border:0" loading="lazy"></iframe></center>
 <br>
 
+#### **평면 위치를 옮기는 것의 의미**
+
+<br>
+
+- 평면을 옮겨도 광선은 같으므로, 이미지에 찍히는 점들의 배치 (왜곡의 모양)는 그대로이고 전체 크기만 $$ 1 + \xi $$ 배 달라집니다.
+- 최종 픽셀 좌표는 어느 평면을 쓰든 같아야 하므로, 이 배율 차이는 초점 거리가 흡수합니다.
+
+<br>
+
+- $$ u - c_{x} = \gamma_{x} \ r = f_{x} \ r' $$
+
+- $$ f_{x} = \frac{\gamma_{x}}{1 + \xi} = (1 - \alpha) \ \gamma_{x} \quad \Leftrightarrow \quad \gamma_{x} = \frac{f_{x}}{1 - \alpha} $$
+
+<br>
+
+- 이것이 논문에서 제시한 두 형태 사이의 관계식입니다. 즉, 두 표기의 차이는 초점 거리 스케일로만 나타납니다.
+- 평면 B를 사용하면 $$ \xi $$ 가 아무리 커져도 평면이 항상 핀홀 카메라의 normalized image plane ( $$ z = 1 $$ )과 같은 위치에 있으므로, $$ f $$ 가 다른 카메라 모델의 초점 거리와 비슷한 값으로 유지됩니다.
+- 반면 Mei 형태에서는 $$ \xi $$ 가 커질수록 평면이 구 안쪽으로 내려오면서 $$ \gamma $$ 도 함께 커지기 때문에, 캘리브레이션 시 $$ \gamma $$ 와 $$ \xi $$ 가 강하게 결합되어 추정값이 불안정해집니다. 논문에서 $$ \alpha $$ 형태가 수치적으로 더 안정적이라고 설명하는 이유가 여기에 있습니다.
+
+<br>
+
+#### **3D 좌표로 확인하기**
+
+<br>
+
+- 위 내용을 3D 좌표로 옮기면 논문 식 7을 그대로 얻을 수 있습니다. Mei 형태의 정규화 좌표는 다음과 같습니다.
+
+<br>
+
+- $$ m_{x} = \frac{x}{z + \xi d}, \quad m_{y} = \frac{y}{z + \xi d}, \quad d = \sqrt{x^{2} + y^{2} + z^{2}} $$
+
+<br>
+
+- 평면 B에서의 좌표는 여기에 $$ 1 + \xi $$ 를 곱한 값이므로, 분모를 $$ 1 + \xi $$ 로 나누어 정리하면 다음과 같습니다.
+
+<br>
+
+- $$ m'_{x} = (1 + \xi) \frac{x}{z + \xi d} = \frac{x}{\frac{\xi}{1 + \xi} d + \frac{1}{1 + \xi} z} = \frac{x}{\alpha d + (1 - \alpha) z} $$
+
+- $$ m'_{y} = \frac{y}{\alpha d + (1 - \alpha) z} $$
+
+<br>
+
+- 마지막으로 초점 거리와 주점을 적용하면 논문의 식 7이 됩니다.
+
+<br>
+
+- $$ \pi(\mathbf{x}, \mathbf{i}) = \begin{bmatrix} f_{x} \frac{x}{\alpha d + (1 - \alpha) z} \\ f_{y} \frac{y}{\alpha d + (1 - \alpha) z} \end{bmatrix} + \begin{bmatrix} c_{x} \\ c_{y} \end{bmatrix} $$
+
+<br>
+
+- $$ \alpha = 0 $$ 이면 분모가 $$ z $$ 가 되어 핀홀 모델과 같아지고, $$ \alpha $$ 가 커질수록 분모에서 거리 $$ d $$ 의 비중이 커지면서 바깥 방향이 압축됩니다.
+- 즉, $$ \alpha $$ 는 핀홀 투영 ( $$ z $$ )과 구면 투영 ( $$ d $$ ) 사이의 가중치로 해석할 수 있으며, 이 해석이 이후 Double Sphere 모델로 이어집니다.
+
+<br>
 
 
 <br>
