@@ -281,26 +281,55 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 
 <br>
 
-- $$r(\theta)=\frac{\sin\theta}{\cos\theta+\xi}$$ 
+#### **반경식의 기하학적 유도**
 
-<br>
-<center><img src="../assets/img/vision/concept/double_sphere_camera_model/21.png" alt="Drawing" style="width: 400px;"/></center>
-<br>
+<br> <center><img src="../assets/img/vision/concept/double_sphere_camera_model/21.png" alt="Drawing" style="width: 600px;"/></center> <br>
 
-- ① `구 위의 점 좌표`: 3D 점 $$ X $$ 를 단위 구에 투영한 점 $$ X_s $$ 는 반지름이 1이므로, 구 중심 $$ C $$ 기준으로 가로 $$ \sin\theta $$, 세로 $$ \cos\theta $$에 있습니다.
-- ② `투영 중심 기준으로 다시 재기`: 투영 중심 $$ C_p $$ 는 C보다 $$ \xi $$만큼 아래에 있으므로, $$ C_p $$ 에서 $$ X_s $$ 까지는 가로 $$ \sin\theta $$, 세로 $$ \cos\theta+\xi $$입니다. 이것이 보라색 큰 삼각형입니다.
-- ③ `평면과 만나는 점`: $$ C_p $$ 에서 $$ X_s $$로 가는 직선이 $$ C_p $$ 로부터 거리 1인 평면과 만나는 점이 $$ m $$ 입니다. 이 점까지는 가로 $$ r $$, 세로 1이고, 이것이 초록색 작은 삼각형입니다.
-- ④ `닮음`: 두 삼각형은 $$ C_p $$ 에서 같은 직선을 공유하므로 기울기가 같습니다.
-
+- 위 그림은 광축을 포함하는 단면이며 ( $$ \xi = 0.8 $$ , $$ \theta = 50^{\circ} $$ ), UCM의 반경식은 닮은 삼각형 하나로 유도할 수 있습니다.
+- ① 구 위의 점 좌표: 3D 점 $$ X $$ 를 단위 구에 투영한 점 $$ X_{s} $$ 는 반지름이 1이므로, 구 중심 $$ C $$ 기준으로 가로 $$ \sin\theta $$ , 세로 $$ \cos\theta $$ 위치에 있습니다.
+- ② 투영 중심 기준으로 다시 재기: 투영 중심 $$ C_{p} $$ 는 $$ C $$ 보다 광축 방향으로 $$ \xi $$ 만큼 뒤에 있으므로, $$ C_{p} $$ 에서 $$ X_{s} $$ 까지는 가로 $$ \sin\theta $$ , 세로 $$ \cos\theta + \xi $$ 입니다. 이것이 보라색 큰 삼각형입니다.
+- ③ 평면과 만나는 점 : $$ C_{p} $$ 에서 $$ X_{s} $$ 로 가는 직선이 $$ C_{p} $$ 로부터 거리 1인 평면과 만나는 점이 $$ m $$ 입니다. 이 점까지는 가로 $$ r $$ , 세로 1이며 이것이 초록색 작은 삼각형입니다.
+- ④ 닮음 : 두 삼각형은 $$ C_{p} $$ 에서 같은 직선을 공유하므로 기울기가 같습니다.
 <br>
 
-- $$ \frac{r}{1}=\frac{\sin\theta}{\cos\theta+\xi} $$
+- $$\frac{r}{1} = \frac{\sin\theta}{\cos\theta + \xi}$$
 
 <br>
 
-- $$ \xi  = 0 $$ 이면 $$ C_p $$ 가 $$ C $$ 와 겹쳐 큰 삼각형이 $$ \sin\theta $$ 대 $$ \cos\theta $$가 되고, $$ r=\tan\theta $$ 인 핀홀이 됩니다.
-- $$ \xi $$ 가 커지면 큰 삼각형의 세로만 길어지고 가로는 그대로라서 직선이 더 서고, 같은 θ가 더 작은 r에 맺힙니다. 이것이 압축입니다.
-- 
+- 그림에서 바로 읽히는 세 가지 성질은 다음과 같습니다.
+- ① $$ \xi = 0 $$ 이면 $$ C_{p} $$ 가 $$ C $$ 와 겹쳐 큰 삼각형이 $$ \sin\theta $$ 대 $$ \cos\theta $$ 가 되고, $$ r = \tan\theta $$ 인 핀홀이 됩니다.
+- ② $$ \xi $$ 가 커지면 큰 삼각형의 세로만 길어지고 가로는 그대로이므로 직선이 더 서게 되고, 같은 $$ \theta $$ 가 더 작은 $$ r $$ 에 맺힙니다. 이것이 바깥 방향의 압축입니다.
+- ③ $$ \theta = 90^{\circ} $$ 이면 $$ X_{s} $$ 가 $$ C $$ 와 같은 높이에 오고, 큰 삼각형의 세로가 $$ 0 + \xi $$ 로 여전히 양수이므로 직선이 평면과 만납니다. 핀홀이었다면 세로가 0이 되어 직선이 평면과 평행해지는 상황입니다.
+
+<br>
+
+#### **논문 형태로 옮기기**
+
+<br> <center><img src="../assets/img/vision/concept/double_sphere_camera_model/22.png" alt="Drawing" style="width: 600px;"/></center> <br>
+
+- 위의 반경식은 평면을 $$ C_{p} $$ 로부터 거리 1에 둔 Mei 형태입니다. 논문의 $$ \alpha $$ 형태는 평면을 구의 북극에 접하는 위치 ( $$ C $$ 기준 $$ z = 1 $$ )에 둡니다.
+- 위 그림은 앞의 그림과 같은 단면에 평면을 하나 더 그린 것입니다. 핵심은 투영 중심 $$ C_{p} $$ 와 광선은 그대로 두고, 광선을 받는 평면의 위치만 바꾼다는 점입니다.
+- ① 두 평면의 위치 : 평면 A ( Mei )는 $$ C_{p} $$ 에서 거리 1에 있고, 평면 B (논문)는 단위 구의 북극에 접해 있습니다.
+- ② 평면 B까지의 거리 : $$ C_{p} $$ 에서 $$ C $$ 까지가 $$ \xi $$ 이고, $$ C $$ 에서 북극까지는 구의 반지름 1이므로 $$ C_{p} $$ 에서 평면 B까지의 거리는 $$ 1 + \xi $$ 입니다.
+- ③ 닮은 삼각형 : 같은 광선이 두 평면을 지나므로 $$ C_{p} $$ 를 꼭짓점으로 하는 두 삼각형은 닮음입니다. 초록색 작은 삼각형은 세로 1, 가로 $$ r $$ 이고, 주황색 큰 삼각형은 세로 $$ 1 + \xi $$ , 가로 $$ r' $$ 입니다. 세로가 $$ 1 + \xi $$ 배이므로 가로도 $$ 1 + \xi $$ 배입니다.
+
+<br>
+
+- $$ r' = (1 + \xi) \ r = (1 + \xi) \frac{\sin\theta}{\cos\theta + \xi}$$
+
+<br>
+
+- ④ α로 정리하기 : 분자와 분모를 $$ 1 + \xi $$ 로 나누고 다음 관계를 이용합니다.
+
+<br>
+
+- $$ \xi = \frac{\alpha}{1 - \alpha} \quad \Rightarrow \quad \frac{1}{1 + \xi} = 1 - \alpha, \quad \frac{\xi}{1 + \xi} = \alpha$$
+
+- $$ r' = \frac{\sin\theta}{\frac{\cos\theta + \xi}{1 + \xi}} = \frac{\sin\theta}{\alpha + (1 - \alpha)\cos\theta}$$
+
+<br>
+
+- 이것이 논문 식 7을 입사각 $$ \theta $$ 로 쓴 형태입니다.
 
 <br>
 <center><iframe src="../assets/img/vision/concept/double_sphere_camera_model/ucm_projection_center.html" width="100%" height="720" style="border:0" loading="lazy"></iframe></center>
