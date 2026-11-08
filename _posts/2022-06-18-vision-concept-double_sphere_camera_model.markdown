@@ -415,12 +415,229 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 
 <br>
 
-
-<br>
-
 ## **Extended Unified Camera Model**
 
 <br>
+
+- 이번에는 `UCM` 에서 개념이 확장된 `EUCM`에 대하여 살펴보도록 하겠습니다.
+
+#### **EUCM의 수식**
+
+<br>
+
+- EUCM (Extended Unified Camera Model)은 UCM을 확장한 모델이며, 논문 기준 파라미터는 다음 6개입니다.
+
+<br>
+
+- $$ \mathbf{i} = [f_{x}, f_{y}, c_{x}, c_{y}, \alpha, \beta]^{T}, \quad \alpha \in [0, 1], \quad \beta > 0 $$
+
+<br>
+
+- projection 식은 다음과 같습니다. (식 16, 17)
+
+<br>
+
+- $$ \pi(\mathbf{x}, \mathbf{i}) = \begin{bmatrix} f_{x} \frac{x}{\alpha d + (1 - \alpha) z} \\ f_{y} \frac{y}{\alpha d + (1 - \alpha) z} \end{bmatrix} + \begin{bmatrix} c_{x} \\ c_{y} \end{bmatrix} $$
+
+- $$ d = \sqrt{\beta (x^{2} + y^{2}) + z^{2}} $$
+
+<br>
+
+- UCM의 식 7과 비교하면 식의 형태는 완전히 같고, 거리 $$ d $$ 의 정의에서 $$ x^{2} + y^{2} $$ 앞에 $$ \beta $$ 가 곱해진 것만 다릅니다. 따라서 $$ \beta = 1 $$ 이면 UCM과 같아집니다.
+- UCM에서 투영 형태 (왜곡)를 결정하는 파라미터는 $$ \alpha $$ 하나뿐이어서, 실제 어안 렌즈의 입사각과 반경 관계를 정확히 표현하기에는 자유도가 부족했습니다. EUCM은 $$ \beta $$ 를 추가하여 이 자유도를 하나 늘린 모델입니다.
+
+<br>
+
+#### **구를 타원체로 바꾸기**
+
+<br>
+
+- UCM에서 $$ d $$ 로 나누는 것은 3D 점을 단위 구 위로 옮기는 과정이었습니다. EUCM에서도 같은 방식으로 3D 점을 $$ d $$ 로 나누면, 그 점은 다음 곡면 위에 놓입니다.
+
+<br>
+
+- $$ \mathbf{X}_{e} = \frac{\mathbf{X}}{d} = \left( \frac{x}{d}, \frac{y}{d}, \frac{z}{d} \right) \quad \Rightarrow \quad \beta (x_{e}^{2} + y_{e}^{2}) + z_{e}^{2} = 1 $$
+
+<br>
+
+- 이 곡면은 z 축을 중심으로 회전 대칭인 타원체입니다. z 방향 반지름은 1이고, x, y 방향 반지름은 $$ \beta^{-1/2} $$ 입니다.
+- 즉, EUCM은 UCM의 단위 구를 타원체로 바꾼 모델입니다. 투영 중심 $$ C_{p} $$ 의 위치 ( $$ \xi = \frac{\alpha}{1 - \alpha} $$ )와 평면 B ( $$ z = 1 $$ )는 UCM과 같습니다. 타원체의 z 방향 반지름이 1이므로 북극은 여전히 $$ z = 1 $$ 에 있습니다.
+- $$ \beta > 1 $$ 이면 타원체가 가로로 좁아지고, $$ \beta < 1 $$ 이면 가로로 넓어집니다.
+
+<br> <center><img src="../assets/img/vision/concept/double_sphere_camera_model/23.png" alt="Drawing" style="width: 600px;"/></center> <br>
+
+- 위 그림은 $$ \xi = 0.8 $$ , $$ \beta = 2 $$ , $$ \theta = 60^{\circ} $$ 인 경우의 단면이며, 점선 원은 비교를 위한 UCM의 단위 구입니다.
+- 3D 점 $$ X $$ 를 구 중심 $$ C $$ 방향으로 당겨 오면 단위 구에서는 $$ X_{s} $$ , 타원체에서는 $$ X_{e} $$ 에 놓입니다. 두 점은 같은 방향 위에 있지만, $$ \beta > 1 $$ 이면 타원체가 가로로 좁으므로 $$ X_{e} $$ 가 더 안쪽에 놓입니다.
+- 그 결과 $$ C_{p} $$ 에서 $$ X_{e} $$ 로 가는 직선이 더 서게 되어, 평면 B에서 더 작은 반경 $$ r' $$ 에 맺힙니다. 즉, 같은 입사각을 UCM보다 더 강하게 압축합니다.
+
+<br>
+
+#### **반경식의 기하학적 유도**
+
+<br>
+
+- UCM과 같은 닮은 삼각형으로 EUCM의 반경식을 구할 수 있습니다.
+- ① 타원체 위의 점 좌표 : 길이 1인 방향 $$ (\sin\theta, \cos\theta) $$ 에 대해 $$ d $$ 를 계산하면 다음과 같습니다.
+
+<br>
+
+- $$ \rho_{\beta}(\theta) = \sqrt{\beta \sin^{2}\theta + \cos^{2}\theta} $$
+
+<br>
+
+- 따라서 $$ X_{e} $$ 는 구 중심 $$ C $$ 기준으로 가로 $$ \frac{\sin\theta}{\rho_{\beta}} $$ , 세로 $$ \frac{\cos\theta}{\rho_{\beta}} $$ 위치에 있습니다.
+- ② 투영 중심 기준으로 다시 재기 : $$ C_{p} $$ 에서 $$ X_{e} $$ 까지는 가로 $$ \frac{\sin\theta}{\rho_{\beta}} $$ , 세로 $$ \frac{\cos\theta}{\rho_{\beta}} + \xi $$ 입니다.
+- ③ 평면 B와 만나는 점 : $$ C_{p} $$ 에서 평면 B까지의 거리는 $$ 1 + \xi $$ 이므로, 닮음에 의해 다음이 성립합니다.
+
+<br>
+
+- $$ r' = (1 + \xi) \frac{\sin\theta / \rho_{\beta}}{\cos\theta / \rho_{\beta} + \xi} = (1 + \xi) \frac{\sin\theta}{\cos\theta + \xi \rho_{\beta}} $$
+
+<br>
+
+- ④ α로 정리하기 : UCM과 같이 분자와 분모를 $$ 1 + \xi $$ 로 나누면 다음과 같습니다.
+
+<br>
+
+- $$ r' = \frac{\sin\theta}{\alpha \rho_{\beta} + (1 - \alpha) \cos\theta} = \frac{\sin\theta}{\alpha \sqrt{\beta \sin^{2}\theta + \cos^{2}\theta} + (1 - \alpha) \cos\theta} $$
+
+<br>
+
+- UCM의 반경식과 비교하면, 분모의 $$ \alpha $$ 가 $$ \alpha \rho_{\beta} $$ 로 바뀐 것만 다릅니다.
+
+<br> <center><img src="../assets/img/vision/concept/double_sphere_camera_model/24.png" alt="Drawing" style="width: 600px;"/></center> <br>
+
+- 위 그림은 $$ \alpha = 0.5 $$ 로 고정하고 $$ \beta $$ 만 바꾼 반경 곡선입니다. 그래프에서 다음 성질을 읽을 수 있습니다.
+- ① $$ \beta = 1 $$ 이면 $$ \rho_{\beta} = 1 $$ 이 되어 UCM과 같습니다.
+- ② $$ \theta $$ 가 작으면 $$ \sin\theta \approx 0 $$ 이므로 $$ \rho_{\beta} \approx 1 $$ 이 되어, $$ \beta $$ 와 관계없이 중심부의 곡선이 거의 겹칩니다. $$ \beta $$ 의 영향은 $$ \sin^{2}\theta $$ 를 통해 들어오므로 입사각이 클수록 커집니다.
+- ③ $$ \beta > 1 $$ 이면 바깥쪽이 UCM보다 더 압축되고, $$ \beta < 1 $$ 이면 덜 압축됩니다.
+- 즉, $$ \alpha $$ 가 전체적인 압축 정도를 정한다면, $$ \beta $$ 는 중심부를 거의 건드리지 않고 외곽부의 곡선 모양을 따로 조절합니다. UCM에서 외곽부 오차가 크던 문제를 EUCM이 줄일 수 있는 이유가 여기에 있습니다.
+- 아래는 위 내용을 직접 확인할 수 있는 그림입니다. 왼쪽은 단면에서의 투영 과정 (점선 원은 UCM의 단위 구)이고, 오른쪽은 입사각 $$ \theta $$ 에 따른 반경 $$ r' $$ 의 그래프이며 회색 점선은 같은 $$ \alpha $$ 의 UCM 곡선입니다.
+- $$ \beta $$ 를 움직이면 타원체의 모양이 바뀌면서 바깥쪽 광선이 맺히는 위치가 달라지고, 중심부보다 외곽부의 곡선이 크게 달라지는 것을 볼 수 있습니다. $$ \theta $$ 를 움직이면 선택한 광선이 두 그림에 함께 표시됩니다.
+
+<br>
+<center><iframe src="../assets/img/vision/concept/double_sphere_camera_model/eucm_projection.html" width="100%" height="540" style="border:0" loading="lazy"></iframe></center>
+<br>
+
+#### **3D 좌표로 확인하기**
+
+<br>
+
+- 3D 좌표로 옮기면 UCM과 같은 과정으로 식 16을 얻을 수 있습니다. 타원체 위의 점 $$ \mathbf{X}_{e} $$ 를 $$ C_{p} $$ 기준으로 재고 평면 B에 투영하면 다음과 같습니다.
+
+<br>
+
+- $$ m'_{x} = (1 + \xi) \frac{x / d}{z / d + \xi} = (1 + \xi) \frac{x}{z + \xi d} = \frac{x}{\alpha d + (1 - \alpha) z} $$
+
+<br>
+
+- UCM과 식의 모양이 같고, $$ d $$ 의 정의만 다릅니다. 마지막으로 초점 거리와 주점을 적용하면 식 16이 됩니다.
+- EUCM은 다른 관점으로도 볼 수 있습니다. 가로 방향을 늘린 좌표 $$ \tilde{x} = \sqrt{\beta} x $$ , $$ \tilde{y} = \sqrt{\beta} y $$ 를 생각하면 $$ d = \sqrt{\tilde{x}^{2} + \tilde{y}^{2} + z^{2}} $$ 가 되어 다음과 같이 정리됩니다.
+
+<br>
+
+- $$ u = f_{x} \frac{x}{\alpha d + (1 - \alpha) z} + c_{x} = \frac{f_{x}}{\sqrt{\beta}} \frac{\tilde{x}}{\alpha d + (1 - \alpha) z} + c_{x} $$
+
+<br>
+
+- 즉, EUCM은 공간을 가로 방향으로 $$ \sqrt{\beta} $$ 배 늘린 뒤, 초점 거리가 $$ f / \sqrt{\beta} $$ 인 UCM을 적용한 것과 같습니다. 이 관점은 아래의 유효 영역이 UCM과 같은 형태를 가지는 이유를 설명해 줍니다.
+
+<br>
+
+#### **유효 투영 영역**
+
+<br>
+
+- 논문은 EUCM의 유효 영역 $$ \Omega $$ 를 UCM과 같은 식으로 정의하되, $$ d $$ 만 식 17로 계산합니다.
+
+<br>
+
+- $$ \Omega = \{ \mathbf{x} \in \mathbb{R}^{3} \mid z > -w d \}, \quad w = \begin{cases} \frac{\alpha}{1 - \alpha}, & \alpha \le 0.5 \\ \frac{1 - \alpha}{\alpha}, & \alpha > 0.5 \end{cases} $$
+
+<br>
+
+- 입사각으로 쓰면 $$ \cos\theta > -w \rho_{\beta}(\theta) $$ 이며, 이를 풀면 최대 유효 입사각은 다음과 같습니다.
+
+<br>
+
+- $$ \theta_{max} = 180^{\circ} - \tan^{-1} \left( \frac{\sqrt{1 - w^{2}}}{w \sqrt{\beta}} \right) $$
+
+<br>
+
+- $$ \beta = 1 $$ 이면 UCM의 $$ \cos^{-1}(-w) $$ 와 같고, $$ \beta $$ 가 커질수록 최대 유효 입사각도 커집니다. 예를 들어 $$ \alpha = 0.6 $$ 일 때 UCM ( $$ \beta = 1 $$ )은 약 $$ 131.8^{\circ} $$ 이고, $$ \beta = 1.5 $$ 이면 약 $$ 137.6^{\circ} $$ 입니다.
+- $$ \alpha > 0.5 $$ 이면 UCM과 마찬가지로 투영 중심이 타원체 밖에 놓이며, 한계 각도 이후 곡선이 되접히는 구간은 유효한 투영이 아닙니다.
+
+<br>
+
+#### **EUCM의 Unprojection**
+
+<br>
+
+- 논문의 unprojection 식은 다음과 같습니다. (식 18 ~ 22)
+
+<br>
+
+- $$ \pi^{-1}(\mathbf{u}, \mathbf{i}) = \frac{1}{\sqrt{m_{x}^{2} + m_{y}^{2} + m_{z}^{2}}} \begin{bmatrix} m_{x} \\ m_{y} \\ m_{z} \end{bmatrix} $$
+
+- $$ m_{x} = \frac{u - c_{x}}{f_{x}}, \quad m_{y} = \frac{v - c_{y}}{f_{y}}, \quad r^{2} = m_{x}^{2} + m_{y}^{2} $$
+
+- $$ m_{z} = \frac{1 - \beta \alpha^{2} r^{2}}{\alpha \sqrt{1 - (2\alpha - 1) \beta r^{2}} + (1 - \alpha)} $$
+
+<br>
+
+- UCM의 unprojection과 달리 $$ m_{x} $$ , $$ m_{y} $$ 에 $$ (1 - \alpha) $$ 를 곱하지 않습니다. UCM의 식 10은 원래 형태 (Mei)에서 유도된 식이고, EUCM의 식은 처음부터 논문 형태 ( $$ \alpha $$ 형태)로 유도되었기 때문입니다.
+- $$ m_{z} $$ 는 다음과 같이 유도됩니다.
+- ① 분모를 1로 두기 : 광선 위의 점은 어디에 있든 같은 픽셀로 투영되므로, projection 식의 분모가 1이 되는 점을 고를 수 있습니다. 그러면 $$ x = m_{x} $$ , $$ y = m_{y} $$ 가 되고 남은 미지수는 $$ z = m_{z} $$ 하나입니다.
+
+<br>
+
+- $$ \alpha \sqrt{\beta r^{2} + m_{z}^{2}} + (1 - \alpha) m_{z} = 1 $$
+
+<br>
+
+- ② 제곱하여 정리하기 : $$ (1 - \alpha) m_{z} $$ 를 오른쪽으로 옮기고 양변을 제곱한 뒤, $$ \alpha^{2} - (1 - \alpha)^{2} = 2\alpha - 1 $$ 을 이용하면 다음 2차 방정식이 됩니다.
+
+<br>
+
+- $$ (2\alpha - 1) m_{z}^{2} + 2(1 - \alpha) m_{z} - (1 - \alpha^{2} \beta r^{2}) = 0 $$
+
+<br>
+
+- ③ 근 구하기 : 판별식을 정리하면 $$ \alpha^{2} (1 - (2\alpha - 1) \beta r^{2}) $$ 이 되고, 카메라 앞쪽의 근을 취한 뒤 분자를 유리화하면 식 22가 됩니다.
+
+<br>
+
+- $$ m_{z} = \frac{-(1 - \alpha) + \alpha \sqrt{1 - (2\alpha - 1) \beta r^{2}}}{2\alpha - 1} = \frac{1 - \alpha^{2} \beta r^{2}}{\alpha \sqrt{1 - (2\alpha - 1) \beta r^{2}} + (1 - \alpha)} $$
+
+<br>
+
+- 유리화한 형태는 $$ \alpha = 0.5 $$ 에서도 0으로 나누는 문제가 생기지 않습니다.
+- ④ 정규화 : $$ (m_{x}, m_{y}, m_{z}) $$ 는 광선 위의 한 점이지만 길이가 1이 아니므로, 마지막에 길이로 나누어 단위 벡터 (bearing vector)로 만듭니다. 논문에서 EUCM은 타원체에 투영하므로 단위 벡터를 바로 얻을 수 없어 정규화가 필요하다고 설명하는 부분이 이것입니다.
+- 참고로 이 $$ m_{z} $$ 식에서 $$ \beta = 1 $$ 로 두면, 이후 Double Sphere 모델의 unprojection에 나오는 $$ m_{z} $$ 와 같은 식이 됩니다.
+- 유효 픽셀 영역은 근호 안이 음수가 되지 않아야 하므로 다음과 같습니다. (식 23)
+
+<br>
+
+- $$ \Theta = \begin{cases} \mathbb{R}^{2}, & \alpha \le 0.5 \\ \{ \mathbf{u} \in \mathbb{R}^{2} \mid r^{2} \le \frac{1}{\beta (2\alpha - 1)} \}, & \alpha > 0.5 \end{cases} $$
+
+<br>
+
+- 이 경계는 $$ \Omega $$ 의 한계 각도가 이미지에 맺히는 반경과 같습니다.
+
+<br>
+
+#### **UCM과 EUCM 정리**
+
+<br>
+
+- ① UCM : 단위 구와 이동된 투영 중심으로 구성되며, 투영 형태를 결정하는 파라미터는 $$ \alpha $$ 하나입니다.
+- ② EUCM : 단위 구를 z 축 대칭 타원체로 바꾸어 $$ \beta $$ 를 추가했습니다. $$ \alpha $$ 는 전체적인 압축 정도를, $$ \beta $$ 는 외곽부의 곡선 모양을 조절합니다.
+- ③ 계산 비용 : 두 모델 모두 삼각함수 없이 제곱근과 나눗셈만 사용하며, projection과 unprojection 모두 닫힌 형태입니다.
+- 논문의 실험에서 EUCM은 UCM보다 재투영 오차가 크게 줄었고, 같은 6개 파라미터의 Double Sphere와 거의 같은 정확도를 보였습니다.
+- 또한 캘리브레이션된 $$ \beta $$ 는 렌즈별로 1.04 ~ 1.17 정도로 1에 가까운 값이었습니다. 이는 UCM의 단위 구를 조금만 변형해도 외곽부 오차를 충분히 줄일 수 있다는 뜻입니다.
+
+<br>
+
 
 <br>
 
