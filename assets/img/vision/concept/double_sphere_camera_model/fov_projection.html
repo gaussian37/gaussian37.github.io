@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FOV projection</title>
+<style>
+:root{--bg:#ffffff;--text:#1f1f1d;--sub:#5f5e5a;--muted:#9a998f;--line:#d3d1c7;--purple:#7F77DD;--purpleD:#534AB7;--teal:#1D9E75;--tealD:#0F6E56;--hl:#D85A30;--hlD:#993C1D;}
+@media (prefers-color-scheme: dark){:root{--bg:#1e1e1c;--text:#ecebe6;--sub:#b4b2a9;--muted:#888780;--line:#555550;--purpleD:#AFA9EC;--tealD:#5DCAA5;--hlD:#F0997B;}}
+*{box-sizing:border-box}
+body{margin:0;padding:12px;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;font-size:14px}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:10px;color:var(--sub)}
+button{font:inherit;font-size:13px;padding:5px 10px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--text);cursor:pointer}
+input[type=range]{flex:1;min-width:160px;accent-color:var(--purpleD)}
+.val{min-width:200px;color:var(--text);font-variant-numeric:tabular-nums}
+svg{width:100%;height:auto;display:block}
+#cs{margin-top:6px;color:var(--text)}
+</style>
+</head>
+<body>
+<div class="row"><span>w</span><input type="range" id="w" min="0.05" max="2.5" step="0.01" value="1.5"><span class="val" id="wo"></span></div>
+<div class="row"><span>θ</span><input type="range" id="th" min="0" max="180" step="1" value="60"><span class="val" id="to"></span></div>
+<div class="row">
+<button data-w="0.1">핀홀에 가까움 w=0.1</button>
+<button data-w="0.927">등거리 w=0.927 (k=1)</button>
+<button data-w="1.8">외곽 압축 w=1.8</button>
+</div>
+<svg id="sv" viewBox="0 0 760 345" role="img" aria-label="w에 따른 FOV 모델의 투영 과정과 입사각-반경 곡선"></svg>
+<div id="cs"></div>
+<script>
+(function(){
+var sv=document.getElementById('sv'),NS='http://www.w3.org/2000/svg';
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+function el(t,a,txt){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(txt!==undefined)e.textContent=txt;sv.appendChild(e);return e;}
+function rd(t,w){return Math.atan2(2*Math.sin(t)*Math.tan(w/2),Math.cos(t))/w;}
+var RAYS=[30,60,90,120,150];
+function draw(){
+var w=+document.getElementById('w').value,thd=+document.getElementById('th').value,th=thd*Math.PI/180;
+var k=2*Math.tan(w/2),thp=Math.atan2(k*Math.sin(th),Math.cos(th)),r=thp/w;
+var C={text:css('--text'),sub:css('--sub'),muted:css('--muted'),line:css('--line'),p:css('--purple'),pd:css('--purpleD'),t:css('--teal'),td:css('--tealD'),h:css('--hl'),hd:css('--hlD')};
+sv.innerHTML='';
+var ox=150,oy=250,S=75,py=oy-S,XR=400;
+el('path',{d:'M'+(ox-S)+' '+oy+' A'+S+' '+S+' 0 1 1 '+(ox+S)+' '+oy+' A'+S+' '+S+' 0 0 1 '+(ox-S)+' '+oy,fill:'none',stroke:C.line,'stroke-width':1});
+el('line',{x1:ox,y1:340,x2:ox,y2:20,stroke:C.muted,'stroke-width':0.7});
+el('line',{x1:20,y1:py,x2:XR,y2:py,stroke:C.t,'stroke-width':1.5});
+el('text',{x:22,y:py-8,'font-size':12,fill:C.td},'평면 z = 1');
+var lastx=-99;RAYS.forEach(function(d){var rr=rd(d*Math.PI/180,w),x=ox+rr*S;if(x<=XR){el('circle',{cx:x,cy:py,r:3.5,fill:C.t});if(x-lastx>=30){lastx=x;el('text',{x:x,y:py+16,'text-anchor':'middle','font-size':10,fill:C.muted},d+'°');}}});
+var gx=ox+S*Math.sin(th),gy=oy-S*Math.cos(th);
+el('line',{x1:ox,y1:oy,x2:gx,y2:gy,stroke:C.muted,'stroke-width':1.4});
+if(thd<89.5){var tx0=ox+Math.tan(th)*S;if(tx0<=XR){el('line',{x1:gx,y1:gy,x2:tx0,y2:py,stroke:C.muted,'stroke-width':1,'stroke-dasharray':'3 3'});el('circle',{cx:tx0,cy:py,r:3.5,fill:'none',stroke:C.muted,'stroke-width':1.4});}}
+var px=ox+S*Math.sin(thp),pyy=oy-S*Math.cos(thp);
+if(thp>0.001)el('path',{d:'M'+ox+' '+py+' A'+S+' '+S+' 0 0 1 '+px.toFixed(1)+' '+pyy.toFixed(1),fill:'none',stroke:C.h,'stroke-width':3});
+el('line',{x1:ox,y1:oy,x2:px,y2:pyy,stroke:C.pd,'stroke-width':1.8});
+el('circle',{cx:px,cy:pyy,r:4.5,fill:C.pd});
+el('circle',{cx:gx,cy:gy,r:3.5,fill:C.muted});
+var ix=ox+r*S;
+if(ix<=XR)el('circle',{cx:ix,cy:py,r:5.5,fill:C.h});else el('text',{x:XR-4,y:py-6,'text-anchor':'end','font-size':12,fill:C.h},'→ 그래프 밖');
+el('circle',{cx:ox,cy:oy,r:3.5,fill:C.text});
+el('line',{x1:30,y1:30,x2:50,y2:30,stroke:C.muted,'stroke-width':1.4});el('text',{x:56,y:34,'font-size':12,fill:C.sub},'원래 방향 θ');
+el('line',{x1:30,y1:50,x2:50,y2:50,stroke:C.pd,'stroke-width':1.8});el('text',{x:56,y:54,'font-size':12,fill:C.sub},'늘린 방향 θ′');
+el('line',{x1:200,y1:30,x2:220,y2:30,stroke:C.h,'stroke-width':3});el('text',{x:226,y:34,'font-size':12,fill:C.sub},'호 θ′ → 반경 θ′/w');
+el('circle',{cx:210,cy:50,r:3.5,fill:'none',stroke:C.muted,'stroke-width':1.4});el('text',{x:226,y:54,'font-size':12,fill:C.sub},'핀홀이었다면 (tanθ)');
+var X0=460,X1=745,Y0=310,Y1=30,rmax=4;
+function tx(v){return X0+(v/180)*(X1-X0);}function ty(v){return Y0-(v/rmax)*(Y0-Y1);}
+el('line',{x1:X0,y1:Y0,x2:X1,y2:Y0,stroke:C.muted,'stroke-width':0.8});
+el('line',{x1:X0,y1:Y0,x2:X0,y2:Y1,stroke:C.muted,'stroke-width':0.8});
+[0,90,180].forEach(function(v){el('text',{x:tx(v),y:Y0+16,'text-anchor':'middle','font-size':11,fill:C.muted},v+'°');});
+[0,2,4].forEach(function(v){el('text',{x:X0-6,y:ty(v)+4,'text-anchor':'end','font-size':11,fill:C.muted},v);});
+el('text',{x:X1,y:Y0+32,'text-anchor':'end','font-size':12,fill:C.sub},'입사각 θ');
+el('text',{x:X0+6,y:Y1-10,'font-size':12,fill:C.sub},'반경 r_d');
+function path(fn,maxd){var p='';for(var c=0;c<=maxd;c+=0.5){var v=fn(c*Math.PI/180);if(v>rmax||!isFinite(v))break;p+=(p?'L':'M')+tx(c).toFixed(1)+' '+ty(v).toFixed(1);}return p;}
+el('path',{d:path(Math.tan,89.5),fill:'none',stroke:C.muted,'stroke-width':1.2,'stroke-dasharray':'5 4'});
+var w0=2*Math.atan(0.5);
+if(Math.abs(w-w0)>0.005)el('path',{d:path(function(t){return t/w0;},180),fill:'none',stroke:C.muted,'stroke-width':1.4,'stroke-dasharray':'2 3'});
+el('path',{d:path(function(t){return rd(t,w);},180),fill:'none',stroke:C.p,'stroke-width':2.2});
+RAYS.forEach(function(d){var v=rd(d*Math.PI/180,w);if(v<=rmax)el('circle',{cx:tx(d),cy:ty(v),r:4,fill:C.t});});
+if(r<=rmax)el('circle',{cx:tx(thd),cy:ty(r),r:5.5,fill:C.h});
+var lx=X1-200;
+el('line',{x1:lx,y1:48,x2:lx+20,y2:48,stroke:C.p,'stroke-width':2.2});el('text',{x:lx+26,y:52,'font-size':12,fill:C.sub},'FOV');
+el('line',{x1:lx+62,y1:48,x2:lx+82,y2:48,stroke:C.muted,'stroke-width':1.4,'stroke-dasharray':'2 3'});el('text',{x:lx+88,y:52,'font-size':12,fill:C.sub},'등거리');
+el('line',{x1:lx+140,y1:48,x2:lx+160,y2:48,stroke:C.muted,'stroke-width':1.2,'stroke-dasharray':'5 4'});el('text',{x:lx+166,y:52,'font-size':12,fill:C.sub},'핀홀');
+document.getElementById('wo').textContent='w = '+w.toFixed(2)+' ('+(w*180/Math.PI).toFixed(0)+'°)  ·  k = '+k.toFixed(2);
+document.getElementById('to').textContent=thd+'°  →  θ′ = '+(thp*180/Math.PI).toFixed(1)+'°, r_d = '+r.toFixed(2);
+var msg=Math.abs(k-1)<0.01?'k ≈ 1: 늘리기가 없어져 r_d = θ/w 인 등거리 투영':(k<1?'k < 1: 가로로 줄어들어 핀홀에 가까워짐':'k > 1: 가로로 늘어나 외곽 방향을 더 압축');
+document.getElementById('cs').textContent=msg+'  ·  θ = 180°에서 r_d = π/w = '+(Math.PI/w).toFixed(2);
+}
+['w','th'].forEach(function(id){document.getElementById(id).addEventListener('input',draw);});
+Array.prototype.forEach.call(document.querySelectorAll('button[data-w]'),function(b){b.addEventListener('click',function(){document.getElementById('w').value=b.getAttribute('data-w');draw();});});
+if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+draw();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Double Sphere projection</title>
+<style>
+:root{--bg:#ffffff;--text:#1f1f1d;--sub:#5f5e5a;--muted:#9a998f;--line:#b4b2a9;--purple:#7F77DD;--purpleD:#534AB7;--teal:#1D9E75;--tealD:#0F6E56;--red:#E24B4A;--hl:#D85A30;}
+@media (prefers-color-scheme: dark){:root{--bg:#1e1e1c;--text:#ecebe6;--sub:#b4b2a9;--muted:#888780;--line:#666660;--purpleD:#AFA9EC;--tealD:#5DCAA5;}}
+*{box-sizing:border-box}
+body{margin:0;padding:12px;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;font-size:14px}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:10px;color:var(--sub)}
+button{font:inherit;font-size:13px;padding:5px 10px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--text);cursor:pointer}
+input[type=range]{flex:1;min-width:160px;accent-color:var(--purpleD)}
+.val{min-width:220px;color:var(--text);font-variant-numeric:tabular-nums}
+svg{width:100%;height:auto;display:block}
+#cs{margin-top:6px;color:var(--text)}
+</style>
+</head>
+<body>
+<div class="row"><span>α</span><input type="range" id="al" min="0" max="0.75" step="0.01" value="0.57"><span class="val" id="ao"></span></div>
+<div class="row"><span>ξ</span><input type="range" id="xi" min="-0.8" max="0.8" step="0.01" value="-0.27"><span class="val" id="xo"></span></div>
+<div class="row"><span>θ</span><input type="range" id="th" min="0" max="180" step="1" value="100"><span class="val" id="to"></span></div>
+<div class="row">
+<button data-a="0.57" data-x="0">UCM과 동일 ξ=0</button>
+<button data-a="0.57" data-x="-0.27">논문 GoPro ξ=−0.27, α=0.57</button>
+<button data-a="0.57" data-x="0.4">ξ=0.4</button>
+</div>
+<svg id="sv" viewBox="0 0 760 345" role="img" aria-label="ξ, α에 따른 Double Sphere 투영 기하와 입사각-반경 곡선"></svg>
+<div id="cs"></div>
+<script>
+(function(){
+var sv=document.getElementById('sv'),NS='http://www.w3.org/2000/svg';
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+function el(t,a,txt){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(txt!==undefined)e.textContent=txt;sv.appendChild(e);return e;}
+var RAYS=[30,60,90,120,150];
+function draw(){
+var a=+document.getElementById('al').value,xi=+document.getElementById('xi').value,thd=+document.getElementById('th').value,th=thd*Math.PI/180;
+var xi2=a/(1-a),w1=a<=0.5?xi2:(1-a)/a,w2=(w1+xi)/Math.sqrt(2*w1*xi+xi*xi+1);
+function th2Of(t){return Math.atan2(Math.sin(t),Math.cos(t)+xi);}
+function valid(t2){return Math.cos(t2)>-w1+1e-6&&(a+(1-a)*Math.cos(t2))>1e-6;}
+function rOf(t2){return Math.sin(t2)/(a+(1-a)*Math.cos(t2));}
+var C={text:css('--text'),sub:css('--sub'),muted:css('--muted'),line:css('--line'),p:css('--purple'),pd:css('--purpleD'),t:css('--teal'),td:css('--tealD'),r:css('--red'),h:css('--hl')};
+sv.innerHTML='';
+var cx=170,c1y=140,S=52,c2y=c1y+xi*S,cpy=c2y+xi2*S,py=c2y-S,XR=390;
+el('circle',{cx:cx,cy:c1y,r:S,fill:'none',stroke:C.line,'stroke-width':1.2});
+el('circle',{cx:cx,cy:c2y,r:S,fill:'none',stroke:C.pd,'stroke-width':1.3,'stroke-dasharray':'5 4'});
+el('line',{x1:cx,y1:342,x2:cx,y2:14,stroke:C.muted,'stroke-width':0.7});
+el('line',{x1:20,y1:py,x2:XR,y2:py,stroke:C.h,'stroke-width':1.5});
+el('text',{x:22,y:py-8,'font-size':12,fill:C.h},'평면 (C2 기준 z = 1)');
+RAYS.forEach(function(d){var t2=th2Of(d*Math.PI/180);if(!valid(t2))return;var m=rOf(t2),x=cx+m*S;var sx=cx+Math.sin(t2)*S,sy=c2y-Math.cos(t2)*S;
+ el('line',{x1:cx,y1:cpy,x2:sx,y2:sy,stroke:C.p,'stroke-width':1,opacity:0.6});el('circle',{cx:sx,cy:sy,r:2.5,fill:C.p});
+ if(x<=XR)el('circle',{cx:x,cy:py,r:3.5,fill:C.t});});
+var t2=th2Of(th),x1=cx+Math.sin(th)*S,y1=c1y-Math.cos(th)*S,x2=cx+Math.sin(t2)*S,y2=c2y-Math.cos(t2)*S,ok=valid(t2);
+el('line',{x1:cx,y1:c1y,x2:x1,y2:y1,stroke:C.muted,'stroke-width':1.4});
+el('line',{x1:cx,y1:c2y,x2:x2,y2:y2,stroke:C.pd,'stroke-width':1.2,'stroke-dasharray':'3 3'});
+el('circle',{cx:x1,cy:y1,r:3.5,fill:C.muted});
+if(ok){var m=rOf(t2),ix=cx+m*S,iy=py,out=false;if(ix>XR){var k=(XR-cx)/(ix-cx);iy=cpy+k*(py-cpy);ix=XR;out=true;}
+ el('line',{x1:cx,y1:cpy,x2:x2,y2:y2,stroke:C.h,'stroke-width':2.2});
+ el('line',{x1:x2,y1:y2,x2:ix,y2:iy,stroke:C.h,'stroke-width':1.4,'stroke-dasharray':'4 3'});
+ el('circle',{cx:x2,cy:y2,r:4.5,fill:C.h});if(!out)el('circle',{cx:ix,cy:py,r:5.5,fill:C.h});}
+else el('circle',{cx:x2,cy:y2,r:5,fill:'none',stroke:C.r,'stroke-width':1.5});
+el('circle',{cx:cx,cy:c1y,r:3.5,fill:C.text});
+el('circle',{cx:cx,cy:c2y,r:4,fill:C.pd});
+el('circle',{cx:cx,cy:cpy,r:5.5,fill:C.text});
+el('text',{x:cx-10,y:c1y+(xi<0?14:-4),'text-anchor':'end','font-size':12,fill:C.sub},'C1');
+el('text',{x:cx-10,y:c2y+(xi<0?-4:14),'text-anchor':'end','font-size':12,fill:C.pd},'C2');
+el('text',{x:cx-10,y:cpy+16,'text-anchor':'end','font-size':12,fill:C.text},'Cp');
+var X0=460,X1=745,Y0=310,Y1=30,rmax=4;
+function tx(v){return X0+(v/180)*(X1-X0);}function ty(v){return Y0-(v/rmax)*(Y0-Y1);}
+el('line',{x1:X0,y1:Y0,x2:X1,y2:Y0,stroke:C.muted,'stroke-width':0.8});
+el('line',{x1:X0,y1:Y0,x2:X0,y2:Y1,stroke:C.muted,'stroke-width':0.8});
+[0,90,180].forEach(function(v){el('text',{x:tx(v),y:Y0+16,'text-anchor':'middle','font-size':11,fill:C.muted},v+'°');});
+[0,2,4].forEach(function(v){el('text',{x:X0-6,y:ty(v)+4,'text-anchor':'end','font-size':11,fill:C.muted},v);});
+el('text',{x:X1,y:Y0+32,'text-anchor':'end','font-size':12,fill:C.sub},'입사각 θ');
+el('text',{x:X0+6,y:Y1-10,'font-size':12,fill:C.sub},'반경 r');
+var p='';for(var q=0;q<89.5;q+=0.5){var rr=Math.tan(q*Math.PI/180);if(rr>rmax)break;p+=(p?'L':'M')+tx(q).toFixed(1)+' '+ty(rr).toFixed(1);}
+el('path',{d:p,fill:'none',stroke:C.muted,'stroke-width':1.2,'stroke-dasharray':'5 4'});
+function curve(xx,col,lw,dash,showInvalid){var pv='',pi='',stop=false;
+ for(var c=0;c<=180;c+=0.5){var t=c*Math.PI/180,tt=Math.atan2(Math.sin(t),Math.cos(t)+xx),dn=a+(1-a)*Math.cos(tt);if(dn<=1e-6)break;var r=Math.sin(tt)/dn;if(r>rmax||r<0)break;
+  var pt=tx(c).toFixed(1)+' '+ty(r).toFixed(1),v=Math.cos(tt)>-w1+1e-6;
+  if(v)pv+=(pv?'L':'M')+pt;else{if(!showInvalid)break;pi+=(pi?'L':'M')+pt;}}
+ var at={d:pv,fill:'none',stroke:col,'stroke-width':lw};if(dash)at['stroke-dasharray']=dash;el('path',at);
+ if(pi)el('path',{d:pi,fill:'none',stroke:C.r,'stroke-width':1.5,'stroke-dasharray':'4 3'});}
+if(Math.abs(xi)>0.005)curve(0,C.muted,1.4,'2 3',false);
+curve(xi,C.p,2.2,null,true);
+RAYS.forEach(function(d){var tt=th2Of(d*Math.PI/180);if(valid(tt)){var v=rOf(tt);if(v<=rmax)el('circle',{cx:tx(d),cy:ty(v),r:4,fill:C.t});}});
+if(ok&&rOf(t2)<=rmax)el('circle',{cx:tx(thd),cy:ty(rOf(t2)),r:5.5,fill:C.h});
+var lx=X1-185;
+el('line',{x1:lx,y1:48,x2:lx+20,y2:48,stroke:C.p,'stroke-width':2.2});el('text',{x:lx+26,y:52,'font-size':12,fill:C.sub},'DS');
+el('line',{x1:lx+60,y1:48,x2:lx+80,y2:48,stroke:C.muted,'stroke-width':1.4,'stroke-dasharray':'2 3'});el('text',{x:lx+86,y:52,'font-size':12,fill:C.sub},'UCM');
+el('line',{x1:lx+130,y1:48,x2:lx+150,y2:48,stroke:C.muted,'stroke-width':1.2,'stroke-dasharray':'5 4'});el('text',{x:lx+156,y:52,'font-size':12,fill:C.sub},'핀홀');
+var cstar=-(xi*(1-w1*w1)+w1*Math.sqrt(Math.max(0,1-xi*xi*(1-w1*w1))));
+var tEx=Math.acos(Math.max(-1,Math.min(1,cstar)))*180/Math.PI,tPa=Math.acos(Math.max(-1,Math.min(1,-w2)))*180/Math.PI;
+document.getElementById('ao').textContent='α = '+a.toFixed(2)+'  (C2에서 Cp까지 '+xi2.toFixed(2)+')';
+document.getElementById('xo').textContent='ξ = '+xi.toFixed(2);
+document.getElementById('to').textContent=thd+'°  →  θ₂ = '+(t2*180/Math.PI).toFixed(1)+'°, '+(ok?(rOf(t2)>rmax?'r = '+rOf(t2).toFixed(2)+' (그래프 밖)':'r = '+rOf(t2).toFixed(2)):'투영 불가');
+var msg=Math.abs(xi)<=0.005?'ξ = 0: 두 구가 겹쳐 UCM과 같음':(xi<0?'ξ < 0: C2가 앞쪽에 있어 각도가 커짐 (θ₂ > θ)':'ξ > 0: C2가 뒤쪽에 있어 각도가 작아짐 (θ₂ < θ)');
+document.getElementById('cs').textContent=msg+'  ·  최대 유효 입사각 '+tEx.toFixed(1)+'° (논문 Ω 기준 '+tPa.toFixed(1)+'°)';
+}
+['al','xi','th'].forEach(function(id){document.getElementById(id).addEventListener('input',draw);});
+Array.prototype.forEach.call(document.querySelectorAll('button[data-a]'),function(b){b.addEventListener('click',function(){document.getElementById('al').value=b.getAttribute('data-a');document.getElementById('xi').value=b.getAttribute('data-x');draw();});});
+if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+draw();
+})();
+</script>
+</body>
+</html>

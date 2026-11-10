@@ -638,9 +638,6 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 
 <br>
 
-
-<br>
-
 ## **Kannala-Brandt Camera Model**
 
 <br>
@@ -656,70 +653,385 @@ tags: [camera model, 카메라 모델, 핀홀, UCM, EUCM, Double Sphere, Kannala
 
 <br>
 
+- 이번에는 FOV 카메라 모델에 대하여 살펴보도록 하겠습니다.
+
+<br>
+
+#### **FOV 모델의 수식**
+
+<br>
+
+- FOV (Field-of-View) 모델은 Devernay와 Faugeras가 제안한 모델이며, 파라미터는 다음 5개입니다.
+
+<br>
+
+- $$ \mathbf{i} = [f_{x}, f_{y}, c_{x}, c_{y}, w]^{T} $$
+
+<br>
+
+- projection 식은 다음과 같습니다. (식 33 ~ 35)
+
+<br>
+
+- $$ \pi(\mathbf{x}, \mathbf{i}) = \begin{bmatrix} f_{x} r_{d} \frac{x}{r_{u}} \\ f_{y} r_{d} \frac{y}{r_{u}} \end{bmatrix} + \begin{bmatrix} c_{x} \\ c_{y} \end{bmatrix} $$
+
+- $$ r_{u} = \sqrt{x^{2} + y^{2}}, \quad r_{d} = \frac{\text{atan2}(2 r_{u} \tan\frac{w}{2}, \ z)}{w} $$
+
+<br>
+
+- 논문은 이 모델이 이미지 점과 주점 사이의 거리가 3D 점과 광축 사이의 각도에 대략 비례한다고 가정하며, $$ w $$ 는 이상적인 어안 렌즈의 시야각에 대략 대응한다고 설명합니다.
+- 식의 구조를 보면 $$ \frac{x}{r_{u}} $$ , $$ \frac{y}{r_{u}} $$ 는 3D 점의 방위각 방향을 나타내는 단위 벡터이고, $$ r_{d} $$ 는 이미지 중심으로부터의 반경입니다. 즉, 방위각 방향은 그대로 두고 반경만 $$ r_{d} $$ 로 정하는 구조입니다.
+- 따라서 FOV 모델을 이해하려면 $$ r_{d} $$ 가 입사각 $$ \theta $$ 에 따라 어떻게 정해지는지만 보면 됩니다.
+- UCM과 EUCM이 투영 중심을 옮긴 뒤 직선으로 투영하는 방식이었다면, FOV 모델은 각도 ( $$ \text{atan2} $$ )를 직접 다룬다는 점이 다릅니다.
+
+<br>
+
+#### **두 단계로 보는 FOV 투영**
+
+<br> <center><img src="../assets/img/vision/concept/double_sphere_camera_model/25.png" alt="Drawing" style="width: 600px;"/></center> <br>
+
+- 3D 점이 광축과 이루는 각도를 $$ \theta $$ 라고 하면 $$ \frac{r_{u}}{z} = \tan\theta $$ 이고, $$ r_{d} $$ 식은 다음 두 단계로 나누어 볼 수 있습니다. 위 그림은 $$ w = 1.5 $$ , $$ \theta = 40^{\circ} $$ 인 경우입니다.
+- ① 가로로 k배 늘리기 : $$ \text{atan2} $$ 의 첫 번째 인자는 $$ r_{u} $$ 에 $$ 2\tan\frac{w}{2} $$ 를 곱한 값입니다. 이 값을 $$ k $$ 로 두면, 3D 점을 가로 방향으로 $$ k $$ 배 늘린 뒤 광축과의 각도를 다시 재는 것과 같습니다.
+
+<br>
+
+- $$ k = 2\tan\frac{w}{2}, \quad \tan\theta' = k \tan\theta $$
+
+<br>
+
+- 핀홀 평면 ( $$ z = 1 $$ ) 위에서 보면 $$ \tan\theta $$ 위치의 점을 $$ k \tan\theta $$ 위치로 옮긴 것이며, 옮긴 점의 방향이 $$ \theta' $$ 입니다.
+- $$ \text{atan2} $$ 를 사용하므로 $$ z < 0 $$ ( $$ \theta > 90^{\circ} $$ )인 경우에도 $$ \theta' $$ 가 $$ 0^{\circ} $$ ~ $$ 180^{\circ} $$ 범위에서 올바르게 정해집니다.
+- ② 각도를 그대로 펼치기 : 늘린 방향의 각도 $$ \theta' $$ 를 $$ w $$ 로 나눈 값이 $$ r_{d} $$ 입니다. 단위 원 위에서 광축부터 $$ \theta' $$ 까지의 호의 길이가 $$ \theta' $$ 이므로, 이 호를 평면 위로 그대로 펼친 뒤 $$ \frac{1}{w} $$ 배 한 것과 같습니다.
+- 이처럼 각도에 비례하여 반경을 정하는 방식을 등거리 투영 (equidistant projection)이라고 합니다.
+
+<br>
+
+- $$ r_{d} = \frac{\theta'}{w} = \frac{1}{w} \tan^{-1} \left( 2\tan\frac{w}{2} \tan\theta \right) \quad (\theta < 90^{\circ}) $$
+
+<br>
+
+- 즉, FOV 모델은 광선을 가로 방향으로 $$ k $$ 배 늘린 뒤 등거리 투영을 적용한 모델입니다. EUCM을 공간을 가로 방향으로 $$ \sqrt{\beta} $$ 배 늘린 뒤 UCM을 적용한 것으로 볼 수 있었던 것과 비슷한 구조입니다.
+
+<br>
+
+#### **반경식의 성질**
+
+<br> <center><img src="../assets/img/vision/concept/double_sphere_camera_model/26.png" alt="Drawing" style="width: 600px;"/></center> <br>
+
+- 위 그림은 $$ w $$ 에 따른 반경 곡선이며, 다음 성질을 읽을 수 있습니다.
+- ① $$ k = 1 $$ 이면 늘리기가 없어져 $$ r_{d} = \frac{\theta}{w} $$ 인 완전한 등거리 투영이 됩니다. 이때 $$ w = 2\tan^{-1}\frac{1}{2} \approx 0.927 $$ (약 $$ 53.1^{\circ} $$ )이며, 그래프에서 직선으로 나타납니다.
+- ② $$ w \to 0 $$ 이면 $$ 2\tan\frac{w}{2} \approx w $$ 이고 $$ \tan^{-1}(w \tan\theta) \approx w \tan\theta $$ 이므로 $$ r_{d} \approx \tan\theta $$ 가 되어 핀홀에 가까워집니다.
+- ③ $$ k > 1 $$ ( $$ w > 0.927 $$ )이면 외곽 방향이 등거리 투영보다 더 압축되고, $$ k < 1 $$ 이면 덜 압축되어 핀홀에 가까워집니다.
+- ④ $$ \theta = 90^{\circ} $$ 이면 수평 방향은 가로로 늘려도 여전히 수평이므로 $$ \theta' = 90^{\circ} $$ 이고, $$ r_{d} = \frac{\pi}{2w} $$ 로 항상 유한합니다. $$ \theta = 180^{\circ} $$ 에서도 $$ r_{d} = \frac{\pi}{w} $$ 입니다.
+- ⑤ $$ \theta' $$ 는 $$ \theta $$ 에 대해 항상 증가하므로, UCM이나 EUCM과 달리 곡선이 되접히는 구간이 없습니다.
+- 논문의 캘리브레이션 결과에서 $$ w $$ 는 렌즈별로 0.90 ~ 0.95 정도였으며, 이는 $$ k = 0.97 $$ ~ $$ 1.03 $$ 에 해당합니다. 즉, 실험에 사용된 어안 렌즈들은 등거리 투영에 가까운 특성을 가지고 있었다고 볼 수 있습니다.
+- 아래는 위 내용을 직접 확인할 수 있는 그림입니다. 왼쪽은 단면에서의 투영 과정이며, 회색은 원래 방향 $$ \theta $$ , 보라색은 늘린 방향 $$ \theta' $$ , 주황색 호는 펼쳐지는 각도입니다. 평면 위의 초록색 점은 $$ 30^{\circ} $$ 간격의 입사각이 맺히는 위치입니다.
+- 오른쪽은 입사각에 따른 반경 $$ r_{d} $$ 의 그래프이며, 회색 점선은 등거리 투영 ( $$ k = 1 $$ )입니다. $$ w $$ 를 움직이면 곡선이 핀홀과 등거리 투영 사이, 또는 그보다 더 압축된 형태로 바뀌는 것을 볼 수 있습니다.
+
+<br>
+<center><iframe src="../assets/img/vision/concept/double_sphere_camera_model/fov_projection.html" width="100%" height="500" style="border:0" loading="lazy"></iframe></center>
+<br>
+
+#### **3D 좌표로 확인하기**
+
+<br>
+
+- 3D 점의 방위각을 $$ \phi $$ 라고 하면 $$ x = r_{u} \cos\phi $$ , $$ y = r_{u} \sin\phi $$ 이고, 입사각은 $$ \tan\theta = \frac{r_{u}}{z} $$ 입니다.
+- ① 단계의 늘리기는 $$ (r_{u}, z) $$ 를 $$ (k r_{u}, z) $$ 로 바꾸는 것이므로, 늘린 방향의 각도는 다음과 같습니다.
+
+<br>
+
+- $$ \theta' = \text{atan2}(k r_{u}, z) = \text{atan2} \left( 2 r_{u} \tan\frac{w}{2}, z \right) $$
+
+<br>
+
+- ② 단계에서 $$ r_{d} = \frac{\theta'}{w} $$ 이므로 식 35가 됩니다. 마지막으로 방위각 방향 $$ (\cos\phi, \sin\phi) = \left( \frac{x}{r_{u}}, \frac{y}{r_{u}} \right) $$ 으로 $$ r_{d} $$ 만큼 이동한 뒤 초점 거리와 주점을 적용하면 식 33이 됩니다.
+
+<br>
+
+- $$ u = f_{x} r_{d} \cos\phi + c_{x} = f_{x} r_{d} \frac{x}{r_{u}} + c_{x} $$
+
+<br>
+
+- 광축 위의 점 ( $$ r_{u} = 0 $$ )에서는 $$ \frac{r_{d}}{r_{u}} $$ 가 $$ \frac{0}{0} $$ 이 되므로, 구현 시에는 극한값 $$ \frac{r_{d}}{r_{u}} \to \frac{k}{w z} $$ 를 사용하는 등 별도로 처리해야 합니다.
+
+<br>
+
+#### **유효 투영 영역**
+
+<br>
+
+- $$ \text{atan2} $$ 는 원점을 제외한 모든 입력에서 정의되므로, FOV 모델의 projection은 카메라 뒤쪽을 포함한 모든 방향에서 정의됩니다.
+
+<br>
+
+- $$ \Omega = \mathbb{R}^{3} \setminus [0, 0, 0]^{T} $$
+
+<br>
+
+- unprojection 역시 $$ \sin $$ , $$ \cos $$ 만 사용하므로 모든 픽셀에서 정의됩니다.
+
+<br>
+
+- $$ \Theta = \mathbb{R}^{2} $$
+
+<br>
+
+- 다만 물리적으로 의미 있는 범위는 $$ \theta \le 180^{\circ} $$ 에 해당하는 $$ r_{d} \le \frac{\pi}{w} $$ 입니다. 그보다 큰 반경에서는 $$ \sin $$ , $$ \cos $$ 의 주기성 때문에 같은 방향이 반복됩니다.
+- UCM과 EUCM이 $$ \alpha > 0.5 $$ 일 때 유효 영역에 제한이 있었던 것과 달리, FOV 모델은 되접힘이 없어 이러한 제한이 없습니다.
+
+<br>
+
+#### **FOV 모델의 Unprojection**
+
+<br>
+
+- 논문의 unprojection 식은 다음과 같습니다. (식 36 ~ 39)
+
+<br>
+
+- $$ \pi^{-1}(\mathbf{u}, \mathbf{i}) = \begin{bmatrix} m_{x} \frac{\sin(r_{d} w)}{2 r_{d} \tan\frac{w}{2}} \\ m_{y} \frac{\sin(r_{d} w)}{2 r_{d} \tan\frac{w}{2}} \\ \cos(r_{d} w) \end{bmatrix} $$
+
+- $$ m_{x} = \frac{u - c_{x}}{f_{x}}, \quad m_{y} = \frac{v - c_{y}}{f_{y}}, \quad r_{d} = \sqrt{m_{x}^{2} + m_{y}^{2}} $$
+
+<br>
+
+- 이 식은 projection의 두 단계를 거꾸로 되돌려 얻을 수 있습니다.
+- ① 각도 되돌리기 : $$ r_{d} = \frac{\theta'}{w} $$ 이므로 늘린 방향의 각도는 $$ \theta' = w r_{d} $$ 입니다.
+- ② 늘리기 되돌리기 : $$ \tan\theta' = k \tan\theta $$ 이므로, 핀홀 평면 위에서의 반경은 다음과 같습니다.
+
+<br>
+
+- $$ \tan\theta = \frac{\tan(w r_{d})}{k} = \frac{\tan(w r_{d})}{2\tan\frac{w}{2}} $$
+
+<br>
+
+- ③ 방향 벡터 만들기 : 방위각 방향은 $$ \left( \frac{m_{x}}{r_{d}}, \frac{m_{y}}{r_{d}} \right) $$ 이므로, 광선 위의 점을 핀홀 평면 ( $$ z = 1 $$ ) 위에서 다음과 같이 쓸 수 있습니다.
+
+<br>
+
+- $$ \left( \frac{m_{x}}{r_{d}} \frac{\tan(w r_{d})}{2\tan\frac{w}{2}}, \ \frac{m_{y}}{r_{d}} \frac{\tan(w r_{d})}{2\tan\frac{w}{2}}, \ 1 \right) $$
+
+<br>
+
+- ④ cos 곱하기 : 위 식은 $$ \theta' = 90^{\circ} $$ 근처에서 $$ \tan $$ 가 발산하고, $$ \theta' > 90^{\circ} $$ 에서는 카메라 뒤쪽 방향을 표현할 수 없습니다. 같은 광선 위의 점이면 어떤 값을 곱해도 방향이 같으므로, 전체에 $$ \cos(w r_{d}) $$ 를 곱하면 $$ \tan $$ 가 $$ \sin $$ 으로 바뀌어 식 36이 됩니다.
+- 이때 $$ \theta' > 90^{\circ} $$ 이면 $$ \cos(w r_{d}) < 0 $$ 이 되어 z 성분이 음수가 되므로, 카메라 뒤쪽 방향도 올바르게 표현됩니다.
+- 식 36의 결과는 길이가 1인 벡터가 아닙니다. 길이는 $$ \sqrt{\frac{\sin^{2}(w r_{d})}{k^{2}} + \cos^{2}(w r_{d})} $$ 이며 $$ k = 1 $$ 일 때만 1이 되므로, 단위 벡터 (bearing vector)가 필요하면 마지막에 길이로 나누어 정규화해야 합니다.
+- 또한 이미지 중심 ( $$ r_{d} = 0 $$ )에서는 $$ \frac{\sin(r_{d} w)}{r_{d}} $$ 가 $$ \frac{0}{0} $$ 이 되므로, 구현 시 극한값 $$ w $$ 를 사용해야 합니다.
+
+<br>
+
+#### **UCM, EUCM과 비교**
+
+<br>
+
+- ① 구조 : UCM과 EUCM은 투영 중심을 옮긴 뒤 직선으로 투영하므로 제곱근과 나눗셈만 사용합니다. 반면 FOV 모델은 가로 늘리기와 등거리 투영으로 구성되어 $$ \text{atan2} $$ , $$ \tan $$ , $$ \sin $$ , $$ \cos $$ 를 사용합니다.
+- ② 유효 영역 : FOV 모델은 모든 방향과 모든 픽셀에서 정의되며 되접힘이 없습니다.
+- ③ 계산 비용 : 삼각함수 때문에 계산이 느립니다. 논문의 실험에서 FOV 모델과 KB 모델은 다른 모델보다 훨씬 느렸고, 특히 FOV 모델의 unprojection이 가장 느렸습니다.
+- ④ 정확도 : 투영 형태를 결정하는 파라미터가 $$ w $$ 하나뿐이므로 UCM과 마찬가지로 자유도가 부족합니다. 논문의 실험에서 UCM과 FOV 모델은 다른 모델보다 재투영 오차가 컸습니다.
+- 특히 시야각이 넓은 BF2M2020S23 (195°) 렌즈에서는 FOV 모델의 재투영 오차가 가장 정확한 모델보다 약 2.5 ~ 3배 컸고, GoPro나 EuRoC처럼 상대적으로 시야각이 좁은 렌즈에서는 차이가 1 ~ 2% 수준이었습니다.
+- 논문에서는 KB 모델과 마찬가지로 FOV 모델을 핀홀 카메라의 왜곡 모델로 사용할 수도 있다고 설명합니다.
+
 <br>
 
 ## **Double Sphere Camera Model**
 
-<br>
-<center><img src="../assets/img/vision/concept/double_sphere_camera_model/7.png" alt="Drawing" style="width: 400px;"/></center>
-<br>
-
-- 논문에서 제시하는 `Double Sphere` 카메라 모델에 대하여 설명해 보도록 하곘습니다. 글 서두에 말씀드린 바와 같이 `Double Sphere` 카메라 모델은 화각이 넓은 `fisheye lense`와 같은 환경에서도 잘 동작하며 `unprojection`을 위한 `closed-form` 형태의 식이 존재하고 그 계산량도 적다는 것을 확인하였었습니다.
-
-<br>
-<center><img src="../assets/img/vision/concept/double_sphere_camera_model/8.png" alt="Drawing" style="width: 400px;"/></center>
-<br>
-
-- `Double Sphere` 카메라 모델은 위 그림과 같이 이름 그대로 3D 포인트가 2개의 단위 구에 투영되는 형태를 가집니다.
-- 3D 포인트가 먼저 초록색 구에 투영되면서 꺽이게 되고 그 다음 빨간색 구에 투영되면서 한번 더 꺽이면서 렌즈 굴절이 반영됩니다. 빨간색 구의 중심은 $$ \xi $$ 만큼 이동되어 있고 이 값이 구의 반영을 결정하는 파라미터가 됩니다.
-- 가장 아래 부분의 검은색 가로 실선인 `normalized image plane`과 빨간색 구의 중심 간의 거리가 $$ \frac{\alpha}{1 - \alpha} $$ 로 결정됩니다. 따라서 $$ \xi $$ 와 $$ \frac{\alpha}{1 - \alpha} $$ 가 같이 결합되어 변수가 동작하도록 되어 있습니다.
-
-<br>
-<center><img src="../assets/img/vision/concept/double_sphere_camera_model/9.png" alt="Drawing" style="width: 400px;"/></center>
-<br>
-
-- 위 그림과 같이 Double Sphere 모델에서 구에 의해 꺽이는 양을 표현하면 위 그림과 같습니다. 다만 Double Sphere 카메라 모델 에서는 앞의 다른 카메라 모델과 같이 실제 꺽이는 양을 모델링 하지 않고 $$ \alpha, \xi $$ 값을 이용하여 normalized image plane에 어떻게 투영되는 지 모델링 하는 방법을 사용하였습니다.
-- 즉, `UCM`과 비교하였을 때, $$ \frac{\alpha}{1 - \alpha} $$ 만큼 `shift`가 시작되는 시점이 $$ \xi $$ 만큼 이동되는 것이고 그 첫번째 구와 두번째 구의 복합적인 꺽임 양은 $$ \xi, \alpha $$의 결합으로 이루어짐을 알 수 있습니다.
-
-<br>
-<center><img src="../assets/img/vision/concept/double_sphere_camera_model/10.png" alt="Drawing" style="width: 400px;"/></center>
-<br>
-
-- 위 그림을 기준으로 $$ \xi = 0, \alpha = 0 $$ 이 되면 핀홀 모델이 됩니다. 즉, 빨간색 구의 중심이 초록색 구의 중심으로 이동되면서 구의 중심이 하나가 되고 구로 인해 꺽이는 양도 사라져서 normalized image plane이 초록색 및 빨간색 구의 중심선에 생기게 되는 경우입니다.
-- 논문에서는 이와 같은 방식의 카메라 모델을 사용하였을 때 캘리브레이션 패턴에서의 꼭지점이 에러가 적은 형태로 잘 projection 되는 것을 확인할 수 있음을 보여줍니다.
-- 그러면 `Double Sphere` 카메라 모델에 관련된 수식 내용을 상세히 살펴보도록 하겠습니다.
+#### **Double Sphere 모델의 수식**
 
 <br>
 
-- `Double Sphere`는 6개의 파라미터를 가집니다. 
+- Double Sphere (DS) 모델은 논문에서 제안한 모델이며, 파라미터는 다음 6개입니다.
 
 <br>
 
-- $$ i = [f_{x}, f_{y}, c_{x}, c_{y}, \xi, \alpha]^{T} $$
+- $$ \mathbf{i} = [f_{x}, f_{y}, c_{x}, c_{y}, \xi, \alpha]^{T} $$
 
 <br>
 
-- 위 파라미터 $$ i $$ 를 이용하여 3D 포인트를 2D로 `projection` 하는 함수 $$ \pi $$ 를 정의하면 다음과 같습니다.
-
-<br>
-<center><img src="../assets/img/vision/concept/double_sphere_camera_model/11.png" alt="Drawing" style="width: 400px;"/></center>
-<br>
-
-- 앞에서 살펴본 `UCM` 계열과 같이 분모의 $$ \alpha d_{2} + (1-\alpha)(\xi d_{1} + z) $$ 를 통하여 단번에 `undistorted normalized plane` 으로 접근합니다.
+- projection 식은 다음과 같습니다. (식 40 ~ 42)
 
 <br>
 
-- 다음은 `UCM`과 마찬가지로 $$ \alpha $$ 값의 크기에 따라 `undistorted normalized plane`의 위치가 바뀌므로 $$ \alpha $$ 와 다른 파라미터 값에 따라서 3D 포인트가 2D 이미지의 FOV에 유효한 지 확인하는 함수 식입니다.
+- $$ \pi(\mathbf{x}, \mathbf{i}) = \begin{bmatrix} f_{x} \frac{x}{\alpha d_{2} + (1 - \alpha)(\xi d_{1} + z)} \\ f_{y} \frac{y}{\alpha d_{2} + (1 - \alpha)(\xi d_{1} + z)} \end{bmatrix} + \begin{bmatrix} c_{x} \\ c_{y} \end{bmatrix} $$
+
+- $$ d_{1} = \sqrt{x^{2} + y^{2} + z^{2}}, \quad d_{2} = \sqrt{x^{2} + y^{2} + (\xi d_{1} + z)^{2}} $$
 
 <br>
-<center><img src="../assets/img/vision/concept/double_sphere_camera_model/12.png" alt="Drawing" style="width: 400px;"/></center>
+
+- 논문의 설명에 따르면 3D 점을 먼저 첫 번째 단위 구에 투영하고, 그 점을 중심이 $$ \xi $$ 만큼 이동한 두 번째 단위 구에 다시 투영합니다. 마지막으로 두 번째 구의 중심에서 $$ \frac{\alpha}{1 - \alpha} $$ 만큼 떨어진 핀홀로 이미지 평면에 투영합니다.
+- UCM의 식 7과 비교하면, 분모의 $$ d $$ 가 $$ d_{2} $$ 로, $$ z $$ 가 $$ \xi d_{1} + z $$ 로 바뀐 형태입니다. 따라서 $$ \xi = 0 $$ 이면 $$ d_{2} = d_{1} $$ 이 되어 UCM과 같아집니다.
+- UCM과 EUCM이 투영 형태를 각각 $$ \alpha $$ , $$ (\alpha, \beta) $$ 로 조절했다면, DS 모델은 $$ (\xi, \alpha) $$ 두 개의 파라미터로 조절합니다.
+
 <br>
 
-- 다음으로 `unprojection`하는 `closed-form` 형태의 식이며 `unprojection` 결과 2D 이미지 좌표계에서 `distorted normalized plane`으로 변환하는 역할을 합니다.
-- 만약 `z`값을 복원할 수 있으면 $$ z \pi^{-1}(u, i) = \mathbf{x} $$ 로 3D 포인트를 구할 수 있습니다. `unprojection` 식은 다음과 같습니다.
+#### **두 단계로 보는 DS 투영**
+
+<br> <center><img src="../assets/img/vision/concept/double_sphere_camera_model/27.png" alt="Drawing" style="width: 600px;"/></center> <br>
+
+- DS 모델의 투영은 다음 두 단계로 나누어 볼 수 있습니다. 위 그림은 $$ \xi = -0.4 $$ , $$ \alpha = 0.57 $$ , $$ \theta = 50^{\circ} $$ 인 경우입니다.
+- ① 두 번째 구로 옮기기 : 3D 점 $$ X $$ 를 첫 번째 구 (중심 $$ C_{1} $$ )에 투영하면 $$ X_{s1} $$ 이 되고, $$ C_{1} $$ 기준 가로 $$ \sin\theta $$ , 세로 $$ \cos\theta $$ 위치에 있습니다.
+- 두 번째 구의 중심 $$ C_{2} $$ 는 $$ C_{1} $$ 에서 광축 방향으로 $$ \xi $$ 만큼 뒤에 있습니다. 즉, $$ \xi < 0 $$ 이면 $$ C_{2} $$ 는 $$ C_{1} $$ 보다 앞쪽에 놓입니다. $$ C_{2} $$ 에서 $$ X_{s1} $$ 을 바라보면 가로 $$ \sin\theta $$ , 세로 $$ \cos\theta + \xi $$ 이므로, 방향의 각도가 $$ \theta $$ 에서 $$ \theta_{2} $$ 로 바뀝니다.
 
 <br>
-<center><img src="../assets/img/vision/concept/double_sphere_camera_model/13.png" alt="Drawing" style="width: 600px;"/></center>
+
+- $$ \tan\theta_{2} = \frac{\sin\theta}{\cos\theta + \xi} $$
+
+<br>
+
+- 이 방향으로 두 번째 구 위에 놓인 점이 $$ X_{s2} $$ 입니다.
+- ② 두 번째 구에서 UCM 투영 : 두 번째 구를 기준으로 UCM ( $$ \alpha $$ 형태)을 그대로 적용합니다. 투영 중심 $$ C_{p} $$ 는 $$ C_{2} $$ 에서 $$ \frac{\alpha}{1 - \alpha} $$ 만큼 뒤에 있고, 평면은 두 번째 구의 북극에 접합니다. 따라서 UCM에서 유도한 반경식에 $$ \theta_{2} $$ 를 넣으면 됩니다.
+
+<br>
+
+- $$ r = \frac{\sin\theta_{2}}{\alpha + (1 - \alpha)\cos\theta_{2}} $$
+
+<br>
+
+- ③ 하나로 합치기 : $$ C_{2} $$ 에서 $$ X_{s1} $$ 까지의 거리를 $$ \rho_{\xi} $$ 라고 하면 $$ \sin\theta_{2} = \frac{\sin\theta}{\rho_{\xi}} $$ , $$ \cos\theta_{2} = \frac{\cos\theta + \xi}{\rho_{\xi}} $$ 이므로 다음과 같이 정리됩니다.
+
+<br>
+
+- $$ \rho_{\xi}(\theta) = \sqrt{\sin^{2}\theta + (\cos\theta + \xi)^{2}} = \sqrt{1 + 2\xi\cos\theta + \xi^{2}} $$
+
+- $$ r = \frac{\sin\theta}{\alpha \rho_{\xi} + (1 - \alpha)(\cos\theta + \xi)} $$
+
+<br>
+
+- 즉, DS 모델은 투영 중심을 바꾸어 각도를 한 번 바꾼 뒤 UCM을 적용한 모델입니다.
+
+<br>
+
+#### **반경식의 성질**
+
+<br> <center><img src="../assets/img/vision/concept/double_sphere_camera_model/28.png" alt="Drawing" style="width: 600px;"/></center> <br>
+
+- 위 그림은 $$ \alpha = 0.57 $$ 로 고정하고 $$ \xi $$ 만 바꾼 반경 곡선이며, 다음 성질을 읽을 수 있습니다.
+- ① $$ \xi = 0 $$ 이면 두 구의 중심이 겹쳐 $$ \theta_{2} = \theta $$ 가 되므로 UCM ( $$ \alpha $$ )과 같습니다.
+- ② $$ \alpha = 0 $$ 이면 $$ C_{p} $$ 가 $$ C_{2} $$ 와 겹치고 $$ r = \frac{\sin\theta}{\cos\theta + \xi} $$ 가 되어, $$ \xi $$ 를 파라미터로 하는 UCM의 원래 형태 (Mei)와 같습니다. 즉, DS 모델은 두 가지 형태의 UCM을 모두 특수한 경우로 포함합니다.
+- ③ $$ \xi < 0 $$ 이면 $$ C_{2} $$ 가 앞쪽에 있어 같은 점을 더 큰 각도로 보게 되므로 ( $$ \theta_{2} > \theta $$ ) 곡선이 UCM보다 위에 놓이고, $$ \xi > 0 $$ 이면 아래에 놓입니다.
+- ④ $$ \alpha > 0.5 $$ 일 때 $$ \xi $$ 는 유효한 입사각의 범위를 바꾸지만, 모든 곡선은 같은 반경 $$ r^{2} = \frac{1}{2\alpha - 1} $$ 에서 끝납니다. 곡선이 되접히는 지점은 ② 단계의 UCM 투영에서 생기며, 이 지점의 반경은 $$ \alpha $$ 만으로 정해지기 때문입니다.
+- ⑤ 입사각이 작으면 $$ r \approx \frac{\theta}{1 + \xi} $$ 이므로 중심부의 기울기가 $$ \xi $$ 에 따라 달라지지만, 이 차이는 초점 거리가 흡수합니다.
+- 논문의 캘리브레이션 결과에서 $$ \xi $$ 는 약 -0.18 ~ -0.27, $$ \alpha $$ 는 약 0.55 ~ 0.59 였습니다. 즉, $$ C_{2} $$ 가 $$ C_{1} $$ 보다 조금 앞에 있고 $$ C_{p} $$ 는 두 번째 구 바깥에 있는 형태입니다. $$ \alpha > 0.5 $$ 로 외곽을 강하게 압축하면서, 음수 $$ \xi $$ 로 각도를 조금 넓혀 곡선의 모양을 맞추는 구조라고 볼 수 있습니다.
+- 아래는 위 내용을 직접 확인할 수 있는 그림입니다. 왼쪽에서 회색 원은 첫 번째 구, 보라색 점선 원은 두 번째 구이며, 주황색 선은 선택한 입사각 $$ \theta $$ 의 점이 $$ X_{s1} \rightarrow X_{s2} \rightarrow $$ 평면으로 투영되는 과정입니다.
+- 오른쪽은 입사각에 따른 반경 $$ r $$ 의 그래프이며, 회색 점선은 같은 $$ \alpha $$ 의 UCM 곡선입니다. $$ \xi $$ 를 움직이면 두 번째 구가 앞뒤로 이동하면서 곡선이 UCM의 위아래로 바뀌고, 곡선이 끝나는 반경은 그대로인 것을 볼 수 있습니다.
+
+<br>
+<center><iframe src="../assets/img/vision/concept/double_sphere_camera_model/ds_projection.html" width="100%" height="530" style="border:0" loading="lazy"></iframe></center>
+<br>
+
+#### **3D 좌표로 확인하기**
+
+<br>
+
+- 3D 좌표로 옮기면 위의 두 단계로부터 식 40을 얻을 수 있습니다.
+- ① 첫 번째 구에 투영 : $$ \mathbf{X}_{s1} = \frac{\mathbf{X}}{d_{1}} = \left( \frac{x}{d_{1}}, \frac{y}{d_{1}}, \frac{z}{d_{1}} \right) $$ 입니다.
+- ② $$ C_{2} $$ 기준으로 다시 재기 : $$ C_{2} $$ 는 $$ C_{1} $$ 보다 $$ \xi $$ 만큼 뒤에 있으므로 z 성분만 $$ \xi $$ 만큼 커집니다. 여기에 $$ d_{1} $$ 을 곱하면 다음과 같습니다.
+
+<br>
+
+- $$ d_{1} \left( \frac{x}{d_{1}}, \frac{y}{d_{1}}, \frac{z}{d_{1}} + \xi \right) = (x, \ y, \ z + \xi d_{1}) $$
+
+<br>
+
+- 이 벡터의 길이가 $$ d_{2} = \sqrt{x^{2} + y^{2} + (\xi d_{1} + z)^{2}} $$ 입니다.
+- ③ UCM 적용 : UCM의 $$ \alpha $$ 형태는 입력 벡터의 크기와 관계없이 같은 결과를 주므로, 두 번째 구에 정규화하지 않고 위 벡터에 그대로 적용할 수 있습니다. UCM 식의 $$ d $$ 를 $$ d_{2} $$ 로, $$ z $$ 를 $$ z + \xi d_{1} $$ 로 바꾸면 식 40이 됩니다.
+
+<br>
+
+- $$ m_{x} = \frac{x}{\alpha d_{2} + (1 - \alpha)(\xi d_{1} + z)}, \quad m_{y} = \frac{y}{\alpha d_{2} + (1 - \alpha)(\xi d_{1} + z)} $$
+
+<br>
+
+#### **유효 투영 영역**
+
+<br>
+
+- 논문의 유효 영역은 다음과 같습니다. (식 43 ~ 45)
+
+<br>
+
+- $$ \Omega = \{ \mathbf{x} \in \mathbb{R}^{3} \mid z > -w_{2} d_{1} \} $$
+
+- $$ w_{2} = \frac{w_{1} + \xi}{\sqrt{2 w_{1} \xi + \xi^{2} + 1}}, \quad w_{1} = \begin{cases} \frac{\alpha}{1 - \alpha}, & \alpha \le 0.5 \\ \frac{1 - \alpha}{\alpha}, & \alpha > 0.5 \end{cases} $$
+
+<br>
+
+- $$ w_{1} $$ 은 UCM의 $$ w $$ 와 같습니다. 유효 영역의 경계는 ② 단계의 UCM 투영에서 정해지므로, 두 번째 구 기준으로는 UCM과 같은 조건 $$ \cos\theta_{2} > -w_{1} $$ 입니다.
+- $$ w_{2} $$ 는 이 경계를 첫 번째 구 기준의 조건 ( $$ \frac{z}{d_{1}} = \cos\theta $$ )으로 옮긴 값입니다. 두 번째 구 위의 경계점 ( $$ C_{2} $$ 기준 가로 $$ \sqrt{1 - w_{1}^{2}} $$ , 세로 $$ -w_{1} $$ )을 $$ C_{1} $$ 에서 바라본 각도의 $$ \cos $$ 를 계산하면 정확히 $$ -w_{2} $$ 가 됩니다.
+- 참고로 수치로 확인해 보면, 실제 3D 점의 방향은 첫 번째 구 위의 점 $$ X_{s1} $$ 의 방향이므로 정확한 경계는 $$ \cos\theta_{2} = -w_{1} $$ 을 $$ \cos\theta $$ 에 대해 풀어 얻은 다음 값이 됩니다.
+
+<br>
+
+- $$ \cos\theta^{*} = -\left( \xi (1 - w_{1}^{2}) + w_{1} \sqrt{1 - \xi^{2}(1 - w_{1}^{2})} \right) $$
+
+<br>
+
+- 예를 들어 $$ \alpha = 0.57 $$ , $$ \xi = -0.27 $$ 이면 논문의 $$ \Omega $$ 기준 최대 입사각은 약 $$ 126.4^{\circ} $$ 이고, 정확한 경계는 약 $$ 128.8^{\circ} $$ 입니다. 확인한 경우들에서는 논문의 조건이 실제 경계보다 조금 안쪽에서 잘리는 보수적인 조건이었으며, 실제 렌즈의 시야각은 이보다 충분히 작으므로 사용에는 문제가 없습니다.
+- 위의 인터랙티브 그림 하단에도 두 값을 함께 표시해 두었습니다.
+
+<br>
+
+#### **Double Sphere 모델의 Unprojection**
+
+<br>
+
+- 논문의 unprojection 식은 다음과 같습니다. (식 46 ~ 50)
+
+<br>
+
+- $$ \pi^{-1}(\mathbf{u}, \mathbf{i}) = \frac{m_{z} \xi + \sqrt{m_{z}^{2} + (1 - \xi^{2}) r^{2}}}{m_{z}^{2} + r^{2}} \begin{bmatrix} m_{x} \\ m_{y} \\ m_{z} \end{bmatrix} - \begin{bmatrix} 0 \\ 0 \\ \xi \end{bmatrix} $$
+
+- $$ m_{x} = \frac{u - c_{x}}{f_{x}}, \quad m_{y} = \frac{v - c_{y}}{f_{y}}, \quad r^{2} = m_{x}^{2} + m_{y}^{2} $$
+
+- $$ m_{z} = \frac{1 - \alpha^{2} r^{2}}{\alpha \sqrt{1 - (2\alpha - 1) r^{2}} + 1 - \alpha} $$
+
+<br>
+
+- 이 식은 projection의 두 단계를 거꾸로 되돌려 얻을 수 있습니다.
+- ① UCM 단계 되돌리기 : ② 단계는 두 번째 구 기준의 UCM이므로, EUCM의 unprojection에서 $$ \beta = 1 $$ 로 둔 것과 같습니다. 분모가 1이 되는 점을 고르는 방법으로 $$ m_{z} $$ (식 50)를 얻으며, $$ (m_{x}, m_{y}, m_{z}) $$ 는 $$ C_{2} $$ 에서 본 광선의 방향입니다.
+- ② 첫 번째 구와의 교점 : $$ C_{2} $$ 기준으로 $$ C_{1} $$ 은 $$ (0, 0, \xi) $$ 에 있으므로, 광선 위의 점 $$ t (m_{x}, m_{y}, m_{z}) $$ 가 첫 번째 구 위에 있으려면 다음 조건을 만족해야 합니다.
+
+<br>
+
+- $$ \lVert t (m_{x}, m_{y}, m_{z}) - (0, 0, \xi) \rVert = 1 \quad \Rightarrow \quad t^{2} (m_{z}^{2} + r^{2}) - 2 t \xi m_{z} + \xi^{2} - 1 = 0 $$
+
+<br>
+
+- 앞쪽 교점인 큰 근을 취하면 다음과 같습니다.
+
+<br>
+
+- $$ t = \frac{m_{z} \xi + \sqrt{m_{z}^{2} + (1 - \xi^{2}) r^{2}}}{m_{z}^{2} + r^{2}} $$
+
+<br>
+
+- ③ 좌표계 되돌리기 : 교점 $$ t (m_{x}, m_{y}, m_{z}) $$ 에서 $$ (0, 0, \xi) $$ 를 빼면 $$ C_{1} $$ 기준의 좌표가 되어 식 46이 됩니다. 이 점은 첫 번째 단위 구 위의 점이므로 결과는 길이가 1인 bearing vector입니다.
+- 이 과정은 UCM의 unprojection (식 10)과 같은 구조입니다. UCM에서는 투영 중심에서 본 방향이 $$ (m_{x}, m_{y}, 1) $$ 이었고, DS 모델에서는 $$ C_{2} $$ 에서 본 방향이 $$ (m_{x}, m_{y}, m_{z}) $$ 라는 점만 다릅니다.
+- 유효 픽셀 영역은 $$ m_{z} $$ 의 근호 안이 음수가 되지 않아야 하므로 다음과 같습니다. (식 51)
+
+<br>
+
+- $$ \Theta = \begin{cases} \mathbb{R}^{2}, & \alpha \le 0.5 \\ \{ \mathbf{u} \in \mathbb{R}^{2} \mid r^{2} \le \frac{1}{2\alpha - 1} \}, & \alpha > 0.5 \end{cases} $$
+
+<br>
+
+- $$ \Theta $$ 에 $$ \xi $$ 가 들어가지 않는 이유는, 반경식의 성질 ④에서 본 것처럼 곡선이 끝나는 반경이 $$ \alpha $$ 만으로 정해지기 때문입니다. 또한 $$ \lvert \xi \rvert < 1 $$ 이면 식 46의 근호 안은 항상 양수입니다.
+
+<br>
+
+#### **네 모델 정리**
+
+<br>
+
+- 지금까지의 모델은 모두 "각도를 한 번 바꾸고, 기본 투영을 적용하는" 구조로 정리할 수 있습니다.
+- ① UCM : 각도를 바꾸지 않고, 이동된 투영 중심에서 투영합니다 ( $$ \alpha $$ ).
+- ② EUCM : 가로 방향으로 늘려 $$ \tan\theta' = \sqrt{\beta} \tan\theta $$ 로 바꾼 뒤 UCM을 적용합니다 ( $$ \alpha, \beta $$ ).
+- ③ FOV : 가로 방향으로 늘려 $$ \tan\theta' = k \tan\theta $$ 로 바꾼 뒤 등거리 투영을 적용합니다 ( $$ w $$ ).
+- ④ DS : 바라보는 중심을 옮겨 $$ \tan\theta_{2} = \frac{\sin\theta}{\cos\theta + \xi} $$ 로 바꾼 뒤 UCM을 적용합니다 ( $$ \xi, \alpha $$ ).
+- 논문의 실험에서 DS 모델은 195° 렌즈 (BF2M2020S23)에서 가장 정확한 모델과의 재투영 오차 차이가 0.1 ~ 0.4% 수준이었습니다. FOV 모델이 같은 렌즈에서 약 2.5 ~ 3배의 오차를 보인 것과 비교하면, 6개의 파라미터로 충분한 정확도를 얻은 것입니다.
+- 계산 시간은 10,000번 기준으로 projection이 약 55 µs로 UCM (약 34 µs)과 EUCM (약 33 µs)보다는 느리지만, 삼각함수를 쓰는 FOV 모델 (약 419 µs)보다 훨씬 빠릅니다.
+- 즉, DS 모델은 삼각함수 없이 projection과 unprojection을 모두 닫힌 형태로 계산하면서, 두 개의 투영 형태 파라미터로 넓은 시야각의 어안 렌즈를 정확하게 표현하는 모델입니다.
+
 <br>
 
 <br>
